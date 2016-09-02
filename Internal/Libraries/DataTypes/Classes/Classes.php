@@ -1,6 +1,8 @@
 <?php namespace ZN\DataTypes;
 
-class InternalClasses extends \CallController implements ClassesInterface
+use Exceptions, Config, CallController;
+
+class InternalClasses extends CallController implements ClassesInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -24,7 +26,7 @@ class InternalClasses extends \CallController implements ClassesInterface
     {
         if( ! is_object($object) )
         {
-            return \Exceptions::throws('Error', 'objectParameter', '2.(object)');   
+            return Exceptions::throws('Error', 'objectParameter', '2.(object)');   
         }
     
         return is_a($object, $this->_class($className));
@@ -110,7 +112,7 @@ class InternalClasses extends \CallController implements ClassesInterface
     {
         if( ! is_object($var) )
         {
-            return \Exceptions::throws('Error', 'objectParameter', '1.(var)');  
+            return Exceptions::throws('Error', 'objectParameter', '1.(var)');  
         }
         
         return get_class($var);
@@ -153,6 +155,20 @@ class InternalClasses extends \CallController implements ClassesInterface
     }   
 
     //--------------------------------------------------------------------------------------------------------
+    // Only Name                                                              
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $class
+    //
+    // @return string
+    //                                                                                        
+    //--------------------------------------------------------------------------------------------------------
+    public function onlyName(String $class) : String
+    {
+        return divide(str_replace(INTERNAL_ACCESS, '', $class), '\\', -1);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
     // Protected Class                                                                 
     //--------------------------------------------------------------------------------------------------------
     //
@@ -165,7 +181,7 @@ class InternalClasses extends \CallController implements ClassesInterface
 
         global $classMap;
 
-        \Config::get('ClassMap');
+        Config::get('ClassMap');
 
         $cm  = array_flip($classMap['namespaces']);
 
@@ -173,13 +189,13 @@ class InternalClasses extends \CallController implements ClassesInterface
         {
             return $cm[$lowerName];
         }
-        elseif( ! empty($cm[strtolower(STATIC_ACCESS).$lowerName]) )
+        elseif( ! empty($cm[strtolower(INTERNAL_ACCESS).$lowerName]) )
         {
-            return $cm[strtolower(STATIC_ACCESS).$lowerName];
+            return $cm[strtolower(INTERNAL_ACCESS).$lowerName];
         }
-        elseif( ! empty($classMap['classes'][strtolower(STATIC_ACCESS).$lowerName]) )
+        elseif( ! empty($classMap['classes'][strtolower(INTERNAL_ACCESS).$lowerName]) )
         {
-            return $classMap['classes'][strtolower(STATIC_ACCESS).$lowerName];
+            return $classMap['classes'][strtolower(INTERNAL_ACCESS).$lowerName];
         }
         else
         {

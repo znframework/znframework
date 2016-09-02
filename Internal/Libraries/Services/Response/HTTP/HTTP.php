@@ -1,6 +1,8 @@
 <?php namespace ZN\Services\Response;
 
-class InternalHTTP extends \Requirements implements HTTPInterface
+use Config, Arrays, Exceptions, Method, Requirements;
+
+class InternalHTTP extends Requirements implements HTTPInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -79,7 +81,7 @@ class InternalHTTP extends \Requirements implements HTTPInterface
     //--------------------------------------------------------------------------------------------------------
     public function browserLang(String $default = 'en') : String
     {
-        $languages = \Config::get('Language', 'shortCodes');
+        $languages = Config::get('Language', 'shortCodes');
         
         $lang = strtolower(substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2));
         
@@ -100,7 +102,7 @@ class InternalHTTP extends \Requirements implements HTTPInterface
     //--------------------------------------------------------------------------------------------------------
     public function code(Int $code = 200) : String
     {
-        $messages = \Arrays::multikey($this->config['messages']);
+        $messages = Arrays::multikey($this->config['messages']);
         
         if( isset($messages[$code]) )
         {
@@ -165,7 +167,7 @@ class InternalHTTP extends \Requirements implements HTTPInterface
         }
         else
         {
-            return \Exceptions::throws(lang('Error', 'invalidInput', $input).' : get, post, server, env, request'); 
+            return Exceptions::throws(lang('Error', 'invalidInput', $input).' : get, post, server, env, request'); 
         }
         
         return $this;
@@ -187,11 +189,11 @@ class InternalHTTP extends \Requirements implements HTTPInterface
         
         switch( $input )
         {
-            case 'post'     : return \Method::post($name);   break;
-            case 'get'      : return \Method::get($name);    break;
-            case 'env'      : return \Method::env($name);    break;
-            case 'server'   : return \Method::server($name);  break;
-            case 'request'  : return \Method::request($name); break;
+            case 'post'     : return Method::post($name);   break;
+            case 'get'      : return Method::get($name);    break;
+            case 'env'      : return Method::env($name);    break;
+            case 'server'   : return Method::server($name);  break;
+            case 'request'  : return Method::request($name); break;
         }
     }
     
@@ -213,11 +215,11 @@ class InternalHTTP extends \Requirements implements HTTPInterface
         
         switch( $input )
         {
-            case 'post'     : return \Method::post($name, $value);   break;
-            case 'get'      : return \Method::get($name, $value);    break;
-            case 'env'      : return \Method::env($name, $value);    break;
-            case 'server'   : return \Method::server($name, $value);  break;
-            case 'request'  : return \Method::request($name, $value); break;
+            case 'post'     : return Method::post($name, $value);   break;
+            case 'get'      : return Method::get($name, $value);    break;
+            case 'env'      : return Method::env($name, $value);    break;
+            case 'server'   : return Method::server($name, $value);  break;
+            case 'request'  : return Method::request($name, $value); break;
         }
     }
     

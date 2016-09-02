@@ -1,6 +1,8 @@
 <?php namespace ZN\ViewObjects\View;
 
-class InternalHTML extends \CallController implements HTMLInterface, ViewCommonInterface
+use Exceptions, CallController;
+
+class InternalHTML extends CallController implements HTMLInterface, ViewCommonInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -20,6 +22,30 @@ class InternalHTML extends \CallController implements HTMLInterface, ViewCommonI
     //
     //--------------------------------------------------------------------------------------------------------
     use ViewCommonTrait;
+
+    //--------------------------------------------------------------------------------------------------------
+    // Table
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function table() : HTML\Helpers\Table
+    {
+        return new HTML\Helpers\Table;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // List
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function list() : HTML\Helpers\Lists
+    {
+        return new HTML\Helpers\Lists;
+    }
     
     //--------------------------------------------------------------------------------------------------------
     // Audio
@@ -302,7 +328,7 @@ class InternalHTML extends \CallController implements HTMLInterface, ViewCommonI
     {
         if( ! isEmail($mail) ) 
         {
-            return \Exceptions::throws('Error', 'emailParameter', 'mail');
+            return Exceptions::throws('Error', 'emailParameter', 'mail');
         }
 
         $attributes['href'] = 'mailto:'.$mail;

@@ -1,6 +1,8 @@
 <?php namespace ZN\IndividualStructures;
 
-class InternalBenchmark extends \CallController implements BenchmarkInterface
+use CallController;
+
+class InternalBenchmark extends CallController implements BenchmarkInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

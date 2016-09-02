@@ -17,7 +17,7 @@
 // @return External/Config/
 //
 //--------------------------------------------------------------------------------------------------
-define('EXTERNAL_CONFIG_DIR', EXTERNAL_DIR.'Config/'); 
+define('EXTERNAL_CONFIG_DIR', EXTERNAL_DIR.'Config'.DS); 
 
 //--------------------------------------------------------------------------------------------------
 // INTERNAL_CONFIG_DIR
@@ -26,16 +26,16 @@ define('EXTERNAL_CONFIG_DIR', EXTERNAL_DIR.'Config/');
 // @return Internal/Config/
 //
 //--------------------------------------------------------------------------------------------------
-define('INTERNAL_CONFIG_DIR', INTERNAL_DIR.'Config/'); 
+define('INTERNAL_CONFIG_DIR', INTERNAL_DIR.'Config'.DS); 
 
 //--------------------------------------------------------------------------------------------------
-// REQUIRED_DIR
+// REQUIRED_FILE
 //--------------------------------------------------------------------------------------------------
 //
 // @return Internal/Core/Required.php
 //
 //--------------------------------------------------------------------------------------------------
-define('REQUIRED_DIR', CORE_DIR.'Required.php');
+define('REQUIRED_FILE', CORE_DIR.'Required.php');
 
 //--------------------------------------------------------------------------------------------------
 // EOL
@@ -106,10 +106,10 @@ if( isset($baseDir[0]) )
 }
 
 //--------------------------------------------------------------------------------------------------
-// _CURRENT_PROJECT_DIR
+// _CURRENT_PROJECT
 //--------------------------------------------------------------------------------------------------
 //
-// @return _CURRENT_PROJECT_DIR
+// @return _CURRENT_PROJECT
 //
 //--------------------------------------------------------------------------------------------------
 $currentPath = server('currentPath');
@@ -127,7 +127,7 @@ if( is_array($othersapp) )
 
 if( ! empty($internalDir) && is_dir(PROJECTS_DIR.$internalDir) )
 {
-    define('_CURRENT_PROJECT_DIR', $internalDir);  
+    define('_CURRENT_PROJECT', $internalDir);  
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -911,10 +911,10 @@ function internalApplicationContainerDir() : String
     
     $containers = $projects['containers'];
     
-    if( ! empty($containers) && defined('_CURRENT_PROJECT_DIR') )
+    if( ! empty($containers) && defined('_CURRENT_PROJECT') )
     {
-        return ! empty($containers[_CURRENT_PROJECT_DIR])
-               ? PROJECTS_DIR.suffix($containers[_CURRENT_PROJECT_DIR])
+        return ! empty($containers[_CURRENT_PROJECT])
+               ? PROJECTS_DIR.suffix($containers[_CURRENT_PROJECT])
                : PROJECT_DIR;
     }
     

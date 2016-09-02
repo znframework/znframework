@@ -1,6 +1,8 @@
 <?php namespace ZN\IndividualStructures;
 
-class InternalSupport extends \CallController implements SupportInterface
+use CallController;
+
+class InternalSupport extends CallController implements SupportInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -54,6 +56,19 @@ class InternalSupport extends \CallController implements SupportInterface
     public function func(String $name, String $value = NULL)
     {
         return $this->_loaded($name, $value, 'function_exists', 'undefinedFunctionExtension');
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Callback
+    //--------------------------------------------------------------------------------------------------------
+    // 
+    // @param  string  $name
+    // @param  string  $value
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function callback(String $name, String $value = NULL)
+    {
+        return $this->_loaded($name, $value, 'function_exists', 'undefinedFunction');
     }
 
     //--------------------------------------------------------------------------------------------------------

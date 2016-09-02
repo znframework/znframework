@@ -1,6 +1,8 @@
 <?php namespace ZN\IndividualStructures;
 
-class InternalPermission extends \Requirements implements PermissionInterface
+use Requirements;
+
+class InternalPermission extends Requirements implements PermissionInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

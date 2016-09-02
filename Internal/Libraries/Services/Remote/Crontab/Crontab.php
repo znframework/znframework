@@ -1,6 +1,8 @@
 <?php namespace ZN\Services\Remote;
 
-class InternalCrontab extends \Requirements implements CrontabInterface, CrontabIntervalInterface
+use SSH, Folder, Buffer, Exceptions, Requirements;
+
+class InternalCrontab extends Requirements implements CrontabInterface, CrontabIntervalInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -160,7 +162,7 @@ class InternalCrontab extends \Requirements implements CrontabInterface, Crontab
     //--------------------------------------------------------------------------------------------------------
     public function connect(Array $config) : InternalCrontab
     {
-        \SSH::connect($config);
+        SSH::connect($config);
         
         return $this;   
     }
@@ -208,9 +210,9 @@ class InternalCrontab extends \Requirements implements CrontabInterface, Crontab
     //--------------------------------------------------------------------------------------------------------
     public function createFile(String $name = 'crontab.txt') : Bool
     {
-        if( ! is_dir($this->crontabDir) )
+        if( ! Folder::exists($this->crontabDir) )
         {
-            return \Folder::create($this->crontabDir);
+            return Folder::create($this->crontabDir);
         }
         else
         {
@@ -331,15 +333,15 @@ class InternalCrontab extends \Requirements implements CrontabInterface, Crontab
     {
         $driver  = $this->driver;
         
-        \Buffer::select('before');
+        Buffer::select('before');
         
-        \Buffer::select('callback');
+        Buffer::select('callback');
         
         $return = $driver === 'ssh'
-                ? \SSH::run($command)
+                ? SSH::run($command)
                 : $driver($command);
         
-        \Buffer::select('after');
+        Buffer::select('after');
         
         return $return;
     }
@@ -423,7 +425,7 @@ class InternalCrontab extends \Requirements implements CrontabInterface, Crontab
     //--------------------------------------------------------------------------------------------------------
     public function callback($callback) : InternalCrontab
     {
-        \Buffer::insert('callback', $callback);
+        Buffer::insert('callback', $callback);
         
         return $this;   
     }
@@ -438,7 +440,7 @@ class InternalCrontab extends \Requirements implements CrontabInterface, Crontab
     //--------------------------------------------------------------------------------------------------------
     public function after($callback) : InternalCrontab
     {
-        \Buffer::insert('after', $callback);
+        Buffer::insert('after', $callback);
         
         return $this;   
     }
@@ -453,7 +455,7 @@ class InternalCrontab extends \Requirements implements CrontabInterface, Crontab
     //--------------------------------------------------------------------------------------------------------
     public function before($callback) : InternalCrontab
     {
-        \Buffer::insert('before', $callback);
+        Buffer::insert('before', $callback);
         
         return $this;   
     }
@@ -542,7 +544,7 @@ class InternalCrontab extends \Requirements implements CrontabInterface, Crontab
         
         if( ! preg_match('/^'.$match.$match.$match.$match.$match.'$/', $datetimeFormat) )
         {
-            return \Exceptions::throws('Services', 'crontab:timeFormatError');
+            return Exceptions::throws('Services', 'crontab:timeFormatError');
         }
         else
         {

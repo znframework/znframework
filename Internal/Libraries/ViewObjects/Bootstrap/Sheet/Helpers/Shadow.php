@@ -1,8 +1,9 @@
 <?php namespace ZN\ViewObjects\Bootstrap\Sheet\Helpers;
 
 use ZN\ViewObjects\Bootstrap\SheetTrait;
+use CallController;
 
-class Shadow extends \CallController
+class Shadow extends CallController
 {
     //--------------------------------------------------------------------------------------------------------
     //

@@ -96,9 +96,9 @@ class MySQLiDriver extends DriverConnectionMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function connect($config = [])
     {
-        $this->config = $config;
+        $this->config  = $config;
         
-        $this->connect = @mysqli_connect($this->config['host'], $this->config['user'], $this->config['password'], $this->config['database']);
+        $this->connect = mysqli_connect($this->config['host'], $this->config['user'], $this->config['password'], $this->config['database']);
         
         if( empty($this->connect) ) 
         {
@@ -464,7 +464,7 @@ class MySQLiDriver extends DriverConnectionMappingAbstract
     {
         if( ! empty($this->connect) ) 
         {
-            @mysqli_close($this->connect); 
+            mysqli_close($this->connect);
         }
         else 
         {

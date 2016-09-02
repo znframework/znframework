@@ -255,7 +255,7 @@ class FileDriver extends CacheDriverMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     protected function _select($key)
     {
-        if( ! file_exists($this->path.$key) )
+        if( ! \File::available($this->path.$key) )
         {
             return false;
         }

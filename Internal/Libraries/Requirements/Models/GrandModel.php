@@ -1,6 +1,8 @@
 <?php namespace ZN\Requirements\Models;
 
-class GrandModel extends \CallController implements GrandModelInterface
+use CallController, DB, DBTool, DBForge, Arrays, Exception, Config;
+
+class GrandModel extends CallController
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -10,7 +12,7 @@ class GrandModel extends \CallController implements GrandModelInterface
     // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Variable Grand Table
     //--------------------------------------------------------------------------------------------------------
@@ -29,22 +31,27 @@ class GrandModel extends \CallController implements GrandModelInterface
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
+        if( isset(static::$connection) )
+        {
+            Config::set('Database', 'database', static::$connection);
+        }
+
         if( defined('static::table') )
         {
             $grandTable = static::table;
         }                                                  
         else
         {
-            $grandTable = divide(str_ireplace([STATIC_ACCESS, 'Grand'], '', get_called_class()), '\\', -1);
+            $grandTable = divide(str_ireplace([INTERNAL_ACCESS, 'Grand'], '', get_called_class()), '\\', -1);
         }
 
         $this->grandTable = strtolower($grandTable);
 
-        $tables = \DBTool::listTables();
+        $tables = DBTool::listTables();
         
-        if( ! in_array($this->grandTable, \Arrays::map('strtolower', $tables)) )
+        if( ! in_array($this->grandTable, Arrays::map('strtolower', $tables)) )
         {
-            throw new \Exception(lang('Database', 'tableNotExistsError', 'Grand: '.$grandTable));
+            throw new Exception(lang('Database', 'tableNotExistsError', 'Grand: '.$grandTable));
         }
     }
     
@@ -57,7 +64,7 @@ class GrandModel extends \CallController implements GrandModelInterface
     //--------------------------------------------------------------------------------------------------------
     public function insert(Array $data) : Bool
     {
-        return \DB::insert($this->grandTable, $data);
+        return DB::insert($this->grandTable, $data);
     }
     
     //--------------------------------------------------------------------------------------------------------
@@ -69,7 +76,7 @@ class GrandModel extends \CallController implements GrandModelInterface
     //--------------------------------------------------------------------------------------------------------
     public function insertID() : Int
     {
-        return \DB::insertID();
+        return DB::insertID();
     }
     
     //--------------------------------------------------------------------------------------------------------
@@ -81,7 +88,7 @@ class GrandModel extends \CallController implements GrandModelInterface
     //--------------------------------------------------------------------------------------------------------
     public function select(...$select) : Grand
     {
-        \DB::select(...$select);
+        DB::select(...$select);
         
         return $this;
     }
@@ -95,7 +102,7 @@ class GrandModel extends \CallController implements GrandModelInterface
     //--------------------------------------------------------------------------------------------------------
     public function update(Array $data, String $column, String $value) : Bool
     {
-        return \DB::where($column, $value)->update($this->grandTable, $data);
+        return DB::where($column, $value)->update($this->grandTable, $data);
     }
     
     //--------------------------------------------------------------------------------------------------------
@@ -108,7 +115,7 @@ class GrandModel extends \CallController implements GrandModelInterface
     //--------------------------------------------------------------------------------------------------------
     public function delete(String $column, String $value) : Bool
     {
-        return \DB::where($column, $value)->delete($this->grandTable);
+        return DB::where($column, $value)->delete($this->grandTable);
     }
     
     //--------------------------------------------------------------------------------------------------------
@@ -120,7 +127,7 @@ class GrandModel extends \CallController implements GrandModelInterface
     //--------------------------------------------------------------------------------------------------------
     protected function _get()
     {
-        return \DB::get($this->grandTable);
+        return DB::get($this->grandTable);
     }
     
     //--------------------------------------------------------------------------------------------------------
@@ -181,7 +188,7 @@ class GrandModel extends \CallController implements GrandModelInterface
     //--------------------------------------------------------------------------------------------------------
     public function increment($columns, Int $increment = 1) : Bool
     {
-        return \DB::increment($this->grandTable, $columns, $increment);
+        return DB::increment($this->grandTable, $columns, $increment);
     }
     
     //--------------------------------------------------------------------------------------------------------
@@ -194,7 +201,7 @@ class GrandModel extends \CallController implements GrandModelInterface
     //--------------------------------------------------------------------------------------------------------
     public function decrement($columns, Int $decrement = 1) : Bool
     {
-        return \DB::decrement($this->grandTable, $columns, $decrement);
+        return DB::decrement($this->grandTable, $columns, $decrement);
     }
     
     //--------------------------------------------------------------------------------------------------------
@@ -206,7 +213,7 @@ class GrandModel extends \CallController implements GrandModelInterface
     //--------------------------------------------------------------------------------------------------------
     public function status(String $type = 'row')
     {
-        return \DB::status($this->grandTable)->$type();
+        return DB::status($this->grandTable)->$type();
     }
     
     //--------------------------------------------------------------------------------------------------------
@@ -232,7 +239,7 @@ class GrandModel extends \CallController implements GrandModelInterface
     //--------------------------------------------------------------------------------------------------------
     public function where($column, String $value = NULL, String $logical = NULL) : Grand
     {
-        \DB::where($column, $value, $logical);
+        DB::where($column, $value, $logical);
         
         return $this;
     }
@@ -248,7 +255,7 @@ class GrandModel extends \CallController implements GrandModelInterface
     //--------------------------------------------------------------------------------------------------------
     public function having($column, String $value = NULL, String $logical = NULL) : Grand
     {
-        \DB::having($column, $value, $logical);
+        DB::having($column, $value, $logical);
         
         return $this;
     }
@@ -262,7 +269,7 @@ class GrandModel extends \CallController implements GrandModelInterface
     //--------------------------------------------------------------------------------------------------------
     public function whereGroup(...$args) : Grand
     {
-        \DB::whereGroup(...$args);
+        DB::whereGroup(...$args);
         
         return $this;
     }
@@ -276,7 +283,7 @@ class GrandModel extends \CallController implements GrandModelInterface
     //--------------------------------------------------------------------------------------------------------
     public function havingGroup(...$args) : Grand
     {
-        \DB::havingGroup(...$args);
+        DB::havingGroup(...$args);
         
         return $this;
     }
@@ -292,7 +299,7 @@ class GrandModel extends \CallController implements GrandModelInterface
     //--------------------------------------------------------------------------------------------------------
     public function innerJoin(String $table, String $otherColumn, String $operator = '=') : Grand
     {
-        \DB::innerJoin($table, $otherColumn, $operator);
+        DB::innerJoin($table, $otherColumn, $operator);
         
         return $this;
     }
@@ -308,7 +315,7 @@ class GrandModel extends \CallController implements GrandModelInterface
     //--------------------------------------------------------------------------------------------------------
     public function outerJoin(String $table, String $otherColumn, String $operator = '=') : Grand
     {
-        \DB::outerJoin($table, $otherColumn, $operator);
+        DB::outerJoin($table, $otherColumn, $operator);
         
         return $this;
     }
@@ -324,7 +331,7 @@ class GrandModel extends \CallController implements GrandModelInterface
     //--------------------------------------------------------------------------------------------------------
     public function leftJoin(String $table, String $otherColumn, String $operator = '=') : Grand
     {
-        \DB::leftJoin($table, $otherColumn, $operator);
+        DB::leftJoin($table, $otherColumn, $operator);
         
         return $this;
     }
@@ -340,7 +347,7 @@ class GrandModel extends \CallController implements GrandModelInterface
     //--------------------------------------------------------------------------------------------------------
     public function rightJoin(String $table, String $otherColumn, String $operator = '=') : Grand
     {
-        \DB::rightJoin($table, $otherColumn, $operator);
+        DB::rightJoin($table, $otherColumn, $operator);
         
         return $this;
     }
@@ -356,7 +363,7 @@ class GrandModel extends \CallController implements GrandModelInterface
     //--------------------------------------------------------------------------------------------------------
     public function join(String $table, String $condition, String $type = NULL) : Grand
     {
-        \DB::join($table, $condition, $type);
+        DB::join($table, $condition, $type);
         
         return $this;
     }
@@ -370,7 +377,7 @@ class GrandModel extends \CallController implements GrandModelInterface
     //--------------------------------------------------------------------------------------------------------
     public function duplicateCheck(...$args) : Grand
     {
-        \DB::duplicateCheck(...$args);
+        DB::duplicateCheck(...$args);
         
         return $this;
     }
@@ -385,7 +392,7 @@ class GrandModel extends \CallController implements GrandModelInterface
     //--------------------------------------------------------------------------------------------------------
     public function orderBy($condition, String $type = NULL) : Grand
     {
-        \DB::orderBy($condition, $type);
+        DB::orderBy($condition, $type);
         
         return $this;
     }
@@ -399,7 +406,7 @@ class GrandModel extends \CallController implements GrandModelInterface
     //--------------------------------------------------------------------------------------------------------
     public function groupBy(...$args) : Grand
     {
-        \DB::groupBy(...$args);
+        DB::groupBy(...$args);
         
         return $this;
     }
@@ -414,7 +421,7 @@ class GrandModel extends \CallController implements GrandModelInterface
     //--------------------------------------------------------------------------------------------------------
     public function limit($start = 0, Int $limit = 0) : Grand
     {
-        \DB::limit($start, $limit);
+        DB::limit($start, $limit);
         
         return $this;
     }
@@ -443,7 +450,7 @@ class GrandModel extends \CallController implements GrandModelInterface
     //--------------------------------------------------------------------------------------------------------
     public function create(Array $data, $extra = NULL) : Bool 
     {
-        return \DBForge::createTable($this->grandTable, $data, $extra);
+        return DBForge::createTable($this->grandTable, $data, $extra);
     }
     
     //--------------------------------------------------------------------------------------------------------
@@ -455,7 +462,7 @@ class GrandModel extends \CallController implements GrandModelInterface
     //--------------------------------------------------------------------------------------------------------
     public function drop() : Bool
     {
-        return \DBForge::dropTable($this->grandTable);
+        return DBForge::dropTable($this->grandTable);
     }
     
     //--------------------------------------------------------------------------------------------------------
@@ -467,7 +474,7 @@ class GrandModel extends \CallController implements GrandModelInterface
     //--------------------------------------------------------------------------------------------------------
     public function truncate() : Bool
     {
-        return \DBForge::truncate($this->grandTable);
+        return DBForge::truncate($this->grandTable);
     }
     
     //--------------------------------------------------------------------------------------------------------
@@ -479,7 +486,7 @@ class GrandModel extends \CallController implements GrandModelInterface
     //--------------------------------------------------------------------------------------------------------
     public function rename(String $newName) : Bool
     {
-        return \DBForge::renameTable($this->grandTable, $newName);
+        return DBForge::renameTable($this->grandTable, $newName);
     }
     
     //--------------------------------------------------------------------------------------------------------
@@ -491,7 +498,7 @@ class GrandModel extends \CallController implements GrandModelInterface
     //--------------------------------------------------------------------------------------------------------
     public function addColumn(Array $column) : Bool
     {
-        return \DBForge::addColumn($this->grandTable, $column);
+        return DBForge::addColumn($this->grandTable, $column);
     }
     
     //--------------------------------------------------------------------------------------------------------
@@ -503,7 +510,7 @@ class GrandModel extends \CallController implements GrandModelInterface
     //--------------------------------------------------------------------------------------------------------
     public function dropColumn($column) : Bool
     {
-        return \DBForge::dropColumn($this->grandTable, $column);
+        return DBForge::dropColumn($this->grandTable, $column);
     }
     
     //--------------------------------------------------------------------------------------------------------
@@ -515,7 +522,7 @@ class GrandModel extends \CallController implements GrandModelInterface
     //--------------------------------------------------------------------------------------------------------
     public function modifyColumn(Array $column) : Bool
     {
-        return \DBForge::modifyColumn($this->grandTable, $column);
+        return DBForge::modifyColumn($this->grandTable, $column);
     }
     
     //--------------------------------------------------------------------------------------------------------
@@ -527,7 +534,7 @@ class GrandModel extends \CallController implements GrandModelInterface
     //--------------------------------------------------------------------------------------------------------
     public function renameColumn(Array $column) : Bool
     {
-        return \DBForge::renameColumn($this->grandTable, $column);
+        return DBForge::renameColumn($this->grandTable, $column);
     }
     
     //--------------------------------------------------------------------------------------------------------
@@ -539,7 +546,7 @@ class GrandModel extends \CallController implements GrandModelInterface
     //--------------------------------------------------------------------------------------------------------
     public function optimize() : String
     {
-        return \DBTool::optimizeTables($this->grandTable);
+        return DBTool::optimizeTables($this->grandTable);
     }
     
     //--------------------------------------------------------------------------------------------------------
@@ -551,7 +558,7 @@ class GrandModel extends \CallController implements GrandModelInterface
     //--------------------------------------------------------------------------------------------------------
     public function repair() : String
     {
-        return \DBTool::repairTables($this->grandTable);
+        return DBTool::repairTables($this->grandTable);
     }
     
     //--------------------------------------------------------------------------------------------------------
@@ -564,7 +571,7 @@ class GrandModel extends \CallController implements GrandModelInterface
     //--------------------------------------------------------------------------------------------------------
     public function backup(String $fileName = NULL, String $path = STORAGE_DIR) : String
     {
-        return \DBTool::backup($this->grandTable, $fileName, $path);
+        return DBTool::backup($this->grandTable, $fileName, $path);
     }
     
     //--------------------------------------------------------------------------------------------------------
@@ -576,15 +583,15 @@ class GrandModel extends \CallController implements GrandModelInterface
     //--------------------------------------------------------------------------------------------------------
     public function error()
     {
-        if( $error = \DB::error() )
+        if( $error = DB::error() )
         {
             return $error;
         }
-        elseif( $error = \DBForge::error() )
+        elseif( $error = DBForge::error() )
         {
             return $error;
         }
-        elseif( $error = \DBTool::error() )
+        elseif( $error = DBTool::error() )
         {
             return $error;
         }

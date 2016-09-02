@@ -1,6 +1,7 @@
 <?php namespace ZN\IndividualStructures;
 
 use ZN\ViewObjects\TemplateWizard;
+use Config, Html, Exceptions, Folder, Arrays;
 
 class InternalImport implements ImportInterface
 {
@@ -109,7 +110,7 @@ class InternalImport implements ImportInterface
     //--------------------------------------------------------------------------------------------------------
     public function body(String $body) : InternalImport
     {
-        \Config::set('Masterpage', 'bodyPage', $body);
+        Config::set('Masterpage', 'bodyPage', $body);
         
         return $this;
     }
@@ -123,7 +124,7 @@ class InternalImport implements ImportInterface
     //--------------------------------------------------------------------------------------------------------
     public function head($head) : InternalImport
     {
-        \Config::set('Masterpage', 'headPage', $head);
+        Config::set('Masterpage', 'headPage', $head);
         
         return $this;
     }
@@ -137,7 +138,7 @@ class InternalImport implements ImportInterface
     //--------------------------------------------------------------------------------------------------------
     public function title(String $title) : InternalImport
     {
-        \Config::set('Masterpage', 'title', $title);
+        Config::set('Masterpage', 'title', $title);
         
         return $this;
     }
@@ -151,7 +152,7 @@ class InternalImport implements ImportInterface
     //--------------------------------------------------------------------------------------------------------
     public function meta(Array $meta) : InternalImport
     {
-        \Config::set('Masterpage', 'meta', $meta);
+        Config::set('Masterpage', 'meta', $meta);
         
         return $this;
     }
@@ -165,7 +166,7 @@ class InternalImport implements ImportInterface
     //--------------------------------------------------------------------------------------------------------
     public function attributes(Array $attributes) : InternalImport
     {
-        \Config::set('Masterpage', 'attributes', $attributes);
+        Config::set('Masterpage', 'attributes', $attributes);
         
         return $this;
     }
@@ -179,7 +180,7 @@ class InternalImport implements ImportInterface
     //--------------------------------------------------------------------------------------------------------
     public function content(Array $content) : InternalImport
     {
-        \Config::set('Masterpage', 'content', $content);
+        Config::set('Masterpage', 'content', $content);
         
         return $this;
     }
@@ -268,7 +269,7 @@ class InternalImport implements ImportInterface
         }
         else
         {
-            return \Exceptions::throws('Error', 'fileNotFound', $page); 
+            return Exceptions::throws('Error', 'fileNotFound', $page); 
         }
     }
     
@@ -299,7 +300,7 @@ class InternalImport implements ImportInterface
         //---------------------------------------------------------------------------------------------------------
         // Config/Masterpage.php dosyasından ayarlar alınıyor. <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
         //---------------------------------------------------------------------------------------------------------
-        $masterPageSet = \Config::get('Masterpage');
+        $masterPageSet = Config::get('Masterpage');
         
         //---------------------------------------------------------------------------------------------------------
         // Başlık ve vücud sayfaları alınıyor. <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -313,16 +314,16 @@ class InternalImport implements ImportInterface
         /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>HTML START<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/      
         $docType = isset($head['docType']) ? $head['docType'] : $masterPageSet["docType"];
         
-        $header  = \Config::get('ViewObjects', 'doctype')[$docType].$eol;
+        $header  = Config::get('ViewObjects', 'doctype')[$docType].$eol;
         
         $htmlAttributes = isset($head['attributes']['html']) ? $head['attributes']['html'] : $masterPageSet['attributes']['html'];
         
-        $header .= '<html xmlns="http://www.w3.org/1999/xhtml"'.\Html::attributes($htmlAttributes).'>'.$eol;
+        $header .= '<html xmlns="http://www.w3.org/1999/xhtml"'.Html::attributes($htmlAttributes).'>'.$eol;
         
         $headAttributes = isset($head['attributes']['head']) ? $head['attributes']['head'] : $masterPageSet['attributes']['head'];
         
         /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>HEAD START<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
-        $header .= '<head'.\Html::attributes($headAttributes).'>'.$eol;
+        $header .= '<head'.Html::attributes($headAttributes).'>'.$eol;
         
         $contentCharset = isset($head['content']['charset']) ? $head['content']['charset'] : $masterPageSet['content']['charset'];
                       
@@ -519,7 +520,7 @@ class InternalImport implements ImportInterface
         
         $bodyAttributes = isset($head['attributes']['body']) ? $head['attributes']['body'] : $masterPageSet['attributes']['body'];
         
-        $header .= '<body'.\Html::attributes($bodyAttributes).$bgImage.'>'.$eol;
+        $header .= '<body'.Html::attributes($bodyAttributes).$bgImage.'>'.$eol;
     
         echo $header;
         
@@ -620,7 +621,7 @@ class InternalImport implements ImportInterface
             }
             
             // FARKLI FONTLAR
-            $differentSet = \Config::get('ViewObjects', 'font')['differentFontExtensions'];
+            $differentSet = Config::get('ViewObjects', 'font')['differentFontExtensions'];
             
             if( ! empty($differentSet) )
             {           
@@ -831,7 +832,7 @@ class InternalImport implements ImportInterface
         
         if( ! is_file($randomPageVariable) ) 
         {
-            return \Exceptions::throws('Error', 'fileParameter', '1.(randomPageVariable)');
+            return Exceptions::throws('Error', 'fileParameter', '1.(randomPageVariable)');
         }
 
         if( $randomPageVariableExtension === 'js' )
@@ -842,7 +843,7 @@ class InternalImport implements ImportInterface
         {   
             $return = '<link href="'.$randomPageVariableBaseUrl.'" rel="stylesheet" type="text/css" />'.$eol;
         }
-        elseif( stristr('svg|woff|otf|ttf|'.implode('|', \Config::get('ViewObjects', 'font')['differentFontExtensions']), $randomPageVariableExtension) )
+        elseif( stristr('svg|woff|otf|ttf|'.implode('|', Config::get('ViewObjects', 'font')['differentFontExtensions']), $randomPageVariableExtension) )
         {           
             $return = '<style type="text/css">@font-face{font-family:"'.divide(removeExtension($randomPageVariable), "/", -1).'"; src:url("'.$randomPageVariableBaseUrl.'") format("truetype")}</style>'.$eol;              
         }
@@ -975,7 +976,7 @@ class InternalImport implements ImportInterface
         
         if( ! is_string($randomPageVariable) )
         {
-            return \Exceptions::throws('Error', 'stringParameter', 'randomPageVariable');
+            return Exceptions::throws('Error', 'stringParameter', 'randomPageVariable');
         }
         
         if( ! extension($randomPageVariable) || stristr($randomPageVariable, $this->templateWizardExtension) )
@@ -1008,7 +1009,7 @@ class InternalImport implements ImportInterface
         }
         else
         {
-            return \Exceptions::throws('Error', 'fileNotFound', $randomPageVariable);   
+            return Exceptions::throws('Error', 'fileNotFound', $randomPageVariable);   
         }
     }
     
@@ -1128,7 +1129,7 @@ class InternalImport implements ImportInterface
     {
         if( ! is_string($packages)  ) 
         {
-            return \Exceptions::throws('Error', 'stringParameter', 'packages');
+            return Exceptions::throws('Error', 'stringParameter', 'packages');
         }
         
         if( ! empty($this->parameters['usable']) )
@@ -1153,9 +1154,9 @@ class InternalImport implements ImportInterface
             $packages = str_replace(RESOURCES_DIR, EXTERNAL_RESOURCES_DIR, $packages);  
         }
         
-        if( is_dir($packages) )
+        if( Folder::exists($packages) )
         {
-            $packageFiles = \Folder::allFiles(suffix($packages), $recursive);
+            $packageFiles = Folder::allFiles(suffix($packages), $recursive);
             
             if( ! empty($packageFiles) ) 
             {
@@ -1211,14 +1212,14 @@ class InternalImport implements ImportInterface
 
         if( $lastParam === true )
         {
-            $arguments = \Arrays::removeLast($arguments);
+            $arguments = Arrays::removeLast($arguments);
         }
         
-        return (object)array
-        (
+        return (object)
+        [
             'arguments' => $arguments,
             'lastParam' => $lastParam,
-            'cdnLinks'  => array_change_key_case(\Config::get('ViewObjects', 'cdn')[$cdn])
-        );
+            'cdnLinks'  => array_change_key_case(Config::get('ViewObjects', 'cdn')[$cdn])
+        ];
     }
 }

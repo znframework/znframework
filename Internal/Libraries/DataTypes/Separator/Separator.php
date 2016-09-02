@@ -1,6 +1,8 @@
 <?php namespace ZN\DataTypes;
 
-class InternalSeparator extends \CallController implements SeparatorInterface
+use CallController;
+
+class InternalSeparator extends CallController implements SeparatorInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

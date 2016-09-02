@@ -1,6 +1,8 @@
 <?php namespace ZN\Services\Request;
 
-class InternalRedirect extends \CallController implements RedirectInterface
+use CallController;
+
+class InternalRedirect extends CallController implements RedirectInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

@@ -1,5 +1,7 @@
 <?php namespace ZN\Core;
 
+use Errors, Restoration;
+
 class Structure
 {
     //--------------------------------------------------------------------------------------------------
@@ -133,7 +135,7 @@ class Structure
             {
                 report('Error', lang('Error', 'controllerNameError', $pageControl), 'ControllerNameError');
             
-                die(\Errors::message('Error', 'controllerNameError', $pageControl));
+                die(Errors::message('Error', 'controllerNameError', $pageControl));
             }
         }
     
@@ -142,7 +144,7 @@ class Structure
         //----------------------------------------------------------------------------------------------
         if( PROJECT_MODE === 'restoration' )
         {
-            \Restoration::mode();
+            Restoration::mode();
         }
         
         //----------------------------------------------------------------------------------------------
@@ -177,7 +179,7 @@ class Structure
         [
             'parameters' => $parameters,
             'page'       => $page,
-            'file'       => $isFile,
+            'file'       => str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $isFile),
             'function'   => $function,
             'namespace'  => $namespace
         ];

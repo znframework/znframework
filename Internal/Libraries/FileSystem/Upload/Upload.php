@@ -1,6 +1,8 @@
 <?php namespace ZN\FileSystem;
 
-class InternalUpload extends \CallController implements UploadInterface
+use Config, Folder, Converter, Encode, CallController;
+
+class InternalUpload extends CallController implements UploadInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -92,7 +94,7 @@ class InternalUpload extends \CallController implements UploadInterface
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
-        \Config::iniSet(\Config::get('Htaccess', 'upload')['settings']);    
+        Config::iniSet(Config::get('Htaccess', 'upload')['settings']);    
     }
     
     //--------------------------------------------------------------------------------------------------------
@@ -304,9 +306,9 @@ class InternalUpload extends \CallController implements UploadInterface
             $rootDir = UPLOADS_DIR;
         }
 
-        if( ! is_dir($rootDir) )
+        if( ! Folder::exists($rootDir) )
         {
-            \Folder::create($rootDir);  
+            Folder::create($rootDir);  
         }
         
         if( $this->settingStatus === false ) 
@@ -356,7 +358,7 @@ class InternalUpload extends \CallController implements UploadInterface
                 
                 if( $this->settings['convertName'] === true )
                 {
-                     $nm = \Converter::urlWord($nm);    
+                     $nm = Converter::urlWord($nm);    
                 }
                 
                 if( $this->settings['encryption'] ) 
@@ -403,7 +405,7 @@ class InternalUpload extends \CallController implements UploadInterface
         {   
             if( $this->settings['convertName'] === true )
             {
-                 $name = \Converter::urlWord($name);    
+                 $name = Converter::urlWord($name);    
             }
             
             if( empty($_FILES[$fileName]['name']) ) 
@@ -591,6 +593,14 @@ class InternalUpload extends \CallController implements UploadInterface
     //--------------------------------------------------------------------------------------------------------
     protected function _encode()
     {
-        return substr(\Encode::type(uniqid(rand()), $this->settings['encryption']), 0, $this->settings['encodeLength']).'-';    
+        $encode = $this->settings['encryption'];
+        $length = $this->settings['encodeLength'];
+
+        if( ! isHash($encode) )
+        {
+            $encode = 'md5';
+        }
+
+        return substr(Encode::type(uniqid(rand()), $encode), 0, $length).'-';    
     }
 }

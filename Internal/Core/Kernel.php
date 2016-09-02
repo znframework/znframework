@@ -62,6 +62,24 @@ define('CURRENT_CPAGE', $page.".php");
 define('CURRENT_CONTROLLER', $page);
 
 //--------------------------------------------------------------------------------------------------
+// CURRENT_CNAMESPACE
+//--------------------------------------------------------------------------------------------------
+//
+// @return Aktif çalıştırılan sayfaya ait namespace bilgisi.
+//
+//--------------------------------------------------------------------------------------------------
+define('CURRENT_CNAMESPACE', $namespace);
+
+//--------------------------------------------------------------------------------------------------
+// CURRENT_CNAMESPACE
+//--------------------------------------------------------------------------------------------------
+//
+// @return Aktif çalıştırılan sayfaya ait namespace bilgisi.
+//
+//--------------------------------------------------------------------------------------------------
+define('CURRENT_CCLASS', $namespace.CURRENT_CONTROLLER);
+
+//--------------------------------------------------------------------------------------------------
 // CURRENT_CPATH
 //--------------------------------------------------------------------------------------------------
 //
@@ -222,9 +240,9 @@ else
     }
     else
     {
-        report('Error', lang('Error', 'notIsFileError', $isFile), 'SystemNotIsFileError');
+        report('Error', lang('Error', 'notFoundController', CURRENT_CONTROLLER), 'SystemNotFoundControllerError');
         
-        die(Errors::message('Error', 'notIsFileError', $isFile));
+        die(Errors::message('Error', 'notFoundController', CURRENT_CONTROLLER));
     }       
 }
 

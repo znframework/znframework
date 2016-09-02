@@ -1,6 +1,8 @@
 <?php namespace ZN\CryptoGraphy;
 
-class InternalCrypto extends \Requirements implements CryptoInterface
+use Support, Requirements;
+
+class InternalCrypto extends Requirements implements CryptoInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -52,7 +54,7 @@ class InternalCrypto extends \Requirements implements CryptoInterface
 
         nullCoalesce($driver, $this->config['driver']);
 
-        \Support::driver($this->drivers, $driver);
+        Support::driver($this->drivers, $driver);
 
         $this->crypto = $this->_drvlib($driver);
     }

@@ -4,12 +4,11 @@
 [Documentation](http://www.znframework.com/documentation)
 
 <p>
-ZN aimed at simplicity. 
-It is very easy access to objects. 
-Easy integration of internal and external structure. 
-It is also flexible. 
-PHP versions 5.6.0 and above are supported. 
-Generally it complies with the PSR standards. 
-It contains exclusively. 
-Multiple applications are suitable for development.
+ZN Framework is aimed at simplicity.<br />
+It is very easy access to objects. <br />
+Easy integration of internal and external structure.<br />
+It is also flexible.<br />
+PHP versions 7.0.0 + are supported.<br />
+It is complied with PSD standarts and contains exclusively.<br />
+ZN Framework is suitable for Multiple Application Development.
 </p>

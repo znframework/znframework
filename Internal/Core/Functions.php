@@ -16,10 +16,10 @@
 // 
 // @param string $const
 //
-// @return string
+// @return scalar
 //
 //--------------------------------------------------------------------------------------------------
-function illustrate(String $const) : String
+function illustrate(String $const)
 {
     if( defined($const) )
     {
@@ -376,13 +376,13 @@ function siteUrl(String $uri = NULL, Int $index = 0) : String
     }
     
     $host = host();
-    
+   
     return sslStatus().
            $host.
            $newBaseDir.
            indexStatus().
            suffix(currentLang()).
-           internalCleanInjection(suffix(illustrate('CURRENT_PROJECT_DIR')).$uri);
+           internalCleanInjection((CURRENT_PROJECT === DEFAULT_PROJECT ? NULL : suffix(CURRENT_PROJECT)).$uri);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -976,9 +976,9 @@ function internalRequestURI() : String
     $requestUri = internalCleanInjection(internalRouteURI($requestUri));
     $requestUri = internalCleanURIPrefix($requestUri, currentLang());
     
-    if( defined('_CURRENT_PROJECT_DIR') )
+    if( defined('_CURRENT_PROJECT') )
     {
-        $requestUri = internalCleanURIPrefix($requestUri, _CURRENT_PROJECT_DIR);
+        $requestUri = internalCleanURIPrefix($requestUri, _CURRENT_PROJECT);
     }
     
     return $requestUri;
@@ -1021,7 +1021,7 @@ function internalRouteURI(String $requestUri = NULL) : String
     {
         $internalDir = NULL;
         
-        if( defined('_CURRENT_PROJECT_DIR') )
+        if( defined('_CURRENT_PROJECT') )
         {
             global $projects;
             
@@ -1029,11 +1029,11 @@ function internalRouteURI(String $requestUri = NULL) : String
             
             if( is_array($configAppdir) )
             {
-                $internalDir = ! empty($configAppdir[$requestUri]) ? $requestUri : _CURRENT_PROJECT_DIR;
+                $internalDir = ! empty($configAppdir[$requestUri]) ? $requestUri : _CURRENT_PROJECT;
             }
             else
             {
-                $internalDir = _CURRENT_PROJECT_DIR;   
+                $internalDir = _CURRENT_PROJECT;   
             }
         }
         
@@ -1143,10 +1143,12 @@ function internalCreateRobotsFile()
         }
     }
     
+    $robotTxt = 'robots.txt';
+
     // robots.txt dosyası varsa içeriği al yok ise içeriği boş geç
-    if( file_exists('robots.txt') )
+    if( File::exists($robotTxt) )
     {
-        $getContents = file_get_contents('robots.txt');
+        $getContents = File::read($robotTxt);
     }
     else
     {
@@ -1158,12 +1160,10 @@ function internalCreateRobotsFile()
         return false;
     }
     
-    if( ! file_put_contents('robots.txt', trim($robots)) )
+    if( ! File::write($robotTxt, trim($robots)) )
     {
-        Exceptions::throws('Error', 'fileNotWrite', 'robots.txt');
+        Exceptions::throws('Error', 'fileNotWrite', $robotTxt);
     }
-    
-    unset( $robots );   
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -1401,11 +1401,12 @@ function internalCreateHtaccessFile()
             $htaccess .= "</IfModule>";
         }
     }
+
+    $htaccessTxt = '.htaccess';
     
-    // .htaccess dosyası varsa içeriği al yok ise içeriği boş geç
-    if( file_exists('.htaccess') )
+    if( File::exists($htaccessTxt) )
     {
-        $getContents = trim(file_get_contents('.htaccess'));
+        $getContents = trim(File::read($htaccessTxt));
     }
     else
     {
@@ -1413,21 +1414,17 @@ function internalCreateHtaccessFile()
     }
     
     $htaccess .= '#----------------------------------------------------------------------------------------------------';
+    $htaccess  = trim($htaccess);
     
-    $htaccess = trim($htaccess);
-    
-    // $htaccess değişkenin tuttuğu değer ile dosya içeri eşitse tekrar oluşturma
     if( $htaccess === $getContents ) 
     {
         return false;
     }
     
-    if( ! file_put_contents('.htaccess', trim($htaccess)) )
+    if( ! File::write($htaccessTxt, trim($htaccess)) )
     {
-        Exceptions::throws('Error', 'fileNotWrite', '.htaccess');
+        Exceptions::throws('Error', 'fileNotWrite', $htaccessTxt);
     }
-    
-    unset( $htaccess ); 
 }
 
 //--------------------------------------------------------------------------------------------------

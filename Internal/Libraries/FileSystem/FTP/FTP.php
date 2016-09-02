@@ -1,6 +1,8 @@
 <?php namespace ZN\FileSystem;
 
-class InternalFTP extends \Requirements implements FTPInterface
+use Converter, Exceptions, Requirements;
+
+class InternalFTP extends Requirements implements FTPInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -36,76 +38,18 @@ class InternalFTP extends \Requirements implements FTPInterface
     // @param array $config: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function __construct()
+    public function __construct(Array $config = [])
     {
-        $this->config = config('FileSystem', 'ftp');
-     
-        $this->connect($this->config);
-    }
-    
-    //--------------------------------------------------------------------------------------------------------
-    // connect()
-    //--------------------------------------------------------------------------------------------------------
-    // 
-    // @param array $config: empty
-    //
-    //--------------------------------------------------------------------------------------------------------  
-    public function connect(Array $config = []) : InternalFTP
-    {   
         if( ! empty($config) )
         {
-            $this->config($config); 
+            $config = config('FileSystem', 'ftp', $config);
         }
-        
-        $config = $this->config;
-    
-        // ----------------------------------------------------------------------------
-        // FTP BAĞLANTI AYARLARI YAPILANDIRILIYOR
-        // ----------------------------------------------------------------------------
-        $host     = $config->host;            
-        $port     = $config->port;        
-        $timeout  = $config->timeout;     
-        $user     = $config->user;            
-        $password = $config->password;        
-        $ssl      = $config->sslConnect;  
-        // ----------------------------------------------------------------------------
-    
-        // Bağlantı türü ayarına göre ssl veya normal
-        // bağlatı yapılıp yapılmayacağı belirlenir.
-        $this->connect =    ( $ssl === false ) 
-                            ? @ftp_connect($host, $port, $timeout)
-                            : @ftp_ssl_connect($host, $port, $timeout);
-                            
-        if( empty($this->connect) ) 
+        else
         {
-            return \Exceptions::throws('Error', 'emptyVariable', 'Connect');
-        }
-        
-        $this->login = ftp_login($this->connect, $user, $password);
-        
-        if( empty($this->login) )
-        {
-            return \Exceptions::throws('Error', 'emptyVariable', 'Login');
-        }
-        
-        return $this;
-    }
-    
-    //--------------------------------------------------------------------------------------------------------
-    // close()
-    //--------------------------------------------------------------------------------------------------------
-    // 
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------  
-    public function close() : Bool
-    {
-        if( ! empty($this->connect) )
-        {
-            return ftp_close($this->connect);
+            $config = config('FileSystem', 'ftp');
         }
 
-        return false;
+        $this->_connect($config);
     }
     
     //--------------------------------------------------------------------------------------------------------
@@ -123,7 +67,7 @@ class InternalFTP extends \Requirements implements FTPInterface
         }
         else
         {
-            return \Exceptions::throws('FileSystem', 'folder:alreadyFileError', $path);
+            return Exceptions::throws('FileSystem', 'folder:alreadyFileError', $path);
         }
     }
     
@@ -142,9 +86,8 @@ class InternalFTP extends \Requirements implements FTPInterface
         }
         else
         {
-            return \Exceptions::throws('FileSystem', 'folder:notFoundError', $path);    
+            return Exceptions::throws('FileSystem', 'folder:notFoundError', $path);    
         }
-    
     }
     
     //--------------------------------------------------------------------------------------------------------
@@ -162,7 +105,7 @@ class InternalFTP extends \Requirements implements FTPInterface
         }
         else
         {
-            return \Exceptions::throws('FileSystem', 'folder:changeFolderError', $path);
+            return Exceptions::throws('FileSystem', 'folder:changeFolderError', $path);
         }
     }
     
@@ -182,7 +125,7 @@ class InternalFTP extends \Requirements implements FTPInterface
         }
         else
         {
-            return \Exceptions::throws('FileSystem', 'folder:changeFolderNameError', $oldName); 
+            return Exceptions::throws('FileSystem', 'folder:changeFolderNameError', $oldName); 
         }
     }
     
@@ -201,7 +144,7 @@ class InternalFTP extends \Requirements implements FTPInterface
         }
         else
         {
-            return \Exceptions::throws('FileSystem', 'file:notFoundError', $path);  
+            return Exceptions::throws('FileSystem', 'file:notFoundError', $path);  
         }
     }
     
@@ -216,13 +159,13 @@ class InternalFTP extends \Requirements implements FTPInterface
     //--------------------------------------------------------------------------------------------------------  
     public function upload(String $localPath, String $remotePath, String $type = 'ascii') : Bool
     {
-        if( ftp_put($this->connect, $remotePath, $localPath, \Converter::toConstant($type, 'FTP_')) )
+        if( ftp_put($this->connect, $remotePath, $localPath, Converter::toConstant($type, 'FTP_')) )
         {
             return true;
         }
         else
         {
-            return \Exceptions::throws('FileSystem', 'file:remoteUploadError', $localPath); 
+            return Exceptions::throws('FileSystem', 'file:remoteUploadError', $localPath); 
         }
     }
     
@@ -237,13 +180,13 @@ class InternalFTP extends \Requirements implements FTPInterface
     //--------------------------------------------------------------------------------------------------------
     public function download(String $remotePath, String $localPath, String $type = 'ascii') : Bool
     {
-        if( ftp_get($this->connect, $localPath, $remotePath, \Converter::toConstant($type, 'FTP_')) )
+        if( ftp_get($this->connect, $localPath, $remotePath, Converter::toConstant($type, 'FTP_')) )
         {
             return true;
         }
         else
         {
-            return \Exceptions::throws('FileSystem', 'file:remoteDownloadError', $localPath);
+            return Exceptions::throws('FileSystem', 'file:remoteDownloadError', $localPath);
         }
     }
     
@@ -263,7 +206,7 @@ class InternalFTP extends \Requirements implements FTPInterface
         }
         else
         { 
-            return \Exceptions::throws('Error', 'emptyVariable', '@this->connect'); 
+            return Exceptions::throws('Error', 'emptyVariable', '@this->connect'); 
         }
     }
     
@@ -374,7 +317,80 @@ class InternalFTP extends \Requirements implements FTPInterface
             return round($size / (1024 * 1024 * 1024), $decimal);
         }
     }
+
+    //--------------------------------------------------------------------------------------------------------
+    // differentConnection()
+    //--------------------------------------------------------------------------------------------------------
+    // 
+    // @param array $config: empty
+    //
+    //--------------------------------------------------------------------------------------------------------  
+    public function differentConnection(Array $config) : InternalFTP
+    {
+        return new self($config);
+    }
     
+    //--------------------------------------------------------------------------------------------------------
+    // Protected close()
+    //--------------------------------------------------------------------------------------------------------
+    // 
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------  
+    protected function _close() : Bool
+    {
+        if( ! empty($this->connect) )
+        {
+            return ftp_close($this->connect);
+        }
+
+        return false;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected connect()
+    //--------------------------------------------------------------------------------------------------------
+    // 
+    // @param array $config: empty
+    //
+    //--------------------------------------------------------------------------------------------------------  
+    protected function _connect($config = NULL)
+    {  
+        if( empty($config) )
+        {
+            $config = config('FileSystem', 'ftp');
+        }
+        output($config);
+        // ----------------------------------------------------------------------------
+        // FTP BAĞLANTI AYARLARI YAPILANDIRILIYOR
+        // ----------------------------------------------------------------------------
+        $host     = $config['host'];            
+        $port     = $config['port'];        
+        $timeout  = $config['timeout'];   
+        $user     = $config['user'];           
+        $password = $config['password'];       
+        $ssl      = $config['sslConnect']; 
+        // ----------------------------------------------------------------------------
+    
+        // Bağlantı türü ayarına göre ssl veya normal
+        // bağlatı yapılıp yapılmayacağı belirlenir.
+        $this->connect =    ( $ssl === false ) 
+                            ? @ftp_connect($host, $port, $timeout)
+                            : @ftp_ssl_connect($host, $port, $timeout);
+                            
+        if( empty($this->connect) ) 
+        {
+            return Exceptions::throws('Error', 'emptyVariable', 'Connect');
+        }
+        
+        $this->login = ftp_login($this->connect, $user, $password);
+        
+        if( empty($this->login) )
+        {
+            return Exceptions::throws('Error', 'emptyVariable', 'Login');
+        }
+    }
+
     //--------------------------------------------------------------------------------------------------------
     // __destruct()
     //--------------------------------------------------------------------------------------------------------
@@ -384,6 +400,6 @@ class InternalFTP extends \Requirements implements FTPInterface
     //--------------------------------------------------------------------------------------------------------
     public function __destruct()
     {
-        $this->close(); 
+        $this->_close(); 
     }
 }

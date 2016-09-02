@@ -1,6 +1,8 @@
 <?php namespace ZN\Services\Remote;
 
-class InternalEmail extends \Requirements implements EmailInterface
+use Support, Exceptions, Config, Requirements;
+
+class InternalEmail extends Requirements implements EmailInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -355,7 +357,7 @@ class InternalEmail extends \Requirements implements EmailInterface
 
         nullCoalesce($driver, $this->config['driver']);
 
-        \Support::driver($this->drivers, $driver);
+        Support::driver($this->drivers, $driver);
 
         $this->email  = $this->_drvlib($driver);
         $this->driver = $driver;
@@ -426,7 +428,7 @@ class InternalEmail extends \Requirements implements EmailInterface
         }
         else
         {
-            return \Exceptions::throws('Error', 'charsetParameter', '1.(charset)'); 
+            return Exceptions::throws('Error', 'charsetParameter', '1.(charset)'); 
         }
         
         return $this;
@@ -632,7 +634,7 @@ class InternalEmail extends \Requirements implements EmailInterface
             }
             else
             {
-                return \Exceptions::throws('Error', 'emailParameter', '1.('.$type.')'); 
+                return Exceptions::throws('Error', 'emailParameter', '1.('.$type.')'); 
             }
         }
     }
@@ -725,7 +727,7 @@ class InternalEmail extends \Requirements implements EmailInterface
     {
         if( ! isEmail($from) )
         {
-            return \Exceptions::throws('Error', 'emailParameter', '1.(from)');  
+            return Exceptions::throws('Error', 'emailParameter', '1.(from)');  
         }
         
         $this->from = $from;
@@ -811,7 +813,7 @@ class InternalEmail extends \Requirements implements EmailInterface
     //--------------------------------------------------------------------------------------------------------
     public function attachment(String $file, String $disposition = NULL, String $newName = NULL, $mime = NULL) : InternalEmail
     {
-        $mimeTypes = \Config::get('MimeTypes');
+        $mimeTypes = Config::get('MimeTypes');
         
         $mime = ! empty($mimeTypes[$mime])
                 ? $mimeTypes[$mime]
@@ -826,12 +828,12 @@ class InternalEmail extends \Requirements implements EmailInterface
         {
             if( strpos($file, '://') === false && ! file_exists($file) )
             {
-                return \Exceptions::throws('Services', 'email:attachmentMissing', $file);
+                return Exceptions::throws('Services', 'email:attachmentMissing', $file);
             }
             
             if( ! $fp = @fopen($file, 'rb') )
             {
-                return \Exceptions::throws('Services', 'email:attachmentUnreadable', $file);
+                return Exceptions::throws('Services', 'email:attachmentUnreadable', $file);
             }
             
             $fileContent = stream_get_contents($fp);
@@ -899,7 +901,7 @@ class InternalEmail extends \Requirements implements EmailInterface
             }
             else
             {
-                return \Exceptions::throws('Services', 'email:noFrom');
+                return Exceptions::throws('Services', 'email:noFrom');
             }
         }
         

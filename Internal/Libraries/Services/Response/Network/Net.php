@@ -1,6 +1,8 @@
 <?php namespace ZN\Services\Response;
 
-class InternalNet extends \CallController implements NetInterface
+use Converter, Exceptions, CallController;
+
+class InternalNet extends CallController implements NetInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -35,7 +37,7 @@ class InternalNet extends \CallController implements NetInterface
     //--------------------------------------------------------------------------------------------------------
     public function dnsRecords(String $host, String $type = 'any', Bool $raw = false) : \stdClass
     {
-        $dns = dns_get_record($this->cleanHttp($host), \Converter::toConstant($type, 'DNS_'), $auth, $add, $raw);
+        $dns = dns_get_record($this->cleanHttp($host), Converter::toConstant($type, 'DNS_'), $auth, $add, $raw);
         
         return (object)
         [
@@ -78,7 +80,7 @@ class InternalNet extends \CallController implements NetInterface
         
         if( ! empty($errno) )
         {
-            return \Exceptions::throws($errno.'-'.$errstr);
+            return Exceptions::throws($errno.'-'.$errstr);
         }
 
         return $socket;
@@ -99,7 +101,7 @@ class InternalNet extends \CallController implements NetInterface
         
         if( ! empty($errno) )
         {
-            return \Exceptions::throws($errno.'-'.$errstr);
+            return Exceptions::throws($errno.'-'.$errstr);
         }
 
         return $socket;

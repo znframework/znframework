@@ -1,5 +1,7 @@
 <?php namespace ZN\Database;
 
+use URI, Pagination, Exceptions, Arrays;
+
 class InternalDB extends DatabaseCommon implements DBInterface
 {   
     //--------------------------------------------------------------------------------------------------------
@@ -581,7 +583,7 @@ class InternalDB extends DatabaseCommon implements DBInterface
     //--------------------------------------------------------------------------------------------------------
     public function limit($start = NULL, Int $limit = 0) : InternalDB
     { 
-        nullCoalesce($start, (int) \URI::segment(-1));
+        nullCoalesce($start, (int) URI::segment(-1));
 
         if( ! empty($limit) ) 
         {
@@ -1377,7 +1379,7 @@ class InternalDB extends DatabaseCommon implements DBInterface
             {
                 $this->duplicateCheck = NULL;
                 
-                return \Exceptions::throws('Database', 'duplicateCheckError', implode(',', $duplicateCheckColumn)); 
+                return Exceptions::throws('Database', 'duplicateCheckError', implode(',', $duplicateCheckColumn)); 
             }
         }
             
@@ -1727,7 +1729,7 @@ class InternalDB extends DatabaseCommon implements DBInterface
         }
         
         $return = $output === true
-                ? \Pagination::create(NULL, $settings) 
+                ? Pagination::create(NULL, $settings) 
                 : $settings;
         
         $this->pagination = ['start' => 0, 'limit' => 0];
@@ -1796,11 +1798,11 @@ class InternalDB extends DatabaseCommon implements DBInterface
         
         if( isset($conditions[0][0]) && is_array($conditions[0][0]) )
         {
-            $con         = \Arrays::getLast($conditions);
+            $con         = Arrays::getLast($conditions);
             $conditions  = $conditions[0];  
         }
         
-        $getLast = \Arrays::getLast($conditions);
+        $getLast = Arrays::getLast($conditions);
             
         if( is_string($con) )
         {
@@ -1811,7 +1813,7 @@ class InternalDB extends DatabaseCommon implements DBInterface
             if( is_string($getLast) )
             {
                 $conjunction = $getLast;
-                $conditions  = \Arrays::removeLast($conditions);
+                $conditions  = Arrays::removeLast($conditions);
             }
             else
             {

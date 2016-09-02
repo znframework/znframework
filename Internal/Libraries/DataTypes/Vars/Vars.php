@@ -1,6 +1,8 @@
 <?php namespace ZN\DataTypes;
 
-class InternalVars extends \CallController implements VarsInterface
+use Exceptions, CallController;
+
+class InternalVars extends CallController implements VarsInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -118,7 +120,7 @@ class InternalVars extends \CallController implements VarsInterface
     {
         if( ! is_resource($resource) )
         {
-            return \Exceptions::throws('Error', 'resourceParameter', '1.(resource)');   
+            return Exceptions::throws('Error', 'resourceParameter', '1.(resource)');   
         }
         
         return get_resource_type($resource);        

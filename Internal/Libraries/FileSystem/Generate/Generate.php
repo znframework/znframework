@@ -1,6 +1,8 @@
 <?php namespace ZN\FileSystem;
 
-class InternalGenerate extends \CallController implements GenerateInterface
+use CallController, Folder, File, DBTool, Config;
+
+class InternalGenerate extends CallController implements GenerateInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -12,14 +14,109 @@ class InternalGenerate extends \CallController implements GenerateInterface
     //--------------------------------------------------------------------------------------------------------
     
     //--------------------------------------------------------------------------------------------------------
-    // Settings
+    // Grand Vision
     //--------------------------------------------------------------------------------------------------------
     // 
-    // @var array
+    // @param mixed $database = NULL
+    //
+    // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $settings = [];
-    
+    public function grandVision($database = NULL)
+    {
+        $databases = [];
+
+        if( is_string($database) )
+        {
+            $databases[0] = $database;
+        }
+        else
+        {
+            $databases = $database;
+        }
+
+        if( empty($database) )
+        {
+            $databases = DBTool::listDatabases();
+        }
+
+        $visionPath = 'Visions'.DS;
+
+        $defaultDB = config('Database', 'database')['database'];
+        
+        foreach( $databases as $connection => $database )
+        {
+            $configs = [];
+
+            if( is_array($database) )
+            {
+                $configs  = $database; 
+                $database = $connection; 
+            }
+            
+            $configs['database'] = $database; 
+
+            $tables   = DBTool::differentConnection(['database' => $database])->listTables();
+            $database = ucfirst($database);
+            $filePath = $visionPath.$database;
+
+            Folder::create(MODELS_DIR.$filePath);
+
+            foreach( $tables as $table )
+            {
+                $table = ucfirst($table);
+
+                $this->model(INTERNAL_ACCESS.( strtolower($database) === strtolower($defaultDB) ? NULL : $database ).$table.'Vision',
+                [
+                    'path'      => $filePath,
+                    'namespace' => 'Visions\\'.$database,
+                    'use'       => ['GrandModel'],
+                    'extends'   => 'GrandModel',
+                    'constants' => ['table' => "'".$table."'"],
+                    'vars'      => ['protected static:connection' => $this->_stringArray($configs)] 
+                ]);
+            }
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Delete Vision
+    //--------------------------------------------------------------------------------------------------------
+    // 
+    // @param string $database = '*'
+    // @param array  $tables   = NULL
+    //
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function deleteVision(String $database = '*', Array $tables = NULL)
+    {
+        $path = MODELS_DIR.'Visions/';
+
+        if( $database === '*' )
+        {
+            Folder::delete($path);
+        } 
+        else
+        {
+            $database = ucfirst($database);
+
+            if( $tables === NULL )
+            {
+                Folder::delete($path.$database);
+            }
+            else
+            {
+                $defaultDB = config('Database', 'database')['database'];
+
+                foreach( $tables as $table )
+                {
+                    File::delete($path.$database.DS.INTERNAL_ACCESS.( strtolower($database) === strtolower($defaultDB) ? NULL : $database ).ucfirst($table).'Vision.php');
+                }
+            }
+        }
+    }
+
     //--------------------------------------------------------------------------------------------------------
     // Settings
     //--------------------------------------------------------------------------------------------------------
@@ -91,12 +188,34 @@ class InternalGenerate extends \CallController implements GenerateInterface
         
         $file = $this->_path($name, $type);
         
-        if( is_file($file) )
+        if( File::exists($file) )
         {
-            return \File::delete($file);    
+            return File::delete($file);    
         }
         
         return false;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected String Array
+    //--------------------------------------------------------------------------------------------------------
+    // 
+    // @param array $data
+    //
+    // @return string
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _stringArray($data)
+    {
+        $str = EOL.HT.'['.EOL;
+        foreach( $data as $key => $val )
+        {
+            $str .= HT.HT."'".$key."' => '".$val."',".EOL;
+        }
+        $str = rtrim($str, ','.EOL);
+        $str .= EOL.HT.']';
+        
+        return $str;
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -130,9 +249,9 @@ class InternalGenerate extends \CallController implements GenerateInterface
     {
         if( empty($this->settings['application']) )
         {
-            $this->settings['application'] = divide(PROJECT_DIR, '/', 1);
+            $this->settings['application'] = divide(rtrim(PROJECT_DIR, DS), DS, -1);
         }
-        
+
         return PROJECTS_DIR.$this->settings['application'].$this->_type($type).suffix($name, '.php');
     }
     
@@ -164,9 +283,12 @@ class InternalGenerate extends \CallController implements GenerateInterface
         }
         
         // Namespace Data
+        $namespace = NULL;
+
         if( ! empty($this->settings['namespace']) )
         {
-            $controller .= "namespace ".$this->settings['namespace'].";".$eol.$eol;
+            $namespace   = $this->settings['namespace'];
+            $controller .= "namespace ".$namespace.";".$eol.$eol;
         }
         
         // Use Data
@@ -185,6 +307,11 @@ class InternalGenerate extends \CallController implements GenerateInterface
             }
             
             $controller .= $eol;
+        }
+
+        if( ! empty($this->settings['name']) )
+        {
+            $name = $this->settings['name'];
         }
         
         $controller .= $this->settings['object']." ".$name;
@@ -301,22 +428,36 @@ class InternalGenerate extends \CallController implements GenerateInterface
         $controller  = rtrim($controller, $eol);
         $controller .= $eol."}";
 
-        $file = $this->_path($name, $type);
-                
-        if( ! is_file($file) )
+        if( ! empty($this->settings['alias']) )
         {
-            if( \File::write($file, $controller) )
+            $controller .= $eol.$eol.'class_alias("'.suffix($namespace, '\\').$name.'", "'.$this->settings['alias'].'");';
+        }
+
+        if( ! empty($this->settings['path']) )
+        {
+            $filePath = suffix($this->settings['path'], DS).$name;
+        }
+        else
+        {
+            $filePath = $name;
+        }
+
+        $file = $this->_path($filePath, $type);
+                
+        if( ! File::exists($file) )
+        {
+            if( File::write($file, $controller) )
             {
-                return $this->success = lang('FileSystem', 'generate:success', $name);  
+                return true;
             }   
             else
             {
-                return ! $this->error = lang('FileSystem', 'generate:notSuccess', $name);
+                return false;
             }
         }   
         else
         {
-            return ! $this->error = lang('FileSystem', 'file:alreadyFileError', $name); 
+            return false; 
         }
     }
     
@@ -329,20 +470,27 @@ class InternalGenerate extends \CallController implements GenerateInterface
     //--------------------------------------------------------------------------------------------------------
     protected function _varType($var)
     {
-        if( stripos($var, 'protected:') === 0 )
+        $static = NULL;
+
+        if( strstr($var, 'static') )
+        {
+            $static = ' static';
+        }
+
+        if( stripos($var, 'protected'.$static.':') === 0 )
         {
             $priority = 'protected';
-            $var      = str_ireplace('protected:', '', $var);
+            $var      = str_ireplace('protected'.$static.':', '', $var);
         }
-        elseif( stripos($var, 'public:') === 0 )
+        elseif( stripos($var, 'public'.$static.':') === 0 )
         {
             $priority = 'public';
-            $var      = str_ireplace('public:', '', $var);
+            $var      = str_ireplace('public'.$static.':', '', $var);
         }
-        elseif( stripos($var, 'private:') === 0 )
+        elseif( stripos($var, 'private'.$static.':') === 0 )
         {
             $priority = 'private';
-            $var     = str_ireplace('private:', '', $var);
+            $var     = str_ireplace('private'.$static.':', '', $var);
         }
         else
         {
@@ -352,7 +500,7 @@ class InternalGenerate extends \CallController implements GenerateInterface
         
         return (object) 
         [
-            'priority' => $priority, 
+            'priority' => $priority.$static, 
             'var'      => $var
         ];
     }
@@ -381,6 +529,6 @@ class InternalGenerate extends \CallController implements GenerateInterface
             $return = 'Libraries';
         }
         
-        return presuffix($return);
+        return presuffix($return, DS);
     }
 }

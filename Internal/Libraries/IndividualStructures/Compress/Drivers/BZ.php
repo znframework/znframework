@@ -1,8 +1,6 @@
 <?php namespace ZN\IndividualStructures\Compress\Drivers;
 
-use ZN\IndividualStructures\CompressDriverMapping;
-
-class BZDriver extends CompressDriverMapping
+class BZDriver extends Abstracts\CompressDriverMappingAbstract
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -14,17 +12,40 @@ class BZDriver extends CompressDriverMapping
     //--------------------------------------------------------------------------------------------------------
     
     //--------------------------------------------------------------------------------------------------------
+    // Construct
+    //--------------------------------------------------------------------------------------------------------
+    // 
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function __construct()
+    {
+        \Support::func('bzopen', 'BZ');  
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Extract
+    //--------------------------------------------------------------------------------------------------------
+    // 
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function extract($source, $target, $password)
+    {
+        \Support::func('bzextract', 'BZ Driver Extract');   
+    }
+
+    //--------------------------------------------------------------------------------------------------------
     // Write
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string $file
     // @param string $data
-    // @param string $mode
     //
     //--------------------------------------------------------------------------------------------------------
-    public function write($file, $data, $mode)
+    public function write($file, $data)
     {
-        $open = bzopen($file, $mode);
+        $open = bzopen($file, 'w');
         
         if( empty($open) )
         {
@@ -43,20 +64,18 @@ class BZDriver extends CompressDriverMapping
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string  $file
-    // @param numeric $length
-    // @param string  $type
     //
     //--------------------------------------------------------------------------------------------------------
-    public function read($file, $length, $type)
+    public function read($file)
     {
-        $open = bzopen($file, $type);
+        $open = bzopen($file, 'r');
         
         if( empty($open) )
         {
             return \Exceptions::throws('Error', 'fileNotFound', $file); 
         }
         
-        $return = bzread($open, $length);
+        $return = bzread($open, 8096);
         
         bzclose($open);
         
@@ -64,32 +83,26 @@ class BZDriver extends CompressDriverMapping
     }
     
     //--------------------------------------------------------------------------------------------------------
-    // Compress
+    // Do
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string  $data
-    // @param int     $blockSize
-    // @param int     $workFactor
     //
     //--------------------------------------------------------------------------------------------------------
-    public function compress($data, $blockSize, $workFactor)
+    public function do($data)
     {
-        nullCoalesce($blockSize, 4);
-        nullCoalesce($workFactor, 0);
-
-        return bzcompress($data, $blockSize, (int) $workFactor);
+        return bzcompress($data);
     }
     
     //--------------------------------------------------------------------------------------------------------
-    // Uncompress
+    // Undo
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string  $data
-    // @param numeric $small
     //
     //--------------------------------------------------------------------------------------------------------
-    public function uncompress($data, $small)
+    public function undo($data)
     {
-        return bzdecompress($data, $small);
+        return bzdecompress($data);
     }
 }

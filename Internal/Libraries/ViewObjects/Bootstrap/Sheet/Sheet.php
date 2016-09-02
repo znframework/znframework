@@ -1,6 +1,8 @@
 <?php namespace ZN\ViewObjects\Bootstrap;
 
-class InternalSheet extends \CallController implements SheetInterface
+use CallController;
+
+class InternalSheet extends CallController implements SheetInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

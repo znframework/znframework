@@ -1,6 +1,8 @@
 <?php namespace ZN\Helpers;
 
-class InternalSearcher extends \CallController implements SearcherInterface
+use DB, CallController;
+
+class InternalSearcher extends CallController implements SearcherInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -48,20 +50,6 @@ class InternalSearcher extends \CallController implements SearcherInterface
     protected $filter = [];
     
     //--------------------------------------------------------------------------------------------------------
-    // Protected Filter
-    //--------------------------------------------------------------------------------------------------------
-    // 
-    // @param string $column
-    // @param string $value
-    // @param string $type 
-    //
-    //--------------------------------------------------------------------------------------------------------
-    protected function _filter($column, $value, $type)
-    {
-        $this->filter[] = "$column|$value|$type";
-    }
-    
-    //--------------------------------------------------------------------------------------------------------
     // Filter
     //--------------------------------------------------------------------------------------------------------
     // 
@@ -69,7 +57,7 @@ class InternalSearcher extends \CallController implements SearcherInterface
     // @param string $value
     //
     //--------------------------------------------------------------------------------------------------------  
-    public function filter(String $column, $value)
+    public function filter(String $column, $value) : InternalSearcher
     {
         $this->_filter($column, $value, 'and');
         
@@ -84,7 +72,7 @@ class InternalSearcher extends \CallController implements SearcherInterface
     // @param string $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function orFilter(String $column, $value)
+    public function orFilter(String $column, $value) : InternalSearcher
     {
         $this->_filter($column, $value, 'or');
         
@@ -98,7 +86,7 @@ class InternalSearcher extends \CallController implements SearcherInterface
     // @param string $word
     //
     //--------------------------------------------------------------------------------------------------------  
-    public function word(String $word)
+    public function word(String $word) : InternalSearcher
     {
         $this->word = $word;
         
@@ -112,7 +100,7 @@ class InternalSearcher extends \CallController implements SearcherInterface
     // @param string $type
     //
     //--------------------------------------------------------------------------------------------------------
-    public function type(String $type)
+    public function type(String $type) : InternalSearcher
     {
         $this->type = $type;
         
@@ -120,7 +108,7 @@ class InternalSearcher extends \CallController implements SearcherInterface
     }
     
     //--------------------------------------------------------------------------------------------------------
-    // Get
+    // Database
     //--------------------------------------------------------------------------------------------------------
     // 
     // @param array  $conditions
@@ -128,7 +116,7 @@ class InternalSearcher extends \CallController implements SearcherInterface
     // @param string $type: auto, inside, equal, starting, ending
     //
     //--------------------------------------------------------------------------------------------------------
-    public function get(Array $conditions, String $word = NULL, String $type = 'auto')
+    public function database(Array $conditions, String $word = NULL, String $type = 'auto') : \stdClass
     {   
         if( ! empty($this->type) )
         {
@@ -163,26 +151,26 @@ class InternalSearcher extends \CallController implements SearcherInterface
             }
             else
             {
-                $str = \DB::like($word, 'inside');
+                $str = DB::like($word, 'inside');
             }
         }
         
         // İçerisinde Geçen
         if( $type === "inside" ) 
         {
-            $str = \DB::like($word, 'inside');
+            $str = DB::like($word, 'inside');
         }
         
         // İle Başlayan
         if( $type === "starting" ) 
         {
-            $str = \DB::like($word, 'starting');
+            $str = DB::like($word, 'starting');
         }
         
         // İle Biten
         if( $type === "ending" ) 
         {
-            $str = \DB::like($word, 'ending');
+            $str = DB::like($word, 'ending');
         }
         
         if( $type === 'equal')
@@ -192,55 +180,51 @@ class InternalSearcher extends \CallController implements SearcherInterface
         }
         // ------------------------------------------------------------------------
 
-        foreach($conditions as $key => $values)
+        foreach( $conditions as $key => $values )
         {
             // Tekrarlayan verileri engelle.
-            \DB::distinct();
+            DB::distinct();
             
-            foreach($values as $keys)
+            foreach( $values as $keys )
             {   
-                \DB::where($keys.$operator, $str, 'OR');
+                DB::where($keys.$operator, $str, 'OR');
                 
                 // Filter dizisi boş değilse
                 // Filtrelere göre verileri çek
                 if( ! empty($this->filter) )
                 {
-                    foreach($this->filter as $val)
+                    foreach( $this->filter as $val )
                     {       
                         $exval = explode("|", $val);
                         
                         // Ve bağlaçlı filter kullanılmışsa
                         if( $exval[2] === "and" )
                         {
-                            \DB::where("$exval[0] ", $exval[1], 'AND'); 
+                            DB::where("$exval[0] ", $exval[1], 'AND'); 
                         }
                         
                         // Veya bağlaçlı or_filter kullanılmışsa
                         if( $exval[2] === "or" )
                         {
-                            \DB::where("$exval[0] ", $exval[1], 'OR');
+                            DB::where("$exval[0] ", $exval[1], 'OR');
                         }
                     }   
                 }
             }
             
-            // Sonuçları getir.
-            \DB::get($key);
+            DB::get($key);
             
-            // Sonuçları result dizisine yazdır.
-            $this->result[$key] = \DB::result();
+            $this->result[$key] = DB::result();
         }
         
         $result = $this->result;
         
-        // Değişkenleri sıfırla
         $this->result = NULL;
         $this->type   = NULL;
         $this->word   = NULL;
         $this->filter = [];
         
-        // Sonuçları object veri türünde döndür.
-        return (object)$result; 
+        return (object) $result; 
     }
     
     //--------------------------------------------------------------------------------------------------------
@@ -249,22 +233,22 @@ class InternalSearcher extends \CallController implements SearcherInterface
     // 
     // @param mixed  $searchData
     // @param mixed  $searchWord
-    // @param string $output: bool, boolean, pos, position, str, string
+    // @param string $output: boolean, position, string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function data($searchData, $searchWord, String $output = 'bool')
+    public function data($searchData, $searchWord, String $output = 'boolean')
     {
         if( ! is_array($searchData) )
         {   
-            if( $output === 'str' || $output === 'string' ) 
+            if( $output === 'string' ) 
             {
                 return strstr($searchData, $searchWord);
             }
-            elseif( $output === 'pos' || $output === 'position' ) 
+            elseif( $output === 'position' ) 
             {
                 return strpos($searchData, $searchWord);
             }
-            elseif( $output === 'bool' || $output === 'boolean' ) 
+            elseif( $output === 'boolean' ) 
             {
                 $result = strpos($searchData, $searchWord);
                 
@@ -286,7 +270,7 @@ class InternalSearcher extends \CallController implements SearcherInterface
         {           
             $result = array_search($searchWord, $searchData);   
             
-            if( $output === 'pos' || $output === 'position' )
+            if( $output === 'position' )
             {
                 if( ! empty($result) )
                 {
@@ -297,7 +281,7 @@ class InternalSearcher extends \CallController implements SearcherInterface
                     return -1;
                 }
             }
-            elseif( $output === 'bool' || $output === 'boolean' )
+            elseif( $output === 'boolean' )
             {
                 if( ! empty($result) )
                 {
@@ -308,7 +292,7 @@ class InternalSearcher extends \CallController implements SearcherInterface
                     return false;
                 }
             }
-            elseif( $output === 'str' || $output === 'string' )
+            elseif( $output === 'string' )
             {
                 if( ! empty($result) )
                 {
@@ -324,5 +308,19 @@ class InternalSearcher extends \CallController implements SearcherInterface
                 return false;
             }
         }
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Filter
+    //--------------------------------------------------------------------------------------------------------
+    // 
+    // @param string $column
+    // @param string $value
+    // @param string $type 
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _filter($column, $value, $type)
+    {
+        $this->filter[] = "$column|$value|$type";
     }
 }

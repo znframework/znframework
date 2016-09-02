@@ -4,7 +4,7 @@
 
     #head
         #meta[http-equiv="Content-Type" content="text/html; charset=utf-8"]:
-        #title(ZN 4 EIP EDITION):
+        #title(Simplicity is our choice, how about yours ?):
 
         #link[href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css"]
 
@@ -42,13 +42,20 @@
                 font-size: 96px;
                 color:#BFC4C8;
             }
+
+            /#sub-title 
+            {
+                font-size: 44.4px;
+                color:#BFC4C8;
+            }
         ##style
     ##head
 
     #body
         #div[id="container"]
             #div[id="content"]
-                #div[id="title"] ZN 4 EIP EDITION ##div
+                #div[id="title"] ZN4 EIP EDITION ##div
+                #div[id="sub-title"] Simplicity is our choice, how about yours ? ##div
             ##div
         ##div
     ##body

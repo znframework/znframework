@@ -1,6 +1,8 @@
 <?php namespace ZN\Helpers;
 
-class InternalCleaner extends \CallController implements CleanerInterface
+use CallController;
+
+class InternalCleaner extends CallController implements CleanerInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -23,11 +25,6 @@ class InternalCleaner extends \CallController implements CleanerInterface
     {
         if( ! is_array($searchData) )
         {   
-            if( ! is_scalar($cleanWord) ) 
-            {
-                $cleanWord = '';
-            }
-            
             $result = str_replace($cleanWord, '', $searchData);
         }
         else

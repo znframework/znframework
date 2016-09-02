@@ -1,6 +1,8 @@
 <?php namespace ZN\ViewObjects\Bootstrap;
 
-class InternalScript extends \CallController implements TextCommonInterface
+use Import, CallController;
+
+class InternalScript extends CallController implements TextCommonInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -52,7 +54,7 @@ class InternalScript extends \CallController implements TextCommonInterface
     //--------------------------------------------------------------------------------------------------------
     public function library(...$libraries)
     {
-        \Import::script(...$libraries);
+        Import::script(...$libraries);
         
         return $this;
     }
@@ -75,12 +77,12 @@ class InternalScript extends \CallController implements TextCommonInterface
         
         if( $jqueryCdn === true ) 
         {
-            $script .= \Import::script('jquery', true);
+            $script .= Import::script('jquery', true);
         }
         
         if( $jqueryUiCdn === true ) 
         {
-            $script .= \Import::script('jqueryUi', true);
+            $script .= Import::script('jqueryUi', true);
         }
         
         $script .= "<script type=\"$this->type\">".$eol;

@@ -1,8 +1,6 @@
 <?php namespace ZN\IndividualStructures\Compress\Drivers;
 
-use ZN\IndividualStructures\CompressDriverMapping;
-
-class GZDriver extends CompressDriverMapping
+class GZDriver extends Abstracts\CompressDriverMappingAbstract
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -14,17 +12,40 @@ class GZDriver extends CompressDriverMapping
     //--------------------------------------------------------------------------------------------------------
     
     //--------------------------------------------------------------------------------------------------------
+    // Construct
+    //--------------------------------------------------------------------------------------------------------
+    // 
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function __construct()
+    {
+        \Support::func('gzopen', 'GZ');  
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Extract
+    //--------------------------------------------------------------------------------------------------------
+    // 
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function extract($source, $target, $password)
+    {
+        \Support::func('gzextract', 'GZ Driver Extract');   
+    }
+
+    //--------------------------------------------------------------------------------------------------------
     // Write
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string $file
     // @param string $data
-    // @param string $mode
     //
     //--------------------------------------------------------------------------------------------------------
-    public function write($file, $data, $mode)
+    public function write($file, $data)
     {
-        $open = gzopen($file, $mode);
+        $open = gzopen($file, 'w');
         
         if( empty($open) )
         {
@@ -43,20 +64,18 @@ class GZDriver extends CompressDriverMapping
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string  $file
-    // @param numeric $length
-    // @param string  $type
     //
     //--------------------------------------------------------------------------------------------------------
-    public function read($file, $length, $mode)
+    public function read($file)
     {
-        $open = gzopen($file, $mode);
+        $open = gzopen($file, 'r');
         
         if( empty($open) )
         {
             return \Exceptions::throws('Error', 'fileNotFound', $file); 
         }
         
-        $return = gzread($open, $length);
+        $return = gzread($open, 8096);
         
         gzclose($open);
         
@@ -64,92 +83,26 @@ class GZDriver extends CompressDriverMapping
     }
     
     //--------------------------------------------------------------------------------------------------------
-    // Compress
+    // Do
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string  $data
-    // @param numeric $blockSize
-    // @param mixed   $workFactor
     //
     //--------------------------------------------------------------------------------------------------------
-    public function compress($data, $level, $encoding) 
+    public function do($data) 
     {
-        nullCoalesce($encoding, 'deflate');
-
-        return gzcompress($data, $level, \Converter::toConstant($encoding, 'ZLIB_ENCODING_'));
+        return gzcompress($data);
     }
     
     //--------------------------------------------------------------------------------------------------------
-    // Uncompress
+    // Undo
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string  $data
-    // @param numeric $small
     //
     //--------------------------------------------------------------------------------------------------------
-    public function uncompress($data, $length)
+    public function undo($data)
     {
-        return gzuncompress($data, $length);
-    }
-    
-    //--------------------------------------------------------------------------------------------------------
-    // Encode
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string  $data
-    // @param string  $encoding
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function encode($data, $level, $encoding)
-    {
-        nullCoalesce($encoding, 'gzip');
-
-        return gzencode($data, $level, \Converter::toConstant($encoding, 'FORCE_'));
-    }
-    
-    //--------------------------------------------------------------------------------------------------------
-    // Decode
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string  $data
-    // @param numeric $length
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function decode($data, $length)
-    {
-        nullCoalesce($length, 0);
-
-        return gzdecode($data, $length);
-    }
-    
-    //--------------------------------------------------------------------------------------------------------
-    // Deflate
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string  $data
-    // @param numeric $level
-    // @param string  $encoding
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function deflate($data, $level, $encoding)
-    {
-        nullCoalesce($encoding, 'raw');
-
-        return gzdeflate($data, $level, \Converter::toConstant($encoding, 'ZLIB_ENCODING_'));
-    }
-    
-    //--------------------------------------------------------------------------------------------------------
-    // Inflate
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string  $data
-    // @param numeric $length
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function inflate($data, $length)
-    {       
-        nullCoalesce($length, 0);
-
-        return gzinflate($data, $length);
+        return gzuncompress($data);
     }
 }

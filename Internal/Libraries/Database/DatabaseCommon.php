@@ -1,6 +1,8 @@
 <?php namespace ZN\Database;
 
-class DatabaseCommon extends \Requirements implements DatabaseCommonInterface
+use Support, Exceptions, Arrays, Requirements, Config;
+
+class DatabaseCommon extends Requirements implements DatabaseCommonInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -219,7 +221,7 @@ class DatabaseCommon extends \Requirements implements DatabaseCommonInterface
         }
         else
         {
-            return \Exceptions::throws('Error', 'invalidInput', 'connectName'); 
+            return Exceptions::throws('Error', 'invalidInput', 'connectName'); 
         }
         
         foreach( $config as $key => $val )
@@ -232,8 +234,12 @@ class DatabaseCommon extends \Requirements implements DatabaseCommonInterface
                 }
             }
         }
-        
-        return new self($connection);
+
+        $getCalledClass = get_called_class();
+
+        Config::set('Database', 'database', $connection);
+
+        return new $getCalledClass($connection);
     }
     
     //--------------------------------------------------------------------------------------------------------
@@ -259,7 +265,7 @@ class DatabaseCommon extends \Requirements implements DatabaseCommonInterface
     //--------------------------------------------------------------------------------------------------------
     public function func(...$args)
     {
-        $array = \Arrays::removeFirst($args);
+        $array = Arrays::removeFirst($args);
         $math  = $this->_math(isset($args[0]) ? mb_strtoupper($args[0]) : false, $array);
     
         if( $math->return === true )
@@ -308,18 +314,6 @@ class DatabaseCommon extends \Requirements implements DatabaseCommonInterface
     public function version()
     {
         return $this->db->version();    
-    }
-    
-    //--------------------------------------------------------------------------------------------------------
-    // Desctruct
-    //--------------------------------------------------------------------------------------------------------
-    // 
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function __destruct()
-    {
-        @$this->db->close();    
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -382,21 +376,21 @@ class DatabaseCommon extends \Requirements implements DatabaseCommonInterface
     protected function _math($type, $args)
     {
         $type    = strtoupper($type);
-        $getLast = \Arrays::getLast($args);
+        $getLast = Arrays::getLast($args);
         
         $asparam = ' ';
         
         if( $getLast === true )
         {
-            $args   = \Arrays::removeLast($args);
+            $args   = Arrays::removeLast($args);
             $return = true;
             
-            $as     = \Arrays::getLast($args);
+            $as     = Arrays::getLast($args);
             
             if( stripos(trim($as), 'as') === 0 )
             {
                 $asparam .= $as;
-                $args   = \Arrays::removeLast($args);
+                $args   = Arrays::removeLast($args);
             }
         }
         else
@@ -407,7 +401,7 @@ class DatabaseCommon extends \Requirements implements DatabaseCommonInterface
         if( stripos(trim($getLast), 'as') === 0 )
         {
             $asparam .= $getLast;
-            $args     = \Arrays::removeLast($args);
+            $args     = Arrays::removeLast($args);
         }
         
         $args = $type.'('.rtrim(implode(',', $args), ',').')'.$asparam;
@@ -443,7 +437,7 @@ class DatabaseCommon extends \Requirements implements DatabaseCommonInterface
     //--------------------------------------------------------------------------------------------------------
     protected function _drvlib($suffix = 'Driver')
     {
-        \Support::driver($this->drivers, $this->driver);
+        Support::driver($this->drivers, $this->driver);
 
         return uselib('ZN\Database\Drivers\\'.$this->driver.$suffix);
     }
@@ -516,5 +510,18 @@ class DatabaseCommon extends \Requirements implements DatabaseCommonInterface
         {
             return $p;
         }
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Desctruct
+    //--------------------------------------------------------------------------------------------------------
+    // 
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function __destruct()
+    {
+        $this->db->close();  
+        $this->db->closeConnection();  
     }
 }

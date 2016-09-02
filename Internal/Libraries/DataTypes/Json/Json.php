@@ -1,6 +1,8 @@
 <?php namespace ZN\DataTypes;
 
-class InternalJson extends \CallController implements JsonInterface
+use Converter, CallController;
+
+class InternalJson extends CallController implements JsonInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -21,7 +23,7 @@ class InternalJson extends \CallController implements JsonInterface
     //--------------------------------------------------------------------------------------------------------
     public function encode($data, String $type = 'unescaped_unicode') : String
     {
-        return json_encode($data, \Converter::toConstant($type, 'JSON_'));
+        return json_encode($data, Converter::toConstant($type, 'JSON_'));
     }
     
     //--------------------------------------------------------------------------------------------------------

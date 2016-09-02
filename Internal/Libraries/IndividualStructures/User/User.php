@@ -1,6 +1,8 @@
 <?php namespace ZN\IndividualStructures;
 
-class InternalUser extends \Requirements implements UserInterface, UserPropertiesInterface
+use Requirements, Encode, DB, Session, Cookie, Method, Import, Email, URI;
+
+class InternalUser extends Requirements implements UserInterface, UserPropertiesInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -70,7 +72,7 @@ class InternalUser extends \Requirements implements UserInterface, UserPropertie
     // @return bool
     //
     //--------------------------------------------------------------------------------------------------------
-    public function register(Array $data, $autoLogin = false, String $activationReturnLink = NULL) : Bool
+    public function register(Array $data = NULL, $autoLogin = false, String $activationReturnLink = NULL) : Bool
     {   
         if( isset($this->parameters['column']) )
         {
@@ -124,11 +126,11 @@ class InternalUser extends \Requirements implements UserInterface, UserPropertie
         $loginUsername  = $data[$usernameColumn];
         $loginPassword  = $data[$passwordColumn];   
         $encodeType     = $userConfig['encode'];
-        $encodePassword = ! empty($encodeType) ? \Encode::type($loginPassword, $encodeType) : $loginPassword;   
+        $encodePassword = ! empty($encodeType) ? Encode::type($loginPassword, $encodeType) : $loginPassword;   
         
-        $usernameControl = \DB::where($usernameColumn.' =', $loginUsername)
-                              ->get($tableName)
-                              ->totalRows();
+        $usernameControl = DB::where($usernameColumn.' =', $loginUsername)
+                             ->get($tableName)
+                             ->totalRows();
         
         // Daha önce böyle bir kullanıcı
         // yoksa kullanıcı kaydetme işlemini başlat.
@@ -136,20 +138,20 @@ class InternalUser extends \Requirements implements UserInterface, UserPropertie
         {
             $data[$passwordColumn] = $encodePassword;
             
-            if( ! \DB::insert($tableName , $data) )
+            if( ! DB::insert($tableName , $data) )
             {
                 return ! $this->error = lang('IndividualStructures', 'user:registerUnknownError');
             }   
 
             if( ! empty($joinTables) )
             {   
-                $joinCol = \DB::where($usernameColumn.' =', $loginUsername)->get($tableName)->row()->$joinColumn;
+                $joinCol = DB::where($usernameColumn.' =', $loginUsername)->get($tableName)->row()->$joinColumn;
                 
                 foreach( $joinTables as $table => $joinColumn )
                 {
                     $joinData[$table][$joinTables[$table]] = $joinCol;
                     
-                    \DB::insert($table, $joinData[$table]); 
+                    DB::insert($table, $joinData[$table]); 
                 }   
             }
         
@@ -199,7 +201,7 @@ class InternalUser extends \Requirements implements UserInterface, UserPropertie
     // @return bool
     //
     //--------------------------------------------------------------------------------------------------------
-    public function update(String $old, String $new, String $newAgain = NULL, Array $data = []) : Bool
+    public function update(String $old = NULL, String $new = NULL, String $newAgain = NULL, Array $data = []) : Bool
     {
         // Bu işlem için kullanıcının
         // oturum açmıl olması gerelidir.
@@ -245,9 +247,9 @@ class InternalUser extends \Requirements implements UserInterface, UserPropertie
             
             $encodeType   = $userConfig['encode'];
             
-            $oldPassword      = ! empty($encodeType) ? \Encode::type($old, $encodeType)      : $old;
-            $newPassword      = ! empty($encodeType) ? \Encode::type($new, $encodeType)      : $new;
-            $newPasswordAgain = ! empty($encodeType) ? \Encode::type($newAgain, $encodeType) : $newAgain;
+            $oldPassword      = ! empty($encodeType) ? Encode::type($old, $encodeType)      : $old;
+            $newPassword      = ! empty($encodeType) ? Encode::type($new, $encodeType)      : $new;
+            $newPasswordAgain = ! empty($encodeType) ? Encode::type($newAgain, $encodeType) : $newAgain;
             
             if( ! empty($joinTables) )
             {
@@ -277,19 +279,19 @@ class InternalUser extends \Requirements implements UserInterface, UserPropertie
                 
                 if( ! empty($joinTables) )
                 {
-                    $joinCol = \DB::where($uc.' =', $username)->get($tn)->row()->$jc;
+                    $joinCol = DB::where($uc.' =', $username)->get($tn)->row()->$jc;
                     
                     foreach( $joinTables as $table => $joinColumn )
                     {
                         if( isset($joinData[$table]) )
                         {
-                            \DB::where($joinColumn.' =', $joinCol)->update($table, $joinData[$table]);  
+                            DB::where($joinColumn.' =', $joinCol)->update($table, $joinData[$table]);  
                         }
                     }   
                 }
                 else
                 {
-                    if( ! \DB::where($uc.' =', $username)->update($tn, $data) )
+                    if( ! DB::where($uc.' =', $username)->update($tn, $data) )
                     {
                         return ! $this->error = lang('IndividualStructures', 'user:registerUnknownError');
                     }   
@@ -314,7 +316,7 @@ class InternalUser extends \Requirements implements UserInterface, UserPropertie
     // @return bool
     //
     //--------------------------------------------------------------------------------------------------------
-    public function login(String $un, String $pw, $rememberMe = false) : Bool
+    public function login(String $un = NULL, String $pw = NULL, $rememberMe = false) : Bool
     {
         if( isset($this->parameters['username']) )
         {
@@ -344,7 +346,7 @@ class InternalUser extends \Requirements implements UserInterface, UserPropertie
         
         $encodeType = $userConfig['encode'];
         
-        $password = ! empty($encodeType) ? \Encode::type($pw, $encodeType) : $pw;
+        $password = ! empty($encodeType) ? Encode::type($pw, $encodeType) : $pw;
         
         // ------------------------------------------------------------------------------
         // CONFIG/USER.PHP AYARLARI
@@ -360,9 +362,9 @@ class InternalUser extends \Requirements implements UserInterface, UserPropertie
         $activationColumn   = $getColumns['activation'];
         // ------------------------------------------------------------------------------
         
-        $r = \DB::where($usernameColumn.' =', $username)
-                ->get($tableName)
-                ->row();
+        $r = DB::where($usernameColumn.' =', $username)
+               ->get($tableName)
+               ->row();
         
         if( ! isset($r->$passwordColumn) )
         {
@@ -396,21 +398,21 @@ class InternalUser extends \Requirements implements UserInterface, UserPropertie
                 return ! $this->error = lang('IndividualStructures', 'user:activationError');
             }
             
-            \Session::insert($usernameColumn, $username); 
-            \Session::insert($passwordColumn, $password);
+            Session::insert($usernameColumn, $username); 
+            Session::insert($passwordColumn, $password);
             
-            if( \Method::post($rememberMe) || ! empty($rememberMe) )
+            if( Method::post($rememberMe) || ! empty($rememberMe) )
             {
-                if( \Cookie::select($usernameColumn) != $username )
+                if( Cookie::select($usernameColumn) != $username )
                 {                   
-                    \Cookie::insert($usernameColumn, $username);
-                    \Cookie::insert($passwordColumn, $password);
+                    Cookie::insert($usernameColumn, $username);
+                    Cookie::insert($passwordColumn, $password);
                 }
             }
             
             if( ! empty($activeColumn) )
             {       
-                \DB::where($usernameColumn.' =', $username)->update($tableName, [$activeColumn  => 1]);
+                DB::where($usernameColumn.' =', $username)->update($tableName, [$activeColumn  => 1]);
             }
             
             return $this->success = lang('IndividualStructures', 'user:loginSuccess');
@@ -443,13 +445,13 @@ class InternalUser extends \Requirements implements UserInterface, UserPropertie
         {
             if( $active )
             {   
-                \DB::where($username.' =', $this->data($tableName)->$username)
-                   ->update($tableName, [$active => 0]);
+                DB::where($username.' =', $this->data($tableName)->$username)
+                  ->update($tableName, [$active => 0]);
             }
             
-            \Cookie::delete($username);
-            \Cookie::delete($password );            
-            \Session::delete($username);
+            Cookie::delete($username);
+            Cookie::delete($password );            
+            Session::delete($username);
             
             redirect($redirectUrl, $time);
         }
@@ -471,17 +473,17 @@ class InternalUser extends \Requirements implements UserInterface, UserPropertie
         $username   = $getColumns['username'];
         $password   = $getColumns['password']; 
         
-        $cUsername = \Cookie::select($username);
-        $cPassword = \Cookie::select($password);
+        $cUsername = Cookie::select($username);
+        $cPassword = Cookie::select($password);
         
         $result = '';
         
         if( ! empty($cUsername) && ! empty($cPassword) )
         {   
-            $result = \DB::where($username.' =', $cUsername, 'and')
-                         ->where($password.' =', $cPassword)
-                         ->get($tableName)
-                         ->totalRows();
+            $result = DB::where($username.' =', $cUsername, 'and')
+                        ->where($password.' =', $cPassword)
+                        ->get($tableName)
+                        ->totalRows();
         }
         
         if( isset($this->data($tableName)->$username) )
@@ -490,7 +492,7 @@ class InternalUser extends \Requirements implements UserInterface, UserPropertie
         }
         elseif( ! empty($result) )
         {
-            \Session::insert($username, $cUsername);
+            Session::insert($username, $cUsername);
             
             $isLogin = true;    
         }
@@ -541,14 +543,14 @@ class InternalUser extends \Requirements implements UserInterface, UserPropertie
         
         if( ! empty($emailColumn) )
         {
-            \DB::where($emailColumn.' =', $email);
+            DB::where($emailColumn.' =', $email);
         }
         else
         {
-            \DB::where($usernameColumn.' =', $email);
+            DB::where($usernameColumn.' =', $email);
         }
         
-        $row = \DB::get($tableName)->row();
+        $row = DB::get($tableName)->row();
         
         $result = "";
         
@@ -561,8 +563,8 @@ class InternalUser extends \Requirements implements UserInterface, UserPropertie
             
             $encodeType     = $userConfig['encode'];
             
-            $newPassword    = \Encode::create(10);
-            $encodePassword = ! empty($encodeType) ? \Encode::type($newPassword, $encodeType) : $newPassword;
+            $newPassword    = Encode::create(10);
+            $encodePassword = ! empty($encodeType) ? Encode::type($newPassword, $encodeType) : $newPassword;
             
             $templateData = array
             (
@@ -571,25 +573,25 @@ class InternalUser extends \Requirements implements UserInterface, UserPropertie
                 'returnLinkPath' => $returnLinkPath
             );
 
-            $message   = \Import::template('UserEmail/ForgotPassword', $templateData, true);    
+            $message   = Import::template('UserEmail/ForgotPassword', $templateData, true);    
             
-            \Email::sender($senderInfo['mail'], $senderInfo['name'])
-                  ->receiver($email, $email)
-                  ->subject(lang('IndividualStructures', 'user:newYourPassword'))
-                  ->content($message);
+            Email::sender($senderInfo['mail'], $senderInfo['name'])
+                 ->receiver($email, $email)
+                 ->subject(lang('IndividualStructures', 'user:newYourPassword'))
+                 ->content($message);
             
-            if( \Email::send() )
+            if( Email::send() )
             {
                 if( ! empty($emailColumn) )
                 {
-                    \DB::where($emailColumn.' =', $email);
+                    DB::where($emailColumn.' =', $email);
                 }
                 else
                 {
-                    \DB::where($usernameColumn.' =', $email);
+                    DB::where($usernameColumn.' =', $email);
                 }
                 
-                if( \DB::update($tableName, [$passwordColumn => $encodePassword]) )
+                if( DB::update($tableName, [$passwordColumn => $encodePassword]) )
                 {
                     return $this->success = lang('IndividualStructures', 'user:forgotPasswordSuccess');
                 }
@@ -629,21 +631,21 @@ class InternalUser extends \Requirements implements UserInterface, UserPropertie
         // ------------------------------------------------------------------------------
         
         // Aktivasyon dönüş linkinde yer alan segmentler -------------------------------
-        $user = \Uri::get('user');
-        $pass = \Uri::get('pass');
+        $user = URI::get('user');
+        $pass = URI::get('pass');
         // ------------------------------------------------------------------------------
         
         if( ! empty($user) && ! empty($pass) )  
         {
-            $row = \DB::where($usernameColumn.' =', $user, 'and')
-                      ->where($passwordColumn.' =', $pass)      
-                      ->get($tableName)
-                      ->row();  
+            $row = DB::where($usernameColumn.' =', $user, 'and')
+                     ->where($passwordColumn.' =', $pass)      
+                     ->get($tableName)
+                     ->row();  
                 
             if( ! empty($row) )
             {
-                \DB::where($usernameColumn.' =', $user)
-                   ->update($tableName, [$activationColumn => '1']);
+                DB::where($usernameColumn.' =', $user)
+                  ->update($tableName, [$activationColumn => '1']);
                 
                 return $this->success = lang('IndividualStructures', 'user:activationComplete');
             }   
@@ -689,18 +691,18 @@ class InternalUser extends \Requirements implements UserInterface, UserPropertie
             'pass' => $pass
         );
         
-        $message = \Import::template('UserEmail/Activation', $templateData, true);  
+        $message = Import::template('UserEmail/Activation', $templateData, true);  
         
         $user = ! empty($email) 
                 ? $email 
                 : $user;
                 
-        \Email::sender($senderInfo['mail'], $senderInfo['name'])
-              ->receiver($user, $user)
-              ->subject(lang('IndividualStructures', 'user:activationProcess'))
-              ->content($message);
+        Email::sender($senderInfo['mail'], $senderInfo['name'])
+             ->receiver($user, $user)
+             ->subject(lang('IndividualStructures', 'user:activationProcess'))
+             ->content($message);
         
-        if( \Email::send() )
+        if( Email::send() )
         {
             return $this->success = lang('IndividualStructures', 'user:activationEmail');
         }
@@ -724,7 +726,7 @@ class InternalUser extends \Requirements implements UserInterface, UserPropertie
         $usernameColumn = $config['matching']['columns']['username'];
         $passwordColumn = $config['matching']['columns']['password'];
         
-        if( $sessionUserName = \Session::select($usernameColumn) )
+        if( $sessionUserName = Session::select($usernameColumn) )
         {
             $joinTables     = $config['joining']['tables'];
             $usernameColumn = $config['matching']['columns']['username'];
@@ -732,26 +734,26 @@ class InternalUser extends \Requirements implements UserInterface, UserPropertie
             $tableName      = $config['matching']['table'];
             
             $this->username  = $sessionUserName;
-            $sessionPassword = \Session::select($passwordColumn);
+            $sessionPassword = Session::select($passwordColumn);
             
-            $r[$tbl] = \DB::where($usernameColumn.' = ', $this->username, 'and')
-                          ->where($passwordColumn.' = ', $sessionPassword)
-                          ->get($tableName)
-                          ->row();
+            $r[$tbl] = DB::where($usernameColumn.' = ', $this->username, 'and')
+                         ->where($passwordColumn.' = ', $sessionPassword)
+                         ->get($tableName)
+                         ->row();
     
             if( ! empty($joinTables) )
             {
-                $joinCol = \DB::where($usernameColumn.' = ', $this->username, 'and')
-                              ->where($passwordColumn.' = ', $sessionPassword)
-                              ->get($tableName)
-                              ->row()
-                              ->$joinColumn;
+                $joinCol = DB::where($usernameColumn.' = ', $this->username, 'and')
+                             ->where($passwordColumn.' = ', $sessionPassword)
+                             ->get($tableName)
+                             ->row()
+                             ->$joinColumn;
             
                 foreach( $joinTables as $table => $joinColumn ) 
                 {
-                    $r[$table] = \DB::where($joinColumn.' =', $joinCol)
-                                    ->get($table)
-                                    ->row();
+                    $r[$table] = DB::where($joinColumn.' =', $joinCol)
+                                   ->get($table)
+                                   ->row();
                 }
             }
             
@@ -792,9 +794,9 @@ class InternalUser extends \Requirements implements UserInterface, UserPropertie
         
         if( ! empty($activeColumn) )
         {
-            $totalRows = \DB::where($activeColumn.' =', 1)
-                            ->get($tableName)
-                            ->totalRows();
+            $totalRows = DB::where($activeColumn.' =', 1)
+                           ->get($tableName)
+                           ->totalRows();
             
             if( ! empty($totalRows) )
             {
@@ -824,9 +826,9 @@ class InternalUser extends \Requirements implements UserInterface, UserPropertie
         
         if( ! empty($bannedColumn) )
         {   
-            $totalRows = \DB::where($bannedColumn.' =', 1)
-                            ->get($tableName)
-                            ->totalRows();
+            $totalRows = DB::where($bannedColumn.' =', 1)
+                           ->get($tableName)
+                           ->totalRows();
             
             if( ! empty($totalRows) )
             {
@@ -853,7 +855,7 @@ class InternalUser extends \Requirements implements UserInterface, UserPropertie
     {
         $tableName = $this->config['matching']['table'];
         
-        $totalRows = \DB::get($tableName)->totalRows();
+        $totalRows = DB::get($tableName)->totalRows();
         
         if( ! empty($totalRows) )
         {

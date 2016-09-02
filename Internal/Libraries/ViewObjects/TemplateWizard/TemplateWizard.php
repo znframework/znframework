@@ -1,6 +1,8 @@
 <?php namespace ZN\ViewObjects;
 
-class TemplateWizard extends \CallController implements TemplateWizardInterface
+use Errors, Exceptions, CallController;
+
+class TemplateWizard extends CallController implements TemplateWizardInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -83,9 +85,9 @@ class TemplateWizard extends \CallController implements TemplateWizardInterface
         $content = ob_get_contents(); 
         ob_end_clean(); 
         
-        if( $lastError = \Errors::last() )
+        if( $lastError = Errors::last() )
         {
-            return \Exceptions::table('', $lastError['message'], '', $lastError['line']);
+            return Exceptions::table('', $lastError['message'], '', $lastError['line']);
         }
         else
         {

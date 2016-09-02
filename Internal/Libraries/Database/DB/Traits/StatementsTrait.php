@@ -176,4 +176,35 @@ trait StatementsTrait
         
         return $this->db->statements('default', $default, $type);
     }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Like
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param variadic $args
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function like(String $value, String $type = 'starting') : String
+    {
+        $operator = $this->db->operator(__FUNCTION__);
+        
+        if( $type === "inside" ) 
+        {
+            $value = $operator.$value.$operator;
+        }
+        
+        // İle Başlayan
+        if( $type === "starting" ) 
+        {
+            $value = $value.$operator;
+        }
+        
+        // İle Biten
+        if( $type === "ending" ) 
+        {
+            $value = $operator.$value;
+        }
+        
+        return $value;
+    }
 }

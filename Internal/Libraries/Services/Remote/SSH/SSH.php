@@ -1,6 +1,8 @@
 <?php namespace ZN\Services\Remote;
 
-class InternalSSH extends \Requirements implements SSHInterface
+use Support, Exceptions, Requirements;
+
+class InternalSSH extends Requirements implements SSHInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -56,7 +58,7 @@ class InternalSSH extends \Requirements implements SSHInterface
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
-        \Support::func('ssh2_connect', 'SSH(Secure Shell)');
+        Support::func('ssh2_connect', 'SSH(Secure Shell)');
 
         $this->config = config('Services', 'ssh');
 
@@ -108,7 +110,7 @@ class InternalSSH extends \Requirements implements SSHInterface
         
         if( empty($this->connect) ) 
         {
-            return \Exceptions::throws('Error', 'emptyVariable', '@this->connect');
+            return Exceptions::throws('Error', 'emptyVariable', '@this->connect');
         }
         
         if( ! empty($user) )
@@ -118,7 +120,7 @@ class InternalSSH extends \Requirements implements SSHInterface
         
         if( empty($this->login) )
         {
-            return \Exceptions::throws('Error', 'emptyVariable', '@this->login');
+            return Exceptions::throws('Error', 'emptyVariable', '@this->login');
         }
         
         return $this;
@@ -225,7 +227,7 @@ class InternalSSH extends \Requirements implements SSHInterface
         }
         else
         {
-            return \Exceptions::throws('FileSystem', 'file:remoteUploadError', $localPath); 
+            return Exceptions::throws('FileSystem', 'file:remoteUploadError', $localPath); 
         }
     }
     
@@ -245,7 +247,7 @@ class InternalSSH extends \Requirements implements SSHInterface
         }
         else
         {
-            return \Exceptions::throws('FileSystem', 'file:remoteDownloadError', $localPath);
+            return Exceptions::throws('FileSystem', 'file:remoteDownloadError', $localPath);
         }
     }
     
@@ -264,7 +266,7 @@ class InternalSSH extends \Requirements implements SSHInterface
         }
         else
         {
-            return \Exceptions::throws('FileSystem', 'folder:alreadyFileError', $path);
+            return Exceptions::throws('FileSystem', 'folder:alreadyFileError', $path);
         }
     }
     
@@ -283,7 +285,7 @@ class InternalSSH extends \Requirements implements SSHInterface
         }
         else
         {
-            return \Exceptions::throws('FileSystem', 'folder:notFoundError', $path);    
+            return Exceptions::throws('FileSystem', 'folder:notFoundError', $path);    
         }
     
     }
@@ -304,7 +306,7 @@ class InternalSSH extends \Requirements implements SSHInterface
         }
         else
         {
-            return \Exceptions::throws('FileSystem', 'folder:changeFolderNameError', $oldName); 
+            return Exceptions::throws('FileSystem', 'folder:changeFolderNameError', $oldName); 
         }
     }
     
@@ -323,7 +325,7 @@ class InternalSSH extends \Requirements implements SSHInterface
         }
         else
         {
-            return \Exceptions::throws('FileSystem', 'file:notFoundError', $path);  
+            return Exceptions::throws('FileSystem', 'file:notFoundError', $path);  
         }
     }
     
@@ -343,7 +345,7 @@ class InternalSSH extends \Requirements implements SSHInterface
         }
         else
         { 
-            return \Exceptions::throws('Error', 'emptyVariable', '@this->connect'); 
+            return Exceptions::throws('Error', 'emptyVariable', '@this->connect'); 
         }
     }
     

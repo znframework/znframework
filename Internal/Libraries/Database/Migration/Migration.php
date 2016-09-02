@@ -88,7 +88,7 @@ class InternalMigration extends \CallController implements MigrationInterface
         
         $this->_create();
         
-        $this->classFix   = STATIC_ACCESS.'Migrate';
+        $this->classFix   = INTERNAL_ACCESS.'Migrate';
         $this->extendsFix = __CLASS__;
     }
     
@@ -252,7 +252,7 @@ class InternalMigration extends \CallController implements MigrationInterface
         {
             $dir  = $this->path.$name.$this->versionDir;
             
-            if( ! is_dir($dir) )
+            if( ! \Folder::exists($dir) )
             {
                 \Folder::create($dir);
             }
@@ -265,7 +265,7 @@ class InternalMigration extends \CallController implements MigrationInterface
             $file = $this->path.suffix($name, '.php');
         }
         
-        if( ! is_file($file) )
+        if( ! \File::exists($file) )
         {   
             $eol  = EOL;
             $str  = '<?php'.$eol;

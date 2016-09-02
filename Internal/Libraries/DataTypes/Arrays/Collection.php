@@ -1,5 +1,7 @@
 <?php namespace ZN\DataTypes;
 
+use Arrays;
+
 class InternalCollection implements CollectionInterface
 {
     //--------------------------------------------------------------------------------------------------------
@@ -21,7 +23,7 @@ class InternalCollection implements CollectionInterface
     //--------------------------------------------------------------------------------------------------------
     public function __call($method, $parameters)
     {
-        $this->data = \Arrays::$method($this->data, ...$parameters);
+        $this->data = Arrays::$method($this->data, ...$parameters);
 
         return $this;
     }

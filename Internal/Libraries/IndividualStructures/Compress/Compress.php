@@ -1,6 +1,8 @@
 <?php namespace ZN\IndividualStructures;
 
-class InternalCompress extends \Requirements implements CompressInterface
+use Support, Exceptions, Requirements;
+
+class InternalCompress extends Requirements implements CompressInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -53,7 +55,7 @@ class InternalCompress extends \Requirements implements CompressInterface
 
         nullCoalesce($driver, $this->config['driver']);
         
-        \Support::driver($this->drivers, $driver);
+        Support::driver($this->drivers, $driver);
 
         $this->compress = $this->_drvlib($driver);
     }
@@ -71,7 +73,7 @@ class InternalCompress extends \Requirements implements CompressInterface
     {
         if( ! is_file($source) )
         {
-            return \Exceptions::throws('Error', 'fileParameter', '1.(source)');
+            return Exceptions::throws('Error', 'fileParameter', '1.(source)');
         }
 
         return $this->compress->extract($source, $target, $password);
@@ -83,17 +85,16 @@ class InternalCompress extends \Requirements implements CompressInterface
     //
     // @param string $file
     // @param string $data
-    // @param string $mode
     //
     //--------------------------------------------------------------------------------------------------------
-    public function write(String $file, String $data, String $mode = 'w') : Bool
+    public function write(String $file, String $data) : Bool
     {
         if( ! is_scalar($data) )
         {
-            return \Exceptions::throws('Error', 'valueParameter', '2.(data)');  
+            return Exceptions::throws('Error', 'valueParameter', '2.(data)');  
         }
 
-        return $this->compress->write($file, $data, $mode);
+        return $this->compress->write($file, $data);
     }
     
     //--------------------------------------------------------------------------------------------------------
@@ -101,94 +102,35 @@ class InternalCompress extends \Requirements implements CompressInterface
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string  $file
-    // @param numeric $length
-    // @param string  $type
     //
     //--------------------------------------------------------------------------------------------------------
-    public function read(String $file, Int $length = 1024, String $mode = 'r') : String
+    public function read(String $file) : String
     {
-        return $this->compress->read($file, $length, $mode);
+        return $this->compress->read($file);
     }
     
     //--------------------------------------------------------------------------------------------------------
-    // Compress
+    // Do
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string  $data
-    // @param int     $level
-    // @param string  $encoding
     //
     //--------------------------------------------------------------------------------------------------------
-    public function compress(String $data, Int $level = -1, String $encoding = NULL) : String
+    public function do(String $data) : String
     {
-        return $this->compress->compress($data, $level, $encoding);
+        return $this->compress->do($data);
     }
     
     //--------------------------------------------------------------------------------------------------------
-    // Uncompress
+    // Undo
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string  $data
-    // @param numeric $small
     //
     //--------------------------------------------------------------------------------------------------------
-    public function uncompress(String $data, Int $length = 0) : String
+    public function undo(String $data) : String
     {
-        return $this->compress->uncompress($data, $length);
-    }
-    
-    //--------------------------------------------------------------------------------------------------------
-    // Encode
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string  $data
-    // @param int     $level
-    // @param string  $encoding
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function encode(String $data, Int $level = -1, String $encoding = NULL) : String
-    {
-        return $this->compress->encode($data, $level, $encoding);
-    }
-    
-    //--------------------------------------------------------------------------------------------------------
-    // Decode
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string  $data
-    // @param numeric $length
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function decode(String $data, Int $length = NULL) : String 
-    {
-        return $this->compress->decode($data, $length);
-    }
-    
-    //--------------------------------------------------------------------------------------------------------
-    // Deflate
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string  $data
-    // @param numeric $level
-    // @param string  $encoding
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function deflate(String $data, Int $level = -1, String $encoding = NULL) : String
-    {
-        return $this->compress->deflate($data, $level, $encoding);
-    }
-    
-    //--------------------------------------------------------------------------------------------------------
-    // Inflate
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string  $data
-    // @param numeric $length
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function inflate(String $data, Int $length = 0) : String
-    {
-        return $this->compress->inflate($data, $length);
+        return $this->compress->undo($data);
     }
     
     //--------------------------------------------------------------------------------------------------------

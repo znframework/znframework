@@ -147,12 +147,11 @@
         // Genel Kullanım: Pconnect bağlantısı destekleyen sürücüler için kullanılan ayardır.     
         // Varsayılan:false                                                                           
         //                                                                                        
-        // Using Databases                                                                                                                                       
-        // 1-MySQL                                                                                      
-        // 2-Oracle                                                                                   
-        // 3-ODBC                                                                                       
-        // 4-Postgres                                                                                    
-        // 5-SQLITE                                                                                 
+        // Using Databases                                                                                                                                                                                                                           
+        // 1-Oracle                                                                                   
+        // 2-ODBC                                                                                       
+        // 3-Postgres                                                                                    
+        // 4-SQLITE                                                                                 
         //                                                                            
         //----------------------------------------------------------------------------------------------
         'pconnect' => false,
@@ -197,10 +196,9 @@
         // Genel Kullanım: Karakter grubu bilgisi kullanabilen sürücüler için kullanılan ayardır.  
         // Varsayılan:utf8_general_ci                                                             
         //                                                                                        
-        // Using Databases                                                       
-        // 1-MySQL                                                                                      
-        // 2-MySQLi                                                                                   
-        // 1-PDO -> MySQL
+        // Using Databases                                                                                                                                           
+        // 1-MySQLi                                                                                   
+        // 2-PDO -> MySQL
         //                                                                              
         //----------------------------------------------------------------------------------------------
         'collation' => 'utf8_general_ci',

@@ -10,17 +10,6 @@ interface RounderInterface
     // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
-    
-    //--------------------------------------------------------------------------------------------------------
-    // Data
-    //--------------------------------------------------------------------------------------------------------
-    // 
-    // @param int    $number
-    // @param int    $count
-    // @param string $type: average, down, up
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function data(String $number, Int $count = 0, String $type = 'average') : Float;
 
     //--------------------------------------------------------------------------------------------------------
     // Up
@@ -30,7 +19,7 @@ interface RounderInterface
     // @param int    $count
     //
     //--------------------------------------------------------------------------------------------------------
-    public function up(String $number, Int $count = 0) : Float;
+    public function up(Float $number, Int $count = 0) : Float;
 
     //--------------------------------------------------------------------------------------------------------
     // Down
@@ -40,7 +29,7 @@ interface RounderInterface
     // @param int    $count
     //
     //--------------------------------------------------------------------------------------------------------
-    public function down(String $number, Int $count = 0) : Float;
+    public function down(Float $number, Int $count = 0) : Float;
 
     //--------------------------------------------------------------------------------------------------------
     // Average
@@ -50,5 +39,5 @@ interface RounderInterface
     // @param int    $count
     //
     //--------------------------------------------------------------------------------------------------------
-    public function average(String $number, Int $count = 0) : Float;
+    public function average(Float $number, Int $count = 0) : Float;
 }

@@ -1,6 +1,8 @@
 <?php namespace ZN\DateTime;
 
-class DateTimeCommon extends \CallController
+use Config, Arrays, CallController;
+
+class DateTimeCommon extends CallController
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -43,7 +45,7 @@ class DateTimeCommon extends \CallController
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
-        $this->config = \Config::get('DateTime');
+        $this->config = Config::get('DateTime');
         
         date_default_timezone_set($this->config['timeZone']);   
         
@@ -141,7 +143,7 @@ class DateTimeCommon extends \CallController
         
         $chars = $this->config[$config];
         
-        $chars = \Arrays::multikey($chars);
+        $chars = Arrays::multikey($chars);
         
         return str_ireplace(array_keys($chars), array_values($chars), $change);
     }
@@ -155,7 +157,7 @@ class DateTimeCommon extends \CallController
     //--------------------------------------------------------------------------------------------------------
     protected function _classname()
     {
-        return $className = str_replace(STATIC_ACCESS, '', get_called_class()); 
+        return $className = str_replace(INTERNAL_ACCESS, '', get_called_class()); 
     }
     
     //--------------------------------------------------------------------------------------------------------

@@ -1,6 +1,8 @@
 <?php namespace ZN\ViewObjects\Bootstrap;
 
-class InternalStyle extends \CallController implements TextCommonInterface
+use Import, CallController;
+
+class InternalStyle extends CallController implements TextCommonInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -43,7 +45,7 @@ class InternalStyle extends \CallController implements TextCommonInterface
     //--------------------------------------------------------------------------------------------------------
     public function library(...$libraries)
     {
-        \Import::style(...$libraries);
+        Import::style(...$libraries);
         
         return $this;
     }

@@ -1,6 +1,8 @@
 <?php namespace ZN\IndividualStructures;
 
-class InternalCache extends \Requirements implements CacheInterface
+use Support, Requirements;
+
+class InternalCache extends Requirements implements CacheInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -52,7 +54,7 @@ class InternalCache extends \Requirements implements CacheInterface
 
         nullCoalesce($driver, $this->config['driver']);
 
-        \Support::driver($this->drivers, $driver);
+        Support::driver($this->drivers, $driver);
 
         $this->cache = $this->_drvlib($driver);
     }
