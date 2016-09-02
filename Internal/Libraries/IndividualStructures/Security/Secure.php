@@ -1,5 +1,7 @@
 <?php namespace ZN\IndividualStructures;
 
+use Security;
+
 class InternalSecure implements SecureInterface
 {
     //--------------------------------------------------------------------------------------------------------
@@ -57,7 +59,7 @@ class InternalSecure implements SecureInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function get()
+    public function get() : String
     {
         $data = $this->data;
 

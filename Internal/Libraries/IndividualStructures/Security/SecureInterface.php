@@ -28,5 +28,5 @@ interface SecureInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function get();
+    public function get() : String;
 }
