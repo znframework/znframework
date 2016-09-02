@@ -1,6 +1,6 @@
 <?php namespace ZN\ViewObjects\View;
 
-use Config, Security, Session, Encode, Method, Validate, CallController;
+use Validator, Config, Security, Session, Encode, Method, CallController;
 
 class InternalValidation extends CallController implements ValidationInterface
 {
@@ -12,7 +12,7 @@ class InternalValidation extends CallController implements ValidationInterface
     // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Errors
     //--------------------------------------------------------------------------------------------------------
@@ -21,7 +21,7 @@ class InternalValidation extends CallController implements ValidationInterface
     //
     //--------------------------------------------------------------------------------------------------------
     protected $errors   = [];
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Error
     //--------------------------------------------------------------------------------------------------------
@@ -30,7 +30,7 @@ class InternalValidation extends CallController implements ValidationInterface
     //
     //--------------------------------------------------------------------------------------------------------
     protected $error    = [];
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Nval
     //--------------------------------------------------------------------------------------------------------
@@ -39,7 +39,7 @@ class InternalValidation extends CallController implements ValidationInterface
     //
     //--------------------------------------------------------------------------------------------------------
     protected $nval     = [];
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Messages
     //--------------------------------------------------------------------------------------------------------
@@ -48,7 +48,7 @@ class InternalValidation extends CallController implements ValidationInterface
     //
     //--------------------------------------------------------------------------------------------------------
     protected $messages = [];
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Index
     //--------------------------------------------------------------------------------------------------------
@@ -57,16 +57,16 @@ class InternalValidation extends CallController implements ValidationInterface
     //
     //--------------------------------------------------------------------------------------------------------
     protected $index = 0;
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Validation Properties Trait
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @methdos
     //
     //--------------------------------------------------------------------------------------------------------
     use ValidationPropertiesTrait;
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Rules
     //--------------------------------------------------------------------------------------------------------
@@ -83,263 +83,262 @@ class InternalValidation extends CallController implements ValidationInterface
         {
             $met = $this->settings['method'];
         }
-        
+
         if( ! empty($this->settings['value']) )
         {
             $viewName = $this->settings['value'];
         }
-        
+
         if( ! empty($this->settings['config']) )
         {
             $config = array_merge($config, $this->settings['config']);
         }
-        
+
         if( ! empty($this->settings['validate']) )
         {
             $config = array_merge($config, $this->settings['validate']);
         }
-        
+
         if( ! empty($this->settings['secure']) )
         {
             $config = array_merge($config, $this->settings['secure']);
         }
-        
+
         if( ! empty($this->settings['pattern']) )
         {
             $config = array_merge($config, $this->settings['pattern']);
         }
-        
+
         $this->settings = [];
 
         // sistemte validation için oluşturulmuş dil dosyası yükleniyor.
 
-        $viewName = ( empty($viewName) ) 
-                    ? $name 
+        $viewName = ( empty($viewName) )
+                    ? $name
                     : $viewName;
 
         $edit = $this->_methodType($name, $met);
-        
-        if( ! isset($edit) ) 
+
+        if( ! isset($edit) )
         {
-            return false;   
+            return false;
         }
-        
+
         // kenar boşluklarını kaldırır.
-        if( in_array('trim',$config) ) 
+        if( in_array('trim',$config) )
         {
-            $edit = trim($edit);        
+            $edit = trim($edit);
         }
-        
+
         // nc_clean çirkin kodların kullanılmasını engellemek için kullanılır.
         if( in_array('nc', $config) )
         {
             $secnc = Config::get('IndividualStructures', 'security')['ncEncode'];
             $edit  = Security::ncEncode($edit, $secnc['badChars'], $secnc['changeBadChars']);
-        }   
-        
-        // xss_clean genel de xss ataklarını engellemek için kullanılır.
-        if( in_array('html' ,$config) )
-        {
-            $edit = Security::htmlEncode($edit);       
         }
-        
+
+        // xss_clean genel de xss ataklarını engellemek için kullanılır.
+        if( in_array('html', $config) )
+        {
+            $edit = Security::htmlEncode($edit);
+        }
+
         // nail_clean tırnak işaretlerini temizlemek için kullanılır.
         if( in_array('xss', $config) )
         {
-            $edit = Security::xssEncode($edit);    
+            $edit = Security::xssEncode($edit);
         }
-        
+
         // tırnak işaretleri ve injection saldırılarını engellemek için kullanılır.
         if( in_array('injection', $config) )
         {
             $edit = Security::injectionEncode($edit);
         }
-        
+
         // Script tag kullanımı engellemek için kullanılır.
-        if( in_array('script' ,$config) )
+        if( in_array('script', $config) )
         {
-            $edit = Security::scriptTagEncode($edit);      
+            $edit = Security::scriptTagEncode($edit);
         }
-        
+
         // PHP tag kullanımı engellemek için kullanılır.
-        if( in_array('php' ,$config) )
+        if( in_array('php', $config) )
         {
-            $edit = Security::phpTagEncode($edit);     
+            $edit = Security::phpTagEncode($edit);
         }
-        
+
         // Süzgeç sonrası validation::nval() yönteminin yeni değeri
         $this->nval[$name] = $edit;
-        
+
         // Süzgeç sonrası yeni değer
         $this->_methodNval($name, $edit, $met);
-        
+
         // required boş geçilemez yapar.
         if( in_array('required', $config) )
-        { 
+        {
             if( empty($edit) )
-            {   
-                $this->_messages('required', $name, $viewName); 
-            } 
+            {
+                $this->_messages('required', $name, $viewName);
+            }
         }
-        
-        // security_code güvenlik kodunun uygulanması için kullanılır, bu saydece güvenlik kodu ile 
+
+        // security_code güvenlik kodunun uygulanması için kullanılır, bu saydece güvenlik kodu ile
         // bu kural eşleşirse işleve devam edilecektir.
-        
         if( in_array('captcha', $config) )
-        { 
+        {
             Session::start();
-            
+
             if( $edit != Session::select(md5('SystemCaptchaCodeData')) )
-            { 
-                $this->_messages('captchaCode', $name, $viewName);  
-            } 
+            {
+                $this->_messages('captchaCode', $name, $viewName);
+            }
         }
-        
+
         // register işlemlerinde iki şifre kutusunun eşleştirilmesi için kullanılmaktadır.
         if( isset($config['matchPassword']) )
-        { 
+        {
             $pm = $this->_methodType($config['matchPassword'], $met);
-            
+
             if( $edit != $pm )
-            { 
+            {
                 $this->_messages('passwordMatch', $name, $viewName);
-            } 
+            }
         }
-        
+
         if( isset($config['match']) )
-        { 
+        {
             $pm = $this->_methodType($config['match'], $met);
-            
+
             if( $edit != $pm )
-            { 
+            {
                 $this->_messages('dataMatch', $name, $viewName);
-            } 
+            }
         }
-        
+
         if( isset($config['oldPassword']) )
-        { 
+        {
             $pm = "";
             $pm = $config['oldPassword'];
-    
+
             if( Encode::super($edit) != $pm )
-            { 
+            {
                 $this->_messages('oldPasswordMatch', $name, $viewName);
-            } 
+            }
         }
-        
+
         // numeric form aracının sayısal değer olması gerektiğini belirtir.
         if( in_array('numeric', $config) )
-        { 
-            if( ! Validate::numeric($edit) )
-            { 
+        {
+            if( ! Validator::numeric($edit) )
+            {
                 $this->_messages('numeric', $name, $viewName);
-            } 
+            }
         }
-        
+
         // verinin telefon bilgisi olup olmadığı kontrol edilir.
         if( in_array('phone', $config) )
-        { 
-            if( ! Validate::phone($edit) )
-            { 
+        {
+            if( ! Validator::phone($edit) )
+            {
                 $this->_messages('phone', $name, $viewName);
-            } 
+            }
         }
         // verinin belirtilen desende telefon bilgisi olup olmadığı kontrol edilir.
         if( isset($config['phone']) )
-        { 
-            $phoneData = preg_replace('/([^\*])/', 'key:$1', $config['phone']);         
+        {
+            $phoneData = preg_replace('/([^\*])/', 'key:$1', $config['phone']);
             $phoneData = '/'.str_replace(['*', 'key:'], ['[0-9]', '\\'], $phoneData).'/';
 
             if( ! preg_match($phoneData, $edit) )
-            { 
+            {
                 $this->_messages('phone', $name, $viewName);
-            } 
+            }
         }
-        
+
         // verinin alfabetik karakter bilgisi olup olmadığı kontrol edilir.
         if( in_array('alpha', $config) )
-        { 
-            if( ! Validate::alpha($edit) )
-            { 
+        {
+            if( ! Validator::alpha($edit) )
+            {
                 $this->_messages('alpha', $name, $viewName);
-            } 
+            }
         }
-        
+
         // verinin alfabetik ve sayısal veri olup olmadığı kontrol edilir.
         if( in_array('alnum', $config) )
-        { 
-            if( ! Validate::alnum($edit) )
-            { 
+        {
+            if( ! Validator::alnum($edit) )
+            {
                 $this->_messages('alnum', $name, $viewName);
-            } 
+            }
         }
-        
+
         // email form aracının email olması gerektiğini belirtir.
         if( in_array('email', $config) )
-        { 
-            if( ! Validate::email($edit) )
-            { 
+        {
+            if( ! Validator::email($edit) )
+            {
                 $this->_messages('email', $name, $viewName);
-            } 
+            }
         }
-        
+
         if( in_array('url' ,$config) )
-        { 
-            if( ! Validate::url($edit) )
-            { 
+        {
+            if( ! Validator::url($edit) )
+            {
                 $this->_messages('url', $name, $viewName);
-            } 
+            }
         }
-        
+
         if( in_array('identity', $config) )
-        { 
-            if( ! Validate::identity($edit) )
-            { 
+        {
+            if( ! Validator::identity($edit) )
+            {
                 $this->_messages('identity', $name, $viewName);
-            } 
+            }
         }
-        
+
         // no special char, özel karakterlerin kullanımını engeller.
         if( in_array('specialChar', $config) )
         {
-            if( Validate::specialChar($edit) )
-            { 
+            if( Validator::specialChar($edit) )
+            {
                 $this->_messages('noSpecialChar', $name, $viewName);
-            } 
+            }
         }
-        
-        // maxchar form aracının maximum alacağı karakter sayısını belirtir.    
+
+        // maxchar form aracının maximum alacağı karakter sayısını belirtir.
         if( isset($config['maxchar']) )
-        { 
-            if( ! Validate::maxchar($edit, $config['maxchar']) )
-            { 
+        {
+            if( ! Validator::maxchar($edit, $config['maxchar']) )
+            {
                 $this->_messages('maxchar', $name, ["%" => $viewName, "#" => $config['maxchar']]);
-            } 
+            }
         }
-        
+
         // minchar from aracının minimum alacağı karakter sayısını belirtir.
         if( isset($config['minchar']) )
-        {   
-            if( ! Validate::minchar($edit, $config['minchar']) )
-            { 
+        {
+            if( ! Validator::minchar($edit, $config['minchar']) )
+            {
                 $this->_messages('minchar', $name, ["%" => $viewName, "#" => $config['minchar']]);
-            } 
+            }
         }
-        
+
         if( isset($config['pattern']) )
-        { 
+        {
             if( ! preg_match($config['pattern'], $edit) )
-            { 
+            {
                 $this->_messages('pattern', $name, $viewName);
-            } 
+            }
         }
-        
+
         // kurala uymayan seçenekler varsa hata mesajı dizisine eklenir.
-        array_push($this->errors, $this->messages); 
-        
+        array_push($this->errors, $this->messages);
+
         $this->_defaultVariables();
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Nval
     //--------------------------------------------------------------------------------------------------------
@@ -350,7 +349,7 @@ class InternalValidation extends CallController implements ValidationInterface
     public function nval(String $name)
     {
         if( isset($this->nval[$name]) )
-        { 
+        {
             return $this->nval[$name];
         }
         else
@@ -358,7 +357,7 @@ class InternalValidation extends CallController implements ValidationInterface
             return false;
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Error
     //--------------------------------------------------------------------------------------------------------
@@ -374,7 +373,7 @@ class InternalValidation extends CallController implements ValidationInterface
             {
                 $result = '';
                 $resultArray = [];
-                
+
                 foreach( $this->errors as $key => $value )
                 {
                     if( is_array($value) )foreach($value as $k => $val)
@@ -383,35 +382,35 @@ class InternalValidation extends CallController implements ValidationInterface
                         $resultArray[] = str_replace("<br>", '', $val);
                     }
                 }
-                
-                if( $name === "string" || $name === "echo" ) 
+
+                if( $name === "string" || $name === "echo" )
                 {
                     return $result;
                 }
-                
-                if( $name === "array") 
+
+                if( $name === "array")
                 {
                     return $resultArray;
                 }
             }
-            else 
+            else
             {
                 return false;
             }
         }
         else
         {
-            if( isset($this->error[$name]) ) 
+            if( isset($this->error[$name]) )
             {
-                return $this->error[$name]; 
+                return $this->error[$name];
             }
-            else 
+            else
             {
                 return false;
             }
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Error
     //--------------------------------------------------------------------------------------------------------
@@ -423,15 +422,15 @@ class InternalValidation extends CallController implements ValidationInterface
     public function postBack(String $name, String $met = 'post')
     {
         $method = $this->_methodType($name, $met);
-        
-        if( ! isset($method) ) 
+
+        if( ! isset($method) )
         {
             return false;
         }
-        
+
         return $method;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Protected Messages
     //--------------------------------------------------------------------------------------------------------
@@ -460,7 +459,7 @@ class InternalValidation extends CallController implements ValidationInterface
         $this->messages = [];
         $this->index    = 0;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Protected Method Type
     //--------------------------------------------------------------------------------------------------------
@@ -471,22 +470,22 @@ class InternalValidation extends CallController implements ValidationInterface
     //--------------------------------------------------------------------------------------------------------
     protected function _methodType($name, $met)
     {
-        if( $met === "post" )       
+        if( $met === "post" )
         {
             return Method::post($name);
         }
-        
-        if( $met === "get" )        
+
+        if( $met === "get" )
         {
             return Method::get($name);
         }
-        
-        if( $met === "request" )    
+
+        if( $met === "request" )
         {
             return Method::request($name);
-        }   
+        }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Protected Method Nval
     //--------------------------------------------------------------------------------------------------------
@@ -498,19 +497,19 @@ class InternalValidation extends CallController implements ValidationInterface
     //--------------------------------------------------------------------------------------------------------
     protected function _methodNval($name, $val, $met)
     {
-        if( $met === "post" )       
+        if( $met === "post" )
         {
             return Method::post($name, $val);
         }
-        
-        if( $met === "get" )        
+
+        if( $met === "get" )
         {
             return Method::get($name, $val);
         }
-        
-        if( $met === "request" )    
+
+        if( $met === "request" )
         {
             return Method::request($name, $val);
-        }   
+        }
     }
 }

@@ -1,6 +1,6 @@
-<?php namespace ZN\ViewObjects\View;
+<?php namespace ZN\IndividualStructures;
 
-interface ValidationInterface
+class InternalSecure implements SecureInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -12,42 +12,57 @@ interface ValidationInterface
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
-    // Rules
+    // Protected Data
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $name
-    // @param array  $config
-    // @param string $viewName
-    // @param string $met
+    // @var string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function rules(String $name, Array $config = [], String $viewName = NULL, String $met = 'post');
+    protected $data = NULL;
 
     //--------------------------------------------------------------------------------------------------------
-    // Nval
+    // Magic Call
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $name
+    // @param string $method
+    // @param array  $parameters
     //
     //--------------------------------------------------------------------------------------------------------
-    public function nval(String $name);
+    public function __call($method, $parameters)
+    {
+        $this->data = Security::$method($this->data, ...$parameters);
+
+        return $this;
+    }
 
     //--------------------------------------------------------------------------------------------------------
-    // Error
+    // Data
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $name
+    // @param string $data
     //
     //--------------------------------------------------------------------------------------------------------
-    public function error(String $name = 'array');
+    public function data(String $data) : InternalSecure
+    {
+        $this->data = $data;
+
+        return $this;
+    }
 
     //--------------------------------------------------------------------------------------------------------
-    // Error
+    // Get
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $name
-    // @param string $met
+    // @param  void
+    // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function postBack(String $name, String $met = 'post');
+    public function get()
+    {
+        $data = $this->data;
+
+        $this->data = NULL;
+
+        return $data;
+    }
 }
