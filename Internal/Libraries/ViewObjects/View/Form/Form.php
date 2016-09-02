@@ -58,6 +58,8 @@ class InternalForm implements FormInterface, ViewCommonInterface
             $name = $this->settings['attr']['name'];
         }
 
+        $_attributes['name'] = $name;
+
         // Usable 3 Parameter For Enctype
         // 1. multipart     => multipart/form-data
         // 2. application   => application/x-www-form-urlencoded
