@@ -34,15 +34,15 @@ trait FunctionsTrait
         'schema' , 'avg'         , 'min'      , 'max'      , 'count'    ,
         'sum'    , 'variance'    ,
         'ifelse'         => 'IF'             ,
-        'charLength'     => 'CHAR_LENGTH'    ,
-        'substringIndex' => 'SUBSTRING_INDEX',
-        'connectionId'   => 'CONNECTION_ID'  ,
-        'currentUser'    => 'CURRENT_USER'   ,
-        'lastInsertId'   => 'LAST_INSERT_ID' ,
-        'systemUser'     => 'SYSTEM_USER'    ,
-        'sessionUser'    => 'SESSION_USER'   ,
-        'rowCount'       => 'ROW_COUNT'      ,
-        'versionInfo'    => 'VERSION'
+        'charlength'     => 'CHAR_LENGTH'    ,
+        'substringindex' => 'SUBSTRING_INDEX',
+        'connectionid'   => 'CONNECTION_ID'  ,
+        'currentuser'    => 'CURRENT_USER'   ,
+        'lastinsertid'   => 'LAST_INSERT_ID' ,
+        'systemuser'     => 'SYSTEM_USER'    ,
+        'sessionuser'    => 'SESSION_USER'   ,
+        'rowcount'       => 'ROW_COUNT'      ,
+        'versioninfo'    => 'VERSION'
     ];
 
     //--------------------------------------------------------------------------------------------------------
