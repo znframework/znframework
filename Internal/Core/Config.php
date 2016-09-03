@@ -10,7 +10,7 @@ class Config
     // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------
-    
+
     //--------------------------------------------------------------------------------------------------
     // Config Priority
     //--------------------------------------------------------------------------------------------------
@@ -20,7 +20,7 @@ class Config
     // Tertiary : External Config
     //
     //--------------------------------------------------------------------------------------------------
-    
+
     //--------------------------------------------------------------------------------------------------
     // $setConfigs
     //--------------------------------------------------------------------------------------------------
@@ -31,53 +31,57 @@ class Config
     //
     //--------------------------------------------------------------------------------------------------
     private static $setConfigs = [];
-    
+
     //--------------------------------------------------------------------------------------------------
     // $config
     //--------------------------------------------------------------------------------------------------
-    // 
+    //
     // Ayarları tutacak dizi değişken
     //
     // @var array
     //
     //--------------------------------------------------------------------------------------------------
     private static $config = [];
-    
+
     //--------------------------------------------------------------------------------------------------
     // _config()
     //--------------------------------------------------------------------------------------------------
     //
     // @param  string $file
     // @return void
-    // 
+    //
     //--------------------------------------------------------------------------------------------------
     private static function _config($file)
     {
-        global $config;
-        
-        $path = INTERNAL_CONFIG_DIR.suffix($file,".php");
-        
-        if( ! is_file($path) ) 
+        if( empty(self::$config[$file]) )
         {
-            $path = CONFIG_DIR.suffix($file,".php");
-            
-            if( ! is_file($path) ) 
+            global $config;
+
+            $externalPath = EXTERNAL_CONFIG_DIR.suffix($file,".php");
+            $projectPath  = CONFIG_DIR.suffix($file,".php");
+            $internalPath = INTERNAL_CONFIG_DIR.suffix($file,".php");
+
+            $allConfig    = [];
+
+            if( is_file($externalPath) )
             {
-                $path = EXTERNAL_CONFIG_DIR.suffix($file,".php");
-                
-                if( ! is_file($path) ) 
-                {
-                    return false;
-                }
+                $allConfig = array_merge($allConfig, (array) require_once($externalPath));
             }
-        }
-        
-        if( ! isImport($path) ) 
-        {
-            self::$config[$file] = require_once $path;
+
+            if( is_file($projectPath) )
+            {
+                $allConfig = array_merge($allConfig, (array) require_once($projectPath));
+            }
+
+            if( is_file($internalPath) )
+            {
+                $allConfig = array_merge($allConfig, (array) require_once($internalPath));
+            }
+
+            self::$config[$file] = $allConfig;
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------
     // get()
     //--------------------------------------------------------------------------------------------------
@@ -85,12 +89,12 @@ class Config
     // @param  string $file
     // @param  string $configs
     // @return array
-    // 
+    //
     //--------------------------------------------------------------------------------------------------
     public static function get(String $file, String $configs = NULL)
-    {   
+    {
         self::_config($file);
-        
+
         if( isset(self::$setConfigs[$file]) )
         {
             if( ! empty(self::$setConfigs[$file]) ) foreach( self::$setConfigs[$file] as $k => $v )
@@ -105,28 +109,28 @@ class Config
                 }
             }
         }
-        
-        if( empty($configs) )  
+
+        if( empty($configs) )
         {
-            if( isset(self::$config[$file]) ) 
+            if( isset(self::$config[$file]) )
             {
-                return self::$config[$file]; 
+                return self::$config[$file];
             }
-            else 
+            else
             {
                 return false;
             }
         }
-        if( isset(self::$config[$file][$configs]) ) 
+        if( isset(self::$config[$file][$configs]) )
         {
-            return self::$config[$file][$configs]; 
+            return self::$config[$file][$configs];
         }
-        else 
+        else
         {
             return false;
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------
     // set()
     //--------------------------------------------------------------------------------------------------
@@ -134,17 +138,17 @@ class Config
     // @param  string $file
     // @param  string $configs
     // @return array
-    // 
+    //
     //--------------------------------------------------------------------------------------------------
     public static function set(String $file, $configs, $set = NULL)
     {
-        if( empty($configs) ) 
+        if( empty($configs) )
         {
             return false;
         }
-        
+
         self::_config($file);
-        
+
         if( ! is_array($configs) )
         {
             self::$setConfigs[$file][$configs] = $set;
@@ -154,12 +158,12 @@ class Config
             foreach( $configs as $k => $v )
             {
                 self::$setConfigs[$file][$k] = $v;
-            }   
+            }
         }
-        
+
         return self::$setConfigs;
     }
-    
+
     //--------------------------------------------------------------------------------------------------
     // iniSet()
     //--------------------------------------------------------------------------------------------------
@@ -167,23 +171,23 @@ class Config
     // @param  mixed  $key
     // @param  string $val
     // @return void
-    // 
+    //
     //--------------------------------------------------------------------------------------------------
     public static function iniSet($key, $val = NULL)
     {
-        if( empty($key) ) 
+        if( empty($key) )
         {
             return false;
         }
-        
+
         if( ! is_array($key) )
-        {   
+        {
             if( is_array($val) )
             {
                 return false;
             }
-            
-            if( $val !== '' ) 
+
+            if( $val !== '' )
             {
                 ini_set($key, $val);
             }
@@ -192,41 +196,41 @@ class Config
         {
             foreach( $key as $k => $v )
             {
-                if( $v !== '' ) 
+                if( $v !== '' )
                 {
-                    ini_set($k, $v);            
+                    ini_set($k, $v);
                 }
             }
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------
     // iniGet()
     //--------------------------------------------------------------------------------------------------
     //
     // @param  mixed  $key
     // @return mixed
-    // 
+    //
     //--------------------------------------------------------------------------------------------------
     public static function iniGet($key)
     {
         if( ! is_array($key) )
-        {   
+        {
             return ini_get($key);
         }
         else
         {
             $keys = [];
-            
+
             foreach( $key as $k )
             {
-                $keys[$k] = ini_get($k);    
+                $keys[$k] = ini_get($k);
             }
-            
+
             return $keys;
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------
     // iniGetAll()
     //--------------------------------------------------------------------------------------------------
@@ -234,31 +238,31 @@ class Config
     // @param  string $key
     // @param  bool   $details
     // @return array
-    // 
+    //
     //--------------------------------------------------------------------------------------------------
     public static function iniGetAll(String $extension = NULL, Bool $details = true)
     {
-        if( empty($extension) ) 
+        if( empty($extension) )
         {
-            return ini_get_all();   
+            return ini_get_all();
         }
         else
         {
-            return ini_get_all($extension, $details);   
+            return ini_get_all($extension, $details);
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------
     // iniRestore()
     //--------------------------------------------------------------------------------------------------
     //
     // @param  string $str
     // @return bool
-    // 
+    //
     //--------------------------------------------------------------------------------------------------
     public static function iniRestore(String $str)
     {
-        return ini_restore($str);   
+        return ini_restore($str);
     }
 }
 

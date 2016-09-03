@@ -1,4 +1,4 @@
-<?php 
+<?php
 //--------------------------------------------------------------------------------------------------
 // Functions
 //--------------------------------------------------------------------------------------------------
@@ -13,7 +13,7 @@
 //--------------------------------------------------------------------------------------------------
 // Illustrate
 //--------------------------------------------------------------------------------------------------
-// 
+//
 // @param string $const
 //
 // @return scalar
@@ -27,12 +27,12 @@ function illustrate(String $const)
     }
 
     return false;
-} 
+}
 
 //--------------------------------------------------------------------------------------------------
 // Configs
 //--------------------------------------------------------------------------------------------------
-// 
+//
 // @param array variadic $configs
 //
 // @return mixed
@@ -55,12 +55,12 @@ function configs(...$configs) : Array
     }
 
     return $allConfig;
-} 
+}
 
 //--------------------------------------------------------------------------------------------------
 // Config
 //--------------------------------------------------------------------------------------------------
-// 
+//
 // @param string $file
 // @param string $value
 // @param mixed  $newValue
@@ -93,12 +93,12 @@ function config(String $file, String $value = NULL, $newValue = NULL)
 
         return $config;
     }
-} 
+}
 
 //--------------------------------------------------------------------------------------------------
 // Gconfig
 //--------------------------------------------------------------------------------------------------
-// 
+//
 // @param string $value
 //
 // @return mixed
@@ -122,7 +122,7 @@ function gconfig(String $value = NULL)
         foreach( $configs as $file )
         {
             $file    = removeExtension($file);
-            $gconfig = array_merge($gconfig, (array) Config::get($file)); 
+            $gconfig = array_merge($gconfig, (array) Config::get($file));
         }
     }
 
@@ -138,12 +138,12 @@ function gconfig(String $value = NULL)
     {
         return false;
     }
-} 
+}
 
 //--------------------------------------------------------------------------------------------------
 // Symbol
 //--------------------------------------------------------------------------------------------------
-// 
+//
 // @param string $symbolName
 //
 // @return string
@@ -152,16 +152,16 @@ function gconfig(String $value = NULL)
 function symbol(String $symbolName = 'turkishLira') : String
 {
     $symbol = Config::get('Symbols', $symbolName);
-    
+
     if( ! empty($symbol) )
-    { 
-        return $symbol; 
+    {
+        return $symbol;
     }
     else
-    { 
+    {
         return false;
     }
-}   
+}
 
 //--------------------------------------------------------------------------------------------------
 // getLang()
@@ -170,38 +170,38 @@ function symbol(String $symbolName = 'turkishLira') : String
 // @param void
 //
 // @return string
-//                                                                                            
+//
 //--------------------------------------------------------------------------------------------------
 function getLang() : String
 {
     $systemLanguageData        = md5("SystemLanguageData");
     $defaultSystemLanguageData = md5("DefaultSystemLanguageData");
-    
+
     $default = Config::get('Language', 'default');
-    
+
     if( ! Session::select($defaultSystemLanguageData) )
     {
         Session::insert($defaultSystemLanguageData, $default);
     }
     else
     {
-        if( Session::select($defaultSystemLanguageData) !== $default )  
+        if( Session::select($defaultSystemLanguageData) !== $default )
         {
             Session::insert($defaultSystemLanguageData, $default);
             Session::insert($systemLanguageData, $default);
-            
+
             return $default;
         }
     }
-    
-    if( Session::select($systemLanguageData) === false ) 
+
+    if( Session::select($systemLanguageData) === false )
     {
         Session::insert($systemLanguageData, $default);
-        
-        return $default; 
+
+        return $default;
     }
     else
-    { 
+    {
         return Session::select($systemLanguageData);
     }
 }
@@ -213,15 +213,15 @@ function getLang() : String
 // @param string $l
 //
 // @return bool
-//                                                                                            
+//
 //--------------------------------------------------------------------------------------------------
 function setLang(String $l = NULL) : Bool
 {
     if( empty($l) )
     {
-        $l = Config::get('Language', 'default');    
+        $l = Config::get('Language', 'default');
     }
-    
+
     return Session::insert(md5("SystemLanguageData"), $l);
 }
 
@@ -231,10 +231,10 @@ function setLang(String $l = NULL) : Bool
 //
 // @param string $file
 // @param string $str
-// @param mixed  $changed 
+// @param mixed  $changed
 //
-// @return mixed   
-//                                                                                            
+// @return mixed
+//
 //--------------------------------------------------------------------------------------------------
 function lang(String $file, String $str = NULL, $changed = NULL)
 {
@@ -244,33 +244,33 @@ function lang(String $file, String $str = NULL, $changed = NULL)
     $langDir       = LANGUAGES_DIR.$file;
     $sysLangDir    = INTERNAL_LANGUAGES_DIR.$file;
     $commonLangDir = EXTERNAL_LANGUAGES_DIR.$file;
-    
-    if( is_file($langDir) && ! isImport($langDir) ) 
+
+    if( is_file($langDir) && ! isImport($langDir) )
     {
-        $lang[$file] = require_once($langDir);  
+        $lang[$file] = require_once($langDir);
     }
     elseif( is_file($sysLangDir) && ! isImport($sysLangDir) )
     {
-        $lang[$file] = require_once($sysLangDir);   
+        $lang[$file] = require_once($sysLangDir);
     }
     elseif( is_file($commonLangDir) && ! isImport($commonLangDir) )
     {
-        $lang[$file] = require_once($commonLangDir);    
+        $lang[$file] = require_once($commonLangDir);
     }
-    
+
     if( empty($str) && isset($lang[$file]) )
     {
-        return $lang[$file];    
+        return $lang[$file];
     }
     elseif( ! empty($lang[$file][$str]) )
     {
-        $langstr = $lang[$file][$str];  
+        $langstr = $lang[$file][$str];
     }
     else
     {
-        return false;   
+        return false;
     }
-    
+
     if( ! is_array($changed) )
     {
         if( strstr($langstr, "%") && ! empty($changed) )
@@ -287,13 +287,13 @@ function lang(String $file, String $str = NULL, $changed = NULL)
         if( ! empty($changed) )
         {
             $values = [];
-            
+
             foreach( $changed as $key => $value )
             {
                 $keys[]   = $key;
-                $values[] = $value; 
+                $values[] = $value;
             }
-            
+
             return str_replace($keys, $values, $langstr);
         }
         else
@@ -310,16 +310,16 @@ function lang(String $file, String $str = NULL, $changed = NULL)
 // @param void
 //
 // @return string
-//                                                                                            
+//
 //--------------------------------------------------------------------------------------------------
 function currentLang() : String
 {
-    if( ! Config::get('Services','uri')['lang'] ) 
+    if( ! Config::get('Services','uri')['lang'] )
     {
         return false;
     }
     else
-    {   
+    {
         return getLang();
     }
 }
@@ -331,7 +331,7 @@ function currentLang() : String
 // @param string $fix
 //
 // @return string
-//                                                                                            
+//
 //--------------------------------------------------------------------------------------------------
 function currentUrl(String $fix = NULL) : String
 {
@@ -339,7 +339,7 @@ function currentUrl(String $fix = NULL) : String
 
     if( ! empty($fix) )
     {
-        return rtrim(suffix($currentUrl), $fix).$fix;   
+        return rtrim(suffix($currentUrl), $fix).$fix;
     }
 
     return $currentUrl;
@@ -353,30 +353,30 @@ function currentUrl(String $fix = NULL) : String
 // @param int    $index
 //
 // @return string
-//                                                                                            
+//
 //--------------------------------------------------------------------------------------------------
 function siteUrl(String $uri = NULL, Int $index = 0) : String
 {
-    $newBaseDir = BASE_DIR; 
-    
+    $newBaseDir = BASE_DIR;
+
     if( BASE_DIR !== "/" )
     {
         $baseDir = substr(BASE_DIR, 1, -1);
-        
+
         if( $index < 0 )
         {
             $baseDir    = explode("/", $baseDir);
             $newBaseDir = "/";
-        
+
             for( $i = 0; $i < count($baseDir) + $index; $i++ )
             {
                 $newBaseDir .= suffix($baseDir[$i]);
             }
         }
     }
-    
+
     $host = host();
-   
+
     return sslStatus().
            $host.
            $newBaseDir.
@@ -393,33 +393,33 @@ function siteUrl(String $uri = NULL, Int $index = 0) : String
 // @param int    $index
 //
 // @return string
-//                                                                                            
+//
 //--------------------------------------------------------------------------------------------------
 function baseUrl(String $uri = NULL, Int $index = 0) : String
 {
     $newBaseDir = BASE_DIR;
-    
+
     if( BASE_DIR !== "/" )
     {
         $baseDir = substr(BASE_DIR, 1, -1);
-        
+
         if( $index < 0 )
         {
             $baseDir    = explode("/", $baseDir);
             $newBaseDir = "/";
-            
+
             for($i = 0; $i < count($baseDir) + $index; $i++)
             {
                 $newBaseDir .= suffix($baseDir[$i]);
             }
         }
     }
-    
+
     $host = host();
-    
+
     return sslStatus().$host.$newBaseDir.internalCleanInjection($uri);
-}   
-    
+}
+
 //--------------------------------------------------------------------------------------------------
 // prevUrl()
 //--------------------------------------------------------------------------------------------------
@@ -427,24 +427,24 @@ function baseUrl(String $uri = NULL, Int $index = 0) : String
 // @param void
 //
 // @return string
-//                                                                                            
-//--------------------------------------------------------------------------------------------------    
+//
+//--------------------------------------------------------------------------------------------------
 function prevUrl() : String
 {
     if( ! isset($_SERVER['HTTP_REFERER']) )
     {
         return false;
     }
-    
+
     $str = str_replace(sslStatus().host().BASE_DIR.indexStatus(), "", $_SERVER['HTTP_REFERER']);
-    
+
     if( currentLang() )
     {
         $strEx = explode("/", $str);
-        $str   = str_replace($strEx[0]."/", "", $str);  
+        $str   = str_replace($strEx[0]."/", "", $str);
     }
-    
-    return siteUrl(internalCleanInjection($str));   
+
+    return siteUrl(internalCleanInjection($str));
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -454,10 +454,10 @@ function prevUrl() : String
 // @param string $uri
 //
 // @return string
-//                                                                                            
-//--------------------------------------------------------------------------------------------------    
+//
+//--------------------------------------------------------------------------------------------------
 function hostUrl(String $uri = NULL) : String
-{   
+{
     return sslStatus().suffix(host()).internalCleanInjection($uri);
 }
 
@@ -468,30 +468,30 @@ function hostUrl(String $uri = NULL) : String
 // @param bool $isPath
 //
 // @return string
-//                                                                                            
+//
 //--------------------------------------------------------------------------------------------------
 function currentPath(Bool $isPath = true) : String
 {
     $currentPagePath = str_replace("/".getLang()."/", "", server('currentPath'));
-    
+
     if( isset($currentPagePath[0]) && $currentPagePath[0] === "/" )
     {
         $currentPagePath = substr($currentPagePath, 1, strlen($currentPagePath) - 1);
     }
-    
+
     if( $isPath === true )
-    {   
+    {
         return $currentPagePath;
     }
     else
     {
         $str = explode("/", $currentPagePath);
-    
-        if( count($str) > 1 ) 
+
+        if( count($str) > 1 )
         {
-            return $str[count($str) - 1];   
+            return $str[count($str) - 1];
         }
-        
+
         return $str[0];
     }
 }
@@ -504,29 +504,29 @@ function currentPath(Bool $isPath = true) : String
 // @param int    $index
 //
 // @return string
-//                                                                                            
+//
 //--------------------------------------------------------------------------------------------------
 function basePath(String $uri = NULL, Int $index = 0) : String
 {
     $newBaseDir = substr(BASE_DIR, 1);
-    
+
     if( BASE_DIR !== "/" )
     {
         if( $index < 0 )
         {
             $baseDir = substr(BASE_DIR, 1, -1);
-            
+
             $baseDir = explode("/", $baseDir);
-            
+
             $newBaseDir = '';
-            
+
             for( $i = 0; $i < count($baseDir) + $index; $i++ )
             {
                 $newBaseDir .= suffix($baseDir[$i]);
             }
         }
     }
-    
+
     return internalCleanInjection($newBaseDir.$uri);
 }
 
@@ -537,8 +537,8 @@ function basePath(String $uri = NULL, Int $index = 0) : String
 // @param bool $isPath
 //
 // @return string
-//                                                                                            
-//--------------------------------------------------------------------------------------------------    
+//
+//--------------------------------------------------------------------------------------------------
 function prevPath(Bool $isPath = true) : String
 {
     if( ! isset($_SERVER['HTTP_REFERER']) )
@@ -547,27 +547,27 @@ function prevPath(Bool $isPath = true) : String
     }
 
     $str = str_replace(sslStatus().host().BASE_DIR.indexStatus(), '', $_SERVER['HTTP_REFERER']);
-    
+
     if( currentLang() )
     {
-        $str = explode("/",$str); return $str[1]; 
+        $str = explode("/",$str); return $str[1];
     }
-    
+
     if( $isPath === true )
     {
-        return $str;    
+        return $str;
     }
     else
     {
         $str = explode("/", $str);
-        
+
         $count = count($str);
-        
-        if( $count > 1 ) 
+
+        if( $count > 1 )
         {
-            return $str[$count - 1];    
+            return $str[$count - 1];
         }
-        
+
         return $str[0];
     }
 }
@@ -580,7 +580,7 @@ function prevPath(Bool $isPath = true) : String
 // @param string $removeurl
 //
 // @return string
-//                                                                                            
+//
 //--------------------------------------------------------------------------------------------------
 function filePath(String $file = NULL, String $removeUrl = NULL) : String
 {
@@ -590,10 +590,10 @@ function filePath(String $file = NULL, String $removeUrl = NULL) : String
         {
             $removeUrl = baseUrl();
         }
-        
+
         $file = trim(str_replace($removeUrl, '', $file));
     }
-    
+
     return $file;
 }
 
@@ -606,31 +606,31 @@ function filePath(String $file = NULL, String $removeUrl = NULL) : String
 // @param int    $time
 // @param array  $data
 // @param bool   $exit
-//                                                                                            
+//
 //--------------------------------------------------------------------------------------------------
 function redirect(String $url, Int $time = 0, Array $data = [], Bool $exit = true)
-{   
+{
     if( ! isUrl($url) )
     {
         $url = siteUrl($url);
     }
-    
+
     if( ! empty($data) )
     {
         foreach( $data as $k => $v )
         {
-            Session::insert('redirect:'.$k, $v);    
-        }       
+            Session::insert('redirect:'.$k, $v);
+        }
     }
-    
-    if( $time > 0 ) 
+
+    if( $time > 0 )
     {
         sleep($time);
     }
-    
+
     header("Location: $url", true);
-    
-    if( $exit === true ) 
+
+    if( $exit === true )
     {
         exit;
     }
@@ -643,11 +643,11 @@ function redirect(String $url, Int $time = 0, Array $data = [], Bool $exit = tru
 // @param string $k
 //
 // @return mixed
-//                                                                                            
+//
 //--------------------------------------------------------------------------------------------------
 function redirectData(String $k)
 {
-    if( $data = Session::select('redirect:'.$k) ) 
+    if( $data = Session::select('redirect:'.$k) )
     {
         return $data;
     }
@@ -664,13 +664,13 @@ function redirectData(String $k)
 // @param mixed $data
 //
 // @return bool
-//                                                                                            
+//
 //--------------------------------------------------------------------------------------------------
 function redirectDeleteData($data) : Bool
 {
     if( is_array($data) ) foreach( $data as $v )
     {
-        Session::delete('redirect:'.$v);    
+        Session::delete('redirect:'.$v);
     }
     else
     {
@@ -689,17 +689,17 @@ function redirectDeleteData($data) : Bool
 // @param mixed  $parameters
 //
 // @return callable
-//                                                                                            
+//
 //--------------------------------------------------------------------------------------------------
 function library(String $class, String $function, $parameters = [])
-{   
+{
     $var = uselib($class);
-    
-    if( ! is_array($parameters) ) 
+
+    if( ! is_array($parameters) )
     {
         $parameters = [$parameters];
     }
-    
+
     if( is_callable([$var, $function]) )
     {
         return call_user_func_array([$var, $function], $parameters);
@@ -715,22 +715,22 @@ function library(String $class, String $function, $parameters = [])
 //--------------------------------------------------------------------------------------------------
 //
 // @param string $class
-// @param array  $parameters  
+// @param array  $parameters
 //
-// @return class                    
-//                                                                                            
+// @return class
+//
 //--------------------------------------------------------------------------------------------------
 function uselib(String $class, Array $parameters = [])
 {
     if( ! class_exists($class) )
     {
         $classInfo = ZN\Core\Autoloader::getClassFileInfo($class);
-        
+
         $class = $classInfo['namespace'];
-        
+
         if( ! class_exists($class) )
         {
-            die(getErrorMessage('Error', 'classError', $class));    
+            die(getErrorMessage('Error', 'classError', $class));
         }
     }
 
@@ -738,13 +738,13 @@ function uselib(String $class, Array $parameters = [])
     {
         if( ! is_object(zn::$use) )
         {
-            zn::$use = new stdClass();  
+            zn::$use = new stdClass();
         }
 
         zn::$use->$class = new $class(...$parameters);
     }
-    
-    return zn::$use->$class;    
+
+    return zn::$use->$class;
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -756,7 +756,7 @@ function uselib(String $class, Array $parameters = [])
 // @param mixed  $ex
 //
 // @return string
-//                                                                                            
+//
 //--------------------------------------------------------------------------------------------------
 function getErrorMessage(String $langFile, String $errorMsg = NULL, $ex = NULL) : String
 {
@@ -768,9 +768,9 @@ function getErrorMessage(String $langFile, String $errorMsg = NULL, $ex = NULL) 
     $style .= 'color:#666;';
     $style .= 'text-align:left;';
     $style .= 'font-size:14px;';
-    
+
     $exStyle = 'color:#900;';
-    
+
     if( ! is_array($ex) )
     {
         $ex = '<span style="'.$exStyle .'">'.$ex.'</span>';
@@ -778,28 +778,28 @@ function getErrorMessage(String $langFile, String $errorMsg = NULL, $ex = NULL) 
     else
     {
         $newArray = [];
-        
+
         if( ! empty($ex) ) foreach( $ex as $k => $v )
         {
             $newArray[$k] = $v;
         }
-        
+
         $ex = $newArray;
     }
-    
+
     $str  = "<div style=\"$style\">";
-    
+
     if( ! empty($errorMsg) )
     {
         $str .= lang($langFile, $errorMsg, $ex);
     }
     else
-    {   
+    {
         $str .= $langFile;
     }
-    
+
     $str .= '</div><br>';
-    
+
     return $str;
 }
 
@@ -813,39 +813,39 @@ function getErrorMessage(String $langFile, String $errorMsg = NULL, $ex = NULL) 
 // @param string $time
 //
 // @return bool
-//                                                                                            
+//
 //--------------------------------------------------------------------------------------------------
 function report(String $subject, String $message, String $destination = NULL, String $time = NULL) : Bool
 {
-    if( ! Config::get('General', 'log')['createFile'] ) 
+    if( ! Config::get('General', 'log')['createFile'] )
     {
         return false;
     }
-    
+
     if( empty($destination) )
     {
         $destination = str_replace(' ', '-', $subject);
     }
-    
+
     $logDir    = STORAGE_DIR.'Logs/';
     $extension = '.log';
-    
+
     if( ! is_dir($logDir) )
     {
-        Folder::create($logDir, 0755);  
+        Folder::create($logDir, 0755);
     }
-    
+
     if( is_file($logDir.suffix($destination, $extension)) )
     {
-        if( empty($time) ) 
+        if( empty($time) )
         {
             $time = Config::get('General', 'log')['fileTime'];
         }
-        
+
         $createDate = File::createDate($logDir.suffix($destination, $extension), 'd.m.Y');
         $endDate    = strtotime("$time", strtotime($createDate));
         $endDate    = date('Y.m.d', $endDate);
-        
+
         if( date('Y.m.d')  >  $endDate )
         {
             File::delete($logDir.suffix($destination, $extension));
@@ -861,7 +861,7 @@ function report(String $subject, String $message, String $destination = NULL, St
 //--------------------------------------------------------------------------------------------------
 //
 // @param mixed $header
-//                                                                                            
+//
 //--------------------------------------------------------------------------------------------------
 function headers($header)
 {
@@ -869,12 +869,12 @@ function headers($header)
     {
         return false;
     }
-    
+
     if( ! is_array($header) )
     {
          header($header);
     }
-    else 
+    else
     {
         if( isset($header) ) foreach( $header as $k => $v )
         {
@@ -890,17 +890,17 @@ function headers($header)
 // @param void
 //
 // @return string
-//                                                                                            
+//
 //--------------------------------------------------------------------------------------------------
 function sslStatus() : String
 {
     if( Config::get('Services','uri')['ssl'] )
-    { 
-        return 'https://'; 
+    {
+        return 'https://';
     }
     else
-    { 
-        return 'http://';   
+    {
+        return 'http://';
     }
 }
 
@@ -911,17 +911,17 @@ function sslStatus() : String
 // @param void
 //
 // @return string
-//                                                                                            
+//
 //--------------------------------------------------------------------------------------------------
 function indexStatus() : String
 {
-    if( Config::get('Htaccess', 'uri')['directoryIndex'] ) 
+    if( Config::get('Htaccess', 'uri')['directoryIndex'] )
     {
-        return DIRECTORY_INDEX.'/'; 
+        return DIRECTORY_INDEX.'/';
     }
     else
-    { 
-        return '';  
+    {
+        return '';
     }
 }
 
@@ -932,7 +932,7 @@ function indexStatus() : String
 // @param void
 //
 // @return string
-//                                                                                            
+//
 //--------------------------------------------------------------------------------------------------
 function currentUri() : String
 {
@@ -944,12 +944,12 @@ function currentUri() : String
     {
         $cu = substr($_SERVER['REQUEST_URI'], 1);
     }
-    
-    if( indexStatus() ) 
+
+    if( indexStatus() )
     {
         $cu = str_replace(indexStatus(), '', $cu);
     }
-    
+
     return $cu;
 }
 
@@ -960,27 +960,27 @@ function currentUri() : String
 // @param void
 //
 // @return string
-//                                                                                            
+//
 //--------------------------------------------------------------------------------------------------
 function internalRequestURI() : String
 {
     $requestUri = currentUri()
-                ? str_replace(DIRECTORY_INDEX.'/', '', currentUri()) 
+                ? str_replace(DIRECTORY_INDEX.'/', '', currentUri())
                 : substr(server('currentPath'), 1);
-    
+
     if( isset($requestUri[strlen($requestUri) - 1]) && $requestUri[strlen($requestUri) - 1] === '/' )
     {
             $requestUri = substr($requestUri, 0, -1);
     }
-    
+
     $requestUri = internalCleanInjection(internalRouteURI($requestUri));
     $requestUri = internalCleanURIPrefix($requestUri, currentLang());
-    
+
     if( defined('_CURRENT_PROJECT') )
     {
         $requestUri = internalCleanURIPrefix($requestUri, _CURRENT_PROJECT);
     }
-    
+
     return $requestUri;
 }
 
@@ -990,7 +990,7 @@ function internalRequestURI() : String
 //
 // @param string $uri
 // @param string $cleanData
-//                                                                                            
+//
 //--------------------------------------------------------------------------------------------------
 function internalCleanURIPrefix(String $uri = NULL, String $cleanData = NULL) : String
 {
@@ -1000,7 +1000,7 @@ function internalCleanURIPrefix(String $uri = NULL, String $cleanData = NULL) : 
     {
         $uri = substr($uri, strlen($suffixData));
     }
-    
+
     return $uri;
 }
 
@@ -1011,7 +1011,7 @@ function internalCleanURIPrefix(String $uri = NULL, String $cleanData = NULL) : 
 // @param string $requestUri
 //
 // @return string
-//                                                                                            
+//
 //--------------------------------------------------------------------------------------------------
 function internalRouteURI(String $requestUri = NULL) : String
 {
@@ -1020,40 +1020,40 @@ function internalRouteURI(String $requestUri = NULL) : String
     if( $config['openPage'] )
     {
         $internalDir = NULL;
-        
+
         if( defined('_CURRENT_PROJECT') )
         {
             global $projects;
-            
+
             $configAppdir = $projects['directory']['others'];
-            
+
             if( is_array($configAppdir) )
             {
                 $internalDir = ! empty($configAppdir[$requestUri]) ? $requestUri : _CURRENT_PROJECT;
             }
             else
             {
-                $internalDir = _CURRENT_PROJECT;   
+                $internalDir = _CURRENT_PROJECT;
             }
         }
-        
+
         if
-        (   
-            $requestUri === DIRECTORY_INDEX ||                   
-            $requestUri === getLang()       || 
+        (
+            $requestUri === DIRECTORY_INDEX ||
+            $requestUri === getLang()       ||
             $requestUri === $internalDir    ||
-            empty($requestUri) 
-        ) 
+            empty($requestUri)
+        )
         {
-            $requestUri = $config['openPage'];  
+            $requestUri = $config['openPage'];
         }
     }
-        
+
     $uriChange   = $config['changeUri'];
     $patternType = $config['patternType'];
-        
+
     if( ! empty($uriChange) ) foreach( $uriChange as $key => $val )
-    {   
+    {
         if( $patternType === 'classic' )
         {
             $requestUri = preg_replace(presuffix($key).'xi', $val, $requestUri);
@@ -1063,7 +1063,7 @@ function internalRouteURI(String $requestUri = NULL) : String
             $requestUri = Regex::replace($key, $val, $requestUri, 'xi');
         }
     }
-    
+
     return $requestUri;
 }
 
@@ -1074,19 +1074,19 @@ function internalRouteURI(String $requestUri = NULL) : String
 // @param string $string
 //
 // @return string
-//                                                                                            
+//
 //--------------------------------------------------------------------------------------------------
 function internalCleanInjection(String $string = NULL) : String
 {
     $urlInjectionChangeChars = Config::get('IndividualStructures', 'security')['urlChangeChars'];
 
     if( ! empty($urlInjectionChangeChars) ) foreach( $urlInjectionChangeChars as $key => $val )
-    {       
+    {
         $string = preg_replace(presuffix($key).'xi', $val, $string);
     }
-    
+
     return $string;
-    
+
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -1094,14 +1094,14 @@ function internalCleanInjection(String $string = NULL) : String
 //--------------------------------------------------------------------------------------------------
 //
 // @param void
-//                                                                                            
+//
 //--------------------------------------------------------------------------------------------------
 function internalCreateRobotsFile()
-{   
+{
     $rules = Config::get('Robots', 'rules');
-    
+
     $robots = '';
-    
+
     if( isArray($rules) ) foreach( $rules as $key => $val )
     {
         if( ! is_numeric($key) ) // Tekli Kullanım
@@ -1110,14 +1110,14 @@ function internalCreateRobotsFile()
             {
                 case 'userAgent' :
                     $robots .= ! empty( $val ) ? 'User-agent: '.$val.EOL : '';
-                break;  
-                
+                break;
+
                 case 'allow'    :
                 case 'disallow' :
                     if( ! empty($val) ) foreach( $val as $v )
                     {
-                        $robots .= ucfirst($key).': '.$v.EOL;   
-                    }       
+                        $robots .= ucfirst($key).': '.$v.EOL;
+                    }
                 break;
             }
         }
@@ -1129,20 +1129,20 @@ function internalCreateRobotsFile()
                 {
                     case 'userAgent' :
                         $robots .= ! empty( $v ) ? 'User-agent: '.$v.EOL : '';
-                    break;  
-                    
+                    break;
+
                     case 'allow'    :
                     case 'disallow' :
                         if( ! empty($v) ) foreach( $v as $vr )
                         {
-                            $robots .= ucfirst($r).': '.$vr.EOL;    
-                        }       
+                            $robots .= ucfirst($r).': '.$vr.EOL;
+                        }
                     break;
                 }
-            }   
+            }
         }
     }
-    
+
     $robotTxt = 'robots.txt';
 
     // robots.txt dosyası varsa içeriği al yok ise içeriği boş geç
@@ -1155,11 +1155,11 @@ function internalCreateRobotsFile()
         $getContents = '';
     }
     // robots.txt değişkenin tuttuğu değer ile dosya içeri eşitse tekrar oluşturma
-    if( trim($robots) === trim($getContents) ) 
+    if( trim($robots) === trim($getContents) )
     {
         return false;
     }
-    
+
     if( ! File::write($robotTxt, trim($robots)) )
     {
         Exceptions::throws('Error', 'fileNotWrite', $robotTxt);
@@ -1171,21 +1171,21 @@ function internalCreateRobotsFile()
 //--------------------------------------------------------------------------------------------------
 //
 // @param void
-//                                                                                            
+//
 //--------------------------------------------------------------------------------------------------
 function internalCreateHtaccessFile()
-{   
+{
     // Cache.php ayar dosyasından ayarlar çekiliyor.
     $htaccessSettings = Config::get('Htaccess');
-    
+
     $config = $htaccessSettings['cache'];
     $eol    = EOL;
     $tab    = HT;
-    
+
     //-----------------------GZIP-------------------------------------------------------------
     // mod_gzip = true ayarı yapılmışsa aşağıdaki kodları ekler.
     // Gzip ile ön bellekleme başlatılmış olur.
-    if( $config['modGzip']['status'] === true ) 
+    if( $config['modGzip']['status'] === true )
     {
         $modGzip = '<ifModule mod_gzip.c>
 '.$tab.'mod_gzip_on Yes
@@ -1203,18 +1203,18 @@ function internalCreateHtaccessFile()
         $modGzip = '';
     }
     //-----------------------GZIP-------------------------------------------------------------
-    
+
     //-----------------------EXPIRES----------------------------------------------------------
     // mod_expires = true ayarı yapılmışsa aşağıdaki kodları ekler.
     // Tarayıcı ile ön bellekleme başlatılmış olur.
-    if( $config['modExpires']['status'] === true ) 
+    if( $config['modExpires']['status'] === true )
     {
         $exp = '';
         foreach($config['modExpires']['fileTypeTime'] as $type => $value)
         {
             $exp .= $tab.'ExpiresByType '.$type.' "access plus '.$value.' seconds"'.$eol;
         }
-        
+
         $modExpires = '<ifModule mod_expires.c>
 '.$tab.'ExpiresActive On
 '.$tab.'ExpiresDefault "access plus '.$config['modExpires']['defaultTime'].' seconds"
@@ -1226,11 +1226,11 @@ function internalCreateHtaccessFile()
         $modExpires = '';
     }
     //-----------------------EXPIRES----------------------------------------------------------
-    
+
     //-----------------------HEADERS----------------------------------------------------------
     // mod_headers = true ayarı yapılmışsa aşağıdaki kodları ekler.
     // Header ile ön bellekleme başlatılmış olur.
-    if( $config['modHeaders']['status'] === true ) 
+    if( $config['modHeaders']['status'] === true )
     {
         $fmatch = '';
         foreach( $config['modHeaders']['fileExtensionTimeAccess'] as $type => $value )
@@ -1239,7 +1239,7 @@ function internalCreateHtaccessFile()
 '.$tab.$tab.'Header set Cache-Control "max-age='.$value['time'].', '.$value['access'].'"
 '.$tab.'</filesMatch>'.$eol;
         }
-        
+
         $modHeaders = '<ifModule mod_headers.c>
 '.rtrim($fmatch, $eol).'
 </ifModule>
@@ -1250,18 +1250,18 @@ function internalCreateHtaccessFile()
         $modHeaders = '';
     }
     //-----------------------HEADERS----------------------------------------------------------
-    
+
     //-----------------------HEADER SET-------------------------------------------------------
 
     if( $htaccessSettings['headers']['status'] === true )
     {
-        $headersIniSet  = "<ifModule mod_expires.c>".$eol;  
-        
+        $headersIniSet  = "<ifModule mod_expires.c>".$eol;
+
         foreach( $htaccessSettings['headers']['settings'] as $val )
         {
             $headersIniSet .= $tab."$val".$eol;
         }
-        
+
         $headersIniSet .= "</ifModule>".$eol.$eol;
     }
     else
@@ -1269,13 +1269,13 @@ function internalCreateHtaccessFile()
         $headersIniSet = '';
     }
     //-----------------------HEADER SET-------------------------------------------------------
-    
-    //-----------------------HTACCESS SET-----------------------------------------------------  
-    
+
+    //-----------------------HTACCESS SET-----------------------------------------------------
+
     if( ! empty($htaccessSettings['settings']) )
     {
         $htaccessSettingsStr = '';
-        
+
         foreach( $htaccessSettings['settings'] as $key => $val )
         {
             if( ! is_numeric($key) )
@@ -1283,7 +1283,7 @@ function internalCreateHtaccessFile()
                 if( is_array($val) )
                 {
                     $htaccessSettingsStr .= "<$key>".$eol;
-                    
+
                     foreach( $val as $k => $v)
                     {
                         if( ! is_numeric($k) )
@@ -1295,7 +1295,7 @@ function internalCreateHtaccessFile()
                             $htaccessSettingsStr .= $tab.$v.$eol;
                         }
                     }
-                    
+
                     $keyex = explode(" ", $key);
                     $htaccessSettingsStr .= "</$keyex[0]>".$eol.$eol;
                 }
@@ -1308,27 +1308,27 @@ function internalCreateHtaccessFile()
             {
                 $htaccessSettingsStr .= $val.$eol;
             }
-        }   
+        }
     }
     else
     {
-        $htaccessSettingsStr = '';  
+        $htaccessSettingsStr = '';
     }
-    //-----------------------HTACCESS SET-----------------------------------------------------  
-    
+    //-----------------------HTACCESS SET-----------------------------------------------------
+
     // Htaccess dosyasına eklenecek veriler birleştiriliyor...
-    
+
     $htaccess  = '#----------------------------------------------------------------------------------------------------'.$eol;
     $htaccess .= '# This file automatically created and updated'.$eol;
     $htaccess .= '#----------------------------------------------------------------------------------------------------'.$eol.$eol;
     $htaccess .= $modGzip.$modExpires.$modHeaders.$headersIniSet.$htaccessSettingsStr;
-    
-    //-----------------------URI ZERONEED PHP----------------------------------------------------   
+
+    //-----------------------URI ZERONEED PHP----------------------------------------------------
     if( ! $htaccessSettings['uri']['directoryIndex'] )
     {
         $indexSuffix = $htaccessSettings['uri']['indexSuffix'];
         $flag        = ! empty($indexSuffix) ? 'QSA' : 'L';
-        
+
         $htaccess .= "<IfModule mod_rewrite.c>".$eol;
         $htaccess .= $tab."RewriteEngine On".$eol;
         $htaccess .= $tab."RewriteBase /".$eol;
@@ -1338,15 +1338,15 @@ function internalCreateHtaccessFile()
         $htaccess .= "</IfModule>".$eol.$eol;
     }
     //-----------------------URI ZERONEED PHP----------------------------------------------------
-    
-    //-----------------------ERROR REQUEST----------------------------------------------------  
-    $htaccess .= 'ErrorDocument 403 '.BASE_DIR.DIRECTORY_INDEX.$eol.$eol;   
+
     //-----------------------ERROR REQUEST----------------------------------------------------
-    
+    $htaccess .= 'ErrorDocument 403 '.BASE_DIR.DIRECTORY_INDEX.$eol.$eol;
+    //-----------------------ERROR REQUEST----------------------------------------------------
+
     //-----------------------DIRECTORY INDEX--------------------------------------------------
-    $htaccess .= 'DirectoryIndex '.DIRECTORY_INDEX.$eol.$eol;   
+    $htaccess .= 'DirectoryIndex '.DIRECTORY_INDEX.$eol.$eol;
     //-----------------------DIRECTORY INDEX--------------------------------------------------
-    
+
     if( ! empty($uploadSet['status']) )
     {
         $uploadSettings = $htaccessSettings['upload'];
@@ -1356,9 +1356,9 @@ function internalCreateHtaccessFile()
         $uploadSettings = [];
     }
     //-----------------------UPLOAD SETTINGS--------------------------------------------------
-    
+
     //-----------------------SESSION SETTINGS-------------------------------------------------
-        
+
     if( ! empty($htaccessSettings['session']['status']) )
     {
         $sessionSettings = $htaccessSettings['session']['settings'];
@@ -1368,8 +1368,8 @@ function internalCreateHtaccessFile()
         $sessionSettings = [];
     }
     //-----------------------SESSION SETTINGS-------------------------------------------------
-    
-    //-----------------------INI SETTINGS-----------------------------------------------------      
+
+    //-----------------------INI SETTINGS-----------------------------------------------------
     if( $htaccessSettings['ini']['status'] === true )
     {
         $iniSettings = $htaccessSettings['ini']['settings'];
@@ -1378,11 +1378,11 @@ function internalCreateHtaccessFile()
     {
         $iniSettings = [];
     }
-    //-----------------------INI SETTINGS-----------------------------------------------------  
-    
-    // Ayarlar birleştiriliyor. 
-    $allSettings = array_merge($iniSettings, $uploadSettings, $sessionSettings);    
-    
+    //-----------------------INI SETTINGS-----------------------------------------------------
+
+    // Ayarlar birleştiriliyor.
+    $allSettings = array_merge($iniSettings, $uploadSettings, $sessionSettings);
+
     if( ! empty($allSettings) )
     {
         $sets = '';
@@ -1390,10 +1390,10 @@ function internalCreateHtaccessFile()
         {
             if( $v !== '' )
             {
-                $sets .= $tab."php_value $k $v".$eol;        
-            }           
+                $sets .= $tab."php_value $k $v".$eol;
+            }
         }
-        
+
         if( ! empty($sets) )
         {
             $htaccess .= $eol."<IfModule mod_php5.c>".$eol;
@@ -1403,7 +1403,7 @@ function internalCreateHtaccessFile()
     }
 
     $htaccessTxt = '.htaccess';
-    
+
     if( File::exists($htaccessTxt) )
     {
         $getContents = trim(File::read($htaccessTxt));
@@ -1412,15 +1412,15 @@ function internalCreateHtaccessFile()
     {
         $getContents = '';
     }
-    
+
     $htaccess .= '#----------------------------------------------------------------------------------------------------';
     $htaccess  = trim($htaccess);
-    
-    if( $htaccess === $getContents ) 
+
+    if( $htaccess === $getContents )
     {
         return false;
     }
-    
+
     if( ! File::write($htaccessTxt, trim($htaccess)) )
     {
         Exceptions::throws('Error', 'fileNotWrite', $htaccessTxt);
@@ -1433,39 +1433,39 @@ function internalCreateHtaccessFile()
 //
 // @param string $startController
 // @param array  $param
-//                                                                                            
+//
 //--------------------------------------------------------------------------------------------------
 function internalStartingContoller(String $startController = NULL, Array $param = [])
 {
     $controllerEx = explode(':', $startController);
-        
+
     $controllerPath  = ! empty($controllerEx[0]) ? $controllerEx[0] : '';
     $controllerFunc  = ! empty($controllerEx[1]) ? $controllerEx[1] : 'main';
     $controllerFile  = CONTROLLERS_DIR.suffix($controllerPath, '.php');
     $controllerClass = divide($controllerPath, '/', -1);
-    
+
     if( is_file($controllerFile) )
     {
         require_once($controllerFile);
-        
+
         if( ! is_callable([$controllerClass, $controllerFunc]) )
         {
             // Hatayı rapor et.
-            report('Error', lang('Error', 'callUserFuncArrayError', $controllerFunc), 'SystemCallUserFuncArrayError');  
-                
+            report('Error', lang('Error', 'callUserFuncArrayError', $controllerFunc), 'SystemCallUserFuncArrayError');
+
             // Hatayı ekrana yazdır.
             die(Errors::message('Error', 'callUserFuncArrayError', $controllerFunc));
         }
-        
+
         return uselib($controllerClass)->$controllerFunc(...$param);
-    }   
+    }
     else
     {
         // Hatayı rapor et.
         report('Error', lang('Error', 'notIsFileError', $controllerFile), 'SystemNotIsFileError');
-        
+
         // Hatayı ekrana yazdır.
-        die(Errors::message('Error', 'notIsFileError', $controllerFile));   
+        die(Errors::message('Error', 'notIsFileError', $controllerFile));
     }
 }
 
@@ -1474,7 +1474,7 @@ function internalStartingContoller(String $startController = NULL, Array $param 
 //--------------------------------------------------------------------------------------------------
 //
 // @param string $report
-//                                                                                            
+//
 //--------------------------------------------------------------------------------------------------
 function internalBenchmarkReport(String $report = NULL)
 {

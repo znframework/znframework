@@ -1,7 +1,7 @@
 <?php return
 [
     //--------------------------------------------------------------------------------------------------
-    // Starting 
+    // Starting
     //--------------------------------------------------------------------------------------------------
     //
     // Author     : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
@@ -12,14 +12,14 @@
     //--------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------
-    // Controller                                                          
+    // Controller
     //--------------------------------------------------------------------------------------------------
     //
     // Başlangıçta çalıştırılmak istenen kontrolcü varsa kullanılır. Bir veya birden fazla, parametreli
     // veya parametresiz kontrolcü çalıştırılabilir. Bunun için ayar değeri hem dizge hem de dizi
     // olabilir. Dikkat edilmesi gereken nokta kontrolcü ismi ile sınıfı adı aynı olmalıdır.
-    // Verinin class bölümü aslında sayfa adıdır.                     
-    // 
+    // Verinin class bölümü aslında sayfa adıdır.
+    //
     // Tekil Kullanım
     // 'file:func'
     //
@@ -28,18 +28,18 @@
     //
     // Parametreli Kullanım
     // ['file1:func1' => ['p1', 'p2'], ... ]
-    //                                                                                        
+    //
     //--------------------------------------------------------------------------------------------------
     'controller' => '',
 
     //--------------------------------------------------------------------------------------------------
-    // Autoload                                                          
+    // Autoload
     //--------------------------------------------------------------------------------------------------
     //
     // Functions/Autoloader/ dizininde bulunan dosyalar otomatik olarak dahil edilir.
     // Bunu kapatmak için aşağıdaki status ayarına ait değer false, açmak için true olarak ayarlanır.
-    // Dizin içi dizinlerde de arama yapılması istenirse recursive true olarak ayarlanır.                     
-    //                                                                                        
+    // Dizin içi dizinlerde de arama yapılması istenirse recursive true olarak ayarlanır.
+    //
     //--------------------------------------------------------------------------------------------------
     'autoload' =>
     [
@@ -48,11 +48,11 @@
     ],
 
     //--------------------------------------------------------------------------------------------------
-    // Handload                                                                  
+    // Handload
     //--------------------------------------------------------------------------------------------------
     //
-    // El ile yüklenmek istenen fonksiyon dosyalarının yol bilgileri belirtilir. 
-    // Yol bilgisi belirtilirken Functions/Handload/ kök dizin kabul edilir.                                              
+    // El ile yüklenmek istenen fonksiyon dosyalarının yol bilgileri belirtilir.
+    // Yol bilgisi belirtilirken Functions/Handload/ kök dizin kabul edilir.
     //
     //--------------------------------------------------------------------------------------------------
     'handload' => []
