@@ -18,11 +18,22 @@ class InternalValidator extends CallController implements ValidatorInterface
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string $data
+    // @param string $pattern = NULL
     //
     //--------------------------------------------------------------------------------------------------------
-    public function phone(String $data) : Bool
+    public function phone(String $data, String $pattern = NULL) : Bool
     {
-        if( ! preg_match('/\+*[0-9]{10,14}$/', $data) )
+        if( $pattern !== NULL)
+        {
+            $phoneData = preg_replace('/([^\*])/', 'key:$1', $pattern);
+            $phoneData = '/'.str_replace(['*', 'key:'], ['[0-9]', '\\'], $phoneData).'/';
+        }
+        else
+        {
+            $phoneData = '/\+*[0-9]{10,14}$/';
+        }
+
+        if( ! preg_match($phoneData, $data) )
         {
             return false;
         }
@@ -39,7 +50,7 @@ class InternalValidator extends CallController implements ValidatorInterface
     // @param string $data
     //
     //--------------------------------------------------------------------------------------------------------
-    public function numeric(String $data) : Bool
+    public function numeric($data) : Bool
     {
         if( ! is_numeric($data) )
         {
@@ -60,7 +71,7 @@ class InternalValidator extends CallController implements ValidatorInterface
     //--------------------------------------------------------------------------------------------------------
     public function alnum(String $data) : Bool
     {
-        if( ! preg_match('/\w+/',$data) )
+        if( ! preg_match('/^\w+$/',$data) )
         {
             return false;
         }
@@ -96,8 +107,15 @@ class InternalValidator extends CallController implements ValidatorInterface
     // @param int $no
     //
     //--------------------------------------------------------------------------------------------------------
-    public function identity(Int $no) : Bool
+    public function identity($no) : Bool
     {
+        if( ! is_numeric($no) || strlen($no) !== 11  )
+        {
+            return false;
+        }
+
+        $no = (string) $no;
+
         $numone     = ($no[0] + $no[2] + $no[4] + $no[6]  + $no[8]) * 7;
         $numtwo     = $no[1] + $no[3] + $no[5] + $no[7];
         $result     = $numone - $numtwo;
@@ -106,10 +124,6 @@ class InternalValidator extends CallController implements ValidatorInterface
         $elewenth   = $total%10;
 
         if($no[0] == 0)
-        {
-            return false;
-        }
-        elseif(strlen($no) != 11)
         {
             return false;
         }
@@ -136,7 +150,7 @@ class InternalValidator extends CallController implements ValidatorInterface
     //--------------------------------------------------------------------------------------------------------
     public function email(String $data) : Bool
     {
-        if( ! preg_match("/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix", $data) )
+        if( ! isEmail($data) )
         {
             return false;
         }
@@ -155,7 +169,7 @@ class InternalValidator extends CallController implements ValidatorInterface
     //--------------------------------------------------------------------------------------------------------
     public function url(String $data) : Bool
     {
-        if( ! preg_match('#^(\w+:)?//#i', $data) )
+        if( ! isUrl($data) )
         {
             return false;
         }

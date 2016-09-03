@@ -1,4 +1,4 @@
-<?php 
+<?php
 //--------------------------------------------------------------------------------------------------
 // Highest Level
 //--------------------------------------------------------------------------------------------------
@@ -17,7 +17,7 @@
 // @return ZN_VERSION
 //
 //--------------------------------------------------------------------------------------------------
-define('ZN_VERSION', '4.0.23');
+define('ZN_VERSION', '4.0.24');
 
 //--------------------------------------------------------------------------------------------------
 // REQUIRED_PHP_VERSION
@@ -36,7 +36,7 @@ define('REQUIRED_PHP_VERSION', '7.0.0');
 //
 //--------------------------------------------------------------------------------------------------
 if( ! isPhpVersion(REQUIRED_PHP_VERSION) )
-{   
+{
     trace('Invalid PHP Version! Required PHP version ["'.REQUIRED_PHP_VERSION.'"] and should be over!');
 }
 //--------------------------------------------------------------------------------------------------
@@ -76,7 +76,7 @@ define('INTERIOR_ACCESS', 'Interior');
 // @return Applications/
 //
 //--------------------------------------------------------------------------------------------------
-define('PROJECTS_DIR', REAL_BASE_DIR.'Projects'.DS); 
+define('PROJECTS_DIR', REAL_BASE_DIR.'Projects'.DS);
 
 //--------------------------------------------------------------------------------------------------
 // EXTERNAL_DIR
@@ -85,7 +85,7 @@ define('PROJECTS_DIR', REAL_BASE_DIR.'Projects'.DS);
 // @return External/
 //
 //--------------------------------------------------------------------------------------------------
-define('EXTERNAL_DIR', REAL_BASE_DIR.'External'.DS); 
+define('EXTERNAL_DIR', REAL_BASE_DIR.'External'.DS);
 
 //--------------------------------------------------------------------------------------------------
 // trace()
@@ -93,7 +93,7 @@ define('EXTERNAL_DIR', REAL_BASE_DIR.'External'.DS);
 //
 // İşlev: Sistem kullanıyor.
 // Dönen Değerler: Sistem kullanıyor.
-//                                                                                            
+//
 //--------------------------------------------------------------------------------------------------
 function trace($message)
 {
@@ -105,13 +105,13 @@ function trace($message)
     $style .= 'color:#666;';
     $style .= 'text-align:left;';
     $style .= 'font-size:14px;';
-    
+
     $message = preg_replace('/\[(.*?)\]/', '<span style="color:#990000;">$1</span>', $message);
-    
+
     $str  = "<div style=\"$style\">";
     $str .= $message;
     $str .= '</div>';
-    
+
     exit($str);
 }
 
@@ -130,9 +130,9 @@ function isPhpVersion($version = '5.2.4')
     {
         return false;
     }
-    
+
     $version = (string) $version;
-    
+
     if( version_compare(PHP_VERSION, $version, '>=') )
     {
         return true;
