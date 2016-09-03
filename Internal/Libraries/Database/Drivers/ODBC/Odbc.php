@@ -24,7 +24,7 @@ class ODBCDriver extends DriverConnectionMappingAbstract
     [
         'like' => '*'
     ];
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Statements
     //--------------------------------------------------------------------------------------------------------
@@ -34,18 +34,18 @@ class ODBCDriver extends DriverConnectionMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     protected $statements =
     [
-        'autoIncrement' => 'AUTOINCREMENT',
-        'primaryKey'    => 'PRIMARY KEY',
-        'foreignKey'    => 'FOREIGN KEY',
+        'autoincrement' => 'AUTOINCREMENT',
+        'primarykey'    => 'PRIMARY KEY',
+        'foreignkey'    => 'FOREIGN KEY',
         'unique'        => 'UNIQUE',
         'null'          => 'NULL',
-        'notNull'       => 'NOT NULL',
+        'notnull'       => 'NOT NULL',
         'exists'        => 'EXISTS',
-        'notExists'     => 'NOT EXISTS',
+        'notexists'     => 'NOT EXISTS',
         'constraint'    => 'CONSTRAINT',
         'default'       => 'DEFAULT'
     ];
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Variable Types
     //--------------------------------------------------------------------------------------------------------
@@ -56,25 +56,25 @@ class ODBCDriver extends DriverConnectionMappingAbstract
     protected $variableTypes =
     [
         'int'           => 'INTEGER',
-        'smallInt'      => 'SMALLINT',
-        'tinyInt'       => 'TINYINT',
-        'mediumInt'     => 'INTEGER',
-        'bigInt'        => 'BIGINT',
+        'smallint'      => 'SMALLINT',
+        'tinyint'       => 'TINYINT',
+        'mediumint'     => 'INTEGER',
+        'bigint'        => 'BIGINT',
         'decimal'       => 'DECIMAL',
         'double'        => 'DOUBLE PRECISION',
         'float'         => 'FLOAT',
         'char'          => 'CHAR',
-        'varChar'       => 'VARCHAR',
-        'tinyText'      => 'VARCHAR(255)',
+        'varchar'       => 'VARCHAR',
+        'tinytext'      => 'VARCHAR(255)',
         'text'          => 'VARCHAR(65535)',
-        'mediumText'    => 'VARCHAR(16277215)',
-        'longText'      => 'VARCHAR(16277215)',
+        'mediumtext'    => 'VARCHAR(16277215)',
+        'longtext'      => 'VARCHAR(16277215)',
         'date'          => 'DATE',
-        'dateTime'      => 'UTCDATETIME',
+        'datetime'      => 'UTCDATETIME',
         'time'          => 'TIME',
-        'timeStamp'     => 'TIMESTAMP'
+        'timestamp'     => 'TIMESTAMP'
     ];
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Construct
     //--------------------------------------------------------------------------------------------------------
@@ -84,9 +84,9 @@ class ODBCDriver extends DriverConnectionMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
-        \Support::func('odbc_connect', 'Microsoft Access(ODBC)');   
+        \Support::func('odbc_connect', 'Microsoft Access(ODBC)');
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Connect
     //--------------------------------------------------------------------------------------------------------
@@ -95,19 +95,19 @@ class ODBCDriver extends DriverConnectionMappingAbstract
     //
     //--------------------------------------------------------------------------------------------------------
     public function connect($config = [])
-    {   
+    {
         $this->config = $config;
-        
+
         $dsn =  ( ! empty($this->config['dsn']) )
                 ? $this->config['dsn']
                 : 'DRIVER='.$this->config['host'].';SERVER='.$this->config['server'].';DATABASE='.$this->config['database'];
-                
-        
+
+
         $this->connect =    ( $this->config['pconnect'] === true )
                             ? @odbc_pconnect($dsn , $this->config['user'], $this->config['password'])
                             : @odbc_connect($dsn , $this->config['user'], $this->config['password']);
-        
-        if( empty($this->connect) ) 
+
+        if( empty($this->connect) )
         {
             die(getErrorMessage('Database', 'mysqlConnectError'));
         }
@@ -127,10 +127,10 @@ class ODBCDriver extends DriverConnectionMappingAbstract
         {
             return false;
         }
-        
+
         return odbc_exec($this->connect, $query);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Multi Query
     //--------------------------------------------------------------------------------------------------------
@@ -143,7 +143,7 @@ class ODBCDriver extends DriverConnectionMappingAbstract
     {
         return $this->query($query, $security);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Query
     //--------------------------------------------------------------------------------------------------------
@@ -157,7 +157,7 @@ class ODBCDriver extends DriverConnectionMappingAbstract
         $this->query = $this->exec($query);
         return odbc_execute($this->query, $security);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Trans Start
     //--------------------------------------------------------------------------------------------------------
@@ -169,7 +169,7 @@ class ODBCDriver extends DriverConnectionMappingAbstract
     {
         return odbc_autocommit($this->connect, false);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Trans Roll Back
     //--------------------------------------------------------------------------------------------------------
@@ -181,9 +181,9 @@ class ODBCDriver extends DriverConnectionMappingAbstract
     {
         $rollback = odbc_rollback($this->connect);
         odbc_autocommit($this->connect, true);
-        return $rollback;    
+        return $rollback;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Trans Commit
     //--------------------------------------------------------------------------------------------------------
@@ -197,7 +197,7 @@ class ODBCDriver extends DriverConnectionMappingAbstract
         odbc_autocommit($this->connect, true);
         return $commit;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Column Data
     //--------------------------------------------------------------------------------------------------------
@@ -207,19 +207,19 @@ class ODBCDriver extends DriverConnectionMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function columnData($col = '')
     {
-        if( empty($this->query) ) 
+        if( empty($this->query) )
         {
             return false;
         }
-        
+
         $columns = [];
-        
+
         $count = $this->numFields();
 
         for ($i = 0, $index = 1; $i < $count; $i++, $index++)
         {
             $fieldName = odbc_field_name($this->query, $index);
-            
+
             $columns[$fieldName]                = new \stdClass();
             $columns[$fieldName]->name          = $fieldName;
             $columns[$fieldName]->type          = odbc_field_type($this->query, $index);
@@ -227,15 +227,15 @@ class ODBCDriver extends DriverConnectionMappingAbstract
             $columns[$fieldName]->primaryKey    = NULL;
             $columns[$fieldName]->default       = NULL;
         }
-        
+
         if( isset($columns[$col]) )
         {
             return $columns[$col];
         }
-        
+
         return $columns;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Num Rows
     //--------------------------------------------------------------------------------------------------------
@@ -251,10 +251,10 @@ class ODBCDriver extends DriverConnectionMappingAbstract
         }
         else
         {
-            return 0;   
+            return 0;
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Columns
     //--------------------------------------------------------------------------------------------------------
@@ -264,22 +264,22 @@ class ODBCDriver extends DriverConnectionMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function columns()
     {
-        if( empty($this->query) ) 
+        if( empty($this->query) )
         {
             return false;
         }
-        
+
         $columns = [];
         $num_fields = $this->numFields();
-        
+
         for($i=0; $i < $num_fields; $i++)
-        {       
+        {
             $columns[] = odbc_field_name($this->query, $i);
         }
-        
+
         return $columns;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Num Fields
     //--------------------------------------------------------------------------------------------------------
@@ -295,10 +295,10 @@ class ODBCDriver extends DriverConnectionMappingAbstract
         }
         else
         {
-            return 0;   
+            return 0;
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Real Escape String
     //--------------------------------------------------------------------------------------------------------
@@ -310,7 +310,7 @@ class ODBCDriver extends DriverConnectionMappingAbstract
     {
         return \Security::escapeStringEncode($data);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Error
     //--------------------------------------------------------------------------------------------------------
@@ -329,7 +329,7 @@ class ODBCDriver extends DriverConnectionMappingAbstract
             return false;
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Fetch Array
     //--------------------------------------------------------------------------------------------------------
@@ -345,10 +345,10 @@ class ODBCDriver extends DriverConnectionMappingAbstract
         }
         else
         {
-            return false;   
+            return false;
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Fetch Assoc
     //--------------------------------------------------------------------------------------------------------
@@ -364,10 +364,10 @@ class ODBCDriver extends DriverConnectionMappingAbstract
         }
         else
         {
-            return false;   
+            return false;
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Fetch Row
     //--------------------------------------------------------------------------------------------------------
@@ -383,10 +383,10 @@ class ODBCDriver extends DriverConnectionMappingAbstract
         }
         else
         {
-            return 0;   
+            return 0;
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Affected Rows
     //--------------------------------------------------------------------------------------------------------
@@ -402,10 +402,10 @@ class ODBCDriver extends DriverConnectionMappingAbstract
         }
         else
         {
-            return false;   
+            return false;
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Close
     //--------------------------------------------------------------------------------------------------------
@@ -415,12 +415,12 @@ class ODBCDriver extends DriverConnectionMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function close()
     {
-        if( ! empty($this->connect) ) 
+        if( ! empty($this->connect) )
         {
             @odbc_close($this->connect);
         }
-    }   
-    
+    }
+
     //--------------------------------------------------------------------------------------------------------
     // Version
     //--------------------------------------------------------------------------------------------------------
@@ -431,9 +431,9 @@ class ODBCDriver extends DriverConnectionMappingAbstract
     public function version()
     {
         // Desteklenmiyor.
-        if( ! empty($this->connect) ) 
+        if( ! empty($this->connect) )
         {
             return false;
         }
-    }   
+    }
 }

@@ -12,7 +12,7 @@ class OracleDriver extends DriverConnectionMappingAbstract
     // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Operators
     //--------------------------------------------------------------------------------------------------------
@@ -24,7 +24,7 @@ class OracleDriver extends DriverConnectionMappingAbstract
     [
         'like' => '%'
     ];
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Statements
     //--------------------------------------------------------------------------------------------------------
@@ -34,18 +34,18 @@ class OracleDriver extends DriverConnectionMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     protected $statements =
     [
-        'autoIncrement' => 'CREATE SEQUENCE % MINVALUE 1 STARVALUE WITH 1 INCREMENT BY 1;',
-        'primaryKey'    => 'PRIMARY KEY',
-        'foreignKey'    => 'FOREIGN KEY',
+        'autoincrement' => 'CREATE SEQUENCE % MINVALUE 1 STARVALUE WITH 1 INCREMENT BY 1;',
+        'primarykey'    => 'PRIMARY KEY',
+        'foreignkey'    => 'FOREIGN KEY',
         'unique'        => 'UNIQUE',
         'null'          => 'NULL',
-        'notNull'       => 'NOT NULL',
+        'notnull'       => 'NOT NULL',
         'exists'        => 'EXISTS',
-        'notExists'     => 'NOT EXISTS',
+        'notexists'     => 'NOT EXISTS',
         'constraint'    => 'CONSTRAINT',
         'default'       => 'DEFAULT'
     ];
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Variable Types
     //--------------------------------------------------------------------------------------------------------
@@ -53,28 +53,28 @@ class OracleDriver extends DriverConnectionMappingAbstract
     // @var array
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $variableTypes = 
+    protected $variableTypes =
     [
         'int'           => 'NUMERIC',
-        'smallInt'      => 'NUMERIC',
-        'tinyInt'       => 'NUMERIC',
-        'mediumInt'     => 'NUMERIC',
-        'bigInt'        => 'NUMERIC',
+        'smallint'      => 'NUMERIC',
+        'tinyint'       => 'NUMERIC',
+        'mediumint'     => 'NUMERIC',
+        'bigint'        => 'NUMERIC',
         'decimal'       => 'DECIMAL',
         'double'        => 'BINARY_DOUBLE',
         'float'         => 'BINARY_FLOAT',
         'char'          => 'CHAR',
-        'varChar'       => 'VARCHAR2',
-        'tinyText'      => 'VARCHAR2(255)',
+        'varchar'       => 'VARCHAR2',
+        'tinytext'      => 'VARCHAR2(255)',
         'text'          => 'VARCHAR2(65535)',
-        'mediumText'    => 'VARCHAR2(16277215)',
-        'longText'      => 'CLOB',
+        'mediumtext'    => 'VARCHAR2(16277215)',
+        'longtext'      => 'CLOB',
         'date'          => 'DATE',
-        'dateTime'      => 'TIMESTAMP',
+        'datetime'      => 'TIMESTAMP',
         'time'          => 'TIMESTAMP',
-        'timeStamp'     => 'TIMESTAMP'
+        'timestamp'     => 'TIMESTAMP'
     ];
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Construct
     //--------------------------------------------------------------------------------------------------------
@@ -86,7 +86,7 @@ class OracleDriver extends DriverConnectionMappingAbstract
     {
         \Support::func('oci_connect', 'Oracle 8');
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Connect
     //--------------------------------------------------------------------------------------------------------
@@ -97,48 +97,48 @@ class OracleDriver extends DriverConnectionMappingAbstract
     public function connect($config = [])
     {
         $this->config = $config;
-        
+
         $dsn =  ( ! empty($this->config['dsn']))
                 ? $this->config['dsn']
                 : $this->config['host'];
-        
+
         if( $this->config['pconnect'] === true )
         {
             $this->connect =    (empty($this->config['charset']))
-                                ? @oci_pconnect 
+                                ? @oci_pconnect
                                   (
-                                    $this->config['user'], 
-                                    $this->config['password'], 
+                                    $this->config['user'],
+                                    $this->config['password'],
                                     $dsn
                                   )
-                                : @oci_pconnect 
-                                  ( 
-                                    $this->config['user'], 
-                                    $this->config['password'], 
-                                    $dsn, 
+                                : @oci_pconnect
+                                  (
+                                    $this->config['user'],
+                                    $this->config['password'],
+                                    $dsn,
                                     $this->config['charset']
                                   );
         }
         else
         {
             $this->connect =    (empty($this->config['charset']))
-                                ? @oci_connect 
+                                ? @oci_connect
                                   (
-                                    $this->config['user'], 
-                                    $this->config['password'], 
+                                    $this->config['user'],
+                                    $this->config['password'],
                                     $dsn
                                   )
-                                : @oci_connect 
+                                : @oci_connect
                                   (
-                                    $this->config['user'], 
-                                    $this->config['password'], 
-                                    $dsn, 
+                                    $this->config['user'],
+                                    $this->config['password'],
+                                    $dsn,
                                     $this->config['charset']
                                   );
         }
-        
-        
-        if( empty($this->connect) ) 
+
+
+        if( empty($this->connect) )
         {
             die(getErrorMessage('Database', 'mysqlConnectError'));
         }
@@ -158,13 +158,13 @@ class OracleDriver extends DriverConnectionMappingAbstract
         {
             return false;
         }
-        
+
         $que = oci_parse($this->connect, $query);
         oci_execute($que);
-        
+
         return $que;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Multi Query
     //--------------------------------------------------------------------------------------------------------
@@ -177,7 +177,7 @@ class OracleDriver extends DriverConnectionMappingAbstract
     {
         return $this->query($query, $security);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Query
     //--------------------------------------------------------------------------------------------------------
@@ -191,7 +191,7 @@ class OracleDriver extends DriverConnectionMappingAbstract
         $this->query = oci_parse($this->connect, $query);
         return oci_execute($this->query);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Trans Start
     //--------------------------------------------------------------------------------------------------------
@@ -201,14 +201,14 @@ class OracleDriver extends DriverConnectionMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function transStart()
     {
-        $commit_mode = ( phpversion() > '5.3.2' ) 
-                       ? OCI_NO_AUTO_COMMIT 
+        $commit_mode = ( phpversion() > '5.3.2' )
+                       ? OCI_NO_AUTO_COMMIT
                        : OCI_DEFAULT;
-        
+
         $this->exec($commit_mode);
         return true;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Trans Roll Back
     //--------------------------------------------------------------------------------------------------------
@@ -220,9 +220,9 @@ class OracleDriver extends DriverConnectionMappingAbstract
     {
         oci_rollback($this->connect);
         $commit_mode = OCI_COMMIT_ON_SUCCESS;
-        return $this->exec($commit_mode);        
+        return $this->exec($commit_mode);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Trans Commit
     //--------------------------------------------------------------------------------------------------------
@@ -236,7 +236,7 @@ class OracleDriver extends DriverConnectionMappingAbstract
         $commit_mode = OCI_COMMIT_ON_SUCCESS;
         return $this->exec($commit_mode);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Column Data
     //--------------------------------------------------------------------------------------------------------
@@ -246,19 +246,19 @@ class OracleDriver extends DriverConnectionMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function columnData($col = '')
     {
-        if( empty($this->query) ) 
+        if( empty($this->query) )
         {
             return false;
         }
-        
+
         $columns = [];
-        
+
         $count = $this->numFields();
 
         for ($i = 1; $i <= $count; $i++)
         {
             $fieldName = oci_field_name($this->query, $i);
-            
+
             $columns[$fieldName]                = new \stdClass();
             $columns[$fieldName]->name          = $fieldName;
             $columns[$fieldName]->type          = oci_field_type($this->query, $i);
@@ -266,15 +266,15 @@ class OracleDriver extends DriverConnectionMappingAbstract
             $columns[$fieldName]->primaryKey    = NULL;
             $columns[$fieldName]->default       = NULL;
         }
-        
+
         if( isset($columns[$col]) )
         {
             return $columns[$col];
         }
-        
+
         return $columns;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Num Rows
     //--------------------------------------------------------------------------------------------------------
@@ -290,10 +290,10 @@ class OracleDriver extends DriverConnectionMappingAbstract
         }
         else
         {
-            return 0;   
+            return 0;
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Columns
     //--------------------------------------------------------------------------------------------------------
@@ -303,22 +303,22 @@ class OracleDriver extends DriverConnectionMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function columns()
     {
-        if( empty($this->query) ) 
+        if( empty($this->query) )
         {
             return false;
         }
-        
+
         $columns = [];
-        $num_fields = $this->numFields(); 
-        
+        $num_fields = $this->numFields();
+
         for($i=0; $i < $num_fields; $i++)
-        {   
+        {
                 $columns[] = oci_field_name($this->query,$i);
         }
-        
+
         return $columns;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Num Fields
     //--------------------------------------------------------------------------------------------------------
@@ -334,10 +334,10 @@ class OracleDriver extends DriverConnectionMappingAbstract
         }
         else
         {
-            return 0;   
+            return 0;
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Real Escape String
     //--------------------------------------------------------------------------------------------------------
@@ -349,7 +349,7 @@ class OracleDriver extends DriverConnectionMappingAbstract
     {
         return \Security::escapeStringEncode($data);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Error
     //--------------------------------------------------------------------------------------------------------
@@ -369,7 +369,7 @@ class OracleDriver extends DriverConnectionMappingAbstract
             return false;
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Fetch Array
     //--------------------------------------------------------------------------------------------------------
@@ -385,10 +385,10 @@ class OracleDriver extends DriverConnectionMappingAbstract
         }
         else
         {
-            return false;   
+            return false;
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Fetch Assoc
     //--------------------------------------------------------------------------------------------------------
@@ -404,10 +404,10 @@ class OracleDriver extends DriverConnectionMappingAbstract
         }
         else
         {
-            return false;   
+            return false;
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Fetch Row
     //--------------------------------------------------------------------------------------------------------
@@ -423,10 +423,10 @@ class OracleDriver extends DriverConnectionMappingAbstract
         }
         else
         {
-            return 0;   
+            return 0;
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Affected Rows
     //--------------------------------------------------------------------------------------------------------
@@ -442,10 +442,10 @@ class OracleDriver extends DriverConnectionMappingAbstract
         }
         else
         {
-            return false;   
+            return false;
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Close
     //--------------------------------------------------------------------------------------------------------
@@ -455,16 +455,16 @@ class OracleDriver extends DriverConnectionMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function close()
     {
-        if( ! empty($this->connect) ) 
+        if( ! empty($this->connect) )
         {
-            @oci_close($this->connect); 
+            @oci_close($this->connect);
         }
-        else 
+        else
         {
             return false;
         }
-    }   
-    
+    }
+
     //--------------------------------------------------------------------------------------------------------
     // Version
     //--------------------------------------------------------------------------------------------------------
@@ -474,13 +474,13 @@ class OracleDriver extends DriverConnectionMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function version()
     {
-        if( ! empty($this->connect) ) 
+        if( ! empty($this->connect) )
         {
-            return oci_server_version($this->connect); 
+            return oci_server_version($this->connect);
         }
-        else 
+        else
         {
             return false;
         }
-    }   
+    }
 }

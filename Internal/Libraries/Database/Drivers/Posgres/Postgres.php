@@ -24,7 +24,7 @@ class PostgresDriver extends DriverConnectionMappingAbstract
     [
         'like' => '%'
     ];
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Statements
     //--------------------------------------------------------------------------------------------------------
@@ -35,17 +35,17 @@ class PostgresDriver extends DriverConnectionMappingAbstract
     protected $statements =
     [
         'autoIncrement' => 'BIGSERIAL',
-        'primaryKey'    => 'PRIMARY KEY',
-        'foreignKey'    => 'FOREIGN KEY',
+        'primarykey'    => 'PRIMARY KEY',
+        'foreignkey'    => 'FOREIGN KEY',
         'unique'        => 'UNIQUE',
         'null'          => 'NULL',
-        'notNull'       => 'NOT NULL',
+        'notnull'       => 'NOT NULL',
         'exists'        => 'EXISTS',
-        'notExists'     => 'NOT EXISTS',
+        'notexists'     => 'NOT EXISTS',
         'constraint'    => 'CONSTRAINT',
         'default'       => 'DEFAULT'
     ];
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Variable Types
     //--------------------------------------------------------------------------------------------------------
@@ -56,25 +56,25 @@ class PostgresDriver extends DriverConnectionMappingAbstract
     protected $variableTypes =
     [
         'int'           => 'INTEGER',
-        'smallInt'      => 'SMALLINT',
-        'tinyInt'       => 'SMALLINT',
-        'mediumInt'     => 'INTEGER',
-        'bigInt'        => 'BIGINT',
+        'smallint'      => 'SMALLINT',
+        'tinyint'       => 'SMALLINT',
+        'mediumint'     => 'INTEGER',
+        'bigint'        => 'BIGINT',
         'decimal'       => 'DECIMAL',
         'double'        => 'DOUBLE PRECISION',
         'float'         => 'NUMERIC',
         'char'          => 'CHARACTER',
-        'varChar'       => 'CHARACTER VARYING',
-        'tinyText'      => 'CHARACTER VARYING(255)',
+        'varchar'       => 'CHARACTER VARYING',
+        'tinytext'      => 'CHARACTER VARYING(255)',
         'text'          => 'TEXT',
-        'mediumText'    => 'TEXT',
-        'longText'      => 'TEXT',
+        'mediumtext'    => 'TEXT',
+        'longtext'      => 'TEXT',
         'date'          => 'DATE',
-        'dateTime'      => 'TIMESTAMP',
+        'datetime'      => 'TIMESTAMP',
         'time'          => 'TIME',
-        'timeStamp'     => 'TIMESTAMP'
+        'timestamp'     => 'TIMESTAMP'
     ];
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Construct
     //--------------------------------------------------------------------------------------------------------
@@ -86,7 +86,7 @@ class PostgresDriver extends DriverConnectionMappingAbstract
     {
         \Support::func('pg_connect', 'Postgres');
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Connect
     //--------------------------------------------------------------------------------------------------------
@@ -97,31 +97,31 @@ class PostgresDriver extends DriverConnectionMappingAbstract
     public function connect($config = [])
     {
         $this->config = $config;
-        
+
         $dsn = 'host='.$this->config['host'].' ';
-        
+
         if( ! empty($this->config['port']) )        $dsn .= 'port='.$this->config['port'].' ';
         if( ! empty($this->config['database']) )    $dsn .= 'dbname='.$this->config['database'].' ';
         if( ! empty($this->config['user']) )        $dsn .= 'user='.$this->config['user'].' ';
         if( ! empty($this->config['password']) )    $dsn .= 'password='.$this->config['password'].' ';
-        
+
         if( ! empty($this->config['dsn']) )
         {
-            $dsn = $this->config['dsn'];    
+            $dsn = $this->config['dsn'];
         }
-        
+
         $dsn = rtrim($dsn);
-        
+
         $this->connect = ( $this->config['pconnect'] === true )
                          ? @pg_pconnect($dsn)
                          : @pg_connect($dsn);
-        
-        if( empty($this->connect) ) 
+
+        if( empty($this->connect) )
         {
             die(getErrorMessage('Database', 'mysqlConnectError'));
         }
-        
-        if( ! empty($this->config['charset']) ) 
+
+        if( ! empty($this->config['charset']) )
         {
             pg_set_client_encoding($this->connect, $this->config['charset']);
         }
@@ -141,10 +141,10 @@ class PostgresDriver extends DriverConnectionMappingAbstract
         {
             return false;
         }
-        
+
         return pg_query($this->connect, $query);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Multi Query
     //--------------------------------------------------------------------------------------------------------
@@ -157,7 +157,7 @@ class PostgresDriver extends DriverConnectionMappingAbstract
     {
         return $this->query($query, $security);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Query
     //--------------------------------------------------------------------------------------------------------
@@ -170,7 +170,7 @@ class PostgresDriver extends DriverConnectionMappingAbstract
     {
         return $this->query = $this->exec($query);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Trans Start
     //--------------------------------------------------------------------------------------------------------
@@ -182,7 +182,7 @@ class PostgresDriver extends DriverConnectionMappingAbstract
     {
         return (bool) pg_query($this->connect, 'BEGIN');
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Trans Roll Back
     //--------------------------------------------------------------------------------------------------------
@@ -192,9 +192,9 @@ class PostgresDriver extends DriverConnectionMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function transRollback()
     {
-        return (bool) pg_query($this->connect, 'ROLLBACK');  
+        return (bool) pg_query($this->connect, 'ROLLBACK');
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Trans Commit
     //--------------------------------------------------------------------------------------------------------
@@ -206,7 +206,7 @@ class PostgresDriver extends DriverConnectionMappingAbstract
     {
         return (bool) pg_query($this->connect, 'COMMIT');
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Insert ID
     //--------------------------------------------------------------------------------------------------------
@@ -216,14 +216,14 @@ class PostgresDriver extends DriverConnectionMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function insertID()
     {
-        if( empty($this->query) ) 
+        if( empty($this->query) )
         {
             return false;
         }
-        
+
         return pg_last_oid($this->query);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Column Data
     //--------------------------------------------------------------------------------------------------------
@@ -233,18 +233,18 @@ class PostgresDriver extends DriverConnectionMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function columnData($col = '')
     {
-        if( empty($this->query) ) 
+        if( empty($this->query) )
         {
             return false;
         }
-        
+
         $columns = [];
         $count   = $this->numFields();
 
         for( $i = 0; $i < $count; $i++ )
         {
             $fieldName = pg_field_name($this->query, $i);
-            
+
             $columns[$fieldName]                = new \stdClass();
             $columns[$fieldName]->name          = $fieldName;
             $columns[$fieldName]->type          = pg_field_type($this->query, $i);
@@ -252,15 +252,15 @@ class PostgresDriver extends DriverConnectionMappingAbstract
             $columns[$fieldName]->primaryKey    = NULL;
             $columns[$fieldName]->default       = NULL;
         }
-        
+
         if( isset($columns[$col]) )
         {
             return $columns[$col];
         }
-        
+
         return $columns;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Num Rows
     //--------------------------------------------------------------------------------------------------------
@@ -276,10 +276,10 @@ class PostgresDriver extends DriverConnectionMappingAbstract
         }
         else
         {
-            return 0;   
+            return 0;
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Columns
     //--------------------------------------------------------------------------------------------------------
@@ -289,22 +289,22 @@ class PostgresDriver extends DriverConnectionMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function columns()
     {
-        if( empty($this->query) ) 
+        if( empty($this->query) )
         {
             return false;
         }
-        
+
         $columns = [];
         $num_fields = $this->numFields();
-        
+
         for($i=0; $i < $num_fields; $i++)
-        {       
+        {
             $columns[] = pg_field_name($this->query, $i);
         }
-        
+
         return $columns;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Num Fields
     //--------------------------------------------------------------------------------------------------------
@@ -320,10 +320,10 @@ class PostgresDriver extends DriverConnectionMappingAbstract
         }
         else
         {
-            return 0;   
+            return 0;
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Real Escape String
     //--------------------------------------------------------------------------------------------------------
@@ -335,7 +335,7 @@ class PostgresDriver extends DriverConnectionMappingAbstract
     {
         return pg_escape_string($this->connect, $data);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Error
     //--------------------------------------------------------------------------------------------------------
@@ -354,7 +354,7 @@ class PostgresDriver extends DriverConnectionMappingAbstract
             return false;
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Fetch Array
     //--------------------------------------------------------------------------------------------------------
@@ -370,10 +370,10 @@ class PostgresDriver extends DriverConnectionMappingAbstract
         }
         else
         {
-            return false;   
+            return false;
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Fetch Assoc
     //--------------------------------------------------------------------------------------------------------
@@ -389,10 +389,10 @@ class PostgresDriver extends DriverConnectionMappingAbstract
         }
         else
         {
-            return false;   
+            return false;
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Fetch Row
     //--------------------------------------------------------------------------------------------------------
@@ -408,10 +408,10 @@ class PostgresDriver extends DriverConnectionMappingAbstract
         }
         else
         {
-            return 0;   
+            return 0;
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Affected Rows
     //--------------------------------------------------------------------------------------------------------
@@ -427,10 +427,10 @@ class PostgresDriver extends DriverConnectionMappingAbstract
         }
         else
         {
-            return false;   
+            return false;
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Close
     //--------------------------------------------------------------------------------------------------------
@@ -440,16 +440,16 @@ class PostgresDriver extends DriverConnectionMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function close()
     {
-        if( ! empty($this->connect) ) 
+        if( ! empty($this->connect) )
         {
             @pg_close($this->connect);
         }
-        else 
+        else
         {
             return false;
         }
-    }   
-    
+    }
+
     //--------------------------------------------------------------------------------------------------------
     // Version
     //--------------------------------------------------------------------------------------------------------
@@ -460,7 +460,7 @@ class PostgresDriver extends DriverConnectionMappingAbstract
     public function version()
     {
         // Ön tanımlı sorgu kullanıyor.
-        if( ! empty($this->connect) ) 
+        if( ! empty($this->connect) )
         {
             return pg_version($this->connect);
         }

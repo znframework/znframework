@@ -21,7 +21,7 @@ class PDODriver extends DriverConnectionMappingAbstract
     //
     //--------------------------------------------------------------------------------------------------------
     protected $selectDriver;
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Sub Driver
     //--------------------------------------------------------------------------------------------------------
@@ -30,7 +30,7 @@ class PDODriver extends DriverConnectionMappingAbstract
     //
     //--------------------------------------------------------------------------------------------------------
     protected $subDriver;
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Operators
     //--------------------------------------------------------------------------------------------------------
@@ -42,7 +42,7 @@ class PDODriver extends DriverConnectionMappingAbstract
     [
         'like' => '%'
     ];
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Statements
     //--------------------------------------------------------------------------------------------------------
@@ -50,20 +50,20 @@ class PDODriver extends DriverConnectionMappingAbstract
     // @var array
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $statements = 
+    protected $statements =
     [
-        'autoIncrement' => 'AUTO_INCREMENT',
-        'primaryKey'    => 'PRIMARY KEY',
-        'foreignKey'    => 'FOREIGN KEY',
+        'autoincrement' => 'AUTO_INCREMENT',
+        'primarykey'    => 'PRIMARY KEY',
+        'foreignkey'    => 'FOREIGN KEY',
         'unique'        => 'UNIQUE',
         'null'          => 'NULL',
-        'notNull'       => 'NOT NULL',
+        'notnull'       => 'NOT NULL',
         'exists'        => 'EXISTS',
-        'notExists'     => 'NOT EXISTS',
+        'notexists'     => 'NOT EXISTS',
         'constraint'    => 'CONSTRAINT',
         'default'       => 'DEFAULT'
     ];
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Variable Types
     //--------------------------------------------------------------------------------------------------------
@@ -74,25 +74,25 @@ class PDODriver extends DriverConnectionMappingAbstract
     protected $variableTypes =
     [
         'int'           => 'INT',
-        'smallInt'      => 'SMALLINT',
-        'tinyInt'       => 'TINYINT',
-        'mediumInt'     => 'MEDIUMINT',
-        'bigInt'        => 'BIGINT',
+        'smallint'      => 'SMALLINT',
+        'tinyint'       => 'TINYINT',
+        'mediumint'     => 'MEDIUMINT',
+        'bigint'        => 'BIGINT',
         'decimal'       => 'DECIMAL',
         'double'        => 'DOUBLE',
         'float'         => 'FLOAT',
         'char'          => 'CHAR',
-        'varChar'       => 'VARCHAR',
-        'tinyText'      => 'TINYTEXT',
+        'varchar'       => 'VARCHAR',
+        'tinytext'      => 'TINYTEXT',
         'text'          => 'TEXT',
-        'mediumText'    => 'MEDIUMTEXT',
-        'longText'      => 'LONGTEXT',
+        'mediumtext'    => 'MEDIUMTEXT',
+        'longtext'      => 'LONGTEXT',
         'date'          => 'DATE',
-        'dateTime'      => 'DATETIME',
+        'datetime'      => 'DATETIME',
         'time'          => 'TIME',
-        'timeStamp'     => 'TIMESTAMP'
+        'timestamp'     => 'TIMESTAMP'
     ];
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Construct
     //--------------------------------------------------------------------------------------------------------
@@ -104,7 +104,7 @@ class PDODriver extends DriverConnectionMappingAbstract
     {
         \Support::extension('PDO', 'PDO');
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Connect
     //--------------------------------------------------------------------------------------------------------
@@ -115,36 +115,36 @@ class PDODriver extends DriverConnectionMappingAbstract
     public function connect($config = [])
     {
         $this->config = $config;
-        
+
         if( strstr($this->config['driver'], ':') )
         {
             $subdrivers = explode(":", $this->config['driver']);
             $this->selectDriver  = $subdrivers[1];
         }
-        
-        if( empty($this->selectDriver) ) 
+
+        if( empty($this->selectDriver) )
         {
             $this->selectDriver = 'mysql';
         }
-        
-        $this-> connect = $this->_subDrivers($this->config['user'], $this->config['password']);     
-        
+
+        $this-> connect = $this->_subDrivers($this->config['user'], $this->config['password']);
+
         if( $this->selectDriver === 'mysql' )
         {
             if( ! empty($this->config['charset']) )
-            {   
+            {
                 $this->connect->exec("SET NAMES '".$this->config['charset']."'");
             }
             if( ! empty($this->config['charset']) )
-            {   
-                $this->connect->exec('SET CHARACTER SET '.$this->config['charset']);    
+            {
+                $this->connect->exec('SET CHARACTER SET '.$this->config['charset']);
             }
             if( ! empty($this->config['collation']) )
-            { 
-                $this->connect->exec("SET COLLATION_CONNECTION = '".$this->config['collation']."'");    
+            {
+                $this->connect->exec("SET COLLATION_CONNECTION = '".$this->config['collation']."'");
             }
         }
-    }   
+    }
 
     //--------------------------------------------------------------------------------------------------------
     // Exec
@@ -160,10 +160,10 @@ class PDODriver extends DriverConnectionMappingAbstract
         {
             return false;
         }
-        
+
         return $this->connect->exec($query);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Multi Query
     //--------------------------------------------------------------------------------------------------------
@@ -176,7 +176,7 @@ class PDODriver extends DriverConnectionMappingAbstract
     {
         return $this->query($query, $security);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Query
     //--------------------------------------------------------------------------------------------------------
@@ -190,7 +190,7 @@ class PDODriver extends DriverConnectionMappingAbstract
         $this->query = $this->connect->prepare($query);
         return $this->query->execute($security);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Trans Start
     //--------------------------------------------------------------------------------------------------------
@@ -202,7 +202,7 @@ class PDODriver extends DriverConnectionMappingAbstract
     {
         return $this->connect->beginTransaction();
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Trans Roll Back
     //--------------------------------------------------------------------------------------------------------
@@ -212,9 +212,9 @@ class PDODriver extends DriverConnectionMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function transRollback()
     {
-        return $this->connect->rollBack(); 
+        return $this->connect->rollBack();
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Trans Commit
     //--------------------------------------------------------------------------------------------------------
@@ -245,7 +245,7 @@ class PDODriver extends DriverConnectionMappingAbstract
             return false;
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Column Data
     //--------------------------------------------------------------------------------------------------------
@@ -255,20 +255,20 @@ class PDODriver extends DriverConnectionMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function columnData($col = '')
     {
-        if( empty($this->query) ) 
+        if( empty($this->query) )
         {
             return false;
         }
-        
+
         $columns = [];
-        
+
         $count = $this->numFields();
 
         for( $i = 0; $i < $count; $i++ )
         {
             $field     = $this->query->getColumnMeta($i);
             $fieldName = $field['name'];
-            
+
             $columns[$fieldName]                = new \stdClass();
             $columns[$fieldName]->name          = $fieldName;
             $columns[$fieldName]->type          = $field['native_type'];
@@ -276,16 +276,16 @@ class PDODriver extends DriverConnectionMappingAbstract
             $columns[$fieldName]->primaryKey    = (int) ( ! empty($field['flags']) && in_array('primary_key', $field['flags'], TRUE));
             $columns[$fieldName]->default       = NULL;
         }
-        
+
         if( isset($columns[$col]) )
         {
             return $columns[$col];
         }
-        
+
         return $columns;
-    
+
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Num Rows
     //--------------------------------------------------------------------------------------------------------
@@ -295,9 +295,9 @@ class PDODriver extends DriverConnectionMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function numRows()
     {
-        return $this->query->rowCount();    
+        return $this->query->rowCount();
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Columns
     //--------------------------------------------------------------------------------------------------------
@@ -307,26 +307,26 @@ class PDODriver extends DriverConnectionMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function columns()
     {
-        if( empty($this->query) ) 
+        if( empty($this->query) )
         {
             return false;
         }
-        
+
         $columns = [];
-        
+
         $total_columns = $this->numFields();
-        
-        for ($i = 0; $i < $total_columns; $i ++) 
+
+        for ($i = 0; $i < $total_columns; $i ++)
         {
             $meta = $this->query->getColumnMeta($i);
-            
+
             if($meta['name'] !== NULL)
                 $columns[] = $meta['name'];
         }
-        
+
         return $columns;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Num Fields
     //--------------------------------------------------------------------------------------------------------
@@ -345,7 +345,7 @@ class PDODriver extends DriverConnectionMappingAbstract
             return 0;
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Real Escape String
     //--------------------------------------------------------------------------------------------------------
@@ -355,14 +355,14 @@ class PDODriver extends DriverConnectionMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function realEscapeString($data = '')
     {
-        if( empty($this->connect) ) 
+        if( empty($this->connect) )
         {
             return false;
         }
-        
+
         return $this->connect->quote($data);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Error
     //--------------------------------------------------------------------------------------------------------
@@ -382,7 +382,7 @@ class PDODriver extends DriverConnectionMappingAbstract
             return false;
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Fetch Array
     //--------------------------------------------------------------------------------------------------------
@@ -398,10 +398,10 @@ class PDODriver extends DriverConnectionMappingAbstract
         }
         else
         {
-            return false;   
+            return false;
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Fetch Assoc
     //--------------------------------------------------------------------------------------------------------
@@ -417,10 +417,10 @@ class PDODriver extends DriverConnectionMappingAbstract
         }
         else
         {
-            return false;   
+            return false;
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Fetch Row
     //--------------------------------------------------------------------------------------------------------
@@ -436,10 +436,10 @@ class PDODriver extends DriverConnectionMappingAbstract
         }
         else
         {
-            return 0;   
+            return 0;
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Affected Rows
     //--------------------------------------------------------------------------------------------------------
@@ -455,10 +455,10 @@ class PDODriver extends DriverConnectionMappingAbstract
         }
         else
         {
-            return 0;   
+            return 0;
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Close
     //--------------------------------------------------------------------------------------------------------
@@ -468,9 +468,9 @@ class PDODriver extends DriverConnectionMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function close()
     {
-        if( isset($this->connect) ) 
+        if( isset($this->connect) )
         {
-            $this->connect = NULL;  
+            $this->connect = NULL;
         }
     }
 
@@ -483,7 +483,7 @@ class PDODriver extends DriverConnectionMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function version()
     {
-        if( ! empty($this->connect) ) 
+        if( ! empty($this->connect) )
         {
             return $this->connect->getAttribute(\PDO::ATTR_SERVER_VERSION);
         }
@@ -492,7 +492,7 @@ class PDODriver extends DriverConnectionMappingAbstract
             return false;
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Protected Sub Drivers
     //--------------------------------------------------------------------------------------------------------
@@ -503,12 +503,12 @@ class PDODriver extends DriverConnectionMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     protected function _subDrivers($usr, $pass)
     {
-        $namespace = 'ZN\Database\Drivers\PDO\Drivers\\'; 
+        $namespace = 'ZN\Database\Drivers\PDO\Drivers\\';
 
         $driver = $namespace.'PDO'.$this->selectDriver.'Driver';
-    
+
         $this->subDriver = new $driver;
-    
+
         try
         {
             return new \PDO($this->subDriver->dsn(), $usr, $pass);

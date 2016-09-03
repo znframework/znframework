@@ -24,7 +24,7 @@ class SQLServerDriver extends DriverConnectionMappingAbstract
     [
         'like' => '%'
     ];
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Statements
     //--------------------------------------------------------------------------------------------------------
@@ -34,18 +34,18 @@ class SQLServerDriver extends DriverConnectionMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     protected $statements =
     [
-        'autoIncrement' => 'IDENTITY(1,1)',
-        'primaryKey'    => 'PRIMARY KEY',
-        'foreignKey'    => 'FOREIGN KEY',
+        'autoincrement' => 'IDENTITY(1,1)',
+        'primarykey'    => 'PRIMARY KEY',
+        'foreignkey'    => 'FOREIGN KEY',
         'unique'        => 'UNIQUE',
         'null'          => 'NULL',
-        'notNull'       => 'NOT NULL',
+        'notnull'       => 'NOT NULL',
         'exists'        => 'EXISTS',
-        'notExists'     => 'NOT EXISTS',
+        'notexists'     => 'NOT EXISTS',
         'constraint'    => 'CONSTRAINT',
         'default'       => 'DEFAULT'
     ];
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Variable Types
     //--------------------------------------------------------------------------------------------------------
@@ -56,23 +56,23 @@ class SQLServerDriver extends DriverConnectionMappingAbstract
     protected $variableTypes =
     [
         'int'           => 'INT',
-        'smallInt'      => 'SMALLINT',
-        'tinyInt'       => 'TINYINT',
-        'mediumInt'     => 'INT',
-        'bigInt'        => 'BIGINT',
+        'smallint'      => 'SMALLINT',
+        'tinyint'       => 'TINYINT',
+        'mediumint'     => 'INT',
+        'bigint'        => 'BIGINT',
         'decimal'       => 'DECIMAL',
         'double'        => 'DOUBLE PRECISION',
         'float'         => 'FLOAT',
         'char'          => 'CHAR',
-        'varChar'       => 'VARCHAR',
-        'tinyText'      => 'VARCHAR(255)',
+        'varchar'       => 'VARCHAR',
+        'tinytext'      => 'VARCHAR(255)',
         'text'          => 'VARCHAR(65535)',
-        'mediumText'    => 'VARCHAR(16277215)',
-        'longText'      => 'VARCHAR(16277215)',
+        'mediumtext'    => 'VARCHAR(16277215)',
+        'longtext'      => 'VARCHAR(16277215)',
         'date'          => 'DATE',
-        'dateTime'      => 'DATETIME',
+        'datetime'      => 'DATETIME',
         'time'          => 'TIME',
-        'timeStamp'     => 'TIMESTAMP'
+        'timestamp'     => 'TIMESTAMP'
     ];
 
     //--------------------------------------------------------------------------------------------------------
@@ -84,7 +84,7 @@ class SQLServerDriver extends DriverConnectionMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
-        \Support::func('sqlsrv_connect', 'SQL Server'); 
+        \Support::func('sqlsrv_connect', 'SQL Server');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -97,16 +97,16 @@ class SQLServerDriver extends DriverConnectionMappingAbstract
     public function connect($config = [])
     {
         $this->config = $config;
-        
+
         $server =   ( ! empty($this->config['server']) )
                     ? $this->config['server']
                     : $this->config['host'];
-                    
-        if( ! empty($this->config['port']) ) 
+
+        if( ! empty($this->config['port']) )
         {
             $server .= ', '.$this->config['port'];
         }
-        
+
         $connection = array
         (
             'UID'                   => $this->config['user'],
@@ -117,10 +117,10 @@ class SQLServerDriver extends DriverConnectionMappingAbstract
             'Encrypt'               => $this->config['encode'],
             'ReturnDatesAsStrings'  => 1
         );
-        
+
         $this->connect = @sqlsrv_connect($server, $connection);
-        
-        if( empty($this->connect) ) 
+
+        if( empty($this->connect) )
         {
             die(getErrorMessage('Database', 'mysqlConnectError'));
         }
@@ -140,10 +140,10 @@ class SQLServerDriver extends DriverConnectionMappingAbstract
         {
             return false;
         }
-        
+
         return sqlsrv_query($this->connect, $query);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Multi Query
     //--------------------------------------------------------------------------------------------------------
@@ -156,7 +156,7 @@ class SQLServerDriver extends DriverConnectionMappingAbstract
     {
         return $this->query($query, $security);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Query
     //--------------------------------------------------------------------------------------------------------
@@ -169,7 +169,7 @@ class SQLServerDriver extends DriverConnectionMappingAbstract
     {
         return $this->query = $this->exec($query);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Trans Start
     //--------------------------------------------------------------------------------------------------------
@@ -181,7 +181,7 @@ class SQLServerDriver extends DriverConnectionMappingAbstract
     {
         return sqlsrv_begin_transaction($this->connect);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Trans Roll Back
     //--------------------------------------------------------------------------------------------------------
@@ -191,9 +191,9 @@ class SQLServerDriver extends DriverConnectionMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function transRollback()
     {
-        return sqlsrv_rollback($this->connect);      
+        return sqlsrv_rollback($this->connect);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Trans Commit
     //--------------------------------------------------------------------------------------------------------
@@ -205,7 +205,7 @@ class SQLServerDriver extends DriverConnectionMappingAbstract
     {
         return sqlsrv_commit($this->connect);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Insert ID
     //--------------------------------------------------------------------------------------------------------
@@ -220,7 +220,7 @@ class SQLServerDriver extends DriverConnectionMappingAbstract
 
         return $row->insert_id;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Column Data
     //--------------------------------------------------------------------------------------------------------
@@ -230,17 +230,17 @@ class SQLServerDriver extends DriverConnectionMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function columnData($col = '')
     {
-        if( empty($this->query) ) 
+        if( empty($this->query) )
         {
             return false;
         }
-        
+
         $columns = [];
-        
+
         foreach( sqlsrv_field_metadata($this->query) as $field )
         {
             $fieldName = $field['Name'];
-            
+
             $columns[$fieldName]                = new \stdClass();
             $columns[$fieldName]->name          = $fieldName;
             $columns[$fieldName]->type          = $field['Type'];
@@ -248,15 +248,15 @@ class SQLServerDriver extends DriverConnectionMappingAbstract
             $columns[$fieldName]->primaryKey    = NULL;
             $columns[$fieldName]->default       = NULL;
         }
-        
+
         if( isset($columns[$col]) )
         {
             return $columns[$col];
         }
-        
+
         return $columns;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Num Rows
     //--------------------------------------------------------------------------------------------------------
@@ -272,10 +272,10 @@ class SQLServerDriver extends DriverConnectionMappingAbstract
         }
         else
         {
-            return 0;   
+            return 0;
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Columns
     //--------------------------------------------------------------------------------------------------------
@@ -285,22 +285,22 @@ class SQLServerDriver extends DriverConnectionMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function columns()
     {
-        if( empty($this->query) ) 
+        if( empty($this->query) )
         {
             return false;
         }
-        
+
         $columns = [];
         $num_fields = $this->numFields();
-        
+
         for($i=0; $i < $num_fields; $i++)
-        {       
+        {
             $columns[] = sqlsrv_get_field($this->query, $i);
         }
-        
+
         return $columns;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Num Fields
     //--------------------------------------------------------------------------------------------------------
@@ -316,10 +316,10 @@ class SQLServerDriver extends DriverConnectionMappingAbstract
         }
         else
         {
-            return 0;   
+            return 0;
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Real Escape String
     //--------------------------------------------------------------------------------------------------------
@@ -331,7 +331,7 @@ class SQLServerDriver extends DriverConnectionMappingAbstract
     {
         return \Security::escapeStringEncode($data);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Error
     //--------------------------------------------------------------------------------------------------------
@@ -351,7 +351,7 @@ class SQLServerDriver extends DriverConnectionMappingAbstract
             return false;
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Fetch Array
     //--------------------------------------------------------------------------------------------------------
@@ -367,10 +367,10 @@ class SQLServerDriver extends DriverConnectionMappingAbstract
         }
         else
         {
-            return false;   
+            return false;
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Fetch Assoc
     //--------------------------------------------------------------------------------------------------------
@@ -386,10 +386,10 @@ class SQLServerDriver extends DriverConnectionMappingAbstract
         }
         else
         {
-            return false;   
+            return false;
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Fetch Row
     //--------------------------------------------------------------------------------------------------------
@@ -405,10 +405,10 @@ class SQLServerDriver extends DriverConnectionMappingAbstract
         }
         else
         {
-            return 0;   
+            return 0;
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Affected Rows
     //--------------------------------------------------------------------------------------------------------
@@ -424,10 +424,10 @@ class SQLServerDriver extends DriverConnectionMappingAbstract
         }
         else
         {
-            return false;   
+            return false;
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Close
     //--------------------------------------------------------------------------------------------------------
@@ -437,16 +437,16 @@ class SQLServerDriver extends DriverConnectionMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function close()
     {
-        if( ! empty($this->connect) ) 
+        if( ! empty($this->connect) )
         {
-            @sqlsrv_close($this->connect); 
+            @sqlsrv_close($this->connect);
         }
-        else 
+        else
         {
             return false;
         }
-    }   
-    
+    }
+
     //--------------------------------------------------------------------------------------------------------
     // Version
     //--------------------------------------------------------------------------------------------------------
