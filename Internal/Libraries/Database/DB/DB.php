@@ -1,6 +1,6 @@
 <?php namespace ZN\Database;
 
-use URI, Pagination, Exceptions, Arrays;
+use URI, Pagination, Exceptions, Arrays, Classes;
 
 class InternalDB extends DatabaseCommon implements DBInterface
 {
@@ -422,6 +422,15 @@ class InternalDB extends DatabaseCommon implements DBInterface
         elseif( in_array($method, $this->statementElements) )
         {
             return $this->db->statements($method, ...$parameters);
+        }
+        else
+        {
+            die(getErrorMessage
+            (
+                'Error',
+                'undefinedFunction',
+                Classes::onlyName(__CLASS__)."::$method()"
+            ));
         }
     }
 
