@@ -55,8 +55,6 @@ class Config
     {
         if( empty(self::$config[$file]) )
         {
-            global $config;
-
             $externalPath = EXTERNAL_CONFIG_DIR.suffix($file,".php");
             $projectPath  = CONFIG_DIR.suffix($file,".php");
             $internalPath = INTERNAL_CONFIG_DIR.suffix($file,".php");
