@@ -111,11 +111,7 @@ class InternalValidation extends CallController implements ValidationInterface
 
         $this->settings = [];
 
-        // sistemte validation için oluşturulmuş dil dosyası yükleniyor.
-
-        $viewName = ( empty($viewName) )
-                    ? $name
-                    : $viewName;
+        $viewName = ( empty($viewName) ) ? $name : $viewName;
 
         $edit = $this->_methodType($name, $met);
 
@@ -124,56 +120,46 @@ class InternalValidation extends CallController implements ValidationInterface
             return false;
         }
 
-        // kenar boşluklarını kaldırır.
         if( in_array('trim',$config) )
         {
             $edit = trim($edit);
         }
 
-        // nc_clean çirkin kodların kullanılmasını engellemek için kullanılır.
         if( in_array('nc', $config) )
         {
             $secnc = Config::get('IndividualStructures', 'security')['ncEncode'];
             $edit  = Security::ncEncode($edit, $secnc['badChars'], $secnc['changeBadChars']);
         }
 
-        // xss_clean genel de xss ataklarını engellemek için kullanılır.
         if( in_array('html', $config) )
         {
             $edit = Security::htmlEncode($edit);
         }
 
-        // nail_clean tırnak işaretlerini temizlemek için kullanılır.
         if( in_array('xss', $config) )
         {
             $edit = Security::xssEncode($edit);
         }
 
-        // tırnak işaretleri ve injection saldırılarını engellemek için kullanılır.
         if( in_array('injection', $config) )
         {
             $edit = Security::injectionEncode($edit);
         }
 
-        // Script tag kullanımı engellemek için kullanılır.
         if( in_array('script', $config) )
         {
             $edit = Security::scriptTagEncode($edit);
         }
 
-        // PHP tag kullanımı engellemek için kullanılır.
         if( in_array('php', $config) )
         {
             $edit = Security::phpTagEncode($edit);
         }
 
-        // Süzgeç sonrası validation::nval() yönteminin yeni değeri
         $this->nval[$name] = $edit;
 
-        // Süzgeç sonrası yeni değer
         $this->_methodNval($name, $edit, $met);
 
-        // required boş geçilemez yapar.
         if( in_array('required', $config) )
         {
             if( empty($edit) )
@@ -182,8 +168,6 @@ class InternalValidation extends CallController implements ValidationInterface
             }
         }
 
-        // security_code güvenlik kodunun uygulanması için kullanılır, bu saydece güvenlik kodu ile
-        // bu kural eşleşirse işleve devam edilecektir.
         if( in_array('captcha', $config) )
         {
             Session::start();
@@ -194,7 +178,6 @@ class InternalValidation extends CallController implements ValidationInterface
             }
         }
 
-        // register işlemlerinde iki şifre kutusunun eşleştirilmesi için kullanılmaktadır.
         if( isset($config['matchPassword']) )
         {
             $pm = $this->_methodType($config['matchPassword'], $met);
@@ -226,7 +209,6 @@ class InternalValidation extends CallController implements ValidationInterface
             }
         }
 
-        // numeric form aracının sayısal değer olması gerektiğini belirtir.
         if( in_array('numeric', $config) )
         {
             if( ! Validator::numeric($edit) )
@@ -235,7 +217,6 @@ class InternalValidation extends CallController implements ValidationInterface
             }
         }
 
-        // verinin telefon bilgisi olup olmadığı kontrol edilir.
         if( in_array('phone', $config) )
         {
             if( ! Validator::phone($edit) )
@@ -243,19 +224,15 @@ class InternalValidation extends CallController implements ValidationInterface
                 $this->_messages('phone', $name, $viewName);
             }
         }
-        // verinin belirtilen desende telefon bilgisi olup olmadığı kontrol edilir.
+
         if( isset($config['phone']) )
         {
-            $phoneData = preg_replace('/([^\*])/', 'key:$1', $config['phone']);
-            $phoneData = '/'.str_replace(['*', 'key:'], ['[0-9]', '\\'], $phoneData).'/';
-
-            if( ! preg_match($phoneData, $edit) )
+            if( ! Validator::phone($edit, $config['phone']) )
             {
                 $this->_messages('phone', $name, $viewName);
             }
         }
 
-        // verinin alfabetik karakter bilgisi olup olmadığı kontrol edilir.
         if( in_array('alpha', $config) )
         {
             if( ! Validator::alpha($edit) )
@@ -264,7 +241,6 @@ class InternalValidation extends CallController implements ValidationInterface
             }
         }
 
-        // verinin alfabetik ve sayısal veri olup olmadığı kontrol edilir.
         if( in_array('alnum', $config) )
         {
             if( ! Validator::alnum($edit) )
@@ -273,7 +249,6 @@ class InternalValidation extends CallController implements ValidationInterface
             }
         }
 
-        // email form aracının email olması gerektiğini belirtir.
         if( in_array('email', $config) )
         {
             if( ! Validator::email($edit) )
@@ -298,7 +273,6 @@ class InternalValidation extends CallController implements ValidationInterface
             }
         }
 
-        // no special char, özel karakterlerin kullanımını engeller.
         if( in_array('specialChar', $config) )
         {
             if( Validator::specialChar($edit) )
@@ -307,7 +281,6 @@ class InternalValidation extends CallController implements ValidationInterface
             }
         }
 
-        // maxchar form aracının maximum alacağı karakter sayısını belirtir.
         if( isset($config['maxchar']) )
         {
             if( ! Validator::maxchar($edit, $config['maxchar']) )
@@ -316,7 +289,6 @@ class InternalValidation extends CallController implements ValidationInterface
             }
         }
 
-        // minchar from aracının minimum alacağı karakter sayısını belirtir.
         if( isset($config['minchar']) )
         {
             if( ! Validator::minchar($edit, $config['minchar']) )
@@ -333,7 +305,6 @@ class InternalValidation extends CallController implements ValidationInterface
             }
         }
 
-        // kurala uymayan seçenekler varsa hata mesajı dizisine eklenir.
         array_push($this->errors, $this->messages);
 
         $this->_defaultVariables();

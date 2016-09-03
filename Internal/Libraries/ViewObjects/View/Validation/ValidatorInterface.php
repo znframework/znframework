@@ -19,7 +19,7 @@ interface ValidatorInterface
     // @param string $phoneData
     //
     //--------------------------------------------------------------------------------------------------------
-    public function phone(String $data) : Bool;
+    public function phone(String $data, String $pattern = NULL) : Bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Numeric
@@ -28,7 +28,7 @@ interface ValidatorInterface
     // @param string $data
     //
     //--------------------------------------------------------------------------------------------------------
-    public function numeric(String $data) : Bool;
+    public function numeric($data) : Bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Alnum
@@ -55,7 +55,7 @@ interface ValidatorInterface
     // @param int $no
     //
     //--------------------------------------------------------------------------------------------------------
-    public function identity(Int $no) : Bool;
+    public function identity($no) : Bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Email
