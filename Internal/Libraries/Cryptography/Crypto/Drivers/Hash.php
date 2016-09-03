@@ -16,16 +16,16 @@ class HashDriver extends CryptoMapping
     //--------------------------------------------------------------------------------------------------------
     // Encrypt
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param  string $driver
     // @return bool
     //
     //--------------------------------------------------------------------------------------------------------
     public function encrypt($data, $settings)
     {
-        $cipher = isset($settings['cipher']) ? $settings['cipher'] : 'sha256';
-        $key    = isset($settings['key'])    ? $settings['key']    : $this->config['key']; 
-        
+        $cipher = $settings['cipher'] ?? 'sha256';
+        $key    = $settings['key']    ?? $this->config['key'];
+
         return base64_encode(trim(hash_hmac($cipher, $data, $key)));
     }
 

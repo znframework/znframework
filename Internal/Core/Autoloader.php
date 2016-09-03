@@ -70,6 +70,8 @@ class Autoloader
         {
             self::tryAgainCreateClassMap($class);
         }
+
+        clearstatcache();
     }
 
     //--------------------------------------------------------------------------------------------------

@@ -13,26 +13,24 @@ class MhashDriver extends CryptoMapping
     // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
-	
+
 	//--------------------------------------------------------------------------------------------------------
 	// Encrypt
 	//--------------------------------------------------------------------------------------------------------
-	// 
+	//
 	// @param string $data
 	// @param array  $settings
 	//
 	//--------------------------------------------------------------------------------------------------------
 	public function encrypt($data, $settings)
 	{
-		$cipher = isset($settings['cipher']) ? $settings['cipher'] : 'sha256';
-	 	$key    = isset($settings['key'])    ? $settings['key']    : $this->config['key']; 
-		
-		// MHASH_ ön eki ilave ediliyor.
+		$cipher = $settings['cipher'] ?? 'sha256';
+	 	$key    = $settings['key']    ?? $this->config['key'];
 		$cipher = Converter::toConstant($cipher, 'MHASH_');
-		
+
 		return base64_encode(trim(mhash($cipher, $data, $key)));
 	}
-	
+
 	//--------------------------------------------------------------------------------------------------------
 	// Keygen
 	//--------------------------------------------------------------------------------------------------------
