@@ -24,6 +24,18 @@ class InternalHTML implements HTMLInterface, ViewCommonInterface
     use ViewCommonTrait;
 
     //--------------------------------------------------------------------------------------------------------
+    // Form
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function form() : InternalForm
+    {
+        return new InternalForm;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
     // Table
     //--------------------------------------------------------------------------------------------------------
     //
@@ -156,6 +168,8 @@ class InternalHTML implements HTMLInterface, ViewCommonInterface
         {
             $src = baseUrl($src);
         }
+
+        $attributes['src'] = $src;
 
         if( ! empty($width) )
         {
@@ -550,76 +564,23 @@ class InternalHTML implements HTMLInterface, ViewCommonInterface
     // Meta
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param mixec  $name
+    // @param mixed  $name
     // @param string $content
-    // @param string $type
     //
     //--------------------------------------------------------------------------------------------------------
-    public function meta($name, String $content = NULL, String $type = 'name') : String
+    public function meta($name, String $content = NULL) : String
     {
         if( ! is_array($name) )
         {
-            if( $type === 'name' )
-            {
-                $name = ' name="'.$name.'"';
-            }
-            elseif( $type === 'http' )
-            {
-                $name = ' http-equiv="'.$name.'"';
-            }
-
-            if( ! empty($content) )
-            {
-                $content = ' content="'.$content.'"';
-            }
-            else
-            {
-                $content = '';
-            }
-
-            return '<meta'.$name.$content.' />'."\n";
+            return $this->_singleMeta($name, $content);
         }
         else
         {
-            $metas = '';
+            $metas = NULL;
 
-            foreach( $name as $val )
+            foreach( $name as $key => $val )
             {
-                if( ! isset($val['name']) )
-                {
-                    $val['name'] = '';
-                }
-
-                if( ! isset($val['content']) )
-                {
-                    $val['content'] = '';
-                }
-
-                if( ! isset($val['type']) )
-                {
-                    $val['type'] = 'name';
-                }
-
-                if( $val['type'] === 'http' )
-                {
-                    $type = ' http-equiv="'.$val['name'].'"';
-                }
-
-                if( $val['type'] === 'name' )
-                {
-                    $type = ' name="'.$val['name'].'"';
-                }
-
-                if( ! empty($val['content']) )
-                {
-                    $content = ' content="'.$val['content'].'"';
-                }
-                else
-                {
-                    $content = '';
-                }
-
-                $metas .= '<meta'.$type.$content.' />'."\n";
+                $metas .= $this->_singleMeta($key, $val);
             }
 
             return $metas;
@@ -879,5 +840,36 @@ class InternalHTML implements HTMLInterface, ViewCommonInterface
     protected function _singleElement($element, $attributes = [])
     {
         return '<'.strtolower($element).$this->attributes($attributes).'>';
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Single Meta
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param mixed  $name
+    // @param string $content
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _singleMeta($name, $content)
+    {
+        if( stripos($name, 'http:') === 0 )
+        {
+            $name = ' http-equiv="'.str_ireplace('http:', NULL, $name).'"';
+        }
+        else
+        {
+            $name = ' name="'.str_ireplace('name:', NULL, $name).'"';
+        }
+
+        if( ! empty($content) )
+        {
+            $content = ' content="'.$content.'"';
+        }
+        else
+        {
+            $content = '';
+        }
+
+        return '<meta'.$name.$content.' />'."\n";
     }
 }
