@@ -1,4 +1,4 @@
-<?php 
+<?php
 //--------------------------------------------------------------------------------------------------
 // High Level
 //--------------------------------------------------------------------------------------------------
@@ -17,7 +17,7 @@
 // @return External/Config/
 //
 //--------------------------------------------------------------------------------------------------
-define('EXTERNAL_CONFIG_DIR', EXTERNAL_DIR.'Config'.DS); 
+define('EXTERNAL_CONFIG_DIR', EXTERNAL_DIR.'Config'.DS);
 
 //--------------------------------------------------------------------------------------------------
 // INTERNAL_CONFIG_DIR
@@ -26,7 +26,7 @@ define('EXTERNAL_CONFIG_DIR', EXTERNAL_DIR.'Config'.DS);
 // @return Internal/Config/
 //
 //--------------------------------------------------------------------------------------------------
-define('INTERNAL_CONFIG_DIR', INTERNAL_DIR.'Config'.DS); 
+define('INTERNAL_CONFIG_DIR', INTERNAL_DIR.'Config'.DS);
 
 //--------------------------------------------------------------------------------------------------
 // REQUIRED_FILE
@@ -44,7 +44,7 @@ define('REQUIRED_FILE', CORE_DIR.'Required.php');
 // @return \r\n
 //
 //--------------------------------------------------------------------------------------------------
-define('EOL', PHP_EOL); 
+define('EOL', PHP_EOL);
 
 //--------------------------------------------------------------------------------------------------
 // CRLF
@@ -53,7 +53,7 @@ define('EOL', PHP_EOL);
 // @return \r\n
 //
 //--------------------------------------------------------------------------------------------------
-define('CRLF', "\r\n"); 
+define('CRLF', "\r\n");
 
 //--------------------------------------------------------------------------------------------------
 // CR
@@ -62,7 +62,7 @@ define('CRLF', "\r\n");
 // @return \r
 //
 //--------------------------------------------------------------------------------------------------
-define('CR', "\r"); 
+define('CR', "\r");
 
 //--------------------------------------------------------------------------------------------------
 // LF
@@ -71,7 +71,7 @@ define('CR', "\r");
 // @return \n
 //
 //--------------------------------------------------------------------------------------------------
-define('LF', "\n"); 
+define('LF', "\n");
 
 //--------------------------------------------------------------------------------------------------
 // LF
@@ -80,7 +80,7 @@ define('LF', "\n");
 // @return \t
 //
 //--------------------------------------------------------------------------------------------------
-define('HT', "\t"); 
+define('HT', "\t");
 
 //--------------------------------------------------------------------------------------------------
 // FF
@@ -89,7 +89,7 @@ define('HT', "\t");
 // @return \f
 //
 //--------------------------------------------------------------------------------------------------
-define('FF', "\f"); 
+define('FF', "\f");
 
 //--------------------------------------------------------------------------------------------------
 // BASE_DIR
@@ -114,7 +114,7 @@ if( isset($baseDir[0]) )
 //--------------------------------------------------------------------------------------------------
 $currentPath = server('currentPath');
 
-$internalDir = ( ! empty($currentPath) ? explode('/', ltrim($currentPath, '/'))[0] : ''); 
+$internalDir = ( ! empty($currentPath) ? explode('/', ltrim($currentPath, '/'))[0] : '');
 
 global $projects;
 
@@ -127,26 +127,26 @@ if( is_array($othersapp) )
 
 if( ! empty($internalDir) && is_dir(PROJECTS_DIR.$internalDir) )
 {
-    define('_CURRENT_PROJECT', $internalDir);  
+    define('_CURRENT_PROJECT', $internalDir);
 }
 
 //--------------------------------------------------------------------------------------------------
 // isImport()
 //--------------------------------------------------------------------------------------------------
-// 
+//
 // @param string $path
 //
 // @return Bool
 //
 //--------------------------------------------------------------------------------------------------
 function isImport(String $path) : Bool
-{   
-    if( in_array( realpath(suffix($path, '.php')), get_required_files() ) ) 
+{
+    if( in_array( realpath(suffix($path, '.php')), get_required_files() ) )
     {
         return true;
     }
     else
-    { 
+    {
         return false;
     }
 }
@@ -154,7 +154,7 @@ function isImport(String $path) : Bool
 //--------------------------------------------------------------------------------------------------
 // isUrl()
 //--------------------------------------------------------------------------------------------------
-// 
+//
 // @param string $url
 //
 // @return Bool
@@ -184,11 +184,11 @@ function isUrl(String $url) : Bool
 function isEmail(String $email) : Bool
 {
     if( ! preg_match("/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix", $email) )
-    { 
-        return false; 
+    {
+        return false;
     }
     else
-    { 
+    {
         return true;
     }
 }
@@ -212,7 +212,7 @@ function isChar($str) : Bool
     {
         return false;
     }
-}   
+}
 
 //--------------------------------------------------------------------------------------------------
 // isRealNumeric()
@@ -248,11 +248,11 @@ function isDeclaredClass(String $class) : Bool
 {
     if( in_array(strtolower($class), array_map('strtolower', get_declared_classes())) )
     {
-        return true;    
+        return true;
     }
     else
     {
-        return false;   
+        return false;
     }
 }
 
@@ -362,7 +362,7 @@ function objects(Array $array) : stdClass
 //--------------------------------------------------------------------------------------------------
 function charsetList() : Array
 {
-    return mb_list_encodings(); 
+    return mb_list_encodings();
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -371,33 +371,33 @@ function charsetList() : Array
 //
 // @param mixed $data
 // @param array $settings = []
-// @param bool  $content  = false   
+// @param bool  $content  = false
 //
-// @return void                                                                                                                                             
+// @return void
 //
 //--------------------------------------------------------------------------------------------------
 function output($data, Array $settings = [], Bool $content = false)
-{   
+{
     // ---------------------------------------------------------------------------------------------
     // AYARLAR
     // ---------------------------------------------------------------------------------------------
     $textType       = isset($settings['textType'])      ? $settings['textType']     : 'monospace, Tahoma, Arial';
-    $textSize       = isset($settings['textSize'])      ? $settings['textSize']     : '12px';   
+    $textSize       = isset($settings['textSize'])      ? $settings['textSize']     : '12px';
     // ---------------------------------------------------------------------------------------------
-    
+
     $globalStyle  = ' style="font-family:'.$textType.'; font-size:'.$textSize .';"';
-    
+
     $output  = "<span$globalStyle>";
     $output .= internalOutput($data, '', 0, $settings);
     $output .= "</span>";
-    
+
     if( $content === false)
     {
         echo $output;
     }
     else
     {
-        return $output; 
+        return $output;
     }
 }
 
@@ -409,28 +409,28 @@ function output($data, Array $settings = [], Bool $content = false)
 // @param array  $vars = []
 //
 // @return void
-//                                                                                            
+//
 //--------------------------------------------------------------------------------------------------
 function write(String $data, Array $vars = [])
 {
     if( ! is_scalar($data) )
     {
-        echo 'Not String!'; 
+        echo 'Not String!';
         return false;
     }
 
     if( ! empty($data) && is_array($vars) )
     {
         $varsArray = [];
-        
+
         foreach( $vars as $k => $v )
         {
             $varsArray['{'.$k.'}']  = $v;
         }
-        
+
         $data = str_replace(array_keys($varsArray), array_values($varsArray), $data);
     }
-    
+
     echo $data;
 }
 
@@ -442,8 +442,8 @@ function write(String $data, Array $vars = [])
 // @param array  $vars    = []
 // @param int    $brCount = 1
 //
-// @return void                                                                                                                                       
-//                                                                                            
+// @return void
+//
 //--------------------------------------------------------------------------------------------------
 function writeLine(String $data, Array $vars = [], Int $brCount = 1)
 {
@@ -460,7 +460,7 @@ function writeLine(String $data, Array $vars = [], Int $brCount = 1)
 // @param string $p3
 //
 // @return Bool
-//                                                                                            
+//
 //--------------------------------------------------------------------------------------------------
 function compare(String $p1, String $operator, String $p2) : Bool
 {
@@ -474,7 +474,7 @@ function compare(String $p1, String $operator, String $p2) : Bool
 // @param int $repeat = 1
 //
 // @return string
-//                                                                                            
+//
 //--------------------------------------------------------------------------------------------------
 function eol(Int $repeat = 1) : String
 {
@@ -488,13 +488,13 @@ function eol(Int $repeat = 1) : String
 // @param void
 //
 // @return string
-//                                                                                            
+//
 //--------------------------------------------------------------------------------------------------
 function getOS() : String
 {
-    if( stristr(PHP_OS, 'WIN') ) 
+    if( stristr(PHP_OS, 'WIN') )
     {
-        return 'WIN';        
+        return 'WIN';
     }
     elseif( stristr(PHP_OS, 'MAC') )
     {
@@ -518,14 +518,14 @@ function getOS() : String
 // @param string $fix = '/'
 //
 // @return string
-//                                                                                            
+//
 //--------------------------------------------------------------------------------------------------
 function suffix(String $string, String $fix = '/') : String
 {
     if( strlen($fix) <= strlen($string) )
     {
         $suffix = substr($string, -strlen($fix));
-        
+
         if( $suffix !== $fix)
         {
             $string = $string.$fix;
@@ -533,14 +533,14 @@ function suffix(String $string, String $fix = '/') : String
     }
     else
     {
-        $string = $string.$fix; 
+        $string = $string.$fix;
     }
-    
+
     if( $string === '/' )
     {
-        return false;   
+        return false;
     }
-    
+
     return $string;
 }
 
@@ -552,14 +552,14 @@ function suffix(String $string, String $fix = '/') : String
 // @param string $fix = '/'
 //
 // @return string
-//                                                                                            
+//
 //--------------------------------------------------------------------------------------------------
 function prefix(String $string, String $fix = '/') : String
 {
     if( strlen($fix) <= strlen($string) )
-    {   
+    {
         $prefix = substr($string, 0, strlen($fix));
-    
+
         if( $prefix !== $fix )
         {
             $string = $fix.$string;
@@ -567,14 +567,14 @@ function prefix(String $string, String $fix = '/') : String
     }
     else
     {
-        $string = $fix.$string; 
+        $string = $fix.$string;
     }
-    
+
     if( $string === '/' )
     {
-        return false;   
+        return false;
     }
-    
+
     return $string;
 }
 
@@ -585,8 +585,8 @@ function prefix(String $string, String $fix = '/') : String
 // @param string $string
 // @param string $fix = '/'
 //
-// @return string        
-//                                                                                            
+// @return string
+//
 //--------------------------------------------------------------------------------------------------
 function presuffix(String $string, String $fix = '/') : String
 {
@@ -600,14 +600,14 @@ function presuffix(String $string, String $fix = '/') : String
 // @param void
 //
 // @return string
-//                                                                                            
+//
 //--------------------------------------------------------------------------------------------------
 function host() : String
 {
     if( isset($_SERVER['HTTP_X_FORWARDED_HOST']) )
     {
         $host = $_SERVER['HTTP_X_FORWARDED_HOST'];
-        
+
         $elements = explode(',', $host);
 
         $host = trim(end($elements));
@@ -626,13 +626,13 @@ function host() : String
             }
             else
             {
-                $host = ! empty($_SERVER['SERVER_ADDR']) 
-                        ? $_SERVER['SERVER_ADDR'] 
-                        : '';   
+                $host = ! empty($_SERVER['SERVER_ADDR'])
+                        ? $_SERVER['SERVER_ADDR']
+                        : '';
             }
         }
     }
-        
+
     return trim($host);
 }
 
@@ -643,7 +643,7 @@ function host() : String
 // @param void
 //
 // @return string
-//                                                                                            
+//
 //--------------------------------------------------------------------------------------------------
 function hostName() : String
 {
@@ -657,18 +657,18 @@ function hostName() : String
 // @param string $info = 'basename'
 //
 // @return string
-//                                                                                            
+//
 //--------------------------------------------------------------------------------------------------
 function pathInfos(String $file, String $info = 'basename') : String
 {
     $pathInfo = pathinfo($file);
-    
+
     if( isset($pathInfo[$info]) )
     {
         return $pathInfo[$info];
     }
     else
-    { 
+    {
         return false;
     }
 }
@@ -681,14 +681,14 @@ function pathInfos(String $file, String $info = 'basename') : String
 // @param bool   $dote = false
 //
 // @return string
-//                                                                                            
+//
 //--------------------------------------------------------------------------------------------------
 function extension(String $file, Bool $dote = false) : String
 {
-    $dote = $dote === true 
+    $dote = $dote === true
           ? '.'
           : '';
-    
+
     return $dote.strtolower(pathInfos($file, "extension"));
 }
 
@@ -699,7 +699,7 @@ function extension(String $file, Bool $dote = false) : String
 // @param string $file
 //
 // @return string
-//                                                                                            
+//
 //--------------------------------------------------------------------------------------------------
 function removeExtension(String $file) : String
 {
@@ -715,17 +715,17 @@ function removeExtension(String $file) : String
 // @param scalar $index     = 0
 //
 // @return mixed
-//                                                                                            
+//
 //--------------------------------------------------------------------------------------------------
 function divide(String $str, String $separator = '|', String $index = '0')
 {
     $arrayEx = explode($separator, $str);
-    
+
     if( $index === 'all' )
     {
         return $arrayEx;
     }
-    
+
     if( $index < 0 )
     {
         $ind = (count($arrayEx)+($index));
@@ -742,7 +742,7 @@ function divide(String $str, String $separator = '|', String $index = '0')
     {
         $ind = $index;
     }
-    
+
     if( isset($arrayEx[$ind]) )
     {
         return $arrayEx[$ind];
@@ -761,15 +761,15 @@ function divide(String $str, String $separator = '|', String $index = '0')
 // @param void
 //
 // @return string
-//                                                                                            
+//
 //--------------------------------------------------------------------------------------------------
 function ipv4() : String
 {
-    if( isset($_SERVER['HTTP_CLIENT_IP']) ) 
+    if( isset($_SERVER['HTTP_CLIENT_IP']) )
     {
         $ip = $_SERVER['HTTP_CLIENT_IP'];
     }
-    elseif( isset($_SERVER['HTTP_X_FORWARDED_FOR']) ) 
+    elseif( isset($_SERVER['HTTP_X_FORWARDED_FOR']) )
     {
         $ip = divide($_SERVER['HTTP_X_FORWARDED_FOR'], ',');
     }
@@ -777,12 +777,12 @@ function ipv4() : String
     {
         $ip = $_SERVER['REMOTE_ADDR'];
     }
- 
+
     if( $ip === '::1')
     {
-        $ip = '127.0.0.1';  
+        $ip = '127.0.0.1';
     }
-    
+
     return $ip;
 }
 
@@ -793,7 +793,7 @@ function ipv4() : String
 // @param string $type = ''
 //
 // @return mixed
-//                                                                                            
+//
 //--------------------------------------------------------------------------------------------------
 function server(String $type = '')
 {
@@ -804,9 +804,9 @@ function server(String $type = '')
         'admin'                      => $_SERVER['SERVER_ADMIN']          ?? false,
         'protocol'                   => $_SERVER['SERVER_PROTOCOL']       ?? false,
         'signature'                  => $_SERVER['SERVER_SIGNATURE']      ?? false,
-        'software'                   => $_SERVER['SERVER_SOFTWARE']       ?? false,        
+        'software'                   => $_SERVER['SERVER_SOFTWARE']       ?? false,
         'remoteAddr'                 => $_SERVER['REMOTE_ADDR']           ?? false,
-        'remotePort'                 => $_SERVER['REMOTE_PORT']           ?? false,    
+        'remotePort'                 => $_SERVER['REMOTE_PORT']           ?? false,
         'requestMethod'              => $_SERVER['REQUEST_METHOD']        ?? false,
         'requestUri'                 => $_SERVER['REQUEST_URI']           ?? false,
         'requestScheme'              => $_SERVER['REQUEST_SCHEME']        ?? false,
@@ -839,19 +839,19 @@ function server(String $type = '')
         'redirectUrl'                => $_SERVER['REDIRECT_URL']          ?? false,
         'redirectStatus'             => $_SERVER['REDIRECT_STATUS']       ?? false,
         'phpSelf'                    => $_SERVER['PHP_SELF']              ?? false,
-        'queryString'                => $_SERVER['QUERY_STRING']          ?? false,    
-        'documentRoot'               => $_SERVER['DOCUMENT_ROOT']         ?? false,                            
+        'queryString'                => $_SERVER['QUERY_STRING']          ?? false,
+        'documentRoot'               => $_SERVER['DOCUMENT_ROOT']         ?? false,
         'windir'                     => $_SERVER['WINDIR']                ?? false,
         'comspec'                    => $_SERVER['COMSPEC']               ?? false,
         'systemRoot'                 => $_SERVER['SystemRoot']            ?? false,
-        'gatewayInterface'           => $_SERVER['GATEWAY_INTERFACE']     ?? false         
-    ];  
-    
+        'gatewayInterface'           => $_SERVER['GATEWAY_INTERFACE']     ?? false
+    ];
+
     if( isset($server[$type]) )
     {
         if( is_array($server[$type]) )
         {
-            return $server[$type];  
+            return $server[$type];
         }
         else
         {
@@ -862,9 +862,9 @@ function server(String $type = '')
     {
         return htmlspecialchars($_SERVER[$type], ENT_QUOTES, "utf-8");
     }
-    
+
     return false;
-}   
+}
 
 //--------------------------------------------------------------------------------------------------
 // lastError()
@@ -873,12 +873,12 @@ function server(String $type = '')
 // @param string $type = NULL
 //
 // @param mixed
-//                                                                                            
+//
 //--------------------------------------------------------------------------------------------------
 function lastError(String $type = NULL)
-{   
+{
     $result = error_get_last();
-    
+
     if( $type === NULL )
     {
         return $result;
@@ -903,21 +903,21 @@ function lastError(String $type = NULL)
 // @param void
 //
 // @param string
-//                                                                                            
+//
 //--------------------------------------------------------------------------------------------------
 function internalApplicationContainerDir() : String
 {
     global $projects;
-    
+
     $containers = $projects['containers'];
-    
+
     if( ! empty($containers) && defined('_CURRENT_PROJECT') )
     {
         return ! empty($containers[_CURRENT_PROJECT])
                ? PROJECTS_DIR.suffix($containers[_CURRENT_PROJECT])
                : PROJECT_DIR;
     }
-    
+
     return PROJECT_DIR;
 }
 
@@ -927,7 +927,7 @@ function internalApplicationContainerDir() : String
 //
 // @param string $mode: publication, development, restoration
 // @param int    $report: -1
-// 
+//
 // @return void
 //
 //--------------------------------------------------------------------------------------------------
@@ -937,17 +937,17 @@ function internalProjectMode(String $mode, Int $report = -1)
     // Kullanılabilir Uygulama Seçenekleri
     //----------------------------------------------------------------------------------------------
     switch( strtolower($mode) )
-    { 
+    {
         //------------------------------------------------------------------------------------------
         // Publication Yayın Modu
         // Tüm hatalar kapalıdır.
         // Projenin tamamlanmasından sonra bu modun kullanılması önerilir.
         //------------------------------------------------------------------------------------------
         case 'publication' :
-            error_reporting(0); 
+            error_reporting(0);
         break;
         //------------------------------------------------------------------------------------------
-        
+
         //------------------------------------------------------------------------------------------
         // Restoration Onarım Modu
         // Hataların görünümü görecelidir.
@@ -957,18 +957,18 @@ function internalProjectMode(String $mode, Int $report = -1)
         // Development Geliştirme Modu
         // Tüm hatalar açıktır.
         //------------------------------------------------------------------------------------------
-        case 'development' : 
+        case 'development' :
             error_reporting($report);
-        break; 
+        break;
         //------------------------------------------------------------------------------------------
-        
+
         //------------------------------------------------------------------------------------------
         // Farklı bir kullanım hatası
         //------------------------------------------------------------------------------------------
         default: trace('Invalid Application Mode! Available Options: ["development"], ["restoration"] or ["publication"]');
         //------------------------------------------------------------------------------------------
-    }   
-    //----------------------------------------------------------------------------------------------    
+    }
+    //----------------------------------------------------------------------------------------------
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -1077,7 +1077,7 @@ function internalObjects(Array $array, stdClass &$std) : stdClass
             internalObjects($value, $std->$key);
         }
         else
-        {     
+        {
             $std->$key = $value;
         }
     }

@@ -12,11 +12,11 @@ class InternalML extends Requirements implements MLInterface
     // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
-    
+
     //--------------------------------------------------------------------------------------------------------
     // ML Properties Trait
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // url()
     // limit()
     //
@@ -26,55 +26,55 @@ class InternalML extends Requirements implements MLInterface
     //--------------------------------------------------------------------------------------------------------
     // $appdir
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @var string: NULL
     //
     //--------------------------------------------------------------------------------------------------------
     protected $appdir;
-    
+
     //--------------------------------------------------------------------------------------------------------
     // $extension
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @var string: .ml
     //
     //--------------------------------------------------------------------------------------------------------
     protected $extension = '.ml';
-    
+
     /*
      * Aktif dil dosyası yol bilgisini tutar.
      *
      * @var lang
      */
     protected $lang;
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Constructor
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // __construct()
     //
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
         $this->config = config('EncodingSupport', 'ml');
-    
-        $this->appdir = STORAGE_DIR.'MultiLanguage/';   
-        
+
+        $this->appdir = STORAGE_DIR.'MultiLanguage/';
+
         if( ! Folder::exists($this->appdir) )
         {
-            Folder::create($this->appdir, 0755);   
+            Folder::create($this->appdir, 0755);
         }
-            
+
         $this->lang   = $this->appdir.getLang().$this->extension;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Insert
     //--------------------------------------------------------------------------------------------------------
     //
     // Dil dosyasına kelime eklemek için kullanılır.
-    // @param string $app 
+    // @param string $app
     // @param mixed  $key
     // @param string $data
     //
@@ -82,23 +82,23 @@ class InternalML extends Requirements implements MLInterface
     public function insert(String $app, $key, String $data = NULL) : Bool
     {
         $datas = [];
-        
+
         $createFile = $this->_langFile($app);
-        
+
         // Daha önce bir dil dosyası oluşturulmamışsa oluştur.
         if( ! File::exists($createFile) )
         {
-            File::write($createFile, Json::encode([]));   
+            File::write($createFile, Json::encode([]));
         }
-        
+
         // Json ile veriler diziye çevriliyor.
-        $datas = Json::decodeArray(File::read($createFile));  
+        $datas = Json::decodeArray(File::read($createFile));
 
         if( ! empty($datas) )
         {
             $json = $datas;
-        }   
-        
+        }
+
         // 2. key parametresi hem dizi hemde string veri alabilir.
         // Bu parametrenin veri türüne göre ekleme işlemleri yapılıyor.
         if( ! is_array($key) )
@@ -109,10 +109,10 @@ class InternalML extends Requirements implements MLInterface
         {
             foreach( $key as $k => $v )
             {
-                $json[$k] = $v; 
-            }   
+                $json[$k] = $v;
+            }
         }
-        
+
         // Yeni eklenecek bir veri varsa ekle
         // Aksi halde herhangi bir işlem yapma.
         if( $json !== $datas )
@@ -121,7 +121,7 @@ class InternalML extends Requirements implements MLInterface
         }
         else
         {
-            return false;   
+            return false;
         }
     }
 
@@ -130,7 +130,7 @@ class InternalML extends Requirements implements MLInterface
     //--------------------------------------------------------------------------------------------------------
     //
     // Silinecek dil dosyası.
-    // @param string $app 
+    // @param string $app
     // @param mixed  $key
     //
     // @return bool
@@ -139,20 +139,20 @@ class InternalML extends Requirements implements MLInterface
     public function delete(String $app, $key) : Bool
     {
         $datas = [];
-        
+
         $createFile = $this->_langFile($app);
-        
+
         // Dosya mevcutsa verileri al.
         if( File::exists($createFile) )
         {
-            $datas = Json::decodeArray(File::read($createFile));      
+            $datas = Json::decodeArray(File::read($createFile));
         }
-        
+
         if( ! empty($datas) )
         {
             $json = $datas;
-        }   
-        
+        }
+
         // Yine anahtar parametresinin ver türüne göre
         // işlemleri gerçekleştirmesi sağlanıyor.
         if( ! is_array($key) )
@@ -163,20 +163,20 @@ class InternalML extends Requirements implements MLInterface
         {
             foreach($key as $v)
             {
-                unset($json[$v]);   
-            }   
+                unset($json[$v]);
+            }
         }
-        
+
         // Dosyayı yeniden yaz.
         return File::write($createFile, Json::encode($json));
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Delete All
     //--------------------------------------------------------------------------------------------------------
     //
     // Silinecek dil dosyası.
-    // @param string $app 
+    // @param string $app
     //
     //--------------------------------------------------------------------------------------------------------
     public function deleteAll($app = NULL) : Bool
@@ -193,11 +193,11 @@ class InternalML extends Requirements implements MLInterface
             }
             else
             {
-                return false;   
+                return false;
             }
-            
+
             $allMLFiles = [];
-            
+
             if( ! empty($MLFiles) ) foreach( $MLFiles as $file )
             {
                 $removeExtension = str_replace('.ml', '', $file);
@@ -212,9 +212,9 @@ class InternalML extends Requirements implements MLInterface
             // Dosya mevcutsa verileri al.
             if( File::exists($createFile) )
             {
-                return File::delete($createFile);      
+                return File::delete($createFile);
             }
-            
+
             return false;
         }
     }
@@ -224,7 +224,7 @@ class InternalML extends Requirements implements MLInterface
     //--------------------------------------------------------------------------------------------------------
     //
     // Dil dosyasında yer alan bir kelimeyi güncellemek için kullanılır.
-    // @param string $app 
+    // @param string $app
     // @param mixed  $key
     // @param string $data
     //
@@ -234,26 +234,26 @@ class InternalML extends Requirements implements MLInterface
         // Güncelleme işlemi ekleme yöntemi ile aynı özelliğe sahiptir.
         return $this->insert($app, $key, $data);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Select
     //--------------------------------------------------------------------------------------------------------
     //
     // Dil dosyasın yer alan istenilen kelimeye erişmek için kullanılır.
-    // @param mixed $key 
+    // @param mixed $key
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
     public function select(String $key, $convert = NULL) : String
     {
         $read = File::read($this->lang);
-        
+
         $array = Json::decodeArray($read);
-        
+
         $return = '';
-        
+
         if( isset($array[$key]) )
-        { 
+        {
             if( is_array($convert) )
             {
                 $return = str_replace(array_keys($convert), array_values($convert), $array[$key]);
@@ -263,15 +263,15 @@ class InternalML extends Requirements implements MLInterface
                 $return = str_replace('%', $convert, $array[$key]);
             }
         }
-        
-        return $return;       
+
+        return $return;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Select All
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param  mixed $app 
+    // @param  mixed $app
     // @return array
     //
     //--------------------------------------------------------------------------------------------------------
@@ -289,34 +289,34 @@ class InternalML extends Requirements implements MLInterface
             }
             else
             {
-                return false;   
-            }           
-            
+                return false;
+            }
+
             $allMLFiles = [];
-            
+
             if( ! empty($MLFiles) ) foreach( $MLFiles as $file )
             {
                 $removeExtension = str_replace('.ml', '', $file);
                 $allMLFiles[$removeExtension] = $this->selectAll($removeExtension);
             }
-            
+
             return $allMLFiles;
         }
         else
         {
-            $createFile = $this->_langFile($app);   
-            
+            $createFile = $this->_langFile($app);
+
             $read = File::read($createFile);
-            
+
             return Json::decodeArray($read);
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Table
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param  mixed $app 
+    // @param  mixed $app
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
@@ -329,26 +329,26 @@ class InternalML extends Requirements implements MLInterface
             $keyword   = Method::post('ML_UPDATE_KEYWORD_HIDDEN');
             $languages = explode(',', Method::post('ML_LANGUAGES'));
             $words     = Method::post('ML_UPDATE_WORDS');
-            
+
             // SEARCH
             if( Method::post('ML_SEARCH_SUBMIT') )
             {
-                $searchWord = Method::post('ML_SEARCH');   
+                $searchWord = Method::post('ML_SEARCH');
             }
-            
+
             // ADD LANGUAGE
             if( Method::post('ML_ADD_ALL_LANGUAGE_SUBMIT') )
             {
-                $this->insert(Method::post('ML_ADD_LANGUAGE'), 'example', 'Example');  
+                $this->insert(Method::post('ML_ADD_LANGUAGE'), 'example', 'Example');
             }
-            
+
             // ALL DELETE
             if( Method::post('ML_ALL_DELETE_SUBMIT') )
             {
                 $allDelete = Method::post('ML_ALL_DELETE_HIDDEN');
                 $this->deleteAll($allDelete);
             }
-            
+
             // ADD
             if( Method::post('ML_ADD_KEYWORD_SUBMIT') )
             {
@@ -358,35 +358,35 @@ class InternalML extends Requirements implements MLInterface
                 if( is_numeric($addKeyword) )
                 {
                     $addKeyword = 'Wrong Keyword! Only String.';
-                }     
-                
+                }
+
                 if( ! empty($languages) ) foreach( $languages as $key => $lang )
                 {
-                    $this->insert($lang, $addKeyword, $addWords[$key]); 
-                }   
-            }
-            
-            // UPDATE
-            if( Method::post('ML_UPDATE_KEYWORD_SUBMIT') )
-            {   
-                if( ! empty($languages) ) foreach( $languages as $key => $lang )
-                {
-                    $this->update($lang, $keyword, $words[$key]);   
+                    $this->insert($lang, $addKeyword, $addWords[$key]);
                 }
             }
-            
+
+            // UPDATE
+            if( Method::post('ML_UPDATE_KEYWORD_SUBMIT') )
+            {
+                if( ! empty($languages) ) foreach( $languages as $key => $lang )
+                {
+                    $this->update($lang, $keyword, $words[$key]);
+                }
+            }
+
             // DELETE
             if( Method::post('ML_DELETE_SUBMIT') )
             {
                 if( ! empty($languages) ) foreach( $languages as $key => $lang )
                 {
-                    $this->delete($lang, $keyword); 
+                    $this->delete($lang, $keyword);
                 }
             }
         }
-        
+
         $config = $this->config['table'];
-        
+
         $attributes         = $config['attributes'];
         $pagcon             = $config['pagination'];
         $placeHolders       = $config['placeHolders'];
@@ -395,13 +395,13 @@ class InternalML extends Requirements implements MLInterface
         $confirmMessage     = $config['labels']['confirm'];
         $process            = $config['labels']['process'];
         $keywords           = $config['labels']['keywords'];
-        
+
         $confirmBox = ' onsubmit="return confirm(\''.$confirmMessage.'\');"';
-        
-        
-        $data = $this->selectAll($app); 
+
+
+        $data = $this->selectAll($app);
         $languageCount = count($data);
-        
+
         $table  = $this->_styleElement();
         $table .= '<table id="ML_TABLE"'.Html::attributes($attributes['table']).'>';
         $table .= '<thead>';
@@ -415,27 +415,27 @@ class InternalML extends Requirements implements MLInterface
         $table .= Form::attr($attributes['add'])->submit('ML_ADD_ALL_LANGUAGE_SUBMIT', $buttonNames['add']).'</td>';
         $table .= '</form>';
         $table .= '</tr>';
-            
+
         $table .= '<tr><th>#</th><td><strong>'.$keywords.'</strong></td>';
-        
+
         $words = [];
         $formObjects = '';
-        
+
         $languages   = implode(',', array_keys($data));
         $mlLanguages = Form::hidden('ML_LANGUAGES', $languages);
-        
+
         foreach( $data as $lang => $values )
         {
             $upperLang = strtoupper($lang);
-            
+
             $table .= '<form name="ML_TOP_FORM_'.$upperLang.'" method="post"'.$confirmBox.'>';
-            $table .= '<td><strong>'.$upperLang.Form::hidden('ML_ALL_DELETE_HIDDEN', $lang).Form::attr($attributes['delete'])->submit('ML_ALL_DELETE_SUBMIT', $buttonNames['delete']).'</strong></td>';       
-            $table .= '</form>';        
+            $table .= '<td><strong>'.$upperLang.Form::hidden('ML_ALL_DELETE_HIDDEN', $lang).Form::attr($attributes['delete'])->submit('ML_ALL_DELETE_SUBMIT', $buttonNames['delete']).'</strong></td>';
+            $table .= '</form>';
             foreach( $values as $key => $val )
             {
                 $words[$key][] = $val;
             }
-            
+
             $formObjects .= '<td>'.Form::attr($attributes['textbox'])->placeholder($upperLang)->text('ML_ADD_WORDS[]').'</td>';
         }
         $table .= '<td><strong>'.$process.'</strong></td>';
@@ -450,94 +450,78 @@ class InternalML extends Requirements implements MLInterface
         $table .= '<td>'.Form::attr($attributes['add'])->submit('ML_ADD_KEYWORD_SUBMIT', $buttonNames['add']).' '.Form::attr($attributes['clear'])->reset('ML_ADD_KEYWORD_RESET', $buttonNames['clear']).'</td>';
         $table .= '</form>';
         $table .= '</tr>';
-        
-        
+
+
         $limit     = $this->limit;
         $start     = (int) URI::segment(-1);
         $totalRows = count($words);
         $index     = 1;
-        
+
         if( ! empty($searchWord) )
         {
             $newWords = [];
-            
+
             foreach( $words as $key => $val )
-            {   
+            {
                 if( stristr($key, $searchWord) )
                 {
                     $newWords[$key] = $val;
-                }   
+                }
                 else
                 {
                     $newValues = [];
-                
+
                     foreach( $val as $v )
                     {
                         if( stristr($v, $searchWord) )
                         {
                             $newValues[] = $v;
-                        }   
+                        }
                     }
-                    
+
                     if( ! empty($newValues) )
                     {
-                        $newWords[$key] = $newValues;   
-                    }       
+                        $newWords[$key] = $newValues;
+                    }
                 }
-            }   
-            
+            }
+
             $words = $newWords;
         }
-        
+
         if( empty($searchWord) )
         {
             $words = array_slice($words, $start, $limit);
         }
-        
+
         foreach( $words as $key => $val )
         {
             $table .= '<tr>';
             $table .= '<form name="ML_'.strtoupper($key).'_FORM" method="post"'.$confirmBox.'>';
             $table .= '<th>'.$index++.'</th>';
             $table .= '<td>'.Form::hidden('ML_UPDATE_KEYWORD_HIDDEN', $key).$key.'</td>';
-            
+
             for( $i = 0; $i < $languageCount; $i++ )
             {
-                $table .= '<td>'.Form::attr($attributes['textbox'])->text('ML_UPDATE_WORDS[]', ( ! empty($val[$i]) ? $val[$i] : '' )).'</td>'; 
+                $table .= '<td>'.Form::attr($attributes['textbox'])->text('ML_UPDATE_WORDS[]', ( ! empty($val[$i]) ? $val[$i] : '' )).'</td>';
             }
-            
+
             $table .= '<td>'.$mlLanguages.Form::attr($attributes['update'])->submit('ML_UPDATE_KEYWORD_SUBMIT', $buttonNames['update']);
             $table .= ' ';
             $table .= Form::attr($attributes['delete'])->submit('ML_DELETE_SUBMIT', $buttonNames['delete']).'</td>';
             $table .= '</form>';
-            $table .= '</tr>';  
+            $table .= '</tr>';
         }
-        
+
         if( empty($this->url) )
         {
-            if( defined('_CURRENT_PROJECT') )
-            {
-                if( defined('CURRENT_PROJECT') )
-                {
-                    $preUrl = CURRENT_PROJECT;
-                }
-                else
-                {
-                    $preUrl = _CURRENT_PROJECT;
-                }
-                
-                $paginationUrl = $preUrl.'/'.CURRENT_CONTROLLER.'/'.CURRENT_CFUNCTION;
-            }
-            else
-            {
-                $paginationUrl = '';    
-            }
+            $paginationUrl = CURRENT_CFURI;
         }
         else
         {
-            $paginationUrl = $this->url;    
+            $paginationUrl = $this->url;
         }
-        
+
         if( empty($searchWord) )
         {
             $pagination = Pagination::style($pagcon['style'])
@@ -550,17 +534,17 @@ class InternalML extends Requirements implements MLInterface
         }
         else
         {
-            $pagination = '';   
+            $pagination = NULL;
         }
-        
+
         if( ! empty($pagination) && ! empty($totalRows) )
         {
-            $table .= '<tr><th>P</th><td colspan="'.($languageCount + 3).'">'.$pagination.'</td></tr>'; 
+            $table .= '<tr><th>P</th><td colspan="'.($languageCount + 3).'">'.$pagination.'</td></tr>';
         }
-        
+
         $table .= '</tbody>';
         $table .= '</table>';
-    
+
         return $table;
     }
 
@@ -569,7 +553,7 @@ class InternalML extends Requirements implements MLInterface
     //--------------------------------------------------------------------------------------------------------
     //
     // Sayfanın aktif dilini ayarlamak için kullanılır.
-    // @param string $lang 
+    // @param string $lang
     // @return bool
     //
     //--------------------------------------------------------------------------------------------------------
@@ -588,7 +572,7 @@ class InternalML extends Requirements implements MLInterface
     protected function _styleElement()
     {
         if( ! empty($this->config['table']['styleElement']) )
-        { 
+        {
             $attributes = NULL;
 
             foreach( $this->config['table']['styleElement'] as $selector => $attr )
@@ -601,7 +585,7 @@ class InternalML extends Requirements implements MLInterface
 
         return NULL;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Protected Lang File
     //--------------------------------------------------------------------------------------------------------
@@ -611,6 +595,6 @@ class InternalML extends Requirements implements MLInterface
     //--------------------------------------------------------------------------------------------------------
     protected function _langFile($app)
     {
-        return $this->appdir.$app.$this->extension; 
+        return $this->appdir.$app.$this->extension;
     }
 }
