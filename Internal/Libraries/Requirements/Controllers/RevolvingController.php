@@ -1,6 +1,6 @@
 <?php namespace ZN\Requirements\Controllers;
 
-class CallController extends BaseController
+class RevolvingController
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -20,13 +20,10 @@ class CallController extends BaseController
     //--------------------------------------------------------------------------------------------------------
     public function __call($method, $param)
     {
-        die(getErrorMessage
-        (
-            'Error',
-            'undefinedFunction',
-            divide(str_ireplace(INTERNAL_ACCESS, '', get_called_class()), '\\', -1)."::$method()"
-        ));
+        $this->$method = $method;
+
+        return $this;
     }
 }
 
-class_alias('ZN\Requirements\Controllers\CallController', 'CallController');
+class_alias('ZN\Requirements\Controllers\RevolvingController', 'RevolvingController');

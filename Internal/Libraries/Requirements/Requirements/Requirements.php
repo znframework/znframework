@@ -1,6 +1,8 @@
 <?php namespace ZN\Requirements;
 
-class Requirements extends \CallController implements RequirementsInterface
+use CallController;
+
+class Requirements extends CallController implements RequirementsInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -12,11 +14,11 @@ class Requirements extends \CallController implements RequirementsInterface
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
-    // Lang                                                                       
+    // Lang
     //--------------------------------------------------------------------------------------------------------
     //
-    // @var array                        
-    //                                                                                           
+    // @var array
+    //
     //--------------------------------------------------------------------------------------------------------
     protected $lang = [];
 
