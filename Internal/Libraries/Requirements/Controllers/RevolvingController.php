@@ -20,7 +20,7 @@ class RevolvingController
     //--------------------------------------------------------------------------------------------------------
     public function __call($method, $param)
     {
-        $this->$method = $method;
+        $this->$method = $param[0] ?? NULL;
 
         return $this;
     }

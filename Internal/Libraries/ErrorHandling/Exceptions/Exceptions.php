@@ -14,12 +14,12 @@ class InternalExceptions extends Exception implements ExceptionsInterface
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
-    // To String 
+    // To String
     //--------------------------------------------------------------------------------------------------------
     //
     // @param void
     //
-    //--------------------------------------------------------------------------------------------------------  
+    //--------------------------------------------------------------------------------------------------------
     public function __toString()
     {
         return $this->_template($this->getMessage(), $this->getFile(), $this->getLine(), $this->getTrace());
@@ -36,7 +36,7 @@ class InternalExceptions extends Exception implements ExceptionsInterface
     //--------------------------------------------------------------------------------------------------------
     public function throws(String $message = NULL, String $key = NULL, $send = NULL)
     {
-        $debug = $this->_throwFinder(debug_backtrace());
+        $debug = $this->_throwFinder(debug_backtrace(2));
 
         if( $lang = lang($message, $key, $send) )
         {
@@ -61,20 +61,20 @@ class InternalExceptions extends Exception implements ExceptionsInterface
     {
         $lang    = lang('Error');
         $message = $lang['line'].':'.$line.', '.$lang['file'].':'.$file.', '.$lang['message'].':'.$msg;
-        
+
         report('ExceptionError', $message, 'ExceptionError');
-        
-        $table = $this->_template($msg, $file, $line, $no, $trace);  
-        
+
+        $table = $this->_template($msg, $file, $line, $no, $trace);
+
         // Error Type: TypeHint -> exit
         if( in_array($no, ['0', '2']) )
         {
             exit($table);
         }
-        
+
         echo $table;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Restore
     //--------------------------------------------------------------------------------------------------------
@@ -86,7 +86,7 @@ class InternalExceptions extends Exception implements ExceptionsInterface
     {
         return restore_exception_handler();
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Handler
     //--------------------------------------------------------------------------------------------------------
@@ -98,7 +98,7 @@ class InternalExceptions extends Exception implements ExceptionsInterface
     {
         if( ! is_callable($handler) )
         {
-            return $this->set(lang('Error', 'callableParameter', '1.(handler)'));   
+            return $this->set(lang('Error', 'callableParameter', '1.(handler)'));
         }
 
         return set_exception_handler($handler);
@@ -118,12 +118,12 @@ class InternalExceptions extends Exception implements ExceptionsInterface
     private function _template($msg, $file, $line, $no, $trace)
     {
         $projects = Config::get('Project');
-        
+
         if( ! $projects['errorReporting'] )
         {
             return false;
         }
-        
+
         if( in_array($no, $projects['escapeErrors']) )
         {
             return false;
@@ -141,7 +141,7 @@ class InternalExceptions extends Exception implements ExceptionsInterface
             'line'    => '['.$line.']'
         );
 
-        if( $passed = $this->_argumentPassed($msg, $file, $line, $trace) )  
+        if( $passed = $this->_argumentPassed($msg, $file, $line, $trace) )
         {
             if( is_array($passed) )
             {
@@ -186,7 +186,7 @@ class InternalExceptions extends Exception implements ExceptionsInterface
     {
         if
         (
-            isset($trace[$p1]['class']) && 
+            isset($trace[$p1]['class']) &&
             $this->_cleanClassName($trace[$p1]['class']) === 'StaticAccess' &&
             $trace[$p1]['function'] === '__callStatic'
         )
@@ -198,7 +198,7 @@ class InternalExceptions extends Exception implements ExceptionsInterface
         }
         else
         {
-            $traceInfo = isset($trace[$p2]) ? $trace[$p2] : $this->_traceFinder(debug_backtrace(), 8, 6);
+            $traceInfo = isset($trace[$p2]) ? $trace[$p2] : $this->_traceFinder(debug_backtrace(2), 8, 6);
         }
 
         if( ! isset($traceInfo['class']) )
@@ -206,7 +206,7 @@ class InternalExceptions extends Exception implements ExceptionsInterface
             $traceInfo['class'] = $traceInfo['function'];
         }
 
-        return 
+        return
         [
             'class'    => $this->_cleanClassName($traceInfo['class']),
             'function' => $traceInfo['function'],
@@ -234,7 +234,7 @@ class InternalExceptions extends Exception implements ExceptionsInterface
             $fileInfo['line']   = $classInfo['line'];
         }
 
-        return 
+        return
         [
             'class'    => $this->_cleanClassName($classInfo['class']),
             'function' => $classInfo['function'],
@@ -277,7 +277,7 @@ class InternalExceptions extends Exception implements ExceptionsInterface
             $msg,
             $match
         );
-        
+
         $message  = ! empty($match[0]) ? $match[0] : NULL;
         $argument = ! empty($match[1]) ? $match[1] : NULL;
 
@@ -292,13 +292,13 @@ class InternalExceptions extends Exception implements ExceptionsInterface
         }
         else
         {
-            $traceInfo = $this->_traceFinder(debug_backtrace(), 7, 5);
+            $traceInfo = $this->_traceFinder(debug_backtrace(2), 7, 5);
         }
 
         $langMessage1    = '['.$this->_cleanClassName($traceInfo['class']).'::'.
                            $traceInfo['function'].'()] p'.$argument.':';
 
-        $exceptionData   = 
+        $exceptionData   =
         [
             'message' => lang('Error', 'emptyParameter', $langMessage1),
             'file'    => $traceInfo['file'],
@@ -307,7 +307,7 @@ class InternalExceptions extends Exception implements ExceptionsInterface
 
         return $exceptionData;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Protected Argument Passed
     //--------------------------------------------------------------------------------------------------------
@@ -325,7 +325,7 @@ class InternalExceptions extends Exception implements ExceptionsInterface
             $msg,
             $match
         );
-        
+
         $message  = ! empty($match[0]) ? $match[0] : NULL;
         $argument = ! empty($match[1]) ? $match[1] : NULL;
         $class    = ! empty($match[2]) ? $match[2] : NULL;
@@ -344,7 +344,7 @@ class InternalExceptions extends Exception implements ExceptionsInterface
         }
         else
         {
-            $traceInfo = $this->_traceFinder(debug_backtrace(), 7, 5);
+            $traceInfo = $this->_traceFinder(debug_backtrace(2), 7, 5);
         }
 
         if( $type !== $data )
