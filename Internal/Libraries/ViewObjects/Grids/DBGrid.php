@@ -473,9 +473,18 @@ class InternalDBGrid extends Abstracts\GridAbstract
         $table  = '<thead>'.EOL;
         $table .= '<tr'.Html::attributes($this->config['attributes']['columns']).'>';
         $table .= '<td colspan="2">';
-        $table .= Form::open('addForm').Form::placeholder($this->config['placeHolders']['search'])->id('datagridSearch')->attr($this->config['attributes']['search'])->text('search').Form::close();
+        $table .= Form::open('addForm').
+                  Form::placeholder($this->config['placeHolders']['search'])
+                      ->id('datagridSearch')
+                      ->attr($this->config['attributes']['search'])
+                      ->text('search').
+                  Form::close();
         $table .= '</td><td colspan="'.($countColumns - 1).'"></td><td align="right" colspan="2">';
-        $table .= Form::action(CURRENT_CFPATH.( URI::get('page') ? '/page/'.URI::get('page') : NULL).'/process/add')->open('addForm').Form::attr($this->config['attributes']['add'])->submit('addButton', $this->config['buttonNames']['add']).Form::close();
+        $table .= Form::action(CURRENT_CFPATH.( URI::get('page') ? '/page/'.URI::get('page') : NULL).'/process/add')
+                      ->open('addForm').
+                  Form::attr($this->config['attributes']['add'])
+                      ->submit('addButton', $this->config['buttonNames']['add']).
+                  Form::close();
         $table .= '</tr><tr'.Html::attributes($this->config['attributes']['columns']).'>';
         $table .= '<td width="20">#</td>';
 
@@ -488,10 +497,16 @@ class InternalDBGrid extends Abstracts\GridAbstract
         //----------------------------------------------------------------------------------------------------
         if( isArray($columns) ) foreach( $columns as $column )
         {
-            $table .= '<td>'.Html::anchor(CURRENT_CFPATH.'/order/'.$column.'/type/'.(URI::get('type') === 'asc' ? 'desc' : 'asc'), Html::strong($column), $this->config['attributes']['columns']).'</td>';
+            $table .= '<td>'.Html::anchor
+            (
+                CURRENT_CFPATH.'/order/'.$column.'/type/'.(URI::get('type') === 'asc' ? 'desc' : 'asc'),
+                Html::strong($column), $this->config['attributes']['columns']
+            ).'</td>';
         }
 
-        $table .= '<td align="right" colspan="2"><span'.Html::attributes($this->config['attributes']['columns']).'>'.Html::strong($this->lang['dbgrid:processLabel']).'</span></td>';
+        $table .= '<td align="right" colspan="2"><span'.
+                  Html::attributes($this->config['attributes']['columns']).'>'.
+                  Html::strong($this->lang['dbgrid:processLabel']).'</span></td>';
         $table .= '</tr>'.EOL;
         $table .= '</thead>'.EOL;
 
@@ -537,17 +552,21 @@ class InternalDBGrid extends Abstracts\GridAbstract
                     implode('</td><td>', $value).
                     '</td><td align="right">'.
 
-                    Form::action(CURRENT_CFPATH.( URI::get('page') ? '/page/'.URI::get('page') : NULL).'/column/'.$hiddenValue.'/process/edit')->open('editButtonForm').
+                    Form::action(CURRENT_CFPATH.( URI::get('page') ? '/page/'.URI::get('page') : NULL).'/column/'.$hiddenValue.'/process/edit')
+                        ->open('editButtonForm').
                     $hiddenId.
                     $hiddenJoins.
-                    Form::attr($this->config['attributes']['edit'])->submit('editButton', $this->config['buttonNames']['edit']).
+                    Form::attr($this->config['attributes']['edit'])
+                        ->submit('editButton', $this->config['buttonNames']['edit']).
                     Form::close().
                     '</td>'.
                     '<td width="60" align="right">'.
-                    Form::onsubmit($this->confirm)->open('addButtonForm').
+                    Form::onsubmit($this->confirm)
+                        ->open('addButtonForm').
                     $hiddenId.
                     $hiddenJoins.
-                    Form::attr($this->config['attributes']['delete'])->submit('deleteButton', $this->config['buttonNames']['delete']).
+                    Form::attr($this->config['attributes']['delete'])
+                        ->submit('deleteButton', $this->config['buttonNames']['delete']).
                     Form::close().
 
                     '</td></tr>'.
