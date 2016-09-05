@@ -391,8 +391,8 @@ class InternalDBGrid extends Abstracts\GridAbstract
         if( ! empty($this->joins) ) foreach( $this->joins as $join )
         {
             $joinEx        = explode('.', $join);
-            $joinTable     = isset($joinEx[0]) ? $joinEx[0] : NULL;
-            $processColumn = isset($joinEx[1]) ? $joinEx[1] : NULL;
+            $joinTable     = $joinEx[0] ?? NULL;
+            $processColumn = $joinEx[1] ?? NULL;
             $joinsData[]   = ['table' => $joinTable, 'column' => $processColumn];
         }
 
@@ -447,9 +447,10 @@ class InternalDBGrid extends Abstracts\GridAbstract
     {
         if( ! empty($this->config['styleElement']) )
         {
-            $attributes = NULL;
+            $attributes   = NULL;
+            $styleElement = $this->config['styleElement'];
 
-            foreach( $this->config['styleElement'] as $selector => $attr )
+            foreach( $styleElement as $selector => $attr )
             {
                 $attributes .= Sheet::selector($selector)->attr($attr)->create();
             }
@@ -537,11 +538,9 @@ class InternalDBGrid extends Abstracts\GridAbstract
 
         foreach( $result as $key => $value )
         {
-            $value = Arrays::casing($value, 'lower', 'key');
-
+            $value       = Arrays::casing($value, 'lower', 'key');
             $hiddenValue = $value[strtolower($this->processColumn)];
-
-            $hiddenId = Form::hidden('id', $value[strtolower($this->processColumn)] );
+            $hiddenId    = Form::hidden('id', $value[strtolower($this->processColumn)] );
 
             if( ! empty( $this->joins ) )
             {
@@ -671,17 +670,18 @@ class InternalDBGrid extends Abstracts\GridAbstract
         $table  = '<table'.Html::attributes($this->config['attributes']['editTables']).'>';
         $table .= '<tr><td width="100">'.Strings::upperCase($tbl).'</td></tr>';
 
+        $processColumn = strtolower($this->processColumn);
+
         foreach( $columns as $column )
         {
-            if( ! in_array($column, $this->joinColumns) && strtolower($column) !== strtolower($this->processColumn) )
+            if( ! in_array($column, $this->joinColumns) && strtolower($column) !== $processColumn )
             {
                 $table .= '<tr><td>'.Strings::titleCase($column).'</td><td>'.
                           Form::placeholder($column)
                           ->attr($this->config['attributes']['inputs']['text'])
-                          ->text($tbl.':'.$column, isset($row->$column) ? $row->$column : NULL).
+                          ->text($tbl.':'.$column, $row->$column ?? NULL).
                           '</td></tr>';
             }
-
         }
 
         $table .= '</tr></table>';
@@ -887,27 +887,39 @@ class InternalDBGrid extends Abstracts\GridAbstract
     //--------------------------------------------------------------------------------------------------------
     public function _joins()
     {
-        $joins = $this->joins;
-
-        $this->joins = [];
-
-        foreach( $joins as $key => $join )
+        if( ! empty($this->joins) )
         {
-            DB::{ isset($join[2]) ? $join[2].'Join' : 'leftJoin' }($join[0], $join[1]);
+            $joins = $this->joins;
 
-            $col1Ex = explode('.', $join[0]);
-            $col2Ex = explode('.', $join[1]);
+            $this->joins = [];
 
-            $this->joinColumns[] = $col1Ex[1];
-            $this->joinColumns[] = $col2Ex[1];
+            foreach( $joins as $key => $join )
+            {
+                $joinTableColumn    = $join[0] ?? NULL;
+                $currentTableColumn = $join[1] ?? NULL;
+                $joinType           = isset($join[2]) ? $join[2].'Join' : 'leftJoin';
 
-            $this->joins = Arrays::addLast($this->joins, [$join[0], $join[1]]);
+                DB::$joinType($joinTableColumn, $currentTableColumn);
 
-            $this->joinTables[$col1Ex[0]] = $col1Ex[1];
-            $this->joinTables[$col2Ex[0]] = $col2Ex[1];
+                $joinTableColumnEx    = explode('.', $joinTableColumn);
+                $currentTableColumnEx = explode('.', $currentTableColumn);
+
+                $joinTable     = $joinTableColumnEx[0]    ?? NULL;
+                $currentTable  = $currentTableColumnEx[0] ?? NULL;
+                $joinColumn    = $joinTableColumnEx[1]    ?? NULL;
+                $currentColumn = $currentTableColumnEx[1] ?? NULL;
+
+                $this->joinColumns[] = $joinColumn;
+                $this->joinColumns[] = $currentColumn;
+
+                $this->joins = Arrays::addLast($this->joins, [$joinTableColumn, $currentTableColumn]);
+
+                $this->joinTables[$joinTable]    = $joinColumn;
+                $this->joinTables[$currentTable] = $currentColumn;
+            }
+
+            $this->joins[1] = $this->joins[0];
+            $this->joins[0] = $this->table.'.'.$this->processColumn;
         }
-
-        $this->joins[1] = $this->joins[0];
-        $this->joins[0] = $this->table.'.'.$this->processColumn;
     }
 }
