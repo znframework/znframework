@@ -12,16 +12,16 @@ class InternalJQ extends CallController
     // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
-    
+
     //--------------------------------------------------------------------------------------------------------
-    // Jquery Trait                                                                 
+    // Jquery Trait
     //--------------------------------------------------------------------------------------------------------
     //
     // @methods
-    //                                                                                        
+    //
     //--------------------------------------------------------------------------------------------------------
     use JqueryTrait;
-    
+
     //--------------------------------------------------------------------------------------------------------
     // String Control
     //--------------------------------------------------------------------------------------------------------
@@ -31,7 +31,7 @@ class InternalJQ extends CallController
     // metin için başına ve sonuna tırnak işaretleri kullanmanız gerekmez.
     //
     // @param  string $code
-    // @return string 
+    // @return string
     //
     //--------------------------------------------------------------------------------------------------------
     public function stringControl($code = '')
@@ -42,7 +42,7 @@ class InternalJQ extends CallController
         }
         elseif( $code[0] === '"' || $code[0] === "'" )
         {
-            $return = $code;    
+            $return = $code;
         }
         elseif( $this->_isKeySelector($code) || $this->_isFunc($code) || $this->_isJquery($code) )
         {
@@ -51,11 +51,11 @@ class InternalJQ extends CallController
         else
         {
             $return = "\"".$this->_nailConvert($code)."\"";
-        }   
-        
+        }
+
         return $return;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Selector
     //--------------------------------------------------------------------------------------------------------
@@ -63,21 +63,21 @@ class InternalJQ extends CallController
     // Seçici belirtmek için kullanılır.
     //
     // @param  string $selector
-    // @return string 
+    // @return string
     //
     //--------------------------------------------------------------------------------------------------------
     public function selector(String $selector = NULL)
     {
         if( empty($selector) )
         {
-            $selector = 'this'; 
+            $selector = 'this';
         }
 
         $code = $this->stringControl($selector);
-        
+
         return "$($code)";
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Property
     //--------------------------------------------------------------------------------------------------------
@@ -87,7 +87,7 @@ class InternalJQ extends CallController
     // @param string $property
     // @param array  $params
     // @param bool   $comma false
-    //  
+    //
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
@@ -95,12 +95,12 @@ class InternalJQ extends CallController
     {
         if( ! is_string($property) || empty($property) )
         {
-            return \Exceptions::throws('Error', 'stringParameter', 'property'); 
+            return \Exceptions::throws('Error', 'stringParameter', 'property');
         }
 
         return ".$property(". $this->_params($params).")".($comma === true ? ";" : "");
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Func
     //--------------------------------------------------------------------------------------------------------
@@ -110,7 +110,7 @@ class InternalJQ extends CallController
     // @param string $params
     // @param string $code
     // @param bool   $comma false
-    //  
+    //
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
@@ -118,12 +118,12 @@ class InternalJQ extends CallController
     {
         if( empty($code) )
         {
-            return false;   
+            return false;
         }
-        
+
         return "function($params){".$code."}".($comma === true ? ";" : "");
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Callback / Func
     //--------------------------------------------------------------------------------------------------------
@@ -133,7 +133,7 @@ class InternalJQ extends CallController
     // @param string $params
     // @param string $code
     // @param bool   $comma false
-    //  
+    //
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
@@ -141,7 +141,7 @@ class InternalJQ extends CallController
     {
         return $this->func($params, $code, $comma);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Combine
     //--------------------------------------------------------------------------------------------------------
@@ -153,7 +153,7 @@ class InternalJQ extends CallController
     // @param array  $params
     // @param string $callback
     // @param bool   $comma false
-    //  
+    //
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
@@ -163,17 +163,17 @@ class InternalJQ extends CallController
         {
             $params[] = [$this->func('e', $callback)];
         }
-        
+
         $select = '';
-        
+
         if( ! empty($selector) )
         {
-            $select = $this->selector($selector);   
+            $select = $this->selector($selector);
         }
-        
-        return $select.$this->property($property, $params, $comma);        
+
+        return $select.$this->property($property, $params, $comma);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Serialize
     //--------------------------------------------------------------------------------------------------------
@@ -183,7 +183,7 @@ class InternalJQ extends CallController
     // @param string $selector
     // @param array  $func
     // @param bool   $comma false
-    //  
+    //
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
@@ -191,7 +191,7 @@ class InternalJQ extends CallController
     {
         return $this->combine($selector, 'serialize', $params, '', $comma);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Serialize Array
     //--------------------------------------------------------------------------------------------------------
@@ -201,7 +201,7 @@ class InternalJQ extends CallController
     // @param string $selector
     // @param array  $func
     // @param bool   $comma false
-    //  
+    //
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
@@ -209,7 +209,7 @@ class InternalJQ extends CallController
     {
         return $this->combine($selector, 'serializeArray', $params, '', $comma);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // To Json
     //--------------------------------------------------------------------------------------------------------
@@ -223,7 +223,7 @@ class InternalJQ extends CallController
     {
         return '$'.$this->property('toJSON', $params, $comma);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Get Json
     //--------------------------------------------------------------------------------------------------------
@@ -237,7 +237,7 @@ class InternalJQ extends CallController
     {
         return '$'.$this->property('getJSON', $params, $comma);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Get Script
     //--------------------------------------------------------------------------------------------------------
@@ -251,7 +251,7 @@ class InternalJQ extends CallController
     {
         return '$'.$this->property('getScript', $params, $comma);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Param
     //--------------------------------------------------------------------------------------------------------
@@ -265,7 +265,7 @@ class InternalJQ extends CallController
     {
         return '$'.$this->property('param', $params, $comma);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // noConflict
     //--------------------------------------------------------------------------------------------------------
@@ -279,7 +279,7 @@ class InternalJQ extends CallController
     {
         return '$'.$this->property('noConflict', $params, $comma);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // get
     //--------------------------------------------------------------------------------------------------------
@@ -295,7 +295,7 @@ class InternalJQ extends CallController
         $params[] = $callback;
         return '$'.$this->property('get', $params, $comma);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // post
     //--------------------------------------------------------------------------------------------------------
@@ -312,7 +312,7 @@ class InternalJQ extends CallController
         $params[] = $callback;
         return '$'.$this->property('post', $params, $comma);
     }
-            
+
     //--------------------------------------------------------------------------------------------------------
     // Text
     //--------------------------------------------------------------------------------------------------------
@@ -320,7 +320,7 @@ class InternalJQ extends CallController
     // @param string $selector
     // @param mixed  $params
     // @param bool   $comma false
-    //  
+    //
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
@@ -328,7 +328,7 @@ class InternalJQ extends CallController
     {
         return $this->combine($selector, 'text', $params, '', $comma);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Val
     //--------------------------------------------------------------------------------------------------------
@@ -336,7 +336,7 @@ class InternalJQ extends CallController
     // @param string $selector
     // @param mixed  $params
     // @param bool   $comma false
-    //  
+    //
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
@@ -344,7 +344,7 @@ class InternalJQ extends CallController
     {
         return $this->combine($selector, 'val', $params, '', $comma);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Html
     //--------------------------------------------------------------------------------------------------------
@@ -352,7 +352,7 @@ class InternalJQ extends CallController
     // @param string $selector
     // @param mixed  $params
     // @param bool   $comma false
-    //  
+    //
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
@@ -360,7 +360,7 @@ class InternalJQ extends CallController
     {
         return $this->combine($selector, 'html', $params, '', $comma);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Attr
     //--------------------------------------------------------------------------------------------------------
@@ -368,7 +368,7 @@ class InternalJQ extends CallController
     // @param string $selector
     // @param mixed  $params
     // @param bool   $comma false
-    //  
+    //
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
@@ -376,7 +376,7 @@ class InternalJQ extends CallController
     {
         return $this->combine($selector, 'attr', $params, '', $comma);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Prop
     //--------------------------------------------------------------------------------------------------------
@@ -384,7 +384,7 @@ class InternalJQ extends CallController
     // @param string $selector
     // @param mixed  $params
     // @param bool   $comma false
-    //  
+    //
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
@@ -392,7 +392,7 @@ class InternalJQ extends CallController
     {
         return $this->combine($selector, 'prop', $params, '', $comma);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // removeAttr
     //--------------------------------------------------------------------------------------------------------
@@ -400,7 +400,7 @@ class InternalJQ extends CallController
     // @param string $selector
     // @param mixed  $params
     // @param bool   $comma false
-    //  
+    //
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
@@ -408,7 +408,7 @@ class InternalJQ extends CallController
     {
         return $this->combine($selector, 'removeAttr', $params, '', $comma);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Append
     //--------------------------------------------------------------------------------------------------------
@@ -416,7 +416,7 @@ class InternalJQ extends CallController
     // @param string $selector
     // @param mixed  $params
     // @param bool   $comma false
-    //  
+    //
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
@@ -424,7 +424,7 @@ class InternalJQ extends CallController
     {
         return $this->combine($selector, 'append', $params, '', $comma);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Prepend
     //--------------------------------------------------------------------------------------------------------
@@ -432,7 +432,7 @@ class InternalJQ extends CallController
     // @param string $selector
     // @param mixed  $params
     // @param bool   $comma false
-    //  
+    //
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
@@ -440,7 +440,7 @@ class InternalJQ extends CallController
     {
         return $this->combine($selector, 'prepend', $params, '', $comma);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // After
     //--------------------------------------------------------------------------------------------------------
@@ -448,7 +448,7 @@ class InternalJQ extends CallController
     // @param string $selector
     // @param mixed  $params
     // @param bool   $comma false
-    //  
+    //
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
@@ -456,7 +456,7 @@ class InternalJQ extends CallController
     {
         return $this->combine($selector, 'after', $params, '', $comma);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Before
     //--------------------------------------------------------------------------------------------------------
@@ -464,7 +464,7 @@ class InternalJQ extends CallController
     // @param string $selector
     // @param mixed  $params
     // @param bool   $comma false
-    //  
+    //
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
@@ -472,7 +472,7 @@ class InternalJQ extends CallController
     {
         return $this->combine($selector, 'before', $params, '', $comma);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Remove
     //--------------------------------------------------------------------------------------------------------
@@ -480,7 +480,7 @@ class InternalJQ extends CallController
     // @param string $selector
     // @param mixed  $params
     // @param bool   $comma false
-    //  
+    //
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
@@ -488,23 +488,23 @@ class InternalJQ extends CallController
     {
         return $this->combine($selector, 'remove', $params, '', $comma);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
-    // Free
+    // Empty
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string $selector
     // @param mixed  $params
     // @param bool   $comma false
-    //  
+    //
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function free($selector = '', $params = [], $comma = true)
+    public function empty($selector = '', $params = [], $comma = true)
     {
         return $this->combine($selector, 'empty', $params, '', $comma);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Add Class
     //--------------------------------------------------------------------------------------------------------
@@ -512,7 +512,7 @@ class InternalJQ extends CallController
     // @param string $selector
     // @param mixed  $params
     // @param bool   $comma false
-    //  
+    //
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
@@ -520,7 +520,7 @@ class InternalJQ extends CallController
     {
         return $this->combine($selector, 'addClass', $params, '', $comma);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Remove Class
     //--------------------------------------------------------------------------------------------------------
@@ -528,7 +528,7 @@ class InternalJQ extends CallController
     // @param string $selector
     // @param mixed  $params
     // @param bool   $comma false
-    //  
+    //
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
@@ -536,7 +536,7 @@ class InternalJQ extends CallController
     {
         return $this->combine($selector, 'removeClass', $params, '', $comma);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Toggle Class
     //--------------------------------------------------------------------------------------------------------
@@ -544,7 +544,7 @@ class InternalJQ extends CallController
     // @param string $selector
     // @param mixed  $params
     // @param bool   $comma false
-    //  
+    //
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
@@ -552,7 +552,7 @@ class InternalJQ extends CallController
     {
         return $this->combine($selector, 'toggleClass', $params, '', $comma);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Css
     //--------------------------------------------------------------------------------------------------------
@@ -560,7 +560,7 @@ class InternalJQ extends CallController
     // @param string $selector
     // @param mixed  $params
     // @param bool   $comma false
-    //  
+    //
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
@@ -568,7 +568,7 @@ class InternalJQ extends CallController
     {
         return $this->combine($selector, 'css', $params, '', $comma);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Width
     //--------------------------------------------------------------------------------------------------------
@@ -576,7 +576,7 @@ class InternalJQ extends CallController
     // @param string $selector
     // @param mixed  $params
     // @param bool   $comma false
-    //  
+    //
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
@@ -584,7 +584,7 @@ class InternalJQ extends CallController
     {
         return $this->combine($selector, 'width', $params, '', $comma);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Height
     //--------------------------------------------------------------------------------------------------------
@@ -592,7 +592,7 @@ class InternalJQ extends CallController
     // @param string $selector
     // @param mixed  $params
     // @param bool   $comma false
-    //  
+    //
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
@@ -600,7 +600,7 @@ class InternalJQ extends CallController
     {
         return $this->combine($selector, 'height', $params, '', $comma);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Inner Width
     //--------------------------------------------------------------------------------------------------------
@@ -608,7 +608,7 @@ class InternalJQ extends CallController
     // @param string $selector
     // @param mixed  $params
     // @param bool   $comma false
-    //  
+    //
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
@@ -616,7 +616,7 @@ class InternalJQ extends CallController
     {
         return $this->combine($selector, 'innerWidth', $params, '', $comma);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Inner Height
     //--------------------------------------------------------------------------------------------------------
@@ -624,7 +624,7 @@ class InternalJQ extends CallController
     // @param string $selector
     // @param mixed  $params
     // @param bool   $comma false
-    //  
+    //
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
@@ -632,7 +632,7 @@ class InternalJQ extends CallController
     {
         return $this->combine($selector, 'innerHeight', $params, '', $comma);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Outher Width
     //--------------------------------------------------------------------------------------------------------
@@ -640,7 +640,7 @@ class InternalJQ extends CallController
     // @param string $selector
     // @param mixed  $params
     // @param bool   $comma false
-    //  
+    //
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
@@ -648,7 +648,7 @@ class InternalJQ extends CallController
     {
         return $this->combine($selector, 'outerWidth', $params, '', $comma);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Outher Height
     //--------------------------------------------------------------------------------------------------------
@@ -656,7 +656,7 @@ class InternalJQ extends CallController
     // @param string $selector
     // @param mixed  $params
     // @param bool   $comma false
-    //  
+    //
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
@@ -664,7 +664,7 @@ class InternalJQ extends CallController
     {
         return $this->combine($selector, 'outerHeight', $params, '', $comma);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Parent
     //--------------------------------------------------------------------------------------------------------
@@ -672,7 +672,7 @@ class InternalJQ extends CallController
     // @param string $selector
     // @param mixed  $params
     // @param bool   $comma false
-    //  
+    //
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
@@ -680,7 +680,7 @@ class InternalJQ extends CallController
     {
         return $this->combine($selector, 'parent', $params, '', $comma);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Parents
     //--------------------------------------------------------------------------------------------------------
@@ -688,7 +688,7 @@ class InternalJQ extends CallController
     // @param string $selector
     // @param mixed  $params
     // @param bool   $comma false
-    //  
+    //
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
@@ -696,7 +696,7 @@ class InternalJQ extends CallController
     {
         return $this->combine($selector, 'parents', $params, '', $comma);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Parents Until
     //--------------------------------------------------------------------------------------------------------
@@ -704,7 +704,7 @@ class InternalJQ extends CallController
     // @param string $selector
     // @param mixed  $params
     // @param bool   $comma false
-    //  
+    //
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
@@ -712,7 +712,7 @@ class InternalJQ extends CallController
     {
         return $this->combine($selector, 'parentsUntil', $params, '', $comma);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Children
     //--------------------------------------------------------------------------------------------------------
@@ -720,7 +720,7 @@ class InternalJQ extends CallController
     // @param string $selector
     // @param mixed  $params
     // @param bool   $comma false
-    //  
+    //
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
@@ -728,7 +728,7 @@ class InternalJQ extends CallController
     {
         return $this->combine($selector, 'children', $params, '', $comma);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Find
     //--------------------------------------------------------------------------------------------------------
@@ -736,7 +736,7 @@ class InternalJQ extends CallController
     // @param string $selector
     // @param mixed  $params
     // @param bool   $comma false
-    //  
+    //
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
@@ -744,7 +744,7 @@ class InternalJQ extends CallController
     {
         return $this->combine($selector, 'find', $params, '', $comma);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Siblings
     //--------------------------------------------------------------------------------------------------------
@@ -752,7 +752,7 @@ class InternalJQ extends CallController
     // @param string $selector
     // @param mixed  $params
     // @param bool   $comma false
-    //  
+    //
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
@@ -760,7 +760,7 @@ class InternalJQ extends CallController
     {
         return $this->combine($selector, 'siblings', $params, '', $comma);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Next
     //--------------------------------------------------------------------------------------------------------
@@ -768,7 +768,7 @@ class InternalJQ extends CallController
     // @param string $selector
     // @param mixed  $params
     // @param bool   $comma false
-    //  
+    //
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
@@ -776,7 +776,7 @@ class InternalJQ extends CallController
     {
         return $this->combine($selector, 'next', $params, '', $comma);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // nextAll
     //--------------------------------------------------------------------------------------------------------
@@ -784,7 +784,7 @@ class InternalJQ extends CallController
     // @param string $selector
     // @param mixed  $params
     // @param bool   $comma false
-    //  
+    //
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
@@ -792,7 +792,7 @@ class InternalJQ extends CallController
     {
         return $this->combine($selector, 'nextAll', $params, '', $comma);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // nextUntil
     //--------------------------------------------------------------------------------------------------------
@@ -800,7 +800,7 @@ class InternalJQ extends CallController
     // @param string $selector
     // @param mixed  $params
     // @param bool   $comma false
-    //  
+    //
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
@@ -808,7 +808,7 @@ class InternalJQ extends CallController
     {
         return $this->combine($selector, 'nextUntil', $params, '', $comma);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // prev
     //--------------------------------------------------------------------------------------------------------
@@ -816,7 +816,7 @@ class InternalJQ extends CallController
     // @param string $selector
     // @param mixed  $params
     // @param bool   $comma false
-    //  
+    //
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
@@ -824,7 +824,7 @@ class InternalJQ extends CallController
     {
         return $this->combine($selector, 'prev', $params, '', $comma);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // prevAll
     //--------------------------------------------------------------------------------------------------------
@@ -832,7 +832,7 @@ class InternalJQ extends CallController
     // @param string $selector
     // @param mixed  $params
     // @param bool   $comma false
-    //  
+    //
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
@@ -840,7 +840,7 @@ class InternalJQ extends CallController
     {
         return $this->combine($selector, 'prevAll', $params, '', $comma);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // prevUntil
     //--------------------------------------------------------------------------------------------------------
@@ -848,7 +848,7 @@ class InternalJQ extends CallController
     // @param string $selector
     // @param mixed  $params
     // @param bool   $comma false
-    //  
+    //
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
@@ -856,7 +856,7 @@ class InternalJQ extends CallController
     {
         return $this->combine($selector, 'prevUntil', $params, '', $comma);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // first
     //--------------------------------------------------------------------------------------------------------
@@ -864,7 +864,7 @@ class InternalJQ extends CallController
     // @param string $selector
     // @param mixed  $params
     // @param bool   $comma false
-    //  
+    //
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
@@ -872,7 +872,7 @@ class InternalJQ extends CallController
     {
         return $this->combine($selector, 'first', $params, '', $comma);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // last
     //--------------------------------------------------------------------------------------------------------
@@ -880,7 +880,7 @@ class InternalJQ extends CallController
     // @param string $selector
     // @param mixed  $params
     // @param bool   $comma false
-    //  
+    //
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
@@ -888,7 +888,7 @@ class InternalJQ extends CallController
     {
         return $this->combine($selector, 'last', $params, '', $comma);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // eq
     //--------------------------------------------------------------------------------------------------------
@@ -896,7 +896,7 @@ class InternalJQ extends CallController
     // @param string $selector
     // @param mixed  $params
     // @param bool   $comma false
-    //  
+    //
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
@@ -904,7 +904,7 @@ class InternalJQ extends CallController
     {
         return $this->combine($selector, 'eq', $params, '', $comma);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // filter
     //--------------------------------------------------------------------------------------------------------
@@ -912,7 +912,7 @@ class InternalJQ extends CallController
     // @param string $selector
     // @param mixed  $params
     // @param bool   $comma false
-    //  
+    //
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
@@ -920,7 +920,7 @@ class InternalJQ extends CallController
     {
         return $this->combine($selector, 'filter', $params, '', $comma);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // not
     //--------------------------------------------------------------------------------------------------------
@@ -928,7 +928,7 @@ class InternalJQ extends CallController
     // @param string $selector
     // @param mixed  $params
     // @param bool   $comma false
-    //  
+    //
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
@@ -936,7 +936,7 @@ class InternalJQ extends CallController
     {
         return $this->combine($selector, 'not', $params, '', $comma);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // load
     //--------------------------------------------------------------------------------------------------------
@@ -944,7 +944,7 @@ class InternalJQ extends CallController
     // @param string $selector
     // @param mixed  $params
     // @param bool   $comma false
-    //  
+    //
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
@@ -952,7 +952,7 @@ class InternalJQ extends CallController
     {
         return $this->combine($selector, 'load', $params, '', $comma);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // data
     //--------------------------------------------------------------------------------------------------------
@@ -960,7 +960,7 @@ class InternalJQ extends CallController
     // @param string $selector
     // @param mixed  $params
     // @param bool   $comma false
-    //  
+    //
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
@@ -968,7 +968,7 @@ class InternalJQ extends CallController
     {
         return $this->combine($selector, 'data', $params, '', $comma);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // each
     //--------------------------------------------------------------------------------------------------------
@@ -976,7 +976,7 @@ class InternalJQ extends CallController
     // @param string $selector
     // @param mixed  $params
     // @param bool   $comma false
-    //  
+    //
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
@@ -984,7 +984,7 @@ class InternalJQ extends CallController
     {
         return $this->combine($selector, 'each', $params, '', $comma);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // index
     //--------------------------------------------------------------------------------------------------------
@@ -992,7 +992,7 @@ class InternalJQ extends CallController
     // @param string $selector
     // @param mixed  $params
     // @param bool   $comma false
-    //  
+    //
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
@@ -1000,7 +1000,7 @@ class InternalJQ extends CallController
     {
         return $this->combine($selector, 'index', $params, '', $comma);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // removeData
     //--------------------------------------------------------------------------------------------------------
@@ -1008,7 +1008,7 @@ class InternalJQ extends CallController
     // @param string $selector
     // @param mixed  $params
     // @param bool   $comma false
-    //  
+    //
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
@@ -1016,7 +1016,7 @@ class InternalJQ extends CallController
     {
         return $this->combine($selector, 'removeData', $params, '', $comma);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // size
     //--------------------------------------------------------------------------------------------------------
@@ -1024,7 +1024,7 @@ class InternalJQ extends CallController
     // @param string $selector
     // @param mixed  $params
     // @param bool   $comma false
-    //  
+    //
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
@@ -1032,7 +1032,7 @@ class InternalJQ extends CallController
     {
         return $this->combine($selector, 'size', $params, '', $comma);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // toArray
     //--------------------------------------------------------------------------------------------------------
@@ -1040,7 +1040,7 @@ class InternalJQ extends CallController
     // @param string $selector
     // @param mixed  $params
     // @param bool   $comma false
-    //  
+    //
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
