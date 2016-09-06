@@ -417,7 +417,7 @@ function baseUrl(String $uri = NULL, Int $index = 0) : String
 
     $host = host();
 
-    return sslStatus().$host.$newBaseDir.internalCleanInjection($uri);
+    return sslStatus().$host.$newBaseDir.internalCleanInjection(absoluteRelativePath($uri));
 }
 
 //--------------------------------------------------------------------------------------------------

@@ -23,11 +23,11 @@ class InternalCaptcha extends Requirements implements CaptchaInterface
     //
     //--------------------------------------------------------------------------------------------------------
     protected $sets = [];
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Construct
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param  void
     // @return bool
     //
@@ -36,7 +36,7 @@ class InternalCaptcha extends Requirements implements CaptchaInterface
     {
          $this->config = config('ViewObjects', 'captcha');
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Width
     //--------------------------------------------------------------------------------------------------------
@@ -49,11 +49,11 @@ class InternalCaptcha extends Requirements implements CaptchaInterface
     //--------------------------------------------------------------------------------------------------------
     public function width(Int $param) : InternalCaptcha
     {
-        $this->sets['width'] = $param;
+        $this->sets['size']['width'] = $param;
 
         return $this;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Height
     //--------------------------------------------------------------------------------------------------------
@@ -66,11 +66,11 @@ class InternalCaptcha extends Requirements implements CaptchaInterface
     //--------------------------------------------------------------------------------------------------------
     public function height(Int $param) : InternalCaptcha
     {
-        $this->sets['height'] = $param;
-        
+        $this->sets['size']['height'] = $param;
+
         return $this;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Size
     //--------------------------------------------------------------------------------------------------------
@@ -86,10 +86,10 @@ class InternalCaptcha extends Requirements implements CaptchaInterface
     {
         $this->width($width);
         $this->height($height);
-        
+
         return $this;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Length
     //--------------------------------------------------------------------------------------------------------
@@ -102,16 +102,16 @@ class InternalCaptcha extends Requirements implements CaptchaInterface
     //--------------------------------------------------------------------------------------------------------
     public function length(Int $param) : InternalCaptcha
     {
-        $this->sets['charLength'] = $param;
+        $this->sets['text']['length'] = $param;
 
         return $this;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Border
     //--------------------------------------------------------------------------------------------------------
     //
-    // Güvenlik kodu nesnesinin çerçevesinin olup olmayacağı olacaksa da hangi.           
+    // Güvenlik kodu nesnesinin çerçevesinin olup olmayacağı olacaksa da hangi.
     // hangi renkte olacağı belirtilir.
     //
     // @param  boolean $is
@@ -121,16 +121,16 @@ class InternalCaptcha extends Requirements implements CaptchaInterface
     //--------------------------------------------------------------------------------------------------------
     public function border(Bool $is = true, String $color = NULL) : InternalCaptcha
     {
-        $this->sets['border'] = $is;
-        
+        $this->sets['border']['status'] = $is;
+
         if( ! empty($color) )
         {
-            $this->sets['borderColor'] = $this->_convertColor($color);
+            $this->sets['border']['color'] = $this->_convertColor($color);
         }
-        
+
         return $this;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Border Color
     //--------------------------------------------------------------------------------------------------------
@@ -143,11 +143,11 @@ class InternalCaptcha extends Requirements implements CaptchaInterface
     //--------------------------------------------------------------------------------------------------------
     public function borderColor(String $color) : InternalCaptcha
     {
-        $this->sets['borderColor'] = $this->_convertColor($color);
+        $this->sets['border']['color'] = $this->_convertColor($color);
 
         return $this;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Bg Color
     //--------------------------------------------------------------------------------------------------------
@@ -160,11 +160,11 @@ class InternalCaptcha extends Requirements implements CaptchaInterface
     //--------------------------------------------------------------------------------------------------------
     public function bgColor(String $color) : InternalCaptcha
     {
-        $this->sets['bgColor'] = $this->_convertColor($color);
-        
+        $this->sets['background']['color'] = $this->_convertColor($color);
+
         return $this;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Background Color
     //--------------------------------------------------------------------------------------------------------
@@ -181,22 +181,22 @@ class InternalCaptcha extends Requirements implements CaptchaInterface
         {
             if( is_string($image) )
             {
-                $this->sets['background'] = [$image];
+                $this->sets['background']['image'] = [$image];
             }
             elseif( is_array($image) )
             {
-                $this->sets['background'] = $image; 
+                $this->sets['background']['image'] = $image;
             }
         }
-        
+
         return $this;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Background
     //--------------------------------------------------------------------------------------------------------
     //
-    // Güvenlik kodu arkaplan rengini veya resimlerini ayarlamak için        
+    // Güvenlik kodu arkaplan rengini veya resimlerini ayarlamak için
     // kullanılır. Bgimage ve bgcolor yöntemlerinin alternatifidir.
     //
     // @param  mixed $background
@@ -211,12 +211,12 @@ class InternalCaptcha extends Requirements implements CaptchaInterface
         }
         else
         {
-            $this->bgColor($background);    
+            $this->bgColor($background);
         }
-        
+
         return $this;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Text Size
     //--------------------------------------------------------------------------------------------------------
@@ -229,11 +229,11 @@ class InternalCaptcha extends Requirements implements CaptchaInterface
     //--------------------------------------------------------------------------------------------------------
     public function textSize(Int $size) : InternalCaptcha
     {
-        $this->sets['imageString']['size'] = $size;
-        
+        $this->sets['text']['size'] = $size;
+
         return $this;
     }
-        
+
     //--------------------------------------------------------------------------------------------------------
     // Text Coordinate
     //--------------------------------------------------------------------------------------------------------
@@ -247,12 +247,12 @@ class InternalCaptcha extends Requirements implements CaptchaInterface
     //--------------------------------------------------------------------------------------------------------
     public function textCoordinate(Int $x = 0, Int $y = 0) : InternalCaptcha
     {
-        $this->sets['imageString']['x'] = $x;
-        $this->sets['imageString']['y'] = $y;   
-        
+        $this->sets['text']['x'] = $x;
+        $this->sets['text']['y'] = $y;
+
         return $this;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Text Color
     //--------------------------------------------------------------------------------------------------------
@@ -265,11 +265,11 @@ class InternalCaptcha extends Requirements implements CaptchaInterface
     //--------------------------------------------------------------------------------------------------------
     public function textColor(String $color) : InternalCaptcha
     {
-        $this->sets['textColor'] = $this->_convertColor($color);
-    
+        $this->sets['text']['color'] = $this->_convertColor($color);
+
         return $this;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Text
     //--------------------------------------------------------------------------------------------------------
@@ -286,25 +286,25 @@ class InternalCaptcha extends Requirements implements CaptchaInterface
     public function text(Int $size, Int $x = 0, Int $y = 0, String $color = NULL) : InternalCaptcha
     {
         $this->textSize($size);
-        
+
         if( ! empty($x) && ! empty($y) )
         {
             $this->textCoordinate($x, $y);
         }
-        
+
         if( ! empty($color) )
         {
             $this->textColor($color);
         }
-        
+
         return $this;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Grid
     //--------------------------------------------------------------------------------------------------------
     //
-    // Güvenlik kodu nesnesinin ızgarasının olup olmayacağı olacaksa da hangi.        
+    // Güvenlik kodu nesnesinin ızgarasının olup olmayacağı olacaksa da hangi.
     // hangi renkte olacağı belirtilir.
     //
     // @param  boolean $is
@@ -314,38 +314,38 @@ class InternalCaptcha extends Requirements implements CaptchaInterface
     //--------------------------------------------------------------------------------------------------------
     public function grid(Bool $is = true, String $color = NULL) : InternalCaptcha
     {
-        $this->sets['grid'] = $is;
-        
+        $this->sets['grid']['status'] = $is;
+
         if( ! empty($color) )
         {
-            $this->sets['gridColor'] = $this->_convertColor($color);
+            $this->sets['grid']['color'] = $this->_convertColor($color);
         }
-        
+
         return $this;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Grid Color
     //--------------------------------------------------------------------------------------------------------
     //
-    // Güvenlik kodu ızgara rengini ayarlamak için kullanılır.        
+    // Güvenlik kodu ızgara rengini ayarlamak için kullanılır.
     //
     // @param  string $color
     // @return this
     //
     //--------------------------------------------------------------------------------------------------------
     public function gridColor(String $color) : InternalCaptcha
-    {       
-        $this->sets['gridColor'] = $this->_convertColor($color);
+    {
+        $this->sets['grid']['color'] = $this->_convertColor($color);
 
         return $this;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Grid Space
     //--------------------------------------------------------------------------------------------------------
     //
-    // Güvenlik kodu ızgara boşluklarını ayarlamak için kullanılır.       
+    // Güvenlik kodu ızgara boşluklarını ayarlamak için kullanılır.
     //
     // @param  numeric $x
     // @param  numeric $y
@@ -354,16 +354,16 @@ class InternalCaptcha extends Requirements implements CaptchaInterface
     //--------------------------------------------------------------------------------------------------------
     public function gridSpace(Int $x = 0, Int $y = 0) : InternalCaptcha
     {
-        if( ! empty($x) ) 
+        if( ! empty($x) )
         {
-            $this->sets['gridSpace']['x'] = $x;
+            $this->sets['grid']['spaceX'] = $x;
         }
-        
+
         if( ! empty($y) )
-        { 
-            $this->sets['gridSpace']['y'] = $y;
+        {
+            $this->sets['grid']['spaceY'] = $y;
         }
-        
+
         return $this;
     }
 
@@ -371,7 +371,7 @@ class InternalCaptcha extends Requirements implements CaptchaInterface
     // Create
     //--------------------------------------------------------------------------------------------------------
     //
-    // Güvenlik kodu ızgara boşluklarını ayarlamak için kullanılır.       
+    // Güvenlik kodu ızgara boşluklarını ayarlamak için kullanılır.
     //
     // @param  boolean $img
     // @param  array   $configs
@@ -379,79 +379,81 @@ class InternalCaptcha extends Requirements implements CaptchaInterface
     //
     //--------------------------------------------------------------------------------------------------------
     public function create(Bool $img = false, Array $configs = []) : String
-    {   
+    {
         $configs = array_merge($this->config, $this->sets, $configs);
-        
+
         if( ! empty($configs) )
         {
             Config::set('ViewObjects', 'captcha', $configs);
         }
-        
+
         $set = Config::get('ViewObjects', 'captcha');
-        
+
         $systemCaptchaCodeData = md5('SystemCaptchaCodeData');
-    
-        Session::insert($systemCaptchaCodeData, substr(md5(rand(0, 999999999)), -($set['charLength'])));   
-        
+
+        $textLengthC = $set['text']['length'];
+
+        Session::insert($systemCaptchaCodeData, substr(md5(rand(0, 999999999)), -($textLengthC)));
+
         if( $sessionCaptchaCode = Session::select($systemCaptchaCodeData) )
         {
-            if( ! isset($set["width"]) ) $set["width"]                              = 100;
-            if( ! isset($set["height"]) ) $set["height"]                            = 30;
-            if( ! isset($set['textColor']) ) $set['textColor']                      = "0|0|0";
-            if( ! isset($set['bgColor']) ) $set['bgColor']                          = "255|255|255";
-            if( ! isset($set["border"]) ) $set["border"]                            = true;
-            if( ! isset($set['borderColor']) ) $set['borderColor']                  = "200|200|200";
-            if( ! isset($set['imageString']["size"]) ) $set['imageString']["size"]  = "5";
-            if( ! isset($set['imageString']["x"]) ) $set['imageString']["x"]        = "23";
-            if( ! isset($set['imageString']["y"]) ) $set['imageString']["y"]        = "9";
-            if( ! isset($set["grid"]) ) $set["grid"]                                = false; 
-            if( ! isset($set['gridSpace']["x"]) ) $set['gridSpace']["x"]            = 12; 
-            if( ! isset($set['gridSpace']["y"]) ) $set['gridSpace']["y"]            = 4; 
-            if( ! isset($set['gridColor']) ) $set['gridColor']                      = "240|240|240";
-            if( ! isset($set["background"]) ) $set["background"]                    = [];
-            
+            $sizeWidthC       = $set['size']['width']       ?? 100;
+            $sizeHeightC      = $set['size']['height']      ?? 30;
+            $textColorC       = $set['text']['color']       ?? '0|0|0';
+            $backgroundColorC = $set['background']['color'] ?? '255|255|255';
+            $borderStatusC    = $set['border']['status']    ?? rue;
+            $bordercolorC     = $set['border']['color']     ?? '200|200|200';
+            $textSizeC        = $set['text']['size']        ?? 5;
+            $textXC           = $set['text']['x']           ?? 23;
+            $textYC           = $set['text']['y']           ?? 9;
+            $gridStatusC      = $set['grid']['status']      ??false;
+            $gridSpaceXC      = $set['grid']['spaceX']      ?? 12;
+            $gridSpaceYC      = $set['grid']['spaceY']      ?? 4;
+            $gridColorC       = $set['grid']['color']       ?? '240|240|240';
+            $backgroundImageC = $set['background']['image'] ?? [];
+
             // 0-255 arasında değer alacak renk kodları için
             // 0|20|155 gibi bir kullanım için aşağıda
             // explode ile ayırma işlemleri yapılmaktadır.
-            
+
             // SET FONT COLOR
-            $setFontColor   = explode("|",$set['textColor']);
-            
+            $setFontColor   = explode('|', $textColorC);
+
             // SET BG COLOR
-            $setBgColor     = explode("|",$set['bgColor']);
-            
+            $setBgColor     = explode('|', $backgroundColorC);
+
             // SET BORDER COLOR
-            $setBorderColor = explode("|",$set['borderColor']);
-            
+            $setBorderColor = explode('|', $bordercolorC);
+
             // SET GRID COLOR
-            $setGridColor   = explode("|",$set['gridColor']);
-            
-            
-            $file       = @imagecreatetruecolor($set["width"], $set["height"]);       
+            $setGridColor   = explode('|', $gridColorC);
+
+
+            $file       = @imagecreatetruecolor($sizeWidthC, $sizeHeightC);
             $fontColor  = @imagecolorallocate($file, $setFontColor[0], $setFontColor[1], $setFontColor[2]);
             $color      = @imagecolorallocate($file, $setBgColor[0], $setBgColor[1], $setBgColor[2]);
-            
+
             // ARKAPLAN RESMI--------------------------------------------------------------------------------------
-            if( ! empty($set["background"]) )
+            if( ! empty($backgroundImageC) )
             {
-                if( is_array($set["background"]) )
+                if( is_array($backgroundImageC) )
                 {
-                    $set["background"] = $set["background"][rand(0, count($set["background"]) - 1)];
+                    $backgroundImageC = $backgroundImageC[rand(0, count($backgroundImageC) - 1)];
                 }
-                
+
                 /***************************************************************************/
                 // Arkaplan resmi için geçerli olabilecek uzantıların kontrolü yapılıyor.
                 /***************************************************************************/
-                $infoExtension = strtolower(pathinfo($set["background"], PATHINFO_EXTENSION));
-                    
+                $infoExtension = strtolower(pathinfo($backgroundImageC, PATHINFO_EXTENSION));
+
                 switch( $infoExtension )
                 {
                     case 'jpeg':
-                    case 'jpg' : $file = imagecreatefromjpeg($set["background"]); break;
-                    case 'png' : $file = imagecreatefrompng($set["background"]);  break;
-                    case 'gif' : $file = imagecreatefromgif($set["background"]);  break;
-                    default    : $file = imagecreatefromjpeg($set["background"]); 
-                }   
+                    case 'jpg' : $file = imagecreatefromjpeg($backgroundImageC); break;
+                    case 'png' : $file = imagecreatefrompng($backgroundImageC);  break;
+                    case 'gif' : $file = imagecreatefromgif($backgroundImageC);  break;
+                    default    : $file = imagecreatefromjpeg($backgroundImageC);
+                }
             }
             else
             {
@@ -459,50 +461,50 @@ class InternalCaptcha extends Requirements implements CaptchaInterface
                 @imagefill($file, 0, 0, $color);
             }
             //--------------------------------------------------------------------------------------------------------------------------
-            
+
             // Resim üzerinde görüntülenecek kod bilgisi.
-            @imagestring($file, $set['imageString']["size"], $set['imageString']["x"], $set['imageString']["y"], $sessionCaptchaCode, $fontColor);
-            
+            @imagestring($file, $textSizeC, $textXC, $textYC, $sessionCaptchaCode, $fontColor);
+
             // GRID --------------------------------------------------------------------------------------
-            if( $set["grid"] === true )
+            if( $gridStatusC === true )
             {
-                $gridIntervalX  = $set["width"] / $set['gridSpace']["x"];
-                
-                if( ! isset($set['gridSpace']["y"]))
+                $gridIntervalX  = $sizeWidthC / $gridSpaceXC;
+
+                if( ! isset($gridSpaceYC))
                 {
-                    $gridIntervalY  = (($set["height"] / $set['gridSpace']["x"]) * $gridIntervalX / 2);
-                    
-                } else $gridIntervalY  = $set["height"] / $set['gridSpace']["y"];
-                
+                    $gridIntervalY  = (($sizeHeightC / $gridSpaceXC) * $gridIntervalX / 2);
+
+                } else $gridIntervalY  = $sizeHeightC / $gridSpaceYC;
+
                 $gridColor  = @imagecolorallocate($file, $setGridColor[0], $setGridColor[1], $setGridColor[2]);
-                
-                for($x = 0 ; $x <= $set["width"] ; $x += $gridIntervalX)
+
+                for($x = 0 ; $x <= $sizeWidthC ; $x += $gridIntervalX)
                 {
-                    @imageline($file,$x,0,$x,$set["height"] - 1,$gridColor);
+                    @imageline($file,$x,0,$x,$sizeHeightC - 1,$gridColor);
                 }
-                
-                for($y = 0 ; $y <= $set["width"] ; $y += $gridIntervalY)
+
+                for($y = 0 ; $y <= $sizeWidthC ; $y += $gridIntervalY)
                 {
-                    @imageline($file,0,$y,$set["width"],$y,$gridColor);
+                    @imageline($file,0,$y,$sizeWidthC,$y,$gridColor);
                 }
-                
-            }
-            // ---------------------------------------------------------------------------------------------    
-            
-            // BORDER --------------------------------------------------------------------------------------
-            if( $set["border"] === true )
-            {
-                $borderColor    = @imagecolorallocate($file, $setBorderColor[0], $setBorderColor[1], $setBorderColor[2]);
-                
-                @imageline($file, 0, 0, $set["width"], 0, $borderColor); // UST
-                @imageline($file, $set["width"] - 1, 0, $set["width"] - 1, $set["height"], $borderColor); // SAG
-                @imageline($file, 0, $set["height"] - 1, $set["width"], $set["height"] - 1, $borderColor); // ALT
-                @imageline($file, 0, 0, 0, $set["height"] - 1, $borderColor); // SOL
+
             }
             // ---------------------------------------------------------------------------------------------
-            
+
+            // BORDER --------------------------------------------------------------------------------------
+            if( $borderStatusC === true )
+            {
+                $borderColor    = @imagecolorallocate($file, $setBorderColor[0], $setBorderColor[1], $setBorderColor[2]);
+
+                @imageline($file, 0, 0, $sizeWidthC, 0, $borderColor); // UST
+                @imageline($file, $sizeWidthC - 1, 0, $sizeWidthC - 1, $sizeHeightC, $borderColor); // SAG
+                @imageline($file, 0, $sizeHeightC - 1, $sizeWidthC, $sizeHeightC - 1, $borderColor); // ALT
+                @imageline($file, 0, 0, 0, $sizeHeightC - 1, $borderColor); // SOL
+            }
+            // ---------------------------------------------------------------------------------------------
+
             $filePath = FILES_DIR.'capcha';
-            
+
             if( function_exists('imagepng') )
             {
                 $extension = '.png';
@@ -511,35 +513,35 @@ class InternalCaptcha extends Requirements implements CaptchaInterface
             elseif( function_exists('imagejpg'))
             {
                 $extension = '.jpg';
-                imagepng($file, $filePath.$extension);      
+                imagepng($file, $filePath.$extension);
             }
             else
             {
                 return false;
             }
-            
+
             $filePath .= $extension;
             
             if( $img === true )
-            {   
+            {
                 $captcha = '<img src="'.baseUrl($filePath).'">';
             }
             else
             {
                 $captcha = baseUrl($filePath);
             }
-            
+
             imagedestroy($file);
-            
+
             return $captcha;
-        }   
+        }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Get Code
     //--------------------------------------------------------------------------------------------------------
     //
-    // Daha önce oluşturulan güvenlik uygulamasının kod bilgini verir.       
+    // Daha önce oluşturulan güvenlik uygulamasının kod bilgini verir.
     //
     // @param  void
     // @return string
@@ -561,9 +563,9 @@ class InternalCaptcha extends Requirements implements CaptchaInterface
     {
         if( $convert = Config::get('Colors', $color) )
         {
-            return $convert;    
+            return $convert;
         }
-        
+
         return $color;
     }
 }
