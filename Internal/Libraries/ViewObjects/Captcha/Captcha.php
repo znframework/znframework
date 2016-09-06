@@ -38,40 +38,6 @@ class InternalCaptcha extends Requirements implements CaptchaInterface
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Width
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Güvenlik kodu nesnesinin genişlik değeri belirtilir.
-    //
-    // @param  numeric $param
-    // @return this
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function width(Int $param) : InternalCaptcha
-    {
-        $this->sets['size']['width'] = $param;
-
-        return $this;
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Height
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Güvenlik kodu nesnesinin yükseklik değeri belirtilir.
-    //
-    // @param  numeric $param
-    // @return this
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function height(Int $param) : InternalCaptcha
-    {
-        $this->sets['size']['height'] = $param;
-
-        return $this;
-    }
-
-    //--------------------------------------------------------------------------------------------------------
     // Size
     //--------------------------------------------------------------------------------------------------------
     //
@@ -84,8 +50,8 @@ class InternalCaptcha extends Requirements implements CaptchaInterface
     //--------------------------------------------------------------------------------------------------------
     public function size(Int $width, Int $height) : InternalCaptcha
     {
-        $this->width($width);
-        $this->height($height);
+        $this->sets['size']['width']  = $width;
+        $this->sets['size']['height'] = $height;
 
         return $this;
     }
@@ -108,42 +74,24 @@ class InternalCaptcha extends Requirements implements CaptchaInterface
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Border
+    // Border Color
     //--------------------------------------------------------------------------------------------------------
     //
     // Güvenlik kodu nesnesinin çerçevesinin olup olmayacağı olacaksa da hangi.
     // hangi renkte olacağı belirtilir.
     //
-    // @param  boolean $is
     // @param  string  $color
     // @return this
     //
     //--------------------------------------------------------------------------------------------------------
-    public function border(Bool $is = true, String $color = NULL) : InternalCaptcha
+    public function borderColor(String $color = NULL) : InternalCaptcha
     {
-        $this->sets['border']['status'] = $is;
+        $this->sets['border']['status'] = true;
 
         if( ! empty($color) )
         {
             $this->sets['border']['color'] = $this->_convertColor($color);
         }
-
-        return $this;
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Border Color
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Güvenlik kodu çerçeve rengini ayarlamak için kullanılır.
-    //
-    // @param  string $color
-    // @return this
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function borderColor(String $color) : InternalCaptcha
-    {
-        $this->sets['border']['color'] = $this->_convertColor($color);
 
         return $this;
     }
@@ -187,31 +135,6 @@ class InternalCaptcha extends Requirements implements CaptchaInterface
             {
                 $this->sets['background']['image'] = $image;
             }
-        }
-
-        return $this;
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Background
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Güvenlik kodu arkaplan rengini veya resimlerini ayarlamak için
-    // kullanılır. Bgimage ve bgcolor yöntemlerinin alternatifidir.
-    //
-    // @param  mixed $background
-    // @return this
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function background(String $background) : InternalCaptcha
-    {
-        if( is_file($background) )
-        {
-            $this->bgImage($background);
-        }
-        else
-        {
-            $this->bgColor($background);
         }
 
         return $this;
@@ -271,72 +194,24 @@ class InternalCaptcha extends Requirements implements CaptchaInterface
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Text
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Güvenlik kodu metninin boyutu x ve ye değerlerini ayarlamak içindir.
-    //
-    // @param  numeric $size
-    // @param  numeric $x
-    // @param  numeric $y
-    // @param  string  $color
-    // @return this
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function text(Int $size, Int $x = 0, Int $y = 0, String $color = NULL) : InternalCaptcha
-    {
-        $this->textSize($size);
-
-        if( ! empty($x) && ! empty($y) )
-        {
-            $this->textCoordinate($x, $y);
-        }
-
-        if( ! empty($color) )
-        {
-            $this->textColor($color);
-        }
-
-        return $this;
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Grid
+    // Grid Color
     //--------------------------------------------------------------------------------------------------------
     //
     // Güvenlik kodu nesnesinin ızgarasının olup olmayacağı olacaksa da hangi.
     // hangi renkte olacağı belirtilir.
     //
-    // @param  boolean $is
     // @param  string  $color
     // @return this
     //
     //--------------------------------------------------------------------------------------------------------
-    public function grid(Bool $is = true, String $color = NULL) : InternalCaptcha
+    public function gridColor(String $color = NULL) : InternalCaptcha
     {
-        $this->sets['grid']['status'] = $is;
+        $this->sets['grid']['status'] = true;
 
         if( ! empty($color) )
         {
             $this->sets['grid']['color'] = $this->_convertColor($color);
         }
-
-        return $this;
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Grid Color
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Güvenlik kodu ızgara rengini ayarlamak için kullanılır.
-    //
-    // @param  string $color
-    // @return this
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function gridColor(String $color) : InternalCaptcha
-    {
-        $this->sets['grid']['color'] = $this->_convertColor($color);
 
         return $this;
     }
@@ -441,18 +316,18 @@ class InternalCaptcha extends Requirements implements CaptchaInterface
                     $backgroundImageC = $backgroundImageC[rand(0, count($backgroundImageC) - 1)];
                 }
 
-                /***************************************************************************/
-                // Arkaplan resmi için geçerli olabilecek uzantıların kontrolü yapılıyor.
-                /***************************************************************************/
-                $infoExtension = strtolower(pathinfo($backgroundImageC, PATHINFO_EXTENSION));
-
-                switch( $infoExtension )
+                if( is_file($backgroundImageC) )
                 {
-                    case 'jpeg':
-                    case 'jpg' : $file = imagecreatefromjpeg($backgroundImageC); break;
-                    case 'png' : $file = imagecreatefrompng($backgroundImageC);  break;
-                    case 'gif' : $file = imagecreatefromgif($backgroundImageC);  break;
-                    default    : $file = imagecreatefromjpeg($backgroundImageC);
+                    $infoExtension = strtolower(pathinfo($backgroundImageC, PATHINFO_EXTENSION));
+
+                    switch( $infoExtension )
+                    {
+                        case 'jpeg':
+                        case 'jpg' : $file = imagecreatefromjpeg($backgroundImageC); break;
+                        case 'png' : $file = imagecreatefrompng($backgroundImageC);  break;
+                        case 'gif' : $file = imagecreatefromgif($backgroundImageC);  break;
+                        default    : $file = imagecreatefromjpeg($backgroundImageC);
+                    }
                 }
             }
             else
@@ -503,7 +378,7 @@ class InternalCaptcha extends Requirements implements CaptchaInterface
             }
             // ---------------------------------------------------------------------------------------------
 
-            $filePath = FILES_DIR.'capcha';
+            $filePath = FILES_DIR.'captcha';
 
             if( function_exists('imagepng') )
             {
@@ -521,7 +396,7 @@ class InternalCaptcha extends Requirements implements CaptchaInterface
             }
 
             $filePath .= $extension;
-            
+
             if( $img === true )
             {
                 $captcha = '<img src="'.baseUrl($filePath).'">';
