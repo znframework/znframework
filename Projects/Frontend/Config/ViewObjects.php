@@ -61,17 +61,43 @@
     //--------------------------------------------------------------------------------------------------
     'captcha' =>
     [
-        'charLength'    => '6',
-        'bgColor'       =>'80|80|80',
-        'background'    => [],
-        'textColor'     => '255|255|255',
-        'border'        => false,
-        'borderColor'   => '0|0|0',
-        'width'         => '180',
-        'height'        => '40',
-        'imageString'   => ['size' => '5', 'x' => '65', 'y' => '13'],
-        'grid'          => true,
-        'gridSpace'     => ['x' => 12, 'y' => 4],
+        'text' =>
+        [
+            'length' => 6,
+            'color'  => '255|255|255',
+            'size'   => 10,
+            'x'      => 65,
+            'y'      => 13,
+            'angle'  => 0,
+            'ttf'    => []
+        ],
+
+        'background' =>
+        [
+            'color' => '80|80|80',
+            'image' => []
+        ],
+
+        'border' =>
+        [
+            'status' => false,
+            'color'  => '0|0|0'
+        ],
+
+        'size' =>
+        [
+            'width'  => 180,
+            'height' => 40
+        ],
+
+        'grid' =>
+        [
+            'status' => true,
+            'color'  => '50|50|50',
+            'spaceX' => 12,
+            'spaceY' => 4,
+        ],
+
         'gridColor'     => '50|50|50'
     ],
 
