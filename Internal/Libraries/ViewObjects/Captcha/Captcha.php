@@ -74,6 +74,36 @@ class InternalCaptcha extends Requirements implements CaptchaInterface
     }
 
     //--------------------------------------------------------------------------------------------------------
+    // Angle
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param  numeric $param
+    // @return this
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function angle(Float $param) : InternalCaptcha
+    {
+        $this->sets['text']['angle'] = $param;
+
+        return $this;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // TTF
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param  array $fonts
+    // @return this
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function ttf(Array $fonts) : InternalCaptcha
+    {
+        $this->sets['text']['ttf'] = $fonts;
+
+        return $this;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
     // Border Color
     //--------------------------------------------------------------------------------------------------------
     //
@@ -123,19 +153,9 @@ class InternalCaptcha extends Requirements implements CaptchaInterface
     // @return this
     //
     //--------------------------------------------------------------------------------------------------------
-    public function bgImage($image) : InternalCaptcha
+    public function bgImage(Array $image) : InternalCaptcha
     {
-        if( ! empty($image) )
-        {
-            if( is_string($image) )
-            {
-                $this->sets['background']['image'] = [$image];
-            }
-            elseif( is_array($image) )
-            {
-                $this->sets['background']['image'] = $image;
-            }
-        }
+        $this->sets['background']['image'] = $image;
 
         return $this;
     }
@@ -278,10 +298,12 @@ class InternalCaptcha extends Requirements implements CaptchaInterface
             $backgroundColorC = $set['background']['color'] ?? '255|255|255';
             $borderStatusC    = $set['border']['status']    ?? rue;
             $bordercolorC     = $set['border']['color']     ?? '200|200|200';
-            $textSizeC        = $set['text']['size']        ?? 5;
+            $textSizeC        = $set['text']['size']        ?? 10;
             $textXC           = $set['text']['x']           ?? 23;
             $textYC           = $set['text']['y']           ?? 9;
-            $gridStatusC      = $set['grid']['status']      ??false;
+            $textAngleC       = $set['text']['angle']       ?? 0;
+            $textTTFC         = $set['text']['ttf']         ?? [];
+            $gridStatusC      = $set['grid']['status']      ?? false;
             $gridSpaceXC      = $set['grid']['spaceX']      ?? 12;
             $gridSpaceYC      = $set['grid']['spaceY']      ?? 4;
             $gridColorC       = $set['grid']['color']       ?? '240|240|240';
@@ -304,9 +326,9 @@ class InternalCaptcha extends Requirements implements CaptchaInterface
             $setGridColor   = explode('|', $gridColorC);
 
 
-            $file       = @imagecreatetruecolor($sizeWidthC, $sizeHeightC);
-            $fontColor  = @imagecolorallocate($file, $setFontColor[0], $setFontColor[1], $setFontColor[2]);
-            $color      = @imagecolorallocate($file, $setBgColor[0], $setBgColor[1], $setBgColor[2]);
+            $file       = imagecreatetruecolor($sizeWidthC, $sizeHeightC);
+            $fontColor  = imagecolorallocate($file, $setFontColor[0], $setFontColor[1], $setFontColor[2]);
+            $color      = imagecolorallocate($file, $setBgColor[0], $setBgColor[1], $setBgColor[2]);
 
             // ARKAPLAN RESMI--------------------------------------------------------------------------------------
             if( ! empty($backgroundImageC) )
@@ -333,12 +355,25 @@ class InternalCaptcha extends Requirements implements CaptchaInterface
             else
             {
                 // Arkaplan olarak resim belirtilmemiş ise arkaplan rengini ayarlar.
-                @imagefill($file, 0, 0, $color);
+                imagefill($file, 0, 0, $color);
             }
             //--------------------------------------------------------------------------------------------------------------------------
 
-            // Resim üzerinde görüntülenecek kod bilgisi.
-            @imagestring($file, $textSizeC, $textXC, $textYC, $sessionCaptchaCode, $fontColor);
+            if( ! empty($textTTFC) )
+            {
+                $textTTFC = $textTTFC[rand(0, count($textTTFC) - 1)];
+
+                $textTTFC = suffix($textTTFC, '.ttf');
+
+                if( is_file($textTTFC) )
+                {
+                    imagettftext($file, $textSizeC, $textAngleC, $textXC, $textYC + $textSizeC, $fontColor, $textTTFC, $sessionCaptchaCode);
+                }
+            }
+            else
+            {
+                imagestring($file, $textSizeC, $textXC, $textYC, $sessionCaptchaCode, $fontColor);
+            }
 
             // GRID --------------------------------------------------------------------------------------
             if( $gridStatusC === true )
@@ -351,16 +386,16 @@ class InternalCaptcha extends Requirements implements CaptchaInterface
 
                 } else $gridIntervalY  = $sizeHeightC / $gridSpaceYC;
 
-                $gridColor  = @imagecolorallocate($file, $setGridColor[0], $setGridColor[1], $setGridColor[2]);
+                $gridColor  = imagecolorallocate($file, $setGridColor[0], $setGridColor[1], $setGridColor[2]);
 
                 for($x = 0 ; $x <= $sizeWidthC ; $x += $gridIntervalX)
                 {
-                    @imageline($file,$x,0,$x,$sizeHeightC - 1,$gridColor);
+                    imageline($file,$x,0,$x,$sizeHeightC - 1,$gridColor);
                 }
 
                 for($y = 0 ; $y <= $sizeWidthC ; $y += $gridIntervalY)
                 {
-                    @imageline($file,0,$y,$sizeWidthC,$y,$gridColor);
+                    imageline($file,0,$y,$sizeWidthC,$y,$gridColor);
                 }
 
             }
@@ -369,12 +404,12 @@ class InternalCaptcha extends Requirements implements CaptchaInterface
             // BORDER --------------------------------------------------------------------------------------
             if( $borderStatusC === true )
             {
-                $borderColor    = @imagecolorallocate($file, $setBorderColor[0], $setBorderColor[1], $setBorderColor[2]);
+                $borderColor = imagecolorallocate($file, $setBorderColor[0], $setBorderColor[1], $setBorderColor[2]);
 
-                @imageline($file, 0, 0, $sizeWidthC, 0, $borderColor); // UST
-                @imageline($file, $sizeWidthC - 1, 0, $sizeWidthC - 1, $sizeHeightC, $borderColor); // SAG
-                @imageline($file, 0, $sizeHeightC - 1, $sizeWidthC, $sizeHeightC - 1, $borderColor); // ALT
-                @imageline($file, 0, 0, 0, $sizeHeightC - 1, $borderColor); // SOL
+                imageline($file, 0, 0, $sizeWidthC, 0, $borderColor); // UST
+                imageline($file, $sizeWidthC - 1, 0, $sizeWidthC - 1, $sizeHeightC, $borderColor); // SAG
+                imageline($file, 0, $sizeHeightC - 1, $sizeWidthC, $sizeHeightC - 1, $borderColor); // ALT
+                imageline($file, 0, 0, 0, $sizeHeightC - 1, $borderColor); // SOL
             }
             // ---------------------------------------------------------------------------------------------
 

@@ -50,11 +50,11 @@ interface CaptchaInterface
     // TTF
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param  array $image
+    // @param  array $fonts
     // @return this
     //
     //--------------------------------------------------------------------------------------------------------
-    public function ttf(Array $image) : InternalCaptcha;
+    public function ttf(Array $fonts) : InternalCaptcha;
 
     //--------------------------------------------------------------------------------------------------------
     // Border Color
