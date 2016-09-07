@@ -1250,7 +1250,7 @@ class InternalJS extends CallController
     //--------------------------------------------------------------------------------------------------------
     public function doWhileLoop(String $condition, String $code = NULL) : String
     {
-        return "do{".$code."}while(".$condition.")";
+        return "do{".$code."}while(".$condition.");";
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -1268,7 +1268,7 @@ class InternalJS extends CallController
 
         if( ! empty($cases) ) foreach( $cases as $case => $code )
         {
-            if( $case !== 'multiple' )
+            if( stristr(',', $case) )
             {
                 if( $case !== 'default' )
                 {
@@ -1281,15 +1281,14 @@ class InternalJS extends CallController
             }
             else
             {
-                $multiple = isset($code[0]) ?  $code[0] : [];
-                $mcode    = isset($code[1]) ?  $code[1] : '';
+                $multiple = array_map('trim', explode(',', $case));
 
                 if( ! empty($multiple) ) foreach( $multiple as $val )
                 {
                     $clause .= "case $val : ";
                 }
 
-                $clause .= "$mcode break; ";
+                $clause .= "$code break; ";
             }
         }
 

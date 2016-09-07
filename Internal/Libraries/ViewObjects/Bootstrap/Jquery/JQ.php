@@ -36,7 +36,7 @@ class InternalJQ extends CallController
     //--------------------------------------------------------------------------------------------------------
     public function stringControl($code = '')
     {
-        if( $code[0] === ':' )
+        if( $code[0] === '+' )
         {
             $return = substr($code, 1);
         }
@@ -161,7 +161,7 @@ class InternalJQ extends CallController
     {
         if( ! empty($callback) )
         {
-            $params[] = [$this->func('e', $callback)];
+            $params = [$params, $this->func('e', $callback)];
         }
 
         $select = '';
