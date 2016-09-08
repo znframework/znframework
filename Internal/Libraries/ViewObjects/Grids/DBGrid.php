@@ -672,14 +672,35 @@ class InternalDBGrid extends Abstracts\GridAbstract
 
         $processColumn = strtolower($this->processColumn);
 
+        $columnDatas =
+        [
+            'VAR_STRING' => 'text',
+            'BLOB'       => 'textarea'
+        ];
+
         foreach( $columns as $column )
         {
             if( ! in_array($column, $this->joinColumns) && strtolower($column) !== $processColumn )
             {
+                $columnData = DB::columnData($column);
+
+                if( isset($columnDatas[$columnData->type]) )
+                {
+                    $type = $columnDatas[$columnData->type];
+                }
+                elseif( $columnData->maxLength > 255 || $columnData->maxLength === NULL )
+                {
+                    $type = 'textarea';
+                }
+                else
+                {
+                    $type = 'text';
+                }
+
                 $table .= '<tr><td>'.Strings::titleCase($column).'</td><td>'.
                           Form::placeholder($column)
-                          ->attr($this->config['attributes']['inputs']['text'])
-                          ->text($tbl.':'.$column, $row->$column ?? NULL).
+                          ->attr($this->config['attributes']['inputs'][$type])
+                          ->$type($tbl.':'.$column, $row->$column ?? NULL).
                           '</td></tr>';
             }
         }
