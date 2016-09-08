@@ -1,6 +1,6 @@
 <?php namespace ZN\IndividualStructures;
 
-use CallController;
+use CallController, Classes;
 
 class InternalSupport extends CallController implements SupportInterface
 {
@@ -12,11 +12,11 @@ class InternalSupport extends CallController implements SupportInterface
     // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Protected Loaded
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $name
     // @param string $value
     // @param string $func
@@ -39,7 +39,7 @@ class InternalSupport extends CallController implements SupportInterface
             else
             {
                 die(getErrorMessage(key($error), current($error), $value));
-            }   
+            }
         }
 
         return false;
@@ -48,7 +48,7 @@ class InternalSupport extends CallController implements SupportInterface
     //--------------------------------------------------------------------------------------------------------
     // Func
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param  string  $name
     // @param  string  $value
     //
@@ -61,7 +61,7 @@ class InternalSupport extends CallController implements SupportInterface
     //--------------------------------------------------------------------------------------------------------
     // Callback
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param  string  $name
     // @param  string  $value
     //
@@ -74,7 +74,7 @@ class InternalSupport extends CallController implements SupportInterface
     //--------------------------------------------------------------------------------------------------------
     // Extension
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param  string  $name
     // @param  string  $value
     //
@@ -87,7 +87,7 @@ class InternalSupport extends CallController implements SupportInterface
     //--------------------------------------------------------------------------------------------------------
     // Library
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param  string  $name
     // @param  string  $value
     //
@@ -100,7 +100,7 @@ class InternalSupport extends CallController implements SupportInterface
     //--------------------------------------------------------------------------------------------------------
     // Writable
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param  string  $name
     // @param  string  $value
     //
@@ -113,7 +113,7 @@ class InternalSupport extends CallController implements SupportInterface
     //--------------------------------------------------------------------------------------------------------
     // Driver
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param  string  $name
     // @param  string  $value
     //
@@ -126,5 +126,23 @@ class InternalSupport extends CallController implements SupportInterface
         }
 
         return true;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Class Method
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param  string  $class
+    // @param  string  $method
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function classMethod(String $class, String $method)
+    {
+        die(getErrorMessage
+        (
+            'Error',
+            'undefinedFunction',
+            divide(str_ireplace(INTERNAL_ACCESS, '', Classes::onlyName($class)), '\\', -1)."::$method()"
+        ));
     }
 }
