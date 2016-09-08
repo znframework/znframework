@@ -158,6 +158,13 @@ class InternalExceptions extends Exception implements ExceptionsInterface
             $exceptionData = $missed;
         }
 
+        if( stristr($file, 'TemplateWizard') )
+        {
+            $templateWizardData       = $this->_templateWizard();
+            $exceptionData['message'] = $templateWizardData->message;
+            $exceptionData['file']    = $templateWizardData->file;
+        }
+
         $message = Import::template('ExceptionTable', $exceptionData, true);
 
         return preg_replace('/\[(.*?)\]/', '<span style="color:#990000;">$1</span>', $message);
@@ -363,5 +370,24 @@ class InternalExceptions extends Exception implements ExceptionsInterface
         }
 
         return true;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Template Wizard
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _templateWizard()
+    {
+        $requiredFiles = implode('[+++]', get_required_files());
+
+        preg_match('/\w+\.wizard\.php/', $requiredFiles, $match);
+
+        $exceptionData['file']    = VIEWS_DIR.($match[0] ?? strtolower(CURRENT_FUNCTION).'.wizard.php');
+        $exceptionData['message'] = lang('Error', 'templateWizard');
+
+        return (object) $exceptionData;
     }
 }

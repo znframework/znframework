@@ -1,4 +1,4 @@
-<?php return 
+<?php return
 [
     //----------------------------------------------------------------------------------------------------
     // Error
@@ -59,5 +59,8 @@
     'invalidVersion'            => '`%` version information is invalid!',
     'invalidInput'              => '`%` input information is invalid!',
     'invalidPHPVersion'         => 'Required PHP version `%` and should be over!',
-    'typeHint'                  => '& parameter should be %!'
+    'typeHint'                  => '& parameter should be %!',
+    'templateWizard'            => 'Syntax error! Check the :, # and @ symbols.
+                                    The use of these symbols can be forgotten.
+                                    These symbols requires / prefix in normal use.'
 ];

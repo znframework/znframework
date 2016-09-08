@@ -1,4 +1,4 @@
-<?php return 
+<?php return
 [
     //----------------------------------------------------------------------------------------------------
     // Error
@@ -59,5 +59,8 @@
     'invalidVersion'            => '`%` geçersiz versiyon bilgisi!',
     'invalidInput'              => '`%` geçersiz girdi bilgisi!',
     'invalidPHPVersion'         => 'Gerekli PHP sürümü `%` ve üzeri olmalı!',
-    'typeHint'                  => '& parametresi % türü olmalıdır!'
+    'typeHint'                  => '& parametresi % türü olmalıdır!',
+    'templateWizard'            => 'Sözdizimi hatası! :, # and @ sembollerini kontrol edin.
+                                    Bu sembollerin kullanımı unutulmuş olabilir.
+                                    Bu semboller normal kullanımda / ön eki gerektirir.'
 ];
