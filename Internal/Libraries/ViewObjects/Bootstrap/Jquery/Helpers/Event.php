@@ -76,7 +76,7 @@ class Event
     //--------------------------------------------------------------------------------------------------------
     protected $properties =
     [
-        'bind', 'unbind', 'trigger', 'triggerHandler', 'delegate',
+        'bind', 'unbind', 'trigger', 'triggerhandler', 'delegate',
         'one' , 'on'    , 'off'    , 'live'          , 'die'
     ];
 

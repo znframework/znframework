@@ -95,7 +95,7 @@
             'status' => true,
             'color'  => '50|50|50',
             'spaceX' => 12,
-            'spaceY' => 4,
+            'spaceY' => 4
         ]
     ],
 
@@ -274,7 +274,7 @@
             'inputs'        =>
             [
                 'text'      => ['style' => 'height:34px; color:#0085B2; border:solid 1px #0085B2; text-indent:10px'],
-                'textarea'  => ['style' => 'height:60px; width:250px; color:#0085B2; border:solid 1px #0085B2; text-indent:10px'],
+                'textarea'  => ['style' => 'height:120px; width:290px; color:#0085B2; border:solid 1px #0085B2; text-indent:10px'],
                 'radio'     => [],
                 'checkbox'  => [],
                 'select'    => []
