@@ -12,29 +12,29 @@ class InternalFTP extends Requirements implements FTPInterface
     // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Protected $connect
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @const resource
     //
     //--------------------------------------------------------------------------------------------------------
     protected $connect = NULL;
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Protected $login
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @const resource
     //
     //--------------------------------------------------------------------------------------------------------
     protected $login = NULL;
-    
+
     //--------------------------------------------------------------------------------------------------------
     // __construct()
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param array $config: empty
     //
     //--------------------------------------------------------------------------------------------------------
@@ -51,14 +51,14 @@ class InternalFTP extends Requirements implements FTPInterface
 
         $this->_connect($config);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // createFolder()
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $path: empty
     //
-    //--------------------------------------------------------------------------------------------------------  
+    //--------------------------------------------------------------------------------------------------------
     public function createFolder(String $path) : Bool
     {
         if( ftp_mkdir($this->connect, $path) )
@@ -70,14 +70,14 @@ class InternalFTP extends Requirements implements FTPInterface
             return Exceptions::throws('FileSystem', 'folder:alreadyFileError', $path);
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // deleteFolder()
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $path: empty
     //
-    //--------------------------------------------------------------------------------------------------------  
+    //--------------------------------------------------------------------------------------------------------
     public function deleteFolder(String $path) : Bool
     {
         if( ftp_rmdir($this->connect, $path) )
@@ -86,17 +86,17 @@ class InternalFTP extends Requirements implements FTPInterface
         }
         else
         {
-            return Exceptions::throws('FileSystem', 'folder:notFoundError', $path);    
+            return Exceptions::throws('FileSystem', 'folder:notFoundError', $path);
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // changeFolder()
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $path: empty
     //
-    //--------------------------------------------------------------------------------------------------------  
+    //--------------------------------------------------------------------------------------------------------
     public function changeFolder(String $path) : Bool
     {
         if( ftp_chdir($this->connect, $path) )
@@ -108,15 +108,15 @@ class InternalFTP extends Requirements implements FTPInterface
             return Exceptions::throws('FileSystem', 'folder:changeFolderError', $path);
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // rename()
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $oldName: empty
     // @param string $newName: empty
     //
-    //--------------------------------------------------------------------------------------------------------  
+    //--------------------------------------------------------------------------------------------------------
     public function rename(String $oldName, String $newName) : Bool
     {
         if( ftp_rename($this->connect, $oldName, $newName) )
@@ -125,17 +125,17 @@ class InternalFTP extends Requirements implements FTPInterface
         }
         else
         {
-            return Exceptions::throws('FileSystem', 'folder:changeFolderNameError', $oldName); 
+            return Exceptions::throws('FileSystem', 'folder:changeFolderNameError', $oldName);
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // deleteFile()
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $path: empty
     //
-    //--------------------------------------------------------------------------------------------------------  
+    //--------------------------------------------------------------------------------------------------------
     public function deleteFile(String $path) : Bool
     {
         if( ftp_delete($this->connect, $path) )
@@ -144,19 +144,19 @@ class InternalFTP extends Requirements implements FTPInterface
         }
         else
         {
-            return Exceptions::throws('FileSystem', 'file:notFoundError', $path);  
+            return Exceptions::throws('FileSystem', 'file:notFoundError', $path);
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // upload()
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $localPath : empty
     // @param string $remotePath: empty
     // @param string $type      : binary, ascii
     //
-    //--------------------------------------------------------------------------------------------------------  
+    //--------------------------------------------------------------------------------------------------------
     public function upload(String $localPath, String $remotePath, String $type = 'ascii') : Bool
     {
         if( ftp_put($this->connect, $remotePath, $localPath, Converter::toConstant($type, 'FTP_')) )
@@ -165,14 +165,14 @@ class InternalFTP extends Requirements implements FTPInterface
         }
         else
         {
-            return Exceptions::throws('FileSystem', 'file:remoteUploadError', $localPath); 
+            return Exceptions::throws('FileSystem', 'file:remoteUploadError', $localPath);
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // dowload()
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $remotePath: empty
     // @param string $localPath : empty
     // @param string $type      : binary, ascii
@@ -189,11 +189,11 @@ class InternalFTP extends Requirements implements FTPInterface
             return Exceptions::throws('FileSystem', 'file:remoteDownloadError', $localPath);
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // permission()
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $path: empty
     // @param int $type   : 0755
     //
@@ -205,15 +205,15 @@ class InternalFTP extends Requirements implements FTPInterface
             return true;
         }
         else
-        { 
-            return Exceptions::throws('Error', 'emptyVariable', '@this->connect'); 
+        {
+            return Exceptions::throws('Error', 'emptyVariable', '@this->connect');
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // files()
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $path     : empty
     // @param string $extension: empty
     //
@@ -221,16 +221,16 @@ class InternalFTP extends Requirements implements FTPInterface
     public function files(String $path, String $extension = NULL) : Array
     {
         $list = ftp_nlist($this->connect, $path);
-    
+
         if( ! empty($list) ) foreach( $list as $file )
         {
             if( $file !== '.' && $file !== '..' )
-            {               
+            {
                 if( ! empty($extension) && $extension !== 'dir' )
                 {
                     if( extension($file) === $extension )
                     {
-                        $files[] = $file;   
+                        $files[] = $file;
                     }
                 }
                 else
@@ -238,10 +238,10 @@ class InternalFTP extends Requirements implements FTPInterface
                     if( $extension === 'dir' )
                     {
                         $extens = extension($file);
-                        
+
                         if( empty($extens) )
                         {
-                            $files[] = $file;   
+                            $files[] = $file;
                         }
                     }
                     else
@@ -249,25 +249,25 @@ class InternalFTP extends Requirements implements FTPInterface
                         $files[] = $file;
                     }
                 }
-            }   
+            }
         }
-        
+
         if( ! empty($files) )
         {
             return $files;
         }
         else
         {
-            $this->error = lang('Error', 'emptyVariable', '@files');    
+            $this->error = lang('Error', 'emptyVariable', '@files');
 
             return [];
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // fileSize()
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $path   : empty
     // @param string $type   : b, kb, mb, gb
     // @param int    $decimal: 2
@@ -276,9 +276,9 @@ class InternalFTP extends Requirements implements FTPInterface
     public function fileSize(String $path, String $type = 'b', Int $decimal = 2) : Float
     {
         $size = 0;
-        
+
         $extension = extension($path);
-        
+
         if( ! empty($extension) )
         {
             $size = ftp_size($this->connect, $path);
@@ -288,8 +288,8 @@ class InternalFTP extends Requirements implements FTPInterface
             if( $this->files($path) )
             {
                 foreach( $this->files($path) as $val )
-                {   
-                    $size += ftp_size($this->connect, $path."/".$val);  
+                {
+                    $size += ftp_size($this->connect, $path."/".$val);
                 }
 
                 $size += ftp_size($this->connect, $path);
@@ -297,10 +297,10 @@ class InternalFTP extends Requirements implements FTPInterface
             else
             {
                 $size += ftp_size($this->connect, $path);
-            }   
+            }
         }
-        
-        if( $type === "b" ) 
+
+        if( $type === "b" )
         {
             return  $size;
         }
@@ -321,22 +321,22 @@ class InternalFTP extends Requirements implements FTPInterface
     //--------------------------------------------------------------------------------------------------------
     // differentConnection()
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param array $config: empty
     //
-    //--------------------------------------------------------------------------------------------------------  
+    //--------------------------------------------------------------------------------------------------------
     public function differentConnection(Array $config) : InternalFTP
     {
         return new self($config);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Protected close()
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param void
     //
-    //--------------------------------------------------------------------------------------------------------  
+    //--------------------------------------------------------------------------------------------------------
     protected function _close() : Bool
     {
         if( ! empty($this->connect) )
@@ -350,41 +350,36 @@ class InternalFTP extends Requirements implements FTPInterface
     //--------------------------------------------------------------------------------------------------------
     // Protected connect()
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param array $config: empty
     //
-    //--------------------------------------------------------------------------------------------------------  
-    protected function _connect($config = NULL)
-    {  
-        if( empty($config) )
-        {
-            $config = config('FileSystem', 'ftp');
-        }
-        output($config);
+    //--------------------------------------------------------------------------------------------------------
+    protected function _connect($config)
+    {
         // ----------------------------------------------------------------------------
         // FTP BAĞLANTI AYARLARI YAPILANDIRILIYOR
         // ----------------------------------------------------------------------------
-        $host     = $config['host'];            
-        $port     = $config['port'];        
-        $timeout  = $config['timeout'];   
-        $user     = $config['user'];           
-        $password = $config['password'];       
-        $ssl      = $config['sslConnect']; 
+        $host     = $config['host'];
+        $port     = $config['port'];
+        $timeout  = $config['timeout'];
+        $user     = $config['user'];
+        $password = $config['password'];
+        $ssl      = $config['sslConnect'];
         // ----------------------------------------------------------------------------
-    
+
         // Bağlantı türü ayarına göre ssl veya normal
         // bağlatı yapılıp yapılmayacağı belirlenir.
-        $this->connect =    ( $ssl === false ) 
+        $this->connect =    ( $ssl === false )
                             ? @ftp_connect($host, $port, $timeout)
                             : @ftp_ssl_connect($host, $port, $timeout);
-                            
-        if( empty($this->connect) ) 
+
+        if( empty($this->connect) )
         {
             return Exceptions::throws('Error', 'emptyVariable', 'Connect');
         }
-        
+
         $this->login = ftp_login($this->connect, $user, $password);
-        
+
         if( empty($this->login) )
         {
             return Exceptions::throws('Error', 'emptyVariable', 'Login');
@@ -394,12 +389,12 @@ class InternalFTP extends Requirements implements FTPInterface
     //--------------------------------------------------------------------------------------------------------
     // __destruct()
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
     public function __destruct()
     {
-        $this->_close(); 
+        $this->_close();
     }
 }
