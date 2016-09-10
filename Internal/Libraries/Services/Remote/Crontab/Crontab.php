@@ -289,8 +289,6 @@ class InternalCrontab extends Requirements implements CrontabInterface, CrontabI
                 $command = $cmd;
             }
 
-            echo $command;
-
             return $this->_exec($command);
         }
         else
