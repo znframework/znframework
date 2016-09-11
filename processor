@@ -1,6 +1,7 @@
 #!/usr/bin/env php
 <?php
 //--------------------------------------------------------------------------------------------------
+// Executing Processor
 //--------------------------------------------------------------------------------------------------
 //
 // PHP istemcisine komutlar göndermeniz gerektiği zaman özellik bir sayfanın çalıştırılması
