@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
 //--------------------------------------------------------------------------------------------------
-// Executing Processor
+// Executing Zero Core Processor
 //--------------------------------------------------------------------------------------------------
 //
 // PHP istemcisine komutlar göndermeniz gerektiği zaman özellikle bir kod bluğunun çalıştırılması

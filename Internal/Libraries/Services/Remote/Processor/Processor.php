@@ -76,7 +76,7 @@ class InternalProcessor implements ProcessorInterface
     //--------------------------------------------------------------------------------------------------------
     public function command(String $command) : String
     {
-        $phpCommand = "require_once '".REAL_BASE_DIR."processor'; ".$command.";";
+        $phpCommand = "require_once '".REAL_BASE_DIR."zerocore'; ".$command.";";
         $phpCommand = presuffix(str_replace('"', '\"', $phpCommand), '"');
 
         $commands  = $this->path;

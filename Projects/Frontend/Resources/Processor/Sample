@@ -1,4 +1,4 @@
 #!/usr/bin/env php
-<?php require_once 'processor';
+<?php require_once 'zerocore';
 
 // Your Codes
