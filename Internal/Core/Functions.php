@@ -335,7 +335,7 @@ function currentLang() : String
 //--------------------------------------------------------------------------------------------------
 function currentUrl(String $fix = NULL) : String
 {
-    $currentUrl = sslStatus().host().internalCleanInjection($_SERVER['REQUEST_URI']);
+    $currentUrl = sslStatus().host().internalCleanInjection(server('requestUri'));
 
     if( ! empty($fix) )
     {
@@ -936,13 +936,15 @@ function indexStatus() : String
 //--------------------------------------------------------------------------------------------------
 function currentUri() : String
 {
+    $requestUri = server('requestUri');
+    
     if( BASE_DIR !== '/' )
     {
-        $cu = str_replace(BASE_DIR, '', $_SERVER['REQUEST_URI']);
+        $cu = str_replace(BASE_DIR, '', $requestUri);
     }
     else
     {
-        $cu = substr($_SERVER['REQUEST_URI'], 1);
+        $cu = substr($requestUri, 1);
     }
 
     if( indexStatus() )

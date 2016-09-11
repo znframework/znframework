@@ -1,1 +1,11 @@
-#!/usr/bin/env  php
+#!/usr/bin/env php
+<?php
+//--------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------
+//
+// PHP istemcisine komutlar göndermeniz gerektiği zaman özellik bir sayfanın çalıştırılması
+// gerektiği durumlarda ZN Framework'ün mevcut yapılarından yararlanabilmek için oluşturulmuştur.
+// Bu dosya sayesinde Exec yöntemleri ile ZN kodlarınızı çalıştırabilirsiniz.
+//
+//--------------------------------------------------------------------------------------------------
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'zeroneed.php';
