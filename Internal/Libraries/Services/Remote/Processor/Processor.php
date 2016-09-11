@@ -1,5 +1,7 @@
 <?php namespace ZN\Services\Remote;
 
+use File;
+
 class InternalProcessor implements ProcessorInterface
 {
     //--------------------------------------------------------------------------------------------------------
@@ -18,7 +20,7 @@ class InternalProcessor implements ProcessorInterface
     // @var string
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $php = 'C:\xampp7\php\php.exe';
+    protected $path = 'C:\xampp7\php\php.exe';
 
     //--------------------------------------------------------------------------------------------------------
     // Output
@@ -65,16 +67,31 @@ class InternalProcessor implements ProcessorInterface
     //--------------------------------------------------------------------------------------------------------
     public function command(String $command) : String
     {
-        $phpCommand = "require_once 'processor'; ".$command.";";
+        $phpCommand = "require_once '".REAL_BASE_DIR."processor'; ".$command.";";
         $phpCommand = presuffix(str_replace('"', '\"', $phpCommand), '"');
 
-        $commands  = $this->php;
+        $commands  = $this->path;
         $commands .= ' -r ';
         $commands .= $phpCommand;
 
         $this->stringCommand = $commands;
 
         return $this->_run($commands);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // File
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $file
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function file(String $file) : String
+    {
+        $content = File::read($file);
+        $content = str_ireplace('<?php', NULL, $content);
+
+        return $this->command($content);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -118,15 +135,15 @@ class InternalProcessor implements ProcessorInterface
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // PHP
+    // PHP Path
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string $php
     //
     //--------------------------------------------------------------------------------------------------------
-    public function php(String $php) : InternalProcessor
+    public function path(String $path) : InternalProcessor
     {
-        $this->php;
+        $this->path = $path;
 
         return $this;
     }
@@ -193,6 +210,6 @@ class InternalProcessor implements ProcessorInterface
     protected function _defaultVariables()
     {
         $this->command = NULL;
-        $this->php     = NULL;
+        $this->path    = NULL;
     }
 }
