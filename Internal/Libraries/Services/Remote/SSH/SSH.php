@@ -93,7 +93,7 @@ class InternalSSH extends Requirements implements SSHInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function run(String $command = NULL) : Bool
+    public function run(String $command = NULL)
     {
         if( ! empty($this->connect) )
         {

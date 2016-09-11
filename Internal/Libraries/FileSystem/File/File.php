@@ -12,7 +12,7 @@ class InternalFile extends FileSystemCommon implements FileInterface
     // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Exists
     //--------------------------------------------------------------------------------------------------------
@@ -45,7 +45,7 @@ class InternalFile extends FileSystemCommon implements FileInterface
     {
         return file_get_contents($this->rpath($file));
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Contents
     //--------------------------------------------------------------------------------------------------------
@@ -57,7 +57,7 @@ class InternalFile extends FileSystemCommon implements FileInterface
     {
         return $this->read($file);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Find
     //--------------------------------------------------------------------------------------------------------
@@ -69,13 +69,13 @@ class InternalFile extends FileSystemCommon implements FileInterface
     public function find(String $file, String $data) : \stdClass
     {
         $contents = $this->read($file);
-        $index    = strpos($contents, $data);    
-    
+        $index    = strpos($contents, $data);
+
         return (object)
         [
             'index'    => $index,
             'contents' => $contents
-        ];  
+        ];
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -89,8 +89,8 @@ class InternalFile extends FileSystemCommon implements FileInterface
     public function write(String $file, String $data) : Int
     {
         return file_put_contents($this->rpath($file), $data);
-    }   
-    
+    }
+
     //--------------------------------------------------------------------------------------------------------
     // Append
     //--------------------------------------------------------------------------------------------------------
@@ -102,8 +102,8 @@ class InternalFile extends FileSystemCommon implements FileInterface
     public function append(String $file, String $data) : Int
     {
         return file_put_contents($this->rpath($file), $data, FILE_APPEND);
-    }   
-    
+    }
+
     //--------------------------------------------------------------------------------------------------------
     // Create
     //--------------------------------------------------------------------------------------------------------
@@ -116,11 +116,11 @@ class InternalFile extends FileSystemCommon implements FileInterface
         $name = $this->rpath($name);
 
         if( ! is_file($name) )
-        { 
+        {
             return touch($name);
         }
-        
-        return Exceptions::throws('FileSystem', 'file:alreadyFileError', $name);   
+
+        return Exceptions::throws('FileSystem', 'file:alreadyFileError', $name);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -138,9 +138,9 @@ class InternalFile extends FileSystemCommon implements FileInterface
     {
         $file = $this->rpath($file);
 
-        if( ! is_file($file)) 
+        if( ! is_file($file))
         {
-            return Exceptions::throws('FileSystem', 'file:notFoundError', $file);  
+            return Exceptions::throws('FileSystem', 'file:notFoundError', $file);
         }
 
         $contents = $this->read($file);
@@ -153,7 +153,7 @@ class InternalFile extends FileSystemCommon implements FileInterface
 
         return $replaceContents;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Delete
     //--------------------------------------------------------------------------------------------------------
@@ -165,13 +165,13 @@ class InternalFile extends FileSystemCommon implements FileInterface
     {
         $name = $this->rpath($name);
 
-        if( ! is_file($name)) 
+        if( ! is_file($name))
         {
-            return Exceptions::throws('FileSystem', 'file:notFoundError', $name);  
+            return Exceptions::throws('FileSystem', 'file:notFoundError', $name);
         }
-        else 
+        else
         {
-            return unlink($name);   
+            return unlink($name);
         }
     }
 
@@ -190,7 +190,7 @@ class InternalFile extends FileSystemCommon implements FileInterface
         {
             return Exceptions::throws('FileSystem', 'file:notFoundError', $file);
         }
-        
+
         return (object)
         [
             'basename'   => pathInfos($file, 'basename'),
@@ -199,10 +199,10 @@ class InternalFile extends FileSystemCommon implements FileInterface
             'readable'   => is_readable($file),
             'writable'   => is_writable($file),
             'executable' => is_executable($file),
-            'permission' => fileperms($file)   
+            'permission' => fileperms($file)
         ];
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Size
     //--------------------------------------------------------------------------------------------------------
@@ -220,11 +220,11 @@ class InternalFile extends FileSystemCommon implements FileInterface
         {
             return Exceptions::throws('FileSystem', 'file:notFoundError', $file);
         }
-        
+
         $size      = 0;
         $extension = extension($file);
         $fileSize  = filesize($file);
-        
+
         if( ! empty($extension) )
         {
             $size += $fileSize;
@@ -232,22 +232,22 @@ class InternalFile extends FileSystemCommon implements FileInterface
         else
         {
             $folderFiles = Folder::files($file);
-            
+
             if( $folderFiles )
             {
                 foreach( $folderFiles as $val )
-                {   
-                    $size += $this->size($file."/".$val);   
+                {
+                    $size += $this->size($file."/".$val);
                 }
-                
+
                 $size += $fileSize;
             }
             else
             {
                 $size += $fileSize;
-            }   
+            }
         }
-    
+
         // BYTES
         if( $type === "b" )
         {
@@ -269,7 +269,7 @@ class InternalFile extends FileSystemCommon implements FileInterface
             return round($size / (1024 * 1024 * 1024), $decimal);
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Create Date
     //--------------------------------------------------------------------------------------------------------
@@ -286,13 +286,13 @@ class InternalFile extends FileSystemCommon implements FileInterface
         {
             return Exceptions::throws('FileSystem', 'file:notFoundError', $file);
         }
-        
-        $date = filectime($file); 
-        
+
+        $date = filectime($file);
+
         return date($type, $date);
     }
-    
-    
+
+
     //--------------------------------------------------------------------------------------------------------
     // Change Date
     //--------------------------------------------------------------------------------------------------------
@@ -309,12 +309,12 @@ class InternalFile extends FileSystemCommon implements FileInterface
         {
             return Exceptions::throws('FileSystem', 'file:notFoundError', $file);
         }
-        
+
         $date = filemtime($file);
-         
+
         return date($type, $date);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Owner
     //--------------------------------------------------------------------------------------------------------
@@ -342,7 +342,7 @@ class InternalFile extends FileSystemCommon implements FileInterface
             return $owner;
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Group
     //--------------------------------------------------------------------------------------------------------
@@ -358,7 +358,7 @@ class InternalFile extends FileSystemCommon implements FileInterface
         {
             return Exceptions::throws('FileSystem', 'file:notFoundError', $file);
         }
-        
+
         $group = filegroup($file);
 
         if( function_exists('posix_getgrgid') )
@@ -370,7 +370,7 @@ class InternalFile extends FileSystemCommon implements FileInterface
             return $group;
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Zip Extract
     //--------------------------------------------------------------------------------------------------------
@@ -393,24 +393,24 @@ class InternalFile extends FileSystemCommon implements FileInterface
 
         if( empty($target) )
         {
-            $target = removeExtension($source); 
+            $target = removeExtension($source);
         }
-        
+
         $zip = new ZipArchive;
-        
-        if( $zip->open($source) === true ) 
+
+        if( $zip->open($source) === true )
         {
             $zip->extractTo($target);
             $zip->close();
-            
+
             return true;
-        } 
-        else 
+        }
+        else
         {
             return false;
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Create Zip
     //--------------------------------------------------------------------------------------------------------
@@ -420,14 +420,14 @@ class InternalFile extends FileSystemCommon implements FileInterface
     //
     //--------------------------------------------------------------------------------------------------------
     public function createZip(String $path, Array $data) : Bool
-    {           
+    {
         $path    = $this->rpath($path);
         $zip     = new \ZipArchive();
         $zipPath = suffix($path, ".zip");
-        
-        if( file_exists($zipPath) ) 
-        {   
-            unlink($zipPath);   
+
+        if( file_exists($zipPath) )
+        {
+            unlink($zipPath);
         }
 
         if( ! is_dir($pathDirName = pathInfos($path, 'dirname')) )
@@ -435,44 +435,44 @@ class InternalFile extends FileSystemCommon implements FileInterface
             Folder::create($pathDirName);
         }
 
-        if( $zip->open($zipPath, ZipArchive::CREATE) !== true ) 
+        if( $zip->open($zipPath, ZipArchive::CREATE) !== true )
         {
             return false;
         }
-        
+
         $status = '';
-            
+
         if( ! empty($data) ) foreach( $data as $key => $val )
-        {       
+        {
             if( is_numeric($key) )
             {
                 $file = $val;
-                $fileName = NULL;   
+                $fileName = NULL;
             }
             else
             {
                 $file = $key;
-                $fileName = $val;   
+                $fileName = $val;
             }
-                
+
             if( is_dir($file) )
             {
                 $allFiles = Folder::allFiles($file, true);
-                
+
                 foreach( $allFiles as $f )
                 {
                     $status = $zip->addFile($f, $f);
-                }   
+                }
             }
             else
             {
                 $status = $zip->addFile($file, $fileName);
             }
-        }   
-        
-        return $zip->close();   
+        }
+
+        return $zip->close();
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Rename
     //--------------------------------------------------------------------------------------------------------
@@ -489,10 +489,10 @@ class InternalFile extends FileSystemCommon implements FileInterface
         {
             return Exceptions::throws('FileSystem', 'file:notFoundError', $oldName);
         }
-    
+
         return rename($oldName, $newName);
-    }   
-    
+    }
+
     //--------------------------------------------------------------------------------------------------------
     // Clean Cache
     //--------------------------------------------------------------------------------------------------------
@@ -514,7 +514,7 @@ class InternalFile extends FileSystemCommon implements FileInterface
             clearstatcache($real, $fileName);
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Truncate
     //--------------------------------------------------------------------------------------------------------
@@ -532,18 +532,18 @@ class InternalFile extends FileSystemCommon implements FileInterface
         {
             return Exceptions::throws('FileSystem', 'file:notFoundError', $file);
         }
-    
+
         $fileOpen  = fopen($file, $mode);
         $fileWrite = ftruncate($fileOpen, $limit);
-        
+
         fclose($fileOpen);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // rowCount()
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param  string $file     
+    // @param  string $file
     // @param  bool   $recursive
     //
     //--------------------------------------------------------------------------------------------------------
@@ -563,22 +563,116 @@ class InternalFile extends FileSystemCommon implements FileInterface
         elseif( is_dir($file) )
         {
             $files = Folder::allFiles($file, $recursive);
-            
+
             $rowCount = 0;
-            
+
             foreach( $files as $f )
             {
                 if( is_file($f) )
                 {
-                    $rowCount += count( file($f) ); 
+                    $rowCount += count( file($f) );
                 }
             }
-            
+
             return $rowCount;
         }
         else
         {
             return false;
         }
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Required
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    // @return array
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function required() : Array
+    {
+        return get_required_files();
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Require
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $file
+    //
+    // @return array
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function require(String $file, String $type = 'require')
+    {
+        $file = $this->rpath($file);
+
+        if( ! is_file($file) )
+        {
+            return Exceptions::throws('FileSystem', 'file:notFoundError', $file);
+        }
+
+        switch( $type )
+        {
+            case 'require':
+                return require $file;
+            break;
+
+            case 'require_once':
+                return require_once $file;
+            break;
+
+            case 'include':
+                return include $file;
+            break;
+
+            case 'include_once':
+                return include_once $file;
+            break;
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Require Once
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $file
+    //
+    // @return array
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function requireOnce(String $file)
+    {
+        return $this->require($file, 'require_once');
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Include
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $file
+    //
+    // @return array
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function include(String $file)
+    {
+        return $this->require($file, 'include');
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Include Once
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $file
+    //
+    // @return array
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function includeOnce(String $file)
+    {
+        return $this->require($file, 'include_once');
     }
 }

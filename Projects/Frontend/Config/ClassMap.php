@@ -680,3 +680,7 @@ $classMap['namespaces']['zn\viewobjects\view\internalvalidator'] = 'internalvali
 $classMap['namespaces']['zn\viewobjects\view\validatorinterface'] = 'validatorinterface';
 $classMap['namespaces']['zn\viewobjects\view\viewcommoninterface'] = 'viewcommoninterface';
 $classMap['namespaces']['zn\viewobjects\view\viewcommontrait'] = 'viewcommontrait';
+$classMap['classes']['zn\services\remote\remotecommon'] = 'Internal\Libraries\Services\Remote\RemoteCommon.php';
+$classMap['classes']['zn\services\remote\remotecommoninterface'] = 'Internal\Libraries\Services\Remote\RemoteCommonInterface.php';
+$classMap['namespaces']['zn\services\remote\remotecommon'] = 'remotecommon';
+$classMap['namespaces']['zn\services\remote\remotecommoninterface'] = 'remotecommoninterface';

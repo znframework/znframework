@@ -1,8 +1,8 @@
 <?php namespace ZN\Services\Remote;
 
-use File;
+use File, SSH;
 
-class InternalProcessor implements ProcessorInterface
+class InternalProcessor extends RemoteCommon implements ProcessorInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -20,7 +20,16 @@ class InternalProcessor implements ProcessorInterface
     // @var string
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $path = 'C:\xampp7\php\php.exe';
+    protected $path;
+
+    //--------------------------------------------------------------------------------------------------------
+    // Driver
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var string
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected $driver;
 
     //--------------------------------------------------------------------------------------------------------
     // Processor Path
@@ -59,13 +68,48 @@ class InternalProcessor implements ProcessorInterface
     protected $command;
 
     //--------------------------------------------------------------------------------------------------------
-    // String Command
+    // Construct
     //--------------------------------------------------------------------------------------------------------
     //
-    // @var string
+    // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $stringCommand;
+    public function __construct()
+    {
+        $config       = config('Services', 'processor');
+        $this->path   = $config['path'];
+        $this->driver = $config['driver'];
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Exec
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param  string $command: empty
+    // @return string
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function exec($command)
+    {
+        switch( $this->driver )
+        {
+            case 'exec':
+                return exec($command, $this->output, $this->return);
+            break;
+
+            case 'shell_exec':
+                return shell_exec($command);
+            break;
+
+            case 'system':
+                return system($command, $this->return);
+            break;
+
+            case 'ssh':
+                return SSH::run($command);
+            break;
+        }
+    }
 
     //--------------------------------------------------------------------------------------------------------
     // Command
@@ -176,6 +220,20 @@ class InternalProcessor implements ProcessorInterface
     }
 
     //--------------------------------------------------------------------------------------------------------
+    // Driver
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function driver(String $driver) : InternalProcessor
+    {
+        $this->driver = $driver;
+
+        return $this;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
     // Output
     //--------------------------------------------------------------------------------------------------------
     //
@@ -197,18 +255,6 @@ class InternalProcessor implements ProcessorInterface
     public function return() : Int
     {
         return $this->return;
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // String Command
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function stringCommand() : String
-    {
-        return $this->stringCommand;
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -240,7 +286,7 @@ class InternalProcessor implements ProcessorInterface
     //--------------------------------------------------------------------------------------------------------
     protected function _run($command)
     {
-        $return = exec($command, $this->output, $this->return);
+        $return = $this->exec($command);
 
         $this->_defaultVariables();
 
@@ -258,5 +304,6 @@ class InternalProcessor implements ProcessorInterface
     {
         $this->command = NULL;
         $this->path    = NULL;
+        $this->driver  = NULL;
     }
 }

@@ -1,8 +1,8 @@
 <?php namespace ZN\Services\Remote;
 
-use SSH, Folder, Buffer, Exceptions, Requirements;
+use Processor, SSH, Folder, Buffer, Exceptions, Html;
 
-class InternalCrontab extends Requirements implements CrontabInterface, CrontabIntervalInterface
+class InternalCrontab extends RemoteCommon implements CrontabInterface, CrontabIntervalInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -122,19 +122,12 @@ class InternalCrontab extends Requirements implements CrontabInterface, CrontabI
     public function __construct()
     {
         $this->config = config('Services', 'crontab');
-
-        $this->driver = $this->config['driver'];
-
+        $this->path   = config('Services', 'processor')['path'];
         $this->debug  = $this->config['debug'] === true
                       ? $this->config['debug']
                       : false;
 
         $this->crontabDir = Folder::originpath(STORAGE_DIR.'Crontab'.DS);
-
-        if( $this->driver !== 'ssh' && ! function_exists($this->driver) )
-        {
-            die( getErrorMessage('Error', 'undefinedFunctionExtension', $this->driver) );
-        }
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -147,7 +140,7 @@ class InternalCrontab extends Requirements implements CrontabInterface, CrontabI
     //--------------------------------------------------------------------------------------------------------
     public function driver(String $driver) : InternalCrontab
     {
-        $this->driver = $driver;
+        Processor::driver($driver);
 
         return $this;
     }
@@ -162,11 +155,6 @@ class InternalCrontab extends Requirements implements CrontabInterface, CrontabI
     //--------------------------------------------------------------------------------------------------------
     public function path(String $path = NULL) : InternalCrontab
     {
-        if( empty($path) )
-        {
-            $path = $this->config['path'];
-        }
-
         $this->path = $path;
 
         return $this;
@@ -182,7 +170,7 @@ class InternalCrontab extends Requirements implements CrontabInterface, CrontabI
     //--------------------------------------------------------------------------------------------------------
     public function roster() : Bool
     {
-        return $this->_exec('crontab -l');
+        return Processor::exec('crontab -l');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -207,7 +195,7 @@ class InternalCrontab extends Requirements implements CrontabInterface, CrontabI
             {
                 $command = 'crontab -l > '.$cronFile.' && [ -f '.$cronFile.' ] || > '.$cronFile;
 
-                return $this->_exec($command);
+                return Processor::exec($command);
             }
         }
     }
@@ -228,7 +216,7 @@ class InternalCrontab extends Requirements implements CrontabInterface, CrontabI
         {
             $command = 'rm '.$cronFile;
 
-            return $this->_exec($command);
+            return Processor::exec($command);
         }
 
         return false;
@@ -246,7 +234,7 @@ class InternalCrontab extends Requirements implements CrontabInterface, CrontabI
     {
         $this->deleteFile($name);
 
-        return $this->_exec('crontab -r');
+        return Processor::exec('crontab -r');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -289,7 +277,9 @@ class InternalCrontab extends Requirements implements CrontabInterface, CrontabI
                 $command = $cmd;
             }
 
-            return $this->_exec($command);
+            $this->stringCommand = $command;
+
+            return Processor::exec($command);
         }
         else
         {
@@ -299,36 +289,13 @@ class InternalCrontab extends Requirements implements CrontabInterface, CrontabI
 
             foreach( $jobs as $job )
             {
-                $this->_exec($job);
+                Processor::exec($job);
+
+                $this->stringCommand .= $job.Html::br();
             }
 
             return true;
         }
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Exec
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  string $command: empty
-    // @return string
-    //
-    //--------------------------------------------------------------------------------------------------------
-    protected function _exec($command)
-    {
-        $driver  = $this->driver;
-
-        Buffer::select('before');
-
-        Buffer::select('callback');
-
-        $return = $driver === 'ssh'
-                ? SSH::run($command)
-                : $driver($command);
-
-        Buffer::select('after');
-
-        return $return;
     }
 
     //--------------------------------------------------------------------------------------------------------
