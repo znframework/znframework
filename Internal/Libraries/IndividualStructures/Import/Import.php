@@ -880,7 +880,7 @@ class InternalImport implements ImportInterface
 
         if( $randomObGetContentsVariable === false )
         {
-            echo $return; return true;
+            echo $return;
         }
         else
         {
@@ -914,7 +914,7 @@ class InternalImport implements ImportInterface
 
             if( $getContents === false )
             {
-                echo $return; return true;
+                echo $return;
             }
             else
             {
@@ -1031,7 +1031,7 @@ class InternalImport implements ImportInterface
             return $return;
         }
 
-        echo $return; return true;
+        echo $return;
     }
 
     //--------------------------------------------------------------------------------------------------------
