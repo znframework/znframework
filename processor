@@ -4,8 +4,8 @@
 // Executing Processor
 //--------------------------------------------------------------------------------------------------
 //
-// PHP istemcisine komutlar göndermeniz gerektiği zaman özellik bir sayfanın çalıştırılması
-// gerektiği durumlarda ZN Framework'ün mevcut yapılarından yararlanabilmek için oluşturulmuştur.
+// PHP istemcisine komutlar göndermeniz gerektiği zaman özellikle bir kod bluğunun çalıştırılması
+// gerektiği durumlarda ZN Framework'ün mevcut yapılarından yararlanabilmek adına oluşturulmuştur.
 // Bu dosya sayesinde Exec yöntemleri ile ZN kodlarınızı çalıştırabilirsiniz.
 //
 //--------------------------------------------------------------------------------------------------
