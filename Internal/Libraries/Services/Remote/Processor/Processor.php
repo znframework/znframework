@@ -142,7 +142,7 @@ class InternalProcessor extends RemoteCommon implements ProcessorInterface
     public function read(String $file) : String
     {
         $content = File::read($this->_fileControl($file));
-        $content = str_ireplace('<?php', NULL, $content);
+        $content = str_ireplace(['<?php', '?>'], NULL, $content);
 
         return $this->command($content);
     }

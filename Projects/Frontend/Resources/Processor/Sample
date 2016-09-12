@@ -14,7 +14,7 @@ require_once 'zerocore';
 // Your Codes
 //--------------------------------------------------------------------------------------------------
 //
-// Bu betiğe yazılan kodların çalıştırılabilmesi için aşağıdaki kullanımdan yararlanılır.
+// Bu betiğe yazılan kodların kabuk ile çalıştırılabilmesi için aşağıdaki kullanımdan yararlanılır.
 //
 // Processor::file('Sample');
 //
