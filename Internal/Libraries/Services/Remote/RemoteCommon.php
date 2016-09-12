@@ -1,8 +1,8 @@
 <?php namespace ZN\Services\Remote;
 
-use Requirements;
+use AbilityController;
 
-class RemoteCommon extends Requirements implements RemoteCommonInterface
+class RemoteCommon extends AbilityController implements RemoteCommonInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

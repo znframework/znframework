@@ -13,6 +13,8 @@ class InternalDBGrid extends Abstracts\GridAbstract
     //
     //--------------------------------------------------------------------------------------------------------
 
+    const config = 'ViewObjects:datagrid', lang = 'ViewObjects:dbgrid';
+
     //--------------------------------------------------------------------------------------------------------
     // Search
     //--------------------------------------------------------------------------------------------------------
@@ -87,10 +89,9 @@ class InternalDBGrid extends Abstracts\GridAbstract
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
-        $this->config  = config('ViewObjects', 'datagrid');
-        $this->lang    = lang('ViewObjects');
+        parent::__construct();
 
-        $this->confirm = 'return confirm(\''.$this->lang['dbgrid:areYouSure'].'\');';
+        $this->confirm = 'return confirm(\''.$this->lang['areYouSure'].'\');';
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -276,7 +277,7 @@ class InternalDBGrid extends Abstracts\GridAbstract
 
         if( ! isset($this->table) )
         {
-            return Exceptions::throws('ViewObjects', 'dbgrid:noTable');
+            return Exceptions::throws('ViewObjects', 'noTable');
         }
 
         $table = $this->_styleElement();
@@ -507,7 +508,7 @@ class InternalDBGrid extends Abstracts\GridAbstract
 
         $table .= '<td align="right" colspan="2"><span'.
                   Html::attributes($this->config['attributes']['columns']).'>'.
-                  Html::strong($this->lang['dbgrid:processLabel']).'</span></td>';
+                  Html::strong($this->lang['processLabel']).'</span></td>';
         $table .= '</tr>'.EOL;
         $table .= '</thead>'.EOL;
 
@@ -749,7 +750,7 @@ class InternalDBGrid extends Abstracts\GridAbstract
         }
         else
         {
-            throw new Exception($this->lang['dbgrid:noSearch']);
+            throw new Exception($this->lang['noSearch']);
         }
     }
 

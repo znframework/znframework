@@ -1,8 +1,8 @@
 <?php namespace ZN\EncodingSupport;
 
-use Requirements, Folder, File, Json, Method, Html, Form, URI, Pagination, Sheet, Style;
+use AbilityController, Folder, File, Json, Method, Html, Form, URI, Pagination, Sheet, Style;
 
-class InternalML extends Requirements implements MLInterface
+class InternalML extends AbilityController implements MLInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -12,6 +12,8 @@ class InternalML extends Requirements implements MLInterface
     // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
+
+    const config = 'EncodingSupport:ml';
 
     //--------------------------------------------------------------------------------------------------------
     // ML Properties Trait
@@ -57,7 +59,7 @@ class InternalML extends Requirements implements MLInterface
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
-        $this->config = config('EncodingSupport', 'ml');
+        parent::__construct();
 
         $this->appdir = STORAGE_DIR.'MultiLanguage/';
 

@@ -1,6 +1,10 @@
 <?php namespace ZN\Requirements\Controllers;
 
-class BaseController
+use ZN\Requirements\Abilities\Configurable;
+use ZN\Requirements\Abilities\Conversation;
+use ZN\Requirements\Abilities\Information;
+
+class AbilityController extends BaseController
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -12,19 +16,26 @@ class BaseController
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
-    // Get
+    // Usage
     //--------------------------------------------------------------------------------------------------------
     //
-    // Magic Get
+    // Abilities
     //
     //--------------------------------------------------------------------------------------------------------
-    public function __get($class)
+    use Configurable, Conversation, Information;
+
+    //--------------------------------------------------------------------------------------------------------
+    // Magic Construct
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function __construct()
     {
-        if( ! isset($this->$class) )
-        {
-            return $this->$class = uselib($class);
-        }
+        $this->configurable();
+        $this->conversation();
     }
 }
 
-class_alias('ZN\Requirements\Controllers\BaseController', 'BaseController');
+class_alias('ZN\Requirements\Controllers\AbilityController', 'AbilityController');

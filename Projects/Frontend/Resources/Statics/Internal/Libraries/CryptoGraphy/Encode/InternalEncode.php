@@ -5,6 +5,8 @@
 
 class Encode extends StaticAccess
 {
+	const config = ['CryptoGraphy:encode', 'Project'];
+
 	public static function getClassName()
 	{
 		return __CLASS__;

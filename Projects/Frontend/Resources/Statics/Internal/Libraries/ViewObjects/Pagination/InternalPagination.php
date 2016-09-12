@@ -5,6 +5,8 @@
 
 class Pagination extends StaticAccess
 {
+	const config = 'ViewObjects:pagination';
+
 	public static function getClassName()
 	{
 		return __CLASS__;

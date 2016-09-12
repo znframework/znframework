@@ -1,8 +1,8 @@
 <?php namespace ZN\IndividualStructures;
 
-use Regex, Converter, Requirements;
+use Regex, Converter, AbilityController;
 
-class InternalSecurity extends Requirements implements SecurityInterface
+class InternalSecurity extends AbilityController implements SecurityInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -12,6 +12,8 @@ class InternalSecurity extends Requirements implements SecurityInterface
     // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
+
+    const config = 'IndividualStructures:security';
 
     //--------------------------------------------------------------------------------------------------------
     // Nail Chars
@@ -64,19 +66,6 @@ class InternalSecurity extends Requirements implements SecurityInterface
         '/\&\#60\;script(.*?)\&\#62\;/i' => '<script$1>',
         '/\&\#60\;\/script\&\#62\;/i'    => '</script>'
     );
-
-    //--------------------------------------------------------------------------------------------------------
-    // Construct
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  void
-    // @return bool
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function __construct()
-    {
-        $this->config = config('IndividualStructures', 'security');
-    }
 
     //--------------------------------------------------------------------------------------------------------
     // Nc Encode

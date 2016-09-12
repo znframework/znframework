@@ -1,8 +1,8 @@
 <?php namespace ZN\ViewObjects;
 
-use URI, Requirements;
+use URI, AbilityController;
 
-class InternalPagination extends Requirements implements PaginationInterface, PaginationPropertiesInterface
+class InternalPagination extends AbilityController implements PaginationInterface, PaginationPropertiesInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -12,6 +12,8 @@ class InternalPagination extends Requirements implements PaginationInterface, Pa
     // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
+
+    const config = 'ViewObjects:pagination';
 
     //--------------------------------------------------------------------------------------------------------
     // Pagination Properties
@@ -30,19 +32,6 @@ class InternalPagination extends Requirements implements PaginationInterface, Pa
     //
     //--------------------------------------------------------------------------------------------------------
     protected $settings     = [];
-
-    //--------------------------------------------------------------------------------------------------------
-    // Construct
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  void
-    // @return bool
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function __construct()
-    {
-        $this->config = config('ViewObjects', 'pagination');
-    }
 
     //--------------------------------------------------------------------------------------------------------
     // Settings

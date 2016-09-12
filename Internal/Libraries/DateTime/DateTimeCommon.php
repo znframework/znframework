@@ -1,8 +1,8 @@
 <?php namespace ZN\DateTime;
 
-use Config, Arrays, CallController;
+use Config, Arrays, AbilityController;
 
-class DateTimeCommon extends CallController
+class DateTimeCommon extends AbilityController
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -14,15 +14,13 @@ class DateTimeCommon extends CallController
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
-    // Construct
+    // Consts
     //--------------------------------------------------------------------------------------------------------
     //
-    // Dosya ayar bilgisi
-    //
-    // @var  array
+    // @const string
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $config;
+    const config = 'DateTime', lang = 'IndividualStructures';
 
     //--------------------------------------------------------------------------------------------------------
     // Class Name
@@ -45,7 +43,7 @@ class DateTimeCommon extends CallController
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
-        $this->config = Config::get('DateTime');
+        parent::__construct();
 
         date_default_timezone_set($this->config['timeZone']);
 

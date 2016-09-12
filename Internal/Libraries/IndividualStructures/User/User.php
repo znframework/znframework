@@ -1,8 +1,8 @@
 <?php namespace ZN\IndividualStructures;
 
-use Requirements, Encode, DB, Session, Cookie, Method, Import, Email, URI;
+use AbilityController, Encode, DB, Session, Cookie, Method, Import, Email, URI;
 
-class InternalUser extends Requirements implements UserInterface, UserPropertiesInterface
+class InternalUser extends AbilityController implements UserInterface, UserPropertiesInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -12,6 +12,8 @@ class InternalUser extends Requirements implements UserInterface, UserProperties
     // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
+
+    const config = 'IndividualStructures:user';
 
     //--------------------------------------------------------------------------------------------------------
     // User Properties
@@ -50,19 +52,6 @@ class InternalUser extends Requirements implements UserInterface, UserProperties
     protected $parameters;
 
     //--------------------------------------------------------------------------------------------------------
-    // Construct
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  void
-    // @return bool
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function __construct()
-    {
-        $this->config = config('IndividualStructures', 'user');
-    }
-
-    //--------------------------------------------------------------------------------------------------------
     // Register
     //--------------------------------------------------------------------------------------------------------
     //
@@ -82,10 +71,9 @@ class InternalUser extends Requirements implements UserInterface, UserProperties
         // ------------------------------------------------------------------------------
         // Settings
         // ------------------------------------------------------------------------------
-        $userConfig         = $this->config;
-        $getColumns         = $userConfig['matching']['columns'];
-        $getJoining         = $userConfig['joining'];
-        $tableName          = $userConfig['matching']['table'];
+        $getColumns         = USER_CONFIG['matching']['columns'];
+        $getJoining         = USER_CONFIG['joining'];
+        $tableName          = USER_CONFIG['matching']['table'];
         $joinTables         = $getJoining['tables'];
         $joinColumn         = $getJoining['column'];
         $usernameColumn     = $getColumns['username'];
@@ -110,7 +98,7 @@ class InternalUser extends Requirements implements UserInterface, UserProperties
 
         $loginUsername   = $data[$usernameColumn];
         $loginPassword   = $data[$passwordColumn];
-        $encodeType      = $userConfig['encode'];
+        $encodeType      = USER_CONFIG['encode'];
         $encodePassword  = ! empty($encodeType) ? Encode::type($loginPassword, $encodeType) : $loginPassword;
 
         $usernameControl = DB::where($usernameColumn, $loginUsername)
@@ -202,15 +190,14 @@ class InternalUser extends Requirements implements UserInterface, UserProperties
                 $newAgain = $new;
             }
 
-            $userConfig = $this->config;
-            $getColumns = $userConfig['matching']['columns'];
-            $getJoining = $userConfig['joining'];
+            $getColumns = USER_CONFIG['matching']['columns'];
+            $getJoining = USER_CONFIG['joining'];
             $joinTables = $getJoining['tables'];
             $jc         = $getJoining['column'];
             $pc         = $getColumns['password'];
             $uc         = $getColumns['username'];
-            $tn         = $userConfig['matching']['table'];
-            $encodeType = $userConfig['encode'];
+            $tn         = USER_CONFIG['matching']['table'];
+            $encodeType = USER_CONFIG['encode'];
 
             $oldPassword      = ! empty($encodeType) ? Encode::type($old, $encodeType)      : $old;
             $newPassword      = ! empty($encodeType) ? Encode::type($new, $encodeType)      : $new;
@@ -291,16 +278,15 @@ class InternalUser extends Requirements implements UserInterface, UserProperties
         }
 
         $username   = $un;
-        $userConfig = $this->config;
-        $encodeType = $userConfig['encode'];
+        $encodeType = USER_CONFIG['encode'];
 
         $password   = ! empty($encodeType) ? Encode::type($pw, $encodeType) : $pw;
 
         // ------------------------------------------------------------------------------
         // Settings
         // ------------------------------------------------------------------------------
-        $tableName          = $userConfig['matching']['table'];
-        $getColumns         = $userConfig['matching']['columns'];
+        $tableName          = USER_CONFIG['matching']['table'];
+        $getColumns         = USER_CONFIG['matching']['columns'];
         $passwordColumn     = $getColumns['password'];
         $usernameColumn     = $getColumns['username'];
         $emailColumn        = $getColumns['email'];
@@ -381,9 +367,8 @@ class InternalUser extends Requirements implements UserInterface, UserProperties
     //--------------------------------------------------------------------------------------------------------
     public function logout(String $redirectUrl = NULL, Int $time = 0)
     {
-        $config     = $this->config;
-        $getColumns = $config['matching']['columns'];
-        $tableName  = $config['matching']['table'];
+        $getColumns = USER_CONFIG['matching']['columns'];
+        $tableName  = USER_CONFIG['matching']['table'];
         $username   = $getColumns['username'];
         $password   = $getColumns['password'];
         $active     = $getColumns['active'];
@@ -414,9 +399,8 @@ class InternalUser extends Requirements implements UserInterface, UserProperties
     //--------------------------------------------------------------------------------------------------------
     public function isLogin() : Bool
     {
-        $config     = $this->config;
-        $getColumns = $config['matching']['columns'];
-        $tableName  = $config['matching']['table'];
+        $getColumns = USER_CONFIG['matching']['columns'];
+        $tableName  = USER_CONFIG['matching']['table'];
         $username   = $getColumns['username'];
         $password   = $getColumns['password'];
 
@@ -469,10 +453,9 @@ class InternalUser extends Requirements implements UserInterface, UserProperties
         // ------------------------------------------------------------------------------
         // Settings
         // ------------------------------------------------------------------------------
-        $userConfig     = $this->config;
-        $tableName      = $userConfig['matching']['table'];
-        $senderInfo     = $userConfig['emailSenderInfo'];
-        $getColumns     = $userConfig['matching']['columns'];
+        $tableName      = USER_CONFIG['matching']['table'];
+        $senderInfo     = USER_CONFIG['emailSenderInfo'];
+        $getColumns     = USER_CONFIG['matching']['columns'];
         $usernameColumn = $getColumns['username'];
         $passwordColumn = $getColumns['password'];
         $emailColumn    = $getColumns['email'];
@@ -496,7 +479,7 @@ class InternalUser extends Requirements implements UserInterface, UserProperties
                 $returnLinkPath = siteUrl($returnLinkPath);
             }
 
-            $encodeType     = $userConfig['encode'];
+            $encodeType     = USER_CONFIG['encode'];
             $newPassword    = Encode::create(10);
             $encodePassword = ! empty($encodeType) ? Encode::type($newPassword, $encodeType) : $newPassword;
 
@@ -555,9 +538,8 @@ class InternalUser extends Requirements implements UserInterface, UserProperties
         // ------------------------------------------------------------------------------
         // Settings
         // ------------------------------------------------------------------------------
-        $userConfig         = $this->config;
-        $getColumns         = $userConfig['matching']['columns'];
-        $tableName          = $userConfig['matching']['table'];
+        $getColumns         = USER_CONFIG['matching']['columns'];
+        $tableName          = USER_CONFIG['matching']['table'];
         $usernameColumn     = $getColumns['username'];
         $passwordColumn     = $getColumns['password'];
         $activationColumn   = $getColumns['activation'];
@@ -613,7 +595,7 @@ class InternalUser extends Requirements implements UserInterface, UserProperties
             $url = siteUrl($url);
         }
 
-        $senderInfo = $this->config['emailSenderInfo'];
+        $senderInfo = USER_CONFIG['emailSenderInfo'];
 
         $templateData =
         [
@@ -651,16 +633,15 @@ class InternalUser extends Requirements implements UserInterface, UserProperties
     //--------------------------------------------------------------------------------------------------------
     public function data(String $tbl = NULL)
     {
-        $config         = $this->config;
-        $usernameColumn = $config['matching']['columns']['username'];
-        $passwordColumn = $config['matching']['columns']['password'];
+        $usernameColumn = USER_CONFIG['matching']['columns']['username'];
+        $passwordColumn = USER_CONFIG['matching']['columns']['password'];
 
         if( $sessionUserName = Session::select($usernameColumn) )
         {
-            $joinTables      = $config['joining']['tables'];
-            $usernameColumn  = $config['matching']['columns']['username'];
-            $joinColumn      = $config['joining']['column'];
-            $tableName       = $config['matching']['table'];
+            $joinTables      = USER_CONFIG['joining']['tables'];
+            $usernameColumn  = USER_CONFIG['matching']['columns']['username'];
+            $joinColumn      = USER_CONFIG['joining']['column'];
+            $tableName       = USER_CONFIG['matching']['table'];
 
             $this->username  = $sessionUserName;
             $sessionPassword = Session::select($passwordColumn);
@@ -718,8 +699,8 @@ class InternalUser extends Requirements implements UserInterface, UserProperties
     //--------------------------------------------------------------------------------------------------------
     public function activeCount() : Int
     {
-        $activeColumn = $this->config['matching']['columns']['active'];
-        $tableName    = $this->config['matching']['table'];
+        $activeColumn = USER_CONFIG['matching']['columns']['active'];
+        $tableName    = USER_CONFIG['matching']['table'];
 
         if( ! empty($activeColumn) )
         {
@@ -750,8 +731,8 @@ class InternalUser extends Requirements implements UserInterface, UserProperties
     //--------------------------------------------------------------------------------------------------------
     public function bannedCount() : Int
     {
-        $bannedColumn = $this->config['matching']['columns']['banned'];
-        $tableName    = $this->config['matching']['table'];
+        $bannedColumn = USER_CONFIG['matching']['columns']['banned'];
+        $tableName    = USER_CONFIG['matching']['table'];
 
         if( ! empty($bannedColumn) )
         {
@@ -782,7 +763,7 @@ class InternalUser extends Requirements implements UserInterface, UserProperties
     //--------------------------------------------------------------------------------------------------------
     public function count() : Int
     {
-        $tableName = $this->config['matching']['table'];
+        $tableName = USER_CONFIG['matching']['table'];
 
         $totalRows = DB::get($tableName)->totalRows();
 

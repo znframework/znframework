@@ -1,8 +1,8 @@
 <?php namespace ZN\DataTypes;
 
-use Arrays, Requirements;
+use Arrays, AbilityController;
 
-class InternalRegex extends Requirements implements RegexInterface
+class InternalRegex extends AbilityController implements RegexInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -12,60 +12,49 @@ class InternalRegex extends Requirements implements RegexInterface
     // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
-    
-    //--------------------------------------------------------------------------------------------------------
-    // Construct
-    //--------------------------------------------------------------------------------------------------------
-    // 
-    // @param  void
-    // @return bool
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function __construct()
-    {
-        $this->config = config('Regex');
-    }
+
+    const config = 'Regex';
 
     //--------------------------------------------------------------------------------------------------------
-    // Match                                                                
+    // Match
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string $pattern
     // @param string $str
     // @param string $ex
     // @param string $delimiter
-    //                                                                                        
+    //
     //--------------------------------------------------------------------------------------------------------
     public function match(String $pattern, String $str, String $ex = NULL, String $delimiter = '/') : Array
     {
         $pattern = $this->_regularConverting($pattern, $ex, $delimiter);
-        
-        preg_match($pattern, $str , $return);   
-        
+
+        preg_match($pattern, $str , $return);
+
         return $return;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
-    // Match All                                                                
+    // Match All
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string $pattern
     // @param string $str
     // @param string $ex
     // @param string $delimiter
-    //                                                                                        
+    //
     //--------------------------------------------------------------------------------------------------------
     public function matchAll(String $pattern, String $str, String $ex = NULL, String $delimiter = '/') : Array
     {
         $pattern = $this->_regularConverting($pattern, $ex, $delimiter);
-        
-        preg_match_all($pattern, $str , $return);   
-        
+
+        preg_match_all($pattern, $str , $return);
+
         return $return;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
-    // Replace                                                                
+    // Replace
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string $pattern
@@ -73,88 +62,88 @@ class InternalRegex extends Requirements implements RegexInterface
     // @param string $str
     // @param string $ex
     // @param string $delimiter
-    //                                                                                        
+    //
     //--------------------------------------------------------------------------------------------------------
     public function replace(String $pattern, String $rep, String $str, String $ex = NULL, String $delimiter = '/')
     {
-        $pattern = $this->_regularConverting($pattern, $ex, $delimiter);    
-        
+        $pattern = $this->_regularConverting($pattern, $ex, $delimiter);
+
         return preg_replace($pattern, $rep, $str);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
-    // Group                                                                
+    // Group
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string $str
-    //                                                                                        
+    //
     //--------------------------------------------------------------------------------------------------------
     public function group(String $str) : String
     {
         return "(".$str.")";
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
-    // Recount                                                                
+    // Recount
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string $str
-    //                                                                                        
+    //
     //--------------------------------------------------------------------------------------------------------
     public function recount(String $str) : String
     {
         return "{".$str."}";
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
-    // To                                                                
+    // To
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string $str
-    //                                                                                        
+    //
     //--------------------------------------------------------------------------------------------------------
     public function to(String $str) : String
     {
         return "[".$str."]";
-    }   
-    
+    }
+
     //--------------------------------------------------------------------------------------------------------
-    // Quote                                                                
+    // Quote
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string $data
     // @param string $delimiter
-    //                                                                                        
+    //
     //--------------------------------------------------------------------------------------------------------
     public function quote(String $data, String $delimiter = NULL) : String
     {
         return preg_quote($data, $delimiter);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
-    // Protected Regular Converting                                                                
+    // Protected Regular Converting
     //--------------------------------------------------------------------------------------------------------
     protected function _regularConverting($pattern, $ex, $delimiter)
     {
-        
+
         $specialChars = $this->config['specialChars'];
-        
+
         $pattern = str_ireplace(array_keys($specialChars ), array_values($specialChars), $pattern);
-        
-        // Config/Regex.php dosyasından düzenlenmiş karakter 
+
+        // Config/Regex.php dosyasından düzenlenmiş karakter
         // listeleri alınıyor.
         $regexChars   = Arrays::multikey($this->config['regexChars']);
-        
+
         $settingChars = Arrays::multikey($this->config['settingChars']);
         // --------------------------------------------------------------------------------------------
-        
-        $pattern = str_ireplace(array_keys($regexChars), array_values($regexChars), $pattern);  
-        
-        if( ! empty($ex) ) 
+
+        $pattern = str_ireplace(array_keys($regexChars), array_values($regexChars), $pattern);
+
+        if( ! empty($ex) )
         {
             $ex = str_ireplace(array_keys($settingChars), array_values($settingChars), $ex);
         }
-        
+
         return presuffix($pattern, $delimiter).$ex;
     }
 }

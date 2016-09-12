@@ -5,6 +5,8 @@
 
 class Permission extends StaticAccess
 {
+	const config = 'IndividualStructures:permission';
+
 	public static function getClassName()
 	{
 		return __CLASS__;

@@ -13,6 +13,8 @@ class InternalCrontab extends RemoteCommon implements CrontabInterface, CrontabI
     //
     //--------------------------------------------------------------------------------------------------------
 
+    const config = ['Services:crontab', 'Services:processor'];
+
     //--------------------------------------------------------------------------------------------------------
     // Crontab Interval
     //--------------------------------------------------------------------------------------------------------
@@ -94,8 +96,9 @@ class InternalCrontab extends RemoteCommon implements CrontabInterface, CrontabI
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
-        $this->config = config('Services', 'crontab');
-        $this->path   = config('Services', 'processor')['path'];
+        parent::__construct();
+
+        $this->path   = $this->config ['path'];
         $this->debug  = $this->config['debug'] === true
                       ? $this->config['debug']
                       : false;

@@ -1,8 +1,8 @@
 <?php namespace ZN\IndividualStructures;
 
-use Requirements;
+use AbilityController;
 
-class InternalPermission extends Requirements implements PermissionInterface
+class InternalPermission extends AbilityController implements PermissionInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -13,6 +13,8 @@ class InternalPermission extends Requirements implements PermissionInterface
     //
     //--------------------------------------------------------------------------------------------------------
 
+    const config = 'IndividualStructures:permission';
+
     //--------------------------------------------------------------------------------------------------------
     // Permission
     //--------------------------------------------------------------------------------------------------------
@@ -21,7 +23,7 @@ class InternalPermission extends Requirements implements PermissionInterface
     //
     //--------------------------------------------------------------------------------------------------------
     protected $permission = [];
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Result
     //--------------------------------------------------------------------------------------------------------
@@ -30,48 +32,35 @@ class InternalPermission extends Requirements implements PermissionInterface
     //
     //--------------------------------------------------------------------------------------------------------
     protected $result;
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Content
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @var string
     //
     //--------------------------------------------------------------------------------------------------------
     protected $content;
 
     //--------------------------------------------------------------------------------------------------------
-    // Construct
-    //--------------------------------------------------------------------------------------------------------
-    // 
-    // @param  void
-    // @return bool
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function __construct()
-    {
-        $this->config = (array) config('IndividualStructures', 'permission');
-    }
-    
-    //--------------------------------------------------------------------------------------------------------
     // start()
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param numeric $roleId : 0
-    // @param string  $process: empty 
+    // @param string  $process: empty
     //
     //--------------------------------------------------------------------------------------------------------
     public function start(Int $roleId = 0, String $process = NULL)
     {
         $this->content = $this->process($roleId, $process, 'object');
-    
+
         ob_start();
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // end()
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
@@ -83,69 +72,69 @@ class InternalPermission extends Requirements implements PermissionInterface
         }
         else
         {
-            $content = '';  
+            $content = '';
         }
-        
+
         ob_end_clean();
-        
+
         $this->content = NULL;
-        
+
         echo $content;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // process()
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param numeric $roleId : 0
-    // @param string  $process: empty 
+    // @param string  $process: empty
     // @param string  $object : empty
     //
     //--------------------------------------------------------------------------------------------------------
     public function process(Int $roleId = 0, String $process = NULL, String $object = NULL) : String
-    {   
+    {
         $this->permission = $this->config['process'];
-        
-        if( isset($this->permission[$roleId]) ) 
+
+        if( isset($this->permission[$roleId]) )
         {
-            $rules = $this->permission[$roleId]; 
+            $rules = $this->permission[$roleId];
         }
         else
         {
             return false;
         }
-        
+
         $currentUrl = $process;
-        
+
         switch( $rules )
         {
-            case 'all' : 
-                return $object;  
+            case 'all' :
+                return $object;
             break;
-            
-            case 'any' : 
-                return false; 
-            break;  
+
+            case 'any' :
+                return false;
+            break;
         }
-        
+
         if( is_array($rules) ) // Birden fazla yetki var ise..........
-        {       
+        {
             $pages = current($rules);
             $type  = key($rules);
-        
+
             foreach( $pages as $page )
             {
                 $page = trim($page);
-                
-                if( stripos($page[0], '!') === 0 ) 
+
+                if( stripos($page[0], '!') === 0 )
                 {
-                    $rule = substr(trim($page), 1); 
+                    $rule = substr(trim($page), 1);
                 }
-                else 
+                else
                 {
                     $rule = trim($page);
                 }
-                
+
                 if( $type === "perm" )
                 {
                     if( strpos($currentUrl, $rule) > -1 )
@@ -159,9 +148,9 @@ class InternalPermission extends Requirements implements PermissionInterface
                 }
                 else
                 {
-                    
+
                     if( strpos($currentUrl, $rule) > -1 )
-                    {                   
+                    {
                          return false;
                     }
                     else
@@ -170,92 +159,92 @@ class InternalPermission extends Requirements implements PermissionInterface
                     }
                 }
             }
-            
+
             return $this->result;
         }
         else
-        {   
+        {
             // tek bir yetki varsa
-                
-            if( $rules[0] === "!" ) 
+
+            if( $rules[0] === "!" )
             {
-                $page = substr(trim($rules), 1); 
+                $page = substr(trim($rules), 1);
             }
-            else 
+            else
             {
                 $page = trim($rules);
             }
-            
+
             if( strpos($currentUrl, $page) > -1 )
             {
-                if( $rules[0] !== "!" ) 
+                if( $rules[0] !== "!" )
                 {
-                    return $object; 
+                    return $object;
                 }
-                else 
+                else
                 {
-                    return false;           
+                    return false;
                 }
             }
             else
             {
-                return $object; 
+                return $object;
             }
         }
 
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // page()
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param numeric $roleId : 0
     //
     //--------------------------------------------------------------------------------------------------------
     public function page(Int $roleId = 6) : Bool
     {
         $this->permission = $this->config['page'];
-        
+
         if( isset($this->permission[$roleId]) )
-        { 
-            $rules = $this->permission[$roleId]; 
+        {
+            $rules = $this->permission[$roleId];
         }
         else
         {
             return false;
         }
-        
+
         $currentUrl = server('currentPath');
-        
+
         switch( $rules )
         {
-            case 'all' : 
-                return true;  
+            case 'all' :
+                return true;
             break;
-            
-            case 'any' : 
-                return false; 
-            break;  
+
+            case 'any' :
+                return false;
+            break;
         }
-        
+
         if( is_array($rules) ) // Birden fazla sayfa var ise..........
         {
             $pages = current($rules);
             $type  = key($rules);
-        
+
             foreach($pages as $page)
             {
                 $page = trim($page);
-            
-                if( stripos($page[0], '!') === 0 ) 
+
+                if( stripos($page[0], '!') === 0 )
                 {
-                    $rule = substr(trim($page), 1); 
+                    $rule = substr(trim($page), 1);
                 }
-                else 
+                else
                 {
                     $rule = trim($page);
                 }
-                
+
                 if( $type === "perm" )
                 {
                     if( strpos($currentUrl, $rule) > -1 )
@@ -269,9 +258,9 @@ class InternalPermission extends Requirements implements PermissionInterface
                 }
                 else
                 {
-                    
+
                     if( strpos($currentUrl, $rule) > -1 )
-                    {                   
+                    {
                          return false;
                     }
                     else
@@ -280,35 +269,35 @@ class InternalPermission extends Requirements implements PermissionInterface
                     }
                 }
             }
-            
+
             return $this->result;
         }
         else
-        {       
-            if( $rules[0] === "!" ) 
+        {
+            if( $rules[0] === "!" )
             {
-                $page = substr(trim($rules),1); 
+                $page = substr(trim($rules),1);
             }
-            else 
+            else
             {
                 $page = trim($rules);
             }
-            
+
             if( strpos($currentUrl, $page) > -1 )
             {
-                if( $rules[0] !== "!" ) 
+                if( $rules[0] !== "!" )
                 {
-                    return true; 
+                    return true;
                 }
-                else 
+                else
                 {
-                    return false;           
+                    return false;
                 }
             }
             else
             {
-                return true;    
+                return true;
             }
         }
-    }   
+    }
 }

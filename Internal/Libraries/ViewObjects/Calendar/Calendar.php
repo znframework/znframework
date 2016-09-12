@@ -1,8 +1,8 @@
 <?php namespace ZN\ViewObjects;
 
-use Config, URI, Requirements;
+use Config, URI, AbilityController;
 
-class InternalCalendar extends Requirements implements CalendarInterface
+class InternalCalendar extends AbilityController implements CalendarInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -12,6 +12,8 @@ class InternalCalendar extends Requirements implements CalendarInterface
     // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
+
+    const config = 'ViewObjects:calendar';
 
     //--------------------------------------------------------------------------------------------------------
     // Css
@@ -111,7 +113,7 @@ class InternalCalendar extends Requirements implements CalendarInterface
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
-        $this->config       = config('ViewObjects', 'calendar');
+        parent::__construct();
 
         $this->prev         = $this->config['prevName'];
         $this->next         = $this->config['nextName'];
@@ -467,7 +469,7 @@ class InternalCalendar extends Requirements implements CalendarInterface
             for( $i = 0; $i < 7; $i++ )
             {
                 $activeDay++;
-        
+
                 if( $activeDay == $today['mday'] )
                 {
                     $class = ( ! empty($this->css['current']) ) ? ' class="'.$this->css['current'].'"' : '';

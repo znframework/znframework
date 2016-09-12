@@ -1,8 +1,8 @@
 <?php namespace ZN\IndividualStructures;
 
-use Support, Exceptions, Requirements;
+use Support, Exceptions, AbilityController;
 
-class InternalCompress extends Requirements implements CompressInterface
+class InternalCompress extends AbilityController implements CompressInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -12,7 +12,9 @@ class InternalCompress extends Requirements implements CompressInterface
     // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
-    
+
+    const config = 'IndividualStructures:compress';
+
     //--------------------------------------------------------------------------------------------------------
     // Drivers
     //--------------------------------------------------------------------------------------------------------
@@ -29,41 +31,41 @@ class InternalCompress extends Requirements implements CompressInterface
         'zip',
         'zlib'
     ];
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Protected Compress
     //--------------------------------------------------------------------------------------------------------
     //
-    // Sürücü bilgisi 
+    // Sürücü bilgisi
     //
     // @var  string
     //
     //--------------------------------------------------------------------------------------------------------
     protected $compress;
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Construct
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param  string $driver
     // @return bool
     //
     //--------------------------------------------------------------------------------------------------------
     public function __construct(String $driver = NULL)
-    {   
-        $this->config = config('IndividualStructures', 'compress');
+    {
+        parent::__construct();
 
         nullCoalesce($driver, $this->config['driver']);
-        
+
         Support::driver($this->drivers, $driver);
 
         $this->compress = $this->_drvlib($driver);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Extract
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param  string $source
     // @param  string $target
     // @return bool
@@ -78,7 +80,7 @@ class InternalCompress extends Requirements implements CompressInterface
 
         return $this->compress->extract($source, $target, $password);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Write
     //--------------------------------------------------------------------------------------------------------
@@ -91,12 +93,12 @@ class InternalCompress extends Requirements implements CompressInterface
     {
         if( ! is_scalar($data) )
         {
-            return Exceptions::throws('Error', 'valueParameter', '2.(data)');  
+            return Exceptions::throws('Error', 'valueParameter', '2.(data)');
         }
 
         return $this->compress->write($file, $data);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Read
     //--------------------------------------------------------------------------------------------------------
@@ -108,7 +110,7 @@ class InternalCompress extends Requirements implements CompressInterface
     {
         return $this->compress->read($file);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Do
     //--------------------------------------------------------------------------------------------------------
@@ -120,7 +122,7 @@ class InternalCompress extends Requirements implements CompressInterface
     {
         return $this->compress->do($data);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Undo
     //--------------------------------------------------------------------------------------------------------
@@ -132,14 +134,14 @@ class InternalCompress extends Requirements implements CompressInterface
     {
         return $this->compress->undo($data);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
-    // Driver                                                                       
+    // Driver
     //--------------------------------------------------------------------------------------------------------
     //
     // @param  string $driver
-    // @return object                                    
-    //                                                                                           
+    // @return object
+    //
     //--------------------------------------------------------------------------------------------------------
     public function driver(String $driver) : InternalCompress
     {
@@ -147,12 +149,12 @@ class InternalCompress extends Requirements implements CompressInterface
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Protected Drvlib                                                                       
+    // Protected Drvlib
     //--------------------------------------------------------------------------------------------------------
     //
     // @param  string $driver
-    // @return object                                    
-    //                                                                                           
+    // @return object
+    //
     //--------------------------------------------------------------------------------------------------------
     protected function _drvlib($driver)
     {

@@ -1,8 +1,8 @@
 <?php namespace ZN\CryptoGraphy;
 
-use Support, Requirements;
+use AbilityController, Support;
 
-class InternalCrypto extends Requirements implements CryptoInterface
+class InternalCrypto extends AbilityController implements CryptoInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -12,7 +12,16 @@ class InternalCrypto extends Requirements implements CryptoInterface
     // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
-    
+
+    //--------------------------------------------------------------------------------------------------------
+    // Consts
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @const string
+    //
+    //--------------------------------------------------------------------------------------------------------
+    const config = 'CryptoGraphy:crypto';
+
     //--------------------------------------------------------------------------------------------------------
     // Drivers
     //--------------------------------------------------------------------------------------------------------
@@ -28,29 +37,29 @@ class InternalCrypto extends Requirements implements CryptoInterface
         'openssl',
         'mcrypt'
     ];
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Protected Crypto
     //--------------------------------------------------------------------------------------------------------
     //
-    // Sürücü bilgisi 
+    // Sürücü bilgisi
     //
     // @var  string
     //
     //--------------------------------------------------------------------------------------------------------
     protected $crypto;
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Construct
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param  string $driver
     // @return bool
     //
     //--------------------------------------------------------------------------------------------------------
     public function __construct(String $driver = NULL)
     {
-        $this->config = config('CryptoGraphy', 'crypto');
+        parent::__construct();
 
         nullCoalesce($driver, $this->config['driver']);
 
@@ -58,11 +67,11 @@ class InternalCrypto extends Requirements implements CryptoInterface
 
         $this->crypto = $this->_drvlib($driver);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Encrypt
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $data
     // @param array  $settings
     //
@@ -71,7 +80,7 @@ class InternalCrypto extends Requirements implements CryptoInterface
     {
         return $this->crypto->encrypt($data, $settings);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Decrypt
     //--------------------------------------------------------------------------------------------------------
@@ -84,7 +93,7 @@ class InternalCrypto extends Requirements implements CryptoInterface
     {
         return $this->crypto->decrypt($data, $settings);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Keygen
     //--------------------------------------------------------------------------------------------------------
@@ -96,14 +105,14 @@ class InternalCrypto extends Requirements implements CryptoInterface
     {
         return $this->crypto->keygen($length);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
-    // Driver                                                                       
+    // Driver
     //--------------------------------------------------------------------------------------------------------
     //
     // @param  string $driver
-    // @return object                                    
-    //                                                                                           
+    // @return object
+    //
     //--------------------------------------------------------------------------------------------------------
     public function driver(String $driver) : InternalCrypto
     {
@@ -111,12 +120,12 @@ class InternalCrypto extends Requirements implements CryptoInterface
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Protected Drvlib                                                                       
+    // Protected Drvlib
     //--------------------------------------------------------------------------------------------------------
     //
     // @param  string $driver
-    // @return object                                    
-    //                                                                                           
+    // @return object
+    //
     //--------------------------------------------------------------------------------------------------------
     protected function _drvlib($driver)
     {

@@ -1,8 +1,8 @@
 <?php namespace ZN\IndividualStructures;
 
-use Support, Requirements;
+use Support, AbilityController;
 
-class InternalCache extends Requirements implements CacheInterface
+class InternalCache extends AbilityController implements CacheInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -12,6 +12,8 @@ class InternalCache extends Requirements implements CacheInterface
     // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
+
+    const config = 'IndividualStructures:cache';
 
     //--------------------------------------------------------------------------------------------------------
     // Drivers
@@ -33,24 +35,24 @@ class InternalCache extends Requirements implements CacheInterface
     // Protected Cache
     //--------------------------------------------------------------------------------------------------------
     //
-    // Sürücü bilgisi 
+    // Sürücü bilgisi
     //
     // @var  string
     //
     //--------------------------------------------------------------------------------------------------------
     protected $cache;
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Construct
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param  string $driver
     // @return bool
     //
     //--------------------------------------------------------------------------------------------------------
     public function __construct(String $driver = NULL)
-    {   
-        $this->config = config('IndividualStructures', 'cache');
+    {
+        parent::__construct();
 
         nullCoalesce($driver, $this->config['driver']);
 
@@ -62,21 +64,21 @@ class InternalCache extends Requirements implements CacheInterface
     //--------------------------------------------------------------------------------------------------------
     // Select
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param  string $key
     // @param  mixed $expressed
     // @return mixed
     //
     //--------------------------------------------------------------------------------------------------------
     public function select(String $key, $compressed = false)
-    { 
+    {
         return $this->cache->select($key, $compressed);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Insert
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param  string $key
     // @param  variable $var
     // @param  numeric $time
@@ -88,11 +90,11 @@ class InternalCache extends Requirements implements CacheInterface
     {
         return $this->cache->insert($key, $var, $time, $compressed);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Delete
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param  string $key
     // @return mixed
     //
@@ -101,11 +103,11 @@ class InternalCache extends Requirements implements CacheInterface
     {
         return $this->cache->delete($key);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Increment
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param  string  $key
     // @param  numeric $increment
     // @return void
@@ -115,11 +117,11 @@ class InternalCache extends Requirements implements CacheInterface
     {
         return $this->cache->increment($key, $increment);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Deccrement
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param  string  $key
     // @param  numeric $decrement
     // @return void
@@ -133,7 +135,7 @@ class InternalCache extends Requirements implements CacheInterface
     //--------------------------------------------------------------------------------------------------------
     // Clean
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param  void
     // @return void
     //
@@ -142,11 +144,11 @@ class InternalCache extends Requirements implements CacheInterface
     {
         return $this->cache->clean();
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Info
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param  mixed  $info
     // @return mixed
     //
@@ -159,7 +161,7 @@ class InternalCache extends Requirements implements CacheInterface
     //--------------------------------------------------------------------------------------------------------
     // Get Meta Data
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param  string  $key
     // @return mixed
     //
@@ -167,15 +169,15 @@ class InternalCache extends Requirements implements CacheInterface
     public function getMetaData(String $key) : Array
     {
         return $this->cache->getMetaData($key);
-    }   
+    }
 
     //--------------------------------------------------------------------------------------------------------
-    // Driver                                                                       
+    // Driver
     //--------------------------------------------------------------------------------------------------------
     //
     // @param  string $driver
-    // @return object                                    
-    //                                                                                           
+    // @return object
+    //
     //--------------------------------------------------------------------------------------------------------
     public function driver(String $driver) : InternalCache
     {
@@ -183,12 +185,12 @@ class InternalCache extends Requirements implements CacheInterface
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Protected Drvlib                                                                       
+    // Protected Drvlib
     //--------------------------------------------------------------------------------------------------------
     //
     // @param  string $driver
-    // @return object                                    
-    //                                                                                           
+    // @return object
+    //
     //--------------------------------------------------------------------------------------------------------
     protected function _drvlib($driver)
     {

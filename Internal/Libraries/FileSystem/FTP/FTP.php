@@ -1,8 +1,8 @@
 <?php namespace ZN\FileSystem;
 
-use Converter, Exceptions, Requirements;
+use Config, Converter, Exceptions, AbilityController;
 
-class InternalFTP extends Requirements implements FTPInterface
+class InternalFTP extends AbilityController implements FTPInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -12,6 +12,8 @@ class InternalFTP extends Requirements implements FTPInterface
     // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
+
+    const config = 'FileSystem:ftp';
 
     //--------------------------------------------------------------------------------------------------------
     // Protected $connect
@@ -40,13 +42,15 @@ class InternalFTP extends Requirements implements FTPInterface
     //--------------------------------------------------------------------------------------------------------
     public function __construct(Array $config = [])
     {
+        parent::__construct();
+
         if( ! empty($config) )
         {
-            $config = config('FileSystem', 'ftp', $config);
+            $config = Config::set('FileSystem', 'ftp', $config);
         }
         else
         {
-            $config = config('FileSystem', 'ftp');
+            $config = $this->config;
         }
 
         $this->_connect($config);

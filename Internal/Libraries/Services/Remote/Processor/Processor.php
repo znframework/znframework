@@ -13,6 +13,8 @@ class InternalProcessor extends RemoteCommon implements ProcessorInterface
     //
     //--------------------------------------------------------------------------------------------------------
 
+    const config = 'Services:processor';
+
     //--------------------------------------------------------------------------------------------------------
     // Processor Path
     //--------------------------------------------------------------------------------------------------------
@@ -58,7 +60,9 @@ class InternalProcessor extends RemoteCommon implements ProcessorInterface
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
-        $config       = config('Services', 'processor');
+        parent::__construct();
+        
+        $config       = $this->config;
         $this->path   = $config['path'];
         $this->driver = $config['driver'];
     }

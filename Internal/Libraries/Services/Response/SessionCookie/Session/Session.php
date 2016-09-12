@@ -1,8 +1,8 @@
 <?php namespace ZN\Services\Response;
 
-use Config, Requirements;
+use Config, AbilityController;
 
-class InternalSession extends Requirements implements SessionInterface, SessionCookieCommonInterface
+class InternalSession extends AbilityController implements SessionInterface, SessionCookieCommonInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -12,37 +12,39 @@ class InternalSession extends Requirements implements SessionInterface, SessionC
     // Telif Hakkı: Copyright ConfigController(c) 2012-2016, zntr.net
     //
     //--------------------------------------------------------------------------------------------------------
-    
+
+    const config = 'Services:session';
+
     //--------------------------------------------------------------------------------------------------------
     // Session Cookie Common
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // methods
     //
     //--------------------------------------------------------------------------------------------------------
     use SessionCookieCommonTrait;
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Construct
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param  void
     // @return bool
     //
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
-        $this->config = config('Services', 'session');
-        
+        parent::__construct();
+
         Config::iniSet(Config::get('Htaccess', 'session')['settings']);
-        
+
         $this->start();
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Insert
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $name
     // @param mixed  $value
     //
@@ -55,25 +57,25 @@ class InternalSession extends Requirements implements SessionInterface, SessionC
             {
                 if( isHash($this->encode['name']) )
                 {
-                    $name = hash($this->encode['name'], $name);     
-                }       
+                    $name = hash($this->encode['name'], $name);
+                }
             }
-            
+
             if( isset($this->encode['value']) )
             {
                 if( isHash($this->encode['value']) )
                 {
-                    $value = hash($this->encode['value'], $value);  
+                    $value = hash($this->encode['value'], $value);
                 }
             }
         }
-        
+
         $sessionConfig = $this->config;
-    
+
         if( ! isset($this->encode['name']))
         {
             $encode = $sessionConfig["encode"];
-            
+
             if( $encode === true )
             {
                 $name = md5($name);
@@ -82,34 +84,34 @@ class InternalSession extends Requirements implements SessionInterface, SessionC
             {
                 if( isHash($encode) )
                 {
-                    $name = hash($encode, $name);       
-                }   
+                    $name = hash($encode, $name);
+                }
             }
         }
-        
+
         $_SESSION[$name] = $value;
-        
+
         if( $_SESSION[$name] )
         {
             if( $this->regenerate === true )
             {
-                session_regenerate_id();    
+                session_regenerate_id();
             }
-            
+
             $this->defaultVariable();
-            
-            return true;    
+
+            return true;
         }
         else
         {
             return false;
         }
-    } 
-    
+    }
+
     //--------------------------------------------------------------------------------------------------------
     // Select
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
@@ -119,14 +121,14 @@ class InternalSession extends Requirements implements SessionInterface, SessionC
         {
             if( isHash($this->encode['name']) )
             {
-                $name = hash($this->encode['name'], $name);     
-                $this->encode = []; 
-            }       
+                $name = hash($this->encode['name'], $name);
+                $this->encode = [];
+            }
         }
         else
         {
             $encode = $this->config['encode'];
-            
+
             if( $encode === true )
             {
                 $name = md5($name);
@@ -135,71 +137,71 @@ class InternalSession extends Requirements implements SessionInterface, SessionC
             {
                 if( isHash($encode) )
                 {
-                    $name = hash($encode, $name);       
-                }   
+                    $name = hash($encode, $name);
+                }
             }
         }
-        
+
         if( isset($_SESSION[$name]) )
         {
             return $_SESSION[$name];
         }
         else
         {
-            return false;   
+            return false;
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Select All
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
     public function selectAll() : Array
     {
-        return $_SESSION;   
+        return $_SESSION;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Start
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
     public function start()
     {
-        if( ! isset($_SESSION) ) 
+        if( ! isset($_SESSION) )
         {
             session_start();
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Delete
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
     public function delete(String $name) : Bool
     {
         $sessionConfig = $this->config;
-        
+
         if( isset($this->encode['name']) )
         {
             if( isHash($this->encode['name']) )
             {
-                $name = hash($this->encode['name'], $name); 
-                $this->encode = []; 
-            }       
+                $name = hash($this->encode['name'], $name);
+                $this->encode = [];
+            }
         }
         else
         {
             $encode = $sessionConfig["encode"];
-            
+
             if( $encode === true )
             {
                 $name = md5($name);
@@ -208,27 +210,27 @@ class InternalSession extends Requirements implements SessionInterface, SessionC
             {
                 if( isHash($encode) )
                 {
-                    $name = hash($encode, $name);       
-                }   
+                    $name = hash($encode, $name);
+                }
             }
         }
-        
+
         if( isset($_SESSION[$name]) )
-        {   
+        {
             unset($_SESSION[$name]);
 
             return true;
         }
         else
-        { 
-            return false;       
+        {
+            return false;
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Delete All
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------

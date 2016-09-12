@@ -12,11 +12,11 @@ class InternalGenerate extends CallController implements GenerateInterface
     // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Grand Vision
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param mixed $database = NULL
     //
     // @param void
@@ -43,18 +43,18 @@ class InternalGenerate extends CallController implements GenerateInterface
         $visionPath = 'Visions'.DS;
 
         $defaultDB = config('Database', 'database')['database'];
-        
+
         foreach( $databases as $connection => $database )
         {
             $configs = [];
 
             if( is_array($database) )
             {
-                $configs  = $database; 
-                $database = $connection; 
+                $configs  = $database;
+                $database = $connection;
             }
-            
-            $configs['database'] = $database; 
+
+            $configs['database'] = $database;
 
             $tables   = DBTool::differentConnection(['database' => $database])->listTables();
             $database = ucfirst($database);
@@ -72,8 +72,11 @@ class InternalGenerate extends CallController implements GenerateInterface
                     'namespace' => 'Visions\\'.$database,
                     'use'       => ['GrandModel'],
                     'extends'   => 'GrandModel',
-                    'constants' => ['table' => "'".$table."'"],
-                    'vars'      => ['protected static:connection' => $this->_stringArray($configs)] 
+                    'constants' =>
+                    [
+                        'table'      => "'".$table."'",
+                        'connection' => $this->_stringArray($configs)
+                    ]
                 ]);
             }
         }
@@ -82,7 +85,7 @@ class InternalGenerate extends CallController implements GenerateInterface
     //--------------------------------------------------------------------------------------------------------
     // Delete Vision
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $database = '*'
     // @param array  $tables   = NULL
     //
@@ -96,7 +99,7 @@ class InternalGenerate extends CallController implements GenerateInterface
         if( $database === '*' )
         {
             Folder::delete($path);
-        } 
+        }
         else
         {
             $database = ucfirst($database);
@@ -120,21 +123,21 @@ class InternalGenerate extends CallController implements GenerateInterface
     //--------------------------------------------------------------------------------------------------------
     // Settings
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param array $settings: empty
     //
     //--------------------------------------------------------------------------------------------------------
     public function settings(Array $settings) : InternalGenerate
     {
         $this->settings = $settings;
-        
+
         return $this;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Model
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $name    : empty
     // @param array  $settings: empty
     //
@@ -143,11 +146,11 @@ class InternalGenerate extends CallController implements GenerateInterface
     {
         return $this->_object($name, __FUNCTION__, $settings);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Controller
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $name: empty
     // @param array  $settings: empty
     //
@@ -156,11 +159,11 @@ class InternalGenerate extends CallController implements GenerateInterface
     {
         return $this->_object($name, __FUNCTION__, $settings);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Library
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $name: empty
     // @param array  $settings: empty
     //
@@ -169,11 +172,11 @@ class InternalGenerate extends CallController implements GenerateInterface
     {
         return $this->_object($name, __FUNCTION__, $settings);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Delete
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $name: empty
     // @param string $type: 'controller', 'model', 'library'
     // @param string $app : empty
@@ -185,21 +188,21 @@ class InternalGenerate extends CallController implements GenerateInterface
         {
             $this->settings['application'] = $app;
         }
-        
+
         $file = $this->_path($name, $type);
-        
+
         if( File::exists($file) )
         {
-            return File::delete($file);    
+            return File::delete($file);
         }
-        
+
         return false;
     }
 
     //--------------------------------------------------------------------------------------------------------
     // Protected String Array
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param array $data
     //
     // @return string
@@ -214,14 +217,14 @@ class InternalGenerate extends CallController implements GenerateInterface
         }
         $str = rtrim($str, ','.EOL);
         $str .= EOL.HT.']';
-        
+
         return $str;
     }
 
     //--------------------------------------------------------------------------------------------------------
     // Protected Object
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $name    : empty
     // @param string $type    : empty
     // @param array  $settings: empty
@@ -233,14 +236,14 @@ class InternalGenerate extends CallController implements GenerateInterface
         {
             $this->settings = $settings;
         }
-        
+
         return $this->_contentWrite($name, $type);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Protected Path
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $name: empty
     // @param string $type: empty
     //
@@ -254,34 +257,34 @@ class InternalGenerate extends CallController implements GenerateInterface
 
         return PROJECTS_DIR.$this->settings['application'].$this->_type($type).suffix($name, '.php');
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Protected Content Write
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $name: empty
     // @param string $type: empty
     //
     //--------------------------------------------------------------------------------------------------------
     protected function _contentWrite($name, $type)
-    {   
+    {
         if( empty($name) )
         {
             $this->error = getErrorMessage('Error', 'emptyParameter', '1.(name)');
         }
-            
+
         $eol = EOL;
         $ht  = HT;
         $parameters = '';
-        
+
         $controller  = "<?php".$eol;
-        
+
         // Object Data
         if( empty( $this->settings['object']) )
         {
             $this->settings['object'] = 'class';
         }
-        
+
         // Namespace Data
         $namespace = NULL;
 
@@ -290,7 +293,7 @@ class InternalGenerate extends CallController implements GenerateInterface
             $namespace   = $this->settings['namespace'];
             $controller .= "namespace ".$namespace.";".$eol.$eol;
         }
-        
+
         // Use Data
         if( ! empty($this->settings['use']) )
         {
@@ -305,7 +308,7 @@ class InternalGenerate extends CallController implements GenerateInterface
                     $controller .= "use {$key} as {$use};".$eol;
                 }
             }
-            
+
             $controller .= $eol;
         }
 
@@ -313,26 +316,26 @@ class InternalGenerate extends CallController implements GenerateInterface
         {
             $name = $this->settings['name'];
         }
-        
+
         $controller .= $this->settings['object']." ".$name;
-        
+
         // Extends Data
         if( ! empty($this->settings['extends']) )
         {
             $controller .= " extends ".$this->settings['extends'];
         }
-        
+
         // Implements Data
         if( ! empty($this->settings['implements']) )
         {
-            $controller .= " implements ".( is_array($this->settings['implements']) 
-                                            ? implode(', ', $this->settings['implements']) 
+            $controller .= " implements ".( is_array($this->settings['implements'])
+                                            ? implode(', ', $this->settings['implements'])
                                             : $this->settings['implements']
                                           );
         }
-        
+
         $controller .= $eol."{".$eol;
-        
+
         // Traits Data
         if( ! empty($this->settings['traits']) )
         {
@@ -344,10 +347,10 @@ class InternalGenerate extends CallController implements GenerateInterface
             {
                 $controller .= $ht."use ".$this->settings['traits'].";".$eol;
             }
-            
+
             $controller .= $eol;
         }
-        
+
         // Constants Data
         if( ! empty($this->settings['constants']) )
         {
@@ -355,10 +358,10 @@ class InternalGenerate extends CallController implements GenerateInterface
             {
                 $controller .= $ht."const {$key} = {$val};".$eol;
             }
-            
+
             $controller .= $eol;
         }
-        
+
         // Vars Data
         if( ! empty($this->settings['vars']) )
         {
@@ -370,14 +373,14 @@ class InternalGenerate extends CallController implements GenerateInterface
                     $value = $var;
                     $var   = $isKey;
                 }
-                
+
                 $vars = $this->_varType($var);
                 $controller .= $ht.$vars->priority.' $'.$vars->var.( ! empty($value) ? " = ".$value : '' ).";".$eol;
             }
-            
+
             $controller .= $eol;
         }
-        
+
         // Functions Data
         if( ! empty($this->settings['functions']) ) foreach( $this->settings['functions'] as $isKey => $function )
         {
@@ -386,9 +389,9 @@ class InternalGenerate extends CallController implements GenerateInterface
                 if( ! is_numeric($isKey) )
                 {
                     if( is_array($function) )
-                    {   
+                    {
                         $subValue = '';
-                        
+
                         foreach( $function as $key => $val )
                         {
                             if( ! is_numeric($key) )
@@ -396,28 +399,28 @@ class InternalGenerate extends CallController implements GenerateInterface
                                 $subValue = $val;
                                 $val      = $key;
                             }
-                            
+
                             if( strpos($val, '...') === 0 )
                             {
                                 $varprefix = str_replace('...', '...$', $val);
-                                $subValue  = ''; 
+                                $subValue  = '';
                             }
                             else
                             {
                                 $varprefix = '$'.$val;
                             }
-                            
+
                             $parameters .= $varprefix.( ! empty($subValue) ? ' = '.$subValue : '').', ';
                         }
-                        
+
                         $parameters = rtrim($parameters, ', ');
                     }
-                    
+
                     $function = $isKey;
-                }   
-                
+                }
+
                 $function = $this->_varType($function);
-                
+
                 $controller .= $ht.$function->priority." function {$function->var}({$parameters})".$eol;
                 $controller .= $ht."{".$eol;
                 $controller .= $ht.$ht."// Your codes...".$eol;
@@ -443,28 +446,28 @@ class InternalGenerate extends CallController implements GenerateInterface
         }
 
         $file = $this->_path($filePath, $type);
-                
+
         if( ! File::exists($file) )
         {
             if( File::write($file, $controller) )
             {
                 return true;
-            }   
+            }
             else
             {
                 return false;
             }
-        }   
+        }
         else
         {
-            return false; 
+            return false;
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Protected Var Type
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $var: empty
     //
     //--------------------------------------------------------------------------------------------------------
@@ -497,25 +500,25 @@ class InternalGenerate extends CallController implements GenerateInterface
             $priority = 'public';
             $var      = $var;
         }
-        
-        return (object) 
+
+        return (object)
         [
-            'priority' => $priority.$static, 
+            'priority' => $priority.$static,
             'var'      => $var
         ];
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Protected Type
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $type: empty
     //
     //--------------------------------------------------------------------------------------------------------
     protected function _type($type)
     {
         $return = '';
-        
+
         if( $type === 'model' )
         {
             $return = 'Models';
@@ -528,7 +531,7 @@ class InternalGenerate extends CallController implements GenerateInterface
         {
             $return = 'Libraries';
         }
-        
+
         return presuffix($return, DS);
     }
 }

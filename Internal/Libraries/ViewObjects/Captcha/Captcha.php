@@ -1,8 +1,8 @@
 <?php namespace ZN\ViewObjects;
 
-use Config, Session, Requirements;
+use Config, Session, AbilityController;
 
-class InternalCaptcha extends Requirements implements CaptchaInterface
+class InternalCaptcha extends AbilityController implements CaptchaInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -12,6 +12,8 @@ class InternalCaptcha extends Requirements implements CaptchaInterface
     // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
+
+    const config = 'ViewObjects:captcha';
 
     //--------------------------------------------------------------------------------------------------------
     // Sets
@@ -23,19 +25,6 @@ class InternalCaptcha extends Requirements implements CaptchaInterface
     //
     //--------------------------------------------------------------------------------------------------------
     protected $sets = [];
-
-    //--------------------------------------------------------------------------------------------------------
-    // Construct
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  void
-    // @return bool
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function __construct()
-    {
-         $this->config = config('ViewObjects', 'captcha');
-    }
 
     //--------------------------------------------------------------------------------------------------------
     // Size

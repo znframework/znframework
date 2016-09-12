@@ -1,8 +1,8 @@
 <?php namespace ZN\Services\Remote;
 
-use Support, Exceptions, Requirements;
+use Support, Exceptions, AbilityController;
 
-class InternalSSH extends Requirements implements SSHInterface
+class InternalSSH extends AbilityController implements SSHInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -12,6 +12,8 @@ class InternalSSH extends Requirements implements SSHInterface
     // Telif Hakkı: Copyright ConfigController(c) 2012-2016, zntr.net
     //
     //--------------------------------------------------------------------------------------------------------
+
+    const config = 'Services:ssh';
 
     //--------------------------------------------------------------------------------------------------------
     // Protected $connect
@@ -60,13 +62,15 @@ class InternalSSH extends Requirements implements SSHInterface
     {
         Support::func('ssh2_connect', 'SSH(Secure Shell)');
 
+        parent::__construct();
+
         if( ! empty($config) )
         {
             $config = config('Services', 'ssh', $config);
         }
         else
         {
-            $config = config('Services', 'ssh');
+            $config = $this->config;
         }
 
         $this->_connect($config);

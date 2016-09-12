@@ -1,8 +1,8 @@
 <?php namespace ZN\Services\Response;
 
-use Config, Arrays, Exceptions, Method, Requirements;
+use Config, Arrays, Exceptions, Method, AbilityController;
 
-class InternalHTTP extends Requirements implements HTTPInterface
+class InternalHTTP extends AbilityController implements HTTPInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -12,20 +12,22 @@ class InternalHTTP extends Requirements implements HTTPInterface
     // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
-    
+
+    const config = 'Services:http';
+
     //--------------------------------------------------------------------------------------------------------
     // Settings
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @var array
     //
     //--------------------------------------------------------------------------------------------------------
     protected $settings;
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Types
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @var array
     //
     //--------------------------------------------------------------------------------------------------------
@@ -39,23 +41,9 @@ class InternalHTTP extends Requirements implements HTTPInterface
     );
 
     //--------------------------------------------------------------------------------------------------------
-    // Construct
-    //--------------------------------------------------------------------------------------------------------
-    // 
-    // @param  void
-    // @return bool
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function __construct()
-    {
-        $this->config = config('Services', 'http');
-
-    }
-
-    //--------------------------------------------------------------------------------------------------------
     // Is Ajax
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
@@ -64,17 +52,17 @@ class InternalHTTP extends Requirements implements HTTPInterface
         if( isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest')
         {
             return true;
-        } 
-        else 
+        }
+        else
         {
             return false;
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Browser Lang
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $default tr
     // @param void
     //
@@ -82,40 +70,40 @@ class InternalHTTP extends Requirements implements HTTPInterface
     public function browserLang(String $default = 'en') : String
     {
         $languages = Config::get('Language', 'shortCodes');
-        
+
         $lang = strtolower(substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2));
-        
+
         if( isset($languages[$lang]) )
         {
             return strtolower($lang);
         }
-    
+
         return $default;
     }
 
     //--------------------------------------------------------------------------------------------------------
     // Code
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param numeric $code
     //
     //--------------------------------------------------------------------------------------------------------
     public function code(Int $code = 200) : String
     {
         $messages = Arrays::multikey($this->config['messages']);
-        
+
         if( isset($messages[$code]) )
         {
-            return $messages[$code];    
+            return $messages[$code];
         }
-        
+
         return false;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Message
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $message
     //
     //--------------------------------------------------------------------------------------------------------
@@ -123,11 +111,11 @@ class InternalHTTP extends Requirements implements HTTPInterface
     {
         return $this->code($message);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Name
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
@@ -137,25 +125,25 @@ class InternalHTTP extends Requirements implements HTTPInterface
 
         return $this;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Value
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param mixed $value
     //
     //--------------------------------------------------------------------------------------------------------
     public function value($value) : InternalHTTP
     {
         $this->settings['value'] = $value;
-        
+
         return $this;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Input
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $input
     //
     //--------------------------------------------------------------------------------------------------------
@@ -167,16 +155,16 @@ class InternalHTTP extends Requirements implements HTTPInterface
         }
         else
         {
-            return Exceptions::throws(lang('Error', 'invalidInput', $input).' : get, post, server, env, request'); 
+            return Exceptions::throws(lang('Error', 'invalidInput', $input).' : get, post, server, env, request');
         }
-        
+
         return $this;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Select
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
@@ -186,7 +174,7 @@ class InternalHTTP extends Requirements implements HTTPInterface
         $input = isset($this->settings['input']) ? $this->settings['input'] : false;
 
         $this->settings = [];
-        
+
         switch( $input )
         {
             case 'post'     : return Method::post($name);   break;
@@ -196,11 +184,11 @@ class InternalHTTP extends Requirements implements HTTPInterface
             case 'request'  : return Method::request($name); break;
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Insert
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $name
     // @param string $value
     //
@@ -208,11 +196,11 @@ class InternalHTTP extends Requirements implements HTTPInterface
     public function insert(String $name, $value) : Bool
     {
         $name  = isset($this->settings['name'])  ? $this->settings['name']  : $name;
-        $input = isset($this->settings['input']) ? $this->settings['input'] : false;   
+        $input = isset($this->settings['input']) ? $this->settings['input'] : false;
         $value = isset($this->settings['value']) ? $this->settings['value'] : $value;
-        
+
         $this->settings = [];
-        
+
         switch( $input )
         {
             case 'post'     : return Method::post($name, $value);   break;
@@ -222,11 +210,11 @@ class InternalHTTP extends Requirements implements HTTPInterface
             case 'request'  : return Method::request($name, $value); break;
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Delete
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
@@ -234,9 +222,9 @@ class InternalHTTP extends Requirements implements HTTPInterface
     {
         $name  = isset($this->settings['name'])  ? $this->settings['name']  : $name;
         $input = isset($this->settings['input']) ? $this->settings['input'] : false;
-        
+
         $this->settings = [];
-        
+
         switch( $input )
         {
             case 'post'     : unset($_POST[$name]);    break;
