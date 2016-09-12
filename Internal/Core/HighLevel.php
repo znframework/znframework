@@ -102,9 +102,7 @@ $currentPath = server('currentPath');
 
 $internalDir = ( ! empty($currentPath) ? explode('/', ltrim($currentPath, '/'))[0] : '');
 
-global $projects;
-
-$othersapp = $projects['directory']['others'];
+$othersapp = PROJECTS_CONFIG['directory']['others'];
 
 if( is_array($othersapp) )
 {
@@ -893,9 +891,7 @@ function lastError(String $type = NULL)
 //--------------------------------------------------------------------------------------------------
 function internalApplicationContainerDir() : String
 {
-    global $projects;
-
-    $containers = $projects['containers'];
+    $containers = PROJECTS_CONFIG['containers'];
 
     if( ! empty($containers) && defined('_CURRENT_PROJECT') )
     {

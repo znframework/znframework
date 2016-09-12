@@ -15,18 +15,22 @@
 //--------------------------------------------------------------------------------------------------
 //
 // @param string $const
-//
-// @return scalar
+// @param  mixed $value
+// @return mixed
 //
 //--------------------------------------------------------------------------------------------------
-function illustrate(String $const)
+function illustrate(String $const, $value = NULL)
 {
-    if( defined($const) )
+    if( ! defined($const) )
     {
-        return constant($const);
+        define($const, $value);
+    }
+    else
+    {
+        return $value;
     }
 
-    return false;
+    return constant($const);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -937,7 +941,7 @@ function indexStatus() : String
 function currentUri() : String
 {
     $requestUri = server('requestUri');
-    
+
     if( BASE_DIR !== '/' )
     {
         $cu = str_replace(BASE_DIR, '', $requestUri);
@@ -1025,9 +1029,7 @@ function internalRouteURI(String $requestUri = NULL) : String
 
         if( defined('_CURRENT_PROJECT') )
         {
-            global $projects;
-
-            $configAppdir = $projects['directory']['others'];
+            $configAppdir = PROJECTS_CONFIG['directory']['others'];
 
             if( is_array($configAppdir) )
             {

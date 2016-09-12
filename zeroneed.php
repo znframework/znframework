@@ -67,7 +67,7 @@ require_once CORE_DIR.'Base.php';
 //--------------------------------------------------------------------------------------------------
 // Require Projects Config File
 //--------------------------------------------------------------------------------------------------
-$projects = require_once PROJECTS_DIR.'Projects.php';
+define('PROJECTS_CONFIG', require_once PROJECTS_DIR.'Projects.php');
 //--------------------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------------------
@@ -77,7 +77,7 @@ $projects = require_once PROJECTS_DIR.'Projects.php';
 // @return Frontend/
 //
 //--------------------------------------------------------------------------------------------------
-define('DEFAULT_PROJECT', $projects['directory']['default']);
+define('DEFAULT_PROJECT', PROJECTS_CONFIG['directory']['default']);
 
 //--------------------------------------------------------------------------------------------------
 // Preloading
@@ -88,7 +88,7 @@ require_once CORE_DIR.'HighLevel.php';
 //--------------------------------------------------------------------------------------------------
 // Application Directory
 //--------------------------------------------------------------------------------------------------
-$projectDir = $projects['directory']['others'];
+$projectDir = PROJECTS_CONFIG['directory']['others'];
 
 if( is_array($projectDir) && ! empty($projectDir[host()]) )
 {
