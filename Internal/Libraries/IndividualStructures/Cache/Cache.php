@@ -1,6 +1,6 @@
 <?php namespace ZN\IndividualStructures;
 
-use Support, CLController;
+use Support, CLController, DriverAbility;
 
 class InternalCache extends CLController implements CacheInterface
 {
@@ -13,53 +13,21 @@ class InternalCache extends CLController implements CacheInterface
     //
     //--------------------------------------------------------------------------------------------------------
 
+    use DriverAbility;
+
+    //--------------------------------------------------------------------------------------------------------
+    // Consts
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @const string
+    //
+    //--------------------------------------------------------------------------------------------------------
     const config = 'IndividualStructures:cache';
-
-    //--------------------------------------------------------------------------------------------------------
-    // Drivers
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var array
-    //
-    //--------------------------------------------------------------------------------------------------------
-    protected $drivers =
+    const driver =
     [
-        'file',
-        'apc',
-        'memcache',
-        'redis',
-        'wincache'
+        'options'   => ['file', 'apc', 'memcache', 'redis', 'wincache'],
+        'namespace' => 'ZN\IndividualStructures\Cache\Drivers'
     ];
-
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Cache
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Sürücü bilgisi
-    //
-    // @var  string
-    //
-    //--------------------------------------------------------------------------------------------------------
-    protected $cache;
-
-    //--------------------------------------------------------------------------------------------------------
-    // Construct
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  string $driver
-    // @return bool
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function __construct(String $driver = NULL)
-    {
-        parent::__construct();
-
-        nullCoalesce($driver, INDIVIDUALSTRUCTURES_CACHE_CONFIG['driver']);
-
-        Support::driver($this->drivers, $driver);
-
-        $this->cache = $this->_drvlib($driver);
-    }
 
     //--------------------------------------------------------------------------------------------------------
     // Select
@@ -72,7 +40,7 @@ class InternalCache extends CLController implements CacheInterface
     //--------------------------------------------------------------------------------------------------------
     public function select(String $key, $compressed = false)
     {
-        return $this->cache->select($key, $compressed);
+        return $this->driver->select($key, $compressed);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -88,7 +56,7 @@ class InternalCache extends CLController implements CacheInterface
     //--------------------------------------------------------------------------------------------------------
     public function insert(String $key, $var, Int $time = 60, $compressed = false) : Bool
     {
-        return $this->cache->insert($key, $var, $time, $compressed);
+        return $this->driver->insert($key, $var, $time, $compressed);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -101,7 +69,7 @@ class InternalCache extends CLController implements CacheInterface
     //--------------------------------------------------------------------------------------------------------
     public function delete(String $key) : Bool
     {
-        return $this->cache->delete($key);
+        return $this->driver->delete($key);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -115,7 +83,7 @@ class InternalCache extends CLController implements CacheInterface
     //--------------------------------------------------------------------------------------------------------
     public function increment(String $key, Int $increment = 1) : Int
     {
-        return $this->cache->increment($key, $increment);
+        return $this->driver->increment($key, $increment);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -129,7 +97,7 @@ class InternalCache extends CLController implements CacheInterface
     //--------------------------------------------------------------------------------------------------------
     public function decrement(String $key, Int $decrement = 1) : Int
     {
-        return $this->cache->decrement($key, $decrement);
+        return $this->driver->decrement($key, $decrement);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -142,7 +110,7 @@ class InternalCache extends CLController implements CacheInterface
     //--------------------------------------------------------------------------------------------------------
     public function clean() : Bool
     {
-        return $this->cache->clean();
+        return $this->driver->clean();
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -155,7 +123,7 @@ class InternalCache extends CLController implements CacheInterface
     //--------------------------------------------------------------------------------------------------------
     public function info($type = NULL) : Array
     {
-        return $this->cache->info($type);
+        return $this->driver->info($type);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -168,32 +136,6 @@ class InternalCache extends CLController implements CacheInterface
     //--------------------------------------------------------------------------------------------------------
     public function getMetaData(String $key) : Array
     {
-        return $this->cache->getMetaData($key);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Driver
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  string $driver
-    // @return object
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function driver(String $driver) : InternalCache
-    {
-        return new self($driver);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Drvlib
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  string $driver
-    // @return object
-    //
-    //--------------------------------------------------------------------------------------------------------
-    protected function _drvlib($driver)
-    {
-        return uselib('ZN\IndividualStructures\Cache\Drivers\\'.$driver.'Driver');
+        return $this->driver->getMetaData($key);
     }
 }

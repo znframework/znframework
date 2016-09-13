@@ -1,6 +1,6 @@
 <?php namespace ZN\Services\Remote;
 
-use Support, Exceptions, Config, CLController;
+use Support, Exceptions, Config, CLController, DriverAbility;
 
 class InternalEmail extends CLController implements EmailInterface
 {
@@ -13,7 +13,22 @@ class InternalEmail extends CLController implements EmailInterface
     //
     //--------------------------------------------------------------------------------------------------------
 
+    use DriverAbility;
+
+    //--------------------------------------------------------------------------------------------------------
+    // Consts
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @const string/
+    //
+    //--------------------------------------------------------------------------------------------------------
     const config = 'Services:email';
+    const driver =
+    [
+        'options'   => ['imap', 'mail', 'pipe', 'send', 'smtp'],
+        'namespace' => 'ZN\Services\Remote\Email\Drivers',
+        'construct' => 'settings'
+    ];
 
     //--------------------------------------------------------------------------------------------------------
     // Sender Mail
@@ -318,61 +333,6 @@ class InternalEmail extends CLController implements EmailInterface
     //
     //--------------------------------------------------------------------------------------------------------
     protected $message;
-
-    //--------------------------------------------------------------------------------------------------------
-    // Email
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var object
-    //
-    //--------------------------------------------------------------------------------------------------------
-    protected $email;
-
-    //--------------------------------------------------------------------------------------------------------
-    // Driver
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var object
-    //
-    //--------------------------------------------------------------------------------------------------------
-    protected $driver;
-
-    //--------------------------------------------------------------------------------------------------------
-    // Drivers
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var array
-    //
-    //--------------------------------------------------------------------------------------------------------
-    protected $drivers =
-    [
-        'imap',
-        'mail',
-        'pipe',
-        'send',
-        'smtp'
-    ];
-
-    //--------------------------------------------------------------------------------------------------------
-    // Construct
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $driver
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function __construct(String $driver = NULL)
-    {
-        parent::__construct();
-
-        nullCoalesce($driver, SERVICES_EMAIL_CONFIG['driver']);
-
-        Support::driver($this->drivers, $driver);
-
-        $this->email  = $this->_drvlib($driver);
-        $this->driver = $driver;
-
-        $this->settings();
-    }
 
     //--------------------------------------------------------------------------------------------------------
     // Settings
@@ -960,7 +920,7 @@ class InternalEmail extends CLController implements EmailInterface
             'returnPath' => $this->headers['Return-Path']
         );
 
-        $send = $this->email->send(key($this->to), $this->subject, $this->message, $this->header, $settings);
+        $send = $this->driver->send(key($this->to), $this->subject, $this->message, $this->header, $settings);
 
         if( empty($send) )
         {
@@ -970,32 +930,6 @@ class InternalEmail extends CLController implements EmailInterface
         $this->_defaultVariables();
 
         return $send;
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Driver
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  string $driver
-    // @return object
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function driver(String $driver) : InternalEmail
-    {
-        return new self($driver);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Drvlib
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  string $driver
-    // @return object
-    //
-    //--------------------------------------------------------------------------------------------------------
-    protected function _drvlib($driver)
-    {
-        return uselib('ZN\Services\Remote\Email\Drivers\\'.$driver.'Driver');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -1188,7 +1122,7 @@ class InternalEmail extends CLController implements EmailInterface
             $header .= 'Content-Type: text/'.$this->contentType.'; charset='.$this->charset.$this->lf;
         }
 
-        if( $this->driver === 'smtp' )
+        if( $this->selectedDriverName === 'smtp' )
         {
             $this->message = $header.$this->lf.$this->lf.$body.$this->message.$this->lf.$this->lf;
         }
@@ -1238,11 +1172,6 @@ class InternalEmail extends CLController implements EmailInterface
         $this->to           = [];
         $this->replyTo      = [];
         $this->from         = NULL;
-        $this->email        = NULL;
         $this->driver       = NULL;
     }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Methods Bitiş
-    //--------------------------------------------------------------------------------------------------------
 }

@@ -1,6 +1,6 @@
 <?php namespace ZN\CryptoGraphy;
 
-use CLController, Support;
+use CLController, DriverAbility, Support;
 
 class InternalCrypto extends CLController implements CryptoInterface
 {
@@ -13,6 +13,8 @@ class InternalCrypto extends CLController implements CryptoInterface
     //
     //--------------------------------------------------------------------------------------------------------
 
+    use DriverAbility;
+
     //--------------------------------------------------------------------------------------------------------
     // Consts
     //--------------------------------------------------------------------------------------------------------
@@ -21,52 +23,11 @@ class InternalCrypto extends CLController implements CryptoInterface
     //
     //--------------------------------------------------------------------------------------------------------
     const config = 'CryptoGraphy:crypto';
-
-    //--------------------------------------------------------------------------------------------------------
-    // Drivers
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var array
-    //
-    //--------------------------------------------------------------------------------------------------------
-    protected $drivers =
+    const driver =
     [
-        'hash',
-        'mhash',
-        'phash',
-        'openssl',
-        'mcrypt'
+        'options'   => ['hash', 'mhash', 'phash', 'openssl', 'mcrypt'],
+        'namespace' => 'ZN\CryptoGraphy\Drivers'
     ];
-
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Crypto
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Sürücü bilgisi
-    //
-    // @var  string
-    //
-    //--------------------------------------------------------------------------------------------------------
-    protected $crypto;
-
-    //--------------------------------------------------------------------------------------------------------
-    // Construct
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  string $driver
-    // @return bool
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function __construct(String $driver = NULL)
-    {
-        parent::__construct();
-
-        nullCoalesce($driver, CRYPTOGRAPHY_CRYPTO_CONFIG['driver']);
-
-        Support::driver($this->drivers, $driver);
-
-        $this->crypto = $this->_drvlib($driver);
-    }
 
     //--------------------------------------------------------------------------------------------------------
     // Encrypt
@@ -78,7 +39,7 @@ class InternalCrypto extends CLController implements CryptoInterface
     //--------------------------------------------------------------------------------------------------------
     public function encrypt(String $data,  Array $settings = []) : String
     {
-        return $this->crypto->encrypt($data, $settings);
+        return $this->driver->encrypt($data, $settings);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -91,7 +52,7 @@ class InternalCrypto extends CLController implements CryptoInterface
     //--------------------------------------------------------------------------------------------------------
     public function decrypt(String $data, Array $settings = []) : String
     {
-        return $this->crypto->decrypt($data, $settings);
+        return $this->driver->decrypt($data, $settings);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -103,32 +64,6 @@ class InternalCrypto extends CLController implements CryptoInterface
     //--------------------------------------------------------------------------------------------------------
     public function keygen(Int $length = 8) : String
     {
-        return $this->crypto->keygen($length);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Driver
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  string $driver
-    // @return object
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function driver(String $driver) : InternalCrypto
-    {
-        return new self($driver);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Drvlib
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  string $driver
-    // @return object
-    //
-    //--------------------------------------------------------------------------------------------------------
-    protected function _drvlib($driver)
-    {
-        return uselib('ZN\CryptoGraphy\Drivers\\'.$driver.'Driver');
+        return $this->driver->keygen($length);
     }
 }

@@ -1,6 +1,6 @@
 <?php namespace ZN\IndividualStructures;
 
-use Support, Exceptions, CLController;
+use Support, Exceptions, CLController, DriverAbility;
 
 class InternalCompress extends CLController implements CompressInterface
 {
@@ -13,54 +13,21 @@ class InternalCompress extends CLController implements CompressInterface
     //
     //--------------------------------------------------------------------------------------------------------
 
+    use DriverAbility;
+
+    //--------------------------------------------------------------------------------------------------------
+    // Consts
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @const string
+    //
+    //--------------------------------------------------------------------------------------------------------
     const config = 'IndividualStructures:compress';
-
-    //--------------------------------------------------------------------------------------------------------
-    // Drivers
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var array
-    //
-    //--------------------------------------------------------------------------------------------------------
-    protected $drivers =
+    const driver =
     [
-        'bz',
-        'gz',
-        'lzf',
-        'rar',
-        'zip',
-        'zlib'
+        'options'   => ['bz', 'gz', 'lzf', 'rar', 'zip', 'zlib'],
+        'namespace' => 'ZN\IndividualStructures\Compress\Drivers'
     ];
-
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Compress
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Sürücü bilgisi
-    //
-    // @var  string
-    //
-    //--------------------------------------------------------------------------------------------------------
-    protected $compress;
-
-    //--------------------------------------------------------------------------------------------------------
-    // Construct
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  string $driver
-    // @return bool
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function __construct(String $driver = NULL)
-    {
-        parent::__construct();
-
-        nullCoalesce($driver, INDIVIDUALSTRUCTURES_COMPRESS_CONFIG['driver']);
-
-        Support::driver($this->drivers, $driver);
-
-        $this->compress = $this->_drvlib($driver);
-    }
 
     //--------------------------------------------------------------------------------------------------------
     // Extract
@@ -78,7 +45,7 @@ class InternalCompress extends CLController implements CompressInterface
             return Exceptions::throws('Error', 'fileParameter', '1.(source)');
         }
 
-        return $this->compress->extract($source, $target, $password);
+        return $this->driver->extract($source, $target, $password);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -96,7 +63,7 @@ class InternalCompress extends CLController implements CompressInterface
             return Exceptions::throws('Error', 'valueParameter', '2.(data)');
         }
 
-        return $this->compress->write($file, $data);
+        return $this->driver->write($file, $data);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -108,7 +75,7 @@ class InternalCompress extends CLController implements CompressInterface
     //--------------------------------------------------------------------------------------------------------
     public function read(String $file) : String
     {
-        return $this->compress->read($file);
+        return $this->driver->read($file);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -120,7 +87,7 @@ class InternalCompress extends CLController implements CompressInterface
     //--------------------------------------------------------------------------------------------------------
     public function do(String $data) : String
     {
-        return $this->compress->do($data);
+        return $this->driver->do($data);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -132,32 +99,6 @@ class InternalCompress extends CLController implements CompressInterface
     //--------------------------------------------------------------------------------------------------------
     public function undo(String $data) : String
     {
-        return $this->compress->undo($data);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Driver
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  string $driver
-    // @return object
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function driver(String $driver) : InternalCompress
-    {
-        return new self($driver);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Drvlib
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  string $driver
-    // @return object
-    //
-    //--------------------------------------------------------------------------------------------------------
-    protected function _drvlib($driver)
-    {
-        return uselib('ZN\IndividualStructures\Compress\Drivers\\'.$driver.'Driver');
+        return $this->driver->undo($data);
     }
 }
