@@ -1,8 +1,8 @@
 <?php namespace ZN\DataTypes;
 
-use Arrays, AbilityController;
+use Arrays, CLController;
 
-class InternalRegex extends AbilityController implements RegexInterface
+class InternalRegex extends CLController implements RegexInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -126,15 +126,15 @@ class InternalRegex extends AbilityController implements RegexInterface
     protected function _regularConverting($pattern, $ex, $delimiter)
     {
 
-        $specialChars = $this->config['specialChars'];
+        $specialChars = REGEX_CONFIG['specialChars'];
 
         $pattern = str_ireplace(array_keys($specialChars ), array_values($specialChars), $pattern);
 
         // Config/Regex.php dosyasından düzenlenmiş karakter
         // listeleri alınıyor.
-        $regexChars   = Arrays::multikey($this->config['regexChars']);
+        $regexChars   = Arrays::multikey(REGEX_CONFIG['regexChars']);
 
-        $settingChars = Arrays::multikey($this->config['settingChars']);
+        $settingChars = Arrays::multikey(REGEX_CONFIG['settingChars']);
         // --------------------------------------------------------------------------------------------
 
         $pattern = str_ireplace(array_keys($regexChars), array_values($regexChars), $pattern);

@@ -90,7 +90,7 @@ class OpensslDriver extends CryptoMapping
 			$ciphers[$cipher] = 16;
 		}
 
-		return mb_substr(hash('md5', $this->config['key']), 0, $ciphers[$cipher]);
+		return mb_substr(hash('md5', PROJECT_CONFIG['key']), 0, $ciphers[$cipher]);
 	}
 
 	//--------------------------------------------------------------------------------------------------------
@@ -116,7 +116,7 @@ class OpensslDriver extends CryptoMapping
 			$mode = isset($modes[$cipher]) ? $modes[$cipher] : $mode;
 		}
 
-		return mb_substr(hash('sha1', $this->config['key']), 0, $mode);
+		return mb_substr(hash('sha1', PROJECT_CONFIG['key']), 0, $mode);
 	}
 
 	//--------------------------------------------------------------------------------------------------------

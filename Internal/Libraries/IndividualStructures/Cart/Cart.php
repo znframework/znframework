@@ -1,8 +1,8 @@
 <?php namespace ZN\IndividualStructures;
 
-use Support, Exceptions, AbilityController;
+use Support, Exceptions, CLController;
 
-class InternalCart extends AbilityController implements CartInterface
+class InternalCart extends CLController implements CartInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -57,7 +57,7 @@ class InternalCart extends AbilityController implements CartInterface
     {
         parent::__construct();
 
-        $defaultDriver = strtolower($this->config['driver']);
+        $defaultDriver = strtolower(INDIVIDUALSTRUCTURES_CART_CONFIG['driver']);
 
         nullCoalesce($driver, $defaultDriver);
 

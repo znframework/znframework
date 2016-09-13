@@ -1,8 +1,4 @@
-<?php namespace ZN\Requirements\Abilities;
-
-use Config, Classes;
-
-trait Configurable
+<?php trait ConfigurableAbility
 {
     //--------------------------------------------------------------------------------------------------------
     // Config
@@ -40,10 +36,6 @@ trait Configurable
                 $this->_singleConfig($config, 'multiple');
             }
         }
-
-        $constName = strtoupper(Classes::onlyName(get_called_class())).'_CONFIG';
-
-        Illustrate($constName, $this->config);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -58,6 +50,7 @@ trait Configurable
         $configEx = $this->_configEx($configs);
         $name     = $configEx->name;
         $key      = $configEx->key;
+        $const    = $configEx->const;
 
         if( $type === 'multiple' )
         {
@@ -67,6 +60,8 @@ trait Configurable
         {
             $this->config = Config::get($name , $key);
         }
+
+        Illustrate($const, $this->config);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -99,13 +94,22 @@ trait Configurable
         $configEx = explode(':', $config);
         $name     = $configEx[0] ?? NULL;
         $key      = $configEx[1] ?? NULL;
+        $constFix = '_CONFIG';
+
+        if( $key !== NULL )
+        {
+            $const = $name.'_'.$key.$constFix;
+        }
+        else
+        {
+            $const = $name.$constFix;
+        }
 
         return (object)
         [
-            'name' => $name,
-            'key'  => $key
+            'name'  => $name,
+            'key'   => $key,
+            'const' => strtoupper($const)
         ];
     }
 }
-
-class_alias('ZN\Requirements\Abilities\Configurable', 'ConfigurableAbility');

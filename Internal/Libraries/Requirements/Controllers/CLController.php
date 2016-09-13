@@ -1,6 +1,9 @@
 <?php namespace ZN\Requirements\Controllers;
 
-class RevolvingController
+use ConfigurableAbility;
+use ConversationAbility;
+
+class CLController extends BaseController
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -12,18 +15,26 @@ class RevolvingController
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
-    // Call
+    // Usage
     //--------------------------------------------------------------------------------------------------------
     //
-    // Magic Call
+    // Abilities
     //
     //--------------------------------------------------------------------------------------------------------
-    public function __call($method, $param)
-    {
-        $this->$method = $param[0] ?? NULL;
+    use ConfigurableAbility, ConversationAbility;
 
-        return $this;
+    //--------------------------------------------------------------------------------------------------------
+    // Magic Construct
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function __construct()
+    {
+        $this->configurable();
+        $this->conversation();
     }
 }
 
-class_alias('ZN\Requirements\Controllers\RevolvingController', 'RevolvingController');
+class_alias('ZN\Requirements\Controllers\CLController', 'CLController');

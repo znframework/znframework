@@ -1,8 +1,8 @@
 <?php namespace ZN\ViewObjects;
 
-use Config, URI, AbilityController;
+use Config, URI, CLController;
 
-class InternalCalendar extends AbilityController implements CalendarInterface
+class InternalCalendar extends CLController implements CalendarInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -115,12 +115,14 @@ class InternalCalendar extends AbilityController implements CalendarInterface
     {
         parent::__construct();
 
-        $this->prev         = $this->config['prevName'];
-        $this->next         = $this->config['nextName'];
-        $this->dayNames     = $this->config['dayType'];
-        $this->monthNames   = $this->config['monthType'];
-        $this->css          = $this->config['class'];
-        $this->style        = $this->config['style'];
+        $config = VIEWOBJECTS_CALENDAR_CONFIG;
+
+        $this->prev         = $config['prevName'];
+        $this->next         = $config['nextName'];
+        $this->dayNames     = $config['dayType'];
+        $this->monthNames   = $config['monthType'];
+        $this->css          = $config['class'];
+        $this->style        = $config['style'];
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -318,19 +320,23 @@ class InternalCalendar extends AbilityController implements CalendarInterface
             $prevMonth = $month;
         }
 
+        $monthNamesConfig = VIEWOBJECTS_CALENDAR_CONFIG['monthNames'][getLang()];
+
         if( $this->monthNames === 'long' )
         {
-            $monthNames = array_keys($this->config['monthNames'][getLang()]);
+            $monthNames = array_keys($monthNamesConfig);
         }
         else
         {
-            $monthNames = array_values($this->config['monthNames'][getLang()]);
+            $monthNames = array_values($monthNamesConfig);
         }
+
+        $dayNamesConfig = VIEWOBJECTS_CALENDAR_CONFIG['dayNames'][getLang()];
 
         $monthName = $monthNames[$month - 1];
         $dayNames  = ( $this->dayNames === 'long' )
-                   ? array_keys($this->config['dayNames'][getLang()])
-                   : array_values($this->config['dayNames'][getLang()]);
+                   ? array_keys($dayNamesConfig)
+                   : array_values($dayNamesConfig);
 
         $firstDay = getdate( mktime(0, 0, 0, $month, 1, $year) );
         $lastDay  = getdate( mktime(0, 0, 0, $month + 1, 0, $year));
@@ -520,7 +526,6 @@ class InternalCalendar extends AbilityController implements CalendarInterface
         $this->monthNames   = NULL;
         $this->dayNames     = NULL;
         $this->url          = NULL;
-        $this->config       = NULL;
         $this->prev         = '<<';
         $this->next         = '>>';
     }

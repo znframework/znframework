@@ -1,8 +1,8 @@
 <?php namespace ZN\ViewObjects;
 
-use URI, AbilityController;
+use URI, CLController;
 
-class InternalPagination extends AbilityController implements PaginationInterface, PaginationPropertiesInterface
+class InternalPagination extends CLController implements PaginationInterface, PaginationPropertiesInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -31,7 +31,7 @@ class InternalPagination extends AbilityController implements PaginationInterfac
     // @var array
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $settings     = [];
+    protected $settings = [];
 
     //--------------------------------------------------------------------------------------------------------
     // Settings
@@ -42,7 +42,7 @@ class InternalPagination extends AbilityController implements PaginationInterfac
     //--------------------------------------------------------------------------------------------------------
     public function settings(Array $config = []) : InternalPagination
     {
-        $configs = $this->config;
+        $configs = VIEWOBJECTS_PAGINATION_CONFIG;
 
         // ---------------------------------------------------------------------------------------
         // Sayfalama Ayarlarını İçeren Değişkenler
@@ -87,7 +87,7 @@ class InternalPagination extends AbilityController implements PaginationInterfac
     //--------------------------------------------------------------------------------------------------------
     public function create($start = NULL, Array $settings = []) : String
     {
-        $settings = array_merge($this->config, $this->settings, $settings);
+        $settings = array_merge(VIEWOBJECTS_PAGINATION_CONFIG, $this->settings, $settings);
 
         if( ! empty($settings) )
         {

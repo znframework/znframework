@@ -1,8 +1,8 @@
 <?php namespace ZN\CryptoGraphy;
 
-use AbilityController, Support;
+use CLController, Support;
 
-class InternalCrypto extends AbilityController implements CryptoInterface
+class InternalCrypto extends CLController implements CryptoInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -61,7 +61,7 @@ class InternalCrypto extends AbilityController implements CryptoInterface
     {
         parent::__construct();
 
-        nullCoalesce($driver, $this->config['driver']);
+        nullCoalesce($driver, CRYPTOGRAPHY_CRYPTO_CONFIG['driver']);
 
         Support::driver($this->drivers, $driver);
 

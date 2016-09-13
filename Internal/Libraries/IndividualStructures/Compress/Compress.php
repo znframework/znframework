@@ -1,8 +1,8 @@
 <?php namespace ZN\IndividualStructures;
 
-use Support, Exceptions, AbilityController;
+use Support, Exceptions, CLController;
 
-class InternalCompress extends AbilityController implements CompressInterface
+class InternalCompress extends CLController implements CompressInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -55,7 +55,7 @@ class InternalCompress extends AbilityController implements CompressInterface
     {
         parent::__construct();
 
-        nullCoalesce($driver, $this->config['driver']);
+        nullCoalesce($driver, INDIVIDUALSTRUCTURES_COMPRESS_CONFIG['driver']);
 
         Support::driver($this->drivers, $driver);
 

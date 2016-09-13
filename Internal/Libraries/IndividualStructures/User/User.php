@@ -1,8 +1,8 @@
 <?php namespace ZN\IndividualStructures;
 
-use AbilityController, Encode, DB, Session, Cookie, Method, Import, Email, URI;
+use CLController, Encode, DB, Session, Cookie, Method, Import, Email, URI;
 
-class InternalUser extends AbilityController implements UserInterface, UserPropertiesInterface
+class InternalUser extends CLController implements UserInterface, UserPropertiesInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -71,9 +71,9 @@ class InternalUser extends AbilityController implements UserInterface, UserPrope
         // ------------------------------------------------------------------------------
         // Settings
         // ------------------------------------------------------------------------------
-        $getColumns         = USER_CONFIG['matching']['columns'];
-        $getJoining         = USER_CONFIG['joining'];
-        $tableName          = USER_CONFIG['matching']['table'];
+        $getColumns         = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['columns'];
+        $getJoining         = INDIVIDUALSTRUCTURES_USER_CONFIG['joining'];
+        $tableName          = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['table'];
         $joinTables         = $getJoining['tables'];
         $joinColumn         = $getJoining['column'];
         $usernameColumn     = $getColumns['username'];
@@ -98,7 +98,7 @@ class InternalUser extends AbilityController implements UserInterface, UserPrope
 
         $loginUsername   = $data[$usernameColumn];
         $loginPassword   = $data[$passwordColumn];
-        $encodeType      = USER_CONFIG['encode'];
+        $encodeType      = INDIVIDUALSTRUCTURES_USER_CONFIG['encode'];
         $encodePassword  = ! empty($encodeType) ? Encode::type($loginPassword, $encodeType) : $loginPassword;
 
         $usernameControl = DB::where($usernameColumn, $loginUsername)
@@ -190,14 +190,14 @@ class InternalUser extends AbilityController implements UserInterface, UserPrope
                 $newAgain = $new;
             }
 
-            $getColumns = USER_CONFIG['matching']['columns'];
-            $getJoining = USER_CONFIG['joining'];
+            $getColumns = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['columns'];
+            $getJoining = INDIVIDUALSTRUCTURES_USER_CONFIG['joining'];
             $joinTables = $getJoining['tables'];
             $jc         = $getJoining['column'];
             $pc         = $getColumns['password'];
             $uc         = $getColumns['username'];
-            $tn         = USER_CONFIG['matching']['table'];
-            $encodeType = USER_CONFIG['encode'];
+            $tn         = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['table'];
+            $encodeType = INDIVIDUALSTRUCTURES_USER_CONFIG['encode'];
 
             $oldPassword      = ! empty($encodeType) ? Encode::type($old, $encodeType)      : $old;
             $newPassword      = ! empty($encodeType) ? Encode::type($new, $encodeType)      : $new;
@@ -278,15 +278,15 @@ class InternalUser extends AbilityController implements UserInterface, UserPrope
         }
 
         $username   = $un;
-        $encodeType = USER_CONFIG['encode'];
+        $encodeType = INDIVIDUALSTRUCTURES_USER_CONFIG['encode'];
 
         $password   = ! empty($encodeType) ? Encode::type($pw, $encodeType) : $pw;
 
         // ------------------------------------------------------------------------------
         // Settings
         // ------------------------------------------------------------------------------
-        $tableName          = USER_CONFIG['matching']['table'];
-        $getColumns         = USER_CONFIG['matching']['columns'];
+        $tableName          = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['table'];
+        $getColumns         = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['columns'];
         $passwordColumn     = $getColumns['password'];
         $usernameColumn     = $getColumns['username'];
         $emailColumn        = $getColumns['email'];
@@ -367,8 +367,8 @@ class InternalUser extends AbilityController implements UserInterface, UserPrope
     //--------------------------------------------------------------------------------------------------------
     public function logout(String $redirectUrl = NULL, Int $time = 0)
     {
-        $getColumns = USER_CONFIG['matching']['columns'];
-        $tableName  = USER_CONFIG['matching']['table'];
+        $getColumns = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['columns'];
+        $tableName  = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['table'];
         $username   = $getColumns['username'];
         $password   = $getColumns['password'];
         $active     = $getColumns['active'];
@@ -399,8 +399,8 @@ class InternalUser extends AbilityController implements UserInterface, UserPrope
     //--------------------------------------------------------------------------------------------------------
     public function isLogin() : Bool
     {
-        $getColumns = USER_CONFIG['matching']['columns'];
-        $tableName  = USER_CONFIG['matching']['table'];
+        $getColumns = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['columns'];
+        $tableName  = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['table'];
         $username   = $getColumns['username'];
         $password   = $getColumns['password'];
 
@@ -453,9 +453,9 @@ class InternalUser extends AbilityController implements UserInterface, UserPrope
         // ------------------------------------------------------------------------------
         // Settings
         // ------------------------------------------------------------------------------
-        $tableName      = USER_CONFIG['matching']['table'];
-        $senderInfo     = USER_CONFIG['emailSenderInfo'];
-        $getColumns     = USER_CONFIG['matching']['columns'];
+        $tableName      = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['table'];
+        $senderInfo     = INDIVIDUALSTRUCTURES_USER_CONFIG['emailSenderInfo'];
+        $getColumns     = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['columns'];
         $usernameColumn = $getColumns['username'];
         $passwordColumn = $getColumns['password'];
         $emailColumn    = $getColumns['email'];
@@ -479,7 +479,7 @@ class InternalUser extends AbilityController implements UserInterface, UserPrope
                 $returnLinkPath = siteUrl($returnLinkPath);
             }
 
-            $encodeType     = USER_CONFIG['encode'];
+            $encodeType     = INDIVIDUALSTRUCTURES_USER_CONFIG['encode'];
             $newPassword    = Encode::create(10);
             $encodePassword = ! empty($encodeType) ? Encode::type($newPassword, $encodeType) : $newPassword;
 
@@ -538,8 +538,8 @@ class InternalUser extends AbilityController implements UserInterface, UserPrope
         // ------------------------------------------------------------------------------
         // Settings
         // ------------------------------------------------------------------------------
-        $getColumns         = USER_CONFIG['matching']['columns'];
-        $tableName          = USER_CONFIG['matching']['table'];
+        $getColumns         = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['columns'];
+        $tableName          = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['table'];
         $usernameColumn     = $getColumns['username'];
         $passwordColumn     = $getColumns['password'];
         $activationColumn   = $getColumns['activation'];
@@ -595,7 +595,7 @@ class InternalUser extends AbilityController implements UserInterface, UserPrope
             $url = siteUrl($url);
         }
 
-        $senderInfo = USER_CONFIG['emailSenderInfo'];
+        $senderInfo = INDIVIDUALSTRUCTURES_USER_CONFIG['emailSenderInfo'];
 
         $templateData =
         [
@@ -633,15 +633,15 @@ class InternalUser extends AbilityController implements UserInterface, UserPrope
     //--------------------------------------------------------------------------------------------------------
     public function data(String $tbl = NULL)
     {
-        $usernameColumn = USER_CONFIG['matching']['columns']['username'];
-        $passwordColumn = USER_CONFIG['matching']['columns']['password'];
+        $usernameColumn = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['columns']['username'];
+        $passwordColumn = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['columns']['password'];
 
         if( $sessionUserName = Session::select($usernameColumn) )
         {
-            $joinTables      = USER_CONFIG['joining']['tables'];
-            $usernameColumn  = USER_CONFIG['matching']['columns']['username'];
-            $joinColumn      = USER_CONFIG['joining']['column'];
-            $tableName       = USER_CONFIG['matching']['table'];
+            $joinTables      = INDIVIDUALSTRUCTURES_USER_CONFIG['joining']['tables'];
+            $usernameColumn  = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['columns']['username'];
+            $joinColumn      = INDIVIDUALSTRUCTURES_USER_CONFIG['joining']['column'];
+            $tableName       = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['table'];
 
             $this->username  = $sessionUserName;
             $sessionPassword = Session::select($passwordColumn);
@@ -699,8 +699,8 @@ class InternalUser extends AbilityController implements UserInterface, UserPrope
     //--------------------------------------------------------------------------------------------------------
     public function activeCount() : Int
     {
-        $activeColumn = USER_CONFIG['matching']['columns']['active'];
-        $tableName    = USER_CONFIG['matching']['table'];
+        $activeColumn = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['columns']['active'];
+        $tableName    = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['table'];
 
         if( ! empty($activeColumn) )
         {
@@ -731,8 +731,8 @@ class InternalUser extends AbilityController implements UserInterface, UserPrope
     //--------------------------------------------------------------------------------------------------------
     public function bannedCount() : Int
     {
-        $bannedColumn = USER_CONFIG['matching']['columns']['banned'];
-        $tableName    = USER_CONFIG['matching']['table'];
+        $bannedColumn = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['columns']['banned'];
+        $tableName    = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['table'];
 
         if( ! empty($bannedColumn) )
         {
@@ -763,7 +763,7 @@ class InternalUser extends AbilityController implements UserInterface, UserPrope
     //--------------------------------------------------------------------------------------------------------
     public function count() : Int
     {
-        $tableName = USER_CONFIG['matching']['table'];
+        $tableName = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['table'];
 
         $totalRows = DB::get($tableName)->totalRows();
 

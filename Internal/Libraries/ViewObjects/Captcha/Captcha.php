@@ -1,8 +1,8 @@
 <?php namespace ZN\ViewObjects;
 
-use Config, Session, AbilityController;
+use Config, Session, CLController;
 
-class InternalCaptcha extends AbilityController implements CaptchaInterface
+class InternalCaptcha extends CLController implements CaptchaInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -264,7 +264,7 @@ class InternalCaptcha extends AbilityController implements CaptchaInterface
     //--------------------------------------------------------------------------------------------------------
     public function create(Bool $img = false, Array $configs = []) : String
     {
-        $configs = array_merge($this->config, $this->sets, $configs);
+        $configs = array_merge(VIEWOBJECTS_CAPTCHA_CONFIG, $this->sets, $configs);
 
         if( ! empty($configs) )
         {

@@ -1,8 +1,8 @@
 <?php namespace ZN\DateTime;
 
-use Config, Arrays, AbilityController;
+use Config, Arrays, CLController;
 
-class DateTimeCommon extends AbilityController
+class DateTimeCommon extends CLController
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -20,7 +20,7 @@ class DateTimeCommon extends AbilityController
     // @const string
     //
     //--------------------------------------------------------------------------------------------------------
-    const config = 'DateTime', lang = 'IndividualStructures';
+    const config = 'DateTime';
 
     //--------------------------------------------------------------------------------------------------------
     // Class Name
@@ -45,9 +45,9 @@ class DateTimeCommon extends AbilityController
     {
         parent::__construct();
 
-        date_default_timezone_set($this->config['timeZone']);
+        date_default_timezone_set(DATETIME_CONFIG['timeZone']);
 
-        setlocale(LC_ALL, $this->config['setLocale']['charset'], $this->config['setLocale']['language']);
+        setlocale(LC_ALL, DATETIME_CONFIG['setLocale']['charset'], DATETIME_CONFIG['setLocale']['language']);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -139,7 +139,7 @@ class DateTimeCommon extends AbilityController
     {
         $config = $this->_chartype();
 
-        $chars = $this->config[$config];
+        $chars = DATETIME_CONFIG[$config];
 
         $chars = Arrays::multikey($chars);
 

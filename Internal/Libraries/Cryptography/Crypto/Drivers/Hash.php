@@ -24,7 +24,7 @@ class HashDriver extends CryptoMapping
     public function encrypt($data, $settings)
     {
         $cipher = $settings['cipher'] ?? 'sha256';
-        $key    = $settings['key']    ?? $this->config['key'];
+        $key    = $settings['key']    ?? PROJECT_CONFIG['key'];
 
         return base64_encode(trim(hash_hmac($cipher, $data, $key)));
     }

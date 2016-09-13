@@ -1,8 +1,4 @@
-<?php namespace ZN\Requirements\Abilities;
-
-use Classes;
-
-trait Conversation
+<?php trait ConversationAbility
 {
     //--------------------------------------------------------------------------------------------------------
     // Lang
@@ -35,15 +31,13 @@ trait Conversation
         }
         else
         {
+            $constName = $languages[0];
+
             foreach( $languages as $language )
             {
                 $this->_singleLang($language, 'multiple');
             }
         }
-
-        $constName = strtoupper(Classes::onlyName(get_called_class())).'_LANG';
-
-        Illustrate($constName, $this->lang);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -56,6 +50,7 @@ trait Conversation
     protected function _singleLang($languages, $type = NULL)
     {
         $langEx = $this->_langEx($languages);
+        $const  = $langEx->const;
 
         if( $type === 'multiple' )
         {
@@ -77,6 +72,8 @@ trait Conversation
                 $this->lang[$newKey] = $val;
             }
         }
+
+        Illustrate($const, $this->lang);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -91,13 +88,22 @@ trait Conversation
         $configEx = explode(':', $lang);
         $name     = $configEx[0] ?? NULL;
         $key      = $configEx[1] ?? NULL;
+        $constFix = '_LANG';
+
+        if( $key !== NULL )
+        {
+            $const = $name.'_'.$key.$constFix;
+        }
+        else
+        {
+            $const = $name.$constFix;
+        }
 
         return (object)
         [
             'name' => $name,
-            'key'  => $key
+            'key'  => $key,
+            'const' => strtoupper($const)
         ];
     }
 }
-
-class_alias('ZN\Requirements\Abilities\Conversation', 'ConversationAbility');

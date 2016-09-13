@@ -1,8 +1,8 @@
 <?php namespace ZN\IndividualStructures;
 
-use Support, AbilityController;
+use Support, CLController;
 
-class InternalCache extends AbilityController implements CacheInterface
+class InternalCache extends CLController implements CacheInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -54,7 +54,7 @@ class InternalCache extends AbilityController implements CacheInterface
     {
         parent::__construct();
 
-        nullCoalesce($driver, $this->config['driver']);
+        nullCoalesce($driver, INDIVIDUALSTRUCTURES_CACHE_CONFIG['driver']);
 
         Support::driver($this->drivers, $driver);
 

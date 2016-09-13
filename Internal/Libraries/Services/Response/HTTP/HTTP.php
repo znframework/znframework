@@ -1,8 +1,8 @@
 <?php namespace ZN\Services\Response;
 
-use Config, Arrays, Exceptions, Method, AbilityController;
+use Config, Arrays, Exceptions, Method, CLController;
 
-class InternalHTTP extends AbilityController implements HTTPInterface
+class InternalHTTP extends CLController implements HTTPInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -90,7 +90,7 @@ class InternalHTTP extends AbilityController implements HTTPInterface
     //--------------------------------------------------------------------------------------------------------
     public function code(Int $code = 200) : String
     {
-        $messages = Arrays::multikey($this->config['messages']);
+        $messages = Arrays::multikey(SERVICES_HTTP_CONFIG['messages']);
 
         if( isset($messages[$code]) )
         {

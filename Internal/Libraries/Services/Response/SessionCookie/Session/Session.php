@@ -1,8 +1,8 @@
 <?php namespace ZN\Services\Response;
 
-use Config, AbilityController;
+use Config, CLController;
 
-class InternalSession extends AbilityController implements SessionInterface, SessionCookieCommonInterface
+class InternalSession extends CLController implements SessionInterface, SessionCookieCommonInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -70,7 +70,7 @@ class InternalSession extends AbilityController implements SessionInterface, Ses
             }
         }
 
-        $sessionConfig = $this->config;
+        $sessionConfig = SERVICES_SESSION_CONFIG;
 
         if( ! isset($this->encode['name']))
         {
@@ -127,7 +127,7 @@ class InternalSession extends AbilityController implements SessionInterface, Ses
         }
         else
         {
-            $encode = $this->config['encode'];
+            $encode = SERVICES_SESSION_CONFIG['encode'];
 
             if( $encode === true )
             {
@@ -188,7 +188,7 @@ class InternalSession extends AbilityController implements SessionInterface, Ses
     //--------------------------------------------------------------------------------------------------------
     public function delete(String $name) : Bool
     {
-        $sessionConfig = $this->config;
+        $sessionConfig = SERVICES_SESSION_CONFIG;
 
         if( isset($this->encode['name']) )
         {

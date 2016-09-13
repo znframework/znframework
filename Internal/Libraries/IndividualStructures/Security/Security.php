@@ -1,8 +1,8 @@
 <?php namespace ZN\IndividualStructures;
 
-use Regex, Converter, AbilityController;
+use Regex, Converter, CLController;
 
-class InternalSecurity extends AbilityController implements SecurityInterface
+class InternalSecurity extends CLController implements SecurityInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -81,7 +81,7 @@ class InternalSecurity extends AbilityController implements SecurityInterface
         // 2. Parametre boş ise varsayılan olarak Config/Security.php dosya ayarlarını kullan.
         if( empty($badWords) )
         {
-            $secnc      = $this->config['ncEncode'];
+            $secnc      = INDIVIDUALSTRUCTURES_SECURITY_CONFIG['ncEncode'];
             $badWords   = $secnc['badChars'];
             $changeChar = $secnc['changeBadChars'];
         }
@@ -124,7 +124,7 @@ class InternalSecurity extends AbilityController implements SecurityInterface
     //--------------------------------------------------------------------------------------------------------
     public function injectionEncode(String $string) : String
     {
-        $secBadChars = $this->config['injectionBadChars'];
+        $secBadChars = INDIVIDUALSTRUCTURES_SECURITY_CONFIG['injectionBadChars'];
 
         if( ! empty($secBadChars))
         {
@@ -166,7 +166,7 @@ class InternalSecurity extends AbilityController implements SecurityInterface
     //--------------------------------------------------------------------------------------------------------
     public function xssEncode(String $string) : String
     {
-        $secBadChars = $this->config['scriptBadChars'];
+        $secBadChars = INDIVIDUALSTRUCTURES_SECURITY_CONFIG['scriptBadChars'];
 
         if( ! empty($secBadChars))
         {

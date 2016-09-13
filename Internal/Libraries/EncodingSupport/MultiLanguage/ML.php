@@ -1,8 +1,8 @@
 <?php namespace ZN\EncodingSupport;
 
-use AbilityController, Folder, File, Json, Method, Html, Form, URI, Pagination, Sheet, Style;
+use CLController, Folder, File, Json, Method, Html, Form, URI, Pagination, Sheet, Style;
 
-class InternalML extends AbilityController implements MLInterface
+class InternalML extends CLController implements MLInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -387,7 +387,7 @@ class InternalML extends AbilityController implements MLInterface
             }
         }
 
-        $config = $this->config['table'];
+        $config = ENCODINGSUPPORT_ML_CONFIG['table'];
 
         $attributes         = $config['attributes'];
         $pagcon             = $config['pagination'];
@@ -573,11 +573,13 @@ class InternalML extends AbilityController implements MLInterface
     //--------------------------------------------------------------------------------------------------------
     protected function _styleElement()
     {
-        if( ! empty($this->config['table']['styleElement']) )
+        $styleElementConfig = ENCODINGSUPPORT_ML_CONFIG['table']['styleElement'] ?? NULL;
+
+        if( ! empty($styleElementConfig) )
         {
             $attributes = NULL;
 
-            foreach( $this->config['table']['styleElement'] as $selector => $attr )
+            foreach( $styleElementConfig as $selector => $attr )
             {
                 $attributes .= Sheet::selector($selector)->attr($attr)->create();
             }

@@ -1,8 +1,8 @@
 <?php namespace ZN\CryptoGraphy;
 
-use AbilityController;
+use CLController;
 
-class CryptoMapping extends AbilityController
+class CryptoMapping extends CLController
 {
     //--------------------------------------------------------------------------------------------------------
     //

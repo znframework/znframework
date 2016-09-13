@@ -1,8 +1,8 @@
 <?php namespace ZN\Services\Remote;
 
-use Support, Exceptions, Config, AbilityController;
+use Support, Exceptions, Config, CLController;
 
-class InternalEmail extends AbilityController implements EmailInterface
+class InternalEmail extends CLController implements EmailInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -238,7 +238,14 @@ class InternalEmail extends AbilityController implements EmailInterface
     // @var array
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $priorityTypes = [1 => '1 (Highest)', 2 => '2 (High)', 3 => '3 (Normal)', 4 => '4 (Low)',5 => '5 (Lowest)'];
+    protected $priorityTypes =
+    [
+        1 => '1 (Highest)',
+        2 => '2 (High)',
+        3 => '3 (Normal)',
+        4 => '4 (Low)',
+        5 => '5 (Lowest)'
+    ];
 
     //--------------------------------------------------------------------------------------------------------
     // Priority
@@ -357,7 +364,7 @@ class InternalEmail extends AbilityController implements EmailInterface
     {
         parent::__construct();
 
-        nullCoalesce($driver, $this->config['driver']);
+        nullCoalesce($driver, SERVICES_EMAIL_CONFIG['driver']);
 
         Support::driver($this->drivers, $driver);
 
@@ -376,8 +383,7 @@ class InternalEmail extends AbilityController implements EmailInterface
     //--------------------------------------------------------------------------------------------------------
     public function settings(Array $settings = NULL) : InternalEmail
     {
-        $config = $this->config;
-
+        $config        = SERVICES_EMAIL_CONFIG;
         $smtpConfig    = $config['smtp'];
         $generalConfig = $config['general'];
 

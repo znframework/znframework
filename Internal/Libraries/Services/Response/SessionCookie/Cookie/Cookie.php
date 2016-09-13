@@ -1,8 +1,8 @@
 <?php namespace ZN\Services\Response;
 
-use Session, Json, Exceptions, AbilityController;
+use Session, Json, Exceptions, CLController;
 
-class InternalCookie extends AbilityController implements CookieInterface, SessionCookieCommonInterface
+class InternalCookie extends CLController implements CookieInterface, SessionCookieCommonInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -186,7 +186,7 @@ class InternalCookie extends AbilityController implements CookieInterface, Sessi
             }
         }
 
-        $cookieConfig = $this->config;
+        $cookieConfig = SERVICES_COOKIE_CONFIG;
 
         if( empty($this->time) )        $this->time     = $cookieConfig['time'];
         if( empty($this->path) )        $this->path     = $cookieConfig['path'];
@@ -253,7 +253,7 @@ class InternalCookie extends AbilityController implements CookieInterface, Sessi
         }
         else
         {
-            $encode = $this->config['encode'];
+            $encode = SERVICES_COOKIE_CONFIG['encode'];
 
             if( $encode === true )
             {
@@ -316,7 +316,7 @@ class InternalCookie extends AbilityController implements CookieInterface, Sessi
     //--------------------------------------------------------------------------------------------------------
     public function delete(String $name, String $path = NULL) : Bool
     {
-        $cookieConfig = $this->config;
+        $cookieConfig = SERVICES_COOKIE_CONFIG;
 
         if( ! empty($path) )
         {
@@ -375,7 +375,7 @@ class InternalCookie extends AbilityController implements CookieInterface, Sessi
     //--------------------------------------------------------------------------------------------------------
     public function deleteAll() : Bool
     {
-        $path = $this->config['path'];
+        $path = SERVICES_COOKIE_CONFIG['path'];
 
         if( ! empty($_COOKIE) ) foreach( $_COOKIE as $key => $val )
         {

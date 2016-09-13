@@ -98,10 +98,8 @@ class InternalCrontab extends RemoteCommon implements CrontabInterface, CrontabI
     {
         parent::__construct();
 
-        $this->path   = $this->config ['path'];
-        $this->debug  = $this->config['debug'] === true
-                      ? $this->config['debug']
-                      : false;
+        $this->path   = SERVICES_PROCESSOR_CONFIG['path'];
+        $this->debug  = SERVICES_CRONTAB_CONFIG['debug'];
 
         $this->crontabDir = Folder::originpath(STORAGE_DIR.'Crontab'.DS);
     }

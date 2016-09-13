@@ -1,8 +1,8 @@
 <?php namespace ZN\Services\Remote;
 
-use Support, Exceptions, AbilityController;
+use Support, Exceptions, CLController;
 
-class InternalSSH extends AbilityController implements SSHInterface
+class InternalSSH extends CLController implements SSHInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -70,7 +70,7 @@ class InternalSSH extends AbilityController implements SSHInterface
         }
         else
         {
-            $config = $this->config;
+            $config = SERVICES_SSH_CONFIG;
         }
 
         $this->_connect($config);

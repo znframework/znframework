@@ -1,8 +1,8 @@
 <?php namespace ZN\IndividualStructures;
 
-use AbilityController;
+use CLController;
 
-class InternalPermission extends AbilityController implements PermissionInterface
+class InternalPermission extends CLController implements PermissionInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -93,7 +93,7 @@ class InternalPermission extends AbilityController implements PermissionInterfac
     //--------------------------------------------------------------------------------------------------------
     public function process(Int $roleId = 0, String $process = NULL, String $object = NULL) : String
     {
-        $this->permission = $this->config['process'];
+        $this->permission = INDIVIDUALSTRUCTURES_PERMISSION_CONFIG['process'];
 
         if( isset($this->permission[$roleId]) )
         {
@@ -203,7 +203,7 @@ class InternalPermission extends AbilityController implements PermissionInterfac
     //--------------------------------------------------------------------------------------------------------
     public function page(Int $roleId = 6) : Bool
     {
-        $this->permission = $this->config['page'];
+        $this->permission = INDIVIDUALSTRUCTURES_PERMISSION_CONFIG['page'];
 
         if( isset($this->permission[$roleId]) )
         {

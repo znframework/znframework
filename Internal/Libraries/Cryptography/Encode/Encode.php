@@ -1,8 +1,8 @@
 <?php namespace ZN\CryptoGraphy;
 
-use Exceptions, AbilityController;
+use Exceptions, CLController;
 
-class InternalEncode extends AbilityController implements EncodeInterface
+class InternalEncode extends CLController implements EncodeInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -62,7 +62,7 @@ class InternalEncode extends AbilityController implements EncodeInterface
     //--------------------------------------------------------------------------------------------------------
     public function golden(String $data, String $additional = 'default') : String
     {
-        $algo = $this->config['type'];
+        $algo = CRYPTOGRAPHY_ENCODE_CONFIG['type'];
 
         if( ! isHash($algo) )
         {
@@ -90,9 +90,9 @@ class InternalEncode extends AbilityController implements EncodeInterface
     //--------------------------------------------------------------------------------------------------------
     public function super(String $data) : String
     {
-        $projectKey = $this->config['key'];
+        $projectKey = PROJECT_CONFIG['key'];
 
-        $algo = $this->config['type'];
+        $algo = CRYPTOGRAPHY_ENCODE_CONFIG['type'];
 
         if( ! isHash($algo) )
         {

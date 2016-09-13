@@ -91,7 +91,7 @@ class InternalDBGrid extends Abstracts\GridAbstract
     {
         parent::__construct();
 
-        $this->confirm = 'return confirm(\''.$this->lang['areYouSure'].'\');';
+        $this->confirm = 'return confirm(\''.VIEWOBJECTS_DBGRID_LANG['areYouSure'].'\');';
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -361,7 +361,7 @@ class InternalDBGrid extends Abstracts\GridAbstract
         //----------------------------------------------------------------------------------------------------
         if( ! empty($this->limit) )
         {
-            $pagination = $get->pagination(CURRENT_CFPATH.'/page/', $this->config['pagination']);
+            $pagination = $get->pagination(CURRENT_CFPATH.'/page/', VIEWOBJECTS_DATAGRID_CONFIG['pagination']);
         }
         else
         {
@@ -428,7 +428,7 @@ class InternalDBGrid extends Abstracts\GridAbstract
         // Genel görünümün oluşturulduğu bölüm.
         //
         //----------------------------------------------------------------------------------------------------
-        $table .= '<table id="DBGRID_TABLE"'.Html::attributes($this->config['attributes']['table']).'>'.EOL;
+        $table .= '<table id="DBGRID_TABLE"'.Html::attributes(VIEWOBJECTS_DATAGRID_CONFIG['attributes']['table']).'>'.EOL;
         $table .= $this->_thead($columns, $countColumns);
         $table .= $this->_tbody($result, $countColumns, $joinsData);
         $table .= $this->_pagination($pagination, $countColumns);
@@ -446,10 +446,12 @@ class InternalDBGrid extends Abstracts\GridAbstract
     //--------------------------------------------------------------------------------------------------------
     protected function _styleElement()
     {
-        if( ! empty($this->config['styleElement']) )
+        $styleElementConfig = VIEWOBJECTS_DATAGRID_CONFIG['styleElement'] ?? NULL;
+
+        if( ! empty($styleElementConfig) )
         {
             $attributes   = NULL;
-            $styleElement = $this->config['styleElement'];
+            $styleElement = $styleElementConfig;
 
             foreach( $styleElement as $selector => $attr )
             {
@@ -473,21 +475,21 @@ class InternalDBGrid extends Abstracts\GridAbstract
     protected function _thead($columns, $countColumns)
     {
         $table  = '<thead>'.EOL;
-        $table .= '<tr'.Html::attributes($this->config['attributes']['columns']).'>';
+        $table .= '<tr'.Html::attributes(VIEWOBJECTS_DATAGRID_CONFIG['attributes']['columns']).'>';
         $table .= '<td colspan="2">';
         $table .= Form::open('addForm').
-                  Form::placeholder($this->config['placeHolders']['search'])
+                  Form::placeholder(VIEWOBJECTS_DATAGRID_CONFIG['placeHolders']['search'])
                       ->id('datagridSearch')
-                      ->attr($this->config['attributes']['search'])
+                      ->attr(VIEWOBJECTS_DATAGRID_CONFIG['attributes']['search'])
                       ->text('search').
                   Form::close();
         $table .= '</td><td colspan="'.($countColumns - 1).'"></td><td align="right" colspan="2">';
         $table .= Form::action(CURRENT_CFPATH.( URI::get('page') ? '/page/'.URI::get('page') : NULL).'/process/add')
                       ->open('addForm').
-                  Form::attr($this->config['attributes']['add'])
-                      ->submit('addButton', $this->config['buttonNames']['add']).
+                  Form::attr(VIEWOBJECTS_DATAGRID_CONFIG['attributes']['add'])
+                      ->submit('addButton', VIEWOBJECTS_DATAGRID_CONFIG['buttonNames']['add']).
                   Form::close();
-        $table .= '</tr><tr'.Html::attributes($this->config['attributes']['columns']).'>';
+        $table .= '</tr><tr'.Html::attributes(VIEWOBJECTS_DATAGRID_CONFIG['attributes']['columns']).'>';
         $table .= '<td width="20">#</td>';
 
         //----------------------------------------------------------------------------------------------------
@@ -502,13 +504,13 @@ class InternalDBGrid extends Abstracts\GridAbstract
             $table .= '<td>'.Html::anchor
             (
                 CURRENT_CFPATH.'/order/'.$column.'/type/'.(URI::get('type') === 'asc' ? 'desc' : 'asc'),
-                Html::strong($column), $this->config['attributes']['columns']
+                Html::strong($column), VIEWOBJECTS_DATAGRID_CONFIG['attributes']['columns']
             ).'</td>';
         }
 
         $table .= '<td align="right" colspan="2"><span'.
-                  Html::attributes($this->config['attributes']['columns']).'>'.
-                  Html::strong($this->lang['processLabel']).'</span></td>';
+                  Html::attributes(VIEWOBJECTS_DATAGRID_CONFIG['attributes']['columns']).'>'.
+                  Html::strong(VIEWOBJECTS_DBGRID_LANG['processLabel']).'</span></td>';
         $table .= '</tr>'.EOL;
         $table .= '</thead>'.EOL;
 
@@ -556,8 +558,8 @@ class InternalDBGrid extends Abstracts\GridAbstract
                         ->open('editButtonForm').
                     $hiddenId.
                     $hiddenJoins.
-                    Form::attr($this->config['attributes']['edit'])
-                        ->submit('editButton', $this->config['buttonNames']['edit']).
+                    Form::attr(VIEWOBJECTS_DATAGRID_CONFIG['attributes']['edit'])
+                        ->submit('editButton', VIEWOBJECTS_DATAGRID_CONFIG['buttonNames']['edit']).
                     Form::close().
                     '</td>'.
                     '<td width="60" align="right">'.
@@ -565,8 +567,8 @@ class InternalDBGrid extends Abstracts\GridAbstract
                         ->open('addButtonForm').
                     $hiddenId.
                     $hiddenJoins.
-                    Form::attr($this->config['attributes']['delete'])
-                        ->submit('deleteButton', $this->config['buttonNames']['delete']).
+                    Form::attr(VIEWOBJECTS_DATAGRID_CONFIG['attributes']['delete'])
+                        ->submit('deleteButton', VIEWOBJECTS_DATAGRID_CONFIG['buttonNames']['delete']).
                     Form::close().
 
                     '</td></tr>'.
@@ -607,7 +609,7 @@ class InternalDBGrid extends Abstracts\GridAbstract
     {
         $table  = Form::open('saveForm');
 
-        $table .= '<table type="DBGRID_ADD_EDIT_TABLE"'.Html::attributes($this->config['attributes']['table']).'>'.EOL;
+        $table .= '<table type="DBGRID_ADD_EDIT_TABLE"'.Html::attributes(VIEWOBJECTS_DATAGRID_CONFIG['attributes']['table']).'>'.EOL;
         $table .= '<tr>';
 
         $newGetRow = NULL;
@@ -649,7 +651,7 @@ class InternalDBGrid extends Abstracts\GridAbstract
         }
 
         $table .= '<tr><td colspan="'.count($joinsData).'">'.
-                      Form::attr($this->config['attributes']['save'])->submit('saveButton', $this->config['buttonNames']['save']).
+                      Form::attr(VIEWOBJECTS_DATAGRID_CONFIG['attributes']['save'])->submit('saveButton', VIEWOBJECTS_DATAGRID_CONFIG['buttonNames']['save']).
                       '</td></tr>';
         $table .= '</tr></table>';
         $table .= Form::close();
@@ -668,7 +670,7 @@ class InternalDBGrid extends Abstracts\GridAbstract
     //--------------------------------------------------------------------------------------------------------
     protected function _editTable($columns, $tbl, $row)
     {
-        $table  = '<table'.Html::attributes($this->config['attributes']['editTables']).'>';
+        $table  = '<table'.Html::attributes(VIEWOBJECTS_DATAGRID_CONFIG['attributes']['editTables']).'>';
         $table .= '<tr><td width="100">'.Strings::upperCase($tbl).'</td></tr>';
 
         $processColumn = strtolower($this->processColumn);
@@ -700,7 +702,7 @@ class InternalDBGrid extends Abstracts\GridAbstract
 
                 $table .= '<tr><td>'.Strings::titleCase($column).'</td><td>'.
                           Form::placeholder($column)
-                          ->attr($this->config['attributes']['inputs'][$type])
+                          ->attr(VIEWOBJECTS_DATAGRID_CONFIG['attributes']['inputs'][$type])
                           ->$type($tbl.':'.$column, $row->$column ?? NULL).
                           '</td></tr>';
             }
@@ -750,7 +752,7 @@ class InternalDBGrid extends Abstracts\GridAbstract
         }
         else
         {
-            throw new Exception($this->lang['noSearch']);
+            throw new Exception(VIEWOBJECTS_DBGRID_LANG['noSearch']);
         }
     }
 

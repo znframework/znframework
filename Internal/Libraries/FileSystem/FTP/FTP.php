@@ -1,8 +1,8 @@
 <?php namespace ZN\FileSystem;
 
-use Config, Converter, Exceptions, AbilityController;
+use Config, Converter, Exceptions, CLController;
 
-class InternalFTP extends AbilityController implements FTPInterface
+class InternalFTP extends CLController implements FTPInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -50,7 +50,7 @@ class InternalFTP extends AbilityController implements FTPInterface
         }
         else
         {
-            $config = $this->config;
+            $config = FILESYSTEM_FTP_CONFIG;
         }
 
         $this->_connect($config);

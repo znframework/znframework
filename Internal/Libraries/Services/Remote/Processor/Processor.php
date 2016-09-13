@@ -61,8 +61,8 @@ class InternalProcessor extends RemoteCommon implements ProcessorInterface
     public function __construct()
     {
         parent::__construct();
-        
-        $config       = $this->config;
+
+        $config       = SERVICES_PROCESSOR_CONFIG;
         $this->path   = $config['path'];
         $this->driver = $config['driver'];
     }

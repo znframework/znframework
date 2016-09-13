@@ -25,7 +25,7 @@ class MhashDriver extends CryptoMapping
 	public function encrypt($data, $settings)
 	{
 		$cipher = $settings['cipher'] ?? 'sha256';
-	 	$key    = $settings['key']    ?? $this->config['key'];
+	 	$key    = $settings['key']    ?? PROJECT_CONFIG['key'];
 		$cipher = Converter::toConstant($cipher, 'MHASH_');
 
 		return base64_encode(trim(mhash($cipher, $data, $key)));

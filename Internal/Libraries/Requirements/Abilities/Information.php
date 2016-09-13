@@ -1,6 +1,4 @@
-<?php namespace ZN\Requirements\Abilities;
-
-trait Information
+<?php trait InformationAbility
 {
     //--------------------------------------------------------------------------------------------------------
     // Error
@@ -93,5 +91,3 @@ trait Information
         return $this->error();
     }
 }
-
-class_alias('ZN\Requirements\Abilities\Information', 'InformationAbility');
