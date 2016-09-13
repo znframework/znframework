@@ -1,4 +1,7 @@
-<?php trait DriverAbility
+<?php
+use ZN\Requirements\Abilities\Exception\UndefinedDriverConstException;
+
+trait DriverAbility
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -43,7 +46,7 @@
 
         if( ! defined('static::driver') )
         {
-            return false;
+            throw new UndefinedDriverConstException('[const driver] is required to use the [Driver Ability]!');
         }
 
         nullCoalesce($driver, $this->config['driver']);

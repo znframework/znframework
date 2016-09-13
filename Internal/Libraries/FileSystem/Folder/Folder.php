@@ -1,6 +1,7 @@
 <?php namespace ZN\FileSystem;
 
-use File, Exceptions;
+use File;
+use ZN\FileSystem\Exception\FolderNotFoundException;
 
 class InternalFolder extends FileSystemCommon implements FolderInterface
 {
@@ -12,7 +13,7 @@ class InternalFolder extends FileSystemCommon implements FolderInterface
     // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Exists
     //--------------------------------------------------------------------------------------------------------
@@ -52,7 +53,7 @@ class InternalFolder extends FileSystemCommon implements FolderInterface
 
         return mkdir($file, $permission, $recursive);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // rename()
     //--------------------------------------------------------------------------------------------------------
@@ -66,12 +67,12 @@ class InternalFolder extends FileSystemCommon implements FolderInterface
 
         if( ! file_exists($oldName) )
         {
-            return Exceptions::throws('FileSystem', 'folder:notFoundError', $oldName);
+            throw new FolderNotFoundException($oldName);
         }
 
         return rename($oldName, $newName);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // deleteEmpty()
     //--------------------------------------------------------------------------------------------------------
@@ -90,7 +91,7 @@ class InternalFolder extends FileSystemCommon implements FolderInterface
 
         return rmdir($folder);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // delete()
     //--------------------------------------------------------------------------------------------------------
@@ -104,20 +105,20 @@ class InternalFolder extends FileSystemCommon implements FolderInterface
 
         if( is_file($name) )
         {
-            return unlink($name);    
+            return unlink($name);
         }
         else
         {
             if( ! $this->files($name) )
             {
                 return $this->deleteEmpty($name);
-            }   
+            }
             else
-            {           
+            {
                 for( $i = 0; $i < count($this->files($name)); $i++ )
                 {
                     foreach( $this->files($name) as $val )
-                    {                   
+                    {
                         $this->delete($name."/".$val);
                     }
                 }
@@ -126,7 +127,7 @@ class InternalFolder extends FileSystemCommon implements FolderInterface
             return $this->deleteEmpty($name);
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // fileInfo()
     //--------------------------------------------------------------------------------------------------------
@@ -141,11 +142,11 @@ class InternalFolder extends FileSystemCommon implements FolderInterface
         if( is_dir($dir) )
         {
             $files = $this->files($dir, $extension);
-            
+
             $dir = suffix($dir);
-            
+
             $filesInfo = [];
-            
+
             foreach( $files as $file )
             {
                 $filesInfo[$file]['basename']   = pathInfos($dir.$file, 'basename');
@@ -156,7 +157,7 @@ class InternalFolder extends FileSystemCommon implements FolderInterface
                 $filesInfo[$file]['executable'] = is_executable($dir.$file);
                 $filesInfo[$file]['permission'] = fileperms($dir.$file);
             }
-            
+
             return $filesInfo;
         }
         elseif( is_file($dir) )
@@ -165,10 +166,10 @@ class InternalFolder extends FileSystemCommon implements FolderInterface
         }
         else
         {
-            return Exceptions::throws('FileSystem', 'folder:notFoundError', $dir);
-        }   
+            throw new FolderNotFoundException($dir);
+        }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Copy()
     //--------------------------------------------------------------------------------------------------------
@@ -184,9 +185,9 @@ class InternalFolder extends FileSystemCommon implements FolderInterface
 
         if( ! file_exists($source) )
         {
-            return Exceptions::throws('FileSystem', 'folder:notFoundError', $source);
+            throw new FolderNotFoundException($source);
         }
-        
+
         if( is_dir($source) )
         {
             if( ! $this->files($source) )
@@ -194,48 +195,48 @@ class InternalFolder extends FileSystemCommon implements FolderInterface
                 return copy($source, $target);
             }
             else
-            {           
+            {
                 if( ! is_dir($target) && ! file_exists($target) )
                 {
                     $this->create($target);
                 }
-                
+
                 if( is_array($this->files($source)) ) foreach( $this->files($source) as $val )
                 {
                     $sourceDir = $source."/".$val;
                     $targetDir = $target."/".$val;
-                    
+
                     if( is_file($sourceDir) )
                     {
                         copy($sourceDir, $targetDir);
                     }
-                    
-                    $this->copy($sourceDir, $targetDir);
-                }   
 
-                return true;                        
-            }       
+                    $this->copy($sourceDir, $targetDir);
+                }
+
+                return true;
+            }
         }
         else
         {
-            return copy($source, $target);  
+            return copy($source, $target);
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // change()
     //--------------------------------------------------------------------------------------------------------
     //
     // PHP'nin aktif çalışma dizinini değiştirmek için kullanılır.
     //
-    //--------------------------------------------------------------------------------------------------------  
+    //--------------------------------------------------------------------------------------------------------
     public function change(String $name) : Bool
     {
         $name = $this->rpath($name);
 
         if( ! is_dir($name) )
         {
-            return Exceptions::throws('FileSystem', 'folder:notFoundError', $name);
+            throw new FolderNotFoundException($name);
         }
 
         return chdir($name);
@@ -249,7 +250,7 @@ class InternalFolder extends FileSystemCommon implements FolderInterface
     //
     // @return string
     //
-    //--------------------------------------------------------------------------------------------------------  
+    //--------------------------------------------------------------------------------------------------------
     public function basePath() : String
     {
         return getcwd();
@@ -264,14 +265,14 @@ class InternalFolder extends FileSystemCommon implements FolderInterface
     //
     // @return Float
     //
-    //--------------------------------------------------------------------------------------------------------  
+    //--------------------------------------------------------------------------------------------------------
     public function disk(String $dir, String $type = 'free') : Float
     {
         $dir = $this->rpath($dir);
 
         if( ! is_dir($dir) )
         {
-            return Exceptions::throws('FileSystem', 'folder:notFoundError', $dir);
+            throw new FolderNotFoundException($dir);
         }
 
         if( $type === 'free' )
@@ -300,7 +301,7 @@ class InternalFolder extends FileSystemCommon implements FolderInterface
 
         if( ! is_dir($path) )
         {
-            return Exceptions::throws('FileSystem', 'folder:notFoundError', $path);
+            throw new FolderNotFoundException($path);
         }
 
         if( is_array($extension) )
@@ -333,10 +334,10 @@ class InternalFolder extends FileSystemCommon implements FolderInterface
         if( $allFiles === true )
         {
             static $classes;
-        
+
             if( is_dir($pattern) )
             {
-                $pattern = suffix($pattern).'*'; 
+                $pattern = suffix($pattern).'*';
             }
 
             $files = glob($pattern);
@@ -353,31 +354,31 @@ class InternalFolder extends FileSystemCommon implements FolderInterface
                 {
                     $this->allFiles($v, $allFiles);
                 }
-            }   
-            
+            }
+
             return $classes;
         }
-        
-        if( strstr($pattern, '/') && strstr($pattern, '*') === false ) 
+
+        if( strstr($pattern, '/') && strstr($pattern, '*') === false )
         {
             $pattern .= "*";
         }
-        
-        if( strstr($pattern, '/') === false && strstr($pattern, '*') === false ) 
+
+        if( strstr($pattern, '/') === false && strstr($pattern, '*') === false )
         {
             $pattern .= "/*";
         }
 
         return glob($pattern);
-    }   
-    
+    }
+
     //--------------------------------------------------------------------------------------------------------
     // protected _files()
     //--------------------------------------------------------------------------------------------------------
     protected function _files($path, $extension, $pathType = false)
     {
         $files = [];
-        
+
         if( empty($path) )
         {
             $path = '.';
@@ -391,18 +392,18 @@ class InternalFolder extends FileSystemCommon implements FolderInterface
         {
             $prefixPath = '';
         }
-        
+
         $dir = opendir($path);
-        
+
         while( $file = readdir($dir) )
         {
             if( $file !== '.' && $file !== '..' )
-            {               
+            {
                 if( ! empty($extension) && $extension !== 'dir' )
                 {
                     if( extension($file) === $extension )
                     {
-                        $files[] = $prefixPath.$file;   
+                        $files[] = $prefixPath.$file;
                     }
                 }
                 else
@@ -411,7 +412,7 @@ class InternalFolder extends FileSystemCommon implements FolderInterface
                     {
                         if( is_dir(suffix($path).$file) )
                         {
-                            $files[] = $prefixPath.$file;   
+                            $files[] = $prefixPath.$file;
                         }
                     }
                     else
@@ -421,7 +422,7 @@ class InternalFolder extends FileSystemCommon implements FolderInterface
                 }
             }
         }
-        
+
         return $files;
-    }   
+    }
 }

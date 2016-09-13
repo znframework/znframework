@@ -20,7 +20,7 @@
     {
         if( ! defined('static::config') )
         {
-            return false;
+            throw new UndefinedConfigConstException('[const config] is required to use the [Config Ability]!');
         }
 
         $configs = static::config;

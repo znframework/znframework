@@ -1,6 +1,7 @@
 <?php namespace ZN\FileSystem;
 
-use Exceptions, CallController, File;
+use CallController, File;
+use ZN\FileSystem\Exception\FileNotFoundException;
 
 class InternalDownload extends CallController implements DownloadInterface
 {
@@ -12,7 +13,7 @@ class InternalDownload extends CallController implements DownloadInterface
     // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Start
     //--------------------------------------------------------------------------------------------------------
@@ -24,16 +25,16 @@ class InternalDownload extends CallController implements DownloadInterface
     {
         if( ! File::available($file) )
         {
-            return Exceptions::throws('FileSystem', 'file:notFoundError', $file);
+            throw new FileNotFoundException($file);
         }
-    
+
         $fileEx   = explode("/", $file);
         $fileName = $fileEx[count($fileEx) - 1];
         $filePath = trim($file, $fileName);
-        
+
         header("Content-type: application/x-download");
         header("Content-Disposition: attachment; filename=".$fileName);
-        
+
         readfile($filePath.$fileName);
-    }   
+    }
 }

@@ -1,6 +1,8 @@
 <?php namespace ZN\FileSystem;
 
-use ZipArchive, Folder, Exceptions;
+use ZipArchive, Folder;
+use ZN\FileSystem\Exception\FileNotFoundException;
+use ZN\FileSystem\Exception\FileAllreadyException;
 
 class InternalFile extends FileSystemCommon implements FileInterface
 {
@@ -120,7 +122,7 @@ class InternalFile extends FileSystemCommon implements FileInterface
             return touch($name);
         }
 
-        return Exceptions::throws('FileSystem', 'file:alreadyFileError', $name);
+        throw new FileAllreadyException($name);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -140,7 +142,7 @@ class InternalFile extends FileSystemCommon implements FileInterface
 
         if( ! is_file($file))
         {
-            return Exceptions::throws('FileSystem', 'file:notFoundError', $file);
+            throw new FileNotFoundException($file);
         }
 
         $contents = $this->read($file);
@@ -167,7 +169,7 @@ class InternalFile extends FileSystemCommon implements FileInterface
 
         if( ! is_file($name))
         {
-            return Exceptions::throws('FileSystem', 'file:notFoundError', $name);
+            throw new FileNotFoundException($name);
         }
         else
         {
@@ -188,7 +190,7 @@ class InternalFile extends FileSystemCommon implements FileInterface
 
         if( ! is_file($file) )
         {
-            return Exceptions::throws('FileSystem', 'file:notFoundError', $file);
+            throw new FileNotFoundException($file);
         }
 
         return (object)
@@ -218,7 +220,7 @@ class InternalFile extends FileSystemCommon implements FileInterface
 
         if( ! file_exists($file) )
         {
-            return Exceptions::throws('FileSystem', 'file:notFoundError', $file);
+            throw new FileNotFoundException($file);
         }
 
         $size      = 0;
@@ -284,7 +286,7 @@ class InternalFile extends FileSystemCommon implements FileInterface
 
         if( ! file_exists($file) )
         {
-            return Exceptions::throws('FileSystem', 'file:notFoundError', $file);
+            throw new FileNotFoundException($file);
         }
 
         $date = filectime($file);
@@ -307,7 +309,7 @@ class InternalFile extends FileSystemCommon implements FileInterface
 
         if( ! file_exists($file) )
         {
-            return Exceptions::throws('FileSystem', 'file:notFoundError', $file);
+            throw new FileNotFoundException($file);
         }
 
         $date = filemtime($file);
@@ -328,7 +330,7 @@ class InternalFile extends FileSystemCommon implements FileInterface
 
         if( ! file_exists($file) )
         {
-            return Exceptions::throws('FileSystem', 'file:notFoundError', $file);
+            throw new FileNotFoundException($file);
         }
 
         $owner = fileowner($file);
@@ -356,7 +358,7 @@ class InternalFile extends FileSystemCommon implements FileInterface
 
         if( ! file_exists($file) )
         {
-            return Exceptions::throws('FileSystem', 'file:notFoundError', $file);
+            throw new FileNotFoundException($file);
         }
 
         $group = filegroup($file);
@@ -388,7 +390,7 @@ class InternalFile extends FileSystemCommon implements FileInterface
 
         if( ! file_exists($source) )
         {
-            return Exceptions::throws('FileSystem', 'file:notFoundError', $source);
+            throw new FileNotFoundException($source);
         }
 
         if( empty($target) )
@@ -487,7 +489,7 @@ class InternalFile extends FileSystemCommon implements FileInterface
 
         if( ! file_exists($oldName) )
         {
-            return Exceptions::throws('FileSystem', 'file:notFoundError', $oldName);
+            throw new FileNotFoundException($oldName);
         }
 
         return rename($oldName, $newName);
@@ -530,7 +532,7 @@ class InternalFile extends FileSystemCommon implements FileInterface
 
         if( ! is_file($file) )
         {
-            return Exceptions::throws('FileSystem', 'file:notFoundError', $file);
+            throw new FileNotFoundException($file);
         }
 
         $fileOpen  = fopen($file, $mode);
@@ -553,7 +555,7 @@ class InternalFile extends FileSystemCommon implements FileInterface
 
         if( ! file_exists($file) )
         {
-            return Exceptions::throws('FileSystem', 'file:notFoundError', $file);
+            throw new FileNotFoundException($file);
         }
 
         if( is_file($file) )
@@ -611,7 +613,7 @@ class InternalFile extends FileSystemCommon implements FileInterface
 
         if( ! is_file($file) )
         {
-            return Exceptions::throws('FileSystem', 'file:notFoundError', $file);
+            throw new FileNotFoundException($file);
         }
 
         switch( $type )
