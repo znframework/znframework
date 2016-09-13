@@ -1,6 +1,7 @@
 <?php namespace ZN\Database;
 
-use URI, Pagination, Exceptions, Arrays, Classes;
+use URI, Pagination, Arrays, Classes;
+use ZN\Database\Exception\DuplicateCheckException;
 
 class InternalDB extends DatabaseCommon implements DBInterface
 {
@@ -1443,7 +1444,12 @@ class InternalDB extends DatabaseCommon implements DBInterface
             {
                 $this->duplicateCheck = NULL;
 
-                return Exceptions::throws('Database', 'duplicateCheckError', implode(',', $duplicateCheckColumn));
+                throw new DuplicateCheckException
+                (
+                    'Database',
+                    'duplicateCheckError',
+                    implode(',', $duplicateCheckColumn)
+                );
             }
         }
 

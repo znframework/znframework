@@ -58,11 +58,6 @@ class InternalCompress extends CLController implements CompressInterface
     //--------------------------------------------------------------------------------------------------------
     public function write(String $file, String $data) : Bool
     {
-        if( ! is_scalar($data) )
-        {
-            return Exceptions::throws('Error', 'valueParameter', '2.(data)');
-        }
-
         return $this->driver->write($file, $data);
     }
 

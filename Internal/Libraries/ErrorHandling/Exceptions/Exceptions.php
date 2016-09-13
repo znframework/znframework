@@ -59,7 +59,7 @@ class InternalExceptions extends Exception implements ExceptionsInterface
     //--------------------------------------------------------------------------------------------------------
     public function table(String $no = NULL, String $msg = NULL, String $file = NULL, String $line = NULL, Array $trace = NULL)
     {
-        $lang    = lang('Error');
+        $lang    = lang('Templates');
         $message = $lang['line'].':'.$line.', '.$lang['file'].':'.$file.', '.$lang['message'].':'.$msg;
 
         report('ExceptionError', $message, 'ExceptionError');

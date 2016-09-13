@@ -1,6 +1,7 @@
 <?php namespace ZN\Database;
 
-use Support, Exceptions, Arrays, Config;
+use Support, Arrays, Config;
+use ZN\Database\Exception\InvalidArgumentException;
 
 class DatabaseCommon implements DatabaseCommonInterface
 {
@@ -221,7 +222,7 @@ class DatabaseCommon implements DatabaseCommonInterface
         }
         else
         {
-            return Exceptions::throws('Error', 'invalidInput', 'connectName');
+            throw new InvalidArgumentException('Error', 'invalidInput', 'Mixed $connectName');
         }
 
         foreach( $config as $key => $val )

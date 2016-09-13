@@ -11,9 +11,12 @@
     //
     //----------------------------------------------------------------------------------------------------
 
-    'fatalError'       => 'Ölümcül hata!',
-    'runtimeError'     => 'Çalışma zamanı hatası!',
-    'fileNotFound'     => 'Hata: `%` dosyasi bulunamadi!',
-    'folderNotFound'   => 'Hata: `%` dizini bulunamadi!',
-    'fileAllready'     => '`%` dosyası zaten var!',
+    'fileNotFound'          => 'Hata: `%` dosyasi bulunamadi!',
+    'folderNotFound'        => 'Hata: `%` dizini bulunamadi!',
+    'fileAllready'          => '`%` dosyası zaten var!',
+    'folderAllready'        => '`%` dizini zaten var!',
+    'folderChangeDir'       => '`%` çalışma dizini olarak değiştirilemiyor!',
+    'folderChangeName'      => '`%` dosyasının adı değiştirilemiyor!',
+    'fileRemoteUpload'      => '`%` dosyası sunucuya yüklenemiyor!',
+    'fileRemoteDownload'    => '`%` dosyası sunucudan indirilemiyor!',
 ];

@@ -1,6 +1,7 @@
 <?php namespace ZN\CryptoGraphy;
 
 use Exceptions, CLController;
+use ZN\CryptoGraphy\Exception\InvalidArgumentException;
 
 class InternalEncode extends CLController implements EncodeInterface
 {
@@ -133,7 +134,7 @@ class InternalEncode extends CLController implements EncodeInterface
 
         if( ! isHash($type) && ! in_array($type, $algos) )
         {
-            return Exceptions::throws('Error', 'hashParameter', '2.(type)');
+            throw new InvalidArgumentException('Error', 'hashParameter', 'String $type');
         }
 
         if( in_array($type, $algos) )

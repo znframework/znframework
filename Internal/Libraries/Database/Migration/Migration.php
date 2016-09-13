@@ -1,7 +1,10 @@
 <?php namespace ZN\Database;
 
+use DB, DBForge, Config, Folder, File, Date;
+use ZN\Database\Exception\DatabaseErrorException;
+
 class InternalMigration extends \CallController implements MigrationInterface
-{   
+{
     //--------------------------------------------------------------------------------------------------------
     //
     // Author     : Ozan UYKUN <ozanbote@gmail.com>
@@ -10,176 +13,176 @@ class InternalMigration extends \CallController implements MigrationInterface
     // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Migration Path
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @var string -- Application/Model/Migrations/
     //
     //--------------------------------------------------------------------------------------------------------
-    private $path;  
-    
+    private $path;
+
     //--------------------------------------------------------------------------------------------------------
     // Config
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @var array
     //
     //--------------------------------------------------------------------------------------------------------
     private $config;
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Class Fix
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @var string -- Migrate
     //
     //--------------------------------------------------------------------------------------------------------
     private $classFix;
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Extends Fix
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @var string -- Migration
     //
     //--------------------------------------------------------------------------------------------------------
     private $extendsFix;
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Table
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @var string
     //
     //--------------------------------------------------------------------------------------------------------
     private $tbl;
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Version
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @var string
     //
     //--------------------------------------------------------------------------------------------------------
     private $versionDir = 'Version/';
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Construct
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
-        $this->config = \Config::get('Database', 'migration');
+        $this->config = Config::get('Database', 'migration');
         $this->path   = MODELS_DIR.'Migrations/';
-        
+
         if( ! is_dir($this->path) )
         {
-            \Folder::create($this->path, 0755);    
+            Folder::create($this->path, 0755);
         }
-        
+
         $this->tbl = defined('static::table')
-                   ? static::table 
+                   ? static::table
                    : false;
-        
+
         $this->_create();
-        
+
         $this->classFix   = INTERNAL_ACCESS.'Migrate';
         $this->extendsFix = __CLASS__;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Create Table
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param array $data
     //
     //--------------------------------------------------------------------------------------------------------
     public function createTable(Array $data) : Bool
     {
-        if( \DBForge::createTable($this->_tableName(), $data) )
+        if( DBForge::createTable($this->_tableName(), $data) )
         {
-            return $this->_action(__FUNCTION__);    
-        }   
-        else
-        {
-            return false;   
+            return $this->_action(__FUNCTION__);
         }
-    }
-    
-    //--------------------------------------------------------------------------------------------------------
-    // Drop Table
-    //--------------------------------------------------------------------------------------------------------
-    // 
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function dropTable() : Bool
-    {
-        if( \DBForge::dropTable($this->_tableName()) )
-        {
-            return $this->_action(__FUNCTION__);    
-        }   
         else
         {
             return false;
         }
     }
-    
+
+    //--------------------------------------------------------------------------------------------------------
+    // Drop Table
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function dropTable() : Bool
+    {
+        if( DBForge::dropTable($this->_tableName()) )
+        {
+            return $this->_action(__FUNCTION__);
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     //--------------------------------------------------------------------------------------------------------
     // Add Column
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param array $column
     //
     //--------------------------------------------------------------------------------------------------------
     public function addColumn(Array $column) : Bool
     {
-        if( \DBForge::addColumn($this->_tableName(), $column) ) 
+        if( DBForge::addColumn($this->_tableName(), $column) )
         {
-            return $this->_action(__FUNCTION__);    
+            return $this->_action(__FUNCTION__);
         }
         else
         {
-            return false;   
+            return false;
         }
     }
 
     //--------------------------------------------------------------------------------------------------------
     // Drop Column
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param array $column
     //
     //--------------------------------------------------------------------------------------------------------
     public function dropColumn($column) : Bool
     {
-        if( \DBForge::dropColumn($this->_tableName(), $column) )
+        if( DBForge::dropColumn($this->_tableName(), $column) )
         {
-            return $this->_action(__FUNCTION__);    
+            return $this->_action(__FUNCTION__);
         }
         else
         {
-            return \Exceptions::throws(\DBForge::error(), true);    
+            throw new DatabaseErrorException(DBForge::error());
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Modify Column
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param array $columns
     //
     //--------------------------------------------------------------------------------------------------------
     public function modifyColumn(Array $column) : Bool
     {
-        if( \DBForge::modifyColumn($this->_tableName(), $column) )
+        if( DBForge::modifyColumn($this->_tableName(), $column) )
         {
-            return $this->_action(__FUNCTION__);    
+            return $this->_action(__FUNCTION__);
         }
         else
         {
@@ -190,59 +193,59 @@ class InternalMigration extends \CallController implements MigrationInterface
     //--------------------------------------------------------------------------------------------------------
     // Rename Column
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param array $columns
     //
     //--------------------------------------------------------------------------------------------------------
     public function renameColumn(Array $column) : Bool
     {
-        if( \DBForge::renameColumn($this->_tableName(), $column) )
+        if( DBForge::renameColumn($this->_tableName(), $column) )
         {
-            return $this->_action(__FUNCTION__);    
+            return $this->_action(__FUNCTION__);
         }
         else
         {
             return false;
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Truncate
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
     public function truncate() : Bool
     {
-        if( \DBForge::truncate($this->_tableName()) )   
+        if( DBForge::truncate($this->_tableName()) )
         {
-            return $this->_action(__FUNCTION__);    
+            return $this->_action(__FUNCTION__);
         }
         else
         {
-            return false;   
+            return false;
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Path
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string path: NULL
     //
     //--------------------------------------------------------------------------------------------------------
     public function path(String $path = NULL) : InternalMigration
     {
         $this->path = suffix($path);
-        
+
         return $this;
     }
 
     //--------------------------------------------------------------------------------------------------------
     // Create
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $name -- Migrasyon Adı
     //
     //--------------------------------------------------------------------------------------------------------
@@ -251,22 +254,22 @@ class InternalMigration extends \CallController implements MigrationInterface
         if( $version = $this->_version($ver) )
         {
             $dir  = $this->path.$name.$this->versionDir;
-            
-            if( ! \Folder::exists($dir) )
+
+            if( ! Folder::exists($dir) )
             {
-                \Folder::create($dir);
+                Folder::create($dir);
             }
-            
+
             $file = $dir.suffix($version, '.php');
-            $name = $name.$version; 
+            $name = $name.$version;
         }
         else
         {
             $file = $this->path.suffix($name, '.php');
         }
-        
-        if( ! \File::exists($file) )
-        {   
+
+        if( ! File::exists($file) )
+        {
             $eol  = EOL;
             $str  = '<?php'.$eol;
             $str .= 'class '.$this->classFix.$name.' extends '.$this->extendsFix.$eol;
@@ -291,19 +294,19 @@ class InternalMigration extends \CallController implements MigrationInterface
             $str .= "\t\t".'$this->dropTable(); // Varsayılan işlem.'.$eol;
             $str .= "\t".'}'.$eol;
             $str .= '}';
-        
-            return \File::write($file, $str);
+
+            return File::write($file, $str);
         }
         else
         {
-            return false;   
+            return false;
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Delete
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string  $name
     // @param numeric $version
     //
@@ -314,24 +317,24 @@ class InternalMigration extends \CallController implements MigrationInterface
         {
             $dir  = $this->path.$name.$this->versionDir;
             $file = $dir.suffix($version, '.php');
-            
+
             if( $ver === 'all' && is_dir($this->path.$name.$this->versionDir) )
             {
-                \Folder::delete($this->path.$name.$this->versionDir);   
+                Folder::delete($this->path.$name.$this->versionDir);
             }
         }
         else
         {
             $file = $this->path.suffix($name, '.php');
         }
-        
-        return \File::delete($file);
+
+        return File::delete($file);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Delete All
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
@@ -339,18 +342,18 @@ class InternalMigration extends \CallController implements MigrationInterface
     {
         if( is_dir($this->path) )
         {
-            return \Folder::delete($this->path);    
+            return Folder::delete($this->path);
         }
         else
         {
-            return false;   
+            return false;
         }
     }
 
     //--------------------------------------------------------------------------------------------------------
     // Version
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param numeric $numeric
     //
     //--------------------------------------------------------------------------------------------------------
@@ -358,25 +361,25 @@ class InternalMigration extends \CallController implements MigrationInterface
     {
         if( empty($this->tbl) )
         {
-            return false;   
+            return false;
         }
-        
+
         $name = $this->classFix.$this->_tableName();
-        
+
         if( $version <= 0 )
         {
-            return uselib($name);   
+            return uselib($name);
         }
-        
+
         $name .= $this->_version($version);
-        
-        return uselib($name);   
+
+        return uselib($name);
     }
 
     //--------------------------------------------------------------------------------------------------------
     // Action
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
@@ -386,88 +389,94 @@ class InternalMigration extends \CallController implements MigrationInterface
         {
             $type = 'noAction';
         }
-        
+
         $table   = $this->_tableName();
         $version = $this->_getVersion();
-        
-        return \DB::insert($this->config['table'], ['name' => $table, 'type' => $type, 'version' => $version, 'date' => \Date::set('Ymdhis')]);
+
+        return DB::insert($this->config['table'],
+        [
+            'name'    => $table,
+            'type'    => $type,
+            'version' => $version,
+            'date'    => Date::set('Ymdhis')
+        ]);
     }
 
     //--------------------------------------------------------------------------------------------------------
     // Migrations Table Create
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
     protected function _create()
     {
         $table   = $this->config['table'];
-        
-        \DBForge::createTable('IF NOT EXISTS '.$table, array
+
+        DBForge::createTable('IF NOT EXISTS '.$table, array
         (
-            'name'    => [\DB::varchar(512), \DB::notNull()],
-            'type'    => [\DB::varchar(256), \DB::notNull()],
-            'version' => [\DB::varchar(3),   \DB::notNull()],
-            'date'    => [\DB::varchar(15),  \DB::notNull()]
+            'name'    => [DB::varchar(512), DB::notNull()],
+            'type'    => [DB::varchar(256), DB::notNull()],
+            'version' => [DB::varchar(3),   DB::notNull()],
+            'date'    => [DB::varchar(15),  DB::notNull()]
         ));
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Table Name
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
     protected function _tableName()
     {
         $table = preg_replace('/[0-9][0-9][0-9]/', '', $this->tbl);
-        
-        return str_replace($this->classFix, '', $table);    
+
+        return str_replace($this->classFix, '', $table);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Get Version
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
     protected function _getVersion()
     {
         preg_match('(\w+([0-9][0-9][0-9]))', $this->tbl, $match);
-        
+
         return isset( $match[1] ) ? $match[1] : '000';
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Version
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param numeric $numeric
     //
     //--------------------------------------------------------------------------------------------------------
     protected function _version($numeric)
     {
         $length = strlen((string)$numeric);
-        
+
         if( (int)$numeric > 999 || (int)$numeric < 0 )
         {
             return false;
         }
-    
+
         switch( $length )
         {
             case 1 : $numeric = '00'.$numeric; break;
-            case 2 : $numeric = '0'.$numeric;  break;   
+            case 2 : $numeric = '0'.$numeric;  break;
         }
-        
+
         if( $numeric === '000' )
         {
-            return false;   
+            return false;
         }
-        
+
         return $numeric;
     }
 }

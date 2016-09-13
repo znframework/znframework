@@ -12,11 +12,11 @@ class InternalStrings extends CallController implements StringsInterface
     // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
-    
+
     //--------------------------------------------------------------------------------------------------------
     // mtrim
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $str
     //
     //--------------------------------------------------------------------------------------------------------
@@ -24,32 +24,32 @@ class InternalStrings extends CallController implements StringsInterface
     {
         $str = preg_replace
         (
-            ['/\s+/', '/&nbsp;/', "/\n/", "/\r/", "/\t/"], 
-            ['', '', '', '', ''], 
+            ['/\s+/', '/&nbsp;/', "/\n/", "/\r/", "/\t/"],
+            ['', '', '', '', ''],
             $str
         );
-        
+
         return $str;
-    }   
+    }
 
     //--------------------------------------------------------------------------------------------------------
     // Trim Slashes
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $str
     //
     //--------------------------------------------------------------------------------------------------------
     public function trimSlashes(String $str) : String
     {
         $str = trim($str, "/");
-        
+
         return $str;
-    }   
-    
+    }
+
     //--------------------------------------------------------------------------------------------------------
     // Casing
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $str
     // @param string $type lower, upper, title
     // @param string $encoding
@@ -63,7 +63,7 @@ class InternalStrings extends CallController implements StringsInterface
     //--------------------------------------------------------------------------------------------------------
     // Upper Case
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $str
     // @param string $encoding
     //
@@ -71,14 +71,14 @@ class InternalStrings extends CallController implements StringsInterface
     public function upperCase(String $str, String $encoding = 'utf-8') : String
     {
         $str = mb_convert_case($str, MB_CASE_UPPER, $encoding);
-        
+
         return $str;
-    }   
+    }
 
     //--------------------------------------------------------------------------------------------------------
     // Lower Case
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $str
     // @param string $encoding
     //
@@ -86,14 +86,14 @@ class InternalStrings extends CallController implements StringsInterface
     public function lowerCase(String $str, String $encoding = 'utf-8') : String
     {
         $str = mb_convert_case($str, MB_CASE_LOWER, $encoding);
-        
+
         return $str;
-    }   
+    }
 
     //--------------------------------------------------------------------------------------------------------
     // Title Case
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $str
     // @param string $encoding
     //
@@ -101,44 +101,44 @@ class InternalStrings extends CallController implements StringsInterface
     public function titleCase(String $str, String $encoding = 'utf-8') : String
     {
         $str = mb_convert_case($str, MB_CASE_TITLE, $encoding);
-        
+
         return $str;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Camel Case
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $str
     //
     //--------------------------------------------------------------------------------------------------------
     public function camelCase(String $str) : String
     {
         $string = $this->titleCase($str);
-        
+
         $string[0] = $this->lowerCase($string);
-        
+
         return $this->mtrim($string);
-    }   
-    
+    }
+
     //--------------------------------------------------------------------------------------------------------
     // Pascal Case
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $str
     //
     //--------------------------------------------------------------------------------------------------------
     public function pascalCase(String $str) : String
     {
         $string = $this->titleCase($str);
-        
+
         return $this->mtrim($string);
     }
 
     //--------------------------------------------------------------------------------------------------------
     // Section
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $str
     // @param int    $starting
     // @param int    $count
@@ -148,12 +148,12 @@ class InternalStrings extends CallController implements StringsInterface
     public function section(String $str, Int $starting = 0, Int $count = NULL, String $encoding = 'utf-8') : String
     {
         return mb_substr($str, $starting, $count, $encoding);
-    }   
+    }
 
     //--------------------------------------------------------------------------------------------------------
     // Search
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $str
     // @param string $needle
     // @param string $type
@@ -185,12 +185,12 @@ class InternalStrings extends CallController implements StringsInterface
                 return mb_stripos($str, $needle);
             }
         }
-    }   
+    }
 
     //--------------------------------------------------------------------------------------------------------
     // Reshuffle
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $str
     // @param string $shuffle
     // @param string $reshuffle
@@ -199,21 +199,21 @@ class InternalStrings extends CallController implements StringsInterface
     public function reshuffle(String $str, String $shuffle, String $reshuffle) : String
     {
         $shuffleEx = explode($shuffle, $str);
-        
+
         $newstr = '';
-        
+
         foreach( $shuffleEx as $v )
         {
-            $newstr .=  str_replace($reshuffle, $shuffle, $v).$reshuffle;   
-        } 
-        
+            $newstr .=  str_replace($reshuffle, $shuffle, $v).$reshuffle;
+        }
+
         return substr($newstr, 0, -strlen($reshuffle));
-    }   
+    }
 
     //--------------------------------------------------------------------------------------------------------
     // Recurrent Count
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $str
     // @param string $char
     //
@@ -221,12 +221,12 @@ class InternalStrings extends CallController implements StringsInterface
     public function recurrentCount(String $str, String $char) : Int
     {
         return count(explode($char, $str)) - 1;
-    }   
+    }
 
     //--------------------------------------------------------------------------------------------------------
     // Placement
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $str
     // @param string $delimiter
     // @param array  $array
@@ -234,11 +234,6 @@ class InternalStrings extends CallController implements StringsInterface
     //--------------------------------------------------------------------------------------------------------
     public function placement(String $str, String $delimiter, Array $array) : String
     {
-        if( ! is_array($array) ) 
-        {
-            return Exceptions::throws('Error', 'arrayParameter', '3.(array)');
-        }
-        
         if( ! empty($delimiter) )
         {
             $strex = explode($delimiter, $str);
@@ -247,26 +242,26 @@ class InternalStrings extends CallController implements StringsInterface
         {
             return $str;
         }
-        
+
         if( (count($strex) - 1) !== count($array) )
         {
             return $str;
         }
-        
+
         $newstr = '';
-        
+
         for($i = 0; $i < count($array); $i++)
         {
             $newstr .= $strex[$i].$array[$i];
         }
-    
+
         return $newstr.$strex[count($array)];
-    }   
-    
+    }
+
     //--------------------------------------------------------------------------------------------------------
     // Replace
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $str
     // @param string $delimiter
     // @param array  $array
@@ -283,11 +278,11 @@ class InternalStrings extends CallController implements StringsInterface
             return str_ireplace($oldChar, $newChar, $string);
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // To Array
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $string
     // @param string $split
     //
@@ -296,11 +291,11 @@ class InternalStrings extends CallController implements StringsInterface
     {
         return explode($split, $string);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // To Char
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param int $ascii
     //
     //--------------------------------------------------------------------------------------------------------
@@ -308,11 +303,11 @@ class InternalStrings extends CallController implements StringsInterface
     {
         return chr($ascii);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // To Ascii
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $str
     //
     //--------------------------------------------------------------------------------------------------------
@@ -320,11 +315,11 @@ class InternalStrings extends CallController implements StringsInterface
     {
         return ord($string);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Add Slashes
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $str
     // @param string $addDifferentChars
     //
@@ -332,19 +327,19 @@ class InternalStrings extends CallController implements StringsInterface
     public function addSlashes(String $string, String $addDifferentChars = NULL) : String
     {
         $return = addslashes($string);
-        
+
         if( ! empty($addDifferentChars) )
         {
             $return = addcslashes($return, $addDifferentChars);
         }
-        
+
         return $return;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Remove Slashes
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $str
     //
     //--------------------------------------------------------------------------------------------------------
@@ -352,11 +347,11 @@ class InternalStrings extends CallController implements StringsInterface
     {
         return stripslashes(stripcslashes($string));
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Length
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $str
     // @param string $encoding
     //
@@ -365,24 +360,24 @@ class InternalStrings extends CallController implements StringsInterface
     {
         return mb_strlen($string, $encoding);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Encode
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $str
     // @param string $salt
     //
     //--------------------------------------------------------------------------------------------------------
-    public function encode(String $string, String $salt) : String 
+    public function encode(String $string, String $salt) : String
     {
         return crypt($string, $salt);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Repeat
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $str
     // @param numeric $count
     //
@@ -391,11 +386,11 @@ class InternalStrings extends CallController implements StringsInterface
     {
         return str_repeat($string, $count);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Pad
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $str
     // @param numeric $count
     // @param string  $chars
@@ -406,11 +401,11 @@ class InternalStrings extends CallController implements StringsInterface
     {
         return str_pad($string, $count, $chars, Converter::toConstant($type, 'STR_PAD_'));
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Apportion
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string  $string
     // @param numeric $length
     // @param string  $end
@@ -419,21 +414,21 @@ class InternalStrings extends CallController implements StringsInterface
     public function apportion(String $string, Int $length = 76, String $end = "\r\n") : String
     {
         $arrayChunk = array_chunk(preg_split("//u", $string, -1, PREG_SPLIT_NO_EMPTY), $length);
-    
+
         $string = "";
-        
-        foreach( $arrayChunk as $chunk ) 
+
+        foreach( $arrayChunk as $chunk )
         {
             $string .= implode("", $chunk) . $end;
         }
-        
+
         return $string;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Divide
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string  $string
     // @param string  $seperator
     // @param numeric $index
@@ -443,11 +438,11 @@ class InternalStrings extends CallController implements StringsInterface
     {
         return divide($str, $separator, $index);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Translation Table
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param numeric $table
     // @param numeric $quote
     //

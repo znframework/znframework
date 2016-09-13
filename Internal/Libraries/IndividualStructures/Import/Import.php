@@ -974,11 +974,6 @@ class InternalImport implements ImportInterface
 
         $this->parameters = [];
 
-        if( ! is_string($randomPageVariable) )
-        {
-            return Exceptions::throws('Error', 'stringParameter', 'randomPageVariable');
-        }
-
         if( ! extension($randomPageVariable) || stristr($randomPageVariable, $this->templateWizardExtension) )
         {
             $randomPageVariable = suffix($randomPageVariable, '.php');
@@ -1127,11 +1122,6 @@ class InternalImport implements ImportInterface
     //--------------------------------------------------------------------------------------------------------
     protected function _package($packages, $recursive, $getContents)
     {
-        if( ! is_string($packages)  )
-        {
-            return Exceptions::throws('Error', 'stringParameter', 'packages');
-        }
-
         if( ! empty($this->parameters['usable']) )
         {
             $getContents = $this->parameters['usable'];

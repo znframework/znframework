@@ -268,7 +268,7 @@ else
     //----------------------------------------------------------------------------------------------
     if(  Config::get('General', 'log')['createFile'] === true && $errorLast = Errors::last() )
     {
-        $lang    = lang('Error');
+        $lang    = lang('Templates');
         $message = $lang['line']   .':'.$errorLast['line'].', '.
                    $lang['file']   .':'.$errorLast['file'].', '.
                    $lang['message'].':'.$errorLast['message'];

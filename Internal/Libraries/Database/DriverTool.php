@@ -1,6 +1,7 @@
 <?php namespace ZN\Database;
 
-use DB, Exceptions, File, Folder;
+use DB, File, Folder;
+use ZN\FileSystem\Exception\IOException;
 
 class DriverTool extends DatabaseCommon
 {
@@ -26,14 +27,14 @@ class DriverTool extends DatabaseCommon
     public function listDatabases()
     {
         $result = DB::query('SHOW DATABASES')->result();
-        
-        if( DB::error() ) 
+
+        if( DB::error() )
         {
             return [];
         }
-        
+
         $newDatabases = [];
-        
+
         foreach( $result as $databases )
         {
             foreach ($databases as $db => $database)
@@ -41,7 +42,7 @@ class DriverTool extends DatabaseCommon
                 $newDatabases[] = $database;
             }
         }
-        
+
         return $newDatabases;
     }
 
@@ -58,14 +59,14 @@ class DriverTool extends DatabaseCommon
     public function listTables()
     {
         $result = DB::query('SHOW TABLES')->result();
-        
-        if( DB::error() ) 
+
+        if( DB::error() )
         {
             return [];
         }
-        
+
         $newTables = [];
-        
+
         foreach( $result as $tables )
         {
             foreach( $tables as $tb => $table )
@@ -73,7 +74,7 @@ class DriverTool extends DatabaseCommon
                 $newTables[] = $table;
             }
         }
-        
+
         return $newTables;
     }
 
@@ -112,7 +113,7 @@ class DriverTool extends DatabaseCommon
 
         return $infos;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Optimize Tables
     //--------------------------------------------------------------------------------------------------------
@@ -126,7 +127,7 @@ class DriverTool extends DatabaseCommon
     public function optimizeTables($table)
     {
         $result = DB::query("SHOW TABLES")->result();
-        
+
         if( $table === '*' )
         {
             foreach( $result as $tables )
@@ -136,8 +137,8 @@ class DriverTool extends DatabaseCommon
                     DB::query("OPTIMIZE TABLE ".$tableName);
                 }
             }
-            
-            if( DB::error() ) 
+
+            if( DB::error() )
             {
                 return false;
             }
@@ -147,21 +148,21 @@ class DriverTool extends DatabaseCommon
             $tables = is_array($table)
                     ? $table
                     : explode(',',$table);
-            
+
             foreach( $tables as $tableName )
             {
                 DB::query("OPTIMIZE TABLE ".$this->prefix.$tableName);
             }
-                
-            if( DB::error() ) 
+
+            if( DB::error() )
             {
                 return false;
             }
         }
-    
+
         return lang('Database', 'optimizeTablesSuccess');
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Repair Tables
     //--------------------------------------------------------------------------------------------------------
@@ -175,7 +176,7 @@ class DriverTool extends DatabaseCommon
     public function repairTables($table)
     {
         $result = DB::query("SHOW TABLES")->result();
-        
+
         if( $table === '*' )
         {
             foreach( $result as $tables )
@@ -185,29 +186,29 @@ class DriverTool extends DatabaseCommon
                     DB::query("REPAIR TABLE ".$tableName);
                 }
             }
-            
-            if( DB::error() ) 
+
+            if( DB::error() )
             {
                 return false;
             }
         }
         else
-        {   
+        {
             $tables = is_array($table)
                     ? $table
                     : explode(',',$table);
-            
+
             foreach( $tables as $tableName )
             {
                 DB::query("REPAIR TABLE  ".$this->prefix.$tableName);
             }
-            
-            if( DB::error() ) 
+
+            if( DB::error() )
             {
                 return false;
             }
         }
-                
+
         return lang('Database', 'repairTablesSuccess');
     }
 
@@ -224,20 +225,20 @@ class DriverTool extends DatabaseCommon
     //
     //--------------------------------------------------------------------------------------------------------
     public function backup($tables, $fileName, $path)
-    {       
+    {
         if( $path === STORAGE_DIR )
         {
             $path .= 'DatabaseBackup';
         }
-        
+
         $eol = EOL;
-        
+
         if( $tables === '*' )
         {
             $tables = [];
-            
+
             $fetchRow = DB::query('SHOW TABLES')->fetchRow();
-            
+
             while( $row = $fetchRow )
             {
                 $tables[] = $row[0];
@@ -245,70 +246,70 @@ class DriverTool extends DatabaseCommon
         }
         else
         {
-            $tables = ( is_array($tables) ) 
-                      ? $tables 
+            $tables = ( is_array($tables) )
+                      ? $tables
                       : explode(',',$tables);
         }
-        
+
         $return = NULL;
-        
+
         foreach( $tables as $table )
         {
             if( ! empty($this->prefix) && ! strstr($table, $this->prefix) )
             {
                 $table = $this->prefix.$table;
             }
-            
+
             $return.= 'DROP TABLE IF EXISTS '.$table.';';
-            
+
             $fetchRow = DB::query('SHOW CREATE TABLE '.$table)->fetchRow();
-        
+
             $fetchResult = DB::query('SELECT * FROM '.$table)->result();
-        
+
             $return.= $eol.$eol.$fetchRow[1].";".$eol.$eol;
-        
-            if( ! empty($fetchResult) ) foreach( $fetchResult as $row ) 
+
+            if( ! empty($fetchResult) ) foreach( $fetchResult as $row )
             {
                 $return.= 'INSERT INTO '.$table.' VALUES(';
-                
+
                 foreach( $row as $k => $v )
                 {
                     $v  = DB::realEscapeString($v);
                     $v  = preg_replace("/\n/","\\n", $v );
-                    
-                    if ( isset($v) ) 
-                    { 
-                        $return.= '"'.$v .'", ' ; 
-                    } 
-                    else 
-                    { 
-                        $return.= '"", '; 
+
+                    if ( isset($v) )
+                    {
+                        $return.= '"'.$v .'", ' ;
+                    }
+                    else
+                    {
+                        $return.= '"", ';
                     }
                 }
-                
+
                 $return = rtrim(trim($return), ', ');
-            
-                $return.= ");".$eol;    
+
+                $return.= ");".$eol;
             }
-            
+
             $return .= $eol.$eol.$eol;
         }
-        
-        if( empty($fileName) ) 
-        { 
+
+        if( empty($fileName) )
+        {
             $fileName = 'db-backup-'.time().'-'.(md5(implode(',',$tables))).'.sql';
         }
-        
+
         if( ! Folder::exists($path) )
         {
-            Folder::create($path);   
+            Folder::create($path);
         }
-        
+
         if( ! File::write(suffix($path).$fileName, $return) )
         {
-            return Exceptions::throws('Error', 'fileNotWrite', $path.$fileName);
+            throw new IOException('Error', 'fileNotWrite', $path.$fileName);
         }
-        
+
         return lang('Database', 'backupTablesSuccess');
     }
 }

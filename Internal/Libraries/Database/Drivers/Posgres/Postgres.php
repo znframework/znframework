@@ -118,7 +118,7 @@ class PostgresDriver extends DriverConnectionMappingAbstract
 
         if( empty($this->connect) )
         {
-            die(getErrorMessage('Database', 'mysqlConnectError'));
+            die(getErrorMessage('Database', 'connectError'));
         }
 
         if( ! empty($this->config['charset']) )

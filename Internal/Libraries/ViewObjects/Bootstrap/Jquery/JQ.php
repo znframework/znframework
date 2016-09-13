@@ -91,13 +91,8 @@ class InternalJQ extends CallController
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function property($property = '', $params = [], $comma = false)
+    public function property(String $property, $params = [], $comma = false)
     {
-        if( ! is_string($property) || empty($property) )
-        {
-            return \Exceptions::throws('Error', 'stringParameter', 'property');
-        }
-
         return ".$property(". $this->_params($params).")".($comma === true ? ";" : "");
     }
 

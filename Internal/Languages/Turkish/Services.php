@@ -36,19 +36,12 @@
     // Email Lang Words
     //
     //----------------------------------------------------------------------------------------------------
-    'email:mustBeArray'             => 'E-posta dizi bilgisi içermelidir!',
-    'email:invalidAddress'          => 'Gönderilmedi! % e-posta adresi geçersiz!',
     'email:noSend'                  => 'E-posta gönderilmedi!',
     'email:attachmentMissing'       => 'E-posta eki eksik!',
     'email:attachmentUnreadable'    => 'E-posta eki okunamıyor!',
     'email:noFrom'                  => 'Kimden bilgisi belirtmeden e-posta gönderilemez!',
-    'email:noReceivers'             => 'Cc veya Bcc, için: Alıcıları içermelidir.',
-    'email:sendFailurePhpmail'      => 'E-posta kullanarak PHP posta göndermek için açılamıyor ()! Sunucunuz bu yöntemi kullanarak posta göndermek için yapılandırılmamış olabilir!',
     'email:sendFailureSendmail'     => 'PHP Sendmail kullanarak e-posta göndermek için açılamıyor! Sunucunuz bu yöntemi kullanarak posta göndermek için yapılandırılmamış olabilir!',
-    'email:sendFailureSmtp'         => 'PHP SMTP kullanarak e-posta göndermek için açılamıyor! Sunucunuz bu yöntemi kullanarak posta göndermek için yapılandırılmamış olabilir!',
-    'email:sent'                    => 'Mesajını başarı ile gönderildi.',
     'email:noSocket'                => 'E-posta gönderimi için bir yuva açılamıyor! Ayarlarınızı kontrol edin!',
-    'email:noHostName'              => 'Bir SMTP sunucu ismi belirtilmedi!',
     'email:smtpError'               => 'Aşağıdaki SMTP hatası ile karşılaşıldı: %',
     'email:noSmtpUnpassword'        => 'Hata: Bir SMTP kullanıcı adı ve şifre atamanız gerekir!',
     'email:failedSmtpLogin'         => 'AUTH LOGIN komutunu gönderilemedi! Hata: %',

@@ -1,6 +1,12 @@
 <?php namespace ZN\Services\Remote;
 
 use Support, Exceptions, CLController;
+use ZN\FileSystem\Exception\FileNotFoundException;
+use ZN\FileSystem\Exception\FileRemoteUploadException;
+use ZN\FileSystem\Exception\FileRemoteDownloadException;
+use ZN\FileSystem\Exception\FolderChangeNameException;
+use ZN\FileSystem\Exception\FolderNotFoundException;
+use ZN\FileSystem\Exception\FolderAllreadyException;
 
 class InternalSSH extends CLController implements SSHInterface
 {
@@ -157,7 +163,7 @@ class InternalSSH extends CLController implements SSHInterface
         }
         else
         {
-            return Exceptions::throws('FileSystem', 'file:remoteUploadError', $localPath);
+            throw new FileRemoteUploadException($localPath);
         }
     }
 
@@ -177,7 +183,7 @@ class InternalSSH extends CLController implements SSHInterface
         }
         else
         {
-            return Exceptions::throws('FileSystem', 'file:remoteDownloadError', $localPath);
+            throw new FileRemoteDownloadException($localPath);
         }
     }
 
@@ -196,7 +202,7 @@ class InternalSSH extends CLController implements SSHInterface
         }
         else
         {
-            return Exceptions::throws('FileSystem', 'folder:alreadyFileError', $path);
+            throw new FolderAllreadyException($path);
         }
     }
 
@@ -215,7 +221,7 @@ class InternalSSH extends CLController implements SSHInterface
         }
         else
         {
-            return Exceptions::throws('FileSystem', 'folder:notFoundError', $path);
+            throw new FolderNotFoundException($path);
         }
 
     }
@@ -236,7 +242,7 @@ class InternalSSH extends CLController implements SSHInterface
         }
         else
         {
-            return Exceptions::throws('FileSystem', 'folder:changeFolderNameError', $oldName);
+            throw new FolderChangeNameException($oldName);
         }
     }
 
@@ -255,7 +261,7 @@ class InternalSSH extends CLController implements SSHInterface
         }
         else
         {
-            return Exceptions::throws('FileSystem', 'file:notFoundError', $path);
+            throw new FileNotFoundException($path);
         }
     }
 

@@ -1,6 +1,7 @@
 <?php namespace ZN\Services\Remote;
 
-use Processor, SSH, Folder, Buffer, Exceptions, Html;
+use Processor, SSH, Folder, Buffer, Html;
+use ZN\Services\Remote\Crontab\Exception\InvalidTimeFormatException;
 
 class InternalCrontab extends RemoteCommon implements CrontabInterface, CrontabIntervalInterface
 {
@@ -470,7 +471,7 @@ class InternalCrontab extends RemoteCommon implements CrontabInterface, CrontabI
 
         if( ! preg_match('/^'.$match.$match.$match.$match.$match.'$/', $datetimeFormat) )
         {
-            return Exceptions::throws('Services', 'crontab:timeFormatError');
+            throw new InvalidTimeFormatException('Services', 'crontab:timeFormatError');
         }
         else
         {

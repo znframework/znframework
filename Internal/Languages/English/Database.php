@@ -1,4 +1,4 @@
-<?php return 
+<?php return
 [
     //--------------------------------------------------------------------------------------------------------
     // Database
@@ -11,18 +11,9 @@
     //
     //--------------------------------------------------------------------------------------------------------
 
-    'parameterError'                => '% parameter missing or empty!',
     'tableNotExistsError'           => '`%` table is not exists!',
     'updateError'                   => 'Update not performed!',
-    'classNotExistsError'           => '% parameter class information not found!',
-    'mysqlConnectError'             => 'ERROR: Database connection error! Please check your connection settings.',
-    'stringError'                   => '% parameter query should include the source variable!',
-    'connectResourceError'          => '% parameter connection resource variable must contain!',
-    'stringParameterError'          => '% parameter should contain string data type!',
-    'numericParameterError'         => '% parameter should contain numeric data type!',
-    'arrayParameterError'           => '% parameter should contain array data type!',
-    'arrayStringParameterError'     => '%  parameter should contain array or string data type!',
-    'driverError'                   => '`%` driver not found!',
+    'connectError'                  => 'ERROR: Database connection error! Please check your connection settings.',
     'duplicateCheckError'           => '`%` Column or Columns could not be added because it has the same value as before!',
     'optimizeTablesSuccess'         => 'The optimization process was completed successfully.',
     'backupTablesSuccess'           => 'The backup process was completed successfully.',

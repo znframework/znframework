@@ -244,7 +244,7 @@ function lang(String $file, String $str = NULL, $changed = NULL)
 {
     global $lang;
 
-    $file          = Config::get('Language', 'shortCodes')[getLang()].'/'.suffix($file, '.php');
+    $file          = ( Config::get('Language', 'shortCodes')[getLang()] ?? 'English').'/'.suffix($file, '.php');
     $langDir       = LANGUAGES_DIR.$file;
     $sysLangDir    = INTERNAL_LANGUAGES_DIR.$file;
     $commonLangDir = EXTERNAL_LANGUAGES_DIR.$file;

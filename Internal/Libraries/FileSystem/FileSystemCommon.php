@@ -1,6 +1,7 @@
 <?php namespace ZN\FileSystem;
 
 use Exceptions, Classes;
+use ZN\FileSystem\Exception\FileNotFoundException;
 
 class FileSystemCommon implements FileSystemCommonInterface
 {
@@ -12,7 +13,7 @@ class FileSystemCommon implements FileSystemCommonInterface
     // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Access
     //--------------------------------------------------------------------------------------------------------
@@ -29,12 +30,12 @@ class FileSystemCommon implements FileSystemCommonInterface
     // @var array
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $methods = 
+    protected $methods =
     [
-        'executable' => 'is_executable', 
-        'writable'   => 'is_writable', 
-        'writeable'  => 'is_writeable', 
-        'readable'   => 'is_readable', 
+        'executable' => 'is_executable',
+        'writable'   => 'is_writable',
+        'writeable'  => 'is_writeable',
+        'readable'   => 'is_readable',
         'uploaded'   => 'is_uploaded_file'
     ];
 
@@ -122,7 +123,7 @@ class FileSystemCommon implements FileSystemCommonInterface
         if( $config['realPath'] === true )
         {
             $file = prefix($this->originpath($file), REAL_BASE_DIR);
-        }  
+        }
 
         return $file;
     }
@@ -158,10 +159,10 @@ class FileSystemCommon implements FileSystemCommonInterface
     public function permission(String $name, Int $permission = 0755) : Bool
     {
         $name = $this->rpath($name);
-        
+
         if( ! file_exists($name) )
         {
-            return Exceptions::throws('FileSystem', 'file:notFoundError', $name);
+            throw new FileNotFoundException($name);
         }
 
         return chmod($name, $permission);

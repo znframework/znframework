@@ -515,7 +515,7 @@ class PDODriver extends DriverConnectionMappingAbstract
         }
         catch( \PDOException $e )
         {
-            die(getErrorMessage('Database', 'mysqlConnectError'));
+            die(getErrorMessage('Database', 'connectError'));
         }
     }
 }

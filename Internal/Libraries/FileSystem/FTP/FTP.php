@@ -1,6 +1,14 @@
 <?php namespace ZN\FileSystem;
 
-use CLController, InformationAbility, Config, Converter, Exceptions;
+use CLController, InformationAbility, Config, Converter;
+use ZN\FileSystem\Exception\FileNotFoundException;
+use ZN\FileSystem\Exception\FileRemoteUploadException;
+use ZN\FileSystem\Exception\FileRemoteDownloadException;
+use ZN\FileSystem\Exception\FolderAllreadyException;
+use ZN\FileSystem\Exception\FolderNotFoundException;
+use ZN\FileSystem\Exception\FolderChangeDirException;
+use ZN\FileSystem\Exception\FolderChangeNameException;
+use ZN\FileSystem\Exception\IOException;
 
 class InternalFTP extends CLController implements FTPInterface
 {
@@ -80,7 +88,7 @@ class InternalFTP extends CLController implements FTPInterface
         }
         else
         {
-            return Exceptions::throws('FileSystem', 'folder:alreadyFileError', $path);
+            throw new FolderAllreadyException($path);
         }
     }
 
@@ -99,7 +107,7 @@ class InternalFTP extends CLController implements FTPInterface
         }
         else
         {
-            return Exceptions::throws('FileSystem', 'folder:notFoundError', $path);
+            throw new FolderNotFoundException($path);
         }
     }
 
@@ -118,7 +126,7 @@ class InternalFTP extends CLController implements FTPInterface
         }
         else
         {
-            return Exceptions::throws('FileSystem', 'folder:changeFolderError', $path);
+            throw new FolderChangeDirException($path);
         }
     }
 
@@ -138,7 +146,7 @@ class InternalFTP extends CLController implements FTPInterface
         }
         else
         {
-            return Exceptions::throws('FileSystem', 'folder:changeFolderNameError', $oldName);
+            throw new FolderChangeNameException($oldName);
         }
     }
 
@@ -157,7 +165,7 @@ class InternalFTP extends CLController implements FTPInterface
         }
         else
         {
-            return Exceptions::throws('FileSystem', 'file:notFoundError', $path);
+            throw new FileNotFoundException($path);
         }
     }
 
@@ -178,7 +186,7 @@ class InternalFTP extends CLController implements FTPInterface
         }
         else
         {
-            return Exceptions::throws('FileSystem', 'file:remoteUploadError', $localPath);
+            throw new FileRemoteUploadException($localPath);
         }
     }
 
@@ -199,7 +207,7 @@ class InternalFTP extends CLController implements FTPInterface
         }
         else
         {
-            return Exceptions::throws('FileSystem', 'file:remoteDownloadError', $localPath);
+            throw new FileRemoteDownloadException($localPath);
         }
     }
 
@@ -219,7 +227,7 @@ class InternalFTP extends CLController implements FTPInterface
         }
         else
         {
-            return Exceptions::throws('Error', 'emptyVariable', '@this->connect');
+            throw new IOException('Error', 'emptyVariable', 'Connect');
         }
     }
 
@@ -388,14 +396,14 @@ class InternalFTP extends CLController implements FTPInterface
 
         if( empty($this->connect) )
         {
-            return Exceptions::throws('Error', 'emptyVariable', 'Connect');
+            throw new IOException('Error', 'emptyVariable', 'Connect');
         }
 
         $this->login = ftp_login($this->connect, $user, $password);
 
         if( empty($this->login) )
         {
-            return Exceptions::throws('Error', 'emptyVariable', 'Login');
+            throw new IOException('Error', 'emptyVariable', 'Login');
         }
     }
 
