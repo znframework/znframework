@@ -1,6 +1,6 @@
 <?php namespace ZN\FileSystem;
 
-use Config, Converter, Exceptions, CLController;
+use CLController, InformationAbility, Config, Converter, Exceptions;
 
 class InternalFTP extends CLController implements FTPInterface
 {
@@ -14,6 +14,15 @@ class InternalFTP extends CLController implements FTPInterface
     //--------------------------------------------------------------------------------------------------------
 
     const config = 'FileSystem:ftp';
+
+    //--------------------------------------------------------------------------------------------------------
+    // Information Ability
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // Information Ability Methods
+    //
+    //--------------------------------------------------------------------------------------------------------
+    use InformationAbility;
 
     //--------------------------------------------------------------------------------------------------------
     // Protected $connect

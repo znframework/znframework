@@ -1,6 +1,6 @@
 <?php namespace ZN\IndividualStructures;
 
-use CLController, Encode, DB, Session, Cookie, Method, Import, Email, URI;
+use CLController, InformationAbility, Encode, DB, Session, Cookie, Method, Import, Email, URI;
 
 class InternalUser extends CLController implements UserInterface, UserPropertiesInterface
 {
@@ -14,6 +14,15 @@ class InternalUser extends CLController implements UserInterface, UserProperties
     //--------------------------------------------------------------------------------------------------------
 
     const config = 'IndividualStructures:user';
+
+    //--------------------------------------------------------------------------------------------------------
+    // Information Ability
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // Information Ability Methods
+    //
+    //--------------------------------------------------------------------------------------------------------
+    use InformationAbility;
 
     //--------------------------------------------------------------------------------------------------------
     // User Properties
