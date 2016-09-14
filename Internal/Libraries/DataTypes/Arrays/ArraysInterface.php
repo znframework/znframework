@@ -120,7 +120,7 @@ interface ArraysInterface
     // @param string $keyval: val/value, key, vals/values, keys
     //
     //--------------------------------------------------------------------------------------------------------
-    public function keyval(Array $array, String $keyval = 'val');
+    public function keyval(Array $array, String $keyval = 'value');
 
     //--------------------------------------------------------------------------------------------------------
     // Get Last

@@ -1,6 +1,7 @@
 <?php namespace ZN\DataTypes;
 
 use Converter, CallController;
+use ZN\DataTypes\Json\Exception\JsonErrorException;
 
 class InternalJson extends CallController implements JsonInterface
 {
@@ -23,7 +24,14 @@ class InternalJson extends CallController implements JsonInterface
     //--------------------------------------------------------------------------------------------------------
     public function encode($data, String $type = 'unescaped_unicode') : String
     {
-        return json_encode($data, Converter::toConstant($type, 'JSON_'));
+        $return = json_encode($data, Converter::toConstant($type, 'JSON_'));
+
+        if( $this->errno() )
+        {
+            throw new JsonErrorException('[Json::encode()] -> '.$this->error());
+        }
+
+        return $return;
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -37,7 +45,14 @@ class InternalJson extends CallController implements JsonInterface
     //--------------------------------------------------------------------------------------------------------
     public function decode(String $data, Bool $array = false, Int $length = 512)
     {
-        return json_decode($data, $array, $length);
+        $return = json_decode($data, $array, $length);
+
+        if( $this->errno() )
+        {
+            throw new JsonErrorException('[Json::decode()] -> '.$this->error());
+        }
+
+        return $return;
     }
 
     //--------------------------------------------------------------------------------------------------------

@@ -1,6 +1,7 @@
 <?php namespace ZN\DataTypes;
 
-use Exceptions, CallController;
+use CallController;
+use ZN\DataTypes\Vars\Exception\InvalidArgumentException;
 
 class InternalVars extends CallController implements VarsInterface
 {
@@ -120,7 +121,7 @@ class InternalVars extends CallController implements VarsInterface
     {
         if( ! is_resource($resource) )
         {
-            return Exceptions::throws('Error', 'resourceParameter', '1.(resource)');
+            throw new InvalidArgumentException('Error', 'resourceParameter', '1.($resource)');
         }
 
         return get_resource_type($resource);

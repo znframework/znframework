@@ -19,4 +19,5 @@
     'folderChangeName'      => ' The name of the `%` file can not be changed!',
     'fileRemoteUpload'      => '`%` file is not installed on the server!',
     'fileRemoteDownload'    => '`%` file is not downloaded from the server!',
+    'argumentSequence'      => '`%` The argument must be such sequence'
 ];

@@ -19,4 +19,5 @@
     'folderChangeName'      => '`%` dosyasının adı değiştirilemiyor!',
     'fileRemoteUpload'      => '`%` dosyası sunucuya yüklenemiyor!',
     'fileRemoteDownload'    => '`%` dosyası sunucudan indirilemiyor!',
+    'argumentSequence'      => '`%` Argüman dizilimi böyle olmalıdır'
 ];

@@ -1,6 +1,7 @@
 <?php namespace ZN\DataTypes;
 
 use Classes;
+use ZN\DataTypes\Chars\Exception\UndefinedMethodException;
 
 class InternalChars implements CharsInterface
 {
@@ -48,12 +49,12 @@ class InternalChars implements CharsInterface
         }
         else
         {
-            die(getErrorMessage
+            throw new UndefinedMethodException
             (
                 'Error',
                 'undefinedFunction',
                 Classes::onlyName(__CLASS__)."::$method()"
-            ));
+            );
         }
     }
 }

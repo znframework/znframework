@@ -1,6 +1,7 @@
 <?php namespace ZN\DataTypes;
 
-use Exceptions, Config, CallController;
+use Config, CallController;
+use ZN\DataTypes\Classes\Exception\InvalidArgumentException;
 
 class InternalClasses extends CallController implements ClassesInterface
 {
@@ -26,7 +27,7 @@ class InternalClasses extends CallController implements ClassesInterface
     {
         if( ! is_object($object) )
         {
-            return Exceptions::throws('Error', 'objectParameter', '2.(object)');
+            throw new InvalidArgumentException('Error', 'objectParameter', '2.($object)');
         }
 
         return is_a($object, $this->_class($className));
@@ -112,7 +113,7 @@ class InternalClasses extends CallController implements ClassesInterface
     {
         if( ! is_object($var) )
         {
-            return Exceptions::throws('Error', 'objectParameter', '1.(var)');
+            throw new InvalidArgumentException('Error', 'objectParameter', '1.($var)');
         }
 
         return get_class($var);

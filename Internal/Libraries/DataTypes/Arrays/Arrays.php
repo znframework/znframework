@@ -1,6 +1,8 @@
 <?php namespace ZN\DataTypes;
 
 use Converter, CallController;
+use ZN\DataTypes\Arrays\Exception\InvalidArgumentException;
+use ZN\DataTypes\Arrays\Exception\LogicException;
 
 class InternalArrays extends CallController implements ArraysInterface
 {
@@ -227,27 +229,18 @@ class InternalArrays extends CallController implements ArraysInterface
     // @param string $keyval: val/value, key, vals/values, keys
     //
     //--------------------------------------------------------------------------------------------------------
-    public function keyval(Array $array, String $keyval = 'val')
+    public function keyval(Array $array, String $keyval = 'value')
     {
-        if( $keyval === "val" || $keyval === "value" )
+        switch( $keyval )
         {
-            return current($array);
-        }
-        elseif( $keyval === "key" )
-        {
-            return key($array);
-        }
-        elseif( $keyval === "vals" || $keyval === "values" )
-        {
-            return array_values($array);
-        }
-        elseif( $keyval === "keys" )
-        {
-            return array_keys($array);
-        }
-        else
-        {
-            return current($array);
+            case 'value'  : return current($array);
+            case 'key'    : return key($array);
+            case 'values' : return array_values($array);
+            case 'keys'   : return array_keys($array);
+            default       : throw new InvalidArgumentException
+            (
+                '[Arrays::keyval()], 2.($keyval) parameter is invalid! [Available Options:] value, key, values, keys'
+            );
         }
     }
 
@@ -667,6 +660,16 @@ class InternalArrays extends CallController implements ArraysInterface
     {
         $newArray = [];
 
+        if( count($excluding) > count($array) )
+        {
+            throw new LogicException
+            (
+                'DataTypes',
+                'array:notExceedLength',
+                ['%' => '2.($excluding)', '#' => '1.($array)']
+            );
+        }
+
         foreach( $array as $key => $val )
         {
             if( ! in_array($val, $excluding) && ! in_array($key, $excluding) )
@@ -690,6 +693,16 @@ class InternalArrays extends CallController implements ArraysInterface
     {
         $newArray = [];
 
+        if( count($including) > count($array) )
+        {
+            throw new LogicException
+            (
+                'DataTypes',
+                'array:notExceedLength',
+                ['%' => '2.($including)', '#' => '1.($array)']
+            );
+        }
+
         foreach( $array as $key => $val )
         {
             if( in_array($val, $including) || in_array($key, $including) )
@@ -711,6 +724,11 @@ class InternalArrays extends CallController implements ArraysInterface
     //--------------------------------------------------------------------------------------------------------
     public function each(Array $array, $callable)
     {
+        if( ! is_callable($callable) )
+        {
+            throw new InvalidArgumentException('Error', 'callableParameter', '2.($callable)');
+        }
+
         foreach( $array as $k => $v )
         {
             $callable($v, $k);

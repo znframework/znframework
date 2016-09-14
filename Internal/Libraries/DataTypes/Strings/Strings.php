@@ -1,6 +1,6 @@
 <?php namespace ZN\DataTypes;
 
-use Converter, Exceptions, CallController;
+use Converter, CallController;
 
 class InternalStrings extends CallController implements StringsInterface
 {
@@ -443,8 +443,8 @@ class InternalStrings extends CallController implements StringsInterface
     // Translation Table
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param numeric $table
-    // @param numeric $quote
+    // @param string $table
+    // @param string $quote
     //
     //--------------------------------------------------------------------------------------------------------
     public function translationTable(String $table = 'specialchars', String $quote = 'compat') : Array
