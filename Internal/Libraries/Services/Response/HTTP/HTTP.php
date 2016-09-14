@@ -1,6 +1,7 @@
 <?php namespace ZN\Services\Response;
 
-use Config, Arrays, Exceptions, Method, CLController;
+use Config, Arrays, Method, CLController;
+use ZN\Services\Response\HTTP\Exception\InvalidArgumentException;
 
 class InternalHTTP extends CLController implements HTTPInterface
 {
@@ -155,7 +156,7 @@ class InternalHTTP extends CLController implements HTTPInterface
         }
         else
         {
-            return Exceptions::throws(lang('Error', 'invalidInput', $input).' : get, post, server, env, request');
+            throw new InvalidArgumentException('Error', 'invalidInput', $input.' : get, post, server, env, request');
         }
 
         return $this;

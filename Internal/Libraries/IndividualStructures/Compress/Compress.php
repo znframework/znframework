@@ -1,6 +1,7 @@
 <?php namespace ZN\IndividualStructures;
 
-use Support, Exceptions, CLController, DriverAbility;
+use Support, CLController, DriverAbility;
+use ZN\IndividualStructures\Compress\Exception\InvalidArgumentException;
 
 class InternalCompress extends CLController implements CompressInterface
 {
@@ -42,7 +43,7 @@ class InternalCompress extends CLController implements CompressInterface
     {
         if( ! is_file($source) )
         {
-            return Exceptions::throws('Error', 'fileParameter', '1.(source)');
+            throw new InvalidArgumentException('Error', 'fileParameter', '1.($source)');
         }
 
         return $this->driver->extract($source, $target, $password);

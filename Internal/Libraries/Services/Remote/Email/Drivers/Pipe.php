@@ -1,6 +1,9 @@
 <?php namespace ZN\Services\Remote\Email\Drivers;
 
+use Support;
 use ZN\Services\Remote\Abstracts\EmailMappingAbstract;
+use ZN\Services\Remote\Email\Exception\FailureSendEmailException;
+use ZN\Services\Remote\Email\Exception\IOException;
 
 class PipeDriver extends EmailMappingAbstract
 {
@@ -12,23 +15,23 @@ class PipeDriver extends EmailMappingAbstract
     // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Construct
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
-        \Support::func('popen');
+        Support::func('popen');
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Send
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $to
     // @param string $subject
     // @param string $message
@@ -39,27 +42,27 @@ class PipeDriver extends EmailMappingAbstract
     public function send($to, $subject, $message, $headers = NULL, $settings = [])
     {
         $returnPath = $settings['mailPath'].' -oi -f '.$settings['from'].' -t -r '.$settings['returnPath'];
-        
+
         $open = @popen($returnPath, 'w');
-        
+
         if( empty($open) )
         {
-            return \Exceptions::throws('Services', 'email:sendFailureSendmail');
+            throw new FailureSendEmailException('Services', 'email:sendFailureSendmail');
         }
-        
+
         @fputs($open, $headers);
         @fputs($open, $message);
-        
+
         $status = @pclose($open);
-        
+
         if( $status !== 0 )
         {
-            \Exceptions::throws('Services', 'email:exitStatus', $status);
-            \Exceptions::throws('Services', 'email:noSocket');
-            
-            return false;
+            $exceptionMessage  = lang('Services', 'email:noSocket').' ';
+            $exceptionMessage .= lang('Services', 'email:exitStatus', $status);
+
+            throw new IOException($exceptionMessage);
         }
-        
-        return true;    
+
+        return true;
     }
 }

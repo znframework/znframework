@@ -1,6 +1,7 @@
 <?php namespace ZN\Services\Response;
 
-use Converter, Exceptions, CallController;
+use Converter, CallController;
+use ZN\Services\Response\HTTP\Exception\SocketException;
 
 class InternalNet extends CallController implements NetInterface
 {
@@ -12,11 +13,11 @@ class InternalNet extends CallController implements NetInterface
     // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Check DNS
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $host
     // @param string $type
     //
@@ -25,11 +26,11 @@ class InternalNet extends CallController implements NetInterface
     {
         return checkdnsrr($this->cleanHttp($host), $type);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // DNS Records
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $host
     // @param string $type
     // @param bool   $raw
@@ -38,7 +39,7 @@ class InternalNet extends CallController implements NetInterface
     public function dnsRecords(String $host, String $type = 'any', Bool $raw = false) : \stdClass
     {
         $dns = dns_get_record($this->cleanHttp($host), Converter::toConstant($type, 'DNS_'), $auth, $add, $raw);
-        
+
         return (object)
         [
             'records' => $dns,
@@ -46,29 +47,29 @@ class InternalNet extends CallController implements NetInterface
             'addtl'   => $add
         ];
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // MX Records
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $host
     //
     //--------------------------------------------------------------------------------------------------------
     public function mxRecords(String $host) : \stdClass
     {
         $mx = getmxrr($this->cleanHttp($host), $mxhosts, $weight);
-        
+
         return (object)
         [
             'records' => $mxhosts,
             'weight'  => $weight
         ];
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Socket
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $host
     // @param int    $port
     // @param int    $timeout
@@ -77,19 +78,19 @@ class InternalNet extends CallController implements NetInterface
     public function socket(String $host, Int $port = -1, Int $timeout = 60)
     {
         $socket = fsockopen($this->cleanHttp($host), $port, $errno, $errstr, $timeout);
-        
+
         if( ! empty($errno) )
         {
-            return Exceptions::throws($errno.'-'.$errstr);
+            throw new SocketException($errno.'-'.$errstr);
         }
 
         return $socket;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Psocket
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $host
     // @param int    $port
     // @param int    $timeout
@@ -98,19 +99,19 @@ class InternalNet extends CallController implements NetInterface
     public function psocket(String $host, Int $port = -1, Int $timeout = 60)
     {
         $socket = pfsockopen($this->cleanHttp($host), $port, $errno, $errstr, $timeout);
-        
+
         if( ! empty($errno) )
         {
-            return Exceptions::throws($errno.'-'.$errstr);
+            throw new SocketException($errno.'-'.$errstr);
         }
 
         return $socket;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // IP v4 To Host
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $ip
     //
     //--------------------------------------------------------------------------------------------------------
@@ -118,11 +119,11 @@ class InternalNet extends CallController implements NetInterface
     {
         return gethostbyaddr($ip);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Host To IP v4
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $host
     //
     //--------------------------------------------------------------------------------------------------------
@@ -130,11 +131,11 @@ class InternalNet extends CallController implements NetInterface
     {
         return gethostbyname($this->cleanHttp($host));
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Host To IP v4 List
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $host
     //
     //--------------------------------------------------------------------------------------------------------
@@ -142,11 +143,11 @@ class InternalNet extends CallController implements NetInterface
     {
         return gethostbynamel($this->cleanHttp($host));
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Protocol Number
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
@@ -154,11 +155,11 @@ class InternalNet extends CallController implements NetInterface
     {
         return getprotobyname($name);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Protocol Name
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param int $number
     //
     //--------------------------------------------------------------------------------------------------------
@@ -166,11 +167,11 @@ class InternalNet extends CallController implements NetInterface
     {
         return getprotobynumber($number);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Service Port
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $service
     // @param string $protocol
     //
@@ -179,11 +180,11 @@ class InternalNet extends CallController implements NetInterface
     {
         return getservbyname($service, $protocol);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Service Name
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param int    $port
     // @param string $protocol
     //
@@ -192,11 +193,11 @@ class InternalNet extends CallController implements NetInterface
     {
         return getservbyport($port, $protocol);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Local
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
@@ -204,11 +205,11 @@ class InternalNet extends CallController implements NetInterface
     {
         return gethostname();
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Rcode
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param int $code
     //
     //--------------------------------------------------------------------------------------------------------
@@ -220,7 +221,7 @@ class InternalNet extends CallController implements NetInterface
     //--------------------------------------------------------------------------------------------------------
     // Chr To Ip V4
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $chr
     //
     //--------------------------------------------------------------------------------------------------------
@@ -228,11 +229,11 @@ class InternalNet extends CallController implements NetInterface
     {
         return inet_ntop($chr);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Ip v4 To Chr
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $addr
     //
     //--------------------------------------------------------------------------------------------------------
@@ -240,11 +241,11 @@ class InternalNet extends CallController implements NetInterface
     {
         return inet_pton($addr);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Ip v4 To Number
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $ip
     //
     //--------------------------------------------------------------------------------------------------------
@@ -252,11 +253,11 @@ class InternalNet extends CallController implements NetInterface
     {
         return ip2long($ip);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Number To IP v4
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param int $numberAddress
     //
     //--------------------------------------------------------------------------------------------------------
@@ -268,12 +269,12 @@ class InternalNet extends CallController implements NetInterface
     //--------------------------------------------------------------------------------------------------------
     // Protected Clean HTTP
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $host
     //
     //--------------------------------------------------------------------------------------------------------
     protected function cleanHttp($host)
     {
-        return str_ireplace(['http://', 'https://'], '', $host);    
+        return str_ireplace(['http://', 'https://'], '', $host);
     }
 }

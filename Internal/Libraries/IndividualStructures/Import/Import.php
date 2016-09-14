@@ -1,7 +1,9 @@
 <?php namespace ZN\IndividualStructures;
 
+use Config, Html, Folder, Arrays;
 use ZN\ViewObjects\TemplateWizard;
-use Config, Html, Exceptions, Folder, Arrays;
+use ZN\IndividualStructures\Import\Exception\InvalidArgumentException;
+use ZN\IndividualStructures\Import\Exception\FileNotFoundException;
 
 class InternalImport implements ImportInterface
 {
@@ -269,7 +271,7 @@ class InternalImport implements ImportInterface
         }
         else
         {
-            return Exceptions::throws('Error', 'fileNotFound', $page);
+            throw new FileNotFoundException('Error', 'fileNotFound', $page);
         }
     }
 
@@ -832,7 +834,7 @@ class InternalImport implements ImportInterface
 
         if( ! is_file($randomPageVariable) )
         {
-            return Exceptions::throws('Error', 'fileParameter', '1.(randomPageVariable)');
+            throw new InvalidArgumentException('Error', 'fileParameter', '1.($randomPageVariable)');
         }
 
         if( $randomPageVariableExtension === 'js' )
@@ -1004,7 +1006,7 @@ class InternalImport implements ImportInterface
         }
         else
         {
-            return Exceptions::throws('Error', 'fileNotFound', $randomPageVariable);
+            throw new FileNotFoundException('Error', 'fileNotFound', $randomPageVariable);
         }
     }
 

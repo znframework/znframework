@@ -1,6 +1,7 @@
 <?php namespace ZN\Services\Response;
 
-use Session, Json, Exceptions, CLController;
+use Session, Json, CLController;
+use ZN\Services\Response\SessionCookie\Exception\SetcookieException;
 
 class InternalCookie extends CLController implements CookieInterface, SessionCookieCommonInterface
 {
@@ -230,7 +231,7 @@ class InternalCookie extends CLController implements CookieInterface, SessionCoo
         }
         else
         {
-            return Exceptions::throws('Services', 'cookie:setError');
+            throw new SetcookieException('Services', 'cookie:setError');
         }
     }
 

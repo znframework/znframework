@@ -1,6 +1,7 @@
 <?php namespace ZN\IndividualStructures;
 
-use Session, Exceptions, CallController;
+use Session, CallController;
+use ZN\IndividualStructures\Buffer\Exception\InvalidArgumentException;
 
 class InternalBuffer extends CallController implements BufferInterface
 {
@@ -16,7 +17,7 @@ class InternalBuffer extends CallController implements BufferInterface
     //--------------------------------------------------------------------------------------------------------
     // File
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param  string $file
     // @return content
     //
@@ -25,24 +26,24 @@ class InternalBuffer extends CallController implements BufferInterface
     {
         if( ! file_exists($file) )
         {
-            return Exceptions::throws('Error', 'fileParameter', 'file');   
+            throw new InvalidArgumentException('Error', 'fileParameter', '1.($file)');
         }
-        
+
         ob_start();
-        
+
         require($file);
-        
+
         $contents = ob_get_contents();
-        
+
         ob_end_clean();
-        
+
         return $contents;
-    }   
-    
+    }
+
     //--------------------------------------------------------------------------------------------------------
     // Func
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param  string/callable $func
     // @param  array           $params
     // @return callable
@@ -52,11 +53,11 @@ class InternalBuffer extends CallController implements BufferInterface
     {
         if( ! is_callable($func) )
         {
-            return Exceptions::throws('Error', 'callableParameter', 'func');
+            throw new InvalidArgumentException('Error', 'callableParameter', '1.($func)');
         }
-        
+
         ob_start();
-        
+
         if( ! empty($params) )
         {
             return call_user_func_array($func, $params);
@@ -65,18 +66,18 @@ class InternalBuffer extends CallController implements BufferInterface
         {
             return $func();
         }
-        
+
         $contents = ob_get_contents();
-        
+
         ob_end_clean();
-        
+
         return $contents;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Callback / Func
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // func() yönteminin takma adıdır.
     //
     //--------------------------------------------------------------------------------------------------------
@@ -84,11 +85,11 @@ class InternalBuffer extends CallController implements BufferInterface
     {
         return $this->func($func, $params);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Insert
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param  string                 $name
     // @param  callable/object/string $data
     // @param  array                  $params
@@ -98,25 +99,25 @@ class InternalBuffer extends CallController implements BufferInterface
     public function insert(String $name, $data, Array $params = []) : Bool
     {
         $systemObData = md5('OB_DATAS_'.$name);
-        
+
         if( is_callable($data) )
         {
-            return Session::insert($systemObData, $this->func($data, (array) $params));    
+            return Session::insert($systemObData, $this->func($data, (array) $params));
         }
         elseif( file_exists($data) )
         {
-            return Session::insert($systemObData, $this->file($data)); 
+            return Session::insert($systemObData, $this->file($data));
         }
         else
         {
             return Session::insert($systemObData, $data);
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Select
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param  string $name
     // @return callable/content
     //
@@ -125,11 +126,11 @@ class InternalBuffer extends CallController implements BufferInterface
     {
         return Session::select(md5('OB_DATAS_'.$name));
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Delete
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param  string $name
     // @return bool
     //

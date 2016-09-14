@@ -1,5 +1,7 @@
 <?php namespace ZN\IndividualStructures\Compress\Drivers;
 
+use ZN\IndividualStructures\Compress\Exception\FileNotFoundException;
+
 class BZDriver extends Abstracts\CompressDriverMappingAbstract
 {
     //--------------------------------------------------------------------------------------------------------
@@ -10,29 +12,29 @@ class BZDriver extends Abstracts\CompressDriverMappingAbstract
     // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Construct
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
-        \Support::func('bzopen', 'BZ');  
+        \Support::func('bzopen', 'BZ');
     }
 
     //--------------------------------------------------------------------------------------------------------
     // Extract
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
     public function extract($source, $target, $password)
     {
-        \Support::func('bzextract', 'BZ Driver Extract');   
+        \Support::func('bzextract', 'BZ Driver Extract');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -46,19 +48,19 @@ class BZDriver extends Abstracts\CompressDriverMappingAbstract
     public function write($file, $data)
     {
         $open = bzopen($file, 'w');
-        
+
         if( empty($open) )
         {
-            return \Exceptions::throws('Error', 'fileNotFound', $file); 
+            throw new FileNotFoundException('Error', 'fileNotFound', $file);
         }
-        
+
         $return = bzwrite($open, $data, strlen($data));
-        
+
         bzclose($open);
-        
+
         return $return;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Read
     //--------------------------------------------------------------------------------------------------------
@@ -69,19 +71,19 @@ class BZDriver extends Abstracts\CompressDriverMappingAbstract
     public function read($file)
     {
         $open = bzopen($file, 'r');
-        
+
         if( empty($open) )
         {
-            return \Exceptions::throws('Error', 'fileNotFound', $file); 
+            throw new FileNotFoundException('Error', 'fileNotFound', $file);
         }
-        
+
         $return = bzread($open, 8096);
-        
+
         bzclose($open);
-        
+
         return $return;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Do
     //--------------------------------------------------------------------------------------------------------
@@ -93,7 +95,7 @@ class BZDriver extends Abstracts\CompressDriverMappingAbstract
     {
         return bzcompress($data);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Undo
     //--------------------------------------------------------------------------------------------------------

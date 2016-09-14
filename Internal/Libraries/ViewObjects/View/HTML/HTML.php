@@ -1,6 +1,6 @@
 <?php namespace ZN\ViewObjects\View;
 
-use Exceptions;
+use ZN\ViewObjects\View\HTML\Exception\InvalidArgumentException;
 
 class InternalHTML implements HTMLInterface, ViewCommonInterface
 {
@@ -342,7 +342,7 @@ class InternalHTML implements HTMLInterface, ViewCommonInterface
     {
         if( ! isEmail($mail) )
         {
-            return Exceptions::throws('Error', 'emailParameter', 'mail');
+            throw new InvalidArgumentException('Error', 'emailParameter', '1.($mail)');
         }
 
         $attributes['href'] = 'mailto:'.$mail;

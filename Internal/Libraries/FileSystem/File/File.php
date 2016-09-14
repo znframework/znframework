@@ -424,7 +424,7 @@ class InternalFile extends FileSystemCommon implements FileInterface
     public function createZip(String $path, Array $data) : Bool
     {
         $path    = $this->rpath($path);
-        $zip     = new \ZipArchive();
+        $zip     = new ZipArchive();
         $zipPath = suffix($path, ".zip");
 
         if( file_exists($zipPath) )

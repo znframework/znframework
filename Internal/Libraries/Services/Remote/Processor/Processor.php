@@ -98,20 +98,19 @@ class InternalProcessor extends RemoteCommon implements ProcessorInterface
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Command
+    // PHP
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string $command
     //
     //--------------------------------------------------------------------------------------------------------
-    public function command(String $command) : String
+    public function php(String $command) : String
     {
         $phpCommand = "require_once '".REAL_BASE_DIR."zerocore'; ".$command.";";
         $phpCommand = presuffix(str_replace('"', '\"', $phpCommand), '"');
-
-        $commands  = $this->path;
-        $commands .= ' -r ';
-        $commands .= $phpCommand;
+        $commands   = $this->path;
+        $commands  .= ' -r ';
+        $commands  .= $phpCommand;
 
         $this->stringCommand = $commands;
 
@@ -148,7 +147,7 @@ class InternalProcessor extends RemoteCommon implements ProcessorInterface
         $content = File::read($this->_fileControl($file));
         $content = str_ireplace(['<?php', '?>'], NULL, $content);
 
-        return $this->command($content);
+        return $this->php($content);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -188,7 +187,7 @@ class InternalProcessor extends RemoteCommon implements ProcessorInterface
         $command .= 'exit("Error: URL does not contain a valid function or method information! `".$function."` method could not be found!");';
         $command .= '}';
 
-        return $this->command($command);
+        return $this->php($command);
     }
 
     //--------------------------------------------------------------------------------------------------------

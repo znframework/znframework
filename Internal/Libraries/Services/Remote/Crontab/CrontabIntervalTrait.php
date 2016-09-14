@@ -1,6 +1,6 @@
 <?php namespace ZN\Services\Remote;
 
-use Exceptions;
+use ZN\Services\Remote\Crontab\Exception\InvalidTimeFormatException;
 
 trait CrontabIntervalTrait
 {
@@ -245,7 +245,7 @@ trait CrontabIntervalTrait
 
         if( ! preg_match('/^'.$match.':'.$match.'$/', $clock) )
         {
-            return Exceptions::throws('Services', 'crontab:timeFormatError');
+            throw new InvalidTimeFormatException('Services', 'crontab:timeFormatError');
         }
         else
         {

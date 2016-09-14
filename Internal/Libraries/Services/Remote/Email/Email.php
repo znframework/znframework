@@ -1,6 +1,10 @@
 <?php namespace ZN\Services\Remote;
 
-use Support, Exceptions, Config, CLController, DriverAbility;
+use Support, Config, CLController, DriverAbility;
+use ZN\Services\Remote\Email\Exception\InvalidArgumentException;
+use ZN\Services\Remote\Email\Exception\AttachmentMissingException;
+use ZN\Services\Remote\Email\Exception\AttachmentUnreadableException;
+use ZN\Services\Remote\Email\Exception\NoFromException;
 
 class InternalEmail extends CLController implements EmailInterface
 {
@@ -396,7 +400,7 @@ class InternalEmail extends CLController implements EmailInterface
         }
         else
         {
-            return Exceptions::throws('Error', 'charsetParameter', '1.(charset)');
+            throw new InvalidArgumentException('Error', 'charsetParameter', '1.($charset)');
         }
 
         return $this;
@@ -602,7 +606,7 @@ class InternalEmail extends CLController implements EmailInterface
             }
             else
             {
-                return Exceptions::throws('Error', 'emailParameter', '1.('.$type.')');
+                throw new InvalidArgumentException('Error', 'emailParameter', '1.('.$type.')');
             }
         }
     }
@@ -695,7 +699,7 @@ class InternalEmail extends CLController implements EmailInterface
     {
         if( ! isEmail($from) )
         {
-            return Exceptions::throws('Error', 'emailParameter', '1.(from)');
+            throw new InvalidArgumentException('Error', 'emailParameter', '1.($from)');
         }
 
         $this->from = $from;
@@ -796,12 +800,12 @@ class InternalEmail extends CLController implements EmailInterface
         {
             if( strpos($file, '://') === false && ! file_exists($file) )
             {
-                return Exceptions::throws('Services', 'email:attachmentMissing', $file);
+                throw new AttachmentMissingException('Services', 'email:attachmentMissing', $file);
             }
 
             if( ! $fp = @fopen($file, 'rb') )
             {
-                return Exceptions::throws('Services', 'email:attachmentUnreadable', $file);
+                throw new AttachmentUnreadableException('Services', 'email:attachmentUnreadable', $file);
             }
 
             $fileContent = stream_get_contents($fp);
@@ -869,7 +873,7 @@ class InternalEmail extends CLController implements EmailInterface
             }
             else
             {
-                return Exceptions::throws('Services', 'email:noFrom');
+                throw new NoFromException('Services', 'email:noFrom');
             }
         }
 

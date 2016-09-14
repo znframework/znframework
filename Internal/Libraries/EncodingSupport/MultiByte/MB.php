@@ -1,6 +1,7 @@
 <?php namespace ZN\EncodingSupport;
 
-use Strings, Exceptions, Converter, CallController;
+use Strings, Converter, CallController;
+use ZN\EncodingSupport\MultiByte\Exception\InvalidArgumentException;
 
 class InternalMB extends CallController implements MBInterface
 {
@@ -12,7 +13,7 @@ class InternalMB extends CallController implements MBInterface
     // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Split
     //--------------------------------------------------------------------------------------------------------
@@ -26,7 +27,7 @@ class InternalMB extends CallController implements MBInterface
     {
         return mb_split($pattern, $string, $limit);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Split
     //--------------------------------------------------------------------------------------------------------
@@ -41,7 +42,7 @@ class InternalMB extends CallController implements MBInterface
     {
         return Strings::search($str, $needle, $type, $case);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Section
     //--------------------------------------------------------------------------------------------------------
@@ -56,12 +57,12 @@ class InternalMB extends CallController implements MBInterface
     {
         if( ! isCharset($encoding) )
         {
-            return Exceptions::throws('Error', 'charsetParameter', '3.($encoding)');   
+            throw new InvalidArgumentException('Error', 'charsetParameter', '3.($encoding)');
         }
 
         return Strings::section($str, $starting, $count, $encoding);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Parse Get
     //--------------------------------------------------------------------------------------------------------
@@ -72,10 +73,10 @@ class InternalMB extends CallController implements MBInterface
     public function parseGet(String $string) : Array
     {
         mb_parse_str($string, $result);
-        
+
         return $result;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Check Encoding
     //--------------------------------------------------------------------------------------------------------
@@ -88,7 +89,7 @@ class InternalMB extends CallController implements MBInterface
     {
         return mb_check_encoding($string, $encoding);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Casing
     //--------------------------------------------------------------------------------------------------------
@@ -102,7 +103,7 @@ class InternalMB extends CallController implements MBInterface
     {
         return mb_convert_case($string, Converter::toConstant($flag, 'MB_CASE_'), $encoding);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Convert Encoding
     //--------------------------------------------------------------------------------------------------------
@@ -116,7 +117,7 @@ class InternalMB extends CallController implements MBInterface
     {
         return mb_convert_encoding($string, $toEncoding, $fromEncoding);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Mime Decode
     //--------------------------------------------------------------------------------------------------------
@@ -128,7 +129,7 @@ class InternalMB extends CallController implements MBInterface
     {
         return mb_decode_mimeheader($string);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Mime Encode
     //--------------------------------------------------------------------------------------------------------
@@ -144,7 +145,7 @@ class InternalMB extends CallController implements MBInterface
     {
         return mb_encode_mimeheader($string, $encoding, $transferEncoding, $crlf, $indent);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Html To Numeric
     //--------------------------------------------------------------------------------------------------------
@@ -158,7 +159,7 @@ class InternalMB extends CallController implements MBInterface
     {
         return mb_decode_numericentity($string, (array) $convertMap, $encoding);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Numeric To Html
     //--------------------------------------------------------------------------------------------------------
@@ -172,7 +173,7 @@ class InternalMB extends CallController implements MBInterface
     {
         return mb_encode_numericentity($string, $convertMap, $encoding);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Detect Encoding
     //--------------------------------------------------------------------------------------------------------
@@ -183,10 +184,10 @@ class InternalMB extends CallController implements MBInterface
     //
     //--------------------------------------------------------------------------------------------------------
     public function detectEncoding(String $string, $encodingList = ['ASCII', 'UTF-8'], Bool $strict = false) : String
-    {   
+    {
         return mb_detect_encoding($string, $encodingList, $strict);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Detect Order
     //--------------------------------------------------------------------------------------------------------
@@ -199,7 +200,7 @@ class InternalMB extends CallController implements MBInterface
     {
         return mb_detect_order($encodingList);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Encoding Aliases
     //--------------------------------------------------------------------------------------------------------
@@ -211,7 +212,7 @@ class InternalMB extends CallController implements MBInterface
     {
         return mb_encoding_aliases($string);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Info
     //--------------------------------------------------------------------------------------------------------
@@ -223,7 +224,7 @@ class InternalMB extends CallController implements MBInterface
     {
         return mb_get_info($string);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Http Input
     //--------------------------------------------------------------------------------------------------------
@@ -235,7 +236,7 @@ class InternalMB extends CallController implements MBInterface
     {
         return mb_http_input($type);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Http Output
     //--------------------------------------------------------------------------------------------------------
@@ -247,7 +248,7 @@ class InternalMB extends CallController implements MBInterface
     {
         return mb_http_output($encoding);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Lang
     //--------------------------------------------------------------------------------------------------------
@@ -259,7 +260,7 @@ class InternalMB extends CallController implements MBInterface
     {
         return mb_language($lang);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Encodings
     //--------------------------------------------------------------------------------------------------------
@@ -271,7 +272,7 @@ class InternalMB extends CallController implements MBInterface
     {
         return mb_list_encodings();
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Output Handler
     //--------------------------------------------------------------------------------------------------------
@@ -284,7 +285,7 @@ class InternalMB extends CallController implements MBInterface
     {
         return mb_output_handler($contents, $status);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Preferred Mime Name
     //--------------------------------------------------------------------------------------------------------
@@ -292,7 +293,7 @@ class InternalMB extends CallController implements MBInterface
     // @param string $encoding
     //
     //--------------------------------------------------------------------------------------------------------
-    public function preferredMimeName(String $encoding = 'UTF-8') : String 
+    public function preferredMimeName(String $encoding = 'UTF-8') : String
     {
         return mb_preferred_mime_name($encoding);
     }

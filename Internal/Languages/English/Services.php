@@ -49,5 +49,6 @@
     'email:smtpAuthPassword'        => 'Failed to authenticate password! Error: %',
     'email:smtpDataFailure'         => 'Unable to send data: %',
     'email:exitStatus'              => 'Exit status code: %',
-    'email:mimeMessage'             => 'This is a multi-part message in MIME format.%Your email application may not support this format.'
+    'email:mimeMessage'             => 'This is a multi-part message in MIME format.%Your email application may not support this format.',
+    'email:noHostName'              => 'SMTP Host information is empty!'
 ];

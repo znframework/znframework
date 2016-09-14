@@ -1,6 +1,7 @@
 <?php namespace ZN\IndividualStructures;
 
-use Support, Exceptions, CLController, DriverAbility;
+use Support, CLController, DriverAbility;
+use ZN\IndividualStructures\Cart\Exception\InvalidArgumentException;
 
 class InternalCart extends CLController implements CartInterface
 {
@@ -46,12 +47,6 @@ class InternalCart extends CLController implements CartInterface
     //--------------------------------------------------------------------------------------------------------
     public function insertItem(Array $product) : Bool
     {
-        // Ürünün parametresinin boş olması durumunda rapor edilmesi istenmiştir.
-        if( empty($product) )
-        {
-            return Exceptions::throws('Error', 'emptyParameter', 'product');
-        }
-
         // Ürünün adet parametresinin belirtilmemesi durumunda 1 olarak kabul edilmesi istenmiştir.
         if( ! isset($product['quantity']) )
         {

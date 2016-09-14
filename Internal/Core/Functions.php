@@ -1166,7 +1166,7 @@ function internalCreateRobotsFile()
 
     if( ! File::write($robotTxt, trim($robots)) )
     {
-        Exceptions::throws('Error', 'fileNotWrite', $robotTxt);
+        throw new GeneralException('Error', 'fileNotWrite', $robotTxt);
     }
 }
 
@@ -1427,7 +1427,7 @@ function internalCreateHtaccessFile()
 
     if( ! File::write($htaccessTxt, trim($htaccess)) )
     {
-        Exceptions::throws('Error', 'fileNotWrite', $htaccessTxt);
+        throw new GeneralException('Error', 'fileNotWrite', $htaccessTxt);
     }
 }
 

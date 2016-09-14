@@ -1,6 +1,9 @@
 <?php namespace ZN\ViewObjects\Grids;
 
-use DB, URI, Arrays, Exceptions, Exception, Method, Html, Form, Sheet, Style, Strings, Json;
+use DB, URI, Arrays, Method, Html, Form, Sheet, Style, Strings, Json;
+use ZN\ViewObjects\Grids\Exception\NoTableException;
+use ZN\ViewObjects\Grids\Exception\DatabaseErrorException;
+use ZN\ViewObjects\Grids\Exception\NoSearchException;
 
 class InternalDBGrid extends Abstracts\GridAbstract
 {
@@ -277,7 +280,7 @@ class InternalDBGrid extends Abstracts\GridAbstract
 
         if( ! isset($this->table) )
         {
-            return Exceptions::throws('ViewObjects', 'noTable');
+            throw new NoTableException('ViewObjects', 'noTable');
         }
 
         $table = $this->_styleElement();
@@ -349,7 +352,7 @@ class InternalDBGrid extends Abstracts\GridAbstract
 
         if( $error = DB::error() )
         {
-            return Exceptions::throws($error);
+            throw new DatabaseErrorException($error);
         }
 
         //----------------------------------------------------------------------------------------------------
@@ -752,7 +755,7 @@ class InternalDBGrid extends Abstracts\GridAbstract
         }
         else
         {
-            throw new Exception(VIEWOBJECTS_DBGRID_LANG['noSearch']);
+            throw new NoSearchException(VIEWOBJECTS_DBGRID_LANG['noSearch']);
         }
     }
 

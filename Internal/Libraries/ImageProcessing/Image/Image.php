@@ -1,6 +1,8 @@
 <?php namespace ZN\ImageProcessing;
 
-use Folder, Exceptions, CallController;
+use Folder, CallController;
+use ZN\EncodingSupport\ImageProcessing\Image\Exception\ImageNotFoundException;
+use ZN\EncodingSupport\ImageProcessing\Image\Exception\InvalidImageFileException;
 
 class InternalImage extends CallController implements ImageInterface
 {
@@ -12,106 +14,106 @@ class InternalImage extends CallController implements ImageInterface
     // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Dir Name
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @var string
     //
     //--------------------------------------------------------------------------------------------------------
     protected $dirName = 'thumbs';
-    
+
     //--------------------------------------------------------------------------------------------------------
     // File
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @var string
     //
     //--------------------------------------------------------------------------------------------------------
     private $file;
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Thumb Path
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @var string
     //
     //--------------------------------------------------------------------------------------------------------
     protected $thumbPath;
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Thumb
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $fpath
     // @param array  $set
     //
     //--------------------------------------------------------------------------------------------------------
     public function thumb(String $fpath, Array $set) : String
     {
-        $filePath = ( isset($fpath) ) ? trim($fpath) : '';
-        
-        // Yol bilgis url eki içeriyorsa 
+        $filePath = trim($fpath);
+
+        // Yol bilgis url eki içeriyorsa
         // bu ekin temizlenmesi sağlanıyor.
-        if( strstr($filePath, baseUrl()) ) 
+        if( strstr($filePath, baseUrl()) )
         {
             $filePath = str_replace(baseUrl(), '', $filePath);
         }
-        
+
         // Geçersiz yol bilgisi girilmiş ise
         // Durumu rapor etmesi sağlanıyor.
         if( ! file_exists($filePath) )
         {
-            return Exceptions::throws('ImageProcessing', 'image:notFoundError', $filePath);    
+            throw new ImageNotFoundException('ImageProcessing', 'image:notFoundError', $filePath);
         }
-        
+
         // Dosyanın uzantısı belirlenen uzantılır dışında
         // ise durumu rapor etmesi sağlanıyor.
         if( ! $this->isImageFile($filePath) )
         {
-            return Exceptions::throws('ImageProcessing', 'image:notImageFileError', $filePath);    
+            throw new InvalidImageFileException('ImageProcessing', 'image:notImageFileError', $filePath);
         }
-        
+
         // Ayarlar parametresinde tanımlayan ayarlara
         // varsayılan değerler atanıyor.
         list($currentWidth, $currentHeight) = getimagesize($filePath);
-        
+
         // WIDTH Ayarı
-        $width          = ( isset($set["width"]) )      
-                          ? $set["width"]       
+        $width          = ( isset($set["width"]) )
+                          ? $set["width"]
                           : $currentWidth;
-        
-        // HEIGHT Ayarı               
-        $height         = ( isset($set["height"]) )         
-                          ? $set["height"]      
+
+        // HEIGHT Ayarı
+        $height         = ( isset($set["height"]) )
+                          ? $set["height"]
                           : $currentHeight;
-        
-        // REWIDTH Ayarı                  
-        $rewidth        = ( isset($set["rewidth"]) )        
-                          ? $set["rewidth"]         
+
+        // REWIDTH Ayarı
+        $rewidth        = ( isset($set["rewidth"]) )
+                          ? $set["rewidth"]
                           : 0;
-        
-        // REHEIGHT Ayarı                     
-        $reheight       = ( isset($set["reheight"]) )   
-                          ? $set["reheight"]        
+
+        // REHEIGHT Ayarı
+        $reheight       = ( isset($set["reheight"]) )
+                          ? $set["reheight"]
                           : 0;
-        
+
         // X Ayarı
-        $x              = ( isset($set["x"]) )          
-                          ? $set["x"]           
+        $x              = ( isset($set["x"]) )
+                          ? $set["x"]
                           : 0;
-        
-        // Y Ayarı                
-        $y              = ( isset($set["y"]) )          
-                          ? $set["y"]           
+
+        // Y Ayarı
+        $y              = ( isset($set["y"]) )
+                          ? $set["y"]
                           : 0;
-        
-        // QUALITY Ayarı                  
-        $quality        = ( isset($set["quality"]) )        
-                          ? $set["quality"]         
+
+        // QUALITY Ayarı
+        $quality        = ( isset($set["quality"]) )
+                          ? $set["quality"]
                           : 0;
-        
+
         if( isset($set["proheight"]) )
         {
             if( $set["proheight"] < $currentHeight )
@@ -120,53 +122,53 @@ class InternalImage extends CallController implements ImageInterface
                 $width  = round(($currentWidth * $height) / $currentHeight);
             }
         }
-        
+
         if( isset($set["prowidth"]) )
         {
             if( $set["prowidth"] < $currentWidth )
             {
-                $width  = $set["prowidth"];  
+                $width  = $set["prowidth"];
                 $height = round(($currentHeight * $width) / $currentWidth);
             }
         }
-    
+
         $rWidth = $width; $rHeight = $height;
-        
-        if( ! empty($rewidth) ) 
+
+        if( ! empty($rewidth) )
         {
             $width = $rewidth;
         }
-        
-        if( ! empty($reheight) ) 
+
+        if( ! empty($reheight) )
         {
             $height = $reheight;
         }
-        
+
         $prefix = "-".$x."x".$y."px-".$width."x".$height."size";
-        
+
         $this->newPath($filePath);
-    
-        if( ! Folder::exists($this->thumbPath) ) 
-        { 
-            Folder::create($this->thumbPath);      
+
+        if( ! Folder::exists($this->thumbPath) )
+        {
+            Folder::create($this->thumbPath);
         }
-        
+
         $newFile = removeExtension($this->file).$prefix.extension($this->file, true);
-        
-        if( file_exists($this->thumbPath.$newFile) ) 
+
+        if( file_exists($this->thumbPath.$newFile) )
         {
             return baseUrl($this->thumbPath.$newFile);
         }
-                
+
         $rFile   = $this->fromFileType($filePath);
-        
+
         $nFile   = imagecreatetruecolor($width, $height);
-        
+
         if( isset($set["prowidth"]) || isset($set["proheight"]) )
         {
             $rWidth = $currentWidth; $rHeight = $currentHeight;
         }
-    
+
         if( extension($filePath) === "png" )
         {
             imagealphablending($nFile, false);
@@ -174,21 +176,21 @@ class InternalImage extends CallController implements ImageInterface
             $transparent = imagecolorallocatealpha($nFile, 255, 255, 255, 127);
             imagefilledrectangle($nFile, 0, 0, $width, $height, $transparent);
         }
-        
+
         @imagecopyresampled($nFile, $rFile,  0, 0, $x, $y, $width, $height, $rWidth, $rHeight);
-            
+
         $this->createFileType($nFile ,$this->thumbPath.$newFile, $quality);
-        
-        imagedestroy($rFile); imagedestroy($nFile); 
-        
+
+        imagedestroy($rFile); imagedestroy($nFile);
+
         return baseUrl($this->thumbPath.$newFile);
-        
+
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Get Prosize
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $path
     // @param int    $width
     // @param int    $height
@@ -197,83 +199,83 @@ class InternalImage extends CallController implements ImageInterface
     public function getProsize(String $path, Int $width = 0, Int $height = 0) : \stdClass
     {
         $g = @getimagesize($path);
-        
+
         if( empty($g) )
         {
-            return Exceptions::throws('ImageProcessing', 'image:notFoundError', $path);    
+            throw new ImageNotFoundException('ImageProcessing', 'image:notFoundError', $path);
         }
-        
+
         $x = $g[0]; $y = $g[1];
-        
+
         if( $width > 0 )
         {
             if( $width <= $x )
             {
                 $o = $x / $width;
-                
+
                 $x = $width;
-                
+
                 $y = $y / $o;
             }
             else
             {
                 $o = $width / $x;
-                
+
                 $x = $width;
-                
-                $y = $y * $o;   
+
+                $y = $y * $o;
             }
         }
-    
+
         if( $height > 0 )
         {
             if( $height <= $y )
             {
                 $o = $y / $height;
-                
+
                 $y = $height;
-                
+
                 $x = $x / $o;
             }
             else
             {
                 $o = $height / $y;
-                
+
                 $y = $height;
-                
-                $x = $x * $o;   
+
+                $x = $x * $o;
             }
         }
-        
+
         $array["width"] = round($x); $array["height"] = round($y);
-        
+
         return (object) $array;
     }
 
     //--------------------------------------------------------------------------------------------------------
     // Protected New Path
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $filePath
     //
     //--------------------------------------------------------------------------------------------------------
     protected function newPath($filePath)
     {
         $fileEx = explode("/", $filePath);
-        
+
         $this->file = $fileEx[count($fileEx) - 1];
-    
+
         $this->thumbPath = substr($filePath,0,strlen($filePath) - strlen($this->file)).$this->dirName;
-    
-        $this->thumbPath = suffix($this->thumbPath);    
-        
+
+        $this->thumbPath = suffix($this->thumbPath);
+
         $this->thumbPath = str_replace(baseUrl(), "", $this->thumbPath);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Protected From File Type
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $paths
     //
     //--------------------------------------------------------------------------------------------------------
@@ -281,11 +283,11 @@ class InternalImage extends CallController implements ImageInterface
     {
         // UZANTI JPG
         if( extension($this->file) === 'jpg' )
-        { 
+        {
             return imagecreatefromjpeg($paths);
         }
         // UZANTI JPEG
-        elseif( extension($this->file) === 'jpeg' ) 
+        elseif( extension($this->file) === 'jpeg' )
         {
             return imagecreatefromjpeg($paths);
         }
@@ -295,41 +297,41 @@ class InternalImage extends CallController implements ImageInterface
             return imagecreatefrompng($paths);
         }
         // UZANTI GIF
-        elseif( extension($this->file) === 'gif' )  
+        elseif( extension($this->file) === 'gif' )
         {
             return imagecreatefromgif($paths);
         }
-        else 
+        else
         {
             return false;
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Protected Is Image File
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $file
     //
     //--------------------------------------------------------------------------------------------------------
     protected function isImageFile($file)
     {
         $extensions = ['jpg', 'jpeg', 'png', 'gif'];
-        
+
         if( in_array(extension($file), $extensions))
         {
-            return true;    
+            return true;
         }
         else
         {
-            return false;   
+            return false;
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Protected Create File Type
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $files
     // @param string $paths
     // @param int    $quality
@@ -340,21 +342,21 @@ class InternalImage extends CallController implements ImageInterface
         // JPG İÇİN KALİTE AYARI
         if( extension($this->file) === 'jpg' )
         {
-            if( $quality === 0 ) 
+            if( $quality === 0 )
             {
                 $quality = 80;
             }
-            
+
             return imagejpeg($files, $paths, $quality);
         }
         // JPEG İÇİN KALİTE AYARI
         elseif( extension($this->file) === 'jpeg' )
         {
-            if( $quality === 0 ) 
+            if( $quality === 0 )
             {
                 $quality = 80;
             }
-            
+
             return imagejpeg($files, $paths, $quality);
         }
         // PNG İÇİN KALİTE AYARI
@@ -364,7 +366,7 @@ class InternalImage extends CallController implements ImageInterface
             {
                 $quality = 8;
             }
-            
+
             return imagepng($files, $paths, $quality);
         }
         // GIF İÇİN KALİTE AYARI
@@ -372,7 +374,7 @@ class InternalImage extends CallController implements ImageInterface
         {
             return imagegif($files, $paths);
         }
-        else 
+        else
         {
             return false;
         }

@@ -1,12 +1,13 @@
 <?php namespace ZN\Services\Remote;
 
-use Support, Exceptions, CLController;
+use Support, CLController;
 use ZN\FileSystem\Exception\FileNotFoundException;
 use ZN\FileSystem\Exception\FileRemoteUploadException;
 use ZN\FileSystem\Exception\FileRemoteDownloadException;
 use ZN\FileSystem\Exception\FolderChangeNameException;
 use ZN\FileSystem\Exception\FolderNotFoundException;
 use ZN\FileSystem\Exception\FolderAllreadyException;
+use ZN\Services\Remote\SSH\Exception\InvalidArgumentException;
 
 class InternalSSH extends CLController implements SSHInterface
 {
@@ -281,7 +282,7 @@ class InternalSSH extends CLController implements SSHInterface
         }
         else
         {
-            return Exceptions::throws('Error', 'emptyVariable', '@this->connect');
+            throw new InvalidArgumentException('Error', 'emptyVariable', '$this->connect');
         }
     }
 
@@ -354,7 +355,7 @@ class InternalSSH extends CLController implements SSHInterface
 
         if( empty($this->connect) )
         {
-            return Exceptions::throws('Error', 'emptyVariable', '@this->connect');
+            throw new InvalidArgumentException('Error', 'emptyVariable', '$this->connect');
         }
 
         if( ! empty($user) )
@@ -364,7 +365,7 @@ class InternalSSH extends CLController implements SSHInterface
 
         if( empty($this->login) )
         {
-            return Exceptions::throws('Error', 'emptyVariable', '@this->login');
+            throw new InvalidArgumentException('Error', 'emptyVariable', '$this->login');
         }
 
         return $this;
