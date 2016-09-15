@@ -1,68 +1,84 @@
-<?php namespace ZN\CryptoGraphy;
+<?php namespace ZN\DataTypes\Arrays;
 
-class InternalEncode implements EncodeInterface
+class ArrayKeyValue implements ArrayKeyValueInterface
 {
     //--------------------------------------------------------------------------------------------------------
-    // Create
+    //
+    // Author     : Ozan UYKUN <ozanbote@gmail.com>
+    // Site       : www.znframework.com
+    // License    : The MIT License
+    // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
+    //
+    //--------------------------------------------------------------------------------------------------------
+
+    //--------------------------------------------------------------------------------------------------------
+    // Keyval
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param int    $count
-    // @param string $chars
+    // @param array  $array
+    // @param string $keyval: val/value, key, vals/values, keys
     //
     //--------------------------------------------------------------------------------------------------------
-    public function create(Int $count = 6, String $chars = 'all') : String
+    public function keyval(Array $array, String $keyval = 'value')
     {
-        return EncodeFactory::class('RandomPassword')->create($count, $chars);
+        switch( $keyval )
+        {
+            case 'value'  : return current($array);
+            case 'key'    : return key($array);
+            case 'values' : return array_values($array);
+            case 'keys'   : return array_keys($array);
+            default       : throw new InvalidArgumentException
+            (
+                '[Arrays::keyval()], 2.($keyval) parameter is invalid! [Available Options:] value, key, values, keys'
+            );
+        }
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Golden
+    // Value
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $data
-    // @param string $additional
+    // @param array  $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function golden(String $data, String $additional = 'default') : String
+    public function value(Array $array)
     {
-        return EncodeFactory::class('GoldenAlgorithm')->create($data, $additional);
+        return $this->keyval($array, __FUNCTION__);
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Super
+    // Key
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $data
+    // @param array  $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function super(String $data) : String
+    public function key(Array $array)
     {
-        return EncodeFactory::class('SuperAlgorithm')->create($data);
+        return $this->keyval($array, __FUNCTION__);
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Data
+    // Values
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $data
-    // @param string $type
+    // @param array  $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function data(String $data, String $type = 'md5') : String
+    public function values(Array $array) : Array
     {
-        return $this->type($data, $type);
+        return $this->keyval($array, __FUNCTION__);
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Type
+    // Keys
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $data
-    // @param string $type
+    // @param array  $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function type(String $data, String $type = 'md5') : String
+    public function keys(Array $array) : Array
     {
-        return EncodeFactory::class('Type')->create($data, $type);
+        return $this->keyval($array, __FUNCTION__);
     }
 }

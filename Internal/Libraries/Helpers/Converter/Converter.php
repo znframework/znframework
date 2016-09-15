@@ -277,7 +277,7 @@ class InternalConverter extends CallController implements ConverterInterface
     //
     // @param array  $array
     // @param string $type  : lower, upper, title
-    // @param string $keyval: key, val, value, all
+    // @param string $keyval: key, value, all
     //
     //--------------------------------------------------------------------------------------------------------
     public function arrayCase(Array $array, String $type = 'lower', String $keyval = 'all') : Array

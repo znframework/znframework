@@ -1,68 +1,59 @@
-<?php namespace ZN\CryptoGraphy;
+<?php namespace ZN\DataTypes\Arrays;
 
-class InternalEncode implements EncodeInterface
+interface ArrayKeyValueInterface
 {
     //--------------------------------------------------------------------------------------------------------
-    // Create
-    //--------------------------------------------------------------------------------------------------------
     //
-    // @param int    $count
-    // @param string $chars
+    // Author     : Ozan UYKUN <ozanbote@gmail.com>
+    // Site       : www.znframework.com
+    // License    : The MIT License
+    // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
-    public function create(Int $count = 6, String $chars = 'all') : String
-    {
-        return EncodeFactory::class('RandomPassword')->create($count, $chars);
-    }
 
     //--------------------------------------------------------------------------------------------------------
-    // Golden
+    // Keyval
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $data
-    // @param string $additional
+    // @param array  $array
+    // @param string $keyval: val/value, key, vals/values, keys
     //
     //--------------------------------------------------------------------------------------------------------
-    public function golden(String $data, String $additional = 'default') : String
-    {
-        return EncodeFactory::class('GoldenAlgorithm')->create($data, $additional);
-    }
+    public function keyval(Array $array, String $keyval = 'value');
 
     //--------------------------------------------------------------------------------------------------------
-    // Super
+    // Value
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $data
+    // @param array  $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function super(String $data) : String
-    {
-        return EncodeFactory::class('SuperAlgorithm')->create($data);
-    }
+    public function value(Array $array);
 
     //--------------------------------------------------------------------------------------------------------
-    // Data
+    // Key
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $data
-    // @param string $type
+    // @param array  $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function data(String $data, String $type = 'md5') : String
-    {
-        return $this->type($data, $type);
-    }
+    public function key(Array $array);
 
     //--------------------------------------------------------------------------------------------------------
-    // Type
+    // Values
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $data
-    // @param string $type
+    // @param array  $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function type(String $data, String $type = 'md5') : String
-    {
-        return EncodeFactory::class('Type')->create($data, $type);
-    }
+    public function values(Array $array) : Array;
+
+    //--------------------------------------------------------------------------------------------------------
+    // Keys
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param array  $array
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function keys(Array $array) : Array;
 }

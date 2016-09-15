@@ -1,10 +1,8 @@
 <?php namespace ZN\DataTypes;
 
-use Converter, CallController;
-use ZN\DataTypes\Arrays\Exception\InvalidArgumentException;
-use ZN\DataTypes\Arrays\Exception\LogicException;
+use Converter, Json;
 
-class InternalArrays extends CallController implements ArraysInterface
+class InternalArrays implements ArraysInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -15,312 +13,58 @@ class InternalArrays extends CallController implements ArraysInterface
     //
     //--------------------------------------------------------------------------------------------------------
 
-    //--------------------------------------------------------------------------------------------------------
-    // Casing
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array  $array
-    // @param string $type  : lower, upper, title
-    // @param string $keyval: all, key, val
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function casing(Array $array, String $type = 'lower', String $keyval = 'all') : Array
-    {
-        return Converter::arrayCase($array, $type, $keyval);
-    }
+    const factory =
+    [
+        'class'   => 'ZN\DataTypes\ArrayFactory',
+        'methods' =>
+        [
+            'casing'                => 'ArrayCase',
+            'lower'                 => 'ArrayCase',
+            'upper'                 => 'ArrayCase',
+            'title'                 => 'ArrayCase',
+            'lowerkeys'             => 'ArrayCase',
+            'upperkeys'             => 'ArrayCase',
+            'titlekeys'             => 'ArrayCase',
+            'lowervalues'           => 'ArrayCase',
+            'uppervalues'           => 'ArrayCase',
+            'titlevalues'           => 'ArrayCase',
+            'getFirst'              => 'GetElement',
+            'getLast'               => 'GetElement',
+            'addfirst'              => 'AddElement',
+            'addLast'               => 'AddElement',
+            'removekey'             => 'RemoveElement',
+            'removevalue'           => 'RemoveElement',
+            'remove'                => 'RemoveElement',
+            'removelast'            => 'RemoveElement',
+            'removefirst'           => 'RemoveElement',
+            'deleteelement'         => 'RemoveElement',
+            'order'                 => 'ArraySort',
+            'sort'                  => 'ArraySort',
+            'descending'            => 'ArraySort',
+            'ascending'             => 'ArraySort',
+            'ascendingKey'          => 'ArraySort',
+            'descendingKey'         => 'ArraySort',
+            'userAssocSort'         => 'ArraySort',
+            'userKeySort'           => 'ArraySort',
+            'userSort'              => 'ArraySort',
+            'insensitiveSort'       => 'ArraySort',
+            'naturalSort'           => 'ArraySort',
+            'shuffle'               => 'ArraySort',
+            'including'             => 'ArrayInclude',
+            'include'               => 'ArrayInclude',
+            'excluding'             => 'ArrayExclude',
+            'exclude'               => 'ArrayExclude',
+            'each'                  => 'ArrayEach',
+            'multikey'              => 'MultipleKey',
+            'keyval'                => 'ArrayKeyValue',
+            'key'                   => 'ArrayKeyValue',
+            'value'                 => 'ArrayKeyValue',
+            'keys'                  => 'ArrayKeyValue',
+            'values'                => 'ArrayKeyValue',
+        ]
+    ];
 
-    //--------------------------------------------------------------------------------------------------------
-    // Remove Key
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array $array
-    // @param mixed $keys
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function removeKey(Array $array, $keys) : Array
-    {
-        if( ! is_array($keys) )
-        {
-            unset($array[$keys]);
-        }
-        else
-        {
-            foreach( $keys as $key )
-            {
-                unset($array[$key]);
-            }
-        }
-
-        return $array;
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Remove Value
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array $array
-    // @param mixed $values
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function removeValue(Array $array, $values) : Array
-    {
-        return $this->deleteElement($array, $values);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Remove
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array $array
-    // @param mixed $keys
-    // @param mixed $values
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function remove(Array $array, $keys, $values) : Array
-    {
-        if( ! empty($keys) )
-        {
-            $array = $this->removeKey($array, $keys);
-        }
-
-        if( ! empty($values) )
-        {
-            $array = $this->removeValue($array, $values);
-        }
-
-        return $array;
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Remove Last
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array   $array
-    // @param numeric $count
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function removeLast(Array $array, Int $count = 1, $type = 'array_pop') : Array
-    {
-        if( $count <= 1 )
-        {
-            $type($array);
-        }
-        else
-        {
-            $arrayCount = count($array);
-
-            for( $i = 1; $i <= $count; $i++ )
-            {
-                $type($array);
-
-                if( $i === $arrayCount )
-                {
-                    break;
-                }
-            }
-        }
-
-        return $array;
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Remove First
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array   $array
-    // @param numeric $count
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function removeFirst(Array $array, Int $count = 1) : Array
-    {
-        return $this->removeLast($array, $count, 'array_shift');
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Delete Element
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array $array
-    // @param mixed $object
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function deleteElement(Array $array, $object) : Array
-    {
-        if( ! is_array($object) )
-        {
-            $object = [$object];
-        }
-
-        return array_diff($array, $object);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Add First
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array $array
-    // @param mixed $element
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function addFirst(Array $array, $element, $type = 'array_unshift') : Array
-    {
-        if( ! is_array($element) )
-        {
-            $type($array, $element);
-        }
-        else
-        {
-            if( $type === 'array_unshift' )
-            {
-                $array = array_merge($element, $array);
-            }
-            else
-            {
-                $array = array_merge($array, $element);
-            }
-        }
-
-        return $array;
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Add Last
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array $array
-    // @param mixed $element
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function addLast(Array $array, $element) : Array
-    {
-        return $this->addFirst($array, $element, 'array_push');
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Multikey
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array  $array
-    // @param string $keySplit:|
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function multikey(Array $array, String $keySplit = '|') : Array
-    {
-        $newArray = [];
-
-        foreach( $array as $k => $v )
-        {
-            $keys = explode($keySplit, $k);
-
-            foreach( $keys as $val )
-            {
-                $newArray[$val] = $v;
-            }
-        }
-
-        return $newArray;
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Keyval
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array  $array
-    // @param string $keyval: val/value, key, vals/values, keys
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function keyval(Array $array, String $keyval = 'value')
-    {
-        switch( $keyval )
-        {
-            case 'value'  : return current($array);
-            case 'key'    : return key($array);
-            case 'values' : return array_values($array);
-            case 'keys'   : return array_keys($array);
-            default       : throw new InvalidArgumentException
-            (
-                '[Arrays::keyval()], 2.($keyval) parameter is invalid! [Available Options:] value, key, values, keys'
-            );
-        }
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Get Last
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array   $array
-    // @param numeric $count
-    // @param bool    $preserveKey
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function getLast(Array $array, Int $count = 1, Bool $preserveKey = false)
-    {
-        if( $count <= 1 )
-        {
-            $array = end($array);
-        }
-        else
-        {
-            return $this->section($array, -$count, NULL, $preserveKey);
-        }
-
-        return $array;
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Get First
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array   $array
-    // @param numeric $count
-    // @param bool    $preserveKey
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function getFirst(Array $array, Int $count = 1, Bool $preserveKey = false)
-    {
-        if( $count <= 1 )
-        {
-            $array = $array[0];
-        }
-        else
-        {
-            return $this->section($array, 0, $count, $preserveKey);
-        }
-
-        return $array;
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Order
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array  $array
-    // @param string $type :desc, asc...
-    // @param string $flags:regular
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function order(Array $array, String $type = NULL, String $flags = 'regular') : Array
-    {
-        $flags = Converter::toConstant($flags, 'SORT_');
-
-        switch($type)
-        {
-            case 'desc'         : arsort($array, $flags);   break;
-            case 'asc'          : asort($array, $flags);    break;
-            case 'asckey'       : ksort($array, $flags);    break;
-            case 'desckey'      : krsort($array, $flags);   break;
-            case 'insens'       : natcasesort($array);      break;
-            case 'natural'      : natsort($array);          break;
-            case 'reverse'      : rsort($array, $flags);    break;
-            case 'userassoc'    : uasort($array, $flags);   break;
-            case 'userkey'      : uksort($array, $flags);   break;
-            case 'user'         : usort($array, $flags);    break;
-            case 'random'       : shuffle($array);          break;
-            default             : sort($array, $flags);
-        }
-
-        return $array;
-    }
+    use \MagicFactoryAbility;
 
     //--------------------------------------------------------------------------------------------------------
     // Object Data
@@ -331,7 +75,7 @@ class InternalArrays extends CallController implements ArraysInterface
     //--------------------------------------------------------------------------------------------------------
     public function objectData(Array $data) : String
     {
-        return json_encode($data);
+        return Json::encode($data);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -381,7 +125,7 @@ class InternalArrays extends CallController implements ArraysInterface
     // @param mixed $key
     //
     //--------------------------------------------------------------------------------------------------------
-    public function countSameValues(Array $array, String $key)
+    public function countSameValues(Array $array, String $key = NULL)
     {
         $return = array_count_values($array);
 
@@ -646,92 +390,5 @@ class InternalArrays extends CallController implements ArraysInterface
     public function column(Array $array, $columnKey = 0, $indexKey = NULL) : Array
     {
         return array_column($array, $columnKey, $indexKey);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // excluding
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array   $array
-    // @param array   $excluding
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function excluding(Array $array, Array $excluding) : Array
-    {
-        $newArray = [];
-
-        if( count($excluding) > count($array) )
-        {
-            throw new LogicException
-            (
-                'DataTypes',
-                'array:notExceedLength',
-                ['%' => '2.($excluding)', '#' => '1.($array)']
-            );
-        }
-
-        foreach( $array as $key => $val )
-        {
-            if( ! in_array($val, $excluding) && ! in_array($key, $excluding) )
-            {
-                $newArray[$key] = $val;
-            }
-        }
-
-        return $newArray;
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // including
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array   $array
-    // @param array   $excluding
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function including(Array $array, Array $including) : Array
-    {
-        $newArray = [];
-
-        if( count($including) > count($array) )
-        {
-            throw new LogicException
-            (
-                'DataTypes',
-                'array:notExceedLength',
-                ['%' => '2.($including)', '#' => '1.($array)']
-            );
-        }
-
-        foreach( $array as $key => $val )
-        {
-            if( in_array($val, $including) || in_array($key, $including) )
-            {
-                $newArray[$key] = $val;
-            }
-        }
-
-        return $newArray;
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // each
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array    $array
-    // @param callable $callable
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function each(Array $array, $callable)
-    {
-        if( ! is_callable($callable) )
-        {
-            throw new InvalidArgumentException('Error', 'callableParameter', '2.($callable)');
-        }
-
-        foreach( $array as $k => $v )
-        {
-            $callable($v, $k);
-        }
     }
 }
