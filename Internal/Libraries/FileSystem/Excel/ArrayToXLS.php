@@ -1,8 +1,6 @@
-<?php namespace ZN\FileSystem;
+<?php namespace ZN\FileSystem\Excel;
 
-use CallController;
-
-class InternalExcel extends CallController implements ExcelInterface
+class ArrayToXLS
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -14,27 +12,35 @@ class InternalExcel extends CallController implements ExcelInterface
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
-    // Array To XLS
+    // Do
     //--------------------------------------------------------------------------------------------------------
     //
     // @param array  $data
     // @param string $file
     //
     //--------------------------------------------------------------------------------------------------------
-    public function arrayToXLS(Array $data, String $file = 'excel.xls')
+    public function do(Array $data, String $file = 'excel.xls')
     {
-        return ExcelFactory::class('ArrayToXLS')->do($data, $file);
-    }
+        $file = suffix($file, '.xls');
 
-    //--------------------------------------------------------------------------------------------------------
-    // CSV To Array
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $file
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function CSVToArray(String $file) : Array
-    {
-        return ExcelFactory::class('CSVToArray')->do($file);
+        header("Content-Disposition: attachment; filename=\"$file\"");
+        header("Content-Type: application/vnd.ms-excel;");
+        header("Pragma: no-cache");
+        header("Expires: 0");
+
+        if( ! empty($this->rows) )
+        {
+            $data = $this->rows;
+            $this->rows = NULL;
+        }
+
+        $output = fopen("php://output", 'w');
+
+        foreach( $data as $column )
+        {
+            fputcsv($output, $column, "\t");
+        }
+
+        fclose($output);
     }
 }

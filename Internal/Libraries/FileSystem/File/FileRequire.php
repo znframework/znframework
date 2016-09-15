@@ -1,8 +1,9 @@
-<?php namespace ZN\FileSystem;
+<?php namespace ZN\FileSystem\File;
 
-use CallController;
+use ZN\FileSystem\Exception\FileNotFoundException;
+use ZN\FileSystem\FileSystemCommon;
 
-class InternalExcel extends CallController implements ExcelInterface
+class FileRequire extends FileSystemCommon
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -14,27 +15,40 @@ class InternalExcel extends CallController implements ExcelInterface
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
-    // Array To XLS
+    // Require
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param array  $data
     // @param string $file
     //
+    // @return array
+    //
     //--------------------------------------------------------------------------------------------------------
-    public function arrayToXLS(Array $data, String $file = 'excel.xls')
+    public function require(String $file, String $type = 'require')
     {
-        return ExcelFactory::class('ArrayToXLS')->do($data, $file);
-    }
+        $file = $this->rpath($file);
 
-    //--------------------------------------------------------------------------------------------------------
-    // CSV To Array
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $file
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function CSVToArray(String $file) : Array
-    {
-        return ExcelFactory::class('CSVToArray')->do($file);
+        if( ! is_file($file) )
+        {
+            throw new FileNotFoundException($file);
+        }
+
+        switch( $type )
+        {
+            case 'require':
+                return require $file;
+            break;
+
+            case 'require_once':
+                return require_once $file;
+            break;
+
+            case 'include':
+                return include $file;
+            break;
+
+            case 'include_once':
+                return include_once $file;
+            break;
+        }
     }
 }
