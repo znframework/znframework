@@ -1,6 +1,9 @@
-<?php namespace ZN\FileSystem;
+<?php namespace ZN\FileSystem\FTP;
 
-interface FTPInterface
+use CLController, Config;
+use ZN\FileSystem\Exception\IOException;
+
+class Connection extends CLController implements ConnectionInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -11,102 +14,124 @@ interface FTPInterface
     //
     //--------------------------------------------------------------------------------------------------------
 
-    //--------------------------------------------------------------------------------------------------------
-    // createFolder()
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $path: empty
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function createFolder(String $path) : Bool;
+    const config = 'FileSystem:ftp';
 
     //--------------------------------------------------------------------------------------------------------
-    // deleteFolder()
+    // Protected $connect
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $path: empty
+    // @const resource
     //
     //--------------------------------------------------------------------------------------------------------
-    public function deleteFolder(String $path) : Bool;
+    protected $connect = NULL;
 
     //--------------------------------------------------------------------------------------------------------
-    // changeFolder()
+    // Protected $login
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $path: empty
+    // @const resource
     //
     //--------------------------------------------------------------------------------------------------------
-    public function changeFolder(String $path) : Bool;
+    protected $login = NULL;
 
     //--------------------------------------------------------------------------------------------------------
-    // rename()
+    // __construct()
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $oldName: empty
-    // @param string $newName: empty
+    // @param array $config: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function rename(String $oldName, String $newName) : Bool;
+    public function __construct(Array $config = [])
+    {
+        parent::__construct();
+
+        if( ! empty($config) )
+        {
+            $config = Config::set('FileSystem', 'ftp', $config);
+        }
+        else
+        {
+            $config = FILESYSTEM_FTP_CONFIG;
+        }
+
+        $this->_connect($config);
+    }
 
     //--------------------------------------------------------------------------------------------------------
-    // deleteFile()
+    // differentConnection()
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $path: empty
+    // @param array $config: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function deleteFile(String $path) : Bool;
+    public function differentConnection(Array $config) : Connection
+    {
+        return new self($config);
+    }
 
     //--------------------------------------------------------------------------------------------------------
-    // upload()
+    // Protected connect()
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $localPath : empty
-    // @param string $remotePath: empty
-    // @param string $type      : binary, ascii
+    // @param array $config: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function upload(String $localPath, String $remotePath, String $type = 'ascii') : Bool;
+    protected function _connect($config)
+    {
+        // ----------------------------------------------------------------------------
+        // FTP BAĞLANTI AYARLARI YAPILANDIRILIYOR
+        // ----------------------------------------------------------------------------
+        $host     = $config['host'];
+        $port     = $config['port'];
+        $timeout  = $config['timeout'];
+        $user     = $config['user'];
+        $password = $config['password'];
+        $ssl      = $config['sslConnect'];
+        // ----------------------------------------------------------------------------
+
+        // Bağlantı türü ayarına göre ssl veya normal
+        // bağlatı yapılıp yapılmayacağı belirlenir.
+        $this->connect = $ssl === false
+                       ? ftp_connect($host, $port, $timeout)
+                       : ftp_ssl_connect($host, $port, $timeout);
+
+        if( empty($this->connect) )
+        {
+            throw new IOException('Error', 'emptyVariable', 'Connect');
+        }
+
+        $this->login = ftp_login($this->connect, $user, $password);
+
+        if( empty($this->login) )
+        {
+            throw new IOException('Error', 'emptyVariable', 'Login');
+        }
+    }
 
     //--------------------------------------------------------------------------------------------------------
-    // dowload()
+    // Protected close()
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $remotePath: empty
-    // @param string $localPath : empty
-    // @param string $type      : binary, ascii
+    // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function download(String $remotePath, String $localPath, String $type = 'ascii') : Bool;
+    protected function _close()
+    {
+        if( ! empty($this->connect) )
+        {
+            return ftp_close($this->connect);
+        }
+    }
 
     //--------------------------------------------------------------------------------------------------------
-    // permission()
+    // __destruct()
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $path: empty
-    // @param int $type   : 0755
+    // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function permission(String $path, Int $type = 0755) : Bool;
-
-    //--------------------------------------------------------------------------------------------------------
-    // files()
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $path     : empty
-    // @param string $extension: empty
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function files(String $path, String $extension = NULL) : Array;
-
-    //--------------------------------------------------------------------------------------------------------
-    // fileSize()
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $path   : empty
-    // @param string $type   : b, kb, mb, gb
-    // @param int    $decimal: 2
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function fileSize(String $path, String $type = 'b', Int $decimal = 2) : Float;
+    public function __destruct()
+    {
+        $this->_close();
+    }
 }

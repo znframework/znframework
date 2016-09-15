@@ -1,6 +1,12 @@
-<?php namespace ZN\FileSystem;
+<?php namespace ZN\FileSystem\FTP;
 
-interface FTPInterface
+use ZN\FileSystem\Exception\FolderAllreadyException;
+use ZN\FileSystem\Exception\FolderNotFoundException;
+use ZN\FileSystem\Exception\FolderChangeDirException;
+use ZN\FileSystem\Exception\FolderChangeNameException;
+use ZN\FileSystem\Exception\IOException;
+
+class FTPForge extends Connection
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -18,7 +24,17 @@ interface FTPInterface
     // @param string $path: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function createFolder(String $path) : Bool;
+    public function createFolder(String $path) : Bool
+    {
+        if( ftp_mkdir($this->connect, $path) )
+        {
+            return true;
+        }
+        else
+        {
+            throw new FolderAllreadyException($path);
+        }
+    }
 
     //--------------------------------------------------------------------------------------------------------
     // deleteFolder()
@@ -27,7 +43,17 @@ interface FTPInterface
     // @param string $path: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function deleteFolder(String $path) : Bool;
+    public function deleteFolder(String $path) : Bool
+    {
+        if( ftp_rmdir($this->connect, $path) )
+        {
+            return true;
+        }
+        else
+        {
+            throw new FolderNotFoundException($path);
+        }
+    }
 
     //--------------------------------------------------------------------------------------------------------
     // changeFolder()
@@ -36,7 +62,17 @@ interface FTPInterface
     // @param string $path: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function changeFolder(String $path) : Bool;
+    public function changeFolder(String $path) : Bool
+    {
+        if( ftp_chdir($this->connect, $path) )
+        {
+            return true;
+        }
+        else
+        {
+            throw new FolderChangeDirException($path);
+        }
+    }
 
     //--------------------------------------------------------------------------------------------------------
     // rename()
@@ -46,7 +82,17 @@ interface FTPInterface
     // @param string $newName: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function rename(String $oldName, String $newName) : Bool;
+    public function rename(String $oldName, String $newName) : Bool
+    {
+        if( ftp_rename($this->connect, $oldName, $newName) )
+        {
+            return true;
+        }
+        else
+        {
+            throw new FolderChangeNameException($oldName);
+        }
+    }
 
     //--------------------------------------------------------------------------------------------------------
     // deleteFile()
@@ -55,29 +101,17 @@ interface FTPInterface
     // @param string $path: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function deleteFile(String $path) : Bool;
-
-    //--------------------------------------------------------------------------------------------------------
-    // upload()
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $localPath : empty
-    // @param string $remotePath: empty
-    // @param string $type      : binary, ascii
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function upload(String $localPath, String $remotePath, String $type = 'ascii') : Bool;
-
-    //--------------------------------------------------------------------------------------------------------
-    // dowload()
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $remotePath: empty
-    // @param string $localPath : empty
-    // @param string $type      : binary, ascii
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function download(String $remotePath, String $localPath, String $type = 'ascii') : Bool;
+    public function deleteFile(String $path) : Bool
+    {
+        if( ftp_delete($this->connect, $path) )
+        {
+            return true;
+        }
+        else
+        {
+            throw new FileNotFoundException($path);
+        }
+    }
 
     //--------------------------------------------------------------------------------------------------------
     // permission()
@@ -87,26 +121,15 @@ interface FTPInterface
     // @param int $type   : 0755
     //
     //--------------------------------------------------------------------------------------------------------
-    public function permission(String $path, Int $type = 0755) : Bool;
-
-    //--------------------------------------------------------------------------------------------------------
-    // files()
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $path     : empty
-    // @param string $extension: empty
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function files(String $path, String $extension = NULL) : Array;
-
-    //--------------------------------------------------------------------------------------------------------
-    // fileSize()
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $path   : empty
-    // @param string $type   : b, kb, mb, gb
-    // @param int    $decimal: 2
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function fileSize(String $path, String $type = 'b', Int $decimal = 2) : Float;
+    public function permission(String $path, Int $type = 0755) : Bool
+    {
+        if( ftp_chmod($this->connect, $type, $path) )
+        {
+            return true;
+        }
+        else
+        {
+            throw new IOException('Error', 'emptyVariable', 'Connect');
+        }
+    }
 }
