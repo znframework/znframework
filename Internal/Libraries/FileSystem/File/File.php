@@ -16,15 +16,29 @@ class InternalFile extends FileSystemCommon implements FileInterface
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
+    // Settings
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param array $set
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function settings(Array $set = []) : InternalUpload
+    {
+        FileFactory::class('FileTransfer')->settings($set);
+
+        return $this;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
     // Upload
     //--------------------------------------------------------------------------------------------------------
     //
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function upload() : InternalUpload
+    public  function upload(String $fileName = 'upload', String $rootDir = UPLOADS_DIR) : Bool
     {
-        return FileSystemFactory::class('InternalUpload');
+        return FileFactory::class('FileTransfer')->upload($fileName, $rootDir);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -34,9 +48,9 @@ class InternalFile extends FileSystemCommon implements FileInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function download() : InternalDownload
+    public function download(String $file)
     {
-        return FileSystemFactory::class('InternalDownload');
+        return FileFactory::class('FileTransfer')->download($file);
     }
 
     //--------------------------------------------------------------------------------------------------------

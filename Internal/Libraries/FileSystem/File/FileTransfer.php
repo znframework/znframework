@@ -1,9 +1,10 @@
-<?php namespace ZN\FileSystem;
+<?php namespace ZN\FileSystem\File;
 
-use CallController, File;
+use File;
 use ZN\FileSystem\Exception\FileNotFoundException;
+use ZN\FileSystem\FileSystemFactory;
 
-class InternalDownload extends CallController implements DownloadInterface
+class FileTransfer
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -15,13 +16,39 @@ class InternalDownload extends CallController implements DownloadInterface
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
+    // Settings
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param array $set
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function settings(Array $set = [])
+    {
+        FileSystemFactory::class('InternalUpload')->settings($set);
+
+        return $this;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Upload
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public  function upload(String $fileName = 'upload', String $rootDir = UPLOADS_DIR) : Bool
+    {
+        return FileSystemFactory::class('InternalUpload')->start($fileName, $rootDir);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
     // Start
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string $file
     //
     //--------------------------------------------------------------------------------------------------------
-    public function start(String $file)
+    public function download(String $file)
     {
         if( ! File::available($file) )
         {
