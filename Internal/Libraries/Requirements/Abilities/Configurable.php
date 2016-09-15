@@ -1,4 +1,7 @@
-<?php trait ConfigurableAbility
+<?php
+use ZN\Requirements\Abilities\Exception\UndefinedConstException;
+
+trait ConfigurableAbility
 {
     //--------------------------------------------------------------------------------------------------------
     // Config
@@ -20,7 +23,7 @@
     {
         if( ! defined('static::config') )
         {
-            throw new UndefinedConfigConstException('[const config] is required to use the [Config Ability]!');
+            throw new UndefinedConstException('[const config] is required to use the [Config Ability]!');
         }
 
         $configs = static::config;
