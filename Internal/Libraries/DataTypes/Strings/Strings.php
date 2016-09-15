@@ -57,7 +57,7 @@ class InternalStrings extends CallController implements StringsInterface
     //--------------------------------------------------------------------------------------------------------
     public function casing(String $str, String $type = 'lower', String $encoding = 'utf-8') : String
     {
-        return Converter::stringCase($str, $type, $encoding);
+        return mb_convert_case($str, Converter::toConstant($type, 'MB_CASE_'), $encoding);
     }
 
     //--------------------------------------------------------------------------------------------------------

@@ -1,8 +1,6 @@
-<?php namespace ZN\Helpers;
+<?php namespace ZN\Helpers\Cleaner;
 
-use CallController;
-
-class InternalCleaner extends CallController implements CleanerInterface
+class CleanerData
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -14,15 +12,33 @@ class InternalCleaner extends CallController implements CleanerInterface
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
-    // Data
+    // Do
     //--------------------------------------------------------------------------------------------------------
     //
     // @param mixed $searchData
     // @param mixed $cleanWord
     //
     //--------------------------------------------------------------------------------------------------------
-    public function data($searchData, $cleanWord)
+    public function do($searchData, $cleanWord)
     {
-        return CleanerFactory::class('CleanerData')->do($searchData, $cleanWord);
+        if( ! is_array($searchData) )
+        {
+            $result = str_replace($cleanWord, '', $searchData);
+        }
+        else
+        {
+            if( ! is_array($cleanWord) )
+            {
+                $cleanWordArray[] = $cleanWord;
+            }
+            else
+            {
+                $cleanWordArray = $cleanWord;
+            }
+
+            $result = array_diff($searchData, $cleanWordArray);
+        }
+
+        return $result;
     }
 }
