@@ -1,6 +1,6 @@
 <?php namespace ZN\DataTypes;
 
-interface SeparatorInterface
+class SeparatorCommon
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -12,46 +12,32 @@ interface SeparatorInterface
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
-    // Encode
+    // Key
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param array  $data
-    // @param string $key
-    // @param string $separator
+    // @var string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function encode(Array $data, String $key = NULL, String $separator = NULL) : String;
+    protected $key = "+-?||?-+" ;
 
     //--------------------------------------------------------------------------------------------------------
-    // Decode
+    // Separator
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $word
-    // @param string $key
-    // @param string $separator
+    // @var string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function decode(String $word, String $key = NULL, String $separator = NULL) : \stdClass;
+    protected $separator = "|?-++-?|";
 
     //--------------------------------------------------------------------------------------------------------
-    // Decode
+    // Protected Security
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $word
-    // @param string $key
-    // @param string $separator
+    // @param string  $data
     //
     //--------------------------------------------------------------------------------------------------------
-    public function decodeObject(String $word, String $key = NULL, String $separator = NULL) : \stdClass;
-
-    //--------------------------------------------------------------------------------------------------------
-    // Decode Array
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $word
-    // @param string $key
-    // @param string $separator
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function decodeArray(String $word, String $key = NULL, String $separator = NULL) : Array;
+    protected function _security($data)
+    {
+        return str_replace([$this->key, $this->separator], '', $data);
+    }
 }

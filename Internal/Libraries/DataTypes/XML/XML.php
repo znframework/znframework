@@ -1,9 +1,8 @@
 <?php namespace ZN\DataTypes;
 
-use File, Html, CallController;
-use ZN\DataTypes\XML\Exception\FileNotFoundException;
+use Json;
 
-class InternalXML extends CallController implements XMLInterface
+class InternalXML implements XMLInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -18,37 +17,6 @@ class InternalXML extends CallController implements XMLInterface
     // Version
     //--------------------------------------------------------------------------------------------------------
     //
-    // @var string
-    //
-    //--------------------------------------------------------------------------------------------------------
-    protected $version  = '1.0';
-
-    //--------------------------------------------------------------------------------------------------------
-    // Encoding
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var string
-    //
-    //--------------------------------------------------------------------------------------------------------
-    protected $encoding = 'UTF-8';
-
-    //--------------------------------------------------------------------------------------------------------
-    // Extension
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var string
-    //
-    //--------------------------------------------------------------------------------------------------------
-    protected $extension = '.xml';
-
-    //--------------------------------------------------------------------------------------------------------
-    // Settings Methods Başlangıç
-    //--------------------------------------------------------------------------------------------------------
-
-    //--------------------------------------------------------------------------------------------------------
-    // Version
-    //--------------------------------------------------------------------------------------------------------
-    //
     // Genel Kullanım: Bir XML belgesinin versiyonunu oluşturur.
     //
     // @param  string   $version -> 1.0
@@ -57,7 +25,7 @@ class InternalXML extends CallController implements XMLInterface
     //--------------------------------------------------------------------------------------------------------
     public function version(String $version = '1.0') : InternalXML
     {
-        $this->version = $version;
+        XMLFactory::class('XMLBuilder')->version($version);
 
         return $this;
     }
@@ -74,7 +42,7 @@ class InternalXML extends CallController implements XMLInterface
     //--------------------------------------------------------------------------------------------------------
     public function encoding(String $encoding = 'UTF-8') : InternalXML
     {
-        return $this->encoding = $encoding;
+        XMLFactory::class('XMLBuilder')->encoding($encoding);
 
         return $this;
     }
@@ -90,13 +58,7 @@ class InternalXML extends CallController implements XMLInterface
     //--------------------------------------------------------------------------------------------------------
     public function build(Array $data, String $version = NULL, String $encoding = NULL) : String
     {
-        if( ! empty($version) )  $this->version  = $version;
-        if( ! empty($encoding) ) $this->encoding = $encoding;
-
-        $xml  ='<?xml version="'.$this->version.'" encoding="'.$this->encoding.'"?>'.EOL;
-        $xml .= $this->_document($data, '', 0);
-
-        return $xml;
+        return XMLFactory::class('XMLBuilder')->do($data, $version, $encoding);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -109,9 +71,7 @@ class InternalXML extends CallController implements XMLInterface
     //--------------------------------------------------------------------------------------------------------
     public function save(String $file, String $data) : Bool
     {
-        $file = suffix($file, $this->extension);
-
-        return File::write($file, $data);
+        return XMLFactory::class('XMLSave')->do($file, $data);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -124,16 +84,20 @@ class InternalXML extends CallController implements XMLInterface
     //--------------------------------------------------------------------------------------------------------
     public function load(String $file) : String
     {
-        $file = suffix($file, '.xml');
+        return XMLFactory::class('XMLLoader')->do($file);
+    }
 
-        if( File::exists($file) )
-        {
-            return File::read($file);
-        }
-        else
-        {
-            throw new FileNotFoundException('Exception', 'fileNotFound', $file);
-        }
+    //--------------------------------------------------------------------------------------------------------
+    // Parse
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $xml
+    // @param string $result
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function parse(String $xml, String $result = 'object')
+    {
+        return XMLFactory::class('XMLParser')->do($xml, $result);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -159,7 +123,7 @@ class InternalXML extends CallController implements XMLInterface
     //--------------------------------------------------------------------------------------------------------
     public function parseJson(String $data) : String
     {
-        return json_encode($this->parse($data, 'array'));
+        return Json::encode($this->parse($data, 'array'));
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -173,122 +137,5 @@ class InternalXML extends CallController implements XMLInterface
     public function parseObject(String $data) : \stdClass
     {
         return $this->parse($data, 'object');
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Parse
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $xml
-    // @param string $result
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function parse(String $xml, String $result = 'object')
-    {
-        $parser   = xml_parser_create();
-
-        xml_parser_set_option($parser, XML_OPTION_CASE_FOLDING, 0);
-        xml_parser_set_option($parser, XML_OPTION_SKIP_WHITE, 1);
-        xml_parse_into_struct($parser, $xml, $tags);
-        xml_parser_free($parser);
-
-        $elements = [];
-        $stack    = [];
-
-        if( ! empty($tags) ) foreach( $tags as $tag )
-        {
-            $index = count($elements);
-
-            if( $tag['type'] === 'complete' || $tag['type'] === 'open' )
-            {
-                if( $result === 'object' )
-                {
-                    $elements[$index]          = new \stdClass;
-                    $elements[$index]->name    = isset( $tag['tag'] )       ? $tag['tag']        : '';
-                    $elements[$index]->content = isset( $tag['value'] )         ? $tag['value']      : '';
-                    $elements[$index]->attr    = isset( $tag['attributes'] )  ? $tag['attributes'] : '';
-
-                    if( $tag['type'] === 'open' )
-                    {
-                        $elements[$index]->child = [];
-                        $stack[count($stack)]       = &$elements;
-                        $elements                   = &$elements[$index]->child;
-                    }
-                }
-                else
-                {
-                    $elements[$index]               = [];
-                    $elements[$index]['name']       = isset( $tag['tag'] )        ? $tag['tag']        : '';
-                    $elements[$index]['content']    = isset( $tag['value'] )      ? $tag['value']      : '';
-                    $elements[$index]['attr']       = isset( $tag['attributes'] ) ? $tag['attributes'] : '';
-
-                    if( $tag['type'] === 'open' )
-                    {
-                        $elements[$index]['child'] = [];
-                        $stack[count($stack)]      = &$elements;
-                        $elements                  = &$elements[$index]['child'];
-                    }
-                }
-            }
-
-            if( $tag['type'] === 'close' )
-            {
-                $elements = &$stack[count($stack) - 1];
-                unset($stack[count($stack) - 1]);
-            }
-        }
-
-        return $elements[0];
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Document
-    //--------------------------------------------------------------------------------------------------------
-    // Genel Kullanım: Bir XML belgesi oluşturur.
-    //
-    //--------------------------------------------------------------------------------------------------------
-    protected function _document($xml = '', $tab = '', $start = 0)
-    {
-        static $start;
-
-        $eof     = EOL;
-        $output  = '';
-        $tab     = str_repeat("\t", $start);
-
-        if( ! isset($xml[0]) )
-        {
-            $xml = [$xml];
-            $start = 0;
-        }
-
-        foreach( $xml as $data )
-        {
-            $name    = isset( $data['name'] )    ?  $data['name']    : '';
-            $attr    = isset( $data['attr'] )    ?  $data['attr']    : '';
-            $content = isset( $data['content'] ) ?  $data['content'] : '';
-            $child   = isset( $data['child'] )   ?  $data['child']   : '';
-
-            $output .= "$tab<$name".Html::attributes($attr).">";
-
-            if( ! empty($content) )
-            {
-                $output .= $content;
-            }
-            else
-            {
-                if( ! empty($child) )
-                {
-                    $output .= $eof.$this->_document($child, $tab, $start++).$tab;
-                }
-                else
-                {
-                    $output .= $content;
-                }
-            }
-
-            $output .= "</".$name.">".$eof;
-        }
-
-        return $output;
     }
 }
