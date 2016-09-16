@@ -1,8 +1,6 @@
-<?php namespace ZN\IndividualStructures\Buffer;
+<?php namespace ZN\IndividualStructures\Benchmark;
 
-use Session;
-
-class Select implements SelectInterface
+interface ElapsedTimeInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -14,15 +12,13 @@ class Select implements SelectInterface
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
-    // Do
+    // Elapsed Time
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param  string $name
-    // @return callable/content
+    // @param  string  $result
+    // @param  numeric $decimal
+    // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function do(String $name)
-    {
-        return Session::select(md5('OB_DATAS_'.$name));
-    }
+    public static function calculate(String $result, Int $decimal = 4) : Float;
 }

@@ -2,7 +2,7 @@
 
 use Html;
 
-class XMLBuilder
+class Builder implements BuilderInterface
 {
     //--------------------------------------------------------------------------------------------------------
     // Version
@@ -32,7 +32,7 @@ class XMLBuilder
     // @return this
     //
     //--------------------------------------------------------------------------------------------------------
-    public function version(String $version = '1.0') : XMLBuilder
+    public function version(String $version = '1.0') : Builder
     {
         $this->version = $version;
 
@@ -49,9 +49,9 @@ class XMLBuilder
     // @return this
     //
     //--------------------------------------------------------------------------------------------------------
-    public function encoding(String $encoding = 'UTF-8') : XMLBuilder
+    public function encoding(String $encoding = 'UTF-8') : Builder
     {
-        return $this->encoding = $encoding;
+        $this->encoding = $encoding;
 
         return $this;
     }

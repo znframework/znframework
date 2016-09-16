@@ -1,6 +1,6 @@
 <?php namespace ZN\IndividualStructures\Benchmark;
 
-class ElapsedTime
+class ElapsedTime implements ElapsedTimeInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

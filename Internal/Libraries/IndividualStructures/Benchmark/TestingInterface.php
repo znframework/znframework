@@ -1,8 +1,6 @@
-<?php namespace ZN\IndividualStructures\Buffer;
+<?php namespace ZN\IndividualStructures\Benchmark;
 
-use Session;
-
-class Select implements SelectInterface
+interface TestingInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -14,15 +12,22 @@ class Select implements SelectInterface
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
-    // Do
+    // Test Start
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param  string $name
-    // @return callable/content
+    // @param  string $test
+    // @return void
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function do(String $name)
-    {
-        return Session::select(md5('OB_DATAS_'.$name));
-    }
+    public static function start(String $test);
+
+    //--------------------------------------------------------------------------------------------------------
+    // Test End
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param  string $test
+    // @return void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public static function end(String $test);
 }

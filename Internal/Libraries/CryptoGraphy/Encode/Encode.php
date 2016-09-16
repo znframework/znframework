@@ -1,68 +1,25 @@
 <?php namespace ZN\CryptoGraphy;
 
-class InternalEncode implements EncodeInterface
+class InternalEncode extends \FactoryController
 {
     //--------------------------------------------------------------------------------------------------------
-    // Create
-    //--------------------------------------------------------------------------------------------------------
     //
-    // @param int    $count
-    // @param string $chars
+    // Author     : Ozan UYKUN <ozanbote@gmail.com>
+    // Site       : www.znframework.com
+    // License    : The MIT License
+    // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
-    public function create(Int $count = 6, String $chars = 'all') : String
-    {
-        return EncodeFactory::class('RandomPassword')->create($count, $chars);
-    }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Golden
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $data
-    // @param string $additional
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function golden(String $data, String $additional = 'default') : String
-    {
-        return EncodeFactory::class('GoldenAlgorithm')->create($data, $additional);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Super
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $data
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function super(String $data) : String
-    {
-        return EncodeFactory::class('SuperAlgorithm')->create($data);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Data
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $data
-    // @param string $type
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function data(String $data, String $type = 'md5') : String
-    {
-        return $this->type($data, $type);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Type
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $data
-    // @param string $type
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function type(String $data, String $type = 'md5') : String
-    {
-        return EncodeFactory::class('Type')->create($data, $type);
-    }
+    const factory =
+    [
+        'methods' =>
+        [
+            'create' => 'Encode\RandomPassword::create',
+            'golden' => 'Encode\GoldenAlgorithm::create',
+            'super'  => 'Encode\SuperAlgorithm::create',
+            'type'   => 'Encode\Type::create',
+            'data'   => 'Encode\Type::create'
+        ]
+    ];
 }

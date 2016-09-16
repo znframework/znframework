@@ -1,6 +1,6 @@
-<?php namespace ZN\IndividualStructures\Benchmark;
+<?php namespace ZN\DataTypes\Separator;
 
-class MemoryUsage implements MemoryUsageInterface
+class Decode extends SeparatorCommon implements DecodeInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -12,54 +12,68 @@ class MemoryUsage implements MemoryUsageInterface
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
-    // Calculated Memory
+    // Do
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param  string $result
-    // @return string
+    // @param string $word
+    // @param string $key
+    // @param string $separator
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function calculate(String $result) : Float
+    public function do(String $word, String $key = NULL, String $separator = NULL) : \stdClass
     {
-        $resend  = $result."_end";
-        $restart = $result."_start";
-
-        if( ! isset(Properties::$memtests[$restart]) )
+        if( empty($key) )
         {
-            throw new BenchmarkException('[Benchmark::calculatedMemory(\''.$result.'\')] -> Parameter is not a valid test start!');
+            $key = $this->key;
         }
 
-        if( ! isset(Properties::$memtests[$resend]) )
+        if( empty($separator) )
         {
-            throw new BenchmarkException('[Benchmark::calculatedMemory(\''.$result.'\')] -> Parameter is not a valid test end!');
+            $separator = $this->separator;
         }
 
-        return Properties::$memtests[$resend] - Properties::$memtests[$restart];
+        $keyval = explode($separator, $word);
+        $splits = [];
+        $object = [];
+
+        if( is_array($keyval) ) foreach( $keyval as $v )
+        {
+             $splits = explode($key, $v);
+
+             if( isset($splits[1]) )
+             {
+                $object[$splits[0]] = $splits[1];
+             }
+        }
+
+        return (object) $object;
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Memory Usage
+    // Object
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param  bool $realMemory
-    // @return string
+    // @param string $word
+    // @param string $key
+    // @param string $separator
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function normal(Bool $realMemory = false) : Int
+    public function object(String $word, String $key = NULL, String $separator = NULL) : \stdClass
     {
-        return  memory_get_usage($realMemory);
+        return $this->do($word, $key, $separator);
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Max Memory Usage
+    // Array
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param  bool $realMemory
-    // @return string
+    // @param string $word
+    // @param string $key
+    // @param string $separator
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function maximum(Bool $realMemory = false) : Int
+    public function array(String $word, String $key = NULL, String $separator = NULL) : Array
     {
-        return  memory_get_peak_usage($realMemory);
+        return (array) $this->do($word, $key, $separator);
     }
 }

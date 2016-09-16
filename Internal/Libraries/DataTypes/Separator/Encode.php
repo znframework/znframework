@@ -1,8 +1,6 @@
 <?php namespace ZN\DataTypes\Separator;
 
-use ZN\DataTypes\SeparatorCommon;
-
-class DecodeData extends SeparatorCommon
+class Encode extends SeparatorCommon implements EncodeInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -17,37 +15,34 @@ class DecodeData extends SeparatorCommon
     // Do
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $word
+    // @param array  $data
     // @param string $key
     // @param string $separator
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do(String $word, String $key = NULL, String $separator = NULL) : \stdClass
+    public function do(Array $data, String $key = NULL, String $separator = NULL) : String
     {
+        $word = NULL;
+
+        // @key parametresi boş ise ön tanımlı ayracı kullan.
         if( empty($key) )
         {
             $key = $this->key;
         }
 
+        // @seperator parametresi boş ise ön tanımlı ayracı kullan.
         if( empty($separator) )
         {
             $separator = $this->separator;
         }
+        // -----------------------------------------------------------------------------
 
-        $keyval = explode($separator, $word);
-        $splits = [];
-        $object = [];
-
-        if( is_array($keyval) ) foreach( $keyval as $v )
+        // Özel veri tipine çevirme işlemini başlat.
+        foreach( $data as $k => $v )
         {
-             $splits = explode($key, $v);
-
-             if( isset($splits[1]) )
-             {
-                $object[$splits[0]] = $splits[1];
-             }
+            $word .= $this->_security($k).$key.$this->_security($v).$separator;
         }
 
-        return (object) $object;
+        return mb_substr($word, 0, -(mb_strlen($separator)));
     }
 }

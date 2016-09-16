@@ -1,8 +1,6 @@
-<?php namespace ZN\IndividualStructures\Buffer;
+<?php namespace ZN\Requirements\Controllers;
 
-use Session;
-
-class Select implements SelectInterface
+class FactoryController extends BaseController
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -14,15 +12,13 @@ class Select implements SelectInterface
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
-    // Do
+    // Usage
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param  string $name
-    // @return callable/content
+    // Abilities
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function do(String $name)
-    {
-        return Session::select(md5('OB_DATAS_'.$name));
-    }
+    use \MagicFactoryAbility;
 }
+
+class_alias('ZN\Requirements\Controllers\FactoryController', 'FactoryController');

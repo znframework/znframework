@@ -2,7 +2,7 @@
 
 use Session;
 
-class Delete
+class Delete implements DeleteInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

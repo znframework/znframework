@@ -1,8 +1,6 @@
-<?php namespace ZN\IndividualStructures\Buffer;
+<?php namespace ZN\CryptoGraphy\Encode;
 
-use Session;
-
-class Select implements SelectInterface
+interface SuperAlgorithmInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -14,15 +12,11 @@ class Select implements SelectInterface
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
-    // Do
+    // Super
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param  string $name
-    // @return callable/content
+    // @param string $data
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function do(String $name)
-    {
-        return Session::select(md5('OB_DATAS_'.$name));
-    }
+    public function create(String $data) : String;
 }

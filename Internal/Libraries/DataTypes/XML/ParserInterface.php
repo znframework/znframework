@@ -1,57 +1,44 @@
-<?php namespace ZN\DataTypes;
+<?php namespace ZN\DataTypes\XML;
 
-interface SeparatorInterface
+interface ParserInterface
 {
     //--------------------------------------------------------------------------------------------------------
+    // Parse
+    //--------------------------------------------------------------------------------------------------------
     //
-    // Author     : Ozan UYKUN <ozanbote@gmail.com>
-    // Site       : www.znframework.com
-    // License    : The MIT License
-    // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
+    // @param string $xml
+    // @param string $result
     //
     //--------------------------------------------------------------------------------------------------------
+    public function do(String $xml, String $result = 'object');
 
     //--------------------------------------------------------------------------------------------------------
-    // Encode
+    // Parse Array
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param array  $data
-    // @param string $key
-    // @param string $separator
+    // @param  string $data
+    // @return array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function encode(Array $data, String $key = NULL, String $separator = NULL) : String;
+    public function array(String $data) : Array;
 
     //--------------------------------------------------------------------------------------------------------
-    // Decode
+    // Parse Json
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $word
-    // @param string $key
-    // @param string $separator
+    // @param  string $data
+    // @return array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function decode(String $word, String $key = NULL, String $separator = NULL) : \stdClass;
+    public function json(String $data) : String;
 
     //--------------------------------------------------------------------------------------------------------
-    // Decode
+    // Parse Object
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $word
-    // @param string $key
-    // @param string $separator
+    // @param  string   $data
+    // @return object
     //
     //--------------------------------------------------------------------------------------------------------
-    public function decodeObject(String $word, String $key = NULL, String $separator = NULL) : \stdClass;
-
-    //--------------------------------------------------------------------------------------------------------
-    // Decode Array
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $word
-    // @param string $key
-    // @param string $separator
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function decodeArray(String $word, String $key = NULL, String $separator = NULL) : Array;
+    public function object(String $data) : \stdClass;
 }

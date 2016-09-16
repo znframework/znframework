@@ -1,8 +1,6 @@
-<?php namespace ZN\IndividualStructures\Buffer;
+<?php namespace ZN\CryptoGraphy\Encode;
 
-use Session;
-
-class Select implements SelectInterface
+interface GoldenAlgorithmInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -14,15 +12,12 @@ class Select implements SelectInterface
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
-    // Do
+    // Golden
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param  string $name
-    // @return callable/content
+    // @param string $data
+    // @param string $additional
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function do(String $name)
-    {
-        return Session::select(md5('OB_DATAS_'.$name));
-    }
+    public function create(String $data, String $additional = 'default') : String;
 }

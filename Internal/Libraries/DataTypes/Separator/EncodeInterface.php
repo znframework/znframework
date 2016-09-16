@@ -1,8 +1,6 @@
 <?php namespace ZN\DataTypes\Separator;
 
-use ZN\DataTypes\SeparatorCommon;
-
-class EncodeData extends SeparatorCommon
+interface EncodeInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -22,29 +20,5 @@ class EncodeData extends SeparatorCommon
     // @param string $separator
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do(Array $data, String $key = NULL, String $separator = NULL) : String
-    {
-        $word = NULL;
-
-        // @key parametresi boş ise ön tanımlı ayracı kullan.
-        if( empty($key) )
-        {
-            $key = $this->key;
-        }
-
-        // @seperator parametresi boş ise ön tanımlı ayracı kullan.
-        if( empty($separator) )
-        {
-            $separator = $this->separator;
-        }
-        // -----------------------------------------------------------------------------
-
-        // Özel veri tipine çevirme işlemini başlat.
-        foreach( $data as $k => $v )
-        {
-            $word .= $this->_security($k).$key.$this->_security($v).$separator;
-        }
-
-        return mb_substr($word, 0, -(mb_strlen($separator)));
-    }
+    public function do(Array $data, String $key = NULL, String $separator = NULL) : String;
 }

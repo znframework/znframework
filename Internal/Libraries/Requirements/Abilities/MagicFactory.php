@@ -25,8 +25,34 @@
         }
 
         $class   = static::factory['methods'][$method];
-        $factory = static::factory['class'];
+        $factory = static::factory['class'] ?? NULL;
 
-        return $factory::class($class)->$method(...$parameters);
+        if( $factory !== NULL )
+        {
+            return $factory::class($class)->$method(...$parameters);
+        }
+        else
+        {
+            $classEx   = explode('::', $class);
+            $class     = $classEx[0] ?? NULL;
+            $method    = $classEx[1] ?? NULL;
+            $isThis    = NULL;
+
+            if( stristr($method, ':this') )
+            {
+                $method = str_replace(':this', NULL, $method);
+                $isThis = 'this';
+            }
+
+            $namespace = suffix(uselib('ReflectionClass', [get_called_class()])->getNamespaceName(), '\\');
+            $return    = uselib($namespace.$class)->$method(...$parameters);
+
+            if( $isThis === 'this' )
+            {
+                return $this;
+            }
+
+            return $return;
+        }
     }
 }

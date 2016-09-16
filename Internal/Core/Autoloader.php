@@ -49,8 +49,7 @@ class Autoloader
         }
 
         $classInfo = self::getClassFileInfo($class);
-
-        $file = self::_originPath(REAL_BASE_DIR.$classInfo['path']);
+        $file      = self::_originPath(REAL_BASE_DIR.$classInfo['path']);
 
         if( is_file($file) )
         {

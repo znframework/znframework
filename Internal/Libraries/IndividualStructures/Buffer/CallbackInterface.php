@@ -1,8 +1,6 @@
 <?php namespace ZN\IndividualStructures\Buffer;
 
-use Session;
-
-class Select implements SelectInterface
+interface CallbackInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -17,12 +15,10 @@ class Select implements SelectInterface
     // Do
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param  string $name
-    // @return callable/content
+    // @param  string/callable $func
+    // @param  array           $params
+    // @return callable
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function do(String $name)
-    {
-        return Session::select(md5('OB_DATAS_'.$name));
-    }
+    public static function do($func, Array $params = []);
 }

@@ -1,8 +1,6 @@
 <?php namespace ZN\IndividualStructures\Buffer;
 
-use Session;
-
-class Select implements SelectInterface
+interface FileInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -14,15 +12,12 @@ class Select implements SelectInterface
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
-    // Do
+    // File
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param  string $name
-    // @return callable/content
+    // @param  string $file
+    // @return content
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function do(String $name)
-    {
-        return Session::select(md5('OB_DATAS_'.$name));
-    }
+    public static function do(String $file) : String;
 }

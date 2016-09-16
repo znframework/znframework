@@ -2,7 +2,7 @@
 
 use ZN\CryptoGraphy\EncodeCommon;
 
-class SuperAlgorithm extends EncodeCommon
+class SuperAlgorithm extends EncodeCommon implements SuperAlgorithmInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

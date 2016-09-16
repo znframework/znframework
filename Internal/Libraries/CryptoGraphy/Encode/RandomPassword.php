@@ -2,7 +2,7 @@
 
 use ZN\CryptoGraphy\EncodeCommon;
 
-class RandomPassword extends EncodeCommon
+class RandomPassword extends EncodeCommon implements RandomPasswordInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

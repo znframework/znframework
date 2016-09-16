@@ -1,8 +1,6 @@
 <?php namespace ZN\IndividualStructures;
 
-use CallController;
-
-class InternalBenchmark extends CallController implements BenchmarkInterface
+class InternalBenchmark extends \FactoryController
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -13,108 +11,18 @@ class InternalBenchmark extends CallController implements BenchmarkInterface
     //
     //--------------------------------------------------------------------------------------------------------
 
-    //--------------------------------------------------------------------------------------------------------
-    // Test Start
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  string $test
-    // @return void
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function start(String $test)
-    {
-        Benchmark\Testing::start($test);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Test End
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  string $test
-    // @return void
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function end(String $test)
-    {
-        Benchmark\Testing::end($test);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Elapsed Time
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  string  $result
-    // @param  numeric $decimal
-    // @return string
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function elapsedTime(String $result, Int $decimal = 4) : Float
-    {
-        return Benchmark\ElapsedTime::calculate($result, $decimal);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Used Files
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  string $result
-    // @return numeric
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function usedFiles(String $result = NULL) : Array
-    {
-        return Benchmark\FileUsage::list($result);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Used File Count
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  string $result
-    // @return numeric
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function usedFileCount(String $result = NULL) : Int
-    {
-        return Benchmark\FileUsage::count($result);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Calculated Memory
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  string $result
-    // @return string
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function calculatedMemory(String $result) : Float
-    {
-        return Benchmark\MemoryUsage::calculate($result);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Memory Usage
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  bool $realMemory
-    // @return string
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function memoryUsage(Bool $realMemory = false) : Int
-    {
-        return Benchmark\MemoryUsage::normal($realMemory);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Max Memory Usage
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  bool $realMemory
-    // @return string
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function maxMemoryUsage(Bool $realMemory = false) : Int
-    {
-        return Benchmark\MemoryUsage::maximum($realMemory);
-    }
+    const factory =
+    [
+        'methods' =>
+        [
+            'start'            => 'Benchmark\Testing::start',
+            'end'              => 'Benchmark\Testing::end',
+            'elapsedtime'      => 'Benchmark\ElapsedTime::calculate',
+            'usedfiles'        => 'Benchmark\FileUsage::list',
+            'usedfilecount'    => 'Benchmark\FileUsage::count',
+            'calculatedmemory' => 'Benchmark\MemoryUsage::calculate',
+            'memoryusage'      => 'Benchmark\MemoryUsage::normal',
+            'maxmemoryusage'   => 'Benchmark\MemoryUsage::maximum'
+        ]
+    ];
 }

@@ -1,8 +1,6 @@
-<?php namespace ZN\IndividualStructures\Buffer;
+<?php namespace ZN\IndividualStructures\Benchmark;
 
-use Session;
-
-class Select implements SelectInterface
+interface FileUsageInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -14,15 +12,22 @@ class Select implements SelectInterface
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
-    // Do
+    // Used Files
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param  string $name
-    // @return callable/content
+    // @param  string $result
+    // @return numeric
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function do(String $name)
-    {
-        return Session::select(md5('OB_DATAS_'.$name));
-    }
+    public static function list(String $result = NULL) : Array;
+
+    //--------------------------------------------------------------------------------------------------------
+    // Used File Count
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param  string $result
+    // @return numeric
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public static function count(String $result = NULL) : Int;
 }

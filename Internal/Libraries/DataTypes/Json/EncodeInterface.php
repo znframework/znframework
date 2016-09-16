@@ -1,8 +1,6 @@
-<?php namespace ZN\IndividualStructures\Buffer;
+<?php namespace ZN\DataTypes\Json;
 
-use Session;
-
-class Select implements SelectInterface
+interface EncodeInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -14,15 +12,12 @@ class Select implements SelectInterface
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
-    // Do
+    // Encode
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param  string $name
-    // @return callable/content
+    // @param mixed  $data
+    // @param string $type
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function do(String $name)
-    {
-        return Session::select(md5('OB_DATAS_'.$name));
-    }
+    public function do($data, String $type = 'unescaped_unicode') : String;
 }

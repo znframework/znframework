@@ -1,30 +1,23 @@
-<?php namespace ZN\DataTypes\XML;
+<?php namespace ZN\CryptoGraphy\Encode;
 
-use File;
-
-class XMLSave
+interface TypeInterface
 {
     //--------------------------------------------------------------------------------------------------------
-    // Extension
-    //--------------------------------------------------------------------------------------------------------
     //
-    // @var string
+    // Author     : Ozan UYKUN <ozanbote@gmail.com>
+    // Site       : www.znframework.com
+    // License    : The MIT License
+    // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $extension = '.xml';
 
     //--------------------------------------------------------------------------------------------------------
-    // Save
+    // Type
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $file
     // @param string $data
+    // @param string $type
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do(String $file, String $data) : Bool
-    {
-        $file = suffix($file, $this->extension);
-
-        return File::write($file, $data);
-    }
+    public function create(String $data, String $type = 'md5') : String;
 }

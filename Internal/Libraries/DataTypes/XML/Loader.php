@@ -3,7 +3,7 @@
 use File;
 use ZN\DataTypes\XML\Exception\FileNotFoundException;
 
-class XMLLoader
+class Loader implements LoaderInterface
 {
     //--------------------------------------------------------------------------------------------------------
     // Load

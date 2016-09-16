@@ -1,8 +1,9 @@
-<?php namespace ZN\IndividualStructures\Buffer;
+<?php namespace ZN\DataTypes\Json;
 
-use Session;
+use Converter;
+use ZN\DataTypes\Json\Exception\JsonErrorException;
 
-class Select implements SelectInterface
+class Encode implements EncodeInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -14,15 +15,22 @@ class Select implements SelectInterface
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
-    // Do
+    // Encode
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param  string $name
-    // @return callable/content
+    // @param mixed  $data
+    // @param string $type
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function do(String $name)
+    public function do($data, String $type = 'unescaped_unicode') : String
     {
-        return Session::select(md5('OB_DATAS_'.$name));
+        $return = json_encode($data, Converter::toConstant($type, 'JSON_'));
+
+        if( ErrorInfo::no() )
+        {
+            throw new JsonErrorException('[Json::encode()] -> '.ErrorInfo::message());
+        }
+
+        return $return;
     }
 }

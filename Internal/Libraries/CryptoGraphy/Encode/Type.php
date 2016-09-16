@@ -3,7 +3,7 @@
 use ZN\CryptoGraphy\EncodeCommon;
 use ZN\CryptoGraphy\Exception\InvalidArgumentException;
 
-class Type extends EncodeCommon
+class Type extends EncodeCommon implements TypeInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

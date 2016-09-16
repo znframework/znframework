@@ -1,28 +1,30 @@
-<?php namespace ZN\IndividualStructures\Buffer;
+<?php namespace ZN\DataTypes\XML;
 
-use Session;
+use File;
 
-class Select implements SelectInterface
+class Save implements SaveInterface
 {
     //--------------------------------------------------------------------------------------------------------
+    // Extension
+    //--------------------------------------------------------------------------------------------------------
     //
-    // Author     : Ozan UYKUN <ozanbote@gmail.com>
-    // Site       : www.znframework.com
-    // License    : The MIT License
-    // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
+    // @var string
     //
     //--------------------------------------------------------------------------------------------------------
+    protected $extension = '.xml';
 
     //--------------------------------------------------------------------------------------------------------
-    // Do
+    // Save
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param  string $name
-    // @return callable/content
+    // @param string $file
+    // @param string $data
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function do(String $name)
+    public function do(String $file, String $data) : Bool
     {
-        return Session::select(md5('OB_DATAS_'.$name));
+        $file = suffix($file, $this->extension);
+
+        return File::write($file, $data);
     }
 }

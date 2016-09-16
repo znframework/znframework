@@ -1,43 +1,41 @@
-<?php namespace ZN\DataTypes\Separator;
+<?php namespace ZN\DataTypes\XML;
 
-class SeparatorCommon
+use Html;
+
+interface BuilderInterface
 {
     //--------------------------------------------------------------------------------------------------------
+    // Version
+    //--------------------------------------------------------------------------------------------------------
     //
-    // Author     : Ozan UYKUN <ozanbote@gmail.com>
-    // Site       : www.znframework.com
-    // License    : The MIT License
-    // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
+    // Genel Kullanım: Bir XML belgesinin versiyonunu oluşturur.
+    //
+    // @param  string   $version -> 1.0
+    // @return this
     //
     //--------------------------------------------------------------------------------------------------------
+    public function version(String $version = '1.0') : Builder;
 
     //--------------------------------------------------------------------------------------------------------
-    // Key
+    // Encoding
     //--------------------------------------------------------------------------------------------------------
     //
-    // @var string
+    // Genel Kullanım: Bir XML belgesinin kodlama türünü belirtir.
+    //
+    // @param  string   $encoding -> UTF-8
+    // @return this
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $key = "+-?||?-+" ;
+    public function encoding(String $encoding = 'UTF-8') : Builder;
 
     //--------------------------------------------------------------------------------------------------------
-    // Separator
+    // Build
     //--------------------------------------------------------------------------------------------------------
     //
-    // @var string
+    // @param array  $data
+    // @param string $version
+    // @param string $encoding
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $separator = "|?-++-?|";
-
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Security
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string  $data
-    //
-    //--------------------------------------------------------------------------------------------------------
-    protected function _security($data)
-    {
-        return str_replace([$this->key, $this->separator], '', $data);
-    }
+    public function do(Array $data, String $version = NULL, String $encoding = NULL) : String;
 }

@@ -1,6 +1,6 @@
 <?php namespace ZN\IndividualStructures\Benchmark;
 
-class MemoryUsage implements MemoryUsageInterface
+interface MemoryUsageInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -19,23 +19,7 @@ class MemoryUsage implements MemoryUsageInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function calculate(String $result) : Float
-    {
-        $resend  = $result."_end";
-        $restart = $result."_start";
-
-        if( ! isset(Properties::$memtests[$restart]) )
-        {
-            throw new BenchmarkException('[Benchmark::calculatedMemory(\''.$result.'\')] -> Parameter is not a valid test start!');
-        }
-
-        if( ! isset(Properties::$memtests[$resend]) )
-        {
-            throw new BenchmarkException('[Benchmark::calculatedMemory(\''.$result.'\')] -> Parameter is not a valid test end!');
-        }
-
-        return Properties::$memtests[$resend] - Properties::$memtests[$restart];
-    }
+    public static function calculate(String $result) : Float;
 
     //--------------------------------------------------------------------------------------------------------
     // Memory Usage
@@ -45,10 +29,7 @@ class MemoryUsage implements MemoryUsageInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function normal(Bool $realMemory = false) : Int
-    {
-        return  memory_get_usage($realMemory);
-    }
+    public static function normal(Bool $realMemory = false) : Int;
 
     //--------------------------------------------------------------------------------------------------------
     // Max Memory Usage
@@ -58,8 +39,5 @@ class MemoryUsage implements MemoryUsageInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function maximum(Bool $realMemory = false) : Int
-    {
-        return  memory_get_peak_usage($realMemory);
-    }
+    public static function maximum(Bool $realMemory = false) : Int;
 }

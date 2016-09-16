@@ -1,6 +1,8 @@
-<?php namespace ZN\IndividualStructures\Benchmark;
+<?php namespace ZN\DataTypes\Json;
 
-class MemoryUsage implements MemoryUsageInterface
+use ZN\DataTypes\Json\Exception\JsonErrorException;
+
+class Decode implements DecodeInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -12,54 +14,49 @@ class MemoryUsage implements MemoryUsageInterface
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
-    // Calculated Memory
+    // Do
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param  string $result
-    // @return string
+    // @param string $data
+    // @param bool   $array
+    // @param int    $length
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function calculate(String $result) : Float
+    public function do(String $data, Bool $array = false, Int $length = 512)
     {
-        $resend  = $result."_end";
-        $restart = $result."_start";
+        $return = json_decode($data, $array, $length);
 
-        if( ! isset(Properties::$memtests[$restart]) )
+        if( ErrorInfo::no() )
         {
-            throw new BenchmarkException('[Benchmark::calculatedMemory(\''.$result.'\')] -> Parameter is not a valid test start!');
+            throw new JsonErrorException('[Json::decode()] -> '.ErrorInfo::message());
         }
 
-        if( ! isset(Properties::$memtests[$resend]) )
-        {
-            throw new BenchmarkException('[Benchmark::calculatedMemory(\''.$result.'\')] -> Parameter is not a valid test end!');
-        }
-
-        return Properties::$memtests[$resend] - Properties::$memtests[$restart];
+        return $return;
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Memory Usage
+    // Decode Object
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param  bool $realMemory
-    // @return string
+    // @param string $data
+    // @param int    $length
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function normal(Bool $realMemory = false) : Int
+    public function object(String $data, Int $length = 512)
     {
-        return  memory_get_usage($realMemory);
+        return $this->do($data, false, $length);
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Max Memory Usage
+    // Decode Array
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param  bool $realMemory
-    // @return string
+    // @param string $data
+    // @param int    $length
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function maximum(Bool $realMemory = false) : Int
+    public function array(String $data, Int $length = 512) : Array
     {
-        return  memory_get_peak_usage($realMemory);
+        return $this->do($data, true, $length);
     }
 }

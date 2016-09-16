@@ -2,7 +2,7 @@
 
 use Session;
 
-class Insert
+class Insert implements InsertInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -31,7 +31,7 @@ class Insert
         {
             return Session::insert($systemObData, Callback::do($data, (array) $params));
         }
-        elseif( file_exists($data) )
+        elseif( is_file($data) )
         {
             return Session::insert($systemObData, File::do($data));
         }

@@ -1,8 +1,6 @@
-<?php namespace ZN\IndividualStructures\Buffer;
+<?php namespace ZN\CryptoGraphy\Encode;
 
-use Session;
-
-class Select implements SelectInterface
+interface RandomPasswordInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -14,15 +12,12 @@ class Select implements SelectInterface
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
-    // Do
+    // Create
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param  string $name
-    // @return callable/content
+    // @param int    $count
+    // @param string $chars
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function do(String $name)
-    {
-        return Session::select(md5('OB_DATAS_'.$name));
-    }
+    public function create(Int $count = 6, String $chars = 'all') : String;
 }

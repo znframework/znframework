@@ -2,7 +2,7 @@
 
 use ZN\CryptoGraphy\EncodeCommon;
 
-class GoldenAlgorithm extends EncodeCommon
+class GoldenAlgorithm extends EncodeCommon implements GoldenAlgorithmInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
