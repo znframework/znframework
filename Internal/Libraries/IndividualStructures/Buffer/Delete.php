@@ -1,6 +1,8 @@
-<?php namespace ZN\IndividualStructures\Benchmark;
+<?php namespace ZN\IndividualStructures\Buffer;
 
-class ElapsedTime
+use Session;
+
+class Delete
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -12,29 +14,29 @@ class ElapsedTime
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
-    // Elapsed Time
+    // Do
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param  string  $result
-    // @param  numeric $decimal
-    // @return string
+    // @param  string $name
+    // @return bool
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function calculate(String $result, Int $decimal = 4) : Float
+    public static function do($name) : Bool
     {
-        $resend  = $result."_end";
-        $restart = $result."_start";
-
-        if( ! isset(Properties::$tests[$restart]) )
+        if( is_array($name) )
         {
-            throw new BenchmarkException('[Benchmark::elapsedTime(\''.$result.'\')] -> Parameter is not a valid test start!');
+            foreach( $name as $delete )
+            {
+                Session::delete(md5('OB_DATAS_'.$delete));
+            }
+
+            return true;
+        }
+        elseif( is_scalar($name) )
+        {
+            return Session::delete(md5('OB_DATAS_'.$name));
         }
 
-        if( ! isset(Properties::$tests[$resend]) )
-        {
-            throw new BenchmarkException('[Benchmark::elapsedTime(\''.$result.'\')] -> Parameter is not a valid test end!');
-        }
-
-        return round((Properties::$tests[$resend] - Properties::$tests[$restart]), $decimal);
+        return false;
     }
 }

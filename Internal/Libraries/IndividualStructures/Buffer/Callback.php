@@ -1,6 +1,8 @@
-<?php namespace ZN\IndividualStructures\Benchmark;
+<?php namespace ZN\IndividualStructures\Buffer;
 
-class ElapsedTime
+use ZN\IndividualStructures\Buffer\Exception\InvalidArgumentException;
+
+class Callback
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -12,29 +14,36 @@ class ElapsedTime
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
-    // Elapsed Time
+    // Do
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param  string  $result
-    // @param  numeric $decimal
-    // @return string
+    // @param  string/callable $func
+    // @param  array           $params
+    // @return callable
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function calculate(String $result, Int $decimal = 4) : Float
+    public static function do($func, Array $params = [])
     {
-        $resend  = $result."_end";
-        $restart = $result."_start";
-
-        if( ! isset(Properties::$tests[$restart]) )
+        if( ! is_callable($func) )
         {
-            throw new BenchmarkException('[Benchmark::elapsedTime(\''.$result.'\')] -> Parameter is not a valid test start!');
+            throw new InvalidArgumentException('Error', 'callableParameter', '1.($func)');
         }
 
-        if( ! isset(Properties::$tests[$resend]) )
+        ob_start();
+
+        if( ! empty($params) )
         {
-            throw new BenchmarkException('[Benchmark::elapsedTime(\''.$result.'\')] -> Parameter is not a valid test end!');
+            return call_user_func_array($func, $params);
+        }
+        else
+        {
+            return $func();
         }
 
-        return round((Properties::$tests[$resend] - Properties::$tests[$restart]), $decimal);
+        $contents = ob_get_contents();
+
+        ob_end_clean();
+
+        return $contents;
     }
 }

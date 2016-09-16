@@ -1,6 +1,8 @@
-<?php namespace ZN\IndividualStructures\Benchmark;
+<?php namespace ZN\IndividualStructures\Buffer;
 
-class ElapsedTime
+use Session;
+
+class Insert
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -12,29 +14,30 @@ class ElapsedTime
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
-    // Elapsed Time
+    // Do
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param  string  $result
-    // @param  numeric $decimal
-    // @return string
+    // @param  string                 $name
+    // @param  callable/object/string $data
+    // @param  array                  $params
+    // @return bool
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function calculate(String $result, Int $decimal = 4) : Float
+    public static function do(String $name, $data, Array $params = []) : Bool
     {
-        $resend  = $result."_end";
-        $restart = $result."_start";
+        $systemObData = md5('OB_DATAS_'.$name);
 
-        if( ! isset(Properties::$tests[$restart]) )
+        if( is_callable($data) )
         {
-            throw new BenchmarkException('[Benchmark::elapsedTime(\''.$result.'\')] -> Parameter is not a valid test start!');
+            return Session::insert($systemObData, Callback::do($data, (array) $params));
         }
-
-        if( ! isset(Properties::$tests[$resend]) )
+        elseif( file_exists($data) )
         {
-            throw new BenchmarkException('[Benchmark::elapsedTime(\''.$result.'\')] -> Parameter is not a valid test end!');
+            return Session::insert($systemObData, File::do($data));
         }
-
-        return round((Properties::$tests[$resend] - Properties::$tests[$restart]), $decimal);
+        else
+        {
+            return Session::insert($systemObData, $data);
+        }
     }
 }

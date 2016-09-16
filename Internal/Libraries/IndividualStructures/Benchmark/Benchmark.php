@@ -23,7 +23,7 @@ class InternalBenchmark extends CallController implements BenchmarkInterface
     //--------------------------------------------------------------------------------------------------------
     public function start(String $test)
     {
-        BenchmarkFactory::class('Testing')->start($test);
+        Benchmark\Testing::start($test);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -36,7 +36,7 @@ class InternalBenchmark extends CallController implements BenchmarkInterface
     //--------------------------------------------------------------------------------------------------------
     public function end(String $test)
     {
-        BenchmarkFactory::class('Testing')->end($test);
+        Benchmark\Testing::end($test);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -50,7 +50,7 @@ class InternalBenchmark extends CallController implements BenchmarkInterface
     //--------------------------------------------------------------------------------------------------------
     public function elapsedTime(String $result, Int $decimal = 4) : Float
     {
-        return BenchmarkFactory::class('ElapsedTime')->calculate($result, $decimal);
+        return Benchmark\ElapsedTime::calculate($result, $decimal);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -63,7 +63,7 @@ class InternalBenchmark extends CallController implements BenchmarkInterface
     //--------------------------------------------------------------------------------------------------------
     public function usedFiles(String $result = NULL) : Array
     {
-        return BenchmarkFactory::class('FileUsage')->list($result);
+        return Benchmark\FileUsage::list($result);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -76,7 +76,7 @@ class InternalBenchmark extends CallController implements BenchmarkInterface
     //--------------------------------------------------------------------------------------------------------
     public function usedFileCount(String $result = NULL) : Int
     {
-        return BenchmarkFactory::class('FileUsage')->count($result);
+        return Benchmark\FileUsage::count($result);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -89,7 +89,7 @@ class InternalBenchmark extends CallController implements BenchmarkInterface
     //--------------------------------------------------------------------------------------------------------
     public function calculatedMemory(String $result) : Float
     {
-        return BenchmarkFactory::class('MemoryUsage')->calculate($result);
+        return Benchmark\MemoryUsage::calculate($result);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -102,7 +102,7 @@ class InternalBenchmark extends CallController implements BenchmarkInterface
     //--------------------------------------------------------------------------------------------------------
     public function memoryUsage(Bool $realMemory = false) : Int
     {
-        return BenchmarkFactory::class('MemoryUsage')->normal($realMemory);
+        return Benchmark\MemoryUsage::normal($realMemory);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -115,6 +115,6 @@ class InternalBenchmark extends CallController implements BenchmarkInterface
     //--------------------------------------------------------------------------------------------------------
     public function maxMemoryUsage(Bool $realMemory = false) : Int
     {
-        return BenchmarkFactory::class('MemoryUsage')->maximum($realMemory);
+        return Benchmark\MemoryUsage::maximum($realMemory);
     }
 }

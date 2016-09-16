@@ -1,6 +1,8 @@
-<?php namespace ZN\IndividualStructures\Benchmark;
+<?php namespace ZN\IndividualStructures\Buffer;
 
-class ElapsedTime
+use ZN\IndividualStructures\Buffer\Exception\InvalidArgumentException;
+
+class File
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -12,29 +14,28 @@ class ElapsedTime
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
-    // Elapsed Time
+    // File
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param  string  $result
-    // @param  numeric $decimal
-    // @return string
+    // @param  string $file
+    // @return content
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function calculate(String $result, Int $decimal = 4) : Float
+    public static function do(String $file) : String
     {
-        $resend  = $result."_end";
-        $restart = $result."_start";
-
-        if( ! isset(Properties::$tests[$restart]) )
+        if( ! is_file($file) )
         {
-            throw new BenchmarkException('[Benchmark::elapsedTime(\''.$result.'\')] -> Parameter is not a valid test start!');
+            throw new InvalidArgumentException('Error', 'fileParameter', '1.($file)');
         }
 
-        if( ! isset(Properties::$tests[$resend]) )
-        {
-            throw new BenchmarkException('[Benchmark::elapsedTime(\''.$result.'\')] -> Parameter is not a valid test end!');
-        }
+        ob_start();
 
-        return round((Properties::$tests[$resend] - Properties::$tests[$restart]), $decimal);
+        require($file);
+
+        $contents = ob_get_contents();
+
+        ob_end_clean();
+
+        return $contents;
     }
 }

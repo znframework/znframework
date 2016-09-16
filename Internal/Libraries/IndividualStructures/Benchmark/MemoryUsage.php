@@ -19,7 +19,7 @@ class MemoryUsage
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function calculate(String $result) : Float
+    public static function calculate(String $result) : Float
     {
         $resend  = $result."_end";
         $restart = $result."_start";
@@ -45,7 +45,7 @@ class MemoryUsage
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function normal(Bool $realMemory = false) : Int
+    public static function normal(Bool $realMemory = false) : Int
     {
         return  memory_get_usage($realMemory);
     }
@@ -58,7 +58,7 @@ class MemoryUsage
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function maximum(Bool $realMemory = false) : Int
+    public static function maximum(Bool $realMemory = false) : Int
     {
         return  memory_get_peak_usage($realMemory);
     }

@@ -19,7 +19,7 @@ class Testing
     // @return void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function start(String $test)
+    public static function start(String $test)
     {
         $test = $test."_start";
 
@@ -36,7 +36,7 @@ class Testing
     // @return void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function end(String $test)
+    public static function end(String $test)
     {
         $getMemoryUsage = memory_get_usage();
         $test           = $test."_end";

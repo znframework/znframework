@@ -19,7 +19,7 @@ class FileUsage
     // @return numeric
     //
     //--------------------------------------------------------------------------------------------------------
-    public function list(String $result = NULL) : Array
+    public static function list(String $result = NULL) : Array
     {
         if( empty($result) )
         {
@@ -50,7 +50,7 @@ class FileUsage
     // @return numeric
     //
     //--------------------------------------------------------------------------------------------------------
-    public function count(String $result = NULL) : Int
+    public static function count(String $result = NULL) : Int
     {
         if( empty($result) )
         {
