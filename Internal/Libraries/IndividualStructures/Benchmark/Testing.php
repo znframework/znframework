@@ -1,8 +1,6 @@
-<?php namespace ZN\Helpers;
+<?php namespace ZN\IndividualStructures\Benchmark;
 
-use CallController;
-
-class InternalLimiter extends CallController implements LimiterInterface
+class Testing
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -14,34 +12,42 @@ class InternalLimiter extends CallController implements LimiterInterface
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
-    // Word
+    // Test Start
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $str
-    // @param int    $limit
-    // @param string $endChar
-    // @param bool   $stripTags
-    // @param string $encoding
+    // @param  string $test
+    // @return void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function word(String $str, Int $limit = 100, String $endChar = '...', Bool $stripTags = true, String $encoding = "utf-8") : String
+    public function start(String $test)
     {
-        return LimiterFactory::class('LimiterWord')->do($str, $limit, $endChar, $stripTags, $encoding);
+        Properties::$testCount++;
+
+        $legancy = ( Properties::$testCount === 1 )
+                   ? $legancy = 136
+                   : 48;
+
+        $test = $test."_start";
+
+        Properties::$tests[$test]     = microtime();
+        Properties::$usedtests[$test] = get_required_files();
+        Properties::$memtests[$test]  = memory_get_usage() + $legancy;
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Char
+    // Test End
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $str
-    // @param int    $limit
-    // @param string $endChar
-    // @param bool   $stripTags
-    // @param string $encoding
+    // @param  string $test
+    // @return void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function char(String $str, Int $limit = 500, String $endChar = '...',  Bool $stripTags = false, String $encoding = "utf-8") : String
+    public function end(String $test)
     {
-        return LimiterFactory::class('LimiterChar')->do($str, $limit, $endChar, $stripTags, $encoding);
+        $test = $test."_end";
+
+        Properties::$memtests[$test]  = memory_get_usage();
+        Properties::$usedtests[$test] = get_required_files();
+        Properties::$tests[$test]     = microtime();
     }
 }

@@ -1,8 +1,6 @@
-<?php namespace ZN\Helpers;
+<?php namespace ZN\IndividualStructures\Benchmark;
 
-use CallController;
-
-class InternalRounder extends CallController implements RounderInterface
+class MemoryUsage
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -14,41 +12,53 @@ class InternalRounder extends CallController implements RounderInterface
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
-    // Up
+    // Calculated Memory
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $number
-    // @param int    $count
+    // @param  string $result
+    // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function up(Float $number, Int $count = 0) : Float
+    public function calculate(String $result) : Int
     {
-        return RounderFactory::class('RounderUp')->do($number, $count);
+        $resend  = $result."_end";
+        $restart = $result."_start";
+
+        if( isset(Properties::$memtests[$resend]) && isset(Properties::$memtests[$restart]) )
+        {
+            $calc = Properties::$memtests[$resend] - Properties::$memtests[$restart];
+
+            return $calc;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Down
+    // Memory Usage
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $number
-    // @param int    $count
+    // @param  bool $realMemory
+    // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function down(Float $number, Int $count = 0) : Float
+    public function normal(Bool $realMemory = false) : Int
     {
-        return RounderFactory::class('RounderDown')->do($number, $count);
+        return  memory_get_usage($realMemory);
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Average
+    // Max Memory Usage
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $number
-    // @param int    $count
+    // @param  bool $realMemory
+    // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function average(Float $number, Int $count = 0) : Float
+    public function maximum(Bool $realMemory = false) : Int
     {
-        return RounderFactory::class('RounderAverage')->do($number, $count);
+        return  memory_get_peak_usage($realMemory);
     }
 }

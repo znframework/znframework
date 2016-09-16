@@ -1,8 +1,6 @@
-<?php namespace ZN\Helpers\Cleaner;
+<?php namespace ZN\Helpers\Limiter;
 
-use ZN\Helpers\Cleaner\Exception\LogicException;
-
-class CleanerData
+class LimiterChar
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -17,35 +15,31 @@ class CleanerData
     // Do
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param mixed $searchData
-    // @param mixed $cleanWord
+    // @param string $str
+    // @param int    $limit
+    // @param string $endChar
+    // @param bool   $stripTags
+    // @param string $encoding
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do($searchData, $cleanWord)
+    public function do(String $str, Int $limit = 500, String $endChar = '...',  Bool $stripTags = false, String $encoding = "utf-8") : String
     {
-        if( length($cleanWord) > length($searchData) )
+        $str = trim($str);
+
+        if( $stripTags === true )
         {
-            throw new LogicException('[Cleaner::data()] -> 3.($cleanWord) parameter not be longer than 2.($searchData) parameter!');
+            $str = strip_tags($str);
         }
 
-        if( ! is_array($searchData) )
+        $str = preg_replace("/\s+/", ' ', str_replace(["\r\n", "\r", "\n", "&nbsp;"], ' ', $str));
+
+        if( mb_strlen($str, $encoding) <= $limit )
         {
-            $result = str_replace($cleanWord, '', $searchData);
+            return $str;
         }
         else
         {
-            if( ! is_array($cleanWord) )
-            {
-                $cleanWordArray[] = $cleanWord;
-            }
-            else
-            {
-                $cleanWordArray = $cleanWord;
-            }
-
-            $result = array_diff($searchData, $cleanWordArray);
+            return mb_substr($str, 0, $limit, $encoding).$endChar;
         }
-
-        return $result;
     }
 }

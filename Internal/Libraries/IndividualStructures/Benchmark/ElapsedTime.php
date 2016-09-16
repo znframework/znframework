@@ -1,8 +1,6 @@
-<?php namespace ZN\Helpers\Cleaner;
+<?php namespace ZN\IndividualStructures\Benchmark;
 
-use ZN\Helpers\Cleaner\Exception\LogicException;
-
-class CleanerData
+class ElapsedTime
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -14,38 +12,26 @@ class CleanerData
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
-    // Do
+    // Elapsed Time
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param mixed $searchData
-    // @param mixed $cleanWord
+    // @param  string  $result
+    // @param  numeric $decimal
+    // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do($searchData, $cleanWord)
+    public function calculate(String $result, Int $decimal = 4) : Float
     {
-        if( length($cleanWord) > length($searchData) )
-        {
-            throw new LogicException('[Cleaner::data()] -> 3.($cleanWord) parameter not be longer than 2.($searchData) parameter!');
-        }
+        $resend  = $result."_end";
+        $restart = $result."_start";
 
-        if( ! is_array($searchData) )
+        if( isset(Properties::$tests[$resend]) && isset(Properties::$tests[$restart]) )
         {
-            $result = str_replace($cleanWord, '', $searchData);
+            return round((Properties::$tests[$resend] - Properties::$tests[$restart]), $decimal);
         }
         else
         {
-            if( ! is_array($cleanWord) )
-            {
-                $cleanWordArray[] = $cleanWord;
-            }
-            else
-            {
-                $cleanWordArray = $cleanWord;
-            }
-
-            $result = array_diff($searchData, $cleanWordArray);
+            return false;
         }
-
-        return $result;
     }
 }

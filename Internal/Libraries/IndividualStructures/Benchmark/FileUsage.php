@@ -1,8 +1,6 @@
-<?php namespace ZN\Helpers;
+<?php namespace ZN\IndividualStructures\Benchmark;
 
-use CallController;
-
-class InternalLimiter extends CallController implements LimiterInterface
+class FileUsage
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -14,34 +12,50 @@ class InternalLimiter extends CallController implements LimiterInterface
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
-    // Word
+    // Used Files
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $str
-    // @param int    $limit
-    // @param string $endChar
-    // @param bool   $stripTags
-    // @param string $encoding
+    // @param  string $result
+    // @return numeric
     //
     //--------------------------------------------------------------------------------------------------------
-    public function word(String $str, Int $limit = 100, String $endChar = '...', Bool $stripTags = true, String $encoding = "utf-8") : String
+    public function list(String $result = NULL) : Array
     {
-        return LimiterFactory::class('LimiterWord')->do($str, $limit, $endChar, $stripTags, $encoding);
+        if( empty($result) )
+        {
+            return get_required_files();
+        }
+
+        $resend  = $result."_end";
+        $restart = $result."_start";
+
+        if( isset(Properties::$usedtests[$resend]) && isset(Properties::$usedtests[$restart]) )
+        {
+            return array_diff(Properties::$usedtests[$resend], Properties::$usedtests[$restart]);
+        }
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Char
+    // Used File Count
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $str
-    // @param int    $limit
-    // @param string $endChar
-    // @param bool   $stripTags
-    // @param string $encoding
+    // @param  string $result
+    // @return numeric
     //
     //--------------------------------------------------------------------------------------------------------
-    public function char(String $str, Int $limit = 500, String $endChar = '...',  Bool $stripTags = false, String $encoding = "utf-8") : String
+    public function count(String $result = NULL) : Int
     {
-        return LimiterFactory::class('LimiterChar')->do($str, $limit, $endChar, $stripTags, $encoding);
+        if( empty($result) )
+        {
+            return count(get_required_files());
+        }
+
+        $resend  = $result."_end";
+        $restart = $result."_start";
+
+        if( isset(Properties::$usedtests[$resend]) && isset(Properties::$usedtests[$restart]) )
+        {
+            return count(Properties::$usedtests[$resend]) - count(Properties::$usedtests[$restart]);
+        }
     }
 }

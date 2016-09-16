@@ -1,8 +1,6 @@
-<?php namespace ZN\Helpers;
+<?php namespace ZN\IndividualStructures\Benchmark;
 
-use CallController;
-
-class InternalRounder extends CallController implements RounderInterface
+class Properties
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -14,41 +12,46 @@ class InternalRounder extends CallController implements RounderInterface
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
-    // Up
+    // Protected Test
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $number
-    // @param int    $count
+    // Test isimleri bilgisi
+    //
+    // @var  array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function up(Float $number, Int $count = 0) : Float
-    {
-        return RounderFactory::class('RounderUp')->do($number, $count);
-    }
+    public static $tests = [];
 
     //--------------------------------------------------------------------------------------------------------
-    // Down
+    // Protected Memtests
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $number
-    // @param int    $count
+    // Bellek test isimleri bilgisi
+    //
+    // @var  array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function down(Float $number, Int $count = 0) : Float
-    {
-        return RounderFactory::class('RounderDown')->do($number, $count);
-    }
+    public static $memtests = [];
 
     //--------------------------------------------------------------------------------------------------------
-    // Average
+    // Protected Memtests
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $number
-    // @param int    $count
+    // Bellek test isimleri bilgisi
+    //
+    // @var  array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function average(Float $number, Int $count = 0) : Float
-    {
-        return RounderFactory::class('RounderAverage')->do($number, $count);
-    }
+    public static $usedtests = [];
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Test Count
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // Test sayısı bilgisi
+    //
+    // @var  numeric
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public static $testCount = 0;
 }
