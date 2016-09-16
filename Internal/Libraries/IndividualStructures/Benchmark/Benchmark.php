@@ -87,7 +87,7 @@ class InternalBenchmark extends CallController implements BenchmarkInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function calculatedMemory(String $result) : Int
+    public function calculatedMemory(String $result) : Float
     {
         return BenchmarkFactory::class('MemoryUsage')->calculate($result);
     }

@@ -19,21 +19,22 @@ class MemoryUsage
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function calculate(String $result) : Int
+    public function calculate(String $result) : Float
     {
         $resend  = $result."_end";
         $restart = $result."_start";
 
-        if( isset(Properties::$memtests[$resend]) && isset(Properties::$memtests[$restart]) )
+        if( ! isset(Properties::$memtests[$restart]) )
         {
-            $calc = Properties::$memtests[$resend] - Properties::$memtests[$restart];
+            throw new BenchmarkException('[Benchmark::calculatedMemory(\''.$result.'\')] -> Parameter is not a valid test start!');
+        }
 
-            return $calc;
-        }
-        else
+        if( ! isset(Properties::$memtests[$resend]) )
         {
-            return false;
+            throw new BenchmarkException('[Benchmark::calculatedMemory(\''.$result.'\')] -> Parameter is not a valid test end!');
         }
+
+        return Properties::$memtests[$resend] - Properties::$memtests[$restart];
     }
 
     //--------------------------------------------------------------------------------------------------------

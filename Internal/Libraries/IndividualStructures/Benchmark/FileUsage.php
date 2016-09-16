@@ -29,10 +29,17 @@ class FileUsage
         $resend  = $result."_end";
         $restart = $result."_start";
 
-        if( isset(Properties::$usedtests[$resend]) && isset(Properties::$usedtests[$restart]) )
+        if( ! isset(Properties::$usedtests[$restart]) )
         {
-            return array_diff(Properties::$usedtests[$resend], Properties::$usedtests[$restart]);
+            throw new BenchmarkException('[Benchmark::usedFiles(\''.$result.'\')] -> Parameter is not a valid test start!');
         }
+
+        if( ! isset(Properties::$usedtests[$resend]) )
+        {
+            throw new BenchmarkException('[Benchmark::usedFiles(\''.$result.'\')] -> Parameter is not a valid test end!');
+        }
+
+        return array_diff(Properties::$usedtests[$resend], Properties::$usedtests[$restart]);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -53,9 +60,16 @@ class FileUsage
         $resend  = $result."_end";
         $restart = $result."_start";
 
-        if( isset(Properties::$usedtests[$resend]) && isset(Properties::$usedtests[$restart]) )
+        if( ! isset(Properties::$usedtests[$restart]) )
         {
-            return count(Properties::$usedtests[$resend]) - count(Properties::$usedtests[$restart]);
+            throw new BenchmarkException('[Benchmark::usedFileCount(\''.$result.'\')] -> Parameter is not a valid test start!');
         }
+
+        if( ! isset(Properties::$usedtests[$resend]) )
+        {
+            throw new BenchmarkException('[Benchmark::usedFileCount(\''.$result.'\')] -> Parameter is not a valid test end!');
+        }
+
+        return count(Properties::$usedtests[$resend]) - count(Properties::$usedtests[$restart]);
     }
 }

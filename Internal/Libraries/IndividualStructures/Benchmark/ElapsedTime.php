@@ -25,13 +25,16 @@ class ElapsedTime
         $resend  = $result."_end";
         $restart = $result."_start";
 
-        if( isset(Properties::$tests[$resend]) && isset(Properties::$tests[$restart]) )
+        if( ! isset(Properties::$tests[$restart]) )
         {
-            return round((Properties::$tests[$resend] - Properties::$tests[$restart]), $decimal);
+            throw new BenchmarkException('[Benchmark::elapsedTime(\''.$result.'\')] -> Parameter is not a valid test start!');
         }
-        else
+
+        if( ! isset(Properties::$tests[$resend]) )
         {
-            return false;
+            throw new BenchmarkException('[Benchmark::elapsedTime(\''.$result.'\')] -> Parameter is not a valid test end!');
         }
+
+        return round((Properties::$tests[$resend] - Properties::$tests[$restart]), $decimal);
     }
 }

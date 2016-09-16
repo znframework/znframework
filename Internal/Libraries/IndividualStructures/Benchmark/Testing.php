@@ -21,17 +21,11 @@ class Testing
     //--------------------------------------------------------------------------------------------------------
     public function start(String $test)
     {
-        Properties::$testCount++;
-
-        $legancy = ( Properties::$testCount === 1 )
-                   ? $legancy = 136
-                   : 48;
-
         $test = $test."_start";
 
         Properties::$tests[$test]     = microtime();
         Properties::$usedtests[$test] = get_required_files();
-        Properties::$memtests[$test]  = memory_get_usage() + $legancy;
+        Properties::$memtests[$test]  = memory_get_usage();
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -44,10 +38,11 @@ class Testing
     //--------------------------------------------------------------------------------------------------------
     public function end(String $test)
     {
-        $test = $test."_end";
+        $getMemoryUsage = memory_get_usage();
+        $test           = $test."_end";
 
-        Properties::$memtests[$test]  = memory_get_usage();
-        Properties::$usedtests[$test] = get_required_files();
         Properties::$tests[$test]     = microtime();
+        Properties::$usedtests[$test] = get_required_files();
+        Properties::$memtests[$test]  = $getMemoryUsage;
     }
 }
