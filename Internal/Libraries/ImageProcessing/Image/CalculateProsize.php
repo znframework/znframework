@@ -1,8 +1,9 @@
 <?php namespace ZN\ImageProcessing\Image;
 
+use stdClass;
 use ZN\EncodingSupport\ImageProcessing\Image\Exception\ImageNotFoundException;
 
-class CalculateProsize
+class CalculateProsize implements CalculateProsizeInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -22,7 +23,7 @@ class CalculateProsize
     // @param int    $height
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do(String $path, Int $width = 0, Int $height = 0) : \stdClass
+    public function do(String $path, Int $width = 0, Int $height = 0) : stdClass
     {
         if( ! is_file($path) )
         {

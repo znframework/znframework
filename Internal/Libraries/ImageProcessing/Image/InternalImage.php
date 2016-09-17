@@ -1,8 +1,6 @@
 <?php namespace ZN\ImageProcessing;
 
-use CallController;
-
-class InternalImage extends CallController implements InternalImageInterface
+class InternalImage extends \FactoryController implements InternalImageInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -13,30 +11,12 @@ class InternalImage extends CallController implements InternalImageInterface
     //
     //--------------------------------------------------------------------------------------------------------
 
-    //--------------------------------------------------------------------------------------------------------
-    // Thumb
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $fpath
-    // @param array  $set
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function thumb(String $fpath, Array $set) : String
-    {
-        return ImageFactory::class('RenderImage')->do($fpath, $set);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Get Prosize
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $path
-    // @param int    $width
-    // @param int    $height
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function getProsize(String $path, Int $width = 0, Int $height = 0) : \stdClass
-    {
-        return ImageFactory::class('CalculateProsize')->do($path, $width, $height);
-    }
+    const factory =
+    [
+        'methods' =>
+        [
+            'thumb'      => 'Image\RenderImage::do',
+            'getprosize' => 'Image\CalculateProsize::do',
+        ]
+    ];
 }
