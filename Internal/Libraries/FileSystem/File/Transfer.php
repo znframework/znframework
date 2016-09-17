@@ -1,8 +1,11 @@
 <?php namespace ZN\FileSystem\File;
 
-use ZN\FileSystem\FileSystemCommon;
+use File;
+use ZN\FileSystem\Exception\FileNotFoundException;
+use ZN\FileSystem\FileSystemFactory;
+use ZN\FileSystem\InternalUpload;
 
-class FileContent extends FileSystemCommon
+class Transfer implements TransferInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -14,60 +17,52 @@ class FileContent extends FileSystemCommon
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
-    // Read
+    // Settings
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $file
+    // @param array $set
     //
     //--------------------------------------------------------------------------------------------------------
-    public function read(String $file) : String
+    public function settings(Array $set = []) : InternalUpload
     {
-        return file_get_contents($this->rpath($file));
+        FileSystemFactory::class('InternalUpload')->settings($set);
+
+        return $this;
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Find
+    // Upload
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $file
-    // @param string $data
+    // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function find(String $file, String $data) : \stdClass
+    public  function upload(String $fileName = 'upload', String $rootDir = UPLOADS_DIR) : Bool
     {
-        $contents = $this->read($file);
-        $index    = strpos($contents, $data);
-
-        return (object)
-        [
-            'index'    => $index,
-            'contents' => $contents
-        ];
+        return FileSystemFactory::class('InternalUpload')->start($fileName, $rootDir);
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Write
+    // Start
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string $file
-    // @param string $data
     //
     //--------------------------------------------------------------------------------------------------------
-    public function write(String $file, String $data) : Int
+    public function download(String $file)
     {
-        return file_put_contents($this->rpath($file), $data);
-    }
+        if( ! File::available($file) )
+        {
+            throw new FileNotFoundException($file);
+        }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Append
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $file
-    // @param string $data
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function append(String $file, String $data) : Int
-    {
-        return file_put_contents($this->rpath($file), $data, FILE_APPEND);
+        $fileEx   = explode("/", $file);
+        $fileName = $fileEx[count($fileEx) - 1];
+        $filePath = trim($file, $fileName);
+
+        header("Content-type: application/x-download");
+        header("Content-Disposition: attachment; filename=".$fileName);
+
+        readfile($filePath.$fileName);
     }
 }

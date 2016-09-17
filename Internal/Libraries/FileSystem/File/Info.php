@@ -4,7 +4,7 @@ use Folder;
 use ZN\FileSystem\Exception\FileNotFoundException;
 use ZN\FileSystem\FileSystemCommon;
 
-class FileInfo extends FileSystemCommon
+class Info extends FileSystemCommon implements InfoInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -43,7 +43,7 @@ class FileInfo extends FileSystemCommon
     // @param string $file
     //
     //--------------------------------------------------------------------------------------------------------
-    public function info(String $file) : \stdClass
+    public function get(String $file) : \stdClass
     {
         $file = $this->rpath($file);
 

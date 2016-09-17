@@ -1,8 +1,6 @@
 <?php namespace ZN\FileSystem\Excel;
 
-use ZN\FileSystem\Exception\FileNotFoundException;
-
-class CSVToArray implements CSVToArrayInterface
+interface ArrayToXLSInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -17,37 +15,9 @@ class CSVToArray implements CSVToArrayInterface
     // Do
     //--------------------------------------------------------------------------------------------------------
     //
+    // @param array  $data
     // @param string $file
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do(String $file) : Array
-    {
-        $file = suffix($file, '.csv');
-
-        if( ! is_file($file) )
-        {
-            throw new FileNotFoundException($file);
-        }
-
-        $row  = 1;
-        $rows = [];
-
-        if( ( $resource = fopen($file, "r") ) !== false )
-        {
-            while( ($data = fgetcsv($resource, 1000, ",")) !== false )
-            {
-                $num = count($data);
-
-                $row++;
-                for( $c = 0; $c < $num; $c++ )
-                {
-                    $rows[] = explode(';', $data[$c]);
-                }
-            }
-
-            fclose($resource);
-         }
-
-         return $rows;
-    }
+    public function do(Array $data, String $file = 'excel.xls');
 }

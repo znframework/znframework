@@ -3,10 +3,11 @@
 use ZipArchive, Folder;
 use ZN\FileSystem\Exception\FileNotFoundException;
 use ZN\FileSystem\Exception\FileAllreadyException;
-use ZN\FileSystem\FileFactory;
+use ZN\FileSystem\FileSystemFactory;
 use ZN\FileSystem\FileSystemCommon;
+use ZN\FileSystem\InternalGenerate;
 
-class FileForge extends FileSystemCommon
+class Forge extends FileSystemCommon implements ForgeInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -16,6 +17,18 @@ class FileForge extends FileSystemCommon
     // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
+
+    //--------------------------------------------------------------------------------------------------------
+    // Generate
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function generate() : InternalGenerate
+    {
+        return FileSystemFactory::class('InternalGenerate');
+    }
 
     //--------------------------------------------------------------------------------------------------------
     // Create
@@ -56,7 +69,7 @@ class FileForge extends FileSystemCommon
             throw new FileNotFoundException($file);
         }
 
-        $fileContentClass = FileFactory::class('FileContent');
+        $fileContentClass = Factory::class('Content');
         $contents         = $fileContentClass->read($file);
         $replaceContents  = str_ireplace($data, $replace, $contents);
 

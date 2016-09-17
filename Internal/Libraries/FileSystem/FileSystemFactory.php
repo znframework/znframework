@@ -1,6 +1,6 @@
 <?php namespace ZN\FileSystem;
 
-class FileSystemFactory
+class FileSystemFactory extends \Factory
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -10,8 +10,4 @@ class FileSystemFactory
     // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
-
-    const namespace = 'ZN\FileSystem';
-
-    use \FactoryAbility;
 }
