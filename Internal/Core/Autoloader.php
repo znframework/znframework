@@ -388,7 +388,11 @@ class Autoloader
 
                     $useStaticAccess = strtolower(INTERNAL_ACCESS);
 
-                    if( strpos($class, $useStaticAccess) === 0 )
+                    if
+                    (
+                        strpos($class, $useStaticAccess) === 0  &&
+                        ! preg_match('/(Interface|Trait)$/i', $class)
+                    )
                     {
                         $newClassName = str_ireplace($useStaticAccess, '', $classInfo['class']);
 

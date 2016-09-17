@@ -44,8 +44,10 @@
                 $isThis = 'this';
             }
 
-            $namespace = suffix(uselib('ReflectionClass', [get_called_class()])->getNamespaceName(), '\\');
-            $return    = uselib($namespace.$class)->$method(...$parameters);
+            $calledClass = get_called_class();
+            $namespace   = str_ireplace(divide($calledClass, '\\', -1), NULL, $calledClass);
+
+            $return = uselib($namespace.$class)->$method(...$parameters);
 
             if( $isThis === 'this' )
             {

@@ -1,6 +1,6 @@
 <?php namespace ZN\Helpers\Converter;
 
-class VariableTypes
+class VariableTypes implements VariableTypesInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

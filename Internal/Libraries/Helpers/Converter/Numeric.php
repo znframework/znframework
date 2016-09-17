@@ -2,7 +2,7 @@
 
 use Cart;
 
-class Numeric
+class Numeric implements NumericInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

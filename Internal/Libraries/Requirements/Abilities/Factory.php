@@ -24,6 +24,11 @@
         {
             $namespace = suffix(static::namespace, '\\');
         }
+        else
+        {
+            $calledClass = get_called_class();
+            $namespace   = str_ireplace(divide($calledClass, '\\', -1), NULL, $calledClass);
+        }
 
         $class = $namespace.$class;
 
