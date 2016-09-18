@@ -127,7 +127,7 @@ class DatabaseCommon implements DatabaseCommonInterface
     //--------------------------------------------------------------------------------------------------------
     public function __construct(Array $config = [])
     {
-        $this->config = config('Database', 'database');
+        $this->config = Config::get('Database', 'database');
 
         $this->db = $this->_run();
 

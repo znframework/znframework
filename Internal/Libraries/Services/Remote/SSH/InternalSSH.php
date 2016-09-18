@@ -1,6 +1,6 @@
 <?php namespace ZN\Services\Remote;
 
-use Support, CLController;
+use Support, CLController, Config;
 use ZN\FileSystem\Exception\FileNotFoundException;
 use ZN\FileSystem\Exception\FileRemoteUploadException;
 use ZN\FileSystem\Exception\FileRemoteDownloadException;
@@ -73,7 +73,7 @@ class InternalSSH extends CLController implements InternalSSHInterface
 
         if( ! empty($config) )
         {
-            $config = config('Services', 'ssh', $config);
+            $config = Config::get('Services', 'ssh', $config);
         }
         else
         {

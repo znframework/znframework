@@ -1444,12 +1444,23 @@ class InternalDB extends DatabaseCommon implements InternalDBInterface
             {
                 $this->duplicateCheck = NULL;
 
-                throw new DuplicateCheckException
-                (
-                    'Database',
-                    'duplicateCheckError',
-                    implode(',', $duplicateCheckColumn)
-                );
+                try
+                {
+                    throw new DuplicateCheckException
+                    (
+                        'Database',
+                        'duplicateCheckError',
+                        implode(',', $duplicateCheckColumn)
+                    );
+                }
+                catch( DuplicateCheckException $e )
+                {
+                    $e->continue();
+                }
+                finally
+                {
+                    return false;
+                }
             }
         }
 

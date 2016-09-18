@@ -76,6 +76,20 @@ class InternalExceptions extends Exception implements InternalExceptionsInterfac
     }
 
     //--------------------------------------------------------------------------------------------------------
+    // Continue
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $msg
+    // @param string $file
+    // @param string $line
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function continue($msg, $file, $line)
+    {
+        return $this->_template($msg, $file, $line, NULL, NULL);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
     // Restore
     //--------------------------------------------------------------------------------------------------------
     //
@@ -157,7 +171,7 @@ class InternalExceptions extends Exception implements InternalExceptionsInterfac
         }
 
         $message = Import::template('ExceptionTable', $exceptionData, true);
-    
+
         return preg_replace('/\[(.*?)\]/', '<span style="color:#990000;">$1</span>', $message);
     }
 

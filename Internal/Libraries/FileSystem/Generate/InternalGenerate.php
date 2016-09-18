@@ -42,7 +42,7 @@ class InternalGenerate extends CallController implements InternalGenerateInterfa
 
         $visionPath = 'Visions'.DS;
 
-        $defaultDB = config('Database', 'database')['database'];
+        $defaultDB = Config::get('Database', 'database')['database'];
 
         foreach( $databases as $connection => $database )
         {
@@ -110,7 +110,7 @@ class InternalGenerate extends CallController implements InternalGenerateInterfa
             }
             else
             {
-                $defaultDB = config('Database', 'database')['database'];
+                $defaultDB = Config::get('Database', 'database')['database'];
 
                 foreach( $tables as $table )
                 {

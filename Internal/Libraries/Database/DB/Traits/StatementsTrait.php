@@ -20,14 +20,14 @@ trait StatementsTrait
     //--------------------------------------------------------------------------------------------------------
     protected $statementElements =
     [
-        'autoIncrement',
-        'primaryKey'   ,
-        'foreignKey'   ,
+        'autoincrement',
+        'primarykey'   ,
+        'foreignkey'   ,
         'unique'       ,
         'null'         ,
-        'notNull'      ,
+        'notnull'      ,
         'exists'       ,
-        'notExists'    ,
+        'notexists'    ,
         'constraint'
     ];
 
