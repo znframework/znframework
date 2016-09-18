@@ -1,6 +1,6 @@
-<?php namespace ZN\IndividualStructures;
+<?php namespace ZN\IndividualStructures\Security;
 
-interface InternalPermissionInterface
+class SecurityExtends extends \CLController
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -10,4 +10,6 @@ interface InternalPermissionInterface
     // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
+
+    const config = 'IndividualStructures:security';
 }
