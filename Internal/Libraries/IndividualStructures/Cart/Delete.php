@@ -1,6 +1,6 @@
-<?php namespace ZN\Requirements\System;
+<?php namespace ZN\IndividualStructures\Cart;
 
-class StaticAccess
+class Delete extends CartCommon implements DeleteInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -12,43 +12,55 @@ class StaticAccess
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
-    // Call Static
+    // Delete Item
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $method
-    // @param array  $parameters
+    // @param mixed $code
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function __callStatic($method, $parameters)
+    public function item($code) : Bool
     {
-        return self::useClassName($method, $parameters);
+        Properties::$items = $this->driver->select(md5('SystemCartData')) ?? NULL;
+
+        if( empty(Properties::$items) )
+        {
+            return false;
+        }
+
+        $i=0;
+
+        foreach( Properties::$items as $row )
+        {
+            if( is_array($code) )
+            {
+                if( isset($row[key($code)]) && $row[key($code)] == current($code) )
+                {
+                    $code = $row[key($code)];
+                }
+            }
+
+            $key = array_search($code, $row);
+
+            if( ! empty($key) )
+            {
+                array_splice(Properties::$items, $i--, 1);
+            }
+
+            $i++;
+        }
+
+        return $this->driver->insert(md5('SystemCartData'), Properties::$items);
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Call
+    // Delete Items
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $method
-    // @param array  $parameters
+    // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function __call($method, $parameters)
+    public function items() : Bool
     {
-        return self::useClassName($method, $parameters);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Use Class Name
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $method
-    // @param array  $parameters
-    //
-    //--------------------------------------------------------------------------------------------------------
-    protected static function useClassName($method, $parameters)
-    {
-        return uselib(INTERNAL_ACCESS.static::getClassName())->$method(...$parameters);
+        return $this->driver->delete(md5('SystemCartData'));
     }
 }
-
-class_alias('ZN\Requirements\System\StaticAccess', 'StaticAccess');

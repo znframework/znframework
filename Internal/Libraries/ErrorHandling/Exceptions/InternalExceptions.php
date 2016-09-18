@@ -157,7 +157,7 @@ class InternalExceptions extends Exception implements InternalExceptionsInterfac
         }
 
         $message = Import::template('ExceptionTable', $exceptionData, true);
-
+    
         return preg_replace('/\[(.*?)\]/', '<span style="color:#990000;">$1</span>', $message);
     }
 

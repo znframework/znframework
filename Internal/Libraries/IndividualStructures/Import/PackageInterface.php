@@ -1,6 +1,6 @@
-<?php namespace ZN\Requirements\System;
+<?php namespace ZN\IndividualStructures\Import;
 
-class StaticAccess
+interface PackageInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -12,43 +12,35 @@ class StaticAccess
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
-    // Call Static
+    // Package
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $method
-    // @param array  $parameters
+    // @param string $package
+    // @param bool   $recursive
+    // @param bool   $getContents
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function __callStatic($method, $parameters)
-    {
-        return self::useClassName($method, $parameters);
-    }
+    public function use($packages, Bool $recursive = false, Bool $getContents = false, String $dir = NULL);
 
     //--------------------------------------------------------------------------------------------------------
-    // Call
+    // Theme
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $method
-    // @param array  $parameters
+    // @param string $theme
+    // @param bool   $recursive
+    // @param bool   $getContents
     //
     //--------------------------------------------------------------------------------------------------------
-    public function __call($method, $parameters)
-    {
-        return self::useClassName($method, $parameters);
-    }
+    public function theme($theme = 'Default', Bool $recursive = false, Bool $getContents = false);
 
     //--------------------------------------------------------------------------------------------------------
-    // Protected Use Class Name
+    // Plugin
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $method
-    // @param array  $parameters
+    // @param string $plugin
+    // @param bool   $recursive
+    // @param bool   $getContents
     //
     //--------------------------------------------------------------------------------------------------------
-    protected static function useClassName($method, $parameters)
-    {
-        return uselib(INTERNAL_ACCESS.static::getClassName())->$method(...$parameters);
-    }
+    public function plugin($plugin = 'Default', Bool $recursive = false, Bool $getContents = false);
 }
-
-class_alias('ZN\Requirements\System\StaticAccess', 'StaticAccess');

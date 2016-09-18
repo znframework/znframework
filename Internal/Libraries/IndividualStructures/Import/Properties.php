@@ -1,6 +1,6 @@
-<?php namespace ZN\Requirements\System;
+<?php namespace ZN\IndividualStructures\Import;
 
-class StaticAccess
+class Properties
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -12,43 +12,60 @@ class StaticAccess
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
-    // Call Static
+    // Is Import
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $method
-    // @param array  $parameters
+    // @var array
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function __callStatic($method, $parameters)
+    public static $isImport = [];
+
+    //--------------------------------------------------------------------------------------------------------
+    // Parameters
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var bool
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public static $parameters = array
+    (
+        'data'   => [],
+        'usable' => false
+    );
+
+    //--------------------------------------------------------------------------------------------------------
+    // Usable
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param bool $usable
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function usable(Bool $usable = true)
     {
-        return self::useClassName($method, $parameters);
+        self::$parameters['usable'] = $usable;
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Call
+    // recursive()
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $method
-    // @param array  $parameters
+    // @var bool $recursive
     //
     //--------------------------------------------------------------------------------------------------------
-    public function __call($method, $parameters)
+    public function recursive(Bool $recursive = true)
     {
-        return self::useClassName($method, $parameters);
+        self::$parameters['recursive'] = $recursive;
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Protected Use Class Name
+    // data()
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $method
-    // @param array  $parameters
+    // @var array $data
     //
     //--------------------------------------------------------------------------------------------------------
-    protected static function useClassName($method, $parameters)
+    public function data(Array $data)
     {
-        return uselib(INTERNAL_ACCESS.static::getClassName())->$method(...$parameters);
+        self::$parameters['data'] = $data;
     }
 }
-
-class_alias('ZN\Requirements\System\StaticAccess', 'StaticAccess');

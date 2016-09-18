@@ -49,7 +49,7 @@ trait DriverAbility
             throw new UndefinedConstException('[const driver] is required to use the [Driver Ability]!');
         }
 
-        nullCoalesce($driver, $this->config['driver']);
+        nullCoalesce($driver, $this->config['driver'] ?? NULL);
 
         $this->selectedDriverName = $driver;
 
