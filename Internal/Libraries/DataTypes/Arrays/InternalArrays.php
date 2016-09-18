@@ -63,8 +63,6 @@ class InternalArrays extends \FactoryController implements InternalArraysInterfa
         ]
     ];
 
-    use \MagicFactoryAbility;
-
     //--------------------------------------------------------------------------------------------------------
     // Object Data
     //--------------------------------------------------------------------------------------------------------
