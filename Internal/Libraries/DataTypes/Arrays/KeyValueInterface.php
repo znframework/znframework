@@ -1,6 +1,6 @@
 <?php namespace ZN\DataTypes\Arrays;
 
-interface ArrayKeyValueInterface
+interface KeyValueInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -19,7 +19,7 @@ interface ArrayKeyValueInterface
     // @param string $keyval: val/value, key, vals/values, keys
     //
     //--------------------------------------------------------------------------------------------------------
-    public function keyval(Array $array, String $keyval = 'value');
+    public function use(Array $array, String $keyval = 'value');
 
     //--------------------------------------------------------------------------------------------------------
     // Value

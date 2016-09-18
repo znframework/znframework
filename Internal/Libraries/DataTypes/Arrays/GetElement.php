@@ -1,5 +1,7 @@
 <?php namespace ZN\DataTypes\Arrays;
 
+use Arrays;
+
 class GetElement implements GetElementInterface
 {
     //--------------------------------------------------------------------------------------------------------
@@ -20,7 +22,7 @@ class GetElement implements GetElementInterface
     // @param bool    $preserveKey
     //
     //--------------------------------------------------------------------------------------------------------
-    public function getLast(Array $array, Int $count = 1, Bool $preserveKey = false)
+    public function last(Array $array, Int $count = 1, Bool $preserveKey = false)
     {
         if( $count <= 1 )
         {
@@ -28,7 +30,7 @@ class GetElement implements GetElementInterface
         }
         else
         {
-            return $this->section($array, -$count, NULL, $preserveKey);
+            return Arrays::section($array, -$count, NULL, $preserveKey);
         }
 
         return $array;
@@ -43,7 +45,7 @@ class GetElement implements GetElementInterface
     // @param bool    $preserveKey
     //
     //--------------------------------------------------------------------------------------------------------
-    public function getFirst(Array $array, Int $count = 1, Bool $preserveKey = false)
+    public function first(Array $array, Int $count = 1, Bool $preserveKey = false)
     {
         if( $count <= 1 )
         {
@@ -51,7 +53,7 @@ class GetElement implements GetElementInterface
         }
         else
         {
-            return $this->section($array, 0, $count, $preserveKey);
+            return Arrays::section($array, 0, $count, $preserveKey);
         }
 
         return $array;

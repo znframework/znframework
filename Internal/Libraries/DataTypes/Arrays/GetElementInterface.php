@@ -20,7 +20,7 @@ interface GetElementInterface
     // @param bool    $preserveKey
     //
     //--------------------------------------------------------------------------------------------------------
-    public function getLast(Array $array, Int $count = 1, Bool $preserveKey = false);
+    public function last(Array $array, Int $count = 1, Bool $preserveKey = false);
 
     //--------------------------------------------------------------------------------------------------------
     // Get First
@@ -31,5 +31,5 @@ interface GetElementInterface
     // @param bool    $preserveKey
     //
     //--------------------------------------------------------------------------------------------------------
-    public function getFirst(Array $array, Int $count = 1, Bool $preserveKey = false);
+    public function first(Array $array, Int $count = 1, Bool $preserveKey = false);
 }

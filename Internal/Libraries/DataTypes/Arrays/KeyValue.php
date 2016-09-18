@@ -1,6 +1,8 @@
 <?php namespace ZN\DataTypes\Arrays;
 
-class ArrayKeyValue implements ArrayKeyValueInterface
+use ZN\DataTypes\Arrays\Exception\InvalidArgumentException;
+
+class KeyValue implements KeyValueInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -19,7 +21,7 @@ class ArrayKeyValue implements ArrayKeyValueInterface
     // @param string $keyval: val/value, key, vals/values, keys
     //
     //--------------------------------------------------------------------------------------------------------
-    public function keyval(Array $array, String $keyval = 'value')
+    public function use(Array $array, String $keyval = 'value')
     {
         switch( $keyval )
         {
@@ -43,7 +45,7 @@ class ArrayKeyValue implements ArrayKeyValueInterface
     //--------------------------------------------------------------------------------------------------------
     public function value(Array $array)
     {
-        return $this->keyval($array, __FUNCTION__);
+        return $this->use($array, __FUNCTION__);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -55,7 +57,7 @@ class ArrayKeyValue implements ArrayKeyValueInterface
     //--------------------------------------------------------------------------------------------------------
     public function key(Array $array)
     {
-        return $this->keyval($array, __FUNCTION__);
+        return $this->use($array, __FUNCTION__);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -67,7 +69,7 @@ class ArrayKeyValue implements ArrayKeyValueInterface
     //--------------------------------------------------------------------------------------------------------
     public function values(Array $array) : Array
     {
-        return $this->keyval($array, __FUNCTION__);
+        return $this->use($array, __FUNCTION__);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -79,6 +81,6 @@ class ArrayKeyValue implements ArrayKeyValueInterface
     //--------------------------------------------------------------------------------------------------------
     public function keys(Array $array) : Array
     {
-        return $this->keyval($array, __FUNCTION__);
+        return $this->use($array, __FUNCTION__);
     }
 }

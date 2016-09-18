@@ -2,7 +2,7 @@
 
 use Encode, DB;
 
-class Update extends UserCommon
+class Update extends UserExtends
 {
     //--------------------------------------------------------------------------------------------------------
     // Old Password

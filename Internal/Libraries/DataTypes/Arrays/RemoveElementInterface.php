@@ -1,8 +1,6 @@
-<?php namespace ZN\EncodingSupport\MultiLanguage;
+<?php namespace ZN\DataTypes\Arrays;
 
-use CLController, Folder;
-
-class MLCommon extends CLController
+interface RemoveElementInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -13,63 +11,64 @@ class MLCommon extends CLController
     //
     //--------------------------------------------------------------------------------------------------------
 
-    const config = 'EncodingSupport:ml';
-
     //--------------------------------------------------------------------------------------------------------
-    // $appdir
+    // Remove Key
     //--------------------------------------------------------------------------------------------------------
     //
-    // @var string: NULL
+    // @param array $array
+    // @param mixed $keys
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $appdir;
+    public function key(Array $array, $keys) : Array;
 
     //--------------------------------------------------------------------------------------------------------
-    // $extension
+    // Remove Value
     //--------------------------------------------------------------------------------------------------------
     //
-    // @var string: .ml
+    // @param array $array
+    // @param mixed $values
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $extension = '.ml';
-
-    /*
-     * Aktif dil dosyası yol bilgisini tutar.
-     *
-     * @var lang
-     */
-    protected $lang;
+    public function value(Array $array, $values) : Array;
 
     //--------------------------------------------------------------------------------------------------------
-    // Constructor
+    // Remove
     //--------------------------------------------------------------------------------------------------------
     //
-    // __construct()
+    // @param array $array
+    // @param mixed $keys
+    // @param mixed $values
     //
     //--------------------------------------------------------------------------------------------------------
-    public function __construct()
-    {
-        parent::__construct();
-
-        $this->appdir = STORAGE_DIR.'MultiLanguage/';
-
-        if( ! Folder::exists($this->appdir) )
-        {
-            Folder::create($this->appdir, 0755);
-        }
-
-        $this->lang = $this->appdir.getLang().$this->extension;
-    }
+    public function use(Array $array, $keys, $values) : Array;
 
     //--------------------------------------------------------------------------------------------------------
-    // Protected Lang File
+    // Remove Last
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param array  $rows
+    // @param array   $array
+    // @param numeric $count
     //
     //--------------------------------------------------------------------------------------------------------
-    protected function _langFile($app)
-    {
-        return $this->appdir.$app.$this->extension;
-    }
+    public function last(Array $array, Int $count = 1, $type = 'array_pop') : Array;
+
+    //--------------------------------------------------------------------------------------------------------
+    // Remove First
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param array   $array
+    // @param numeric $count
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function first(Array $array, Int $count = 1) : Array;
+
+    //--------------------------------------------------------------------------------------------------------
+    // Delete Element
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param array $array
+    // @param mixed $object
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function element(Array $array, $object) : Array;
 }

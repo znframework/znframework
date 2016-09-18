@@ -11,7 +11,7 @@ interface RegisterInterface
     // @return this
     //
     //--------------------------------------------------------------------------------------------------------
-    public function column(String $column, $value) : UserCommon;
+    public function column(String $column, $value) : UserExtends;
 
     //--------------------------------------------------------------------------------------------------------
     // Return Link
@@ -21,7 +21,7 @@ interface RegisterInterface
     // @return this
     //
     //--------------------------------------------------------------------------------------------------------
-    public function returnLink(String $returnLink) : UserCommon;
+    public function returnLink(String $returnLink) : UserExtends;
 
     //--------------------------------------------------------------------------------------------------------
     // Auto Login

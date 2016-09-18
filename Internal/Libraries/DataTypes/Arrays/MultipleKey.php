@@ -19,7 +19,7 @@ class MultipleKey implements MultipleKeyInterface
     // @param string $keySplit:|
     //
     //--------------------------------------------------------------------------------------------------------
-    public function multikey(Array $array, String $keySplit = '|') : Array
+    public function use(Array $array, String $keySplit = '|') : Array
     {
         $newArray = [];
 

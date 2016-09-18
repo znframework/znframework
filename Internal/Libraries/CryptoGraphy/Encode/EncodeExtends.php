@@ -1,6 +1,6 @@
-<?php namespace ZN\CryptoGraphy;
+<?php namespace ZN\CryptoGraphy\Encode;
 
-class EncodeCommon extends \CLController
+class EncodeExtends extends \CLController
 {
     //--------------------------------------------------------------------------------------------------------
     //

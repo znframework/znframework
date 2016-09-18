@@ -1,6 +1,6 @@
-<?php namespace ZN\DataTypes\Arrays;
+<?php namespace ZN\IndividualStructures\User;
 
-interface ArrayExcludeInterface
+class UserExtends extends \CLController
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -11,27 +11,45 @@ interface ArrayExcludeInterface
     //
     //--------------------------------------------------------------------------------------------------------
 
-    //--------------------------------------------------------------------------------------------------------
-    // excluding
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Dizi elemanlarından istenmeyen elemanlar belirtilir. Ancak istenmeyen eleman hem anahtar içinde hem de
-    // değerler içinde aranır. Bu nedenle beklediğinizden farklı sonuçlar alabilirsiniz. Bu yöntemin en
-    // doğru kullanımı anahtar veri içeren dizilerle kullanılmasıdır.
-    //
-    // @param array $array
-    // @param array $excluding
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function excluding(Array $array, Array $excluding) : Array;
+    const config = 'IndividualStructures:user';
 
     //--------------------------------------------------------------------------------------------------------
-    // excluding
+    // Information Ability
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param array   $array
-    // @param array   $excluding
+    // Information Ability Methods
     //
     //--------------------------------------------------------------------------------------------------------
-    public function exclude(Array $array, Array $excluding) : Array;
+    use \InformationAbility;
+
+    //--------------------------------------------------------------------------------------------------------
+    // Column
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param  string column
+    // @param  mixed  $value
+    // @return this
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function column(String $column, $value) : UserExtends
+    {
+        Properties::$parameters['column'][$column] = $value;
+
+        return $this;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Return Link
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param  string $returnLink
+    // @return this
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function returnLink(String $returnLink) : UserExtends
+    {
+        Properties::$parameters['returnLink'] = $returnLink;
+
+        return $this;
+    }
 }

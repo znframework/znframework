@@ -1,8 +1,6 @@
 <?php namespace ZN\DataTypes\Arrays;
 
-use ZN\DataTypes\Arrays\Exception\InvalidArgumentException;
-
-class ArrayEach implements ArrayEachInterface
+interface EachInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -21,16 +19,5 @@ class ArrayEach implements ArrayEachInterface
     // @param callable $callable
     //
     //--------------------------------------------------------------------------------------------------------
-    public function each(Array $array, $callable)
-    {
-        if( ! is_callable($callable) )
-        {
-            throw new InvalidArgumentException('Error', 'callableParameter', '2.($callable)');
-        }
-
-        foreach( $array as $k => $v )
-        {
-            $callable($v, $k);
-        }
-    }
+    public function use(Array $array, $callable);
 }

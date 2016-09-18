@@ -19,7 +19,7 @@ class AddElement implements AddElementInterface
     // @param mixed $element
     //
     //--------------------------------------------------------------------------------------------------------
-    public function addFirst(Array $array, $element, $type = 'array_unshift') : Array
+    public function first(Array $array, $element, $type = 'array_unshift') : Array
     {
         if( ! is_array($element) )
         {
@@ -48,8 +48,8 @@ class AddElement implements AddElementInterface
     // @param mixed $element
     //
     //--------------------------------------------------------------------------------------------------------
-    public function addLast(Array $array, $element) : Array
+    public function last(Array $array, $element) : Array
     {
-        return $this->addFirst($array, $element, 'array_push');
+        return $this->first($array, $element, 'array_push');
     }
 }

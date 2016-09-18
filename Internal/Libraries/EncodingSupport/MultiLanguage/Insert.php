@@ -2,7 +2,7 @@
 
 use File, Json;
 
-class Insert extends MLCommon implements InsertInterface
+class Insert extends MLExtends implements InsertInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

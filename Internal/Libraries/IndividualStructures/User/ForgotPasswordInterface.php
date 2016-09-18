@@ -20,7 +20,7 @@ interface ForgotPasswordInterface
     // @return this
     //
     //--------------------------------------------------------------------------------------------------------
-    public function returnLink(String $returnLink) : UserCommon;
+    public function returnLink(String $returnLink) : UserExtends;
 
     //--------------------------------------------------------------------------------------------------------
     // Forgot Password

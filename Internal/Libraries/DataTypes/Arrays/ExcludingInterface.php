@@ -1,6 +1,6 @@
 <?php namespace ZN\DataTypes\Arrays;
 
-interface ArrayEachInterface
+interface ExcludingInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -12,12 +12,16 @@ interface ArrayEachInterface
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
-    // each
+    // excluding
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param array    $array
-    // @param callable $callable
+    // Dizi elemanlarından istenmeyen elemanlar belirtilir. Ancak istenmeyen eleman hem anahtar içinde hem de
+    // değerler içinde aranır. Bu nedenle beklediğinizden farklı sonuçlar alabilirsiniz. Bu yöntemin en
+    // doğru kullanımı anahtar veri içeren dizilerle kullanılmasıdır.
+    //
+    // @param array $array
+    // @param array $excluding
     //
     //--------------------------------------------------------------------------------------------------------
-    public function each(Array $array, $callable);
+    public function use(Array $array, Array $excluding) : Array;
 }

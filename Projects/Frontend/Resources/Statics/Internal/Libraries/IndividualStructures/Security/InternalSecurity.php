@@ -5,8 +5,6 @@
 
 class Security extends StaticAccess
 {
-	const config = 'IndividualStructures:security';
-
 	public static function getClassName()
 	{
 		return __CLASS__;

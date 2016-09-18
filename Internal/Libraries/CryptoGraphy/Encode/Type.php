@@ -1,9 +1,8 @@
 <?php namespace ZN\CryptoGraphy\Encode;
 
-use ZN\CryptoGraphy\EncodeCommon;
 use ZN\CryptoGraphy\Exception\InvalidArgumentException;
 
-class Type extends EncodeCommon implements TypeInterface
+class Type extends EncodeExtends implements TypeInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

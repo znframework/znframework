@@ -2,7 +2,7 @@
 
 use Encode, DB, Method, Session, Cookie;
 
-class Login extends UserCommon implements LoginInterface
+class Login extends UserExtends implements LoginInterface
 {
     //--------------------------------------------------------------------------------------------------------
     // Username

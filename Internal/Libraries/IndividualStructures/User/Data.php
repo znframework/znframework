@@ -2,7 +2,7 @@
 
 use Session, DB;
 
-class Data extends UserCommon implements DataInterface
+class Data extends UserExtends implements DataInterface
 {
     //--------------------------------------------------------------------------------------------------------
     // Data

@@ -1,6 +1,6 @@
 <?php namespace ZN\IndividualStructures\Cart;
 
-class Delete extends CartCommon implements DeleteInterface
+class Delete extends CartExtends implements DeleteInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

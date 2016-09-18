@@ -2,7 +2,7 @@
 
 use ZN\DataTypes\Arrays\Exception\LogicException;
 
-class ArrayExclude implements ArrayExcludeInterface
+class Excluding implements ExcludingInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -25,7 +25,7 @@ class ArrayExclude implements ArrayExcludeInterface
     // @param array $excluding
     //
     //--------------------------------------------------------------------------------------------------------
-    public function excluding(Array $array, Array $excluding) : Array
+    public function use(Array $array, Array $excluding) : Array
     {
         $newArray = [];
 
@@ -48,18 +48,5 @@ class ArrayExclude implements ArrayExcludeInterface
         }
 
         return $newArray;
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // excluding
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array   $array
-    // @param array   $excluding
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function exclude(Array $array, Array $excluding) : Array
-    {
-        return $this->excluding($array, $excluding);
     }
 }

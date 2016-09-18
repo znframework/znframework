@@ -1,6 +1,6 @@
 <?php namespace ZN\IndividualStructures\Cart;
 
-class Insert extends CartCommon implements InsertInterface
+class Insert extends CartExtends implements InsertInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

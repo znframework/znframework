@@ -41,7 +41,7 @@ interface UpdateInterface
     // @return this
     //
     //--------------------------------------------------------------------------------------------------------
-    public function column(String $column, $value) : UserCommon;
+    public function column(String $column, $value) : UserExtends;
 
     //--------------------------------------------------------------------------------------------------------
     // Update

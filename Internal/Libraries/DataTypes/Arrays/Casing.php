@@ -2,7 +2,7 @@
 
 use Converter;
 
-class ArrayCase implements ArrayCaseInterface
+class Casing implements CasingInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -22,7 +22,7 @@ class ArrayCase implements ArrayCaseInterface
     // @param string $keyval: all, key, value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function casing(Array $array, String $type = 'lower', String $keyval = 'all') : Array
+    public function use(Array $array, String $type = 'lower', String $keyval = 'all') : Array
     {
         if( $type === 'lower' )
         {
@@ -66,7 +66,7 @@ class ArrayCase implements ArrayCaseInterface
     //--------------------------------------------------------------------------------------------------------
     public function lowerKeys(Array $array) : Array
     {
-        return $this->casing($array, 'lower', 'key');
+        return $this->use($array, 'lower', 'key');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -78,7 +78,7 @@ class ArrayCase implements ArrayCaseInterface
     //--------------------------------------------------------------------------------------------------------
     public function titleKeys(Array $array) : Array
     {
-        return $this->casing($array, 'title', 'key');
+        return $this->use($array, 'title', 'key');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -90,7 +90,7 @@ class ArrayCase implements ArrayCaseInterface
     //--------------------------------------------------------------------------------------------------------
     public function upperKeys(Array $array) : Array
     {
-        return $this->casing($array, 'upper', 'key');
+        return $this->use($array, 'upper', 'key');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -102,7 +102,7 @@ class ArrayCase implements ArrayCaseInterface
     //--------------------------------------------------------------------------------------------------------
     public function lowerValues(Array $array) : Array
     {
-        return $this->casing($array, 'lower', 'value');
+        return $this->use($array, 'lower', 'value');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -114,7 +114,7 @@ class ArrayCase implements ArrayCaseInterface
     //--------------------------------------------------------------------------------------------------------
     public function titleValues(Array $array) : Array
     {
-        return $this->casing($array, 'title', 'value');
+        return $this->use($array, 'title', 'value');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -126,7 +126,7 @@ class ArrayCase implements ArrayCaseInterface
     //--------------------------------------------------------------------------------------------------------
     public function upperValues(Array $array) : Array
     {
-        return $this->casing($array, 'upper', 'value');
+        return $this->use($array, 'upper', 'value');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -136,9 +136,9 @@ class ArrayCase implements ArrayCaseInterface
     // @param array $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function lowerCase(Array $array) : Array
+    public function lower(Array $array) : Array
     {
-        return $this->casing($array, 'lower', 'all');
+        return $this->use($array, 'lower', 'all');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -148,9 +148,9 @@ class ArrayCase implements ArrayCaseInterface
     // @param array $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function titleCase(Array $array) : Array
+    public function title(Array $array) : Array
     {
-        return $this->casing($array, 'title', 'all');
+        return $this->use($array, 'title', 'all');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -160,8 +160,8 @@ class ArrayCase implements ArrayCaseInterface
     // @param array $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function upperCase(Array $array) : Array
+    public function upper(Array $array) : Array
     {
-        return $this->casing($array, 'upper', 'all');
+        return $this->use($array, 'upper', 'all');
     }
 }

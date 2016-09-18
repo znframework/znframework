@@ -1,8 +1,6 @@
 <?php namespace ZN\CryptoGraphy\Encode;
 
-use ZN\CryptoGraphy\EncodeCommon;
-
-class SuperAlgorithm extends EncodeCommon implements SuperAlgorithmInterface
+class SuperAlgorithm extends EncodeExtends implements SuperAlgorithmInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

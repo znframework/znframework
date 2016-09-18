@@ -2,7 +2,7 @@
 
 use Method, Html, Form, URI, Pagination, Sheet, Style;
 
-class Grid extends MLCommon implements GridInterface
+class Grid extends MLExtends implements GridInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

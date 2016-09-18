@@ -1,6 +1,6 @@
 <?php namespace ZN\DataTypes\Arrays;
 
-interface ArrayIncludeInterface
+interface IncludingInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -23,15 +23,5 @@ interface ArrayIncludeInterface
     // @param array   $including
     //
     //--------------------------------------------------------------------------------------------------------
-    public function including(Array $array, Array $including) : Array;
-
-    //--------------------------------------------------------------------------------------------------------
-    // excluding
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array   $array
-    // @param array   $excluding
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function include(Array $array, Array $excluding) : Array;
+    public function use(Array $array, Array $including) : Array;
 }

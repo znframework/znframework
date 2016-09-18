@@ -1,6 +1,6 @@
 <?php namespace ZN\DataTypes\Arrays;
 
-interface ArrayCaseInterface
+interface CasingInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -20,7 +20,7 @@ interface ArrayCaseInterface
     // @param string $keyval: all, key, value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function casing(Array $array, String $type = 'lower', String $keyval = 'all') : Array;
+    public function use(Array $array, String $type = 'lower', String $keyval = 'all') : Array;
 
     //--------------------------------------------------------------------------------------------------------
     // Lower Keys
@@ -83,7 +83,7 @@ interface ArrayCaseInterface
     // @param array $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function lowerCase(Array $array) : Array;
+    public function lower(Array $array) : Array;
 
     //--------------------------------------------------------------------------------------------------------
     // Title
@@ -92,7 +92,7 @@ interface ArrayCaseInterface
     // @param array $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function titleCase(Array $array) : Array;
+    public function title(Array $array) : Array;
 
     //--------------------------------------------------------------------------------------------------------
     // Upper
@@ -101,5 +101,5 @@ interface ArrayCaseInterface
     // @param array $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function upperCase(Array $array) : Array;
+    public function upper(Array $array) : Array;
 }

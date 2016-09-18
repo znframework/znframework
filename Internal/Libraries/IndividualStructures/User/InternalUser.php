@@ -16,9 +16,9 @@ class InternalUser extends \FactoryController implements InternalUserInterface
         'methods' =>
         [
             'register'           => 'User\Register::do',
-            'column'             => 'User\UserCommon::column:this',
+            'column'             => 'User\UserExtends::column:this',
             'autologin'          => 'User\Register::autoLogin:this',
-            'returnlink'         => 'User\UserCommon::returnLink:this',
+            'returnlink'         => 'User\UserExtends::returnLink:this',
             'activationcomplete' => 'User\Register::activationComplete',
             'update'             => 'User\Update::do',
             'oldpassword'        => 'User\Update::oldPassword:this',

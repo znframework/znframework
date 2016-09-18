@@ -2,7 +2,7 @@
 
 use ZN\DataTypes\Arrays\Exception\LogicException;
 
-class ArrayInclude implements ArrayIncludeInterface
+class Including implements IncludingInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -25,7 +25,7 @@ class ArrayInclude implements ArrayIncludeInterface
     // @param array   $including
     //
     //--------------------------------------------------------------------------------------------------------
-    public function including(Array $array, Array $including) : Array
+    public function use(Array $array, Array $including) : Array
     {
         $newArray = [];
 
@@ -48,18 +48,5 @@ class ArrayInclude implements ArrayIncludeInterface
         }
 
         return $newArray;
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // excluding
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array   $array
-    // @param array   $excluding
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function include(Array $array, Array $excluding) : Array
-    {
-        return $this->including($array, $excluding);
     }
 }

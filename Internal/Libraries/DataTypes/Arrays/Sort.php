@@ -1,6 +1,8 @@
 <?php namespace ZN\DataTypes\Arrays;
 
-interface ArraySortInterface
+use Converter;
+
+class Sort implements SortInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -20,7 +22,28 @@ interface ArraySortInterface
     // @param string $flags:regular
     //
     //--------------------------------------------------------------------------------------------------------
-    public function order(Array $array, String $type = NULL, String $flags = 'regular') : Array;
+    public function order(Array $array, String $type = NULL, String $flags = 'regular') : Array
+    {
+        $flags = Converter::toConstant($flags, 'SORT_');
+
+        switch($type)
+        {
+            case 'desc'         : arsort($array, $flags);   break;
+            case 'asc'          : asort($array, $flags);    break;
+            case 'asckey'       : ksort($array, $flags);    break;
+            case 'desckey'      : krsort($array, $flags);   break;
+            case 'insens'       : natcasesort($array);      break;
+            case 'natural'      : natsort($array);          break;
+            case 'reverse'      : rsort($array, $flags);    break;
+            case 'userassoc'    : uasort($array, $flags);   break;
+            case 'userkey'      : uksort($array, $flags);   break;
+            case 'user'         : usort($array, $flags);    break;
+            case 'random'       : shuffle($array);          break;
+            default             : sort($array, $flags);
+        }
+
+        return $array;
+    }
 
     //--------------------------------------------------------------------------------------------------------
     // Sort
@@ -30,7 +53,10 @@ interface ArraySortInterface
     // @param string $flags:regular
     //
     //--------------------------------------------------------------------------------------------------------
-    public function sort(Array $array, String $flag = 'regular') : Array;
+    public function normal(Array $array, String $flag = 'regular') : Array
+    {
+        return $this->order($array, 'sort', $flag);
+    }
 
     //--------------------------------------------------------------------------------------------------------
     // Descending
@@ -40,7 +66,10 @@ interface ArraySortInterface
     // @param string $flags:regular
     //
     //--------------------------------------------------------------------------------------------------------
-    public function descending(Array $array, String $flag = 'regular') : Array;
+    public function descending(Array $array, String $flag = 'regular') : Array
+    {
+        return $this->order($array, 'desc', $flag);
+    }
 
     //--------------------------------------------------------------------------------------------------------
     // Ascending
@@ -50,7 +79,10 @@ interface ArraySortInterface
     // @param string $flags:regular
     //
     //--------------------------------------------------------------------------------------------------------
-    public function ascending(Array $array, String $flag = 'regular') : Array;
+    public function ascending(Array $array, String $flag = 'regular') : Array
+    {
+        return $this->order($array, 'asc', $flag);
+    }
 
     //--------------------------------------------------------------------------------------------------------
     // Ascending Key
@@ -60,7 +92,10 @@ interface ArraySortInterface
     // @param string $flags:regular
     //
     //--------------------------------------------------------------------------------------------------------
-    public function ascendingKey(Array $array, String $flag = 'regular') : Array;
+    public function ascendingKey(Array $array, String $flag = 'regular') : Array
+    {
+        return $this->order($array, 'asckey', $flag);
+    }
 
     //--------------------------------------------------------------------------------------------------------
     // Descending Key
@@ -70,7 +105,10 @@ interface ArraySortInterface
     // @param string $flags:regular
     //
     //--------------------------------------------------------------------------------------------------------
-    public function descendingKey(Array $array, String $flag = 'regular') : Array;
+    public function descendingKey(Array $array, String $flag = 'regular') : Array
+    {
+        return $this->order($array, 'desckey', $flag);
+    }
 
     //--------------------------------------------------------------------------------------------------------
     // User Assoc Sort
@@ -80,7 +118,10 @@ interface ArraySortInterface
     // @param string $flags:regular
     //
     //--------------------------------------------------------------------------------------------------------
-    public function userAssocSort(Array $array, String $flag = 'regular') : Array;
+    public function userAssoc(Array $array, String $flag = 'regular') : Array
+    {
+        return $this->order($array, 'userassoc', $flag);
+    }
 
     //--------------------------------------------------------------------------------------------------------
     // User Key Sort
@@ -90,7 +131,10 @@ interface ArraySortInterface
     // @param string $flags:regular
     //
     //--------------------------------------------------------------------------------------------------------
-    public function userKeySort(Array $array, String $flag = 'regular') : Array;
+    public function userKey(Array $array, String $flag = 'regular') : Array
+    {
+        return $this->order($array, 'userkey', $flag);
+    }
 
     //--------------------------------------------------------------------------------------------------------
     // User Sort
@@ -100,7 +144,10 @@ interface ArraySortInterface
     // @param string $flags:regular
     //
     //--------------------------------------------------------------------------------------------------------
-    public function userSort(Array $array, String $flag = 'regular') : Array;
+    public function user(Array $array, String $flag = 'regular') : Array
+    {
+        return $this->order($array, 'user', $flag);
+    }
 
     //--------------------------------------------------------------------------------------------------------
     // insensitive Sort
@@ -109,7 +156,10 @@ interface ArraySortInterface
     // @param array  $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function insensitiveSort(Array $array) : Array;
+    public function insensitive(Array $array) : Array
+    {
+        return $this->order($array, 'natcasesort');
+    }
 
     //--------------------------------------------------------------------------------------------------------
     // Natural Sort
@@ -118,7 +168,10 @@ interface ArraySortInterface
     // @param array  $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function naturalSort(Array $array) : Array;
+    public function natural(Array $array) : Array
+    {
+        return $this->order($array, 'natsort');
+    }
 
     //--------------------------------------------------------------------------------------------------------
     // Shuffle
@@ -127,5 +180,8 @@ interface ArraySortInterface
     // @param array  $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function shuffle(Array $array) : Array;
+    public function shuffle(Array $array) : Array
+    {
+        return $this->order($array, 'random');
+    }
 }

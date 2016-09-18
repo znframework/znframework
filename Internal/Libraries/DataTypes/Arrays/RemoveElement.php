@@ -1,6 +1,6 @@
 <?php namespace ZN\DataTypes\Arrays;
 
-class RemoveElement
+class RemoveElement implements RemoveElementInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -19,7 +19,7 @@ class RemoveElement
     // @param mixed $keys
     //
     //--------------------------------------------------------------------------------------------------------
-    public function removeKey(Array $array, $keys) : Array
+    public function key(Array $array, $keys) : Array
     {
         if( ! is_array($keys) )
         {
@@ -44,9 +44,9 @@ class RemoveElement
     // @param mixed $values
     //
     //--------------------------------------------------------------------------------------------------------
-    public function removeValue(Array $array, $values) : Array
+    public function value(Array $array, $values) : Array
     {
-        return $this->deleteElement($array, $values);
+        return $this->element($array, $values);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -58,16 +58,16 @@ class RemoveElement
     // @param mixed $values
     //
     //--------------------------------------------------------------------------------------------------------
-    public function remove(Array $array, $keys, $values) : Array
+    public function use(Array $array, $keys, $values) : Array
     {
         if( ! empty($keys) )
         {
-            $array = $this->removeKey($array, $keys);
+            $array = $this->key($array, $keys);
         }
 
         if( ! empty($values) )
         {
-            $array = $this->removeValue($array, $values);
+            $array = $this->value($array, $values);
         }
 
         return $array;
@@ -81,7 +81,7 @@ class RemoveElement
     // @param numeric $count
     //
     //--------------------------------------------------------------------------------------------------------
-    public function removeLast(Array $array, Int $count = 1, $type = 'array_pop') : Array
+    public function last(Array $array, Int $count = 1, $type = 'array_pop') : Array
     {
         if( $count <= 1 )
         {
@@ -113,9 +113,9 @@ class RemoveElement
     // @param numeric $count
     //
     //--------------------------------------------------------------------------------------------------------
-    public function removeFirst(Array $array, Int $count = 1) : Array
+    public function first(Array $array, Int $count = 1) : Array
     {
-        return $this->removeLast($array, $count, 'array_shift');
+        return $this->last($array, $count, 'array_shift');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -126,7 +126,7 @@ class RemoveElement
     // @param mixed $object
     //
     //--------------------------------------------------------------------------------------------------------
-    public function deleteElement(Array $array, $object) : Array
+    public function element(Array $array, $object) : Array
     {
         if( ! is_array($object) )
         {

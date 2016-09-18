@@ -1,6 +1,8 @@
 <?php namespace ZN\DataTypes\Arrays;
 
-interface AddElementInterface
+use ZN\DataTypes\Arrays\Exception\InvalidArgumentException;
+
+class Each implements EachInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -12,22 +14,23 @@ interface AddElementInterface
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
-    // Add First
+    // each
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param array $array
-    // @param mixed $element
+    // @param array    $array
+    // @param callable $callable
     //
     //--------------------------------------------------------------------------------------------------------
-    public function first(Array $array, $element, $type = 'array_unshift') : Array;
+    public function use(Array $array, $callable)
+    {
+        if( ! is_callable($callable) )
+        {
+            throw new InvalidArgumentException('Error', 'callableParameter', '2.($callable)');
+        }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Add Last
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array $array
-    // @param mixed $element
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function last(Array $array, $element) : Array;
+        foreach( $array as $k => $v )
+        {
+            $callable($v, $k);
+        }
+    }
 }

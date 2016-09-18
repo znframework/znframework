@@ -1,8 +1,6 @@
 <?php namespace ZN\CryptoGraphy\Encode;
 
-use ZN\CryptoGraphy\EncodeCommon;
-
-class GoldenAlgorithm extends EncodeCommon implements GoldenAlgorithmInterface
+class GoldenAlgorithm extends EncodeExtends implements GoldenAlgorithmInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
