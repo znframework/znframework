@@ -1,9 +1,8 @@
 <?php namespace ZN\FileSystem\File;
 
-use stdClass;
-use ZN\FileSystem\FileSystemCommon;
+use stdClass, File;
 
-class Content extends FileSystemCommon implements ContentInterface
+class Content implements ContentInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -23,7 +22,7 @@ class Content extends FileSystemCommon implements ContentInterface
     //--------------------------------------------------------------------------------------------------------
     public function read(String $file) : String
     {
-        return file_get_contents($this->rpath($file));
+        return file_get_contents(File::rpath($file));
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -56,7 +55,7 @@ class Content extends FileSystemCommon implements ContentInterface
     //--------------------------------------------------------------------------------------------------------
     public function write(String $file, String $data) : Int
     {
-        return file_put_contents($this->rpath($file), $data);
+        return file_put_contents(File::rpath($file), $data);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -69,6 +68,6 @@ class Content extends FileSystemCommon implements ContentInterface
     //--------------------------------------------------------------------------------------------------------
     public function append(String $file, String $data) : Int
     {
-        return file_put_contents($this->rpath($file), $data, FILE_APPEND);
+        return file_put_contents(File::rpath($file), $data, FILE_APPEND);
     }
 }

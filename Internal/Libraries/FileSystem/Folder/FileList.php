@@ -1,9 +1,9 @@
 <?php namespace ZN\FileSystem\Folder;
 
+use File;
 use ZN\FileSystem\Exception\FolderNotFoundException;
-use ZN\FileSystem\FileSystemCommon;
 
-class FolderList extends FileSystemCommon
+class FileList implements FileListInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -26,7 +26,7 @@ class FolderList extends FileSystemCommon
     //--------------------------------------------------------------------------------------------------------
     public function files(String $path, $extension = NULL, Bool $pathType = false) : Array
     {
-        $path = $this->rpath($path);
+        $path = File::rpath($path);
 
         if( ! is_dir($path) )
         {
@@ -58,7 +58,7 @@ class FolderList extends FileSystemCommon
     //--------------------------------------------------------------------------------------------------------
     public function allFiles(String $pattern = '*', Bool $allFiles = false) : Array
     {
-        $pattern = $this->rpath($pattern);
+        $pattern = File::rpath($pattern);
 
         if( $allFiles === true )
         {

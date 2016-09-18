@@ -1,13 +1,12 @@
 <?php namespace ZN\FileSystem\File;
 
-use ZipArchive, Folder;
+use ZipArchive, Folder, File;
 use ZN\FileSystem\Exception\FileNotFoundException;
 use ZN\FileSystem\Exception\FileAllreadyException;
 use ZN\FileSystem\FileSystemFactory;
-use ZN\FileSystem\FileSystemCommon;
 use ZN\FileSystem\InternalGenerate;
 
-class Forge extends FileSystemCommon implements ForgeInterface
+class Forge implements ForgeInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -39,7 +38,7 @@ class Forge extends FileSystemCommon implements ForgeInterface
     //--------------------------------------------------------------------------------------------------------
     public function create(String $name) : Bool
     {
-        $name = $this->rpath($name);
+        $name = File::rpath($name);
 
         if( ! is_file($name) )
         {
@@ -62,7 +61,7 @@ class Forge extends FileSystemCommon implements ForgeInterface
     //--------------------------------------------------------------------------------------------------------
     public function replace(String $file, $data, $replace) : String
     {
-        $file = $this->rpath($file);
+        $file = File::rpath($file);
 
         if( ! is_file($file))
         {
@@ -90,7 +89,7 @@ class Forge extends FileSystemCommon implements ForgeInterface
     //--------------------------------------------------------------------------------------------------------
     public function delete(String $name) : Bool
     {
-        $name = $this->rpath($name);
+        $name = File::rpath($name);
 
         if( ! is_file($name))
         {
@@ -112,8 +111,8 @@ class Forge extends FileSystemCommon implements ForgeInterface
     //--------------------------------------------------------------------------------------------------------
     public function zipExtract(String $source, String $target = NULL) : Bool
     {
-        $source = $this->rpath($source);
-        $target = $this->rpath($target);
+        $source = File::rpath($source);
+        $target = File::rpath($target);
 
         $source = suffix($source, '.zip');
 
@@ -152,7 +151,7 @@ class Forge extends FileSystemCommon implements ForgeInterface
     //--------------------------------------------------------------------------------------------------------
     public function createZip(String $path, Array $data) : Bool
     {
-        $path    = $this->rpath($path);
+        $path    = File::rpath($path);
         $zip     = new ZipArchive();
         $zipPath = suffix($path, ".zip");
 
@@ -214,7 +213,7 @@ class Forge extends FileSystemCommon implements ForgeInterface
     //--------------------------------------------------------------------------------------------------------
     public function rename(String $oldName, String $newName) : Bool
     {
-        $oldName = $this->rpath($oldName);
+        $oldName = File::rpath($oldName);
 
         if( ! file_exists($oldName) )
         {
@@ -234,7 +233,7 @@ class Forge extends FileSystemCommon implements ForgeInterface
     //--------------------------------------------------------------------------------------------------------
     public function cleanCache(String $fileName = NULL, Bool $real = false)
     {
-        $fileName = $this->rpath($fileName);
+        $fileName = File::rpath($fileName);
 
         if( ! file_exists($fileName) )
         {
@@ -257,7 +256,7 @@ class Forge extends FileSystemCommon implements ForgeInterface
     //--------------------------------------------------------------------------------------------------------
     public function truncate(String $file, Int $limit = 0, String $mode = 'r+')
     {
-        $file = $this->rpath($file);
+        $file = File::rpath($file);
 
         if( ! is_file($file) )
         {
@@ -268,5 +267,24 @@ class Forge extends FileSystemCommon implements ForgeInterface
         $fileWrite = ftruncate($fileOpen, $limit);
 
         fclose($fileOpen);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // permission()
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // Bir dizin veya dosyaya yetki vermek için kullanılır.
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function permission(String $name, Int $permission = 0755) : Bool
+    {
+        $name = File::rpath($name);
+
+        if( ! file_exists($name) )
+        {
+            throw new FileNotFoundException($name);
+        }
+
+        return chmod($name, $permission);
     }
 }

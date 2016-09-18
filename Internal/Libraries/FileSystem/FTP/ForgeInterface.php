@@ -1,9 +1,6 @@
-<?php namespace ZN\FileSystem\File;
+<?php namespace ZN\FileSystem\FTP;
 
-use File;
-use ZN\FileSystem\Exception\FileNotFoundException;
-
-class Loader implements LoaderInterface
+interface ForgeInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -15,82 +12,58 @@ class Loader implements LoaderInterface
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
-    // Require
+    // createFolder()
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $file
-    //
-    // @return array
+    // @param string $path: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function require(String $file, String $type = 'require')
-    {
-        $file = File::rpath($file);
-
-        if( ! is_file($file) )
-        {
-            throw new FileNotFoundException($file);
-        }
-
-        switch( $type )
-        {
-            case 'require':
-                return require $file;
-            break;
-
-            case 'require_once':
-                return require_once $file;
-            break;
-
-            case 'include':
-                return include $file;
-            break;
-
-            case 'include_once':
-                return include_once $file;
-            break;
-        }
-    }
+    public function createFolder(String $path) : Bool;
 
     //--------------------------------------------------------------------------------------------------------
-    // Require Once
+    // deleteFolder()
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $file
-    //
-    // @return array
+    // @param string $path: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function requireOnce(String $file)
-    {
-        return $this->require($file, 'require_once');
-    }
+    public function deleteFolder(String $path) : Bool;
 
     //--------------------------------------------------------------------------------------------------------
-    // Include
+    // changeFolder()
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $file
-    //
-    // @return array
+    // @param string $path: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function include(String $file)
-    {
-        return $this->require($file, 'include');
-    }
+    public function changeFolder(String $path) : Bool;
 
     //--------------------------------------------------------------------------------------------------------
-    // Include Once
+    // rename()
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $file
-    //
-    // @return array
+    // @param string $oldName: empty
+    // @param string $newName: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function includeOnce(String $file)
-    {
-        return $this->require($file, 'include_once');
-    }
+    public function rename(String $oldName, String $newName) : Bool;
+
+    //--------------------------------------------------------------------------------------------------------
+    // deleteFile()
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $path: empty
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function deleteFile(String $path) : Bool;
+
+    //--------------------------------------------------------------------------------------------------------
+    // permission()
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $path: empty
+    // @param int $type   : 0755
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function permission(String $path, Int $type = 0755) : Bool;
 }

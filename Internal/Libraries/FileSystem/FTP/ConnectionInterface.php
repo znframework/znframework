@@ -18,5 +18,5 @@ interface ConnectionInterface
     // @param array $config: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function differentConnection(Array $config) : Connection;
+    public function do(Array $config) : Connection;
 }

@@ -14,7 +14,7 @@ function parser(String $string, $char = '/', Int $start = 0, Int $end = -1) : St
 {
     $explode = explode($char, $string);
 
-    
+
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -100,7 +100,7 @@ function configs(...$configs) : Array
 // @return mixed
 //
 //--------------------------------------------------------------------------------------------------
-function config(String $file, String $value = NULL, $newValue = NULL)
+function config(String $file, String $value = '', $newValue = NULL)
 {
     if( $newValue === NULL )
     {
@@ -365,7 +365,7 @@ function currentLang() : String
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function currentUrl(String $fix = NULL) : String
+function currentUrl(String $fix = '') : String
 {
     $currentUrl = sslStatus().host().internalCleanInjection(server('requestUri'));
 
@@ -387,7 +387,7 @@ function currentUrl(String $fix = NULL) : String
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function siteUrl(String $uri = NULL, Int $index = 0) : String
+function siteUrl(String $uri = '', Int $index = 0) : String
 {
     $newBaseDir = BASE_DIR;
 
@@ -427,7 +427,7 @@ function siteUrl(String $uri = NULL, Int $index = 0) : String
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function baseUrl(String $uri = NULL, Int $index = 0) : String
+function baseUrl(String $uri = '', Int $index = 0) : String
 {
     $newBaseDir = BASE_DIR;
 
@@ -488,7 +488,7 @@ function prevUrl() : String
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function hostUrl(String $uri = NULL) : String
+function hostUrl(String $uri = '') : String
 {
     return sslStatus().suffix(host()).internalCleanInjection($uri);
 }
@@ -538,7 +538,7 @@ function currentPath(Bool $isPath = true) : String
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function basePath(String $uri = NULL, Int $index = 0) : String
+function basePath(String $uri = '', Int $index = 0) : String
 {
     $newBaseDir = substr(BASE_DIR, 1);
 
@@ -614,7 +614,7 @@ function prevPath(Bool $isPath = true) : String
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function filePath(String $file = NULL, String $removeUrl = NULL) : String
+function filePath(String $file = '', String $removeUrl = '') : String
 {
     if( isUrl($file) )
     {
@@ -790,7 +790,7 @@ function uselib(String $class, Array $parameters = [])
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function getErrorMessage(String $langFile, String $errorMsg = NULL, $ex = NULL) : String
+function getErrorMessage(String $langFile, String $errorMsg = '', $ex = NULL) : String
 {
     $style  = 'border:solid 1px #E1E4E5;';
     $style .= 'background:#FEFEFE;';
@@ -847,7 +847,7 @@ function getErrorMessage(String $langFile, String $errorMsg = NULL, $ex = NULL) 
 // @return bool
 //
 //--------------------------------------------------------------------------------------------------
-function report(String $subject, String $message, String $destination = NULL, String $time = NULL) : Bool
+function report(String $subject, String $message, String $destination = '', String $time = '') : Bool
 {
     if( ! Config::get('General', 'log')['createFile'] )
     {
@@ -1026,7 +1026,7 @@ function internalRequestURI() : String
 // @param string $cleanData
 //
 //--------------------------------------------------------------------------------------------------
-function internalCleanURIPrefix(String $uri = NULL, String $cleanData = NULL) : String
+function internalCleanURIPrefix(String $uri = '', String $cleanData = NULL) : String
 {
     $suffixData = suffix($cleanData);
 
@@ -1047,7 +1047,7 @@ function internalCleanURIPrefix(String $uri = NULL, String $cleanData = NULL) : 
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function internalRouteURI(String $requestUri = NULL) : String
+function internalRouteURI(String $requestUri = '') : String
 {
     $config = Config::get('Services', 'route');
 
@@ -1108,7 +1108,7 @@ function internalRouteURI(String $requestUri = NULL) : String
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function internalCleanInjection(String $string = NULL) : String
+function internalCleanInjection(String $string = '') : String
 {
     $urlInjectionChangeChars = Config::get('IndividualStructures', 'security')['urlChangeChars'];
 
@@ -1467,7 +1467,7 @@ function internalCreateHtaccessFile()
 // @param array  $param
 //
 //--------------------------------------------------------------------------------------------------
-function internalStartingContoller(String $startController = NULL, Array $param = [])
+function internalStartingContoller(String $startController = '', Array $param = [])
 {
     $controllerEx = explode(':', $startController);
 
@@ -1508,7 +1508,7 @@ function internalStartingContoller(String $startController = NULL, Array $param 
 // @param string $report
 //
 //--------------------------------------------------------------------------------------------------
-function internalBenchmarkReport(String $report = NULL)
+function internalBenchmarkReport(String $report = '')
 {
     echo $report;
 

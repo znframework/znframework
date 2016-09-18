@@ -47,7 +47,7 @@ class Connection extends CLController implements ConnectionInterface
 
         if( ! empty($config) )
         {
-            $config = Config::set('FileSystem', 'ftp', $config);
+            $config = Config::get('FileSystem', 'ftp', $config);
         }
         else
         {
@@ -64,7 +64,7 @@ class Connection extends CLController implements ConnectionInterface
     // @param array $config: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function differentConnection(Array $config) : Connection
+    public function do(Array $config) : Connection
     {
         return new self($config);
     }

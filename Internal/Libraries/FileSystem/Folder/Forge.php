@@ -1,10 +1,9 @@
 <?php namespace ZN\FileSystem\Folder;
 
+use File;
 use ZN\FileSystem\Exception\FolderNotFoundException;
-use ZN\FileSystem\FolderFactory;
-use ZN\FileSystem\FileSystemCommon;
 
-class FolderForge extends FileSystemCommon
+class Forge implements ForgeInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -24,7 +23,7 @@ class FolderForge extends FileSystemCommon
     //--------------------------------------------------------------------------------------------------------
     public function create(String $file, Int $permission = 0755, Bool $recursive = true) : Bool
     {
-        $file = $this->rpath($file);
+        $file = File::rpath($file);
 
         if( is_dir($file) )
         {
@@ -43,7 +42,7 @@ class FolderForge extends FileSystemCommon
     //--------------------------------------------------------------------------------------------------------
     public function rename(String $oldName, String $newName) : Bool
     {
-        $oldName = $this->rpath($oldName);
+        $oldName = File::rpath($oldName);
 
         if( ! file_exists($oldName) )
         {
@@ -62,7 +61,7 @@ class FolderForge extends FileSystemCommon
     //--------------------------------------------------------------------------------------------------------
     public function deleteEmpty(String $folder) : Bool
     {
-        $folder = $this->rpath($folder);
+        $folder = File::rpath($folder);
 
         if( ! is_dir($folder) )
         {
@@ -81,9 +80,9 @@ class FolderForge extends FileSystemCommon
     //--------------------------------------------------------------------------------------------------------
     public function delete(String $name) : Bool
     {
-        $name = $this->rpath($name);
+        $name = File::rpath($name);
 
-        $fileListClass = FolderFactory::class('FolderList');
+        $fileListClass = Factory::class('FileList');
 
         if( is_file($name) )
         {
@@ -120,9 +119,9 @@ class FolderForge extends FileSystemCommon
     //--------------------------------------------------------------------------------------------------------
     public function copy(String $source, String $target) : Bool
     {
-        $source = $this->rpath($source);
-        $target = $this->rpath($target);
-        $fileListClass = FolderFactory::class('FolderList');
+        $source = File::rpath($source);
+        $target = File::rpath($target);
+        $fileListClass = Factory::class('FileList');
 
         if( ! file_exists($source) )
         {
@@ -173,7 +172,7 @@ class FolderForge extends FileSystemCommon
     //--------------------------------------------------------------------------------------------------------
     public function change(String $name) : Bool
     {
-        $name = $this->rpath($name);
+        $name = File::rpath($name);
 
         if( ! is_dir($name) )
         {
@@ -181,5 +180,17 @@ class FolderForge extends FileSystemCommon
         }
 
         return chdir($name);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // permission()
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // Bir dizin veya dosyaya yetki vermek için kullanılır.
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function permission(String $name, Int $permission = 0755) : Bool
+    {
+        return File::permission($name, $permission);
     }
 }

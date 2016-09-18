@@ -1,6 +1,6 @@
 <?php namespace ZN\FileSystem\FTP;
 
-class FTPInfo extends Connection
+class Info extends Connection implements InfoInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -22,7 +22,7 @@ class FTPInfo extends Connection
     public function files(String $path, String $extension = NULL) : Array
     {
         $list = ftp_nlist($this->connect, $path);
-
+    
         if( ! empty($list) ) foreach( $list as $file )
         {
             if( $file !== '.' && $file !== '..' )

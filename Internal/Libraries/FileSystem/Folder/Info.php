@@ -2,10 +2,8 @@
 
 use File;
 use ZN\FileSystem\Exception\FolderNotFoundException;
-use ZN\FileSystem\FolderFactory;
-use ZN\FileSystem\FileSystemCommon;
 
-class FolderInfo extends FileSystemCommon
+class Info implements InfoInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -15,6 +13,20 @@ class FolderInfo extends FileSystemCommon
     // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
+
+    //--------------------------------------------------------------------------------------------------------
+    // basePath()
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    // @return string
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function basePath() : String
+    {
+        return getcwd();
+    }
 
     //--------------------------------------------------------------------------------------------------------
     // Exists
@@ -27,7 +39,7 @@ class FolderInfo extends FileSystemCommon
     //--------------------------------------------------------------------------------------------------------
     public function exists(String $file) : Bool
     {
-        $file = $this->rpath($file);
+        $file = File::rpath($file);
 
         if( is_dir($file) )
         {
@@ -46,11 +58,11 @@ class FolderInfo extends FileSystemCommon
     //--------------------------------------------------------------------------------------------------------
     public function fileInfo(String $dir, String $extension = NULL) : Array
     {
-        $dir = $this->rpath($dir);
+        $dir = File::rpath($dir);
 
         if( is_dir($dir) )
         {
-            $files = FolderFactory::class('FolderList')->files($dir, $extension);
+            $files = Factory::class('FileList')->files($dir, $extension);
 
             $dir = suffix($dir);
 
@@ -91,7 +103,7 @@ class FolderInfo extends FileSystemCommon
     //--------------------------------------------------------------------------------------------------------
     public function disk(String $dir, String $type = 'free') : Float
     {
-        $dir = $this->rpath($dir);
+        $dir = File::rpath($dir);
 
         if( ! is_dir($dir) )
         {
@@ -106,5 +118,33 @@ class FolderInfo extends FileSystemCommon
         {
             return disk_total_space($dir);
         }
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // totalSpace()
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $dir
+    //
+    // @return Float
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function totalSpace(String $dir) : Float
+    {
+        return $this->disk($dir, 'total');
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // freeSpace()
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $dir
+    //
+    // @return Float
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function freeSpace(String $dir) : Float
+    {
+        return $this->disk($dir, 'free');
     }
 }

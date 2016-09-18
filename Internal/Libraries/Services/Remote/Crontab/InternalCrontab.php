@@ -1,6 +1,6 @@
 <?php namespace ZN\Services\Remote;
 
-use Processor, SSH, Folder, Buffer, Html;
+use Processor, SSH, Folder, File, Buffer, Html;
 use ZN\Services\Remote\Crontab\Exception\InvalidTimeFormatException;
 
 class InternalCrontab extends RemoteCommon implements InternalCrontabInterface, InternalCrontabIntervalInterface
@@ -102,7 +102,7 @@ class InternalCrontab extends RemoteCommon implements InternalCrontabInterface, 
         $this->path   = SERVICES_PROCESSOR_CONFIG['path'];
         $this->debug  = SERVICES_CRONTAB_CONFIG['debug'];
 
-        $this->crontabDir = Folder::originpath(STORAGE_DIR.'Crontab'.DS);
+        $this->crontabDir = File::originpath(STORAGE_DIR.'Crontab'.DS);
     }
 
     //--------------------------------------------------------------------------------------------------------

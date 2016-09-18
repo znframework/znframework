@@ -1,10 +1,9 @@
 <?php namespace ZN\FileSystem\File;
 
-use Folder;
+use Folder, Config;
 use ZN\FileSystem\Exception\FileNotFoundException;
-use ZN\FileSystem\FileSystemCommon;
 
-class Info extends FileSystemCommon implements InfoInterface
+class Info implements InfoInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -14,6 +13,121 @@ class Info extends FileSystemCommon implements InfoInterface
     // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
+
+    //--------------------------------------------------------------------------------------------------------
+    // Access
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var array
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected $access = NULL;
+
+    //--------------------------------------------------------------------------------------------------------
+    // Methods
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var array
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected $methods =
+    [
+        'executable' => 'is_executable',
+        'writable'   => 'is_writable',
+        'writeable'  => 'is_writeable',
+        'readable'   => 'is_readable',
+        'uploaded'   => 'is_uploaded_file'
+    ];
+
+    //--------------------------------------------------------------------------------------------------------
+    // Is Control Call
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $method
+    // @param array  $parameters
+    //
+    // @return bool
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function __call($method, $parameters)
+    {
+        return $this->_is($method, ...$parameters);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Is
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $type
+    // @param string $file
+    //
+    // @param bool
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _is($type, $file)
+    {
+        $file = $this->rpath($file);
+
+        $validType = $this->methods[$type] ?? NULL;
+
+        if( ! function_exists($validType) || $validType === NULL )
+        {
+            die(getErrorMessage('Error', 'undefinedFunction', Classes::onlyName(get_called_class()).'::'.$type.'()'));
+        }
+
+        if( $validType($file) )
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Access
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param bool $realPath = true
+    // @param bool $parentDirectoryAccess = false
+    //
+    // @param FileSystemCommon
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function access($realPath = true, $parentDirectoryAccess = false) : Info
+    {
+        $this->access['realPath']              = $realPath;
+        $this->access['parentDirectoryAccess'] = $parentDirectoryAccess;
+
+        return $this;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Rpath
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $file
+    //
+    // @param string
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function rpath(String $file) : String
+    {
+        $config = Config::get('FileSystem', 'file', $this->access);
+
+        $this->access = NULL;
+
+        if( $config['parentDirectoryAccess'] === false )
+        {
+            $file = str_replace('../', '', $file);
+        }
+
+        if( $config['realPath'] === true )
+        {
+            $file = prefix($this->originpath($file), REAL_BASE_DIR);
+        }
+
+        return $file;
+    }
 
     //--------------------------------------------------------------------------------------------------------
     // Exists
@@ -34,6 +148,55 @@ class Info extends FileSystemCommon implements InfoInterface
         }
 
         return false;
+    }
+
+    //--------------------------------------------------------------------------------------------------
+    // Orgin Path
+    //--------------------------------------------------------------------------------------------------
+    //
+    // @param  string $string
+    //
+    // @return string
+    //
+    //--------------------------------------------------------------------------------------------------
+    public function originpath(String $string) : String
+    {
+        return str_replace(['/', '\\'], DS, $string);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Available
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $file
+    //
+    // @param bool
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function available(String $file) : Bool
+    {
+        $file = $this->rpath($file);
+
+        if( file_exists($file) )
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    //--------------------------------------------------------------------------------------------------
+    // Relative Path
+    //--------------------------------------------------------------------------------------------------
+    //
+    // @param  string $string
+    //
+    // @return string
+    //
+    //--------------------------------------------------------------------------------------------------
+    public function relativepath(String $string) : String
+    {
+        return str_replace(REAL_BASE_DIR, NULL, $this->originpath($string));
     }
 
     //--------------------------------------------------------------------------------------------------------

@@ -1,6 +1,6 @@
-<?php namespace ZN\FileSystem;
+<?php namespace ZN\FileSystem\Folder;
 
-class FolderFactory
+class Factory
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -10,8 +10,4 @@ class FolderFactory
     // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
-
-    const namespace = 'ZN\FileSystem\Folder';
-
-    use \FactoryAbility;
 }

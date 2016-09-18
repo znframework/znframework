@@ -1,10 +1,6 @@
 <?php namespace ZN\FileSystem\FTP;
 
-use Converter;
-use ZN\FileSystem\Exception\FileRemoteUploadException;
-use ZN\FileSystem\Exception\FileRemoteDownloadException;
-
-class FTPFileTransfer extends Connection
+interface InfoInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -16,44 +12,23 @@ class FTPFileTransfer extends Connection
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
-    // upload()
+    // files()
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $localPath : empty
-    // @param string $remotePath: empty
-    // @param string $type      : binary, ascii
+    // @param string $path     : empty
+    // @param string $extension: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function upload(String $localPath, String $remotePath, String $type = 'ascii') : Bool
-    {
-        if( ftp_put($this->connect, $remotePath, $localPath, Converter::toConstant($type, 'FTP_')) )
-        {
-            return true;
-        }
-        else
-        {
-            throw new FileRemoteUploadException($localPath);
-        }
-    }
+    public function files(String $path, String $extension = NULL) : Array;
 
     //--------------------------------------------------------------------------------------------------------
-    // dowload()
+    // fileSize()
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $remotePath: empty
-    // @param string $localPath : empty
-    // @param string $type      : binary, ascii
+    // @param string $path   : empty
+    // @param string $type   : b, kb, mb, gb
+    // @param int    $decimal: 2
     //
     //--------------------------------------------------------------------------------------------------------
-    public function download(String $remotePath, String $localPath, String $type = 'ascii') : Bool
-    {
-        if( ftp_get($this->connect, $localPath, $remotePath, Converter::toConstant($type, 'FTP_')) )
-        {
-            return true;
-        }
-        else
-        {
-            throw new FileRemoteDownloadException($localPath);
-        }
-    }
+    public function fileSize(String $path, String $type = 'b', Int $decimal = 2) : Float;
 }
