@@ -1197,3 +1197,7 @@ $classMap['namespaces']['zn\viewobjects\view\viewcommoninterface'] = 'viewcommon
 $classMap['namespaces']['zn\viewobjects\view\viewcommontrait'] = 'viewcommontrait';
 $classMap['classes']['zn\database\properties'] = 'Internal\Libraries\Database\Properties.php';
 $classMap['namespaces']['zn\database\properties'] = 'properties';
+$classMap['classes']['internalmigratecomments'] = 'Projects\Frontend\Models\Migrations\Comments.php';
+$classMap['classes']['migratecomments'] = 'Projects\Frontend\Resources\Statics\Projects\Frontend\Models\Migrations\InternalMigrateComments.php';
+$classMap['classes']['internalmigratecomments002'] = 'Projects\Frontend\Models\Migrations\CommentsVersion\002.php';
+$classMap['classes']['migratecomments002'] = 'Projects\Frontend\Resources\Statics\Projects\Frontend\Models\Migrations\CommentsVersion\InternalMigrateComments002.php';

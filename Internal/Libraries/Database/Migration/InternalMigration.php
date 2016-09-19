@@ -104,14 +104,9 @@ class InternalMigration extends \CallController implements InternalMigrationInte
     //--------------------------------------------------------------------------------------------------------
     public function createTable(Array $data) : Bool
     {
-        if( DBForge::createTable($this->_tableName(), $data) )
-        {
-            return $this->_action(__FUNCTION__);
-        }
-        else
-        {
-            return false;
-        }
+        DBForge::createTable($this->_tableName(), $data);
+
+        return $this->_action(__FUNCTION__);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -123,14 +118,9 @@ class InternalMigration extends \CallController implements InternalMigrationInte
     //--------------------------------------------------------------------------------------------------------
     public function dropTable() : Bool
     {
-        if( DBForge::dropTable($this->_tableName()) )
-        {
-            return $this->_action(__FUNCTION__);
-        }
-        else
-        {
-            return false;
-        }
+        DBForge::dropTable($this->_tableName());
+
+        return $this->_action(__FUNCTION__);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -142,14 +132,9 @@ class InternalMigration extends \CallController implements InternalMigrationInte
     //--------------------------------------------------------------------------------------------------------
     public function addColumn(Array $column) : Bool
     {
-        if( DBForge::addColumn($this->_tableName(), $column) )
-        {
-            return $this->_action(__FUNCTION__);
-        }
-        else
-        {
-            return false;
-        }
+        DBForge::addColumn($this->_tableName(), $column);
+
+        return $this->_action(__FUNCTION__);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -161,14 +146,9 @@ class InternalMigration extends \CallController implements InternalMigrationInte
     //--------------------------------------------------------------------------------------------------------
     public function dropColumn($column) : Bool
     {
-        if( DBForge::dropColumn($this->_tableName(), $column) )
-        {
-            return $this->_action(__FUNCTION__);
-        }
-        else
-        {
-            throw new DatabaseErrorException(DBForge::error());
-        }
+        DBForge::dropColumn($this->_tableName(), $column);
+
+        return $this->_action(__FUNCTION__);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -180,14 +160,9 @@ class InternalMigration extends \CallController implements InternalMigrationInte
     //--------------------------------------------------------------------------------------------------------
     public function modifyColumn(Array $column) : Bool
     {
-        if( DBForge::modifyColumn($this->_tableName(), $column) )
-        {
-            return $this->_action(__FUNCTION__);
-        }
-        else
-        {
-            return false;
-        }
+        DBForge::modifyColumn($this->_tableName(), $column);
+
+        return $this->_action(__FUNCTION__);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -199,14 +174,9 @@ class InternalMigration extends \CallController implements InternalMigrationInte
     //--------------------------------------------------------------------------------------------------------
     public function renameColumn(Array $column) : Bool
     {
-        if( DBForge::renameColumn($this->_tableName(), $column) )
-        {
-            return $this->_action(__FUNCTION__);
-        }
-        else
-        {
-            return false;
-        }
+        DBForge::renameColumn($this->_tableName(), $column);
+
+        return $this->_action(__FUNCTION__);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -218,14 +188,9 @@ class InternalMigration extends \CallController implements InternalMigrationInte
     //--------------------------------------------------------------------------------------------------------
     public function truncate() : Bool
     {
-        if( DBForge::truncate($this->_tableName()) )
-        {
-            return $this->_action(__FUNCTION__);
-        }
-        else
-        {
-            return false;
-        }
+        DBForge::truncate($this->_tableName());
+
+        return $this->_action(__FUNCTION__);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -393,13 +358,18 @@ class InternalMigration extends \CallController implements InternalMigrationInte
         $table   = $this->_tableName();
         $version = $this->_getVersion();
 
-        return DB::insert($this->config['table'],
-        [
-            'name'    => $table,
-            'type'    => $type,
-            'version' => $version,
-            'date'    => Date::set('Ymdhis')
-        ]);
+        if( ! DBForge::error() )
+        {
+            return DB::insert($this->config['table'],
+            [
+                'name'    => $table,
+                'type'    => $type,
+                'version' => $version,
+                'date'    => Date::set('Ymdhis')
+            ]);
+        }
+
+        return false;
     }
 
     //--------------------------------------------------------------------------------------------------------
