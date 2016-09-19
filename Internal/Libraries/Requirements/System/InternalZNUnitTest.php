@@ -27,6 +27,8 @@ class InternalZNUnitTest
 
     public function start()
     {
+        $this->result = NULL;
+
         foreach( $this->methods as $method => $parameters )
         {
             $method = explode(':', $method)[0];
