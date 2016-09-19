@@ -2077,6 +2077,8 @@ class InternalDB extends Connection implements InternalDBInterface
     //--------------------------------------------------------------------------------------------------------
     protected function _incdec($table, $columns, $incdec, $type)
     {
+        $newColumns = [];
+        
         $table   = $this->_p($table);
         $columns = $this->_p($columns, 'column');
         $incdec  = $type === 'increment' ? abs($incdec) : -abs($incdec);
