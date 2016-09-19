@@ -748,6 +748,13 @@ class InternalDB extends Connection implements InternalDBInterface
             return $secureQueryBuilder;
         }
 
+        if( $this->string === true )
+        {
+            $this->string = NULL;
+            return $secureQueryBuilder;
+        }
+
+
         $this->db->query($secureQueryBuilder, $this->secure);
 
         return $this;
@@ -1397,7 +1404,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param mixed $datas
     //
     //--------------------------------------------------------------------------------------------------------
-    public function insert(String $table = NULL, Array $datas = []) : Bool
+    public function insert(String $table = NULL, Array $datas = [])
     {
         $datas = $this->_p($datas, 'column');
         $data  = ""; $values = "";
@@ -1487,7 +1494,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param mixed $set
     //
     //--------------------------------------------------------------------------------------------------------
-    public function update(String $table = NULL, Array $set = []) : Bool
+    public function update(String $table = NULL, Array $set = [])
     {
         $set  = $this->_p($set, 'column');
         $data = '';
@@ -1522,7 +1529,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param mixed $table
     //
     //--------------------------------------------------------------------------------------------------------
-    public function delete(String $table = NULL) : Bool
+    public function delete(String $table = NULL)
     {
         $deleteQuery = 'DELETE '.
                        $this->lowPriority.

@@ -150,12 +150,21 @@ class DatabaseExample extends Controller
     public function createTrigger()
     {
         DBTrigger::table('exampleTable')
-                 ->when('before')
-                 ->event('insert')
-                 ->body('INSERT ... QUERY', 'UPDATE ... QUERY')
+                 ->when('AFTER')
+                 ->event('INSERT')
+                 ->body
+                 (
+                    DB::string()->insert('users', ['name' => 'Jaime']),
+                    DB::string()->where('name', 'Jaime')->update('users', ['name' => 'Halime'])
+                 )
                  ->createTrigger('exampleTrigger');
 
         writeLine('Trigger Query: '.DBTrigger::stringQuery());
         writeLine('Trigger Error: '.DBTrigger::error());
+    }
+
+    public function dropTrigger()
+    {
+        DBTrigger::dropTrigger('exampleTrigger');
     }
 }

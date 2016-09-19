@@ -119,6 +119,15 @@ class Connection implements ConnectionInterface
     protected $driver;
 
     //--------------------------------------------------------------------------------------------------------
+    // String
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var string
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected $string;
+
+    //--------------------------------------------------------------------------------------------------------
     // Construct
     //--------------------------------------------------------------------------------------------------------
     //
@@ -181,6 +190,21 @@ class Connection implements ConnectionInterface
     public function column(String $col, $val = NULL) : Connection
     {
         $this->column[$col] = $val;
+
+        return $this;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Column
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $col
+    // @param mixed  $val
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function string() : Connection
+    {
+        $this->string = true;
 
         return $this;
     }
@@ -466,6 +490,12 @@ class Connection implements ConnectionInterface
     //--------------------------------------------------------------------------------------------------------
     protected function _runQuery($query)
     {
+        if( $this->string === true )
+        {
+            $this->string = NULL;
+            return $query;
+        }
+
         return $this->db->query($this->_querySecurity($query), $this->secure);
     }
 
@@ -478,6 +508,12 @@ class Connection implements ConnectionInterface
     //--------------------------------------------------------------------------------------------------------
     protected function _runExecQuery($query)
     {
+        if( $this->string === true )
+        {
+            $this->string = NULL;
+            return $query;
+        }
+
         return $this->db->exec($this->_querySecurity($query), $this->secure);
     }
 

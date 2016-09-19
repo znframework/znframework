@@ -37,7 +37,7 @@ class DriverTool
 
         foreach( $result as $databases )
         {
-            foreach ($databases as $db => $database)
+            foreach( $databases as $db => $database )
             {
                 $newDatabases[] = $database;
             }

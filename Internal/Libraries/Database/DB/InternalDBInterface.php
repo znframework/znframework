@@ -411,7 +411,7 @@ interface InternalDBInterface
     // @param mixed $datas
     //
     //--------------------------------------------------------------------------------------------------------
-    public function insert(String $table = NULL, Array $datas = []) : Bool;
+    public function insert(String $table = NULL, Array $datas = []);
 
     //--------------------------------------------------------------------------------------------------------
     // Updated
@@ -421,7 +421,7 @@ interface InternalDBInterface
     // @param mixed $set
     //
     //--------------------------------------------------------------------------------------------------------
-    public function update(String $table = NULL, Array $set = []) : Bool;
+    public function update(String $table = NULL, Array $set = []);
 
     //--------------------------------------------------------------------------------------------------------
     // Delete
@@ -430,7 +430,7 @@ interface InternalDBInterface
     // @param mixed $table
     //
     //--------------------------------------------------------------------------------------------------------
-    public function delete(String $table = NULL) : Bool;
+    public function delete(String $table = NULL);
 
     //--------------------------------------------------------------------------------------------------------
     // Escape String
