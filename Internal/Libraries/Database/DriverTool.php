@@ -237,11 +237,11 @@ class DriverTool
         {
             $tables = [];
 
-            $fetchRow = DB::query('SHOW TABLES')->fetchRow();
+            $resultArray = DB::query('SHOW TABLES')->resultArray();
 
-            while( $row = $fetchRow )
+            foreach( $resultArray as $key => $val )
             {
-                $tables[] = $row[0];
+                $tables[] = current($val);
             }
         }
         else

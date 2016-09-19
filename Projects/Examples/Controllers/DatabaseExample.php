@@ -175,4 +175,29 @@ class DatabaseExample extends Controller
     {
         DBTrigger::dropTrigger('exampleTrigger');
     }
+
+    public function listDatabases()
+    {
+        output( DBTool::listDatabases());
+    }
+
+    public function statusTables()
+    {
+        output( DBTool::statusTables());
+    }
+
+    public function optimizeTables()
+    {
+        output( DBTool::optimizeTables());
+    }
+
+    public function repairTables()
+    {
+        output( DBTool::repairTables());
+    }
+
+    public function backup()
+    {
+        DBTool::backup();
+    }
 }
