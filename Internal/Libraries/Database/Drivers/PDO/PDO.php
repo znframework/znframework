@@ -372,9 +372,9 @@ class PDODriver extends DriverConnectionMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function error()
     {
-        if( isset($this->connect) )
+        if( isset($this->query) )
         {
-            $error = $this->connect->errorInfo();
+            $error = $this->query->errorInfo();
             return $error[2];
         }
         else
