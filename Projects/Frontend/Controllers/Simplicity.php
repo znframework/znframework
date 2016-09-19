@@ -12,7 +12,5 @@ class Simplicity extends Controller
     public function try()
     {
         // Simplicity is our choice, how about yours ?
-
-        echo \ZN\Database\DBUnitTest::result();
     }
 }
