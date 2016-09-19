@@ -21,6 +21,14 @@ class DatabaseExample extends Controller
                ->getString('users');
     }
 
+    public function query()
+    {
+        $query = DB::query('select * from users');
+
+        output($query->result());
+        writeLine('Query Error: '.DB::error());
+    }
+
     public function createDatabase()
     {
         DBForge::createDatabase('examples', DB::encoding('utf8', 'utf8_general_ci'));
@@ -149,7 +157,7 @@ class DatabaseExample extends Controller
 
     public function createTrigger()
     {
-        DBTrigger::table('exampleTable')
+        DBTrigger::table('users')
                  ->when('AFTER')
                  ->event('INSERT')
                  ->body
