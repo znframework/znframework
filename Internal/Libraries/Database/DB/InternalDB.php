@@ -3,7 +3,7 @@
 use URI, Pagination, Arrays, Classes;
 use ZN\Database\Exception\DuplicateCheckException;
 
-class InternalDB extends DatabaseCommon implements InternalDBInterface
+class InternalDB extends Connection implements InternalDBInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

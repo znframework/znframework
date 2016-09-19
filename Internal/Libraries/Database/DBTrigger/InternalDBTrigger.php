@@ -1,6 +1,6 @@
 <?php namespace ZN\Database;
 
-class InternalDBTrigger extends DatabaseCommon implements InternalDBTriggerInterface
+class InternalDBTrigger extends Connection implements InternalDBTriggerInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

@@ -1,6 +1,6 @@
 <?php namespace ZN\Database;
 
-class InternalDBUser extends DatabaseCommon implements InternalDBUserInterface
+class InternalDBUser extends Connection implements InternalDBUserInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

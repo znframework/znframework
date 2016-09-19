@@ -1,6 +1,6 @@
 <?php namespace ZN\Database;
 
-class InternalDBForge extends DatabaseCommon implements InternalDBForgeInterface
+class InternalDBForge extends Connection implements InternalDBForgeInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

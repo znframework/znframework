@@ -3,7 +3,7 @@
 use Support, Arrays, Config;
 use ZN\Database\Exception\InvalidArgumentException;
 
-class DatabaseCommon implements DatabaseCommonInterface
+class Connection implements ConnectionInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -131,7 +131,8 @@ class DatabaseCommon implements DatabaseCommonInterface
 
         $this->db = $this->_run();
 
-        $this->prefix = $this->config['prefix'];
+        $this->prefix       = $this->config['prefix'];
+        Properties::$prefix = $this->prefix;
 
         if( empty($config) )
         {
@@ -160,10 +161,11 @@ class DatabaseCommon implements DatabaseCommonInterface
     // @param string $table
     //
     //--------------------------------------------------------------------------------------------------------
-    public function table(String $table) : DatabaseCommon
+    public function table(String $table) : Connection
     {
-        $this->table = ' '.$this->prefix.$table.' ';
-        $this->tableName = $this->prefix.$table;
+        $this->table       = ' '.$this->prefix.$table.' ';
+        $this->tableName   = $this->prefix.$table;
+        Properties::$table = $this->tableName;
 
         return $this;
     }
@@ -176,7 +178,7 @@ class DatabaseCommon implements DatabaseCommonInterface
     // @param mixed  $val
     //
     //--------------------------------------------------------------------------------------------------------
-    public function column(String $col, $val = NULL) : DatabaseCommon
+    public function column(String $col, $val = NULL) : Connection
     {
         $this->column[$col] = $val;
 
@@ -207,7 +209,7 @@ class DatabaseCommon implements DatabaseCommonInterface
     // @param mixed $connectName
     //
     //--------------------------------------------------------------------------------------------------------
-    public function differentConnection($connectName) : DatabaseCommon
+    public function differentConnection($connectName) : Connection
     {
         $config          = $this->config;
         $configDifferent = $config['differentConnection'];
@@ -250,7 +252,7 @@ class DatabaseCommon implements DatabaseCommonInterface
     // @param array $data
     //
     //--------------------------------------------------------------------------------------------------------
-    public function secure(Array $data) : DatabaseCommon
+    public function secure(Array $data) : Connection
     {
         $this->secure = $data;
 

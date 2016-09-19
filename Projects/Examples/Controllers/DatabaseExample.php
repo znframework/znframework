@@ -4,10 +4,12 @@ use Config, DB, DBForge, DBTool, DBTrigger, DBUser;
 
 class DatabaseExample extends Controller
 {
+    protected $database = 'test';
+
     public function __construct()
     {
         // Change Database
-        Config::set('Database', 'database', ['database' => 'examples']);
+        Config::set('Database', 'database', ['database' => $this->database]);
     }
 
     public function main(String $params = NULL)
@@ -93,6 +95,20 @@ class DatabaseExample extends Controller
         output($result);
     }
 
+    public function join()
+    {
+        $join = DB::join('comments', 'comments.user_id = users.id', 'left')
+                    ->getString('users');
+
+        writeLine('Join Query: '.$join);
+
+        $leftJoin = DB::leftJoin('comments.user_id', 'users.id')->getString('users');
+
+        writeLine('Join Query: '. $leftJoin);
+
+        // You can create into select a query with getString() method.
+    }
+
     public function delete()
     {
         $status = DB::where('name', 'John')->delete('users');
@@ -119,5 +135,27 @@ class DatabaseExample extends Controller
         DBForge::dropDatabase('examples');
 
         echo DBForge::error();
+    }
+
+    public function createUser()
+    {
+        DBUser::password('1234')->create('john@localhost');
+    }
+
+    public function dropUser()
+    {
+        DBUser::drop('john@localhost');
+    }
+
+    public function createTrigger()
+    {
+        DBTrigger::table('exampleTable')
+                 ->when('before')
+                 ->event('insert')
+                 ->body('INSERT ... QUERY', 'UPDATE ... QUERY')
+                 ->createTrigger('exampleTrigger');
+
+        writeLine('Trigger Query: '.DBTrigger::stringQuery());
+        writeLine('Trigger Error: '.DBTrigger::error());
     }
 }

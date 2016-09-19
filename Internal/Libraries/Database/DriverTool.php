@@ -3,7 +3,7 @@
 use DB, File, Folder;
 use ZN\FileSystem\Exception\IOException;
 
-class DriverTool extends DatabaseCommon
+class DriverTool
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -151,7 +151,7 @@ class DriverTool extends DatabaseCommon
 
             foreach( $tables as $tableName )
             {
-                DB::query("OPTIMIZE TABLE ".$this->prefix.$tableName);
+                DB::query("OPTIMIZE TABLE ".Properties::$prefix.$tableName);
             }
 
             if( DB::error() )
@@ -200,7 +200,7 @@ class DriverTool extends DatabaseCommon
 
             foreach( $tables as $tableName )
             {
-                DB::query("REPAIR TABLE  ".$this->prefix.$tableName);
+                DB::query("REPAIR TABLE  ".Properties::$prefix.$tableName);
             }
 
             if( DB::error() )
@@ -255,9 +255,9 @@ class DriverTool extends DatabaseCommon
 
         foreach( $tables as $table )
         {
-            if( ! empty($this->prefix) && ! strstr($table, $this->prefix) )
+            if( ! empty(Properties::$prefix) && ! strstr($table, Properties::$prefix) )
             {
-                $table = $this->prefix.$table;
+                $table = Properties::$prefix.$table;
             }
 
             $return.= 'DROP TABLE IF EXISTS '.$table.';';
