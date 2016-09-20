@@ -106,18 +106,22 @@ class InternalZNUnitTest
     {
         $this->result = NULL;
 
+        $index = 0;
+
         foreach( $this->methods as $method => $parameters )
         {
             $method = explode(':', $method)[0];
 
             Benchmark::start($method);
-            uselib($this->class)->$method(...$parameters);
+            $returnValue = uselib($this->class)->$method(...$parameters);
             Benchmark::end($method);
 
-            $this->_output($this->class, $method);
+            $this->_output($this->class, $method, gettype($returnValue), $returnValue);
+
+            $index++;
         }
 
-        $this->_outputBottom();
+        $this->_outputBottom($index);
         $this->_startDefaultVariables();
     }
 
@@ -141,11 +145,12 @@ class InternalZNUnitTest
     // @param string $method
     //
     //--------------------------------------------------------------------------------------------------------
-    protected function _output($class, $method)
+    protected function _output($class, $method, $returnType, $returnValue)
     {
         $elapsedTime      = Benchmark::elapsedTime($method);
         $calculatedMemory = Benchmark::calculatedMemory($method);
         $usedFileCount    = Benchmark::usedFileCount($method);
+        $returnType       = ucfirst($returnType);
 
         $this->totalElasedTime  += $elapsedTime;
         $this->totalMemoryUsage += $calculatedMemory;
@@ -155,6 +160,8 @@ class InternalZNUnitTest
         $this->result .= $class.'::'.$method.'<br>';
         $this->result .= '---------------------------------------------------<br>';
         $this->result .= 'Syntax Check : OK<br>';
+        $this->result .= 'Return Type  : '.$returnType.'<br>';
+        $this->result .= 'Return Value : '.( is_scalar($returnValue) ? $returnValue : $returnType).'<br>';
         $this->result .= 'Elapsed Time : '.$elapsedTime.' SECONDS<br>';
         $this->result .= '---------------------------------------------------<br><br>';
     }
@@ -166,7 +173,7 @@ class InternalZNUnitTest
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    protected function _outputBottom()
+    protected function _outputBottom($index)
     {
         $this->result .= '---------------------------------------------------<br>';
         $this->result .= 'TOTAL<br>';
@@ -174,7 +181,8 @@ class InternalZNUnitTest
         $this->result .= 'Syntax Check : OK<br>';
         $this->result .= 'Elapsed Time : '.$this->totalElasedTime.' SECONDS<br>';
         $this->result .= 'Memory Usage : '.$this->totalMemoryUsage.' BYTES<br>';
-        $this->result .= 'File Count   : '.$this->totalFileCount.'<br>';
+        $this->result .= 'Total Files  : '.$this->totalFileCount.'<br>';
+        $this->result .= 'Total Methods: '.$index.'<br>';
         $this->result .= '---------------------------------------------------';
 
         $this->_defaultVariables();
