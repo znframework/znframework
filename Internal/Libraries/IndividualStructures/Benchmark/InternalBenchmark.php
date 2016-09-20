@@ -15,6 +15,8 @@ class InternalBenchmark extends \FactoryController implements InternalBenchmarkI
     [
         'methods' =>
         [
+            'run'              => 'Benchmark\Run::test',
+            'result'           => 'Benchmark\Run::result',
             'start'            => 'Benchmark\Testing::start',
             'end'              => 'Benchmark\Testing::end',
             'elapsedtime'      => 'Benchmark\ElapsedTime::calculate',

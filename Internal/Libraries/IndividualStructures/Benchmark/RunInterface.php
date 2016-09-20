@@ -1,4 +1,6 @@
-<?php trait UnitTestAbility
+<?php namespace ZN\IndividualStructures\Benchmark;
+
+interface RunInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -10,37 +12,22 @@
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
-    // Class
+    // Test
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $class
+    // @param  string $test
+    // @return Run
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function result(...$method)
-    {
-        if( ! defined('static::unit') )
-        {
-            throw new UndefinedConstException('[const unit] is required to use the [UnitTest Ability]!');
-        }
+    public function test($test) : Run;
 
-        $class   = static::unit['class'];
-        $methods = static::unit['methods'];
-
-        if( ! empty($method) )
-        {
-            $oldMethods = $methods;
-            $methods    = [];
-
-            foreach( $method as $met )
-            {
-                $methods[$met] = $oldMethods[$met];
-            }
-        }
-
-        ZNUnitTest::class($class)
-                  ->methods($methods)
-                  ->start();
-
-        return ZNUnitTest::result();
-    }
+    //--------------------------------------------------------------------------------------------------------
+    // Result
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param  void
+    // @return stdClass
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function result() : stdClass;
 }

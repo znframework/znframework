@@ -1209,3 +1209,7 @@ $classMap['classes']['zn\cryptography\encodeunittest'] = 'Internal\Libraries\Cry
 $classMap['namespaces']['zn\cryptography\encodeunittest'] = 'encodeunittest';
 $classMap['classes']['zn\database\dbunittest'] = 'Internal\Libraries\Database\DB\DBUnitTest.php';
 $classMap['namespaces']['zn\database\dbunittest'] = 'dbunittest';
+$classMap['classes']['zn\individualstructures\benchmark\exception\invalidargumentexception'] = 'Internal\Libraries\IndividualStructures\Benchmark\Exception\InvalidArgumentException.php';
+$classMap['classes']['zn\individualstructures\benchmark\run'] = 'Internal\Libraries\IndividualStructures\Benchmark\Run.php';
+$classMap['namespaces']['zn\individualstructures\benchmark\exception\invalidargumentexception'] = 'invalidargumentexception';
+$classMap['namespaces']['zn\individualstructures\benchmark\run'] = 'run';
