@@ -128,14 +128,7 @@ class InternalArrays extends \FactoryController implements InternalArraysInterfa
 
         if( ! empty($key) )
         {
-            if( isset($return[$key]) )
-            {
-                return $return[$key];
-            }
-            else
-            {
-                return false;
-            }
+            return $return[$key] ?? false;
         }
 
         return $return;
