@@ -1,5 +1,7 @@
 <?php namespace ZN\IndividualStructures\Benchmark;
 
+use stdClass;
+
 interface RunInterface
 {
     //--------------------------------------------------------------------------------------------------------
