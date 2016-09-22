@@ -1826,6 +1826,145 @@ class InternalDB extends Connection implements InternalDBInterface
     }
 
     //--------------------------------------------------------------------------------------------------------
+    // Is Exists
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $table
+    // @param string $column
+    // @param string $value
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function isExists(String $table, String $column, String $value) : Bool
+    {
+        return (bool) self::where($column, $value)->get($table)->totalRows();
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Simple Result
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $table
+    // @param string $column
+    // @param string $value
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function simpleResult(String $table, String $column = NULL, String $value = NULL, $type = 'result')
+    {
+        if( $column !== NULL && $value !== NULL )
+        {
+            $this->where($column, $value);
+        }
+
+        return $this->get($table)->$type();
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Simple Result Array
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $table
+    // @param string $column
+    // @param string $value
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function simpleResultArray(String $table, String $column = NULL, String $value = NULL)
+    {
+        return $this->simpleResult($table, $column, $value, 'resultArray');
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Simple Row
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $table
+    // @param string $column
+    // @param string $value
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function simpleRow(String $table, String $column = NULL, String $value = NULL)
+    {
+        return $this->simpleResult($table, $column, $value, 'row');
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Simple Total Rows
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $table
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function simpleTotalRows(String $table) : Int
+    {
+        return $this->simpleResult($table, NULL, NULL, 'totalRows');
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Simple Total Columns
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $table
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function simpleTotalColumns(String $table) : Int
+    {
+        return $this->simpleResult($table, NULL, NULL, 'totalColumns');
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Simple Columns
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $table
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function simpleColumns(String $table) : Array
+    {
+        return $this->simpleResult($table, NULL, NULL, 'columns');
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Simple Column Data
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $table
+    // @param string $column
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function simpleColumnData(String $table, String $column = NULL) : \stdClass
+    {
+        return $this->get($table)->columnData($column);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Simple Update
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $table
+    // @param array  $data
+    // @param string $column
+    // @param string $value
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function simpleUpdate(String $table, Array $data, String $column, String $value)
+    {
+        return $this->where($column, $value)->update($table, $data);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Simple Delete
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $table
+    // @param string $column
+    // @param string $value
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function simpleDelete(String $table, String $column, String $value)
+    {
+        return $this->where($column, $value)->delete($table);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
     // Protected Where Having
     //--------------------------------------------------------------------------------------------------------
     protected function _whereHaving($column, $value, $logical)
@@ -2078,7 +2217,7 @@ class InternalDB extends Connection implements InternalDBInterface
     protected function _incdec($table, $columns, $incdec, $type)
     {
         $newColumns = [];
-        
+
         $table   = $this->_p($table);
         $columns = $this->_p($columns, 'column');
         $incdec  = $type === 'increment' ? abs($incdec) : -abs($incdec);
