@@ -38,7 +38,7 @@ class InternalMB extends CallController implements InternalMBInterface
     // @param bool   $case
     //
     //--------------------------------------------------------------------------------------------------------
-    public function search(String $str, String $needle, String $type = 'str', Bool $case = true) : String
+    public function search(String $str, String $needle, String $type = 'string', Bool $case = true) : String
     {
         return Strings::search($str, $needle, $type, $case);
     }

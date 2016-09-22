@@ -1,8 +1,6 @@
-<?php namespace ZN\DataTypes\Json;
+<?php namespace ZN\DataTypes\Strings;
 
-use ZN\DataTypes\Json\Exception\JsonErrorException;
-
-class Decode implements DecodeInterface
+interface SearchInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -14,56 +12,36 @@ class Decode implements DecodeInterface
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
-    // Do
+    // Search
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $data
-    // @param bool   $array
-    // @param int    $length
+    // @param string $str
+    // @param string $needle
+    // @param string $type, Options: string, position
+    // @param string $case
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do(String $data, Bool $array = false, Int $length = 512)
-    {
-        $return = json_decode($data, $array, $length);
-
-        if( ErrorInfo::no() )
-        {
-            try
-            {
-                throw new JsonErrorException('[Json::decode()] -> '.ErrorInfo::message());
-            }
-            catch( JsonErrorException $e )
-            {
-                $e->continue();
-            }
-        }
-
-        return $return;
-    }
+    public function use(String $str, String $needle, String $type = 'string', Bool $case = true) : String;
 
     //--------------------------------------------------------------------------------------------------------
-    // Decode Object
+    // Position
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $data
-    // @param int    $length
+    // @param string $str
+    // @param string $needle
+    // @param string $case
     //
     //--------------------------------------------------------------------------------------------------------
-    public function object(String $data, Int $length = 512)
-    {
-        return $this->do($data, false, $length);
-    }
+    public function position(String $str, String $needle, Bool $case = true) : String;
 
     //--------------------------------------------------------------------------------------------------------
-    // Decode Array
+    // String
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $data
-    // @param int    $length
+    // @param string $str
+    // @param string $needle
+    // @param string $case
     //
     //--------------------------------------------------------------------------------------------------------
-    public function array(String $data, Int $length = 512) : Array
-    {
-        return $this->do($data, true, $length);
-    }
+    public function string(String $str, String $needle, Bool $case = true) : String;
 }

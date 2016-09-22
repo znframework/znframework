@@ -1,8 +1,6 @@
-<?php namespace ZN\DataTypes\Json;
+<?php namespace ZN\DataTypes\Strings;
 
-use ZN\DataTypes\Json\Exception\JsonErrorException;
-
-class Decode implements DecodeInterface
+interface SubstitutionInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -14,56 +12,36 @@ class Decode implements DecodeInterface
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
-    // Do
+    // Reshuffle
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $data
-    // @param bool   $array
-    // @param int    $length
+    // @param string $str
+    // @param string $shuffle
+    // @param string $reshuffle
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do(String $data, Bool $array = false, Int $length = 512)
-    {
-        $return = json_decode($data, $array, $length);
-
-        if( ErrorInfo::no() )
-        {
-            try
-            {
-                throw new JsonErrorException('[Json::decode()] -> '.ErrorInfo::message());
-            }
-            catch( JsonErrorException $e )
-            {
-                $e->continue();
-            }
-        }
-
-        return $return;
-    }
+    public function reshuffle(String $str, String $shuffle, String $reshuffle) : String;
 
     //--------------------------------------------------------------------------------------------------------
-    // Decode Object
+    // Placement
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $data
-    // @param int    $length
+    // @param string $str
+    // @param string $delimiter
+    // @param array  $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function object(String $data, Int $length = 512)
-    {
-        return $this->do($data, false, $length);
-    }
+    public function placement(String $str, String $delimiter, Array $array) : String;
 
     //--------------------------------------------------------------------------------------------------------
-    // Decode Array
+    // Replace
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $data
-    // @param int    $length
+    // @param string $str
+    // @param mixed  $oldChar
+    // @param mixed  $newChar
+    // @param bool   $case = true
     //
     //--------------------------------------------------------------------------------------------------------
-    public function array(String $data, Int $length = 512) : Array
-    {
-        return $this->do($data, true, $length);
-    }
+    public function replace(String $string, $oldChar, $newChar = NULL, Bool $case = true) : String;
 }

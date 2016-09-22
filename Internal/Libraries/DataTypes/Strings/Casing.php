@@ -1,6 +1,8 @@
-<?php namespace ZN\DataTypes;
+<?php namespace ZN\DataTypes\Strings;
 
-interface InternalStringsInterface
+use Strings, Converter;
+
+class Casing implements CasingInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -12,85 +14,85 @@ interface InternalStringsInterface
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
-    // Section
+    // Casing
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string $str
+    // @param string $type lower, upper, title
+    // @param string $encoding
     //
     //--------------------------------------------------------------------------------------------------------
-    public function section(String $str, Int $starting = 0, Int $count = NULL, String $encoding = 'utf-8') : String;
+    public function use(String $str, String $type = 'lower', String $encoding = 'utf-8') : String
+    {
+        return mb_convert_case($str, Converter::toConstant($type, 'MB_CASE_'), $encoding);
+    }
 
     //--------------------------------------------------------------------------------------------------------
-    // Recurrent Count
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $str
-    // @param string $char
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function recurrentCount(String $str, String $char) : Int;
-
-    //--------------------------------------------------------------------------------------------------------
-    // Length
+    // Upper Case
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string $str
     // @param string $encoding
     //
     //--------------------------------------------------------------------------------------------------------
-    public function length(String $string, String $encoding = 'utf-8') : Int;
+    public function upper(String $str, String $encoding = 'utf-8') : String
+    {
+        return $this->use($str, __FUNCTION__, $encoding);
+    }
 
     //--------------------------------------------------------------------------------------------------------
-    // Repeat
+    // Lower Case
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string $str
-    // @param numeric $count
+    // @param string $encoding
     //
     //--------------------------------------------------------------------------------------------------------
-    public function repeat(String $string, Int $count = 1) : String;
+    public function lower(String $str, String $encoding = 'utf-8') : String
+    {
+        return $this->use($str, __FUNCTION__, $encoding);
+    }
 
     //--------------------------------------------------------------------------------------------------------
-    // Pad
+    // Title Case
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string $str
-    // @param numeric $count
-    // @param string  $chars
-    // @param string  $type
+    // @param string $encoding
     //
     //--------------------------------------------------------------------------------------------------------
-    public function pad(String $string, Int $count = 1, String $chars = ' ', String $type = 'right') : String;
+    public function title(String $str, String $encoding = 'utf-8') : String
+    {
+        return $this->use($str, __FUNCTION__, $encoding);
+    }
 
     //--------------------------------------------------------------------------------------------------------
-    // Apportion
+    // Camel Case
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string  $string
-    // @param numeric $length
-    // @param string  $end
+    // @param string $str
     //
     //--------------------------------------------------------------------------------------------------------
-    public function apportion(String $string, Int $length = 76, String $end = "\r\n") : String;
+    public function camel(String $str) : String
+    {
+        $string = $this->title($str);
+
+        $string[0] = $this->lower($string);
+
+        return Strings::mtrim($string);
+    }
 
     //--------------------------------------------------------------------------------------------------------
-    // Divide
+    // Pascal Case
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string  $string
-    // @param string  $seperator
-    // @param numeric $index
+    // @param string $str
     //
     //--------------------------------------------------------------------------------------------------------
-    public function divide(String $str, String $separator = '|', $index = 0) : String;
+    public function pascal(String $str) : String
+    {
+        $string = $this->title($str);
 
-    //--------------------------------------------------------------------------------------------------------
-    // Translation Table
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $table
-    // @param string $quote
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function translationTable(String $table = 'specialchars', String $quote = 'compat') : Array;
+        return Strings::mtrim($string);
+    }
 }

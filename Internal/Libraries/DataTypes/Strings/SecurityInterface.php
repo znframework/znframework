@@ -1,8 +1,6 @@
-<?php namespace ZN\DataTypes\Json;
+<?php namespace ZN\DataTypes\Strings;
 
-use ZN\DataTypes\Json\Exception\JsonErrorException;
-
-class Decode implements DecodeInterface
+interface SecurityInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -14,56 +12,31 @@ class Decode implements DecodeInterface
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
-    // Do
+    // Encode
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $data
-    // @param bool   $array
-    // @param int    $length
+    // @param string $str
+    // @param string $salt
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do(String $data, Bool $array = false, Int $length = 512)
-    {
-        $return = json_decode($data, $array, $length);
-
-        if( ErrorInfo::no() )
-        {
-            try
-            {
-                throw new JsonErrorException('[Json::decode()] -> '.ErrorInfo::message());
-            }
-            catch( JsonErrorException $e )
-            {
-                $e->continue();
-            }
-        }
-
-        return $return;
-    }
+    public function encode(String $string, String $salt = 'default') : String;
 
     //--------------------------------------------------------------------------------------------------------
-    // Decode Object
+    // Add Slashes
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $data
-    // @param int    $length
+    // @param string $str
+    // @param string $addDifferentChars
     //
     //--------------------------------------------------------------------------------------------------------
-    public function object(String $data, Int $length = 512)
-    {
-        return $this->do($data, false, $length);
-    }
+    public function addSlashes(String $string, String $addDifferentChars = NULL) : String;
 
     //--------------------------------------------------------------------------------------------------------
-    // Decode Array
+    // Remove Slashes
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $data
-    // @param int    $length
+    // @param string $str
     //
     //--------------------------------------------------------------------------------------------------------
-    public function array(String $data, Int $length = 512) : Array
-    {
-        return $this->do($data, true, $length);
-    }
+    public function removeSlashes(String $string) : String;
 }

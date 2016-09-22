@@ -1,8 +1,6 @@
-<?php namespace ZN\DataTypes\Json;
+<?php namespace ZN\DataTypes\Strings;
 
-use ZN\DataTypes\Json\Exception\JsonErrorException;
-
-class Decode implements DecodeInterface
+class Search implements SearchInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -14,56 +12,71 @@ class Decode implements DecodeInterface
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
-    // Do
+    // Search
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $data
-    // @param bool   $array
-    // @param int    $length
+    // @param string $str
+    // @param string $needle
+    // @param string $type, Options: string, position
+    // @param string $case
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do(String $data, Bool $array = false, Int $length = 512)
+    public function use(String $str, String $needle, String $type = 'string', Bool $case = true) : String
     {
-        $return = json_decode($data, $array, $length);
-
-        if( ErrorInfo::no() )
+        if( $type === 'string' )
         {
-            try
+            if( $case === true )
             {
-                throw new JsonErrorException('[Json::decode()] -> '.ErrorInfo::message());
+                $function = 'mb_strstr';
             }
-            catch( JsonErrorException $e )
+            else
             {
-                $e->continue();
+                $function = 'mb_stristr';
             }
+
+            return $function($str, $needle);
         }
 
-        return $return;
+        if( $type === 'position' )
+        {
+            if( $case === true )
+            {
+                $function = 'mb_strpos';
+            }
+            else
+            {
+                $function = 'mb_stripos';
+            }
+
+            return $function($str, $needle);
+        }
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Decode Object
+    // Position
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $data
-    // @param int    $length
+    // @param string $str
+    // @param string $needle
+    // @param string $case
     //
     //--------------------------------------------------------------------------------------------------------
-    public function object(String $data, Int $length = 512)
+    public function position(String $str, String $needle, Bool $case = true) : String
     {
-        return $this->do($data, false, $length);
+        return $this->use($str, $needle, __FUNCTION__, $case);
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Decode Array
+    // String
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $data
-    // @param int    $length
+    // @param string $str
+    // @param string $needle
+    // @param string $case
     //
     //--------------------------------------------------------------------------------------------------------
-    public function array(String $data, Int $length = 512) : Array
+    public function string(String $str, String $needle, Bool $case = true) : String
     {
-        return $this->do($data, true, $length);
+        return $this->use($str, $needle, __FUNCTION__, $case);
     }
 }

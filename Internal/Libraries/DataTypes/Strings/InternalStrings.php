@@ -1,8 +1,8 @@
 <?php namespace ZN\DataTypes;
 
-use Converter, CallController;
+use Converter;
 
-class InternalStrings extends CallController implements InternalStringsInterface
+class InternalStrings extends \FactoryController implements InternalStringsInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -13,127 +13,32 @@ class InternalStrings extends CallController implements InternalStringsInterface
     //
     //--------------------------------------------------------------------------------------------------------
 
-    //--------------------------------------------------------------------------------------------------------
-    // mtrim
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $str
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function mtrim(String $str) : String
-    {
-        $str = preg_replace
-        (
-            ['/\s+/', '/&nbsp;/', "/\n/", "/\r/", "/\t/"],
-            ['', '', '', '', ''],
-            $str
-        );
-
-        return $str;
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Trim Slashes
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $str
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function trimSlashes(String $str) : String
-    {
-        $str = trim($str, "/");
-
-        return $str;
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Casing
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $str
-    // @param string $type lower, upper, title
-    // @param string $encoding
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function casing(String $str, String $type = 'lower', String $encoding = 'utf-8') : String
-    {
-        return mb_convert_case($str, Converter::toConstant($type, 'MB_CASE_'), $encoding);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Upper Case
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $str
-    // @param string $encoding
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function upperCase(String $str, String $encoding = 'utf-8') : String
-    {
-        $str = mb_convert_case($str, MB_CASE_UPPER, $encoding);
-
-        return $str;
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Lower Case
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $str
-    // @param string $encoding
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function lowerCase(String $str, String $encoding = 'utf-8') : String
-    {
-        $str = mb_convert_case($str, MB_CASE_LOWER, $encoding);
-
-        return $str;
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Title Case
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $str
-    // @param string $encoding
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function titleCase(String $str, String $encoding = 'utf-8') : String
-    {
-        $str = mb_convert_case($str, MB_CASE_TITLE, $encoding);
-
-        return $str;
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Camel Case
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $str
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function camelCase(String $str) : String
-    {
-        $string = $this->titleCase($str);
-
-        $string[0] = $this->lowerCase($string);
-
-        return $this->mtrim($string);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Pascal Case
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $str
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function pascalCase(String $str) : String
-    {
-        $string = $this->titleCase($str);
-
-        return $this->mtrim($string);
-    }
+    const factory =
+    [
+        'methods' =>
+        [
+            'mtrim'          => 'Strings\Trim::middle',
+            'trimslashes'    => 'Strings\Trim::slashes',
+            'casing'         => 'Strings\Casing::use',
+            'lowercase'      => 'Strings\Casing::lower',
+            'uppercase'      => 'Strings\Casing::upper',
+            'titlecase'      => 'Strings\Casing::title',
+            'pascalcase'     => 'Strings\Casing::pascal',
+            'camelcase'      => 'Strings\Casing::camel',
+            'search'         => 'Strings\Search::use',
+            'searchposition' => 'Strings\Search::position',
+            'searchstring'   => 'Strings\Search::string',
+            'reshuffle'      => 'Strings\Substitution::reshuffle',
+            'placement'      => 'Strings\Substitution::placement',
+            'replace'        => 'Strings\Substitution::replace',
+            'toarray'        => 'Strings\Transform::array',
+            'toascii'        => 'Strings\Transform::ascii',
+            'tochar'         => 'Strings\Transform::char',
+            'encode'         => 'Strings\Security::encode',
+            'addslashes'     => 'Strings\Security::addSlashes',
+            'removeslashes'  => 'Strings\Security::removeSlashes',
+        ]
+    ];
 
     //--------------------------------------------------------------------------------------------------------
     // Section
@@ -151,66 +56,6 @@ class InternalStrings extends CallController implements InternalStringsInterface
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Search
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $str
-    // @param string $needle
-    // @param string $type
-    // @param string $case
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function search(String $str, String $needle, String $type = 'str', Bool $case = true) : String
-    {
-        if( $type === "str" || $type === "string" )
-        {
-            if( $case === true )
-            {
-                return mb_strstr($str, $needle);
-            }
-            else
-            {
-                return mb_stristr($str, $needle);
-            }
-        }
-
-        if( $type === "pos" || $type === "position" )
-        {
-            if( $case === true )
-            {
-                return mb_strpos($str, $needle);
-            }
-            else
-            {
-                return mb_stripos($str, $needle);
-            }
-        }
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Reshuffle
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $str
-    // @param string $shuffle
-    // @param string $reshuffle
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function reshuffle(String $str, String $shuffle, String $reshuffle) : String
-    {
-        $shuffleEx = explode($shuffle, $str);
-
-        $newstr = '';
-
-        foreach( $shuffleEx as $v )
-        {
-            $newstr .=  str_replace($reshuffle, $shuffle, $v).$reshuffle;
-        }
-
-        return substr($newstr, 0, -strlen($reshuffle));
-    }
-
-    //--------------------------------------------------------------------------------------------------------
     // Recurrent Count
     //--------------------------------------------------------------------------------------------------------
     //
@@ -224,131 +69,6 @@ class InternalStrings extends CallController implements InternalStringsInterface
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Placement
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $str
-    // @param string $delimiter
-    // @param array  $array
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function placement(String $str, String $delimiter, Array $array) : String
-    {
-        if( ! empty($delimiter) )
-        {
-            $strex = explode($delimiter, $str);
-        }
-        else
-        {
-            return $str;
-        }
-
-        if( (count($strex) - 1) !== count($array) )
-        {
-            return $str;
-        }
-
-        $newstr = '';
-
-        for($i = 0; $i < count($array); $i++)
-        {
-            $newstr .= $strex[$i].$array[$i];
-        }
-
-        return $newstr.$strex[count($array)];
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Replace
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $str
-    // @param string $delimiter
-    // @param array  $array
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function replace(String $string, String $oldChar, String $newChar = '', Bool $case = true) : String
-    {
-        if( $case === true )
-        {
-            return str_replace($oldChar, $newChar, $string);
-        }
-        else
-        {
-            return str_ireplace($oldChar, $newChar, $string);
-        }
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // To Array
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $string
-    // @param string $split
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function toArray(String $string, String $split = ' ') : Array
-    {
-        return explode($split, $string);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // To Char
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param int $ascii
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function toChar(Int $ascii) : String
-    {
-        return chr($ascii);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // To Ascii
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $str
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function toAscii(String $string) : Int
-    {
-        return ord($string);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Add Slashes
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $str
-    // @param string $addDifferentChars
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function addSlashes(String $string, String $addDifferentChars = NULL) : String
-    {
-        $return = addslashes($string);
-
-        if( ! empty($addDifferentChars) )
-        {
-            $return = addcslashes($return, $addDifferentChars);
-        }
-
-        return $return;
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Remove Slashes
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $str
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function removeSlashes(String $string) : String
-    {
-        return stripslashes(stripcslashes($string));
-    }
-
-    //--------------------------------------------------------------------------------------------------------
     // Length
     //--------------------------------------------------------------------------------------------------------
     //
@@ -359,19 +79,6 @@ class InternalStrings extends CallController implements InternalStringsInterface
     public function length(String $string, String $encoding = 'utf-8') : Int
     {
         return mb_strlen($string, $encoding);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Encode
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $str
-    // @param string $salt
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function encode(String $string, String $salt) : String
-    {
-        return crypt($string, $salt);
     }
 
     //--------------------------------------------------------------------------------------------------------

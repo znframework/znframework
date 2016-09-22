@@ -67,7 +67,7 @@ class Parser implements ParserInterface
             }
         }
 
-        return $elements[0];
+        return $elements[0] ?? NULL;
     }
 
     //--------------------------------------------------------------------------------------------------------
