@@ -1836,7 +1836,7 @@ class InternalDB extends Connection implements InternalDBInterface
     //--------------------------------------------------------------------------------------------------------
     public function isExists(String $table, String $column, String $value) : Bool
     {
-        return (bool) self::where($column, $value)->get($table)->totalRows();
+        return (bool) $this->where($column, $value)->get($table)->totalRows();
     }
 
     //--------------------------------------------------------------------------------------------------------
