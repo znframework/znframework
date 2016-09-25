@@ -1,6 +1,6 @@
 <?php
 //--------------------------------------------------------------------------------------------------
-// Constants
+// Functions
 //--------------------------------------------------------------------------------------------------
 //
 // Author     : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
@@ -11,19 +11,68 @@
 //--------------------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------------------
-// Internal Constants Dir
+// library()
 //--------------------------------------------------------------------------------------------------
 //
-// Internal/Constants/
+// @param string $class
+// @param string $function
+// @param mixed  $parameters
+//
+// @return callable
 //
 //--------------------------------------------------------------------------------------------------
-define('INTERNAL_CONSTANTS_DIR', INTERNAL_DIR . 'Constants' . DS);
+function library(String $class, String $function, $parameters = [])
+{
+    $var = uselib($class);
+
+    if( ! is_array($parameters) )
+    {
+        $parameters = [$parameters];
+    }
+
+    if( is_callable([$var, $function]) )
+    {
+        return call_user_func_array([$var, $function], $parameters);
+    }
+    else
+    {
+        return false;
+    }
+}
 
 //--------------------------------------------------------------------------------------------------
-// Required Constants File
+// uselib()
 //--------------------------------------------------------------------------------------------------
 //
-// Constants
+// @param string $class
+// @param array  $parameters
+//
+// @return class
 //
 //--------------------------------------------------------------------------------------------------
-require_once INTERNAL_CONSTANTS_DIR . 'DirectoryPaths.php';
+function uselib(String $class, Array $parameters = [])
+{
+    if( ! class_exists($class) )
+    {
+        $classInfo = ZN\Core\Autoloader::getClassFileInfo($class);
+
+        $class = $classInfo['namespace'];
+
+        if( ! class_exists($class) )
+        {
+            die(getErrorMessage('Error', 'classError', $class));
+        }
+    }
+
+    if( ! isset(zn::$use->$class) )
+    {
+        if( ! is_object(zn::$use) )
+        {
+            zn::$use = new stdClass();
+        }
+
+        zn::$use->$class = new $class(...$parameters);
+    }
+
+    return zn::$use->$class;
+}

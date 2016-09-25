@@ -881,7 +881,7 @@ function lastError(String $type = NULL)
 }
 
 //--------------------------------------------------------------------------------------------------
-// internalApplicationContainerDir()
+// internalProjectContainerDir)
 //--------------------------------------------------------------------------------------------------
 //
 // @param void
@@ -889,7 +889,7 @@ function lastError(String $type = NULL)
 // @param string
 //
 //--------------------------------------------------------------------------------------------------
-function internalApplicationContainerDir() : String
+function internalProjectContainerDir() : String
 {
     $containers = PROJECTS_CONFIG['containers'];
 
