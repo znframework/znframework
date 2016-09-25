@@ -99,17 +99,15 @@ define('FF', "\f");
 //
 //--------------------------------------------------------------------------------------------------
 $currentPath = server('currentPath');
-
-$internalDir = ( ! empty($currentPath) ? explode('/', ltrim($currentPath, '/'))[0] : '');
-
-$othersapp = PROJECTS_CONFIG['directory']['others'];
+$internalDir = ( ! empty($currentPath) ? explode('/', ltrim($currentPath, '/'))[0] : '' );
+$othersapp   = PROJECTS_CONFIG['directory']['others'];
 
 if( is_array($othersapp) )
 {
-    $internalDir = ! empty($othersapp[$internalDir]) ? $othersapp[$internalDir] : $internalDir;
+    $internalDir = $othersapp[$internalDir] ?? $internalDir;
 }
 
-if( ! empty($internalDir) && is_dir(PROJECTS_DIR.$internalDir) )
+if( ! empty($internalDir) && is_dir(PROJECTS_DIR . $internalDir) )
 {
     define('_CURRENT_PROJECT', $internalDir);
 }
@@ -399,8 +397,7 @@ function write(String $data, Array $vars = [])
 {
     if( ! is_scalar($data) )
     {
-        echo 'Not String!';
-        return false;
+        echo 'Not String!'; return false;
     }
 
     if( ! empty($data) && is_array($vars) )
@@ -431,7 +428,7 @@ function write(String $data, Array $vars = [])
 //--------------------------------------------------------------------------------------------------
 function writeLine(String $data, Array $vars = [], Int $brCount = 1)
 {
-    echo write($data, $vars).str_repeat("<br>", $brCount);
+    echo write($data, $vars) . str_repeat('<br>', $brCount);
 }
 
 
@@ -590,11 +587,9 @@ function host() : String
 {
     if( isset($_SERVER['HTTP_X_FORWARDED_HOST']) )
     {
-        $host = $_SERVER['HTTP_X_FORWARDED_HOST'];
-
+        $host     = $_SERVER['HTTP_X_FORWARDED_HOST'];
         $elements = explode(',', $host);
-
-        $host = trim(end($elements));
+        $host     = trim(end($elements));
     }
     else
     {
@@ -610,9 +605,7 @@ function host() : String
             }
             else
             {
-                $host = ! empty($_SERVER['SERVER_ADDR'])
-                        ? $_SERVER['SERVER_ADDR']
-                        : '';
+                $host = $_SERVER['SERVER_ADDR'] ?? '';
             }
         }
     }
@@ -647,14 +640,7 @@ function pathInfos(String $file, String $info = 'basename') : String
 {
     $pathInfo = pathinfo($file);
 
-    if( isset($pathInfo[$info]) )
-    {
-        return $pathInfo[$info];
-    }
-    else
-    {
-        return false;
-    }
+    return $pathInfo[$info] ?? false;
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -669,11 +655,9 @@ function pathInfos(String $file, String $info = 'basename') : String
 //--------------------------------------------------------------------------------------------------
 function extension(String $file, Bool $dote = false) : String
 {
-    $dote = $dote === true
-          ? '.'
-          : '';
+    $dote = $dote === true ? '.' : '';
 
-    return $dote.strtolower(pathInfos($file, "extension"));
+    return $dote . strtolower(pathInfos($file, "extension"));
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -712,7 +696,7 @@ function divide(String $str, String $separator = '|', String $index = '0')
 
     if( $index < 0 )
     {
-        $ind = (count($arrayEx)+($index));
+        $ind = (count($arrayEx) + ($index));
     }
     elseif( $index === 'last' )
     {
@@ -727,14 +711,7 @@ function divide(String $str, String $separator = '|', String $index = '0')
         $ind = $index;
     }
 
-    if( isset($arrayEx[$ind]) )
-    {
-        return $arrayEx[$ind];
-    }
-    else
-    {
-        return false;
-    }
+    return $arrayEx[$ind] ?? false;
 }
 
 
@@ -869,14 +846,7 @@ function lastError(String $type = NULL)
     }
     else
     {
-        if( isset($result[$type]) )
-        {
-            return $result[$type];
-        }
-        else
-        {
-            return false;
-        }
+        return $result[$type] ?? false;
     }
 }
 
@@ -896,7 +866,7 @@ function internalProjectContainerDir() : String
     if( ! empty($containers) && defined('_CURRENT_PROJECT') )
     {
         return ! empty($containers[_CURRENT_PROJECT])
-               ? PROJECTS_DIR.suffix($containers[_CURRENT_PROJECT])
+               ? PROJECTS_DIR . suffix($containers[_CURRENT_PROJECT])
                : PROJECT_DIR;
     }
 
@@ -969,11 +939,11 @@ function internalOutput($data, String $tab = '', Int $start = 0, Array $settings
 {
     static $start;
 
-    $lengthColor    = isset($settings['lengthColor'])   ? $settings['lengthColor']  : 'grey';
-    $keyColor       = isset($settings['keyColor'])      ? $settings['keyColor']     : '#000';
-    $typeColor      = isset($settings['typeColor'])     ? $settings['typeColor']    : '#8C2300';
-    $stringColor    = isset($settings['stringColor'])   ? $settings['stringColor']  : 'red';
-    $numericColor   = isset($settings['numericColor'])  ? $settings['numericColor'] : 'green';
+    $lengthColor    = $settings['lengthColor']  ?? 'grey';
+    $keyColor       = $settings['keyColor']     ?? '#000';
+    $typeColor      = $settings['typeColor']    ?? '#8C2300';
+    $stringColor    = $settings['stringColor']  ?? 'red';
+    $numericColor   = $settings['numericColor'] ?? 'green';
 
     $output = '';
     $eof    = '<br>';
