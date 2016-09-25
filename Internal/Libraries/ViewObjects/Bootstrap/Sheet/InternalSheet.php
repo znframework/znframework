@@ -31,7 +31,7 @@ class InternalSheet extends CallController implements InternalSheetInterface
     //--------------------------------------------------------------------------------------------------------
     public function animation(Bool $tag = false) : Sheet\Helpers\Animation
     {
-        return uselib('Animation', [$tag]);
+        return uselib($this->_namespace('Animation'), [$tag]);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -43,7 +43,7 @@ class InternalSheet extends CallController implements InternalSheetInterface
     //--------------------------------------------------------------------------------------------------------
     public function manipulation() : Sheet\Helpers\Manipulation
     {
-        return uselib('Manipulation');
+        return uselib($this->_namespace('Manipulation'));
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -55,7 +55,7 @@ class InternalSheet extends CallController implements InternalSheetInterface
     //--------------------------------------------------------------------------------------------------------
     public function shadow(Bool $tag = false) : Sheet\Helpers\Shadow
     {
-        return uselib('Shadow', [$tag]);
+        return uselib($this->_namespace('Shadow'), [$tag]);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -67,7 +67,7 @@ class InternalSheet extends CallController implements InternalSheetInterface
     //--------------------------------------------------------------------------------------------------------
     public function transform(Bool $tag = false) : Sheet\Helpers\Transform
     {
-        return uselib('Transform', [$tag]);
+        return uselib($this->_namespace('Transform'), [$tag]);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -79,6 +79,19 @@ class InternalSheet extends CallController implements InternalSheetInterface
     //--------------------------------------------------------------------------------------------------------
     public function transition(Bool $tag = false) : Sheet\Helpers\Transition
     {
-        return uselib('Transition', [$tag]);
+        return uselib($this->_namespace('Transition'), [$tag]);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Namespace
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param  string class
+    // @return string
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _namespace($class)
+    {
+        return 'ZN\ViewObjects\Bootstrap\Sheet\Helpers\\'.$class;
     }
 }

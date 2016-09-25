@@ -96,7 +96,7 @@ class InternalJquery extends CallController implements InternalJqueryInterface
     //--------------------------------------------------------------------------------------------------------
     public function ajax(Bool $tag = false, Bool $jq = false, Bool $jqui = false) : Jquery\Helpers\Ajax
     {
-        return uselib('Ajax', [$tag, $jq, $jqui]);
+        return uselib($this->_namespace('Ajax'), [$tag, $jq, $jqui]);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -108,7 +108,7 @@ class InternalJquery extends CallController implements InternalJqueryInterface
     //--------------------------------------------------------------------------------------------------------
     public function action(Bool $tag = false, Bool $jq = false, Bool $jqui = false) : Jquery\Helpers\Action
     {
-        return uselib('Action', [$tag, $jq, $jqui]);
+        return uselib($this->_namespace('Action'), [$tag, $jq, $jqui]);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -120,7 +120,7 @@ class InternalJquery extends CallController implements InternalJqueryInterface
     //--------------------------------------------------------------------------------------------------------
     public function animate(Bool $tag = false, Bool $jq = false, Bool $jqui = false) : Jquery\Helpers\Animate
     {
-        return uselib('Animate', [$tag, $jq, $jqui]);
+        return uselib($this->_namespace('Animate'), [$tag, $jq, $jqui]);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -132,7 +132,20 @@ class InternalJquery extends CallController implements InternalJqueryInterface
     //--------------------------------------------------------------------------------------------------------
     public function event(Bool $tag = false, Bool $jq = false, Bool $jqui = false) : Jquery\Helpers\Event
     {
-        return uselib('Event', [$tag, $jq, $jqui]);
+        return uselib($this->_namespace('Event'), [$tag, $jq, $jqui]);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Namespace
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param  string class
+    // @return string
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _namespace($class)
+    {
+        return 'ZN\ViewObjects\Bootstrap\Jquery\Helpers\\'.$class;
     }
 
     //--------------------------------------------------------------------------------------------------------
