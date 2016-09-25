@@ -126,8 +126,8 @@ class Autoloader
 
         $classArray = array_diff_key
         (
-            isset($classMaps['classes'])      ? $classMaps['classes']      : [],
-            isset($configClassMap['classes']) ? $configClassMap['classes'] : []
+            $classMaps['classes']      ?? [],
+            $configClassMap['classes'] ?? []
         );
 
         $eol  = EOL;
@@ -148,7 +148,7 @@ class Autoloader
 
         if( ! empty($classArray) )
         {
-            self::$classes    = $classMaps['classes'];
+            self::$classes = $classMaps['classes'];
 
             foreach( $classArray as $k => $v )
             {
@@ -158,8 +158,8 @@ class Autoloader
 
         $namespaceArray = array_diff_key
         (
-            isset($classMaps['namespaces']) ? $classMaps['namespaces'] : [],
-            isset($configClassMap['namespaces']) ? $configClassMap['namespaces'] : []
+            $classMaps['namespaces']      ?? [],
+            $configClassMap['namespaces'] ?? []
         );
 
         if( ! empty($namespaceArray) )
@@ -189,8 +189,8 @@ class Autoloader
     {
         $classCaseLower = strtolower($class);
         $classMap       = self::_config();
-        $classes        = array_merge(isset($classMap['classes']) ? $classMap['classes'] : [], (array)self::$classes);
-        $namespaces     = array_merge(isset($classMap['namespaces']) ? $classMap['namespaces'] : [], (array)self::$namespaces);
+        $classes        = array_merge($classMap['classes']    ?? [], (array) self::$classes);
+        $namespaces     = array_merge($classMap['namespaces'] ?? [], (array) self::$namespaces);
         $path           = '';
         $namespace      = '';
 
@@ -206,9 +206,7 @@ class Autoloader
             if( isset($namespaces[$classCaseLower]) )
             {
                 $namespace = $namespaces[$classCaseLower];
-                $path      = isset($classes[$namespace])
-                           ? $classes[$namespace]
-                           : '';
+                $path      = $classes[$namespace] ?? '';
             }
         }
 
@@ -276,9 +274,7 @@ class Autoloader
                 $token[0] === T_TRAIT
             )
             {
-                $classInfo['class'] = isset($tokens[$i + 2][1])
-                                    ? $tokens[$i + 2][1]
-                                    : NULL;
+                $classInfo['class'] = $tokens[$i + 2][1] ?? NULL;
 
                 break;
             }
@@ -317,9 +313,7 @@ class Autoloader
         {
             if( $token[0] === $type )
             {
-                $info[] = isset($tokens[$i + 2][1])
-                        ? $tokens[$i + 2][1]
-                        : NULL;
+                $info[] = $tokens[$i + 2][1] ?? NULL;
             }
 
             $i++;
@@ -414,14 +408,10 @@ class Autoloader
                             mkdir($newDir, $directoryPermission, true);
                         }
 
-                        $path = suffix($newDir, DS).$classInfo['class'].'.php';
-
-                        $path = self::_relativePath($path);
-
-                        $constants = self::_findConstants($v);
-
-                        $classContent = self::_classFileContent($newClassName, $constants);
-
+                        $path              = suffix($newDir, DS).$classInfo['class'].'.php';
+                        $path              = self::_relativePath($path);
+                        $constants         = self::_findConstants($v);
+                        $classContent      = self::_classFileContent($newClassName, $constants);
                         $fileContentLength = is_file($path) ? strlen(file_get_contents($path)) : 0;
 
                         if( strlen($classContent) !== $fileContentLength )
@@ -455,8 +445,8 @@ class Autoloader
 
         preg_match_all('/const\s+(\w+)\s+\=\s+(.*?);/i', $getFileContent, $match);
 
-        $const = ! empty($match[1]) ? $match[1] : [];
-        $value = ! empty($match[2]) ? $match[2] : [];
+        $const = $match[1] ?? [];
+        $value = $match[2] ?? [];
 
         $constants = '';
 
