@@ -54,7 +54,7 @@ function uselib(String $class, Array $parameters = [])
 {
     if( ! class_exists($class) )
     {
-        $classInfo = ZN\Core\Autoloader::getClassFileInfo($class);
+        $classInfo = ZN\Autoloader\Autoloader::getClassFileInfo($class);
 
         $class = $classInfo['namespace'];
 

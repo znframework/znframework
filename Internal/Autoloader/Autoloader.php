@@ -1,6 +1,7 @@
-<?php namespace ZN\Core;
+<?php namespace ZN\Autoloader;
 
 use Converter;
+use ZN\Core\Config;
 
 class Autoloader
 {
@@ -574,10 +575,10 @@ class Autoloader
 // Class Alias
 //------------------------------------------------------------------------------------------------------
 //
-// ZN\Core\Autoloader -> Autoloader
+// ZN\Autoloader\Autoloader -> Autoloader
 //
 //------------------------------------------------------------------------------------------------------
-class_alias('ZN\Core\Autoloader', 'Autoloader');
+class_alias('ZN\Autoloader\Autoloader', 'Autoloader');
 
 //------------------------------------------------------------------------------------------------------
 // Autoload Register
