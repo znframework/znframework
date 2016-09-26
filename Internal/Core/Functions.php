@@ -1,6 +1,6 @@
 <?php
 //--------------------------------------------------------------------------------------------------
-// Status
+// Functions
 //--------------------------------------------------------------------------------------------------
 //
 // Author     : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
@@ -11,43 +11,18 @@
 //--------------------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------------------
-// sslStatus()
+// Required Functions File
 //--------------------------------------------------------------------------------------------------
 //
-// @param void
-//
-// @return string
+// Functions
 //
 //--------------------------------------------------------------------------------------------------
-function sslStatus() : String
-{
-    if( Config::get('Services','uri')['ssl'] )
-    {
-        return 'https://';
-    }
-    else
-    {
-        return 'http://';
-    }
-}
-
-//--------------------------------------------------------------------------------------------------
-// indexStatus()
-//--------------------------------------------------------------------------------------------------
-//
-// @param void
-//
-// @return string
-//
-//--------------------------------------------------------------------------------------------------
-function indexStatus() : String
-{
-    if( Config::get('Htaccess', 'uri')['directoryIndex'] )
-    {
-        return DIRECTORY_INDEX.'/';
-    }
-    else
-    {
-        return '';
-    }
-}
+require_once INTERNAL_FUNCTIONS_DIR . 'String.php';
+require_once INTERNAL_FUNCTIONS_DIR . 'Config.php';
+require_once INTERNAL_FUNCTIONS_DIR . 'Lang.php';
+require_once INTERNAL_FUNCTIONS_DIR . 'URL.php';
+require_once INTERNAL_FUNCTIONS_DIR . 'Path.php';
+require_once INTERNAL_FUNCTIONS_DIR . 'Redirect.php';
+require_once INTERNAL_FUNCTIONS_DIR . 'Library.php';
+require_once INTERNAL_FUNCTIONS_DIR . 'Status.php';
+require_once INTERNAL_FUNCTIONS_DIR . 'Internal.php';

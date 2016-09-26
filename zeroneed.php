@@ -90,6 +90,27 @@ require_once INTERNAL_DIR . 'Priority/HighLevel.php';
 //--------------------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------------------
+// _CURRENT_PROJECT
+//--------------------------------------------------------------------------------------------------
+//
+// @return _CURRENT_PROJECT
+//
+//--------------------------------------------------------------------------------------------------
+$currentPath = server('currentPath');
+$internalDir = ( ! empty($currentPath) ? explode('/', ltrim($currentPath, '/'))[0] : '' );
+$othersapp   = PROJECTS_CONFIG['directory']['others'];
+
+if( is_array($othersapp) )
+{
+    $internalDir = $othersapp[$internalDir] ?? $internalDir;
+}
+
+if( ! empty($internalDir) && is_dir(PROJECTS_DIR . $internalDir) )
+{
+    define('_CURRENT_PROJECT', $internalDir);
+}
+
+//--------------------------------------------------------------------------------------------------
 // Application Directory
 //--------------------------------------------------------------------------------------------------
 $projectDir = PROJECTS_CONFIG['directory']['others'];

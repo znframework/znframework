@@ -1,6 +1,6 @@
 <?php
 //--------------------------------------------------------------------------------------------------
-// Functions
+// Host
 //--------------------------------------------------------------------------------------------------
 //
 // Author     : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
@@ -11,27 +11,54 @@
 //--------------------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------------------
-// Internal Functions Dir
+// host()
 //--------------------------------------------------------------------------------------------------
 //
-// Internal/Functions/
+// @param void
+//
+// @return string
 //
 //--------------------------------------------------------------------------------------------------
-define('INTERNAL_FUNCTIONS_DIR', INTERNAL_DIR . 'Functions' . DS);
+function host() : String
+{
+    if( isset($_SERVER['HTTP_X_FORWARDED_HOST']) )
+    {
+        $host     = $_SERVER['HTTP_X_FORWARDED_HOST'];
+        $elements = explode(',', $host);
+        $host     = trim(end($elements));
+    }
+    else
+    {
+        if( isset($_SERVER['HTTP_HOST']) )
+        {
+            $host = $_SERVER['HTTP_HOST'];
+        }
+        else
+        {
+            if( isset($_SERVER['SERVER_NAME']) )
+            {
+                $host = $_SERVER['SERVER_NAME'];
+            }
+            else
+            {
+                $host = $_SERVER['SERVER_ADDR'] ?? '';
+            }
+        }
+    }
+
+    return trim($host);
+}
 
 //--------------------------------------------------------------------------------------------------
-// Required Functions File
+// hostName()
 //--------------------------------------------------------------------------------------------------
 //
-// Functions
+// @param void
+//
+// @return string
 //
 //--------------------------------------------------------------------------------------------------
-require_once INTERNAL_FUNCTIONS_DIR . 'String.php';
-require_once INTERNAL_FUNCTIONS_DIR . 'Config.php';
-require_once INTERNAL_FUNCTIONS_DIR . 'Lang.php';
-require_once INTERNAL_FUNCTIONS_DIR . 'URL.php';
-require_once INTERNAL_FUNCTIONS_DIR . 'Path.php';
-require_once INTERNAL_FUNCTIONS_DIR . 'Redirect.php';
-require_once INTERNAL_FUNCTIONS_DIR . 'Library.php';
-require_once INTERNAL_FUNCTIONS_DIR . 'Status.php';
-require_once INTERNAL_FUNCTIONS_DIR . 'Internal.php';
+function hostName() : String
+{
+    return host();
+}

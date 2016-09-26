@@ -11,30 +11,69 @@
 //--------------------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------------------
-// Internal Constants Dir
+// trace()
 //--------------------------------------------------------------------------------------------------
 //
-// Internal/Constants/
+// İşlev: Sistem kullanıyor.
+// Dönen Değerler: Sistem kullanıyor.
 //
 //--------------------------------------------------------------------------------------------------
-define('INTERNAL_CONSTANTS_DIR', INTERNAL_DIR . 'Constants' . DS);
+function trace($message)
+{
+    $style  = 'border:solid 1px #E1E4E5;';
+    $style .= 'background:#FEFEFE;';
+    $style .= 'padding:10px;';
+    $style .= 'margin-bottom:10px;';
+    $style .= 'font-family:Calibri, Ebrima, Century Gothic, Consolas, Courier New, Courier, monospace, Tahoma, Arial;';
+    $style .= 'color:#666;';
+    $style .= 'text-align:left;';
+    $style .= 'font-size:14px;';
+
+    $message = preg_replace('/\[(.*?)\]/', '<span style="color:#990000;">$1</span>', $message);
+
+    $str  = "<div style=\"$style\">";
+    $str .= $message;
+    $str .= '</div>';
+
+    exit($str);
+}
 
 //--------------------------------------------------------------------------------------------------
-// Internal Functions Dir
+// isPhpVersion()
 //--------------------------------------------------------------------------------------------------
 //
-// Internal/Functions/
+// İşlev: Parametrenin geçerli php sürümü olup olmadığını kontrol eder.
+// Parametreler: $version => Geçerliliği kontrol edilecek veri.
+// Dönen Değerler: Geçerli sürümse true değilse false değerleri döner.
 //
 //--------------------------------------------------------------------------------------------------
-define('INTERNAL_FUNCTIONS_DIR', INTERNAL_DIR . 'Functions' . DS);
+function isPhpVersion($version = '5.2.4')
+{
+    if( ! is_scalar($version) )
+    {
+        return false;
+    }
+
+    $version = (string) $version;
+
+    if( version_compare(PHP_VERSION, $version, '>=') )
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
 
 //--------------------------------------------------------------------------------------------------
-// Required Priorty File
+// absoluteRelativePath()
 //--------------------------------------------------------------------------------------------------
 //
-// Constants & Functions
+// Gerçek yolu yalın yola çevirir.
 //
 //--------------------------------------------------------------------------------------------------
-require_once INTERNAL_CONSTANTS_DIR . 'Base.php';
-require_once INTERNAL_CONSTANTS_DIR . 'BasePaths.php';
-require_once INTERNAL_FUNCTIONS_DIR . 'BaseLevel.php';
+function absoluteRelativePath(String $path = NULL)
+{
+    return str_replace([REAL_BASE_DIR, DS], [NULL, '/'], $path);
+}

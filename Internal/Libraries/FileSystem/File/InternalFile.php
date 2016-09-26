@@ -36,6 +36,7 @@ class InternalFile extends \FactoryController implements InternalFileInterface
             'owner'         => 'File\Info::owner',
             'group'         => 'File\Info::group',
             'rowcount'      => 'File\Info::rowCount',
+            'required'      => 'File\Info::required',
             'read'          => 'File\Content::read',
             'contents'      => 'File\Content::read',
             'find'          => 'File\Content::find',

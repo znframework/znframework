@@ -1,6 +1,6 @@
 <?php
 //--------------------------------------------------------------------------------------------------
-// Status
+// Path Info
 //--------------------------------------------------------------------------------------------------
 //
 // Author     : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
@@ -11,43 +11,49 @@
 //--------------------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------------------
-// sslStatus()
+// pathInfos()
 //--------------------------------------------------------------------------------------------------
 //
-// @param void
+// @param string $file
+// @param string $info = 'basename'
 //
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function sslStatus() : String
+function pathInfos(String $file, String $info = 'basename') : String
 {
-    if( Config::get('Services','uri')['ssl'] )
-    {
-        return 'https://';
-    }
-    else
-    {
-        return 'http://';
-    }
+    $pathInfo = pathinfo($file);
+
+    return $pathInfo[$info] ?? false;
 }
 
 //--------------------------------------------------------------------------------------------------
-// indexStatus()
+// extension()
 //--------------------------------------------------------------------------------------------------
 //
-// @param void
+// @param string $file
+// @param bool   $dote = false
 //
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function indexStatus() : String
+function extension(String $file, Bool $dote = false) : String
 {
-    if( Config::get('Htaccess', 'uri')['directoryIndex'] )
-    {
-        return DIRECTORY_INDEX.'/';
-    }
-    else
-    {
-        return '';
-    }
+    $dote = $dote === true ? '.' : '';
+
+    return $dote . strtolower(pathInfos($file, "extension"));
+}
+
+//--------------------------------------------------------------------------------------------------
+// removeExtension()
+//--------------------------------------------------------------------------------------------------
+//
+// @param string $file
+//
+// @return string
+//
+//--------------------------------------------------------------------------------------------------
+function removeExtension(String $file) : String
+{
+    return preg_replace('/\\.[^.\\s]{3,4}$/', '', $file);
 }
