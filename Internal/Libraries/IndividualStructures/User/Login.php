@@ -131,7 +131,7 @@ class Login extends UserExtends implements LoginInterface
 
             if( Method::post($rememberMe) || ! empty($rememberMe) )
             {
-                if( Cookie::select($usernameColumn) != $username )
+                if( Cookie::select($usernameColumn) !== $username )
                 {
                     Cookie::insert($usernameColumn, $username);
                     Cookie::insert($passwordColumn, $password);
@@ -186,6 +186,7 @@ class Login extends UserExtends implements LoginInterface
         elseif( ! empty($result) )
         {
             Session::insert($username, $cUsername);
+            Session::insert($password, $cPassword);
 
             $isLogin = true;
         }
