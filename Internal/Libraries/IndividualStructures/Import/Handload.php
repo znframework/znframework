@@ -28,11 +28,11 @@ class Handload implements HandloadInterface
 
             if( is_file($file) )
             {
-                require_once $file; // Yerel Dosya
+                require_once $file; // Local File
             }
             elseif( is_file($commonFile) )
             {
-                require_once($commonFile); // Ortak Dosya
+                require_once($commonFile); // Common File
             }
         }
     }

@@ -31,8 +31,7 @@ class BootstrapExtends
         else
         {
             $argumentCount = count($arguments) - 1;
-
-            $lastParam = isset($arguments[$argumentCount]) ? $arguments[$argumentCount] : false;
+            $lastParam     = $arguments[$argumentCount] ?? false;
         }
 
         $arguments = array_unique($arguments);

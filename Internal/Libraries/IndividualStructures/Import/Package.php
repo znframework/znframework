@@ -101,8 +101,7 @@ class Package implements PackageInterface
     //--------------------------------------------------------------------------------------------------------
     protected function _package($packages, $recursive, $getContents)
     {
-        $eol = EOL;
-
+        $eol    = EOL;
         $return = '';
 
         // Common Directory
