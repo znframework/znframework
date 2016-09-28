@@ -1,4 +1,4 @@
-<?php namespace ZN\Requirements\Controllers;
+<?php namespace Project\Controllers;
 
 class Controller
 {
@@ -7,14 +7,14 @@ class Controller
     // Author     : Ozan UYKUN <ozanbote@gmail.com>
     // Site       : www.znframework.com
     // License    : The MIT License
-    // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
+    // Copyright  : (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Construct
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
@@ -22,21 +22,21 @@ class Controller
     {
         \ZN::$use =& $this;
     }
-        
+
     //--------------------------------------------------------------------------------------------------------
-    // Get 
+    // Get
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $class
     //
-    //--------------------------------------------------------------------------------------------------------  
+    //--------------------------------------------------------------------------------------------------------
     public function __get($class)
     {
         if( ! isset($this->$class) )
         {
-            return $this->$class = uselib($class);  
+            return $this->$class = uselib($class);
         }
     }
 }
 
-class_alias('ZN\Requirements\Controllers\Controller', 'Controller');
+class_alias('Project\Controllers\Controller', 'Controller');

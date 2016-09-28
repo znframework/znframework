@@ -1,4 +1,4 @@
-<?php return 
+<?php return
 [
     //----------------------------------------------------------------------------------------------------
     // Database
@@ -11,18 +11,9 @@
     //
     //----------------------------------------------------------------------------------------------------
 
-    'parameterError'                => '% parametre eksik veya boş!',
     'tableNotExistsError'           => '`%` tablosu bulunamadı!',
     'updateError'                   => 'Güncelleme işlemi gerçekleştirilemedi!',
-    'classNotExistsError'           => '% parametre sınıf bilgisi bulunamadı!',
-    'mysqlConnectError'             => 'HATA: Veritabanı bağlantısı sağlanamadı! Lütfen bağlantı ayarlarınızı kontrol edin.',
-    'stringError'                   => '% parametre sorgu kaynak değişkeni içermelidir!',
-    'connectResourceError'          => '% parametre bağlantı kaynak değişkeni içermelidir!',
-    'stringParameterError'          => '% parametre metinsel veri türü içermelidir!',
-    'numericParameterError'         => '% parametre numerik veri türü içermelidir!',
-    'arrayParameterError'           => '% parametre dizi veri türü içermelidir!',
-    'arrayStringParameterError'     => '% parametre dizi veya metinsel veri türü içermelidir!',
-    'driverError'                   => '`%` sürücüsü bulunamadı!',
+    'connectError'                  => 'HATA: Veritabanı bağlantısı sağlanamadı! Lütfen bağlantı ayarlarınızı kontrol edin.',
     'duplicateCheckError'           => '`%` sütun veya sütunları daha önce aynı değere sahip olduğu için eklenemedi!',
     'optimizeTablesSuccess'         => 'Optimizasyon işlemi başarı ile tamamlandı.',
     'backupTablesSuccess'           => 'Yedekleme işlemi başarı ile tamamlandı.',

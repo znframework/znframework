@@ -1,4 +1,4 @@
-<?php return 
+<?php return
 [
     //----------------------------------------------------------------------------------------------------
     // File System
@@ -10,42 +10,6 @@
     // Copyright  : Copyright (c) 2012-2016, ZN Framework
     //
     //----------------------------------------------------------------------------------------------------
-
-    //----------------------------------------------------------------------------------------------------
-    // File
-    //----------------------------------------------------------------------------------------------------
-    //
-    // File Lang Words
-    //
-    //----------------------------------------------------------------------------------------------------
-    'file:notFoundError'        => '`%` file could not be found!',
-    'file:alreadyFileError'     => '`%` file already exists!',
-    'file:remoteUploadError'    => '`%` file is not installed on the server!',
-    'file:remoteDownloadError'  => '`%` file is not downloaded from the server!',
-    'file:zipExtractError'      => '`%` file is not extracted!',
-
-    //----------------------------------------------------------------------------------------------------
-    // Folder
-    //----------------------------------------------------------------------------------------------------
-    //
-    // Folder Lang Words
-    //
-    //----------------------------------------------------------------------------------------------------
-    'folder:notFoundError'          => '`%` directory could not be found!',
-    'folder:alreadyFileError'       => '`%` directory already exists!',
-    'folder:parameterError'         => '`%` path to the directory must contain the information!',
-    'folder:changeFolderError'      => '`%` Can not change the working directory!',
-    'folder:changeFolderNameError'  => ' The name of the `%` file can not be changed!',
-
-    //----------------------------------------------------------------------------------------------------
-    // Generate
-    //----------------------------------------------------------------------------------------------------
-    //
-    // Generate Lang Words
-    //
-    //----------------------------------------------------------------------------------------------------
-    'generate:success'     => '`%` class has been successfully generated.',
-    'generate:notSuccess'  => '`%` class could not be generated successfully!',
 
     //----------------------------------------------------------------------------------------------------
     // Upload

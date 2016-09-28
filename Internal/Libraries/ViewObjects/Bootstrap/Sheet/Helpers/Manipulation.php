@@ -1,7 +1,7 @@
 <?php namespace ZN\ViewObjects\Bootstrap\Sheet\Helpers;
 
 use ZN\ViewObjects\Bootstrap\SheetTrait;
-use CallController;
+use CallController, File;
 
 class Manipulation extends CallController
 {
@@ -10,14 +10,14 @@ class Manipulation extends CallController
     // Author     : Ozan UYKUN <ozanbote@gmail.com>
     // Site       : www.znframework.com
     // License    : The MIT License
-    // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
+    // Copyright  : (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Style Sheet Trait
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // methods
     //
     //--------------------------------------------------------------------------------------------------------
@@ -26,7 +26,7 @@ class Manipulation extends CallController
     //--------------------------------------------------------------------------------------------------------
     // Manipulation
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @var string
     //
     //--------------------------------------------------------------------------------------------------------
@@ -35,57 +35,57 @@ class Manipulation extends CallController
     //--------------------------------------------------------------------------------------------------------
     // Attr
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param array $attr
     //
     //--------------------------------------------------------------------------------------------------------
     public function attr(Array $attr) : String
-    {       
-        $str  = $this->selector."{".EOL;    
+    {
+        $str  = $this->selector."{".EOL;
         $str .= $this->_attr($attr).EOL;
         $str .= "}".EOL;
-        
+
         $this->_defaultVariable();
-        
+
         return $str;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // File
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $file
     //
     //--------------------------------------------------------------------------------------------------------
     public function file(String $file) : Manipulation
     {
         $this->manipulation['filename'] = STYLES_DIR.suffix($file, '.css');
-        $this->manipulation['file'] = \File::contents($this->manipulation['filename']);
-        
-        return $this;   
+        $this->manipulation['file'] = File::contents($this->manipulation['filename']);
+
+        return $this;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Get Selector
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $selector
     //
     //--------------------------------------------------------------------------------------------------------
     public function getSelector(String $selector) : String
     {
         $space  = '\s*';
-        $output = $this->_manipulation($selector);        
+        $output = $this->_manipulation($selector);
         $output = preg_replace('/'.$selector.$space.'\{/', '', $output);
         $output = preg_replace('/\}/', '', $output);
-        
+
         return trim($output);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Set Selector
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $selector
     // @param array  $attr
     //
@@ -96,14 +96,14 @@ class Manipulation extends CallController
         $value  = $this->selector($selector)->attr($attr);
         $output = $this->_manipulation($selector);
         $output = str_replace($output, $value , $file);
-        
-        return \File::write($this->manipulation['filename'], $output);
+
+        return File::write($this->manipulation['filename'], $output);
     }
 
     //--------------------------------------------------------------------------------------------------------
     // Protected Manipulation
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param string $selector
     //
     //--------------------------------------------------------------------------------------------------------
@@ -111,32 +111,32 @@ class Manipulation extends CallController
     {
         $space = '\s*';
         $all   = '.*';
-        
+
         $file = $this->manipulation['file'];
-        
+
         if( empty($file) )
         {
-            return false;   
+            return false;
         }
-        
+
         preg_match('/'.$selector.$space.'\{'.$space.$all.$space.'\}'.$space.'/', $file, $output);
-        
+
         if( ! empty($output[0]) )
         {
-            $output = $output[0];   
+            $output = $output[0];
         }
         else
         {
-            return false;   
+            return false;
         }
-        
+
         return $output;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Protected Default Variable
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------

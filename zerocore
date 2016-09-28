@@ -1,0 +1,23 @@
+#!/usr/bin/env php
+<?php
+//--------------------------------------------------------------------------------------------------
+// ZERONEED PHP WEB FRAMEWORK
+//--------------------------------------------------------------------------------------------------
+//
+// Author     : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
+// Site       : www.znframework.com
+// License    : The MIT License
+// Copyright  : Copyright (c) 2012-2016, ZN Framework
+//
+//--------------------------------------------------------------------------------------------------
+
+//--------------------------------------------------------------------------------------------------
+// Executing Zero Core Processor
+//--------------------------------------------------------------------------------------------------
+//
+// PHP istemcisine komutlar göndermeniz gerektiği zaman özellikle bir kod bluğunun çalıştırılması
+// gerektiği durumlarda ZN Framework'ün mevcut yapılarından yararlanabilmek adına oluşturulmuştur.
+// Bu dosya sayesinde Exec yöntemleri ile ZN kodlarınızı çalıştırabilirsiniz.
+//
+//--------------------------------------------------------------------------------------------------
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'zeroneed.php';

@@ -7,14 +7,14 @@ interface ViewCommonInterface
     // Author     : Ozan UYKUN <ozanbote@gmail.com>
     // Site       : www.znframework.com
     // License    : The MIT License
-    // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
+    // Copyright  : (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
     // Attributes
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param array $attributes
     //
     //--------------------------------------------------------------------------------------------------------
@@ -29,6 +29,6 @@ interface ViewCommonInterface
     // @param string $value
     // @param array  $attributes
     //
-    //--------------------------------------------------------------------------------------------------------  
-    public function input(String $type = NULL, String $name = NULL, String $value = NULL, Array $_attributes = []) : String;
+    //--------------------------------------------------------------------------------------------------------
+    public function input(String $type = NULL, String $name = NULL, String $value = NULL, Array $attributes = []) : String;
 }

@@ -1,7 +1,7 @@
 <?php return
 [
     //--------------------------------------------------------------------------------------------------
-    // Individual Structures 
+    // Individual Structures
     //--------------------------------------------------------------------------------------------------
     //
     // Author     : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
@@ -10,9 +10,9 @@
     // Copyright  : Copyright (c) 2012-2016, ZN Framework
     //
     //--------------------------------------------------------------------------------------------------
-    
+
     //--------------------------------------------------------------------------------------------------
-    // Compress 
+    // Compress
     //--------------------------------------------------------------------------------------------------
     //
     // Author     : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
@@ -24,17 +24,17 @@
     'compress' =>
     [
         //----------------------------------------------------------------------------------------------
-        // Driver                                                                                 
+        // Driver
         //----------------------------------------------------------------------------------------------
-        // 
-        // Options: bz, gz, lzf, zip, zlib, rar.                                      
+        //
+        // Options: bz, gz, lzf, zip, zlib, rar.
         //
         //----------------------------------------------------------------------------------------------
         'driver' => 'gz'
     ],
 
     //--------------------------------------------------------------------------------------------------
-    // Cache 
+    // Cache
     //--------------------------------------------------------------------------------------------------
     //
     // Author     : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
@@ -46,27 +46,27 @@
     'cache' =>
     [
         //----------------------------------------------------------------------------------------------
-        // Driver                                                                                     
+        // Driver
         //----------------------------------------------------------------------------------------------
         //
-        // Options: apc, memcache, wincache, file, redis                                            
+        // Options: apc, memcache, wincache, file, redis
         //
         //----------------------------------------------------------------------------------------------
         'driver' => 'file',
 
         //----------------------------------------------------------------------------------------------
-        // Driver Settings                                                                      
+        // Driver Settings
         //----------------------------------------------------------------------------------------------
         //
         // Genel Kullanım: Ön bellekleme sürücüleri için bağlantı ayarlarını yapmak için kullanılır
-        // Parametre: Sürücüler.                                                                      
-        // Drivers: apc, memcache, wincache                                                         
+        // Parametre: Sürücüler.
+        // Drivers: apc, memcache, wincache
         //
         //----------------------------------------------------------------------------------------------
-        'driverSettings' => 
+        'driverSettings' =>
         [
             //------------------------------------------------------------------------------------------
-            // Memcache Connection Settings                                                                                  
+            // Memcache Connection Settings
             //------------------------------------------------------------------------------------------
             //
             // Memcache sürücüsü için gerekli olan bağlantı ayarları yer alır.
@@ -78,38 +78,38 @@
                 'port'   => '11211',
                 'weight' => '1',
             ],
-            
+
             //------------------------------------------------------------------------------------------
-            // Redis Connection Settings                                                                                 
+            // Redis Connection Settings
             //------------------------------------------------------------------------------------------
             //
             // Redis sürücüsü için gerekli olan bağlantı ayarları yer alır.
             //
             //------------------------------------------------------------------------------------------
-            'redis' => 
+            'redis' =>
             [
                 'password'   => NULL,
                 'socketType' => 'tcp',
-                'host'       => '127.0.0.1',    
+                'host'       => '127.0.0.1',
                 'port'       => 6379,
                 'timeout'    => 0
             ]
         ],
 
         //----------------------------------------------------------------------------------------------
-        // OB Gzhandler                                                                         
+        // OB Gzhandler
         //----------------------------------------------------------------------------------------------
         //
-        // Genel Kullanım: Tamponlamada ob_gzhandler işlevini aktif etmek için kullanılır.         
-        // Parametre: Gzip modu açık(true), gzip modu kapalı(false).                              
-        // Örnek: true veya false.                                                                
+        // Genel Kullanım: Tamponlamada ob_gzhandler işlevini aktif etmek için kullanılır.
+        // Parametre: Gzip modu açık(true), gzip modu kapalı(false).
+        // Örnek: true veya false.
         //
         //----------------------------------------------------------------------------------------------
         'obGzhandler' => false
     ],
 
     //--------------------------------------------------------------------------------------------------
-    // Cart 
+    // Cart
     //--------------------------------------------------------------------------------------------------
     //
     // Author     : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
@@ -121,19 +121,19 @@
     'cart' =>
     [
         //----------------------------------------------------------------------------------------------
-        // Driver                                                                                 
+        // Driver
         //----------------------------------------------------------------------------------------------
-        // 
+        //
         // Verinin hangi yöntemle tutulacağını belirleyebilirsiniz.
         //
-        // Options: session, cookie                                      
+        // Options: session, cookie
         //
         //----------------------------------------------------------------------------------------------
         'driver' => 'session'
     ],
 
     //--------------------------------------------------------------------------------------------------
-    // Permission 
+    // Permission
     //--------------------------------------------------------------------------------------------------
     //
     // Author     : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
@@ -149,12 +149,12 @@
         //----------------------------------------------------------------------------------------------
         //
         // Genel Kullanım: İzin verilen sayfaları belirlemek için "perm->|s1|s2" şeklinde kullanın.
-        // İzin vermek istemediğiniz sayfaları belirlemek için "noperm->|s1|s2" şeklinde kullanın. 
-        // Hiç bir sayfaya izin vermemek için any parametresini kullanın.                         
-        // Her sayfaya izin vermek için all parametresiniz kullanın                               
-        // Tek bir sayfaya izin vermek istediğinide normal olarak yazın.                              
-        // Tek bir sayfaya izin vermek istemediğinizde ise başına "!" işareti koyarak yazın.    
-        //    
+        // İzin vermek istemediğiniz sayfaları belirlemek için "noperm->|s1|s2" şeklinde kullanın.
+        // Hiç bir sayfaya izin vermemek için any parametresini kullanın.
+        // Her sayfaya izin vermek için all parametresiniz kullanın
+        // Tek bir sayfaya izin vermek istediğinide normal olarak yazın.
+        // Tek bir sayfaya izin vermek istemediğinizde ise başına "!" işareti koyarak yazın.
+        //
         //----------------------------------------------------------------------------------------------
         'page' =>
         [
@@ -171,11 +171,11 @@
         //----------------------------------------------------------------------------------------------
         //
         // Genel Kullanım: İzin verilen nesneleri belirlemek için "perm->|s1|s2" şeklinde kullanın.
-        // İzin vermek istemediğiniz nesneleri belirlemek için "noperm->|s1|s2" şeklinde kullanın. 
-        // Hiç bir nesneye izin vermemek için any parametresini kullanın.                         
-        // Her nesneye izin vermek için all parametresiniz kullanın                               
-        // Tek bir nesneye izin vermek istediğinide normal olarak yazın.                              
-        // Tek bir nesneye izin vermek istemediğinizde ise başına "!" işareti koyarak yazın.          
+        // İzin vermek istemediğiniz nesneleri belirlemek için "noperm->|s1|s2" şeklinde kullanın.
+        // Hiç bir nesneye izin vermemek için any parametresini kullanın.
+        // Her nesneye izin vermek için all parametresiniz kullanın
+        // Tek bir nesneye izin vermek istediğinide normal olarak yazın.
+        // Tek bir nesneye izin vermek istemediğinizde ise başına "!" işareti koyarak yazın.
         //
         //----------------------------------------------------------------------------------------------
         'process' =>
@@ -188,114 +188,9 @@
             //'6' => 'all'
         ]
     ],
-
+    
     //--------------------------------------------------------------------------------------------------
-    // Security 
-    //--------------------------------------------------------------------------------------------------
-    //
-    // Author     : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
-    // Site       : www.znframework.com
-    // License    : The MIT License
-    // Copyright  : Copyright (c) 2012-2016, ZN Framework
-    //
-    //--------------------------------------------------------------------------------------------------
-    'security' =>
-    [
-        //----------------------------------------------------------------------------------------------
-        // Nc Encode
-        //----------------------------------------------------------------------------------------------
-        //
-        // Genel Kullanımı: Security sınıfında kullanılan ncEncode() yönteminin temizlemesi       
-        // istenilen kelimeler. Temizlenen kelimelerin yerini alacak yeni kelime.                                       
-        //
-        //----------------------------------------------------------------------------------------------
-        'ncEncode' =>  
-        [
-            'badChars' => 
-            [
-                '<!--',
-                '-->',
-                '<?',
-                '?>',
-                '<', 
-                '>'
-            ], // string veya array
-                
-            'changeBadChars' => '[badchars]' // string veya array
-        ],
-
-        //----------------------------------------------------------------------------------------------
-        // Url Change Chars
-        //----------------------------------------------------------------------------------------------
-        //
-        // Genel Kullanımı: URL saldırılarına karşı tehlike arz edeceğini düşündüğünüz ve         
-        // değiştirilmesini istediğiniz kelimeler veya imgeler. Anahtar ifade olarak değişmesini   
-        // istediğiniz karakterler, değer olarak değişecek karakterlerin yerini                    
-        // alacak yeni karakterler.                                                               
-        // NOT: Küçük-Büyük harf duyarlılığı yoktur.                                              
-        //
-        // Değişmesini istediğiniz karaketer özel karakter ise özel karaketerin başına \ karakteri 
-        // koymanız gereklidir. Örnek \. Değiştirme işlemi için preg_replace() yöntemi kullanıldığı
-        // için özel karakterlerin başına \ karaketeri getirmelisiniz. Sınırlayıcı karakterler    
-        // olan / / karakterleri kullanmanıza gerek yoktur.                                          
-        // Örnek: Yanlış kullanım: /ab\./, doğru kullanım: ab\.     
-        //                                          
-        //----------------------------------------------------------------------------------------------
-        'urlChangeChars' => 
-        [
-            '<' => '',
-            '>' => ''
-            // 'old_chars' => 'change_new_chars'
-        ],
-
-        //----------------------------------------------------------------------------------------------
-        // Url Bad Chars
-        //----------------------------------------------------------------------------------------------
-        //
-        // Genel Kullanımı: URL adresinde tehlike yaratacak karater listesi.                                            
-        //
-        //----------------------------------------------------------------------------------------------
-        'urlBadChars' => 
-        [
-            '"', "'", '<', '>', "?", '&',
-            ':', '=', '{', '}', '[', '/',
-            ']', '(', ')', ';', '$', '#',
-            '\\', '../', '%20', '&22'
-        ],
-
-        //----------------------------------------------------------------------------------------------
-        // Injection Bad Chars
-        //----------------------------------------------------------------------------------------------
-        //
-        // Genel Kullanımı: Script saldırılarına neden olacak karater listesi.                                      
-        //
-        //----------------------------------------------------------------------------------------------
-        'injectionBadChars' => 
-        [
-            'or.+\=' => '',
-        ],
-
-        //----------------------------------------------------------------------------------------------
-        // Script Bad Chars
-        //----------------------------------------------------------------------------------------------
-        //
-        // Genel Kullanımı: Script saldırılarına neden olacak karater listesi.                                          
-        //
-        //----------------------------------------------------------------------------------------------
-        'scriptBadChars' => 
-        [
-            'document\.cookie' => 'document&#46;cookie',
-            'document\.write'  => 'document&#46;write',
-            '\.parentNode'     => '&#46;parentNode',
-            '\.innerHTML'      => '&#46;innerHTML',
-            '\-moz\-binding'   => '&#150;moz&#150;binding',
-            '<'                => '&#60;',
-            '>'                => '&#62;',
-        ]
-    ],
-
-    //--------------------------------------------------------------------------------------------------
-    // USER 
+    // USER
     //--------------------------------------------------------------------------------------------------
     //
     // Author     : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
@@ -312,7 +207,7 @@
         //
         // Kullanıcı kaydı yapılırken şifrenin hangi algoritma ile şifreleneceği ayarlanır. md5, sha1
         // geçerli hash algoritmalarından biri tercih edilir. Şifrenin, kodlanmasını istemiyorsanız.
-        // boş bırakmanız yeterlidir.                                           
+        // boş bırakmanız yeterlidir.
         //
         //----------------------------------------------------------------------------------------------
         'encode' => 'super',
@@ -321,27 +216,27 @@
         // Matching
         //----------------------------------------------------------------------------------------------
         //
-        // Veritabanında yer alan tablo ile ilgili sütunları eşleştirmek için kullanılır. Tablo ismini 
-        // table bölümüne diğer sütunlardan mevcut olanlarıda ilgili anahtarlarla eşleştirmelisiniz.      
+        // Veritabanında yer alan tablo ile ilgili sütunları eşleştirmek için kullanılır. Tablo ismini
+        // table bölümüne diğer sütunlardan mevcut olanlarıda ilgili anahtarlarla eşleştirmelisiniz.
         //
-        // table: Eşleştirme yapılacak tablo adı.   
+        // table: Eşleştirme yapılacak tablo adı.
         //
         // columns: Eşleştirme yapılacak sütunlar.
         //     username: Kullanıcı adı bilgisini tutan sütun adı.
         //     password: Kullanıcı şifresini tutan sütun adı.
-        //     email   : Kullanıcı adı bilgisi e-posta adresi içermiyorsa e-posta 
+        //     email   : Kullanıcı adı bilgisi e-posta adresi içermiyorsa e-posta
         //               sütunu olarak kullanılır. bu nedenle kullanımı görecelidir.
-        //     active  : Kullanıcıların aktif olup olmadığı bilgisini tutan sütun adı. 
+        //     active  : Kullanıcıların aktif olup olmadığı bilgisini tutan sütun adı.
         //               0 ve 1 değeri alacak şekilde veri türü seçilmelidir.
-        //     banned  : Kullanıcıların banlı olup olmadığı bilgisini tutan sütun adı. 
-        //               0 ve 1 değeri alacak şekilde veri türü seçilmelidir.                                                                                                            
+        //     banned  : Kullanıcıların banlı olup olmadığı bilgisini tutan sütun adı.
+        //               0 ve 1 değeri alacak şekilde veri türü seçilmelidir.
         //
         //----------------------------------------------------------------------------------------------
         'matching' =>
         [
             'table'   => '',
-            
-            'columns' => 
+
+            'columns' =>
             [
                 'username'   => '', // Required
                 'password'   => '', // Required
@@ -356,16 +251,16 @@
         // Joining
         //----------------------------------------------------------------------------------------------
         //
-        // Kullanıcılar tablonuz birleştirilmiş tablolardan oluşuyorsa bu bölüm kullanılır. 
+        // Kullanıcılar tablonuz birleştirilmiş tablolardan oluşuyorsa bu bölüm kullanılır.
         //
         // column: Yukarıda belirtilen tabloya ait birleştirme için kullanılacak sütun bilgisidir.
-        //         Genellik id sütunu değer olarak verilir. 
+        //         Genellik id sütunu değer olarak verilir.
         //
-        // tables: Birleştirme yapılacak diğer tablo ve sütun bilgileri. table => column formatında 
-        //         kullanılır.                                              
+        // tables: Birleştirme yapılacak diğer tablo ve sütun bilgileri. table => column formatında
+        //         kullanılır.
         //
         //----------------------------------------------------------------------------------------------
-        'joining' => 
+        'joining' =>
         [
             'column' => '',
             'tables' => []
@@ -375,15 +270,15 @@
         // Email Sender Info
         //----------------------------------------------------------------------------------------------
         //
-        // Aktivasyon işlemleri veya şifremini unuttum işlemleri esnasından 
-        // gönderilecek e-posta'ya ait gönderen ismi ve e-posta bilgilerini belirtmek içindir. 
+        // Aktivasyon işlemleri veya şifremini unuttum işlemleri esnasından
+        // gönderilecek e-posta'ya ait gönderen ismi ve e-posta bilgilerini belirtmek içindir.
         // Genellikle site adı ve e-posta adresi tercih edilir.
         //
         // name: Gönderici adı.
-        // mail: Gönderici e-posta adresi.                                          
+        // mail: Gönderici e-posta adresi.
         //
         //----------------------------------------------------------------------------------------------
-        'emailSenderInfo' => 
+        'emailSenderInfo' =>
         [
             'name' => '',
             'mail' => ''

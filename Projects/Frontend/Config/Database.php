@@ -1,7 +1,7 @@
 <?php return
 [
     //--------------------------------------------------------------------------------------------------
-    // Database 
+    // Database
     //--------------------------------------------------------------------------------------------------
     //
     // Author     : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
@@ -12,147 +12,147 @@
     //--------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------
-    // Migraion Table                                                                   
+    // Migraion Table
     //--------------------------------------------------------------------------------------------------
     //
-    // Migration işlemlerinin yapılacağı tablo adı.                                                           
+    // Migration işlemlerinin yapılacağı tablo adı.
     //
     //--------------------------------------------------------------------------------------------------
-    'migration' => 
+    'migration' =>
     [
         'table' => 'migrations'
     ],
 
     //--------------------------------------------------------------------------------------------------
-    // Database                                                                   
+    // Database
     //--------------------------------------------------------------------------------------------------
     //
-    // Database ile ilgili ayarlar.                                                           
+    // Database ile ilgili ayarlar.
     //
     //--------------------------------------------------------------------------------------------------
     'database' =>
     [
         //----------------------------------------------------------------------------------------------
-        // Driver                                                                                     
+        // Driver
         //----------------------------------------------------------------------------------------------
         //
         // Drivers: odbc, mysqli, pdo, oracle, postgres, sqlite, sqlserver
-        // PDO Drivers: pdo:mysql, pdo:odbc, pdo:postgres, pdo:sqlite, pdo:sqlserver                                                
+        // PDO Drivers: pdo:mysql, pdo:odbc, pdo:postgres, pdo:sqlite, pdo:sqlserver
         //
         //----------------------------------------------------------------------------------------------
-        'driver' => 'mysqli',
+        'driver' => 'pdo:mysql',
 
         //----------------------------------------------------------------------------------------------
-        // Host                                                                                   
+        // Host
         //----------------------------------------------------------------------------------------------
         //
-        // Genel Kullanım: Database için host seçimidir. Varsayılan:localhost                                   
+        // Genel Kullanım: Database için host seçimidir. Varsayılan:localhost
         //
         //----------------------------------------------------------------------------------------------
-        'host' => 'localhost', 
+        'host' => 'localhost',
 
         //----------------------------------------------------------------------------------------------
-        // Database                                                                           
+        // Database
         //----------------------------------------------------------------------------------------------
         //
-        // Genel Kullanım: Database ismi. Varsayılan:test                                                           
+        // Genel Kullanım: Database ismi. Varsayılan:test
         //
         //----------------------------------------------------------------------------------------------
         'database' => 'test',
 
         //----------------------------------------------------------------------------------------------
-        // User                                                                                   
+        // User
         //----------------------------------------------------------------------------------------------
         //
-        // Genel Kullanım: Database kullanıcı ismi. Varsayılan:root                                                     
+        // Genel Kullanım: Database kullanıcı ismi. Varsayılan:root
         //
         //----------------------------------------------------------------------------------------------
-        'user' => 'root', 
+        'user' => 'root',
 
         //----------------------------------------------------------------------------------------------
-        // Password                                                                                
+        // Password
         //----------------------------------------------------------------------------------------------
         //
-        // Genel Kullanım: Database kullanıcı şifresi. Varsayılan:empty                                             
+        // Genel Kullanım: Database kullanıcı şifresi. Varsayılan:empty
         //
         //----------------------------------------------------------------------------------------------
         'password' => '',
 
         //----------------------------------------------------------------------------------------------
-        // Dsn                                                                                    
+        // Dsn
         //----------------------------------------------------------------------------------------------
         //
-        // Genel Kullanım: Özellikle PDO alt sürücüleri için bağlantılar oluşturmak için              
-        // kullanılan bağlantı ayar kümesidir. Varsayılan:empty                                       
-        //                                                                                        
-        // Using Databases                                                            
-        // 1-Oracle                                                                                 
-        // 2-ODBC                                                                                 
-        // 3-Postgres                                                                                  
-        // 4-PDO and Sub Drivers                                                                            
+        // Genel Kullanım: Özellikle PDO alt sürücüleri için bağlantılar oluşturmak için
+        // kullanılan bağlantı ayar kümesidir. Varsayılan:empty
+        //
+        // Using Databases
+        // 1-Oracle
+        // 2-ODBC
+        // 3-Postgres
+        // 4-PDO and Sub Drivers
         //
         //----------------------------------------------------------------------------------------------
         'dsn' => '',
 
         //----------------------------------------------------------------------------------------------
-        // Server                                                                                  
+        // Server
         //----------------------------------------------------------------------------------------------
         //
-        // Genel Kullanım: Server bağlantısı gerektiren sürücüler için kullanılan ayardır.        
-        // Varsayılan:empty                                                                           
-        //                                                                                       
-        // Using Databases                                                                                                                                            
-        // 1-ODBC                                                                                 
-        // 2-SQLServer                                                                                                                                                                                                                                   
-        // 4-PDO -> SQLServer  
-        //                                                                              
+        // Genel Kullanım: Server bağlantısı gerektiren sürücüler için kullanılan ayardır.
+        // Varsayılan:empty
+        //
+        // Using Databases
+        // 1-ODBC
+        // 2-SQLServer
+        // 4-PDO -> SQLServer
+        //
         //----------------------------------------------------------------------------------------------
         'server' => '',
 
         //----------------------------------------------------------------------------------------------
-        // Port                                                                                    
+        // Port
         //----------------------------------------------------------------------------------------------
         //
-        // Genel Kullanım: Port bağlantısı gerektiren sürücüler için kullanılan ayardır.          
-        // Varsayılan:empty                                                                           
-        //                                                                                        
-        // Using Databases                                                                                                                                         
-        // 1-Postgres                                                                                  
-        // 2-SQLServer                                                                                                                                                                                                                            
-        // 3-PDO -> MySQL                                                                                                                                                     
-        // 4-PDO -> ODBC                                                                         
-        // 5-PDO -> Posgres                                                                          
-        // 6-PDO -> SQLServer                                                                             
+        // Genel Kullanım: Port bağlantısı gerektiren sürücüler için kullanılan ayardır.
+        // Varsayılan:empty
+        //
+        // Using Databases
+        // 1-Postgres
+        // 2-SQLServer
+        // 3-PDO -> MySQL
+        // 4-PDO -> ODBC
+        // 5-PDO -> Posgres
+        // 6-PDO -> SQLServer
         //
         //----------------------------------------------------------------------------------------------
         'port' => '',
 
         //----------------------------------------------------------------------------------------------
-        // Protocol                                                                                
+        // Protocol
         //----------------------------------------------------------------------------------------------
         //
-        // Genel Kullanım: Protocol bağlantısı gerektiren sürücüler için kullanılan ayardır.      
-        // Varsayılan:empty                                                                           
-        //                                                                                        
-        // Using Databases                                                                                                                                                                                                           
-        // 3-PDO -> ODBC                                                                                    
+        // Genel Kullanım: Protocol bağlantısı gerektiren sürücüler için kullanılan ayardır.
+        // Varsayılan:empty
+        //
+        // Using Databases
+        // 3-PDO -> ODBC
         //
         //----------------------------------------------------------------------------------------------
         'protocol' => '',
 
         //----------------------------------------------------------------------------------------------
-        // Pconnect                                                                             
+        // Pconnect
         //----------------------------------------------------------------------------------------------
         //
-        // Genel Kullanım: Pconnect bağlantısı destekleyen sürücüler için kullanılan ayardır.     
-        // Varsayılan:false                                                                           
-        //                                                                                        
-        // Using Databases                                                                                                                                                                                                                           
-        // 1-Oracle                                                                                   
-        // 2-ODBC                                                                                       
-        // 3-Postgres                                                                                    
-        // 4-SQLITE                                                                                 
-        //                                                                            
+        // Genel Kullanım: Pconnect bağlantısı destekleyen sürücüler için kullanılan ayardır.
+        // Varsayılan:false
+        //
+        // Using Databases
+        // 1-Oracle
+        // 2-ODBC
+        // 3-Postgres
+        // 4-SQLITE
+        //
         //----------------------------------------------------------------------------------------------
         'pconnect' => false,
 
@@ -160,11 +160,11 @@
         // Encode
         //----------------------------------------------------------------------------------------------
         //
-        // Genel Kullanım: Encode şifreleme bilgisi gerektiren sürücüler için kullanılan ayardır.  
-        // Varsayılan:false                                                                           
-        //                                                                                        
-        // Using Databases                                                              
-        // 1-SQLServer                                                                                     
+        // Genel Kullanım: Encode şifreleme bilgisi gerektiren sürücüler için kullanılan ayardır.
+        // Varsayılan:false
+        //
+        // Using Databases
+        // 1-SQLServer
         //
         //----------------------------------------------------------------------------------------------
         'encode' => false,
@@ -173,8 +173,8 @@
         // Prefix
         //----------------------------------------------------------------------------------------------
         //
-        // Genel Kullanım: Tablo ön eki bilgisi kullanabilen sürücüler için kullanılan ayardır.    
-        // Varsayılan:empty                                                                                                                                                        
+        // Genel Kullanım: Tablo ön eki bilgisi kullanabilen sürücüler için kullanılan ayardır.
+        // Varsayılan:empty
         //
         //----------------------------------------------------------------------------------------------
         'prefix' => '',
@@ -183,23 +183,23 @@
         // Charset
         //----------------------------------------------------------------------------------------------
         //
-        // Genel Kullanım: Karakter seti bilgisi kullanabilen sürücüler için kullanılan ayardır.   
-        // Varsayılan:utf8                                                                                                                                                                                                                                           
+        // Genel Kullanım: Karakter seti bilgisi kullanabilen sürücüler için kullanılan ayardır.
+        // Varsayılan:utf8
         //
         //----------------------------------------------------------------------------------------------
-        'charset' => 'utf8', 
+        'charset' => 'utf8',
 
         //----------------------------------------------------------------------------------------------
         // Collation
         //----------------------------------------------------------------------------------------------
         //
-        // Genel Kullanım: Karakter grubu bilgisi kullanabilen sürücüler için kullanılan ayardır.  
-        // Varsayılan:utf8_general_ci                                                             
-        //                                                                                        
-        // Using Databases                                                                                                                                           
-        // 1-MySQLi                                                                                   
+        // Genel Kullanım: Karakter grubu bilgisi kullanabilen sürücüler için kullanılan ayardır.
+        // Varsayılan:utf8_general_ci
+        //
+        // Using Databases
+        // 1-MySQLi
         // 2-PDO -> MySQL
-        //                                                                              
+        //
         //----------------------------------------------------------------------------------------------
         'collation' => 'utf8_general_ci',
 
@@ -207,16 +207,16 @@
         // Different Connection
         //----------------------------------------------------------------------------------------------
         //
-        // Genel Kullanım: Farklı veya birden fazla veritabanı bağlantısı oluşturumak için        
-        // kullanılmaktadır. Bu ayar sayesinden aynı anda çoklu bağlantı sağlamış olacaksınız.     
-        //                                                                                        
-        // Örnek Kullanım                                                                               
-        // array                                                                                      
-        // (                                                                                          
-        //     'ornek1VT' => array('database' => 'ornek1'),                                       
-        //     'ornek2VT' => array('database' => 'ornek2')                                        
-        // )     
-        //                                                                                  
+        // Genel Kullanım: Farklı veya birden fazla veritabanı bağlantısı oluşturumak için
+        // kullanılmaktadır. Bu ayar sayesinden aynı anda çoklu bağlantı sağlamış olacaksınız.
+        //
+        // Örnek Kullanım
+        // array
+        // (
+        //     'ornek1VT' => array('database' => 'ornek1'),
+        //     'ornek2VT' => array('database' => 'ornek2')
+        // )
+        //
         //----------------------------------------------------------------------------------------------
         'differentConnection' => []
     ]

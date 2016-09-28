@@ -7,7 +7,7 @@ trait ViewCommonTrait
     // Author     : Ozan UYKUN <ozanbote@gmail.com>
     // Site       : www.znframework.com
     // License    : The MIT License
-    // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
+    // Copyright  : (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
 
@@ -137,7 +137,7 @@ trait ViewCommonTrait
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function input(String $type = NULL, String $name = NULL, String $value = NULL, Array $_attributes = []) : String
+    public function input(String $type = NULL, String $name = NULL, String $value = NULL, Array $attributes = []) : String
     {
         if( isset($this->settings['attr']['type']) )
         {
@@ -148,7 +148,7 @@ trait ViewCommonTrait
 
         $this->settings['attr'] = [];
 
-        return $this->_input($name, $value, $_attributes, $type);
+        return $this->_input($name, $value, $attributes, $type);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -157,35 +157,35 @@ trait ViewCommonTrait
     //
     // @param string $name
     // @param string $value
-    // @param array  $_attributes
+    // @param array  $attributes
     // @param string $type
     //
     //--------------------------------------------------------------------------------------------------------
-    protected function _input($name = "", $value = "", $_attributes = [], $type = '')
+    protected function _input($name = "", $value = "", $attributes = [], $type = '')
     {
         if( $name !== '' )
         {
-            $_attributes['name'] = $name;
+            $attributes['name'] = $name;
         }
 
         if( $value !== '' )
         {
-            $_attributes['value'] = $value;
+            $attributes['value'] = $value;
         }
 
-        if( ! empty($_attributes['name']) )
+        if( ! empty($attributes['name']) )
         {
             if( isset($this->postback['bool']) && $this->postback['bool'] === true )
             {
                 $method = ! empty($this->method) ? $this->method : $this->postback['type'];
 
-                $_attributes['value'] = \Validation::postBack($_attributes['name'], $method);
+                $attributes['value'] = \Validation::postBack($attributes['name'], $method);
 
                 $this->postback = [];
             }
         }
 
-        return '<input type="'.$type.'"'.$this->attributes($_attributes).'>'.EOL;
+        return '<input type="'.$type.'"'.$this->attributes($attributes).'>'.EOL;
     }
 
     //--------------------------------------------------------------------------------------------------------

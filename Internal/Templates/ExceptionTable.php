@@ -1,4 +1,4 @@
-<?php 
+<?php
 $style  = 'border:solid 1px #E1E4E5;';
 $style .= 'background:#FEFEFE;';
 $style .= 'padding:10px;';
@@ -10,7 +10,7 @@ $table .= 'text-align:left;';
 $table .= 'font-size:14px;';
 
 $color =  'color:#000;';
-$lang  = lang('Error'); 
+$lang  = lang('Templates');
 ?>
 
 
@@ -19,11 +19,11 @@ $lang  = lang('Error');
     <?php if( ! empty($message) ): ?>
     <tr><td  style="<?php echo $color; ?>"><?php echo $lang['message']; ?> : </td><td><span><?php echo $message; ?></span></td></tr>
     <?php endif ?>
-    
+
     <?php if( ! empty($file) ): ?>
     <tr><td style="<?php echo $color; ?>"><?php echo $lang['file']; ?> : </td><td><span><?php echo $file; ?></span></td></tr>
     <?php endif ?>
-    
+
     <?php if( ! empty($line) ): ?>
     <tr><td style="<?php echo $color; ?>"><?php echo $lang['line']; ?> : </td><td><span><?php echo $line; ?></span></td></tr>
     <?php endif ?>

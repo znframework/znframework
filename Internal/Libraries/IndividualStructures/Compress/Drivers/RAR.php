@@ -1,5 +1,7 @@
 <?php namespace ZN\IndividualStructures\Compress\Drivers;
 
+use ZN\IndividualStructures\Compress\Exception\InvalidArgumentException;
+
 class RarDriver extends Abstracts\CompressDriverMappingAbstract
 {
     //--------------------------------------------------------------------------------------------------------
@@ -7,26 +9,26 @@ class RarDriver extends Abstracts\CompressDriverMappingAbstract
     // Author     : Ozan UYKUN <ozanbote@gmail.com>
     // Site       : www.znframework.com
     // License    : The MIT License
-    // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
+    // Copyright  : (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
     // Construct
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
-        \Support::func('rar_open', 'RAR');  
+        \Support::func('rar_open', 'RAR');
     }
 
     //--------------------------------------------------------------------------------------------------------
     // Extract
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param  string $source
     // @param  string $target
     // @return bool
@@ -36,17 +38,17 @@ class RarDriver extends Abstracts\CompressDriverMappingAbstract
     {
         $rarFile = rar_open(suffix($source, '.rar'), $password);
         $list    = rar_list($rarFile);
-        
-        if( ! empty($list) ) foreach( $list as $file ) 
+
+        if( ! empty($list) ) foreach( $list as $file )
         {
             $entry = rar_entry_get($rarFile, $file);
             $entry->extract($target);
         }
         else
         {
-            return \Exceptions::throws('Error', 'emptyVariable', '$list');  
+            throw new InvalidArgumentException('Error', 'emptyVariable', '$list');
         }
-        
+
         rar_close($rarFile);
     }
 
@@ -62,7 +64,7 @@ class RarDriver extends Abstracts\CompressDriverMappingAbstract
     {
         return uselib('GZDriver')->write($file, $data);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Read
     //--------------------------------------------------------------------------------------------------------
@@ -86,7 +88,7 @@ class RarDriver extends Abstracts\CompressDriverMappingAbstract
     {
         return uselib('GZDriver')->do($data);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Undo
     //--------------------------------------------------------------------------------------------------------

@@ -5,6 +5,8 @@
 
 class Email extends StaticAccess
 {
+	const config = 'Services:email';
+
 	public static function getClassName()
 	{
 		return __CLASS__;

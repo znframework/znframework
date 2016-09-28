@@ -9,7 +9,7 @@ class SQLiteDriver extends DriverConnectionMappingAbstract
     // Author     : Ozan UYKUN <ozanbote@gmail.com>
     // Site       : www.znframework.com
     // License    : The MIT License
-    // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
+    // Copyright  : (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
 
@@ -24,7 +24,7 @@ class SQLiteDriver extends DriverConnectionMappingAbstract
     [
         'like' => '%'
     ];
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Statements
     //--------------------------------------------------------------------------------------------------------
@@ -34,18 +34,18 @@ class SQLiteDriver extends DriverConnectionMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     protected $statements =
     [
-        'autoIncrement' => 'AUTOINCREMENT',
-        'primaryKey'    => 'PRIMARY KEY',
-        'foreignKey'    => 'FOREIGN KEY',
+        'autoincrement' => 'AUTOINCREMENT',
+        'primarykey'    => 'PRIMARY KEY',
+        'foreignkey'    => 'FOREIGN KEY',
         'unique'        => 'UNIQUE',
         'null'          => 'NULL',
-        'notNull'       => 'NOT NULL',
+        'notnull'       => 'NOT NULL',
         'exists'        => 'EXISTS',
-        'notExists'     => 'NOT EXISTS',
+        'notexists'     => 'NOT EXISTS',
         'constraint'    => 'CONSTRAINT',
         'default'       => 'DEFAULT'
     ];
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Variable Types
     //--------------------------------------------------------------------------------------------------------
@@ -56,25 +56,25 @@ class SQLiteDriver extends DriverConnectionMappingAbstract
     protected $variableTypes =
     [
         'int'           => 'INTEGER',
-        'smallInt'      => 'SMALLINT',
-        'tinyInt'       => 'TINYINT',
-        'mediumInt'     => 'MEDIUMINT',
-        'bigInt'        => 'BIGINT',
+        'smallint'      => 'SMALLINT',
+        'tinyint'       => 'TINYINT',
+        'mediumint'     => 'MEDIUMINT',
+        'bigint'        => 'BIGINT',
         'decimal'       => 'DECIMAL',
         'double'        => 'DOUBLE',
         'float'         => 'FLOAT',
         'char'          => 'CHARACTER',
-        'varChar'       => 'VARCHAR',
-        'tinyText'      => 'VARCHAR(255)',
+        'varchar'       => 'VARCHAR',
+        'tinytext'      => 'VARCHAR(255)',
         'text'          => 'TEXT',
-        'mediumText'    => 'CLOB',
-        'longText'      => 'BLOB',
+        'mediumtext'    => 'CLOB',
+        'longtext'      => 'BLOB',
         'date'          => 'DATE',
-        'dateTime'      => 'DATETIME',
+        'datetime'      => 'DATETIME',
         'time'          => 'DATETIME',
-        'timeStamp'     => 'DATETIME'
+        'timestamp'     => 'DATETIME'
     ];
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Construct
     //--------------------------------------------------------------------------------------------------------
@@ -86,7 +86,7 @@ class SQLiteDriver extends DriverConnectionMappingAbstract
     {
         \Support::extension('SQLite3', 'SQLite3');
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Connect
     //--------------------------------------------------------------------------------------------------------
@@ -97,18 +97,18 @@ class SQLiteDriver extends DriverConnectionMappingAbstract
     public function connect($config = [])
     {
         $this->config = $config;
-        
+
         try
         {
             $this->connect =    ( ! empty($this->config['password']) )
                                 ? new \SQLite3($this->config['database'], SQLITE3_OPEN_READWRITE | SQLITE3_OPEN_CREATE, $this->config['password'])
                                 : new \SQLite3($this->config['database']);
-        }   
+        }
         catch(Exception $e)
         {
-            die(getErrorMessage('Database', 'mysqlConnectError'));
+            die(getErrorMessage('Database', 'connectError'));
         }
-    }   
+    }
 
     //--------------------------------------------------------------------------------------------------------
     // Exec
@@ -124,10 +124,10 @@ class SQLiteDriver extends DriverConnectionMappingAbstract
         {
             return false;
         }
-        
+
         return $this->connect->exec($query);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Multi Query
     //--------------------------------------------------------------------------------------------------------
@@ -140,7 +140,7 @@ class SQLiteDriver extends DriverConnectionMappingAbstract
     {
         return $this->query($query, $security);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Query
     //--------------------------------------------------------------------------------------------------------
@@ -153,7 +153,7 @@ class SQLiteDriver extends DriverConnectionMappingAbstract
     {
         return $this->query = $this->connect->query($query);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Trans Start
     //--------------------------------------------------------------------------------------------------------
@@ -165,7 +165,7 @@ class SQLiteDriver extends DriverConnectionMappingAbstract
     {
         return $this->connect->exec('BEGIN TRANSACTION');
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Trans Roll Back
     //--------------------------------------------------------------------------------------------------------
@@ -175,9 +175,9 @@ class SQLiteDriver extends DriverConnectionMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function transRollback()
     {
-        return $this->connect->exec('ROLLBACK');         
+        return $this->connect->exec('ROLLBACK');
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Trans Commit
     //--------------------------------------------------------------------------------------------------------
@@ -201,7 +201,7 @@ class SQLiteDriver extends DriverConnectionMappingAbstract
     {
         return $this->connect->lastInsertRowID();
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Column Data
     //--------------------------------------------------------------------------------------------------------
@@ -211,11 +211,11 @@ class SQLiteDriver extends DriverConnectionMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function columnData($col = '')
     {
-        if( empty($this->query) ) 
+        if( empty($this->query) )
         {
             return false;
         }
-        
+
         $dataTypes = array
         (
             SQLITE3_INTEGER => 'integer',
@@ -224,15 +224,15 @@ class SQLiteDriver extends DriverConnectionMappingAbstract
             SQLITE3_BLOB    => 'blob',
             SQLITE3_NULL    => 'null'
         );
-        
+
         $columns = [];
         $count   = $this->numFields();
 
         for ($i = 0; $i < $count; $i++)
-        {   
+        {
             $type       = $this->query->columnType($i);
             $fieldName  = $this->query->columnName($i);
-            
+
             $columns[$fieldName]                = new \stdClass();
             $columns[$fieldName]->name          = $fieldName;
             $columns[$fieldName]->type          = isset($dataTypes[$type]) ? $dataTypes[$type] : $type;
@@ -240,15 +240,15 @@ class SQLiteDriver extends DriverConnectionMappingAbstract
             $columns[$fieldName]->primaryKey    = NULL;
             $columns[$fieldName]->default       = NULL;
         }
-        
+
         if( isset($columns[$col]) )
         {
             return $columns[$col];
         }
-        
+
         return $columns;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Num Rows
     //--------------------------------------------------------------------------------------------------------
@@ -258,14 +258,14 @@ class SQLiteDriver extends DriverConnectionMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function numRows()
     {
-        if( empty($this->result) ) 
+        if( empty($this->result) )
         {
             return false;
         }
-        
+
         return count($this->result());
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Columns
     //--------------------------------------------------------------------------------------------------------
@@ -276,22 +276,22 @@ class SQLiteDriver extends DriverConnectionMappingAbstract
 
     public function columns()
     {
-        if( empty($this->query) ) 
+        if( empty($this->query) )
         {
             return false;
         }
-        
-        $columns = [];      
+
+        $columns = [];
         $num_fields = $this->numFields();
-        
+
         for($i=0; $i < $num_fields; $i++)
-        {       
+        {
             $columns[] = $this->query->columnName($i);
         }
-        
+
         return $columns;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Num Fields
     //--------------------------------------------------------------------------------------------------------
@@ -310,7 +310,7 @@ class SQLiteDriver extends DriverConnectionMappingAbstract
             return 0;
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Real Escape String
     //--------------------------------------------------------------------------------------------------------
@@ -320,14 +320,14 @@ class SQLiteDriver extends DriverConnectionMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function realEscapeString($data)
     {
-        if( empty($this->connect) ) 
+        if( empty($this->connect) )
         {
             return false;
         }
-        
+
         return $this->connect->escapeString($data);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Error
     //--------------------------------------------------------------------------------------------------------
@@ -346,7 +346,7 @@ class SQLiteDriver extends DriverConnectionMappingAbstract
             return false;
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Fetch Array
     //--------------------------------------------------------------------------------------------------------
@@ -362,10 +362,10 @@ class SQLiteDriver extends DriverConnectionMappingAbstract
         }
         else
         {
-            return false;   
+            return false;
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Fetch Assoc
     //--------------------------------------------------------------------------------------------------------
@@ -381,10 +381,10 @@ class SQLiteDriver extends DriverConnectionMappingAbstract
         }
         else
         {
-            return false;   
+            return false;
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Fetch Row
     //--------------------------------------------------------------------------------------------------------
@@ -400,10 +400,10 @@ class SQLiteDriver extends DriverConnectionMappingAbstract
         }
         else
         {
-            return 0;   
+            return 0;
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Affected Rows
     //--------------------------------------------------------------------------------------------------------
@@ -419,10 +419,10 @@ class SQLiteDriver extends DriverConnectionMappingAbstract
         }
         else
         {
-            return false;   
+            return false;
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Close
     //--------------------------------------------------------------------------------------------------------
@@ -432,16 +432,16 @@ class SQLiteDriver extends DriverConnectionMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function close()
     {
-        if( ! empty($this->connect) ) 
+        if( ! empty($this->connect) )
         {
-            @$this->connect->close(); 
+            @$this->connect->close();
         }
-        else 
+        else
         {
             return false;
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Version
     //--------------------------------------------------------------------------------------------------------
@@ -454,7 +454,7 @@ class SQLiteDriver extends DriverConnectionMappingAbstract
         if( ! empty($this->connect) )
         {
             $version = \SQLite3::version();
-            
+
             return $version[$v];
         }
         else

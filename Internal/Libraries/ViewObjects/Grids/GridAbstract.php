@@ -1,15 +1,15 @@
 <?php namespace ZN\ViewObjects\Grids\Abstracts;
 
-use Requirements;
+use CLController;
 
-abstract class GridAbstract extends Requirements
+abstract class GridAbstract extends CLController
 {
     //--------------------------------------------------------------------------------------------------------
     //
     // Author     : Ozan UYKUN <ozanbote@gmail.com>
     // Site       : www.znframework.com
     // License    : The MIT License
-    // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
+    // Copyright  : (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
 
@@ -23,4 +23,13 @@ abstract class GridAbstract extends Requirements
     //
     //--------------------------------------------------------------------------------------------------------
     abstract public function create() : String;
+
+    //--------------------------------------------------------------------------------------------------------
+    // limit()
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $limit
+    //
+    //--------------------------------------------------------------------------------------------------------
+    abstract public function limit(Int $limit);
 }

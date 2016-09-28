@@ -1,5 +1,7 @@
 <?php namespace ZN\IndividualStructures\Compress\Drivers;
 
+use ZN\IndividualStructures\Compress\Exception\FileNotFoundException;
+
 class GZDriver extends Abstracts\CompressDriverMappingAbstract
 {
     //--------------------------------------------------------------------------------------------------------
@@ -7,32 +9,32 @@ class GZDriver extends Abstracts\CompressDriverMappingAbstract
     // Author     : Ozan UYKUN <ozanbote@gmail.com>
     // Site       : www.znframework.com
     // License    : The MIT License
-    // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
+    // Copyright  : (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Construct
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
-        \Support::func('gzopen', 'GZ');  
+        \Support::func('gzopen', 'GZ');
     }
 
     //--------------------------------------------------------------------------------------------------------
     // Extract
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
     public function extract($source, $target, $password)
     {
-        \Support::func('gzextract', 'GZ Driver Extract');   
+        \Support::func('gzextract', 'GZ Driver Extract');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -46,19 +48,19 @@ class GZDriver extends Abstracts\CompressDriverMappingAbstract
     public function write($file, $data)
     {
         $open = gzopen($file, 'w');
-        
+
         if( empty($open) )
         {
-            return \Exceptions::throws('Error', 'fileNotFound', $file); 
+            throw new FileNotFoundException('Error', 'fileNotFound', $file);
         }
-        
+
         $return = gzwrite($open, $data, strlen($data));
-        
+
         gzclose($open);
-        
+
         return $return;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Read
     //--------------------------------------------------------------------------------------------------------
@@ -69,19 +71,19 @@ class GZDriver extends Abstracts\CompressDriverMappingAbstract
     public function read($file)
     {
         $open = gzopen($file, 'r');
-        
+
         if( empty($open) )
         {
-            return \Exceptions::throws('Error', 'fileNotFound', $file); 
+            throw new FileNotFoundException('Error', 'fileNotFound', $file);
         }
-        
+
         $return = gzread($open, 8096);
-        
+
         gzclose($open);
-        
+
         return $return;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Do
     //--------------------------------------------------------------------------------------------------------
@@ -89,11 +91,11 @@ class GZDriver extends Abstracts\CompressDriverMappingAbstract
     // @param string  $data
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do($data) 
+    public function do($data)
     {
         return gzcompress($data);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Undo
     //--------------------------------------------------------------------------------------------------------

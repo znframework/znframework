@@ -1,13 +1,13 @@
 <?php namespace ZN\Database;
 
-class DriverForge extends DatabaseCommon
+class DriverForge
 {
     //--------------------------------------------------------------------------------------------------------
     //
     // Author     : Ozan UYKUN <ozanbote@gmail.com>
     // Site       : www.znframework.com
     // License    : The MIT License
-    // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
+    // Copyright  : (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
 
@@ -21,9 +21,9 @@ class DriverForge extends DatabaseCommon
     //--------------------------------------------------------------------------------------------------------
     public function createDatabase($dbname, $extras)
     {
-        return 'CREATE DATABASE '.$dbname.$this->_extras($extras);  
+        return 'CREATE DATABASE '.$dbname.$this->_extras($extras);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Drop Database
     //--------------------------------------------------------------------------------------------------------
@@ -32,10 +32,10 @@ class DriverForge extends DatabaseCommon
     //
     //--------------------------------------------------------------------------------------------------------
     public function dropDatabase($dbname)
-    {       
-        return 'DROP DATABASE '.$dbname;    
+    {
+        return 'DROP DATABASE '.$dbname;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Create Table
     //--------------------------------------------------------------------------------------------------------
@@ -52,22 +52,22 @@ class DriverForge extends DatabaseCommon
         foreach( $columns as $key => $value )
         {
             $values = '';
-            
+
             if( is_array($value) ) foreach( $value as $val )
             {
                 $values .= ' '.$val;
             }
             else
             {
-                $values = $value;   
+                $values = $value;
             }
-            
+
             $column .= $key.' '.$values.',';
         }
 
         return 'CREATE TABLE '.$table.'('.rtrim(trim($column), ',').')'.$this->_extras($extras);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Drop Table
     //--------------------------------------------------------------------------------------------------------
@@ -79,7 +79,7 @@ class DriverForge extends DatabaseCommon
     {
         return 'DROP TABLE '.$table;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Alter Table
     //--------------------------------------------------------------------------------------------------------
@@ -89,7 +89,7 @@ class DriverForge extends DatabaseCommon
     //
     //--------------------------------------------------------------------------------------------------------
     public function alterTable($table, $condition){}
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Rename Table
     //--------------------------------------------------------------------------------------------------------
@@ -97,12 +97,12 @@ class DriverForge extends DatabaseCommon
     // @param string $name
     // @param string $newName
     //
-    //--------------------------------------------------------------------------------------------------------  
+    //--------------------------------------------------------------------------------------------------------
     public function renameTable($name, $newName)
     {
         return 'ALTER TABLE '.$name.' RENAME TO '.$newName;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Truncate
     //--------------------------------------------------------------------------------------------------------
@@ -114,7 +114,7 @@ class DriverForge extends DatabaseCommon
     {
         return 'TRUNCATE TABLE '.$table;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Add Column
     //--------------------------------------------------------------------------------------------------------
@@ -127,7 +127,7 @@ class DriverForge extends DatabaseCommon
     {
         return 'ALTER TABLE '.$table.' ADD ('.$this->_extractColumn($columns).');';
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Drop Column
     //--------------------------------------------------------------------------------------------------------
@@ -140,7 +140,7 @@ class DriverForge extends DatabaseCommon
     {
         return 'ALTER TABLE '.$table.' DROP '.$column.';';
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Modify Column
     //--------------------------------------------------------------------------------------------------------
@@ -153,7 +153,7 @@ class DriverForge extends DatabaseCommon
     {
         return 'ALTER TABLE '.$table.' MODIFY '.$this->_extractColumn($columns).';';
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Rename Column
     //--------------------------------------------------------------------------------------------------------
@@ -181,9 +181,9 @@ class DriverForge extends DatabaseCommon
         foreach( $columns as $column => $values )
         {
             $colvals = '';
-            
+
             if( is_array($values) )
-            {   
+            {
                 foreach( $values as $val )
                 {
                     $colvals .= ' '.$val;
@@ -193,7 +193,7 @@ class DriverForge extends DatabaseCommon
             {
                 $colvals .= ' '.$values;
             }
-            
+
             $con .= $column.$colvals.',';
         }
 
@@ -211,13 +211,13 @@ class DriverForge extends DatabaseCommon
         }
         elseif( is_string($extras) )
         {
-            $extraCodes = ' '.$extras.';';  
+            $extraCodes = ' '.$extras.';';
         }
         else
         {
-            $extraCodes = '';   
+            $extraCodes = '';
         }
-        
+
         return $extraCodes;
     }
 }

@@ -7,22 +7,22 @@ class Objects
     // Author     : Ozan UYKUN <ozanbote@gmail.com>
     // Site       : www.znframework.com
     // License    : The MIT License
-    // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
+    // Copyright  : (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
-    
+
     //--------------------------------------------------------------------------------------------------------
-    // Construct                                                                      
+    // Construct
     //--------------------------------------------------------------------------------------------------------
     //
     // @param array $array
     //                                                                                        
     //--------------------------------------------------------------------------------------------------------
-    public function __construct(Array $array = [])
+    public function __construct(Array $array)
     {
-        if ( ! empty($array) ) 
+        if ( ! empty($array) )
         {
-            foreach( $array as $key => $val ) 
+            foreach( $array as $key => $val )
             {
                 $this->{$key} = $val;
             }

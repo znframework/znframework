@@ -7,7 +7,7 @@ trait FormElementsTrait
     // Author     : Ozan UYKUN <ozanbote@gmail.com>
     // Site       : www.znframework.com
     // License    : The MIT License
-    // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
+    // Copyright  : (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
 
@@ -152,6 +152,20 @@ trait FormElementsTrait
         }
 
         $this->settings['attr'] = array_merge($settings, $attr);
+
+        return $this;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // attr()
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param array $attr
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function action(String $url = NULL)
+    {
+        $this->settings['attr']['action'] = isUrl($url) ? $url : siteUrl($url);
 
         return $this;
     }

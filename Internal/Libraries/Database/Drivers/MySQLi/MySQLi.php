@@ -9,10 +9,10 @@ class MySQLiDriver extends DriverConnectionMappingAbstract
     // Author     : Ozan UYKUN <ozanbote@gmail.com>
     // Site       : www.znframework.com
     // License    : The MIT License
-    // Telif Hakkı: Copyright (c) 2012-2016, znframework.com
+    // Copyright  : (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Operators
     //--------------------------------------------------------------------------------------------------------
@@ -24,7 +24,7 @@ class MySQLiDriver extends DriverConnectionMappingAbstract
     [
         'like' => '%'
     ];
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Statements
     //--------------------------------------------------------------------------------------------------------
@@ -34,18 +34,18 @@ class MySQLiDriver extends DriverConnectionMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     protected $statements =
     [
-        'autoIncrement' => 'AUTO_INCREMENT',
-        'primaryKey'    => 'PRIMARY KEY',
-        'foreignKey'    => 'FOREIGN KEY',
+        'autoincrement' => 'AUTO_INCREMENT',
+        'primarykey'    => 'PRIMARY KEY',
+        'foreignkey'    => 'FOREIGN KEY',
         'unique'        => 'UNIQUE',
         'null'          => 'NULL',
-        'notNull'       => 'NOT NULL',
+        'notnull'       => 'NOT NULL',
         'exists'        => 'EXISTS',
-        'notExists'     => 'NOT EXISTS',
+        'notexists'     => 'NOT EXISTS',
         'constraint'    => 'CONSTRAINT',
         'default'       => 'DEFAULT'
     ];
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Variable Types
     //--------------------------------------------------------------------------------------------------------
@@ -56,25 +56,25 @@ class MySQLiDriver extends DriverConnectionMappingAbstract
     protected $variableTypes =
     [
         'int'           => 'INT',
-        'smallInt'      => 'SMALLINT',
-        'tinyInt'       => 'TINYINT',
-        'mediumInt'     => 'MEDIUMINT',
-        'bigInt'        => 'BIGINT',
+        'smallint'      => 'SMALLINT',
+        'tinyint'       => 'TINYINT',
+        'mediumint'     => 'MEDIUMINT',
+        'bigint'        => 'BIGINT',
         'decimal'       => 'DECIMAL',
         'double'        => 'DOUBLE',
         'float'         => 'FLOAT',
         'char'          => 'CHAR',
-        'varChar'       => 'VARCHAR',
-        'tinyText'      => 'TINYTEXT',
+        'varchar'       => 'VARCHAR',
+        'tinytext'      => 'TINYTEXT',
         'text'          => 'TEXT',
-        'mediumText'    => 'MEDIUMTEXT',
-        'longText'      => 'LONGTEXT',
+        'mediumtext'    => 'MEDIUMTEXT',
+        'longtext'      => 'LONGTEXT',
         'date'          => 'DATE',
-        'dateTime'      => 'DATETIME',
+        'datetime'      => 'DATETIME',
         'time'          => 'TIME',
-        'timeStamp'     => 'TIMESTAMP'
+        'timestamp'     => 'TIMESTAMP'
     ];
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Construct
     //--------------------------------------------------------------------------------------------------------
@@ -84,9 +84,9 @@ class MySQLiDriver extends DriverConnectionMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
-        \Support::func('mysqli_connect', 'MySQLi'); 
+        \Support::func('mysqli_connect', 'MySQLi');
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Connect
     //--------------------------------------------------------------------------------------------------------
@@ -97,24 +97,24 @@ class MySQLiDriver extends DriverConnectionMappingAbstract
     public function connect($config = [])
     {
         $this->config  = $config;
-        
+
         $this->connect = mysqli_connect($this->config['host'], $this->config['user'], $this->config['password'], $this->config['database']);
-        
-        if( empty($this->connect) ) 
+
+        if( empty($this->connect) )
         {
-            die(getErrorMessage('Database', 'mysqlConnectError'));
+            die(getErrorMessage('Database', 'connectError'));
         }
-        
-        if( ! empty($this->config['charset']) )  
-        { 
+
+        if( ! empty($this->config['charset']) )
+        {
             $this->query("SET NAMES '".$this->config['charset']."'");
         }
         if( ! empty($this->config['charset']) )
-        {  
-            $this->query('SET CHARACTER SET '.$this->config['charset']);    
+        {
+            $this->query('SET CHARACTER SET '.$this->config['charset']);
         }
         if( ! empty($this->config['collation']) )
-        { 
+        {
             $this->query('SET COLLATION_CONNECTION = "'.$this->config['collation'].'"');
         }
     }
@@ -128,7 +128,7 @@ class MySQLiDriver extends DriverConnectionMappingAbstract
     //
     //--------------------------------------------------------------------------------------------------------
     public function exec($query, $security = NULL)
-    {   
+    {
         if( empty($query) )
         {
             return false;
@@ -136,7 +136,7 @@ class MySQLiDriver extends DriverConnectionMappingAbstract
 
         return mysqli_query($this->connect, $query);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Query
     //--------------------------------------------------------------------------------------------------------
@@ -167,7 +167,7 @@ class MySQLiDriver extends DriverConnectionMappingAbstract
 
         return $this->query = mysqli_multi_query($this->connect, $query);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Trans Start
     //--------------------------------------------------------------------------------------------------------
@@ -183,7 +183,7 @@ class MySQLiDriver extends DriverConnectionMappingAbstract
                ? mysqli_begin_transaction($this->connect)
                : $this->query('START TRANSACTION');
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Trans Roll Back
     //--------------------------------------------------------------------------------------------------------
@@ -200,7 +200,7 @@ class MySQLiDriver extends DriverConnectionMappingAbstract
             return true;
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Trans Commit
     //--------------------------------------------------------------------------------------------------------
@@ -217,7 +217,7 @@ class MySQLiDriver extends DriverConnectionMappingAbstract
             return true;
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Insert ID
     //--------------------------------------------------------------------------------------------------------
@@ -236,7 +236,7 @@ class MySQLiDriver extends DriverConnectionMappingAbstract
             return false;
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Column Data
     //--------------------------------------------------------------------------------------------------------
@@ -246,19 +246,19 @@ class MySQLiDriver extends DriverConnectionMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function columnData($column)
     {
-        if( empty($this->query) ) 
+        if( empty($this->query) )
         {
             return false;
         }
-        
+
         $columns   = [];
-        $fieldData = mysqli_fetch_fields($this->query); 
+        $fieldData = mysqli_fetch_fields($this->query);
         $count     = count($fieldData);
 
         for( $i = 0; $i < $count; $i++ )
         {
             $fieldName = $fieldData[$i]->name;
-            
+
             $columns[$fieldName]                = new \stdClass();
             $columns[$fieldName]->name          = $fieldName;
             $columns[$fieldName]->type          = $fieldData[$i]->type;
@@ -266,15 +266,15 @@ class MySQLiDriver extends DriverConnectionMappingAbstract
             $columns[$fieldName]->primaryKey    = (int) ($fieldData[$i]->flags & 2);
             $columns[$fieldName]->default       = $fieldData[$i]->def;
         }
-        
+
         if( isset($columns[$column]) )
         {
             return $columns[$column];
         }
-        
+
         return $columns;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Num Rows
     //--------------------------------------------------------------------------------------------------------
@@ -290,10 +290,10 @@ class MySQLiDriver extends DriverConnectionMappingAbstract
         }
         else
         {
-            return 0;   
+            return 0;
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Columns
     //--------------------------------------------------------------------------------------------------------
@@ -303,23 +303,23 @@ class MySQLiDriver extends DriverConnectionMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function columns()
     {
-        if( empty($this->query) ) 
+        if( empty($this->query) )
         {
             return false;
         }
-        
+
         $columns    = [];
         $fields     = mysqli_fetch_fields($this->query);
         $num_fields = $this->numFields();
-        
+
         for($i=0; $i < $num_fields; $i++)
-        {       
+        {
             $columns[] = $fields[$i]->name;
         }
-        
+
         return $columns;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Num Fields
     //--------------------------------------------------------------------------------------------------------
@@ -335,10 +335,10 @@ class MySQLiDriver extends DriverConnectionMappingAbstract
         }
         else
         {
-            return 0;   
+            return 0;
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Real Escape String
     //--------------------------------------------------------------------------------------------------------
@@ -357,7 +357,7 @@ class MySQLiDriver extends DriverConnectionMappingAbstract
             return false;
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Error
     //--------------------------------------------------------------------------------------------------------
@@ -376,7 +376,7 @@ class MySQLiDriver extends DriverConnectionMappingAbstract
             return false;
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Fetch Array
     //--------------------------------------------------------------------------------------------------------
@@ -392,10 +392,10 @@ class MySQLiDriver extends DriverConnectionMappingAbstract
         }
         else
         {
-            return false;   
+            return false;
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Fetch Assoc
     //--------------------------------------------------------------------------------------------------------
@@ -411,10 +411,10 @@ class MySQLiDriver extends DriverConnectionMappingAbstract
         }
         else
         {
-            return false;   
+            return false;
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Fetch Row
     //--------------------------------------------------------------------------------------------------------
@@ -430,10 +430,10 @@ class MySQLiDriver extends DriverConnectionMappingAbstract
         }
         else
         {
-            return 0;   
+            return 0;
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Affected Rows
     //--------------------------------------------------------------------------------------------------------
@@ -449,10 +449,10 @@ class MySQLiDriver extends DriverConnectionMappingAbstract
         }
         else
         {
-            return false;   
+            return false;
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Close
     //--------------------------------------------------------------------------------------------------------
@@ -462,16 +462,16 @@ class MySQLiDriver extends DriverConnectionMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function close()
     {
-        if( ! empty($this->connect) ) 
+        if( ! empty($this->connect) )
         {
             mysqli_close($this->connect);
         }
-        else 
+        else
         {
             return false;
         }
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Version
     //--------------------------------------------------------------------------------------------------------
@@ -481,13 +481,13 @@ class MySQLiDriver extends DriverConnectionMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function version()
     {
-        if( ! empty($this->connect) ) 
+        if( ! empty($this->connect) )
         {
-            return mysqli_get_server_version($this->connect); 
+            return mysqli_get_server_version($this->connect);
         }
-        else 
+        else
         {
             return false;
         }
-    }   
+    }
 }
