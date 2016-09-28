@@ -209,7 +209,7 @@ if( is_file($isFile) )
             {
                 uselib($page)->$function(...$parameters);
             }
-            catch(\Throwable $e)
+            catch( \Throwable $e )
             {
                 if( PROJECT_MODE !== 'publication' )
                 {

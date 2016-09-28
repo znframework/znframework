@@ -313,7 +313,7 @@ class Masterpage implements MasterpageInterface
             $params[] = true;
         }
 
-        $header .= $this->$type(...$params);
+        $header .= Import::$type(...$params);
 
         if( isset($head[$type]) )
         {
@@ -328,7 +328,7 @@ class Masterpage implements MasterpageInterface
                 $headLinks = $head[$type];
             }
 
-            $header .= $this->$type(...$headLinks);
+            $header .= Import::$type(...$headLinks);
         }
 
         return $header;
