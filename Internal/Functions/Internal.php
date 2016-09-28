@@ -159,7 +159,7 @@ function internalCreateRobotsFile()
 
     if( isArray($rules) ) foreach( $rules as $key => $val )
     {
-        if( ! is_numeric($key) ) // Tekli Kullanım
+        if( ! is_numeric($key) ) // Single Use
         {
             switch( $key )
             {
@@ -178,7 +178,7 @@ function internalCreateRobotsFile()
         }
         else
         {
-            if( isArray($val) ) foreach( $val as $r => $v ) // Çoklu Kullanım
+            if( isArray($val) ) foreach( $val as $r => $v ) // Multi Use
             {
                 switch( $r )
                 {
@@ -441,6 +441,7 @@ function internalCreateHtaccessFile()
     if( ! empty($allSettings) )
     {
         $sets = '';
+
         foreach( $allSettings as $k => $v )
         {
             if( $v !== '' )
@@ -505,10 +506,8 @@ function internalStartingContoller(String $startController = '', Array $param = 
 
         if( ! is_callable([$controllerClass, $controllerFunc]) )
         {
-            // Hatayı rapor et.
             report('Error', lang('Error', 'callUserFuncArrayError', $controllerFunc), 'SystemCallUserFuncArrayError');
 
-            // Hatayı ekrana yazdır.
             die(Errors::message('Error', 'callUserFuncArrayError', $controllerFunc));
         }
 
@@ -516,10 +515,8 @@ function internalStartingContoller(String $startController = '', Array $param = 
     }
     else
     {
-        // Hatayı rapor et.
         report('Error', lang('Error', 'notIsFileError', $controllerFile), 'SystemNotIsFileError');
 
-        // Hatayı ekrana yazdır.
         die(Errors::message('Error', 'notIsFileError', $controllerFile));
     }
 }

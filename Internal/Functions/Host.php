@@ -29,21 +29,10 @@ function host() : String
     }
     else
     {
-        if( isset($_SERVER['HTTP_HOST']) )
-        {
-            $host = $_SERVER['HTTP_HOST'];
-        }
-        else
-        {
-            if( isset($_SERVER['SERVER_NAME']) )
-            {
-                $host = $_SERVER['SERVER_NAME'];
-            }
-            else
-            {
-                $host = $_SERVER['SERVER_ADDR'] ?? '';
-            }
-        }
+        $host = $_SERVER['HTTP_HOST']   ??
+                $_SERVER['SERVER_NAME'] ??
+                $_SERVER['SERVER_ADDR'] ??
+                '';
     }
 
     return trim($host);

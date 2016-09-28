@@ -21,14 +21,9 @@
 //--------------------------------------------------------------------------------------------------
 function sslStatus() : String
 {
-    if( Config::get('Services','uri')['ssl'] )
-    {
-        return 'https://';
-    }
-    else
-    {
-        return 'http://';
-    }
+    return ! Config::get('Services','uri')['ssl']
+           ? 'http://'
+           : 'https://';
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -42,12 +37,7 @@ function sslStatus() : String
 //--------------------------------------------------------------------------------------------------
 function indexStatus() : String
 {
-    if( Config::get('Htaccess', 'uri')['directoryIndex'] )
-    {
-        return DIRECTORY_INDEX.'/';
-    }
-    else
-    {
-        return '';
-    }
+    return ! Config::get('Htaccess', 'uri')['directoryIndex']
+           ? ''
+           : suffix(DIRECTORY_INDEX);
 }

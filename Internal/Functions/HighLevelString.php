@@ -93,6 +93,10 @@ function getOS() : String
     {
         return 'LINUX';
     }
+    elseif( stristr(PHP_OS, 'UNIX') )
+    {
+        return 'UNIX';
+    }
     else
     {
         return 'UNKNOWN';

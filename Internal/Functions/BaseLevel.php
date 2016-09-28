@@ -56,14 +56,7 @@ function isPhpVersion($version = '5.2.4')
 
     $version = (string) $version;
 
-    if( version_compare(PHP_VERSION, $version, '>=') )
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+    return version_compare(PHP_VERSION, $version, '>=') ? true : false;
 }
 
 //--------------------------------------------------------------------------------------------------

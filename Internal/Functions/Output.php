@@ -26,11 +26,11 @@ function output($data, Array $settings = [], Bool $content = false)
     // ---------------------------------------------------------------------------------------------
     // AYARLAR
     // ---------------------------------------------------------------------------------------------
-    $textType       = isset($settings['textType'])      ? $settings['textType']     : 'monospace, Tahoma, Arial';
-    $textSize       = isset($settings['textSize'])      ? $settings['textSize']     : '12px';
+    $textType = $settings['textType'] ?? 'monospace, Tahoma, Arial';
+    $textSize = $settings['textSize'] ?? '12px';
     // ---------------------------------------------------------------------------------------------
 
-    $globalStyle  = ' style="font-family:'.$textType.'; font-size:'.$textSize .';"';
+    $globalStyle = ' style="font-family:'.$textType.'; font-size:'.$textSize .';"';
 
     $output  = "<span$globalStyle>";
     $output .= internalOutput($data, '', 0, $settings);

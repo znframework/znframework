@@ -21,14 +21,9 @@
 //--------------------------------------------------------------------------------------------------
 function isImport(String $path) : Bool
 {
-    if( in_array( realpath(suffix($path, '.php')), get_required_files() ) )
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+    return ! in_array( realpath(suffix($path, '.php')), get_required_files() )
+           ? false
+           : true;
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -42,14 +37,9 @@ function isImport(String $path) : Bool
 //--------------------------------------------------------------------------------------------------
 function isUrl(String $url) : Bool
 {
-    if( ! preg_match('#^(\w+:)?//#i', $url) )
-    {
-        return false;
-    }
-    else
-    {
-        return true;
-    }
+    return ! preg_match('#^(\w+:)?//#i', $url)
+           ? false
+           : true;
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -63,14 +53,9 @@ function isUrl(String $url) : Bool
 //--------------------------------------------------------------------------------------------------
 function isEmail(String $email) : Bool
 {
-    if( ! preg_match("/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix", $email) )
-    {
-        return false;
-    }
-    else
-    {
-        return true;
-    }
+    return ! preg_match("/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix", $email)
+           ? false
+           : true;
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -84,14 +69,9 @@ function isEmail(String $email) : Bool
 //--------------------------------------------------------------------------------------------------
 function isChar($str) : Bool
 {
-    if( is_scalar($str) )
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+    return ! is_scalar($str)
+           ? false
+           : true;
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -105,14 +85,9 @@ function isChar($str) : Bool
 //--------------------------------------------------------------------------------------------------
 function isRealNumeric($num = 0) : Bool
 {
-    if( ! is_string($num) && is_numeric($num) )
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+    return ! is_string($num) && is_numeric($num)
+           ? true
+           : false;
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -126,14 +101,9 @@ function isRealNumeric($num = 0) : Bool
 //--------------------------------------------------------------------------------------------------
 function isDeclaredClass(String $class) : Bool
 {
-    if( in_array(strtolower($class), array_map('strtolower', get_declared_classes())) )
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+    return ! in_array(strtolower($class), array_map('strtolower', get_declared_classes()))
+           ? false
+           : true;
 }
 
 
@@ -148,14 +118,9 @@ function isDeclaredClass(String $class) : Bool
 //--------------------------------------------------------------------------------------------------
 function isHash(String $type) : Bool
 {
-    if( in_array($type, hash_algos()) )
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+    return ! in_array($type, hash_algos())
+           ? false
+           : true;
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -169,14 +134,9 @@ function isHash(String $type) : Bool
 //--------------------------------------------------------------------------------------------------
 function isCharset(String $charset) : Bool
 {
-    if( array_search(strtolower($charset), array_map('strtolower', mb_list_encodings()), true) )
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+    return ! array_search(strtolower($charset), array_map('strtolower', mb_list_encodings()), true)
+           ? false
+           : true;
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -190,14 +150,9 @@ function isCharset(String $charset) : Bool
 //--------------------------------------------------------------------------------------------------
 function isArray($array) : Bool
 {
-    if( ! empty($array) && is_array($array) )
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+    return ! empty($array) && is_array($array)
+           ? true
+           : false;
 }
 
 //--------------------------------------------------------------------------------------------------

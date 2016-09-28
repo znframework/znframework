@@ -111,12 +111,6 @@ function gconfig(String $value = NULL)
     {
         return $gconfig;
     }
-    elseif( isset($gconfig[$value]) )
-    {
-        return $gconfig[$value];
-    }
-    else
-    {
-        return false;
-    }
+
+    return $gconfig[$value] ?? false;
 }

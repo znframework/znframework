@@ -21,14 +21,9 @@
 //--------------------------------------------------------------------------------------------------
 function length($data) : Int
 {
-    if( is_scalar($data) )
-    {
-        return strlen($data);
-    }
-    else
-    {
-        return count((array) $data);
-    }
+    return ! is_scalar($data)
+           ? count((array) $data)
+           : strlen($data);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -65,16 +60,7 @@ function illustrate(String $const, $value = NULL)
 //--------------------------------------------------------------------------------------------------
 function symbol(String $symbolName = 'turkishLira') : String
 {
-    $symbol = Config::get('Symbols', $symbolName);
-
-    if( ! empty($symbol) )
-    {
-        return $symbol;
-    }
-    else
-    {
-        return false;
-    }
+    return Config::get('Symbols', $symbolName);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -182,7 +168,11 @@ function report(String $subject, String $message, String $destination = '', Stri
         }
     }
 
-    $message = "IP: ".ipv4()." | Subject: ".$subject.' | Date: '.Date::set('{dayNumber0}.{monthNumber0}.{year} {H024}:{minute}:{second}')." | Message: ".$message.EOL;
+    $message = 'IP: ' . ipv4().
+               ' | Subject: ' . $subject.
+               ' | Date: '.Date::set('{dayNumber0}.{monthNumber0}.{year} {H024}:{minute}:{second}').
+               ' | Message: ' . $message . EOL;
+
     return error_log($message, 3, $logDir.suffix($destination, $extension));
 }
 
@@ -206,7 +196,7 @@ function headers($header)
     }
     else
     {
-        if( isset($header) ) foreach( $header as $k => $v )
+        if( ! empty($header) ) foreach( $header as $k => $v )
         {
             header($v);
         }
@@ -225,20 +215,14 @@ function headers($header)
 function currentUri() : String
 {
     $requestUri = server('requestUri');
-
-    if( BASE_DIR !== '/' )
-    {
-        $cu = str_replace(BASE_DIR, '', $requestUri);
-    }
-    else
-    {
-        $cu = substr($requestUri, 1);
-    }
+    $currentUri = BASE_DIR !== '/'
+                ? str_replace(BASE_DIR, '', $requestUri)
+                : substr($requestUri, 1);
 
     if( indexStatus() )
     {
-        $cu = str_replace(indexStatus(), '', $cu);
+        $currentUri = str_replace(indexStatus(), '', $currentUri);
     }
 
-    return $cu;
+    return $currentUri;
 }
