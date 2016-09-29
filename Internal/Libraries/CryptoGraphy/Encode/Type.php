@@ -1,5 +1,6 @@
 <?php namespace ZN\CryptoGraphy\Encode;
 
+use Encode;
 use ZN\CryptoGraphy\Exception\InvalidArgumentException;
 
 class Type extends EncodeExtends implements TypeInterface
@@ -32,7 +33,7 @@ class Type extends EncodeExtends implements TypeInterface
 
         if( in_array($type, $algos) )
         {
-            return $this->$type($data);
+            return Encode::$type($data);
         }
 
         return hash($type, $data);
