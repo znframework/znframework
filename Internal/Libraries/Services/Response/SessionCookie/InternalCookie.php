@@ -276,12 +276,9 @@ class InternalCookie extends CLController implements InternalCookieInterface, Se
 
         if( isset($_COOKIE[$name]) )
         {
-            if( $decodeArray = Json::decodeArray($_COOKIE[$name]) )
-            {
-                return $decodeArray;
-            }
-
-            return $_COOKIE[$name];
+            return ! Json::check($_COOKIE[$name])
+                   ? $_COOKIE[$name]
+                   : Json::decodeArray($_COOKIE[$name]);
         }
         else
         {

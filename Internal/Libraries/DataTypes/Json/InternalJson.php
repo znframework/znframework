@@ -22,6 +22,7 @@ class InternalJson extends \FactoryController implements InternalJsonInterface
             'error'        => 'Json\ErrorInfo::message',
             'errval'       => 'Json\ErrorInfo::message',
             'errno'        => 'Json\ErrorInfo::no',
+            'check'        => 'Json\ErrorInfo::check'
         ]
     ];
 }

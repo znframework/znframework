@@ -196,3 +196,41 @@ function internalObjects(Array $array, stdClass &$std) : stdClass
 
     return $std;
 }
+
+//--------------------------------------------------------------------------------------------------
+// Internal Current Project
+//--------------------------------------------------------------------------------------------------
+//
+// @param void
+//
+//--------------------------------------------------------------------------------------------------
+function internalCurrentProject()
+{
+    $projectConfig = PROJECTS_CONFIG['directory']['others'];
+    $projectDir    = $projectConfig;
+    $currentPath   = server('currentPath');
+    $internalDir   = ( ! empty($currentPath) ? explode('/', ltrim($currentPath, '/'))[0] : '' );
+
+    if( is_array($projectDir) )
+    {
+        $internalDir = $projectDir[$internalDir] ?? $internalDir;
+        $projectDir  = $projectDir[host()] ?? DEFAULT_PROJECT;
+    }
+
+    if( ! empty($internalDir) && is_dir(PROJECTS_DIR . $internalDir) )
+    {
+        define('_CURRENT_PROJECT', $internalDir);
+
+        $flip              = array_flip($projectConfig);
+        $projectDir        = _CURRENT_PROJECT;
+        $currentProjectDir = $flip[$projectDir] ?? $projectDir;
+    }
+
+    define('CURRENT_PROJECT', $currentProjectDir ?? $projectDir);
+    define('PROJECT_DIR', suffix(PROJECTS_DIR . $projectDir, DS));
+
+    if( ! is_dir(PROJECT_DIR) )
+    {
+        trace('["'.$projectDir.'"] Project Directory Not Found!');
+    }
+}
