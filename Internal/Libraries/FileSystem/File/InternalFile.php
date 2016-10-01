@@ -21,6 +21,7 @@ class InternalFile extends \FactoryController implements InternalFileInterface
             'exists'        => 'File\Info::exists',
             'originpath'    => 'File\Info::originpath',
             'relativepath'  => 'File\Info::relativepath',
+            'absolutepath'  => 'File\Info::absolutepath',
             'available'     => 'File\Info::available',
             'executable'    => 'File\Info::executable',
             'writable'      => 'File\Info::writable',
@@ -55,7 +56,7 @@ class InternalFile extends \FactoryController implements InternalFileInterface
             'require'       => 'File\Loader::require',
             'requireonce'   => 'File\Loader::requireOnce',
             'include'       => 'File\Loader::include',
-            'includeonce'   => 'File\Loader::includeOnce',
+            'includeonce'   => 'File\Loader::includeOnce'
         ]
     ];
 }
