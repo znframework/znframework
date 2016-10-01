@@ -71,7 +71,7 @@ define('INTERNAL_DIR', REAL_BASE_DIR . 'Internal' . DS);
 // @return Internal/Priority/BaseLevel.php
 //
 //--------------------------------------------------------------------------------------------------
-require_once INTERNAL_DIR . 'Priority/BaseLevel.php';
+require_once INTERNAL_DIR . 'Priority' . DS . 'BaseLevel.php';
 
 //--------------------------------------------------------------------------------------------------
 // Invalid PHP Version
@@ -110,7 +110,7 @@ define('DEFAULT_PROJECT', PROJECTS_CONFIG['directory']['default']);
 // @return Internal/Priority/HighLevel.php
 //
 //--------------------------------------------------------------------------------------------------
-require_once INTERNAL_DIR . 'Priority/HighLevel.php';
+require_once INTERNAL_DIR . 'Priority' . DS . 'HighLevel.php';
 
 //--------------------------------------------------------------------------------------------------
 // Internal Current Project
