@@ -21,7 +21,7 @@
 // @return void
 //
 //--------------------------------------------------------------------------------------------------
-function output($data, Array $settings = [], Bool $content = false)
+function output($data, array $settings = [], bool $content = false)
 {
     // ---------------------------------------------------------------------------------------------
     // AYARLAR
@@ -56,7 +56,7 @@ function output($data, Array $settings = [], Bool $content = false)
 // @return void
 //
 //--------------------------------------------------------------------------------------------------
-function write(String $data, Array $vars = [])
+function write(string $data, array $vars = []) : void
 {
     if( ! is_scalar($data) )
     {
@@ -89,7 +89,7 @@ function write(String $data, Array $vars = [])
 // @return void
 //
 //--------------------------------------------------------------------------------------------------
-function writeLine(String $data, Array $vars = [], Int $brCount = 1)
+function writeLine(string $data, array $vars = [], int $brCount = 1) : void
 {
     echo write($data, $vars) . str_repeat('<br>', $brCount);
 }

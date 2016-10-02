@@ -37,7 +37,7 @@ class PhashDriver extends CryptoMapping
 	// @param numeric $length
 	//
 	//--------------------------------------------------------------------------------------------------------
-	public function keygen($length)
+	public function keygen(int $length) :? string
 	{
 		return mb_substr(password_hash(PROJECT_CONFIG['key'], PASSWORD_BCRYPT), -$length);
 	}

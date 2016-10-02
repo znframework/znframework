@@ -19,7 +19,7 @@
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function currentPath(Bool $isPath = true) : String
+function currentPath(bool $isPath = true) : string
 {
     $currentPagePath = str_replace("/".getLang()."/", "", server('currentPath'));
 
@@ -55,7 +55,7 @@ function currentPath(Bool $isPath = true) : String
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function basePath(String $uri = '', Int $index = 0) : String
+function basePath(string $uri = '', int $index = 0) : string
 {
     $newBaseDir = substr(BASE_DIR, 1);
 
@@ -88,7 +88,7 @@ function basePath(String $uri = '', Int $index = 0) : String
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function prevPath(Bool $isPath = true) : String
+function prevPath(bool $isPath = true) : string
 {
     if( ! isset($_SERVER['HTTP_REFERER']) )
     {
@@ -131,7 +131,7 @@ function prevPath(Bool $isPath = true) : String
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function filePath(String $file = '', String $removeUrl = '') : String
+function filePath(string $file = '', string $removeUrl = '') : string
 {
     if( isUrl($file) )
     {

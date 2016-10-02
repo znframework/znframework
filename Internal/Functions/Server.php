@@ -19,7 +19,7 @@
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function ipv4() : String
+function ipv4() : string
 {
     if( isset($_SERVER['HTTP_CLIENT_IP']) )
     {
@@ -51,7 +51,7 @@ function ipv4() : String
 // @return mixed
 //
 //--------------------------------------------------------------------------------------------------
-function server(String $type = '')
+function server(string $type = '')
 {
     $server =
     [

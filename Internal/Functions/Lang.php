@@ -19,7 +19,7 @@
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function getLang() : String
+function getLang() : string
 {
     $systemLanguageData        = md5("SystemLanguageData");
     $defaultSystemLanguageData = md5("DefaultSystemLanguageData");
@@ -62,7 +62,7 @@ function getLang() : String
 // @return bool
 //
 //--------------------------------------------------------------------------------------------------
-function setLang(String $l = NULL) : Bool
+function setLang(string $l = NULL) : bool
 {
     if( empty($l) )
     {
@@ -83,7 +83,7 @@ function setLang(String $l = NULL) : Bool
 // @return mixed
 //
 //--------------------------------------------------------------------------------------------------
-function lang(String $file, String $str = NULL, $changed = NULL)
+function lang(string $file, string $str = NULL, $changed = NULL)
 {
     global $lang;
 
@@ -159,7 +159,7 @@ function lang(String $file, String $str = NULL, $changed = NULL)
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function currentLang() : String
+function currentLang() : string
 {
     if( ! Config::get('Services','uri')['lang'] )
     {

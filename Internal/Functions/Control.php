@@ -19,7 +19,7 @@
 // @return Bool
 //
 //--------------------------------------------------------------------------------------------------
-function isImport(String $path) : Bool
+function isImport(string $path) : bool
 {
     return ! in_array( realpath(suffix($path, '.php')), get_required_files() )
            ? false
@@ -35,7 +35,7 @@ function isImport(String $path) : Bool
 // @return Bool
 //
 //--------------------------------------------------------------------------------------------------
-function isUrl(String $url) : Bool
+function isUrl(string $url) : bool
 {
     return ! preg_match('#^(\w+:)?//#i', $url)
            ? false
@@ -51,7 +51,7 @@ function isUrl(String $url) : Bool
 // @return Bool
 //
 //--------------------------------------------------------------------------------------------------
-function isEmail(String $email) : Bool
+function isEmail(string $email) : bool
 {
     return ! preg_match("/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix", $email)
            ? false
@@ -67,7 +67,7 @@ function isEmail(String $email) : Bool
 // @return Bool
 //
 //--------------------------------------------------------------------------------------------------
-function isChar($str) : Bool
+function isChar($str) : bool
 {
     return ! is_scalar($str)
            ? false
@@ -83,7 +83,7 @@ function isChar($str) : Bool
 // @return Bool
 //
 //--------------------------------------------------------------------------------------------------
-function isRealNumeric($num = 0) : Bool
+function isRealNumeric($num = 0) : bool
 {
     return ! is_string($num) && is_numeric($num)
            ? true
@@ -99,7 +99,7 @@ function isRealNumeric($num = 0) : Bool
 // @return Bool
 //
 //--------------------------------------------------------------------------------------------------
-function isDeclaredClass(String $class) : Bool
+function isDeclaredClass(string $class) : bool
 {
     return ! in_array(strtolower($class), array_map('strtolower', get_declared_classes()))
            ? false
@@ -116,7 +116,7 @@ function isDeclaredClass(String $class) : Bool
 // @return Bool
 //
 //--------------------------------------------------------------------------------------------------
-function isHash(String $type) : Bool
+function isHash(string $type) : bool
 {
     return ! in_array($type, hash_algos())
            ? false
@@ -132,7 +132,7 @@ function isHash(String $type) : Bool
 // @return Bool
 //
 //--------------------------------------------------------------------------------------------------
-function isCharset(String $charset) : Bool
+function isCharset(string $charset) : bool
 {
     return ! array_search(strtolower($charset), array_map('strtolower', mb_list_encodings()), true)
            ? false
@@ -148,7 +148,7 @@ function isCharset(String $charset) : Bool
 // @return Bool
 //
 //--------------------------------------------------------------------------------------------------
-function isArray($array) : Bool
+function isArray($array) : bool
 {
     return ! empty($array) && is_array($array)
            ? true
@@ -165,7 +165,7 @@ function isArray($array) : Bool
 // @return void
 //
 //--------------------------------------------------------------------------------------------------
-function nullCoalesce( & $var, $value)
+function nullCoalesce( & $var, $value) : void
 {
     $var = $var === NULL ? $value : $var;
 }

@@ -18,5 +18,5 @@ interface SuperAlgorithmInterface
     // @param string $data
     //
     //--------------------------------------------------------------------------------------------------------
-    public function create(String $data) : String;
+    public function create(string $data) : string;
 }

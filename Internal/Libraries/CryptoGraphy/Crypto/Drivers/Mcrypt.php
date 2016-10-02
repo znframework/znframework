@@ -1,7 +1,7 @@
 <?php namespace ZN\CryptoGraphy\Drivers;
 
 use ZN\CryptoGraphy\CryptoMapping;
-use Converter, Arrays;
+use Converter, Arrays, stdClass;
 
 class McryptDriver extends CryptoMapping
 {
@@ -22,7 +22,7 @@ class McryptDriver extends CryptoMapping
     // @param array  $settings
     //
     //--------------------------------------------------------------------------------------------------------
-    public function encrypt($data, $settings)
+    public function encrypt(string $data, array $settings) :? string
     {
         $set    = $this->_settings($settings);
         $encode = trim(mcrypt_encrypt($set->cipher, $set->key, $data, $set->mode, $set->iv));
@@ -38,7 +38,7 @@ class McryptDriver extends CryptoMapping
     // @param array  $settings
     //
     //--------------------------------------------------------------------------------------------------------
-    public function decrypt($data, $settings)
+    public function decrypt(string $data, array $settings) :? string
     {
         $set    = $this->_settings($settings);
         $data   = base64_decode($data);
@@ -53,7 +53,7 @@ class McryptDriver extends CryptoMapping
     // @param numeric $length
     //
     //--------------------------------------------------------------------------------------------------------
-    public function keygen($length)
+    public function keygen(int $length) :? string
     {
         return mcrypt_create_iv($length, MCRYPT_DEV_URANDOM);
     }
@@ -61,7 +61,7 @@ class McryptDriver extends CryptoMapping
     //--------------------------------------------------------------------------------------------------------
     // Protected
     //--------------------------------------------------------------------------------------------------------
-    private function keySize($cipher)
+    private function keySize(string $cipher) : string
     {
         $cipher  = strtolower($cipher);
         $ciphers =
@@ -85,7 +85,7 @@ class McryptDriver extends CryptoMapping
     //--------------------------------------------------------------------------------------------------------
     // Protected
     //--------------------------------------------------------------------------------------------------------
-    protected function vectorSize($mode, $cipher)
+    protected function vectorSize(string $mode, string $cipher) : string
     {
         $mode   = strtolower($mode);
         $cipher = strtolower($cipher);
@@ -115,7 +115,7 @@ class McryptDriver extends CryptoMapping
     // @param array settings
     //
     //--------------------------------------------------------------------------------------------------------
-    protected function _settings($settings)
+    protected function _settings(array $settings) : stdClass
     {
         $cipher = $settings['cipher'] ?? 'des';
         $cipher = str_replace('-', '_', $cipher);

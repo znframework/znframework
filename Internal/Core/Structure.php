@@ -20,7 +20,7 @@ class Structure
     // Genel Kullanım: Çalıştırılmak istenen yapının ihtiyaç duyduğu verileri döndürür.
     //
     //--------------------------------------------------------------------------------------------------
-    public static function data($requestUri = NULL)
+    public static function data(string $requestUri = NULL) : array
     {
         //----------------------------------------------------------------------------------------------
         // Namespace
