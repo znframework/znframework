@@ -158,7 +158,7 @@ class Connection implements ConnectionInterface
     // @param  void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function vartypes() : Array
+    public function vartypes() : array
     {
         return $this->db->vartypes();
     }
@@ -170,7 +170,7 @@ class Connection implements ConnectionInterface
     // @param string $table
     //
     //--------------------------------------------------------------------------------------------------------
-    public function table(String $table) : Connection
+    public function table(string $table) : Connection
     {
         $this->table       = ' '.$this->prefix.$table.' ';
         $this->tableName   = $this->prefix.$table;
@@ -187,7 +187,7 @@ class Connection implements ConnectionInterface
     // @param mixed  $val
     //
     //--------------------------------------------------------------------------------------------------------
-    public function column(String $col, $val = NULL) : Connection
+    public function column(string $col, $val = NULL) : Connection
     {
         $this->column[$col] = $val;
 
@@ -216,14 +216,14 @@ class Connection implements ConnectionInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function stringQuery() : String
+    public function stringQuery() :? string
     {
         if( ! empty($this->stringQuery) )
         {
             return $this->stringQuery;
         }
 
-        return false;
+        return NULL;
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -276,7 +276,7 @@ class Connection implements ConnectionInterface
     // @param array $data
     //
     //--------------------------------------------------------------------------------------------------------
-    public function secure(Array $data) : Connection
+    public function secure(array $data) : Connection
     {
         $this->secure = $data;
 
@@ -462,7 +462,7 @@ class Connection implements ConnectionInterface
     // @param string $suffix
     //
     //--------------------------------------------------------------------------------------------------------
-    protected function _drvlib($suffix = 'Driver')
+    protected function _drvlib(string $suffix = 'Driver')
     {
         Support::driver($this->drivers, $this->driver);
 
@@ -476,7 +476,7 @@ class Connection implements ConnectionInterface
     // @param  string $data
     //
     //--------------------------------------------------------------------------------------------------------
-    protected function nailEncode($data)
+    protected function nailEncode(string $data) : string
     {
         return str_replace(["'", "\&#39;", "\\&#39;"], "&#39;", $data);
     }
@@ -488,7 +488,7 @@ class Connection implements ConnectionInterface
     // @param string $query
     //
     //--------------------------------------------------------------------------------------------------------
-    protected function _runQuery($query)
+    protected function _runQuery(string $query)
     {
         if( $this->string === true )
         {
@@ -506,7 +506,7 @@ class Connection implements ConnectionInterface
     // @param string $query
     //
     //--------------------------------------------------------------------------------------------------------
-    protected function _runExecQuery($query)
+    protected function _runExecQuery(string $query)
     {
         if( $this->string === true )
         {

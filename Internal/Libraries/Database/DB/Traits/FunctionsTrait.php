@@ -54,7 +54,7 @@ trait FunctionsTrait
     // @param bool   $return
     //
     //--------------------------------------------------------------------------------------------------------
-    public function switchCase(String $switch, Array $conditions = [], Bool $return = false)
+    public function switchCase(string $switch, array $conditions = [], bool $return = false)
     {
         $case  = ' CASE '.$switch;
 

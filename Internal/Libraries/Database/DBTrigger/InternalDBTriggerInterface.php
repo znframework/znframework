@@ -18,7 +18,7 @@ interface InternalDBTriggerInterface
     // @param string $user
     //
     //--------------------------------------------------------------------------------------------------------
-    public function user(String $user) : InternalDBTrigger;
+    public function user(string $user) : InternalDBTrigger;
 
     //--------------------------------------------------------------------------------------------------------
     // when()
@@ -27,7 +27,7 @@ interface InternalDBTriggerInterface
     // @param string $type: BEFORE, AFTER
     //
     //--------------------------------------------------------------------------------------------------------
-    public function when(String $type) : InternalDBTrigger;
+    public function when(string $type) : InternalDBTrigger;
 
     //--------------------------------------------------------------------------------------------------------
     // event()
@@ -36,7 +36,7 @@ interface InternalDBTriggerInterface
     // @param string $type: INSERT, UPDATE, DELETE
     //
     //--------------------------------------------------------------------------------------------------------
-    public function event(String $type) : InternalDBTrigger;
+    public function event(string $type) : InternalDBTrigger;
 
     //--------------------------------------------------------------------------------------------------------
     // order()
@@ -45,7 +45,7 @@ interface InternalDBTriggerInterface
     // @param string $type: FOLLOWS, PRECEDES
     //
     //--------------------------------------------------------------------------------------------------------
-    public function order(String $type, String $name) : InternalDBTrigger;
+    public function order(string $type, string $name) : InternalDBTrigger;
 
     //--------------------------------------------------------------------------------------------------------
     // body()
@@ -63,7 +63,7 @@ interface InternalDBTriggerInterface
     // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
-    public function createTrigger(String $name) : Bool;
+    public function createTrigger(string $name) : bool;
 
     //--------------------------------------------------------------------------------------------------------
     // dropTrigger()
@@ -72,5 +72,5 @@ interface InternalDBTriggerInterface
     // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
-    public function dropTrigger(String $name) : Bool;
+    public function dropTrigger(string $name) : bool;
 }

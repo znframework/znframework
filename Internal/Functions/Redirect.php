@@ -57,7 +57,7 @@ function redirect(string $url, int $time = 0, array $data = [], bool $exit = tru
 // @return mixed
 //
 //--------------------------------------------------------------------------------------------------
-function redirectData(string $k) : ?string
+function redirectData(string $k) :? string
 {
     if( $data = Session::select('redirect:'.$k) )
     {

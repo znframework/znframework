@@ -102,7 +102,7 @@ class InternalMigration extends \CallController implements InternalMigrationInte
     // @param array $data
     //
     //--------------------------------------------------------------------------------------------------------
-    public function createTable(Array $data) : Bool
+    public function createTable(array $data) : bool
     {
         DBForge::createTable($this->_tableName(), $data);
 
@@ -116,7 +116,7 @@ class InternalMigration extends \CallController implements InternalMigrationInte
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function dropTable() : Bool
+    public function dropTable() : bool
     {
         DBForge::dropTable($this->_tableName());
 
@@ -130,7 +130,7 @@ class InternalMigration extends \CallController implements InternalMigrationInte
     // @param array $column
     //
     //--------------------------------------------------------------------------------------------------------
-    public function addColumn(Array $column) : Bool
+    public function addColumn(array $column) : bool
     {
         DBForge::addColumn($this->_tableName(), $column);
 
@@ -144,7 +144,7 @@ class InternalMigration extends \CallController implements InternalMigrationInte
     // @param array $column
     //
     //--------------------------------------------------------------------------------------------------------
-    public function dropColumn($column) : Bool
+    public function dropColumn($column) : bool
     {
         DBForge::dropColumn($this->_tableName(), $column);
 
@@ -158,7 +158,7 @@ class InternalMigration extends \CallController implements InternalMigrationInte
     // @param array $columns
     //
     //--------------------------------------------------------------------------------------------------------
-    public function modifyColumn(Array $column) : Bool
+    public function modifyColumn(array $column) : bool
     {
         DBForge::modifyColumn($this->_tableName(), $column);
 
@@ -172,7 +172,7 @@ class InternalMigration extends \CallController implements InternalMigrationInte
     // @param array $columns
     //
     //--------------------------------------------------------------------------------------------------------
-    public function renameColumn(Array $column) : Bool
+    public function renameColumn(array $column) : bool
     {
         DBForge::renameColumn($this->_tableName(), $column);
 
@@ -186,7 +186,7 @@ class InternalMigration extends \CallController implements InternalMigrationInte
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function truncate() : Bool
+    public function truncate() : bool
     {
         DBForge::truncate($this->_tableName());
 
@@ -200,7 +200,7 @@ class InternalMigration extends \CallController implements InternalMigrationInte
     // @param string path: NULL
     //
     //--------------------------------------------------------------------------------------------------------
-    public function path(String $path = NULL) : InternalMigration
+    public function path(string $path = NULL) : InternalMigration
     {
         $this->path = suffix($path);
 
@@ -214,7 +214,7 @@ class InternalMigration extends \CallController implements InternalMigrationInte
     // @param string $name -- Migrasyon Adı
     //
     //--------------------------------------------------------------------------------------------------------
-    public function create(String $name, Int $ver = 0) : Bool
+    public function create(string $name, int $ver = 0) : bool
     {
         if( $version = $this->_version($ver) )
         {
@@ -276,7 +276,7 @@ class InternalMigration extends \CallController implements InternalMigrationInte
     // @param numeric $version
     //
     //--------------------------------------------------------------------------------------------------------
-    public function delete(String $name, Int $ver = 0) : Bool
+    public function delete(string $name, int $ver = 0) : bool
     {
         if( $version = $this->_version($ver) )
         {
@@ -303,7 +303,7 @@ class InternalMigration extends \CallController implements InternalMigrationInte
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function deleteAll() : Bool
+    public function deleteAll() : bool
     {
         if( is_dir($this->path) )
         {
@@ -322,7 +322,7 @@ class InternalMigration extends \CallController implements InternalMigrationInte
     // @param numeric $numeric
     //
     //--------------------------------------------------------------------------------------------------------
-    public function version(Int $version = 0)
+    public function version(int $version = 0)
     {
         if( empty($this->tbl) )
         {
@@ -348,7 +348,7 @@ class InternalMigration extends \CallController implements InternalMigrationInte
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    protected function _action($type)
+    protected function _action($type) : bool
     {
         if( $type === '' )
         {
@@ -379,7 +379,7 @@ class InternalMigration extends \CallController implements InternalMigrationInte
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    protected function _create()
+    protected function _create() : void
     {
         $table   = $this->config['table'];
 
@@ -399,7 +399,7 @@ class InternalMigration extends \CallController implements InternalMigrationInte
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    protected function _tableName()
+    protected function _tableName() : string
     {
         $table = preg_replace('/[0-9][0-9][0-9]/', '', $this->tbl);
 
@@ -413,11 +413,11 @@ class InternalMigration extends \CallController implements InternalMigrationInte
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    protected function _getVersion()
+    protected function _getVersion() : string
     {
         preg_match('(\w+([0-9][0-9][0-9]))', $this->tbl, $match);
 
-        return isset( $match[1] ) ? $match[1] : '000';
+        return $match[1] ?? '000';
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -427,11 +427,11 @@ class InternalMigration extends \CallController implements InternalMigrationInte
     // @param numeric $numeric
     //
     //--------------------------------------------------------------------------------------------------------
-    protected function _version($numeric)
+    protected function _version($numeric) :? string
     {
-        $length = strlen((string)$numeric);
+        $length = strlen((string) $numeric);
 
-        if( (int)$numeric > 999 || (int)$numeric < 0 )
+        if( (int) $numeric > 999 || (int) $numeric < 0 )
         {
             return false;
         }
@@ -444,7 +444,7 @@ class InternalMigration extends \CallController implements InternalMigrationInte
 
         if( $numeric === '000' )
         {
-            return false;
+            return NULL;
         }
 
         return $numeric;

@@ -39,7 +39,7 @@ class InternalDBUser extends Connection implements InternalDBUserInterface
     // @param string $name: USER()
     //
     //--------------------------------------------------------------------------------------------------------
-    public function name(String $name) : InternalDBUser
+    public function name(string $name) : InternalDBUser
     {
         $this->user->name($name);
 
@@ -53,7 +53,7 @@ class InternalDBUser extends Connection implements InternalDBUserInterface
     // @param string $host: localhost
     //
     //--------------------------------------------------------------------------------------------------------
-    public function host(String $host) : InternalDBUser
+    public function host(string $host) : InternalDBUser
     {
         $this->user->host($host);
 
@@ -67,7 +67,7 @@ class InternalDBUser extends Connection implements InternalDBUserInterface
     // @param string $authString: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function password(String $authString) : InternalDBUser
+    public function password(string $authString) : InternalDBUser
     {
         $this->user->password($authString);
 
@@ -81,7 +81,7 @@ class InternalDBUser extends Connection implements InternalDBUserInterface
     // @param string $authString: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function identifiedBy(String $authString) : InternalDBUser
+    public function identifiedBy(string $authString) : InternalDBUser
     {
         $this->user->identifiedBy($authString);
 
@@ -95,7 +95,7 @@ class InternalDBUser extends Connection implements InternalDBUserInterface
     // @param string $hashString: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function identifiedByPassword(String $hashString) : InternalDBUser
+    public function identifiedByPassword(string $hashString) : InternalDBUser
     {
         $this->user->identifiedByPassword($hashString);
 
@@ -111,7 +111,7 @@ class InternalDBUser extends Connection implements InternalDBUserInterface
     // @param string $authString: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function identifiedWith(String $authPlugin, String $type, String $authString) : InternalDBUser
+    public function identifiedWith(string $authPlugin, string $type, string $authString) : InternalDBUser
     {
         $this->user->identifiedWith($authPlugin, $type, $authString);
 
@@ -126,7 +126,7 @@ class InternalDBUser extends Connection implements InternalDBUserInterface
     // @param string $authString: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function identifiedWithBy(String $authPlugin, String $authString) : InternalDBUser
+    public function identifiedWithBy(string $authPlugin, string $authString) : InternalDBUser
     {
         $this->user->identifiedWithBy($authPlugin, $authString);
 
@@ -141,7 +141,7 @@ class InternalDBUser extends Connection implements InternalDBUserInterface
     // @param string $hashString: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function identifiedWithAs(String $hashPlugin, String $hashString) : InternalDBUser
+    public function identifiedWithAs(string $hashPlugin, string $hashString) : InternalDBUser
     {
         $this->user->identifiedWithAs($hashPlugin, $hashString);
 
@@ -184,7 +184,7 @@ class InternalDBUser extends Connection implements InternalDBUserInterface
     // @param string $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function option(String $name, String $value) : InternalDBUser
+    public function option(string $name, string $value) : InternalDBUser
     {
         $this->user->option($name, $value);
 
@@ -200,7 +200,7 @@ class InternalDBUser extends Connection implements InternalDBUserInterface
     // @param string $condition: and, or
     //
     //--------------------------------------------------------------------------------------------------------
-    public function encode(String $type, String $string, String $condition = NULL) : InternalDBUser
+    public function encode(string $type, string $string, string $condition = NULL) : InternalDBUser
     {
         $this->user->encode($type, $string, $condition);
 
@@ -218,7 +218,7 @@ class InternalDBUser extends Connection implements InternalDBUserInterface
     // @param string $count   : 0
     //
     //--------------------------------------------------------------------------------------------------------
-    public function resource(String $resource, $count = 0) : InternalDBUser
+    public function resource(string $resource, $count = 0) : InternalDBUser
     {
         $this->user->resource($resource, $count);
 
@@ -233,7 +233,7 @@ class InternalDBUser extends Connection implements InternalDBUserInterface
     // @param numeric $n   : 0
     //
     //--------------------------------------------------------------------------------------------------------
-    public function passwordExpire(String $type = NULL, $n = 0) : InternalDBUser
+    public function passwordExpire(string $type = NULL, $n = 0) : InternalDBUser
     {
         $this->user->passwordExpire($type, $n);
 
@@ -247,7 +247,7 @@ class InternalDBUser extends Connection implements InternalDBUserInterface
     // @param string  $type: lock, unlock
     //
     //--------------------------------------------------------------------------------------------------------
-    public function lock(String $type = 'lock') : InternalDBUser
+    public function lock(string $type = 'lock') : InternalDBUser
     {
         $this->user->lock($type);
 
@@ -261,7 +261,7 @@ class InternalDBUser extends Connection implements InternalDBUserInterface
     // @param string  $type: unlock, lock
     //
     //--------------------------------------------------------------------------------------------------------
-    public function unlock(String $type = 'unlock') : InternalDBUser
+    public function unlock(string $type = 'unlock') : InternalDBUser
     {
         $this->user->unlock($type);
 
@@ -275,7 +275,7 @@ class InternalDBUser extends Connection implements InternalDBUserInterface
     // @param string  $type: TABLE, FUNCTION, PROCEDURE
     //
     //--------------------------------------------------------------------------------------------------------
-    public function type(String $type = 'TABLE') : InternalDBUser
+    public function type(string $type = 'TABLE') : InternalDBUser
     {
         $this->user->type($type);
 
@@ -289,7 +289,7 @@ class InternalDBUser extends Connection implements InternalDBUserInterface
     // @param string  $select: *.*
     //
     //--------------------------------------------------------------------------------------------------------
-    public function select(String $select = '*.*') : InternalDBUser
+    public function select(string $select = '*.*') : InternalDBUser
     {
         $this->user->select($select);
 
@@ -317,7 +317,7 @@ class InternalDBUser extends Connection implements InternalDBUserInterface
     // @param string  $name: USER()
     //
     //--------------------------------------------------------------------------------------------------------
-    public function alter(String $name = NULL) : Bool
+    public function alter(string $name = NULL) : bool
     {
         nullCoalesce($name, 'USER()');
 
@@ -333,7 +333,7 @@ class InternalDBUser extends Connection implements InternalDBUserInterface
     // @param string  $name: USER()
     //
     //--------------------------------------------------------------------------------------------------------
-    public function create(String $name = NULL) : Bool
+    public function create(string $name = NULL) : bool
     {
         nullCoalesce($name, 'USER()');
 
@@ -349,7 +349,7 @@ class InternalDBUser extends Connection implements InternalDBUserInterface
     // @param string  $name: USER()
     //
     //--------------------------------------------------------------------------------------------------------
-    public function drop(String $name = NULL) : Bool
+    public function drop(string $name = NULL) : bool
     {
         nullCoalesce($name, 'USER()');
 
@@ -367,7 +367,7 @@ class InternalDBUser extends Connection implements InternalDBUserInterface
     // @param string  $select: *.*
     //
     //--------------------------------------------------------------------------------------------------------
-    public function grant(String $name = 'ALL', String $type = NULL, String $select = '*.*') : Bool
+    public function grant(string $name = 'ALL', string $type = NULL, string $select = '*.*') : bool
     {
         $query = $this->user->grant($name, $type, $select);
 
@@ -383,7 +383,7 @@ class InternalDBUser extends Connection implements InternalDBUserInterface
     // @param string  $select: *.*
     //
     //--------------------------------------------------------------------------------------------------------
-    public function revoke(String $name = 'ALL', String $type = NULL, String $select = '*.*') : Bool
+    public function revoke(string $name = 'ALL', string $type = NULL, string $select = '*.*') : bool
     {
         $query = $this->user->revoke($name, $type, $select);
 
@@ -398,7 +398,7 @@ class InternalDBUser extends Connection implements InternalDBUserInterface
     // @param string  $newName: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function rename(String $oldName, String $newName) : Bool
+    public function rename(string $oldName, string $newName) : bool
     {
         $query = $this->user->rename($oldName, $newName);
 
@@ -413,7 +413,7 @@ class InternalDBUser extends Connection implements InternalDBUserInterface
     // @param string  $pass: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function setPassword(String $user = NULL, String $pass = NULL) : Bool
+    public function setPassword(string $user = NULL, string $pass = NULL) : bool
     {
         $query = $this->user->setPassword($user, $pass);
 

@@ -18,7 +18,7 @@ interface InternalDBUserInterface
     // @param string $name: USER()
     //
     //--------------------------------------------------------------------------------------------------------
-    public function name(String $name) : InternalDBUser;
+    public function name(string $name) : InternalDBUser;
 
     //--------------------------------------------------------------------------------------------------------
     // host()
@@ -27,7 +27,7 @@ interface InternalDBUserInterface
     // @param string $host: localhost
     //
     //--------------------------------------------------------------------------------------------------------
-    public function host(String $host) : InternalDBUser;
+    public function host(string $host) : InternalDBUser;
 
     //--------------------------------------------------------------------------------------------------------
     // password()
@@ -36,7 +36,7 @@ interface InternalDBUserInterface
     // @param string $authString: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function password(String $authString) : InternalDBUser;
+    public function password(string $authString) : InternalDBUser;
 
     //--------------------------------------------------------------------------------------------------------
     // identifiedBy()
@@ -45,7 +45,7 @@ interface InternalDBUserInterface
     // @param string $authString: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function identifiedBy(String $authString) : InternalDBUser;
+    public function identifiedBy(string $authString) : InternalDBUser;
 
     //--------------------------------------------------------------------------------------------------------
     // identifiedByPassword()
@@ -54,7 +54,7 @@ interface InternalDBUserInterface
     // @param string $hashString: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function identifiedByPassword(String $hashString) : InternalDBUser;
+    public function identifiedByPassword(string $hashString) : InternalDBUser;
 
     //--------------------------------------------------------------------------------------------------------
     // identifiedWith()
@@ -65,7 +65,7 @@ interface InternalDBUserInterface
     // @param string $authString: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function identifiedWith(String $authPlugin, String $type, String $authString) : InternalDBUser;
+    public function identifiedWith(string $authPlugin, string $type, string $authString) : InternalDBUser;
 
     //--------------------------------------------------------------------------------------------------------
     // identifiedWithBy()
@@ -75,7 +75,7 @@ interface InternalDBUserInterface
     // @param string $authString: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function identifiedWithBy(String $authPlugin, String $authString) : InternalDBUser;
+    public function identifiedWithBy(string $authPlugin, string $authString) : InternalDBUser;
 
     //--------------------------------------------------------------------------------------------------------
     // identifiedWithAs()
@@ -85,7 +85,7 @@ interface InternalDBUserInterface
     // @param string $hashString: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function identifiedWithAs(String $hashPlugin, String $hashString) : InternalDBUser;
+    public function identifiedWithAs(string $hashPlugin, string $hashString) : InternalDBUser;
 
     //--------------------------------------------------------------------------------------------------------
     // required()
@@ -113,7 +113,7 @@ interface InternalDBUserInterface
     // @param string $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function option(String $name, String $value) : InternalDBUser;
+    public function option(string $name, string $value) : InternalDBUser;
 
     //--------------------------------------------------------------------------------------------------------
     // encode()
@@ -124,7 +124,7 @@ interface InternalDBUserInterface
     // @param string $condition: and, or
     //
     //--------------------------------------------------------------------------------------------------------
-    public function encode(String $type, String $string, String $condition) : InternalDBUser;
+    public function encode(string $type, string $string, string $condition) : InternalDBUser;
 
     //--------------------------------------------------------------------------------------------------------
     // resource()
@@ -137,7 +137,7 @@ interface InternalDBUserInterface
     // @param string $count   : 0
     //
     //--------------------------------------------------------------------------------------------------------
-    public function resource(String $resource, $count) : InternalDBUser;
+    public function resource(string $resource, $count) : InternalDBUser;
 
     //--------------------------------------------------------------------------------------------------------
     // passwordExpire()
@@ -147,7 +147,7 @@ interface InternalDBUserInterface
     // @param numeric $n   : 0
     //
     //--------------------------------------------------------------------------------------------------------
-    public function passwordExpire(String $type, $n) : InternalDBUser;
+    public function passwordExpire(string $type, $n) : InternalDBUser;
 
     //--------------------------------------------------------------------------------------------------------
     // lock()
@@ -156,7 +156,7 @@ interface InternalDBUserInterface
     // @param string  $type: lock, unlock
     //
     //--------------------------------------------------------------------------------------------------------
-    public function lock(String $type = 'lock') : InternalDBUser;
+    public function lock(string $type = 'lock') : InternalDBUser;
 
     //--------------------------------------------------------------------------------------------------------
     // unlock()
@@ -165,7 +165,7 @@ interface InternalDBUserInterface
     // @param string  $type: unlock, lock
     //
     //--------------------------------------------------------------------------------------------------------
-    public function unlock(String $type = 'unlock') : InternalDBUser;
+    public function unlock(string $type = 'unlock') : InternalDBUser;
 
     //--------------------------------------------------------------------------------------------------------
     // type()
@@ -174,7 +174,7 @@ interface InternalDBUserInterface
     // @param string  $type: TABLE, FUNCTION, PROCEDURE
     //
     //--------------------------------------------------------------------------------------------------------
-    public function type(String $type = 'TABLE') : InternalDBUser;
+    public function type(string $type = 'TABLE') : InternalDBUser;
 
     //--------------------------------------------------------------------------------------------------------
     // select()
@@ -183,7 +183,7 @@ interface InternalDBUserInterface
     // @param string  $select: *.*
     //
     //--------------------------------------------------------------------------------------------------------
-    public function select(String $select = '*.*') : InternalDBUser;
+    public function select(string $select = '*.*') : InternalDBUser;
 
     //--------------------------------------------------------------------------------------------------------
     // grantOption()
@@ -201,7 +201,7 @@ interface InternalDBUserInterface
     // @param string  $name: USER()
     //
     //--------------------------------------------------------------------------------------------------------
-    public function alter(String $name) : Bool;
+    public function alter(string $name) : bool;
 
     //--------------------------------------------------------------------------------------------------------
     // create()
@@ -210,7 +210,7 @@ interface InternalDBUserInterface
     // @param string $name: USER()
     //
     //--------------------------------------------------------------------------------------------------------
-    public function create(String $name) : Bool;
+    public function create(string $name) : bool;
 
     //--------------------------------------------------------------------------------------------------------
     // drop()
@@ -219,7 +219,7 @@ interface InternalDBUserInterface
     // @param string  $name: USER()
     //
     //--------------------------------------------------------------------------------------------------------
-    public function drop(String $name) : Bool;
+    public function drop(string $name) : bool;
 
     //--------------------------------------------------------------------------------------------------------
     // grant()
@@ -230,7 +230,7 @@ interface InternalDBUserInterface
     // @param string  $select: *.*
     //
     //--------------------------------------------------------------------------------------------------------
-    public function grant(String $name = 'ALL', String $type = NULL, String $select = '*.*') : Bool;
+    public function grant(string $name = 'ALL', string $type = NULL, string $select = '*.*') : bool;
 
     //--------------------------------------------------------------------------------------------------------
     // revoke()
@@ -241,7 +241,7 @@ interface InternalDBUserInterface
     // @param string  $select: *.*
     //
     //--------------------------------------------------------------------------------------------------------
-    public function revoke(String $name = 'ALL', String $type = NULL, String $select = '*.*') : Bool;
+    public function revoke(string $name = 'ALL', string $type = NULL, string $select = '*.*') : bool;
 
     //--------------------------------------------------------------------------------------------------------
     // rename()
@@ -251,7 +251,7 @@ interface InternalDBUserInterface
     // @param string  $newName: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function rename(String $oldName, String $newName) : Bool;
+    public function rename(string $oldName, string $newName) : bool;
 
     //--------------------------------------------------------------------------------------------------------
     // setPassword()
@@ -261,5 +261,5 @@ interface InternalDBUserInterface
     // @param string  $pass: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function setPassword(String $user, String $pass) : Bool;
+    public function setPassword(string $user, string $pass) : bool;
 }
