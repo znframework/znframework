@@ -20,7 +20,7 @@ interface InternalIVInterface
     // @param string $toEncoding
     //
     //--------------------------------------------------------------------------------------------------------
-    public function convert(String $string, String $fromEncoding, String $toEncoding) : String;
+    public function convert(string $string, string $fromEncoding, string $toEncoding) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Encodings
@@ -29,7 +29,7 @@ interface InternalIVInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function encodings() : Array;
+    public function encodings() : array;
 
 
     //--------------------------------------------------------------------------------------------------------
@@ -39,7 +39,7 @@ interface InternalIVInterface
     // @param string $type: input, output, internal
     //
     //--------------------------------------------------------------------------------------------------------
-    public function getEncoding(String $type = 'input') : String;
+    public function getEncoding(string $type = 'input') : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Set Encoding
@@ -49,7 +49,7 @@ interface InternalIVInterface
     // @param string $charset
     //
     //--------------------------------------------------------------------------------------------------------
-    public function setEncoding(String $type = 'input', String $charset = 'utf-8') : Bool;
+    public function setEncoding(string $type = 'input', string $charset = 'utf-8') : bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Mimes Decode
@@ -60,7 +60,7 @@ interface InternalIVInterface
     // @param string $charset
     //
     //--------------------------------------------------------------------------------------------------------
-    public function mimesDecode(String $encodedHeaders, Int $mode = 0, String $charset = NULL) : Array;
+    public function mimesDecode(string $encodedHeaders, int $mode = 0, string $charset = NULL) : array;
 
     //--------------------------------------------------------------------------------------------------------
     // Mime Decode
@@ -71,7 +71,7 @@ interface InternalIVInterface
     // @param string $charset
     //
     //--------------------------------------------------------------------------------------------------------
-    public function mimeDecode(String $encodedHeader, Int $mode = 0, String $charset = NULL) : String;
+    public function mimeDecode(string $encodedHeader, int $mode = 0, string $charset = NULL) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Mime Encode
@@ -82,5 +82,5 @@ interface InternalIVInterface
     // @param array  $preferences
     //
     //--------------------------------------------------------------------------------------------------------
-    public function mimeEncode(String $fieldName, String $fieldValue, Array $preferences = NULL) : String;
+    public function mimeEncode(string $fieldName, string $fieldValue, array $preferences = NULL) : string;
 }

@@ -18,7 +18,7 @@ interface InternalGTInterface
     // @param string $message
     //
     //--------------------------------------------------------------------------------------------------------
-    public function data(String $message) : String;
+    public function data(string $message) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Locale
@@ -28,7 +28,7 @@ interface InternalGTInterface
     // @param mixed  $locale
     //
     //--------------------------------------------------------------------------------------------------------
-    public function locale(String $category, $locale) : String;
+    public function locale(string $category, $locale) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Datas
@@ -39,7 +39,7 @@ interface InternalGTInterface
     // @param int    $count
     //
     //--------------------------------------------------------------------------------------------------------
-    public function datas(String $msgId1, String $msgId2, Int $count = 0) : String;
+    public function datas(string $msgId1, string $msgId2, int $count = 0) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Change
@@ -49,7 +49,7 @@ interface InternalGTInterface
     // @param string $message
     //
     //--------------------------------------------------------------------------------------------------------
-    public function change(String $domain, String $message) : String;
+    public function change(string $domain, string $message) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Changes
@@ -61,7 +61,7 @@ interface InternalGTInterface
     // @param int    $count
     //
     //--------------------------------------------------------------------------------------------------------
-    public function changes(String $domain, String $msgId1, String $msgId2, Int $count = 0) : String;
+    public function changes(string $domain, string $msgId1, string $msgId2, int $count = 0) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Search
@@ -72,7 +72,7 @@ interface InternalGTInterface
     // @param int    $category
     //
     //--------------------------------------------------------------------------------------------------------
-    public function search(String $domain, String $message, Int $category = 0) : String;
+    public function search(string $domain, string $message, int $category = 0) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Searches
@@ -85,7 +85,7 @@ interface InternalGTInterface
     // @param int    $category
     //
     //--------------------------------------------------------------------------------------------------------
-    public function searches(String $domain, String $msgId1, String $msgId2, Int $count = 0, Int $category = 0) : String;
+    public function searches(string $domain, string $msgId1, string $msgId2, int $count = 0, int $category = 0) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Codeset
@@ -95,7 +95,7 @@ interface InternalGTInterface
     // @param string $codeset
     //
     //--------------------------------------------------------------------------------------------------------
-    public function codeset(String $domain, String $codeset) : String;
+    public function codeset(string $domain, string $codeset) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Dir
@@ -105,7 +105,7 @@ interface InternalGTInterface
     // @param string $directory
     //
     //--------------------------------------------------------------------------------------------------------
-    public function dir(String $domain, String $directory) : String;
+    public function dir(string $domain, string $directory) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Name
@@ -114,5 +114,5 @@ interface InternalGTInterface
     // @param string $textDomain
     //
     //--------------------------------------------------------------------------------------------------------
-    public function name(String $textDomain) : String;
+    public function name(string $textDomain) : string;
 }

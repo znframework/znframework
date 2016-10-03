@@ -20,7 +20,7 @@ interface InternalMBInterface
     // @param int    $limit
     //
     //--------------------------------------------------------------------------------------------------------
-    public function split(String $string, String $pattern, Int $limit = -1) : Array;
+    public function split(string $string, string $pattern, int $limit = -1) : array;
 
     //--------------------------------------------------------------------------------------------------------
     // Split
@@ -32,7 +32,7 @@ interface InternalMBInterface
     // @param bool   $case
     //
     //--------------------------------------------------------------------------------------------------------
-    public function search(String $str, String $needle, String $type = 'str', Bool $case = true) : String;
+    public function search(string $str, string $needle, string $type = 'str', bool $case = true) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Section
@@ -44,7 +44,7 @@ interface InternalMBInterface
     // @param string $encoding
     //
     //--------------------------------------------------------------------------------------------------------
-    public function section(String $str, Int $starting = 0, Int $count = NULL, String $encoding = 'UTF-8') : String;
+    public function section(string $str, int $starting = 0, int $count = NULL, string $encoding = 'UTF-8') : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Parse Get
@@ -53,7 +53,7 @@ interface InternalMBInterface
     // @param string $string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function parseGet(String $string) : Array;
+    public function parseGet(string $string) : array;
 
     //--------------------------------------------------------------------------------------------------------
     // Check Encoding
@@ -63,7 +63,7 @@ interface InternalMBInterface
     // @param string $encoding
     //
     //--------------------------------------------------------------------------------------------------------
-    public function checkEncoding(String $string = NULL, String $encoding = 'UTF-8') : Bool;
+    public function checkEncoding(string $string = NULL, string $encoding = 'UTF-8') : bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Casing
@@ -74,7 +74,7 @@ interface InternalMBInterface
     // @param string $encoding
     //
     //--------------------------------------------------------------------------------------------------------
-    public function casing(String $string, String $flag = 'upper', String $encoding = 'UTF-8') : String;
+    public function casing(string $string, string $flag = 'upper', string $encoding = 'UTF-8') : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Convert Encoding
@@ -85,7 +85,7 @@ interface InternalMBInterface
     // @param string $fromEncoding
     //
     //--------------------------------------------------------------------------------------------------------
-    public function convertEncoding(String $string, String $toEncoding = 'UTF-8', String $fromEncoding = 'ASCII, UTF-8') : String;
+    public function convertEncoding(string $string, string $toEncoding = 'UTF-8', string $fromEncoding = 'ASCII, UTF-8') : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Mime Decode
@@ -94,7 +94,7 @@ interface InternalMBInterface
     // @param string $string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function mimeDecode(String $string) : String;
+    public function mimeDecode(string $string) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Mime Encode
@@ -107,7 +107,7 @@ interface InternalMBInterface
     // @param int    $indent
     //
     //--------------------------------------------------------------------------------------------------------
-    public function mimeEncode(String $string, String $encoding = 'UTF-8', String $transferEncoding = 'B', String $crlf = "\r\n", Int $indent = 0) : String;
+    public function mimeEncode(string $string, string $encoding = 'UTF-8', string $transferEncoding = 'B', string $crlf = "\r\n", int $indent = 0) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Html To Numeric
@@ -118,7 +118,7 @@ interface InternalMBInterface
     // @param string $encoding
     //
     //--------------------------------------------------------------------------------------------------------
-    public function htmlToNumeric(String $string, Array $convertMap = NULL, String $encoding = 'UTF-8') : String;
+    public function htmlToNumeric(string $string, array $convertMap = NULL, string $encoding = 'UTF-8') : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Numeric To Html
@@ -129,7 +129,7 @@ interface InternalMBInterface
     // @param string $encoding
     //
     //--------------------------------------------------------------------------------------------------------
-    public function numericToHtml(String $string, Array $convertMap = NULL, String $encoding = 'UTF-8') : String;
+    public function numericToHtml(string $string, array $convertMap = NULL, string $encoding = 'UTF-8') : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Detect Encoding
@@ -140,7 +140,7 @@ interface InternalMBInterface
     // @param bool   $strict
     //
     //--------------------------------------------------------------------------------------------------------
-    public function detectEncoding(String $string, $encodingList = ['ASCII', 'UTF-8'], Bool $strict = false) : String;
+    public function detectEncoding(string $string, $encodingList = ['ASCII', 'UTF-8'], bool $strict = false) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Detect Order
@@ -159,7 +159,7 @@ interface InternalMBInterface
     // @param  mixed  $encodingList
     //
     //--------------------------------------------------------------------------------------------------------
-    public function encodingAliases(String $string) : Array;
+    public function encodingAliases(string $string) : array;
 
     //--------------------------------------------------------------------------------------------------------
     // Info
@@ -168,7 +168,7 @@ interface InternalMBInterface
     // @param string $string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function info(String $string = 'all');
+    public function info(string $string = 'all');
 
     //--------------------------------------------------------------------------------------------------------
     // Http Input
@@ -177,7 +177,7 @@ interface InternalMBInterface
     // @param string $type
     //
     //--------------------------------------------------------------------------------------------------------
-    public function httpInput(String $type = 'I');
+    public function httpInput(string $type = 'I');
 
     //--------------------------------------------------------------------------------------------------------
     // Http Output
@@ -186,7 +186,7 @@ interface InternalMBInterface
     // @param string $encoding
     //
     //--------------------------------------------------------------------------------------------------------
-    public function httpOutput(String $encoding = 'UTF-8');
+    public function httpOutput(string $encoding = 'UTF-8');
 
     //--------------------------------------------------------------------------------------------------------
     // Lang
@@ -195,7 +195,7 @@ interface InternalMBInterface
     // @param string $lang
     //
     //--------------------------------------------------------------------------------------------------------
-    public function lang(String $lang = 'neutral');
+    public function lang(string $lang = 'neutral');
 
     //--------------------------------------------------------------------------------------------------------
     // Encodings
@@ -204,7 +204,7 @@ interface InternalMBInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function encodings() : Array;
+    public function encodings() : array;
 
     //--------------------------------------------------------------------------------------------------------
     // Output Handler
@@ -214,7 +214,7 @@ interface InternalMBInterface
     // @param int    $status
     //
     //--------------------------------------------------------------------------------------------------------
-    public function outputHandler(String $contents, Int $status = 0) : String;
+    public function outputHandler(string $contents, int $status = 0) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Preferred Mime Name
@@ -223,5 +223,5 @@ interface InternalMBInterface
     // @param string $encoding
     //
     //--------------------------------------------------------------------------------------------------------
-    public function preferredMimeName(String $encoding = 'UTF-8') : String;
+    public function preferredMimeName(string $encoding = 'UTF-8') : string;
 }

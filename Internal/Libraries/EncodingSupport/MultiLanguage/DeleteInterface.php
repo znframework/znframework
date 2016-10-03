@@ -22,7 +22,7 @@ interface DeleteInterface
     // @return bool
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do(String $app, $key) : Bool;
+    public function do(string $app, $key) : bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Delete All
@@ -32,5 +32,5 @@ interface DeleteInterface
     // @param string $app
     //
     //--------------------------------------------------------------------------------------------------------
-    public function all($app = NULL) : Bool;
+    public function all($app = NULL) : bool;
 }
