@@ -22,7 +22,7 @@ class InternalFunctions extends CallController implements InternalFunctionsInter
     // @param array    $params
     //
     //--------------------------------------------------------------------------------------------------------
-    public function callArray($callback, Array $params = [])
+    public function callArray($callback, array $params = [])
     {
         if( ! is_callable($callback) )
         {
@@ -52,7 +52,7 @@ class InternalFunctions extends CallController implements InternalFunctionsInter
     // @param array    $params
     //
     //--------------------------------------------------------------------------------------------------------
-    public function staticCallArray($callback, Array $params = [])
+    public function staticCallArray($callback, array $params = [])
     {
         if( ! is_callable($callback) )
         {
@@ -117,7 +117,7 @@ class InternalFunctions extends CallController implements InternalFunctionsInter
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function defined() : Array
+    public function defined() : array
     {
         return get_defined_functions();
     }

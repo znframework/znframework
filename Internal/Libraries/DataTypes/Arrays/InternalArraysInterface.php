@@ -18,7 +18,7 @@ interface InternalArraysInterface
     // @param array   $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function objectData(Array $data) : String;
+    public function objectData(array $data) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Length
@@ -27,7 +27,7 @@ interface InternalArraysInterface
     // @param array   $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function length(Array $data) : Int;
+    public function length(array $data) : int;
 
     //--------------------------------------------------------------------------------------------------------
     // Apportion
@@ -38,7 +38,7 @@ interface InternalArraysInterface
     // @param bool    $preserveKeys
     //
     //--------------------------------------------------------------------------------------------------------
-    public function apportion(Array $data, Int $portionCount = 1, Bool $preserveKeys = false) : Array;
+    public function apportion(array $data, int $portionCount = 1, bool $preserveKeys = false) : array;
 
     //--------------------------------------------------------------------------------------------------------
     // Combine
@@ -48,7 +48,7 @@ interface InternalArraysInterface
     // @param array $values
     //
     //--------------------------------------------------------------------------------------------------------
-    public function combine(Array $keys, Array $values) : Array;
+    public function combine(array $keys, array $values) : array;
 
     //--------------------------------------------------------------------------------------------------------
     // Count Same Values
@@ -58,7 +58,7 @@ interface InternalArraysInterface
     // @param mixed $key
     //
     //--------------------------------------------------------------------------------------------------------
-    public function countSameValues(Array $array, String $key = NULL);
+    public function countSameValues(array $array, string $key = NULL);
 
     //--------------------------------------------------------------------------------------------------------
     // Flip
@@ -67,7 +67,7 @@ interface InternalArraysInterface
     // @param array   $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function flip(Array $array) : Array;
+    public function flip(array $array) : array;
 
     //--------------------------------------------------------------------------------------------------------
     // Transform
@@ -76,7 +76,7 @@ interface InternalArraysInterface
     // @param array   $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function transform(Array $array) : Array;
+    public function transform(array $array) : array;
 
     //--------------------------------------------------------------------------------------------------------
     // Implement Callback(Map)
@@ -85,7 +85,7 @@ interface InternalArraysInterface
     // @param ...args
     //
     //--------------------------------------------------------------------------------------------------------
-    public function implementCallback(...$args) : Array;
+    public function implementCallback(...$args) : array;
 
     //--------------------------------------------------------------------------------------------------------
     // Map
@@ -94,7 +94,7 @@ interface InternalArraysInterface
     // @param ...args
     //
     //--------------------------------------------------------------------------------------------------------
-    public function map(...$args) : Array;
+    public function map(...$args) : array;
 
     //--------------------------------------------------------------------------------------------------------
     // Recursive Merge
@@ -103,7 +103,7 @@ interface InternalArraysInterface
     // @param ...args
     //
     //--------------------------------------------------------------------------------------------------------
-    public function recursiveMerge(...$args) : Array;
+    public function recursiveMerge(...$args) : array;
 
     //--------------------------------------------------------------------------------------------------------
     // Merge
@@ -112,7 +112,7 @@ interface InternalArraysInterface
     // @param ...args
     //
     //--------------------------------------------------------------------------------------------------------
-    public function merge(...$args) : Array;
+    public function merge(...$args) : array;
 
     //--------------------------------------------------------------------------------------------------------
     // Intersect
@@ -121,7 +121,7 @@ interface InternalArraysInterface
     // @param ...args
     //
     //--------------------------------------------------------------------------------------------------------
-    public function intersect(...$args) : Array;
+    public function intersect(...$args) : array;
 
     //--------------------------------------------------------------------------------------------------------
     // Reverse
@@ -131,7 +131,7 @@ interface InternalArraysInterface
     // @param bool    $preserveKeys
     //
     //--------------------------------------------------------------------------------------------------------
-    public function reverse(Array $array, Bool $preserveKeys = false) : Array;
+    public function reverse(array $array, bool $preserveKeys = false) : array;
 
     //--------------------------------------------------------------------------------------------------------
     // Product
@@ -140,7 +140,7 @@ interface InternalArraysInterface
     // @param array   $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function product(Array $array) : Float;
+    public function product(array $array) : float;
 
     //--------------------------------------------------------------------------------------------------------
     // Sum
@@ -149,7 +149,7 @@ interface InternalArraysInterface
     // @param array   $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function sum(Array $array) : Float;
+    public function sum(array $array) : float;
 
     //--------------------------------------------------------------------------------------------------------
     // Random
@@ -159,7 +159,7 @@ interface InternalArraysInterface
     // @param numeric $countRequest
     //
     //--------------------------------------------------------------------------------------------------------
-    public function random(Array $array, Int $countRequest);
+    public function random(array $array, int $countRequest);
 
     //--------------------------------------------------------------------------------------------------------
     // Search
@@ -170,7 +170,7 @@ interface InternalArraysInterface
     // @param bool  $strict
     //
     //--------------------------------------------------------------------------------------------------------
-    public function search(Array $array, $element, Bool $strict = false);
+    public function search(array $array, $element, bool $strict = false);
 
     //--------------------------------------------------------------------------------------------------------
     // Value Exists
@@ -181,7 +181,7 @@ interface InternalArraysInterface
     // @param bool  $strict
     //
     //--------------------------------------------------------------------------------------------------------
-    public function valueExists(Array $array, $element, Bool $strict = false) : Bool;
+    public function valueExists(array $array, $element, bool $strict = false) : bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Key Exists
@@ -191,7 +191,7 @@ interface InternalArraysInterface
     // @param mixed $key
     //
     //--------------------------------------------------------------------------------------------------------
-    public function keyExists(Array $array, $key) : Bool;
+    public function keyExists(array $array, $key) : bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Section
@@ -203,7 +203,7 @@ interface InternalArraysInterface
     // @param bool    $preserveKey
     //
     //--------------------------------------------------------------------------------------------------------
-    public function section(Array $array, Int $start = 0, Int $length = NULL, Bool $preserveKeys = false) : Array;
+    public function section(array $array, int $start = 0, int $length = NULL, bool $preserveKeys = false) : array;
 
     //--------------------------------------------------------------------------------------------------------
     // Resection
@@ -215,7 +215,7 @@ interface InternalArraysInterface
     // @param mixed   $newElement
     //
     //--------------------------------------------------------------------------------------------------------
-    public function resection(Array $array, Int $start = 0, Int $length = NULL, $newElement = NULL) : Array;
+    public function resection(array $array, int $start = 0, int $length = NULL, $newElement = NULL) : array;
 
     //--------------------------------------------------------------------------------------------------------
     // Delete Recurrent
@@ -225,7 +225,7 @@ interface InternalArraysInterface
     // @param string $flags
     //
     //--------------------------------------------------------------------------------------------------------
-    public function deleteRecurrent(Array $array, String $flags = 'string') : Array;
+    public function deleteRecurrent(array $array, string $flags = 'string') : array;
 
     //--------------------------------------------------------------------------------------------------------
     // Series
@@ -236,7 +236,7 @@ interface InternalArraysInterface
     // @param numeric $count
     //
     //--------------------------------------------------------------------------------------------------------
-    public function series(Int $start, Int $end, Int $step = 1) : Array;
+    public function series(int $start, int $end, int $step = 1) : array;
 
     //--------------------------------------------------------------------------------------------------------
     // Column
@@ -247,5 +247,5 @@ interface InternalArraysInterface
     // @param mixed   $indexKey
     //
     //--------------------------------------------------------------------------------------------------------
-    public function column(Array $array, $columnKey, $indexKey) : Array;
+    public function column(array $array, $columnKey, $indexKey) : array;
 }

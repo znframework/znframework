@@ -20,7 +20,7 @@ class InternalFilters extends CallController implements InternalFiltersInterface
     // @param string $varName
     //
     //--------------------------------------------------------------------------------------------------------
-    public function getVar(String $varName) : Bool
+    public function getVar(string $varName) : bool
     {
         return $this->_var($varName, INPUT_GET);
     }
@@ -32,7 +32,7 @@ class InternalFilters extends CallController implements InternalFiltersInterface
     // @param string $varName
     //
     //--------------------------------------------------------------------------------------------------------
-    public function postVar(String $varName) : Bool
+    public function postVar(string $varName) : bool
     {
         return $this->_var($varName, INPUT_POST);
     }
@@ -44,7 +44,7 @@ class InternalFilters extends CallController implements InternalFiltersInterface
     // @param string $varName
     //
     //--------------------------------------------------------------------------------------------------------
-    public function cookieVar(String $varName) : Bool
+    public function cookieVar(string $varName) : bool
     {
         return $this->_var($varName, INPUT_COOKIE);
     }
@@ -56,7 +56,7 @@ class InternalFilters extends CallController implements InternalFiltersInterface
     // @param string $varName
     //
     //--------------------------------------------------------------------------------------------------------
-    public function envVar(String $varName) : Bool
+    public function envVar(string $varName) : bool
     {
         return $this->_var($varName, INPUT_ENV);
     }
@@ -68,7 +68,7 @@ class InternalFilters extends CallController implements InternalFiltersInterface
     // @param string $varName
     //
     //--------------------------------------------------------------------------------------------------------
-    public function serverVar(String $varName) : Bool
+    public function serverVar(string $varName) : bool
     {
         return $this->_var($varName, INPUT_SERVER);
     }
@@ -80,7 +80,7 @@ class InternalFilters extends CallController implements InternalFiltersInterface
     // @param string $filterName
     //
     //--------------------------------------------------------------------------------------------------------
-    public function id(String $filterName) : Int
+    public function id(string $filterName) : int
     {
         return filter_id($filterName);
     }
@@ -92,7 +92,7 @@ class InternalFilters extends CallController implements InternalFiltersInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function getList() : Array
+    public function getList() : array
     {
         return filter_list();
     }
@@ -106,7 +106,7 @@ class InternalFilters extends CallController implements InternalFiltersInterface
     // @param bool   $addEmpty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function inputArray(String $type = 'post', $definition = NULL, Bool $addEmpty = true)
+    public function inputArray(string $type = 'post', $definition = NULL, bool $addEmpty = true)
     {
         return filter_input_array($this->_inputConstant($type), $definition, $addEmpty);
     }
@@ -120,7 +120,7 @@ class InternalFilters extends CallController implements InternalFiltersInterface
     // @param bool   $addEmpty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function varArray(Array $data, $definition = NULL, Bool $addEmpty = true)
+    public function varArray(array $data, $definition = NULL, bool $addEmpty = true)
     {
         return filter_var_array($data, $definition, $addEmpty);
     }
@@ -135,7 +135,7 @@ class InternalFilters extends CallController implements InternalFiltersInterface
     // @param mixed  $options
     //
     //--------------------------------------------------------------------------------------------------------
-    public function input(String $var, String $type = 'post', String $filter = 'default' , $options = NULL)
+    public function input(string $var, string $type = 'post', string $filter = 'default' , $options = NULL)
     {
         return filter_input($this->_inputConstant($type), $var, $this->_filterConstant($filter), $options);
     }
@@ -149,7 +149,7 @@ class InternalFilters extends CallController implements InternalFiltersInterface
     // @param mixed  $options
     //
     //--------------------------------------------------------------------------------------------------------
-    public function vars($var, String $filter = 'default', $options = NULL)
+    public function vars($var, string $filter = 'default', $options = NULL)
     {
         return filter_var($var, $this->_filterConstant($filter), $options);
     }
@@ -161,7 +161,7 @@ class InternalFilters extends CallController implements InternalFiltersInterface
     // @param string $const;
     //
     //--------------------------------------------------------------------------------------------------------
-    public function sanitize(String $const)
+    public function sanitize(string $const)
     {
         return $this->_validate($const, __FUNCTION__);
     }
@@ -173,7 +173,7 @@ class InternalFilters extends CallController implements InternalFiltersInterface
     // @param string $const;
     //
     //--------------------------------------------------------------------------------------------------------
-    public function validate(String $const)
+    public function validate(string $const)
     {
         return $this->_validate($const, __FUNCTION__);
     }
@@ -185,7 +185,7 @@ class InternalFilters extends CallController implements InternalFiltersInterface
     // @param string $const;
     //
     //--------------------------------------------------------------------------------------------------------
-    public function force(String $const)
+    public function force(string $const)
     {
         return $this->_validate($const, __FUNCTION__);
     }
@@ -197,7 +197,7 @@ class InternalFilters extends CallController implements InternalFiltersInterface
     // @param string $const;
     //
     //--------------------------------------------------------------------------------------------------------
-    public function flag(String $const)
+    public function flag(string $const)
     {
         return $this->_validate($const, __FUNCTION__);
     }
@@ -209,7 +209,7 @@ class InternalFilters extends CallController implements InternalFiltersInterface
     // @param string $const;
     //
     //--------------------------------------------------------------------------------------------------------
-    public function required(String $const)
+    public function required(string $const)
     {
         return $this->_validate($const, 'require');
     }

@@ -18,7 +18,7 @@ interface InternalFiltersInterface
     // @param string $varName
     //
     //--------------------------------------------------------------------------------------------------------
-    public function getVar(String $varName) : Bool;
+    public function getVar(string $varName) : bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Post Var
@@ -27,7 +27,7 @@ interface InternalFiltersInterface
     // @param string $varName
     //
     //--------------------------------------------------------------------------------------------------------
-    public function postVar(String $varName) : Bool;
+    public function postVar(string $varName) : bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Cookie Var
@@ -36,7 +36,7 @@ interface InternalFiltersInterface
     // @param string $varName
     //
     //--------------------------------------------------------------------------------------------------------
-    public function cookieVar(String $varName) : Bool;
+    public function cookieVar(string $varName) : bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Env Var
@@ -45,7 +45,7 @@ interface InternalFiltersInterface
     // @param string $varName
     //
     //--------------------------------------------------------------------------------------------------------
-    public function envVar(String $varName) : Bool;
+    public function envVar(string $varName) : bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Server Var
@@ -54,7 +54,7 @@ interface InternalFiltersInterface
     // @param string $varName
     //
     //--------------------------------------------------------------------------------------------------------
-    public function serverVar(String $varName) : Bool;
+    public function serverVar(string $varName) : bool;
 
     //--------------------------------------------------------------------------------------------------------
     // ID
@@ -63,7 +63,7 @@ interface InternalFiltersInterface
     // @param string $filterName
     //
     //--------------------------------------------------------------------------------------------------------
-    public function id(String $filterName) : Int;
+    public function id(string $filterName) : int;
 
     //--------------------------------------------------------------------------------------------------------
     // Get List
@@ -72,7 +72,7 @@ interface InternalFiltersInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function getList() : Array;
+    public function getList() : array;
 
     //--------------------------------------------------------------------------------------------------------
     // Input Array
@@ -83,7 +83,7 @@ interface InternalFiltersInterface
     // @param bool   $addEmpty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function inputArray(String $type = 'post', $definition = NULL, Bool $addEmpty = true);
+    public function inputArray(string $type = 'post', $definition = NULL, bool $addEmpty = true);
 
     //--------------------------------------------------------------------------------------------------------
     // Var Array
@@ -94,7 +94,7 @@ interface InternalFiltersInterface
     // @param bool   $addEmpty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function varArray(Array $data, $definition = NULL, Bool $addEmpty = true);
+    public function varArray(array $data, $definition = NULL, bool $addEmpty = true);
 
     //--------------------------------------------------------------------------------------------------------
     // Input
@@ -106,7 +106,7 @@ interface InternalFiltersInterface
     // @param mixed  $options
     //
     //--------------------------------------------------------------------------------------------------------
-    public function input(String $var, String $type = 'post', String $filter = 'default' , $options = NULL);
+    public function input(string $var, string $type = 'post', string $filter = 'default' , $options = NULL);
 
     //--------------------------------------------------------------------------------------------------------
     // Vars
@@ -117,7 +117,7 @@ interface InternalFiltersInterface
     // @param mixed  $options
     //
     //--------------------------------------------------------------------------------------------------------
-    public function vars($var, String $filter = 'default', $options = NULL);
+    public function vars($var, string $filter = 'default', $options = NULL);
 
     //--------------------------------------------------------------------------------------------------------
     // Sanitize
@@ -126,7 +126,7 @@ interface InternalFiltersInterface
     // @param string $const;
     //
     //--------------------------------------------------------------------------------------------------------
-    public function sanitize(String $const);
+    public function sanitize(string $const);
 
     //--------------------------------------------------------------------------------------------------------
     // Validate
@@ -135,7 +135,7 @@ interface InternalFiltersInterface
     // @param string $const;
     //
     //--------------------------------------------------------------------------------------------------------
-    public function validate(String $const);
+    public function validate(string $const);
 
     //--------------------------------------------------------------------------------------------------------
     // Force
@@ -144,7 +144,7 @@ interface InternalFiltersInterface
     // @param string $const;
     //
     //--------------------------------------------------------------------------------------------------------
-    public function force(String $const);
+    public function force(string $const);
 
     //--------------------------------------------------------------------------------------------------------
     // Flag
@@ -153,7 +153,7 @@ interface InternalFiltersInterface
     // @param string $const;
     //
     //--------------------------------------------------------------------------------------------------------
-    public function flag(String $const);
+    public function flag(string $const);
 
     //--------------------------------------------------------------------------------------------------------
     // Required
@@ -162,5 +162,5 @@ interface InternalFiltersInterface
     // @param string $const;
     //
     //--------------------------------------------------------------------------------------------------------
-    public function required(String $const);
+    public function required(string $const);
 }

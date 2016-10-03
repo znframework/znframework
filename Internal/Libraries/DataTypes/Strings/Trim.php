@@ -18,7 +18,7 @@ class Trim implements TrimInterface
     // @param string $str
     //
     //--------------------------------------------------------------------------------------------------------
-    public function middle(String $str) : String
+    public function middle(string $str) : string
     {
         $str = preg_replace
         (
@@ -37,7 +37,7 @@ class Trim implements TrimInterface
     // @param string $str
     //
     //--------------------------------------------------------------------------------------------------------
-    public function slashes(String $str) : String
+    public function slashes(string $str) : string
     {
         $str = trim($str, "/");
 

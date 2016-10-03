@@ -11,10 +11,10 @@
 	RewriteBase /
 	RewriteCond %{REQUEST_FILENAME} !-f
 	RewriteCond %{REQUEST_FILENAME} !-d
-	RewriteRule ^(.*)$  /zeroneed/zeroneed.php/$1 [L]
+	RewriteRule ^(.*)$  /Development/zeroneed.php/$1 [L]
 </IfModule>
 
-ErrorDocument 403 /zeroneed/zeroneed.php
+ErrorDocument 403 /Development/zeroneed.php
 
 DirectoryIndex zeroneed.php
 

@@ -21,7 +21,7 @@ interface SearchInterface
     // @param string $case
     //
     //--------------------------------------------------------------------------------------------------------
-    public function use(String $str, String $needle, String $type = 'string', Bool $case = true) : String;
+    public function use(string $str, string $needle, string $type = 'string', bool $case = true) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Position
@@ -32,7 +32,7 @@ interface SearchInterface
     // @param string $case
     //
     //--------------------------------------------------------------------------------------------------------
-    public function position(String $str, String $needle, Bool $case = true) : String;
+    public function position(string $str, string $needle, bool $case = true) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // String
@@ -43,5 +43,5 @@ interface SearchInterface
     // @param string $case
     //
     //--------------------------------------------------------------------------------------------------------
-    public function string(String $str, String $needle, Bool $case = true) : String;
+    public function string(string $str, string $needle, bool $case = true) : string;
 }

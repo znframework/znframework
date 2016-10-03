@@ -32,7 +32,7 @@ class Builder implements BuilderInterface
     // @return this
     //
     //--------------------------------------------------------------------------------------------------------
-    public function version(String $version = '1.0') : Builder
+    public function version(string $version = '1.0') : Builder
     {
         $this->version = $version;
 
@@ -49,7 +49,7 @@ class Builder implements BuilderInterface
     // @return this
     //
     //--------------------------------------------------------------------------------------------------------
-    public function encoding(String $encoding = 'UTF-8') : Builder
+    public function encoding(string $encoding = 'UTF-8') : Builder
     {
         $this->encoding = $encoding;
 
@@ -65,7 +65,7 @@ class Builder implements BuilderInterface
     // @param string $encoding
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do(Array $data, String $version = NULL, String $encoding = NULL) : String
+    public function do(array $data, string $version = NULL, string $encoding = NULL) : string
     {
         if( ! empty($version) )  $this->version  = $version;
         if( ! empty($encoding) ) $this->encoding = $encoding;

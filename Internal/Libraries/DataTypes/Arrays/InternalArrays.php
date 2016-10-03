@@ -70,7 +70,7 @@ class InternalArrays extends \FactoryController implements InternalArraysInterfa
     // @param array   $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function objectData(Array $data) : String
+    public function objectData(array $data) : string
     {
         return Json::encode($data);
     }
@@ -82,7 +82,7 @@ class InternalArrays extends \FactoryController implements InternalArraysInterfa
     // @param array   $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function length(Array $data) : Int
+    public function length(array $data) : int
     {
         return count($data);
     }
@@ -96,7 +96,7 @@ class InternalArrays extends \FactoryController implements InternalArraysInterfa
     // @param bool    $preserveKeys
     //
     //--------------------------------------------------------------------------------------------------------
-    public function apportion(Array $data, Int $portionCount = 1, Bool $preserveKeys = false) : Array
+    public function apportion(array $data, int $portionCount = 1, bool $preserveKeys = false) : array
     {
         return array_chunk($data, $portionCount, $preserveKeys);
     }
@@ -109,7 +109,7 @@ class InternalArrays extends \FactoryController implements InternalArraysInterfa
     // @param array $values
     //
     //--------------------------------------------------------------------------------------------------------
-    public function combine(Array $keys, Array $values) : Array
+    public function combine(array $keys, array $values) : array
     {
         return array_combine($keys, $values);
     }
@@ -122,7 +122,7 @@ class InternalArrays extends \FactoryController implements InternalArraysInterfa
     // @param mixed $key
     //
     //--------------------------------------------------------------------------------------------------------
-    public function countSameValues(Array $array, String $key = NULL)
+    public function countSameValues(array $array, string $key = NULL)
     {
         $return = array_count_values($array);
 
@@ -141,7 +141,7 @@ class InternalArrays extends \FactoryController implements InternalArraysInterfa
     // @param array   $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function flip(Array $array) : Array
+    public function flip(array $array) : array
     {
         return array_flip($array);
     }
@@ -153,7 +153,7 @@ class InternalArrays extends \FactoryController implements InternalArraysInterfa
     // @param array   $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function transform(Array $array) : Array
+    public function transform(array $array) : array
     {
         return $this->flip($array);
     }
@@ -165,7 +165,7 @@ class InternalArrays extends \FactoryController implements InternalArraysInterfa
     // @param ...args
     //
     //--------------------------------------------------------------------------------------------------------
-    public function implementCallback(...$args) : Array
+    public function implementCallback(...$args) : array
     {
         return $this->map(...$args);
     }
@@ -177,7 +177,7 @@ class InternalArrays extends \FactoryController implements InternalArraysInterfa
     // @param ...args
     //
     //--------------------------------------------------------------------------------------------------------
-    public function map(...$args) : Array
+    public function map(...$args) : array
     {
         return array_map(...$args);
     }
@@ -189,7 +189,7 @@ class InternalArrays extends \FactoryController implements InternalArraysInterfa
     // @param ...args
     //
     //--------------------------------------------------------------------------------------------------------
-    public function recursiveMerge(...$args) : Array
+    public function recursiveMerge(...$args) : array
     {
         return array_merge_recursive(...$args);
     }
@@ -201,7 +201,7 @@ class InternalArrays extends \FactoryController implements InternalArraysInterfa
     // @param ...args
     //
     //--------------------------------------------------------------------------------------------------------
-    public function merge(...$args) : Array
+    public function merge(...$args) : array
     {
         return array_merge(...$args);
     }
@@ -213,7 +213,7 @@ class InternalArrays extends \FactoryController implements InternalArraysInterfa
     // @param ...args
     //
     //--------------------------------------------------------------------------------------------------------
-    public function intersect(...$args) : Array
+    public function intersect(...$args) : array
     {
         return array_intersect(...$args);
     }
@@ -226,7 +226,7 @@ class InternalArrays extends \FactoryController implements InternalArraysInterfa
     // @param bool    $preserveKeys
     //
     //--------------------------------------------------------------------------------------------------------
-    public function reverse(Array $array, Bool $preserveKeys = false) : Array
+    public function reverse(array $array, bool $preserveKeys = false) : array
     {
         return array_reverse($array, $preserveKeys);
     }
@@ -238,7 +238,7 @@ class InternalArrays extends \FactoryController implements InternalArraysInterfa
     // @param array   $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function product(Array $array) : Float
+    public function product(array $array) : float
     {
         return array_product($array);
     }
@@ -250,7 +250,7 @@ class InternalArrays extends \FactoryController implements InternalArraysInterfa
     // @param array   $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function sum(Array $array) : Float
+    public function sum(array $array) : float
     {
         return array_sum($array);
     }
@@ -263,7 +263,7 @@ class InternalArrays extends \FactoryController implements InternalArraysInterfa
     // @param numeric $countRequest
     //
     //--------------------------------------------------------------------------------------------------------
-    public function random(Array $array, Int $countRequest = 1)
+    public function random(array $array, int $countRequest = 1)
     {
         return array_rand($array, $countRequest);
     }
@@ -277,7 +277,7 @@ class InternalArrays extends \FactoryController implements InternalArraysInterfa
     // @param bool  $strict
     //
     //--------------------------------------------------------------------------------------------------------
-    public function search(Array $array, $element, Bool $strict = false)
+    public function search(array $array, $element, bool $strict = false)
     {
         return array_search($element, $array, $strict);
     }
@@ -291,7 +291,7 @@ class InternalArrays extends \FactoryController implements InternalArraysInterfa
     // @param bool  $strict
     //
     //--------------------------------------------------------------------------------------------------------
-    public function valueExists(Array $array, $element, Bool $strict = false) : Bool
+    public function valueExists(array $array, $element, bool $strict = false) : bool
     {
         return in_array($element, $array, $strict);
     }
@@ -304,7 +304,7 @@ class InternalArrays extends \FactoryController implements InternalArraysInterfa
     // @param mixed $key
     //
     //--------------------------------------------------------------------------------------------------------
-    public function keyExists(Array $array, $key) : Bool
+    public function keyExists(array $array, $key) : bool
     {
         return array_key_exists($key, $array);
     }
@@ -319,7 +319,7 @@ class InternalArrays extends \FactoryController implements InternalArraysInterfa
     // @param bool    $preserveKey
     //
     //--------------------------------------------------------------------------------------------------------
-    public function section(Array $array, Int $start = 0, Int $length = NULL, Bool $preserveKeys = false) : Array
+    public function section(array $array, int $start = 0, int $length = NULL, bool $preserveKeys = false) : array
     {
         return array_slice($array, $start, $length, $preserveKeys);
     }
@@ -334,7 +334,7 @@ class InternalArrays extends \FactoryController implements InternalArraysInterfa
     // @param mixed   $newElement
     //
     //--------------------------------------------------------------------------------------------------------
-    public function resection(Array $array, Int $start = 0, Int $length = NULL, $newElement = NULL) : Array
+    public function resection(array $array, int $start = 0, int $length = NULL, $newElement = NULL) : array
     {
         array_splice($array, $start, $length, $newElement);
 
@@ -349,7 +349,7 @@ class InternalArrays extends \FactoryController implements InternalArraysInterfa
     // @param string $flags
     //
     //--------------------------------------------------------------------------------------------------------
-    public function deleteRecurrent(Array $array, String $flags = 'string') : Array
+    public function deleteRecurrent(array $array, string $flags = 'string') : array
     {
         return array_unique($array, Converter::toConstant($flags, 'SORT_'));
     }
@@ -363,7 +363,7 @@ class InternalArrays extends \FactoryController implements InternalArraysInterfa
     // @param numeric $count
     //
     //--------------------------------------------------------------------------------------------------------
-    public function series(Int $start, Int $end, Int $step = 1) : Array
+    public function series(int $start, int $end, int $step = 1) : array
     {
         return range($start, $end, $step);
     }
@@ -377,7 +377,7 @@ class InternalArrays extends \FactoryController implements InternalArraysInterfa
     // @param mixed   $indexKey
     //
     //--------------------------------------------------------------------------------------------------------
-    public function column(Array $array, $columnKey = 0, $indexKey = NULL) : Array
+    public function column(array $array, $columnKey = 0, $indexKey = NULL) : array
     {
         return array_column($array, $columnKey, $indexKey);
     }

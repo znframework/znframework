@@ -18,7 +18,7 @@ interface ErrorInfoInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function message() : String;
+    public static function message() : string;
 
     //--------------------------------------------------------------------------------------------------------
     // No
@@ -27,7 +27,7 @@ interface ErrorInfoInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function no() : Int;
+    public static function no() : int;
 
     //--------------------------------------------------------------------------------------------------------
     // Check
@@ -36,5 +36,5 @@ interface ErrorInfoInterface
     // @param string $data
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function check(String $data) : Bool;
+    public static function check(string $data) : bool;
 }

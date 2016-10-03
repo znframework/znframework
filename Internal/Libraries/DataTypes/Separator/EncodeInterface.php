@@ -20,5 +20,5 @@ interface EncodeInterface
     // @param string $separator
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do(Array $data, String $key = NULL, String $separator = NULL) : String;
+    public function do(array $data, string $key = NULL, string $separator = NULL) : string;
 }

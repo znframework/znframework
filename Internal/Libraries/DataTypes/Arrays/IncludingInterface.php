@@ -23,5 +23,5 @@ interface IncludingInterface
     // @param array   $including
     //
     //--------------------------------------------------------------------------------------------------------
-    public function use(Array $array, Array $including) : Array;
+    public function use(array $array, array $including) : array;
 }

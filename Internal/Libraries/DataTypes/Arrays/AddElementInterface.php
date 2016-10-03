@@ -19,7 +19,7 @@ interface AddElementInterface
     // @param mixed $element
     //
     //--------------------------------------------------------------------------------------------------------
-    public function first(Array $array, $element, $type = 'array_unshift') : Array;
+    public function first(array $array, $element, string $type = 'array_unshift') : array;
 
     //--------------------------------------------------------------------------------------------------------
     // Add Last
@@ -29,5 +29,5 @@ interface AddElementInterface
     // @param mixed $element
     //
     //--------------------------------------------------------------------------------------------------------
-    public function last(Array $array, $element) : Array;
+    public function last(array $array, $element) : array;
 }

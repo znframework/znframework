@@ -19,7 +19,7 @@ interface KeyValueInterface
     // @param string $keyval: val/value, key, vals/values, keys
     //
     //--------------------------------------------------------------------------------------------------------
-    public function use(Array $array, String $keyval = 'value');
+    public function use(array $array, string $keyval = 'value');
 
     //--------------------------------------------------------------------------------------------------------
     // Value
@@ -28,7 +28,7 @@ interface KeyValueInterface
     // @param array  $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function value(Array $array);
+    public function value(array $array);
 
     //--------------------------------------------------------------------------------------------------------
     // Key
@@ -37,7 +37,7 @@ interface KeyValueInterface
     // @param array  $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function key(Array $array);
+    public function key(array $array);
 
     //--------------------------------------------------------------------------------------------------------
     // Values
@@ -46,7 +46,7 @@ interface KeyValueInterface
     // @param array  $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function values(Array $array) : Array;
+    public function values(array $array) : array;
 
     //--------------------------------------------------------------------------------------------------------
     // Keys
@@ -55,5 +55,5 @@ interface KeyValueInterface
     // @param array  $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function keys(Array $array) : Array;
+    public function keys(array $array) : array;
 }

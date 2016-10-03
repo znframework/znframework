@@ -19,7 +19,7 @@ class Transform implements TransformInterface
     // @param string $split
     //
     //--------------------------------------------------------------------------------------------------------
-    public function array(String $string, String $split = ' ') : Array
+    public function array(string $string, string $split = ' ') :array
     {
         return explode($split, $string);
     }
@@ -31,7 +31,7 @@ class Transform implements TransformInterface
     // @param int $ascii
     //
     //--------------------------------------------------------------------------------------------------------
-    public function char(Int $ascii) : String
+    public function char(int $ascii) : string
     {
         return chr($ascii);
     }
@@ -43,7 +43,7 @@ class Transform implements TransformInterface
     // @param string $str
     //
     //--------------------------------------------------------------------------------------------------------
-    public function ascii(String $string) : Int
+    public function ascii(string $string) : int
     {
         return ord($string);
     }
