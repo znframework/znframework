@@ -19,7 +19,7 @@ interface TestingInterface
     // @return void
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function start(String $test);
+    public static function start(string $test) : void;
 
     //--------------------------------------------------------------------------------------------------------
     // Test End
@@ -29,5 +29,5 @@ interface TestingInterface
     // @return void
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function end(String $test);
+    public static function end(string $test) : void;
 }

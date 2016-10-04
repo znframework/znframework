@@ -19,7 +19,7 @@ class ArrayToXLS implements ArrayToXLSInterface
     // @param string $file
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do(Array $data, String $file = 'excel.xls')
+    public function do(array $data, string $file = 'excel.xls') : void
     {
         $file = suffix($file, '.xls');
 

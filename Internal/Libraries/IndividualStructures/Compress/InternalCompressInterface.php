@@ -20,7 +20,7 @@ interface InternalCompressInterface
     // @return bool
     //
     //--------------------------------------------------------------------------------------------------------
-    public function extract(String $source, String $target = NULL, String $password = NULL) : Bool;
+    public function extract(string $source, string $target = NULL, string $password = NULL) : bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Write
@@ -31,7 +31,7 @@ interface InternalCompressInterface
     // @param string $mode
     //
     //--------------------------------------------------------------------------------------------------------
-    public function write(String $file, String $data) : Bool;
+    public function write(string $file, string $data) : bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Read
@@ -42,7 +42,7 @@ interface InternalCompressInterface
     // @param string  $type
     //
     //--------------------------------------------------------------------------------------------------------
-    public function read(String $file) : String;
+    public function read(string $file) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Do
@@ -53,7 +53,7 @@ interface InternalCompressInterface
     // @param mixed   $workFactor
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do(String $data) : String;
+    public function do(string $data) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Undo
@@ -63,5 +63,5 @@ interface InternalCompressInterface
     // @param numeric $small
     //
     //--------------------------------------------------------------------------------------------------------
-    public function undo(String $data) : String;
+    public function undo(string $data) : string;
 }

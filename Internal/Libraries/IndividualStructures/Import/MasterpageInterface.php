@@ -18,7 +18,7 @@ interface MasterpageInterface
     // @var string $headData
     //
     //--------------------------------------------------------------------------------------------------------
-    public function headData(Array $headData) : Masterpage;
+    public function headData(array $headData) : Masterpage;
 
     //--------------------------------------------------------------------------------------------------------
     // body()
@@ -27,7 +27,7 @@ interface MasterpageInterface
     // @var string $body
     //
     //--------------------------------------------------------------------------------------------------------
-    public function body(String $body) : Masterpage;
+    public function body(string $body) : Masterpage;
 
     //--------------------------------------------------------------------------------------------------------
     // head()
@@ -45,7 +45,7 @@ interface MasterpageInterface
     // @var string $title
     //
     //--------------------------------------------------------------------------------------------------------
-    public function title(String $title) : Masterpage;
+    public function title(string $title) : Masterpage;
 
     //--------------------------------------------------------------------------------------------------------
     // meta()
@@ -54,7 +54,7 @@ interface MasterpageInterface
     // @var array $meta
     //
     //--------------------------------------------------------------------------------------------------------
-    public function meta(Array $meta) : Masterpage;
+    public function meta(array $meta) : Masterpage;
 
     //--------------------------------------------------------------------------------------------------------
     // attributes()
@@ -63,7 +63,7 @@ interface MasterpageInterface
     // @var array $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function attributes(Array $attributes) : Masterpage;
+    public function attributes(array $attributes) : Masterpage;
 
     //--------------------------------------------------------------------------------------------------------
     // content()
@@ -72,7 +72,7 @@ interface MasterpageInterface
     // @var array $content
     //
     //--------------------------------------------------------------------------------------------------------
-    public function content(Array $content) : Masterpage;
+    public function content(array $content) : Masterpage;
 
     //--------------------------------------------------------------------------------------------------------
     // masterpage()
@@ -82,5 +82,5 @@ interface MasterpageInterface
     // @param array $head
     //
     //--------------------------------------------------------------------------------------------------------
-    public function use(Array $randomDataVariable = NULL, Array $head = NULL);
+    public function use(array $randomDataVariable = NULL, array $head = NULL);
 }

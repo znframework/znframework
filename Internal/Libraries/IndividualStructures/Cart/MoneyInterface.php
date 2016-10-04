@@ -19,5 +19,5 @@ interface MoneyInterface
     // @param string $type
     //
     //--------------------------------------------------------------------------------------------------------
-    public function format(Int $money, String $type = NULL) : String;
+    public function format(int $money, string $type = NULL) : string;
 }

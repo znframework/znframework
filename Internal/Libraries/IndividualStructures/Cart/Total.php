@@ -18,7 +18,7 @@ class Total extends CartExtends implements TotalInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function items() : Int
+    public function items() : int
     {
         $totalItems  = 0;
 
@@ -47,7 +47,7 @@ class Total extends CartExtends implements TotalInterface
     // @param mixed $code
     //
     //--------------------------------------------------------------------------------------------------------
-    public function prices() : Int
+    public function prices() : int
     {
         Properties::$items = $this->driver->select(md5('SystemCartData')) ?? NULL;
 

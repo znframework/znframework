@@ -29,7 +29,7 @@ class InternalThumb extends CallController implements InternalThumbInterface
     // @param string $file
     //
     //--------------------------------------------------------------------------------------------------------
-    public function path(String $file) : InternalThumb
+    public function path(string $file) : InternalThumb
     {
         $this->sets['filePath'] = $file;
 
@@ -43,7 +43,7 @@ class InternalThumb extends CallController implements InternalThumbInterface
     // @param int $quality
     //
     //--------------------------------------------------------------------------------------------------------
-    public function quality(Int $quality) : InternalThumb
+    public function quality(int $quality) : InternalThumb
     {
         $this->sets['quality'] = $quality;
 
@@ -58,7 +58,7 @@ class InternalThumb extends CallController implements InternalThumbInterface
     // @param int $y
     //
     //--------------------------------------------------------------------------------------------------------
-    public function crop(Int $x, Int $y) : InternalThumb
+    public function crop(int $x, int $y) : InternalThumb
     {
         $this->sets['x'] = $x;
         $this->sets['y'] = $y;
@@ -74,7 +74,7 @@ class InternalThumb extends CallController implements InternalThumbInterface
     // @param int $height
     //
     //--------------------------------------------------------------------------------------------------------
-    public function size(Int $width, Int $height) : InternalThumb
+    public function size(int $width, int $height) : InternalThumb
     {
         $this->sets['width']  = $width;
         $this->sets['height'] = $height;
@@ -90,7 +90,7 @@ class InternalThumb extends CallController implements InternalThumbInterface
     // @param int $height
     //
     //--------------------------------------------------------------------------------------------------------
-    public function resize(Int $width, Int $height) : InternalThumb
+    public function resize(int $width, int $height) : InternalThumb
     {
         $this->sets['rewidth']  = $width;
         $this->sets['reheight'] = $height;
@@ -106,7 +106,7 @@ class InternalThumb extends CallController implements InternalThumbInterface
     // @param int $height
     //
     //--------------------------------------------------------------------------------------------------------
-    public function prosize(Int $width, Int $height) : InternalThumb
+    public function prosize(int $width, int $height) : InternalThumb
     {
         $this->sets['prowidth']  = $width;
         $this->sets['proheight'] = $height;
@@ -122,7 +122,7 @@ class InternalThumb extends CallController implements InternalThumbInterface
     // @param string $path
     //
     //--------------------------------------------------------------------------------------------------------
-    public function create(String $path = NULL) : String
+    public function create(string $path = NULL) : string
     {
         if( isset($this->sets['filePath']) )
         {
@@ -140,7 +140,7 @@ class InternalThumb extends CallController implements InternalThumbInterface
     // @param int $height
     //
     //--------------------------------------------------------------------------------------------------------
-    public function getProsize(Int $width = 0, Int $height = 0)
+    public function getProsize(int $width = 0, int $height = 0)
     {
         if( ! isset($this->sets['filePath']) )
         {

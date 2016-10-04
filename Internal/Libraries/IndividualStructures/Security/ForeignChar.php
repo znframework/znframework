@@ -20,7 +20,7 @@ class ForeignChar extends \CLController implements ForeignCharInterface
     // @param string $str
     //
     //--------------------------------------------------------------------------------------------------------
-    public function encode(String $str) : String
+    public function encode(string $str) : string
     {
         $chars = FOREIGNCHARS_NUMERICALCODES_CONFIG;
 
@@ -34,7 +34,7 @@ class ForeignChar extends \CLController implements ForeignCharInterface
     // @param string $str
     //
     //--------------------------------------------------------------------------------------------------------
-    public function decode(String $str) : String
+    public function decode(string $str) : string
     {
         $chars = FOREIGNCHARS_NUMERICALCODES_CONFIG;
 

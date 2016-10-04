@@ -19,7 +19,7 @@ interface MemoryUsageInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function calculate(String $result) : Float;
+    public static function calculate(string $result) : float;
 
     //--------------------------------------------------------------------------------------------------------
     // Memory Usage
@@ -29,7 +29,7 @@ interface MemoryUsageInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function normal(Bool $realMemory = false) : Int;
+    public static function normal(bool $realMemory = false) : int;
 
     //--------------------------------------------------------------------------------------------------------
     // Max Memory Usage
@@ -39,5 +39,5 @@ interface MemoryUsageInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function maximum(Bool $realMemory = false) : Int;
+    public static function maximum(bool $realMemory = false) : int;
 }

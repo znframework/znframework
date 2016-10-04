@@ -20,5 +20,5 @@ interface DataInterface
     // @param string $output: boolean, position, string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do($searchData, $searchWord, String $output = 'boolean');
+    public function do($searchData, $searchWord, string $output = 'boolean');
 }

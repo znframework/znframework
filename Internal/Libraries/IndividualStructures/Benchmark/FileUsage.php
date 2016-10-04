@@ -19,7 +19,7 @@ class FileUsage implements FileUsageInterface
     // @return numeric
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function list(String $result = NULL) : Array
+    public static function list(string $result = NULL) : array
     {
         if( empty($result) )
         {
@@ -50,7 +50,7 @@ class FileUsage implements FileUsageInterface
     // @return numeric
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function count(String $result = NULL) : Int
+    public static function count(string $result = NULL) : int
     {
         if( empty($result) )
         {

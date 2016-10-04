@@ -20,5 +20,5 @@ interface TemplateInterface
     // @param bool   $obGetContents
     //
     //--------------------------------------------------------------------------------------------------------
-    public function use(String $page, Array $data = NULL, Bool $obGetContents = false);
+    public function use(string $page, array $data = NULL, bool $obGetContents = false);
 }

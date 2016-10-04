@@ -20,7 +20,7 @@ interface InternalCacheInterface
     // @return mixed
     //
     //--------------------------------------------------------------------------------------------------------
-    public function select(String $key, $compressed = false);
+    public function select(string $key, $compressed = false);
 
     //--------------------------------------------------------------------------------------------------------
     // Insert
@@ -33,7 +33,7 @@ interface InternalCacheInterface
     // @return bool
     //
     //--------------------------------------------------------------------------------------------------------
-    public function insert(String $key, $var, Int $time = 60, $compressed = false) : Bool;
+    public function insert(string $key, $var, int $time = 60, $compressed = false) : bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Delete
@@ -43,7 +43,7 @@ interface InternalCacheInterface
     // @return mixed
     //
     //--------------------------------------------------------------------------------------------------------
-    public function delete(String $key) : Bool;
+    public function delete(string $key) : bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Increment
@@ -54,7 +54,7 @@ interface InternalCacheInterface
     // @return void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function increment(String $key, Int $increment = 1) : Int;
+    public function increment(string $key, int $increment = 1) : int;
 
     //--------------------------------------------------------------------------------------------------------
     // Deccrement
@@ -65,7 +65,7 @@ interface InternalCacheInterface
     // @return void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function decrement(String $key, Int $decrement = 1) : Int;
+    public function decrement(string $key, int $decrement = 1) : int;
 
     //--------------------------------------------------------------------------------------------------------
     // Clean
@@ -75,7 +75,7 @@ interface InternalCacheInterface
     // @return void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function clean() : Bool;
+    public function clean() : bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Info
@@ -85,7 +85,7 @@ interface InternalCacheInterface
     // @return mixed
     //
     //--------------------------------------------------------------------------------------------------------
-    public function info($info) : Array;
+    public function info($info) : array;
 
     //--------------------------------------------------------------------------------------------------------
     // Get Meta Data
@@ -95,5 +95,5 @@ interface InternalCacheInterface
     // @return mixed
     //
     //--------------------------------------------------------------------------------------------------------
-    public function getMetaData(String $key) : Array;
+    public function getMetaData(string $key) : array;
 }

@@ -18,7 +18,7 @@ interface ForgeInterface
     // @param string $path: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function createFolder(String $path) : Bool;
+    public function createFolder(string $path) : bool;
 
     //--------------------------------------------------------------------------------------------------------
     // deleteFolder()
@@ -27,7 +27,7 @@ interface ForgeInterface
     // @param string $path: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function deleteFolder(String $path) : Bool;
+    public function deleteFolder(string $path) : bool;
 
     //--------------------------------------------------------------------------------------------------------
     // changeFolder()
@@ -36,7 +36,7 @@ interface ForgeInterface
     // @param string $path: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function changeFolder(String $path) : Bool;
+    public function changeFolder(string $path) : bool;
 
     //--------------------------------------------------------------------------------------------------------
     // rename()
@@ -46,7 +46,7 @@ interface ForgeInterface
     // @param string $newName: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function rename(String $oldName, String $newName) : Bool;
+    public function rename(string $oldName, string $newName) : bool;
 
     //--------------------------------------------------------------------------------------------------------
     // deleteFile()
@@ -55,7 +55,7 @@ interface ForgeInterface
     // @param string $path: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function deleteFile(String $path) : Bool;
+    public function deleteFile(string $path) : bool;
 
     //--------------------------------------------------------------------------------------------------------
     // permission()
@@ -65,5 +65,5 @@ interface ForgeInterface
     // @param int $type   : 0755
     //
     //--------------------------------------------------------------------------------------------------------
-    public function permission(String $path, Int $type = 0755) : Bool;
+    public function permission(string $path, int $type = 0755) : bool;
 }

@@ -22,7 +22,7 @@ class HTML implements HTMLInterface
     // @param string $encoding
     //
     //--------------------------------------------------------------------------------------------------------
-    public function encode(String $string, String $type = 'quotes', String $encoding = 'utf-8') : String
+    public function encode(string $string, string $type = 'quotes', string $encoding = 'utf-8') : string
     {
         return htmlspecialchars(trim($string), Converter::toConstant($type, 'ENT_'), $encoding);
     }
@@ -35,7 +35,7 @@ class HTML implements HTMLInterface
     // @param string $type: quotes, nonquotes, compat
     //
     //--------------------------------------------------------------------------------------------------------
-    public function decode(String $string, String $type = 'quotes') : String
+    public function decode(string $string, string $type = 'quotes') : string
     {
         return htmlspecialchars_decode(trim($string), Converter::toConstant($type, 'ENT_'));
     }
@@ -47,7 +47,7 @@ class HTML implements HTMLInterface
     // @param string $string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function tagClean(String $string) : String
+    public function tagClean(string $string) : string
     {
         return strip_tags($string);
     }

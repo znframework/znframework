@@ -22,7 +22,7 @@ class Numeric implements NumericInterface
     // @param bool  $unit
     //
     //--------------------------------------------------------------------------------------------------------
-    public function byte(Float $bytes, Int $precision = 1, Bool $unit = true) : String
+    public function byte(float $bytes, int $precision = 1, bool $unit = true) : string
     {
         $byte   = 1024;
         $kb     = 1024 * $byte;
@@ -108,7 +108,7 @@ class Numeric implements NumericInterface
     // @param string $type
     //
     //--------------------------------------------------------------------------------------------------------
-    public function money(Int $money = 0, String $type = NULL) : String
+    public function money(int $money = 0, string $type = NULL) : string
     {
         return Cart::moneyFormat($money, $type);
     }
@@ -122,7 +122,7 @@ class Numeric implements NumericInterface
     // @param string $output
     //
     //--------------------------------------------------------------------------------------------------------
-    public function time(Int $count, String $type = 'second', String $output = 'day') : Float
+    public function time(int $count, string $type = 'second', string $output = 'day') : float
     {
         if( $output === "second" ) $out = 1;
         if( $output === "minute" ) $out = 60;

@@ -20,7 +20,7 @@ interface InfoInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function basePath() : String;
+    public function basePath() : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Exists
@@ -31,7 +31,7 @@ interface InfoInterface
     // @param bool
     //
     //--------------------------------------------------------------------------------------------------------
-    public function exists(String $file) : Bool;
+    public function exists(string $file) : bool;
 
     //--------------------------------------------------------------------------------------------------------
     // fileInfo()
@@ -40,7 +40,7 @@ interface InfoInterface
     // Bir dosya veya dizine ait dosyalar ve dizinler hakkında çeşitli bilgiler almak için kullanılır.
     //
     //--------------------------------------------------------------------------------------------------------
-    public function fileInfo(String $dir, String $extension = NULL) : Array;
+    public function fileInfo(string $dir, string $extension = NULL) : array;
 
     //--------------------------------------------------------------------------------------------------------
     // disk()
@@ -52,7 +52,7 @@ interface InfoInterface
     // @return Float
     //
     //--------------------------------------------------------------------------------------------------------
-    public function disk(String $dir, String $type = 'free') : Float;
+    public function disk(string $dir, string $type = 'free') : float;
 
     //--------------------------------------------------------------------------------------------------------
     // totalSpace()
@@ -63,7 +63,7 @@ interface InfoInterface
     // @return Float
     //
     //--------------------------------------------------------------------------------------------------------
-    public function totalSpace(String $dir) : Float;
+    public function totalSpace(string $dir) : float;
 
     //--------------------------------------------------------------------------------------------------------
     // freeSpace()
@@ -74,5 +74,5 @@ interface InfoInterface
     // @return Float
     //
     //--------------------------------------------------------------------------------------------------------
-    public function freeSpace(String $dir) : Float;
+    public function freeSpace(string $dir) : float;
 }

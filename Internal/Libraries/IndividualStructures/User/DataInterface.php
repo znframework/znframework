@@ -10,7 +10,7 @@ interface DataInterface
     // @return object
     //
     //--------------------------------------------------------------------------------------------------------
-    public function get(String $tbl = NULL);
+    public function get(string $tbl = NULL);
 
     //--------------------------------------------------------------------------------------------------------
     // Active Count
@@ -20,7 +20,7 @@ interface DataInterface
     // @return numeric
     //
     //--------------------------------------------------------------------------------------------------------
-    public function activeCount() : Int;
+    public function activeCount() : int;
 
     //--------------------------------------------------------------------------------------------------------
     // Banned Count
@@ -30,7 +30,7 @@ interface DataInterface
     // @return numeric
     //
     //--------------------------------------------------------------------------------------------------------
-    public function bannedCount() : Int;
+    public function bannedCount() : int;
 
     //--------------------------------------------------------------------------------------------------------
     // Count
@@ -40,5 +40,5 @@ interface DataInterface
     // @return numeric
     //
     //--------------------------------------------------------------------------------------------------------
-    public function count() : Int;
+    public function count() : int;
 }

@@ -19,7 +19,7 @@ class Process extends PermissionExtends implements ProcessInterface
     // @param string  $process: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function start(Int $roleId = 0, String $process = NULL)
+    public function start(int $roleId = 0, string $process = NULL) : void
     {
         $this->content = $this->use($roleId, $process, 'object');
 
@@ -33,7 +33,7 @@ class Process extends PermissionExtends implements ProcessInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function end()
+    public function end() : void
     {
         if( ! empty($this->content) )
         {
@@ -60,7 +60,7 @@ class Process extends PermissionExtends implements ProcessInterface
     // @param string  $object : empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function use(Int $roleId = 0, String $process = NULL, String $object = NULL) : String
+    public function use(int $roleId = 0, string $process = NULL, string $object = NULL) : string
     {
         $this->permission = INDIVIDUALSTRUCTURES_PERMISSION_CONFIG['process'];
 

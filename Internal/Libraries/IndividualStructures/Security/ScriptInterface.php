@@ -18,7 +18,7 @@ interface ScriptInterface
     // @param string $str
     //
     //--------------------------------------------------------------------------------------------------------
-    public function encode(String $str) : String;
+    public function encode(string $str) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Script Tag Decode
@@ -27,5 +27,5 @@ interface ScriptInterface
     // @param string $str
     //
     //--------------------------------------------------------------------------------------------------------
-    public function decode(String $str) : String;
+    public function decode(string $str) : string;
 }

@@ -20,7 +20,7 @@ interface InternalExceptionsInterface
     // @param mixed  $send
     //
     //--------------------------------------------------------------------------------------------------------
-    public function throws(String $message = NULL, String $key = NULL, $send = NULL);
+    public function throws(string $message = NULL, string $key = NULL, $send = NULL) : void;
 
     //--------------------------------------------------------------------------------------------------------
     // Table
@@ -33,7 +33,7 @@ interface InternalExceptionsInterface
     // @param array $trace
     //
     //--------------------------------------------------------------------------------------------------------
-    public function table(String $no = NULL, String $msg = NULL, String $file = NULL, String $line = NULL, Array $trace = NULL);
+    public function table(string $no = NULL, string $msg = NULL, string $file = NULL, string $line = NULL, array $trace = NULL) : void;
 
     //--------------------------------------------------------------------------------------------------------
     // Restore
@@ -42,7 +42,7 @@ interface InternalExceptionsInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function restore() : Bool;
+    public function restore() : bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Handler

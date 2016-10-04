@@ -11,7 +11,7 @@ interface RegisterInterface
     // @return this
     //
     //--------------------------------------------------------------------------------------------------------
-    public function column(String $column, $value) : UserExtends;
+    public function column(string $column, $value) : UserExtends;
 
     //--------------------------------------------------------------------------------------------------------
     // Return Link
@@ -21,7 +21,7 @@ interface RegisterInterface
     // @return this
     //
     //--------------------------------------------------------------------------------------------------------
-    public function returnLink(String $returnLink) : UserExtends;
+    public function returnLink(string $returnLink) : UserExtends;
 
     //--------------------------------------------------------------------------------------------------------
     // Auto Login
@@ -43,7 +43,7 @@ interface RegisterInterface
     // @return bool
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do(Array $data = NULL, $autoLogin = false, String $activationReturnLink = NULL) : Bool;
+    public function do(array $data = NULL, $autoLogin = false, string $activationReturnLink = NULL) : bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Activation Complete
@@ -52,5 +52,5 @@ interface RegisterInterface
     // @param  void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function activationComplete() : Bool;
+    public function activationComplete() : bool;
 }

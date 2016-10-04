@@ -18,7 +18,7 @@ class VariableTypes implements VariableTypesInterface
     // @param var $var
     //
     //--------------------------------------------------------------------------------------------------------
-    public function toInt($var) : Int
+    public function toInt($var) : int
     {
         return (int) $var;
     }
@@ -30,7 +30,7 @@ class VariableTypes implements VariableTypesInterface
     // @param var $var
     //
     //--------------------------------------------------------------------------------------------------------
-    public function toInteger($var) : Int
+    public function toInteger($var) : int
     {
         return (int) $var;
     }
@@ -42,7 +42,7 @@ class VariableTypes implements VariableTypesInterface
     // @param var $var
     //
     //--------------------------------------------------------------------------------------------------------
-    public function toBool($var) : Bool
+    public function toBool($var) : bool
     {
         return (bool) $var;
     }
@@ -54,7 +54,7 @@ class VariableTypes implements VariableTypesInterface
     // @param var $var
     //
     //--------------------------------------------------------------------------------------------------------
-    public function toBoolean($var) : Bool
+    public function toBoolean($var) : bool
     {
         return (bool) $var;
     }
@@ -66,7 +66,7 @@ class VariableTypes implements VariableTypesInterface
     // @param var $var
     //
     //--------------------------------------------------------------------------------------------------------
-    public function toString($var) : String
+    public function toString($var) : string
     {
         if( is_array($var) || is_object($var) )
         {
@@ -83,7 +83,7 @@ class VariableTypes implements VariableTypesInterface
     // @param var $var
     //
     //--------------------------------------------------------------------------------------------------------
-    public function toFloat($var) : Float
+    public function toFloat($var) : float
     {
         return (float) $var;
     }
@@ -131,7 +131,7 @@ class VariableTypes implements VariableTypesInterface
     // @param var $var
     //
     //--------------------------------------------------------------------------------------------------------
-    public function toArray($var) : Array
+    public function toArray($var) : array
     {
         return (array) $var;
     }
@@ -145,7 +145,7 @@ class VariableTypes implements VariableTypesInterface
     // @param string $suffix
     //
     //--------------------------------------------------------------------------------------------------------
-    public function toConstant(String $var, String $prefix = NULL, String $suffix = NULL)
+    public function toConstant(string $var, string $prefix = NULL, string $suffix = NULL)
     {
         if( defined(strtoupper($prefix.$var.$suffix)) )
         {

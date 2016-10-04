@@ -22,7 +22,7 @@ class Callback implements CallbackInterface
     // @return callable
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function do($func, Array $params = [])
+    public static function do($func, array $params = [])
     {
         if( ! is_callable($func) )
         {

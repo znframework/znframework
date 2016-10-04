@@ -20,5 +20,5 @@ interface CalculateProsizeInterface
     // @param int    $height
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do(String $path, Int $width = 0, Int $height = 0) : \stdClass;
+    public function do(string $path, int $width = 0, int $height = 0) : \stdClass;
 }

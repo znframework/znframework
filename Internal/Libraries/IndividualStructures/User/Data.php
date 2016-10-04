@@ -12,7 +12,7 @@ class Data extends UserExtends implements DataInterface
     // @return object
     //
     //--------------------------------------------------------------------------------------------------------
-    public function get(String $tbl = NULL)
+    public function get(string $tbl = NULL)
     {
         $usernameColumn = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['columns']['username'];
         $passwordColumn = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['columns']['password'];
@@ -78,7 +78,7 @@ class Data extends UserExtends implements DataInterface
     // @return numeric
     //
     //--------------------------------------------------------------------------------------------------------
-    public function activeCount() : Int
+    public function activeCount() : int
     {
         $activeColumn = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['columns']['active'];
         $tableName    = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['table'];
@@ -110,7 +110,7 @@ class Data extends UserExtends implements DataInterface
     // @return numeric
     //
     //--------------------------------------------------------------------------------------------------------
-    public function bannedCount() : Int
+    public function bannedCount() : int
     {
         $bannedColumn = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['columns']['banned'];
         $tableName    = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['table'];
@@ -142,7 +142,7 @@ class Data extends UserExtends implements DataInterface
     // @return numeric
     //
     //--------------------------------------------------------------------------------------------------------
-    public function count() : Int
+    public function count() : int
     {
         $tableName = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['table'];
 

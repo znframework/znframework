@@ -20,7 +20,7 @@ class ElapsedTime implements ElapsedTimeInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function calculate(String $result, Int $decimal = 4) : Float
+    public static function calculate(string $result, int $decimal = 4) : float
     {
         $resend  = $result."_end";
         $restart = $result."_start";

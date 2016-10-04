@@ -18,7 +18,7 @@ interface InjectionInterface
     // @param string $string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function encode(String $string) : String;
+    public function encode(string $string) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Injection Decode
@@ -27,7 +27,7 @@ interface InjectionInterface
     // @param string $string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function decode(String $string) : String;
+    public function decode(string $string) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Nail Encode
@@ -36,7 +36,7 @@ interface InjectionInterface
     // @param string $str
     //
     //--------------------------------------------------------------------------------------------------------
-    public function nailEncode(String $str) : String;
+    public function nailEncode(string $str) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Nail Decode
@@ -45,7 +45,7 @@ interface InjectionInterface
     // @param string $str
     //
     //--------------------------------------------------------------------------------------------------------
-    public function nailDecode(String $str) : String;
+    public function nailDecode(string $str) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Escape String Encode
@@ -54,7 +54,7 @@ interface InjectionInterface
     // @param string $data
     //
     //--------------------------------------------------------------------------------------------------------
-    public function escapeStringEncode(String $data) : String;
+    public function escapeStringEncode(string $data) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Escape String Decode
@@ -63,5 +63,5 @@ interface InjectionInterface
     // @param string $str
     //
     //--------------------------------------------------------------------------------------------------------
-    public function escapeStringDecode(String $data) : String;
+    public function escapeStringDecode(string $data) : string;
 }

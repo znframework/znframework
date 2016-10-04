@@ -24,7 +24,7 @@ class Transfer extends Connection implements TransferInterface
     // @param string $type      : binary, ascii
     //
     //--------------------------------------------------------------------------------------------------------
-    public function upload(String $localPath, String $remotePath, String $type = 'ascii') : Bool
+    public function upload(string $localPath, string $remotePath, string $type = 'ascii') : bool
     {
         if( ftp_put($this->connect, $remotePath, $localPath, Converter::toConstant($type, 'FTP_')) )
         {
@@ -45,7 +45,7 @@ class Transfer extends Connection implements TransferInterface
     // @param string $type      : binary, ascii
     //
     //--------------------------------------------------------------------------------------------------------
-    public function download(String $remotePath, String $localPath, String $type = 'ascii') : Bool
+    public function download(string $remotePath, string $localPath, string $type = 'ascii') : bool
     {
         if( ftp_get($this->connect, $localPath, $remotePath, Converter::toConstant($type, 'FTP_')) )
         {
