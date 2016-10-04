@@ -72,7 +72,7 @@ trait JqueryTrait
     // @param string $selector
     //
     //--------------------------------------------------------------------------------------------------------
-    public function selector(String $selector = 'this')
+    public function selector(string $selector = 'this')
     {
         $this->selector = $selector;
 
@@ -87,7 +87,7 @@ trait JqueryTrait
     // @param string $callback
     //
     //--------------------------------------------------------------------------------------------------------
-    public function callback(String $params, String $callback)
+    public function callback(string $params, string $callback)
     {
         $this->callback = JQ::func($params, $callback);
 
@@ -102,7 +102,7 @@ trait JqueryTrait
     // @param string $callback
     //
     //--------------------------------------------------------------------------------------------------------
-    public function func(String $params, String $callback)
+    public function func(string $params, string $callback)
     {
         $this->callback($params, $callback);
 

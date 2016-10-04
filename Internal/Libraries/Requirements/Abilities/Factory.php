@@ -16,7 +16,7 @@
     // @param string $class
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function class(String $class)
+    public static function class(string $class)
     {
         $namespace = NULL;
 

@@ -104,7 +104,7 @@ class InternalProcessor extends RemoteCommon implements InternalProcessorInterfa
     // @param string $command
     //
     //--------------------------------------------------------------------------------------------------------
-    public function php(String $command) : String
+    public function php(string $command) : string
     {
         $phpCommand = "require_once '".REAL_BASE_DIR."zerocore'; ".$command.";";
         $phpCommand = presuffix(str_replace('"', '\"', $phpCommand), '"');
@@ -124,7 +124,7 @@ class InternalProcessor extends RemoteCommon implements InternalProcessorInterfa
     // @param string $file
     //
     //--------------------------------------------------------------------------------------------------------
-    public function file(String $file) : String
+    public function file(string $file) : string
     {
         $commands  = $this->path;
         $commands .= ' -f ';
@@ -142,7 +142,7 @@ class InternalProcessor extends RemoteCommon implements InternalProcessorInterfa
     // @param string $file
     //
     //--------------------------------------------------------------------------------------------------------
-    public function read(String $file) : String
+    public function read(string $file) : string
     {
         $content = File::read($this->_fileControl($file));
         $content = str_ireplace(['<?php', '?>'], NULL, $content);
@@ -157,7 +157,7 @@ class InternalProcessor extends RemoteCommon implements InternalProcessorInterfa
     // @param string $path
     //
     //--------------------------------------------------------------------------------------------------------
-    public function controller(String $path) : String
+    public function controller(string $path) : string
     {
         $command  = '$datas = ZN\Core\Structure::data("'.$path.'");';
         $command .= '$parameters = $datas["parameters"];';
@@ -197,7 +197,7 @@ class InternalProcessor extends RemoteCommon implements InternalProcessorInterfa
     // @param string $php
     //
     //--------------------------------------------------------------------------------------------------------
-    public function path(String $path) : InternalProcessor
+    public function path(string $path) : InternalProcessor
     {
         $this->path = $path;
 
@@ -211,7 +211,7 @@ class InternalProcessor extends RemoteCommon implements InternalProcessorInterfa
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function driver(String $driver) : InternalProcessor
+    public function driver(string $driver) : InternalProcessor
     {
         $this->driver = $driver;
 
@@ -225,7 +225,7 @@ class InternalProcessor extends RemoteCommon implements InternalProcessorInterfa
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function output() : Array
+    public function output() : array
     {
         return $this->output;
     }
@@ -237,7 +237,7 @@ class InternalProcessor extends RemoteCommon implements InternalProcessorInterfa
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function return() : Int
+    public function return() : int
     {
         return $this->return;
     }

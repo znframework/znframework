@@ -66,7 +66,7 @@ class InternalJQ extends CallController
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function selector(String $selector = NULL)
+    public function selector(string $selector = NULL)
     {
         if( empty($selector) )
         {
@@ -91,7 +91,7 @@ class InternalJQ extends CallController
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function property(String $property, $params = [], $comma = false)
+    public function property(string $property, $params = [], $comma = false)
     {
         return ".$property(". $this->_params($params).")".($comma === true ? ";" : "");
     }

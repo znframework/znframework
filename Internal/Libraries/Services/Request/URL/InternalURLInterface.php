@@ -20,7 +20,7 @@ interface InternalURLInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function base(String $uri = '', Int $index = 0) : String;
+    public function base(string $uri = '', int $index = 0) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Site
@@ -31,7 +31,7 @@ interface InternalURLInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function site(String $uri = '', Int $index = 0) : String;
+    public function site(string $uri = '', int $index = 0) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Current
@@ -41,7 +41,7 @@ interface InternalURLInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function current(String $fix = NULL) : String;
+    public function current(string $fix = NULL) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Host
@@ -51,7 +51,7 @@ interface InternalURLInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function host(String $uri = '') : String;
+    public function host(string $uri = '') : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Prev
@@ -61,7 +61,7 @@ interface InternalURLInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function prev() : String;
+    public function prev() : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Base 64 Decode
@@ -72,7 +72,7 @@ interface InternalURLInterface
     // @return mixed
     //
     //--------------------------------------------------------------------------------------------------------
-    public function base64Decode(String $data, Bool $strict = false) : String;
+    public function base64Decode(string $data, bool $strict = false) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Base 64 Encode
@@ -82,7 +82,7 @@ interface InternalURLInterface
     // @return mixed
     //
     //--------------------------------------------------------------------------------------------------------
-    public function base64Encode(String $data) : String;
+    public function base64Encode(string $data) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Headers
@@ -93,7 +93,7 @@ interface InternalURLInterface
     // @return mixed
     //
     //--------------------------------------------------------------------------------------------------------
-    public function headers(String $url, Int $format = 0) : Array;
+    public function headers(string $url, int $format = 0) : array;
 
     //--------------------------------------------------------------------------------------------------------
     // Headers
@@ -104,7 +104,7 @@ interface InternalURLInterface
     // @return mixed
     //
     //--------------------------------------------------------------------------------------------------------
-    public function metaTags(String $fileName, Bool $useIncludePath = false) : Array;
+    public function metaTags(string $fileName, bool $useIncludePath = false) : array;
 
     //--------------------------------------------------------------------------------------------------------
     // Build Query
@@ -117,7 +117,7 @@ interface InternalURLInterface
     // @return mixed
     //
     //--------------------------------------------------------------------------------------------------------
-    public function buildQuery(String $data, String $numericPrefix = NULL, String $separator = NULL, String $enctype = 'RFC1738') : String;
+    public function buildQuery(string $data, string $numericPrefix = NULL, string $separator = NULL, string $enctype = 'RFC1738') : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Parse
@@ -128,7 +128,7 @@ interface InternalURLInterface
     // @return mixed
     //
     //--------------------------------------------------------------------------------------------------------
-    public function parse(String $url, Int $component = 1);
+    public function parse(string $url, int $component = 1);
 
     //--------------------------------------------------------------------------------------------------------
     // Raw Decode
@@ -138,7 +138,7 @@ interface InternalURLInterface
     // @return mixed
     //
     //--------------------------------------------------------------------------------------------------------
-    public  function rawDecode(String $str) : String;
+    public  function rawDecode(string $str) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Raw Encode
@@ -148,7 +148,7 @@ interface InternalURLInterface
     // @return mixed
     //
     //--------------------------------------------------------------------------------------------------------
-    public function rawEncode(String $str) : String;
+    public function rawEncode(string $str) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Decode
@@ -158,7 +158,7 @@ interface InternalURLInterface
     // @return mixed
     //
     //--------------------------------------------------------------------------------------------------------
-    public function decode(String $str) : String;
+    public function decode(string $str) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Encode
@@ -168,5 +168,5 @@ interface InternalURLInterface
     // @return mixed
     //
     //--------------------------------------------------------------------------------------------------------
-    public function encode(String $str) : String;
+    public function encode(string $str) : string;
 }

@@ -18,7 +18,7 @@ interface InternalProcessorInterface
     // @param string $command
     //
     //--------------------------------------------------------------------------------------------------------
-    public function php(String $command) : String;
+    public function php(string $command) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // File
@@ -27,7 +27,7 @@ interface InternalProcessorInterface
     // @param string $file
     //
     //--------------------------------------------------------------------------------------------------------
-    public function file(String $file) : String;
+    public function file(string $file) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Read
@@ -36,7 +36,7 @@ interface InternalProcessorInterface
     // @param string $file
     //
     //--------------------------------------------------------------------------------------------------------
-    public function read(String $file) : String;
+    public function read(string $file) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Controller
@@ -45,7 +45,7 @@ interface InternalProcessorInterface
     // @param string $path
     //
     //--------------------------------------------------------------------------------------------------------
-    public function controller(String $path) : String;
+    public function controller(string $path) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // PHP Path
@@ -54,7 +54,7 @@ interface InternalProcessorInterface
     // @param string $php
     //
     //--------------------------------------------------------------------------------------------------------
-    public function path(String $path) : InternalProcessor;
+    public function path(string $path) : InternalProcessor;
 
     //--------------------------------------------------------------------------------------------------------
     // Driver
@@ -63,7 +63,7 @@ interface InternalProcessorInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function driver(String $driver) : InternalProcessor;
+    public function driver(string $driver) : InternalProcessor;
 
     //--------------------------------------------------------------------------------------------------------
     // Output
@@ -72,7 +72,7 @@ interface InternalProcessorInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function output() : Array;
+    public function output() : array;
 
     //--------------------------------------------------------------------------------------------------------
     // Return
@@ -81,7 +81,7 @@ interface InternalProcessorInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function return() : Int;
+    public function return() : int;
 
     //--------------------------------------------------------------------------------------------------------
     // String Command
@@ -90,5 +90,5 @@ interface InternalProcessorInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function stringCommand() : String;
+    public function stringCommand() : string;
 }

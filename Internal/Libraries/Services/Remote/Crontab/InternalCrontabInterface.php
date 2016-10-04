@@ -10,7 +10,7 @@ interface InternalCrontabInterface
     // @return object
     //
     //--------------------------------------------------------------------------------------------------------
-    public function driver(String $driver) : InternalCrontab;
+    public function driver(string $driver) : InternalCrontab;
 
     //--------------------------------------------------------------------------------------------------------
     // Path
@@ -20,7 +20,7 @@ interface InternalCrontabInterface
     // @return object
     //
     //--------------------------------------------------------------------------------------------------------
-    public function path(String $path) : InternalCrontab;
+    public function path(string $path) : InternalCrontab;
 
     //--------------------------------------------------------------------------------------------------------
     // Roster
@@ -30,7 +30,7 @@ interface InternalCrontabInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function roster() : Bool;
+    public function roster() : bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Create File
@@ -40,7 +40,7 @@ interface InternalCrontabInterface
     // @return object
     //
     //--------------------------------------------------------------------------------------------------------
-    public function createFile(String $name) : Bool;
+    public function createFile(string $name) : bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Delete File
@@ -50,7 +50,7 @@ interface InternalCrontabInterface
     // @return object
     //
     //--------------------------------------------------------------------------------------------------------
-    public function deleteFile(String $name) : Bool;
+    public function deleteFile(string $name) : bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Remove
@@ -60,7 +60,7 @@ interface InternalCrontabInterface
     // @return object
     //
     //--------------------------------------------------------------------------------------------------------
-    public function remove(String $name) : Bool;
+    public function remove(string $name) : bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Add
@@ -80,7 +80,7 @@ interface InternalCrontabInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function run(String $cmd) : Bool;
+    public function run(string $cmd) : bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Debug
@@ -90,7 +90,7 @@ interface InternalCrontabInterface
     // @return object
     //
     //--------------------------------------------------------------------------------------------------------
-    public function debug(Bool $status) : InternalCrontab;
+    public function debug(bool $status) : InternalCrontab;
 
     //--------------------------------------------------------------------------------------------------------
     // Command
@@ -100,7 +100,7 @@ interface InternalCrontabInterface
     // @return object
     //
     //--------------------------------------------------------------------------------------------------------
-    public function command(String $command) : InternalCrontab;
+    public function command(string $command) : InternalCrontab;
 
     //--------------------------------------------------------------------------------------------------------
     // Callback
@@ -142,7 +142,7 @@ interface InternalCrontabInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function file(String $file) : InternalCrontab;
+    public function file(string $file) : InternalCrontab;
 
     //--------------------------------------------------------------------------------------------------------
     // Url
@@ -153,5 +153,5 @@ interface InternalCrontabInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function url(String $url) : InternalCrontab;
+    public function url(string $url) : InternalCrontab;
 }

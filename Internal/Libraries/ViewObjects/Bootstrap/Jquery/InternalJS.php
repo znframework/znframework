@@ -23,7 +23,7 @@ class InternalJS extends CallController
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function interval(String $time, String $code, Bool $comma = true) : String
+    public function interval(string $time, string $code, bool $comma = true) : string
     {
         return $this->_jsFunc('setInterval', "$code, $time", $comma);
     }
@@ -38,7 +38,7 @@ class InternalJS extends CallController
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function timeout(String $time, String $code, Bool $comma = true) : String
+    public function timeout(string $time, string $code, bool $comma = true) : string
     {
         return $this->_jsFunc('setTimeout', "$code, $time", $comma);
     }
@@ -53,7 +53,7 @@ class InternalJS extends CallController
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function indexOf(String $str, String $find, Bool $comma = true) : String
+    public function indexOf(string $str, string $find, bool $comma = true) : string
     {
         return $this->_jsFunc("String($str).indexOf", $find, $comma);
     }
@@ -68,7 +68,7 @@ class InternalJS extends CallController
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function arrayIndexOf(String $str, String $find, Bool $comma = true) : String
+    public function arrayIndexOf(string $str, string $find, bool $comma = true) : string
     {
         return $this->_jsFunc("Array($str).indexOf", $find, $comma);
     }
@@ -83,7 +83,7 @@ class InternalJS extends CallController
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function arrayJoin(String $str, String $find, Bool $comma = true) : String
+    public function arrayJoin(string $str, string $find, bool $comma = true) : string
     {
         return $this->_jsFunc("Array($str).join", $find, $comma);
     }
@@ -98,7 +98,7 @@ class InternalJS extends CallController
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function lastIndexOf(String $str, String $find, Bool $comma = true) : String
+    public function lastIndexOf(string $str, string $find, bool $comma = true) : string
     {
         return $this->_jsFunc("String($str).lastIndexOf", $find, $comma);
     }
@@ -113,7 +113,7 @@ class InternalJS extends CallController
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function arrayLastIndexOf(String $str, String $find, Bool $comma = true) : String
+    public function arrayLastIndexOf(string $str, string $find, bool $comma = true) : string
     {
         return $this->_jsFunc("Array($str).lastIndexOf", $find, $comma);
     }
@@ -131,7 +131,7 @@ class InternalJS extends CallController
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function arraySplice(String $str, String $p1 = NULL, String $p2 = NULL, String $p3 = NULL, String $p4 = NULL, Bool $comma = true) : String
+    public function arraySplice(string $str, string $p1 = NULL, string $p2 = NULL, string $p3 = NULL, string $p4 = NULL, bool $comma = true) : string
     {
         $param[] = $p1;
         $param[] = $p2;
@@ -151,7 +151,7 @@ class InternalJS extends CallController
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function length(String $str, Bool $comma = true) : String
+    public function length(string $str, bool $comma = true) : string
     {
         return "String($str).length".($comma === true ? ';' : '');
     }
@@ -166,7 +166,7 @@ class InternalJS extends CallController
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function arrayLength(String $str, Bool $comma = true) : String
+    public function arrayLength(string $str, bool $comma = true) : string
     {
         return "Array($str).length".($comma === true ? ';' : '');
     }
@@ -181,7 +181,7 @@ class InternalJS extends CallController
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function arrayUnshift(Sting $str, String $find, Bool $comma = true) : String
+    public function arrayUnshift(string $str, string $find, bool $comma = true) : string
     {
         return $this->_jsFunc("Array($str).unshift", $find, $comma);
     }
@@ -196,7 +196,7 @@ class InternalJS extends CallController
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function arraySort(Sting $str, String $find, Bool $comma = true) : String
+    public function arraySort(string $str, string $find, bool $comma = true) : string
     {
         return $this->_jsFunc("Array($str).sort", $find, $comma);
     }
@@ -211,7 +211,7 @@ class InternalJS extends CallController
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function arrayPop(String $str, Bool $comma = true) : String
+    public function arrayPop(string $str, bool $comma = true) : string
     {
         return $this->_jsFunc("Array($str).pop", $comma);
     }
@@ -226,7 +226,7 @@ class InternalJS extends CallController
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function arrayReverse(String $str, Bool $comma = true) : String
+    public function arrayReverse(string $str, bool $comma = true) : string
     {
         return $this->_jsFunc("Array($str).reverse", $comma);
     }
@@ -241,7 +241,7 @@ class InternalJS extends CallController
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function arrayToString(String $str, Bool $comma = true) : String
+    public function arrayToString(string $str, bool $comma = true) : string
     {
         return $this->_jsFunc("Array($str).toString", $comma);
     }
@@ -256,7 +256,7 @@ class InternalJS extends CallController
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function arrayShift(String $str, Bool $comma = true) : String
+    public function arrayShift(string $str, bool $comma = true) : string
     {
         return $this->_jsFunc("Array($str).shift", $comma);
     }
@@ -271,7 +271,7 @@ class InternalJS extends CallController
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function arrayPush(String $str, String $param, Bool $comma = true) : String
+    public function arrayPush(string $str, string $param, bool $comma = true) : string
     {
         return $this->_jsFunc("Array($str).push", $param, $comma);
     }
@@ -286,7 +286,7 @@ class InternalJS extends CallController
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function search(String $str, String $find, Bool $comma = true) : String
+    public function search(string $str, string $find, bool $comma = true) : string
     {
         return $this->_jsFunc("String($str).search", $find, $comma);
     }
@@ -301,7 +301,7 @@ class InternalJS extends CallController
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function slice(String $str, String $p1, String $p2 = NULL, Bool $comma = true) : String
+    public function slice(string $str, string $p1, string $p2 = NULL, bool $comma = true) : string
     {
         return $this->_jsFunc("String($str).slice", "$p1, $p2" , $comma);
     }

@@ -30,7 +30,7 @@ class InternalRoute extends Controller implements InternalRouteInterface
     // @param array $route
     //
     //--------------------------------------------------------------------------------------------------------
-    public function change(Array $route) : InternalRoute
+    public function change(array $route) : InternalRoute
     {
         $this->route = $route;
 
@@ -47,7 +47,7 @@ class InternalRoute extends Controller implements InternalRouteInterface
     //  @return mixed
     //
     //--------------------------------------------------------------------------------------------------------
-    public function run(String $functionName, $functionRun = NULL, Array $route = NULL)
+    public function run(string $functionName, $functionRun = NULL, array $route = NULL) : void
     {
         if( ! empty($this->route) )
         {
