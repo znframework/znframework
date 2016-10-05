@@ -135,7 +135,7 @@ class InternalCalendar extends CLController implements InternalCalendarInterface
     // @return this
     //
     //--------------------------------------------------------------------------------------------------------
-    public function url(String $url) : InternalCalendar
+    public function url(string $url) : InternalCalendar
     {
         if( ! isUrl($url) )
         {
@@ -159,7 +159,7 @@ class InternalCalendar extends CLController implements InternalCalendarInterface
     // @return this
     //
     //--------------------------------------------------------------------------------------------------------
-    public function nameType(String $day, String $month) : InternalCalendar
+    public function nameType(string $day, string $month) : InternalCalendar
     {
         $this->dayNames   = $day;
 
@@ -178,7 +178,7 @@ class InternalCalendar extends CLController implements InternalCalendarInterface
     // @return this
     //
     //--------------------------------------------------------------------------------------------------------
-    public function css(Array $css) : InternalCalendar
+    public function css(array $css) : InternalCalendar
     {
         $this->css = $css;
 
@@ -195,7 +195,7 @@ class InternalCalendar extends CLController implements InternalCalendarInterface
     // @return this
     //
     //--------------------------------------------------------------------------------------------------------
-    public function style(Array $style) : InternalCalendar
+    public function style(array $style) : InternalCalendar
     {
         $this->style = $style;
 
@@ -212,7 +212,7 @@ class InternalCalendar extends CLController implements InternalCalendarInterface
     // @return this
     //
     //--------------------------------------------------------------------------------------------------------
-    public function type(String $type) : InternalCalendar
+    public function type(string $type) : InternalCalendar
     {
         $this->type = $type;
 
@@ -231,7 +231,7 @@ class InternalCalendar extends CLController implements InternalCalendarInterface
     // @return this
     //
     //--------------------------------------------------------------------------------------------------------
-    public function linkNames(String $prev, String $next) : InternalCalendar
+    public function linkNames(string $prev, string $next) : InternalCalendar
     {
         $this->prev = $prev;
         $this->next = $next;
@@ -249,7 +249,7 @@ class InternalCalendar extends CLController implements InternalCalendarInterface
     // @return object
     //
     //--------------------------------------------------------------------------------------------------------
-    public function settings(Array $settings) : InternalCalendar
+    public function settings(array $settings) : InternalCalendar
     {
         Config::set('ViewObjects', 'calendar', $settings);
 
@@ -267,7 +267,7 @@ class InternalCalendar extends CLController implements InternalCalendarInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function create(Int $year = NULL, Int $month = NULL) : String
+    public function create(int $year = NULL, int $month = NULL) : string
     {
         $today = getdate();
 

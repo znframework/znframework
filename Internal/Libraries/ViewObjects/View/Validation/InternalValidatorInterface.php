@@ -19,7 +19,7 @@ interface InternalValidatorInterface
     // @param string $phoneData
     //
     //--------------------------------------------------------------------------------------------------------
-    public function phone(String $data, String $pattern = NULL) : Bool;
+    public function phone(string $data, string $pattern = NULL) : bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Numeric
@@ -28,7 +28,7 @@ interface InternalValidatorInterface
     // @param string $data
     //
     //--------------------------------------------------------------------------------------------------------
-    public function numeric($data) : Bool;
+    public function numeric($data) : bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Alnum
@@ -37,7 +37,7 @@ interface InternalValidatorInterface
     // @param string $data
     //
     //--------------------------------------------------------------------------------------------------------
-    public function alnum(String $data) : Bool;
+    public function alnum(string $data) : bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Alpha
@@ -55,7 +55,7 @@ interface InternalValidatorInterface
     // @param int $no
     //
     //--------------------------------------------------------------------------------------------------------
-    public function identity($no) : Bool;
+    public function identity($no) : bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Email
@@ -64,7 +64,7 @@ interface InternalValidatorInterface
     // @param string $no
     //
     //--------------------------------------------------------------------------------------------------------
-    public function email(String $data) : Bool;
+    public function email(string $data) : bool;
 
     //--------------------------------------------------------------------------------------------------------
     // URL
@@ -73,7 +73,7 @@ interface InternalValidatorInterface
     // @param string $data
     //
     //--------------------------------------------------------------------------------------------------------
-    public function url(String $data) : Bool;
+    public function url(string $data) : bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Special Char
@@ -82,7 +82,7 @@ interface InternalValidatorInterface
     // @param string $data
     //
     //--------------------------------------------------------------------------------------------------------
-    public function specialChar(String $data) : Bool;
+    public function specialChar(string $data) : bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Maxchar
@@ -92,7 +92,7 @@ interface InternalValidatorInterface
     // @param int    $char
     //
     //--------------------------------------------------------------------------------------------------------
-    public function maxchar(String $data, Int $char) : Bool;
+    public function maxchar(string $data, int $char) : bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Minchar
@@ -102,5 +102,5 @@ interface InternalValidatorInterface
     // @param int    $char
     //
     //--------------------------------------------------------------------------------------------------------
-    public function minchar(String $data, Int $char) : Bool;
+    public function minchar(string $data, int $char) : bool;
 }

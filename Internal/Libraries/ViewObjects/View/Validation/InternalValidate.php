@@ -53,7 +53,7 @@ class InternalValidate implements InternalValidateInterface
     // @param string $data
     //
     //--------------------------------------------------------------------------------------------------------
-    public function data(String $data) : InternalValidate
+    public function data(string $data) : InternalValidate
     {
         $this->data = $data;
 
@@ -68,7 +68,7 @@ class InternalValidate implements InternalValidateInterface
     // @return bool
     //
     //--------------------------------------------------------------------------------------------------------
-    public function get() : Bool
+    public function get() : bool
     {
         $this->data = NULL;
 
@@ -91,7 +91,7 @@ class InternalValidate implements InternalValidateInterface
     // @return array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function status() : Array
+    public function status() : array
     {
         return $this->status;
     }

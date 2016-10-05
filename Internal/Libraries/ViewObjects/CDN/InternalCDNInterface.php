@@ -19,7 +19,7 @@ interface InternalCDNInterface
     // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
-    public function get(String $configName, String $name) : String;
+    public function get(string $configName, string $name) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Image
@@ -28,7 +28,7 @@ interface InternalCDNInterface
     // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
-    public function image(String $name) : String;
+    public function image(string $name) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Style
@@ -37,7 +37,7 @@ interface InternalCDNInterface
     // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
-    public function style(String $name) : String;
+    public function style(string $name) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Script
@@ -46,7 +46,7 @@ interface InternalCDNInterface
     // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
-    public function script(String $name) : String;
+    public function script(string $name) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Font
@@ -55,7 +55,7 @@ interface InternalCDNInterface
     // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
-    public function font(String $name) : String;
+    public function font(string $name) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Other
@@ -64,5 +64,5 @@ interface InternalCDNInterface
     // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
-    public function file(String $name) : String;
+    public function file(string $name) : string;
 }

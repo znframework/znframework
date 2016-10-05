@@ -21,7 +21,7 @@ class TemplateWizard extends CallController implements TemplateWizardInterface
     // @param array  $data
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function data(String $string, Array $data = []) : String
+    public static function data(string $string, array $data = []) : string
     {
         $htmlRegexChar  = '.*?';
         $htmlTagClose   = "</$1>";

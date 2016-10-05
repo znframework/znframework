@@ -18,7 +18,7 @@ interface InternalPaginationInterface
     // @param array $config
     //
     //--------------------------------------------------------------------------------------------------------
-    public function settings(Array $config = []) : InternalPagination;
+    public function settings(array $config = []) : InternalPagination;
 
     //--------------------------------------------------------------------------------------------------------
     // Create
@@ -28,5 +28,5 @@ interface InternalPaginationInterface
     // @param array $settings
     //
     //--------------------------------------------------------------------------------------------------------
-    public function create($start, Array $settings = []) : String;
+    public function create($start, array $settings = []) : string;
 }

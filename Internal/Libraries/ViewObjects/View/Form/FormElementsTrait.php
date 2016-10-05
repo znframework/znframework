@@ -41,7 +41,7 @@ trait FormElementsTrait
     // @param bool $postback
     //
     //--------------------------------------------------------------------------------------------------------
-    public function postBack(Bool $postback = true, String $type = 'post')
+    public function postBack(bool $postback = true, string $type = 'post')
     {
         $this->postback['bool'] = $postback;
         $this->postback['type'] = $type;
@@ -94,7 +94,7 @@ trait FormElementsTrait
     // @param string $query
     //
     //--------------------------------------------------------------------------------------------------------
-    public function query(String $query)
+    public function query(string $query)
     {
         $this->settings['query'] = $query;
 
@@ -108,7 +108,7 @@ trait FormElementsTrait
     // @param string $table
     //
     //--------------------------------------------------------------------------------------------------------
-    public function table(String $table)
+    public function table(string $table)
     {
         $this->settings['table'] = $table;
 
@@ -125,7 +125,7 @@ trait FormElementsTrait
     // @param string $flags:regular
     //
     //--------------------------------------------------------------------------------------------------------
-    public function order(String $type = 'desc', String $flags = 'regular')
+    public function order(string $type = 'desc', string $flags = 'regular')
     {
         $this->settings['order']['type']  = $type;
         $this->settings['order']['flags'] = $flags;
@@ -140,7 +140,7 @@ trait FormElementsTrait
     // @param array $attr
     //
     //--------------------------------------------------------------------------------------------------------
-    public function attr(Array $attr = [])
+    public function attr(array $attr = [])
     {
         if( isset($this->settings['attr']) && is_array($this->settings['attr']) )
         {
@@ -163,7 +163,7 @@ trait FormElementsTrait
     // @param array $attr
     //
     //--------------------------------------------------------------------------------------------------------
-    public function action(String $url = NULL)
+    public function action(string $url = NULL)
     {
         $this->settings['attr']['action'] = isUrl($url) ? $url : siteUrl($url);
 
@@ -178,7 +178,7 @@ trait FormElementsTrait
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function enctype(String $enctype)
+    public function enctype(string $enctype)
     {
         if( isset($this->enctypes[$enctype]) )
         {
@@ -198,7 +198,7 @@ trait FormElementsTrait
     // @param string $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function option($key, String $value = NULL)
+    public function option($key, string $value = NULL)
     {
         if( is_array($key) )
         {

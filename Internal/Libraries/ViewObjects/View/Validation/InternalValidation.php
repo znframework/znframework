@@ -77,7 +77,7 @@ class InternalValidation extends CallController implements InternalValidationInt
     // @param string $met
     //
     //--------------------------------------------------------------------------------------------------------
-    public function rules(String $name, Array $config = [], String $viewName = NULL, String $met = 'post')
+    public function rules(string $name, array $config = [], string $viewName = NULL, string $met = 'post')
     {
         if( ! empty($this->settings['method']) )
         {
@@ -317,7 +317,7 @@ class InternalValidation extends CallController implements InternalValidationInt
     // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
-    public function nval(String $name)
+    public function nval(string $name)
     {
         if( isset($this->nval[$name]) )
         {
@@ -336,7 +336,7 @@ class InternalValidation extends CallController implements InternalValidationInt
     // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
-    public function error(String $name = 'array')
+    public function error(string $name = 'array')
     {
         if( $name === "string" || $name === "array" || $name === "echo" )
         {
@@ -390,7 +390,7 @@ class InternalValidation extends CallController implements InternalValidationInt
     // @param string $met
     //
     //--------------------------------------------------------------------------------------------------------
-    public function postBack(String $name, String $met = 'post')
+    public function postBack(string $name, string $met = 'post')
     {
         $method = $this->_methodType($name, $met);
 
