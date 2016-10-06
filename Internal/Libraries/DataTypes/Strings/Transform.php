@@ -19,7 +19,7 @@ class Transform implements TransformInterface
     // @param string $split
     //
     //--------------------------------------------------------------------------------------------------------
-    public function array(string $string, string $split = ' ') :array
+    public function array(string $string, string $split = ' ') : array
     {
         return explode($split, $string);
     }

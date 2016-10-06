@@ -65,7 +65,7 @@ class Builder implements BuilderInterface
     // @param string $encoding
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do(array $data, string $version = NULL, string $encoding = NULL) : string
+    public function do(array $data, ? string $version = NULL, string $encoding = NULL) : string
     {
         if( ! empty($version) )  $this->version  = $version;
         if( ! empty($encoding) ) $this->encoding = $encoding;

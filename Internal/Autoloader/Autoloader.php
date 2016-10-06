@@ -108,14 +108,14 @@ class Autoloader
     // @return void
     //
     //--------------------------------------------------------------------------------------------------
-    public static function createClassMap()
+    public static function createClassMap() : void
     {
         $configAutoloader = Config::get('Autoloader');
         $configClassMap   = self::_config();
 
         if( $configAutoloader['directoryScanning'] === false )
         {
-            return false;
+            return;
         }
 
         $classMap = $configAutoloader['classMap'];

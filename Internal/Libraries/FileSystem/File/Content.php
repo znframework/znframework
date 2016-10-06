@@ -20,7 +20,7 @@ class Content implements ContentInterface
     // @param string $file
     //
     //--------------------------------------------------------------------------------------------------------
-    public function read(String $file) : String
+    public function read(string $file) : string
     {
         return file_get_contents(File::rpath($file));
     }
@@ -33,7 +33,7 @@ class Content implements ContentInterface
     // @param string $data
     //
     //--------------------------------------------------------------------------------------------------------
-    public function find(String $file, String $data) : stdClass
+    public function find(string $file, string $data) : stdClass
     {
         $contents = $this->read($file);
         $index    = strpos($contents, $data);
@@ -53,7 +53,7 @@ class Content implements ContentInterface
     // @param string $data
     //
     //--------------------------------------------------------------------------------------------------------
-    public function write(String $file, String $data) : Int
+    public function write(string $file, string $data) : int
     {
         return file_put_contents(File::rpath($file), $data);
     }
@@ -66,7 +66,7 @@ class Content implements ContentInterface
     // @param string $data
     //
     //--------------------------------------------------------------------------------------------------------
-    public function append(String $file, String $data) : Int
+    public function append(string $file, string $data) : int
     {
         return file_put_contents(File::rpath($file), $data, FILE_APPEND);
     }

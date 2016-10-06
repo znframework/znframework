@@ -44,7 +44,7 @@ interface InternalMBInterface
     // @param string $encoding
     //
     //--------------------------------------------------------------------------------------------------------
-    public function section(string $str, int $starting = 0, int $count = NULL, string $encoding = 'UTF-8') : string;
+    public function section(string $str, int $starting = 0, ? int $count = NULL, string $encoding = 'UTF-8') : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Parse Get
@@ -63,7 +63,7 @@ interface InternalMBInterface
     // @param string $encoding
     //
     //--------------------------------------------------------------------------------------------------------
-    public function checkEncoding(string $string = NULL, string $encoding = 'UTF-8') : bool;
+    public function checkEncoding( ? string $string = NULL, string $encoding = 'UTF-8') : bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Casing
@@ -118,7 +118,7 @@ interface InternalMBInterface
     // @param string $encoding
     //
     //--------------------------------------------------------------------------------------------------------
-    public function htmlToNumeric(string $string, array $convertMap = NULL, string $encoding = 'UTF-8') : string;
+    public function htmlToNumeric(string $string, ? array $convertMap = NULL, string $encoding = 'UTF-8') : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Numeric To Html
@@ -129,7 +129,7 @@ interface InternalMBInterface
     // @param string $encoding
     //
     //--------------------------------------------------------------------------------------------------------
-    public function numericToHtml(string $string, array $convertMap = NULL, string $encoding = 'UTF-8') : string;
+    public function numericToHtml(string $string, ? array $convertMap = NULL, string $encoding = 'UTF-8') : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Detect Encoding

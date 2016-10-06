@@ -104,7 +104,7 @@ class InternalUpload extends CallController implements InternalUploadInterface
     // @param array $set
     //
     //--------------------------------------------------------------------------------------------------------
-    public function settings(Array $set = []) : InternalUpload
+    public function settings(array $set = []) : InternalUpload
     {
         $this->settingStatus = true;
 
@@ -183,7 +183,7 @@ class InternalUpload extends CallController implements InternalUploadInterface
     // @param bool $convert
     //
     //--------------------------------------------------------------------------------------------------------
-    public function convertName(Bool $convert = true) : InternalUpload
+    public function convertName(bool $convert = true) : InternalUpload
     {
         $this->settings['convertName'] = $convert;
 
@@ -197,7 +197,7 @@ class InternalUpload extends CallController implements InternalUploadInterface
     // @param string $hash
     //
     //--------------------------------------------------------------------------------------------------------
-    public function encode(String $hash = 'md5') : InternalUpload
+    public function encode(string $hash = 'md5') : InternalUpload
     {
         if( isHash($hash) )
         {
@@ -218,7 +218,7 @@ class InternalUpload extends CallController implements InternalUploadInterface
     // @param string $prefix
     //
     //--------------------------------------------------------------------------------------------------------
-    public function prefix(String $prefix) : InternalUpload
+    public function prefix(string $prefix) : InternalUpload
     {
         $this->settings['prefix'] = $prefix;
 
@@ -232,7 +232,7 @@ class InternalUpload extends CallController implements InternalUploadInterface
     // @param int $maxsize
     //
     //--------------------------------------------------------------------------------------------------------
-    public function maxsize(Int $maxsize = 0) : InternalUpload
+    public function maxsize(int $maxsize = 0) : InternalUpload
     {
         $this->settings['maxsize'] = $maxsize;
 
@@ -246,7 +246,7 @@ class InternalUpload extends CallController implements InternalUploadInterface
     // @param int $encodeLength
     //
     //--------------------------------------------------------------------------------------------------------
-    public function encodeLength(Int $encodeLength = 8) : InternalUpload
+    public function encodeLength(int $encodeLength = 8) : InternalUpload
     {
         $this->settings['encodeLength'] = $encodeLength;
 
@@ -260,7 +260,7 @@ class InternalUpload extends CallController implements InternalUploadInterface
     // @param string $target
     //
     //--------------------------------------------------------------------------------------------------------
-    public function target(String $target = UPLOADS_DIR) : InternalUpload
+    public function target(string $target = UPLOADS_DIR) : InternalUpload
     {
         $this->settings['target'] = $target;
 
@@ -274,7 +274,7 @@ class InternalUpload extends CallController implements InternalUploadInterface
     // @param string $source
     //
     //--------------------------------------------------------------------------------------------------------
-    public function source(String $source = 'upload') : InternalUpload
+    public function source(string $source = 'upload') : InternalUpload
     {
         $this->settings['source'] = $source;
 
@@ -289,7 +289,7 @@ class InternalUpload extends CallController implements InternalUploadInterface
     // @param string $rootDir
     //
     //--------------------------------------------------------------------------------------------------------
-    public  function start(String $fileName = 'upload', String $rootDir = UPLOADS_DIR) : Bool
+    public  function start(string $fileName = 'upload', string $rootDir = UPLOADS_DIR) : bool
     {
         if( isset($this->settings['source']) )
         {
@@ -463,7 +463,7 @@ class InternalUpload extends CallController implements InternalUploadInterface
     // @param string $info
     //
     //--------------------------------------------------------------------------------------------------------
-    public function info(String $info = NULL)
+    public function info(string $info = NULL)
     {
         if( ! empty($_FILES[$this->file]) )
         {

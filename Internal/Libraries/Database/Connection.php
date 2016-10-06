@@ -134,7 +134,7 @@ class Connection implements ConnectionInterface
     // @param array $config
     //
     //--------------------------------------------------------------------------------------------------------
-    public function __construct(Array $config = [])
+    public function __construct(array $config = [])
     {
         $this->config = Config::get('Database', 'database');
 

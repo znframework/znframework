@@ -23,7 +23,7 @@ class Transfer implements TransferInterface
     // @param array $set
     //
     //--------------------------------------------------------------------------------------------------------
-    public function settings(Array $set = []) : InternalUpload
+    public function settings(array $set = []) : InternalUpload
     {
         FileSystemFactory::class('InternalUpload')->settings($set);
 
@@ -37,7 +37,7 @@ class Transfer implements TransferInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public  function upload(String $fileName = 'upload', String $rootDir = UPLOADS_DIR) : Bool
+    public  function upload(string $fileName = 'upload', string $rootDir = UPLOADS_DIR) : bool
     {
         return FileSystemFactory::class('InternalUpload')->start($fileName, $rootDir);
     }
@@ -49,7 +49,7 @@ class Transfer implements TransferInterface
     // @param string $file
     //
     //--------------------------------------------------------------------------------------------------------
-    public function download(String $file)
+    public function download(string $file) : void
     {
         if( ! File::available($file) )
         {

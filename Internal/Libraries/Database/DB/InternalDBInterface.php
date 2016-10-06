@@ -29,7 +29,7 @@ interface InternalDBInterface
     // @param string $logical
     //
     //--------------------------------------------------------------------------------------------------------
-    public function where($column, string $value = NULL, string $logical = NULL) : InternalDB;
+    public function where($column, ? string $value = NULL, string $logical = NULL) : InternalDB;
 
 
     //--------------------------------------------------------------------------------------------------------
@@ -41,7 +41,7 @@ interface InternalDBInterface
     // @param string $logical
     //
     //--------------------------------------------------------------------------------------------------------
-    public function having($column, string $value = NULL, string $logical = NULL) : InternalDB;
+    public function having($column, ? string $value = NULL, string $logical = NULL) : InternalDB;
 
     //--------------------------------------------------------------------------------------------------------
     // Where Group
@@ -126,7 +126,7 @@ interface InternalDBInterface
     // @return string $return -> Sorgunun dönüş türü. object, string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function get(string $table, string $return = 'object');
+    public function get( ? string $table, string $return = 'object');
 
     //--------------------------------------------------------------------------------------------------------
     // Get String
@@ -341,7 +341,7 @@ interface InternalDBInterface
     // @param bool   $output
     //
     //--------------------------------------------------------------------------------------------------------
-    public function pagination(string $url = NULL, array $settings = [], bool $output = true);
+    public function pagination( ? string $url = NULL, array $settings = [], bool $output = true);
 
     //--------------------------------------------------------------------------------------------------------
     // Is Exists
@@ -363,7 +363,7 @@ interface InternalDBInterface
     // @param string $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function simpleResult(string $table, string $column = NULL, string $value = NULL, $type = 'result');
+    public function simpleResult(string $table, ? string $column = NULL, ? string $value = NULL, $type = 'result');
 
     //--------------------------------------------------------------------------------------------------------
     // Simple Result Array
@@ -494,7 +494,7 @@ interface InternalDBInterface
     // @param numeric $increment
     //
     //--------------------------------------------------------------------------------------------------------
-    public function increment(string $table = NULL, $columns = [], int $increment = 1) : bool;
+    public function increment( ? string $table = NULL, $columns = [], int $increment = 1) : bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Decrement
@@ -505,7 +505,7 @@ interface InternalDBInterface
     // @param numeric $decrement
     //
     //--------------------------------------------------------------------------------------------------------
-    public function decrement(string $table = NULL, $columns = [], int $decrement = 1) : bool;
+    public function decrement( ? string $table = NULL, $columns = [], int $decrement = 1) : bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Insert
@@ -515,7 +515,7 @@ interface InternalDBInterface
     // @param mixed $datas
     //
     //--------------------------------------------------------------------------------------------------------
-    public function insert(string $table = NULL, array $datas = []);
+    public function insert( ? string $table = NULL, array $datas = []);
 
     //--------------------------------------------------------------------------------------------------------
     // Updated
@@ -525,7 +525,7 @@ interface InternalDBInterface
     // @param mixed $set
     //
     //--------------------------------------------------------------------------------------------------------
-    public function update(string $table = NULL, array $set = []);
+    public function update( ? string $table = NULL, array $set = []);
 
     //--------------------------------------------------------------------------------------------------------
     // Delete

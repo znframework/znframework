@@ -48,7 +48,7 @@ interface InternalDBForgeInterface
     // @param mixed  $extras
     //
     //--------------------------------------------------------------------------------------------------------
-    public function createTable(string $table = NULL, array $colums = NULL, $extras = NULL) : bool;
+    public function createTable( ? string $table = NULL, ? array $colums = NULL, $extras = NULL) : bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Drop Table
@@ -67,7 +67,7 @@ interface InternalDBForgeInterface
     // @param array  $condition
     //
     //--------------------------------------------------------------------------------------------------------
-    public function alterTable(string $table = NULL, array $condition = NULL) : bool;
+    public function alterTable( ? string $table = NULL, array $condition = NULL) : bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Rename Table
@@ -96,7 +96,7 @@ interface InternalDBForgeInterface
     // @param array  $columns
     //
     //--------------------------------------------------------------------------------------------------------
-    public function addColumn(string $table = NULL, array $columns = NULL) : bool;
+    public function addColumn( ? string $table = NULL, array $columns = NULL) : bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Drop Column
@@ -106,7 +106,7 @@ interface InternalDBForgeInterface
     // @param mixed  $column
     //
     //--------------------------------------------------------------------------------------------------------
-    public function dropColumn(string $table = NULL, $columns = NULL) : bool;
+    public function dropColumn( ? string $table = NULL, $columns = NULL) : bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Modify Column
@@ -116,7 +116,7 @@ interface InternalDBForgeInterface
     // @param mixed  $columns
     //
     //--------------------------------------------------------------------------------------------------------
-    public function modifyColumn(string $table = NULL, array $columns = NULL) : bool;
+    public function modifyColumn( ? string $table = NULL, array $columns = NULL) : bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Rename Column
@@ -126,5 +126,5 @@ interface InternalDBForgeInterface
     // @param mixed  $columns
     //
     //--------------------------------------------------------------------------------------------------------
-    public function renameColumn(string $table = NULL, array $columns = NULL) : bool;
+    public function renameColumn( ? string $table = NULL, array $columns = NULL) : bool;
 }

@@ -42,7 +42,7 @@ interface InternalErrorsInterface
     // @param string $header
     //
     //--------------------------------------------------------------------------------------------------------
-    public function log(string $message, int $type = 0, string $destination = NULL, string $header = NULL) : bool;
+    public function log(string $message, int $type = 0, ? string $destination = NULL, string $header = NULL) : bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Report

@@ -112,7 +112,7 @@ class InternalDBTool extends Connection implements InternalDBToolInterface
     // @return string $path: STORAGE_DIR
     //
     //--------------------------------------------------------------------------------------------------------
-    public function backup($tables = '*', string $fileName = NULL, string $path = STORAGE_DIR) : string
+    public function backup($tables = '*', ? string $fileName = NULL, string $path = STORAGE_DIR) : string
     {
         return $this->tool->backup($tables, $fileName, $path);
     }

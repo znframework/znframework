@@ -22,7 +22,7 @@ class Sort implements SortInterface
     // @param string $flags:regular
     //
     //--------------------------------------------------------------------------------------------------------
-    public function order(array $array, string $type = NULL, string $flags = 'regular') : array
+    public function order(array $array, ? string $type = NULL, string $flags = 'regular') : array
     {
         $flags = Converter::toConstant($flags, 'SORT_');
 

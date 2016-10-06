@@ -233,7 +233,7 @@ class InternalDBUser extends Connection implements InternalDBUserInterface
     // @param numeric $n   : 0
     //
     //--------------------------------------------------------------------------------------------------------
-    public function passwordExpire(string $type = NULL, $n = 0) : InternalDBUser
+    public function passwordExpire( ? string $type = NULL, $n = 0) : InternalDBUser
     {
         $this->user->passwordExpire($type, $n);
 
@@ -367,7 +367,7 @@ class InternalDBUser extends Connection implements InternalDBUserInterface
     // @param string  $select: *.*
     //
     //--------------------------------------------------------------------------------------------------------
-    public function grant(string $name = 'ALL', string $type = NULL, string $select = '*.*') : bool
+    public function grant(string $name = 'ALL', ? string $type = NULL, string $select = '*.*') : bool
     {
         $query = $this->user->grant($name, $type, $select);
 
@@ -383,7 +383,7 @@ class InternalDBUser extends Connection implements InternalDBUserInterface
     // @param string  $select: *.*
     //
     //--------------------------------------------------------------------------------------------------------
-    public function revoke(string $name = 'ALL', string $type = NULL, string $select = '*.*') : bool
+    public function revoke(string $name = 'ALL', ? string $type = NULL, string $select = '*.*') : bool
     {
         $query = $this->user->revoke($name, $type, $select);
 
@@ -413,7 +413,7 @@ class InternalDBUser extends Connection implements InternalDBUserInterface
     // @param string  $pass: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function setPassword(string $user = NULL, string $pass = NULL) : bool
+    public function setPassword( ? string $user = NULL, string $pass = NULL) : bool
     {
         $query = $this->user->setPassword($user, $pass);
 

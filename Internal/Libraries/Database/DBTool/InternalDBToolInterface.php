@@ -81,5 +81,5 @@ interface InternalDBToolInterface
     // @return string $path: STORAGE_DIR
     //
     //--------------------------------------------------------------------------------------------------------
-    public function backup($tables = '*', string $fileName = NULL, string $path = STORAGE_DIR) : string;
+    public function backup($tables = '*', ? string $fileName = NULL, string $path = STORAGE_DIR) : string;
 }

@@ -25,7 +25,7 @@ class InternalRegex extends CLController implements InternalRegexInterface
     // @param string $delimiter
     //
     //--------------------------------------------------------------------------------------------------------
-    public function match(string $pattern, string $str, string $ex = NULL, string $delimiter = '/') : array
+    public function match(string $pattern, string $str, ? string $ex = NULL, string $delimiter = '/') : array
     {
         $pattern = $this->_regularConverting($pattern, $ex, $delimiter);
 
@@ -44,7 +44,7 @@ class InternalRegex extends CLController implements InternalRegexInterface
     // @param string $delimiter
     //
     //--------------------------------------------------------------------------------------------------------
-    public function matchAll(string $pattern, string $str, string $ex = NULL, string $delimiter = '/') : array
+    public function matchAll(string $pattern, string $str, ? string $ex = NULL, string $delimiter = '/') : array
     {
         $pattern = $this->_regularConverting($pattern, $ex, $delimiter);
 
@@ -64,7 +64,7 @@ class InternalRegex extends CLController implements InternalRegexInterface
     // @param string $delimiter
     //
     //--------------------------------------------------------------------------------------------------------
-    public function replace(string $pattern, string $rep, string $str, string $ex = NULL, string $delimiter = '/')
+    public function replace(string $pattern, string $rep, string $str, ? string $ex = NULL, string $delimiter = '/')
     {
         $pattern = $this->_regularConverting($pattern, $ex, $delimiter);
 

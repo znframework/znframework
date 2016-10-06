@@ -20,7 +20,7 @@ interface DecodeInterface
     // @param string $separator
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do(string $word, string $key = NULL, string $separator = NULL) : \stdClass;
+    public function do(string $word, ? string $key = NULL, string $separator = NULL) : \stdClass;
 
     //--------------------------------------------------------------------------------------------------------
     // Object
@@ -31,7 +31,7 @@ interface DecodeInterface
     // @param string $separator
     //
     //--------------------------------------------------------------------------------------------------------
-    public function object(string $word, string $key = NULL, string $separator = NULL) : \stdClass;
+    public function object(string $word, ? string $key = NULL, string $separator = NULL) : \stdClass;
 
     //--------------------------------------------------------------------------------------------------------
     // Array
@@ -42,5 +42,5 @@ interface DecodeInterface
     // @param string $separator
     //
     //--------------------------------------------------------------------------------------------------------
-    public function array(string $word, string $key = NULL, string $separator = NULL) : array;
+    public function array(string $word, ? string $key = NULL, string $separator = NULL) : array;
 }

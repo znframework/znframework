@@ -226,7 +226,7 @@ public static function set(string $file, $configs, $set = NULL) : array
     // @return array
     //
     //--------------------------------------------------------------------------------------------------
-    public static function iniGetAll(string $extension = NULL, bool $details = true) : array
+    public static function iniGetAll( ? string $extension = NULL, bool $details = true) : array
     {
         if( empty($extension) )
         {

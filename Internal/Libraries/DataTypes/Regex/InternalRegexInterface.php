@@ -21,7 +21,7 @@ interface InternalRegexInterface
     // @param string $delimiter
     //
     //--------------------------------------------------------------------------------------------------------
-    public function match(string $pattern, string $str, string $ex = NULL, string $delimiter = '/') : array;
+    public function match(string $pattern, string $str, ? string $ex = NULL, string $delimiter = '/') : array;
 
     //--------------------------------------------------------------------------------------------------------
     // Match All
@@ -33,7 +33,7 @@ interface InternalRegexInterface
     // @param string $delimiter
     //
     //--------------------------------------------------------------------------------------------------------
-    public function matchAll(string $pattern, string $str, string $ex = NULL, string $delimiter = '/') : array;
+    public function matchAll(string $pattern, string $str, ? string $ex = NULL, string $delimiter = '/') : array;
 
     //--------------------------------------------------------------------------------------------------------
     // Replace
@@ -46,7 +46,7 @@ interface InternalRegexInterface
     // @param string $delimiter
     //
     //--------------------------------------------------------------------------------------------------------
-    public function replace(string $pattern, string $rep, string $str, string $ex = NULL, string $delimiter = '/');
+    public function replace(string $pattern, string $rep, string $str, ? string $ex = NULL, string $delimiter = '/');
 
     //--------------------------------------------------------------------------------------------------------
     // Group

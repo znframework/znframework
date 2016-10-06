@@ -53,7 +53,7 @@ class InternalMB extends CallController implements InternalMBInterface
     // @param string $encoding
     //
     //--------------------------------------------------------------------------------------------------------
-    public function section(string $str, int $starting = 0, int $count = NULL, string $encoding = 'UTF-8') : string
+    public function section(string $str, int $starting = 0, ? int $count = NULL, string $encoding = 'UTF-8') : string
     {
         if( ! isCharset($encoding) )
         {
@@ -85,7 +85,7 @@ class InternalMB extends CallController implements InternalMBInterface
     // @param string $encoding
     //
     //--------------------------------------------------------------------------------------------------------
-    public function checkEncoding(string $string = NULL, string $encoding = 'UTF-8') : bool
+    public function checkEncoding( ? string $string = NULL, string $encoding = 'UTF-8') : bool
     {
         return mb_check_encoding($string, $encoding);
     }
@@ -155,7 +155,7 @@ class InternalMB extends CallController implements InternalMBInterface
     // @param string $encoding
     //
     //--------------------------------------------------------------------------------------------------------
-    public function htmlToNumeric(string $string, array $convertMap = NULL, string $encoding = 'UTF-8') : string
+    public function htmlToNumeric(string $string, ? array $convertMap = NULL, string $encoding = 'UTF-8') : string
     {
         return mb_decode_numericentity($string, (array) $convertMap, $encoding);
     }
@@ -169,7 +169,7 @@ class InternalMB extends CallController implements InternalMBInterface
     // @param string $encoding
     //
     //--------------------------------------------------------------------------------------------------------
-    public function numericToHtml(string $string, array $convertMap = NULL, string $encoding = 'UTF-8') : string
+    public function numericToHtml(string $string, ? array $convertMap = NULL, string $encoding = 'UTF-8') : string
     {
         return mb_encode_numericentity($string, $convertMap, $encoding);
     }

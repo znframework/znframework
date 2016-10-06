@@ -37,5 +37,5 @@ interface BuilderInterface
     // @param string $encoding
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do(array $data, string $version = NULL, string $encoding = NULL) : string;
+    public function do(array $data, ? string $version = NULL, string $encoding = NULL) : string;
 }
