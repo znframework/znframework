@@ -650,19 +650,12 @@ class InternalDB extends Connection implements InternalDBInterface
     {
         nullCoalesce($start, (int) URI::segment(-1));
 
-        if( ! empty($limit) )
-        {
-            $comma = ' , ';
-        }
-        else
-        {
-            $comma = '';
-        }
+        $start = (int) $start;
 
-        $this->pagination['start'] = (int) $start;
+        $this->pagination['start'] = $start;
         $this->pagination['limit'] = $limit;
 
-        $this->limit = ' LIMIT '.$start.( ! empty($limit) ? $comma.$limit.' ' : '' );
+        $this->limit = ' LIMIT '.$start.( ! empty($limit) ? ' , '.$limit.' ' : '' );
 
         return $this;
     }
