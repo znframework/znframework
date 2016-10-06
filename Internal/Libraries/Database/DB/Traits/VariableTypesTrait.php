@@ -50,7 +50,7 @@ trait VariableTypesTrait
     // @param bool   $output
     //
     //--------------------------------------------------------------------------------------------------------
-    public function vartype(String $type, Int $len = NULL, Bool $output = true) : String
+    public function vartype(string $type, int $len = NULL, bool $output = true) : string
     {
         return $this->db->variableTypes($type, $len, $output);
     }

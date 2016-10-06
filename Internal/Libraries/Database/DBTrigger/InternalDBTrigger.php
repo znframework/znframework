@@ -38,7 +38,7 @@ class InternalDBTrigger extends Connection implements InternalDBTriggerInterface
     // @param string $user
     //
     //--------------------------------------------------------------------------------------------------------
-    public function user(String $user) : InternalDBTrigger
+    public function user(string $user) : InternalDBTrigger
     {
         $this->trigger->user($user);
 
@@ -52,7 +52,7 @@ class InternalDBTrigger extends Connection implements InternalDBTriggerInterface
     // @param string $type: BEFORE, AFTER
     //
     //--------------------------------------------------------------------------------------------------------
-    public function when(String $type) : InternalDBTrigger
+    public function when(string $type) : InternalDBTrigger
     {
         $this->trigger->when($type);
 
@@ -66,7 +66,7 @@ class InternalDBTrigger extends Connection implements InternalDBTriggerInterface
     // @param string $type: INSERT, UPDATE, DELETE
     //
     //--------------------------------------------------------------------------------------------------------
-    public function event(String $type) : InternalDBTrigger
+    public function event(string $type) : InternalDBTrigger
     {
         $this->trigger->event($type);
 
@@ -80,7 +80,7 @@ class InternalDBTrigger extends Connection implements InternalDBTriggerInterface
     // @param string $type: FOLLOWS, PRECEDES
     //
     //--------------------------------------------------------------------------------------------------------
-    public function order(String $type, String $name) : InternalDBTrigger
+    public function order(string $type, string $name) : InternalDBTrigger
     {
         $this->trigger->order($type, $name);
 
@@ -108,7 +108,7 @@ class InternalDBTrigger extends Connection implements InternalDBTriggerInterface
     // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
-    public function createTrigger(String $name) : Bool
+    public function createTrigger(string $name) : bool
     {
         $query = $this->trigger->createTrigger($name);
 
@@ -122,7 +122,7 @@ class InternalDBTrigger extends Connection implements InternalDBTriggerInterface
     // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
-    public function dropTrigger(String $name) : Bool
+    public function dropTrigger(string $name) : bool
     {
         $query = $this->trigger->dropTrigger($name);
 

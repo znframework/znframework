@@ -18,7 +18,7 @@ interface InternalThumbInterface
     // @param string $file
     //
     //--------------------------------------------------------------------------------------------------------
-    public function path(String $file) : InternalThumb;
+    public function path(string $file) : InternalThumb;
 
     //--------------------------------------------------------------------------------------------------------
     // Quality
@@ -27,7 +27,7 @@ interface InternalThumbInterface
     // @param int $quality
     //
     //--------------------------------------------------------------------------------------------------------
-    public function quality(Int $quality) : InternalThumb;
+    public function quality(int $quality) : InternalThumb;
 
     //--------------------------------------------------------------------------------------------------------
     // Crop
@@ -37,7 +37,7 @@ interface InternalThumbInterface
     // @param int $y
     //
     //--------------------------------------------------------------------------------------------------------
-    public function crop(Int $x, Int $y) : InternalThumb;
+    public function crop(int $x, int $y) : InternalThumb;
 
     //--------------------------------------------------------------------------------------------------------
     // Size
@@ -47,7 +47,7 @@ interface InternalThumbInterface
     // @param int $height
     //
     //--------------------------------------------------------------------------------------------------------
-    public function size(Int $width, Int $height) : InternalThumb;
+    public function size(int $width, int $height) : InternalThumb;
 
     //--------------------------------------------------------------------------------------------------------
     // Resize
@@ -57,7 +57,7 @@ interface InternalThumbInterface
     // @param int $height
     //
     //--------------------------------------------------------------------------------------------------------
-    public function resize(Int $width, Int $height) : InternalThumb;
+    public function resize(int $width, int $height) : InternalThumb;
 
     //--------------------------------------------------------------------------------------------------------
     // Prosize
@@ -67,7 +67,7 @@ interface InternalThumbInterface
     // @param int $height
     //
     //--------------------------------------------------------------------------------------------------------
-    public function prosize(Int $width, Int $height) : InternalThumb;
+    public function prosize(int $width, int $height) : InternalThumb;
 
     //--------------------------------------------------------------------------------------------------------
     // Create
@@ -76,7 +76,7 @@ interface InternalThumbInterface
     // @param string $path
     //
     //--------------------------------------------------------------------------------------------------------
-    public function create(String $path) : String;
+    public function create(string $path) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Prosize
@@ -86,5 +86,5 @@ interface InternalThumbInterface
     // @param int $height
     //
     //--------------------------------------------------------------------------------------------------------
-    public function getProsize(Int $width, Int $height);
+    public function getProsize(int $width, int $height);
 }

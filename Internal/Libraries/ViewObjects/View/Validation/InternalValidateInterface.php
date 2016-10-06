@@ -18,7 +18,7 @@ interface InternalValidateInterface
     // @param string $data
     //
     //--------------------------------------------------------------------------------------------------------
-    public function data(String $data) : InternalValidate;
+    public function data(string $data) : InternalValidate;
 
     //--------------------------------------------------------------------------------------------------------
     // Get
@@ -28,7 +28,7 @@ interface InternalValidateInterface
     // @return bool
     //
     //--------------------------------------------------------------------------------------------------------
-    public function get() : Bool;
+    public function get() : bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Get
@@ -38,5 +38,5 @@ interface InternalValidateInterface
     // @return array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function status() : Array;
+    public function status() : array;
 }

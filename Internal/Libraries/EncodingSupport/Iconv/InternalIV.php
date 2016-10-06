@@ -32,7 +32,7 @@ class InternalIV extends CallController implements InternalIVInterface
     // @param string $toEncoding
     //
     //--------------------------------------------------------------------------------------------------------
-    public function convert(String $string, String $fromEncoding, String $toEncoding) : String
+    public function convert(string $string, string $fromEncoding, string $toEncoding) : string
     {
         $toEncodingFirst = Arrays::getFirst(explode('//', $toEncoding));
 
@@ -51,7 +51,7 @@ class InternalIV extends CallController implements InternalIVInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function encodings() : Array
+    public function encodings() : array
     {
         return iconv_get_encoding('all');
     }
@@ -63,7 +63,7 @@ class InternalIV extends CallController implements InternalIVInterface
     // @param string $type: input, output, internal
     //
     //--------------------------------------------------------------------------------------------------------
-    public function getEncoding(String $type = 'input') : String
+    public function getEncoding(string $type = 'input') : string
     {
         if( ! in_array($type, $this->inputs) )
         {
@@ -81,7 +81,7 @@ class InternalIV extends CallController implements InternalIVInterface
     // @param string $charset
     //
     //--------------------------------------------------------------------------------------------------------
-    public function setEncoding(String $type = 'input', String $charset = 'utf-8') : Bool
+    public function setEncoding(string $type = 'input', string $charset = 'utf-8') : bool
     {
         if( ! in_array($type, $this->inputs) )
         {
@@ -105,7 +105,7 @@ class InternalIV extends CallController implements InternalIVInterface
     // @param string $charset
     //
     //--------------------------------------------------------------------------------------------------------
-    public function mimesDecode(String $encodedHeaders, Int $mode = 0, String $charset = NULL) : Array
+    public function mimesDecode(string $encodedHeaders, int $mode = 0, string $charset = NULL) : array
     {
         if( $charset === NULL )
         {
@@ -124,7 +124,7 @@ class InternalIV extends CallController implements InternalIVInterface
     // @param string $charset
     //
     //--------------------------------------------------------------------------------------------------------
-    public function mimeDecode(String $encodedHeader, Int $mode = 0, String $charset = NULL) : String
+    public function mimeDecode(string $encodedHeader, int $mode = 0, string $charset = NULL) : string
     {
         if( $charset === NULL )
         {
@@ -143,7 +143,7 @@ class InternalIV extends CallController implements InternalIVInterface
     // @param array  $preferences
     //
     //--------------------------------------------------------------------------------------------------------
-    public function mimeEncode(String $fieldName, String $fieldValue, Array $preferences = NULL) : String
+    public function mimeEncode(string $fieldName, string $fieldValue, array $preferences = NULL) : string
     {
         return iconv_mime_encode($fieldName, $fieldValue, $preferences);
     }

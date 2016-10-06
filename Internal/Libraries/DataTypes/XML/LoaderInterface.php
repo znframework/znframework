@@ -10,5 +10,5 @@ interface LoaderInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do(String $file) : String;
+    public function do(string $file) : string;
 }

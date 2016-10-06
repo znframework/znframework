@@ -51,7 +51,7 @@ class Config
     // @return void
     //
     //--------------------------------------------------------------------------------------------------
-    private static function _config($file)
+    private static function _config(string $file) : void
     {
         if( empty(self::$config[$file]) )
         {
@@ -89,7 +89,7 @@ class Config
 // @return array
 //
 //--------------------------------------------------------------------------------------------------
-public static function get(String $file, String $configs = NULL, $settings = NULL )
+public static function get(string $file, string $configs = NULL, $settings = NULL ) : array
 {
     self::_config($file);
 
@@ -115,10 +115,10 @@ public static function get(String $file, String $configs = NULL, $settings = NUL
 
     if( empty($configs) )
     {
-        return self::$config[$file] ?? false;
+        return self::$config[$file] ?? [];
     }
 
-    return self::$config[$file][$configs] ?? false;
+    return self::$config[$file][$configs] ?? [];
 }
 //--------------------------------------------------------------------------------------------------
 // set()
@@ -129,11 +129,11 @@ public static function get(String $file, String $configs = NULL, $settings = NUL
 // @return array
 //
 //--------------------------------------------------------------------------------------------------
-public static function set(String $file, $configs, $set = NULL)
+public static function set(string $file, $configs, $set = NULL) : array
 {
     if( empty($configs) )
     {
-        return false;
+        return [];
     }
 
     if( ! is_array($configs) )
@@ -159,7 +159,7 @@ public static function set(String $file, $configs, $set = NULL)
     // @return void
     //
     //--------------------------------------------------------------------------------------------------
-    public static function iniSet($key, $val = NULL)
+    public static function iniSet($key, $val = NULL) : void
     {
         if( empty($key) )
         {
@@ -226,7 +226,7 @@ public static function set(String $file, $configs, $set = NULL)
     // @return array
     //
     //--------------------------------------------------------------------------------------------------
-    public static function iniGetAll(String $extension = NULL, Bool $details = true)
+    public static function iniGetAll(string $extension = NULL, bool $details = true) : array
     {
         if( empty($extension) )
         {
@@ -243,12 +243,12 @@ public static function set(String $file, $configs, $set = NULL)
     //--------------------------------------------------------------------------------------------------
     //
     // @param  string $str
-    // @return bool
+    // @return void
     //
     //--------------------------------------------------------------------------------------------------
-    public static function iniRestore(String $str)
+    public static function iniRestore(string $str) : void
     {
-        return ini_restore($str);
+        ini_restore($str);
     }
 }
 

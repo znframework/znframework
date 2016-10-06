@@ -19,7 +19,7 @@
 // @return object
 //
 //--------------------------------------------------------------------------------------------------
-function objects(Array $array) : stdClass
+function objects(array $array) : stdClass
 {
     $object = new stdClass;
 
@@ -35,7 +35,7 @@ function objects(Array $array) : stdClass
 // @return array
 //
 //--------------------------------------------------------------------------------------------------
-function charsetList() : Array
+function charsetList() : array
 {
     return mb_list_encodings();
 }
@@ -51,7 +51,7 @@ function charsetList() : Array
 // @return Bool
 //
 //--------------------------------------------------------------------------------------------------
-function compare(String $p1, String $operator, String $p2) : Bool
+function compare(string $p1, string $operator, string $p2) : bool
 {
     return version_compare($p1, $p2, $operator);
 }
@@ -65,7 +65,7 @@ function compare(String $p1, String $operator, String $p2) : Bool
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function eol(Int $repeat = 1) : String
+function eol(int $repeat = 1) : string
 {
     return str_repeat(EOL, $repeat);
 }
@@ -79,7 +79,7 @@ function eol(Int $repeat = 1) : String
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function getOS() : String
+function getOS() : string
 {
     if( stristr(PHP_OS, 'WIN') )
     {
@@ -113,7 +113,7 @@ function getOS() : String
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function suffix(String $string, String $fix = '/') : String
+function suffix(string $string, string $fix = '/') : string
 {
     if( strlen($fix) <= strlen($string) )
     {
@@ -147,7 +147,7 @@ function suffix(String $string, String $fix = '/') : String
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function prefix(String $string, String $fix = '/') : String
+function prefix(string $string, string $fix = '/') : string
 {
     if( strlen($fix) <= strlen($string) )
     {
@@ -181,7 +181,7 @@ function prefix(String $string, String $fix = '/') : String
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function presuffix(String $string, String $fix = '/') : String
+function presuffix(string $string, string $fix = '/') : string
 {
     return suffix(prefix($string, $fix), $fix);
 }
@@ -197,7 +197,7 @@ function presuffix(String $string, String $fix = '/') : String
 // @return mixed
 //
 //--------------------------------------------------------------------------------------------------
-function divide(String $str, String $separator = '|', String $index = '0')
+function divide(string $str, string $separator = '|', string $index = '0')
 {
     $arrayEx = explode($separator, $str);
 
@@ -235,7 +235,7 @@ function divide(String $str, String $separator = '|', String $index = '0')
 // @param mixed
 //
 //--------------------------------------------------------------------------------------------------
-function lastError(String $type = NULL)
+function lastError(string $type = NULL)
 {
     $result = error_get_last();
 

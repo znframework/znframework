@@ -20,7 +20,7 @@ class Substitution implements SubstitutionInterface
     // @param string $reshuffle
     //
     //--------------------------------------------------------------------------------------------------------
-    public function reshuffle(String $str, String $shuffle, String $reshuffle) : String
+    public function reshuffle(string $str, string $shuffle, string $reshuffle) : string
     {
         $shuffleEx = explode($shuffle, $str);
 
@@ -43,7 +43,7 @@ class Substitution implements SubstitutionInterface
     // @param array  $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function placement(String $str, String $delimiter, Array $array) : String
+    public function placement(string $str, string $delimiter, array $array) : string
     {
         if( ! empty($delimiter) )
         {
@@ -79,7 +79,7 @@ class Substitution implements SubstitutionInterface
     // @param bool   $case = true
     //
     //--------------------------------------------------------------------------------------------------------
-    public function replace(String $string, $oldChar, $newChar = NULL, Bool $case = true) : String
+    public function replace(string $string, $oldChar, $newChar = NULL, bool $case = true) : string
     {
         if( $case === true )
         {

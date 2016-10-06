@@ -13,7 +13,7 @@ class Logout extends UserExtends implements LogoutInterface
     // @return void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do(String $redirectUrl = NULL, Int $time = 0)
+    public function do(string $redirectUrl = NULL, int $time = 0) : void
     {
         $getColumns  = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['columns'];
         $tableName   = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['table'];

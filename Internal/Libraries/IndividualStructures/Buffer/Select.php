@@ -21,7 +21,7 @@ class Select implements SelectInterface
     // @return callable/content
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function do(String $name)
+    public static function do(string $name)
     {
         return Session::select(md5('OB_DATAS_'.$name));
     }

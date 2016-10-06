@@ -20,7 +20,7 @@ interface InternalURIInterface
     // @param bool   $while
     //
     //--------------------------------------------------------------------------------------------------------
-    public function get($get = 1, $index = 1, Bool $while = false) : String;
+    public function get($get = 1, $index = 1, bool $while = false) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // getNameCount
@@ -31,7 +31,7 @@ interface InternalURIInterface
     // @param string $get
     //
     //--------------------------------------------------------------------------------------------------------
-    public function getNameCount(String $get) : Int;
+    public function getNameCount(string $get) : int;
 
     //--------------------------------------------------------------------------------------------------------
     // getNameAll
@@ -42,7 +42,7 @@ interface InternalURIInterface
     // @param string $get
     //
     //--------------------------------------------------------------------------------------------------------
-    public function getNameAll(String $get) : String;
+    public function getNameAll(string $get) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // getByIndex
@@ -54,7 +54,7 @@ interface InternalURIInterface
     // @param numeric $get
     //
     //--------------------------------------------------------------------------------------------------------
-    public function getByIndex(Int $get = 1, Int $index = 1) : String;
+    public function getByIndex(int $get = 1, int $index = 1) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // getByName
@@ -66,7 +66,7 @@ interface InternalURIInterface
     // @param string $get
     //
     //--------------------------------------------------------------------------------------------------------
-    public function getByName(String $get, $index = NULL) : String;
+    public function getByName(string $get, $index = NULL) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Segment Array
@@ -75,7 +75,7 @@ interface InternalURIInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function segmentArray() : Array;
+    public function segmentArray() : array;
 
     //--------------------------------------------------------------------------------------------------------
     // Total Segments
@@ -84,7 +84,7 @@ interface InternalURIInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function totalSegments() : Int;
+    public function totalSegments() : int;
 
     //--------------------------------------------------------------------------------------------------------
     // Segment Count
@@ -93,7 +93,7 @@ interface InternalURIInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function segmentCount() : Int;
+    public function segmentCount() : int;
 
     //--------------------------------------------------------------------------------------------------------
     // Segment
@@ -102,7 +102,7 @@ interface InternalURIInterface
     // @param int $seg
     //
     //--------------------------------------------------------------------------------------------------------
-    public function segment(Int $seg = 1) : String;
+    public function segment(int $seg = 1) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Current Segment
@@ -111,7 +111,7 @@ interface InternalURIInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function currentSegment() : String;
+    public function currentSegment() : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Current
@@ -121,7 +121,7 @@ interface InternalURIInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function current(Bool $isPath = true) : String;
+    public function current(bool $isPath = true) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Base
@@ -131,7 +131,7 @@ interface InternalURIInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function base(String $uri = '', Int $index = 0) : String;
+    public function base(string $uri = '', int $index = 0) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Prev
@@ -141,5 +141,5 @@ interface InternalURIInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function prev(Bool $isPath = true) : String;
+    public function prev(bool $isPath = true) : string;
 }

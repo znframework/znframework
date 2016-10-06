@@ -18,5 +18,5 @@ interface PageInterface
     // @param numeric $roleId : 0
     //
     //--------------------------------------------------------------------------------------------------------
-    public function use(Int $roleId = 6) : Bool;
+    public function use(int $roleId = 6) : bool;
 }

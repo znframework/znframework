@@ -22,7 +22,7 @@ class InternalNet extends CallController implements InternalNetInterface
     // @param string $type
     //
     //--------------------------------------------------------------------------------------------------------
-    public function checkDns(String $host, String $type = 'MX') : Bool
+    public function checkDns(string $host, string $type = 'MX') : bool
     {
         return checkdnsrr($this->cleanHttp($host), $type);
     }
@@ -36,7 +36,7 @@ class InternalNet extends CallController implements InternalNetInterface
     // @param bool   $raw
     //
     //--------------------------------------------------------------------------------------------------------
-    public function dnsRecords(String $host, String $type = 'any', Bool $raw = false) : \stdClass
+    public function dnsRecords(string $host, string $type = 'any', bool $raw = false) : \stdClass
     {
         $dns = dns_get_record($this->cleanHttp($host), Converter::toConstant($type, 'DNS_'), $auth, $add, $raw);
 
@@ -55,7 +55,7 @@ class InternalNet extends CallController implements InternalNetInterface
     // @param string $host
     //
     //--------------------------------------------------------------------------------------------------------
-    public function mxRecords(String $host) : \stdClass
+    public function mxRecords(string $host) : \stdClass
     {
         $mx = getmxrr($this->cleanHttp($host), $mxhosts, $weight);
 
@@ -75,7 +75,7 @@ class InternalNet extends CallController implements InternalNetInterface
     // @param int    $timeout
     //
     //--------------------------------------------------------------------------------------------------------
-    public function socket(String $host, Int $port = -1, Int $timeout = 60)
+    public function socket(string $host, int $port = -1, int $timeout = 60)
     {
         $socket = fsockopen($this->cleanHttp($host), $port, $errno, $errstr, $timeout);
 
@@ -96,7 +96,7 @@ class InternalNet extends CallController implements InternalNetInterface
     // @param int    $timeout
     //
     //--------------------------------------------------------------------------------------------------------
-    public function psocket(String $host, Int $port = -1, Int $timeout = 60)
+    public function psocket(string $host, int $port = -1, int $timeout = 60)
     {
         $socket = pfsockopen($this->cleanHttp($host), $port, $errno, $errstr, $timeout);
 
@@ -115,7 +115,7 @@ class InternalNet extends CallController implements InternalNetInterface
     // @param string $ip
     //
     //--------------------------------------------------------------------------------------------------------
-    public function ipv4ToHost(String $ip) : String
+    public function ipv4ToHost(string $ip) : string
     {
         return gethostbyaddr($ip);
     }
@@ -127,7 +127,7 @@ class InternalNet extends CallController implements InternalNetInterface
     // @param string $host
     //
     //--------------------------------------------------------------------------------------------------------
-    public function hostToIpv4(String $host) : String
+    public function hostToIpv4(string $host) : string
     {
         return gethostbyname($this->cleanHttp($host));
     }
@@ -139,7 +139,7 @@ class InternalNet extends CallController implements InternalNetInterface
     // @param string $host
     //
     //--------------------------------------------------------------------------------------------------------
-    public function hostToIpv4List(String $host) : Array
+    public function hostToIpv4List(string $host) : array
     {
         return gethostbynamel($this->cleanHttp($host));
     }
@@ -151,7 +151,7 @@ class InternalNet extends CallController implements InternalNetInterface
     // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
-    public function protocolNumber(String $name) : Int
+    public function protocolNumber(string $name) : int
     {
         return getprotobyname($name);
     }
@@ -163,7 +163,7 @@ class InternalNet extends CallController implements InternalNetInterface
     // @param int $number
     //
     //--------------------------------------------------------------------------------------------------------
-    public function protocolName(Int $number) : String
+    public function protocolName(int $number) : string
     {
         return getprotobynumber($number);
     }
@@ -176,7 +176,7 @@ class InternalNet extends CallController implements InternalNetInterface
     // @param string $protocol
     //
     //--------------------------------------------------------------------------------------------------------
-    public function servicePort(String $service, String $protocol) : Int
+    public function servicePort(string $service, string $protocol) : int
     {
         return getservbyname($service, $protocol);
     }
@@ -189,7 +189,7 @@ class InternalNet extends CallController implements InternalNetInterface
     // @param string $protocol
     //
     //--------------------------------------------------------------------------------------------------------
-    public function serviceName(Int $port, String $protocol) : String
+    public function serviceName(int $port, string $protocol) : string
     {
         return getservbyport($port, $protocol);
     }
@@ -201,7 +201,7 @@ class InternalNet extends CallController implements InternalNetInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function local() : String
+    public function local() : string
     {
         return gethostname();
     }
@@ -213,7 +213,7 @@ class InternalNet extends CallController implements InternalNetInterface
     // @param int $code
     //
     //--------------------------------------------------------------------------------------------------------
-    public function rcode(Int $code = NULL)
+    public function rcode(int $code = NULL)
     {
         return http_response_code($code);
     }
@@ -225,7 +225,7 @@ class InternalNet extends CallController implements InternalNetInterface
     // @param string $chr
     //
     //--------------------------------------------------------------------------------------------------------
-    public function chrToIpv4(String $chr) : String
+    public function chrToIpv4(string $chr) : string
     {
         return inet_ntop($chr);
     }
@@ -237,7 +237,7 @@ class InternalNet extends CallController implements InternalNetInterface
     // @param string $addr
     //
     //--------------------------------------------------------------------------------------------------------
-    public function ipv4ToChr(String $addr) : String
+    public function ipv4ToChr(string $addr) : string
     {
         return inet_pton($addr);
     }
@@ -249,7 +249,7 @@ class InternalNet extends CallController implements InternalNetInterface
     // @param string $ip
     //
     //--------------------------------------------------------------------------------------------------------
-    public function ipv4ToNumber(String $ip) : Int
+    public function ipv4ToNumber(string $ip) : int
     {
         return ip2long($ip);
     }
@@ -261,7 +261,7 @@ class InternalNet extends CallController implements InternalNetInterface
     // @param int $numberAddress
     //
     //--------------------------------------------------------------------------------------------------------
-    public function numberToIpv4(Int $numberAddress) : String
+    public function numberToIpv4(int $numberAddress) : string
     {
         return long2ip($numberAddress);
     }

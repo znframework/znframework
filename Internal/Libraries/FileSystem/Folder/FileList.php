@@ -24,7 +24,7 @@ class FileList implements FileListInterface
     // Birden fazla uzantı belirmek isterseniz 2. parametreyi ['dir', 'php'] gibi belirtebilirsiniz.
     //
     //--------------------------------------------------------------------------------------------------------
-    public function files(String $path, $extension = NULL, Bool $pathType = false) : Array
+    public function files(string $path, $extension = NULL, bool $pathType = false) : array
     {
         $path = File::rpath($path);
 
@@ -56,7 +56,7 @@ class FileList implements FileListInterface
     // yer alan dosyaların listelenmesini isterseniz 2. parametreyi true ayarlayabilirsiniz.
     //
     //--------------------------------------------------------------------------------------------------------
-    public function allFiles(String $pattern = '*', Bool $allFiles = false) : Array
+    public function allFiles(string $pattern = '*', bool $allFiles = false) : array
     {
         $pattern = File::rpath($pattern);
 

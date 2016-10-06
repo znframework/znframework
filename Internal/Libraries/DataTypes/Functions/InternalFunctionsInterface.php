@@ -19,7 +19,7 @@ interface InternalFunctionsInterface
     // @param array    $params
     //
     //--------------------------------------------------------------------------------------------------------
-    public function callArray($callback, Array $params = []);
+    public function callArray($callback, array $params = []);
 
     //--------------------------------------------------------------------------------------------------------
     // Call
@@ -38,7 +38,7 @@ interface InternalFunctionsInterface
     // @param array    $params
     //
     //--------------------------------------------------------------------------------------------------------
-    public function staticCallArray($callback, Array $params = []);
+    public function staticCallArray($callback, array $params = []);
 
     //--------------------------------------------------------------------------------------------------------
     // Static Call
@@ -56,7 +56,7 @@ interface InternalFunctionsInterface
     // @param variadic $args
     //
     //--------------------------------------------------------------------------------------------------------
-    public function shutdown();
+    public function shutdown(...$args);
 
     //--------------------------------------------------------------------------------------------------------
     // Tick
@@ -65,7 +65,7 @@ interface InternalFunctionsInterface
     // @param variadic $args
     //
     //--------------------------------------------------------------------------------------------------------
-    public function tick();
+    public function tick(...$args);
 
     //--------------------------------------------------------------------------------------------------------
     // Untick
@@ -74,7 +74,7 @@ interface InternalFunctionsInterface
     // @param variadic $args
     //
     //--------------------------------------------------------------------------------------------------------
-    public function untick();
+    public function untick(...$args);
 
     //--------------------------------------------------------------------------------------------------------
     // Defined
@@ -83,5 +83,5 @@ interface InternalFunctionsInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function defined() : Array;
+    public function defined() : array;
 }

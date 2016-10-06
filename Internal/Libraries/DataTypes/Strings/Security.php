@@ -19,7 +19,7 @@ class Security implements SecurityInterface
     // @param string $salt
     //
     //--------------------------------------------------------------------------------------------------------
-    public function encode(String $string, String $salt = 'default') : String
+    public function encode(string $string, string $salt = 'default') : string
     {
         return crypt($string, $salt);
     }
@@ -32,7 +32,7 @@ class Security implements SecurityInterface
     // @param string $addDifferentChars
     //
     //--------------------------------------------------------------------------------------------------------
-    public function addSlashes(String $string, String $addDifferentChars = NULL) : String
+    public function addSlashes(string $string, string $addDifferentChars = NULL) : string
     {
         $return = addslashes($string);
 
@@ -51,7 +51,7 @@ class Security implements SecurityInterface
     // @param string $str
     //
     //--------------------------------------------------------------------------------------------------------
-    public function removeSlashes(String $string) : String
+    public function removeSlashes(string $string) : string
     {
         return stripslashes(stripcslashes($string));
     }

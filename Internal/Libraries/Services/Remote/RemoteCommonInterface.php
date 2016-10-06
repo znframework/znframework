@@ -18,5 +18,5 @@ interface RemoteCommonInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function stringCommand() : String;
+    public function stringCommand() : string;
 }

@@ -20,7 +20,7 @@ interface CasingInterface
     // @param string $encoding
     //
     //--------------------------------------------------------------------------------------------------------
-    public function use(String $str, String $type = 'lower', String $encoding = 'utf-8') : String;
+    public function use(string $str, string $type = 'lower', string $encoding = 'utf-8') : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Upper Case
@@ -30,7 +30,7 @@ interface CasingInterface
     // @param string $encoding
     //
     //--------------------------------------------------------------------------------------------------------
-    public function upper(String $str, String $encoding = 'utf-8') : String;
+    public function upper(string $str, string $encoding = 'utf-8') : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Lower Case
@@ -40,7 +40,7 @@ interface CasingInterface
     // @param string $encoding
     //
     //--------------------------------------------------------------------------------------------------------
-    public function lower(String $str, String $encoding = 'utf-8') : String;
+    public function lower(string $str, string $encoding = 'utf-8') : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Title Case
@@ -50,7 +50,7 @@ interface CasingInterface
     // @param string $encoding
     //
     //--------------------------------------------------------------------------------------------------------
-    public function title(String $str, String $encoding = 'utf-8') : String;
+    public function title(string $str, string $encoding = 'utf-8') : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Camel Case
@@ -59,7 +59,7 @@ interface CasingInterface
     // @param string $str
     //
     //--------------------------------------------------------------------------------------------------------
-    public function camel(String $str) : String;
+    public function camel(string $str) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Pascal Case
@@ -68,5 +68,5 @@ interface CasingInterface
     // @param string $str
     //
     //--------------------------------------------------------------------------------------------------------
-    public function pascal(String $str) : String;
+    public function pascal(string $str) : string;
 }

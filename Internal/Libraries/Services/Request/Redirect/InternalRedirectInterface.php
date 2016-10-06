@@ -19,7 +19,7 @@ interface InternalRedirectInterface
     // @var string $action
     //
     //--------------------------------------------------------------------------------------------------------
-    public function action(String $action);
+    public function action(string $action) : void;
 
     //--------------------------------------------------------------------------------------------------------
     // time()
@@ -28,7 +28,7 @@ interface InternalRedirectInterface
     // @var numeric $time
     //
     //--------------------------------------------------------------------------------------------------------
-    public function time(Int $time = 0) : InternalRedirect;
+    public function time(int $time = 0) : InternalRedirect;
 
     //--------------------------------------------------------------------------------------------------------
     // wait()
@@ -37,7 +37,7 @@ interface InternalRedirectInterface
     // @var numeric $time
     //
     //--------------------------------------------------------------------------------------------------------
-    public function wait(Int $time = 0) : InternalRedirect;
+    public function wait(int $time = 0) : InternalRedirect;
 
     //--------------------------------------------------------------------------------------------------------
     // data()
@@ -46,7 +46,7 @@ interface InternalRedirectInterface
     // @var array $data
     //
     //--------------------------------------------------------------------------------------------------------
-    public function data(Array $data) : InternalRedirect;
+    public function data(array $data) : InternalRedirect;
 
     //--------------------------------------------------------------------------------------------------------
     // insert()
@@ -55,7 +55,7 @@ interface InternalRedirectInterface
     // @var array $data
     //
     //--------------------------------------------------------------------------------------------------------
-    public function insert(Array $data) : InternalRedirect;
+    public function insert(array $data) : InternalRedirect;
 
     //--------------------------------------------------------------------------------------------------------
     // select()
@@ -64,7 +64,7 @@ interface InternalRedirectInterface
     // @var string $key
     //
     //--------------------------------------------------------------------------------------------------------
-    public function select(String $key);
+    public function select(string $key);
 
     //--------------------------------------------------------------------------------------------------------
     // delete()
@@ -73,5 +73,5 @@ interface InternalRedirectInterface
     // @var mixed $key
     //
     //--------------------------------------------------------------------------------------------------------
-    public function delete(String $key) : Bool;
+    public function delete(string $key) : bool;
 }

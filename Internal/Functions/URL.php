@@ -19,7 +19,7 @@
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function currentUrl(String $fix = '') : String
+function currentUrl(string $fix = '') : string
 {
     $currentUrl = sslStatus().host().internalCleanInjection(server('requestUri'));
 
@@ -41,7 +41,7 @@ function currentUrl(String $fix = '') : String
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function siteUrl(String $uri = '', Int $index = 0) : String
+function siteUrl(string $uri = '', int $index = 0) : string
 {
     $newBaseDir = BASE_DIR;
 
@@ -81,7 +81,7 @@ function siteUrl(String $uri = '', Int $index = 0) : String
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function baseUrl(String $uri = '', Int $index = 0) : String
+function baseUrl(string $uri = '', int $index = 0) : string
 {
     $newBaseDir = BASE_DIR;
 
@@ -115,7 +115,7 @@ function baseUrl(String $uri = '', Int $index = 0) : String
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function prevUrl() : String
+function prevUrl() : string
 {
     if( ! isset($_SERVER['HTTP_REFERER']) )
     {
@@ -142,7 +142,7 @@ function prevUrl() : String
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function hostUrl(String $uri = '') : String
+function hostUrl(string $uri = '') : string
 {
     return sslStatus().suffix(host()).internalCleanInjection($uri);
 }

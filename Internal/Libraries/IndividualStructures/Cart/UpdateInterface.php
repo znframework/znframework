@@ -19,5 +19,5 @@ interface UpdateInterface
     // @param array $data
     //
     //--------------------------------------------------------------------------------------------------------
-    public function item($code, Array $data) : Bool;
+    public function item($code, array $data) : bool;
 }

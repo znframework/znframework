@@ -12,7 +12,7 @@ class Update extends UserExtends
     // @return this
     //
     //--------------------------------------------------------------------------------------------------------
-    public function oldPassword(String $oldPassword) : Update
+    public function oldPassword(string $oldPassword) : Update
     {
         Properties::$parameters['oldPassword'] = $oldPassword;
 
@@ -27,7 +27,7 @@ class Update extends UserExtends
     // @return this
     //
     //--------------------------------------------------------------------------------------------------------
-    public function newPassword(String $newPassword) : Update
+    public function newPassword(string $newPassword) : Update
     {
         Properties::$parameters['newPassword'] = $newPassword;
 
@@ -42,7 +42,7 @@ class Update extends UserExtends
     // @return this
     //
     //--------------------------------------------------------------------------------------------------------
-    public function passwordAgain(String $passwordAgain) : Update
+    public function passwordAgain(string $passwordAgain) : Update
     {
         Properties::$parameters['passwordAgain'] = $passwordAgain;
 
@@ -60,7 +60,7 @@ class Update extends UserExtends
     // @return bool
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do(String $old = NULL, String $new = NULL, String $newAgain = NULL, Array $data = []) : Bool
+    public function do(string $old = NULL, string $new = NULL, string $newAgain = NULL, array $data = []) : bool
     {
         if( Factory::class('Login')->is() )
         {

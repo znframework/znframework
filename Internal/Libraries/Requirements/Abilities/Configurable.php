@@ -19,7 +19,7 @@ trait ConfigurableAbility
     // @var array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function configurable()
+    public function configurable() : void
     {
         if( ! defined('static::config') )
         {
@@ -74,7 +74,7 @@ trait ConfigurableAbility
     // @param  array  $settings: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function config(Array $settings)
+    public function config(array $settings)
     {
         $configEx = $this->_configEx();
         $name     = $configEx->name;

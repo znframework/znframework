@@ -19,7 +19,7 @@
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function sslStatus() : String
+function sslStatus() : string
 {
     return ! Config::get('Services','uri')['ssl']
            ? 'http://'
@@ -35,7 +35,7 @@ function sslStatus() : String
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function indexStatus() : String
+function indexStatus() : string
 {
     return ! Config::get('Htaccess', 'uri')['directoryIndex']
            ? ''

@@ -126,7 +126,7 @@ trait InternalPaginationPropertiesTrait
     // @param string $url
     //
     //--------------------------------------------------------------------------------------------------------
-    public function url(String $url) : InternalPagination
+    public function url(string $url) : InternalPagination
     {
         $this->settings['url'] = $url;
 
@@ -154,7 +154,7 @@ trait InternalPaginationPropertiesTrait
     // @param int $limit
     //
     //--------------------------------------------------------------------------------------------------------
-    public function limit(Int $limit) : InternalPagination
+    public function limit(int $limit) : InternalPagination
     {
         $this->settings['limit'] = $limit;
 
@@ -168,7 +168,7 @@ trait InternalPaginationPropertiesTrait
     // @param string $type: ajax, classic
     //
     //--------------------------------------------------------------------------------------------------------
-    public function type(String $type) : InternalPagination
+    public function type(string $type) : InternalPagination
     {
         $this->settings['type'] = $type;
 
@@ -182,7 +182,7 @@ trait InternalPaginationPropertiesTrait
     // @param int $totalRows
     //
     //--------------------------------------------------------------------------------------------------------
-    public function totalRows(Int $totalRows) : InternalPagination
+    public function totalRows(int $totalRows) : InternalPagination
     {
         $this->settings['totalRows'] = $totalRows;
 
@@ -196,7 +196,7 @@ trait InternalPaginationPropertiesTrait
     // @param int $countLinks
     //
     //--------------------------------------------------------------------------------------------------------
-    public function countLinks(Int $countLinks) : InternalPagination
+    public function countLinks(int $countLinks) : InternalPagination
     {
         $this->settings['countLinks'] = $countLinks;
 
@@ -213,7 +213,7 @@ trait InternalPaginationPropertiesTrait
     // @param string $last
     //
     //--------------------------------------------------------------------------------------------------------
-    public function linkNames(String $prev, String $next, String $first, String $last) : InternalPagination
+    public function linkNames(string $prev, string $next, string $first, string $last) : InternalPagination
     {
         $this->settings['prevName']  = $prev;
         $this->settings['nextName']  = $next;
@@ -230,7 +230,7 @@ trait InternalPaginationPropertiesTrait
     // @param array $css
     //
     //--------------------------------------------------------------------------------------------------------
-    public function css(Array $css) : InternalPagination
+    public function css(array $css) : InternalPagination
     {
         $this->settings['class'] = $css;
 
@@ -244,7 +244,7 @@ trait InternalPaginationPropertiesTrait
     // @param array $css
     //
     //--------------------------------------------------------------------------------------------------------
-    public function style(Array $style) : InternalPagination
+    public function style(array $style) : InternalPagination
     {
         $this->settings['style'] = $style;
 

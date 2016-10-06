@@ -39,7 +39,7 @@ class InternalJquery extends CallController implements InternalJqueryInterface
     // @param variadic $attr
     //
     //--------------------------------------------------------------------------------------------------------
-    public function property(String $property, ...$attr) : InternalJquery
+    public function property(string $property, ...$attr) : InternalJquery
     {
         $this->propertyQueue .= JQ::property($property, $attr);
 
@@ -53,7 +53,7 @@ class InternalJquery extends CallController implements InternalJqueryInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function complete() : String
+    public function complete() : string
     {
         $complete = $this->propertyQueue;
 
@@ -69,7 +69,7 @@ class InternalJquery extends CallController implements InternalJqueryInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function create(...$args) : String
+    public function create(...$args) : string
     {
         $combineFunction = $args;
 
@@ -77,7 +77,7 @@ class InternalJquery extends CallController implements InternalJqueryInterface
 
         $complete .= $this->complete();
 
-        if( ! empty($combineFunction)) foreach( $combineFunction as $function )
+        if( ! empty($combineFunction) ) foreach( $combineFunction as $function )
         {
             $complete .= $function;
         }
@@ -94,7 +94,7 @@ class InternalJquery extends CallController implements InternalJqueryInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function ajax(Bool $tag = false, Bool $jq = false, Bool $jqui = false) : Jquery\Helpers\Ajax
+    public function ajax(bool $tag = false, bool $jq = false, bool $jqui = false) : Jquery\Helpers\Ajax
     {
         return uselib($this->_namespace('Ajax'), [$tag, $jq, $jqui]);
     }
@@ -106,7 +106,7 @@ class InternalJquery extends CallController implements InternalJqueryInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function action(Bool $tag = false, Bool $jq = false, Bool $jqui = false) : Jquery\Helpers\Action
+    public function action(bool $tag = false, bool $jq = false, bool $jqui = false) : Jquery\Helpers\Action
     {
         return uselib($this->_namespace('Action'), [$tag, $jq, $jqui]);
     }
@@ -118,7 +118,7 @@ class InternalJquery extends CallController implements InternalJqueryInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function animate(Bool $tag = false, Bool $jq = false, Bool $jqui = false) : Jquery\Helpers\Animate
+    public function animate(bool $tag = false, bool $jq = false, bool $jqui = false) : Jquery\Helpers\Animate
     {
         return uselib($this->_namespace('Animate'), [$tag, $jq, $jqui]);
     }
@@ -130,7 +130,7 @@ class InternalJquery extends CallController implements InternalJqueryInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function event(Bool $tag = false, Bool $jq = false, Bool $jqui = false) : Jquery\Helpers\Event
+    public function event(bool $tag = false, bool $jq = false, bool $jqui = false) : Jquery\Helpers\Event
     {
         return uselib($this->_namespace('Event'), [$tag, $jq, $jqui]);
     }

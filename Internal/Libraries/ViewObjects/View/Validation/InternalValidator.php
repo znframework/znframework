@@ -21,7 +21,7 @@ class InternalValidator extends CallController implements InternalValidatorInter
     // @param string $pattern = NULL
     //
     //--------------------------------------------------------------------------------------------------------
-    public function phone(String $data, String $pattern = NULL) : Bool
+    public function phone(string $data, string $pattern = NULL) : bool
     {
         if( $pattern !== NULL)
         {
@@ -50,7 +50,7 @@ class InternalValidator extends CallController implements InternalValidatorInter
     // @param string $data
     //
     //--------------------------------------------------------------------------------------------------------
-    public function numeric($data) : Bool
+    public function numeric($data) : bool
     {
         if( ! is_numeric($data) )
         {
@@ -69,7 +69,7 @@ class InternalValidator extends CallController implements InternalValidatorInter
     // @param string $data
     //
     //--------------------------------------------------------------------------------------------------------
-    public function alnum(String $data) : Bool
+    public function alnum(string $data) : bool
     {
         if( ! preg_match('/^\w+$/',$data) )
         {
@@ -88,7 +88,7 @@ class InternalValidator extends CallController implements InternalValidatorInter
     // @param string $data
     //
     //--------------------------------------------------------------------------------------------------------
-    public function alpha(String $data) : Bool
+    public function alpha(string $data) : bool
     {
         if( ! ctype_alpha($data) )
         {
@@ -107,7 +107,7 @@ class InternalValidator extends CallController implements InternalValidatorInter
     // @param int $no
     //
     //--------------------------------------------------------------------------------------------------------
-    public function identity($no) : Bool
+    public function identity($no) : bool
     {
         if( ! is_numeric($no) || strlen($no) !== 11  )
         {
@@ -148,7 +148,7 @@ class InternalValidator extends CallController implements InternalValidatorInter
     // @param string $no
     //
     //--------------------------------------------------------------------------------------------------------
-    public function email(String $data) : Bool
+    public function email(string $data) : bool
     {
         if( ! isEmail($data) )
         {
@@ -167,7 +167,7 @@ class InternalValidator extends CallController implements InternalValidatorInter
     // @param string $data
     //
     //--------------------------------------------------------------------------------------------------------
-    public function url(String $data) : Bool
+    public function url(string $data) : bool
     {
         if( ! isUrl($data) )
         {
@@ -186,7 +186,7 @@ class InternalValidator extends CallController implements InternalValidatorInter
     // @param string $data
     //
     //--------------------------------------------------------------------------------------------------------
-    public function specialChar(String $data) : Bool
+    public function specialChar(string $data) : bool
     {
         if( ! preg_match('#[!\'^\#\\\+\$%&\/\(\)\[\]\{\}=\|\-\?:\.\,;_ĞÜŞİÖÇğüşıöç]+#', $data) )
         {
@@ -206,7 +206,7 @@ class InternalValidator extends CallController implements InternalValidatorInter
     // @param int    $char
     //
     //--------------------------------------------------------------------------------------------------------
-    public function maxchar(String $data, Int $char) : Bool
+    public function maxchar(string $data, int $char) : bool
     {
         if( strlen($data) <= $char )
         {
@@ -226,7 +226,7 @@ class InternalValidator extends CallController implements InternalValidatorInter
     // @param int    $char
     //
     //--------------------------------------------------------------------------------------------------------
-    public function minchar(String $data, Int $char) : Bool
+    public function minchar(string $data, int $char) : bool
     {
         if( strlen($data) >= $char )
         {

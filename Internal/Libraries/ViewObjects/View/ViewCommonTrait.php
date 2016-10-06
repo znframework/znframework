@@ -98,7 +98,7 @@ trait ViewCommonTrait
     // @param array $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function attributes(Array $attributes) : String
+    public function attributes(array $attributes) : string
     {
         $attribute = '';
 
@@ -137,7 +137,7 @@ trait ViewCommonTrait
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function input(String $type = NULL, String $name = NULL, String $value = NULL, Array $attributes = []) : String
+    public function input(string $type = NULL, string $name = NULL, string $value = NULL, array $attributes = []) : string
     {
         if( isset($this->settings['attr']['type']) )
         {

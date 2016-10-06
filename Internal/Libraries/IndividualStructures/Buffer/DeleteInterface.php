@@ -19,5 +19,5 @@ interface DeleteInterface
     // @return bool
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function do($name) : Bool;
+    public static function do($name) : bool;
 }

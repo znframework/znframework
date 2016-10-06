@@ -44,7 +44,7 @@ class InternalStack implements InternalStackInterface
     // @param string $data
     //
     //--------------------------------------------------------------------------------------------------------
-    public function data(String $data) : InternalStack
+    public function data(string $data) : InternalStack
     {
         $this->data = $data;
 

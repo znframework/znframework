@@ -19,7 +19,7 @@
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function internalRequestURI() : String
+function internalRequestURI() : string
 {
     $requestUri = currentUri()
                 ? str_replace(DIRECTORY_INDEX.'/', '', currentUri())
@@ -49,7 +49,7 @@ function internalRequestURI() : String
 // @param string $cleanData
 //
 //--------------------------------------------------------------------------------------------------
-function internalCleanURIPrefix(String $uri = '', String $cleanData = NULL) : String
+function internalCleanURIPrefix(string $uri = '', string $cleanData = NULL) : string
 {
     $suffixData = suffix($cleanData);
 
@@ -70,7 +70,7 @@ function internalCleanURIPrefix(String $uri = '', String $cleanData = NULL) : St
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function internalRouteURI(String $requestUri = '') : String
+function internalRouteURI(string $requestUri = '') : string
 {
     $config = Config::get('Services', 'route');
 
@@ -131,7 +131,7 @@ function internalRouteURI(String $requestUri = '') : String
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function internalCleanInjection(String $string = '') : String
+function internalCleanInjection(string $string = '') : string
 {
     $urlInjectionChangeChars = Config::get('IndividualStructures', 'security')['urlChangeChars'];
 
@@ -151,7 +151,7 @@ function internalCleanInjection(String $string = '') : String
 // @param void
 //
 //--------------------------------------------------------------------------------------------------
-function internalCreateRobotsFile()
+function internalCreateRobotsFile() : void
 {
     $rules = Config::get('Robots', 'rules');
 
@@ -212,7 +212,7 @@ function internalCreateRobotsFile()
     // robots.txt değişkenin tuttuğu değer ile dosya içeri eşitse tekrar oluşturma
     if( trim($robots) === trim($getContents) )
     {
-        return false;
+        return;
     }
 
     if( ! File::write($robotTxt, trim($robots)) )
@@ -228,7 +228,7 @@ function internalCreateRobotsFile()
 // @param void
 //
 //--------------------------------------------------------------------------------------------------
-function internalCreateHtaccessFile()
+function internalCreateHtaccessFile() : void
 {
     // Cache.php ayar dosyasından ayarlar çekiliyor.
     $htaccessSettings = Config::get('Htaccess');
@@ -474,7 +474,7 @@ function internalCreateHtaccessFile()
 
     if( $htaccess === $getContents )
     {
-        return false;
+        return;
     }
 
     if( ! File::write($htaccessTxt, trim($htaccess)) )
@@ -491,7 +491,7 @@ function internalCreateHtaccessFile()
 // @param array  $param
 //
 //--------------------------------------------------------------------------------------------------
-function internalStartingContoller(String $startController = '', Array $param = [])
+function internalStartingContoller(string $startController = '', array $param = [])
 {
     $controllerEx = explode(':', $startController);
 
@@ -528,7 +528,7 @@ function internalStartingContoller(String $startController = '', Array $param = 
 // @param void
 //
 //--------------------------------------------------------------------------------------------------
-function internalBenchmarkReport($start, $finish)
+function internalBenchmarkReport($start, $finish) : void
 {
     if( Config::get('Project', 'benchmark') === true && REQUEST_URI !== NULL )
     {

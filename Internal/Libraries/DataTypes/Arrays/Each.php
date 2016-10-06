@@ -21,7 +21,7 @@ class Each implements EachInterface
     // @param callable $callable
     //
     //--------------------------------------------------------------------------------------------------------
-    public function use(Array $array, $callable)
+    public function use(array $array, $callable) : void
     {
         if( ! is_callable($callable) )
         {

@@ -37,7 +37,7 @@ class InternalCaptcha extends CLController implements InternalCaptchaInterface
     // @return this
     //
     //--------------------------------------------------------------------------------------------------------
-    public function size(Int $width, Int $height) : InternalCaptcha
+    public function size(int $width, int $height) : InternalCaptcha
     {
         $this->sets['size']['width']  = $width;
         $this->sets['size']['height'] = $height;
@@ -55,7 +55,7 @@ class InternalCaptcha extends CLController implements InternalCaptchaInterface
     // @return this
     //
     //--------------------------------------------------------------------------------------------------------
-    public function length(Int $param) : InternalCaptcha
+    public function length(int $param) : InternalCaptcha
     {
         $this->sets['text']['length'] = $param;
 
@@ -70,7 +70,7 @@ class InternalCaptcha extends CLController implements InternalCaptchaInterface
     // @return this
     //
     //--------------------------------------------------------------------------------------------------------
-    public function angle(Float $param) : InternalCaptcha
+    public function angle(float $param) : InternalCaptcha
     {
         $this->sets['text']['angle'] = $param;
 
@@ -85,7 +85,7 @@ class InternalCaptcha extends CLController implements InternalCaptchaInterface
     // @return this
     //
     //--------------------------------------------------------------------------------------------------------
-    public function ttf(Array $fonts) : InternalCaptcha
+    public function ttf(array $fonts) : InternalCaptcha
     {
         $this->sets['text']['ttf'] = $fonts;
 
@@ -103,7 +103,7 @@ class InternalCaptcha extends CLController implements InternalCaptchaInterface
     // @return this
     //
     //--------------------------------------------------------------------------------------------------------
-    public function borderColor(String $color = NULL) : InternalCaptcha
+    public function borderColor(string $color = NULL) : InternalCaptcha
     {
         $this->sets['border']['status'] = true;
 
@@ -125,7 +125,7 @@ class InternalCaptcha extends CLController implements InternalCaptchaInterface
     // @return this
     //
     //--------------------------------------------------------------------------------------------------------
-    public function bgColor(String $color) : InternalCaptcha
+    public function bgColor(string $color) : InternalCaptcha
     {
         $this->sets['background']['color'] = $this->_convertColor($color);
 
@@ -142,7 +142,7 @@ class InternalCaptcha extends CLController implements InternalCaptchaInterface
     // @return this
     //
     //--------------------------------------------------------------------------------------------------------
-    public function bgImage(Array $image) : InternalCaptcha
+    public function bgImage(array $image) : InternalCaptcha
     {
         $this->sets['background']['image'] = $image;
 
@@ -159,7 +159,7 @@ class InternalCaptcha extends CLController implements InternalCaptchaInterface
     // @return this
     //
     //--------------------------------------------------------------------------------------------------------
-    public function textSize(Int $size) : InternalCaptcha
+    public function textSize(int $size) : InternalCaptcha
     {
         $this->sets['text']['size'] = $size;
 
@@ -177,7 +177,7 @@ class InternalCaptcha extends CLController implements InternalCaptchaInterface
     // @return this
     //
     //--------------------------------------------------------------------------------------------------------
-    public function textCoordinate(Int $x = 0, Int $y = 0) : InternalCaptcha
+    public function textCoordinate(int $x = 0, int $y = 0) : InternalCaptcha
     {
         $this->sets['text']['x'] = $x;
         $this->sets['text']['y'] = $y;
@@ -195,7 +195,7 @@ class InternalCaptcha extends CLController implements InternalCaptchaInterface
     // @return this
     //
     //--------------------------------------------------------------------------------------------------------
-    public function textColor(String $color) : InternalCaptcha
+    public function textColor(string $color) : InternalCaptcha
     {
         $this->sets['text']['color'] = $this->_convertColor($color);
 
@@ -213,7 +213,7 @@ class InternalCaptcha extends CLController implements InternalCaptchaInterface
     // @return this
     //
     //--------------------------------------------------------------------------------------------------------
-    public function gridColor(String $color = NULL) : InternalCaptcha
+    public function gridColor(string $color = NULL) : InternalCaptcha
     {
         $this->sets['grid']['status'] = true;
 
@@ -236,7 +236,7 @@ class InternalCaptcha extends CLController implements InternalCaptchaInterface
     // @return this
     //
     //--------------------------------------------------------------------------------------------------------
-    public function gridSpace(Int $x = 0, Int $y = 0) : InternalCaptcha
+    public function gridSpace(int $x = 0, int $y = 0) : InternalCaptcha
     {
         if( ! empty($x) )
         {
@@ -262,7 +262,7 @@ class InternalCaptcha extends CLController implements InternalCaptchaInterface
     // @return midex
     //
     //--------------------------------------------------------------------------------------------------------
-    public function create(Bool $img = false, Array $configs = []) : String
+    public function create(bool $img = false, array $configs = []) : string
     {
         $configs = array_merge(VIEWOBJECTS_CAPTCHA_CONFIG, $this->sets, $configs);
 
@@ -446,7 +446,7 @@ class InternalCaptcha extends CLController implements InternalCaptchaInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function getCode() : String
+    public function getCode() : string
     {
         return Session::select(md5('SystemCaptchaCodeData'));
     }

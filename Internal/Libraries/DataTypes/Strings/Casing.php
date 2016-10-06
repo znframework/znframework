@@ -22,7 +22,7 @@ class Casing implements CasingInterface
     // @param string $encoding
     //
     //--------------------------------------------------------------------------------------------------------
-    public function use(String $str, String $type = 'lower', String $encoding = 'utf-8') : String
+    public function use(string $str, string $type = 'lower', string $encoding = 'utf-8') : string
     {
         return mb_convert_case($str, Converter::toConstant($type, 'MB_CASE_'), $encoding);
     }
@@ -35,7 +35,7 @@ class Casing implements CasingInterface
     // @param string $encoding
     //
     //--------------------------------------------------------------------------------------------------------
-    public function upper(String $str, String $encoding = 'utf-8') : String
+    public function upper(string $str, string $encoding = 'utf-8') : string
     {
         return $this->use($str, __FUNCTION__, $encoding);
     }
@@ -48,7 +48,7 @@ class Casing implements CasingInterface
     // @param string $encoding
     //
     //--------------------------------------------------------------------------------------------------------
-    public function lower(String $str, String $encoding = 'utf-8') : String
+    public function lower(string $str, string $encoding = 'utf-8') : string
     {
         return $this->use($str, __FUNCTION__, $encoding);
     }
@@ -61,7 +61,7 @@ class Casing implements CasingInterface
     // @param string $encoding
     //
     //--------------------------------------------------------------------------------------------------------
-    public function title(String $str, String $encoding = 'utf-8') : String
+    public function title(string $str, string $encoding = 'utf-8') : string
     {
         return $this->use($str, __FUNCTION__, $encoding);
     }
@@ -73,7 +73,7 @@ class Casing implements CasingInterface
     // @param string $str
     //
     //--------------------------------------------------------------------------------------------------------
-    public function camel(String $str) : String
+    public function camel(string $str) : string
     {
         $string = $this->title($str);
 
@@ -89,7 +89,7 @@ class Casing implements CasingInterface
     // @param string $str
     //
     //--------------------------------------------------------------------------------------------------------
-    public function pascal(String $str) : String
+    public function pascal(string $str) : string
     {
         $string = $this->title($str);
 

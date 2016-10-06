@@ -19,7 +19,7 @@
 // @return int
 //
 //--------------------------------------------------------------------------------------------------
-function length($data) : Int
+function length($data) : int
 {
     return ! is_scalar($data)
            ? count((array) $data)
@@ -35,7 +35,7 @@ function length($data) : Int
 // @return mixed
 //
 //--------------------------------------------------------------------------------------------------
-function illustrate(String $const, $value = NULL)
+function illustrate(string $const, $value = NULL)
 {
     if( ! defined($const) )
     {
@@ -58,7 +58,7 @@ function illustrate(String $const, $value = NULL)
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function symbol(String $symbolName = 'turkishLira') : String
+function symbol(string $symbolName = 'turkishLira') : string
 {
     return Config::get('Symbols', $symbolName);
 }
@@ -74,7 +74,7 @@ function symbol(String $symbolName = 'turkishLira') : String
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function getErrorMessage(String $langFile, String $errorMsg = '', $ex = NULL) : String
+function getErrorMessage(string $langFile, string $errorMsg = '', $ex = NULL) : string
 {
     $style  = 'border:solid 1px #E1E4E5;';
     $style .= 'background:#FEFEFE;';
@@ -131,7 +131,7 @@ function getErrorMessage(String $langFile, String $errorMsg = '', $ex = NULL) : 
 // @return bool
 //
 //--------------------------------------------------------------------------------------------------
-function report(String $subject, String $message, String $destination = '', String $time = '') : Bool
+function report(string $subject, string $message, string $destination = '', string $time = '') : bool
 {
     if( ! Config::get('General', 'log')['createFile'] )
     {
@@ -212,7 +212,7 @@ function headers($header)
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function currentUri() : String
+function currentUri() : string
 {
     $requestUri = server('requestUri');
     $currentUri = BASE_DIR !== '/'

@@ -19,7 +19,7 @@ interface InternalMethodInterface
     // @param mixed  $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function post(String $name, $value);
+    public function post(string $name, $value);
 
     //--------------------------------------------------------------------------------------------------------
     // Get
@@ -29,7 +29,7 @@ interface InternalMethodInterface
     // @param mixed  $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function get(String $name, $value);
+    public function get(string $name, $value);
 
     //--------------------------------------------------------------------------------------------------------
     // Env
@@ -39,7 +39,7 @@ interface InternalMethodInterface
     // @param mixed  $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function env(String $name, $value);
+    public function env(string $name, $value);
 
     //--------------------------------------------------------------------------------------------------------
     // Server
@@ -49,7 +49,7 @@ interface InternalMethodInterface
     // @param mixed  $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function server(String $name, $value);
+    public function server(string $name, $value);
 
     //--------------------------------------------------------------------------------------------------------
     // Request
@@ -59,7 +59,7 @@ interface InternalMethodInterface
     // @param mixed  $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function request(String $name, $value);
+    public function request(string $name, $value);
 
     //--------------------------------------------------------------------------------------------------------
     // Files
@@ -69,7 +69,7 @@ interface InternalMethodInterface
     // @param string $type
     //
     //--------------------------------------------------------------------------------------------------------
-    public function files(String $fileName, String $type);
+    public function files(string $fileName, string $type);
 
     //--------------------------------------------------------------------------------------------------------
     // Delete
@@ -78,5 +78,5 @@ interface InternalMethodInterface
     // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
-    public function delete(String $input, String $name);
+    public function delete(string $input, string $name) : void;
 }

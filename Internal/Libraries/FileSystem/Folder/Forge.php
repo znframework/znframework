@@ -21,7 +21,7 @@ class Forge implements ForgeInterface
     // Dizin oluşturmak için kullanılır.
     //
     //--------------------------------------------------------------------------------------------------------
-    public function create(String $file, Int $permission = 0755, Bool $recursive = true) : Bool
+    public function create(string $file, int $permission = 0755, bool $recursive = true) : bool
     {
         $file = File::rpath($file);
 
@@ -40,7 +40,7 @@ class Forge implements ForgeInterface
     // Dosya veya dizinin adını değiştirmek için kullanılır.
     //
     //--------------------------------------------------------------------------------------------------------
-    public function rename(String $oldName, String $newName) : Bool
+    public function rename(string $oldName, string $newName) : bool
     {
         $oldName = File::rpath($oldName);
 
@@ -59,7 +59,7 @@ class Forge implements ForgeInterface
     // Boş bir dizini silmek için kullanılır.
     //
     //--------------------------------------------------------------------------------------------------------
-    public function deleteEmpty(String $folder) : Bool
+    public function deleteEmpty(string $folder) : bool
     {
         $folder = File::rpath($folder);
 
@@ -78,7 +78,7 @@ class Forge implements ForgeInterface
     // Bir dizini içindekilerle birlikte silmek için kullanılır.
     //
     //--------------------------------------------------------------------------------------------------------
-    public function delete(String $name) : Bool
+    public function delete(string $name) : bool
     {
         $name = File::rpath($name);
 
@@ -117,7 +117,7 @@ class Forge implements ForgeInterface
     // ait diğer alt dizin ve dosyaları da kapsamaktadır.
     //
     //--------------------------------------------------------------------------------------------------------
-    public function copy(String $source, String $target) : Bool
+    public function copy(string $source, string $target) : bool
     {
         $source = File::rpath($source);
         $target = File::rpath($target);
@@ -170,7 +170,7 @@ class Forge implements ForgeInterface
     // PHP'nin aktif çalışma dizinini değiştirmek için kullanılır.
     //
     //--------------------------------------------------------------------------------------------------------
-    public function change(String $name) : Bool
+    public function change(string $name) : bool
     {
         $name = File::rpath($name);
 
@@ -189,7 +189,7 @@ class Forge implements ForgeInterface
     // Bir dizin veya dosyaya yetki vermek için kullanılır.
     //
     //--------------------------------------------------------------------------------------------------------
-    public function permission(String $name, Int $permission = 0755) : Bool
+    public function permission(string $name, int $permission = 0755) : bool
     {
         return File::permission($name, $permission);
     }

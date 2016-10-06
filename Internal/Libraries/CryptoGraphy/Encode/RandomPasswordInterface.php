@@ -19,5 +19,5 @@ interface RandomPasswordInterface
     // @param string $chars
     //
     //--------------------------------------------------------------------------------------------------------
-    public function create(Int $count = 6, String $chars = 'all') : String;
+    public function create(int $count = 6, string $chars = 'all') : string;
 }

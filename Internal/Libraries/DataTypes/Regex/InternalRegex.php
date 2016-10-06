@@ -25,7 +25,7 @@ class InternalRegex extends CLController implements InternalRegexInterface
     // @param string $delimiter
     //
     //--------------------------------------------------------------------------------------------------------
-    public function match(String $pattern, String $str, String $ex = NULL, String $delimiter = '/') : Array
+    public function match(string $pattern, string $str, string $ex = NULL, string $delimiter = '/') : array
     {
         $pattern = $this->_regularConverting($pattern, $ex, $delimiter);
 
@@ -44,7 +44,7 @@ class InternalRegex extends CLController implements InternalRegexInterface
     // @param string $delimiter
     //
     //--------------------------------------------------------------------------------------------------------
-    public function matchAll(String $pattern, String $str, String $ex = NULL, String $delimiter = '/') : Array
+    public function matchAll(string $pattern, string $str, string $ex = NULL, string $delimiter = '/') : array
     {
         $pattern = $this->_regularConverting($pattern, $ex, $delimiter);
 
@@ -64,7 +64,7 @@ class InternalRegex extends CLController implements InternalRegexInterface
     // @param string $delimiter
     //
     //--------------------------------------------------------------------------------------------------------
-    public function replace(String $pattern, String $rep, String $str, String $ex = NULL, String $delimiter = '/')
+    public function replace(string $pattern, string $rep, string $str, string $ex = NULL, string $delimiter = '/')
     {
         $pattern = $this->_regularConverting($pattern, $ex, $delimiter);
 
@@ -78,7 +78,7 @@ class InternalRegex extends CLController implements InternalRegexInterface
     // @param string $str
     //
     //--------------------------------------------------------------------------------------------------------
-    public function group(String $str) : String
+    public function group(string $str) : string
     {
         return "(".$str.")";
     }
@@ -90,7 +90,7 @@ class InternalRegex extends CLController implements InternalRegexInterface
     // @param string $str
     //
     //--------------------------------------------------------------------------------------------------------
-    public function recount(String $str) : String
+    public function recount(string $str) : string
     {
         return "{".$str."}";
     }
@@ -102,7 +102,7 @@ class InternalRegex extends CLController implements InternalRegexInterface
     // @param string $str
     //
     //--------------------------------------------------------------------------------------------------------
-    public function to(String $str) : String
+    public function to(string $str) : string
     {
         return "[".$str."]";
     }
@@ -115,7 +115,7 @@ class InternalRegex extends CLController implements InternalRegexInterface
     // @param string $delimiter
     //
     //--------------------------------------------------------------------------------------------------------
-    public function quote(String $data, String $delimiter = NULL) : String
+    public function quote(string $data, string $delimiter = NULL) : string
     {
         return preg_quote($data, $delimiter);
     }

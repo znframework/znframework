@@ -19,7 +19,7 @@ class Testing implements TestingInterface
     // @return void
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function start(String $test)
+    public static function start(string $test) : void
     {
         $test = $test."_start";
 
@@ -36,7 +36,7 @@ class Testing implements TestingInterface
     // @return void
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function end(String $test)
+    public static function end(string $test) : void
     {
         $getMemoryUsage = memory_get_usage();
         $test           = $test."_end";

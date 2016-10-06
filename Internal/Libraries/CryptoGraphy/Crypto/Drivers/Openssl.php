@@ -1,7 +1,7 @@
 <?php namespace ZN\CryptoGraphy\Drivers;
 
 use ZN\CryptoGraphy\CryptoMapping;
-use Support, Arrays;
+use Support, Arrays, stdClass;
 
 class OpensslDriver extends CryptoMapping
 {
@@ -36,7 +36,7 @@ class OpensslDriver extends CryptoMapping
 	// @param array  $settings
 	//
 	//--------------------------------------------------------------------------------------------------------
-	public function encrypt($data, $settings)
+	public function encrypt(string $data, array $settings) :? string
 	{
 		$set    = $this->_settings($settings);
 		$encode = trim(openssl_encrypt($data, strtolower($set->cipher), $set->key, 1, $set->iv));
@@ -52,7 +52,7 @@ class OpensslDriver extends CryptoMapping
 	// @param array  $settings
 	//
 	//--------------------------------------------------------------------------------------------------------
-	public function decrypt($data, $settings)
+	public function decrypt(string $data, array $settings) :? string
 	{
 		$set  = $this->_settings($settings);
 		$data = base64_decode($data);
@@ -67,7 +67,7 @@ class OpensslDriver extends CryptoMapping
 	// @param numeric $length
 	//
 	//--------------------------------------------------------------------------------------------------------
-	public function keygen($length)
+	public function keygen(int $length) :? string
 	{
 		return openssl_random_pseudo_bytes($length);
 	}
@@ -75,7 +75,7 @@ class OpensslDriver extends CryptoMapping
 	//--------------------------------------------------------------------------------------------------------
 	// Protected
 	//--------------------------------------------------------------------------------------------------------
-	private function keySize($cipher)
+	private function keySize(string $cipher) : string
 	{
 		$cipher  = strtolower($cipher);
 		$ciphers =
@@ -96,7 +96,7 @@ class OpensslDriver extends CryptoMapping
 	//--------------------------------------------------------------------------------------------------------
 	// Protected
 	//--------------------------------------------------------------------------------------------------------
-	protected function vectorSize($mode, $cipher)
+	protected function vectorSize(string $mode, string $cipher) : string
 	{
 		$mode   = strtolower($mode);
 		$cipher = strtolower($cipher);
@@ -126,12 +126,12 @@ class OpensslDriver extends CryptoMapping
     // @param array settings
     //
     //--------------------------------------------------------------------------------------------------------
-    protected function _settings($settings)
+    protected function _settings(array $settings) : stdClass
     {
-		$cipher = isset($settings['cipher']) ? $settings['cipher'] : 'aes-128';
-	 	$key    = isset($settings['key'])    ? $settings['key']    : $this->keySize($cipher);
-		$mode   = isset($settings['mode'])   ? $settings['mode']   : 'cbc';
-		$iv     = isset($settings['vector']) ? $settings['vector'] : $this->vectorSize($mode, $cipher);
+		$cipher = $settings['cipher'] ?? 'aes-128';
+	 	$key    = $settings['key']    ?? $this->keySize($cipher);
+		$mode   = $settings['mode']   ?? 'cbc';
+		$iv     = $settings['vector'] ?? $this->vectorSize($mode, $cipher);
 		$cipher = $cipher."-".$mode;
 
         return (object)

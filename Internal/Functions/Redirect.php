@@ -20,7 +20,7 @@
 // @param bool   $exit
 //
 //--------------------------------------------------------------------------------------------------
-function redirect(String $url, Int $time = 0, Array $data = [], Bool $exit = true)
+function redirect(string $url, int $time = 0, array $data = [], bool $exit = true) : void
 {
     if( ! isUrl($url) )
     {
@@ -57,7 +57,7 @@ function redirect(String $url, Int $time = 0, Array $data = [], Bool $exit = tru
 // @return mixed
 //
 //--------------------------------------------------------------------------------------------------
-function redirectData(String $k)
+function redirectData(string $k) :? string
 {
     if( $data = Session::select('redirect:'.$k) )
     {
@@ -65,7 +65,7 @@ function redirectData(String $k)
     }
     else
     {
-        return false;
+        return NULL;
     }
 }
 
@@ -78,7 +78,7 @@ function redirectData(String $k)
 // @return bool
 //
 //--------------------------------------------------------------------------------------------------
-function redirectDeleteData($data) : Bool
+function redirectDeleteData($data) : bool
 {
     if( is_array($data) ) foreach( $data as $v )
     {

@@ -19,5 +19,5 @@ interface RenderImageInterface
     // @param array  $set
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do(String $fpath, Array $set) : String;
+    public function do(string $fpath, array $set) : string;
 }

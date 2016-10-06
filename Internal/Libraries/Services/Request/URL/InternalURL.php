@@ -157,7 +157,7 @@ class InternalURL extends CallController implements InternalURLInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function base(String $uri = '', Int $index = 0) : String
+    public function base(string $uri = '', int $index = 0) : string
     {
         return baseUrl($uri, $index);
     }
@@ -171,7 +171,7 @@ class InternalURL extends CallController implements InternalURLInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function site(String $uri = '', Int $index = 0) : String
+    public function site(string $uri = '', int $index = 0) : string
     {
         return siteUrl($uri, $index);
     }
@@ -184,7 +184,7 @@ class InternalURL extends CallController implements InternalURLInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function current(String $fix = NULL) : String
+    public function current(string $fix = NULL) : string
     {
         return currentUrl($fix);
     }
@@ -197,7 +197,7 @@ class InternalURL extends CallController implements InternalURLInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function host(String $uri = '') : String
+    public function host(string $uri = '') : string
     {
         return hostUrl($uri);
     }
@@ -210,7 +210,7 @@ class InternalURL extends CallController implements InternalURLInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function prev() : String
+    public function prev() : string
     {
         return prevUrl();
     }
@@ -224,7 +224,7 @@ class InternalURL extends CallController implements InternalURLInterface
     // @return mixed
     //
     //--------------------------------------------------------------------------------------------------------
-    public function base64Decode(String $data, Bool $strict = false) : String
+    public function base64Decode(string $data, bool $strict = false) : string
     {
         return base64_decode($data, $strict);
     }
@@ -237,7 +237,7 @@ class InternalURL extends CallController implements InternalURLInterface
     // @return mixed
     //
     //--------------------------------------------------------------------------------------------------------
-    public function base64Encode(String $data) : String
+    public function base64Encode(string $data) : string
     {
         return base64_encode($data);
     }
@@ -251,7 +251,7 @@ class InternalURL extends CallController implements InternalURLInterface
     // @return mixed
     //
     //--------------------------------------------------------------------------------------------------------
-    public function headers(String $url, Int $format = 0) : Array
+    public function headers(string $url, int $format = 0) : array
     {
         return get_headers($url, $format);
     }
@@ -265,7 +265,7 @@ class InternalURL extends CallController implements InternalURLInterface
     // @return mixed
     //
     //--------------------------------------------------------------------------------------------------------
-    public function metaTags(String $fileName, Bool $useIncludePath = false) : Array
+    public function metaTags(string $fileName, bool $useIncludePath = false) : array
     {
         return get_meta_tags($fileName, $useIncludePath);
     }
@@ -281,7 +281,7 @@ class InternalURL extends CallController implements InternalURLInterface
     // @return mixed
     //
     //--------------------------------------------------------------------------------------------------------
-    public function buildQuery(String $data, String $numericPrefix = NULL, String $separator = NULL, String $enctype = 'RFC1738') : String
+    public function buildQuery(string $data, string $numericPrefix = NULL, string $separator = NULL, string $enctype = 'RFC1738') : string
     {
         return http_build_query($data, $numericPrefix, $separator, Converter::toConstant($enctype, 'PHP_QUERY_'));
     }
@@ -295,7 +295,7 @@ class InternalURL extends CallController implements InternalURLInterface
     // @return mixed
     //
     //--------------------------------------------------------------------------------------------------------
-    public function parse(String $url, Int $component = 1)
+    public function parse(string $url, int $component = 1)
     {
         return parse_url($url, $component);
     }
@@ -307,7 +307,7 @@ class InternalURL extends CallController implements InternalURLInterface
     // @param  string  $str: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function rawDecode(String $str) : String
+    public function rawDecode(string $str) : string
     {
         return rawurldecode($str);
     }
@@ -320,7 +320,7 @@ class InternalURL extends CallController implements InternalURLInterface
     // @return mixed
     //
     //--------------------------------------------------------------------------------------------------------
-    public function rawEncode(String $str) : String
+    public function rawEncode(string $str) : string
     {
         return rawurlencode($str);
     }
@@ -332,7 +332,7 @@ class InternalURL extends CallController implements InternalURLInterface
     // @param  string  $str: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function decode(String $str) : String
+    public function decode(string $str) : string
     {
         return urldecode($str);
     }
@@ -345,7 +345,7 @@ class InternalURL extends CallController implements InternalURLInterface
     // @return mixed
     //
     //--------------------------------------------------------------------------------------------------------
-    public function encode(String $str) : String
+    public function encode(string $str) : string
     {
         return urlencode($str);
     }

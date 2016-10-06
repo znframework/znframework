@@ -18,5 +18,5 @@ interface CrossSiteScriptingInterface
     // @param string $string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function encode(String $string) : String;
+    public function encode(string $string) : string;
 }

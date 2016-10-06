@@ -19,7 +19,7 @@ interface TransformInterface
     // @param string $split
     //
     //--------------------------------------------------------------------------------------------------------
-    public function array(String $string, String $split = ' ') : Array;
+    public function array(string $string, string $split = ' ') : array;
 
     //--------------------------------------------------------------------------------------------------------
     // To Char
@@ -28,7 +28,7 @@ interface TransformInterface
     // @param int $ascii
     //
     //--------------------------------------------------------------------------------------------------------
-    public function char(Int $ascii) : String;
+    public function char(int $ascii) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // To Ascii
@@ -37,5 +37,5 @@ interface TransformInterface
     // @param string $str
     //
     //--------------------------------------------------------------------------------------------------------
-    public function ascii(String $string) : Int;
+    public function ascii(string $string) : int;
 }

@@ -24,7 +24,7 @@ class Delete extends MLExtends implements DeleteInterface
     // @return bool
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do(String $app, $key) : Bool
+    public function do(string $app, $key) : bool
     {
         $datas = [];
 
@@ -67,7 +67,7 @@ class Delete extends MLExtends implements DeleteInterface
     // @param string $app
     //
     //--------------------------------------------------------------------------------------------------------
-    public function all($app = NULL) : Bool
+    public function all($app = NULL) : bool
     {
         if( ! is_string($app) )
         {

@@ -18,7 +18,7 @@ interface InternalSecureInterface
     // @param string $data
     //
     //--------------------------------------------------------------------------------------------------------
-    public function data(String $data) : InternalSecure;
+    public function data(string $data) : InternalSecure;
 
     //--------------------------------------------------------------------------------------------------------
     // Get
@@ -28,5 +28,5 @@ interface InternalSecureInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function get() : String;
+    public function get() : string;
 }

@@ -345,7 +345,7 @@ class InternalEmail extends CLController implements InternalEmailInterface
     // @param array $settings
     //
     //--------------------------------------------------------------------------------------------------------
-    public function settings(Array $settings = NULL) : InternalEmail
+    public function settings(array $settings = NULL) : InternalEmail
     {
         $config        = SERVICES_EMAIL_CONFIG;
         $smtpConfig    = $config['smtp'];
@@ -377,7 +377,7 @@ class InternalEmail extends CLController implements InternalEmailInterface
     // @param string $type: plain, html
     //
     //--------------------------------------------------------------------------------------------------------
-    public function contentType(String $type = 'plain') : InternalEmail
+    public function contentType(string $type = 'plain') : InternalEmail
     {
         $this->contentType = $type === 'plain'
                              ? 'plain'
@@ -392,7 +392,7 @@ class InternalEmail extends CLController implements InternalEmailInterface
     // @param string $charset
     //
     //--------------------------------------------------------------------------------------------------------
-    public function charset(String $charset = 'UTF-8') : InternalEmail
+    public function charset(string $charset = 'UTF-8') : InternalEmail
     {
         if( isCharset($charset) )
         {
@@ -413,7 +413,7 @@ class InternalEmail extends CLController implements InternalEmailInterface
     // @param int $count
     //
     //--------------------------------------------------------------------------------------------------------
-    public function priority(Int $count = 3) : InternalEmail
+    public function priority(int $count = 3) : InternalEmail
     {
         $this->priority = preg_match('/^[1-5]$/', $count)
                         ? (int)$count
@@ -430,7 +430,7 @@ class InternalEmail extends CLController implements InternalEmailInterface
     // @param string $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function addHeader(String $header, String $value) : InternalEmail
+    public function addHeader(string $header, string $value) : InternalEmail
     {
         $this->headers[$header] = str_replace(["\n", "\r"], '', $value);
 
@@ -444,7 +444,7 @@ class InternalEmail extends CLController implements InternalEmailInterface
     // @param string $type
     //
     //--------------------------------------------------------------------------------------------------------
-    public function encodingType(String $type = '8bit') : InternalEmail
+    public function encodingType(string $type = '8bit') : InternalEmail
     {
         $this->encodingType = $type;
 
@@ -458,7 +458,7 @@ class InternalEmail extends CLController implements InternalEmailInterface
     // @param string $multiPart
     //
     //--------------------------------------------------------------------------------------------------------
-    public function multiPart(String $multiPart = 'related') : InternalEmail
+    public function multiPart(string $multiPart = 'related') : InternalEmail
     {
         $this->multiPart = $multiPart;
 
@@ -472,7 +472,7 @@ class InternalEmail extends CLController implements InternalEmailInterface
     // @param string $host
     //
     //--------------------------------------------------------------------------------------------------------
-    public function smtpHost(String $host) : InternalEmail
+    public function smtpHost(string $host) : InternalEmail
     {
         $this->smtpHost = $host;
 
@@ -486,7 +486,7 @@ class InternalEmail extends CLController implements InternalEmailInterface
     // @param string $user
     //
     //--------------------------------------------------------------------------------------------------------
-    public function smtpUser(String $user) : InternalEmail
+    public function smtpUser(string $user) : InternalEmail
     {
         $this->smtpUser = $user;
 
@@ -500,7 +500,7 @@ class InternalEmail extends CLController implements InternalEmailInterface
     // @param bool $dsn
     //
     //--------------------------------------------------------------------------------------------------------
-    public function smtpDsn(Bool $dsn = true) : InternalEmail
+    public function smtpDsn(bool $dsn = true) : InternalEmail
     {
         $this->smtpDsn = $dsn;
 
@@ -514,7 +514,7 @@ class InternalEmail extends CLController implements InternalEmailInterface
     // @param string $pass
     //
     //--------------------------------------------------------------------------------------------------------
-    public function smtpPassword(String $pass) : InternalEmail
+    public function smtpPassword(string $pass) : InternalEmail
     {
         $this->smtpPassword = $pass;
 
@@ -528,7 +528,7 @@ class InternalEmail extends CLController implements InternalEmailInterface
     // @param int $port
     //
     //--------------------------------------------------------------------------------------------------------
-    public function smtpPort(Int $port = 587) : InternalEmail
+    public function smtpPort(int $port = 587) : InternalEmail
     {
         $this->smtpPort = $port;
 
@@ -542,7 +542,7 @@ class InternalEmail extends CLController implements InternalEmailInterface
     // @param int $timeout
     //
     //--------------------------------------------------------------------------------------------------------
-    public function smtpTimeout(Int $timeout = 10) : InternalEmail
+    public function smtpTimeout(int $timeout = 10) : InternalEmail
     {
         $this->smtpTimeout = $timeout;
 
@@ -556,7 +556,7 @@ class InternalEmail extends CLController implements InternalEmailInterface
     // @param bool $keepAlive
     //
     //--------------------------------------------------------------------------------------------------------
-    public function smtpKeepAlive(Bool $keepAlive = true) : InternalEmail
+    public function smtpKeepAlive(bool $keepAlive = true) : InternalEmail
     {
         $this->smtpKeepAlive = $keepAlive;
 
@@ -570,7 +570,7 @@ class InternalEmail extends CLController implements InternalEmailInterface
     // @param string $encode
     //
     //--------------------------------------------------------------------------------------------------------
-    public function smtpEncode(String $encode) : InternalEmail
+    public function smtpEncode(string $encode) : InternalEmail
     {
         $this->smtpEncode = $encode;
 
@@ -619,7 +619,7 @@ class InternalEmail extends CLController implements InternalEmailInterface
     // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
-    public function to($to, String $name = NULL) : InternalEmail
+    public function to($to, string $name = NULL) : InternalEmail
     {
         $this->_to($to, $name, 'to');
 
@@ -634,7 +634,7 @@ class InternalEmail extends CLController implements InternalEmailInterface
     // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
-    public function receiver($to, String $name = NULL) : InternalEmail
+    public function receiver($to, string $name = NULL) : InternalEmail
     {
         $this->to($to, $name);
 
@@ -649,7 +649,7 @@ class InternalEmail extends CLController implements InternalEmailInterface
     // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
-    public function replyTo($replyTo, String $name = NULL) : InternalEmail
+    public function replyTo($replyTo, string $name = NULL) : InternalEmail
     {
         $this->_to($replyTo, $name, 'replyTo');
 
@@ -664,7 +664,7 @@ class InternalEmail extends CLController implements InternalEmailInterface
     // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
-    public function cc($cc, String $name = NULL) : InternalEmail
+    public function cc($cc, string $name = NULL) : InternalEmail
     {
         $this->_to($cc, $name, 'cc');
 
@@ -679,7 +679,7 @@ class InternalEmail extends CLController implements InternalEmailInterface
     // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
-    public function bcc($bcc, String $name = NULL) : InternalEmail
+    public function bcc($bcc, string $name = NULL) : InternalEmail
     {
         $this->_to($bcc, $name, 'bcc');
 
@@ -695,7 +695,7 @@ class InternalEmail extends CLController implements InternalEmailInterface
     // @param string $returnPath
     //
     //--------------------------------------------------------------------------------------------------------
-    public function from(String $from, String $name = NULL, String $returnPath = NULL) : InternalEmail
+    public function from(string $from, string $name = NULL, string $returnPath = NULL) : InternalEmail
     {
         if( ! isEmail($from) )
         {
@@ -723,7 +723,7 @@ class InternalEmail extends CLController implements InternalEmailInterface
     // @param string $returnPath
     //
     //--------------------------------------------------------------------------------------------------------
-    public function sender(String $from, String $name = NULL, String $returnPath = NULL) : InternalEmail
+    public function sender(string $from, string $name = NULL, string $returnPath = NULL) : InternalEmail
     {
         $this->from($from, $name, $returnPath);
 
@@ -737,7 +737,7 @@ class InternalEmail extends CLController implements InternalEmailInterface
     // @param string $subject
     //
     //--------------------------------------------------------------------------------------------------------
-    public function subject(String $subject) : InternalEmail
+    public function subject(string $subject) : InternalEmail
     {
         $this->subject = $subject;
         $this->addHeader('Subject', $this->subject);
@@ -752,7 +752,7 @@ class InternalEmail extends CLController implements InternalEmailInterface
     // @param string $message
     //
     //--------------------------------------------------------------------------------------------------------
-    public function message(String $message) : InternalEmail
+    public function message(string $message) : InternalEmail
     {
         $this->message = $message;
 
@@ -766,7 +766,7 @@ class InternalEmail extends CLController implements InternalEmailInterface
     // @param string $message
     //
     //--------------------------------------------------------------------------------------------------------
-    public function content(String $message) : InternalEmail
+    public function content(string $message) : InternalEmail
     {
         $this->message($message);
 
@@ -783,7 +783,7 @@ class InternalEmail extends CLController implements InternalEmailInterface
     // @param mixed  $mime
     //
     //--------------------------------------------------------------------------------------------------------
-    public function attachment(String $file, String $disposition = NULL, String $newName = NULL, $mime = NULL) : InternalEmail
+    public function attachment(string $file, string $disposition = NULL, string $newName = NULL, $mime = NULL) : InternalEmail
     {
         $mimeTypes = Config::get('MimeTypes');
 
@@ -835,7 +835,7 @@ class InternalEmail extends CLController implements InternalEmailInterface
     // @param string $filename
     //
     //--------------------------------------------------------------------------------------------------------
-    public function attachmentContentId(String $filename)
+    public function attachmentContentId(string $filename)
     {
         if( $this->multiPart !== 'related' )
         {
@@ -863,7 +863,7 @@ class InternalEmail extends CLController implements InternalEmailInterface
     // @param string $message
     //
     //--------------------------------------------------------------------------------------------------------
-    public function send(String $subject = NULL, String $message = NULL) : Bool
+    public function send(string $subject = NULL, string $message = NULL) : bool
     {
         if( ! isset($this->headers['From']) )
         {
@@ -904,8 +904,8 @@ class InternalEmail extends CLController implements InternalEmailInterface
 
         $this->_buildContent();
 
-        $settings = array
-        (
+        $settings =
+        [
             'host'       => $this->smtpHost,
             'user'       => $this->smtpUser,
             'password'   => $this->smtpPassword,
@@ -922,7 +922,7 @@ class InternalEmail extends CLController implements InternalEmailInterface
             'tos'        => $this->to,
             'mailPath'   => $this->mailPath,
             'returnPath' => $this->headers['Return-Path']
-        );
+        ];
 
         $send = $this->driver->send(key($this->to), $this->subject, $this->message, $this->header, $settings);
 

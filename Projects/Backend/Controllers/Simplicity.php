@@ -4,12 +4,12 @@ use Import;
 
 class Simplicity extends Controller
 {
-    public function main(String $params = NULL)
+    public function main(string $params = NULL) : void
     {
         Import::view('welcome.wizard');
     }
 
-    public function try()
+    public function try() : void
     {
         // Simplicity is our choice, how about yours ?
     }

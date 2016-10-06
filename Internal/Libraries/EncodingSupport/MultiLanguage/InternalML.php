@@ -35,7 +35,7 @@ class InternalML extends \FactoryController implements InternalMLInterface
     // @return bool
     //
     //--------------------------------------------------------------------------------------------------------
-    public function lang(String $lang = 'tr') : Bool
+    public function lang(string $lang = 'tr') : bool
     {
         setLang($lang);
     }

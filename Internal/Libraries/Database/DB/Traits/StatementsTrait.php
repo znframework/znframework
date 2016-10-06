@@ -40,7 +40,7 @@ trait StatementsTrait
     // @param bool   $output
     //
     //--------------------------------------------------------------------------------------------------------
-    public function property($type, String $col = NULL, Bool $output = true) : String
+    public function property($type, string $col = NULL, bool $output = true) : string
     {
         if( is_array($type) )
         {
@@ -74,7 +74,7 @@ trait StatementsTrait
     // @param bool   $type
     //
     //--------------------------------------------------------------------------------------------------------
-    public function defaultValue(String $default = NULL, Bool $type = false) : String
+    public function defaultValue(string $default = NULL, bool $type = false) : string
     {
         if( ! is_numeric($default) )
         {
@@ -91,7 +91,7 @@ trait StatementsTrait
     // @param variadic $args
     //
     //--------------------------------------------------------------------------------------------------------
-    public function like(String $value, String $type = 'starting') : String
+    public function like(string $value, string $type = 'starting') : string
     {
         $operator = $this->db->operator(__FUNCTION__);
 

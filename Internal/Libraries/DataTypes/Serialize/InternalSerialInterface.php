@@ -18,7 +18,7 @@ interface InternalSerialInterface
     // @param mixed $data
     //
     //--------------------------------------------------------------------------------------------------------
-    public function encode($data) : String;
+    public function encode($data) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Decode
@@ -28,7 +28,7 @@ interface InternalSerialInterface
     // @param bool   $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function decode(String $data, Bool $array = false);
+    public function decode(string $data, bool $array = false);
 
     //--------------------------------------------------------------------------------------------------------
     // Decode Object
@@ -37,7 +37,7 @@ interface InternalSerialInterface
     // @param string $data
     //
     //--------------------------------------------------------------------------------------------------------
-    public function decodeObject(String $data) : \stdClass;
+    public function decodeObject(string $data) : \stdClass;
 
     //--------------------------------------------------------------------------------------------------------
     // Decode Array
@@ -46,5 +46,5 @@ interface InternalSerialInterface
     // @param string $data
     //
     //--------------------------------------------------------------------------------------------------------
-    public function decodeArray(String $data) : Array;
+    public function decodeArray(string $data) : array;
 }

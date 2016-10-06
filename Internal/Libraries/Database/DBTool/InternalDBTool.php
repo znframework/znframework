@@ -37,7 +37,7 @@ class InternalDBTool extends Connection implements InternalDBToolInterface
     // @return array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function listDatabases() : Array
+    public function listDatabases() : array
     {
         return $this->tool->listDatabases();
     }
@@ -52,7 +52,7 @@ class InternalDBTool extends Connection implements InternalDBToolInterface
     // @return array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function listTables() : Array
+    public function listTables() : array
     {
         return $this->tool->listTables();
     }
@@ -80,7 +80,7 @@ class InternalDBTool extends Connection implements InternalDBToolInterface
     // @return string message
     //
     //--------------------------------------------------------------------------------------------------------
-    public function optimizeTables($table = '*') : String
+    public function optimizeTables($table = '*') : string
     {
         return $this->tool->optimizeTables($table);
     }
@@ -95,7 +95,7 @@ class InternalDBTool extends Connection implements InternalDBToolInterface
     // @return string message
     //
     //--------------------------------------------------------------------------------------------------------
-    public function repairTables($table = '*') : String
+    public function repairTables($table = '*') : string
     {
         return $this->tool->repairTables($table);
     }
@@ -112,7 +112,7 @@ class InternalDBTool extends Connection implements InternalDBToolInterface
     // @return string $path: STORAGE_DIR
     //
     //--------------------------------------------------------------------------------------------------------
-    public function backup($tables = '*', String $fileName = NULL, String $path = STORAGE_DIR) : String
+    public function backup($tables = '*', string $fileName = NULL, string $path = STORAGE_DIR) : string
     {
         return $this->tool->backup($tables, $fileName, $path);
     }

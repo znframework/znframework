@@ -32,7 +32,7 @@ class InternalGT extends CallController implements InternalGTInterface
     // @param string $message
     //
     //--------------------------------------------------------------------------------------------------------
-    public function data(String $message) : String
+    public function data(string $message) : string
     {
         return gettext($message);
     }
@@ -45,7 +45,7 @@ class InternalGT extends CallController implements InternalGTInterface
     // @param mixed  $locale
     //
     //--------------------------------------------------------------------------------------------------------
-    public function locale(String $category, $locale) : String
+    public function locale(string $category, $locale) : string
     {
         return setlocale(Converter::toConstant($category, 'LC_'), $locale);
     }
@@ -59,7 +59,7 @@ class InternalGT extends CallController implements InternalGTInterface
     // @param int    $count
     //
     //--------------------------------------------------------------------------------------------------------
-    public function datas(String $msgId1, String $msgId2, Int $count = 0) : String
+    public function datas(string $msgId1, string $msgId2, int $count = 0) : string
     {
         return ngettext($msgId1, $msgId2, $count);
     }
@@ -72,7 +72,7 @@ class InternalGT extends CallController implements InternalGTInterface
     // @param string $message
     //
     //--------------------------------------------------------------------------------------------------------
-    public function change(String $domain, String $message) : String
+    public function change(string $domain, string $message) : string
     {
         return dgettext($domain, $message);
     }
@@ -87,7 +87,7 @@ class InternalGT extends CallController implements InternalGTInterface
     // @param int    $count
     //
     //--------------------------------------------------------------------------------------------------------
-    public function changes(String $domain, String $msgId1, String $msgId2, Int $count = 0) : String
+    public function changes(string $domain, string $msgId1, string $msgId2, int $count = 0) : string
     {
         return dngettext($domain, $msgId1, $msgId2, $count);
     }
@@ -101,7 +101,7 @@ class InternalGT extends CallController implements InternalGTInterface
     // @param int    $category
     //
     //--------------------------------------------------------------------------------------------------------
-    public function search(String $domain, String $message, Int $category = 0) : String
+    public function search(string $domain, string $message, int $category = 0) : string
     {
         return dcgettext($domain, $message, $category);
     }
@@ -117,7 +117,7 @@ class InternalGT extends CallController implements InternalGTInterface
     // @param int    $category
     //
     //--------------------------------------------------------------------------------------------------------
-    public function searches(String $domain, String $msgId1, String $msgId2, Int $count = 0, Int $category = 0) : String
+    public function searches(string $domain, string $msgId1, string $msgId2, int $count = 0, int $category = 0) : string
     {
         return dcngettext($domain, $msgId1, $msgId2, $count, $category);
     }
@@ -130,7 +130,7 @@ class InternalGT extends CallController implements InternalGTInterface
     // @param string $codeset
     //
     //--------------------------------------------------------------------------------------------------------
-    public function codeset(String $domain, String $codeset) : String
+    public function codeset(string $domain, string $codeset) : string
     {
         return bind_textdomain_codeset($domain, $codeset);
     }
@@ -143,7 +143,7 @@ class InternalGT extends CallController implements InternalGTInterface
     // @param string $directory
     //
     //--------------------------------------------------------------------------------------------------------
-    public function dir(String $domain, String $directory) : String
+    public function dir(string $domain, string $directory) : string
     {
         return bindtextdomain($domain, $directory);
     }
@@ -155,7 +155,7 @@ class InternalGT extends CallController implements InternalGTInterface
     // @param string $textDomain
     //
     //--------------------------------------------------------------------------------------------------------
-    public function name(String $textDomain) : String
+    public function name(string $textDomain) : string
     {
         return textdomain($textDomain);
     }

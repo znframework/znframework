@@ -18,7 +18,7 @@ interface ForgeInterface
     // Dizin oluşturmak için kullanılır.
     //
     //--------------------------------------------------------------------------------------------------------
-    public function create(String $file, Int $permission = 0755, Bool $recursive = true) : Bool;
+    public function create(string $file, int $permission = 0755, bool $recursive = true) : bool;
 
     //--------------------------------------------------------------------------------------------------------
     // rename()
@@ -27,7 +27,7 @@ interface ForgeInterface
     // Dosya veya dizinin adını değiştirmek için kullanılır.
     //
     //--------------------------------------------------------------------------------------------------------
-    public function rename(String $oldName, String $newName) : Bool;
+    public function rename(string $oldName, string $newName) : bool;
 
     //--------------------------------------------------------------------------------------------------------
     // deleteEmpty()
@@ -36,7 +36,7 @@ interface ForgeInterface
     // Boş bir dizini silmek için kullanılır.
     //
     //--------------------------------------------------------------------------------------------------------
-    public function deleteEmpty(String $folder) : Bool;
+    public function deleteEmpty(string $folder) : bool;
 
     //--------------------------------------------------------------------------------------------------------
     // delete()
@@ -45,7 +45,7 @@ interface ForgeInterface
     // Bir dizini içindekilerle birlikte silmek için kullanılır.
     //
     //--------------------------------------------------------------------------------------------------------
-    public function delete(String $name) : Bool;
+    public function delete(string $name) : bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Copy()
@@ -55,7 +55,7 @@ interface ForgeInterface
     // ait diğer alt dizin ve dosyaları da kapsamaktadır.
     //
     //--------------------------------------------------------------------------------------------------------
-    public function copy(String $source, String $target) : Bool;
+    public function copy(string $source, string $target) : bool;
 
     //--------------------------------------------------------------------------------------------------------
     // change()
@@ -64,7 +64,7 @@ interface ForgeInterface
     // PHP'nin aktif çalışma dizinini değiştirmek için kullanılır.
     //
     //--------------------------------------------------------------------------------------------------------
-    public function change(String $name) : Bool;
+    public function change(string $name) : bool;
 
     //--------------------------------------------------------------------------------------------------------
     // permission()
@@ -73,5 +73,5 @@ interface ForgeInterface
     // Bir dizin veya dosyaya yetki vermek için kullanılır.
     //
     //--------------------------------------------------------------------------------------------------------
-    public function permission(String $name, Int $permission = 0755) : Bool;
+    public function permission(string $name, int $permission = 0755) : bool;
 }

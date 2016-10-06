@@ -74,7 +74,7 @@ class InternalZNUnitTest
     // @param string $class
     //
     //--------------------------------------------------------------------------------------------------------
-    public function class(String $class) : InternalZNUnitTest
+    public function class(string $class) : InternalZNUnitTest
     {
         $this->class = $class;
 
@@ -88,7 +88,7 @@ class InternalZNUnitTest
     // @param array $methods
     //
     //--------------------------------------------------------------------------------------------------------
-    public function methods(Array $methods) : InternalZNUnitTest
+    public function methods(array $methods) : InternalZNUnitTest
     {
         $this->methods = $methods;
 
@@ -102,7 +102,7 @@ class InternalZNUnitTest
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function start()
+    public function start() : void
     {
         $this->result = NULL;
 
@@ -132,7 +132,7 @@ class InternalZNUnitTest
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function result()
+    public function result() : string
     {
         return '<pre>'.$this->result.'</pre>';
     }

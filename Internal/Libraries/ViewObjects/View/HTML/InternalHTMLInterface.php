@@ -47,7 +47,7 @@ interface InternalHTMLInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function audio(String $src, String $content = NULL, Array $attributes = []) : String;
+    public function audio(string $src, string $content = NULL, array $attributes = []) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Video
@@ -58,7 +58,7 @@ interface InternalHTMLInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function video(String $src, String $content = NULL, Array $attributes = []) : String;
+    public function video(string $src, string $content = NULL, array $attributes = []) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Embed
@@ -68,7 +68,7 @@ interface InternalHTMLInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function embed(String $src, Array $attributes = []) : String;
+    public function embed(string $src, array $attributes = []) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Source
@@ -78,7 +78,7 @@ interface InternalHTMLInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function source(String $src, Array $attributes = []) : String;
+    public function source(string $src, array $attributes = []) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Bold
@@ -88,7 +88,7 @@ interface InternalHTMLInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function bold(String $str, Array $attributes = []) : String;
+    public function bold(string $str, array $attributes = []) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Strong
@@ -98,7 +98,7 @@ interface InternalHTMLInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function strong(String $str, Array $attributes = []) : String;
+    public function strong(string $str, array $attributes = []) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Italic
@@ -108,7 +108,7 @@ interface InternalHTMLInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function italic(String $str, Array $attributes = []) : String;
+    public function italic(string $str, array $attributes = []) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Image
@@ -120,7 +120,7 @@ interface InternalHTMLInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function image(String $src, Int $width = NULL, Int $height = NULL, Array $attributes = []) : String;
+    public function image(string $src, int $width = NULL, int $height = NULL, array $attributes = []) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Label
@@ -133,7 +133,7 @@ interface InternalHTMLInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function label(String $for, String $value = NULL, String $form = NULL, Array $attributes = []) : String;
+    public function label(string $for, string $value = NULL, string $form = NULL, array $attributes = []) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Canvas
@@ -144,7 +144,7 @@ interface InternalHTMLInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function canvas(String $content, Array $attributes = []) : String;
+    public function canvas(string $content, array $attributes = []) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Aside
@@ -153,7 +153,7 @@ interface InternalHTMLInterface
     // @param  string $html
     //
     //--------------------------------------------------------------------------------------------------------
-    public function aside(String $html) : String;
+    public function aside(string $html) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Article
@@ -162,7 +162,7 @@ interface InternalHTMLInterface
     // @param  string $html
     //
     //--------------------------------------------------------------------------------------------------------
-    public function article(String $html) : String;
+    public function article(string $html) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Footer
@@ -171,7 +171,7 @@ interface InternalHTMLInterface
     // @param  string $html
     //
     //--------------------------------------------------------------------------------------------------------
-    public function footer(String $html) : String;
+    public function footer(string $html) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Header
@@ -180,7 +180,7 @@ interface InternalHTMLInterface
     // @param  string $html
     //
     //--------------------------------------------------------------------------------------------------------
-    public function header(String $html) : String;
+    public function header(string $html) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Nav
@@ -189,7 +189,7 @@ interface InternalHTMLInterface
     // @param  string $html
     //
     //--------------------------------------------------------------------------------------------------------
-    public function nav(String $html) : String;
+    public function nav(string $html) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Section
@@ -198,7 +198,7 @@ interface InternalHTMLInterface
     // @param  string $html
     //
     //--------------------------------------------------------------------------------------------------------
-    public function section(String $html) : String;
+    public function section(string $html) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Anchor
@@ -209,7 +209,7 @@ interface InternalHTMLInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function anchor(String $url, String $value = NULL, Array $attributes = []) : String;
+    public function anchor(string $url, string $value = NULL, array $attributes = []) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Mail To
@@ -220,7 +220,7 @@ interface InternalHTMLInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function mailTo(String $mail, String $value = NULL, Array $attributes = []) : String;
+    public function mailTo(string $mail, string $value = NULL, array $attributes = []) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Parag
@@ -230,7 +230,7 @@ interface InternalHTMLInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function parag(String $str = NULL, Array $attributes = []) : String;
+    public function parag(string $str = NULL, array $attributes = []) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Over Line
@@ -240,7 +240,7 @@ interface InternalHTMLInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function overLine(String $str, Array $attributes = []) : String;
+    public function overLine(string $str, array $attributes = []) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Over Text
@@ -250,7 +250,7 @@ interface InternalHTMLInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function overText(String $str, Array $attributes = []) : String;
+    public function overText(string $str, array $attributes = []) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Under Line
@@ -260,7 +260,7 @@ interface InternalHTMLInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function underLine(String $str, Array $attributes = []) : String;
+    public function underLine(string $str, array $attributes = []) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Under Text
@@ -270,7 +270,7 @@ interface InternalHTMLInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function underText(String $str, Array $attributes = []) : String;
+    public function underText(string $str, array $attributes = []) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Font
@@ -283,7 +283,7 @@ interface InternalHTMLInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function font(String $str, String $size = NULL, String $color = NULL, String $face = NULL, Array $attributes = []) : String;
+    public function font(string $str, string $size = NULL, string $color = NULL, string $face = NULL, array $attributes = []) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Hgroup
@@ -292,7 +292,7 @@ interface InternalHTMLInterface
     // @param string $html
     //
     //--------------------------------------------------------------------------------------------------------
-    public function hgroup(String $html) : String;
+    public function hgroup(string $html) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // BR
@@ -301,7 +301,7 @@ interface InternalHTMLInterface
     // @param int $cunt
     //
     //--------------------------------------------------------------------------------------------------------
-    public function br(Int $count = 1) : String;
+    public function br(int $count = 1) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Space
@@ -310,7 +310,7 @@ interface InternalHTMLInterface
     // @param int $count
     //
     //--------------------------------------------------------------------------------------------------------
-    public function space(Int $count = 4) : String;
+    public function space(int $count = 4) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Heading
@@ -321,7 +321,7 @@ interface InternalHTMLInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function heading(String $str, Int $type = 3, Array $attributes = []) : String;
+    public function heading(string $str, int $type = 3, array $attributes = []) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Element
@@ -332,7 +332,7 @@ interface InternalHTMLInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function element(String $element, String $str = NULL, Array $attributes = []) : String;
+    public function element(string $element, string $str = NULL, array $attributes = []) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Multi Attr
@@ -342,7 +342,7 @@ interface InternalHTMLInterface
     // @param array  $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function multiAttr(String $str, Array $array = []) : String;
+    public function multiAttr(string $str, array $array = []) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Meta
@@ -352,7 +352,7 @@ interface InternalHTMLInterface
     // @param string $content
     //
     //--------------------------------------------------------------------------------------------------------
-    public function meta($name, String $content = NULL) : String;
+    public function meta($name, string $content = NULL) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Command
@@ -362,7 +362,7 @@ interface InternalHTMLInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function command(String $content, Array $attributes = []) : String;
+    public function command(string $content, array $attributes = []) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Data List
@@ -372,7 +372,7 @@ interface InternalHTMLInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function dataList(String $content, Array $attributes = []) : String;
+    public function dataList(string $content, array $attributes = []) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Details
@@ -382,7 +382,7 @@ interface InternalHTMLInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function details(String $content, Array $attributes = []) : String;
+    public function details(string $content, array $attributes = []) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Dialog
@@ -392,7 +392,7 @@ interface InternalHTMLInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function dialog(String $content, Array $attributes = []) : String;
+    public function dialog(string $content, array $attributes = []) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Fig Caption
@@ -402,7 +402,7 @@ interface InternalHTMLInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function figCaption(String $content, Array $attributes = []) : String;
+    public function figCaption(string $content, array $attributes = []) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Figure
@@ -412,7 +412,7 @@ interface InternalHTMLInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function figure(String $content, Array $attributes = []) : String;
+    public function figure(string $content, array $attributes = []) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Keygen
@@ -421,7 +421,7 @@ interface InternalHTMLInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function keygen(Array $attributes = []) : String;
+    public function keygen(array $attributes = []) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Mark
@@ -431,7 +431,7 @@ interface InternalHTMLInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function mark(String $content, Array $attributes = []) : String;
+    public function mark(string $content, array $attributes = []) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Meter
@@ -441,7 +441,7 @@ interface InternalHTMLInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function meter(String $content, Array $attributes = []) : String;
+    public function meter(string $content, array $attributes = []) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Time
@@ -451,7 +451,7 @@ interface InternalHTMLInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function time(String $content, Array $attributes = []) : String;
+    public function time(string $content, array $attributes = []) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Summary
@@ -461,7 +461,7 @@ interface InternalHTMLInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function summary(String $content, Array $attributes = []) : String;
+    public function summary(string $content, array $attributes = []) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Progress
@@ -471,7 +471,7 @@ interface InternalHTMLInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function progress(String $content, Array $attributes = []) : String;
+    public function progress(string $content, array $attributes = []) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Output
@@ -481,5 +481,5 @@ interface InternalHTMLInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function output(String $content, Array $attributes = []) : String;
+    public function output(string $content, array $attributes = []) : string;
 }

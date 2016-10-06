@@ -19,7 +19,7 @@ interface ProcessInterface
     // @param string  $process: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function start(Int $roleId = 0, String $process = NULL);
+    public function start(int $roleId = 0, string $process = NULL) : void;
 
     //--------------------------------------------------------------------------------------------------------
     // end()
@@ -28,7 +28,7 @@ interface ProcessInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function end();
+    public function end() : void;
 
     //--------------------------------------------------------------------------------------------------------
     // process()
@@ -39,5 +39,5 @@ interface ProcessInterface
     // @param string  $object : empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function use(Int $roleId = 0, String $process = NULL, String $object = NULL) : String;
+    public function use(int $roleId = 0, string $process = NULL, string $object = NULL) : string;
 }

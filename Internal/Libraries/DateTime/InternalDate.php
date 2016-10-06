@@ -30,7 +30,7 @@ class InternalDate extends DateTimeCommon implements InternalDateTimeCommonInter
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function current(String $clock = 'd.m.o') : String
+    public function current(string $clock = 'd.m.o') : string
     {
         return $this->_datetime($clock);
     }
@@ -46,7 +46,7 @@ class InternalDate extends DateTimeCommon implements InternalDateTimeCommonInter
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function convert(String $date, String $format = 'd-m-Y H:i:s') : String
+    public function convert(string $date, string $format = 'd-m-Y H:i:s') : string
     {
         return $this->_datetime($format, strtotime($date));
     }
@@ -61,7 +61,7 @@ class InternalDate extends DateTimeCommon implements InternalDateTimeCommonInter
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function standart() : String
+    public function standart() : string
     {
         return $this->_datetime("d.F.o l, H:i:s");
     }

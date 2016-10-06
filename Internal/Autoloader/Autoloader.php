@@ -40,7 +40,7 @@ class Autoloader
     // @return void
     //
     //--------------------------------------------------------------------------------------------------
-    public static function run(String $class)
+    public static function run(string $class) : void
     {
         $path = CONFIG_DIR.'ClassMap.php';
 
@@ -84,7 +84,7 @@ class Autoloader
     // @return bool
     //
     //--------------------------------------------------------------------------------------------------
-    public static function restart()
+    public static function restart() : void
     {
         $path = CONFIG_DIR.'ClassMap.php';
 
@@ -94,7 +94,7 @@ class Autoloader
             clearstatcache();
         }
 
-        return self::createClassMap();
+        self::createClassMap();
     }
 
     //--------------------------------------------------------------------------------------------------
@@ -186,7 +186,7 @@ class Autoloader
     // @return array
     //
     //--------------------------------------------------------------------------------------------------
-    public static function getClassFileInfo(String $class) : Array
+    public static function getClassFileInfo(string $class) : array
     {
         $classCaseLower = strtolower($class);
         $classMap       = self::_config();
@@ -229,7 +229,7 @@ class Autoloader
     // @return array
     //
     //--------------------------------------------------------------------------------------------------
-    public static function tokenClassFileInfo(String $fileName) : Array
+    public static function tokenClassFileInfo(string $fileName) : array
     {
         $classInfo = [];
 
@@ -296,19 +296,18 @@ class Autoloader
     // @return array
     //
     //--------------------------------------------------------------------------------------------------
-    public static function tokenFileInfo(String $fileName, Int $type = T_FUNCTION)
+    public static function tokenFileInfo(string $fileName, int $type = T_FUNCTION) : array
     {
+        $info = [];
+
         if( ! is_file($fileName) )
         {
-            return false;
+            return $info;
         }
 
         $tokens = token_get_all(file_get_contents($fileName));
-        $info   = [];
-
-        $i = 0;
-
-        $type = Converter::toConstant($type, 'T_');
+        $i      = 0;
+        $type   = Converter::toConstant($type, 'T_');
 
         foreach( $tokens as $token )
         {
@@ -335,7 +334,7 @@ class Autoloader
     // @return void
     //
     //--------------------------------------------------------------------------------------------------
-    protected static function searchClassMap($directory, $baseDirectory = NULL)
+    protected static function searchClassMap(string $directory, string $baseDirectory = NULL) : array
     {
         static $classes;
 
@@ -440,7 +439,7 @@ class Autoloader
     // @param void
     //
     //--------------------------------------------------------------------------------------------------
-    protected static function _findConstants($v)
+    protected static function _findConstants(string $v) : string
     {
         $getFileContent = file_get_contents($v);
 
@@ -469,7 +468,7 @@ class Autoloader
     // @param void
     //
     //--------------------------------------------------------------------------------------------------
-    protected static function _classFileContent($newClassName, $constants)
+    protected static function _classFileContent(string $newClassName, string $constants) : string
     {
         $classContent  = '<?php'.EOL;
         $classContent .= '//--------------------------------------------------------------------------------------------------'.EOL;
@@ -495,7 +494,7 @@ class Autoloader
     // @param void
     //
     //--------------------------------------------------------------------------------------------------
-    private static function _config()
+    private static function _config() : array
     {
         $path = CONFIG_DIR.'ClassMap.php';
 
@@ -508,7 +507,7 @@ class Autoloader
             return $classMap;
         }
 
-        return false;
+        return [];
     }
 
     //--------------------------------------------------------------------------------------------------
@@ -519,7 +518,7 @@ class Autoloader
     // @return void
     //
     //--------------------------------------------------------------------------------------------------
-    protected static function tryAgainCreateClassMap($class)
+    protected static function tryAgainCreateClassMap(string $class) : void
     {
         self::createClassMap();
 
@@ -552,7 +551,7 @@ class Autoloader
     // @return string
     //
     //--------------------------------------------------------------------------------------------------
-    protected static function _relativePath($string)
+    protected static function _relativePath(string $string) : string
     {
         return str_replace(REAL_BASE_DIR, NULL, self::_originPath($string));
     }
@@ -565,7 +564,7 @@ class Autoloader
     // @return string
     //
     //--------------------------------------------------------------------------------------------------
-    protected static function _originPath($string)
+    protected static function _originPath(string $string) : string
     {
         return str_replace(['/', '\\'], DS, $string);
     }

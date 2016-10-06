@@ -1,6 +1,6 @@
 <?php class DebugException
 {
-    public function __construct(String $file, String $message = NULL, $changed = NULL)
+    public function __construct(string $file, string $message = NULL, $changed = NULL)
     {
         if( $data = lang($file, $message, $changed) )
         {

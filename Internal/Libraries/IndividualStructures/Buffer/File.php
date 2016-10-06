@@ -21,7 +21,7 @@ class File implements FileInterface
     // @return content
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function do(String $file) : String
+    public static function do(string $file) : string
     {
         if( ! is_file($file) )
         {

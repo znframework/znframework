@@ -20,7 +20,7 @@ interface SubstitutionInterface
     // @param string $reshuffle
     //
     //--------------------------------------------------------------------------------------------------------
-    public function reshuffle(String $str, String $shuffle, String $reshuffle) : String;
+    public function reshuffle(string $str, string $shuffle, string $reshuffle) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Placement
@@ -31,7 +31,7 @@ interface SubstitutionInterface
     // @param array  $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function placement(String $str, String $delimiter, Array $array) : String;
+    public function placement(string $str, string $delimiter, array $array) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Replace
@@ -43,5 +43,5 @@ interface SubstitutionInterface
     // @param bool   $case = true
     //
     //--------------------------------------------------------------------------------------------------------
-    public function replace(String $string, $oldChar, $newChar = NULL, Bool $case = true) : String;
+    public function replace(string $string, $oldChar, $newChar = NULL, bool $case = true) : string;
 }

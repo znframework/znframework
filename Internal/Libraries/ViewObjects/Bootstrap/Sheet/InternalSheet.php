@@ -29,7 +29,7 @@ class InternalSheet extends CallController implements InternalSheetInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function animation(Bool $tag = false) : Sheet\Helpers\Animation
+    public function animation(bool $tag = false) : Sheet\Helpers\Animation
     {
         return uselib($this->_namespace('Animation'), [$tag]);
     }
@@ -53,7 +53,7 @@ class InternalSheet extends CallController implements InternalSheetInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function shadow(Bool $tag = false) : Sheet\Helpers\Shadow
+    public function shadow(bool $tag = false) : Sheet\Helpers\Shadow
     {
         return uselib($this->_namespace('Shadow'), [$tag]);
     }
@@ -65,7 +65,7 @@ class InternalSheet extends CallController implements InternalSheetInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function transform(Bool $tag = false) : Sheet\Helpers\Transform
+    public function transform(bool $tag = false) : Sheet\Helpers\Transform
     {
         return uselib($this->_namespace('Transform'), [$tag]);
     }
@@ -77,7 +77,7 @@ class InternalSheet extends CallController implements InternalSheetInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function transition(Bool $tag = false) : Sheet\Helpers\Transition
+    public function transition(bool $tag = false) : Sheet\Helpers\Transition
     {
         return uselib($this->_namespace('Transition'), [$tag]);
     }

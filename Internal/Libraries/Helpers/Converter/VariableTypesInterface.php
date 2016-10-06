@@ -18,7 +18,7 @@ interface VariableTypesInterface
     // @param var $var
     //
     //--------------------------------------------------------------------------------------------------------
-    public function toInt($var) : Int;
+    public function toInt($var) : int;
 
     //--------------------------------------------------------------------------------------------------------
     // To Integer
@@ -27,7 +27,7 @@ interface VariableTypesInterface
     // @param var $var
     //
     //--------------------------------------------------------------------------------------------------------
-    public function toInteger($var) : Int;
+    public function toInteger($var) : int;
 
     //--------------------------------------------------------------------------------------------------------
     // To Bool
@@ -36,7 +36,7 @@ interface VariableTypesInterface
     // @param var $var
     //
     //--------------------------------------------------------------------------------------------------------
-    public function toBool($var) : Bool;
+    public function toBool($var) : bool;
 
     //--------------------------------------------------------------------------------------------------------
     // To Boolean
@@ -45,7 +45,7 @@ interface VariableTypesInterface
     // @param var $var
     //
     //--------------------------------------------------------------------------------------------------------
-    public function toBoolean($var) : Bool;
+    public function toBoolean($var) : bool;
 
     //--------------------------------------------------------------------------------------------------------
     // To String
@@ -54,7 +54,7 @@ interface VariableTypesInterface
     // @param var $var
     //
     //--------------------------------------------------------------------------------------------------------
-    public function toString($var) : String;
+    public function toString($var) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // To Float
@@ -63,7 +63,7 @@ interface VariableTypesInterface
     // @param var $var
     //
     //--------------------------------------------------------------------------------------------------------
-    public function toFloat($var) : Float;
+    public function toFloat($var) : float;
 
     //--------------------------------------------------------------------------------------------------------
     // To Real
@@ -99,7 +99,7 @@ interface VariableTypesInterface
     // @param var $var
     //
     //--------------------------------------------------------------------------------------------------------
-    public function toArray($var) : Array;
+    public function toArray($var) : array;
 
     //--------------------------------------------------------------------------------------------------------
     // To Constant
@@ -110,5 +110,5 @@ interface VariableTypesInterface
     // @param string $suffix
     //
     //--------------------------------------------------------------------------------------------------------
-    public function toConstant(String $var, String $prefix = NULL, String $suffix = NULL);
+    public function toConstant(string $var, string $prefix = NULL, string $suffix = NULL);
 }

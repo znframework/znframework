@@ -13,7 +13,7 @@ class Loader implements LoaderInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do(String $file) : String
+    public function do(string $file) : string
     {
         $file = suffix($file, '.xml');
 

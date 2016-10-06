@@ -18,5 +18,5 @@ interface InsertInterface
     // @param array $product
     //
     //--------------------------------------------------------------------------------------------------------
-    public function item(Array $product) : Bool;
+    public function item(array $product) : bool;
 }

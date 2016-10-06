@@ -51,7 +51,7 @@ class InternalCURL extends CallController implements InternalCURLInterface
     // @param string $url
     //
     //--------------------------------------------------------------------------------------------------------
-    public function init(String $url = NULL) : InternalCURL
+    public function init(string $url = NULL) : InternalCURL
     {
         $this->init = curl_init($url);
 
@@ -65,7 +65,7 @@ class InternalCURL extends CallController implements InternalCURLInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function exec() : Bool
+    public function exec() : bool
     {
         if( ! is_resource($this->init) )
         {
@@ -91,7 +91,7 @@ class InternalCURL extends CallController implements InternalCURLInterface
     // @param string $url
     //
     //--------------------------------------------------------------------------------------------------------
-    public function escape(String $str) : String
+    public function escape(string $str) : string
     {
         if( ! is_resource($this->init) )
         {
@@ -108,7 +108,7 @@ class InternalCURL extends CallController implements InternalCURLInterface
     // @param string $url
     //
     //--------------------------------------------------------------------------------------------------------
-    public function unescape(String $str) : String
+    public function unescape(string $str) : string
     {
         if( ! is_resource($this->init) )
         {
@@ -125,7 +125,7 @@ class InternalCURL extends CallController implements InternalCURLInterface
     // @param string $opt
     //
     //--------------------------------------------------------------------------------------------------------
-    public function info(String $opt)
+    public function info(string $opt)
     {
         if( ! is_resource($this->init) )
         {
@@ -142,7 +142,7 @@ class InternalCURL extends CallController implements InternalCURLInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function error() : String
+    public function error() : string
     {
         if( ! is_resource($this->init) )
         {
@@ -159,7 +159,7 @@ class InternalCURL extends CallController implements InternalCURLInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function errno() : Int
+    public function errno() : int
     {
         if( ! is_resource($this->init) )
         {
@@ -176,7 +176,7 @@ class InternalCURL extends CallController implements InternalCURLInterface
     // @param int $bitmask
     //
     //--------------------------------------------------------------------------------------------------------
-    public function pause(Int $bitmask = 0) : Int
+    public function pause(int $bitmask = 0) : int
     {
         if( ! empty($this->init) )
         {
@@ -193,7 +193,7 @@ class InternalCURL extends CallController implements InternalCURLInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function reset() : Bool
+    public function reset() : bool
     {
         if( ! empty($this->init) )
         {
@@ -213,7 +213,7 @@ class InternalCURL extends CallController implements InternalCURLInterface
     // @param mixed  $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function option(String $options, $value) : InternalCURL
+    public function option(string $options, $value) : InternalCURL
     {
         $this->options[Converter::toConstant($options, 'CURLOPT_')] = $value;
 
@@ -227,7 +227,7 @@ class InternalCURL extends CallController implements InternalCURLInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function close() : Bool
+    public function close() : bool
     {
         $init = $this->init;
 
@@ -250,7 +250,7 @@ class InternalCURL extends CallController implements InternalCURLInterface
     // @param int $errno
     //
     //--------------------------------------------------------------------------------------------------------
-    public function errval(Int $errno = 0) : String
+    public function errval(Int $errno = 0) : string
     {
         return curl_strerror($errno);
     }
@@ -272,14 +272,7 @@ class InternalCURL extends CallController implements InternalCURLInterface
         }
         else
         {
-            if( isset($version[$data]) )
-            {
-                return $version[$data];
-            }
-            else
-            {
-                return false;
-            }
+            return $version[$data] ?? false;
         }
     }
 
