@@ -19,7 +19,7 @@ interface InternalMethodInterface
     // @param mixed  $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function post(string $name, $value);
+    public function post( ? string $name = NULL, $value = NULL);
 
     //--------------------------------------------------------------------------------------------------------
     // Get
@@ -29,7 +29,7 @@ interface InternalMethodInterface
     // @param mixed  $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function get(string $name, $value);
+    public function get( ? string $name = NULL, $value = NULL);
 
     //--------------------------------------------------------------------------------------------------------
     // Env
@@ -39,7 +39,7 @@ interface InternalMethodInterface
     // @param mixed  $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function env(string $name, $value);
+    public function env( ? string $name = NULL, $value = NULL);
 
     //--------------------------------------------------------------------------------------------------------
     // Server
@@ -49,7 +49,7 @@ interface InternalMethodInterface
     // @param mixed  $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function server(string $name, $value);
+    public function server(string $name = '', $value = NULL);
 
     //--------------------------------------------------------------------------------------------------------
     // Request
@@ -59,7 +59,7 @@ interface InternalMethodInterface
     // @param mixed  $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function request(string $name, $value);
+    public function request( ? string $name = NULL, $value = NULL);
 
     //--------------------------------------------------------------------------------------------------------
     // Files
@@ -69,7 +69,7 @@ interface InternalMethodInterface
     // @param string $type
     //
     //--------------------------------------------------------------------------------------------------------
-    public function files(string $fileName, string $type);
+    public function files( ? string $fileName = NULL, string $type = 'name');
 
     //--------------------------------------------------------------------------------------------------------
     // Delete

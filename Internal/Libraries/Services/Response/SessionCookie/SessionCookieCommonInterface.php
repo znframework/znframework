@@ -19,7 +19,7 @@ interface SessionCookieCommonInterface
     // @param string $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function encode(string $name, string $value);
+    public function encode( ? string $name, string $value);
 
     //--------------------------------------------------------------------------------------------------------
     // Decode

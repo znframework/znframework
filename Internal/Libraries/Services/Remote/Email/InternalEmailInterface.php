@@ -207,7 +207,7 @@ interface InternalEmailInterface
     // @param string $returnPath
     //
     //--------------------------------------------------------------------------------------------------------
-    public function from(string $from, string $name = NULL, string $returnPath = NULL) : InternalEmail;
+    public function from(string $from, ? string $name = NULL, string $returnPath = NULL) : InternalEmail;
 
     //--------------------------------------------------------------------------------------------------------
     // Sender
@@ -218,7 +218,7 @@ interface InternalEmailInterface
     // @param string $returnPath
     //
     //--------------------------------------------------------------------------------------------------------
-    public function sender(string $from, string $name = NULL, string $returnPath = NULL) : InternalEmail;
+    public function sender(string $from, ? string $name = NULL, string $returnPath = NULL) : InternalEmail;
 
     //--------------------------------------------------------------------------------------------------------
     // Subject
@@ -257,7 +257,7 @@ interface InternalEmailInterface
     // @param mixed  $mime
     //
     //--------------------------------------------------------------------------------------------------------
-    public function attachment(string $file, string $disposition = NULL, string $newName = NULL, $mime = NULL) : InternalEmail;
+    public function attachment(string $file, ? string $disposition = NULL, ? string $newName = NULL, $mime = NULL) : InternalEmail;
 
     //--------------------------------------------------------------------------------------------------------
     // Attachment Content ID
@@ -276,7 +276,7 @@ interface InternalEmailInterface
     // @param string $message
     //
     //--------------------------------------------------------------------------------------------------------
-    public function send(string $subject = NULL, string $message = NULL) : bool;
+    public function send( ? string $subject = NULL, string $message = NULL) : bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Driver

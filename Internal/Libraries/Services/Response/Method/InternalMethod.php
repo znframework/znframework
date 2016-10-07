@@ -21,7 +21,7 @@ class InternalMethod extends CallController implements InternalMethodInterface
     // @param mixed  $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function post(string $name = NULL, $value = NULL)
+    public function post( ? string $name = NULL, $value = NULL)
     {
         return $this->_method($name, $value, $_POST ,__FUNCTION__);
     }
@@ -34,7 +34,7 @@ class InternalMethod extends CallController implements InternalMethodInterface
     // @param mixed  $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function get(string $name = NULL, $value = NULL)
+    public function get( ? string $name = NULL, $value = NULL)
     {
         return $this->_method($name, $value, $_GET, __FUNCTION__);
     }
@@ -47,7 +47,7 @@ class InternalMethod extends CallController implements InternalMethodInterface
     // @param mixed  $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function request(string $name = NULL, $value = NULL)
+    public function request( ? string $name = NULL, $value = NULL)
     {
         return $this->_method($name, $value, $_REQUEST, __FUNCTION__);
     }
@@ -60,7 +60,7 @@ class InternalMethod extends CallController implements InternalMethodInterface
     // @param mixed  $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function env(string $name = NULL, $value = NULL)
+    public function env( ? string $name = NULL, $value = NULL)
     {
         return $this->_method($name, $value, $_ENV, __FUNCTION__);
     }
@@ -92,7 +92,7 @@ class InternalMethod extends CallController implements InternalMethodInterface
     // @param string $type
     //
     //--------------------------------------------------------------------------------------------------------
-    public function files(string $fileName = NULL, string $type = 'name')
+    public function files( ? string $fileName = NULL, string $type = 'name')
     {
         return $_FILES[$fileName][$type];
     }
@@ -109,11 +109,11 @@ class InternalMethod extends CallController implements InternalMethodInterface
     {
         switch( $input )
         {
-            case 'post'     : unset($_POST[$name]);    break;
-            case 'get'      : unset($_GET[$name]);     break;
-            case 'env'      : unset($_ENV[$name]);     break;
-            case 'server'   : unset($_SERVER[$name]);  break;
-            case 'request'  : unset($_REQUEST[$name]); break;
+            case 'post'    : unset($_POST[$name]);    break;
+            case 'get'     : unset($_GET[$name]);     break;
+            case 'env'     : unset($_ENV[$name]);     break;
+            case 'server'  : unset($_SERVER[$name]);  break;
+            case 'request' : unset($_REQUEST[$name]); break;
         }
     }
 

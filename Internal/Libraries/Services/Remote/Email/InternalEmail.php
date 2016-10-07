@@ -695,7 +695,7 @@ class InternalEmail extends CLController implements InternalEmailInterface
     // @param string $returnPath
     //
     //--------------------------------------------------------------------------------------------------------
-    public function from(string $from, string $name = NULL, string $returnPath = NULL) : InternalEmail
+    public function from(string $from, ? string $name = NULL, string $returnPath = NULL) : InternalEmail
     {
         if( ! isEmail($from) )
         {
@@ -723,7 +723,7 @@ class InternalEmail extends CLController implements InternalEmailInterface
     // @param string $returnPath
     //
     //--------------------------------------------------------------------------------------------------------
-    public function sender(string $from, string $name = NULL, string $returnPath = NULL) : InternalEmail
+    public function sender(string $from, ? string $name = NULL, string $returnPath = NULL) : InternalEmail
     {
         $this->from($from, $name, $returnPath);
 
@@ -783,7 +783,7 @@ class InternalEmail extends CLController implements InternalEmailInterface
     // @param mixed  $mime
     //
     //--------------------------------------------------------------------------------------------------------
-    public function attachment(string $file, string $disposition = NULL, string $newName = NULL, $mime = NULL) : InternalEmail
+    public function attachment(string $file, ? string $disposition = NULL, ? string $newName = NULL, $mime = NULL) : InternalEmail
     {
         $mimeTypes = Config::get('MimeTypes');
 
@@ -863,7 +863,7 @@ class InternalEmail extends CLController implements InternalEmailInterface
     // @param string $message
     //
     //--------------------------------------------------------------------------------------------------------
-    public function send(string $subject = NULL, string $message = NULL) : bool
+    public function send( ? string $subject = NULL, string $message = NULL) : bool
     {
         if( ! isset($this->headers['From']) )
         {

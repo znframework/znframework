@@ -117,7 +117,7 @@ interface InternalURLInterface
     // @return mixed
     //
     //--------------------------------------------------------------------------------------------------------
-    public function buildQuery(string $data, string $numericPrefix = NULL, string $separator = NULL, string $enctype = 'RFC1738') : string;
+    public function buildQuery(string $data, ? string $numericPrefix = NULL, ? string $separator = NULL, string $enctype = 'RFC1738') : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Parse

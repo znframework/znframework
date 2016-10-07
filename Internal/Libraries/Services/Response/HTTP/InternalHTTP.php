@@ -190,18 +190,18 @@ class InternalHTTP extends CLController implements InternalHTTPInterface
     //--------------------------------------------------------------------------------------------------------
     public function select(string $name)
     {
-        $name  = isset($this->settings['name'])  ? $this->settings['name']  : $name;
-        $input = isset($this->settings['input']) ? $this->settings['input'] : false;
+        $name  = $this->settings['name']  ?? $name;
+        $input = $this->settings['input'] ?? false;
 
         $this->settings = [];
 
         switch( $input )
         {
-            case 'post'     : return Method::post($name);   break;
-            case 'get'      : return Method::get($name);    break;
-            case 'env'      : return Method::env($name);    break;
-            case 'server'   : return Method::server($name);  break;
-            case 'request'  : return Method::request($name); break;
+            case 'post'    : return Method::post($name);    break;
+            case 'get'     : return Method::get($name);     break;
+            case 'env'     : return Method::env($name);     break;
+            case 'server'  : return Method::server($name);  break;
+            case 'request' : return Method::request($name); break;
         }
     }
 
@@ -215,19 +215,19 @@ class InternalHTTP extends CLController implements InternalHTTPInterface
     //--------------------------------------------------------------------------------------------------------
     public function insert(string $name, $value) : bool
     {
-        $name  = isset($this->settings['name'])  ? $this->settings['name']  : $name;
-        $input = isset($this->settings['input']) ? $this->settings['input'] : false;
-        $value = isset($this->settings['value']) ? $this->settings['value'] : $value;
+        $name  = $this->settings['name']  ?? $name;
+        $input = $this->settings['input'] ?? false;
+        $value = $this->settings['value'] ?? $value;
 
         $this->settings = [];
 
         switch( $input )
         {
-            case 'post'     : return Method::post($name, $value);   break;
-            case 'get'      : return Method::get($name, $value);    break;
-            case 'env'      : return Method::env($name, $value);    break;
-            case 'server'   : return Method::server($name, $value);  break;
-            case 'request'  : return Method::request($name, $value); break;
+            case 'post'    : return Method::post($name, $value);    break;
+            case 'get'     : return Method::get($name, $value);     break;
+            case 'env'     : return Method::env($name, $value);     break;
+            case 'server'  : return Method::server($name, $value);  break;
+            case 'request' : return Method::request($name, $value); break;
         }
     }
 
@@ -240,18 +240,18 @@ class InternalHTTP extends CLController implements InternalHTTPInterface
     //--------------------------------------------------------------------------------------------------------
     public function delete(string $name) : bool
     {
-        $name  = isset($this->settings['name'])  ? $this->settings['name']  : $name;
-        $input = isset($this->settings['input']) ? $this->settings['input'] : false;
+        $name  = $this->settings['name']  ?? $name;
+        $input = $this->settings['input'] ?? false;
 
         $this->settings = [];
 
         switch( $input )
         {
-            case 'post'     : unset($_POST[$name]);    break;
-            case 'get'      : unset($_GET[$name]);     break;
-            case 'env'      : unset($_ENV[$name]);     break;
-            case 'server'   : unset($_SERVER[$name]);  break;
-            case 'request'  : unset($_REQUEST[$name]); break;
+            case 'post'    : unset($_POST[$name]);    break;
+            case 'get'     : unset($_GET[$name]);     break;
+            case 'env'     : unset($_ENV[$name]);     break;
+            case 'server'  : unset($_SERVER[$name]);  break;
+            case 'request' : unset($_REQUEST[$name]); break;
         }
 
         return true;

@@ -37,7 +37,7 @@ trait SessionCookieCommonTrait
     // @param string $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function encode(string $nameAlgo = NULL, string $valueAlgo = NULL)
+    public function encode( ? string $nameAlgo = NULL, string $valueAlgo = NULL)
     {
         $this->encode['name']  = $nameAlgo;
         $this->encode['value'] = $valueAlgo;
