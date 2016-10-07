@@ -61,7 +61,7 @@ class Register extends UserExtends implements RegisterInterface
 
         if( ! isset($data[$usernameColumn]) ||  ! isset($data[$passwordColumn]) )
         {
-            return ! $this->error = lang('IndividualStructures', 'user:registerUsernameError');
+            return ! Properties::$error = lang('IndividualStructures', 'user:registerUsernameError');
         }
 
         $loginUsername   = $data[$usernameColumn];
@@ -81,7 +81,7 @@ class Register extends UserExtends implements RegisterInterface
 
             if( ! DB::insert($tableName , $data) )
             {
-                return ! $this->error = lang('IndividualStructures', 'user:registerUnknownError');
+                return ! Properties::$error = lang('IndividualStructures', 'user:registerUnknownError');
             }
 
             if( ! empty($joinTables) )
@@ -96,7 +96,7 @@ class Register extends UserExtends implements RegisterInterface
                 }
             }
 
-            $this->success = lang('IndividualStructures', 'user:registerSuccess');
+            Properties::$success = lang('IndividualStructures', 'user:registerSuccess');
 
             if( ! empty($activationColumn) )
             {
@@ -127,7 +127,7 @@ class Register extends UserExtends implements RegisterInterface
         }
         else
         {
-            return ! $this->error = lang('IndividualStructures', 'user:registerError');
+            return ! Properties::$error = lang('IndividualStructures', 'user:registerError');
         }
     }
 
@@ -167,16 +167,16 @@ class Register extends UserExtends implements RegisterInterface
                 DB::where($usernameColumn, $user)
                   ->update($tableName, [$activationColumn => '1']);
 
-                return $this->success = lang('IndividualStructures', 'user:activationComplete');
+                return Properties::$success = lang('IndividualStructures', 'user:activationComplete');
             }
             else
             {
-                return ! $this->error = lang('IndividualStructures', 'user:activationCompleteError');
+                return ! Properties::$error = lang('IndividualStructures', 'user:activationCompleteError');
             }
         }
         else
         {
-            return ! $this->error = lang('IndividualStructures', 'user:activationCompleteError');
+            return ! Properties::$error = lang('IndividualStructures', 'user:activationCompleteError');
         }
     }
 
@@ -220,11 +220,11 @@ class Register extends UserExtends implements RegisterInterface
 
         if( Email::send() )
         {
-            return $this->success = lang('IndividualStructures', 'user:activationEmail');
+            return Properties::$success = lang('IndividualStructures', 'user:activationEmail');
         }
         else
         {
-            return ! $this->error = lang('IndividualStructures', 'user:emailError');
+            return ! Properties::$error = lang('IndividualStructures', 'user:emailError');
         }
     }
 }

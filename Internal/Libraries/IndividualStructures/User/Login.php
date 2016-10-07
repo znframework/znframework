@@ -96,7 +96,7 @@ class Login extends UserExtends implements LoginInterface
 
         if( ! isset($r->$passwordColumn) )
         {
-            return ! $this->error = lang('IndividualStructures', 'user:loginError');
+            return ! Properties::$error = lang('IndividualStructures', 'user:loginError');
         }
 
         $passwordControl   = $r->$passwordColumn;
@@ -118,12 +118,12 @@ class Login extends UserExtends implements LoginInterface
         {
             if( ! empty($bannedColumn) && ! empty($bannedControl) )
             {
-                return ! $this->error = lang('IndividualStructures', 'user:bannedError');
+                return ! Properties::$error = lang('IndividualStructures', 'user:bannedError');
             }
 
             if( ! empty($activationColumn) && empty($activationControl) )
             {
-                return ! $this->error = lang('IndividualStructures', 'user:activationError');
+                return ! Properties::$error = lang('IndividualStructures', 'user:activationError');
             }
 
             Session::insert($usernameColumn, $username);
@@ -143,11 +143,11 @@ class Login extends UserExtends implements LoginInterface
                 DB::where($usernameColumn, $username)->update($tableName, [$activeColumn  => 1]);
             }
 
-            return $this->success = lang('IndividualStructures', 'user:loginSuccess');
+            return Properties::$success = lang('IndividualStructures', 'user:loginSuccess');
         }
         else
         {
-            return ! $this->error = lang('IndividualStructures', 'user:loginError');
+            return ! Properties::$error = lang('IndividualStructures', 'user:loginError');
         }
     }
 
