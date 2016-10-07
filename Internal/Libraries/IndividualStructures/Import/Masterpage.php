@@ -119,7 +119,7 @@ class Masterpage implements MasterpageInterface
     // @param array $head
     //
     //--------------------------------------------------------------------------------------------------------
-    public function use(array $randomDataVariable = NULL, array $head = NULL)
+    public function use( ? array $randomDataVariable = NULL, ? array $head = NULL)
     {
         if( ! empty(Properties::$parameters['headData']) )
         {

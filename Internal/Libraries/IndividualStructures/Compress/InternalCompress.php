@@ -39,7 +39,7 @@ class InternalCompress extends CLController implements InternalCompressInterface
     // @return bool
     //
     //--------------------------------------------------------------------------------------------------------
-    public function extract(string $source, string $target = NULL, string $password = NULL) : bool
+    public function extract(string $source, ? string $target = NULL, string $password = NULL) : bool
     {
         if( ! is_file($source) )
         {

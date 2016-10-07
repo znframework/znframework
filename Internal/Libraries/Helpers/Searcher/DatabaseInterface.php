@@ -58,5 +58,5 @@ interface DatabaseInterface
     // @param string $type: auto, inside, equal, starting, ending
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do(array $conditions, string $word = NULL, string $type = 'auto') : \stdClass;
+    public function do(array $conditions, ? string $word = NULL, string $type = 'auto') : \stdClass;
 }

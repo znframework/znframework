@@ -32,7 +32,7 @@ class View implements ViewInterface
     // @param bool   $obGetContents
     //
     //--------------------------------------------------------------------------------------------------------
-    public function use(string $page, array $data = NULL, bool $obGetContents = false, String $randomPageDir = VIEWS_DIR)
+    public function use(string $page, ? array $data = NULL, bool $obGetContents = false, String $randomPageDir = VIEWS_DIR)
     {
         if( ! empty(Properties::$parameters['usable']) )
         {

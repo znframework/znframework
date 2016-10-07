@@ -82,5 +82,5 @@ interface MasterpageInterface
     // @param array $head
     //
     //--------------------------------------------------------------------------------------------------------
-    public function use(array $randomDataVariable = NULL, array $head = NULL);
+    public function use( ? array $randomDataVariable = NULL, ? array $head = NULL);
 }

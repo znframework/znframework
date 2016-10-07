@@ -39,5 +39,5 @@ interface ProcessInterface
     // @param string  $object : empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function use(int $roleId = 0, string $process = NULL, string $object = NULL) : string;
+    public function use(int $roleId = 0, ? string $process = NULL, string $object = NULL) : string;
 }

@@ -23,7 +23,7 @@ class Something implements SomethingInterface
     // @param bool   $contents
     //
     //--------------------------------------------------------------------------------------------------------
-    public function use(string $randomPageVariable, array $randomDataVariable = NULL, bool $randomObGetContentsVariable = false)
+    public function use(string $randomPageVariable, ? array $randomDataVariable = NULL, bool $randomObGetContentsVariable = false)
     {
         if( ! empty(Properties::$parameters['usable']) )
         {
