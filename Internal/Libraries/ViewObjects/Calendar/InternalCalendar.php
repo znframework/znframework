@@ -267,7 +267,7 @@ class InternalCalendar extends CLController implements InternalCalendarInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function create(int $year = NULL, int $month = NULL) : string
+    public function create( ? int $year = NULL, ? int $month = NULL) : string
     {
         $today = getdate();
 

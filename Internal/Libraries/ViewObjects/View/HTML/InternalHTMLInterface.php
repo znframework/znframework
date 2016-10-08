@@ -47,7 +47,7 @@ interface InternalHTMLInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function audio(string $src, string $content = NULL, array $attributes = []) : string;
+    public function audio(string $src, ? string $content = NULL, array $attributes = []) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Video
@@ -58,7 +58,7 @@ interface InternalHTMLInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function video(string $src, string $content = NULL, array $attributes = []) : string;
+    public function video(string $src, ? string $content = NULL, array $attributes = []) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Embed
@@ -120,7 +120,7 @@ interface InternalHTMLInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function image(string $src, int $width = NULL, int $height = NULL, array $attributes = []) : string;
+    public function image(string $src, ? int $width = NULL, ? int $height = NULL, array $attributes = []) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Label
@@ -133,7 +133,7 @@ interface InternalHTMLInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function label(string $for, string $value = NULL, string $form = NULL, array $attributes = []) : string;
+    public function label(string $for, ? string $value = NULL, ? string $form = NULL, array $attributes = []) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Canvas
@@ -209,7 +209,7 @@ interface InternalHTMLInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function anchor(string $url, string $value = NULL, array $attributes = []) : string;
+    public function anchor(string $url, ? string $value = NULL, array $attributes = []) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Mail To
@@ -220,7 +220,7 @@ interface InternalHTMLInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function mailTo(string $mail, string $value = NULL, array $attributes = []) : string;
+    public function mailTo(string $mail, ? string $value = NULL, array $attributes = []) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Parag
@@ -230,7 +230,7 @@ interface InternalHTMLInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function parag(string $str = NULL, array $attributes = []) : string;
+    public function parag( ? string $str = NULL, array $attributes = []) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Over Line
@@ -283,7 +283,7 @@ interface InternalHTMLInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function font(string $str, string $size = NULL, string $color = NULL, string $face = NULL, array $attributes = []) : string;
+    public function font(string $str, ? string $size = NULL, ? string $color = NULL, ? string $face = NULL, array $attributes = []) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Hgroup
@@ -332,7 +332,7 @@ interface InternalHTMLInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function element(string $element, string $str = NULL, array $attributes = []) : string;
+    public function element(string $element, ? string $str = NULL, array $attributes = []) : string;
 
     //--------------------------------------------------------------------------------------------------------
     // Multi Attr

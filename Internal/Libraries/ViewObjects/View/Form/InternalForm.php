@@ -51,7 +51,7 @@ class InternalForm implements InternalFormInterface, ViewCommonInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function open(string $name = NULL, array $_attributes = []) : string
+    public function open( ? string $name = NULL, array $_attributes = []) : string
     {
         if( isset($this->settings['attr']['name']) )
         {
@@ -107,7 +107,7 @@ class InternalForm implements InternalFormInterface, ViewCommonInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function button(string $name = NULL, string $value = NULL, array $_attributes = []) : string
+    public function button( ? string $name = NULL, ? string $value = NULL, array $_attributes = []) : string
     {
         return $this->_input($name, $value, $_attributes, __FUNCTION__);
     }
@@ -121,7 +121,7 @@ class InternalForm implements InternalFormInterface, ViewCommonInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function reset(string $name = NULL, string $value = NULL, array $_attributes = []) : string
+    public function reset( ? string $name = NULL, ? string $value = NULL, array $_attributes = []) : string
     {
         return $this->_input($name, $value, $_attributes, __FUNCTION__);
     }
@@ -135,7 +135,7 @@ class InternalForm implements InternalFormInterface, ViewCommonInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function submit(string $name = NULL, string $value = NULL, array $_attributes = []) : string
+    public function submit( ? string $name = NULL, ? string $value = NULL, array $_attributes = []) : string
     {
         return $this->_input($name, $value, $_attributes, __FUNCTION__);
     }
@@ -149,7 +149,7 @@ class InternalForm implements InternalFormInterface, ViewCommonInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function radio(string $name = NULL, string $value = NULL, array $_attributes = []) : string
+    public function radio( ? string $name = NULL, ? string $value = NULL, array $_attributes = []) : string
     {
         return $this->_input($name, $value, $_attributes, __FUNCTION__);
     }
@@ -163,7 +163,7 @@ class InternalForm implements InternalFormInterface, ViewCommonInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function checkbox(string $name = NULL, string $value = NULL, array $_attributes = []) : string
+    public function checkbox( ? string $name = NULL, ? string $value = NULL, array $_attributes = []) : string
     {
         return $this->_input($name, $value, $_attributes, __FUNCTION__);
     }
@@ -177,7 +177,7 @@ class InternalForm implements InternalFormInterface, ViewCommonInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function date(string $name = NULL, string $value = NULL, array $_attributes = []) : string
+    public function date( ? string $name = NULL, ? string $value = NULL, array $_attributes = []) : string
     {
         return $this->_input($name, $value, $_attributes, __FUNCTION__);
     }
@@ -191,7 +191,7 @@ class InternalForm implements InternalFormInterface, ViewCommonInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function time(string $name = NULL, string $value = NULL, array $_attributes = []) : string
+    public function time( ? string $name = NULL, ? string $value = NULL, array $_attributes = []) : string
     {
         return $this->_input($name, $value, $_attributes, __FUNCTION__);
     }
@@ -205,7 +205,7 @@ class InternalForm implements InternalFormInterface, ViewCommonInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function datetime(string $name = NULL, string $value = NULL, array $_attributes = []) : string
+    public function datetime( ? string $name = NULL, ? string $value = NULL, array $_attributes = []) : string
     {
         return $this->_input($name, $value, $_attributes, __FUNCTION__);
     }
@@ -219,7 +219,7 @@ class InternalForm implements InternalFormInterface, ViewCommonInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function datetimeLocal(string $name = NULL, string $value = NULL, array $_attributes = []) : string
+    public function datetimeLocal( ? string $name = NULL, ? string $value = NULL, array $_attributes = []) : string
     {
         return $this->_input($name, $value, $_attributes, 'datetime-local');
     }
@@ -233,7 +233,7 @@ class InternalForm implements InternalFormInterface, ViewCommonInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function week(string $name = NULL, string $value = NULL, array $_attributes = []) : string
+    public function week( ? string $name = NULL, ? string $value = NULL, array $_attributes = []) : string
     {
         return $this->_input($name, $value, $_attributes, __FUNCTION__);
     }
@@ -247,7 +247,7 @@ class InternalForm implements InternalFormInterface, ViewCommonInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function month(string $name = NULL, string $value = NULL, array $_attributes = []) : string
+    public function month( ? string $name = NULL, ? string $value = NULL, array $_attributes = []) : string
     {
         return $this->_input($name, $value, $_attributes, __FUNCTION__);
     }
@@ -261,7 +261,7 @@ class InternalForm implements InternalFormInterface, ViewCommonInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function text(string $name = NULL, string $value = NULL, array $_attributes = []) : string
+    public function text( ? string $name = NULL, ? string $value = NULL, array $_attributes = []) : string
     {
         return $this->_input($name, $value, $_attributes, __FUNCTION__);
     }
@@ -275,7 +275,7 @@ class InternalForm implements InternalFormInterface, ViewCommonInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function textarea(string $name = NULL, string $value = NULL, array $_attributes = []) : string
+    public function textarea( ? string $name = NULL, ? string $value = NULL, array $_attributes = []) : string
     {
         if( ! isset($this->settings['attr']['name']) && ! empty($name) )
         {
@@ -310,7 +310,7 @@ class InternalForm implements InternalFormInterface, ViewCommonInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function search(string $name = NULL, string $value = NULL, array $_attributes = []) : string
+    public function search( ? string $name = NULL, ? string $value = NULL, array $_attributes = []) : string
     {
         return $this->_input($name, $value, $_attributes, __FUNCTION__);
     }
@@ -324,7 +324,7 @@ class InternalForm implements InternalFormInterface, ViewCommonInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function password(string $name = NULL, string $value = NULL, array $_attributes = []) : string
+    public function password( ? string $name = NULL, ? string $value = NULL, array $_attributes = []) : string
     {
         return $this->_input($name, $value, $_attributes, __FUNCTION__);
     }
@@ -338,7 +338,7 @@ class InternalForm implements InternalFormInterface, ViewCommonInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function email(string $name = NULL, string $value = NULL, array $_attributes = []) : string
+    public function email( ? string $name = NULL, ? string $value = NULL, array $_attributes = []) : string
     {
         return $this->_input($name, $value, $_attributes, __FUNCTION__);
     }
@@ -352,7 +352,7 @@ class InternalForm implements InternalFormInterface, ViewCommonInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function tel(string $name = NULL, string $value = NULL, array $_attributes = []) : string
+    public function tel( ? string $name = NULL, ? string $value = NULL, array $_attributes = []) : string
     {
         return $this->_input($name, $value, $_attributes, __FUNCTION__);
     }
@@ -366,7 +366,7 @@ class InternalForm implements InternalFormInterface, ViewCommonInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function number(string $name = NULL, string $value = NULL, array $_attributes = []) : string
+    public function number( ? string $name = NULL, ? string $value = NULL, array $_attributes = []) : string
     {
         return $this->_input($name, $value, $_attributes, __FUNCTION__);
     }
@@ -380,7 +380,7 @@ class InternalForm implements InternalFormInterface, ViewCommonInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function url(string $name = NULL, string $value = NULL, array $_attributes = []) : string
+    public function url( ? string $name = NULL, ? string $value = NULL, array $_attributes = []) : string
     {
         return $this->_input($name, $value, $_attributes, __FUNCTION__);
     }
@@ -396,7 +396,7 @@ class InternalForm implements InternalFormInterface, ViewCommonInterface
     // @param bool   $multiple
     //
     //--------------------------------------------------------------------------------------------------------
-    public function select(string $name = NULL, array $options = [], $selected = NULL, array $_attributes = [], bool $multiple = false) : string
+    public function select( ? string $name = NULL, array $options = [], $selected = NULL, array $_attributes = [], bool $multiple = false) : string
     {
         if( ! empty($this->settings['table']) || ! empty($this->settings['query']) )
         {
@@ -536,7 +536,7 @@ class InternalForm implements InternalFormInterface, ViewCommonInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function multiselect(string $name = NULL, array $options = [], $selected = NULL, array $_attributes = []) : string
+    public function multiselect( ? string $name = NULL, array $options = [], $selected = NULL, array $_attributes = []) : string
     {
         return $this->select($name, $options, $selected, $_attributes, true);
     }
@@ -550,7 +550,7 @@ class InternalForm implements InternalFormInterface, ViewCommonInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function range(string $name = NULL, string $value = NULL, array $_attributes = []) : string
+    public function range( ? string $name = NULL, ? string $value = NULL, array $_attributes = []) : string
     {
         return $this->_input($name, $value, $_attributes, __FUNCTION__);
     }
@@ -564,7 +564,7 @@ class InternalForm implements InternalFormInterface, ViewCommonInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function image(string $name = NULL, string $value = NULL, array $_attributes = []) : string
+    public function image( ? string $name = NULL, ? string $value = NULL, array $_attributes = []) : string
     {
         return $this->_input($name, $value, $_attributes, __FUNCTION__);
     }
@@ -577,7 +577,7 @@ class InternalForm implements InternalFormInterface, ViewCommonInterface
     // @param string $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function hidden(string $name = NULL, string $value = NULL) : string
+    public function hidden( ? string $name = NULL, string $value = NULL) : string
     {
         if( isset($this->settings['attr']['name']) )
         {
@@ -619,7 +619,7 @@ class InternalForm implements InternalFormInterface, ViewCommonInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function file(string $name = NULL, bool $multiple = false, array $_attributes = []) : string
+    public function file( ? string $name = NULL, bool $multiple = false, array $_attributes = []) : string
     {
         if( ! empty($this->settings['attr']['multiple']) )
         {
@@ -649,7 +649,7 @@ class InternalForm implements InternalFormInterface, ViewCommonInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function color(string $name = NULL, string $value = NULL, array $_attributes = []) : string
+    public function color( ? string $name = NULL, ? string $value = NULL, array $_attributes = []) : string
     {
         return $this->_input($name, $value, $_attributes, __FUNCTION__);
     }

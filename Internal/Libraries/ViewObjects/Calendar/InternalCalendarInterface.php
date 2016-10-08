@@ -110,5 +110,5 @@ interface InternalCalendarInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function create(int $year = NULL, int $month = NULL) : string;
+    public function create( ? int $year = NULL, ? int $month = NULL) : string;
 }

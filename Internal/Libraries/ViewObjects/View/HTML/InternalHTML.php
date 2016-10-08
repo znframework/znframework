@@ -68,7 +68,7 @@ class InternalHTML implements InternalHTMLInterface, ViewCommonInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function audio(string $src, string $content = NULL, array $attributes = []) : string
+    public function audio(string $src, ? string $content = NULL, array $attributes = []) : string
     {
         return $this->_mediaContent($src, $content, $attributes, __FUNCTION__);
     }
@@ -82,7 +82,7 @@ class InternalHTML implements InternalHTMLInterface, ViewCommonInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function video(string $src, string $content = NULL, array $attributes = []) : string
+    public function video(string $src, ? string $content = NULL, array $attributes = []) : string
     {
         return $this->_mediaContent($src, $content, $attributes, __FUNCTION__);
     }
@@ -162,7 +162,7 @@ class InternalHTML implements InternalHTMLInterface, ViewCommonInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function image(string $src, int $width = NULL, int $height = NULL, array $attributes = []) : string
+    public function image(string $src, ? int $width = NULL, ? int $height = NULL, array $attributes = []) : string
     {
         if( ! isUrl($src) )
         {
@@ -205,7 +205,7 @@ class InternalHTML implements InternalHTMLInterface, ViewCommonInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function label(string $for, string $value = NULL, string $form = NULL, array $attributes = []) : string
+    public function label(string $for, ? string $value = NULL, ? string $form = NULL, array $attributes = []) : string
     {
         if( ! empty($for) )
         {
@@ -315,7 +315,7 @@ class InternalHTML implements InternalHTMLInterface, ViewCommonInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function anchor(string $url, string $value = NULL, array $attributes = []) : string
+    public function anchor(string $url, ? string $value = NULL, array $attributes = []) : string
     {
         if( ! isUrl($url) && strpos($url, '#') !== 0 )
         {
@@ -338,7 +338,7 @@ class InternalHTML implements InternalHTMLInterface, ViewCommonInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function mailTo(string $mail, string $value = NULL, array $attributes = []) : string
+    public function mailTo(string $mail, ? string $value = NULL, array $attributes = []) : string
     {
         if( ! isEmail($mail) )
         {
@@ -360,7 +360,7 @@ class InternalHTML implements InternalHTMLInterface, ViewCommonInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function parag(string $str = NULL, array $attributes = []) : string
+    public function parag( ? string $str = NULL, array $attributes = []) : string
     {
         return $this->_multiElement('p', $str, $attributes);
     }
@@ -428,7 +428,7 @@ class InternalHTML implements InternalHTMLInterface, ViewCommonInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function font(string $str, string $size = NULL, string $color = NULL, string $face = NULL, array $attributes = []) : string
+    public function font(string $str, ? string $size = NULL, ? string $color = NULL, ? string $face = NULL, array $attributes = []) : string
     {
         if( ! empty($size) )
         {
@@ -507,7 +507,7 @@ class InternalHTML implements InternalHTMLInterface, ViewCommonInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function element(string $element, string $str = NULL, array $attributes = []) : string
+    public function element(string $element, ? string $str = NULL, array $attributes = []) : string
     {
         return $this->_multiElement($element, $str, $attributes);
     }

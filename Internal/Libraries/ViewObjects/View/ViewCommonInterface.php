@@ -30,5 +30,5 @@ interface ViewCommonInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function input(string $type = NULL, string $name = NULL, string $value = NULL, array $attributes = []) : string;
+    public function input( ? string $type = NULL, ? string $name = NULL, ? string $value = NULL, array $attributes = []) : string;
 }
