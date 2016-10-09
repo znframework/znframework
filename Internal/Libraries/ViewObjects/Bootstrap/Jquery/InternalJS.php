@@ -131,7 +131,7 @@ class InternalJS extends CallController
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function arraySplice(string $str, string $p1 = NULL, string $p2 = NULL, string $p3 = NULL, string $p4 = NULL, bool $comma = true) : string
+    public function arraySplice(string $str, ? string $p1 = NULL, ? string $p2 = NULL, ? string $p3 = NULL, ? string $p4 = NULL, bool $comma = true) : string
     {
         $param[] = $p1;
         $param[] = $p2;
@@ -301,7 +301,7 @@ class InternalJS extends CallController
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function slice(string $str, string $p1, string $p2 = NULL, bool $comma = true) : string
+    public function slice(string $str, string $p1, ? string $p2 = NULL, bool $comma = true) : string
     {
         return $this->_jsFunc("String($str).slice", "$p1, $p2" , $comma);
     }
@@ -316,7 +316,7 @@ class InternalJS extends CallController
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function arraySlice(string $str, string $p1, string $p2 = NULL, bool $comma = true) : string
+    public function arraySlice(string $str, string $p1, ? string $p2 = NULL, bool $comma = true) : string
     {
         return $this->_jsFunc("Array($str).slice", "$p1, $p2" , $comma);
     }
@@ -331,7 +331,7 @@ class InternalJS extends CallController
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function substr(string $str, string $p1, string $p2 = NULL, bool $comma = true) : string
+    public function substr(string $str, string $p1, ? string $p2 = NULL, bool $comma = true) : string
     {
         return $this->_jsFunc("String($str).substr", "$p1, $p2" , $comma);
     }
@@ -346,7 +346,7 @@ class InternalJS extends CallController
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function substring(string $str, string $p1, string $p2 = NULL, bool $comma = true) : string
+    public function substring(string $str, string $p1, ? string $p2 = NULL, bool $comma = true) : string
     {
         return $this->_jsFunc("String($str).substring", "$p1, $p2" , $comma);
     }
@@ -361,7 +361,7 @@ class InternalJS extends CallController
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function replace(string $str, string $p1, string $p2 = NULL, bool $comma = true) : string
+    public function replace(string $str, string $p1, ? string $p2 = NULL, bool $comma = true) : string
     {
         return $this->_jsFunc("String($str).replace", "$p1, $p2" , $comma);
     }
@@ -809,7 +809,7 @@ class InternalJS extends CallController
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function atan2(string $p1, string $p2 = NULL, bool $comma = true) : string
+    public function atan2(string $p1, ? string $p2 = NULL, bool $comma = true) : string
     {
         $param[] = $p1;
         $param[] = $p2;
@@ -992,7 +992,7 @@ class InternalJS extends CallController
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function pow(string $p1, string $p2 = NULL, bool $comma = true) : string
+    public function pow(string $p1, ? string $p2 = NULL, bool $comma = true) : string
     {
         $param[] = $p1;
         $param[] = $p2;
@@ -1113,7 +1113,7 @@ class InternalJS extends CallController
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function defineFunc(string $funcname, string $param = NULL, string $code = NULL) : string
+    public function defineFunc(string $funcname, ? string $param = NULL, ? string $code = NULL) : string
     {
         return EOL.'function '.$funcname.' ('.$param.') {'.$code.'}'.EOL;
     }
@@ -1127,7 +1127,7 @@ class InternalJS extends CallController
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function func(string $funcname, string $param = NULL) : string
+    public function func(string $funcname, ? string $param = NULL) : string
     {
         return $funcname.'('.$param.');';
     }
@@ -1156,7 +1156,7 @@ class InternalJS extends CallController
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function confirm(string $code, string $true = NULL, string $false = NULL) : string
+    public function confirm(string $code, ? string $true = NULL, ? string $false = NULL) : string
     {
          $confirm = $this->_jsFunc('confirm', \JQ::stringControl($code), false);
 
@@ -1177,7 +1177,7 @@ class InternalJS extends CallController
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function ifClause(string $condition, string $code = NULL , string $elseCode = NULL) : string
+    public function ifClause(string $condition, ? string $code = NULL , ? string $elseCode = NULL) : string
     {
         $elseCode = ! empty($elseCode) ? $this->elseClause($elseCode) : '';
 
@@ -1193,7 +1193,7 @@ class InternalJS extends CallController
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function elseIfClause(string $condition, string $code = NULL) : string
+    public function elseIfClause(string $condition, ? string $code = NULL) : string
     {
         return $this->_clause('else if', $condition, $code);
     }
@@ -1206,7 +1206,7 @@ class InternalJS extends CallController
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function elseClause(string $code = NULL) : string
+    public function elseClause( ? string $code = NULL) : string
     {
         return "else{".$code."}";
     }
@@ -1220,7 +1220,7 @@ class InternalJS extends CallController
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function forLoop(string $condition, string $code = NULL) : string
+    public function forLoop(string $condition, ? string $code = NULL) : string
     {
         return $this->_clause('for', $condition, $code);
     }
@@ -1234,7 +1234,7 @@ class InternalJS extends CallController
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function whileLoop(string $condition, string $code = NULL) : string
+    public function whileLoop(string $condition, ? string $code = NULL) : string
     {
         return $this->_clause('while', $condition, $code);
     }
@@ -1248,7 +1248,7 @@ class InternalJS extends CallController
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function doWhileLoop(string $condition, string $code = NULL) : string
+    public function doWhileLoop(string $condition, ? string $code = NULL) : string
     {
         return "do{".$code."}while(".$condition.");";
     }

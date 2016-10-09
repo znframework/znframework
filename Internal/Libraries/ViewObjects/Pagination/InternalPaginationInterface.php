@@ -28,5 +28,5 @@ interface InternalPaginationInterface
     // @param array $settings
     //
     //--------------------------------------------------------------------------------------------------------
-    public function create($start, array $settings = []) : string;
+    public function create( ? int $start, array $settings = []) : string;
 }

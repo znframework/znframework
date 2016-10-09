@@ -20,7 +20,7 @@
 // @param bool   $exit
 //
 //--------------------------------------------------------------------------------------------------
-function redirect(string $url, int $time = 0, array $data = [], bool $exit = true) : void
+function redirect(string $url, int $time = 0, ? array $data = [], bool $exit = true) : void
 {
     if( ! isUrl($url) )
     {

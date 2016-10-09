@@ -27,7 +27,7 @@ interface InternalPaginationPropertiesInterface
     // @param int $start
     //
     //--------------------------------------------------------------------------------------------------------
-    public function start($start) : InternalPagination;
+    public function start( ? int $start) : InternalPagination;
 
     //--------------------------------------------------------------------------------------------------------
     // Limit

@@ -199,7 +199,8 @@ function presuffix(string $string, string $fix = '/') : string
 //--------------------------------------------------------------------------------------------------
 function divide(string $str, string $separator = '|', string $index = '0')
 {
-    $arrayEx = explode($separator, $str);
+    $arrayEx      = explode($separator, $str);
+    $countArrayEx = count($arrayEx);
 
     if( $index === 'all' )
     {
@@ -208,11 +209,11 @@ function divide(string $str, string $separator = '|', string $index = '0')
 
     if( $index < 0 )
     {
-        $ind = (count($arrayEx) + ($index));
+        $ind = $countArrayEx + $index;
     }
     elseif( $index === 'last' )
     {
-        $ind = (count($arrayEx) - 1);
+        $ind = $countArrayEx - 1;
     }
     elseif( $index === 'first' )
     {
@@ -223,7 +224,7 @@ function divide(string $str, string $separator = '|', string $index = '0')
         $ind = $index;
     }
 
-    return $arrayEx[$ind] ?? false;
+    return $arrayEx[$ind] ?? NULL;
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -235,7 +236,7 @@ function divide(string $str, string $separator = '|', string $index = '0')
 // @param mixed
 //
 //--------------------------------------------------------------------------------------------------
-function lastError(string $type = NULL)
+function lastError( ? string $type = NULL)
 {
     $result = error_get_last();
 
@@ -245,6 +246,6 @@ function lastError(string $type = NULL)
     }
     else
     {
-        return $result[$type] ?? false;
+        return $result[$type] ?? NULL;
     }
 }

@@ -36,7 +36,7 @@ function library(string $class, string $function, $parameters = [])
     }
     else
     {
-        return false;
+        return NULL;
     }
 }
 

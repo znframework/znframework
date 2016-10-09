@@ -74,7 +74,7 @@ function symbol(string $symbolName = 'turkishLira') : string
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function getErrorMessage(string $langFile, string $errorMsg = '', $ex = NULL) : string
+function getErrorMessage(string $langFile, ? string $errorMsg = NULL, $ex = NULL) : string
 {
     $style  = 'border:solid 1px #E1E4E5;';
     $style .= 'background:#FEFEFE;';

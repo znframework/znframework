@@ -168,7 +168,7 @@ public static function set(string $file, $configs, $set = NULL) : array
 
         if( ! is_array($key) )
         {
-            if( is_array($val) )
+            if( ! is_scalar($val) )
             {
                 return false;
             }

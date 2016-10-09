@@ -85,7 +85,7 @@ class InternalPagination extends CLController implements InternalPaginationInter
     // @param array $settings
     //
     //--------------------------------------------------------------------------------------------------------
-    public function create($start = NULL, array $settings = []) : string
+    public function create( ? int $start = NULL, array $settings = []) : string
     {
         $settings = array_merge(VIEWOBJECTS_PAGINATION_CONFIG, $this->settings, $settings);
 

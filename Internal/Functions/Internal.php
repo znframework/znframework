@@ -49,7 +49,7 @@ function internalRequestURI() : string
 // @param string $cleanData
 //
 //--------------------------------------------------------------------------------------------------
-function internalCleanURIPrefix(string $uri = '', string $cleanData = NULL) : string
+function internalCleanURIPrefix( ? string $uri = NULL, ? string $cleanData = NULL) : string
 {
     $suffixData = suffix($cleanData);
 
@@ -70,7 +70,7 @@ function internalCleanURIPrefix(string $uri = '', string $cleanData = NULL) : st
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function internalRouteURI(string $requestUri = '') : string
+function internalRouteURI( ? string $requestUri = NULL) : string
 {
     $config = Config::get('Services', 'route');
 
@@ -131,7 +131,7 @@ function internalRouteURI(string $requestUri = '') : string
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function internalCleanInjection(string $string = '') : string
+function internalCleanInjection( ? string $string = NULL) : string
 {
     $urlInjectionChangeChars = Config::get('IndividualStructures', 'security')['urlChangeChars'];
 
@@ -491,7 +491,7 @@ function internalCreateHtaccessFile() : void
 // @param array  $param
 //
 //--------------------------------------------------------------------------------------------------
-function internalStartingContoller(string $startController = '', array $param = [])
+function internalStartingContoller( ? string $startController = NULL, array $param = [])
 {
     $controllerEx = explode(':', $startController);
 

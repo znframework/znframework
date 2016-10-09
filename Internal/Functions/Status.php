@@ -35,9 +35,9 @@ function sslStatus() : string
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function indexStatus() : string
+function indexStatus() :? string
 {
     return ! Config::get('Htaccess', 'uri')['directoryIndex']
-           ? ''
+           ? NULL
            : suffix(DIRECTORY_INDEX);
 }

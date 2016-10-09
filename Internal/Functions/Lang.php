@@ -62,7 +62,7 @@ function getLang() : string
 // @return bool
 //
 //--------------------------------------------------------------------------------------------------
-function setLang(string $l = NULL) : bool
+function setLang( ? string $l = NULL) : bool
 {
     if( empty($l) )
     {
@@ -83,7 +83,7 @@ function setLang(string $l = NULL) : bool
 // @return mixed
 //
 //--------------------------------------------------------------------------------------------------
-function lang(string $file, string $str = NULL, $changed = NULL)
+function lang(string $file, ? string $str = NULL, $changed = NULL)
 {
     global $lang;
 
@@ -115,7 +115,7 @@ function lang(string $file, string $str = NULL, $changed = NULL)
     }
     else
     {
-        return false;
+        return NULL;
     }
 
     if( ! is_array($changed) )
@@ -163,7 +163,7 @@ function currentLang() : string
 {
     if( ! Config::get('Services','uri')['lang'] )
     {
-        return false;
+        return NULL;
     }
     else
     {

@@ -140,7 +140,7 @@ trait InternalPaginationPropertiesTrait
     // @param int $start
     //
     //--------------------------------------------------------------------------------------------------------
-    public function start($start) : InternalPagination
+    public function start( ? int $start) : InternalPagination
     {
         $this->settings['start'] = $start;
 

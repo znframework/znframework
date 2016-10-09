@@ -19,7 +19,7 @@
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function currentUrl(string $fix = '') : string
+function currentUrl( ? string $fix = NULL) : string
 {
     $currentUrl = sslStatus().host().internalCleanInjection(server('requestUri'));
 

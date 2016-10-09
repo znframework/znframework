@@ -117,7 +117,7 @@ class Event
     // @param string $type
     //
     //--------------------------------------------------------------------------------------------------------
-    public function type(String $type = 'click') : Event
+    public function type(string $type = 'click') : Event
     {
         $this->property = $type;
 
@@ -131,7 +131,7 @@ class Event
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function complete() : String
+    public function complete() : string
     {
         if( isset($this->callback) )
         {
@@ -152,7 +152,7 @@ class Event
     // @param string variadic $args
     //
     //--------------------------------------------------------------------------------------------------------
-    public function create(...$args) : String
+    public function create(...$args) : string
     {
         $combineEvent = $args;
 

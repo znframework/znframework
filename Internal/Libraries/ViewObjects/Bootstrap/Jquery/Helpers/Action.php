@@ -1,7 +1,7 @@
 <?php namespace ZN\ViewObjects\Bootstrap\Jquery\Helpers;
 
 use ZN\ViewObjects\Bootstrap\JqueryTrait;
-use Support;
+use Support, JQ;
 
 class Action
 {
@@ -94,7 +94,7 @@ class Action
     // @param scalar $speed
     //
     //--------------------------------------------------------------------------------------------------------
-    public function speed(String $speed) : Action
+    public function speed(string $speed) : Action
     {
         $this->speed = $speed;
 
@@ -108,7 +108,7 @@ class Action
     // @param scalar $speed
     //
     //--------------------------------------------------------------------------------------------------------
-    public function duration(String $speed) : Action
+    public function duration(string $speed) : Action
     {
         $this->speed($speed);
 
@@ -122,7 +122,7 @@ class Action
     // @param string $data
     //
     //--------------------------------------------------------------------------------------------------------
-    public function easing(String $data) : Action
+    public function easing(string $data) : Action
     {
         $this->easing = $data;
 
@@ -136,7 +136,7 @@ class Action
     // @param string $type
     //
     //--------------------------------------------------------------------------------------------------------
-    public function type(String $type = 'show') : Action
+    public function type(string $type = 'show') : Action
     {
         $this->type = $type;
 
@@ -150,9 +150,9 @@ class Action
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function complete() : String
+    public function complete() : string
     {
-        $event = \JQ::property($this->type, [$this->speed, $this->easing, $this->callback]);
+        $event = JQ::property($this->type, [$this->speed, $this->easing, $this->callback]);
 
         $this->_defaultVariable();
 
@@ -166,14 +166,14 @@ class Action
     // @param string variadic $args
     //
     //--------------------------------------------------------------------------------------------------------
-    public function create(...$args) : String
+    public function create(...$args) : string
     {
         $combineEffect = $args;
 
-        $event  = EOL.\JQ::selector($this->selector);
+        $event  = EOL.JQ::selector($this->selector);
         $event .= $this->complete();
 
-        if( ! empty($combineEffect) ) foreach($combineEffect as $effect)
+        if( ! empty($combineEffect) ) foreach( $combineEffect as $effect )
         {
             $event .= $effect;
         }

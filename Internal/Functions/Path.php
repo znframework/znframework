@@ -55,7 +55,7 @@ function currentPath(bool $isPath = true) : string
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function basePath(string $uri = '', int $index = 0) : string
+function basePath( ? string $uri = NULL, int $index = 0) : string
 {
     $newBaseDir = substr(BASE_DIR, 1);
 
