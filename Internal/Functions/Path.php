@@ -131,7 +131,7 @@ function prevPath(bool $isPath = true) : string
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function filePath(string $file = '', string $removeUrl = '') : string
+function filePath(string $file, string $removeUrl = NULL) : string
 {
     if( isUrl($file) )
     {

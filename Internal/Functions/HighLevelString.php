@@ -113,7 +113,7 @@ function getOS() : string
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function suffix(string $string, string $fix = '/') : string
+function suffix( ? string $string, string $fix = '/') : string
 {
     if( strlen($fix) <= strlen($string) )
     {
@@ -147,7 +147,7 @@ function suffix(string $string, string $fix = '/') : string
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function prefix(string $string, string $fix = '/') : string
+function prefix( ? string $string, string $fix = '/') : string
 {
     if( strlen($fix) <= strlen($string) )
     {
@@ -181,7 +181,7 @@ function prefix(string $string, string $fix = '/') : string
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function presuffix(string $string, string $fix = '/') : string
+function presuffix( ? string $string, string $fix = '/') : string
 {
     return suffix(prefix($string, $fix), $fix);
 }
@@ -197,7 +197,7 @@ function presuffix(string $string, string $fix = '/') : string
 // @return mixed
 //
 //--------------------------------------------------------------------------------------------------
-function divide(string $str, string $separator = '|', string $index = '0')
+function divide( ? string $str, string $separator = '|', string $index = '0')
 {
     $arrayEx      = explode($separator, $str);
     $countArrayEx = count($arrayEx);

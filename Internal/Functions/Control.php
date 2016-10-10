@@ -19,7 +19,7 @@
 // @return Bool
 //
 //--------------------------------------------------------------------------------------------------
-function isImport(string $path) : bool
+function isImport( ? string $path) : bool
 {
     return ! in_array( realpath(suffix($path, '.php')), get_required_files() )
            ? false
@@ -35,7 +35,7 @@ function isImport(string $path) : bool
 // @return Bool
 //
 //--------------------------------------------------------------------------------------------------
-function isUrl(string $url) : bool
+function isUrl( ? string $url) : bool
 {
     return ! preg_match('#^(\w+:)?//#i', $url)
            ? false
@@ -51,7 +51,7 @@ function isUrl(string $url) : bool
 // @return Bool
 //
 //--------------------------------------------------------------------------------------------------
-function isEmail(string $email) : bool
+function isEmail( ? string $email) : bool
 {
     return ! preg_match("/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix", $email)
            ? false
@@ -99,7 +99,7 @@ function isRealNumeric($num = 0) : bool
 // @return Bool
 //
 //--------------------------------------------------------------------------------------------------
-function isDeclaredClass(string $class) : bool
+function isDeclaredClass( ? string $class) : bool
 {
     return ! in_array(strtolower($class), array_map('strtolower', get_declared_classes()))
            ? false
@@ -116,7 +116,7 @@ function isDeclaredClass(string $class) : bool
 // @return Bool
 //
 //--------------------------------------------------------------------------------------------------
-function isHash(string $type) : bool
+function isHash( ? string $type) : bool
 {
     return ! in_array($type, hash_algos())
            ? false
@@ -132,7 +132,7 @@ function isHash(string $type) : bool
 // @return Bool
 //
 //--------------------------------------------------------------------------------------------------
-function isCharset(string $charset) : bool
+function isCharset( ? string $charset) : bool
 {
     return ! array_search(strtolower($charset), array_map('strtolower', mb_list_encodings()), true)
            ? false

@@ -41,7 +41,7 @@ function currentUrl( ? string $fix = NULL) : string
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function siteUrl(string $uri = '', int $index = 0) : string
+function siteUrl( ? string $uri = NULL, int $index = 0) : string
 {
     $newBaseDir = BASE_DIR;
 
@@ -81,7 +81,7 @@ function siteUrl(string $uri = '', int $index = 0) : string
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function baseUrl(string $uri = '', int $index = 0) : string
+function baseUrl( ? string $uri = NULL, int $index = 0) : string
 {
     $newBaseDir = BASE_DIR;
 
@@ -142,7 +142,7 @@ function prevUrl() : string
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function hostUrl(string $uri = '') : string
+function hostUrl( ? string $uri = NULL) : string
 {
     return sslStatus().suffix(host()).internalCleanInjection($uri);
 }
