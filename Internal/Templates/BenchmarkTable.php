@@ -1,8 +1,9 @@
-<?php 
+<?php
 $style  = 'position:absolute;bottom:10px;right:10px;';
 $style .= 'border:solid 1px #E1E4E5;';
 $style .= 'background:#FFF;';
 $style .= 'padding:10px;';
+
 $table  = 'font-family:Calibri, Ebrima, Century Gothic, Consolas, Courier New, Courier, monospace, Tahoma, Arial;';
 $table .= 'color:#666;';
 $table .= 'text-align:left;';
@@ -10,7 +11,7 @@ $table .= 'font-size:14px;';
 
 $color =  'color:#900;';
 
-$lang  = lang('IndividualStructures'); 
+$lang  = lang('IndividualStructures');
 ?>
 
 <div style="<?php echo $style; ?>">
