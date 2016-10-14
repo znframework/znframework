@@ -20,7 +20,7 @@ interface  HTMLInterface
     // @param string $encoding
     //
     //--------------------------------------------------------------------------------------------------------
-    public function encode(string $string, string $type = 'quotes', string $encoding = 'utf-8') : string;
+    public function encode(String $string, String $type = 'quotes', String $encoding = 'utf-8') : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Html Decode
@@ -30,7 +30,7 @@ interface  HTMLInterface
     // @param string $type: quotes, nonquotes, compat
     //
     //--------------------------------------------------------------------------------------------------------
-    public function decode(string $string, string $type = 'quotes') : string;
+    public function decode(String $string, String $type = 'quotes') : String;
 
     //--------------------------------------------------------------------------------------------------------
     // HTML Tag Clean
@@ -39,5 +39,5 @@ interface  HTMLInterface
     // @param string $string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function tagClean(string $string) : string;
+    public function tagClean(String $string) : String;
 }

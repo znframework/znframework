@@ -47,7 +47,7 @@ class RemoteCommon extends CLController implements RemoteCommonInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function stringCommand() : string
+    public function stringCommand() : String
     {
         return $this->stringCommand;
     }

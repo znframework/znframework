@@ -21,7 +21,7 @@ interface FileListInterface
     // Birden fazla uzantı belirmek isterseniz 2. parametreyi ['dir', 'php'] gibi belirtebilirsiniz.
     //
     //--------------------------------------------------------------------------------------------------------
-    public function files(string $path, $extension = NULL, bool $pathType = false) : array;
+    public function files(String $path, $extension = NULL, Bool $pathType = false) : Array;
     //--------------------------------------------------------------------------------------------------------
     // allFiles()
     //--------------------------------------------------------------------------------------------------------
@@ -30,5 +30,5 @@ interface FileListInterface
     // yer alan dosyaların listelenmesini isterseniz 2. parametreyi true ayarlayabilirsiniz.
     //
     //--------------------------------------------------------------------------------------------------------
-    public function allFiles(string $pattern = '*', bool $allFiles = false) : array;
+    public function allFiles(String $pattern = '*', Bool $allFiles = false) : Array;
 }

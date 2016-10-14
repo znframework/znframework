@@ -49,7 +49,7 @@ class InternalSession extends CLController implements InternalSessionInterface, 
     // @param mixed  $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function insert(string $name, $value) : bool
+    public function insert(String $name, $value) : Bool
     {
         if( ! empty($this->encode) )
         {
@@ -115,7 +115,7 @@ class InternalSession extends CLController implements InternalSessionInterface, 
     // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
-    public function select(string $name)
+    public function select(String $name)
     {
         if( isset($this->encode['name']) )
         {
@@ -159,7 +159,7 @@ class InternalSession extends CLController implements InternalSessionInterface, 
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function selectAll() : array
+    public function selectAll() : Array
     {
         return $_SESSION;
     }
@@ -171,7 +171,7 @@ class InternalSession extends CLController implements InternalSessionInterface, 
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function start() : void
+    public function start()
     {
         if( ! isset($_SESSION) )
         {
@@ -186,7 +186,7 @@ class InternalSession extends CLController implements InternalSessionInterface, 
     // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
-    public function delete(string $name) : bool
+    public function delete(String $name) : Bool
     {
         $sessionConfig = SERVICES_SESSION_CONFIG;
 
@@ -234,7 +234,7 @@ class InternalSession extends CLController implements InternalSessionInterface, 
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function deleteAll() : bool
+    public function deleteAll() : Bool
     {
         return session_destroy();
     }

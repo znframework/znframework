@@ -91,7 +91,7 @@ class Info implements InfoInterface
     // @return array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function required() : array
+    public function required() : Array
     {
         return get_required_files();
     }
@@ -123,7 +123,7 @@ class Info implements InfoInterface
     // @param string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function rpath(string $file) : string
+    public function rpath(String $file) : String
     {
         $config = Config::get('FileSystem', 'file', $this->access);
 
@@ -151,7 +151,7 @@ class Info implements InfoInterface
     // @param bool
     //
     //--------------------------------------------------------------------------------------------------------
-    public function exists(string $file) : bool
+    public function exists(String $file) : Bool
     {
         $file = $this->rpath($file);
 
@@ -172,7 +172,7 @@ class Info implements InfoInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------
-    public function originpath(string $string) : string
+    public function originpath(String $string) : String
     {
         return str_replace(['/', '\\'], DS, $string);
     }
@@ -186,7 +186,7 @@ class Info implements InfoInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------
-    public function relativepath(string $string) : string
+    public function relativepath(String $string) : String
     {
         return str_replace(REAL_BASE_DIR, NULL, $this->originpath($string));
     }
@@ -200,7 +200,7 @@ class Info implements InfoInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------
-    public function absolutePath(string $string) : string
+    public function absolutePath(String $string) : String
     {
         return absoluteRelativePath($string);
     }
@@ -214,7 +214,7 @@ class Info implements InfoInterface
     // @param bool
     //
     //--------------------------------------------------------------------------------------------------------
-    public function available(string $file) : bool
+    public function available(String $file) : Bool
     {
         $file = $this->rpath($file);
 
@@ -233,7 +233,7 @@ class Info implements InfoInterface
     // @param string $file
     //
     //--------------------------------------------------------------------------------------------------------
-    public function get(string $file) : \stdClass
+    public function get(String $file) : \stdClass
     {
         $file = $this->rpath($file);
 
@@ -263,7 +263,7 @@ class Info implements InfoInterface
     // @param int    $decimal
     //
     //--------------------------------------------------------------------------------------------------------
-    public function size(string $file, string $type = 'b', int $decimal = 2) : float
+    public function size(String $file, String $type = 'b', Int $decimal = 2) : Float
     {
         $file = $this->rpath($file);
 
@@ -329,7 +329,7 @@ class Info implements InfoInterface
     // @param string $type
     //
     //--------------------------------------------------------------------------------------------------------
-    public function createDate(string $file, string $type = 'd.m.Y G:i:s') : string
+    public function createDate(String $file, String $type = 'd.m.Y G:i:s') : String
     {
         $file = $this->rpath($file);
 
@@ -351,7 +351,7 @@ class Info implements InfoInterface
     // @param string $type
     //
     //--------------------------------------------------------------------------------------------------------
-    public function changeDate(string $file, string $type = 'd.m.Y G:i:s') : string
+    public function changeDate(String $file, String $type = 'd.m.Y G:i:s') : String
     {
         $file = $this->rpath($file);
 
@@ -372,7 +372,7 @@ class Info implements InfoInterface
     // @param string $file
     //
     //--------------------------------------------------------------------------------------------------------
-    public function owner(string $file)
+    public function owner(String $file)
     {
         $file = $this->rpath($file);
 
@@ -400,7 +400,7 @@ class Info implements InfoInterface
     // @param string $file
     //
     //--------------------------------------------------------------------------------------------------------
-    public function group(string $file)
+    public function group(String $file)
     {
         $file = $this->rpath($file);
 
@@ -429,7 +429,7 @@ class Info implements InfoInterface
     // @param  bool   $recursive
     //
     //--------------------------------------------------------------------------------------------------------
-    public function rowCount(string $file = '/', bool $recursive = true) : int
+    public function rowCount(String $file = '/', Bool $recursive = true) : Int
     {
         $file = $this->rpath($file);
 

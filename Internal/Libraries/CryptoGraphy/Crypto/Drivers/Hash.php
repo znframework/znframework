@@ -21,7 +21,7 @@ class HashDriver extends CryptoMapping
     // @return bool
     //
     //--------------------------------------------------------------------------------------------------------
-    public function encrypt(string $data, array $settings) :? string
+    public function encrypt($data, $settings)
     {
         $cipher = $settings['cipher'] ?? 'sha256';
         $key    = $settings['key']    ?? PROJECT_CONFIG['key'];
@@ -36,7 +36,7 @@ class HashDriver extends CryptoMapping
     // @param numeric $length
     //
     //--------------------------------------------------------------------------------------------------------
-    public function keygen(int $length) :? string
+    public function keygen($length)
     {
         return hash_pbkdf2('md5', md5(mt_rand()), mcrypt_create_iv($length, MCRYPT_DEV_URANDOM), $length, $length);
     }

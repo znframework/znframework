@@ -20,7 +20,7 @@ interface InternalClassesInterface
     // @param string $prefix
     //
     //--------------------------------------------------------------------------------------------------------
-    public function isRelation(string $className, $object) : bool;
+    public function isRelation(String $className, $object) : Bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Is Parent
@@ -31,7 +31,7 @@ interface InternalClassesInterface
     // @param string $prefix
     //
     //--------------------------------------------------------------------------------------------------------
-    public function isParent(string $className, $object) : bool;
+    public function isParent(String $className, $object) : Bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Method Exists
@@ -42,7 +42,7 @@ interface InternalClassesInterface
     // @param string $prefix
     //
     //--------------------------------------------------------------------------------------------------------
-    public function methodExists(string $className, string $method) : bool;
+    public function methodExists(String $className, String $method) : Bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Property Exists
@@ -53,7 +53,7 @@ interface InternalClassesInterface
     // @param string $prefix
     //
     //--------------------------------------------------------------------------------------------------------
-    public function propertyExists(string $className, string $property) : bool;
+    public function propertyExists(String $className, String $property) : Bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Methods
@@ -63,7 +63,7 @@ interface InternalClassesInterface
     // @param string $prefix
     //
     //--------------------------------------------------------------------------------------------------------
-    public function methods(string $className);
+    public function methods(String $className);
 
     //--------------------------------------------------------------------------------------------------------
     // Vars
@@ -73,7 +73,7 @@ interface InternalClassesInterface
     // @param string $prefix
     //
     //--------------------------------------------------------------------------------------------------------
-    public function vars(string $className);
+    public function vars(String $className);
 
     //--------------------------------------------------------------------------------------------------------
     // Name
@@ -83,7 +83,7 @@ interface InternalClassesInterface
     // @param string $prefix
     //
     //--------------------------------------------------------------------------------------------------------
-    public function name($var) : string;
+    public function name($var) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Declared
@@ -92,7 +92,7 @@ interface InternalClassesInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function declared() : array;
+    public function declared() : Array;
 
     //--------------------------------------------------------------------------------------------------------
     // Declared Interfaces
@@ -101,7 +101,7 @@ interface InternalClassesInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function declaredInterfaces() : array;
+    public function declaredInterfaces() : Array;
 
     //--------------------------------------------------------------------------------------------------------
     // Declared Traits
@@ -110,7 +110,7 @@ interface InternalClassesInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function declaredTraits() : array;
+    public function declaredTraits() : Array;
 
     //--------------------------------------------------------------------------------------------------------
     // Only Name
@@ -121,5 +121,5 @@ interface InternalClassesInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function onlyName(string $class) : string;
+    public function onlyName(String $class) : String;
 }

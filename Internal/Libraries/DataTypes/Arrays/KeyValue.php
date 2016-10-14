@@ -21,7 +21,7 @@ class KeyValue implements KeyValueInterface
     // @param string $keyval: val/value, key, vals/values, keys
     //
     //--------------------------------------------------------------------------------------------------------
-    public function use(array $array, string $keyval = 'value')
+    public function use(Array $array, String $keyval = 'value')
     {
         switch( $keyval )
         {
@@ -43,7 +43,7 @@ class KeyValue implements KeyValueInterface
     // @param array  $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function value(array $array)
+    public function value(Array $array)
     {
         return $this->use($array, __FUNCTION__);
     }
@@ -55,7 +55,7 @@ class KeyValue implements KeyValueInterface
     // @param array  $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function key(array $array)
+    public function key(Array $array)
     {
         return $this->use($array, __FUNCTION__);
     }
@@ -67,7 +67,7 @@ class KeyValue implements KeyValueInterface
     // @param array  $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function values(array $array) : array
+    public function values(Array $array) : Array
     {
         return $this->use($array, __FUNCTION__);
     }
@@ -79,7 +79,7 @@ class KeyValue implements KeyValueInterface
     // @param array  $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function keys(array $array) : array
+    public function keys(Array $array) : Array
     {
         return $this->use($array, __FUNCTION__);
     }

@@ -38,7 +38,7 @@ class InternalCache extends CLController implements InternalCacheInterface
     // @return mixed
     //
     //--------------------------------------------------------------------------------------------------------
-    public function select(string $key, $compressed = false)
+    public function select(String $key, $compressed = false)
     {
         return $this->driver->select($key, $compressed);
     }
@@ -54,7 +54,7 @@ class InternalCache extends CLController implements InternalCacheInterface
     // @return bool
     //
     //--------------------------------------------------------------------------------------------------------
-    public function insert(string $key, $var, int $time = 60, $compressed = false) : bool
+    public function insert(String $key, $var, Int $time = 60, $compressed = false) : Bool
     {
         return $this->driver->insert($key, $var, $time, $compressed);
     }
@@ -67,7 +67,7 @@ class InternalCache extends CLController implements InternalCacheInterface
     // @return mixed
     //
     //--------------------------------------------------------------------------------------------------------
-    public function delete(string $key) : bool
+    public function delete(String $key) : Bool
     {
         return $this->driver->delete($key);
     }
@@ -81,7 +81,7 @@ class InternalCache extends CLController implements InternalCacheInterface
     // @return void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function increment(string $key, int $increment = 1) : int
+    public function increment(String $key, Int $increment = 1) : Int
     {
         return $this->driver->increment($key, $increment);
     }
@@ -95,7 +95,7 @@ class InternalCache extends CLController implements InternalCacheInterface
     // @return void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function decrement(string $key, int $decrement = 1) : int
+    public function decrement(String $key, Int $decrement = 1) : Int
     {
         return $this->driver->decrement($key, $decrement);
     }
@@ -108,7 +108,7 @@ class InternalCache extends CLController implements InternalCacheInterface
     // @return void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function clean() : bool
+    public function clean() : Bool
     {
         return $this->driver->clean();
     }
@@ -121,7 +121,7 @@ class InternalCache extends CLController implements InternalCacheInterface
     // @return mixed
     //
     //--------------------------------------------------------------------------------------------------------
-    public function info($type = NULL) : array
+    public function info($type = NULL) : Array
     {
         return $this->driver->info($type);
     }
@@ -134,7 +134,7 @@ class InternalCache extends CLController implements InternalCacheInterface
     // @return mixed
     //
     //--------------------------------------------------------------------------------------------------------
-    public function getMetaData(string $key) : array
+    public function getMetaData(String $key) : Array
     {
         return $this->driver->getMetaData($key);
     }

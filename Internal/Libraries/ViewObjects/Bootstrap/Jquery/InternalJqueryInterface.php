@@ -18,7 +18,7 @@ interface InternalJqueryInterface
     // @param string $selector
     //
     //--------------------------------------------------------------------------------------------------------
-    public function selector(string $selector = 'this');
+    public function selector(String $selector = 'this');
 
     //--------------------------------------------------------------------------------------------------------
     // Property
@@ -28,7 +28,7 @@ interface InternalJqueryInterface
     // @param variadic $attr
     //
     //--------------------------------------------------------------------------------------------------------
-    public function property(string $property, ...$attr) : InternalJquery;
+    public function property(String $property, ...$attr) : InternalJquery;
 
     //--------------------------------------------------------------------------------------------------------
     // Complete
@@ -37,7 +37,7 @@ interface InternalJqueryInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function complete() : string;
+    public function complete() : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Complete
@@ -46,7 +46,7 @@ interface InternalJqueryInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function create(...$args) : string;
+    public function create(...$args) : String ;
 
     //--------------------------------------------------------------------------------------------------------
     // Ajax
@@ -55,7 +55,7 @@ interface InternalJqueryInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function ajax(bool $tag = false, bool $jq = false, bool $jqui = false) : Jquery\Helpers\Ajax;
+    public function ajax(Bool $tag = false, Bool $jq = false, Bool $jqui = false) : Jquery\Helpers\Ajax;
 
     //--------------------------------------------------------------------------------------------------------
     // Action
@@ -64,7 +64,7 @@ interface InternalJqueryInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function action(bool $tag = false, bool $jq = false, bool $jqui = false) : Jquery\Helpers\Action;
+    public function action(Bool $tag = false, Bool $jq = false, Bool $jqui = false) : Jquery\Helpers\Action;
 
     //--------------------------------------------------------------------------------------------------------
     // Animate
@@ -73,7 +73,7 @@ interface InternalJqueryInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function animate(bool $tag = false, bool $jq = false, bool $jqui = false) : Jquery\Helpers\Animate;
+    public function animate(Bool $tag = false, Bool $jq = false, Bool $jqui = false) : Jquery\Helpers\Animate;
 
     //--------------------------------------------------------------------------------------------------------
     // Event
@@ -82,5 +82,5 @@ interface InternalJqueryInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function event(bool $tag = false, bool $jq = false, bool $jqui = false) : Jquery\Helpers\Event;
+    public function event(Bool $tag = false, Bool $jq = false, Bool $jqui = false) : Jquery\Helpers\Event;
 }

@@ -19,5 +19,5 @@ interface MultipleKeyInterface
     // @param string $keySplit:|
     //
     //--------------------------------------------------------------------------------------------------------
-    public function use(array $array, string $keySplit = '|') : array;
+    public function use(Array $array, String $keySplit = '|') : Array;
 }

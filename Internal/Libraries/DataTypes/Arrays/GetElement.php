@@ -22,7 +22,7 @@ class GetElement implements GetElementInterface
     // @param bool    $preserveKey
     //
     //--------------------------------------------------------------------------------------------------------
-    public function last(array $array, int $count = 1, bool $preserveKey = false)
+    public function last(Array $array, Int $count = 1, Bool $preserveKey = false)
     {
         if( $count <= 1 )
         {
@@ -45,7 +45,7 @@ class GetElement implements GetElementInterface
     // @param bool    $preserveKey
     //
     //--------------------------------------------------------------------------------------------------------
-    public function first(array $array, int $count = 1, bool $preserveKey = false)
+    public function first(Array $array, Int $count = 1, Bool $preserveKey = false)
     {
         if( $count <= 1 )
         {

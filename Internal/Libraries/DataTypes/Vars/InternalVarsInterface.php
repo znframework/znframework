@@ -19,7 +19,7 @@ interface InternalVarsInterface
     // @param mixed $var
     //
     //--------------------------------------------------------------------------------------------------------
-    public function bool($var) : bool;
+    public function bool($var) : Bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Boolean
@@ -28,7 +28,7 @@ interface InternalVarsInterface
     // @param mixed $var
     //
     //--------------------------------------------------------------------------------------------------------
-    public function boolean($var) : bool;
+    public function boolean($var) : Bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Float
@@ -37,7 +37,7 @@ interface InternalVarsInterface
     // @param mixed $var
     //
     //--------------------------------------------------------------------------------------------------------
-    public function float($var) : float;
+    public function float($var) : Float;
 
     //--------------------------------------------------------------------------------------------------------
     // Double
@@ -46,7 +46,7 @@ interface InternalVarsInterface
     // @param mixed $var
     //
     //--------------------------------------------------------------------------------------------------------
-    public function double($var) : float;
+    public function double($var) : Float;
 
     //--------------------------------------------------------------------------------------------------------
     // Int
@@ -55,7 +55,7 @@ interface InternalVarsInterface
     // @param mixed $var
     //
     //--------------------------------------------------------------------------------------------------------
-    public function int($var) : int;
+    public function int($var) : Int;
 
     //--------------------------------------------------------------------------------------------------------
     // Integer
@@ -73,7 +73,7 @@ interface InternalVarsInterface
     // @param mixed $var
     //
     //--------------------------------------------------------------------------------------------------------
-    public function string($var) : string;
+    public function string($var) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Type
@@ -82,7 +82,7 @@ interface InternalVarsInterface
     // @param mixed $var
     //
     //--------------------------------------------------------------------------------------------------------
-    public function type($var) : string;
+    public function type($var) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Resource Type
@@ -91,7 +91,7 @@ interface InternalVarsInterface
     // @param mixed $resource
     //
     //--------------------------------------------------------------------------------------------------------
-    public function resourceType($resource) : string;
+    public function resourceType($resource) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Serial
@@ -100,7 +100,7 @@ interface InternalVarsInterface
     // @param mixed $var
     //
     //-------------------------------------------------------------------------------------------------------
-    public function serial($var) : string;
+    public function serial($var) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Unserial
@@ -118,7 +118,7 @@ interface InternalVarsInterface
     // @param mixed $var
     //
     //-------------------------------------------------------------------------------------------------------
-    public function remove($var) : void;
+    public function remove($var);
 
     //--------------------------------------------------------------------------------------------------------
     // Delete
@@ -127,7 +127,7 @@ interface InternalVarsInterface
     // @param mixed $var
     //
     //-------------------------------------------------------------------------------------------------------
-    public function delete($var) : void;
+    public function delete($var);
 
     //--------------------------------------------------------------------------------------------------------
     // To Type
@@ -136,5 +136,5 @@ interface InternalVarsInterface
     // @param mixed $var
     //
     //-------------------------------------------------------------------------------------------------------
-    public function toType($var, string $type = 'integer');
+    public function toType($var, String $type = 'integer');
 }

@@ -39,7 +39,7 @@ class InternalCompress extends CLController implements InternalCompressInterface
     // @return bool
     //
     //--------------------------------------------------------------------------------------------------------
-    public function extract(string $source, ? string $target = NULL, string $password = NULL) : bool
+    public function extract(String $source, String $target = NULL, String $password = NULL) : Bool
     {
         if( ! is_file($source) )
         {
@@ -57,7 +57,7 @@ class InternalCompress extends CLController implements InternalCompressInterface
     // @param string $data
     //
     //--------------------------------------------------------------------------------------------------------
-    public function write(string $file, string $data) : bool
+    public function write(String $file, String $data) : Bool
     {
         return $this->driver->write($file, $data);
     }
@@ -69,7 +69,7 @@ class InternalCompress extends CLController implements InternalCompressInterface
     // @param string  $file
     //
     //--------------------------------------------------------------------------------------------------------
-    public function read(string $file) : string
+    public function read(String $file) : String
     {
         return $this->driver->read($file);
     }
@@ -81,7 +81,7 @@ class InternalCompress extends CLController implements InternalCompressInterface
     // @param string  $data
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do(string $data) : string
+    public function do(String $data) : String
     {
         return $this->driver->do($data);
     }
@@ -93,7 +93,7 @@ class InternalCompress extends CLController implements InternalCompressInterface
     // @param string  $data
     //
     //--------------------------------------------------------------------------------------------------------
-    public function undo(string $data) : string
+    public function undo(String $data) : String
     {
         return $this->driver->undo($data);
     }

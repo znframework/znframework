@@ -20,7 +20,7 @@ interface TransferInterface
     // @param string $type      : binary, ascii
     //
     //--------------------------------------------------------------------------------------------------------
-    public function upload(string $localPath, string $remotePath, string $type = 'ascii') : bool;
+    public function upload(String $localPath, String $remotePath, String $type = 'ascii') : Bool;
 
     //--------------------------------------------------------------------------------------------------------
     // dowload()
@@ -31,5 +31,5 @@ interface TransferInterface
     // @param string $type      : binary, ascii
     //
     //--------------------------------------------------------------------------------------------------------
-    public function download(string $remotePath, string $localPath, string $type = 'ascii') : bool;
+    public function download(String $remotePath, String $localPath, String $type = 'ascii') : Bool;
 }

@@ -22,7 +22,7 @@ class InternalURI extends CallController implements InternalURIInterface
     // @param bool   $while
     //
     //--------------------------------------------------------------------------------------------------------
-    public function get($get = 1, $index = 1, bool $while = false) : string
+    public function get($get = 1, $index = 1, Bool $while = false) : String
     {
         // Parametre kontrolleri yapılıyor. ---------------------------------------------------
         if( ! isChar($index) )
@@ -122,7 +122,7 @@ class InternalURI extends CallController implements InternalURIInterface
     // @param string $get
     //
     //--------------------------------------------------------------------------------------------------------
-    public function getNameCount(string $get) : int
+    public function getNameCount(String $get) : Int
     {
         $segArr = $this->segmentArray();
 
@@ -145,7 +145,7 @@ class InternalURI extends CallController implements InternalURIInterface
     // @param string $get
     //
     //--------------------------------------------------------------------------------------------------------
-    public function getNameAll(string $get) : string
+    public function getNameAll(String $get) : String
     {
         $segArr = $this->segmentArray();
 
@@ -178,7 +178,7 @@ class InternalURI extends CallController implements InternalURIInterface
     // @param numeric $get
     //
     //--------------------------------------------------------------------------------------------------------
-    public function getByIndex(int $get = 1, int $index = 1) : string
+    public function getByIndex(Int $get = 1, Int $index = 1) : String
     {
         $segArr = $this->segmentArray();
 
@@ -226,7 +226,7 @@ class InternalURI extends CallController implements InternalURIInterface
     // @param string $get
     //
     //--------------------------------------------------------------------------------------------------------
-    public function getByName(string $get, $index = NULL) : string
+    public function getByName(String $get, $index = NULL) : String
     {
         $segArr   = $this->segmentArray();
 
@@ -258,7 +258,7 @@ class InternalURI extends CallController implements InternalURIInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function segmentArray() : array
+    public function segmentArray() : Array
     {
         $segmentEx = explode("/", $this->_cleanPath());
         return $segmentEx;
@@ -271,7 +271,7 @@ class InternalURI extends CallController implements InternalURIInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function totalSegments() : int
+    public function totalSegments() : Int
     {
         $segmentEx     = explode("/", $this->_cleanPath());
         $segmentEx     = array_diff($segmentEx, ["", " "]);
@@ -287,7 +287,7 @@ class InternalURI extends CallController implements InternalURIInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function segmentCount() : int
+    public function segmentCount() : Int
     {
         return $this->totalSegments();
     }
@@ -299,7 +299,7 @@ class InternalURI extends CallController implements InternalURIInterface
     // @param int $seg
     //
     //--------------------------------------------------------------------------------------------------------
-    public function segment(int $seg = 1) : string
+    public function segment(Int $seg = 1) : String
     {
         $segments = $this->segmentArray();
 
@@ -328,7 +328,7 @@ class InternalURI extends CallController implements InternalURIInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function currentSegment() : string
+    public function currentSegment() : String
     {
         return $this->current(false);
     }
@@ -341,7 +341,7 @@ class InternalURI extends CallController implements InternalURIInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function current(bool $isPath = true) : string
+    public function current(Bool $isPath = true) : String
     {
         return currentPath($isPath);
     }
@@ -354,7 +354,7 @@ class InternalURI extends CallController implements InternalURIInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function base(string $uri = '', int $index = 0) : string
+    public function base(String $uri = '', Int $index = 0) : String
     {
         return basePath($uri, $index);
     }
@@ -367,7 +367,7 @@ class InternalURI extends CallController implements InternalURIInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function prev(bool $isPath = true) : string
+    public function prev(Bool $isPath = true) : String
     {
         return prevPath($isPath);
     }

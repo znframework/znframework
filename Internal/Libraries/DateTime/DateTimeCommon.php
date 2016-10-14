@@ -60,7 +60,7 @@ class DateTimeCommon extends CLController
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function compare(string $value1, string $condition, string $value2) : string
+    public function compare(String $value1, String $condition, String $value2) : String
     {
         $value1 = $this->toNumeric($value1);
         $value2 = $this->toNumeric($value2);
@@ -78,7 +78,7 @@ class DateTimeCommon extends CLController
     // @return numeric
     //
     //--------------------------------------------------------------------------------------------------------
-    public function toNumeric(string $dateFormat, int $now = NULL) : int
+    public function toNumeric(String $dateFormat, Int $now = NULL) : Int
     {
         if( $now === NULL )
         {
@@ -100,7 +100,7 @@ class DateTimeCommon extends CLController
     // @return mixed
     //
     //--------------------------------------------------------------------------------------------------------
-    public function calculate(string $input, string $calculate, string $output = 'Y-m-d') : string
+    public function calculate(String $input, String $calculate, String $output = 'Y-m-d') : String
     {
         if( ! preg_match('/^[0-9]/', $input) )
         {
@@ -122,7 +122,7 @@ class DateTimeCommon extends CLController
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function set(string $exp) : string
+    public function set(String $exp) : String
     {
         return $this->_datetime($exp);
     }

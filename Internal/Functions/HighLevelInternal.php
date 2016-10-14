@@ -19,7 +19,7 @@
 // @param string
 //
 //--------------------------------------------------------------------------------------------------
-function internalProjectContainerDir() : string
+function internalProjectContainerDir() : String
 {
     $containers = PROJECTS_CONFIG['containers'];
 
@@ -43,7 +43,7 @@ function internalProjectContainerDir() : string
 // @return void
 //
 //--------------------------------------------------------------------------------------------------
-function internalProjectMode(string $mode, int $report = -1) : void
+function internalProjectMode(String $mode, Int $report = -1)
 {
     //----------------------------------------------------------------------------------------------
     // Kullanılabilir Uygulama Seçenekleri
@@ -95,7 +95,7 @@ function internalProjectMode(string $mode, int $report = -1) : void
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function internalOutput($data, string $tab = '', int $start = 0, array $settings = []) : string
+function internalOutput($data, String $tab = '', Int $start = 0, Array $settings = []) : String
 {
     static $start;
 
@@ -178,7 +178,7 @@ function internalOutput($data, string $tab = '', int $start = 0, array $settings
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function internalObjects(array $array, stdClass & $std) : stdClass
+function internalObjects(Array $array, stdClass &$std) : stdClass
 {
     foreach( $array as $key => $value )
     {
@@ -204,7 +204,7 @@ function internalObjects(array $array, stdClass & $std) : stdClass
 // @param void
 //
 //--------------------------------------------------------------------------------------------------
-function internalCurrentProject() : void
+function internalCurrentProject()
 {
     $projectConfig = PROJECTS_CONFIG['directory']['others'];
     $projectDir    = $projectConfig;

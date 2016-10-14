@@ -19,8 +19,8 @@ interface SessionCookieCommonInterface
     // @param string $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function encode( ? string $name, string $value);
-
+    public function encode(String $name, String $value);
+    
     //--------------------------------------------------------------------------------------------------------
     // Decode
     //--------------------------------------------------------------------------------------------------------
@@ -28,8 +28,8 @@ interface SessionCookieCommonInterface
     // @param string $hash
     //
     //--------------------------------------------------------------------------------------------------------
-    public function decode(string $hash);
-
+    public function decode(String $hash);
+    
     //--------------------------------------------------------------------------------------------------------
     // Regenerate
     //--------------------------------------------------------------------------------------------------------
@@ -37,5 +37,5 @@ interface SessionCookieCommonInterface
     // @param bool $regenerate
     //
     //--------------------------------------------------------------------------------------------------------
-    public function regenerate(bool $regenerate);
+    public function regenerate(Bool $regenerate);
 }

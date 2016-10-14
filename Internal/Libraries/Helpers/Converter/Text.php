@@ -22,7 +22,7 @@ class Text implements TextInterface
     // @param mixed  $changeChar
     //
     //--------------------------------------------------------------------------------------------------------
-    public function word(string $string, $badWords = NULL, $changeChar = '[badwords]') : string
+    public function word(String $string, $badWords = NULL, $changeChar = '[badwords]') : String
     {
         return str_ireplace($badWords, $changeChar, $string);
     }
@@ -36,7 +36,7 @@ class Text implements TextInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function anchor(string $data, string $type = 'short', array $attributes = NULL) : string
+    public function anchor(String $data, String $type = 'short', Array $attributes = NULL) : String
     {
         return preg_replace
         (
@@ -54,7 +54,7 @@ class Text implements TextInterface
     // @param array $settings
     //
     //--------------------------------------------------------------------------------------------------------
-    public function highLight(string $str, array $settings = []) : string
+    public function highLight(String $str, Array $settings = []) : String
     {
         $phpFamily      = ! empty( $settings['php:family'] )    ? 'font-family:'.$settings['php:family'] : 'font-family:Consolas';
         $phpSize        = ! empty( $settings['php:size'] )      ? 'font-size:'.$settings['php:size'] : 'font-size:12px';

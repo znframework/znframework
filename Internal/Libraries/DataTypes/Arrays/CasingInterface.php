@@ -20,7 +20,7 @@ interface CasingInterface
     // @param string $keyval: all, key, value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function use(array $array, string $type = 'lower', string $keyval = 'all') : array;
+    public function use(Array $array, String $type = 'lower', String $keyval = 'all') : Array;
 
     //--------------------------------------------------------------------------------------------------------
     // Lower Keys
@@ -29,7 +29,7 @@ interface CasingInterface
     // @param array $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function lowerKeys(array $array) : array;
+    public function lowerKeys(Array $array) : Array;
 
     //--------------------------------------------------------------------------------------------------------
     // Title Keys
@@ -38,7 +38,7 @@ interface CasingInterface
     // @param array $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function titleKeys(array $array) : array;
+    public function titleKeys(Array $array) : Array;
 
     //--------------------------------------------------------------------------------------------------------
     // Upper Keys
@@ -47,7 +47,7 @@ interface CasingInterface
     // @param array $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function upperKeys(array $array) : array;
+    public function upperKeys(Array $array) : Array;
 
     //--------------------------------------------------------------------------------------------------------
     // Lower Values
@@ -56,7 +56,7 @@ interface CasingInterface
     // @param array $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function lowerValues(array $array) : array;
+    public function lowerValues(Array $array) : Array;
 
     //--------------------------------------------------------------------------------------------------------
     // Title Values
@@ -65,7 +65,7 @@ interface CasingInterface
     // @param array $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function titleValues(array $array) : array;
+    public function titleValues(Array $array) : Array;
 
     //--------------------------------------------------------------------------------------------------------
     // Upper Values
@@ -74,7 +74,7 @@ interface CasingInterface
     // @param array $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function upperValues(array $array) : array;
+    public function upperValues(Array $array) : Array;
 
     //--------------------------------------------------------------------------------------------------------
     // Lower
@@ -83,7 +83,7 @@ interface CasingInterface
     // @param array $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function lower(array $array) : array;
+    public function lower(Array $array) : Array;
 
     //--------------------------------------------------------------------------------------------------------
     // Title
@@ -92,7 +92,7 @@ interface CasingInterface
     // @param array $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function title(array $array) : array;
+    public function title(Array $array) : Array;
 
     //--------------------------------------------------------------------------------------------------------
     // Upper
@@ -101,5 +101,5 @@ interface CasingInterface
     // @param array $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function upper(array $array) : array;
+    public function upper(Array $array) : Array;
 }

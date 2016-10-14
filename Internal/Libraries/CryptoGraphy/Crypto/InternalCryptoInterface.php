@@ -19,7 +19,7 @@ interface InternalCryptoInterface
     // @param array  $settings
     //
     //--------------------------------------------------------------------------------------------------------
-    public function encrypt(string $data,  array $settings = []) : string;
+    public function encrypt(String $data,  Array $settings = []) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Decrypt
@@ -29,7 +29,7 @@ interface InternalCryptoInterface
     // @param array  $settings
     //
     //--------------------------------------------------------------------------------------------------------
-    public function decrypt(string $data, array $settings = []) : string;
+    public function decrypt(String $data, Array $settings = []) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Keygen
@@ -38,5 +38,5 @@ interface InternalCryptoInterface
     // @param numeric $length
     //
     //--------------------------------------------------------------------------------------------------------
-    public function keygen(int $length = 8) : string;
+    public function keygen(Int $length = 8) : String;
 }

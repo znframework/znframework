@@ -19,7 +19,7 @@ class GoldenAlgorithm extends EncodeExtends implements GoldenAlgorithmInterface
     // @param string $additional
     //
     //--------------------------------------------------------------------------------------------------------
-    public function create(string $data, string $additional = 'default') : string
+    public function create(String $data, String $additional = 'default') : String
     {
         $algo = CRYPTOGRAPHY_ENCODE_CONFIG['type'];
 

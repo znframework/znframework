@@ -11,7 +11,7 @@ interface InternalGenerateInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function grandVision($database = NULL) : void;
+    public function grandVision($database = NULL);
 
     //--------------------------------------------------------------------------------------------------------
     // Delete Vision
@@ -23,7 +23,7 @@ interface InternalGenerateInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function deleteVision(string $database = '*', array $tables = NULL) : void;
+    public function deleteVision(String $database = '*', Array $tables = NULL);
 
     //--------------------------------------------------------------------------------------------------------
     // Settings
@@ -32,7 +32,7 @@ interface InternalGenerateInterface
     // @param array $settings: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function settings(array $settings) : InternalGenerate;
+    public function settings(Array $settings) : InternalGenerate;
 
     //--------------------------------------------------------------------------------------------------------
     // Model
@@ -42,7 +42,7 @@ interface InternalGenerateInterface
     // @param array  $settings: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function model(string $name, array $settings = []) : bool;
+    public function model(String $name, Array $settings = []) : Bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Controller
@@ -52,7 +52,7 @@ interface InternalGenerateInterface
     // @param array  $settings: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function controller(string $name, array $settings = []) : bool;
+    public function controller(String $name, Array $settings = []) : Bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Library
@@ -63,7 +63,7 @@ interface InternalGenerateInterface
     // @param string $app : empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function library(string $name, array $settings = []) : bool;
+    public function library(String $name, Array $settings = []) : Bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Delete
@@ -73,5 +73,5 @@ interface InternalGenerateInterface
     // @param string $type: 'controller', 'model', 'library'
     //
     //--------------------------------------------------------------------------------------------------------
-    public function delete(string $name, string $type = 'controller', string $app) : bool;
+    public function delete(String $name, String $type = 'controller', String $app) : Bool;
 }

@@ -18,7 +18,7 @@ class Select extends CartExtends implements SelectInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function items() : array
+    public function items() : Array
     {
         if( $sessionCart = $this->driver->select(md5('SystemCartData')) )
         {

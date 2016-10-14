@@ -18,7 +18,7 @@ interface DeleteInterface
     // @param mixed $code
     //
     //--------------------------------------------------------------------------------------------------------
-    public function item($code) : bool;
+    public function item($code) : Bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Delete Items
@@ -27,5 +27,5 @@ interface DeleteInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function items() : bool;
+    public function items() : Bool;
 }

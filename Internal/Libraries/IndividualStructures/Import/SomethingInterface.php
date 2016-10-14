@@ -20,5 +20,5 @@ interface SomethingInterface
     // @param bool   $contents
     //
     //--------------------------------------------------------------------------------------------------------
-    public function use(string $randomPageVariable, ? array $randomDataVariable = NULL, bool $randomObGetContentsVariable = false);
+    public function use(String $randomPageVariable, Array $randomDataVariable = NULL, Bool $randomObGetContentsVariable = false);
 }

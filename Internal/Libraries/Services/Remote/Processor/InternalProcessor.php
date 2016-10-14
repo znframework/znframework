@@ -104,7 +104,7 @@ class InternalProcessor extends RemoteCommon implements InternalProcessorInterfa
     // @param string $command
     //
     //--------------------------------------------------------------------------------------------------------
-    public function php(string $command) : string
+    public function php(String $command) : String
     {
         $phpCommand = "require_once '".REAL_BASE_DIR."zerocore'; ".$command.";";
         $phpCommand = presuffix(str_replace('"', '\"', $phpCommand), '"');
@@ -124,7 +124,7 @@ class InternalProcessor extends RemoteCommon implements InternalProcessorInterfa
     // @param string $file
     //
     //--------------------------------------------------------------------------------------------------------
-    public function file(string $file) : string
+    public function file(String $file) : String
     {
         $commands  = $this->path;
         $commands .= ' -f ';
@@ -142,7 +142,7 @@ class InternalProcessor extends RemoteCommon implements InternalProcessorInterfa
     // @param string $file
     //
     //--------------------------------------------------------------------------------------------------------
-    public function read(string $file) : string
+    public function read(String $file) : String
     {
         $content = File::read($this->_fileControl($file));
         $content = str_ireplace(['<?php', '?>'], NULL, $content);
@@ -157,7 +157,7 @@ class InternalProcessor extends RemoteCommon implements InternalProcessorInterfa
     // @param string $path
     //
     //--------------------------------------------------------------------------------------------------------
-    public function controller(string $path) : string
+    public function controller(String $path) : String
     {
         $command  = '$datas = ZN\Core\Structure::data("'.$path.'");';
         $command .= '$parameters = $datas["parameters"];';
@@ -169,7 +169,7 @@ class InternalProcessor extends RemoteCommon implements InternalProcessorInterfa
         $command .= '{';
         $command .= 'exit("Error: URL does not contain a valid controller information! `".$page."` controller could not be found!");';
         $command .= '}';
-        $command .= 'require_once $isFile;';
+        $command .= 'import($isFile);';
         $command .= 'if( ! class_exists($page, false) )';
         $command .= '{';
         $command .= '$page = $namespace.$page;';
@@ -197,7 +197,7 @@ class InternalProcessor extends RemoteCommon implements InternalProcessorInterfa
     // @param string $php
     //
     //--------------------------------------------------------------------------------------------------------
-    public function path(string $path) : InternalProcessor
+    public function path(String $path) : InternalProcessor
     {
         $this->path = $path;
 
@@ -211,7 +211,7 @@ class InternalProcessor extends RemoteCommon implements InternalProcessorInterfa
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function driver(string $driver) : InternalProcessor
+    public function driver(String $driver) : InternalProcessor
     {
         $this->driver = $driver;
 
@@ -225,7 +225,7 @@ class InternalProcessor extends RemoteCommon implements InternalProcessorInterfa
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function output() : array
+    public function output() : Array
     {
         return $this->output;
     }
@@ -237,7 +237,7 @@ class InternalProcessor extends RemoteCommon implements InternalProcessorInterfa
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function return() : int
+    public function return() : Int
     {
         return $this->return;
     }

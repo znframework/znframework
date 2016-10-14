@@ -21,7 +21,7 @@ class InternalCDN extends CallController implements InternalCDNInterface
     // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
-    public function get(string $configName, string $name) : string
+    public function get(String $configName, String $name) : String
     {
         $config = Config::get('ViewObjects', 'cdn');
 
@@ -53,7 +53,7 @@ class InternalCDN extends CallController implements InternalCDNInterface
     // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
-    public function image(string $name) : string
+    public function image(String $name) : String
     {
         return $this->get('images', $name);
     }
@@ -65,7 +65,7 @@ class InternalCDN extends CallController implements InternalCDNInterface
     // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
-    public function style(string $name) : string
+    public function style(String $name) : String
     {
         return $this->get('styles', $name);
     }
@@ -77,7 +77,7 @@ class InternalCDN extends CallController implements InternalCDNInterface
     // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
-    public function script(string $name) : string
+    public function script(String $name) : String
     {
         return $this->get('scripts', $name);
     }
@@ -89,7 +89,7 @@ class InternalCDN extends CallController implements InternalCDNInterface
     // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
-    public function font(string $name) : string
+    public function font(String $name) : String
     {
         return $this->get('fonts', $name);
     }
@@ -101,7 +101,7 @@ class InternalCDN extends CallController implements InternalCDNInterface
     // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
-    public function file(string $name) : string
+    public function file(String $name) : String
     {
         return $this->get('files', $name);
     }

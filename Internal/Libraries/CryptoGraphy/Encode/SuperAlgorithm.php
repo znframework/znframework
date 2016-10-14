@@ -18,7 +18,7 @@ class SuperAlgorithm extends EncodeExtends implements SuperAlgorithmInterface
     // @param string $data
     //
     //--------------------------------------------------------------------------------------------------------
-    public function create(string $data) : string
+    public function create(String $data) : String
     {
         $projectKey = PROJECT_CONFIG['key'];
 

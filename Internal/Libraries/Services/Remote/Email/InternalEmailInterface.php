@@ -18,7 +18,7 @@ interface InternalEmailInterface
     // @param array $settings
     //
     //--------------------------------------------------------------------------------------------------------
-    public function settings(array $settings = NULL) : InternalEmail;
+    public function settings(Array $settings = NULL) : InternalEmail;
 
     //--------------------------------------------------------------------------------------------------------
     // Content Type
@@ -27,7 +27,7 @@ interface InternalEmailInterface
     // @param string $type: plain, html
     //
     //--------------------------------------------------------------------------------------------------------
-    public function contentType(string $type = 'plain') : InternalEmail;
+    public function contentType(String $type = 'plain') : InternalEmail;
 
     //--------------------------------------------------------------------------------------------------------
     // Charset
@@ -36,7 +36,7 @@ interface InternalEmailInterface
     // @param string $charset
     //
     //--------------------------------------------------------------------------------------------------------
-    public function charset(string $charset = 'UTF-8') : InternalEmail;
+    public function charset(String $charset = 'UTF-8') : InternalEmail;
 
     //--------------------------------------------------------------------------------------------------------
     // Priority
@@ -45,7 +45,7 @@ interface InternalEmailInterface
     // @param int $count
     //
     //--------------------------------------------------------------------------------------------------------
-    public function priority(int $count = 3) : InternalEmail;
+    public function priority(Int $count = 3) : InternalEmail;
 
     //--------------------------------------------------------------------------------------------------------
     // Add Header
@@ -55,7 +55,7 @@ interface InternalEmailInterface
     // @param string $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function addHeader(string $header, string $value) : InternalEmail;
+    public function addHeader(String $header, String $value) : InternalEmail;
 
     //--------------------------------------------------------------------------------------------------------
     // Encoding Type
@@ -64,7 +64,7 @@ interface InternalEmailInterface
     // @param string $type
     //
     //--------------------------------------------------------------------------------------------------------
-    public function encodingType(string $type = '8bit') : InternalEmail;
+    public function encodingType(String $type = '8bit') : InternalEmail;
 
     //--------------------------------------------------------------------------------------------------------
     // Multi Part
@@ -73,7 +73,7 @@ interface InternalEmailInterface
     // @param string $multiPart
     //
     //--------------------------------------------------------------------------------------------------------
-    public function multiPart(string $multiPart = 'related') : InternalEmail;
+    public function multiPart(String $multiPart = 'related') : InternalEmail;
 
     //--------------------------------------------------------------------------------------------------------
     // SMTP Host
@@ -82,7 +82,7 @@ interface InternalEmailInterface
     // @param string $host
     //
     //--------------------------------------------------------------------------------------------------------
-    public function smtpHost(string $host) : InternalEmail;
+    public function smtpHost(String $host) : InternalEmail;
 
     //--------------------------------------------------------------------------------------------------------
     // SMTP User
@@ -91,7 +91,7 @@ interface InternalEmailInterface
     // @param string $user
     //
     //--------------------------------------------------------------------------------------------------------
-    public function smtpUser(string $user) : InternalEmail;
+    public function smtpUser(String $user) : InternalEmail;
 
     //--------------------------------------------------------------------------------------------------------
     // SMTP DNS
@@ -100,7 +100,7 @@ interface InternalEmailInterface
     // @param bool $dsn
     //
     //--------------------------------------------------------------------------------------------------------
-    public function smtpDsn(bool $dsn = true) : InternalEmail;
+    public function smtpDsn(Bool $dsn = true) : InternalEmail;
 
     //--------------------------------------------------------------------------------------------------------
     // SMTP Password
@@ -109,7 +109,7 @@ interface InternalEmailInterface
     // @param string $pass
     //
     //--------------------------------------------------------------------------------------------------------
-    public function smtpPassword(string $pass) : InternalEmail;
+    public function smtpPassword(String $pass) : InternalEmail;
 
     //--------------------------------------------------------------------------------------------------------
     // SMTP Port
@@ -118,7 +118,7 @@ interface InternalEmailInterface
     // @param int $port
     //
     //--------------------------------------------------------------------------------------------------------
-    public function smtpPort(int $port = 587) : InternalEmail;
+    public function smtpPort(Int $port = 587) : InternalEmail;
 
     //--------------------------------------------------------------------------------------------------------
     // SMTP Timeout
@@ -127,7 +127,7 @@ interface InternalEmailInterface
     // @param int $timeout
     //
     //--------------------------------------------------------------------------------------------------------
-    public function smtpTimeout(int $timeout = 10) : InternalEmail;
+    public function smtpTimeout(Int $timeout = 10) : InternalEmail;
 
     //--------------------------------------------------------------------------------------------------------
     // SMTP Keep Alive
@@ -136,7 +136,7 @@ interface InternalEmailInterface
     // @param bool $keepAlive
     //
     //--------------------------------------------------------------------------------------------------------
-    public function smtpKeepAlive(bool $keepAlive = true) : InternalEmail;
+    public function smtpKeepAlive(Bool $keepAlive = true) : InternalEmail;
 
     //--------------------------------------------------------------------------------------------------------
     // SMTP Encode
@@ -145,7 +145,7 @@ interface InternalEmailInterface
     // @param string $encode
     //
     //--------------------------------------------------------------------------------------------------------
-    public function smtpEncode(string $encode) : InternalEmail;
+    public function smtpEncode(String $encode) : InternalEmail;
 
     //--------------------------------------------------------------------------------------------------------
     // To
@@ -155,7 +155,7 @@ interface InternalEmailInterface
     // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
-    public function to($to, string $name) : InternalEmail;
+    public function to($to, String $name) : InternalEmail;
 
     //--------------------------------------------------------------------------------------------------------
     // Receiver
@@ -165,7 +165,7 @@ interface InternalEmailInterface
     // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
-    public function receiver($to, string $name) : InternalEmail;
+    public function receiver($to, String $name) : InternalEmail;
 
     //--------------------------------------------------------------------------------------------------------
     // Reply To
@@ -175,7 +175,7 @@ interface InternalEmailInterface
     // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
-    public function replyTo($replyTo, string $name) : InternalEmail;
+    public function replyTo($replyTo, String $name) : InternalEmail;
 
 
     //--------------------------------------------------------------------------------------------------------
@@ -186,7 +186,7 @@ interface InternalEmailInterface
     // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
-    public function cc($cc, string $name) : InternalEmail;
+    public function cc($cc, String $name) : InternalEmail;
 
     //--------------------------------------------------------------------------------------------------------
     // BCC
@@ -196,7 +196,7 @@ interface InternalEmailInterface
     // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
-    public function bcc($bcc, string $name) : InternalEmail;
+    public function bcc($bcc, String $name) : InternalEmail;
 
     //--------------------------------------------------------------------------------------------------------
     // From
@@ -207,7 +207,7 @@ interface InternalEmailInterface
     // @param string $returnPath
     //
     //--------------------------------------------------------------------------------------------------------
-    public function from(string $from, ? string $name = NULL, string $returnPath = NULL) : InternalEmail;
+    public function from(String $from, String $name = NULL, String $returnPath = NULL) : InternalEmail;
 
     //--------------------------------------------------------------------------------------------------------
     // Sender
@@ -218,7 +218,7 @@ interface InternalEmailInterface
     // @param string $returnPath
     //
     //--------------------------------------------------------------------------------------------------------
-    public function sender(string $from, ? string $name = NULL, string $returnPath = NULL) : InternalEmail;
+    public function sender(String $from, String $name = NULL, String $returnPath = NULL) : InternalEmail;
 
     //--------------------------------------------------------------------------------------------------------
     // Subject
@@ -227,7 +227,7 @@ interface InternalEmailInterface
     // @param string $subject
     //
     //--------------------------------------------------------------------------------------------------------
-    public function subject(string $subject) : InternalEmail;
+    public function subject(String $subject) : InternalEmail;
 
     //--------------------------------------------------------------------------------------------------------
     // Message
@@ -236,7 +236,7 @@ interface InternalEmailInterface
     // @param string $message
     //
     //--------------------------------------------------------------------------------------------------------
-    public function message(string $message) : InternalEmail;
+    public function message(String $message) : InternalEmail;
 
     //--------------------------------------------------------------------------------------------------------
     // Content
@@ -245,7 +245,7 @@ interface InternalEmailInterface
     // @param string $message
     //
     //--------------------------------------------------------------------------------------------------------
-    public function content(string $message) : InternalEmail;
+    public function content(String $message) : InternalEmail;
 
     //--------------------------------------------------------------------------------------------------------
     // Attachment
@@ -257,7 +257,7 @@ interface InternalEmailInterface
     // @param mixed  $mime
     //
     //--------------------------------------------------------------------------------------------------------
-    public function attachment(string $file, ? string $disposition = NULL, ? string $newName = NULL, $mime = NULL) : InternalEmail;
+    public function attachment(String $file, String $disposition = NULL, String $newName = NULL, $mime = NULL) : InternalEmail;
 
     //--------------------------------------------------------------------------------------------------------
     // Attachment Content ID
@@ -266,7 +266,7 @@ interface InternalEmailInterface
     // @param string $filename
     //
     //--------------------------------------------------------------------------------------------------------
-    public function attachmentContentId(string $filename);
+    public function attachmentContentId(String $filename);
 
     //--------------------------------------------------------------------------------------------------------
     // Send
@@ -276,7 +276,7 @@ interface InternalEmailInterface
     // @param string $message
     //
     //--------------------------------------------------------------------------------------------------------
-    public function send( ? string $subject = NULL, string $message = NULL) : bool;
+    public function send(String $subject = NULL, String $message = NULL) : Bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Driver
@@ -286,5 +286,5 @@ interface InternalEmailInterface
     // @return object
     //
     //--------------------------------------------------------------------------------------------------------
-    public function driver(string $driver) : InternalEmail;
+    public function driver(String $driver) : InternalEmail;
 }

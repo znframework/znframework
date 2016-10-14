@@ -29,7 +29,7 @@ class Register extends UserExtends implements RegisterInterface
     // @return bool
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do(array $data = NULL, $autoLogin = false, string $activationReturnLink = NULL) : bool
+    public function do(Array $data = NULL, $autoLogin = false, String $activationReturnLink = NULL) : Bool
     {
         $data                   = Properties::$parameters['column']     ?? $data;
         $autoLogin              = Properties::$parameters['autoLogin']  ?? $autoLogin;
@@ -138,7 +138,7 @@ class Register extends UserExtends implements RegisterInterface
     // @param  void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function activationComplete() : bool
+    public function activationComplete() : Bool
     {
         // ------------------------------------------------------------------------------
         // Settings

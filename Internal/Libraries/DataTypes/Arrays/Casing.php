@@ -22,7 +22,7 @@ class Casing implements CasingInterface
     // @param string $keyval: all, key, value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function use(array $array, string $type = 'lower', string $keyval = 'all') : array
+    public function use(Array $array, String $type = 'lower', String $keyval = 'all') : Array
     {
         if( $type === 'lower' )
         {
@@ -64,7 +64,7 @@ class Casing implements CasingInterface
     // @param array $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function lowerKeys(array $array) : array
+    public function lowerKeys(Array $array) : Array
     {
         return $this->use($array, 'lower', 'key');
     }
@@ -76,7 +76,7 @@ class Casing implements CasingInterface
     // @param array $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function titleKeys(array $array) : array
+    public function titleKeys(Array $array) : Array
     {
         return $this->use($array, 'title', 'key');
     }
@@ -88,7 +88,7 @@ class Casing implements CasingInterface
     // @param array $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function upperKeys(array $array) : array
+    public function upperKeys(Array $array) : Array
     {
         return $this->use($array, 'upper', 'key');
     }
@@ -100,7 +100,7 @@ class Casing implements CasingInterface
     // @param array $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function lowerValues(array $array) : array
+    public function lowerValues(Array $array) : Array
     {
         return $this->use($array, 'lower', 'value');
     }
@@ -112,7 +112,7 @@ class Casing implements CasingInterface
     // @param array $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function titleValues(array $array) : array
+    public function titleValues(Array $array) : Array
     {
         return $this->use($array, 'title', 'value');
     }
@@ -124,7 +124,7 @@ class Casing implements CasingInterface
     // @param array $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function upperValues(array $array) : array
+    public function upperValues(Array $array) : Array
     {
         return $this->use($array, 'upper', 'value');
     }
@@ -136,7 +136,7 @@ class Casing implements CasingInterface
     // @param array $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function lower(array $array) : array
+    public function lower(Array $array) : Array
     {
         return $this->use($array, 'lower', 'all');
     }
@@ -148,7 +148,7 @@ class Casing implements CasingInterface
     // @param array $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function title(array $array) : array
+    public function title(Array $array) : Array
     {
         return $this->use($array, 'title', 'all');
     }
@@ -160,7 +160,7 @@ class Casing implements CasingInterface
     // @param array $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function upper(array $array) : array
+    public function upper(Array $array) : Array
     {
         return $this->use($array, 'upper', 'all');
     }

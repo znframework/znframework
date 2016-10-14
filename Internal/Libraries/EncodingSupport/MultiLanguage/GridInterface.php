@@ -18,7 +18,7 @@ interface GridInterface
     // @param string $url
     //
     //--------------------------------------------------------------------------------------------------------
-    public function url(string $url = NULL) : Grid;
+    public function url(String $url = NULL) : Grid;
 
     //--------------------------------------------------------------------------------------------------------
     // limit()
@@ -27,7 +27,7 @@ interface GridInterface
     // @param string $limit
     //
     //--------------------------------------------------------------------------------------------------------
-    public function limit(int $limit = NULL) : Grid;
+    public function limit(Int $limit = NULL) : Grid;
 
     //--------------------------------------------------------------------------------------------------------
     // Table
@@ -37,5 +37,5 @@ interface GridInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function create($app = NULL) : string;
+    public function create($app = NULL) : String;
 }

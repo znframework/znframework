@@ -18,7 +18,7 @@ interface InternalUploadInterface
     // @param array $set
     //
     //--------------------------------------------------------------------------------------------------------
-    public function settings(array $set = []) : InternalUpload;
+    public function settings(Array $set = []) : InternalUpload;
 
     //--------------------------------------------------------------------------------------------------------
     // Extension
@@ -36,7 +36,7 @@ interface InternalUploadInterface
     // @param bool $convert
     //
     //--------------------------------------------------------------------------------------------------------
-    public function convertName(bool $convert = true) : InternalUpload;
+    public function convertName(Bool $convert = true) : InternalUpload;
 
     //--------------------------------------------------------------------------------------------------------
     // Encode
@@ -45,7 +45,7 @@ interface InternalUploadInterface
     // @param string $hash
     //
     //--------------------------------------------------------------------------------------------------------
-    public function encode(string $hash = 'md5') : InternalUpload;
+    public function encode(String $hash = 'md5') : InternalUpload;
 
     //--------------------------------------------------------------------------------------------------------
     // Prefix
@@ -54,7 +54,7 @@ interface InternalUploadInterface
     // @param string $prefix
     //
     //--------------------------------------------------------------------------------------------------------
-    public function prefix(string $prefix) : InternalUpload;
+    public function prefix(String $prefix) : InternalUpload;
 
     //--------------------------------------------------------------------------------------------------------
     // Maxsize
@@ -63,7 +63,7 @@ interface InternalUploadInterface
     // @param int $maxsize
     //
     //--------------------------------------------------------------------------------------------------------
-    public function maxsize(int $maxsize = 0) : InternalUpload;
+    public function maxsize(Int $maxsize = 0) : InternalUpload;
 
     //--------------------------------------------------------------------------------------------------------
     // Encode Length
@@ -72,7 +72,7 @@ interface InternalUploadInterface
     // @param int $encodeLength
     //
     //--------------------------------------------------------------------------------------------------------
-    public function encodeLength(int $encodeLength = 8) : InternalUpload;
+    public function encodeLength(Int $encodeLength = 8) : InternalUpload;
 
     //--------------------------------------------------------------------------------------------------------
     // Target
@@ -81,7 +81,7 @@ interface InternalUploadInterface
     // @param string $target
     //
     //--------------------------------------------------------------------------------------------------------
-    public function target(string $target = UPLOADS_DIR) : InternalUpload;
+    public function target(String $target = UPLOADS_DIR) : InternalUpload;
 
     //--------------------------------------------------------------------------------------------------------
     // Source
@@ -90,7 +90,7 @@ interface InternalUploadInterface
     // @param string $source
     //
     //--------------------------------------------------------------------------------------------------------
-    public function source(string $source = 'upload') : InternalUpload;
+    public function source(String $source = 'upload') : InternalUpload;
 
     //--------------------------------------------------------------------------------------------------------
     // Start
@@ -100,7 +100,7 @@ interface InternalUploadInterface
     // @param string $rootDir
     //
     //--------------------------------------------------------------------------------------------------------
-    public  function start(string $fileName = 'upload', string $rootDir = UPLOADS_DIR) : bool;
+    public  function start(String $fileName = 'upload', String $rootDir = UPLOADS_DIR) : Bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Info
@@ -109,7 +109,7 @@ interface InternalUploadInterface
     // @param string $info
     //
     //--------------------------------------------------------------------------------------------------------
-    public function info(string $info = NULL);
+    public function info(String $info = NULL);
 
     //--------------------------------------------------------------------------------------------------------
     // Error

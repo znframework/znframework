@@ -18,7 +18,7 @@ interface InternalCURLInterface
     // @param string $url
     //
     //--------------------------------------------------------------------------------------------------------
-    public function init(string $url = NULL) : InternalCURL;
+    public function init(String $url = NULL) : InternalCURL;
 
     //--------------------------------------------------------------------------------------------------------
     // Exec
@@ -27,7 +27,7 @@ interface InternalCURLInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function exec() : bool;
+    public function exec() : Bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Escape
@@ -36,7 +36,7 @@ interface InternalCURLInterface
     // @param string $url
     //
     //--------------------------------------------------------------------------------------------------------
-    public function escape(string $str) : string;
+    public function escape(String $str) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Unescape
@@ -45,7 +45,7 @@ interface InternalCURLInterface
     // @param string $url
     //
     //--------------------------------------------------------------------------------------------------------
-    public function unescape(string $str) : string;
+    public function unescape(String $str) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Info
@@ -54,7 +54,7 @@ interface InternalCURLInterface
     // @param string $opt
     //
     //--------------------------------------------------------------------------------------------------------
-    public function info(string $opt);
+    public function info(String $opt);
 
     //--------------------------------------------------------------------------------------------------------
     // Error
@@ -63,7 +63,7 @@ interface InternalCURLInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function error() : string;
+    public function error() : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Errno
@@ -72,7 +72,7 @@ interface InternalCURLInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function errno() : int;
+    public function errno() : Int;
 
     //--------------------------------------------------------------------------------------------------------
     // Pause
@@ -81,7 +81,7 @@ interface InternalCURLInterface
     // @param int $bitmask
     //
     //--------------------------------------------------------------------------------------------------------
-    public function pause(int $bitmask = 0) : int;
+    public function pause(Int $bitmask = 0) : Int;
 
     //--------------------------------------------------------------------------------------------------------
     // Reset
@@ -90,7 +90,7 @@ interface InternalCURLInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function reset() : bool;
+    public function reset() : Bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Option
@@ -100,7 +100,7 @@ interface InternalCURLInterface
     // @param mixed  $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function option(string $options, $value) : InternalCURL;
+    public function option(String $options, $value) : InternalCURL;
 
     //--------------------------------------------------------------------------------------------------------
     // Close
@@ -109,7 +109,7 @@ interface InternalCURLInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function close() : bool;
+    public function close() : Bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Errval
@@ -118,7 +118,7 @@ interface InternalCURLInterface
     // @param int $errno
     //
     //--------------------------------------------------------------------------------------------------------
-    public function errval(int $errno = 0) : string;
+    public function errval(Int $errno = 0) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Version

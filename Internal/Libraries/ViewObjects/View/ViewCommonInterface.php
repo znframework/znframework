@@ -18,7 +18,7 @@ interface ViewCommonInterface
     // @param array $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function attributes(array $attributes) : string;
+    public function attributes(Array $attributes) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Input
@@ -30,5 +30,5 @@ interface ViewCommonInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function input( ? string $type = NULL, ? string $name = NULL, ? string $value = NULL, array $attributes = []) : string;
+    public function input(String $type = NULL, String $name = NULL, String $value = NULL, Array $attributes = []) : String;
 }

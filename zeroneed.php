@@ -71,7 +71,7 @@ define('INTERNAL_DIR', REAL_BASE_DIR . 'Internal' . DS);
 // @return Internal/Priority/BaseLevel.php
 //
 //--------------------------------------------------------------------------------------------------
-require_once INTERNAL_DIR . 'Priority' . DS . 'BaseLevel.php';
+import(INTERNAL_DIR . 'Priority' . DS . 'BaseLevel.php');
 
 //--------------------------------------------------------------------------------------------------
 // Invalid PHP Version
@@ -92,7 +92,7 @@ if( ! isPhpVersion(REQUIRED_PHP_VERSION) )
 // @return Projects/Projects.php
 //
 //--------------------------------------------------------------------------------------------------
-define('PROJECTS_CONFIG', require_once PROJECTS_DIR . 'Projects.php');
+define('PROJECTS_CONFIG', import(PROJECTS_DIR . 'Projects.php'));
 
 //--------------------------------------------------------------------------------------------------
 // DEFAULT_PROJECT
@@ -110,7 +110,7 @@ define('DEFAULT_PROJECT', PROJECTS_CONFIG['directory']['default']);
 // @return Internal/Priority/HighLevel.php
 //
 //--------------------------------------------------------------------------------------------------
-require_once INTERNAL_DIR . 'Priority' . DS . 'HighLevel.php';
+import(INTERNAL_DIR . 'Priority' . DS . 'HighLevel.php');
 
 //--------------------------------------------------------------------------------------------------
 // Internal Current Project
@@ -128,7 +128,7 @@ internalCurrentProject();
 // Internal/Core/Required.php
 //
 //--------------------------------------------------------------------------------------------------
-require_once REQUIRED_FILE;
+import(REQUIRED_FILE);
 
 //--------------------------------------------------------------------------------------------------
 // Finish
@@ -147,3 +147,22 @@ $finish = microtime();
 //
 //--------------------------------------------------------------------------------------------------
 internalBenchmarkReport($start, $finish);
+
+//--------------------------------------------------------------------------------------------------
+// Import
+//--------------------------------------------------------------------------------------------------
+//
+// Require Once
+//
+//--------------------------------------------------------------------------------------------------
+function import(String $file)
+{
+    $constant = 'ImportFilePrefix' . $file;
+
+    if( ! defined($constant) )
+    {
+        define($constant, true);
+
+        return require $file;
+    }
+}

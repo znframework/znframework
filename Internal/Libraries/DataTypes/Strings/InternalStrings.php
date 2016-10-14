@@ -50,7 +50,7 @@ class InternalStrings extends \FactoryController implements InternalStringsInter
     // @param string $encoding
     //
     //--------------------------------------------------------------------------------------------------------
-    public function section(string $str, int $starting = 0, int $count = NULL, string $encoding = 'utf-8') : string
+    public function section(String $str, Int $starting = 0, Int $count = NULL, String $encoding = 'utf-8') : String
     {
         return mb_substr($str, $starting, $count, $encoding);
     }
@@ -63,7 +63,7 @@ class InternalStrings extends \FactoryController implements InternalStringsInter
     // @param string $char
     //
     //--------------------------------------------------------------------------------------------------------
-    public function recurrentCount(string $str, string $char) : int
+    public function recurrentCount(String $str, String $char) : Int
     {
         return count(explode($char, $str)) - 1;
     }
@@ -76,7 +76,7 @@ class InternalStrings extends \FactoryController implements InternalStringsInter
     // @param string $encoding
     //
     //--------------------------------------------------------------------------------------------------------
-    public function length(string $string, string $encoding = 'utf-8') : int
+    public function length(String $string, String $encoding = 'utf-8') : Int
     {
         return mb_strlen($string, $encoding);
     }
@@ -89,7 +89,7 @@ class InternalStrings extends \FactoryController implements InternalStringsInter
     // @param numeric $count
     //
     //--------------------------------------------------------------------------------------------------------
-    public function repeat(string $string, int $count = 1) : string
+    public function repeat(String $string, Int $count = 1) : String
     {
         return str_repeat($string, $count);
     }
@@ -104,7 +104,7 @@ class InternalStrings extends \FactoryController implements InternalStringsInter
     // @param string  $type
     //
     //--------------------------------------------------------------------------------------------------------
-    public function pad(string $string, Int $count = 1, string $chars = ' ', string $type = 'right') : string
+    public function pad(String $string, Int $count = 1, String $chars = ' ', String $type = 'right') : String
     {
         return str_pad($string, $count, $chars, Converter::toConstant($type, 'STR_PAD_'));
     }
@@ -118,7 +118,7 @@ class InternalStrings extends \FactoryController implements InternalStringsInter
     // @param string  $end
     //
     //--------------------------------------------------------------------------------------------------------
-    public function apportion(string $string, int $length = 76, string $end = "\r\n") : string
+    public function apportion(String $string, Int $length = 76, String $end = "\r\n") : String
     {
         $arrayChunk = array_chunk(preg_split("//u", $string, -1, PREG_SPLIT_NO_EMPTY), $length);
 
@@ -141,7 +141,7 @@ class InternalStrings extends \FactoryController implements InternalStringsInter
     // @param numeric $index
     //
     //--------------------------------------------------------------------------------------------------------
-    public function divide(string $str, string $separator = "|", $index = 0) : string
+    public function divide(String $str, String $separator = "|", $index = 0) : String
     {
         return divide($str, $separator, $index);
     }
@@ -154,7 +154,7 @@ class InternalStrings extends \FactoryController implements InternalStringsInter
     // @param string $quote
     //
     //--------------------------------------------------------------------------------------------------------
-    public function translationTable(string $table = 'specialchars', string $quote = 'compat') : array
+    public function translationTable(String $table = 'specialchars', String $quote = 'compat') : Array
     {
         return get_html_translation_table(Converter::toConstant($table, 'HTML_'), Converter::toConstant($quote, 'ENT_'));
     }

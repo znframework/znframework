@@ -10,7 +10,7 @@ interface InternalCrontabInterface
     // @return object
     //
     //--------------------------------------------------------------------------------------------------------
-    public function driver(string $driver) : InternalCrontab;
+    public function driver(String $driver) : InternalCrontab;
 
     //--------------------------------------------------------------------------------------------------------
     // Path
@@ -20,7 +20,7 @@ interface InternalCrontabInterface
     // @return object
     //
     //--------------------------------------------------------------------------------------------------------
-    public function path(string $path) : InternalCrontab;
+    public function path(String $path) : InternalCrontab;
 
     //--------------------------------------------------------------------------------------------------------
     // Roster
@@ -30,7 +30,7 @@ interface InternalCrontabInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function roster() : bool;
+    public function roster() : Bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Create File
@@ -40,7 +40,7 @@ interface InternalCrontabInterface
     // @return object
     //
     //--------------------------------------------------------------------------------------------------------
-    public function createFile(string $name) : bool;
+    public function createFile(String $name) : Bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Delete File
@@ -50,7 +50,7 @@ interface InternalCrontabInterface
     // @return object
     //
     //--------------------------------------------------------------------------------------------------------
-    public function deleteFile(string $name) : bool;
+    public function deleteFile(String $name) : Bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Remove
@@ -60,7 +60,7 @@ interface InternalCrontabInterface
     // @return object
     //
     //--------------------------------------------------------------------------------------------------------
-    public function remove(string $name) : bool;
+    public function remove(String $name) : Bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Add
@@ -80,7 +80,7 @@ interface InternalCrontabInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function run(string $cmd) : bool;
+    public function run(String $cmd) : Bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Debug
@@ -90,7 +90,7 @@ interface InternalCrontabInterface
     // @return object
     //
     //--------------------------------------------------------------------------------------------------------
-    public function debug(bool $status) : InternalCrontab;
+    public function debug(Bool $status) : InternalCrontab;
 
     //--------------------------------------------------------------------------------------------------------
     // Command
@@ -100,39 +100,7 @@ interface InternalCrontabInterface
     // @return object
     //
     //--------------------------------------------------------------------------------------------------------
-    public function command(string $command) : InternalCrontab;
-
-    //--------------------------------------------------------------------------------------------------------
-    // Callback
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  function $callback: empty
-
-    // @return object
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function callback($callback) : InternalCrontab;
-
-    //--------------------------------------------------------------------------------------------------------
-    // After
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  function $callback: empty
-    // @return object
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function after($callback) : InternalCrontab;
-
-
-    //--------------------------------------------------------------------------------------------------------
-    // Before
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  function $callback: empty
-    // @return object
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function before($callback) : InternalCrontab;
+    public function command(String $command) : InternalCrontab;
 
     //--------------------------------------------------------------------------------------------------------
     // File
@@ -142,7 +110,7 @@ interface InternalCrontabInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function file(string $file) : InternalCrontab;
+    public function file(String $file) : InternalCrontab;
 
     //--------------------------------------------------------------------------------------------------------
     // Url
@@ -153,5 +121,5 @@ interface InternalCrontabInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function url(string $url) : InternalCrontab;
+    public function url(String $url) : InternalCrontab;
 }

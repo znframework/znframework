@@ -20,7 +20,7 @@ class CSVToArray implements CSVToArrayInterface
     // @param string $file
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do(string $file) : array
+    public function do(String $file) : Array
     {
         $file = suffix($file, '.csv');
 

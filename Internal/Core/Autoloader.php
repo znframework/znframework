@@ -19,5 +19,5 @@ define('INTERNAL_AUTOLOADER_DIR', INTERNAL_DIR . 'Autoloader' . DS);
 // Constants
 //
 //--------------------------------------------------------------------------------------------------
-require_once INTERNAL_AUTOLOADER_DIR . 'Autoloader.php';
-require_once INTERNAL_AUTOLOADER_DIR . 'Aliases.php';
+import(INTERNAL_AUTOLOADER_DIR . 'Autoloader.php');
+import(INTERNAL_AUTOLOADER_DIR . 'Aliases.php');

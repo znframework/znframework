@@ -18,7 +18,7 @@ interface InternalValidationInterface
     // @param string $method
     //
     //--------------------------------------------------------------------------------------------------------
-    public function method(string $method) : InternalValidation;
+    public function method(String $method) : InternalValidation;
 
     //--------------------------------------------------------------------------------------------------------
     // value()
@@ -27,7 +27,7 @@ interface InternalValidationInterface
     // @param string $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function value(string $value) : InternalValidation;
+    public function value(String $value) : InternalValidation;
 
     //--------------------------------------------------------------------------------------------------------
     // required()
@@ -54,7 +54,7 @@ interface InternalValidationInterface
     // @param string $match
     //
     //--------------------------------------------------------------------------------------------------------
-    public function match(string $match) : InternalValidation;
+    public function match(String $match) : InternalValidation;
 
     //--------------------------------------------------------------------------------------------------------
     // matchPassword()
@@ -63,7 +63,7 @@ interface InternalValidationInterface
     // @param string $match
     //
     //--------------------------------------------------------------------------------------------------------
-    public function matchPassword(string $match) : InternalValidation;
+    public function matchPassword(String $match) : InternalValidation;
 
     //--------------------------------------------------------------------------------------------------------
     // oldPassword()
@@ -72,7 +72,7 @@ interface InternalValidationInterface
     // @param string $oldPassword
     //
     //--------------------------------------------------------------------------------------------------------
-    public function oldPassword(string $oldPassword) : InternalValidation;
+    public function oldPassword(String $oldPassword) : InternalValidation;
 
     //--------------------------------------------------------------------------------------------------------
     // compare()
@@ -82,7 +82,7 @@ interface InternalValidationInterface
     // @param numeric $max
     //
     //--------------------------------------------------------------------------------------------------------
-    public function compare(int $min = NULL, int $max = NULL) : InternalValidation;
+    public function compare(Int $min = NULL, Int $max = NULL) : InternalValidation;
 
     //--------------------------------------------------------------------------------------------------------
     // validate()
@@ -110,7 +110,7 @@ interface InternalValidationInterface
     // @param string $char
     //
     //--------------------------------------------------------------------------------------------------------
-    public function pattern(string $pattern, string $char = NULL) : InternalValidation;
+    public function pattern(String $pattern, String $char = NULL) : InternalValidation;
 
     //--------------------------------------------------------------------------------------------------------
     // phone()
@@ -119,7 +119,7 @@ interface InternalValidationInterface
     // @param string $design
     //
     //--------------------------------------------------------------------------------------------------------
-    public function phone(string $design = NULL) : InternalValidation;
+    public function phone(String $design = NULL) : InternalValidation;
 
     //--------------------------------------------------------------------------------------------------------
     // alpha()
@@ -146,7 +146,7 @@ interface InternalValidationInterface
     // @param string $captcha
     //
     //--------------------------------------------------------------------------------------------------------
-    public function captcha(string $captcha) : InternalValidation;
+    public function captcha(String $captcha) : InternalValidation;
 
     //--------------------------------------------------------------------------------------------------------
     // Rules
@@ -158,7 +158,7 @@ interface InternalValidationInterface
     // @param string $met
     //
     //--------------------------------------------------------------------------------------------------------
-    public function rules(string $name, array $config = [], string $viewName = NULL, string $met = 'post');
+    public function rules(String $name, Array $config = [], String $viewName = NULL, String $met = 'post');
 
     //--------------------------------------------------------------------------------------------------------
     // Nval
@@ -167,7 +167,7 @@ interface InternalValidationInterface
     // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
-    public function nval(string $name);
+    public function nval(String $name);
 
     //--------------------------------------------------------------------------------------------------------
     // Error
@@ -176,7 +176,7 @@ interface InternalValidationInterface
     // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
-    public function error(string $name = 'array');
+    public function error(String $name = 'array');
 
     //--------------------------------------------------------------------------------------------------------
     // Error
@@ -186,5 +186,5 @@ interface InternalValidationInterface
     // @param string $met
     //
     //--------------------------------------------------------------------------------------------------------
-    public function postBack(string $name, string $met = 'post');
+    public function postBack(String $name, String $met = 'post');
 }

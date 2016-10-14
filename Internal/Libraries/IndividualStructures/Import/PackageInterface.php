@@ -20,7 +20,7 @@ interface PackageInterface
     // @param bool   $getContents
     //
     //--------------------------------------------------------------------------------------------------------
-    public function use($packages, bool $recursive = false, bool $getContents = false, string $dir = NULL);
+    public function use($packages, Bool $recursive = false, Bool $getContents = false, String $dir = NULL);
 
     //--------------------------------------------------------------------------------------------------------
     // Theme
@@ -31,7 +31,7 @@ interface PackageInterface
     // @param bool   $getContents
     //
     //--------------------------------------------------------------------------------------------------------
-    public function theme($theme = 'Default', bool $recursive = false, bool $getContents = false);
+    public function theme($theme = 'Default', Bool $recursive = false, Bool $getContents = false);
 
     //--------------------------------------------------------------------------------------------------------
     // Plugin
@@ -42,5 +42,5 @@ interface PackageInterface
     // @param bool   $getContents
     //
     //--------------------------------------------------------------------------------------------------------
-    public function plugin($plugin = 'Default', bool $recursive = false, bool $getContents = false);
+    public function plugin($plugin = 'Default', Bool $recursive = false, Bool $getContents = false);
 }

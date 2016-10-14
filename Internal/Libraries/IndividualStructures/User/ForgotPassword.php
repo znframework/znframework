@@ -12,7 +12,7 @@ class ForgotPassword extends UserExtends implements ForgotPasswordInterface
     // @return this
     //
     //--------------------------------------------------------------------------------------------------------
-    public function email(string $email) : ForgotPassword
+    public function email(String $email) : ForgotPassword
     {
         Properties::$parameters['email'] = $email;
 
@@ -28,7 +28,7 @@ class ForgotPassword extends UserExtends implements ForgotPasswordInterface
     // @return bool
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do(string $email = NULL, string $returnLinkPath = NULL) : bool
+    public function do(String $email = NULL, String $returnLinkPath = NULL) : Bool
     {
         $email            = Properties::$parameters['email']      ?? $email;
         $returnLinkPath   = Properties::$parameters['returnLink'] ?? $returnLinkPath;

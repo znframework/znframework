@@ -20,7 +20,7 @@ interface InternalErrorsInterface
     // @param mixed  $ex
     //
     //--------------------------------------------------------------------------------------------------------
-    public function message(string $langFile, string $errorMsg, $ex = NULL) : string;
+    public function message(String $langFile, String $errorMsg, $ex = NULL) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Last
@@ -30,7 +30,7 @@ interface InternalErrorsInterface
     // @return mixed
     //
     //--------------------------------------------------------------------------------------------------------
-    public function last(string $type = NULL);
+    public function last(String $type = NULL);
 
     //--------------------------------------------------------------------------------------------------------
     // Log
@@ -42,7 +42,7 @@ interface InternalErrorsInterface
     // @param string $header
     //
     //--------------------------------------------------------------------------------------------------------
-    public function log(string $message, int $type = 0, ? string $destination = NULL, string $header = NULL) : bool;
+    public function log(String $message, Int $type = 0, String $destination = NULL, String $header = NULL) : Bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Report
@@ -51,7 +51,7 @@ interface InternalErrorsInterface
     // @param int
     //
     //--------------------------------------------------------------------------------------------------------
-    public function report(int $level = NULL) : int;
+    public function report(Int $level = NULL) : Int;
 
     //--------------------------------------------------------------------------------------------------------
     // Handler
@@ -60,7 +60,7 @@ interface InternalErrorsInterface
     // @param int
     //
     //--------------------------------------------------------------------------------------------------------
-    public function handler($handler, int $errorTypes = E_ALL | E_STRICT);
+    public function handler($handler, Int $errorTypes = E_ALL | E_STRICT);
 
     //--------------------------------------------------------------------------------------------------------
     // Trigger
@@ -70,7 +70,7 @@ interface InternalErrorsInterface
     // @param int    $errorType
     //
     //--------------------------------------------------------------------------------------------------------
-    public function trigger(string $msg, int $errorType = E_USER_NOTICE) : bool;
+    public function trigger(String $msg, Int $errorType = E_USER_NOTICE) : Bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Restore
@@ -79,5 +79,5 @@ interface InternalErrorsInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function restore() : bool;
+    public function restore() : Bool;
 }

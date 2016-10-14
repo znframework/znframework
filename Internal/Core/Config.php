@@ -51,7 +51,7 @@ class Config
     // @return void
     //
     //--------------------------------------------------------------------------------------------------
-    private static function _config(string $file) : void
+    private static function _config($file)
     {
         if( empty(self::$config[$file]) )
         {
@@ -63,17 +63,17 @@ class Config
 
             if( is_file($externalPath) )
             {
-                $allConfig = array_merge($allConfig, (array) require_once($externalPath));
+                $allConfig = array_merge($allConfig, (array) import($externalPath));
             }
 
             if( is_file($projectPath) )
             {
-                $allConfig = array_merge($allConfig, (array) require_once($projectPath));
+                $allConfig = array_merge($allConfig, (array) import($projectPath));
             }
 
             if( is_file($internalPath) )
             {
-                $allConfig = array_merge($allConfig, (array) require_once($internalPath));
+                $allConfig = array_merge($allConfig, (array) import($internalPath));
             }
 
             self::$config[$file] = $allConfig;
@@ -89,7 +89,7 @@ class Config
 // @return array
 //
 //--------------------------------------------------------------------------------------------------
-public static function get(string $file, string $configs = NULL, $settings = NULL ) : array
+public static function get(String $file, String $configs = NULL, $settings = NULL )
 {
     self::_config($file);
 
@@ -115,10 +115,10 @@ public static function get(string $file, string $configs = NULL, $settings = NUL
 
     if( empty($configs) )
     {
-        return self::$config[$file] ?? [];
+        return self::$config[$file] ?? false;
     }
 
-    return self::$config[$file][$configs] ?? [];
+    return self::$config[$file][$configs] ?? false;
 }
 //--------------------------------------------------------------------------------------------------
 // set()
@@ -129,11 +129,11 @@ public static function get(string $file, string $configs = NULL, $settings = NUL
 // @return array
 //
 //--------------------------------------------------------------------------------------------------
-public static function set(string $file, $configs, $set = NULL) : array
+public static function set(String $file, $configs, $set = NULL)
 {
     if( empty($configs) )
     {
-        return [];
+        return false;
     }
 
     if( ! is_array($configs) )
@@ -159,7 +159,7 @@ public static function set(string $file, $configs, $set = NULL) : array
     // @return void
     //
     //--------------------------------------------------------------------------------------------------
-    public static function iniSet($key, $val = NULL) : void
+    public static function iniSet($key, $val = NULL)
     {
         if( empty($key) )
         {
@@ -168,7 +168,7 @@ public static function set(string $file, $configs, $set = NULL) : array
 
         if( ! is_array($key) )
         {
-            if( ! is_scalar($val) )
+            if( is_array($val) )
             {
                 return false;
             }
@@ -226,7 +226,7 @@ public static function set(string $file, $configs, $set = NULL) : array
     // @return array
     //
     //--------------------------------------------------------------------------------------------------
-    public static function iniGetAll( ? string $extension = NULL, bool $details = true) : array
+    public static function iniGetAll(String $extension = NULL, Bool $details = true)
     {
         if( empty($extension) )
         {
@@ -243,12 +243,12 @@ public static function set(string $file, $configs, $set = NULL) : array
     //--------------------------------------------------------------------------------------------------
     //
     // @param  string $str
-    // @return void
+    // @return bool
     //
     //--------------------------------------------------------------------------------------------------
-    public static function iniRestore(string $str) : void
+    public static function iniRestore(String $str)
     {
-        ini_restore($str);
+        return ini_restore($str);
     }
 }
 

@@ -20,7 +20,7 @@ interface UnicodeInterface
     // @param string $changeType: char, dec, hex, html
     //
     //--------------------------------------------------------------------------------------------------------
-    public function char(string $string, string $type = 'char', string $changeType = 'html') : string;
+    public function char(String $string, String $type = 'char', String $changeType = 'html') : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Accent
@@ -29,7 +29,7 @@ interface UnicodeInterface
     // @param string $str
     //
     //--------------------------------------------------------------------------------------------------------
-    public function accent(string $str) : string;
+    public function accent(String $str) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Url Word
@@ -39,7 +39,7 @@ interface UnicodeInterface
     // @param string $splitWord
     //
     //--------------------------------------------------------------------------------------------------------
-    public function urlWord(string $str, string $splitWord = '-') : string;
+    public function urlWord(String $str, String $splitWord = '-') : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Charset
@@ -50,5 +50,5 @@ interface UnicodeInterface
     // @param string $toCharset
     //
     //--------------------------------------------------------------------------------------------------------
-    public function charset(string $str, string $fromCharset, string $toCharset = 'utf-8') : string;
+    public function charset(String $str, String $fromCharset, String $toCharset = 'utf-8') : String;
 }

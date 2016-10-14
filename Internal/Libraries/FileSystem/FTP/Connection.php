@@ -41,7 +41,7 @@ class Connection extends CLController implements ConnectionInterface
     // @param array $config: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function __construct(array $config = []) : void
+    public function __construct(Array $config = [])
     {
         parent::__construct();
 
@@ -64,7 +64,7 @@ class Connection extends CLController implements ConnectionInterface
     // @param array $config: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do(array $config) : Connection
+    public function do(Array $config) : Connection
     {
         return new self($config);
     }
@@ -130,7 +130,7 @@ class Connection extends CLController implements ConnectionInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function __destruct() : void
+    public function __destruct()
     {
         $this->_close();
     }

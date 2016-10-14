@@ -20,7 +20,7 @@ class Decode extends SeparatorExtends implements DecodeInterface
     // @param string $separator
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do(string $word, ? string $key = NULL, string $separator = NULL) : \stdClass
+    public function do(String $word, String $key = NULL, String $separator = NULL) : \stdClass
     {
         if( empty($key) )
         {
@@ -58,7 +58,7 @@ class Decode extends SeparatorExtends implements DecodeInterface
     // @param string $separator
     //
     //--------------------------------------------------------------------------------------------------------
-    public function object(string $word, ? string $key = NULL, string $separator = NULL) : \stdClass
+    public function object(String $word, String $key = NULL, String $separator = NULL) : \stdClass
     {
         return $this->do($word, $key, $separator);
     }
@@ -72,7 +72,7 @@ class Decode extends SeparatorExtends implements DecodeInterface
     // @param string $separator
     //
     //--------------------------------------------------------------------------------------------------------
-    public function array(string $word, ? string $key = NULL, string $separator = NULL) : array
+    public function array(String $word, String $key = NULL, String $separator = NULL) : Array
     {
         return (array) $this->do($word, $key, $separator);
     }

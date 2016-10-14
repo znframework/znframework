@@ -19,5 +19,5 @@ interface FileInterface
     // @return content
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function do(string $file) : string;
+    public static function do(String $file) : String;
 }

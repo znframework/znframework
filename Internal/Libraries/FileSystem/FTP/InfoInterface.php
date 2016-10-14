@@ -19,7 +19,7 @@ interface InfoInterface
     // @param string $extension: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function files(string $path, string $extension = NULL) : array;
+    public function files(String $path, String $extension = NULL) : Array;
 
     //--------------------------------------------------------------------------------------------------------
     // fileSize()
@@ -30,5 +30,5 @@ interface InfoInterface
     // @param int    $decimal: 2
     //
     //--------------------------------------------------------------------------------------------------------
-    public function fileSize(string $path, string $type = 'b', int $decimal = 2) : float;
+    public function fileSize(String $path, String $type = 'b', Int $decimal = 2) : Float;
 }

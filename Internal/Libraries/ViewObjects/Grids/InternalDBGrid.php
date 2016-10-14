@@ -106,7 +106,7 @@ class InternalDBGrid extends Abstracts\GridAbstract
     // @return InternalDBGrid
     //
     //--------------------------------------------------------------------------------------------------------
-    public function processColumn(string $column) : InternalDBGrid
+    public function processColumn(String $column) : InternalDBGrid
     {
         $this->processColumn = $column;
 
@@ -122,7 +122,7 @@ class InternalDBGrid extends Abstracts\GridAbstract
     // @return InternalDBGrid
     //
     //--------------------------------------------------------------------------------------------------------
-    public function limit(int $limit) : InternalDBGrid
+    public function limit(Int $limit) : InternalDBGrid
     {
         $this->limit = $limit;
 
@@ -189,7 +189,7 @@ class InternalDBGrid extends Abstracts\GridAbstract
     // @return InternalDBGrid
     //
     //--------------------------------------------------------------------------------------------------------
-    public function orderBy($orderBy, string $type = NULL) : InternalDBGrid
+    public function orderBy($orderBy, String $type = NULL) : InternalDBGrid
     {
         DB::orderBy($orderBy, $type);
 
@@ -223,7 +223,7 @@ class InternalDBGrid extends Abstracts\GridAbstract
     // @return InternalDBGrid
     //
     //--------------------------------------------------------------------------------------------------------
-    public function where($column, string $value = NULL, string $logical = NULL) : InternalDBGrid
+    public function where($column, String $value = NULL, String $logical = NULL) : InternalDBGrid
     {
         DB::where($column, $value, $logical);
 
@@ -255,7 +255,7 @@ class InternalDBGrid extends Abstracts\GridAbstract
     // @return InternalDBGrid
     //
     //--------------------------------------------------------------------------------------------------------
-    public function table(string $table) : InternalDBGrid
+    public function table(String $table) : InternalDBGrid
     {
         $this->table = $table;
 
@@ -271,7 +271,7 @@ class InternalDBGrid extends Abstracts\GridAbstract
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function create(string $table = NULL) : string
+    public function create(String $table = NULL) : String
     {
         if( $table !== NULL )
         {

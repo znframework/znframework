@@ -34,7 +34,7 @@ class InternalExceptions extends Exception implements InternalExceptionsInterfac
     // @param mixed  $send
     //
     //--------------------------------------------------------------------------------------------------------
-    public function throws( ? string $message = NULL, ? string $key = NULL, $send = NULL) : void
+    public function throws(String $message = NULL, String $key = NULL, $send = NULL)
     {
         $debug = $this->_throwFinder(debug_backtrace(2));
 
@@ -57,7 +57,7 @@ class InternalExceptions extends Exception implements InternalExceptionsInterfac
     // @param array $trace
     //
     //--------------------------------------------------------------------------------------------------------
-    public function table( ? string $no = NULL, ? string $msg = NULL, ? string $file = NULL, ? string $line = NULL, array $trace = NULL) : void
+    public function table(String $no = NULL, String $msg = NULL, String $file = NULL, String $line = NULL, Array $trace = NULL)
     {
         $lang    = lang('Templates');
         $message = $lang['line'].':'.$line.', '.$lang['file'].':'.$file.', '.$lang['message'].':'.$msg;
@@ -96,7 +96,7 @@ class InternalExceptions extends Exception implements InternalExceptionsInterfac
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function restore() : bool
+    public function restore() : Bool
     {
         return restore_exception_handler();
     }

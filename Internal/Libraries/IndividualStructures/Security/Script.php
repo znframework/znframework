@@ -18,7 +18,7 @@ class Script implements ScriptInterface
     // @var array
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $scriptTagChars =
+    protected $scriptTagChars = 
     [
         '/\<script(.*?)\>/i'  => '&#60;script$1&#62;',
         '/\<\/script\>/i'     => '&#60;/script&#62;'
@@ -31,7 +31,7 @@ class Script implements ScriptInterface
     // @var array
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $scriptTagCharsDecode =
+    protected $scriptTagCharsDecode = 
     [
         '/\&\#60\;script(.*?)\&\#62\;/i' => '<script$1>',
         '/\&\#60\;\/script\&\#62\;/i'    => '</script>'
@@ -44,7 +44,7 @@ class Script implements ScriptInterface
     // @param string $str
     //
     //--------------------------------------------------------------------------------------------------------
-    public function encode(string $str) : string
+    public function encode(String $str) : String
     {
         return preg_replace(array_keys($this->scriptTagChars), array_values($this->scriptTagChars), $str);
     }
@@ -56,7 +56,7 @@ class Script implements ScriptInterface
     // @param string $str
     //
     //--------------------------------------------------------------------------------------------------------
-    public function decode(string $str) : string
+    public function decode(String $str) : String
     {
         return preg_replace(array_keys($this->scriptTagCharsDecode), array_values($this->scriptTagCharsDecode), $str);
     }

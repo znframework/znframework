@@ -21,7 +21,7 @@ class Save implements SaveInterface
     // @param string $data
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do(string $file, string $data) : bool
+    public function do(String $file, String $data) : Bool
     {
         $file = suffix($file, $this->extension);
 

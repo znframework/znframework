@@ -19,7 +19,7 @@
 // @return mixed
 //
 //--------------------------------------------------------------------------------------------------
-function configs(...$configs) : array
+function configs(...$configs) : Array
 {
     $allConfig = [];
 
@@ -49,7 +49,7 @@ function configs(...$configs) : array
 // @return mixed
 //
 //--------------------------------------------------------------------------------------------------
-function config(string $file, ? string $value = NULL, $newValue = NULL)
+function config(String $file, String $value = '', $newValue = NULL)
 {
     if( $newValue === NULL )
     {
@@ -85,7 +85,7 @@ function config(string $file, ? string $value = NULL, $newValue = NULL)
 // @return mixed
 //
 //--------------------------------------------------------------------------------------------------
-function gconfig( ? string $value = NULL) :? array
+function gconfig(String $value = NULL)
 {
     global $gconfig;
 
@@ -112,5 +112,5 @@ function gconfig( ? string $value = NULL) :? array
         return $gconfig;
     }
 
-    return $gconfig[$value] ?? NULL;
+    return $gconfig[$value] ?? false;
 }

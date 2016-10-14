@@ -21,7 +21,7 @@ class InternalVars extends CallController implements InternalVarsInterface
     // @param mixed $var
     //
     //--------------------------------------------------------------------------------------------------------
-    public function bool($var) : bool
+    public function bool($var) : Bool
     {
         return boolval($var);
     }
@@ -33,7 +33,7 @@ class InternalVars extends CallController implements InternalVarsInterface
     // @param mixed $var
     //
     //--------------------------------------------------------------------------------------------------------
-    public function boolean($var) : bool
+    public function boolean($var) : Bool
     {
         return boolval($var);
     }
@@ -45,7 +45,7 @@ class InternalVars extends CallController implements InternalVarsInterface
     // @param mixed $var
     //
     //--------------------------------------------------------------------------------------------------------
-    public function float($var) : float
+    public function float($var) : Float
     {
         return floatval($var);
     }
@@ -57,7 +57,7 @@ class InternalVars extends CallController implements InternalVarsInterface
     // @param mixed $var
     //
     //--------------------------------------------------------------------------------------------------------
-    public function double($var) : float
+    public function double($var) : Float
     {
         return floatval($var);
     }
@@ -69,7 +69,7 @@ class InternalVars extends CallController implements InternalVarsInterface
     // @param mixed $var
     //
     //--------------------------------------------------------------------------------------------------------
-    public function int($var) : int
+    public function int($var) : Int
     {
         return intval($var);
     }
@@ -81,7 +81,7 @@ class InternalVars extends CallController implements InternalVarsInterface
     // @param mixed $var
     //
     //--------------------------------------------------------------------------------------------------------
-    public function integer($var) : int
+    public function integer($var) : Int
     {
         return intval($var);
     }
@@ -93,7 +93,7 @@ class InternalVars extends CallController implements InternalVarsInterface
     // @param mixed $var
     //
     //--------------------------------------------------------------------------------------------------------
-    public function string($var) : string
+    public function string($var) : String
     {
         return strval($var);
     }
@@ -105,7 +105,7 @@ class InternalVars extends CallController implements InternalVarsInterface
     // @param mixed $var
     //
     //--------------------------------------------------------------------------------------------------------
-    public function type($var) : string
+    public function type($var) : String
     {
         return gettype($var);
     }
@@ -117,7 +117,7 @@ class InternalVars extends CallController implements InternalVarsInterface
     // @param mixed $resource
     //
     //--------------------------------------------------------------------------------------------------------
-    public function resourceType($resource) : string
+    public function resourceType($resource) : String
     {
         if( ! is_resource($resource) )
         {
@@ -134,7 +134,7 @@ class InternalVars extends CallController implements InternalVarsInterface
     // @param mixed $var
     //
     //-------------------------------------------------------------------------------------------------------
-    public function serial($var) : string
+    public function serial($var) : String
     {
         return serialize($var);
     }
@@ -146,7 +146,7 @@ class InternalVars extends CallController implements InternalVarsInterface
     // @param mixed $var
     //
     //-------------------------------------------------------------------------------------------------------
-    public function unserial(string $var)
+    public function unserial(String $var)
     {
         return unserialize($var);
     }
@@ -158,7 +158,7 @@ class InternalVars extends CallController implements InternalVarsInterface
     // @param mixed $var
     //
     //-------------------------------------------------------------------------------------------------------
-    public function remove($var) : void
+    public function remove($var)
     {
         unset($var);
     }
@@ -170,7 +170,7 @@ class InternalVars extends CallController implements InternalVarsInterface
     // @param mixed $var
     //
     //-------------------------------------------------------------------------------------------------------
-    public function delete($var) : void
+    public function delete($var)
     {
         $this->remove($var);
     }
@@ -182,7 +182,7 @@ class InternalVars extends CallController implements InternalVarsInterface
     // @param mixed $var
     //
     //-------------------------------------------------------------------------------------------------------
-    public function toType($var, string $type = 'integer')
+    public function toType($var, String $type = 'integer')
     {
         settype($var, $type);
 

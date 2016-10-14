@@ -65,7 +65,7 @@ class InternalSSH extends CLController implements InternalSSHInterface
     // @param array $config: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function __construct(array $config = [])
+    public function __construct(Array $config = [])
     {
         Support::func('ssh2_connect', 'SSH(Secure Shell)');
 
@@ -90,7 +90,7 @@ class InternalSSH extends CLController implements InternalSSHInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function command(string $command) : InternalSSH
+    public function command(String $command) : InternalSSH
     {
         $this->command .= $command.' ';
 
@@ -104,7 +104,7 @@ class InternalSSH extends CLController implements InternalSSHInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function run(string $command = NULL)
+    public function run(String $command = NULL)
     {
         if( ! empty($this->connect) )
         {
@@ -130,7 +130,7 @@ class InternalSSH extends CLController implements InternalSSHInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function output(int $length = 4096) : string
+    public function output(Int $length = 4096) : String
     {
         $stream = $this->stream;
 
@@ -156,7 +156,7 @@ class InternalSSH extends CLController implements InternalSSHInterface
     // @param string $remotePath: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function upload(string $localPath, string $remotePath) : bool
+    public function upload(String $localPath, String $remotePath) : Bool
     {
         if( @ssh2_scp_send($this->connect, $localPath, $remotePath) )
         {
@@ -176,7 +176,7 @@ class InternalSSH extends CLController implements InternalSSHInterface
     // @param string $localPath : empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function download(string $remotePath, string $localPath) : bool
+    public function download(String $remotePath, String $localPath) : Bool
     {
         if( @ssh2_scp_recv($this->connect, $remotePath, $localPath) )
         {
@@ -195,7 +195,7 @@ class InternalSSH extends CLController implements InternalSSHInterface
     // @param string $path: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function createFolder(string $path, int $mode = 0777, bool $recursive = true) : bool
+    public function createFolder(String $path, Int $mode = 0777, Bool $recursive = true) : Bool
     {
         if( @ssh2_sftp_mkdir($this->connect, $path, $mode, $recursive) )
         {
@@ -214,7 +214,7 @@ class InternalSSH extends CLController implements InternalSSHInterface
     // @param string $path: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function deleteFolder(string $path) : bool
+    public function deleteFolder(String $path) : Bool
     {
         if( @ssh2_sftp_rmdir($this->connect, $path) )
         {
@@ -235,7 +235,7 @@ class InternalSSH extends CLController implements InternalSSHInterface
     // @param string $newName: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function rename(string $oldName, string $newName) : bool
+    public function rename(String $oldName, String $newName) : Bool
     {
         if( @ssh2_sftp_rename($this->connect, $oldName, $newName) )
         {
@@ -254,7 +254,7 @@ class InternalSSH extends CLController implements InternalSSHInterface
     // @param string $path: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function deleteFile(string $path) : bool
+    public function deleteFile(String $path) : Bool
     {
         if( @ssh2_sftp_unlink($this->connect, $path) )
         {
@@ -274,7 +274,7 @@ class InternalSSH extends CLController implements InternalSSHInterface
     // @param int $type   : 0755
     //
     //--------------------------------------------------------------------------------------------------------
-    public function permission(string $path, int $type = 0755) : bool
+    public function permission(String $path, Int $type = 0755) : Bool
     {
         if( @ssh2_sftp_chmod($this->connect, $path, $type) )
         {
@@ -293,7 +293,7 @@ class InternalSSH extends CLController implements InternalSSHInterface
     // @param array $config: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function differentConnection(array $config) : InternalSSH
+    public function differentConnection(Array $config) : InternalSSH
     {
         return new self($config);
     }
@@ -305,7 +305,7 @@ class InternalSSH extends CLController implements InternalSSHInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    protected function _close() : bool
+    protected function _close() : Bool
     {
         if( ! empty($this->connect) )
         {

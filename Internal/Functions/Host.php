@@ -19,7 +19,7 @@
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function host() : string
+function host() : String
 {
     if( isset($_SERVER['HTTP_X_FORWARDED_HOST']) )
     {
@@ -47,7 +47,7 @@ function host() : string
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function hostName() : string
+function hostName() : String
 {
     return host();
 }

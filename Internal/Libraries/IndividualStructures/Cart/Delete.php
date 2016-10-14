@@ -18,7 +18,7 @@ class Delete extends CartExtends implements DeleteInterface
     // @param mixed $code
     //
     //--------------------------------------------------------------------------------------------------------
-    public function item($code) : bool
+    public function item($code) : Bool
     {
         Properties::$items = $this->driver->select(md5('SystemCartData')) ?? NULL;
 
@@ -59,7 +59,7 @@ class Delete extends CartExtends implements DeleteInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function items() : bool
+    public function items() : Bool
     {
         return $this->driver->delete(md5('SystemCartData'));
     }

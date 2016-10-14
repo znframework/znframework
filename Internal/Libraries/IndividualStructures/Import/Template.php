@@ -23,7 +23,7 @@ class Template implements TemplateInterface
     // @param bool   $obGetContents
     //
     //--------------------------------------------------------------------------------------------------------
-    public function use(string $page, ? array $data = NULL, bool $obGetContents = false)
+    public function use(String $page, Array $data = NULL, Bool $obGetContents = false)
     {
         if( $return = Import::page($page, $data, $obGetContents, INTERNAL_TEMPLATES_DIR) )
         {

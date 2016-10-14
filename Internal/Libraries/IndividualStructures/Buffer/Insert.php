@@ -23,7 +23,7 @@ class Insert implements InsertInterface
     // @return bool
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function do(string $name, $data, array $params = []) : bool
+    public static function do(String $name, $data, Array $params = []) : Bool
     {
         $systemObData = md5('OB_DATAS_'.$name);
 

@@ -22,7 +22,7 @@ class Decode implements DecodeInterface
     // @param int    $length
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do(string $data, bool $array = false, int $length = 512)
+    public function do(String $data, Bool $array = false, Int $length = 512)
     {
         $return = json_decode($data, $array, $length);
 
@@ -49,7 +49,7 @@ class Decode implements DecodeInterface
     // @param int    $length
     //
     //--------------------------------------------------------------------------------------------------------
-    public function object(string $data, int $length = 512) : \stdClass
+    public function object(String $data, Int $length = 512)
     {
         return $this->do($data, false, $length);
     }
@@ -62,7 +62,7 @@ class Decode implements DecodeInterface
     // @param int    $length
     //
     //--------------------------------------------------------------------------------------------------------
-    public function array(string $data, int $length = 512) : array
+    public function array(String $data, Int $length = 512) : Array
     {
         return $this->do($data, true, $length);
     }

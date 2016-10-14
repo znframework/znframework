@@ -18,7 +18,7 @@ interface InternalRouteInterface
     // @param array $route
     //
     //--------------------------------------------------------------------------------------------------------
-    public function change(array $route) : InternalRoute;
+    public function change(Array $route) : InternalRoute;
 
     //--------------------------------------------------------------------------------------------------------
     // Run
@@ -30,5 +30,5 @@ interface InternalRouteInterface
     //  @return mixed
     //
     //--------------------------------------------------------------------------------------------------------
-    public function run(string $functionName, $functionRun, array $route = NULL) : void;
+    public function run(String $functionName, $functionRun, Array $route = NULL);
 }

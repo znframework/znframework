@@ -47,7 +47,7 @@ class Table extends HTMLHelpersAbstract
     // @param array $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function attr(array $attributes) : Table
+    public function attr(Array $attributes) : Table
     {
         foreach( $attributes as $att => $val )
         {
@@ -65,7 +65,7 @@ class Table extends HTMLHelpersAbstract
     // @param numeric $padding
     //
     //--------------------------------------------------------------------------------------------------------
-    public function cell(int $spacing, int $padding) : Table
+    public function cell(Int $spacing, Int $padding) : Table
     {
         $this->attr['cellspacing'] = $spacing;
         $this->attr['cellpadding'] = $padding;
@@ -81,7 +81,7 @@ class Table extends HTMLHelpersAbstract
     // @param string  $color
     //
     //--------------------------------------------------------------------------------------------------------
-    public function border(int $border, string $color = NULL) : Table
+    public function border(Int $border, String $color = NULL) : Table
     {
         $this->attr['border'] = $border;
 
@@ -101,7 +101,7 @@ class Table extends HTMLHelpersAbstract
     // @param numeric $height
     //
     //--------------------------------------------------------------------------------------------------------
-    public function size(int $width, int $height) : Table
+    public function size(Int $width, Int $height) : Table
     {
         $this->attr['width']  = $width;
         $this->attr['height'] = $height;
@@ -116,7 +116,7 @@ class Table extends HTMLHelpersAbstract
     // @param array $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function style(array $attributes) : Table
+    public function style(Array $attributes) : Table
     {
         $attribute = '';
 
@@ -142,7 +142,7 @@ class Table extends HTMLHelpersAbstract
     // @param variadic $elements
     //
     //--------------------------------------------------------------------------------------------------------
-    public function create(...$elements) : string
+    public function create(...$elements) : String
     {
         $table  = '<table'.Html::attributes($this->attr).'>';
         $table .= $this->_content(...$elements);

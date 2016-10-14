@@ -20,7 +20,7 @@ class InternalRedirect extends CallController implements InternalRedirectInterfa
     // @var array
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $redirect =
+    protected $redirect = 
     [
         'time'   => 0,
         'data'   => []
@@ -33,14 +33,14 @@ class InternalRedirect extends CallController implements InternalRedirectInterfa
     // @var string $action
     //
     //--------------------------------------------------------------------------------------------------------
-    public function action(string $action) : void
+    public function action(String $action)
     {
         $time = $this->redirect['time'];
         $data = $this->redirect['data'];
 
         $this->redirect = [];
 
-        redirect($action, $time, $data);
+        return redirect($action, $time, $data);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -50,7 +50,7 @@ class InternalRedirect extends CallController implements InternalRedirectInterfa
     // @var numeric $time
     //
     //--------------------------------------------------------------------------------------------------------
-    public function time(int $time = 0) : InternalRedirect
+    public function time(Int $time = 0) : InternalRedirect
     {
         $this->redirect['time'] = $time;
 
@@ -64,7 +64,7 @@ class InternalRedirect extends CallController implements InternalRedirectInterfa
     // @var numeric $time
     //
     //--------------------------------------------------------------------------------------------------------
-    public function wait(int $time = 0) : InternalRedirect
+    public function wait(Int $time = 0) : InternalRedirect
     {
         $this->redirect['time'] = $time;
 
@@ -78,7 +78,7 @@ class InternalRedirect extends CallController implements InternalRedirectInterfa
     // @var array $data
     //
     //--------------------------------------------------------------------------------------------------------
-    public function data(array $data) : InternalRedirect
+    public function data(Array $data) : InternalRedirect
     {
         $this->redirect['data'] = $data;
 
@@ -92,7 +92,7 @@ class InternalRedirect extends CallController implements InternalRedirectInterfa
     // @var array $data
     //
     //--------------------------------------------------------------------------------------------------------
-    public function insert(array $data) : InternalRedirect
+    public function insert(Array $data) : InternalRedirect
     {
         $this->redirect['data'] = $data;
 
@@ -106,7 +106,7 @@ class InternalRedirect extends CallController implements InternalRedirectInterfa
     // @var string $key
     //
     //--------------------------------------------------------------------------------------------------------
-    public function select(string $key)
+    public function select(String $key)
     {
         return redirectData($key);
     }
@@ -118,7 +118,7 @@ class InternalRedirect extends CallController implements InternalRedirectInterfa
     // @var mixed $key
     //
     //--------------------------------------------------------------------------------------------------------
-    public function delete(string $key) : bool
+    public function delete(String $key) : Bool
     {
         return redirectDeleteData($key);
     }

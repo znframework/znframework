@@ -25,7 +25,7 @@ class Excluding implements ExcludingInterface
     // @param array $excluding
     //
     //--------------------------------------------------------------------------------------------------------
-    public function use(array $array, array $excluding) : array
+    public function use(Array $array, Array $excluding) : Array
     {
         $newArray = [];
 

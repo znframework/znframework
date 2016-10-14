@@ -22,7 +22,7 @@ class NastyCode extends SecurityExtends implements NastyCodeInterface
     // @param mixed  $changeChar
     //
     //--------------------------------------------------------------------------------------------------------
-    public function encode(string $string, $badWords = NULL, $changeChar = '[badchars]') : string
+    public function encode(String $string, $badWords = NULL, $changeChar = '[badchars]') : String
     {
         // 2. Parametre boş ise varsayılan olarak Config/Security.php dosya ayarlarını kullan.
         if( empty($badWords) )

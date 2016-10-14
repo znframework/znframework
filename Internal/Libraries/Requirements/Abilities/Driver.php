@@ -40,7 +40,7 @@ trait DriverAbility
     // @return bool
     //
     //--------------------------------------------------------------------------------------------------------
-    public function __construct(string $driver = NULL)
+    public function __construct(String $driver = NULL)
     {
         parent::__construct();
 
@@ -80,7 +80,7 @@ trait DriverAbility
     // @return object
     //
     //--------------------------------------------------------------------------------------------------------
-    public function driver(string $driver) : self
+    public function driver(String $driver) : self
     {
         return new self($driver);
     }

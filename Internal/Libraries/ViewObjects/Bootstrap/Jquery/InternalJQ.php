@@ -115,7 +115,7 @@ class InternalJQ extends CallController
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function stringControl( ? string $code = NULL) : string
+    public function stringControl(String $code = '') : String
     {
         if( $code[0] === '+' )
         {
@@ -147,7 +147,7 @@ class InternalJQ extends CallController
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function selector( ? string $selector = NULL) : string
+    public function selector(String $selector = NULL) : String
     {
         if( empty($selector) )
         {
@@ -172,7 +172,7 @@ class InternalJQ extends CallController
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function property(string $property, $params = [], bool $comma = false) : string
+    public function property(String $property, $params = [], Bool $comma = false) : String
     {
         return ".$property(". $this->_params($params).")".($comma === true ? ";" : "");
     }
@@ -190,11 +190,11 @@ class InternalJQ extends CallController
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function func( ? string $params = NULL, ? string $code = NULL, bool $comma = false) :? string
+    public function func(String $params = NULL, String $code = NULL, Bool $comma = false) : String
     {
         if( empty($code) )
         {
-            return NULL;
+            return false;
         }
 
         return "function($params){".$code."}".($comma === true ? ";" : "");
@@ -213,7 +213,7 @@ class InternalJQ extends CallController
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function callback( ? string $params = NULL, ? string $code = NULL, bool $comma = false) : string
+    public function callback(String $params = NULL, String $code = NULL, Bool $comma = false) : String
     {
         return $this->func($params, $code, $comma);
     }
@@ -233,7 +233,7 @@ class InternalJQ extends CallController
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function combine( ? string $selector = NULL, ? string $property = NULL, $params = '', ? string $callback = NULL, bool $comma = false) : string
+    public function combine(String $selector = NULL, String $property = NULL, $params = NULL, String $callback = NULL, Bool $comma = false) : String
     {
         if( ! empty($callback) )
         {
@@ -254,18 +254,17 @@ class InternalJQ extends CallController
     // get
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param  string $url
-    // @param  string $callback
-    // @param  bool   $comma
+    // @param  mixed  $params
+    // @param  boole  $comma
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function get( ? string $url = NULL, ? string $callback = NULL, bool $comma = true) : string
+    public function get(String $url = NULL, String $callback = NULL, Bool $comma = true) : String
     {
         $params[] = $url;
         $params[] = $callback;
 
-        return '$'.$this->property(__FUNCTION__, $params, $comma);
+        return '$'.$this->property('get', $params, $comma);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -277,12 +276,12 @@ class InternalJQ extends CallController
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function post( ? string $url = NULL, ? string $data = NULL, ? string $callback = NULL, bool $comma = true) : string
+    public function post(String $url = NULL, String $data = NULL, String $callback = NULL, Bool $comma = true) : String
     {
         $params[] = $url;
         $params[] = $data;
         $params[] = $callback;
 
-        return '$'.$this->property(__FUNCTION__, $params, $comma);
+        return '$'.$this->property('post', $params, $comma);
     }
 }

@@ -21,7 +21,7 @@ interface InternalDateTimeCommonInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function current(string $clock) : string;
+    public function current(String $clock) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // To Numeric
@@ -33,7 +33,7 @@ interface InternalDateTimeCommonInterface
     // @return numeric
     //
     //--------------------------------------------------------------------------------------------------------
-    public function toNumeric(string $dateFormat, int $now = NULL) : int;
+    public function toNumeric(String $dateFormat, Int $now = NULL) : Int;
 
     //--------------------------------------------------------------------------------------------------------
     // Compare
@@ -45,7 +45,7 @@ interface InternalDateTimeCommonInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function compare(string $value1, string $condition, string $value2) : string;
+    public function compare(String $value1, String $condition, String $value2) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Calculate
@@ -59,7 +59,7 @@ interface InternalDateTimeCommonInterface
     // @return mixed
     //
     //--------------------------------------------------------------------------------------------------------
-    public function calculate(string $input, string $calculate, string $output = 'Y-m-d') : string;
+    public function calculate(String $input, String $calculate, String $output = 'Y-m-d') : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Convert
@@ -72,7 +72,7 @@ interface InternalDateTimeCommonInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function convert(string $date, string $format) : string;
+    public function convert(String $date, String $format) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Standart
@@ -84,7 +84,7 @@ interface InternalDateTimeCommonInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function standart() : string;
+    public function standart() : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Set
@@ -96,5 +96,5 @@ interface InternalDateTimeCommonInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function set(string $exp) : string;
+    public function set(String $exp) : String;
 }

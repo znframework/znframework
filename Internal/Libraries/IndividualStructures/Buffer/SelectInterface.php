@@ -19,5 +19,5 @@ interface SelectInterface
     // @return callable/content
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function do(string $name);
+    public static function do(String $name);
 }

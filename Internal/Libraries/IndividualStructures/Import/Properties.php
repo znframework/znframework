@@ -27,7 +27,7 @@ class Properties
     // @var bool
     //
     //--------------------------------------------------------------------------------------------------------
-    public static $parameters =
+    public static $parameters = 
     [
         'data'   => [],
         'usable' => false
@@ -40,7 +40,7 @@ class Properties
     // @param bool $usable
     //
     //--------------------------------------------------------------------------------------------------------
-    public function usable(bool $usable = true)
+    public function usable(Bool $usable = true)
     {
         self::$parameters['usable'] = $usable;
     }
@@ -52,7 +52,7 @@ class Properties
     // @var bool $recursive
     //
     //--------------------------------------------------------------------------------------------------------
-    public function recursive(bool $recursive = true)
+    public function recursive(Bool $recursive = true)
     {
         self::$parameters['recursive'] = $recursive;
     }
@@ -64,7 +64,7 @@ class Properties
     // @var array $data
     //
     //--------------------------------------------------------------------------------------------------------
-    public function data(array $data)
+    public function data(Array $data)
     {
         self::$parameters['data'] = $data;
     }

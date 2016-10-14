@@ -18,7 +18,7 @@ interface InternalCookieInterface
     // @param int $time
     //
     //--------------------------------------------------------------------------------------------------------
-    public function time(int $time) : InternalCookie;
+    public function time(Int $time) : InternalCookie;
 
     //--------------------------------------------------------------------------------------------------------
     // String
@@ -27,7 +27,7 @@ interface InternalCookieInterface
     // @param string $path
     //
     //--------------------------------------------------------------------------------------------------------
-    public function path(string $path) : InternalCookie;
+    public function path(String $path) : InternalCookie;
 
     //--------------------------------------------------------------------------------------------------------
     // Domain
@@ -36,7 +36,7 @@ interface InternalCookieInterface
     // @param string $domain
     //
     //--------------------------------------------------------------------------------------------------------
-    public function domain(string $domain) : InternalCookie;
+    public function domain(String $domain) : InternalCookie;
 
     //--------------------------------------------------------------------------------------------------------
     // Secure
@@ -45,7 +45,7 @@ interface InternalCookieInterface
     // @param bool $secure
     //
     //--------------------------------------------------------------------------------------------------------
-    public function secure(bool $secure) : InternalCookie;
+    public function secure(Bool $secure) : InternalCookie;
 
     //--------------------------------------------------------------------------------------------------------
     // Http Only
@@ -54,7 +54,7 @@ interface InternalCookieInterface
     // @param bool $httpOnly
     //
     //--------------------------------------------------------------------------------------------------------
-    public function httpOnly(bool $httpOnly) : InternalCookie;
+    public function httpOnly(Bool $httpOnly) : InternalCookie;
 
     //--------------------------------------------------------------------------------------------------------
     // Insert
@@ -69,7 +69,7 @@ interface InternalCookieInterface
     // @param bool   $httpOnly
     //
     //--------------------------------------------------------------------------------------------------------
-    public function insert(string $name, $value, int $time) : bool;
+    public function insert(String $name, $value, Int $time) : Bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Select
@@ -78,7 +78,7 @@ interface InternalCookieInterface
     // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
-    public function select(string $name);
+    public function select(String $name);
 
     //--------------------------------------------------------------------------------------------------------
     // Select All
@@ -87,7 +87,7 @@ interface InternalCookieInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function selectAll() : array;
+    public function selectAll() : Array;
 
     //--------------------------------------------------------------------------------------------------------
     // Delete
@@ -96,7 +96,7 @@ interface InternalCookieInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function delete(string $name, string $path = NULL) : bool;
+    public function delete(String $name, String $path = NULL) : Bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Delete All
@@ -105,5 +105,5 @@ interface InternalCookieInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function deleteAll() : bool;
+    public function deleteAll() : Bool;
 }

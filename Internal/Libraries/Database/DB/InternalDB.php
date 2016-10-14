@@ -465,7 +465,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param string $logical
     //
     //--------------------------------------------------------------------------------------------------------
-    public function where($column, ? string $value = NULL, string $logical = NULL) : InternalDB
+    public function where($column, String $value = NULL, String $logical = NULL) : InternalDB
     {
         $this->_wh($column, $value, $logical, __FUNCTION__);
 
@@ -509,7 +509,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param string $logical
     //
     //--------------------------------------------------------------------------------------------------------
-    public function having($column, ? string $value = NULL, string $logical = NULL) : InternalDB
+    public function having($column, String $value = NULL, String $logical = NULL) : InternalDB
     {
         $this->_wh($column, $value, $logical, __FUNCTION__);
 
@@ -525,7 +525,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param string $type
     //
     //--------------------------------------------------------------------------------------------------------
-    public function join(string $table, string $condition, string $type = NULL) : InternalDB
+    public function join(String $table, String $condition, String $type = NULL) : InternalDB
     {
         $table = $this->prefix.$table;
         $type  = strtoupper($type);
@@ -544,7 +544,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param string $otherColumn
     //
     //--------------------------------------------------------------------------------------------------------
-    public function innerJoin(string $table, string $otherColumn, string $operator = '=') : InternalDB
+    public function innerJoin(String $table, String $otherColumn, String $operator = '=') : InternalDB
     {
         $this->_join($table, $otherColumn, $operator, 'INNER');
 
@@ -560,7 +560,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param string $otherColumn
     //
     //--------------------------------------------------------------------------------------------------------
-    public function outerJoin(string $table, string $otherColumn, string $operator = '=') : InternalDB
+    public function outerJoin(String $table, String $otherColumn, String $operator = '=') : InternalDB
     {
         $this->_join($table, $otherColumn, $operator, 'OUTER');
 
@@ -576,7 +576,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param string $otherColumn
     //
     //--------------------------------------------------------------------------------------------------------
-    public function leftJoin(string $table, string $otherColumn, string $operator = '=') : InternalDB
+    public function leftJoin(String $table, String $otherColumn, String $operator = '=') : InternalDB
     {
         $this->_join($table, $otherColumn, $operator, 'LEFT');
 
@@ -592,7 +592,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param string $otherColumn
     //
     //--------------------------------------------------------------------------------------------------------
-    public function rightJoin(string $table, string $otherColumn, string $operator = '=') : InternalDB
+    public function rightJoin(String $table, String $otherColumn, String $operator = '=') : InternalDB
     {
         $this->_join($table, $otherColumn, $operator, 'RIGHT');
 
@@ -621,7 +621,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param string $type
     //
     //--------------------------------------------------------------------------------------------------------
-    public function orderBy($condition, string $type = NULL) : InternalDB
+    public function orderBy($condition, String $type = NULL) : InternalDB
     {
         if( is_string($condition) )
         {
@@ -646,7 +646,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param int $limit
     //
     //--------------------------------------------------------------------------------------------------------
-    public function limit($start = NULL, int $limit = 0) : InternalDB
+    public function limit($start = NULL, Int $limit = 0) : InternalDB
     {
         nullCoalesce($start, (int) URI::segment(-1));
 
@@ -670,7 +670,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @return string $return -> Sorgunun dönüş türü. object, string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function get( ? string $table = NULL, string $return = 'object')
+    public function get(String $table = NULL, String $return = 'object')
     {
         $this->tableName = $table = $this->_p($table, 'table');
 
@@ -784,7 +784,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function escapeString(string $data) : string
+    public function escapeString(String $data) : String
     {
         return $this->db->realEscapeString($data);
     }
@@ -799,7 +799,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function realEscapeString(string $data) : string
+    public function realEscapeString(String $data) : String
     {
         return $this->db->realEscapeString($data);
     }
@@ -814,7 +814,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function getString(string $table = NULL) : string
+    public function getString(String $table = NULL) : String
     {
         return $this->get($table, 'string');
     }
@@ -831,7 +831,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function alias(string $string, string $alias, bool $brackets = false) : string
+    public function alias(String $string, String $alias, Bool $brackets = false) : String
     {
         if( $brackets === true)
         {
@@ -851,7 +851,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function brackets(string $string) : string
+    public function brackets(String $string) : String
     {
         return ' ( '.$string.' ) ';
     }
@@ -889,7 +889,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function maxStatementTime(string $time) : InternalDB
+    public function maxStatementTime(String $time) : InternalDB
     {
         $this->maxStatementTime = ' MAX_STATEMENT_TIME '.$time.' ';
         return $this;
@@ -1019,7 +1019,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param string ...$args
     //
     //--------------------------------------------------------------------------------------------------------
-    public function outFile(string $file) : InternalDB
+    public function outFile(String $file) : InternalDB
     {
         $this->outFile = 'INTO OUTFILE '."'".$file."'".' ';
         return $this;
@@ -1032,7 +1032,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param string $file
     //
     //--------------------------------------------------------------------------------------------------------
-    public function dumpFile(string $file) : InternalDB
+    public function dumpFile(String $file) : InternalDB
     {
         $this->dumpFile = 'INTO DUMPFILE '."'".$file."'".' ';
         return $this;
@@ -1046,7 +1046,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param bool   $return
     //
     //--------------------------------------------------------------------------------------------------------
-    public function characterSet(string $set, bool $return = false)
+    public function characterSet(String $set, Bool $return = false)
     {
         $string = 'CHARACTER SET '.$set.' ';
 
@@ -1068,7 +1068,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param string $set
     //
     //--------------------------------------------------------------------------------------------------------
-    public function cset(string $set) : string
+    public function cset(String $set) : String
     {
         if( empty($set) )
         {
@@ -1085,7 +1085,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param string $set
     //
     //--------------------------------------------------------------------------------------------------------
-    public function collate(string $set = NULL) : string
+    public function collate(String $set = NULL) : String
     {
         if( empty($set) )
         {
@@ -1104,7 +1104,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param string $collate
     //
     //--------------------------------------------------------------------------------------------------------
-    public function encoding(string $charset = 'utf8', string $collate = 'utf8_general_ci') : string
+    public function encoding(String $charset = 'utf8', String $collate = 'utf8_general_ci') : String
     {
         $encoding  = $this->cset($charset);
         $encoding .= $this->collate($collate);
@@ -1120,7 +1120,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param string $varname2
     //
     //--------------------------------------------------------------------------------------------------------
-    public function into(string $varname1, string $varname2 = NULL) : InternalDB
+    public function into(String $varname1, String $varname2 = NULL) : InternalDB
     {
         $this->into = 'INTO '.$varname1.' ';
 
@@ -1252,7 +1252,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param array  $secure
     //
     //--------------------------------------------------------------------------------------------------------
-    public function query(string $query, array $secure = []) : InternalDB
+    public function query(String $query, Array $secure = []) : InternalDB
     {
         $this->db->query($this->_querySecurity($query), $this->_p($secure, 'secure'));
 
@@ -1277,7 +1277,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param array  $secure
     //
     //--------------------------------------------------------------------------------------------------------
-    public function execQuery(string $query, array $secure = []) : bool
+    public function execQuery(String $query, Array $secure = []) : Bool
     {
         return $this->db->exec($this->_querySecurity($query), $this->_p($secure, 'secure'));
     }
@@ -1290,7 +1290,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param array  $secure
     //
     //--------------------------------------------------------------------------------------------------------
-    public function multiQuery(string $query, array $secure = []) : bool
+    public function multiQuery(String $query, Array $secure = []) : Bool
     {
         return $this->db->multiQuery($this->_querySecurity($query), $this->_p($secure, 'secure'));
     }
@@ -1338,7 +1338,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function insertID() : int
+    public function insertID() : Int
     {
         return $this->db->insertId();
     }
@@ -1350,7 +1350,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param string $table
     //
     //--------------------------------------------------------------------------------------------------------
-    public function status(string $table = NULL) : InternalDB
+    public function status(String $table = NULL) : InternalDB
     {
         $table = "'".$this->_p($table)."'";
 
@@ -1370,7 +1370,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param numeric $increment
     //
     //--------------------------------------------------------------------------------------------------------
-    public function increment( ? string $table = NULL, $columns = [], int $increment = 1) : bool
+    public function increment(String $table = NULL, $columns = [], Int $increment = 1) : Bool
     {
         return $this->_incdec($table, $columns, $increment, 'increment');
     }
@@ -1384,7 +1384,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param numeric $decrement
     //
     //--------------------------------------------------------------------------------------------------------
-    public function decrement( ? string $table = NULL, $columns = [], int $decrement = 1) : bool
+    public function decrement(String $table = NULL, $columns = [], Int $decrement = 1) : Bool
     {
         return $this->_incdec($table, $columns, $decrement, 'decrement');
     }
@@ -1397,7 +1397,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param mixed $datas
     //
     //--------------------------------------------------------------------------------------------------------
-    public function insert( ? string $table = NULL, array $datas = [])
+    public function insert(String $table = NULL, Array $datas = [])
     {
         $datas = $this->_p($datas, 'column');
         $data  = ""; $values = "";
@@ -1487,7 +1487,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param mixed $set
     //
     //--------------------------------------------------------------------------------------------------------
-    public function update( ? string $table = NULL, array $set = [])
+    public function update(String $table = NULL, Array $set = [])
     {
         $set  = $this->_p($set, 'column');
         $data = '';
@@ -1522,7 +1522,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param mixed $table
     //
     //--------------------------------------------------------------------------------------------------------
-    public function delete(string $table = NULL)
+    public function delete(String $table = NULL)
     {
         $deleteQuery = 'DELETE '.
                        $this->lowPriority.
@@ -1547,7 +1547,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param bool $total
     //
     //--------------------------------------------------------------------------------------------------------
-    public function totalRows(bool $total = false) : int
+    public function totalRows(Bool $total = false) : Int
     {
         if( $total === false )
         {
@@ -1570,7 +1570,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function totalColumns() : int
+    public function totalColumns() : Int
     {
         return $this->db->numFields();
     }
@@ -1582,7 +1582,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function columns() : array
+    public function columns() : Array
     {
         return $this->db->columns();
     }
@@ -1594,7 +1594,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param string $type: object, 'json', 'array'
     //
     //--------------------------------------------------------------------------------------------------------
-    public function result(string $type = 'object')
+    public function result(String $type = 'object')
     {
         if( $type === 'object' )
         {
@@ -1617,7 +1617,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function resultJson() : string
+    public function resultJson() : String
     {
         return json_encode($this->db->result());
     }
@@ -1629,7 +1629,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function resultArray() : array
+    public function resultArray() : Array
     {
         return $this->db->resultArray();
     }
@@ -1641,7 +1641,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function fetchArray() : array
+    public function fetchArray() : Array
     {
         return $this->db->fetchArray();
     }
@@ -1653,7 +1653,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function fetchAssoc() : array
+    public function fetchAssoc() : Array
     {
         return $this->db->fetchAssoc();
     }
@@ -1665,7 +1665,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param string $type: assoc, array, row
     //
     //--------------------------------------------------------------------------------------------------------
-    public function fetch(string $type = 'assoc') : array
+    public function fetch(String $type = 'assoc') : Array
     {
         if( $type === 'assoc' )
         {
@@ -1688,7 +1688,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param boolean $printable
     //
     //--------------------------------------------------------------------------------------------------------
-    public function fetchRow(bool $printable = false) : array
+    public function fetchRow(Bool $printable = false) : Array
     {
         $row = $this->db->fetchRow();
 
@@ -1745,7 +1745,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function value() : string
+    public function value() : String
     {
         return current((array) $this->db->row());
     }
@@ -1757,7 +1757,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function affectedRows() : int
+    public function affectedRows() : Int
     {
         return $this->db->affectedRows();
     }
@@ -1769,7 +1769,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param string $column
     //
     //--------------------------------------------------------------------------------------------------------
-    public function columnData(string $column = NULL)
+    public function columnData(String $column = NULL)
     {
         return $this->db->columnData($column);
     }
@@ -1781,7 +1781,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function tableName() : string
+    public function tableName() : String
     {
         return $this->tableName;
     }
@@ -1795,7 +1795,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param bool   $output
     //
     //--------------------------------------------------------------------------------------------------------
-    public function pagination( ? string $url = NULL, array $settings = [], bool $output = true)
+    public function pagination(String $url = NULL, Array $settings = [], Bool $output = true)
     {
         $limit = $this->pagination['limit'];
         $start = $this->pagination['start'];
@@ -1827,7 +1827,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param string $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function isExists(string $table, string $column, string $value) : bool
+    public function isExists(String $table, String $column, String $value) : Bool
     {
         return (bool) $this->where($column, $value)->get($table)->totalRows();
     }
@@ -1841,7 +1841,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param string $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function simpleResult(string $table, ? string $column = NULL, ? string $value = NULL, $type = 'result')
+    public function simpleResult(String $table, String $column = NULL, String $value = NULL, $type = 'result')
     {
         if( $column !== NULL && $value !== NULL )
         {
@@ -1860,7 +1860,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param string $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function simpleResultArray(string $table, string $column = NULL, string $value = NULL)
+    public function simpleResultArray(String $table, String $column = NULL, String $value = NULL)
     {
         return $this->simpleResult($table, $column, $value, 'resultArray');
     }
@@ -1874,7 +1874,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param string $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function simpleRow(string $table, string $column = NULL, string $value = NULL)
+    public function simpleRow(String $table, String $column = NULL, String $value = NULL)
     {
         return $this->simpleResult($table, $column, $value, 'row');
     }
@@ -1886,7 +1886,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param string $table
     //
     //--------------------------------------------------------------------------------------------------------
-    public function simpleTotalRows(string $table) : int
+    public function simpleTotalRows(String $table) : Int
     {
         return $this->simpleResult($table, NULL, NULL, 'totalRows');
     }
@@ -1898,7 +1898,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param string $table
     //
     //--------------------------------------------------------------------------------------------------------
-    public function simpleTotalColumns(string $table) : int
+    public function simpleTotalColumns(String $table) : Int
     {
         return $this->simpleResult($table, NULL, NULL, 'totalColumns');
     }
@@ -1910,7 +1910,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param string $table
     //
     //--------------------------------------------------------------------------------------------------------
-    public function simpleColumns(string $table) : array
+    public function simpleColumns(String $table) : Array
     {
         return $this->simpleResult($table, NULL, NULL, 'columns');
     }
@@ -1923,7 +1923,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param string $column
     //
     //--------------------------------------------------------------------------------------------------------
-    public function simpleColumnData(string $table, string $column = NULL) : \stdClass
+    public function simpleColumnData(String $table, String $column = NULL) : \stdClass
     {
         return $this->get($table)->columnData($column);
     }
@@ -1938,7 +1938,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param string $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function simpleUpdate(string $table, array $data, string $column, string $value)
+    public function simpleUpdate(String $table, Array $data, String $column, String $value)
     {
         return $this->where($column, $value)->update($table, $data);
     }
@@ -1952,7 +1952,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param string $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function simpleDelete(string $table, string $column, string $value)
+    public function simpleDelete(String $table, String $column, String $value)
     {
         return $this->where($column, $value)->delete($table);
     }

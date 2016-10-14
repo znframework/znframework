@@ -48,28 +48,9 @@ class InternalHTTP extends CLController implements InternalHTTPInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function isAjax() : bool
+    public function isAjax() : Bool
     {
         if( isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest')
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Is Curl
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function isCurl() : bool
-    {
-        if( ! isset($_SERVER['HTTP_COOKIE']) )
         {
             return true;
         }
@@ -87,7 +68,7 @@ class InternalHTTP extends CLController implements InternalHTTPInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function browserLang(string $default = 'en') : string
+    public function browserLang(String $default = 'en') : String
     {
         $languages = Config::get('Language', 'shortCodes');
 
@@ -108,7 +89,7 @@ class InternalHTTP extends CLController implements InternalHTTPInterface
     // @param numeric $code
     //
     //--------------------------------------------------------------------------------------------------------
-    public function code(int $code = 200) : string
+    public function code(Int $code = 200) : String
     {
         $messages = Arrays::multikey(SERVICES_HTTP_CONFIG['messages']);
 
@@ -127,7 +108,7 @@ class InternalHTTP extends CLController implements InternalHTTPInterface
     // @param string $message
     //
     //--------------------------------------------------------------------------------------------------------
-    public function message(string $message) : string
+    public function message(String $message) : String
     {
         return $this->code($message);
     }
@@ -139,7 +120,7 @@ class InternalHTTP extends CLController implements InternalHTTPInterface
     // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
-    public function name(string $name) : InternalHTTP
+    public function name(String $name) : InternalHTTP
     {
         $this->settings['name'] = $name;
 
@@ -167,7 +148,7 @@ class InternalHTTP extends CLController implements InternalHTTPInterface
     // @param string $input
     //
     //--------------------------------------------------------------------------------------------------------
-    public function input(string $input) : InternalHTTP
+    public function input(String $input) : InternalHTTP
     {
         if( in_array($input, $this->types) )
         {
@@ -188,7 +169,7 @@ class InternalHTTP extends CLController implements InternalHTTPInterface
     // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
-    public function select(string $name)
+    public function select(String $name)
     {
         $name  = $this->settings['name']  ?? $name;
         $input = $this->settings['input'] ?? false;
@@ -213,7 +194,7 @@ class InternalHTTP extends CLController implements InternalHTTPInterface
     // @param string $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function insert(string $name, $value) : bool
+    public function insert(String $name, $value) : Bool
     {
         $name  = $this->settings['name']  ?? $name;
         $input = $this->settings['input'] ?? false;
@@ -238,7 +219,7 @@ class InternalHTTP extends CLController implements InternalHTTPInterface
     // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
-    public function delete(string $name) : bool
+    public function delete(String $name) : Bool
     {
         $name  = $this->settings['name']  ?? $name;
         $input = $this->settings['input'] ?? false;

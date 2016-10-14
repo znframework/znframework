@@ -18,7 +18,7 @@ class CrossSiteScripting extends SecurityExtends implements CrossSiteScriptingIn
     // @param string $string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function encode(string $string) : string
+    public function encode(String $string) : String
     {
         $secBadChars = INDIVIDUALSTRUCTURES_SECURITY_CONFIG['scriptBadChars'];
 

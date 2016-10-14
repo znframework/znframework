@@ -12,7 +12,7 @@ class Login extends UserExtends implements LoginInterface
     // @return this
     //
     //--------------------------------------------------------------------------------------------------------
-    public function username(string $username) : Login
+    public function username(String $username) : Login
     {
         Properties::$parameters['username'] = $username;
 
@@ -27,7 +27,7 @@ class Login extends UserExtends implements LoginInterface
     // @return this
     //
     //--------------------------------------------------------------------------------------------------------
-    public function password(string $password) : Login
+    public function password(String $password) : Login
     {
         Properties::$parameters['password'] = $password;
 
@@ -42,7 +42,7 @@ class Login extends UserExtends implements LoginInterface
     // @return this
     //
     //--------------------------------------------------------------------------------------------------------
-    public function remember(bool $remember = true) : Login
+    public function remember(Bool $remember = true) : Login
     {
         Properties::$parameters['remember'] = $remember;
 
@@ -59,7 +59,7 @@ class Login extends UserExtends implements LoginInterface
     // @return bool
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do(string $un = NULL, string $pw = NULL, $rememberMe = false) : bool
+    public function do(String $un = NULL, String $pw = NULL, $rememberMe = false) : Bool
     {
         $un         = Properties::$parameters['username'] ?? $un;
         $pw         = Properties::$parameters['password'] ?? $pw;
@@ -159,7 +159,7 @@ class Login extends UserExtends implements LoginInterface
     // @return bool
     //
     //--------------------------------------------------------------------------------------------------------
-    public function is() : bool
+    public function is() : Bool
     {
         $getColumns = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['columns'];
         $tableName  = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['table'];

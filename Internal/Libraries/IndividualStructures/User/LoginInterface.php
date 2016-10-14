@@ -10,7 +10,7 @@ interface LoginInterface
     // @return this
     //
     //--------------------------------------------------------------------------------------------------------
-    public function username(string $username) : Login;
+    public function username(String $username) : Login;
 
     //--------------------------------------------------------------------------------------------------------
     // Password
@@ -20,7 +20,7 @@ interface LoginInterface
     // @return this
     //
     //--------------------------------------------------------------------------------------------------------
-    public function password(string $password) : Login;
+    public function password(String $password) : Login;
 
     //--------------------------------------------------------------------------------------------------------
     // Remember
@@ -30,7 +30,7 @@ interface LoginInterface
     // @return this
     //
     //--------------------------------------------------------------------------------------------------------
-    public function remember(bool $remember = true) : Login;
+    public function remember(Bool $remember = true) : Login;
 
     //--------------------------------------------------------------------------------------------------------
     // Login
@@ -42,7 +42,7 @@ interface LoginInterface
     // @return bool
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do(string $un = NULL, string $pw = NULL, $rememberMe = false) : bool;
+    public function do(String $un = NULL, String $pw = NULL, $rememberMe = false) : Bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Is Login
@@ -52,5 +52,5 @@ interface LoginInterface
     // @return bool
     //
     //--------------------------------------------------------------------------------------------------------
-    public function is() : bool;
+    public function is() : Bool;
 }

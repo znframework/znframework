@@ -29,7 +29,7 @@ class InternalErrors implements InternalErrorsInterface
     // @param mixed  $ex
     //
     //--------------------------------------------------------------------------------------------------------
-    public function message(string $langFile, string $errorMsg, $ex = NULL) : string
+    public function message(String $langFile, String $errorMsg, $ex = NULL) : String
     {
         return getErrorMessage($langFile, $errorMsg, $ex);
     }
@@ -42,7 +42,7 @@ class InternalErrors implements InternalErrorsInterface
     // @return mixed
     //
     //--------------------------------------------------------------------------------------------------------
-    public function last(string $type = NULL)
+    public function last(String $type = NULL)
     {
         return lastError($type);
     }
@@ -57,7 +57,7 @@ class InternalErrors implements InternalErrorsInterface
     // @param string $header
     //
     //--------------------------------------------------------------------------------------------------------
-    public function log(string $message, int $type = 0, ? string $destination = NULL, string $header = NULL) : bool
+    public function log(String $message, Int $type = 0, String $destination = NULL, String $header = NULL) : Bool
     {
         return error_log($message, $type, $destination, $header);
     }
@@ -69,7 +69,7 @@ class InternalErrors implements InternalErrorsInterface
     // @param int
     //
     //--------------------------------------------------------------------------------------------------------
-    public function report(int $level = NULL) : int
+    public function report(Int $level = NULL) : Int
     {
         if( ! empty($level) )
         {
@@ -88,7 +88,7 @@ class InternalErrors implements InternalErrorsInterface
     // @param int      $errorTypes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function handler($handler, int $errorTypes = E_ALL | E_STRICT)
+    public function handler($handler, Int $errorTypes = E_ALL | E_STRICT)
     {
         if( ! is_callable($handler) )
         {
@@ -106,7 +106,7 @@ class InternalErrors implements InternalErrorsInterface
     // @param int    $errorType
     //
     //--------------------------------------------------------------------------------------------------------
-    public function trigger(string $msg, int $errorType = E_USER_NOTICE) : bool
+    public function trigger(String $msg, Int $errorType = E_USER_NOTICE) : Bool
     {
         return trigger_error($msg, $errorType);
     }
@@ -118,7 +118,7 @@ class InternalErrors implements InternalErrorsInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function restore() : bool
+    public function restore() : Bool
     {
         return restore_error_handler();
     }

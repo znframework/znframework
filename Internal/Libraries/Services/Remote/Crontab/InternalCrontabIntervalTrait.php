@@ -97,7 +97,7 @@ trait InternalCrontabIntervalTrait
     // @var array
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $dayFormat =
+    protected $dayFormat = 
     [
         'sunday'    => 0,
         'monday'    => 1,
@@ -239,7 +239,7 @@ trait InternalCrontabIntervalTrait
     // @return object
     //
     //--------------------------------------------------------------------------------------------------------
-    public function clock(string $clock = '23:59') : InternalCrontab
+    public function clock(String $clock = '23:59') : InternalCrontab
     {
         $match = '[0-9]{1,2}';
 
@@ -266,7 +266,7 @@ trait InternalCrontabIntervalTrait
     // @return object
     //
     //--------------------------------------------------------------------------------------------------------
-    public function minute(string $minute = '*') : InternalCrontab
+    public function minute(String $minute = '*') : InternalCrontab
     {
         $this->minute = $this->_slashes($minute);
 
@@ -281,7 +281,7 @@ trait InternalCrontabIntervalTrait
     // @return object
     //
     //--------------------------------------------------------------------------------------------------------
-    public function hour(string $hour = '*') : InternalCrontab
+    public function hour(String $hour = '*') : InternalCrontab
     {
         $this->hour = $this->_slashes($hour);
 
@@ -296,7 +296,7 @@ trait InternalCrontabIntervalTrait
     // @return object
     //
     //--------------------------------------------------------------------------------------------------------
-    public function dayNumber(string $dayNumber = '*') : InternalCrontab
+    public function dayNumber(String $dayNumber = '*') : InternalCrontab
     {
         $this->dayNumber = $this->_slashes($dayNumber);
 
@@ -311,7 +311,7 @@ trait InternalCrontabIntervalTrait
     // @return object
     //
     //--------------------------------------------------------------------------------------------------------
-    public function month(string $monthNumber = '*') : InternalCrontab
+    public function month(String $monthNumber = '*') : InternalCrontab
     {
         $this->_format('monthFormat', __FUNCTION__, $monthNumber );
 
@@ -326,7 +326,7 @@ trait InternalCrontabIntervalTrait
     // @return object
     //
     //--------------------------------------------------------------------------------------------------------
-    public function day(string $day = '*') : InternalCrontab
+    public function day(String $day = '*') : InternalCrontab
     {
         $this->_format('dayFormat', __FUNCTION__, $day);
 
@@ -341,7 +341,7 @@ trait InternalCrontabIntervalTrait
     // @return object
     //
     //--------------------------------------------------------------------------------------------------------
-    public function interval(string $interval = '* * * * *') : InternalCrontab
+    public function interval(String $interval = '* * * * *') : InternalCrontab
     {
         $this->interval = $interval;
 

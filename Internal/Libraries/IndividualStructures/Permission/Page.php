@@ -18,7 +18,7 @@ class Page extends PermissionExtends implements PageInterface
     // @param numeric $roleId : 0
     //
     //--------------------------------------------------------------------------------------------------------
-    public function use(int $roleId = 6) : bool
+    public function use(Int $roleId = 6) : Bool
     {
         $this->permission = INDIVIDUALSTRUCTURES_PERMISSION_CONFIG['page'];
 

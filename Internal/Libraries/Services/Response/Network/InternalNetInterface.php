@@ -19,7 +19,7 @@ interface InternalNetInterface
     // @param string $type
     //
     //--------------------------------------------------------------------------------------------------------
-    public function checkDns(string $host, string $type = 'MX') : bool;
+    public function checkDns(String $host, String $type = 'MX') : Bool;
 
     //--------------------------------------------------------------------------------------------------------
     // DNS Records
@@ -30,7 +30,7 @@ interface InternalNetInterface
     // @param bool   $raw
     //
     //--------------------------------------------------------------------------------------------------------
-    public function dnsRecords(string $host, string $type = 'any', bool $raw = false) : \stdClass;
+    public function dnsRecords(String $host, String $type = 'any', Bool $raw = false) : \stdClass;
 
     //--------------------------------------------------------------------------------------------------------
     // MX Records
@@ -39,7 +39,7 @@ interface InternalNetInterface
     // @param string $host
     //
     //--------------------------------------------------------------------------------------------------------
-    public function mxRecords(string $host) : \stdClass;
+    public function mxRecords(String $host) : \stdClass;
 
     //--------------------------------------------------------------------------------------------------------
     // Socket
@@ -50,7 +50,7 @@ interface InternalNetInterface
     // @param int    $timeout
     //
     //--------------------------------------------------------------------------------------------------------
-    public function socket(string $host, int $port = -1, int $timeout = 60);
+    public function socket(String $host, Int $port = -1, Int $timeout = 60);
 
     //--------------------------------------------------------------------------------------------------------
     // Psocket
@@ -61,7 +61,7 @@ interface InternalNetInterface
     // @param int    $timeout
     //
     //--------------------------------------------------------------------------------------------------------
-    public function psocket(string $host, int $port = -1, int $timeout = 60);
+    public function psocket(String $host, Int $port = -1, Int $timeout = 60);
 
     //--------------------------------------------------------------------------------------------------------
     // IP v4 To Host
@@ -70,7 +70,7 @@ interface InternalNetInterface
     // @param string $ip
     //
     //--------------------------------------------------------------------------------------------------------
-    public function ipv4ToHost(string $ip) : string;
+    public function ipv4ToHost(String $ip) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Host To IP v4
@@ -79,7 +79,7 @@ interface InternalNetInterface
     // @param string $host
     //
     //--------------------------------------------------------------------------------------------------------
-    public function hostToIpv4(string $host) : string;
+    public function hostToIpv4(String $host) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Host To IP v4 List
@@ -88,7 +88,7 @@ interface InternalNetInterface
     // @param string $host
     //
     //--------------------------------------------------------------------------------------------------------
-    public function hostToIpv4List(string $host) : array;
+    public function hostToIpv4List(String $host) : Array;
 
     //--------------------------------------------------------------------------------------------------------
     // Protocol Number
@@ -97,7 +97,7 @@ interface InternalNetInterface
     // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
-    public function protocolNumber(string $name) : int;
+    public function protocolNumber(String $name) : Int;
 
     //--------------------------------------------------------------------------------------------------------
     // Protocol Name
@@ -106,7 +106,7 @@ interface InternalNetInterface
     // @param int $number
     //
     //--------------------------------------------------------------------------------------------------------
-    public function protocolName(int $number) : string;
+    public function protocolName(Int $number) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Service Port
@@ -116,7 +116,7 @@ interface InternalNetInterface
     // @param string $protocol
     //
     //--------------------------------------------------------------------------------------------------------
-    public function servicePort(string $service, string $protocol) : int;
+    public function servicePort(String $service, String $protocol) : Int;
 
     //--------------------------------------------------------------------------------------------------------
     // Service Name
@@ -126,7 +126,7 @@ interface InternalNetInterface
     // @param string $protocol
     //
     //--------------------------------------------------------------------------------------------------------
-    public function serviceName(int $port, string $protocol) : string;
+    public function serviceName(Int $port, String $protocol) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Local
@@ -135,7 +135,7 @@ interface InternalNetInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function local() : string;
+    public function local() : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Rcode
@@ -144,7 +144,7 @@ interface InternalNetInterface
     // @param int $code
     //
     //--------------------------------------------------------------------------------------------------------
-    public function rcode(int $code = NULL);
+    public function rcode(Int $code = NULL);
 
     //--------------------------------------------------------------------------------------------------------
     // Chr To Ip V4
@@ -153,7 +153,7 @@ interface InternalNetInterface
     // @param string $chr
     //
     //--------------------------------------------------------------------------------------------------------
-    public function chrToIpv4(string $chr) : string;
+    public function chrToIpv4(String $chr) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Ip v4 To Chr
@@ -162,7 +162,7 @@ interface InternalNetInterface
     // @param string $addr
     //
     //--------------------------------------------------------------------------------------------------------
-    public function ipv4ToChr(string $addr) : string;
+    public function ipv4ToChr(String $addr) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Ip v4 To Number
@@ -171,7 +171,7 @@ interface InternalNetInterface
     // @param string $ip
     //
     //--------------------------------------------------------------------------------------------------------
-    public function ipv4ToNumber(string $ip) : int;
+    public function ipv4ToNumber(String $ip) : Int;
 
     //--------------------------------------------------------------------------------------------------------
     // Number To IP v4
@@ -180,5 +180,5 @@ interface InternalNetInterface
     // @param int $numberAddress
     //
     //--------------------------------------------------------------------------------------------------------
-    public function numberToIpv4(int $numberAddress) : string;
+    public function numberToIpv4(Int $numberAddress) : String;
 }

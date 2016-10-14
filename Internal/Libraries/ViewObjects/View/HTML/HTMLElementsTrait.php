@@ -19,7 +19,7 @@ trait HTMLElementsTrait
     // @param string $element
     //
     //--------------------------------------------------------------------------------------------------------
-    public function aria(string $type, string $element)
+    public function aria(String $type, String $element)
     {
         $this->settings['attr']['aria-'.$type] = $element;
 
@@ -34,7 +34,7 @@ trait HTMLElementsTrait
     // @param string $element
     //
     //--------------------------------------------------------------------------------------------------------
-    public function data(string $type, string $element)
+    public function data(String $type, String $element)
     {
         $this->settings['attr']['data-'.$type] = $element;
 
@@ -48,7 +48,7 @@ trait HTMLElementsTrait
     // @param string $element
     //
     //--------------------------------------------------------------------------------------------------------
-    public function iceRepeating(string $element)
+    public function iceRepeating(String $element)
     {
         $this->settings['attr']['ice:repeating'] = $element;
 
@@ -63,7 +63,7 @@ trait HTMLElementsTrait
     // @param string $element
     //
     //--------------------------------------------------------------------------------------------------------
-    public function spry(string $type, string $element)
+    public function spry(String $type, String $element)
     {
         $this->settings['attr']['spry-'.$type] = $element;
 
@@ -77,7 +77,7 @@ trait HTMLElementsTrait
     // @param string $element
     //
     //--------------------------------------------------------------------------------------------------------
-    public function source(string $element)
+    public function source(String $element)
     {
         $this->settings['attr']['src'] = $element;
 
@@ -91,7 +91,7 @@ trait HTMLElementsTrait
     // @param string $vspace
     //
     //--------------------------------------------------------------------------------------------------------
-    public function title(string $element)
+    public function title(String $element)
     {
         $this->settings['attr']['title'] = $element;
 

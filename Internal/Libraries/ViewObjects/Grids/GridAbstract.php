@@ -22,7 +22,7 @@ abstract class GridAbstract extends CLController
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    abstract public function create() : string;
+    abstract public function create() : String;
 
     //--------------------------------------------------------------------------------------------------------
     // limit()
@@ -31,5 +31,5 @@ abstract class GridAbstract extends CLController
     // @param string $limit
     //
     //--------------------------------------------------------------------------------------------------------
-    abstract public function limit(int $limit);
+    abstract public function limit(Int $limit);
 }

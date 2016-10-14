@@ -29,9 +29,9 @@ class CryptoMapping extends CLController
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function encrypt(string $data, array $settings) :? string
+    public function encrypt($data, $settings)
     {
-        return NULL;
+        return false;
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -41,9 +41,9 @@ class CryptoMapping extends CLController
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function decrypt(string $data, array $settings) :? string
+    public function decrypt($data, $settings)
     {
-        return NULL;
+        return false;
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -53,8 +53,8 @@ class CryptoMapping extends CLController
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function keygen(int $length) :? string
+    public function keygen($length)
     {
-        return NULL;
+        return false;
     }
 }

@@ -18,7 +18,7 @@ interface ConnectionInterface
     // @param string $table
     //
     //--------------------------------------------------------------------------------------------------------
-    public function table(string $table) : Connection;
+    public function table(String $table) : Connection;
 
     //--------------------------------------------------------------------------------------------------------
     // Column
@@ -28,7 +28,7 @@ interface ConnectionInterface
     // @param mixed  $val
     //
     //--------------------------------------------------------------------------------------------------------
-    public function column(string $col, $val = NULL) : Connection;
+    public function column(String $col, $val = NULL) : Connection;
 
     //--------------------------------------------------------------------------------------------------------
     // String Query
@@ -37,7 +37,7 @@ interface ConnectionInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function stringQuery() : string;
+    public function stringQuery() : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Different Connection
@@ -55,7 +55,7 @@ interface ConnectionInterface
     // @param array $data
     //
     //--------------------------------------------------------------------------------------------------------
-    public function secure(array $data) : Connection;
+    public function secure(Array $data) : Connection;
 
     //--------------------------------------------------------------------------------------------------------
     // Func

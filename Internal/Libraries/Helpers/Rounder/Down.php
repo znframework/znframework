@@ -21,7 +21,7 @@ class Down implements CommonInterface
     // @param int    $count
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do(float $number, int $count = 0) : float
+    public function do(Float $number, Int $count = 0) : Float
     {
         if( $count === 0 )
         {

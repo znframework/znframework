@@ -68,7 +68,7 @@ class InternalHTML implements InternalHTMLInterface, ViewCommonInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function audio(string $src, ? string $content = NULL, array $attributes = []) : string
+    public function audio(String $src, String $content = NULL, Array $attributes = []) : String
     {
         return $this->_mediaContent($src, $content, $attributes, __FUNCTION__);
     }
@@ -82,7 +82,7 @@ class InternalHTML implements InternalHTMLInterface, ViewCommonInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function video(string $src, ? string $content = NULL, array $attributes = []) : string
+    public function video(String $src, String $content = NULL, Array $attributes = []) : String
     {
         return $this->_mediaContent($src, $content, $attributes, __FUNCTION__);
     }
@@ -95,7 +95,7 @@ class InternalHTML implements InternalHTMLInterface, ViewCommonInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function embed(string $src, array $attributes = []) : string
+    public function embed(String $src, Array $attributes = []) : String
     {
         return $this->_media($src, $attributes, __FUNCTION__);
     }
@@ -108,7 +108,7 @@ class InternalHTML implements InternalHTMLInterface, ViewCommonInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function source(string $src, array $attributes = []) : string
+    public function source(String $src, Array $attributes = []) : String
     {
         return $this->_media($src, $attributes, __FUNCTION__);
     }
@@ -121,7 +121,7 @@ class InternalHTML implements InternalHTMLInterface, ViewCommonInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function bold(string $str, array $attributes = []) : string
+    public function bold(String $str, Array $attributes = []) : String
     {
         return $this->_multiElement('b', $str, $attributes);
     }
@@ -134,7 +134,7 @@ class InternalHTML implements InternalHTMLInterface, ViewCommonInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function strong(string $str, array $attributes = []) : string
+    public function strong(String $str, Array $attributes = []) : String
     {
         return $this->_multiElement(__FUNCTION__, $str, $attributes);
     }
@@ -147,7 +147,7 @@ class InternalHTML implements InternalHTMLInterface, ViewCommonInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function italic(string $str, array $attributes = []) : string
+    public function italic(String $str, Array $attributes = []) : String
     {
         return $this->_multiElement('em', $str, $attributes);
     }
@@ -162,7 +162,7 @@ class InternalHTML implements InternalHTMLInterface, ViewCommonInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function image(string $src, ? int $width = NULL, ? int $height = NULL, array $attributes = []) : string
+    public function image(String $src, Int $width = NULL, Int $height = NULL, Array $attributes = []) : String
     {
         if( ! isUrl($src) )
         {
@@ -205,7 +205,7 @@ class InternalHTML implements InternalHTMLInterface, ViewCommonInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function label(string $for, ? string $value = NULL, ? string $form = NULL, array $attributes = []) : string
+    public function label(String $for, String $value = NULL, String $form = NULL, Array $attributes = []) : String
     {
         if( ! empty($for) )
         {
@@ -229,7 +229,7 @@ class InternalHTML implements InternalHTMLInterface, ViewCommonInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function canvas(string $content, array $attributes = []) : string
+    public function canvas(String $content, Array $attributes = []) : String
     {
         return $this->_contentAttribute($content, $attributes, __FUNCTION__);
     }
@@ -241,7 +241,7 @@ class InternalHTML implements InternalHTMLInterface, ViewCommonInterface
     // @param  string $html
     //
     //--------------------------------------------------------------------------------------------------------
-    public function aside(string $html) : string
+    public function aside(String $html) : String
     {
         return $this->_content($html, __FUNCTION__);
     }
@@ -253,7 +253,7 @@ class InternalHTML implements InternalHTMLInterface, ViewCommonInterface
     // @param  string $html
     //
     //--------------------------------------------------------------------------------------------------------
-    public function article(string $html) : string
+    public function article(String $html) : String
     {
         return $this->_content($html, __FUNCTION__);
     }
@@ -265,7 +265,7 @@ class InternalHTML implements InternalHTMLInterface, ViewCommonInterface
     // @param  string $html
     //
     //--------------------------------------------------------------------------------------------------------
-    public function footer(string $html) : string
+    public function footer(String $html) : String
     {
         return $this->_content($html, __FUNCTION__);
     }
@@ -277,7 +277,7 @@ class InternalHTML implements InternalHTMLInterface, ViewCommonInterface
     // @param  string $html
     //
     //--------------------------------------------------------------------------------------------------------
-    public function header(string $html) : string
+    public function header(String $html) : String
     {
         return $this->_content($html, __FUNCTION__);
     }
@@ -289,7 +289,7 @@ class InternalHTML implements InternalHTMLInterface, ViewCommonInterface
     // @param  string $html
     //
     //--------------------------------------------------------------------------------------------------------
-    public function nav(string $html) : string
+    public function nav(String $html) : String
     {
         return $this->_content($html, __FUNCTION__);
     }
@@ -301,7 +301,7 @@ class InternalHTML implements InternalHTMLInterface, ViewCommonInterface
     // @param  string $html
     //
     //--------------------------------------------------------------------------------------------------------
-    public function section(string $html) : string
+    public function section(String $html) : String
     {
         return $this->_content($html, __FUNCTION__);
     }
@@ -315,7 +315,7 @@ class InternalHTML implements InternalHTMLInterface, ViewCommonInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function anchor(string $url, ? string $value = NULL, array $attributes = []) : string
+    public function anchor(String $url, String $value = NULL, Array $attributes = []) : String
     {
         if( ! isUrl($url) && strpos($url, '#') !== 0 )
         {
@@ -338,7 +338,7 @@ class InternalHTML implements InternalHTMLInterface, ViewCommonInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function mailTo(string $mail, ? string $value = NULL, array $attributes = []) : string
+    public function mailTo(String $mail, String $value = NULL, Array $attributes = []) : String
     {
         if( ! isEmail($mail) )
         {
@@ -360,7 +360,7 @@ class InternalHTML implements InternalHTMLInterface, ViewCommonInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function parag( ? string $str = NULL, array $attributes = []) : string
+    public function parag(String $str = NULL, Array $attributes = []) : String
     {
         return $this->_multiElement('p', $str, $attributes);
     }
@@ -373,7 +373,7 @@ class InternalHTML implements InternalHTMLInterface, ViewCommonInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function overLine(string $str, array $attributes = []) : string
+    public function overLine(String $str, Array $attributes = []) : String
     {
         return $this->_multiElement('del', $str, $attributes);
     }
@@ -386,7 +386,7 @@ class InternalHTML implements InternalHTMLInterface, ViewCommonInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function overText(string $str, array $attributes = []) : string
+    public function overText(String $str, Array $attributes = []) : String
     {
         return $this->_multiElement('sup', $str, $attributes);
     }
@@ -399,7 +399,7 @@ class InternalHTML implements InternalHTMLInterface, ViewCommonInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function underLine(string $str, array $attributes = []) : string
+    public function underLine(String $str, Array $attributes = []) : String
     {
         return $this->_multiElement('u', $str, $attributes);
     }
@@ -412,7 +412,7 @@ class InternalHTML implements InternalHTMLInterface, ViewCommonInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function underText(string $str, array $attributes = []) : string
+    public function underText(String $str, Array $attributes = []) : String
     {
         return $this->_multiElement('sub', $str, $attributes);
     }
@@ -428,7 +428,7 @@ class InternalHTML implements InternalHTMLInterface, ViewCommonInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function font(string $str, ? string $size = NULL, ? string $color = NULL, ? string $face = NULL, array $attributes = []) : string
+    public function font(String $str, String $size = NULL, String $color = NULL, String $face = NULL, Array $attributes = []) : String
     {
         if( ! empty($size) )
         {
@@ -455,7 +455,7 @@ class InternalHTML implements InternalHTMLInterface, ViewCommonInterface
     // @param string $html
     //
     //--------------------------------------------------------------------------------------------------------
-    public function hgroup(string $html) : string
+    public function hgroup(String $html) : String
     {
         return $this->_content($html, __FUNCTION__);
     }
@@ -467,7 +467,7 @@ class InternalHTML implements InternalHTMLInterface, ViewCommonInterface
     // @param int $cunt
     //
     //--------------------------------------------------------------------------------------------------------
-    public function br(int $count = 1) : string
+    public function br(Int $count = 1) : String
     {
         return str_repeat($this->_singleElement(__FUNCTION__), $count);
     }
@@ -479,7 +479,7 @@ class InternalHTML implements InternalHTMLInterface, ViewCommonInterface
     // @param int $count
     //
     //--------------------------------------------------------------------------------------------------------
-    public function space(int $count = 4) : string
+    public function space(Int $count = 4) : String
     {
         return str_repeat("&nbsp;", $count);
     }
@@ -493,7 +493,7 @@ class InternalHTML implements InternalHTMLInterface, ViewCommonInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function heading(string $str, int $type = 3, array $attributes = []) : string
+    public function heading(String $str, Int $type = 3, Array $attributes = []) : String
     {
         return $this->_multiElement('h'.$type, $str, $attributes);
     }
@@ -507,7 +507,7 @@ class InternalHTML implements InternalHTMLInterface, ViewCommonInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function element(string $element, ? string $str = NULL, array $attributes = []) : string
+    public function element(String $element, String $str = NULL, Array $attributes = []) : String
     {
         return $this->_multiElement($element, $str, $attributes);
     }
@@ -520,7 +520,7 @@ class InternalHTML implements InternalHTMLInterface, ViewCommonInterface
     // @param array  $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function multiAttr(string $str, array $array = []) : string
+    public function multiAttr(String $str, Array $array = []) : String
     {
         if( is_array($array) )
         {
@@ -568,7 +568,7 @@ class InternalHTML implements InternalHTMLInterface, ViewCommonInterface
     // @param string $content
     //
     //--------------------------------------------------------------------------------------------------------
-    public function meta($name, string $content = NULL) : string
+    public function meta($name, String $content = NULL) : String
     {
         if( ! is_array($name) )
         {
@@ -595,7 +595,7 @@ class InternalHTML implements InternalHTMLInterface, ViewCommonInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function command(string $content, array $attributes = []) : string
+    public function command(String $content, Array $attributes = []) : String
     {
         return $this->_contentAttribute($content, $attributes, __FUNCTION__);
     }
@@ -608,7 +608,7 @@ class InternalHTML implements InternalHTMLInterface, ViewCommonInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function dataList(string $content, array $attributes = []) : string
+    public function dataList(String $content, Array $attributes = []) : String
     {
         return $this->_contentAttribute($content, $attributes, __FUNCTION__);
     }
@@ -621,7 +621,7 @@ class InternalHTML implements InternalHTMLInterface, ViewCommonInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function details(string $content, array $attributes = []) : string
+    public function details(String $content, Array $attributes = []) : String
     {
         return $this->_contentAttribute($content, $attributes, __FUNCTION__);
     }
@@ -634,7 +634,7 @@ class InternalHTML implements InternalHTMLInterface, ViewCommonInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function dialog(string $content, array $attributes = []) : string
+    public function dialog(String $content, Array $attributes = []) : String
     {
         return $this->_contentAttribute($content, $attributes, __FUNCTION__);
     }
@@ -647,7 +647,7 @@ class InternalHTML implements InternalHTMLInterface, ViewCommonInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function figCaption(string $content, array $attributes = []) : string
+    public function figCaption(String $content, Array $attributes = []) : String
     {
         return $this->_contentAttribute($content, $attributes, __FUNCTION__);
     }
@@ -660,7 +660,7 @@ class InternalHTML implements InternalHTMLInterface, ViewCommonInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function figure(string $content, array $attributes = []) : string
+    public function figure(String $content, Array $attributes = []) : String
     {
         return $this->_contentAttribute($content, $attributes, __FUNCTION__);
     }
@@ -672,7 +672,7 @@ class InternalHTML implements InternalHTMLInterface, ViewCommonInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function keygen(array $attributes = []) : string
+    public function keygen(Array $attributes = []) : String
     {
         return $this->_singleElement(__FUNCTION__, $attributes);
     }
@@ -685,7 +685,7 @@ class InternalHTML implements InternalHTMLInterface, ViewCommonInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function mark(string $content, array $attributes = []) : string
+    public function mark(String $content, Array $attributes = []) : String
     {
         return $this->_contentAttribute($content, $attributes, __FUNCTION__);
     }
@@ -698,7 +698,7 @@ class InternalHTML implements InternalHTMLInterface, ViewCommonInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function meter(string $content, array $attributes = []) : string
+    public function meter(String $content, Array $attributes = []) : String
     {
         return $this->_contentAttribute($content, $attributes, __FUNCTION__);
     }
@@ -711,7 +711,7 @@ class InternalHTML implements InternalHTMLInterface, ViewCommonInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function time(string $content, array $attributes = []) : string
+    public function time(String $content, Array $attributes = []) : String
     {
         return $this->_contentAttribute($content, $attributes, __FUNCTION__);
     }
@@ -724,7 +724,7 @@ class InternalHTML implements InternalHTMLInterface, ViewCommonInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function summary(string $content, array $attributes = []) : string
+    public function summary(String $content, Array $attributes = []) : String
     {
         return $this->_contentAttribute($content, $attributes, __FUNCTION__);
     }
@@ -737,7 +737,7 @@ class InternalHTML implements InternalHTMLInterface, ViewCommonInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function progress(string $content, array $attributes = []) : string
+    public function progress(String $content, Array $attributes = []) : String
     {
         return $this->_contentAttribute($content, $attributes, __FUNCTION__);
     }
@@ -750,7 +750,7 @@ class InternalHTML implements InternalHTMLInterface, ViewCommonInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function output(string $content, array $attributes = []) : string
+    public function output(String $content, Array $attributes = []) : String
     {
         return $this->_contentAttribute($content, $attributes, __FUNCTION__);
     }

@@ -41,6 +41,8 @@ class InternalSupport extends CallController implements InternalSupportInterface
                 die(getErrorMessage(key($error), current($error), $value));
             }
         }
+
+        return false;
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -51,9 +53,9 @@ class InternalSupport extends CallController implements InternalSupportInterface
     // @param  string  $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function func(string $name, string $value = NULL) : void
+    public function func(String $name, String $value = NULL)
     {
-        $this->_loaded($name, $value, 'function_exists', 'undefinedFunctionExtension');
+        return $this->_loaded($name, $value, 'function_exists', 'undefinedFunctionExtension');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -64,9 +66,9 @@ class InternalSupport extends CallController implements InternalSupportInterface
     // @param  string  $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function callback(string $name, string $value = NULL) : void
+    public function callback(String $name, String $value = NULL)
     {
-        $this->_loaded($name, $value, 'function_exists', 'undefinedFunction');
+        return $this->_loaded($name, $value, 'function_exists', 'undefinedFunction');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -77,9 +79,9 @@ class InternalSupport extends CallController implements InternalSupportInterface
     // @param  string  $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function extension(string $name, string $value = NULL) : void
+    public function extension(String $name, String $value = NULL)
     {
-        $this->_loaded($name, $value, 'extension_loaded', 'undefinedFunctionExtension');
+        return $this->_loaded($name, $value, 'extension_loaded', 'undefinedFunctionExtension');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -90,9 +92,9 @@ class InternalSupport extends CallController implements InternalSupportInterface
     // @param  string  $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function library(string $name, string $value = NULL) : void
+    public function library(String $name, String $value = NULL)
     {
-        $this->_loaded($name, $value, 'class_exists', 'classError');
+        return $this->_loaded($name, $value, 'class_exists', 'classError');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -103,9 +105,9 @@ class InternalSupport extends CallController implements InternalSupportInterface
     // @param  string  $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function writable(string $name, string $value = NULL) : void
+    public function writable(String $name, String $value = NULL)
     {
-        $this->_loaded($name, $value, 'is_writable', 'fileNotWrite');
+        return $this->_loaded($name, $value, 'is_writable', 'fileNotWrite');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -116,12 +118,14 @@ class InternalSupport extends CallController implements InternalSupportInterface
     // @param  string  $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function driver(array $drivers, string $driver = NULL) : void
+    public function driver(Array $drivers, String $driver = NULL)
     {
         if( ! in_array(strtolower($driver), $drivers) )
         {
             die(getErrorMessage('Error', 'driverError', $driver));
         }
+
+        return true;
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -132,7 +136,7 @@ class InternalSupport extends CallController implements InternalSupportInterface
     // @param  string  $method
     //
     //--------------------------------------------------------------------------------------------------------
-    public function classMethod(string $class, string $method) : void
+    public function classMethod(String $class, String $method)
     {
         die(getErrorMessage
         (

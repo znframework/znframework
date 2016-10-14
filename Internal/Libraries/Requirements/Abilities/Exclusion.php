@@ -18,7 +18,7 @@
     // @param mixed  $changed
     //
     //--------------------------------------------------------------------------------------------------------
-    public function __construct(string $file, string $message = NULL, $changed = NULL)
+    public function __construct(String $file, String $message = NULL, $changed = NULL)
     {
         if( $data = lang($file, $message, $changed) )
         {
@@ -41,7 +41,7 @@
     // @param string $line
     //
     //--------------------------------------------------------------------------------------------------------
-    public function continue() : void
+    public function continue()
     {
         echo \Exceptions::continue($this->getMessage(), $this->getFile(), $this->getLine());
     }

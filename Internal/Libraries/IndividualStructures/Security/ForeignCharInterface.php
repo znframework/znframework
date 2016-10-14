@@ -19,7 +19,7 @@ interface ForeignCharInterface
     // @param string $str
     //
     //--------------------------------------------------------------------------------------------------------
-    public function encode(string $str) : string;
+    public function encode(String $str) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Foreign Char Decode
@@ -28,5 +28,5 @@ interface ForeignCharInterface
     // @param string $str
     //
     //--------------------------------------------------------------------------------------------------------
-    public function decode(string $str) : string;
+    public function decode(String $str) : String;
 }

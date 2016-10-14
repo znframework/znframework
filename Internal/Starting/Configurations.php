@@ -90,7 +90,7 @@ if( $composer === true )
 
     if( file_exists($path) )
     {
-        require_once($path);
+        import($path);
     }
     else
     {

@@ -19,7 +19,7 @@ interface InternalMethodInterface
     // @param mixed  $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function post( ? string $name = NULL, $value = NULL);
+    public function post(String $name, $value);
 
     //--------------------------------------------------------------------------------------------------------
     // Get
@@ -29,7 +29,7 @@ interface InternalMethodInterface
     // @param mixed  $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function get( ? string $name = NULL, $value = NULL);
+    public function get(String $name, $value);
 
     //--------------------------------------------------------------------------------------------------------
     // Env
@@ -39,7 +39,7 @@ interface InternalMethodInterface
     // @param mixed  $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function env( ? string $name = NULL, $value = NULL);
+    public function env(String $name, $value);
 
     //--------------------------------------------------------------------------------------------------------
     // Server
@@ -49,7 +49,7 @@ interface InternalMethodInterface
     // @param mixed  $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function server(string $name = '', $value = NULL);
+    public function server(String $name, $value);
 
     //--------------------------------------------------------------------------------------------------------
     // Request
@@ -59,7 +59,7 @@ interface InternalMethodInterface
     // @param mixed  $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function request( ? string $name = NULL, $value = NULL);
+    public function request(String $name, $value);
 
     //--------------------------------------------------------------------------------------------------------
     // Files
@@ -69,7 +69,7 @@ interface InternalMethodInterface
     // @param string $type
     //
     //--------------------------------------------------------------------------------------------------------
-    public function files( ? string $fileName = NULL, string $type = 'name');
+    public function files(String $fileName, String $type);
 
     //--------------------------------------------------------------------------------------------------------
     // Delete
@@ -78,5 +78,5 @@ interface InternalMethodInterface
     // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
-    public function delete(string $input, string $name) : void;
+    public function delete(String $input, String $name);
 }

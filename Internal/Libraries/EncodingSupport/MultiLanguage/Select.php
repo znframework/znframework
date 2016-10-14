@@ -22,7 +22,7 @@ class Select extends MLExtends implements SelectInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do(string $key, $convert = NULL) : string
+    public function do(String $key, $convert = NULL) : String
     {
         $read = File::read($this->lang);
 
@@ -53,7 +53,7 @@ class Select extends MLExtends implements SelectInterface
     // @return array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function all($app = NULL) : array
+    public function all($app = NULL) : Array
     {
         if( ! is_string($app) )
         {

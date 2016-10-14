@@ -20,7 +20,7 @@
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function pathInfos(string $file, string $info = 'basename') : string
+function pathInfos(String $file, String $info = 'basename') : String
 {
     $pathInfo = pathinfo($file);
 
@@ -37,7 +37,7 @@ function pathInfos(string $file, string $info = 'basename') : string
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function extension(string $file, bool $dote = false) : string
+function extension(String $file, Bool $dote = false) : String
 {
     $dote = $dote === true ? '.' : '';
 
@@ -53,7 +53,7 @@ function extension(string $file, bool $dote = false) : string
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function removeExtension(string $file) : string
+function removeExtension(String $file) : String
 {
     return preg_replace('/\\.[^.\\s]{3,4}$/', '', $file);
 }

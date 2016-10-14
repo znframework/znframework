@@ -18,7 +18,7 @@ interface InternalStackInterface
     // @param string $data
     //
     //--------------------------------------------------------------------------------------------------------
-    public function data(string $data) : InternalStack;
+    public function data(String $data) : InternalStack;
 
     //--------------------------------------------------------------------------------------------------------
     // Get

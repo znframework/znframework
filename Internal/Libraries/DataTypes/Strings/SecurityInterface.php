@@ -19,7 +19,7 @@ interface SecurityInterface
     // @param string $salt
     //
     //--------------------------------------------------------------------------------------------------------
-    public function encode(string $string, string $salt = 'default') : string;
+    public function encode(String $string, String $salt = 'default') : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Add Slashes
@@ -29,7 +29,7 @@ interface SecurityInterface
     // @param string $addDifferentChars
     //
     //--------------------------------------------------------------------------------------------------------
-    public function addSlashes(string $string, string $addDifferentChars = NULL) : string;
+    public function addSlashes(String $string, String $addDifferentChars = NULL) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Remove Slashes
@@ -38,5 +38,5 @@ interface SecurityInterface
     // @param string $str
     //
     //--------------------------------------------------------------------------------------------------------
-    public function removeSlashes(string $string) : string;
+    public function removeSlashes(String $string) : String;
 }

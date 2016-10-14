@@ -29,7 +29,7 @@ class InternalStyle extends CallController implements TextCommonInterface
     // @param string $type()
     //
     //--------------------------------------------------------------------------------------------------------
-    public function type(string $type)
+    public function type(String $type)
     {
         $this->type = $type;
 
@@ -57,7 +57,7 @@ class InternalStyle extends CallController implements TextCommonInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function open() : string
+    public function open() : String
     {
         $script = "<style type=\"$this->type\">".EOL;
 
@@ -71,7 +71,7 @@ class InternalStyle extends CallController implements TextCommonInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function close() : string
+    public function close() : String
     {
         $script =  '</style>'.EOL;
         return $script;

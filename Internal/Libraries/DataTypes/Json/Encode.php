@@ -22,7 +22,7 @@ class Encode implements EncodeInterface
     // @param string $type
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do($data, string $type = 'unescaped_unicode') : string
+    public function do($data, String $type = 'unescaped_unicode') : String
     {
         $return = json_encode($data, Converter::toConstant($type, 'JSON_'));
 

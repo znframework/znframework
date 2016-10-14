@@ -20,7 +20,7 @@ class ErrorInfo implements ErrorInfoInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function message() : string
+    public static function message() : String
     {
         return json_last_error_msg();
     }
@@ -32,7 +32,7 @@ class ErrorInfo implements ErrorInfoInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function no() : int
+    public static function no() : Int
     {
         return json_last_error();
     }
@@ -44,7 +44,7 @@ class ErrorInfo implements ErrorInfoInterface
     // @param string $data
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function check(string $data) : bool
+    public static function check(String $data) : Bool
     {
         return ( is_array(json_decode($data, true)) && self::no() === 0 )
                ? true

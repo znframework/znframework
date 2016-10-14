@@ -27,7 +27,7 @@ interface ForgeInterface
     // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
-    public function create(string $name) : bool;
+    public function create(String $name) : Bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Replace
@@ -40,7 +40,7 @@ interface ForgeInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function replace(string $file, $data, $replace) : string;
+    public function replace(String $file, $data, $replace) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Delete
@@ -49,7 +49,7 @@ interface ForgeInterface
     // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
-    public function delete(string $name) : bool;
+    public function delete(String $name) : Bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Zip Extract
@@ -59,7 +59,7 @@ interface ForgeInterface
     // @param string $target
     //
     //--------------------------------------------------------------------------------------------------------
-    public function zipExtract(string $source, string $target = NULL) : bool;
+    public function zipExtract(String $source, String $target = NULL) : Bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Create Zip
@@ -69,7 +69,7 @@ interface ForgeInterface
     // @param array  $data
     //
     //--------------------------------------------------------------------------------------------------------
-    public function createZip(string $path, array $data) : bool;
+    public function createZip(String $path, Array $data) : Bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Rename
@@ -79,7 +79,7 @@ interface ForgeInterface
     // @param string $newName
     //
     //--------------------------------------------------------------------------------------------------------
-    public function rename(string $oldName, string $newName) : bool;
+    public function rename(String $oldName, String $newName) : Bool;
     //--------------------------------------------------------------------------------------------------------
     // Clean Cache
     //--------------------------------------------------------------------------------------------------------
@@ -88,7 +88,7 @@ interface ForgeInterface
     // @param string $real
     //
     //--------------------------------------------------------------------------------------------------------
-    public function cleanCache( ? string $fileName = NULL, bool $real = false);
+    public function cleanCache(String $fileName = NULL, Bool $real = false);
 
     //--------------------------------------------------------------------------------------------------------
     // Truncate
@@ -99,7 +99,7 @@ interface ForgeInterface
     // @param string $mode
     //
     //--------------------------------------------------------------------------------------------------------
-    public function truncate(string $file, int $limit = 0, string $mode = 'r+') : void;
+    public function truncate(String $file, Int $limit = 0, String $mode = 'r+');
 
     //--------------------------------------------------------------------------------------------------------
     // permission()
@@ -108,5 +108,5 @@ interface ForgeInterface
     // Bir dizin veya dosyaya yetki vermek için kullanılır.
     //
     //--------------------------------------------------------------------------------------------------------
-    public function permission(string $name, int $permission = 0755) : bool;
+    public function permission(String $name, Int $permission = 0755) : Bool;
 }

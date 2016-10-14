@@ -22,7 +22,7 @@ interface InternalCaptchaInterface
     // @return this
     //
     //--------------------------------------------------------------------------------------------------------
-    public function size(int $width, int $height) : InternalCaptcha;
+    public function size(Int $width, Int $height) : InternalCaptcha;
 
     //--------------------------------------------------------------------------------------------------------
     // Length
@@ -34,7 +34,7 @@ interface InternalCaptchaInterface
     // @return this
     //
     //--------------------------------------------------------------------------------------------------------
-    public function length(int $param) : InternalCaptcha;
+    public function length(Int $param) : InternalCaptcha;
 
     //--------------------------------------------------------------------------------------------------------
     // Angle
@@ -44,7 +44,7 @@ interface InternalCaptchaInterface
     // @return this
     //
     //--------------------------------------------------------------------------------------------------------
-    public function angle(float $param) : InternalCaptcha;
+    public function angle(Float $param) : InternalCaptcha;
 
     //--------------------------------------------------------------------------------------------------------
     // TTF
@@ -54,7 +54,7 @@ interface InternalCaptchaInterface
     // @return this
     //
     //--------------------------------------------------------------------------------------------------------
-    public function ttf(array $fonts) : InternalCaptcha;
+    public function ttf(Array $fonts) : InternalCaptcha;
 
     //--------------------------------------------------------------------------------------------------------
     // Border Color
@@ -67,7 +67,7 @@ interface InternalCaptchaInterface
     // @return this
     //
     //--------------------------------------------------------------------------------------------------------
-    public function borderColor(string $color = NULL) : InternalCaptcha;
+    public function borderColor(String $color = NULL) : InternalCaptcha;
 
     //--------------------------------------------------------------------------------------------------------
     // Bg Color
@@ -79,7 +79,7 @@ interface InternalCaptchaInterface
     // @return this
     //
     //--------------------------------------------------------------------------------------------------------
-    public function bgColor(string $color) : InternalCaptcha;
+    public function bgColor(String $color) : InternalCaptcha;
 
     //--------------------------------------------------------------------------------------------------------
     // Background Color
@@ -91,7 +91,7 @@ interface InternalCaptchaInterface
     // @return this
     //
     //--------------------------------------------------------------------------------------------------------
-    public function bgImage(array $image) : InternalCaptcha;
+    public function bgImage(Array $image) : InternalCaptcha;
 
     //--------------------------------------------------------------------------------------------------------
     // Text Size
@@ -103,7 +103,7 @@ interface InternalCaptchaInterface
     // @return this
     //
     //--------------------------------------------------------------------------------------------------------
-    public function textSize(int $size) : InternalCaptcha;
+    public function textSize(Int $size) : InternalCaptcha;
 
     //--------------------------------------------------------------------------------------------------------
     // Text Coordinate
@@ -116,7 +116,7 @@ interface InternalCaptchaInterface
     // @return this
     //
     //--------------------------------------------------------------------------------------------------------
-    public function textCoordinate(int $x, int $y) : InternalCaptcha;
+    public function textCoordinate(Int $x, Int $y) : InternalCaptcha;
 
     //--------------------------------------------------------------------------------------------------------
     // Text Color
@@ -128,7 +128,7 @@ interface InternalCaptchaInterface
     // @return this
     //
     //--------------------------------------------------------------------------------------------------------
-    public function textColor(string $color) : InternalCaptcha;
+    public function textColor(String $color) : InternalCaptcha;
 
     //--------------------------------------------------------------------------------------------------------
     // Grid Color
@@ -141,7 +141,7 @@ interface InternalCaptchaInterface
     // @return this
     //
     //--------------------------------------------------------------------------------------------------------
-    public function gridColor(string $color = NULL) : InternalCaptcha;
+    public function gridColor(String $color = NULL) : InternalCaptcha;
 
     //--------------------------------------------------------------------------------------------------------
     // Grid Space
@@ -154,7 +154,7 @@ interface InternalCaptchaInterface
     // @return this
     //
     //--------------------------------------------------------------------------------------------------------
-    public function gridSpace(int $x = 0, int $y = 0) : InternalCaptcha;
+    public function gridSpace(Int $x = 0, Int $y = 0) : InternalCaptcha;
 
     //--------------------------------------------------------------------------------------------------------
     // Create
@@ -167,7 +167,7 @@ interface InternalCaptchaInterface
     // @return midex
     //
     //--------------------------------------------------------------------------------------------------------
-    public function create(bool $img = false, array $configs = []) : string;
+    public function create(Bool $img = false, Array $configs = []) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Get Code
@@ -179,5 +179,5 @@ interface InternalCaptchaInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function getCode() : string;
+    public function getCode() : String;
 }

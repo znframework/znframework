@@ -19,7 +19,7 @@
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function getLang() : string
+function getLang() : String
 {
     $systemLanguageData        = md5("SystemLanguageData");
     $defaultSystemLanguageData = md5("DefaultSystemLanguageData");
@@ -62,7 +62,7 @@ function getLang() : string
 // @return bool
 //
 //--------------------------------------------------------------------------------------------------
-function setLang( ? string $l = NULL) : bool
+function setLang(String $l = NULL) : Bool
 {
     if( empty($l) )
     {
@@ -83,7 +83,7 @@ function setLang( ? string $l = NULL) : bool
 // @return mixed
 //
 //--------------------------------------------------------------------------------------------------
-function lang(string $file, ? string $str = NULL, $changed = NULL)
+function lang(String $file, String $str = NULL, $changed = NULL)
 {
     global $lang;
 
@@ -94,15 +94,15 @@ function lang(string $file, ? string $str = NULL, $changed = NULL)
 
     if( is_file($langDir) && ! isImport($langDir) )
     {
-        $lang[$file] = require_once($langDir);
+        $lang[$file] = import($langDir);
     }
     elseif( is_file($sysLangDir) && ! isImport($sysLangDir) )
     {
-        $lang[$file] = require_once($sysLangDir);
+        $lang[$file] = import($sysLangDir);
     }
     elseif( is_file($commonLangDir) && ! isImport($commonLangDir) )
     {
-        $lang[$file] = require_once($commonLangDir);
+        $lang[$file] = import($commonLangDir);
     }
 
     if( empty($str) && isset($lang[$file]) )
@@ -115,7 +115,7 @@ function lang(string $file, ? string $str = NULL, $changed = NULL)
     }
     else
     {
-        return NULL;
+        return false;
     }
 
     if( ! is_array($changed) )
@@ -159,11 +159,11 @@ function lang(string $file, ? string $str = NULL, $changed = NULL)
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function currentLang() : string
+function currentLang() : String
 {
     if( ! Config::get('Services','uri')['lang'] )
     {
-        return NULL;
+        return false;
     }
     else
     {

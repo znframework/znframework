@@ -13,6 +13,7 @@ $color =  'color:#000;';
 $lang  = lang('Templates');
 ?>
 
+
 <div style="<?php echo $style; ?>">
 <table style="<?php echo $table; ?>">
     <?php if( ! empty($message) ): ?>

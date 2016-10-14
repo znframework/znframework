@@ -12,7 +12,7 @@ class Parser implements ParserInterface
     // @param string $result
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do(string $xml, string $result = 'object')
+    public function do(String $xml, String $result = 'object')
     {
         $parser   = xml_parser_create();
 
@@ -78,7 +78,7 @@ class Parser implements ParserInterface
     // @return array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function array(string $data) : array
+    public function array(String $data) : Array
     {
         return $this->do($data, 'array');
     }
@@ -91,7 +91,7 @@ class Parser implements ParserInterface
     // @return array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function json(string $data) : string
+    public function json(String $data) : String
     {
         return Json::encode($this->do($data, 'array'));
     }
@@ -104,7 +104,7 @@ class Parser implements ParserInterface
     // @return object
     //
     //--------------------------------------------------------------------------------------------------------
-    public function object(string $data) : \stdClass
+    public function object(String $data) : \stdClass
     {
         return $this->do($data, 'object');
     }

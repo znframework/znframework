@@ -22,7 +22,7 @@ class Type extends EncodeExtends implements TypeInterface
     // @param string $type
     //
     //--------------------------------------------------------------------------------------------------------
-    public function create(string $data, string $type = 'md5') : string
+    public function create(String $data, String $type = 'md5') : String
     {
         $algos = ['golden', 'super'];
 

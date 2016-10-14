@@ -18,7 +18,7 @@ interface PHPInterface
     // @param string $str
     //
     //--------------------------------------------------------------------------------------------------------
-    public function encode(string $str) : string;
+    public function encode(String $str) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // PHP Tag Decode
@@ -27,7 +27,7 @@ interface PHPInterface
     // @param string $str
     //
     //--------------------------------------------------------------------------------------------------------
-    public function decode(string $str) : string;
+    public function decode(String $str) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // PHP Tag Clean
@@ -36,5 +36,5 @@ interface PHPInterface
     // @param string $str
     //
     //--------------------------------------------------------------------------------------------------------
-    public function tagClean(string $str) : string;
+    public function tagClean(String $str) : String;
 }

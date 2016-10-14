@@ -40,7 +40,7 @@ class InternalPagination extends CLController implements InternalPaginationInter
     // @param array $config
     //
     //--------------------------------------------------------------------------------------------------------
-    public function settings(array $config = []) : InternalPagination
+    public function settings(Array $config = []) : InternalPagination
     {
         $configs = VIEWOBJECTS_PAGINATION_CONFIG;
 
@@ -85,7 +85,7 @@ class InternalPagination extends CLController implements InternalPaginationInter
     // @param array $settings
     //
     //--------------------------------------------------------------------------------------------------------
-    public function create( ? int $start = NULL, array $settings = []) : string
+    public function create($start = NULL, Array $settings = []) : String
     {
         $settings = array_merge(VIEWOBJECTS_PAGINATION_CONFIG, $this->settings, $settings);
 

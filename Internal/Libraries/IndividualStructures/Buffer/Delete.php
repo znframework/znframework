@@ -21,7 +21,7 @@ class Delete implements DeleteInterface
     // @return bool
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function do($name) : bool
+    public static function do($name) : Bool
     {
         if( is_array($name) )
         {

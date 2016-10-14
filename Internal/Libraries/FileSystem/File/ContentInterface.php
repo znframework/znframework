@@ -18,7 +18,7 @@ interface ContentInterface
     // @param string $file
     //
     //--------------------------------------------------------------------------------------------------------
-    public function read(string $file) : string;
+    public function read(String $file) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Find
@@ -28,7 +28,7 @@ interface ContentInterface
     // @param string $data
     //
     //--------------------------------------------------------------------------------------------------------
-    public function find(string $file, string $data) : \stdClass;
+    public function find(String $file, String $data) : \stdClass;
 
     //--------------------------------------------------------------------------------------------------------
     // Write
@@ -38,7 +38,7 @@ interface ContentInterface
     // @param string $data
     //
     //--------------------------------------------------------------------------------------------------------
-    public function write(string $file, string $data) : int;
+    public function write(String $file, String $data) : Int;
 
     //--------------------------------------------------------------------------------------------------------
     // Append
@@ -48,5 +48,5 @@ interface ContentInterface
     // @param string $data
     //
     //--------------------------------------------------------------------------------------------------------
-    public function append(string $file, string $data) : int;
+    public function append(String $file, String $data) : Int;
 }

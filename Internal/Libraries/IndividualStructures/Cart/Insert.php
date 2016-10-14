@@ -18,7 +18,7 @@ class Insert extends CartExtends implements InsertInterface
     // @param array $product
     //
     //--------------------------------------------------------------------------------------------------------
-    public function item(array $product) : bool
+    public function item(Array $product) : Bool
     {
         // Ürünün adet parametresinin belirtilmemesi durumunda 1 olarak kabul edilmesi istenmiştir.
         if( ! isset($product['quantity']) )

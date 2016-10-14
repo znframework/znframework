@@ -20,7 +20,7 @@ interface DecodeInterface
     // @param int    $length
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do(string $data, bool $array = false, int $length = 512);
+    public function do(String $data, Bool $array = false, Int $length = 512);
 
     //--------------------------------------------------------------------------------------------------------
     // Decode Object
@@ -30,7 +30,7 @@ interface DecodeInterface
     // @param int    $length
     //
     //--------------------------------------------------------------------------------------------------------
-    public function object(string $data, int $length = 512) : \stdClass;
+    public function object(String $data, Int $length = 512);
 
     //--------------------------------------------------------------------------------------------------------
     // Decode Array
@@ -40,5 +40,5 @@ interface DecodeInterface
     // @param int    $length
     //
     //--------------------------------------------------------------------------------------------------------
-    public function array(string $data, int $length = 512) : array;
+    public function array(String $data, Int $length = 512) : Array;
 }

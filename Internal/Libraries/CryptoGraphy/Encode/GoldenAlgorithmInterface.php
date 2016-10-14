@@ -19,5 +19,5 @@ interface GoldenAlgorithmInterface
     // @param string $additional
     //
     //--------------------------------------------------------------------------------------------------------
-    public function create(string $data, string $additional = 'default') : string;
+    public function create(String $data, String $additional = 'default') : String;
 }

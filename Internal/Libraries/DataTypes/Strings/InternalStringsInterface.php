@@ -18,7 +18,7 @@ interface InternalStringsInterface
     // @param string $str
     //
     //--------------------------------------------------------------------------------------------------------
-    public function section(string $str, int $starting = 0, int $count = NULL, string $encoding = 'utf-8') : string;
+    public function section(String $str, Int $starting = 0, Int $count = NULL, String $encoding = 'utf-8') : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Recurrent Count
@@ -28,7 +28,7 @@ interface InternalStringsInterface
     // @param string $char
     //
     //--------------------------------------------------------------------------------------------------------
-    public function recurrentCount(string $str, string $char) : int;
+    public function recurrentCount(String $str, String $char) : Int;
 
     //--------------------------------------------------------------------------------------------------------
     // Length
@@ -38,7 +38,7 @@ interface InternalStringsInterface
     // @param string $encoding
     //
     //--------------------------------------------------------------------------------------------------------
-    public function length(string $string, string $encoding = 'utf-8') : int;
+    public function length(String $string, String $encoding = 'utf-8') : Int;
 
     //--------------------------------------------------------------------------------------------------------
     // Repeat
@@ -48,7 +48,7 @@ interface InternalStringsInterface
     // @param numeric $count
     //
     //--------------------------------------------------------------------------------------------------------
-    public function repeat(string $string, int $count = 1) : string;
+    public function repeat(String $string, Int $count = 1) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Pad
@@ -60,7 +60,7 @@ interface InternalStringsInterface
     // @param string  $type
     //
     //--------------------------------------------------------------------------------------------------------
-    public function pad(string $string, int $count = 1, string $chars = ' ', string $type = 'right') : string;
+    public function pad(String $string, Int $count = 1, String $chars = ' ', String $type = 'right') : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Apportion
@@ -71,7 +71,7 @@ interface InternalStringsInterface
     // @param string  $end
     //
     //--------------------------------------------------------------------------------------------------------
-    public function apportion(string $string, int $length = 76, string $end = "\r\n") : string;
+    public function apportion(String $string, Int $length = 76, String $end = "\r\n") : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Divide
@@ -82,7 +82,7 @@ interface InternalStringsInterface
     // @param numeric $index
     //
     //--------------------------------------------------------------------------------------------------------
-    public function divide(string $str, string $separator = '|', $index = 0) : string;
+    public function divide(String $str, String $separator = '|', $index = 0) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Translation Table
@@ -92,5 +92,5 @@ interface InternalStringsInterface
     // @param string $quote
     //
     //--------------------------------------------------------------------------------------------------------
-    public function translationTable(string $table = 'specialchars', string $quote = 'compat') : array;
+    public function translationTable(String $table = 'specialchars', String $quote = 'compat') : Array;
 }

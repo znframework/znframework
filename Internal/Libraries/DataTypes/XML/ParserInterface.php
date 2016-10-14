@@ -10,7 +10,7 @@ interface ParserInterface
     // @param string $result
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do(string $xml, string $result = 'object');
+    public function do(String $xml, String $result = 'object');
 
     //--------------------------------------------------------------------------------------------------------
     // Parse Array
@@ -20,7 +20,7 @@ interface ParserInterface
     // @return array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function array(string $data) : array;
+    public function array(String $data) : Array;
 
     //--------------------------------------------------------------------------------------------------------
     // Parse Json
@@ -30,7 +30,7 @@ interface ParserInterface
     // @return array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function json(string $data) : string;
+    public function json(String $data) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Parse Object
@@ -40,5 +40,5 @@ interface ParserInterface
     // @return object
     //
     //--------------------------------------------------------------------------------------------------------
-    public function object(string $data) : \stdClass;
+    public function object(String $data) : \stdClass;
 }

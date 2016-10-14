@@ -19,7 +19,7 @@ class MemoryUsage implements MemoryUsageInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function calculate(string $result) : float
+    public static function calculate(String $result) : Float
     {
         $resend  = $result."_end";
         $restart = $result."_start";
@@ -45,7 +45,7 @@ class MemoryUsage implements MemoryUsageInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function normal(bool $realMemory = false) : int
+    public static function normal(Bool $realMemory = false) : Int
     {
         return  memory_get_usage($realMemory);
     }
@@ -58,7 +58,7 @@ class MemoryUsage implements MemoryUsageInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function maximum(bool $realMemory = false) : int
+    public static function maximum(Bool $realMemory = false) : Int
     {
         return  memory_get_peak_usage($realMemory);
     }

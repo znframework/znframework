@@ -18,7 +18,7 @@ interface InternalSheetInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function animation(bool $tag = false) : Sheet\Helpers\Animation;
+    public function animation(Bool $tag = false) : Sheet\Helpers\Animation;
 
     //--------------------------------------------------------------------------------------------------------
     // Manipulation
@@ -36,7 +36,7 @@ interface InternalSheetInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function shadow(bool $tag = false) : Sheet\Helpers\Shadow;
+    public function shadow(Bool $tag = false) : Sheet\Helpers\Shadow;
 
     //--------------------------------------------------------------------------------------------------------
     // Transform
@@ -45,7 +45,7 @@ interface InternalSheetInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function transform(bool $tag = false) : Sheet\Helpers\Transform;
+    public function transform(Bool $tag = false) : Sheet\Helpers\Transform;
 
     //--------------------------------------------------------------------------------------------------------
     // Transition
@@ -54,5 +54,5 @@ interface InternalSheetInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function transition(bool $tag = false) : Sheet\Helpers\Transition;
+    public function transition(Bool $tag = false) : Sheet\Helpers\Transition;
 }

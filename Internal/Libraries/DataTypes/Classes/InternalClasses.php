@@ -23,7 +23,7 @@ class InternalClasses extends CallController implements InternalClassesInterface
     // @param string $prefix
     //
     //--------------------------------------------------------------------------------------------------------
-    public function isRelation(string $className, $object) : bool
+    public function isRelation(String $className, $object) : Bool
     {
         if( ! is_object($object) )
         {
@@ -42,7 +42,7 @@ class InternalClasses extends CallController implements InternalClassesInterface
     // @param string $prefix
     //
     //--------------------------------------------------------------------------------------------------------
-    public function isParent(string $className, $object) : bool
+    public function isParent(String $className, $object) : Bool
     {
         return is_subclass_of($object, $this->_class($className));
     }
@@ -56,7 +56,7 @@ class InternalClasses extends CallController implements InternalClassesInterface
     // @param string $prefix
     //
     //--------------------------------------------------------------------------------------------------------
-    public function methodExists(string $className, string $method) : bool
+    public function methodExists(String $className, String $method) : Bool
     {
         return method_exists(uselib($this->_class($className)), $method);
     }
@@ -70,7 +70,7 @@ class InternalClasses extends CallController implements InternalClassesInterface
     // @param string $prefix
     //
     //--------------------------------------------------------------------------------------------------------
-    public function propertyExists(string $className, string $property) : bool
+    public function propertyExists(String $className, String $property) : Bool
     {
         return  property_exists(uselib($this->_class($className)), $property);
     }
@@ -83,7 +83,7 @@ class InternalClasses extends CallController implements InternalClassesInterface
     // @param string $prefix
     //
     //--------------------------------------------------------------------------------------------------------
-    public function methods(string $className)
+    public function methods(String $className)
     {
         return get_class_methods($this->_class($className));
     }
@@ -96,7 +96,7 @@ class InternalClasses extends CallController implements InternalClassesInterface
     // @param string $prefix
     //
     //--------------------------------------------------------------------------------------------------------
-    public function vars(string $className)
+    public function vars(String $className)
     {
         return get_class_vars($this->_class($className));
     }
@@ -109,7 +109,7 @@ class InternalClasses extends CallController implements InternalClassesInterface
     // @param string $prefix
     //
     //--------------------------------------------------------------------------------------------------------
-    public function name($var) : string
+    public function name($var) : String
     {
         if( ! is_object($var) )
         {
@@ -126,7 +126,7 @@ class InternalClasses extends CallController implements InternalClassesInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function declared() : array
+    public function declared() : Array
     {
         return get_declared_classes();
     }
@@ -138,7 +138,7 @@ class InternalClasses extends CallController implements InternalClassesInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function declaredInterfaces() : array
+    public function declaredInterfaces() : Array
     {
         return get_declared_interfaces();
     }
@@ -150,7 +150,7 @@ class InternalClasses extends CallController implements InternalClassesInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function declaredTraits() : array
+    public function declaredTraits() : Array
     {
         return get_declared_traits();
     }
@@ -164,7 +164,7 @@ class InternalClasses extends CallController implements InternalClassesInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function onlyName(string $class) : string
+    public function onlyName(String $class) : String
     {
         return divide(str_replace(INTERNAL_ACCESS, '', $class), '\\', -1);
     }

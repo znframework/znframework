@@ -20,7 +20,7 @@ interface TextInterface
     // @param mixed  $changeChar
     //
     //--------------------------------------------------------------------------------------------------------
-    public function word(string $string, $badWords = NULL, $changeChar = '[badwords]') : string;
+    public function word(String $string, $badWords = NULL, $changeChar = '[badwords]') : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Anchor
@@ -31,7 +31,7 @@ interface TextInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function anchor(string $data, string $type = 'short', array $attributes = NULL) : string;
+    public function anchor(String $data, String $type = 'short', Array $attributes = NULL) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // High Light
@@ -41,5 +41,5 @@ interface TextInterface
     // @param array $settings
     //
     //--------------------------------------------------------------------------------------------------------
-    public function highLight(string $str, array $settings = []) : string;
+    public function highLight(String $str, Array $settings = []) : String;
 }

@@ -18,7 +18,7 @@ interface InternalPaginationPropertiesInterface
     // @param string $url
     //
     //--------------------------------------------------------------------------------------------------------
-    public function url(string $url) : InternalPagination;
+    public function url(String $url) : InternalPagination;
 
     //--------------------------------------------------------------------------------------------------------
     // Start
@@ -27,7 +27,7 @@ interface InternalPaginationPropertiesInterface
     // @param int $start
     //
     //--------------------------------------------------------------------------------------------------------
-    public function start( ? int $start) : InternalPagination;
+    public function start($start) : InternalPagination;
 
     //--------------------------------------------------------------------------------------------------------
     // Limit
@@ -36,7 +36,7 @@ interface InternalPaginationPropertiesInterface
     // @param int $limit
     //
     //--------------------------------------------------------------------------------------------------------
-    public function limit(int $limit) : InternalPagination;
+    public function limit(Int $limit) : InternalPagination;
 
     //--------------------------------------------------------------------------------------------------------
     // Type
@@ -45,7 +45,7 @@ interface InternalPaginationPropertiesInterface
     // @param string $type: ajax, classic
     //
     //--------------------------------------------------------------------------------------------------------
-    public function type(string $type) : InternalPagination;
+    public function type(String $type) : InternalPagination;
 
     //--------------------------------------------------------------------------------------------------------
     // Total Rows
@@ -54,7 +54,7 @@ interface InternalPaginationPropertiesInterface
     // @param int $totalRows
     //
     //--------------------------------------------------------------------------------------------------------
-    public function totalRows(int $totalRows) : InternalPagination;
+    public function totalRows(Int $totalRows) : InternalPagination;
 
     //--------------------------------------------------------------------------------------------------------
     // Count Links
@@ -63,7 +63,7 @@ interface InternalPaginationPropertiesInterface
     // @param int $countLinks
     //
     //--------------------------------------------------------------------------------------------------------
-    public function countLinks(int $countLinks) : InternalPagination;
+    public function countLinks(Int $countLinks) : InternalPagination;
 
     //--------------------------------------------------------------------------------------------------------
     // Link Names
@@ -75,7 +75,7 @@ interface InternalPaginationPropertiesInterface
     // @param string $last
     //
     //--------------------------------------------------------------------------------------------------------
-    public function linkNames(string $prev, string $next, string $first, string $last) : InternalPagination;
+    public function linkNames(String $prev, String $next, String $first, String $last) : InternalPagination;
 
     //--------------------------------------------------------------------------------------------------------
     // Css
@@ -84,7 +84,7 @@ interface InternalPaginationPropertiesInterface
     // @param array $css
     //
     //--------------------------------------------------------------------------------------------------------
-    public function css(array $css) : InternalPagination;
+    public function css(Array $css) : InternalPagination;
 
     //--------------------------------------------------------------------------------------------------------
     // Style
@@ -93,5 +93,5 @@ interface InternalPaginationPropertiesInterface
     // @param array $css
     //
     //--------------------------------------------------------------------------------------------------------
-    public function style(array $style) : InternalPagination;
+    public function style(Array $style) : InternalPagination;
 }

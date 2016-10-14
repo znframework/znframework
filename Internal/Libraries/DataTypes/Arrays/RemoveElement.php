@@ -19,7 +19,7 @@ class RemoveElement implements RemoveElementInterface
     // @param mixed $keys
     //
     //--------------------------------------------------------------------------------------------------------
-    public function key(array $array, $keys) : array
+    public function key(Array $array, $keys) : Array
     {
         if( ! is_array($keys) )
         {
@@ -44,7 +44,7 @@ class RemoveElement implements RemoveElementInterface
     // @param mixed $values
     //
     //--------------------------------------------------------------------------------------------------------
-    public function value(array $array, $values) : array
+    public function value(Array $array, $values) : Array
     {
         return $this->element($array, $values);
     }
@@ -58,7 +58,7 @@ class RemoveElement implements RemoveElementInterface
     // @param mixed $values
     //
     //--------------------------------------------------------------------------------------------------------
-    public function use(array $array, $keys, $values) : array
+    public function use(Array $array, $keys, $values) : Array
     {
         if( ! empty($keys) )
         {
@@ -81,7 +81,7 @@ class RemoveElement implements RemoveElementInterface
     // @param numeric $count
     //
     //--------------------------------------------------------------------------------------------------------
-    public function last(array $array, int $count = 1, string $type = 'array_pop') : array
+    public function last(Array $array, Int $count = 1, $type = 'array_pop') : Array
     {
         if( $count <= 1 )
         {
@@ -113,7 +113,7 @@ class RemoveElement implements RemoveElementInterface
     // @param numeric $count
     //
     //--------------------------------------------------------------------------------------------------------
-    public function first(array $array, int $count = 1) : array
+    public function first(Array $array, Int $count = 1) : Array
     {
         return $this->last($array, $count, 'array_shift');
     }
@@ -126,7 +126,7 @@ class RemoveElement implements RemoveElementInterface
     // @param mixed $object
     //
     //--------------------------------------------------------------------------------------------------------
-    public function element(array $array, $object) : array
+    public function element(Array $array, $object) : Array
     {
         if( ! is_array($object) )
         {

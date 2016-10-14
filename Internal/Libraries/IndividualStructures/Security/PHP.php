@@ -18,7 +18,7 @@ class PHP implements PHPInterface
     // @var array
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $phpTagChars =
+    protected $phpTagChars = 
     [
         '<?' => '&#60;&#63;',
         '?>' => '&#63;&#62;'
@@ -31,7 +31,7 @@ class PHP implements PHPInterface
     // @param string $str
     //
     //--------------------------------------------------------------------------------------------------------
-    public function encode(string $str) : string
+    public function encode(String $str) : String
     {
         return str_replace(array_keys($this->phpTagChars), array_values($this->phpTagChars), $str);
     }
@@ -43,7 +43,7 @@ class PHP implements PHPInterface
     // @param string $str
     //
     //--------------------------------------------------------------------------------------------------------
-    public function decode(string $str) : string
+    public function decode(String $str) : String
     {
         return str_replace(array_values($this->phpTagChars), array_keys($this->phpTagChars), $str);
     }
@@ -55,7 +55,7 @@ class PHP implements PHPInterface
     // @param string $str
     //
     //--------------------------------------------------------------------------------------------------------
-    public function tagClean(string $str) : string
+    public function tagClean(String $str) : String
     {
         return str_ireplace(['<?php', '<?', '?>'], NULL, $str);
     }

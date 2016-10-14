@@ -21,7 +21,7 @@ interface InternalDBToolInterface
     // @return array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function listDatabases() : array;
+    public function listDatabases() : Array;
 
     //--------------------------------------------------------------------------------------------------------
     // List Tables
@@ -33,7 +33,7 @@ interface InternalDBToolInterface
     // @return array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function listTables() : array;
+    public function listTables() : Array;
 
     //--------------------------------------------------------------------------------------------------------
     // statusTables
@@ -55,7 +55,7 @@ interface InternalDBToolInterface
     // @return string message
     //
     //--------------------------------------------------------------------------------------------------------
-    public function optimizeTables($table = '*') : string;
+    public function optimizeTables($table = '*') : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Repair Tables
@@ -67,7 +67,7 @@ interface InternalDBToolInterface
     // @return string message
     //
     //--------------------------------------------------------------------------------------------------------
-    public function repairTables($table = '*') : string;
+    public function repairTables($table = '*') : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Backup
@@ -81,5 +81,5 @@ interface InternalDBToolInterface
     // @return string $path: STORAGE_DIR
     //
     //--------------------------------------------------------------------------------------------------------
-    public function backup($tables = '*', ? string $fileName = NULL, string $path = STORAGE_DIR) : string;
+    public function backup($tables = '*', String $fileName = NULL, String $path = STORAGE_DIR) : String;
 }

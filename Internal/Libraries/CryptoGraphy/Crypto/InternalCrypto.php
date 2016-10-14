@@ -37,7 +37,7 @@ class InternalCrypto extends CLController implements InternalCryptoInterface
     // @param array  $settings
     //
     //--------------------------------------------------------------------------------------------------------
-    public function encrypt(string $data,  array $settings = []) : string
+    public function encrypt(String $data,  Array $settings = []) : String
     {
         return $this->driver->encrypt($data, $settings);
     }
@@ -50,7 +50,7 @@ class InternalCrypto extends CLController implements InternalCryptoInterface
     // @param array  $settings
     //
     //--------------------------------------------------------------------------------------------------------
-    public function decrypt(string $data, array $settings = []) : string
+    public function decrypt(String $data, Array $settings = []) : String
     {
         return $this->driver->decrypt($data, $settings);
     }
@@ -62,7 +62,7 @@ class InternalCrypto extends CLController implements InternalCryptoInterface
     // @param numeric $length
     //
     //--------------------------------------------------------------------------------------------------------
-    public function keygen(int $length = 8) : string
+    public function keygen(Int $length = 8) : String
     {
         return $this->driver->keygen($length);
     }

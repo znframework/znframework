@@ -20,5 +20,5 @@ interface NastyCodeInterface
     // @param mixed  $changeChar
     //
     //--------------------------------------------------------------------------------------------------------
-    public function encode(string $string, $badWords = NULL, $changeChar = '[badchars]') : string;
+    public function encode(String $string, $badWords = NULL, $changeChar = '[badchars]') : String;
 }

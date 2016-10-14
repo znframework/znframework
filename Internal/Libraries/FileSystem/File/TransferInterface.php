@@ -18,7 +18,7 @@ interface TransferInterface
     // @param array $set
     //
     //--------------------------------------------------------------------------------------------------------
-    public function settings(array $set = []) : \ZN\FileSystem\InternalUpload;
+    public function settings(Array $set = []) : \ZN\FileSystem\InternalUpload;
 
     //--------------------------------------------------------------------------------------------------------
     // Upload
@@ -27,7 +27,7 @@ interface TransferInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public  function upload(string $fileName = 'upload', string $rootDir = UPLOADS_DIR) : bool;
+    public  function upload(String $fileName = 'upload', String $rootDir = UPLOADS_DIR) : Bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Start
@@ -36,5 +36,5 @@ interface TransferInterface
     // @param string $file
     //
     //--------------------------------------------------------------------------------------------------------
-    public function download(string $file) : void;
+    public function download(String $file);
 }

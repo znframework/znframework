@@ -27,7 +27,7 @@ trait InternalValidationPropertiesTrait
     // @param string $method
     //
     //--------------------------------------------------------------------------------------------------------
-    public function method(string $method) : InternalValidation
+    public function method(String $method) : InternalValidation
     {
         $this->settings['method'] = $method;
 
@@ -41,7 +41,7 @@ trait InternalValidationPropertiesTrait
     // @param string $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function value(string $value) : InternalValidation
+    public function value(String $value) : InternalValidation
     {
         $this->settings['value'] = $value;
 
@@ -83,7 +83,7 @@ trait InternalValidationPropertiesTrait
     // @param string $match
     //
     //--------------------------------------------------------------------------------------------------------
-    public function match(string $match) : InternalValidation
+    public function match(String $match) : InternalValidation
     {
         $this->settings['config']['match'] = $match;
 
@@ -97,7 +97,7 @@ trait InternalValidationPropertiesTrait
     // @param string $match
     //
     //--------------------------------------------------------------------------------------------------------
-    public function matchPassword(string $match) : InternalValidation
+    public function matchPassword(String $match) : InternalValidation
     {
         $this->settings['config']['matchPassword'] = $match;
 
@@ -111,7 +111,7 @@ trait InternalValidationPropertiesTrait
     // @param string $oldPassword
     //
     //--------------------------------------------------------------------------------------------------------
-    public function oldPassword(string $oldPassword) : InternalValidation
+    public function oldPassword(String $oldPassword) : InternalValidation
     {
         $this->settings['config']['oldPassword'] = $oldPassword;
 
@@ -126,7 +126,7 @@ trait InternalValidationPropertiesTrait
     // @param numeric $max
     //
     //--------------------------------------------------------------------------------------------------------
-    public function compare(int $min = NULL, int $max = NULL) : InternalValidation
+    public function compare(Int $min = NULL, Int $max = NULL) : InternalValidation
     {
         $this->settings['config']['minchar'] = $min;
         $this->settings['config']['maxchar'] = $max;
@@ -170,7 +170,7 @@ trait InternalValidationPropertiesTrait
     // @param string $char
     //
     //--------------------------------------------------------------------------------------------------------
-    public function pattern(string $pattern, string $char = NULL) : InternalValidation
+    public function pattern(String $pattern, String $char = NULL) : InternalValidation
     {
         $this->settings['config']['pattern'] = presuffix($pattern).$char;
 
@@ -184,7 +184,7 @@ trait InternalValidationPropertiesTrait
     // @param string $design
     //
     //--------------------------------------------------------------------------------------------------------
-    public function phone(string $design = NULL) : InternalValidation
+    public function phone(String $design = NULL) : InternalValidation
     {
         if( empty($design) )
         {
@@ -233,7 +233,7 @@ trait InternalValidationPropertiesTrait
     // @param string $captcha
     //
     //--------------------------------------------------------------------------------------------------------
-    public function captcha(string $captcha) : InternalValidation
+    public function captcha(String $captcha) : InternalValidation
     {
         $this->settings['config']['captcha'] = $captcha;
 

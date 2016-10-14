@@ -18,7 +18,7 @@ interface TrimInterface
     // @param string $str
     //
     //--------------------------------------------------------------------------------------------------------
-    public function middle(string $str) : string;
+    public function middle(String $str) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Trim Slashes
@@ -27,5 +27,5 @@ interface TrimInterface
     // @param string $str
     //
     //--------------------------------------------------------------------------------------------------------
-    public function slashes(string $str) : string;
+    public function slashes(String $str) : String;
 }

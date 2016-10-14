@@ -20,7 +20,7 @@ interface LoaderInterface
     // @return array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function require(string $file, string $type = 'require');
+    public function require(String $file, String $type = 'require');
 
     //--------------------------------------------------------------------------------------------------------
     // Require Once
@@ -31,7 +31,7 @@ interface LoaderInterface
     // @return array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function requireOnce(string $file);
+    public function requireOnce(String $file);
 
     //--------------------------------------------------------------------------------------------------------
     // Include
@@ -42,7 +42,7 @@ interface LoaderInterface
     // @return array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function include(string $file);
+    public function include(String $file);
 
     //--------------------------------------------------------------------------------------------------------
     // Include Once
@@ -53,5 +53,5 @@ interface LoaderInterface
     // @return array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function includeOnce(string $file);
+    public function includeOnce(String $file);
 }

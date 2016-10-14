@@ -10,7 +10,7 @@ interface UpdateInterface
     // @return this
     //
     //--------------------------------------------------------------------------------------------------------
-    public function oldPassword(string $oldPassword) : Update;
+    public function oldPassword(String $oldPassword) : Update;
 
     //--------------------------------------------------------------------------------------------------------
     // New Password
@@ -20,7 +20,7 @@ interface UpdateInterface
     // @return this
     //
     //--------------------------------------------------------------------------------------------------------
-    public function newPassword(string $newPassword) : Update;
+    public function newPassword(String $newPassword) : Update;
 
     //--------------------------------------------------------------------------------------------------------
     // Password Again
@@ -30,7 +30,7 @@ interface UpdateInterface
     // @return this
     //
     //--------------------------------------------------------------------------------------------------------
-    public function passwordAgain(string $passwordAgain) : Update;
+    public function passwordAgain(String $passwordAgain) : Update;
 
     //--------------------------------------------------------------------------------------------------------
     // Column
@@ -41,7 +41,7 @@ interface UpdateInterface
     // @return this
     //
     //--------------------------------------------------------------------------------------------------------
-    public function column(string $column, $value) : UserExtends;
+    public function column(String $column, $value) : UserExtends;
 
     //--------------------------------------------------------------------------------------------------------
     // Update
@@ -54,5 +54,5 @@ interface UpdateInterface
     // @return bool
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do(string $old = NULL, string $new = NULL, string $newAgain = NULL, array $data = []) : bool;
+    public function do(String $old = NULL, String $new = NULL, String $newAgain = NULL, Array $data = []) : Bool;
 }

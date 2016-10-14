@@ -19,7 +19,7 @@ interface InternalFormInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function open( ? string $name = NULL, array $_attributes = []) : string;
+    public function open(String $name = NULL, Array $_attributes = []) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Close
@@ -28,7 +28,7 @@ interface InternalFormInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function close() : string;
+    public function close() : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Hidden
@@ -38,7 +38,7 @@ interface InternalFormInterface
     // @param string $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function hidden( ? string $name = NULL, string $value = NULL) : string;
+    public function hidden(String $name = NULL, String $value = NULL) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Text
@@ -49,7 +49,7 @@ interface InternalFormInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function text( ? string $name = NULL, ? string $value = NULL, array $_attributes = []) : string;
+    public function text(String $name = NULL, String $value = NULL, Array $_attributes = []) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Text
@@ -60,7 +60,7 @@ interface InternalFormInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function password( ? string $name = NULL, ? string $value = NULL, array $_attributes = []) : string;
+    public function password(String $name = NULL, String $value = NULL, Array $_attributes = []) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Textarea
@@ -71,7 +71,7 @@ interface InternalFormInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function textArea( ? string $name = NULL, ? string $value = NULL, array $_attributes = []) : string;
+    public function textArea(String $name = NULL, String $value = NULL, Array $_attributes = []) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Radio
@@ -82,7 +82,7 @@ interface InternalFormInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function radio( ? string $name = NULL, ? string $value = NULL, array $_attributes = []) : string;
+    public function radio(String $name = NULL, String $value = NULL, Array $_attributes = []) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Select
@@ -95,7 +95,7 @@ interface InternalFormInterface
     // @param bool   $multiple
     //
     //--------------------------------------------------------------------------------------------------------
-    public function select( ? string $name = NULL, array $options = [], $selected = NULL, array $_attributes = [], bool $multiple = false) : string;
+    public function select(String $name = NULL, Array $options = [], $selected = NULL, Array $_attributes = [], Bool $multiple = false) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Multi Select
@@ -107,7 +107,7 @@ interface InternalFormInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function multiselect( ? string $name = NULL, array $options = [], $selected = NULL, array $_attributes = []) : string;
+    public function multiselect(String $name = NULL, Array $options = [], $selected = NULL, Array $_attributes = []) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Chekbox
@@ -118,7 +118,7 @@ interface InternalFormInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function checkbox( ? string $name = NULL, ? string $value = NULL, array $_attributes = []) : string;
+    public function checkbox(String $name = NULL, String $value = NULL, Array $_attributes = []) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // File
@@ -129,7 +129,7 @@ interface InternalFormInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function file( ? string $name = NULL, bool $multiple = false, array $_attributes = []) : string;
+    public function file(String $name = NULL, Bool $multiple = false, Array $_attributes = []) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Submit
@@ -140,7 +140,7 @@ interface InternalFormInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function submit( ? string $name = NULL, ? string $value = NULL, array $_attributes = []) : string;
+    public function submit(String $name = NULL, String $value = NULL, Array $_attributes = []) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Button
@@ -151,7 +151,7 @@ interface InternalFormInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function button( ? string $name = NULL, ? string $value = NULL, array $_attributes = []) : string;
+    public function button(String $name = NULL, String $value = NULL, Array $_attributes = []) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Reset
@@ -162,7 +162,7 @@ interface InternalFormInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function reset( ? string $name = NULL, ? string $value = NULL, array $_attributes = []) : string;
+    public function reset(String $name = NULL, String $value = NULL, Array $_attributes = []) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Email
@@ -173,7 +173,7 @@ interface InternalFormInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function email( ? string $name = NULL, ? string $value = NULL, array $_attributes = []) : string;
+    public function email(String $name = NULL, String $value = NULL, Array $_attributes = []) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Url
@@ -184,7 +184,7 @@ interface InternalFormInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function url( ? string $name = NULL, ? string $value = NULL, array $_attributes = []) : string;
+    public function url(String $name = NULL, String $value = NULL, Array $_attributes = []) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Number
@@ -195,7 +195,7 @@ interface InternalFormInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function number( ? string $name = NULL, ? string $value = NULL, array $_attributes = []) : string;
+    public function number(String $name = NULL, String $value = NULL, Array $_attributes = []) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Search
@@ -206,7 +206,7 @@ interface InternalFormInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function search( ? string $name = NULL, ? string $value = NULL, array $_attributes = []) : string;
+    public function search(String $name = NULL, String $value = NULL, Array $_attributes = []) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Tel
@@ -217,7 +217,7 @@ interface InternalFormInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function tel( ? string $name = NULL, ? string $value = NULL, array $_attributes = []) : string;
+    public function tel(String $name = NULL, String $value = NULL, Array $_attributes = []) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Color
@@ -228,7 +228,7 @@ interface InternalFormInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function color( ? string $name = NULL, ? string $value = NULL, array $_attributes = []) : string;
+    public function color(String $name = NULL, String $value = NULL, Array $_attributes = []) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Date
@@ -239,7 +239,7 @@ interface InternalFormInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function date( ? string $name = NULL, ? string $value = NULL, array $_attributes = []) : string;
+    public function date(String $name = NULL, String $value = NULL, Array $_attributes = []) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Date Time
@@ -250,7 +250,7 @@ interface InternalFormInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function datetime( ? string $name = NULL, ? string $value = NULL, array $_attributes = []) : string;
+    public function datetime(String $name = NULL, String $value = NULL, Array $_attributes = []) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Datetime Local
@@ -261,7 +261,7 @@ interface InternalFormInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function datetimeLocal( ? string $name = NULL, ? string $value = NULL, array $_attributes = []) : string;
+    public function datetimeLocal(String $name = NULL, String $value = NULL, Array $_attributes = []) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Time
@@ -272,7 +272,7 @@ interface InternalFormInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function time( ? string $name = NULL, ? string $value = NULL, array $_attributes = []) : string;
+    public function time(String $name = NULL, String $value = NULL, Array $_attributes = []) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Week
@@ -283,7 +283,7 @@ interface InternalFormInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function week( ? string $name = NULL, ? string $value = NULL, array $_attributes = []) : string;
+    public function week(String $name = NULL, String $value = NULL, Array $_attributes = []) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Month
@@ -294,7 +294,7 @@ interface InternalFormInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function month( ? string $name = NULL, ? string $value = NULL, array $_attributes = []) : string;
+    public function month(String $name = NULL, String $value = NULL, Array $_attributes = []) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Range
@@ -305,7 +305,7 @@ interface InternalFormInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function range( ? string $name = NULL, ? string $value = NULL, array $_attributes = []) : string;
+    public function range(String $name = NULL, String $value = NULL, Array $_attributes = []) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Image
@@ -316,5 +316,5 @@ interface InternalFormInterface
     // @param array  $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function image( ? string $name = NULL, ? string $value = NULL, array $_attributes = []) : string;
+    public function image(String $name = NULL, String $value = NULL, Array $_attributes = []) : String;
 }

@@ -48,7 +48,7 @@ class Animate extends CallController
     // @param scalar $duration
     //
     //--------------------------------------------------------------------------------------------------------
-    public function speed(string $duration) : Animate
+    public function speed(String $duration) : Animate
     {
         $this->duration($duration);
 
@@ -62,7 +62,7 @@ class Animate extends CallController
     // @param scalar $duration
     //
     //--------------------------------------------------------------------------------------------------------
-    public function duration(string $duration) : Animate
+    public function duration(String $duration) : Animate
     {
         $this->easing['duration'] = $duration;
 
@@ -76,7 +76,7 @@ class Animate extends CallController
     // @param scalar $queue
     //
     //--------------------------------------------------------------------------------------------------------
-    public function queue(string $queue) : Animate
+    public function queue(String $queue) : Animate
     {
         if( is_numeric($queue) )
         {
@@ -99,7 +99,7 @@ class Animate extends CallController
     // @param array $attr
     //
     //--------------------------------------------------------------------------------------------------------
-    public function attr(array $attr) : Animate
+    public function attr(Array $attr) : Animate
     {
         $this->attr = $this->_object($attr);
 
@@ -113,7 +113,7 @@ class Animate extends CallController
     // @param string $easing
     //
     //--------------------------------------------------------------------------------------------------------
-    public function easing(string $easing) : Animate
+    public function easing(String $easing) : Animate
     {
         $this->easing['easing'] = $easing;
 
@@ -127,7 +127,7 @@ class Animate extends CallController
     // @param array $specialEasing
     //
     //--------------------------------------------------------------------------------------------------------
-    public function specialEasing(array $specialEasing) : Animate
+    public function specialEasing(Array $specialEasing) : Animate
     {
         $this->easing['specialEasing'] = $this->_object($specialEasing);
 
@@ -141,7 +141,7 @@ class Animate extends CallController
     // @param string $step
     //
     //--------------------------------------------------------------------------------------------------------
-    public function step(string $step) : Animate
+    public function step(String $step) : Animate
     {
         $this->easing['step'] = JQ::func('now, fx', $step);
 
@@ -155,7 +155,7 @@ class Animate extends CallController
     // @param string $comp
     //
     //--------------------------------------------------------------------------------------------------------
-    public function complete(string $comp) : Animate
+    public function complete(String $comp) : Animate
     {
         $this->easing['complete'] = JQ::func('', $comp);
 
@@ -169,7 +169,7 @@ class Animate extends CallController
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function completed() : string
+    public function completed() : String
     {
         $attr = [];
 
@@ -187,7 +187,7 @@ class Animate extends CallController
     // @param string variadic $args
     //
     //--------------------------------------------------------------------------------------------------------
-    public function create(...$args) : string
+    public function create(...$args) : String
     {
         $combineAnimation = $args;
 

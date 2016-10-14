@@ -92,7 +92,7 @@ class InternalCookie extends CLController implements InternalCookieInterface, Se
     // @param int $time
     //
     //--------------------------------------------------------------------------------------------------------
-    public function time(int $time) : InternalCookie
+    public function time(Int $time) : InternalCookie
     {
         $this->time = $time;
 
@@ -106,7 +106,7 @@ class InternalCookie extends CLController implements InternalCookieInterface, Se
     // @param string $path
     //
     //--------------------------------------------------------------------------------------------------------
-    public function path(string $path) : InternalCookie
+    public function path(String $path) : InternalCookie
     {
         $this->path = $path;
 
@@ -120,7 +120,7 @@ class InternalCookie extends CLController implements InternalCookieInterface, Se
     // @param string $domain
     //
     //--------------------------------------------------------------------------------------------------------
-    public function domain(string $domain) : InternalCookie
+    public function domain(String $domain) : InternalCookie
     {
         $this->domain = $domain;
 
@@ -134,7 +134,7 @@ class InternalCookie extends CLController implements InternalCookieInterface, Se
     // @param bool $secure
     //
     //--------------------------------------------------------------------------------------------------------
-    public function secure(bool $secure = false) : InternalCookie
+    public function secure(Bool $secure = false) : InternalCookie
     {
         $this->secure = $secure;
 
@@ -148,7 +148,7 @@ class InternalCookie extends CLController implements InternalCookieInterface, Se
     // @param bool $httpOnly
     //
     //--------------------------------------------------------------------------------------------------------
-    public function httpOnly(bool $httpOnly = true) : InternalCookie
+    public function httpOnly(Bool $httpOnly = true) : InternalCookie
     {
         $this->httpOnly = $httpOnly;
 
@@ -164,7 +164,7 @@ class InternalCookie extends CLController implements InternalCookieInterface, Se
     // @param int    $time
     //
     //--------------------------------------------------------------------------------------------------------
-    public function insert(string $name, $value, int $time = NULL) : bool
+    public function insert(String $name, $value, Int $time = NULL) : Bool
     {
         if( ! empty($time) ) $this->time($time);
 
@@ -242,7 +242,7 @@ class InternalCookie extends CLController implements InternalCookieInterface, Se
     // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
-    public function select(string $name)
+    public function select(String $name)
     {
         if( isset($this->encode['name']) )
         {
@@ -293,7 +293,7 @@ class InternalCookie extends CLController implements InternalCookieInterface, Se
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function selectAll() : array
+    public function selectAll() : Array
     {
         if( ! empty($_COOKIE) )
         {
@@ -312,7 +312,7 @@ class InternalCookie extends CLController implements InternalCookieInterface, Se
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function delete(string $name, string $path = NULL) : bool
+    public function delete(String $name, String $path = NULL) : Bool
     {
         $cookieConfig = SERVICES_COOKIE_CONFIG;
 
@@ -371,7 +371,7 @@ class InternalCookie extends CLController implements InternalCookieInterface, Se
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function deleteAll() : bool
+    public function deleteAll() : Bool
     {
         $path = SERVICES_COOKIE_CONFIG['path'];
 

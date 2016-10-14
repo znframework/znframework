@@ -19,7 +19,7 @@ interface InfoInterface
     // @return array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function required() : array;
+    public function required() : Array;
 
     //--------------------------------------------------------------------------------------------------------
     // Access
@@ -42,7 +42,7 @@ interface InfoInterface
     // @param string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function rpath(string $file) : string;
+    public function rpath(String $file) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Exists
@@ -53,7 +53,7 @@ interface InfoInterface
     // @param bool
     //
     //--------------------------------------------------------------------------------------------------------
-    public function exists(string $file) : bool;
+    public function exists(String $file) : Bool;
 
     //--------------------------------------------------------------------------------------------------
     // Orgin Path
@@ -64,7 +64,7 @@ interface InfoInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------
-    public function originpath(string $string) : string;
+    public function originpath(String $string) : String;
 
     //--------------------------------------------------------------------------------------------------
     // Relative Path
@@ -75,7 +75,7 @@ interface InfoInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------
-    public function relativepath(string $string) : string;
+    public function relativepath(String $string) : String;
 
     //--------------------------------------------------------------------------------------------------
     // Absolute Path
@@ -86,7 +86,7 @@ interface InfoInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------
-    public function absolutePath(string $string) : string;
+    public function absolutePath(String $string) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Available
@@ -97,7 +97,7 @@ interface InfoInterface
     // @param bool
     //
     //--------------------------------------------------------------------------------------------------------
-    public function available(string $file) : bool;
+    public function available(String $file) : Bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Info
@@ -106,7 +106,7 @@ interface InfoInterface
     // @param string $file
     //
     //--------------------------------------------------------------------------------------------------------
-    public function get(string $file) : \stdClass;
+    public function get(String $file) : \stdClass;
 
     //--------------------------------------------------------------------------------------------------------
     // Size
@@ -117,7 +117,7 @@ interface InfoInterface
     // @param int    $decimal
     //
     //--------------------------------------------------------------------------------------------------------
-    public function size(string $file, string $type = 'b', int $decimal = 2) : float;
+    public function size(String $file, String $type = 'b', Int $decimal = 2) : Float;
 
     //--------------------------------------------------------------------------------------------------------
     // Create Date
@@ -127,7 +127,7 @@ interface InfoInterface
     // @param string $type
     //
     //--------------------------------------------------------------------------------------------------------
-    public function createDate(string $file, string $type = 'd.m.Y G:i:s') : string;
+    public function createDate(String $file, String $type = 'd.m.Y G:i:s') : String;
 
 
     //--------------------------------------------------------------------------------------------------------
@@ -138,7 +138,7 @@ interface InfoInterface
     // @param string $type
     //
     //--------------------------------------------------------------------------------------------------------
-    public function changeDate(string $file, string $type = 'd.m.Y G:i:s') : string;
+    public function changeDate(String $file, String $type = 'd.m.Y G:i:s') : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Owner
@@ -147,7 +147,7 @@ interface InfoInterface
     // @param string $file
     //
     //--------------------------------------------------------------------------------------------------------
-    public function owner(string $file);
+    public function owner(String $file);
 
     //--------------------------------------------------------------------------------------------------------
     // Group
@@ -156,7 +156,7 @@ interface InfoInterface
     // @param string $file
     //
     //--------------------------------------------------------------------------------------------------------
-    public function group(string $file);
+    public function group(String $file);
 
     //--------------------------------------------------------------------------------------------------------
     // rowCount()
@@ -166,5 +166,5 @@ interface InfoInterface
     // @param  bool   $recursive
     //
     //--------------------------------------------------------------------------------------------------------
-    public function rowCount(string $file = '/', bool $recursive = true) : int;
+    public function rowCount(String $file = '/', Bool $recursive = true) : Int;
 }

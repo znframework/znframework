@@ -21,7 +21,7 @@
 // @return callable
 //
 //--------------------------------------------------------------------------------------------------
-function library(string $class, string $function, $parameters = [])
+function library(String $class, String $function, $parameters = [])
 {
     $var = uselib($class);
 
@@ -36,7 +36,7 @@ function library(string $class, string $function, $parameters = [])
     }
     else
     {
-        return NULL;
+        return false;
     }
 }
 
@@ -50,7 +50,7 @@ function library(string $class, string $function, $parameters = [])
 // @return class
 //
 //--------------------------------------------------------------------------------------------------
-function uselib(string $class, array $parameters = [])
+function uselib(String $class, Array $parameters = [])
 {
     if( ! class_exists($class) )
     {

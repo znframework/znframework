@@ -22,7 +22,7 @@ class Word implements CommonInterface
     // @param string $encoding
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do(string $str, int $limit, string $endChar = '...', bool $stripTags = true, string $encoding = "utf-8") : string
+    public function do(String $str, Int $limit, String $endChar = '...', Bool $stripTags = true, String $encoding = "utf-8") : String
     {
         $str = trim($str);
 

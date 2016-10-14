@@ -22,7 +22,7 @@ class InternalGenerate extends CallController implements InternalGenerateInterfa
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function grandVision($database = NULL) : void
+    public function grandVision($database = NULL)
     {
         $databases = [];
 
@@ -92,7 +92,7 @@ class InternalGenerate extends CallController implements InternalGenerateInterfa
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function deleteVision(string $database = '*', array $tables = NULL) : void
+    public function deleteVision(String $database = '*', Array $tables = NULL)
     {
         $path = MODELS_DIR.'Visions/';
 
@@ -127,7 +127,7 @@ class InternalGenerate extends CallController implements InternalGenerateInterfa
     // @param array $settings: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function settings(array $settings) : InternalGenerate
+    public function settings(Array $settings) : InternalGenerate
     {
         $this->settings = $settings;
 
@@ -142,7 +142,7 @@ class InternalGenerate extends CallController implements InternalGenerateInterfa
     // @param array  $settings: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function model(string $name, array $settings = []) : bool
+    public function model(String $name, Array $settings = []) : Bool
     {
         return $this->_object($name, __FUNCTION__, $settings);
     }
@@ -155,7 +155,7 @@ class InternalGenerate extends CallController implements InternalGenerateInterfa
     // @param array  $settings: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function controller(string $name, array $settings = []) : bool
+    public function controller(String $name, Array $settings = []) : Bool
     {
         return $this->_object($name, __FUNCTION__, $settings);
     }
@@ -168,7 +168,7 @@ class InternalGenerate extends CallController implements InternalGenerateInterfa
     // @param array  $settings: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function library(string $name, array $settings = []) : bool
+    public function library(String $name, Array $settings = []) : Bool
     {
         return $this->_object($name, __FUNCTION__, $settings);
     }
@@ -182,7 +182,7 @@ class InternalGenerate extends CallController implements InternalGenerateInterfa
     // @param string $app : empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function delete(string $name, string $type = 'controller', string $app = NULL) : bool
+    public function delete(String $name, String $type = 'controller', String $app = NULL) : Bool
     {
         if( ! empty($app) )
         {

@@ -19,7 +19,7 @@ interface InternalSupportInterface
     // @param  string  $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function func(string $name, string $value) : void;
+    public function func(String $name, String $value);
 
     //--------------------------------------------------------------------------------------------------------
     // Callback
@@ -29,7 +29,7 @@ interface InternalSupportInterface
     // @param  string  $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function callback(string $name, string $value = NULL) : void;
+    public function callback(String $name, String $value = NULL);
 
     //--------------------------------------------------------------------------------------------------------
     // Extension
@@ -39,7 +39,7 @@ interface InternalSupportInterface
     // @param  string  $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function extension(string $name, string $value) : void;
+    public function extension(String $name, String $value);
 
     //--------------------------------------------------------------------------------------------------------
     // Library
@@ -49,7 +49,7 @@ interface InternalSupportInterface
     // @param  string  $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function library(string $name, string $value) : void;
+    public function library(String $name, String $value);
 
     //--------------------------------------------------------------------------------------------------------
     // Writable
@@ -59,7 +59,7 @@ interface InternalSupportInterface
     // @param  string  $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function writable(string $name, string $value = NULL) : void;
+    public function writable(String $name, String $value = NULL);
 
     //--------------------------------------------------------------------------------------------------------
     // Driver
@@ -69,7 +69,7 @@ interface InternalSupportInterface
     // @param  string  $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function driver(array $drivers, string $driver = NULL) : void;
+    public function driver(Array $drivers, String $driver = NULL);
 
     //--------------------------------------------------------------------------------------------------------
     // Class Method
@@ -79,5 +79,5 @@ interface InternalSupportInterface
     // @param  string  $method
     //
     //--------------------------------------------------------------------------------------------------------
-    public function classMethod(string $class, string $method) : void;
+    public function classMethod(String $class, String $method);
 }

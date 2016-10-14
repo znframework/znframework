@@ -20,7 +20,7 @@ class InternalMLGrid extends Abstracts\GridAbstract
     // @param string $url
     //
     //--------------------------------------------------------------------------------------------------------
-    public function url(string $url) : InternalMLGrid
+    public function url(String $url) : InternalMLGrid
     {
         ML::url($url);
 
@@ -34,7 +34,7 @@ class InternalMLGrid extends Abstracts\GridAbstract
     // @param string $limit
     //
     //--------------------------------------------------------------------------------------------------------
-    public function limit(int $limit) : InternalMLGrid
+    public function limit(Int $limit) : InternalMLGrid
     {
         ML::limit($limit);
 
@@ -50,7 +50,7 @@ class InternalMLGrid extends Abstracts\GridAbstract
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function create($app = NULL) : string
+    public function create($app = NULL) : String
     {
         return ML::table($app);
     }

@@ -19,7 +19,7 @@
 // @return object
 //
 //--------------------------------------------------------------------------------------------------
-function objects(array $array) : stdClass
+function objects(Array $array) : stdClass
 {
     $object = new stdClass;
 
@@ -35,7 +35,7 @@ function objects(array $array) : stdClass
 // @return array
 //
 //--------------------------------------------------------------------------------------------------
-function charsetList() : array
+function charsetList() : Array
 {
     return mb_list_encodings();
 }
@@ -51,7 +51,7 @@ function charsetList() : array
 // @return Bool
 //
 //--------------------------------------------------------------------------------------------------
-function compare(string $p1, string $operator, string $p2) : bool
+function compare(String $p1, String $operator, String $p2) : Bool
 {
     return version_compare($p1, $p2, $operator);
 }
@@ -65,7 +65,7 @@ function compare(string $p1, string $operator, string $p2) : bool
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function eol(int $repeat = 1) : string
+function eol(Int $repeat = 1) : String
 {
     return str_repeat(EOL, $repeat);
 }
@@ -79,7 +79,7 @@ function eol(int $repeat = 1) : string
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function getOS() : string
+function getOS() : String
 {
     if( stristr(PHP_OS, 'WIN') )
     {
@@ -113,7 +113,7 @@ function getOS() : string
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function suffix( ? string $string, string $fix = '/') : string
+function suffix(String $string, String $fix = '/') : String
 {
     if( strlen($fix) <= strlen($string) )
     {
@@ -147,7 +147,7 @@ function suffix( ? string $string, string $fix = '/') : string
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function prefix( ? string $string, string $fix = '/') : string
+function prefix(String $string, String $fix = '/') : String
 {
     if( strlen($fix) <= strlen($string) )
     {
@@ -181,7 +181,7 @@ function prefix( ? string $string, string $fix = '/') : string
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function presuffix( ? string $string, string $fix = '/') : string
+function presuffix(String $string, String $fix = '/') : String
 {
     return suffix(prefix($string, $fix), $fix);
 }
@@ -197,10 +197,9 @@ function presuffix( ? string $string, string $fix = '/') : string
 // @return mixed
 //
 //--------------------------------------------------------------------------------------------------
-function divide( ? string $str, string $separator = '|', string $index = '0')
+function divide(String $str, String $separator = '|', String $index = '0')
 {
-    $arrayEx      = explode($separator, $str);
-    $countArrayEx = count($arrayEx);
+    $arrayEx = explode($separator, $str);
 
     if( $index === 'all' )
     {
@@ -209,11 +208,11 @@ function divide( ? string $str, string $separator = '|', string $index = '0')
 
     if( $index < 0 )
     {
-        $ind = $countArrayEx + $index;
+        $ind = (count($arrayEx) + ($index));
     }
     elseif( $index === 'last' )
     {
-        $ind = $countArrayEx - 1;
+        $ind = (count($arrayEx) - 1);
     }
     elseif( $index === 'first' )
     {
@@ -224,7 +223,7 @@ function divide( ? string $str, string $separator = '|', string $index = '0')
         $ind = $index;
     }
 
-    return $arrayEx[$ind] ?? NULL;
+    return $arrayEx[$ind] ?? false;
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -236,7 +235,7 @@ function divide( ? string $str, string $separator = '|', string $index = '0')
 // @param mixed
 //
 //--------------------------------------------------------------------------------------------------
-function lastError( ? string $type = NULL)
+function lastError(String $type = NULL)
 {
     $result = error_get_last();
 
@@ -246,6 +245,6 @@ function lastError( ? string $type = NULL)
     }
     else
     {
-        return $result[$type] ?? NULL;
+        return $result[$type] ?? false;
     }
 }

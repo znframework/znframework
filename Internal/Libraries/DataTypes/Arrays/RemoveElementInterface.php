@@ -19,7 +19,7 @@ interface RemoveElementInterface
     // @param mixed $keys
     //
     //--------------------------------------------------------------------------------------------------------
-    public function key(array $array, $keys) : array;
+    public function key(Array $array, $keys) : Array;
 
     //--------------------------------------------------------------------------------------------------------
     // Remove Value
@@ -29,7 +29,7 @@ interface RemoveElementInterface
     // @param mixed $values
     //
     //--------------------------------------------------------------------------------------------------------
-    public function value(array $array, $values) : array;
+    public function value(Array $array, $values) : Array;
 
     //--------------------------------------------------------------------------------------------------------
     // Remove
@@ -40,7 +40,7 @@ interface RemoveElementInterface
     // @param mixed $values
     //
     //--------------------------------------------------------------------------------------------------------
-    public function use(array $array, $keys, $values) : array;
+    public function use(Array $array, $keys, $values) : Array;
 
     //--------------------------------------------------------------------------------------------------------
     // Remove Last
@@ -50,7 +50,7 @@ interface RemoveElementInterface
     // @param numeric $count
     //
     //--------------------------------------------------------------------------------------------------------
-    public function last(array $array, int $count = 1, string $type = 'array_pop') : array;
+    public function last(Array $array, Int $count = 1, $type = 'array_pop') : Array;
 
     //--------------------------------------------------------------------------------------------------------
     // Remove First
@@ -60,7 +60,7 @@ interface RemoveElementInterface
     // @param numeric $count
     //
     //--------------------------------------------------------------------------------------------------------
-    public function first(array $array, int $count = 1) : array;
+    public function first(Array $array, Int $count = 1) : Array;
 
     //--------------------------------------------------------------------------------------------------------
     // Delete Element
@@ -70,5 +70,5 @@ interface RemoveElementInterface
     // @param mixed $object
     //
     //--------------------------------------------------------------------------------------------------------
-    public function element(array $array, $object) : array;
+    public function element(Array $array, $object) : Array;
 }

@@ -50,7 +50,7 @@ class RenderImage implements RenderImageInterface
     // @param array  $set
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do(string $fpath, array $set) : string
+    public function do(String $fpath, Array $set) : String
     {
         $filePath = trim($fpath);
 

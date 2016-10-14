@@ -20,7 +20,7 @@ interface SelectInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do(string $key, $convert = NULL) : string;
+    public function do(String $key, $convert = NULL) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Select All
@@ -30,5 +30,5 @@ interface SelectInterface
     // @return array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function all($app = NULL) : array;
+    public function all($app = NULL) : Array;
 }

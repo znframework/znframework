@@ -18,16 +18,7 @@ interface InternalHTTPInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function isAjax() : bool;
-
-    //--------------------------------------------------------------------------------------------------------
-    // Is Curl
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function isCurl() : bool;
+    public function isAjax() : Bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Browser Lang
@@ -37,7 +28,7 @@ interface InternalHTTPInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function browserLang(string $default = 'en') : string;
+    public function browserLang(String $default = 'en') : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Code
@@ -46,7 +37,7 @@ interface InternalHTTPInterface
     // @param numeric $code
     //
     //--------------------------------------------------------------------------------------------------------
-    public function code(int $code = 200) : string;
+    public function code(Int $code = 200) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Message
@@ -55,7 +46,7 @@ interface InternalHTTPInterface
     // @param string $message
     //
     //--------------------------------------------------------------------------------------------------------
-    public function message(string $message) : string;
+    public function message(String $message) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Name
@@ -64,7 +55,7 @@ interface InternalHTTPInterface
     // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
-    public function name(string $name) : InternalHTTP;
+    public function name(String $name) : InternalHTTP;
 
     //--------------------------------------------------------------------------------------------------------
     // Value
@@ -82,7 +73,7 @@ interface InternalHTTPInterface
     // @param string $input
     //
     //--------------------------------------------------------------------------------------------------------
-    public function input(string $input) : InternalHTTP;
+    public function input(String $input) : InternalHTTP;
 
     //--------------------------------------------------------------------------------------------------------
     // Select
@@ -91,7 +82,7 @@ interface InternalHTTPInterface
     // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
-    public function select(string $name);
+    public function select(String $name);
 
     //--------------------------------------------------------------------------------------------------------
     // Insert
@@ -101,7 +92,7 @@ interface InternalHTTPInterface
     // @param string $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function insert(string $name, $value) : bool;
+    public function insert(String $name, $value) : Bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Delete
@@ -110,5 +101,5 @@ interface InternalHTTPInterface
     // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
-    public function delete(string $name) : bool;
+    public function delete(String $name) : Bool;
 }

@@ -23,7 +23,7 @@ class Loader implements LoaderInterface
     // @return array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function require(string $file, string $type = 'require')
+    public function require(String $file, String $type = 'require')
     {
         $file = File::rpath($file);
 
@@ -61,7 +61,7 @@ class Loader implements LoaderInterface
     // @return array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function requireOnce(string $file)
+    public function requireOnce(String $file)
     {
         return $this->require($file, 'require_once');
     }
@@ -75,7 +75,7 @@ class Loader implements LoaderInterface
     // @return array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function include(string $file)
+    public function include(String $file)
     {
         return $this->require($file, 'include');
     }
@@ -89,7 +89,7 @@ class Loader implements LoaderInterface
     // @return array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function includeOnce(string $file)
+    public function includeOnce(String $file)
     {
         return $this->require($file, 'include_once');
     }

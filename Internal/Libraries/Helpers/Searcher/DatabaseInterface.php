@@ -19,7 +19,7 @@ interface DatabaseInterface
     // @param string $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function filter(string $column, $value) : Database;
+    public function filter(String $column, $value) : Database;
 
     //--------------------------------------------------------------------------------------------------------
     // Filter
@@ -29,7 +29,7 @@ interface DatabaseInterface
     // @param string $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function orFilter(string $column, $value) : Database;
+    public function orFilter(String $column, $value) : Database;
 
     //--------------------------------------------------------------------------------------------------------
     // Word
@@ -38,7 +38,7 @@ interface DatabaseInterface
     // @param string $word
     //
     //--------------------------------------------------------------------------------------------------------
-    public function word(string $word) : Database;
+    public function word(String $word) : Database;
 
     //--------------------------------------------------------------------------------------------------------
     // Type
@@ -47,7 +47,7 @@ interface DatabaseInterface
     // @param string $type
     //
     //--------------------------------------------------------------------------------------------------------
-    public function type(string $type) : Database;
+    public function type(String $type) : Database;
 
     //--------------------------------------------------------------------------------------------------------
     // Database
@@ -58,5 +58,5 @@ interface DatabaseInterface
     // @param string $type: auto, inside, equal, starting, ending
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do(array $conditions, ? string $word = NULL, string $type = 'auto') : \stdClass;
+    public function do(Array $conditions, String $word = NULL, String $type = 'auto') : \stdClass;
 }

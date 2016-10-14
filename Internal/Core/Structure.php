@@ -20,7 +20,7 @@ class Structure
     // Genel Kullanım: Çalıştırılmak istenen yapının ihtiyaç duyduğu verileri döndürür.
     //
     //--------------------------------------------------------------------------------------------------
-    public static function data(string $requestUri = NULL) : array
+    public static function data($requestUri = NULL)
     {
         //----------------------------------------------------------------------------------------------
         // Namespace
@@ -29,7 +29,7 @@ class Structure
         // @var string
         //
         //----------------------------------------------------------------------------------------------
-        $namespace      = 'Project\Controllers\\';
+        $namespace = 'Project\Controllers\\';
 
         //----------------------------------------------------------------------------------------------
         // Page

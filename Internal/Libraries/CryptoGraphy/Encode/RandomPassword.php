@@ -19,7 +19,7 @@ class RandomPassword extends EncodeExtends implements RandomPasswordInterface
     // @param string $chars
     //
     //--------------------------------------------------------------------------------------------------------
-    public function create(int $count = 6, string $chars = 'all') : string
+    public function create(Int $count = 6, String $chars = 'all') : String
     {
         $password = '';
 

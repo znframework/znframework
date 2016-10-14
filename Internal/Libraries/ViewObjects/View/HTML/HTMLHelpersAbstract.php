@@ -20,5 +20,5 @@ abstract class HTMLHelpersAbstract
     // @param variadic $elements
     //
     //--------------------------------------------------------------------------------------------------------
-    abstract public function create(...$elements) : string;
+    abstract public function create(...$elements) : String;
 }

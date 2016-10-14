@@ -22,7 +22,7 @@ class MhashDriver extends CryptoMapping
 	// @param array  $settings
 	//
 	//--------------------------------------------------------------------------------------------------------
-	public function encrypt(string $data, array $settings) :? string
+	public function encrypt($data, $settings)
 	{
 		$cipher = $settings['cipher'] ?? 'sha256';
 	 	$key    = $settings['key']    ?? PROJECT_CONFIG['key'];
@@ -38,7 +38,7 @@ class MhashDriver extends CryptoMapping
 	// @param numeric $length
 	//
 	//--------------------------------------------------------------------------------------------------------
-	public function keygen(int $length) :? string
+	public function keygen($length)
 	{
 		return mhash_keygen_s2k(MHASH_MD5, md5(mt_rand()), md5(mt_rand()), $length);
 	}

@@ -24,7 +24,7 @@ class Unicode implements UnicodeInterface
     // @param string $changeType: char, dec, hex, html
     //
     //--------------------------------------------------------------------------------------------------------
-    public function char(string $string, string $type = 'char', string $changeType = 'html') : string
+    public function char(String $string, String $type = 'char', String $changeType = 'html') : String
     {
         $options = ['char', 'html', 'hex', 'dec'];
 
@@ -80,7 +80,7 @@ class Unicode implements UnicodeInterface
     // @param string $str
     //
     //--------------------------------------------------------------------------------------------------------
-    public function accent(string $str) : string
+    public function accent(String $str) : String
     {
         $accent = Config::get('ForeignChars', 'accentChars');
 
@@ -97,7 +97,7 @@ class Unicode implements UnicodeInterface
     // @param string $splitWord
     //
     //--------------------------------------------------------------------------------------------------------
-    public function urlWord(string $str, string $splitWord = '-') : string
+    public function urlWord(String $str, String $splitWord = '-') : String
     {
         $badChars = Config::get('IndividualStructures', 'security')['urlBadChars'];
 
@@ -119,7 +119,7 @@ class Unicode implements UnicodeInterface
     // @param string $toCharset
     //
     //--------------------------------------------------------------------------------------------------------
-    public function charset(string $str, string $fromCharset, string $toCharset = 'utf-8') : string
+    public function charset(String $str, String $fromCharset, String $toCharset = 'utf-8') : String
     {
         return mb_convert_encoding($str, $fromCharset, $toCharset);
     }

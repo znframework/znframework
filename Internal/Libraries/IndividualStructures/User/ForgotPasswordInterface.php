@@ -10,7 +10,7 @@ interface ForgotPasswordInterface
     // @return this
     //
     //--------------------------------------------------------------------------------------------------------
-    public function email(string $email) : ForgotPassword;
+    public function email(String $email) : ForgotPassword;
 
     //--------------------------------------------------------------------------------------------------------
     // Return Link
@@ -20,7 +20,7 @@ interface ForgotPasswordInterface
     // @return this
     //
     //--------------------------------------------------------------------------------------------------------
-    public function returnLink(string $returnLink) : UserExtends;
+    public function returnLink(String $returnLink) : UserExtends;
 
     //--------------------------------------------------------------------------------------------------------
     // Forgot Password
@@ -31,5 +31,5 @@ interface ForgotPasswordInterface
     // @return bool
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do(string $email = NULL, string $returnLinkPath = NULL) : bool;
+    public function do(String $email = NULL, String $returnLinkPath = NULL) : Bool;
 }

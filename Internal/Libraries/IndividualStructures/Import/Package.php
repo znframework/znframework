@@ -22,7 +22,7 @@ class Package implements PackageInterface
     // @param bool   $getContents
     //
     //--------------------------------------------------------------------------------------------------------
-    public function use($packages, bool $recursive = false, bool $getContents = false, string $dir = NULL)
+    public function use($packages, Bool $recursive = false, Bool $getContents = false, String $dir = NULL)
     {
         if( ! empty(Properties::$parameters['usable']) )
         {
@@ -69,7 +69,7 @@ class Package implements PackageInterface
     // @param bool   $getContents
     //
     //--------------------------------------------------------------------------------------------------------
-    public function theme($theme = 'Default', bool $recursive = false, bool $getContents = false)
+    public function theme($theme = 'Default', Bool $recursive = false, Bool $getContents = false)
     {
         return $this->use($theme, $recursive, $getContents, THEMES_DIR);
     }
@@ -83,7 +83,7 @@ class Package implements PackageInterface
     // @param bool   $getContents
     //
     //--------------------------------------------------------------------------------------------------------
-    public function plugin($plugin = 'Default', bool $recursive = false, bool $getContents = false)
+    public function plugin($plugin = 'Default', Bool $recursive = false, Bool $getContents = false)
     {
         return $this->use($plugin, $recursive, $getContents, PLUGINS_DIR);
     }

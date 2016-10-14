@@ -89,7 +89,7 @@ interface InternalCrontabIntervalInterface
     // @return object
     //
     //--------------------------------------------------------------------------------------------------------
-    public function clock(string $clock) : InternalCrontab;
+    public function clock(String $clock) : InternalCrontab;
 
     //--------------------------------------------------------------------------------------------------------
     // Minute
@@ -99,7 +99,7 @@ interface InternalCrontabIntervalInterface
     // @return object
     //
     //--------------------------------------------------------------------------------------------------------
-    public function minute(string $minute) : InternalCrontab;
+    public function minute(String $minute) : InternalCrontab;
 
     //--------------------------------------------------------------------------------------------------------
     // Hour
@@ -109,7 +109,7 @@ interface InternalCrontabIntervalInterface
     // @return object
     //
     //--------------------------------------------------------------------------------------------------------
-    public function hour(string $hour) : InternalCrontab;
+    public function hour(String $hour) : InternalCrontab;
 
     //--------------------------------------------------------------------------------------------------------
     // Day Number
@@ -119,7 +119,7 @@ interface InternalCrontabIntervalInterface
     // @return object
     //
     //--------------------------------------------------------------------------------------------------------
-    public function dayNumber(string $dayNumber) : InternalCrontab;
+    public function dayNumber(String $dayNumber) : InternalCrontab;
 
     //--------------------------------------------------------------------------------------------------------
     // Month Number
@@ -129,7 +129,7 @@ interface InternalCrontabIntervalInterface
     // @return object
     //
     //--------------------------------------------------------------------------------------------------------
-    public function month(string $monthNumber) : InternalCrontab;
+    public function month(String $monthNumber) : InternalCrontab;
 
     //--------------------------------------------------------------------------------------------------------
     // Day
@@ -139,7 +139,7 @@ interface InternalCrontabIntervalInterface
     // @return object
     //
     //--------------------------------------------------------------------------------------------------------
-    public function day(string $day) : InternalCrontab;
+    public function day(String $day) : InternalCrontab;
 
     //--------------------------------------------------------------------------------------------------------
     // Interval
@@ -149,5 +149,5 @@ interface InternalCrontabIntervalInterface
     // @return object
     //
     //--------------------------------------------------------------------------------------------------------
-    public function interval(string $interval) : InternalCrontab;
+    public function interval(String $interval) : InternalCrontab;
 }

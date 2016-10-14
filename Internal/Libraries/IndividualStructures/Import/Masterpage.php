@@ -20,7 +20,7 @@ class Masterpage implements MasterpageInterface
     // @var string $headData
     //
     //--------------------------------------------------------------------------------------------------------
-    public function headData(array $headData) : Masterpage
+    public function headData(Array $headData) : Masterpage
     {
         Properties::$parameters['headData'] = $headData;
 
@@ -34,7 +34,7 @@ class Masterpage implements MasterpageInterface
     // @var string $body
     //
     //--------------------------------------------------------------------------------------------------------
-    public function body(string $body) : Masterpage
+    public function body(String $body) : Masterpage
     {
         Config::set('Masterpage', 'bodyPage', $body);
 
@@ -62,7 +62,7 @@ class Masterpage implements MasterpageInterface
     // @var string $title
     //
     //--------------------------------------------------------------------------------------------------------
-    public function title(string $title) : Masterpage
+    public function title(String $title) : Masterpage
     {
         Config::set('Masterpage', 'title', $title);
 
@@ -76,7 +76,7 @@ class Masterpage implements MasterpageInterface
     // @var array $meta
     //
     //--------------------------------------------------------------------------------------------------------
-    public function meta(array $meta) : Masterpage
+    public function meta(Array $meta) : Masterpage
     {
         Config::set('Masterpage', 'meta', $meta);
 
@@ -90,7 +90,7 @@ class Masterpage implements MasterpageInterface
     // @var array $attributes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function attributes(array $attributes) : Masterpage
+    public function attributes(Array $attributes) : Masterpage
     {
         Config::set('Masterpage', 'attributes', $attributes);
 
@@ -104,7 +104,7 @@ class Masterpage implements MasterpageInterface
     // @var array $content
     //
     //--------------------------------------------------------------------------------------------------------
-    public function content(array $content) : Masterpage
+    public function content(Array $content) : Masterpage
     {
         Config::set('Masterpage', 'content', $content);
 
@@ -119,7 +119,7 @@ class Masterpage implements MasterpageInterface
     // @param array $head
     //
     //--------------------------------------------------------------------------------------------------------
-    public function use( ? array $randomDataVariable = NULL, ? array $head = NULL)
+    public function use(Array $randomDataVariable = NULL, Array $head = NULL)
     {
         if( ! empty(Properties::$parameters['headData']) )
         {

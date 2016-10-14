@@ -44,7 +44,7 @@ class InternalSecure implements InternalSecureInterface
     // @param string $data
     //
     //--------------------------------------------------------------------------------------------------------
-    public function data(string $data) : InternalSecure
+    public function data(String $data) : InternalSecure
     {
         $this->data = $data;
 
@@ -59,7 +59,7 @@ class InternalSecure implements InternalSecureInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function get() : string
+    public function get() : String
     {
         $data = $this->data;
 

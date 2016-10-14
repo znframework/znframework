@@ -18,7 +18,7 @@ class Injection extends SecurityExtends implements InjectionInterface
     // @var array
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $nailChars =
+    protected $nailChars = 
     [
         "'" => "&#39;",
         '"' => "&#34;"
@@ -31,7 +31,7 @@ class Injection extends SecurityExtends implements InjectionInterface
     // @param string $string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function encode(string $string) : string
+    public function encode(String $string) : String
     {
         $secBadChars = INDIVIDUALSTRUCTURES_SECURITY_CONFIG['injectionBadChars'];
 
@@ -60,7 +60,7 @@ class Injection extends SecurityExtends implements InjectionInterface
     // @param string $string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function decode(string $string) : string
+    public function decode(String $string) : String
     {
         return stripslashes(trim($string));
     }
@@ -72,7 +72,7 @@ class Injection extends SecurityExtends implements InjectionInterface
     // @param string $str
     //
     //--------------------------------------------------------------------------------------------------------
-    public function nailEncode(string $str) : string
+    public function nailEncode(String $str) : String
     {
         $str = str_replace(array_keys($this->nailChars), array_values($this->nailChars), $str);
 
@@ -86,7 +86,7 @@ class Injection extends SecurityExtends implements InjectionInterface
     // @param string $str
     //
     //--------------------------------------------------------------------------------------------------------
-    public function nailDecode(string $str) : string
+    public function nailDecode(String $str) : String
     {
         $str = str_replace(array_values($this->nailChars), array_keys($this->nailChars), $str);
 
@@ -100,7 +100,7 @@ class Injection extends SecurityExtends implements InjectionInterface
     // @param string $data
     //
     //--------------------------------------------------------------------------------------------------------
-    public function escapeStringEncode(string $data) : string
+    public function escapeStringEncode(String $data) : String
     {
         return addslashes($data);
     }
@@ -112,7 +112,7 @@ class Injection extends SecurityExtends implements InjectionInterface
     // @param string $str
     //
     //--------------------------------------------------------------------------------------------------------
-    public function escapeStringDecode(string $data) : string
+    public function escapeStringDecode(String $data) : String
     {
         return stripslashes($data);
     }

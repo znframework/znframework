@@ -22,7 +22,7 @@ class UserExtends extends \CLController
     // @return this
     //
     //--------------------------------------------------------------------------------------------------------
-    public function column(string $column, $value) : UserExtends
+    public function column(String $column, $value) : UserExtends
     {
         Properties::$parameters['column'][$column] = $value;
 
@@ -37,7 +37,7 @@ class UserExtends extends \CLController
     // @return this
     //
     //--------------------------------------------------------------------------------------------------------
-    public function returnLink(string $returnLink) : UserExtends
+    public function returnLink(String $returnLink) : UserExtends
     {
         Properties::$parameters['returnLink'] = $returnLink;
 

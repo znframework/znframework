@@ -19,7 +19,7 @@ class Money implements MoneyInterface
     // @param string $type
     //
     //--------------------------------------------------------------------------------------------------------
-    public function format(int $money, string $type = NULL) : string
+    public function format(Int $money, String $type = NULL) : String
     {
         $moneyFormat = '';
         $money       = round($money, 2);

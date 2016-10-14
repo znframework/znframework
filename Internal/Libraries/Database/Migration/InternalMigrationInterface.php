@@ -18,7 +18,7 @@ interface InternalMigrationInterface
     // @param numeric $number
     //
     //--------------------------------------------------------------------------------------------------------
-    public function version(int $version = 0);
+    public function version(Int $version = 0);
 
     //--------------------------------------------------------------------------------------------------------
     // Create
@@ -27,7 +27,7 @@ interface InternalMigrationInterface
     // @param string $name -- Migrasyon Adı
     //
     //--------------------------------------------------------------------------------------------------------
-    public function create(string $name, int $ver = 0) : bool;
+    public function create(String $name, Int $ver = 0) : Bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Delete
@@ -36,7 +36,7 @@ interface InternalMigrationInterface
     // @param string $name -- Migrasyon Adı
     //
     //--------------------------------------------------------------------------------------------------------
-    public function delete(string $name, int $ver = 0) : bool;
+    public function delete(String $name, Int $ver = 0) : Bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Delete All
@@ -45,7 +45,7 @@ interface InternalMigrationInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function deleteAll() : bool;
+    public function deleteAll() : Bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Create Table
@@ -54,7 +54,7 @@ interface InternalMigrationInterface
     // @param array $data
     //
     //--------------------------------------------------------------------------------------------------------
-    public function createTable(array $data) : bool;
+    public function createTable(Array $data) : Bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Drop Table
@@ -63,7 +63,7 @@ interface InternalMigrationInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function dropTable() : bool;
+    public function dropTable() : Bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Add Column
@@ -72,7 +72,7 @@ interface InternalMigrationInterface
     // @param array $column
     //
     //--------------------------------------------------------------------------------------------------------
-    public function addColumn(array $columns) : bool;
+    public function addColumn(Array $columns) : Bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Drop Column
@@ -81,7 +81,7 @@ interface InternalMigrationInterface
     // @param array $column
     //
     //--------------------------------------------------------------------------------------------------------
-    public function dropColumn($columns) : bool;
+    public function dropColumn($columns) : Bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Modify Column
@@ -90,7 +90,7 @@ interface InternalMigrationInterface
     // @param array $columns
     //
     //--------------------------------------------------------------------------------------------------------
-    public function modifyColumn(array $columns) : bool;
+    public function modifyColumn(Array $columns) : Bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Rename Column
@@ -99,7 +99,7 @@ interface InternalMigrationInterface
     // @param array $columns
     //
     //--------------------------------------------------------------------------------------------------------
-    public function renameColumn(array $column) : bool;
+    public function renameColumn(Array $column) : Bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Truncate
@@ -108,7 +108,7 @@ interface InternalMigrationInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function truncate() : bool;
+    public function truncate() : Bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Path
@@ -117,5 +117,5 @@ interface InternalMigrationInterface
     // @param string path: NULL
     //
     //--------------------------------------------------------------------------------------------------------
-    public function path(string $path) : InternalMigration;
+    public function path(String $path) : InternalMigration;
 }

@@ -23,7 +23,7 @@ class Info implements InfoInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function basePath() : string
+    public function basePath() : String
     {
         return getcwd();
     }
@@ -37,7 +37,7 @@ class Info implements InfoInterface
     // @param bool
     //
     //--------------------------------------------------------------------------------------------------------
-    public function exists(string $file) : bool
+    public function exists(String $file) : Bool
     {
         $file = File::rpath($file);
 
@@ -56,7 +56,7 @@ class Info implements InfoInterface
     // Bir dosya veya dizine ait dosyalar ve dizinler hakkında çeşitli bilgiler almak için kullanılır.
     //
     //--------------------------------------------------------------------------------------------------------
-    public function fileInfo(string $dir, string $extension = NULL) : array
+    public function fileInfo(String $dir, String $extension = NULL) : Array
     {
         $dir = File::rpath($dir);
 
@@ -101,7 +101,7 @@ class Info implements InfoInterface
     // @return Float
     //
     //--------------------------------------------------------------------------------------------------------
-    public function disk(string $dir, string $type = 'free') : float
+    public function disk(String $dir, String $type = 'free') : Float
     {
         $dir = File::rpath($dir);
 
@@ -129,7 +129,7 @@ class Info implements InfoInterface
     // @return Float
     //
     //--------------------------------------------------------------------------------------------------------
-    public function totalSpace(string $dir) : float
+    public function totalSpace(String $dir) : Float
     {
         return $this->disk($dir, 'total');
     }
@@ -143,7 +143,7 @@ class Info implements InfoInterface
     // @return Float
     //
     //--------------------------------------------------------------------------------------------------------
-    public function freeSpace(string $dir) : float
+    public function freeSpace(String $dir) : Float
     {
         return $this->disk($dir, 'free');
     }

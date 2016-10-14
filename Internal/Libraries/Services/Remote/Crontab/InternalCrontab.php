@@ -86,7 +86,7 @@ class InternalCrontab extends RemoteCommon implements InternalCrontabInterface, 
     // @return object
     //
     //--------------------------------------------------------------------------------------------------------
-    public function driver(string $driver) : InternalCrontab
+    public function driver(String $driver) : InternalCrontab
     {
         Processor::driver($driver);
 
@@ -101,7 +101,7 @@ class InternalCrontab extends RemoteCommon implements InternalCrontabInterface, 
     // @return object
     //
     //--------------------------------------------------------------------------------------------------------
-    public function path(string $path = NULL) : InternalCrontab
+    public function path(String $path = NULL) : InternalCrontab
     {
         $this->path = $path;
 
@@ -116,7 +116,7 @@ class InternalCrontab extends RemoteCommon implements InternalCrontabInterface, 
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function roster() : bool
+    public function roster() : Bool
     {
         return Processor::exec('crontab -l');
     }
@@ -129,7 +129,7 @@ class InternalCrontab extends RemoteCommon implements InternalCrontabInterface, 
     // @return object
     //
     //--------------------------------------------------------------------------------------------------------
-    public function createFile(string $name = 'crontab.txt') : bool
+    public function createFile(String $name = 'crontab.txt') : Bool
     {
         if( ! Folder::exists($this->crontabDir) )
         {
@@ -156,7 +156,7 @@ class InternalCrontab extends RemoteCommon implements InternalCrontabInterface, 
     // @return object
     //
     //--------------------------------------------------------------------------------------------------------
-    public function deleteFile(string $name = 'crontab.txt') : bool
+    public function deleteFile(String $name = 'crontab.txt') : Bool
     {
         $cronFile = $this->crontabDir.$name;
 
@@ -178,7 +178,7 @@ class InternalCrontab extends RemoteCommon implements InternalCrontabInterface, 
     // @return object
     //
     //--------------------------------------------------------------------------------------------------------
-    public function remove(string $name = 'crontab.txt') : bool
+    public function remove(String $name = 'crontab.txt') : Bool
     {
         $this->deleteFile($name);
 
@@ -212,7 +212,7 @@ class InternalCrontab extends RemoteCommon implements InternalCrontabInterface, 
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function run(string $cmd = NULL) : bool
+    public function run(String $cmd = NULL) : Bool
     {
         $command = '';
 
@@ -272,7 +272,7 @@ class InternalCrontab extends RemoteCommon implements InternalCrontabInterface, 
     // @return object
     //
     //--------------------------------------------------------------------------------------------------------
-    public function debug(bool $status = true) : InternalCrontab
+    public function debug(Bool $status = true) : InternalCrontab
     {
         $this->debug = $status;
 
@@ -287,7 +287,7 @@ class InternalCrontab extends RemoteCommon implements InternalCrontabInterface, 
     // @return object
     //
     //--------------------------------------------------------------------------------------------------------
-    public function command(string $command) : InternalCrontab
+    public function command(String $command) : InternalCrontab
     {
         $fix = '';
 
@@ -323,7 +323,7 @@ class InternalCrontab extends RemoteCommon implements InternalCrontabInterface, 
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function file(string $file) : InternalCrontab
+    public function file(String $file) : InternalCrontab
     {
         $this->type = REAL_BASE_DIR.$file;
 
@@ -339,7 +339,7 @@ class InternalCrontab extends RemoteCommon implements InternalCrontabInterface, 
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function url(string $url) : InternalCrontab
+    public function url(String $url) : InternalCrontab
     {
         if( ! isUrl($url) )
         {

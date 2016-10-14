@@ -20,7 +20,7 @@ interface SortInterface
     // @param string $flags:regular
     //
     //--------------------------------------------------------------------------------------------------------
-    public function order(array $array, ? string $type = NULL, string $flags = 'regular') : array;
+    public function order(Array $array, String $type = NULL, String $flags = 'regular') : Array;
 
     //--------------------------------------------------------------------------------------------------------
     // Sort
@@ -30,7 +30,7 @@ interface SortInterface
     // @param string $flags:regular
     //
     //--------------------------------------------------------------------------------------------------------
-    public function normal(array $array, string $flag = 'regular') : array;
+    public function normal(Array $array, String $flag = 'regular') : Array;
 
     //--------------------------------------------------------------------------------------------------------
     // Descending
@@ -40,7 +40,7 @@ interface SortInterface
     // @param string $flags:regular
     //
     //--------------------------------------------------------------------------------------------------------
-    public function descending(array $array, string $flag = 'regular') : array;
+    public function descending(Array $array, String $flag = 'regular') : Array;
 
     //--------------------------------------------------------------------------------------------------------
     // Ascending
@@ -50,7 +50,7 @@ interface SortInterface
     // @param string $flags:regular
     //
     //--------------------------------------------------------------------------------------------------------
-    public function ascending(array $array, string $flag = 'regular') : array;
+    public function ascending(Array $array, String $flag = 'regular') : Array;
 
     //--------------------------------------------------------------------------------------------------------
     // Ascending Key
@@ -60,7 +60,7 @@ interface SortInterface
     // @param string $flags:regular
     //
     //--------------------------------------------------------------------------------------------------------
-    public function ascendingKey(array $array, string $flag = 'regular') : array;
+    public function ascendingKey(Array $array, String $flag = 'regular') : Array;
 
     //--------------------------------------------------------------------------------------------------------
     // Descending Key
@@ -70,7 +70,7 @@ interface SortInterface
     // @param string $flags:regular
     //
     //--------------------------------------------------------------------------------------------------------
-    public function descendingKey(array $array, string $flag = 'regular') : array;
+    public function descendingKey(Array $array, String $flag = 'regular') : Array;
 
     //--------------------------------------------------------------------------------------------------------
     // User Assoc Sort
@@ -80,7 +80,7 @@ interface SortInterface
     // @param string $flags:regular
     //
     //--------------------------------------------------------------------------------------------------------
-    public function userAssoc(array $array, string $flag = 'regular') : array;
+    public function userAssoc(Array $array, String $flag = 'regular') : Array;
 
     //--------------------------------------------------------------------------------------------------------
     // User Key Sort
@@ -90,7 +90,7 @@ interface SortInterface
     // @param string $flags:regular
     //
     //--------------------------------------------------------------------------------------------------------
-    public function userKey(array $array, string $flag = 'regular') : array;
+    public function userKey(Array $array, String $flag = 'regular') : Array;
 
     //--------------------------------------------------------------------------------------------------------
     // User Sort
@@ -100,7 +100,7 @@ interface SortInterface
     // @param string $flags:regular
     //
     //--------------------------------------------------------------------------------------------------------
-    public function user(array $array, string $flag = 'regular') : array;
+    public function user(Array $array, String $flag = 'regular') : Array;
 
     //--------------------------------------------------------------------------------------------------------
     // insensitive Sort
@@ -109,7 +109,7 @@ interface SortInterface
     // @param array  $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function insensitive(array $array) : array;
+    public function insensitive(Array $array) : Array;
 
     //--------------------------------------------------------------------------------------------------------
     // Natural Sort
@@ -118,7 +118,7 @@ interface SortInterface
     // @param array  $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function natural(array $array) : array;
+    public function natural(Array $array) : Array;
 
     //--------------------------------------------------------------------------------------------------------
     // Shuffle
@@ -127,5 +127,5 @@ interface SortInterface
     // @param array  $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function shuffle(array $array) : array;
+    public function shuffle(Array $array) : Array;
 }

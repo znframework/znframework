@@ -18,5 +18,5 @@ interface CSVToArrayInterface
     // @param string $file
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do(string $file) : array;
+    public function do(String $file) : Array;
 }

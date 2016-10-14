@@ -66,7 +66,7 @@ function isPhpVersion($version = '5.2.4')
 // Gerçek yolu yalın yola çevirir.
 //
 //--------------------------------------------------------------------------------------------------
-function absoluteRelativePath( ? string $path)
+function absoluteRelativePath(String $path = NULL)
 {
     return str_replace([REAL_BASE_DIR, DS], [NULL, '/'], $path);
 }
