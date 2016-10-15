@@ -50,7 +50,7 @@ class InternalHTTP extends CLController implements InternalHTTPInterface
     //--------------------------------------------------------------------------------------------------------
     public function isAjax() : Bool
     {
-        if( isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest')
+        if( isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest' )
         {
             return true;
         }
@@ -58,6 +58,20 @@ class InternalHTTP extends CLController implements InternalHTTPInterface
         {
             return false;
         }
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Is Curl
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function isCurl() : Bool
+    {
+        return ! empty($_SERVER['HTTP_COOKIE'])
+               ? false
+               : true;
     }
 
     //--------------------------------------------------------------------------------------------------------
