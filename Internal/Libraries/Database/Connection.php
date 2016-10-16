@@ -363,7 +363,7 @@ class Connection implements ConnectionInterface
                 $strex  = explode('?', $query);
                 $newstr = '';
 
-                if( ! empty($strex) ) for( $i = 0; $i < count($strex); $i++ )
+                if( ! empty($strex) ) for( $i = 0; $i < count($strex) - 1; $i++ )
                 {
                     $sec = isset($secure[$i])
                          ? $secure[$i]
