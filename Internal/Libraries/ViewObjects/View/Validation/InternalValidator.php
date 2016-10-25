@@ -33,14 +33,9 @@ class InternalValidator extends CallController implements InternalValidatorInter
             $phoneData = '/\+*[0-9]{10,14}$/';
         }
 
-        if( ! preg_match($phoneData, $data) )
-        {
-            return false;
-        }
-        else
-        {
-            return true;
-        }
+        return ! preg_match($phoneData, $data)
+               ? false
+               : true;
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -52,14 +47,9 @@ class InternalValidator extends CallController implements InternalValidatorInter
     //--------------------------------------------------------------------------------------------------------
     public function numeric($data) : Bool
     {
-        if( ! is_numeric($data) )
-        {
-            return false;
-        }
-        else
-        {
-            return true;
-        }
+        return ! is_numeric($data)
+               ? false
+               : true;
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -71,14 +61,9 @@ class InternalValidator extends CallController implements InternalValidatorInter
     //--------------------------------------------------------------------------------------------------------
     public function alnum(String $data) : Bool
     {
-        if( ! preg_match('/^\w+$/',$data) )
-        {
-            return false;
-        }
-        else
-        {
-            return true;
-        }
+        return ! preg_match('/^\w+$/', $data)
+               ? false
+               : true;
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -90,14 +75,9 @@ class InternalValidator extends CallController implements InternalValidatorInter
     //--------------------------------------------------------------------------------------------------------
     public function alpha(String $data) : Bool
     {
-        if( ! ctype_alpha($data) )
-        {
-            return false;
-        }
-        else
-        {
-            return true;
-        }
+        return ! ctype_alpha($data)
+               ? false
+               : true;
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -119,19 +99,19 @@ class InternalValidator extends CallController implements InternalValidatorInter
         $numone     = ($no[0] + $no[2] + $no[4] + $no[6]  + $no[8]) * 7;
         $numtwo     = $no[1] + $no[3] + $no[5] + $no[7];
         $result     = $numone - $numtwo;
-        $tenth      = $result%10;
+        $tenth      = $result % 10;
         $total      = ($no[0] + $no[1] + $no[2] + $no[3] + $no[4] + $no[5] + $no[6] + $no[7] + $no[8] + $no[9]);
-        $elewenth   = $total%10;
+        $elewenth   = $total % 10;
 
-        if($no[0] == 0)
+        if( $no[0] == 0 )
         {
             return false;
         }
-        elseif($no[9] != $tenth)
+        elseif( $no[9] != $tenth )
         {
             return false;
         }
-        elseif($no[10] != $elewenth)
+        elseif( $no[10] != $elewenth )
         {
             return false;
         }
@@ -150,14 +130,9 @@ class InternalValidator extends CallController implements InternalValidatorInter
     //--------------------------------------------------------------------------------------------------------
     public function email(String $data) : Bool
     {
-        if( ! isEmail($data) )
-        {
-            return false;
-        }
-        else
-        {
-            return true;
-        }
+        return ! isEmail($data)
+               ? false
+               : true;
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -169,14 +144,9 @@ class InternalValidator extends CallController implements InternalValidatorInter
     //--------------------------------------------------------------------------------------------------------
     public function url(String $data) : Bool
     {
-        if( ! isUrl($data) )
-        {
-            return false;
-        }
-        else
-        {
-            return true;
-        }
+        return ! isUrl($data)
+               ? false
+               : true;
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -188,14 +158,9 @@ class InternalValidator extends CallController implements InternalValidatorInter
     //--------------------------------------------------------------------------------------------------------
     public function specialChar(String $data) : Bool
     {
-        if( ! preg_match('#[!\'^\#\\\+\$%&\/\(\)\[\]\{\}=\|\-\?:\.\,;_ĞÜŞİÖÇğüşıöç]+#', $data) )
-        {
-            return false;
-        }
-        else
-        {
-            return true;
-        }
+        return ! preg_match('/[\W]+/', $data)
+               ? false
+               : true;
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -208,14 +173,9 @@ class InternalValidator extends CallController implements InternalValidatorInter
     //--------------------------------------------------------------------------------------------------------
     public function maxchar(String $data, Int $char) : Bool
     {
-        if( strlen($data) <= $char )
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return ( strlen($data) <= $char )
+               ? true
+               : false;
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -228,13 +188,8 @@ class InternalValidator extends CallController implements InternalValidatorInter
     //--------------------------------------------------------------------------------------------------------
     public function minchar(String $data, Int $char) : Bool
     {
-        if( strlen($data) >= $char )
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return ( strlen($data) >= $char )
+               ? true
+               : false;
     }
 }

@@ -22,24 +22,22 @@ class RandomPassword extends EncodeExtends implements RandomPasswordInterface
     public function create(Int $count = 6, String $chars = 'all') : String
     {
         $password = '';
+        $alpha    = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOQPRSTUVWXYZ';
+        $numeric  = '1234567890';
 
-        // Şifreleme için kullanılacak karakter listesi.
-        if( $chars === "all" || $chars === 'alnum' )
+        if( $chars === 'all' || $chars === 'alnum' )
         {
-            $characters = "1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOQPRSTUVWXYZ";
+            $characters = $numeric . $alpha;
         }
-        if( $chars === "numeric" )
+        if( $chars === 'numeric' )
         {
-            $characters = "1234567890";
+            $characters = $numeric;
         }
-        if( $chars === "string" || $chars === "alpha" )
+        if( $chars === 'string' || $chars === 'alpha' )
         {
-            $characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOQPRSTUVWXYZ";
+            $characters = $alpha;
         }
 
-        // Parametre olarak belirtilen sayı kadar karakter
-        // listesinden karakterler seçilerek
-        // rastgele şifre oluşturulur.
         for( $i = 0; $i < $count; $i++ )
         {
             $password .= substr( $characters, rand( 0, strlen($characters)), 1 );
