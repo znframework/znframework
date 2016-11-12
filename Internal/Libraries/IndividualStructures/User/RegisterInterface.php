@@ -43,7 +43,7 @@ interface RegisterInterface
     // @return bool
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do(Array $data = NULL, $autoLogin = false, String $activationReturnLink = NULL) : Bool;
+    public function do(Array $data = NULL, $autoLogin = false, String $activationReturnLink = '') : Bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Activation Complete
