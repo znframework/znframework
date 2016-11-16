@@ -20,7 +20,7 @@ class InternalRedirect extends CallController implements InternalRedirectInterfa
     // @var array
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $redirect = 
+    protected $redirect =
     [
         'time'   => 0,
         'data'   => []
@@ -118,7 +118,7 @@ class InternalRedirect extends CallController implements InternalRedirectInterfa
     // @var mixed $key
     //
     //--------------------------------------------------------------------------------------------------------
-    public function delete(String $key) : Bool
+    public function delete($key) : Bool
     {
         return redirectDeleteData($key);
     }
