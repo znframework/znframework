@@ -1,10 +1,6 @@
 <?php namespace ZN\Services\Remote;
 
-use Support, Config, CLController, DriverAbility;
-use ZN\Services\Remote\Email\Exception\InvalidArgumentException;
-use ZN\Services\Remote\Email\Exception\AttachmentMissingException;
-use ZN\Services\Remote\Email\Exception\AttachmentUnreadableException;
-use ZN\Services\Remote\Email\Exception\NoFromException;
+use Support, Config, CLController, DriverAbility, InformationAbility;
 
 class InternalEmail extends CLController implements InternalEmailInterface
 {
@@ -17,7 +13,7 @@ class InternalEmail extends CLController implements InternalEmailInterface
     //
     //--------------------------------------------------------------------------------------------------------
 
-    use DriverAbility;
+    use DriverAbility, InformationAbility;
 
     //--------------------------------------------------------------------------------------------------------
     // Consts
@@ -400,7 +396,7 @@ class InternalEmail extends CLController implements InternalEmailInterface
         }
         else
         {
-            throw new InvalidArgumentException('Error', 'charsetParameter', '1.($charset)');
+            $this->error[] = lang('Error', 'charsetParameter', '1.($charset)');
         }
 
         return $this;
@@ -606,7 +602,7 @@ class InternalEmail extends CLController implements InternalEmailInterface
             }
             else
             {
-                throw new InvalidArgumentException('Error', 'emailParameter', '1.('.$type.')');
+                return ! $this->error[] = lang('Error', 'emailParameter', '1.('.$type.')');
             }
         }
     }
@@ -699,7 +695,7 @@ class InternalEmail extends CLController implements InternalEmailInterface
     {
         if( ! isEmail($from) )
         {
-            throw new InvalidArgumentException('Error', 'emailParameter', '1.($from)');
+            ! $this->error[] = lang('Error', 'emailParameter', '1.($from)');
         }
 
         $this->from = $from;
@@ -800,12 +796,12 @@ class InternalEmail extends CLController implements InternalEmailInterface
         {
             if( strpos($file, '://') === false && ! file_exists($file) )
             {
-                throw new AttachmentMissingException('Services', 'email:attachmentMissing', $file);
+                $this->error[] = lang('Services', 'email:attachmentMissing', $file);
             }
 
             if( ! $fp = @fopen($file, 'rb') )
             {
-                throw new AttachmentUnreadableException('Services', 'email:attachmentUnreadable', $file);
+                $this->error[] = lang('Services', 'email:attachmentUnreadable', $file);
             }
 
             $fileContent = stream_get_contents($fp);
@@ -873,7 +869,7 @@ class InternalEmail extends CLController implements InternalEmailInterface
             }
             else
             {
-                throw new NoFromException('Services', 'email:noFrom');
+                return ! $this->error[] = lang('Services', 'email:noFrom');
             }
         }
 
@@ -904,7 +900,7 @@ class InternalEmail extends CLController implements InternalEmailInterface
 
         $this->_buildContent();
 
-        $settings = 
+        $settings =
         [
             'host'       => $this->smtpHost,
             'user'       => $this->smtpUser,
