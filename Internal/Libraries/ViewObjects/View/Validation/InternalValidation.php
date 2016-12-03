@@ -455,6 +455,11 @@ class InternalValidation extends CallController implements InternalValidationInt
         {
             return Method::request($name);
         }
+
+        if( $met === "data" )
+        {
+            return $name;
+        }
     }
 
     //--------------------------------------------------------------------------------------------------------

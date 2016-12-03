@@ -27,7 +27,6 @@
     //--------------------------------------------------------------------------------------------------
     //
     // Genel Kullanım: Türkçe içerikli karakterleri desteklemesi amacıyla kullanılır.
-    // setDate() yöntemi haric diğer yöntemler için kullanılır.
     //
     //--------------------------------------------------------------------------------------------------
     'setLocale' =>
