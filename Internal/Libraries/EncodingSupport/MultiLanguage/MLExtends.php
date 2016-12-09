@@ -51,7 +51,7 @@ class MLExtends extends CLController
     {
         parent::__construct();
 
-        $this->appdir = STORAGE_DIR.'MultiLanguage/';
+        $this->appdir = LANGUAGES_DIR.'ML/';
 
         if( ! Folder::exists($this->appdir) )
         {
