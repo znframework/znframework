@@ -27,5 +27,5 @@ interface SelectInterface
     // @param mixed $code
     //
     //--------------------------------------------------------------------------------------------------------
-    public function item($code) : \stdClass;
+    public function item($code);
 }
