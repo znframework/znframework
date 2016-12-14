@@ -71,7 +71,7 @@ define('INTERNAL_DIR', REAL_BASE_DIR . 'Internal' . DS);
 // @return Internal/Priority/BaseLevel.php
 //
 //--------------------------------------------------------------------------------------------------
-import(INTERNAL_DIR . 'Priority' . DS . 'BaseLevel.php');
+require INTERNAL_DIR . 'Priority' . DS . 'BaseLevel.php';
 
 //--------------------------------------------------------------------------------------------------
 // Invalid PHP Version
@@ -147,22 +147,3 @@ $finish = microtime();
 //
 //--------------------------------------------------------------------------------------------------
 internalBenchmarkReport($start, $finish);
-
-//--------------------------------------------------------------------------------------------------
-// Import
-//--------------------------------------------------------------------------------------------------
-//
-// Require Once
-//
-//--------------------------------------------------------------------------------------------------
-function import(String $file)
-{
-    $constant = 'ImportFilePrefix' . $file;
-
-    if( ! defined($constant) )
-    {
-        define($constant, true);
-
-        return require $file;
-    }
-}

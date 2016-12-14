@@ -35,6 +35,6 @@ define('INTERNAL_FUNCTIONS_DIR', INTERNAL_DIR . 'Functions' . DS);
 // Constants & Functions
 //
 //--------------------------------------------------------------------------------------------------
-import(INTERNAL_CONSTANTS_DIR . 'Base.php');
-import(INTERNAL_CONSTANTS_DIR . 'BasePaths.php');
-import(INTERNAL_FUNCTIONS_DIR . 'BaseLevel.php');
+require INTERNAL_CONSTANTS_DIR . 'Base.php';
+require INTERNAL_CONSTANTS_DIR . 'BasePaths.php';
+require INTERNAL_FUNCTIONS_DIR . 'BaseLevel.php';
