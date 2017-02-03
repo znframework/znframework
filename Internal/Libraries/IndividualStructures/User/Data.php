@@ -1,6 +1,6 @@
 <?php namespace ZN\IndividualStructures\User;
 
-use Session, DB;
+use Session, Cookie, DB;
 
 class Data extends UserExtends implements DataInterface
 {
@@ -14,16 +14,18 @@ class Data extends UserExtends implements DataInterface
     //--------------------------------------------------------------------------------------------------------
     public function get(String $tbl = NULL)
     {
-        $usernameColumn = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['columns']['username'];
-        $passwordColumn = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['columns']['password'];
+        $usernameColumn  = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['columns']['username'];
+        $passwordColumn  = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['columns']['password'];
 
-        if( $sessionUserName = Session::select($usernameColumn) )
+        $sessionUserName = Session::select($usernameColumn) ? Session::select($usernameColumn) : Cookie::select($usernameColumn);
+        $sessionPassword = Session::select($passwordColumn) ? Session::select($passwordColumn) : Cookie::select($passwordColumn);
+
+        if( ! empty($sessionUserName) )
         {
             $joinTables      = INDIVIDUALSTRUCTURES_USER_CONFIG['joining']['tables'];
             $usernameColumn  = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['columns']['username'];
             $joinColumn      = INDIVIDUALSTRUCTURES_USER_CONFIG['joining']['column'];
             $tableName       = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['table'];
-            $sessionPassword = Session::select($passwordColumn);
 
             $r[$tbl] = DB::where($usernameColumn, $sessionUserName, 'and')
                          ->where($passwordColumn, $sessionPassword)
