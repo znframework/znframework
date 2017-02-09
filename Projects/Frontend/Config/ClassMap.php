@@ -1394,3 +1394,5 @@ $classMap['namespaces']['zn\viewobjects\view\validationunittest'] = 'validationu
 $classMap['namespaces']['zn\viewobjects\view\validatorunittest'] = 'validatorunittest';
 $classMap['namespaces']['zn\viewobjects\view\viewcommoninterface'] = 'viewcommoninterface';
 $classMap['namespaces']['zn\viewobjects\view\viewcommontrait'] = 'viewcommontrait';
+$classMap['classes']['internalmyuser'] = 'Projects\Frontend\Libraries\MyUser.php';
+$classMap['classes']['myuser'] = 'Projects\Frontend\Resources\Statics\Projects\Frontend\Libraries\InternalMyUser.php';
