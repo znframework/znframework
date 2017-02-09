@@ -245,12 +245,12 @@
         //----------------------------------------------------------------------------------------------
         'matching' =>
         [
-            'table'   => 'test',
+            'table'   => '',
 
             'columns' =>
             [
-                'username'   => 'name', // Required
-                'password'   => 'pass', // Required
+                'username'   => '', // Required
+                'password'   => '', // Required
                 'email'      => '', // Required
                 'active'     => '', // Relative
                 'banned'     => '', // Relative
