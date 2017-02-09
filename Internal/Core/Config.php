@@ -81,74 +81,75 @@ class Config
     }
 
     //--------------------------------------------------------------------------------------------------
-// get()
-//--------------------------------------------------------------------------------------------------
-//
-// @param  string $file
-// @param  string $configs
-// @return array
-//
-//--------------------------------------------------------------------------------------------------
-public static function get(String $file, String $configs = NULL, $settings = NULL )
-{
-    self::_config($file);
-
-    if( ! empty($settings) )
+    // get()
+    //--------------------------------------------------------------------------------------------------
+    //
+    // @param  string $file
+    // @param  string $configs
+    // @return array
+    //
+    //--------------------------------------------------------------------------------------------------
+    public static function get(String $file, String $configs = NULL, $settings = NULL )
     {
-        self::set($file, $configs, $settings);
-    }
+        self::_config($file);
 
-    if( isset(self::$setConfigs[$file]) )
-    {
-        if( ! empty(self::$setConfigs[$file]) ) foreach( self::$setConfigs[$file] as $k => $v )
+        if( ! empty($settings) )
         {
-            if( isset(self::$config[$file][$k]) && is_array(self::$config[$file][$k]) )
+            self::set($file, $configs, $settings);
+        }
+
+        if( isset(self::$setConfigs[$file]) )
+        {
+            if( ! empty(self::$setConfigs[$file]) ) foreach( self::$setConfigs[$file] as $k => $v )
             {
-                self::$config[$file][$k] = array_merge(self::$config[$file][$k], (array) self::$setConfigs[$file][$k]);
-            }
-            else
-            {
-                self::$config[$file][$k] = self::$setConfigs[$file][$k];
+                if( isset(self::$config[$file][$k]) && is_array(self::$config[$file][$k]) )
+                {
+                    self::$config[$file][$k] = array_merge(self::$config[$file][$k], (array) self::$setConfigs[$file][$k]);
+                }
+                else
+                {
+                    self::$config[$file][$k] = self::$setConfigs[$file][$k];
+                }
             }
         }
-    }
 
-    if( empty($configs) )
-    {
-        return self::$config[$file] ?? false;
-    }
-
-    return self::$config[$file][$configs] ?? false;
-}
-//--------------------------------------------------------------------------------------------------
-// set()
-//--------------------------------------------------------------------------------------------------
-//
-// @param  string $file
-// @param  string $configs
-// @return array
-//
-//--------------------------------------------------------------------------------------------------
-public static function set(String $file, $configs, $set = NULL)
-{
-    if( empty($configs) )
-    {
-        return false;
-    }
-
-    if( ! is_array($configs) )
-    {
-        self::$setConfigs[$file][$configs] = $set;
-    }
-    else
-    {
-        foreach( $configs as $k => $v )
+        if( empty($configs) )
         {
-            self::$setConfigs[$file][$k] = $v;
+            return self::$config[$file] ?? false;
         }
+
+        return self::$config[$file][$configs] ?? false;
     }
-    return self::$setConfigs;
-}
+    
+    //--------------------------------------------------------------------------------------------------
+    // set()
+    //--------------------------------------------------------------------------------------------------
+    //
+    // @param  string $file
+    // @param  string $configs
+    // @return array
+    //
+    //--------------------------------------------------------------------------------------------------
+    public static function set(String $file, $configs, $set = NULL)
+    {
+        if( empty($configs) )
+        {
+            return false;
+        }
+
+        if( ! is_array($configs) )
+        {
+            self::$setConfigs[$file][$configs] = $set;
+        }
+        else
+        {
+            foreach( $configs as $k => $v )
+            {
+                self::$setConfigs[$file][$k] = $v;
+            }
+        }
+        return self::$setConfigs;
+    }
 
     //--------------------------------------------------------------------------------------------------
     // iniSet()
