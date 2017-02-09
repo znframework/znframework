@@ -1,5 +1,7 @@
 <?php namespace ZN\IndividualStructures\User;
 
+use DB;
+
 class UserExtends extends \CLController
 {
     //--------------------------------------------------------------------------------------------------------
@@ -12,6 +14,20 @@ class UserExtends extends \CLController
     //--------------------------------------------------------------------------------------------------------
 
     const config = 'IndividualStructures:user';
+
+    public function __construct()
+    {
+        parent::__construct();
+
+        if( ! empty(INDIVIDUALSTRUCTURES_USER_CONFIG['staticConnection']) )
+        {
+            Properties::$connection = DB::differentConnection(INDIVIDUALSTRUCTURES_USER_CONFIG['staticConnection']);
+        }
+        else
+        {
+            Properties::$connection = new DB;
+        }
+    }
 
     //--------------------------------------------------------------------------------------------------------
     // Column

@@ -1,6 +1,6 @@
 <?php namespace ZN\IndividualStructures\User;
 
-use Encode, DB;
+use Encode;
 
 class Update extends UserExtends
 {
@@ -114,19 +114,19 @@ class Update extends UserExtends
 
                 if( ! empty($joinTables) )
                 {
-                    $joinCol = DB::where($uc, $username)->get($tn)->row()->$jc;
+                    $joinCol = Properties::$connection->where($uc, $username)->get($tn)->row()->$jc;
 
                     foreach( $joinTables as $table => $joinColumn )
                     {
                         if( isset($joinData[$table]) )
                         {
-                            DB::where($joinColumn, $joinCol)->update($table, $joinData[$table]);
+                            Properties::$connection->where($joinColumn, $joinCol)->update($table, $joinData[$table]);
                         }
                     }
                 }
                 else
                 {
-                    if( ! DB::where($uc, $username)->update($tn, $data) )
+                    if( ! Properties::$connection->where($uc, $username)->update($tn, $data) )
                     {
                         return ! Properties::$error = lang('IndividualStructures', 'user:registerUnknownError');
                     }

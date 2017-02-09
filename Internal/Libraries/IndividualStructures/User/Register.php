@@ -1,6 +1,6 @@
 <?php namespace ZN\IndividualStructures\User;
 
-use Encode, DB, Email, Import, URI;
+use Encode, Email, Import, URI;
 
 class Register extends UserExtends implements RegisterInterface
 {
@@ -69,7 +69,7 @@ class Register extends UserExtends implements RegisterInterface
         $encodeType      = INDIVIDUALSTRUCTURES_USER_CONFIG['encode'];
         $encodePassword  = ! empty($encodeType) ? Encode::type($loginPassword, $encodeType) : $loginPassword;
 
-        $usernameControl = DB::where($usernameColumn, $loginUsername)
+        $usernameControl = Properties::$connection->where($usernameColumn, $loginUsername)
                              ->get($tableName)
                              ->totalRows();
 
@@ -79,20 +79,20 @@ class Register extends UserExtends implements RegisterInterface
         {
             $data[$passwordColumn] = $encodePassword;
 
-            if( ! DB::insert($tableName , $data) )
+            if( ! Properties::$connection->insert($tableName , $data) )
             {
                 return ! Properties::$error = lang('IndividualStructures', 'user:registerUnknownError');
             }
 
             if( ! empty($joinTables) )
             {
-                $joinCol = DB::where($usernameColumn, $loginUsername)->get($tableName)->row()->$joinColumn;
+                $joinCol = Properties::$connection->where($usernameColumn, $loginUsername)->get($tableName)->row()->$joinColumn;
 
                 foreach( $joinTables as $table => $joinColumn )
                 {
                     $joinData[$table][$joinTables[$table]] = $joinCol;
 
-                    DB::insert($table, $joinData[$table]);
+                    Properties::$connection->insert($table, $joinData[$table]);
                 }
             }
 
@@ -157,14 +157,14 @@ class Register extends UserExtends implements RegisterInterface
 
         if( ! empty($user) && ! empty($pass) )
         {
-            $row = DB::where($usernameColumn, $user, 'and')
+            $row = Properties::$connection->where($usernameColumn, $user, 'and')
                      ->where($passwordColumn, $pass)
                      ->get($tableName)
                      ->row();
 
             if( ! empty($row) )
             {
-                DB::where($usernameColumn, $user)
+                Properties::$connection->where($usernameColumn, $user)
                   ->update($tableName, [$activationColumn => '1']);
 
                 return Properties::$success = lang('IndividualStructures', 'user:activationComplete');

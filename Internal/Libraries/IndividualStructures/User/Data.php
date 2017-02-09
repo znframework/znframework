@@ -1,6 +1,6 @@
 <?php namespace ZN\IndividualStructures\User;
 
-use Session, Cookie, DB;
+use Session, Cookie;
 
 class Data extends UserExtends implements DataInterface
 {
@@ -27,14 +27,14 @@ class Data extends UserExtends implements DataInterface
             $joinColumn      = INDIVIDUALSTRUCTURES_USER_CONFIG['joining']['column'];
             $tableName       = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['table'];
 
-            $r[$tbl] = DB::where($usernameColumn, $sessionUserName, 'and')
+            $r[$tbl] = Properties::$connection->where($usernameColumn, $sessionUserName, 'and')
                          ->where($passwordColumn, $sessionPassword)
                          ->get($tableName)
                          ->row();
 
             if( ! empty($joinTables) )
             {
-                $joinCol = DB::where($usernameColumn, $sessionUserName, 'and')
+                $joinCol = Properties::$connection->where($usernameColumn, $sessionUserName, 'and')
                              ->where($passwordColumn, $sessionPassword)
                              ->get($tableName)
                              ->row()
@@ -42,7 +42,7 @@ class Data extends UserExtends implements DataInterface
 
                 foreach( $joinTables as $table => $joinColumn )
                 {
-                    $r[$table] = DB::where($joinColumn, $joinCol)
+                    $r[$table] = Properties::$connection->where($joinColumn, $joinCol)
                                    ->get($table)
                                    ->row();
                 }
@@ -85,7 +85,7 @@ class Data extends UserExtends implements DataInterface
 
         if( ! empty($activeColumn) )
         {
-            $totalRows = DB::where($activeColumn, 1)
+            $totalRows = Properties::$connection->where($activeColumn, 1)
                            ->get($tableName)
                            ->totalRows();
 
@@ -117,7 +117,7 @@ class Data extends UserExtends implements DataInterface
 
         if( ! empty($bannedColumn) )
         {
-            $totalRows = DB::where($bannedColumn, 1)
+            $totalRows = Properties::$connection->where($bannedColumn, 1)
                            ->get($tableName)
                            ->totalRows();
 
@@ -146,7 +146,7 @@ class Data extends UserExtends implements DataInterface
     {
         $tableName = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['table'];
 
-        $totalRows = DB::get($tableName)->totalRows();
+        $totalRows = Properties::$connection->get($tableName)->totalRows();
 
         if( ! empty($totalRows) )
         {

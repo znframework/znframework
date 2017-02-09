@@ -1,6 +1,6 @@
 <?php namespace ZN\IndividualStructures\User;
 
-use Encode, DB, Method, Session, Cookie;
+use Encode, Method, Session, Cookie;
 
 class Login extends UserExtends implements LoginInterface
 {
@@ -90,7 +90,7 @@ class Login extends UserExtends implements LoginInterface
         $activationColumn   = $getColumns['activation'];
         // ------------------------------------------------------------------------------
 
-        $r = DB::where($usernameColumn, $username)
+        $r = Properties::$connection->where($usernameColumn, $username)
                ->get($tableName)
                ->row();
 
@@ -140,7 +140,7 @@ class Login extends UserExtends implements LoginInterface
 
             if( ! empty($activeColumn) )
             {
-                DB::where($usernameColumn, $username)->update($tableName, [$activeColumn  => 1]);
+                Properties::$connection->where($usernameColumn, $username)->update($tableName, [$activeColumn  => 1]);
             }
 
             return Properties::$success = lang('IndividualStructures', 'user:loginSuccess');
@@ -173,7 +173,7 @@ class Login extends UserExtends implements LoginInterface
 
         if( ! empty($cUsername) && ! empty($cPassword) )
         {
-            $result = DB::where($username, $cUsername, 'and')
+            $result = Properties::$connection->where($username, $cUsername, 'and')
                         ->where($password, $cPassword)
                         ->get($tableName)
                         ->totalRows();
