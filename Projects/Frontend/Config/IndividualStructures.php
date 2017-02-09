@@ -251,7 +251,7 @@
             [
                 'username'   => '', // Required
                 'password'   => '', // Required
-                'email'      => '', // Required
+                'email'      => '', // Relative
                 'active'     => '', // Relative
                 'banned'     => '', // Relative
                 'activation' => ''  // Relative
