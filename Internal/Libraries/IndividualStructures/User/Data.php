@@ -26,15 +26,15 @@ class Data extends UserExtends implements DataInterface
             $usernameColumn  = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['columns']['username'];
             $joinColumn      = INDIVIDUALSTRUCTURES_USER_CONFIG['joining']['column'];
             $tableName       = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['table'];
-
-            $r[$tbl] = Properties::$connection->where($usernameColumn, $sessionUserName, 'and')
+            
+            $r[$tbl] = $this->staticConnection->where($usernameColumn, $sessionUserName, 'and')
                          ->where($passwordColumn, $sessionPassword)
                          ->get($tableName)
                          ->row();
 
             if( ! empty($joinTables) )
             {
-                $joinCol = Properties::$connection->where($usernameColumn, $sessionUserName, 'and')
+                $joinCol = $this->staticConnection->where($usernameColumn, $sessionUserName, 'and')
                              ->where($passwordColumn, $sessionPassword)
                              ->get($tableName)
                              ->row()
@@ -42,7 +42,7 @@ class Data extends UserExtends implements DataInterface
 
                 foreach( $joinTables as $table => $joinColumn )
                 {
-                    $r[$table] = Properties::$connection->where($joinColumn, $joinCol)
+                    $r[$table] = $this->staticConnection->where($joinColumn, $joinCol)
                                    ->get($table)
                                    ->row();
                 }
@@ -85,7 +85,7 @@ class Data extends UserExtends implements DataInterface
 
         if( ! empty($activeColumn) )
         {
-            $totalRows = Properties::$connection->where($activeColumn, 1)
+            $totalRows = $this->staticConnection->where($activeColumn, 1)
                            ->get($tableName)
                            ->totalRows();
 
@@ -117,7 +117,7 @@ class Data extends UserExtends implements DataInterface
 
         if( ! empty($bannedColumn) )
         {
-            $totalRows = Properties::$connection->where($bannedColumn, 1)
+            $totalRows = $this->staticConnection->where($bannedColumn, 1)
                            ->get($tableName)
                            ->totalRows();
 
@@ -146,7 +146,7 @@ class Data extends UserExtends implements DataInterface
     {
         $tableName = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['table'];
 
-        $totalRows = Properties::$connection->get($tableName)->totalRows();
+        $totalRows = $this->staticConnection->get($tableName)->totalRows();
 
         if( ! empty($totalRows) )
         {

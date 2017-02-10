@@ -26,7 +26,7 @@ class Logout extends UserExtends implements LogoutInterface
         {
             if( ! empty($active) )
             {
-                Properties::$connection->where($username, $getUserData)
+                $this->staticConnection->where($username, $getUserData)
                   ->update($tableName, [$active => 0]);
             }
 

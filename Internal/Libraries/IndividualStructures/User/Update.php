@@ -114,19 +114,19 @@ class Update extends UserExtends
 
                 if( ! empty($joinTables) )
                 {
-                    $joinCol = Properties::$connection->where($uc, $username)->get($tn)->row()->$jc;
+                    $joinCol = $this->staticConnection->where($uc, $username)->get($tn)->row()->$jc;
 
                     foreach( $joinTables as $table => $joinColumn )
                     {
                         if( isset($joinData[$table]) )
                         {
-                            Properties::$connection->where($joinColumn, $joinCol)->update($table, $joinData[$table]);
+                            $this->staticConnection->where($joinColumn, $joinCol)->update($table, $joinData[$table]);
                         }
                     }
                 }
                 else
                 {
-                    if( ! Properties::$connection->where($uc, $username)->update($tn, $data) )
+                    if( ! $this->staticConnection->where($uc, $username)->update($tn, $data) )
                     {
                         return ! Properties::$error = lang('IndividualStructures', 'user:registerUnknownError');
                     }

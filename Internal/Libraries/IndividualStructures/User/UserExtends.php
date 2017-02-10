@@ -15,17 +15,34 @@ class UserExtends extends \CLController
 
     const config = 'IndividualStructures:user';
 
+    //--------------------------------------------------------------------------------------------------------
+    // Static Connection
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var  DB
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected $staticConnection;
+
+    //--------------------------------------------------------------------------------------------------------
+    // Construct
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param  void
+    // @return void
+    //
+    //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
         parent::__construct();
 
         if( ! empty(INDIVIDUALSTRUCTURES_USER_CONFIG['staticConnection']) )
         {
-            Properties::$connection = DB::differentConnection(INDIVIDUALSTRUCTURES_USER_CONFIG['staticConnection']);
+            $this->staticConnection = DB::differentConnection(INDIVIDUALSTRUCTURES_USER_CONFIG['staticConnection']);
         }
         else
         {
-            Properties::$connection = new DB;
+            $this->staticConnection = new DB;
         }
     }
 

@@ -90,7 +90,7 @@ class Login extends UserExtends implements LoginInterface
         $activationColumn   = $getColumns['activation'];
         // ------------------------------------------------------------------------------
 
-        $r = Properties::$connection->where($usernameColumn, $username)
+        $r = $this->staticConnection->where($usernameColumn, $username)
                ->get($tableName)
                ->row();
 
@@ -140,7 +140,7 @@ class Login extends UserExtends implements LoginInterface
 
             if( ! empty($activeColumn) )
             {
-                Properties::$connection->where($usernameColumn, $username)->update($tableName, [$activeColumn  => 1]);
+                $this->staticConnection->where($usernameColumn, $username)->update($tableName, [$activeColumn  => 1]);
             }
 
             return Properties::$success = lang('IndividualStructures', 'user:loginSuccess');
@@ -173,7 +173,7 @@ class Login extends UserExtends implements LoginInterface
 
         if( ! empty($cUsername) && ! empty($cPassword) )
         {
-            $result = Properties::$connection->where($username, $cUsername, 'and')
+            $result = $this->staticConnection->where($username, $cUsername, 'and')
                         ->where($password, $cPassword)
                         ->get($tableName)
                         ->totalRows();
