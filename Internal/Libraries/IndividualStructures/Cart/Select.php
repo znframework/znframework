@@ -39,7 +39,7 @@ class Select extends CartExtends implements SelectInterface
     //--------------------------------------------------------------------------------------------------------
     public function item($code)
     {
-        Properties::$items = $this->driver->select(md5('SystemCartData')) ?? '';
+        Properties::$items = $this->driver->select(md5('SystemCartData')) ?? [];
 
         if( empty(Properties::$items) )
         {
