@@ -1,6 +1,6 @@
 <?php namespace ZN\IndividualStructures\User;
 
-use Encode, Import, Email;
+use DB, Encode, Import, Email;
 
 class ForgotPassword extends UserExtends implements ForgotPasswordInterface
 {
@@ -48,14 +48,14 @@ class ForgotPassword extends UserExtends implements ForgotPasswordInterface
 
         if( ! empty($emailColumn) )
         {
-            $this->staticConnection->where($emailColumn, $email);
+            DB::where($emailColumn, $email);
         }
         else
         {
-            $this->staticConnection->where($usernameColumn, $email);
+            DB::where($usernameColumn, $email);
         }
 
-        $row = $this->staticConnection->get($tableName)->row();
+        $row = DB::get($tableName)->row();
 
         if( isset($row->$usernameColumn) )
         {
@@ -86,14 +86,14 @@ class ForgotPassword extends UserExtends implements ForgotPasswordInterface
             {
                 if( ! empty($emailColumn) )
                 {
-                    $this->staticConnection->where($emailColumn, $email);
+                    DB::where($emailColumn, $email);
                 }
                 else
                 {
-                    $this->staticConnection->where($usernameColumn, $email);
+                    DB::where($usernameColumn, $email);
                 }
 
-                if( $this->staticConnection->update($tableName, [$passwordColumn => $encodePassword]) )
+                if( DB::update($tableName, [$passwordColumn => $encodePassword]) )
                 {
                     return Properties::$success = lang('IndividualStructures', 'user:forgotPasswordSuccess');
                 }

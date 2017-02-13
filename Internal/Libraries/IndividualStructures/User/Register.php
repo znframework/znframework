@@ -1,6 +1,6 @@
 <?php namespace ZN\IndividualStructures\User;
 
-use Encode, Email, Import, URI;
+use Encode, DB, Email, Import, URI;
 
 class Register extends UserExtends implements RegisterInterface
 {
@@ -69,7 +69,7 @@ class Register extends UserExtends implements RegisterInterface
         $encodeType      = INDIVIDUALSTRUCTURES_USER_CONFIG['encode'];
         $encodePassword  = ! empty($encodeType) ? Encode::type($loginPassword, $encodeType) : $loginPassword;
 
-        $usernameControl = $this->staticConnection->where($usernameColumn, $loginUsername)
+        $usernameControl = DB::where($usernameColumn, $loginUsername)
                              ->get($tableName)
                              ->totalRows();
 
@@ -79,20 +79,20 @@ class Register extends UserExtends implements RegisterInterface
         {
             $data[$passwordColumn] = $encodePassword;
 
-            if( ! $this->staticConnection->insert($tableName , $data) )
+            if( ! DB::insert($tableName , $data) )
             {
                 return ! Properties::$error = lang('IndividualStructures', 'user:registerUnknownError');
             }
 
             if( ! empty($joinTables) )
             {
-                $joinCol = $this->staticConnection->where($usernameColumn, $loginUsername)->get($tableName)->row()->$joinColumn;
+                $joinCol = DB::where($usernameColumn, $loginUsername)->get($tableName)->row()->$joinColumn;
 
                 foreach( $joinTables as $table => $joinColumn )
                 {
                     $joinData[$table][$joinTables[$table]] = $joinCol;
 
-                    $this->staticConnection->insert($table, $joinData[$table]);
+                    DB::insert($table, $joinData[$table]);
                 }
             }
 
@@ -157,14 +157,14 @@ class Register extends UserExtends implements RegisterInterface
 
         if( ! empty($user) && ! empty($pass) )
         {
-            $row = $this->staticConnection->where($usernameColumn, $user, 'and')
+            $row = DB::where($usernameColumn, $user, 'and')
                      ->where($passwordColumn, $pass)
                      ->get($tableName)
                      ->row();
 
             if( ! empty($row) )
             {
-                $this->staticConnection->where($usernameColumn, $user)
+                DB::where($usernameColumn, $user)
                   ->update($tableName, [$activationColumn => '1']);
 
                 return Properties::$success = lang('IndividualStructures', 'user:activationComplete');

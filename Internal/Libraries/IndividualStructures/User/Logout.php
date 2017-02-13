@@ -1,6 +1,6 @@
 <?php namespace ZN\IndividualStructures\User;
 
-use Session, Cookie;
+use DB, Session, Cookie;
 
 class Logout extends UserExtends implements LogoutInterface
 {
@@ -26,7 +26,7 @@ class Logout extends UserExtends implements LogoutInterface
         {
             if( ! empty($active) )
             {
-                $this->staticConnection->where($username, $getUserData)
+                DB::where($username, $getUserData)
                   ->update($tableName, [$active => 0]);
             }
 
