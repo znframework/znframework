@@ -1,6 +1,7 @@
 <?php namespace ZN\ViewObjects\View;
 
 use Validator, Config, Security, Session, Encode, Method, CallController;
+use ZN\ViewObjects\View\Validation\Exception\InvalidArgumentException;
 
 class InternalValidation extends CallController implements InternalValidationInterface
 {
@@ -12,6 +13,15 @@ class InternalValidation extends CallController implements InternalValidationInt
     // Copyright  : (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
+
+    //--------------------------------------------------------------------------------------------------------
+    // Options
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var array
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected $options   = ['post', 'get', 'request', 'data'];
 
     //--------------------------------------------------------------------------------------------------------
     // Errors
@@ -77,8 +87,18 @@ class InternalValidation extends CallController implements InternalValidationInt
     // @param string $met
     //
     //--------------------------------------------------------------------------------------------------------
-    public function rules(String $name, Array $config = [], String $viewName = NULL, String $met = 'post')
+    public function rules(String $name, Array $config = [], $viewName = '', String $met = 'post')
     {
+        if( ! in_array($met, $this->options) )
+        {
+            throw new InvalidArgumentException('ViewObjects', 'validation:invalidMethodParameter', '4. ');
+        }
+
+        if( is_array($this->_methodType($name, $met)) )
+        {
+            return $this->_multipleRules($name, $config, $viewName, $met);
+        }
+
         if( ! empty($this->settings['method']) )
         {
             $met = $this->settings['method'];
@@ -441,25 +461,12 @@ class InternalValidation extends CallController implements InternalValidationInt
     //--------------------------------------------------------------------------------------------------------
     protected function _methodType($name, $met)
     {
-        if( $met === "post" )
-        {
-            return Method::post($name);
-        }
-
-        if( $met === "get" )
-        {
-            return Method::get($name);
-        }
-
-        if( $met === "request" )
-        {
-            return Method::request($name);
-        }
-
         if( $met === "data" )
         {
             return $name;
         }
+
+        return Method::$met($name);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -473,19 +480,40 @@ class InternalValidation extends CallController implements InternalValidationInt
     //--------------------------------------------------------------------------------------------------------
     protected function _methodNval($name, $val, $met)
     {
-        if( $met === "post" )
+        if( $met === "data" )
         {
-            return Method::post($name, $val);
+            return;
         }
 
-        if( $met === "get" )
-        {
-            return Method::get($name, $val);
-        }
+        return Method::$met($name, $val);
+    }
 
-        if( $met === "request" )
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Multiple Rules
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $name
+    // @param string $val
+    // @param string $met
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _multipleRules(String $name, Array $config = [], $viewName = '', String $met = 'post')
+    {
+        $postNames = [];
+        $postKey   = '';
+        $postDatas = (array) Method::$met($name);
+
+        foreach( $postDatas as $key => $postData )
         {
-            return Method::request($name, $val);
+            $postName = $name . $key;
+
+            Method::$met($postName, $postData);
+
+            $postKey = is_array($viewName)
+                     ? $viewName[$key] ?? $postName
+                     : $postName;
+
+            $this->rules($postName, $config, $postKey, $met);
         }
     }
 }

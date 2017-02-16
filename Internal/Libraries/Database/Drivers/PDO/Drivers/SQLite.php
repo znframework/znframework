@@ -13,31 +13,32 @@ class PDOSQLiteDriver implements DriverInterface
     // Copyright  : (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
-    
-    use DriverTrait;
-    
-    /******************************************************************************************
-    * DNS                                                                                     *
-    *******************************************************************************************
-    | Bu sürücü için dsn bilgisi oluşturuluyor.                                               |
-    ******************************************************************************************/
-    public function dsn()
+
+    //--------------------------------------------------------------------------------------------------------
+    // DNS
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param  array $config
+    // @return string
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function dsn(Array $config) : String
     {
         $dsn = 'sqlite:';
-            
-        if( ! empty($this->config['database']) )
+
+        if( ! empty($config['database']) )
         {
-            $dsn .= $this->config['database'];
+            $dsn .= $config['database'];
         }
-        elseif( ! empty($this->config['host']) ) 
+        elseif( ! empty($config['host']) )
         {
-            $dsn .= $this->config['host'];
+            $dsn .= $config['host'];
         }
-        else 
+        else
         {
             $dsn .= ':memory:';
         }
-    
+
         return $dsn;
-    }   
+    }
 }

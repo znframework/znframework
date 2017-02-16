@@ -13,38 +13,39 @@ class PDOPostgresDriver implements DriverInterface
     // Copyright  : (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
-    
-    use DriverTrait;
-    
-    /******************************************************************************************
-    * DNS                                                                                     *
-    *******************************************************************************************
-    | Bu sürücü için dsn bilgisi oluşturuluyor.                                               |
-    ******************************************************************************************/
-    public function dsn()
+
+    //--------------------------------------------------------------------------------------------------------
+    // DNS
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param  array $config
+    // @return string
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function dsn(Array $config) : String
     {
         $dsn  = 'pgsql:';
-            
-        $dsn .= ( ! empty($this->config['host']) ) 
-                ? 'host='.$this->config['host'].';'
+
+        $dsn .= ( ! empty($config['host']) )
+                ? 'host='.$config['host'].';'
                 : '';
-        
-        $dsn .= ( ! empty($this->config['database']) ) 
-                ? 'dbname='.$this->config['database'].';' 
+
+        $dsn .= ( ! empty($config['database']) )
+                ? 'dbname='.$config['database'].';'
                 : '';
-                
-        $dsn .= ( ! empty($this->config['port']) ) 
-                ? 'port='.$this->config['port'] .';'
+
+        $dsn .= ( ! empty($config['port']) )
+                ? 'port='.$config['port'] .';'
                 : '';
-                
-        $dsn .= ( ! empty($this->config['user']) ) 
-                ? 'user='.$this->config['user'] .';'
+
+        $dsn .= ( ! empty($config['user']) ) 
+                ? 'user='.$config['user'] .';'
                 : '';
-                
-        $dsn .= ( ! empty($this->config['password']) ) 
-                ? 'password='.$this->config['password']
+
+        $dsn .= ( ! empty($config['password']) )
+                ? 'password='.$config['password']
                 : '';
-    
+
         return rtrim($dsn, ';');
-    }   
+    }
 }

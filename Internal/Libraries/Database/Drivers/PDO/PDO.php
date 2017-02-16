@@ -135,10 +135,12 @@ class PDODriver extends DriverConnectionMappingAbstract
             {
                 $this->connect->exec("SET NAMES '".$this->config['charset']."'");
             }
+
             if( ! empty($this->config['charset']) )
             {
                 $this->connect->exec('SET CHARACTER SET '.$this->config['charset']);
             }
+
             if( ! empty($this->config['collation']) )
             {
                 $this->connect->exec("SET COLLATION_CONNECTION = '".$this->config['collation']."'");
@@ -519,7 +521,7 @@ class PDODriver extends DriverConnectionMappingAbstract
 
         try
         {
-            return new \PDO($this->subDriver->dsn(), $usr, $pass);
+            return new \PDO($this->subDriver->dsn($this->config), $usr, $pass);
         }
         catch( \PDOException $e )
         {

@@ -13,42 +13,43 @@ class PDOODBCDriver implements DriverInterface
     // Copyright  : (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
-    
-    use DriverTrait;
-    
-    /******************************************************************************************
-    * DNS                                                                                     *
-    *******************************************************************************************
-    | Bu sürücü için dsn bilgisi oluşturuluyor.                                               |
-    ******************************************************************************************/
-    public function dsn()
+
+    //--------------------------------------------------------------------------------------------------------
+    // DNS
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param  array $config
+    // @return string
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function dsn(Array $config) : String
     {
         $dsn  = 'odbc:DRIVER={IBM DB2 ODBC DRIVER}';
-            
-        $dsn .= ( ! empty($this->config['database']) ) 
-                ? ';DATABASE='.$this->config['database'] 
+
+        $dsn .= ( ! empty($config['database']) )
+                ? ';DATABASE='.$config['database']
                 : '';
-                
-        $dsn .= ( ! empty($this->config['host']) ) 
-                ? ';HOSTNAME='.$this->config['host'] 
+
+        $dsn .= ( ! empty($config['host']) )
+                ? ';HOSTNAME='.$config['host']
                 : '';
-                
-        $dsn .= ( ! empty($this->config['port']) ) 
-                ? ';PORT='.$this->config['port'] 
+
+        $dsn .= ( ! empty($config['port']) )
+                ? ';PORT='.$config['port']
                 : '';
-                
-        $dsn .= ( ! empty($this->config['protocol']) ) 
-                ? ';PROTOCOL='.$this->config['protocol'] 
+
+        $dsn .= ( ! empty($config['protocol']) )
+                ? ';PROTOCOL='.$config['protocol']
                 : ';PROTOCOL=TCPIP';
-                
-        $dsn .= ( ! empty($this->config['user']) ) 
-                ? ';UID='.$this->config['user'] 
+
+        $dsn .= ( ! empty($config['user']) )
+                ? ';UID='.$config['user']
                 : '';
-        
-        $dsn .= ( ! empty($this->config['password']) ) 
-                ? ';PWD='.$this->config['password'] 
+
+        $dsn .= ( ! empty($config['password']) )
+                ? ';PWD='.$config['password']
                 : '';
-    
+
         return $dsn;
-    }   
+    }
 }
