@@ -144,7 +144,7 @@ class Connection implements ConnectionInterface
 
         $this->db->connect($this->config);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Different Connection
     //--------------------------------------------------------------------------------------------------------
@@ -458,7 +458,9 @@ class Connection implements ConnectionInterface
     {
         Support::driver($this->drivers, $this->driver);
 
-        return uselib('ZN\Database\Drivers\\'.$this->driver.$suffix);
+        $class = 'ZN\Database\Drivers\\'.$this->driver.$suffix;
+
+        return new $class;
     }
 
     //--------------------------------------------------------------------------------------------------------

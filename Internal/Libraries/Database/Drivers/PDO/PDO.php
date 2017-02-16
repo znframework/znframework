@@ -127,7 +127,7 @@ class PDODriver extends DriverConnectionMappingAbstract
             $this->selectDriver = 'mysql';
         }
 
-        $this-> connect = $this->_subDrivers($this->config['user'], $this->config['password']);
+        $this->connect = $this->_subDrivers($this->config['user'], $this->config['password']);
 
         if( $this->selectDriver === 'mysql' )
         {
