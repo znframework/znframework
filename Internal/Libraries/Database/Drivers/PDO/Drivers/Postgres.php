@@ -1,7 +1,6 @@
 <?php namespace ZN\Database\Drivers\PDO\Drivers;
 
 use ZN\Database\Drivers\PDO\DriverInterface;
-use ZN\Database\Drivers\PDO\DriverTrait;
 
 class PDOPostgresDriver implements DriverInterface
 {
@@ -38,7 +37,7 @@ class PDOPostgresDriver implements DriverInterface
                 ? 'port='.$config['port'] .';'
                 : '';
 
-        $dsn .= ( ! empty($config['user']) ) 
+        $dsn .= ( ! empty($config['user']) )
                 ? 'user='.$config['user'] .';'
                 : '';
 

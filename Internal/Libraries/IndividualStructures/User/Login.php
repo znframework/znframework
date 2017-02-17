@@ -161,10 +161,16 @@ class Login extends UserExtends implements LoginInterface
     //--------------------------------------------------------------------------------------------------------
     public function is() : Bool
     {
-        $getColumns = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['columns'];
-        $tableName  = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['table'];
-        $username   = $getColumns['username'];
-        $password   = $getColumns['password'];
+        $getColumns  = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['columns'];
+        $tableName   = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['table'];
+        $username    = $getColumns['username'];
+        $password    = $getColumns['password'];
+        $getUserData = Factory::class('Data')->get($tableName);
+
+        if( ! empty($getColumns['banned']) && ! empty($getUserData->{$getColumns['banned']}) )
+        {
+            Factory::class('Logout')->do();
+        }
 
         $cUsername  = Cookie::select($username);
         $cPassword  = Cookie::select($password);
@@ -179,7 +185,7 @@ class Login extends UserExtends implements LoginInterface
                         ->totalRows();
         }
 
-        if( isset(Factory::class('Data')->get($tableName)->$username) )
+        if( isset($getUserData->$username) )
         {
             $isLogin = true;
         }

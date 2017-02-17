@@ -34,7 +34,7 @@ class Logout extends UserExtends implements LogoutInterface
             Cookie::delete($password );
             Session::delete($username);
 
-            redirect($redirectUrl, $time);
+            redirect((string) $redirectUrl, $time);
         }
     }
 }

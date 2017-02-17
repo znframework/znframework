@@ -1,7 +1,6 @@
 <?php namespace ZN\Database\Drivers\PDO\Drivers;
 
 use ZN\Database\Drivers\PDO\DriverInterface;
-use ZN\Database\Drivers\PDO\DriverTrait;
 
 class PDOMySQLDriver implements DriverInterface
 {
