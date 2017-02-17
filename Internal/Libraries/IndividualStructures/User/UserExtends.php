@@ -43,4 +43,26 @@ class UserExtends extends \CLController
 
         return $this;
     }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Multi Username Columns
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param  string column
+    // @param  mixed  $value
+    // @return this
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _multiUsernameColumns($value)
+    {
+        $usernameColumns = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['columns']['otherLogin'];
+
+        if( ! empty($usernameColumns) )
+        {
+            foreach( $usernameColumns as $column )
+            {
+                \DB::where($column, $value, 'or');
+            }
+        }
+    }
 }

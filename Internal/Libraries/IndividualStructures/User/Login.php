@@ -90,6 +90,8 @@ class Login extends UserExtends implements LoginInterface
         $activationColumn   = $getColumns['activation'];
         // ------------------------------------------------------------------------------
 
+        $this->_multiUsernameColumns($username);
+
         $r = DB::where($usernameColumn, $username)
                ->get($tableName)
                ->row();
@@ -174,7 +176,6 @@ class Login extends UserExtends implements LoginInterface
 
         $cUsername  = Cookie::select($username);
         $cPassword  = Cookie::select($password);
-
         $result     = NULL;
 
         if( ! empty($cUsername) && ! empty($cPassword) )

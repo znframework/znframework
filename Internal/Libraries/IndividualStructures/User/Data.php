@@ -27,6 +27,8 @@ class Data extends UserExtends implements DataInterface
             $joinColumn      = INDIVIDUALSTRUCTURES_USER_CONFIG['joining']['column'];
             $tableName       = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['table'];
 
+            $this->_multiUsernameColumns($sessionUserName);
+
             $r[$tbl] = DB::where($usernameColumn, $sessionUserName, 'and')
                          ->where($passwordColumn, $sessionPassword)
                          ->get($tableName)
@@ -34,6 +36,8 @@ class Data extends UserExtends implements DataInterface
 
             if( ! empty($joinTables) )
             {
+                $this->_multiUsernameColumns($sessionUserName);
+                
                 $joinCol = DB::where($usernameColumn, $sessionUserName, 'and')
                              ->where($passwordColumn, $sessionPassword)
                              ->get($tableName)

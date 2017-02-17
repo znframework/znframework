@@ -222,14 +222,16 @@
         // table: Eşleştirme yapılacak tablo adı.
         //
         // columns: Eşleştirme yapılacak sütunlar.
-        //     username: Kullanıcı adı bilgisini tutan sütun adı.
-        //     password: Kullanıcı şifresini tutan sütun adı.
-        //     email   : Kullanıcı adı bilgisi e-posta adresi içermiyorsa e-posta
-        //               sütunu olarak kullanılır. bu nedenle kullanımı görecelidir.
-        //     active  : Kullanıcıların aktif olup olmadığı bilgisini tutan sütun adı.
-        //               0 ve 1 değeri alacak şekilde veri türü seçilmelidir.
-        //     banned  : Kullanıcıların banlı olup olmadığı bilgisini tutan sütun adı.
-        //               0 ve 1 değeri alacak şekilde veri türü seçilmelidir.
+        //     username  : Kullanıcı adı bilgisini tutan sütun adı.
+        //     password  : Kullanıcı şifresini tutan sütun adı.
+        //     email     : Kullanıcı adı bilgisi e-posta adresi içermiyorsa e-posta
+        //                 sütunu olarak kullanılır. bu nedenle kullanımı görecelidir.
+        //     active    :   Kullanıcıların aktif olup olmadığı bilgisini tutan sütun adı.
+        //                 0 ve 1 değeri alacak şekilde veri türü seçilmelidir.
+        //     banned    : Kullanıcıların banlı olup olmadığı bilgisini tutan sütun adı.
+        //                 0 ve 1 değeri alacak şekilde veri türü seçilmelidir.
+        //     otherLogin: Kullanıcı girişini username sütunu dışında başka sütunlardan
+        //                 da yapılabilmesini sağlamak için bu ayara diğer sütunlar eklenebilir
         //
         //----------------------------------------------------------------------------------------------
         'matching' =>
@@ -243,7 +245,8 @@
                 'email'      => '', // Relative
                 'active'     => '', // Relative
                 'banned'     => '', // Relative
-                'activation' => ''  // Relative
+                'activation' => '', // Relative
+                'otherLogin' => []  // Relative
             ]
         ],
 
