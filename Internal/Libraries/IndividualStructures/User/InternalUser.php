@@ -36,6 +36,8 @@ class InternalUser extends \FactoryController implements InternalUserInterface
             'activecount'        => 'User\Data::activeCount',
             'bannedcount'        => 'User\Data::bannedCount',
             'count'              => 'User\Data::count',
+            'error'              => 'User\Information::error',
+            'success'            => 'User\Information::success'
         ]
     ];
 }

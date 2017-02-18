@@ -181,7 +181,7 @@ class InternalJS extends CallController
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function arrayUnshift(Sting $str, String $find, Bool $comma = true) : String
+    public function arrayUnshift(String $str, String $find, Bool $comma = true) : String
     {
         return $this->_jsFunc("Array($str).unshift", $find, $comma);
     }
@@ -196,7 +196,7 @@ class InternalJS extends CallController
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function arraySort(Sting $str, String $find, Bool $comma = true) : String
+    public function arraySort(String $str, String $find, Bool $comma = true) : String
     {
         return $this->_jsFunc("Array($str).sort", $find, $comma);
     }

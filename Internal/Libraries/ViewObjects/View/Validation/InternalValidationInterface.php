@@ -158,7 +158,7 @@ interface InternalValidationInterface
     // @param string $met
     //
     //--------------------------------------------------------------------------------------------------------
-    public function rules(String $name, Array $config = [], String $viewName = NULL, String $met = 'post');
+    public function rules(String $name, Array $config = [], $viewName = '', String $met = 'post');
 
     //--------------------------------------------------------------------------------------------------------
     // Nval

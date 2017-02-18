@@ -136,19 +136,54 @@ class Connection implements ConnectionInterface
     //--------------------------------------------------------------------------------------------------------
     public function __construct(Array $config = [])
     {
-        $this->config = Config::get('Database', 'database');
-
+        $this->config = array_merge(Config::get('Database', 'database'), $config);
         $this->db = $this->_run();
 
         $this->prefix       = $this->config['prefix'];
         Properties::$prefix = $this->prefix;
 
-        if( empty($config) )
+        $this->db->connect($this->config);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Different Connection
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param mixed $connectName
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function differentConnection($connectName) : Connection
+    {
+        $config          = Config::get('Database', 'database');
+        $configDifferent = $config['differentConnection'];
+
+        if( is_string($connectName) && isset($configDifferent[$connectName]) )
         {
-            $config = $this->config;
+            $connection = $configDifferent[$connectName];
+        }
+        elseif( is_array($connectName) )
+        {
+            $connection = $connectName;
+        }
+        else
+        {
+            throw new InvalidArgumentException('Error', 'invalidInput', 'Mixed $connectName');
         }
 
-        $this->db->connect($config);
+        foreach( $config as $key => $val )
+        {
+            if( $key !== 'differentConnection' )
+            {
+                if( ! isset($connection[$key]) )
+                {
+                    $connection[$key] = $val;
+                }
+            }
+        }
+
+        $getCalledClass = get_called_class();
+
+        return new $getCalledClass($connection);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -224,49 +259,6 @@ class Connection implements ConnectionInterface
         }
 
         return false;
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Different Connection
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param mixed $connectName
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function differentConnection($connectName) : Connection
-    {
-        $config          = $this->config;
-        $configDifferent = $config['differentConnection'];
-
-        if( is_string($connectName) && isset($configDifferent[$connectName]) )
-        {
-            $connection = $configDifferent[$connectName];
-        }
-        elseif( is_array($connectName) )
-        {
-            $connection = $connectName;
-        }
-        else
-        {
-            throw new InvalidArgumentException('Error', 'invalidInput', 'Mixed $connectName');
-        }
-
-        foreach( $config as $key => $val )
-        {
-            if( $key !== 'differentConnection' )
-            {
-                if( ! isset($connection[$key]) )
-                {
-                    $connection[$key] = $val;
-                }
-            }
-        }
-
-        $getCalledClass = get_called_class();
-
-        Config::set('Database', 'database', $connection);
-
-        return new $getCalledClass($connection);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -363,7 +355,7 @@ class Connection implements ConnectionInterface
                 $strex  = explode('?', $query);
                 $newstr = '';
 
-                if( ! empty($strex) ) for( $i = 0; $i < count($strex); $i++ )
+                if( ! empty($strex) ) for( $i = 0; $i < count($strex) - 1; $i++ )
                 {
                     $sec = isset($secure[$i])
                          ? $secure[$i]
@@ -466,7 +458,9 @@ class Connection implements ConnectionInterface
     {
         Support::driver($this->drivers, $this->driver);
 
-        return uselib('ZN\Database\Drivers\\'.$this->driver.$suffix);
+        $class = 'ZN\Database\Drivers\\'.$this->driver.$suffix;
+
+        return new $class;
     }
 
     //--------------------------------------------------------------------------------------------------------

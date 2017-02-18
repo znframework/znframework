@@ -272,14 +272,7 @@ class InternalCURL extends CallController implements InternalCURLInterface
         }
         else
         {
-            if( isset($version[$data]) )
-            {
-                return $version[$data];
-            }
-            else
-            {
-                return false;
-            }
+            return $version[$data] ?? false;
         }
     }
 

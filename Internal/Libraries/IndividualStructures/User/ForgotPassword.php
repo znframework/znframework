@@ -95,19 +95,19 @@ class ForgotPassword extends UserExtends implements ForgotPasswordInterface
 
                 if( DB::update($tableName, [$passwordColumn => $encodePassword]) )
                 {
-                    return $this->success = lang('IndividualStructures', 'user:forgotPasswordSuccess');
+                    return Properties::$success = lang('IndividualStructures', 'user:forgotPasswordSuccess');
                 }
 
-                return ! $this->error = lang('Database', 'updateError');
+                return ! Properties::$error = lang('Database', 'updateError');
             }
             else
             {
-                return ! $this->error = lang('IndividualStructures', 'user:emailError');
+                return ! Properties::$error = lang('IndividualStructures', 'user:emailError');
             }
         }
         else
         {
-            return ! $this->error = lang('IndividualStructures', 'user:forgotPasswordError');
+            return ! Properties::$error = lang('IndividualStructures', 'user:forgotPasswordError');
         }
     }
 }

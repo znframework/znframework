@@ -18,11 +18,11 @@ class Injection extends SecurityExtends implements InjectionInterface
     // @var array
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $nailChars = array
-    (
+    protected $nailChars = 
+    [
         "'" => "&#39;",
         '"' => "&#34;"
-    );
+    ];
 
     //--------------------------------------------------------------------------------------------------------
     // Injection Encode

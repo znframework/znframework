@@ -502,7 +502,7 @@ function internalStartingContoller(String $startController = '', Array $param = 
 
     if( is_file($controllerFile) )
     {
-        require_once($controllerFile);
+        import($controllerFile);
 
         if( ! is_callable([$controllerClass, $controllerFunc]) )
         {

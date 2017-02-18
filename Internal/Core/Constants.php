@@ -17,4 +17,4 @@
 // Constants
 //
 //--------------------------------------------------------------------------------------------------
-require_once INTERNAL_CONSTANTS_DIR . 'DirectoryPaths.php';
+import(INTERNAL_CONSTANTS_DIR . 'DirectoryPaths.php');

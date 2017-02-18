@@ -94,15 +94,15 @@ function lang(String $file, String $str = NULL, $changed = NULL)
 
     if( is_file($langDir) && ! isImport($langDir) )
     {
-        $lang[$file] = require_once($langDir);
+        $lang[$file] = import($langDir);
     }
     elseif( is_file($sysLangDir) && ! isImport($sysLangDir) )
     {
-        $lang[$file] = require_once($sysLangDir);
+        $lang[$file] = import($sysLangDir);
     }
     elseif( is_file($commonLangDir) && ! isImport($commonLangDir) )
     {
-        $lang[$file] = require_once($commonLangDir);
+        $lang[$file] = import($commonLangDir);
     }
 
     if( empty($str) && isset($lang[$file]) )

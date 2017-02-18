@@ -169,7 +169,7 @@ class InternalProcessor extends RemoteCommon implements InternalProcessorInterfa
         $command .= '{';
         $command .= 'exit("Error: URL does not contain a valid controller information! `".$page."` controller could not be found!");';
         $command .= '}';
-        $command .= 'require_once $isFile;';
+        $command .= 'import($isFile);';
         $command .= 'if( ! class_exists($page, false) )';
         $command .= '{';
         $command .= '$page = $namespace.$page;';

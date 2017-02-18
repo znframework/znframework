@@ -54,7 +54,7 @@ class Autoloader
 
         if( is_file($file) )
         {
-            require_once $file;
+            import($file);
 
             if
             (
@@ -497,7 +497,7 @@ class Autoloader
     //--------------------------------------------------------------------------------------------------
     private static function _config()
     {
-        $path = CONFIG_DIR.'ClassMap.php';
+        $path = CONFIG_DIR . 'ClassMap.php';
 
         if( is_file($path) )
         {
@@ -529,7 +529,7 @@ class Autoloader
 
         if( is_file($file) )
         {
-            require_once $file;
+            import($file);
         }
         else
         {

@@ -1,4 +1,4 @@
-<?php return 
+<?php return
 [
     //----------------------------------------------------------------------------------------------------
     // Individual Structrues
@@ -55,7 +55,7 @@
     'user:registerEmailError'       => 'Sisteme daha önceden kayıtlı e-posta olduğu için işleminiz gerçekleştirilemedi!',
     'user:registerUsernameError'    => 'Veri, kullanıcı adı ve şifre bilgisini içermelidir!',
     'user:loginError'               => 'Giriş başarısız. Kullanıcı adı veya şifre yanlış!',
-    'user:bannedError'              => 'Sistemden banlamış olduğunuz için giriş  yapamazsınız!',
+    'user:bannedError'              => 'Sistemden banlamış olduğunuz için giriş yapamazsınız!',
     'user:loginSuccess'             => 'Başarı ile giriş yaptınız. Yönlendiriliyorsunuz.. Lütfen bekleyin.',
     'user:registerUnknownError'     => 'Bilinmeyen hata!',
     'user:oldPasswordError'         => 'Şifrenizi yanlış girdiniz!',

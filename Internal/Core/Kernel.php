@@ -152,7 +152,7 @@ if( $starting['autoload']['status'] === true )
         {
             if( is_file($file) )
             {
-                require_once $file;
+                import($file);
             }
         }
     }
@@ -168,7 +168,7 @@ if( $starting['autoload']['status'] === true )
 
             if( ! is_file($commonIsSameExistsFile) && is_file($file) )
             {
-                require_once $file;
+                import($file);
             }
         }
     }
@@ -189,7 +189,7 @@ if( ! empty($starting['handload']) )
 //--------------------------------------------------------------------------------------------------
 if( is_file($isFile) )
 {
-    require_once $isFile;
+    import($isFile);
 
     if( ! class_exists($page, false) )
     {

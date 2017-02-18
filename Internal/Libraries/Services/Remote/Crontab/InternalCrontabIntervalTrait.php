@@ -74,8 +74,8 @@ trait InternalCrontabIntervalTrait
     // @var array
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $monthFormat = array
-    (
+    protected $monthFormat =
+    [
         'january'   => 1,
         'february'  => 2,
         'march'     => 3,
@@ -88,7 +88,7 @@ trait InternalCrontabIntervalTrait
         'october'   => 10,
         'november'  => 11,
         'december'  => 12
-    );
+    ];
 
     //--------------------------------------------------------------------------------------------------------
     // Day Format
@@ -97,8 +97,8 @@ trait InternalCrontabIntervalTrait
     // @var array
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $dayFormat = array
-    (
+    protected $dayFormat = 
+    [
         'sunday'    => 0,
         'monday'    => 1,
         'tuesday'   => 2,
@@ -106,7 +106,7 @@ trait InternalCrontabIntervalTrait
         'thursday'  => 4,
         'friday'    => 5,
         'saturday'  => 6
-    );
+    ];
 
     //--------------------------------------------------------------------------------------------------------
     // Protected Slashes

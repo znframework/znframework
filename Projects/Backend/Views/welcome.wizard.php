@@ -9,12 +9,12 @@
         #link[href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css"]
 
         #style
-            html, body 
+            html, body
             {
                 height: 100%;
             }
 
-            body 
+            body
             {
                 margin: 0;
                 padding: 0;
@@ -24,26 +24,26 @@
                 font-family: 'Lato', sans-serif;
             }
 
-            /#container 
+            /#container
             {
                 text-align: center;
                 display: table-cell;
                 vertical-align: middle;
             }
 
-            /#content 
+            /#content
             {
                 text-align: center;
                 display: inline-block;
             }
 
-            /#title 
+            /#title
             {
                 font-size: 96px;
                 color:#BFC4C8;
             }
 
-            /#sub-title 
+            /#sub-title
             {
                 font-size: 44.4px;
                 color:#BFC4C8;
@@ -54,7 +54,7 @@
     #body
         #div[id="container"]
             #div[id="content"]
-                #div[id="title"] ZN4 EIP EDITION ##div
+                #div[id="title"] ZN4 REBORN ##div
                 #div[id="sub-title"] Simplicity is our choice, how about yours ? ##div
             ##div
         ##div

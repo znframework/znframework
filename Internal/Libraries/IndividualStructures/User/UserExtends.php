@@ -14,15 +14,6 @@ class UserExtends extends \CLController
     const config = 'IndividualStructures:user';
 
     //--------------------------------------------------------------------------------------------------------
-    // Information Ability
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Information Ability Methods
-    //
-    //--------------------------------------------------------------------------------------------------------
-    use \InformationAbility;
-
-    //--------------------------------------------------------------------------------------------------------
     // Column
     //--------------------------------------------------------------------------------------------------------
     //
@@ -51,5 +42,27 @@ class UserExtends extends \CLController
         Properties::$parameters['returnLink'] = $returnLink;
 
         return $this;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Multi Username Columns
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param  string column
+    // @param  mixed  $value
+    // @return this
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _multiUsernameColumns($value)
+    {
+        $usernameColumns = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['columns']['otherLogin'];
+
+        if( ! empty($usernameColumns) )
+        {
+            foreach( $usernameColumns as $column )
+            {
+                \DB::where($column, $value, 'or');
+            }
+        }
     }
 }

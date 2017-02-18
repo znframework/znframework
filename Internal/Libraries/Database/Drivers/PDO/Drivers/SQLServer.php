@@ -1,7 +1,6 @@
 <?php namespace ZN\Database\Drivers\PDO\Drivers;
 
 use ZN\Database\Drivers\PDO\DriverInterface;
-use ZN\Database\Drivers\PDO\DriverTrait;
 
 class PDOSQLServerDriver implements DriverInterface
 {
@@ -13,39 +12,40 @@ class PDOSQLServerDriver implements DriverInterface
     // Copyright  : (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
-    
-    use DriverTrait;
-    
-    /******************************************************************************************
-    * DNS                                                                                     *
-    *******************************************************************************************
-    | Bu sürücü için dsn bilgisi oluşturuluyor.                                               |
-    ******************************************************************************************/
-    public function dsn()
+
+    //--------------------------------------------------------------------------------------------------------
+    // DNS
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param  array $config
+    // @return string
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function dsn(Array $config) : String
     {
         $dsn  = 'sqlsrv:Server=';
-        
-        if( ! empty($this->config['server']) ) 
+
+        if( ! empty($config['server']) )
         {
-            $dsn .= $this->config['server'];
+            $dsn .= $config['server'];
         }
-        elseif( ! empty($this->config['host']) ) 
+        elseif( ! empty($config['host']) )
         {
-            $dsn .= $this->config['server'];
+            $dsn .= $config['server'];
         }
-        else 
+        else
         {
             $dsn .= '127.0.0.1';
         }
-        
-        $dsn .= ( ! empty($this->config['port']) ) 
-                ? ','.$this->config['port'] 
+
+        $dsn .= ( ! empty($config['port']) )
+                ? ','.$config['port']
                 : '';
-        
-        $dsn .= ( ! empty($this->config['database'])) 
-                ? ';Database='.$this->config['database'] 
+
+        $dsn .= ( ! empty($config['database']))
+                ? ';Database='.$config['database']
                 : '';
-    
+
         return $dsn;
-    }   
+    }
 }

@@ -2,7 +2,7 @@
 
 use CLController, DriverAbility;
 
-class CartCommon extends CLController
+class CartExtends extends CLController
 {
     //--------------------------------------------------------------------------------------------------------
     //

@@ -90,13 +90,15 @@ class Login extends UserExtends implements LoginInterface
         $activationColumn   = $getColumns['activation'];
         // ------------------------------------------------------------------------------
 
+        $this->_multiUsernameColumns($username);
+
         $r = DB::where($usernameColumn, $username)
                ->get($tableName)
                ->row();
 
         if( ! isset($r->$passwordColumn) )
         {
-            return ! $this->error = lang('IndividualStructures', 'user:loginError');
+            return ! Properties::$error = lang('IndividualStructures', 'user:loginError');
         }
 
         $passwordControl   = $r->$passwordColumn;
@@ -118,12 +120,12 @@ class Login extends UserExtends implements LoginInterface
         {
             if( ! empty($bannedColumn) && ! empty($bannedControl) )
             {
-                return ! $this->error = lang('IndividualStructures', 'user:bannedError');
+                return ! Properties::$error = lang('IndividualStructures', 'user:bannedError');
             }
 
             if( ! empty($activationColumn) && empty($activationControl) )
             {
-                return ! $this->error = lang('IndividualStructures', 'user:activationError');
+                return ! Properties::$error = lang('IndividualStructures', 'user:activationError');
             }
 
             Session::insert($usernameColumn, $username);
@@ -143,11 +145,11 @@ class Login extends UserExtends implements LoginInterface
                 DB::where($usernameColumn, $username)->update($tableName, [$activeColumn  => 1]);
             }
 
-            return $this->success = lang('IndividualStructures', 'user:loginSuccess');
+            return Properties::$success = lang('IndividualStructures', 'user:loginSuccess');
         }
         else
         {
-            return ! $this->error = lang('IndividualStructures', 'user:loginError');
+            return ! Properties::$error = lang('IndividualStructures', 'user:loginError');
         }
     }
 
@@ -161,14 +163,19 @@ class Login extends UserExtends implements LoginInterface
     //--------------------------------------------------------------------------------------------------------
     public function is() : Bool
     {
-        $getColumns = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['columns'];
-        $tableName  = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['table'];
-        $username   = $getColumns['username'];
-        $password   = $getColumns['password'];
+        $getColumns  = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['columns'];
+        $tableName   = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['table'];
+        $username    = $getColumns['username'];
+        $password    = $getColumns['password'];
+        $getUserData = Factory::class('Data')->get($tableName);
+
+        if( ! empty($getColumns['banned']) && ! empty($getUserData->{$getColumns['banned']}) )
+        {
+            Factory::class('Logout')->do();
+        }
 
         $cUsername  = Cookie::select($username);
         $cPassword  = Cookie::select($password);
-
         $result     = NULL;
 
         if( ! empty($cUsername) && ! empty($cPassword) )
@@ -179,7 +186,7 @@ class Login extends UserExtends implements LoginInterface
                         ->totalRows();
         }
 
-        if( isset(Factory::class('Data')->get($tableName)->$username) )
+        if( isset($getUserData->$username) )
         {
             $isLogin = true;
         }

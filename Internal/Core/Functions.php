@@ -17,12 +17,12 @@
 // Functions
 //
 //--------------------------------------------------------------------------------------------------
-require_once INTERNAL_FUNCTIONS_DIR . 'String.php';
-require_once INTERNAL_FUNCTIONS_DIR . 'Config.php';
-require_once INTERNAL_FUNCTIONS_DIR . 'Lang.php';
-require_once INTERNAL_FUNCTIONS_DIR . 'URL.php';
-require_once INTERNAL_FUNCTIONS_DIR . 'Path.php';
-require_once INTERNAL_FUNCTIONS_DIR . 'Redirect.php';
-require_once INTERNAL_FUNCTIONS_DIR . 'Library.php';
-require_once INTERNAL_FUNCTIONS_DIR . 'Status.php';
-require_once INTERNAL_FUNCTIONS_DIR . 'Internal.php';
+import(INTERNAL_FUNCTIONS_DIR . 'String.php');
+import(INTERNAL_FUNCTIONS_DIR . 'Config.php');
+import(INTERNAL_FUNCTIONS_DIR . 'Lang.php');
+import(INTERNAL_FUNCTIONS_DIR . 'URL.php');
+import(INTERNAL_FUNCTIONS_DIR . 'Path.php');
+import(INTERNAL_FUNCTIONS_DIR . 'Redirect.php');
+import(INTERNAL_FUNCTIONS_DIR . 'Library.php');
+import(INTERNAL_FUNCTIONS_DIR . 'Status.php');
+import(INTERNAL_FUNCTIONS_DIR . 'Internal.php');

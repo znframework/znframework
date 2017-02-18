@@ -18,11 +18,11 @@ class Script implements ScriptInterface
     // @var array
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $scriptTagChars = array
-    (
+    protected $scriptTagChars = 
+    [
         '/\<script(.*?)\>/i'  => '&#60;script$1&#62;',
         '/\<\/script\>/i'     => '&#60;/script&#62;'
-    );
+    ];
 
     //--------------------------------------------------------------------------------------------------------
     // PHP Tag Chars
@@ -31,11 +31,11 @@ class Script implements ScriptInterface
     // @var array
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $scriptTagCharsDecode = array
-    (
+    protected $scriptTagCharsDecode = 
+    [
         '/\&\#60\;script(.*?)\&\#62\;/i' => '<script$1>',
         '/\&\#60\;\/script\&\#62\;/i'    => '</script>'
-    );
+    ];
 
     //--------------------------------------------------------------------------------------------------------
     // Script Tag Encode

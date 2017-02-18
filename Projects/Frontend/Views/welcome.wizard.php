@@ -54,7 +54,7 @@
     #body
     	#div[id="container"]
             #div[id="content"]
-                #div[id="title"] ZN4 EIP EDITION ##div
+                #div[id="title"] ZN4 REBORN ##div
                 #div[id="sub-title"] Simplicity is our choice, how about yours ? ##div
             ##div
         ##div

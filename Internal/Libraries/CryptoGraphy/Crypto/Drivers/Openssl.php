@@ -128,10 +128,10 @@ class OpensslDriver extends CryptoMapping
     //--------------------------------------------------------------------------------------------------------
     protected function _settings($settings)
     {
-		$cipher = isset($settings['cipher']) ? $settings['cipher'] : 'aes-128';
-	 	$key    = isset($settings['key'])    ? $settings['key']    : $this->keySize($cipher);
-		$mode   = isset($settings['mode'])   ? $settings['mode']   : 'cbc';
-		$iv     = isset($settings['vector']) ? $settings['vector'] : $this->vectorSize($mode, $cipher);
+		$cipher = $settings['cipher'] ?? 'aes-128';
+	 	$key    = $settings['key']    ?? $this->keySize($cipher);
+		$mode   = $settings['mode']   ?? 'cbc';
+		$iv     = $settings['vector'] ?? $this->vectorSize($mode, $cipher);
 		$cipher = $cipher."-".$mode;
 
         return (object)

@@ -26,5 +26,5 @@ define('INTERNAL_STARTING_DIR', INTERNAL_DIR . 'Starting' . DS);
 // Functions
 //
 //--------------------------------------------------------------------------------------------------
-require_once INTERNAL_STARTING_DIR . 'Constants.php';
-require_once INTERNAL_STARTING_DIR . 'Configurations.php';
+import(INTERNAL_STARTING_DIR . 'Constants.php');
+import(INTERNAL_STARTING_DIR . 'Configurations.php');

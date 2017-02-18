@@ -73,5 +73,5 @@ interface InternalRedirectInterface
     // @var mixed $key
     //
     //--------------------------------------------------------------------------------------------------------
-    public function delete(String $key) : Bool;
+    public function delete($key) : Bool;
 }
