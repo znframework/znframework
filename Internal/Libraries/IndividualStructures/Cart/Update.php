@@ -21,7 +21,7 @@ class Update extends CartExtends implements UpdateInterface
     //--------------------------------------------------------------------------------------------------------
     public function item($code, Array $data) : Bool
     {
-        Properties::$items = $this->driver->select(md5('SystemCartData')) ?? [];
+        Properties::$items = (array) $this->driver->select(md5('SystemCartData'));
 
         if( empty(Properties::$items) )
         {

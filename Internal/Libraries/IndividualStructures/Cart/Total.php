@@ -49,7 +49,7 @@ class Total extends CartExtends implements TotalInterface
     //--------------------------------------------------------------------------------------------------------
     public function prices() : Int
     {
-        Properties::$items = $this->driver->select(md5('SystemCartData')) ?? [];
+        Properties::$items = (array) $this->driver->select(md5('SystemCartData'));
 
         if( empty(Properties::$items) )
         {
