@@ -1,6 +1,6 @@
 <?php
 //--------------------------------------------------------------------------------------------------
-// High Level
+// Project
 //--------------------------------------------------------------------------------------------------
 //
 // Author     : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
@@ -11,19 +11,19 @@
 //--------------------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------------------
-// Required High Level File
+// PROJECTS_CONFIG
 //--------------------------------------------------------------------------------------------------
 //
-// Functions & Constants
+// @return Projects/Projects.php
 //
 //--------------------------------------------------------------------------------------------------
-import(INTERNAL_CONSTANTS_DIR . 'Project.php');
-import(INTERNAL_CONSTANTS_DIR . 'SpaceChars.php');
-import(INTERNAL_CONSTANTS_DIR . 'StructurePaths.php');
-import(INTERNAL_FUNCTIONS_DIR . 'Control.php');
-import(INTERNAL_FUNCTIONS_DIR . 'Output.php');
-import(INTERNAL_FUNCTIONS_DIR . 'Server.php');
-import(INTERNAL_FUNCTIONS_DIR . 'PathInfo.php');
-import(INTERNAL_FUNCTIONS_DIR . 'Host.php');
-import(INTERNAL_FUNCTIONS_DIR . 'HighLevelString.php');
-import(INTERNAL_FUNCTIONS_DIR . 'HighLevelInternal.php');
+define('PROJECTS_CONFIG', import(PROJECTS_DIR . 'Projects.php'));
+
+//--------------------------------------------------------------------------------------------------
+// DEFAULT_PROJECT
+//--------------------------------------------------------------------------------------------------
+//
+// @return Frontend/
+//
+//--------------------------------------------------------------------------------------------------
+define('DEFAULT_PROJECT', PROJECTS_CONFIG['directory']['default']);

@@ -747,7 +747,6 @@ class InternalDB extends Connection implements InternalDBInterface
             return $secureQueryBuilder;
         }
 
-
         $this->db->query($secureQueryBuilder, $this->secure);
 
         return $this;

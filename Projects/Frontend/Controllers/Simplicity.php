@@ -11,6 +11,6 @@ class Simplicity extends Controller
 
     public function try()
     {
-        // Simplicity is our choice, how about yours?
+        // Simplicity is our choice, how about yours ?
     }
 }
