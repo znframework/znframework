@@ -182,7 +182,7 @@ class Connection implements ConnectionInterface
         }
 
         $getCalledClass = get_called_class();
-
+    
         return new $getCalledClass($connection);
     }
 
@@ -439,11 +439,11 @@ class Connection implements ConnectionInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    protected function _run()
+    protected function _run($settings = [])
     {
         $this->driver = explode(':', $this->config['driver'])[0];
 
-        return $this->_drvlib('Driver');
+        return $this->_drvlib('Driver', $settings);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -454,13 +454,13 @@ class Connection implements ConnectionInterface
     // @param string $suffix
     //
     //--------------------------------------------------------------------------------------------------------
-    protected function _drvlib($suffix = 'Driver')
+    protected function _drvlib($suffix = 'Driver', $settings = [])
     {
         Support::driver($this->drivers, $this->driver);
 
         $class = 'ZN\Database\Drivers\\'.$this->driver.$suffix;
 
-        return new $class;
+        return new $class($settings);
     }
 
     //--------------------------------------------------------------------------------------------------------

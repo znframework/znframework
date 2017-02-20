@@ -24,11 +24,11 @@ class InternalDBTrigger extends Connection implements InternalDBTriggerInterface
     // Database Manipulation Methods Başlangıç
     //--------------------------------------------------------------------------------------------------------
 
-    public function __construct()
+    public function __construct($settings = [])
     {
-        parent::__construct();
+        parent::__construct($settings);
 
-        $this->trigger = $this->_drvlib('Trigger');
+        $this->trigger = $this->_drvlib('Trigger', $settings);
     }
 
     //--------------------------------------------------------------------------------------------------------

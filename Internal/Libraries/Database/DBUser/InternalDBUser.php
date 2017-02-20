@@ -24,11 +24,11 @@ class InternalDBUser extends Connection implements InternalDBUserInterface
     // Database Manipulation Methods Başlangıç
     //--------------------------------------------------------------------------------------------------------
 
-    public function __construct()
+    public function __construct($settings = [])
     {
-        parent::__construct();
+        parent::__construct($settings);
 
-        $this->user = $this->_drvlib('User');
+        $this->user = $this->_drvlib('User', $settings);
     }
 
 
