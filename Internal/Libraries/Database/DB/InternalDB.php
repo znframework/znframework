@@ -527,8 +527,20 @@ class InternalDB extends Connection implements InternalDBInterface
     //--------------------------------------------------------------------------------------------------------
     public function join(String $table, String $condition, String $type = NULL) : InternalDB
     {
-        $table = $this->prefix.$table;
-        $type  = strtoupper($type);
+        $tableEx = explode('.', $table);
+
+        switch( count($tableEx) )
+        {
+            case 2:
+                $table = $tableEx[0] . '.' . $this->prefix . $tableEx[1];
+            break;
+
+            case 1:
+                $table   = $this->prefix.$table;
+            break;
+        }
+
+        $type    = strtoupper($type);
 
         $this->join .= ' '.$type.' JOIN '.$table.' ON '.$condition.' ';
 
@@ -2159,10 +2171,28 @@ class InternalDB extends Connection implements InternalDBInterface
     protected function _join($tableAndColumn = '', $otherColumn = '', $operator = '=', $type = 'INNER')
     {
         $tableAndColumn = explode('.', $tableAndColumn);
+        $db             = '';
 
-        $table     = isset($tableAndColumn[0]) ? $this->prefix.$tableAndColumn[0] : '';
-        $column    = isset($tableAndColumn[1]) ? $this->prefix.$tableAndColumn[1] : '';
-        $condition = $table.'.'.$column.' '.$operator.' '.$this->prefix.$otherColumn.' ';
+        switch( count($tableAndColumn) )
+        {
+            case 2 :
+                $table  = isset($tableAndColumn[0]) ? $this->prefix.$tableAndColumn[0] : '';
+                $column = isset($tableAndColumn[1]) ? $tableAndColumn[1]               : '';
+            break;
+
+            case 3 :
+                $db     = isset($tableAndColumn[0]) ? $tableAndColumn[0] . '.'         : '';
+                $table  = isset($tableAndColumn[1]) ? $this->prefix.$tableAndColumn[1] : '';
+                $column = isset($tableAndColumn[2]) ? $tableAndColumn[2]               : '';
+            break;
+
+            default:
+                $table  = $tableAndColumn;
+                $column = $otherColumn;
+        }
+
+
+        $condition = $db.$table.'.'.$column.' '.$operator.' '.$this->prefix.$otherColumn.' ';
 
         $this->join($table, $condition, $type);
     }

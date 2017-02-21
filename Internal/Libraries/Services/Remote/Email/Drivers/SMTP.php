@@ -54,20 +54,20 @@ class SMTPDriver extends EmailMappingAbstract
         $this->subject    = $subject;
         $this->body       = $body;
         $this->header     = $headers;
-        $this->host       = isset($settings['host'])      ? $settings['host']       : '';
-        $this->user       = isset($settings['user'])      ? $settings['user']       : '';
-        $this->password   = isset($settings['password'])  ? $settings['password']   : '';
-        $this->from       = isset($settings['from'])      ? $settings['from']       : '';
-        $this->port       = isset($settings['port'])      ? $settings['port']       : 587;
-        $this->encoding   = isset($settings['encoding'])  ? $settings['encoding']   : '';
-        $this->timeout    = isset($settings['timeout'])   ? $settings['timeout']    : '';
-        $this->cc         = isset($settings['cc'])        ? $settings['cc']         : '';
-        $this->bcc        = isset($settings['bcc'])       ? $settings['bcc']        : '';
-        $this->auth       = isset($settings['authLogin']) ? $settings['authLogin']  : '';
-        $this->encode     = isset($settings['encode'])    ? $settings['encode']     : '';
-        $this->keepAlive  = isset($settings['keepAlive']) ? $settings['keepAlive']  : '';
-        $this->dsn        = isset($settings['dsn'])       ? $settings['dsn']        : '';
-        $this->tos        = isset($settings['tos'])       ? $settings['tos']        : [];
+        $this->host       = $settings['host']      ?? '';
+        $this->user       = $settings['user']      ?? '';
+        $this->password   = $settings['password']  ?? '';
+        $this->from       = $settings['from']      ?? '';
+        $this->port       = $settings['port']      ?? 587;
+        $this->encoding   = $settings['encoding']  ?? '';
+        $this->timeout    = $settings['timeout']   ?? '';
+        $this->cc         = $settings['cc']        ?? '';
+        $this->bcc        = $settings['bcc']       ?? '';
+        $this->auth       = $settings['authLogin'] ?? '';
+        $this->encode     = $settings['encode']    ?? '';
+        $this->keepAlive  = $settings['keepAlive'] ?? '';
+        $this->dsn        = $settings['dsn']       ?? '';
+        $this->tos        = $settings['tos']       ?? [];
     }
 
     //--------------------------------------------------------------------------------------------------------

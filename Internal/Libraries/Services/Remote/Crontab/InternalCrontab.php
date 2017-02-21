@@ -367,11 +367,11 @@ class InternalCrontab extends RemoteCommon implements InternalCrontabInterface, 
         }
         else
         {
-            $interval = ( isset( $this->minute )    ? $this->minute    : '*').' '.
-                        ( isset( $this->hour )      ? $this->hour      : '*').' '.
-                        ( isset( $this->dayNumber ) ? $this->dayNumber : '*').' '.
-                        ( isset( $this->month )     ? $this->month     : '*').' '.
-                        ( isset( $this->day )       ? $this->day       : '*').' ';
+            $interval = ( $this->minute    ?? '*' ) . ' '.
+                        ( $this->hour      ?? '*' ) . ' '.
+                        ( $this->dayNumber ?? '*' ) . ' '.
+                        ( $this->month     ?? '*' ) . ' '.
+                        ( $this->day       ?? '*' ) . ' ';
         }
 
         $this->_intervalDefaultVariables();
@@ -404,10 +404,10 @@ class InternalCrontab extends RemoteCommon implements InternalCrontabInterface, 
         else
         {
             return $datetimeFormat.
-                   ( ! empty($path)    ? $path.' '    : '' ).
-                   ( ! empty($command) ? $command.' ' : '' ).
-                   ( ! empty($type)    ? $type.' '    : '' ).
-                   ( $debug === true   ? '>> '.$this->crontabDir.'debug.log 2>&1' : '' );
+                   ( ! empty($path)    ? $path    . ' ' : '' ).
+                   ( ! empty($command) ? $command . ' ' : '' ).
+                   ( ! empty($type)    ? $type    . ' ' : '' ).
+                   ( $debug === true   ? '>> '    . $this->crontabDir . 'debug.log 2>&1' : '' );
         }
     }
 
