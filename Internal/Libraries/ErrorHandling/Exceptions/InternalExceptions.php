@@ -162,7 +162,10 @@ class InternalExceptions extends Exception implements InternalExceptionsInterfac
                 return false;
             }
 
-            $exceptionData = $passed;
+            if( Config::get('ErrorHandling', 'exceptions')['invalidParameterErrorType'] === 'external' )
+            {
+                $exceptionData = $passed;
+            }
         }
 
         if( stristr($file, 'TemplateWizard') )
