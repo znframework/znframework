@@ -1808,12 +1808,13 @@ class InternalDB extends Connection implements InternalDBInterface
     //--------------------------------------------------------------------------------------------------------
     public function pagination(String $url = NULL, Array $settings = [], Bool $output = true)
     {
-        $limit = $this->pagination['limit'];
-        $start = $this->pagination['start'];
+        $pagcon = \Config::get('ViewObjects', 'pagination');
+        $limit  = $this->pagination['limit'];
+        $start  = $this->pagination['start'];
 
         $settings['totalRows'] = $this->totalRows(true);
-        $settings['limit']     = isset($limit) ? $limit : 10;
-        $settings['start']     = isset($start) ? $start : NULL;
+        $settings['limit']     = ! empty($limit) ? $limit : $pagcon['limit'];
+        $settings['start']     = $start ?? $pagcon['start'];
 
         if( ! empty($url) )
         {

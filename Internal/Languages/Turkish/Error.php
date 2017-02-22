@@ -32,7 +32,7 @@
     'emptyVariable'             => '`%` değişkeni bir değer içermelidir!',
     'charsetParameter'          => '`%` parametresi geçerli karakter seti içermelidir!',
     'invalidInput'              => '`%` geçersiz girdi bilgisi!',
-    'typeHint'                  => '& parametresi % türü olmalıdır!',
+    'typeHint'                  => 'Geçersiz parametre hatası! & parametresi % türü olmalıdır!',
     'templateWizard'            => 'Sözdizimi hatası! :, # and @ sembollerini kontrol edin.
                                     Bu sembollerin kullanımı unutulmuş olabilir.
                                     Bu semboller normal kullanımda / ön eki gerektirir.'
