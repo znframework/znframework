@@ -81,7 +81,7 @@ interface InternalCURLInterface
     // @param int $bitmask
     //
     //--------------------------------------------------------------------------------------------------------
-    public function pause(Int $bitmask = 0) : Int;
+    public function pause($bitmask = 0) : Int;
 
     //--------------------------------------------------------------------------------------------------------
     // Reset
