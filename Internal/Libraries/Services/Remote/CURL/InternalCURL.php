@@ -180,9 +180,7 @@ class InternalCURL extends CallController implements InternalCURLInterface
     {
         if( ! empty($this->init) )
         {
-            $option = Converter::toConstant($bitmask, 'CURLPAUSE_');
-
-            return curl_pause($this->init, is_int($option) ? $option : $bitmask);
+            return curl_pause($this->init, Converter::toConstant($bitmask, 'CURLPAUSE_'));
         }
 
         return false;
