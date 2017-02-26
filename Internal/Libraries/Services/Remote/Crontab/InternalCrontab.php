@@ -109,14 +109,14 @@ class InternalCrontab extends RemoteCommon implements InternalCrontabInterface, 
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Roster
+    // List
     //--------------------------------------------------------------------------------------------------------
     //
     // @param  void
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function roster() : Bool
+    public function list() : Bool
     {
         return Processor::exec('crontab -l');
     }
