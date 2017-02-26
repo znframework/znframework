@@ -44,6 +44,25 @@
         'show404' => '',
 
         //----------------------------------------------------------------------------------------------
+        // Invalid Request Page
+        //----------------------------------------------------------------------------------------------
+        //
+        // Eğer formlar dışında curl ile veya url üzerinden yapılan isteği engellemek için kullanılır.
+        //
+        // Control   : Bu değer true ayarlanırsa kontrol yapılır.
+        // Page      : Eğer konrolden sonra geçersiz istek tespit edilirse hangi sayfaya gideceği
+        //             belirlenebilr.
+        // AllowPages: Kontrol dışında tutulacak sayfaları belirlemek için kullanılır.
+        //
+        //----------------------------------------------------------------------------------------------
+        'invalidRequest' =>
+        [
+            'control'    => true,
+            'page'       => '',
+            'allowPages' => []
+        ],
+
+        //----------------------------------------------------------------------------------------------
         // Pattern Type
         //----------------------------------------------------------------------------------------------
         //
