@@ -111,7 +111,7 @@ define('CURRENT_CFURL', siteUrl(CURRENT_CFPATH));
 //--------------------------------------------------------------------------------------------------
 $invalidRequest = Config::get('Services', 'route')['invalidRequest'];
 
-if( $invalidRequest['control'] === true && ( ( Method::request() && ! server('referer') ) || Http::isCurl() ) )
+if( $invalidRequest['control'] === true && Http::isInvalidRequest() )
 {
     if( ! in_array(strtolower(CURRENT_CFURI), array_map('strtolower', $invalidRequest['allowPages'])) )
     {
