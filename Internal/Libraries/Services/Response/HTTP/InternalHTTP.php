@@ -50,7 +50,7 @@ class InternalHTTP extends CLController implements InternalHTTPInterface
     //--------------------------------------------------------------------------------------------------------
     public function isInvalidRequest() : Bool
     {
-        return ( Method::request() && ! server('referer') ) || $this->isCurl();
+        return ( Method::request() && ! server('referer') && $this->isCurl() === false );
     }
 
     //--------------------------------------------------------------------------------------------------------

@@ -30,13 +30,13 @@ function internalRequestURI() : String
             $requestUri = substr($requestUri, 0, -1);
     }
 
-    $requestUri = internalCleanInjection(internalRouteURI($requestUri));
-    $requestUri = internalCleanURIPrefix($requestUri, currentLang());
-
     if( defined('_CURRENT_PROJECT') )
     {
         $requestUri = internalCleanURIPrefix($requestUri, _CURRENT_PROJECT);
     }
+
+    $requestUri = internalCleanInjection(internalRouteURI($requestUri));
+    $requestUri = internalCleanURIPrefix($requestUri, currentLang());
 
     return $requestUri;
 }
