@@ -17,6 +17,7 @@
 // Functions & Constants
 //
 //--------------------------------------------------------------------------------------------------
+import(INTERNAL_CONSTANTS_DIR . 'Project.php');
 import(INTERNAL_CONSTANTS_DIR . 'SpaceChars.php');
 import(INTERNAL_CONSTANTS_DIR . 'StructurePaths.php');
 import(INTERNAL_FUNCTIONS_DIR . 'Control.php');

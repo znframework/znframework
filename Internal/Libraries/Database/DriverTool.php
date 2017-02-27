@@ -1,9 +1,9 @@
 <?php namespace ZN\Database;
 
-use DB, File, Folder;
+use File, Folder;
 use ZN\FileSystem\Exception\IOException;
 
-class DriverTool
+class DriverTool extends DriverExtends
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -26,9 +26,9 @@ class DriverTool
     //--------------------------------------------------------------------------------------------------------
     public function listDatabases()
     {
-        $result = DB::query('SHOW DATABASES')->result();
+        $result = $this->connect->query('SHOW DATABASES')->result();
 
-        if( DB::error() )
+        if( $this->connect->error() )
         {
             return [];
         }
@@ -58,9 +58,9 @@ class DriverTool
     //--------------------------------------------------------------------------------------------------------
     public function listTables()
     {
-        $result = DB::query('SHOW TABLES')->result();
+        $result = $this->connect->query('SHOW TABLES')->result();
 
-        if( DB::error() )
+        if( $this->connect->error() )
         {
             return [];
         }
@@ -96,19 +96,19 @@ class DriverTool
 
             foreach( $listTables as $table )
             {
-                $infos->$table = DB::status($table)->row();
+                $infos->$table = $this->connect->status($table)->row();
             }
         }
         elseif( is_array($table) )
         {
             foreach( $table as $tbl )
             {
-                $infos->$tbl = DB::status($tbl)->row();
+                $infos->$tbl = $this->connect->status($tbl)->row();
             }
         }
         else
         {
-            $infos = DB::status($table)->row();
+            $infos = $this->connect->status($table)->row();
         }
 
         return $infos;
@@ -126,7 +126,7 @@ class DriverTool
     //--------------------------------------------------------------------------------------------------------
     public function optimizeTables($table)
     {
-        $result = DB::query("SHOW TABLES")->result();
+        $result = $this->connect->query("SHOW TABLES")->result();
 
         if( $table === '*' )
         {
@@ -134,11 +134,11 @@ class DriverTool
             {
                 foreach( $tables as $db => $tableName )
                 {
-                    DB::query("OPTIMIZE TABLE ".$tableName);
+                    $this->connect->query("OPTIMIZE TABLE ".$tableName);
                 }
             }
 
-            if( DB::error() )
+            if( $this->connect->error() )
             {
                 return false;
             }
@@ -151,10 +151,10 @@ class DriverTool
 
             foreach( $tables as $tableName )
             {
-                DB::query("OPTIMIZE TABLE ".Properties::$prefix.$tableName);
+                $this->connect->query("OPTIMIZE TABLE ".Properties::$prefix.$tableName);
             }
 
-            if( DB::error() )
+            if( $this->connect->error() )
             {
                 return false;
             }
@@ -175,7 +175,7 @@ class DriverTool
     //--------------------------------------------------------------------------------------------------------
     public function repairTables($table)
     {
-        $result = DB::query("SHOW TABLES")->result();
+        $result = $this->connect->query("SHOW TABLES")->result();
 
         if( $table === '*' )
         {
@@ -183,11 +183,11 @@ class DriverTool
             {
                 foreach( $tables as $db => $tableName )
                 {
-                    DB::query("REPAIR TABLE ".$tableName);
+                    $this->connect->query("REPAIR TABLE ".$tableName);
                 }
             }
 
-            if( DB::error() )
+            if( $this->connect->error() )
             {
                 return false;
             }
@@ -200,10 +200,10 @@ class DriverTool
 
             foreach( $tables as $tableName )
             {
-                DB::query("REPAIR TABLE  ".Properties::$prefix.$tableName);
+                $this->connect->query("REPAIR TABLE  ".Properties::$prefix.$tableName);
             }
 
-            if( DB::error() )
+            if( $this->connect->error() )
             {
                 return false;
             }
@@ -237,7 +237,7 @@ class DriverTool
         {
             $tables = [];
 
-            $resultArray = DB::query('SHOW TABLES')->resultArray();
+            $resultArray = $this->connect->query('SHOW TABLES')->resultArray();
 
             foreach( $resultArray as $key => $val )
             {
@@ -262,9 +262,9 @@ class DriverTool
 
             $return.= 'DROP TABLE IF EXISTS '.$table.';';
 
-            $fetchRow = DB::query('SHOW CREATE TABLE '.$table)->fetchRow();
+            $fetchRow = $this->connect->query('SHOW CREATE TABLE '.$table)->fetchRow();
 
-            $fetchResult = DB::query('SELECT * FROM '.$table)->result();
+            $fetchResult = $this->connect->query('SELECT * FROM '.$table)->result();
 
             $return.= $eol.$eol.$fetchRow[1].";".$eol.$eol;
 
@@ -274,7 +274,7 @@ class DriverTool
 
                 foreach( $row as $k => $v )
                 {
-                    $v  = DB::realEscapeString($v);
+                    $v  = $this->connect->realEscapeString((string) $v);
                     $v  = preg_replace("/\n/","\\n", $v );
 
                     if ( isset($v) )

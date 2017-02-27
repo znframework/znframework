@@ -176,11 +176,11 @@ class InternalCURL extends CallController implements InternalCURLInterface
     // @param int $bitmask
     //
     //--------------------------------------------------------------------------------------------------------
-    public function pause(Int $bitmask = 0) : Int
+    public function pause($bitmask = 0) : Int
     {
         if( ! empty($this->init) )
         {
-            return curl_pause($this->init, $bitmask);
+            return curl_pause($this->init, Converter::toConstant($bitmask, 'CURLPAUSE_'));
         }
 
         return false;

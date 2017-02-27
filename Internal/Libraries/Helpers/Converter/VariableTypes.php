@@ -157,6 +157,11 @@ class VariableTypes implements VariableTypesInterface
         }
         else
         {
+            if( is_numeric($var) )
+            {
+                return (int) $var;
+            }
+
             return $var;
         }
     }

@@ -32,8 +32,9 @@
     'emptyVariable'             => '`%` variable should contain a value!',
     'charsetParameter'          => '`%` parameter should contain a valid charset!',
     'invalidInput'              => '`%` input information is invalid!',
-    'typeHint'                  => '& parameter should be %!',
+    'typeHint'                  => 'Invalid parameter error! & parameter should be %!',
     'templateWizard'            => 'Syntax error! Check the :, # and @ symbols.
                                     The use of these symbols can be forgotten.
-                                    These symbols requires / prefix in normal use.'
+                                    These symbols requires / prefix in normal use.',
+    'invalidRequest'            => 'Error: [Invalid Request!] Access via page URL is turned off.'
 ];

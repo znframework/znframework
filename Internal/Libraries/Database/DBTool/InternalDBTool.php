@@ -20,11 +20,11 @@ class InternalDBTool extends Connection implements InternalDBToolInterface
     //--------------------------------------------------------------------------------------------------------
     protected $tool;
 
-    public function __construct()
+    public function __construct($settings = [])
     {
-        parent::__construct();
+        parent::__construct($settings);
 
-        $this->tool = $this->_drvlib('Tool');
+        $this->tool = $this->_drvlib('Tool', $settings);
     }
 
     //--------------------------------------------------------------------------------------------------------

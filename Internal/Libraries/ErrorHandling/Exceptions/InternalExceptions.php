@@ -148,18 +148,23 @@ class InternalExceptions extends Exception implements InternalExceptionsInterfac
             return false;
         }
 
-        $exceptionData = array
-        (
+        $exceptionData =
+        [
             'message' => $msg,
             'file'    => $file,
             'line'    => '['.$line.']'
-        );
+        ];
 
         if( $passed = $this->_argumentPassed($msg, $file, $line, $trace) )
         {
             if( ! is_array($passed) )
             {
                 return false;
+            }
+
+            if( Config::get('ErrorHandling', 'exceptions')['invalidParameterErrorType'] === 'external' )
+            {
+                $exceptionData = $passed;
             }
         }
 
@@ -304,7 +309,7 @@ class InternalExceptions extends Exception implements InternalExceptionsInterfac
 
         if( ! empty($trace) )
         {
-            $traceInfo = $this->_traceFinder($trace, 2, 0);
+            $traceInfo = $this->_traceFinder($trace, 2, 3);
         }
         else
         {
@@ -313,7 +318,7 @@ class InternalExceptions extends Exception implements InternalExceptionsInterfac
 
         if( $type !== $data )
         {
-            $langMessage1 = '['.$this->_cleanClassName($class).'::'.$method.'] p'.$argument.':';
+            $langMessage1 = '['.$class.'::'.$method.'] p'.$argument.':';
             $langMessage2 = '[`'.$type.'`]';
 
             $exceptionData =

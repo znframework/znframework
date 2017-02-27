@@ -81,11 +81,11 @@ class InternalJQ extends CallController
         {
             return $this->combine
             (
-                $param[0] ?? 'this',
+                $params[0] ?? 'this',
                 $method,
-                $param[1] ?? [],
+                $params[1] ?? [],
                 '',
-                $param[2] ?? false
+                $params[2] ?? false
             );
         }
         elseif( in_array($lowerMethod, $this->properties) )
@@ -93,8 +93,8 @@ class InternalJQ extends CallController
             return '$'.$this->property
             (
                 $method,
-                $param[0] ?? [],
-                $param[1] ?? false
+                $params[0] ?? [],
+                $params[1] ?? false
             );
         }
         else

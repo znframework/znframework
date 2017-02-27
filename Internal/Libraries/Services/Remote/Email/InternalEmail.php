@@ -351,16 +351,12 @@ class InternalEmail extends CLController implements InternalEmailInterface
         {
             $nkey = 'smtp'.ucfirst($key);
 
-            $this->$nkey = ! isset($settings[$key])
-                           ? $val
-                           : $settings[$key];
+            $this->$nkey = $settings[$key] ?? $val;
         }
 
         foreach( $generalConfig as $key => $val )
         {
-            $this->$key = ! isset($settings[$key])
-                          ? $val
-                          : $settings[$key];
+            $this->$key = $settings[$key] ?? $val;
         }
 
         return $this;
@@ -699,10 +695,7 @@ class InternalEmail extends CLController implements InternalEmailInterface
         }
 
         $this->from = $from;
-
-        $returnPath = $returnPath !== NULL
-                    ? $returnPath
-                    : $from;
+        $returnPath = $returnPath ?? $from;
 
         $this->addHeader('From', $name.' <'.$from.'>');
         $this->addHeader('Return-Path', '<'.$returnPath.'>');
@@ -782,10 +775,7 @@ class InternalEmail extends CLController implements InternalEmailInterface
     public function attachment(String $file, String $disposition = NULL, String $newName = NULL, $mime = NULL) : InternalEmail
     {
         $mimeTypes = Config::get('MimeTypes');
-
-        $mime = ! empty($mimeTypes[$mime])
-                ? $mimeTypes[$mime]
-                : $mime;
+        $mime      = $mimeTypes[$mime] ?? $mime;
 
         if( is_array($mime) )
         {
@@ -813,13 +803,13 @@ class InternalEmail extends CLController implements InternalEmailInterface
             $fileContent =& $file;
         }
 
-        $this->attachments[] = array
-        (
+        $this->attachments[] =
+        [
             'name'          => [$file, $newName],
-            'disposition'   => empty($disposition) ? 'attachment' : $disposition,
+            'disposition'   => $disposition ?? 'attachment',
             'type'          => $mime,
             'content'       => chunk_split(base64_encode($fileContent))
-        );
+        ];
 
         return $this;
     }

@@ -1,6 +1,6 @@
 <?php namespace ZN\Requirements\Models;
 
-use CallController, DB, DBTool, DBForge, Arrays, Exception, Config;
+use CallController, DB, DBTool, DBForge, Arrays, GeneralException, Config;
 
 class GrandModel extends CallController
 {
@@ -22,6 +22,10 @@ class GrandModel extends CallController
     //--------------------------------------------------------------------------------------------------------
     protected $grandTable = '';
 
+    protected $connect;
+    protected $connectTool;
+    protected $connectForge;
+
     //--------------------------------------------------------------------------------------------------------
     // Constructor
     //--------------------------------------------------------------------------------------------------------
@@ -33,7 +37,19 @@ class GrandModel extends CallController
     {
         if( defined('static::connection') )
         {
-            Config::set('Database', 'database', static::connection);
+            $this->connect      = DB::differentConnection(static::connection);
+            $this->connectTool  = DBTool::differentConnection(static::connection);
+            $this->connectForge = DBForge::differentConnection(static::connection);
+
+            $tables = $this->connectTool->listTables();
+        }
+        else
+        {
+            $this->connect      = new DB;
+            $this->connectTool  = new DBTool;
+            $this->connectForge = new DBForge;
+
+            $tables = $this->connectTool->listTables();
         }
 
         if( defined('static::table') )
@@ -47,11 +63,16 @@ class GrandModel extends CallController
 
         $this->grandTable = strtolower($grandTable);
 
-        $tables = DBTool::listTables();
-
         if( ! in_array($this->grandTable, Arrays::map('strtolower', $tables)) )
         {
-            throw new Exception(lang('Database', 'tableNotExistsError', 'Grand: '.$grandTable));
+            try
+            {
+                throw new GeneralException(lang('Database', 'tableNotExistsError', 'Grand: '.$grandTable));
+            }
+            catch( GeneralException $e )
+            {
+                $e->continue();
+            }
         }
     }
 
@@ -64,7 +85,7 @@ class GrandModel extends CallController
     //--------------------------------------------------------------------------------------------------------
     public function insert(Array $data) : Bool
     {
-        return DB::insert($this->grandTable, $data);
+        return $this->connect->insert($this->grandTable, $data);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -76,7 +97,7 @@ class GrandModel extends CallController
     //--------------------------------------------------------------------------------------------------------
     public function insertID() : Int
     {
-        return DB::insertID();
+        return $this->connect->insertID();
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -89,7 +110,7 @@ class GrandModel extends CallController
     //--------------------------------------------------------------------------------------------------------
     public function isExists(String $column, String $value) : Bool
     {
-        return DB::isExists($this->grandTable, $column, $value);
+        return $this->connect->isExists($this->grandTable, $column, $value);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -101,7 +122,7 @@ class GrandModel extends CallController
     //--------------------------------------------------------------------------------------------------------
     public function select(...$select) : Grand
     {
-        DB::select(...$select);
+        $this->connect->select(...$select);
 
         return $this;
     }
@@ -115,7 +136,7 @@ class GrandModel extends CallController
     //--------------------------------------------------------------------------------------------------------
     public function update(Array $data, String $column, String $value) : Bool
     {
-        return DB::where($column, $value)->update($this->grandTable, $data);
+        return $this->connect->where($column, $value)->update($this->grandTable, $data);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -128,7 +149,7 @@ class GrandModel extends CallController
     //--------------------------------------------------------------------------------------------------------
     public function delete(String $column, String $value) : Bool
     {
-        return DB::where($column, $value)->delete($this->grandTable);
+        return $this->connect->where($column, $value)->delete($this->grandTable);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -140,7 +161,7 @@ class GrandModel extends CallController
     //--------------------------------------------------------------------------------------------------------
     protected function _get()
     {
-        return DB::get($this->grandTable);
+        return $this->connect->get($this->grandTable);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -201,7 +222,7 @@ class GrandModel extends CallController
     //--------------------------------------------------------------------------------------------------------
     public function increment($columns, Int $increment = 1) : Bool
     {
-        return DB::increment($this->grandTable, $columns, $increment);
+        return $this->connect->increment($this->grandTable, $columns, $increment);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -214,7 +235,7 @@ class GrandModel extends CallController
     //--------------------------------------------------------------------------------------------------------
     public function decrement($columns, Int $decrement = 1) : Bool
     {
-        return DB::decrement($this->grandTable, $columns, $decrement);
+        return $this->connect->decrement($this->grandTable, $columns, $decrement);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -226,7 +247,7 @@ class GrandModel extends CallController
     //--------------------------------------------------------------------------------------------------------
     public function status(String $type = 'row')
     {
-        return DB::status($this->grandTable)->$type();
+        return $this->connect->status($this->grandTable)->$type();
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -252,7 +273,7 @@ class GrandModel extends CallController
     //--------------------------------------------------------------------------------------------------------
     public function where($column, String $value = NULL, String $logical = NULL) : Grand
     {
-        DB::where($column, $value, $logical);
+        $this->connect->where($column, $value, $logical);
 
         return $this;
     }
@@ -268,7 +289,7 @@ class GrandModel extends CallController
     //--------------------------------------------------------------------------------------------------------
     public function having($column, String $value = NULL, String $logical = NULL) : Grand
     {
-        DB::having($column, $value, $logical);
+        $this->connect->having($column, $value, $logical);
 
         return $this;
     }
@@ -282,7 +303,7 @@ class GrandModel extends CallController
     //--------------------------------------------------------------------------------------------------------
     public function whereGroup(...$args) : Grand
     {
-        DB::whereGroup(...$args);
+        $this->connect->whereGroup(...$args);
 
         return $this;
     }
@@ -296,7 +317,7 @@ class GrandModel extends CallController
     //--------------------------------------------------------------------------------------------------------
     public function havingGroup(...$args) : Grand
     {
-        DB::havingGroup(...$args);
+        $this->connect->havingGroup(...$args);
 
         return $this;
     }
@@ -312,7 +333,7 @@ class GrandModel extends CallController
     //--------------------------------------------------------------------------------------------------------
     public function innerJoin(String $table, String $otherColumn, String $operator = '=') : Grand
     {
-        DB::innerJoin($table, $otherColumn, $operator);
+        $this->connect->innerJoin($table, $otherColumn, $operator);
 
         return $this;
     }
@@ -328,7 +349,7 @@ class GrandModel extends CallController
     //--------------------------------------------------------------------------------------------------------
     public function outerJoin(String $table, String $otherColumn, String $operator = '=') : Grand
     {
-        DB::outerJoin($table, $otherColumn, $operator);
+        $this->connect->outerJoin($table, $otherColumn, $operator);
 
         return $this;
     }
@@ -344,7 +365,7 @@ class GrandModel extends CallController
     //--------------------------------------------------------------------------------------------------------
     public function leftJoin(String $table, String $otherColumn, String $operator = '=') : Grand
     {
-        DB::leftJoin($table, $otherColumn, $operator);
+        $this->connect->leftJoin($table, $otherColumn, $operator);
 
         return $this;
     }
@@ -360,7 +381,7 @@ class GrandModel extends CallController
     //--------------------------------------------------------------------------------------------------------
     public function rightJoin(String $table, String $otherColumn, String $operator = '=') : Grand
     {
-        DB::rightJoin($table, $otherColumn, $operator);
+        $this->connect->rightJoin($table, $otherColumn, $operator);
 
         return $this;
     }
@@ -376,7 +397,7 @@ class GrandModel extends CallController
     //--------------------------------------------------------------------------------------------------------
     public function join(String $table, String $condition, String $type = NULL) : Grand
     {
-        DB::join($table, $condition, $type);
+        $this->connect->join($table, $condition, $type);
 
         return $this;
     }
@@ -390,7 +411,7 @@ class GrandModel extends CallController
     //--------------------------------------------------------------------------------------------------------
     public function duplicateCheck(...$args) : Grand
     {
-        DB::duplicateCheck(...$args);
+        $this->connect->duplicateCheck(...$args);
 
         return $this;
     }
@@ -405,7 +426,7 @@ class GrandModel extends CallController
     //--------------------------------------------------------------------------------------------------------
     public function orderBy($condition, String $type = NULL) : Grand
     {
-        DB::orderBy($condition, $type);
+        $this->connect->orderBy($condition, $type);
 
         return $this;
     }
@@ -419,7 +440,7 @@ class GrandModel extends CallController
     //--------------------------------------------------------------------------------------------------------
     public function groupBy(...$args) : Grand
     {
-        DB::groupBy(...$args);
+        $this->connect->groupBy(...$args);
 
         return $this;
     }
@@ -434,7 +455,7 @@ class GrandModel extends CallController
     //--------------------------------------------------------------------------------------------------------
     public function limit($start = 0, Int $limit = 0) : Grand
     {
-        DB::limit($start, $limit);
+        $this->connect->limit($start, $limit);
 
         return $this;
     }
@@ -463,7 +484,7 @@ class GrandModel extends CallController
     //--------------------------------------------------------------------------------------------------------
     public function create(Array $data, $extra = NULL) : Bool
     {
-        return DBForge::createTable($this->grandTable, $data, $extra);
+        return $this->connectForge->createTable($this->grandTable, $data, $extra);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -475,7 +496,7 @@ class GrandModel extends CallController
     //--------------------------------------------------------------------------------------------------------
     public function drop() : Bool
     {
-        return DBForge::dropTable($this->grandTable);
+        return $this->connectForge->dropTable($this->grandTable);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -487,7 +508,7 @@ class GrandModel extends CallController
     //--------------------------------------------------------------------------------------------------------
     public function truncate() : Bool
     {
-        return DBForge::truncate($this->grandTable);
+        return $this->connectForge->truncate($this->grandTable);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -499,7 +520,7 @@ class GrandModel extends CallController
     //--------------------------------------------------------------------------------------------------------
     public function rename(String $newName) : Bool
     {
-        return DBForge::renameTable($this->grandTable, $newName);
+        return $this->connectForge->renameTable($this->grandTable, $newName);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -511,7 +532,7 @@ class GrandModel extends CallController
     //--------------------------------------------------------------------------------------------------------
     public function addColumn(Array $column) : Bool
     {
-        return DBForge::addColumn($this->grandTable, $column);
+        return $this->connectForge->addColumn($this->grandTable, $column);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -523,7 +544,7 @@ class GrandModel extends CallController
     //--------------------------------------------------------------------------------------------------------
     public function dropColumn($column) : Bool
     {
-        return DBForge::dropColumn($this->grandTable, $column);
+        return $this->connectForge->dropColumn($this->grandTable, $column);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -535,7 +556,7 @@ class GrandModel extends CallController
     //--------------------------------------------------------------------------------------------------------
     public function modifyColumn(Array $column) : Bool
     {
-        return DBForge::modifyColumn($this->grandTable, $column);
+        return $this->connectForge->modifyColumn($this->grandTable, $column);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -547,7 +568,7 @@ class GrandModel extends CallController
     //--------------------------------------------------------------------------------------------------------
     public function renameColumn(Array $column) : Bool
     {
-        return DBForge::renameColumn($this->grandTable, $column);
+        return $this->connectForge->renameColumn($this->grandTable, $column);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -559,7 +580,7 @@ class GrandModel extends CallController
     //--------------------------------------------------------------------------------------------------------
     public function optimize() : String
     {
-        return DBTool::optimizeTables($this->grandTable);
+        return $this->connectTool->optimizeTables($this->grandTable);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -571,7 +592,7 @@ class GrandModel extends CallController
     //--------------------------------------------------------------------------------------------------------
     public function repair() : String
     {
-        return DBTool::repairTables($this->grandTable);
+        return $this->connectTool->repairTables($this->grandTable);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -584,7 +605,7 @@ class GrandModel extends CallController
     //--------------------------------------------------------------------------------------------------------
     public function backup(String $fileName = NULL, String $path = STORAGE_DIR) : String
     {
-        return DBTool::backup($this->grandTable, $fileName, $path);
+        return $this->connectTool->backup($this->grandTable, $fileName, $path);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -596,15 +617,15 @@ class GrandModel extends CallController
     //--------------------------------------------------------------------------------------------------------
     public function error()
     {
-        if( $error = DB::error() )
+        if( $error = $this->connect->error() )
         {
             return $error;
         }
-        elseif( $error = DBForge::error() )
+        elseif( $error = $this->connectForge->error() )
         {
             return $error;
         }
-        elseif( $error = DBTool::error() )
+        elseif( $error = $this->connectTool->error() )
         {
             return $error;
         }

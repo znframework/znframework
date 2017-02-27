@@ -36,11 +36,11 @@ class InternalDBForge extends Connection implements InternalDBForgeInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function __construct()
+    public function __construct($settings = [])
     {
-        parent::__construct();
+        parent::__construct($settings);
 
-        $this->forge = $this->_drvlib('Forge');
+        $this->forge = $this->_drvlib('Forge', $settings);
     }
 
     //--------------------------------------------------------------------------------------------------------
