@@ -115,7 +115,7 @@ class InternalHTTP extends CLController implements InternalHTTPInterface
     // @param numeric $code
     //
     //--------------------------------------------------------------------------------------------------------
-    public function code(Int $code = 200) : String
+    public function code($code = 200) : String
     {
         $messages = Arrays::multikey(SERVICES_HTTP_CONFIG['messages']);
 
@@ -195,7 +195,7 @@ class InternalHTTP extends CLController implements InternalHTTPInterface
     // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
-    public function select(String $name)
+    public function select(String $name = NULL)
     {
         $name  = $this->settings['name']  ?? $name;
         $input = $this->settings['input'] ?? false;
@@ -220,7 +220,7 @@ class InternalHTTP extends CLController implements InternalHTTPInterface
     // @param string $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function insert(String $name, $value) : Bool
+    public function insert(String $name = NULL, $value = NULL) : Bool
     {
         $name  = $this->settings['name']  ?? $name;
         $input = $this->settings['input'] ?? false;
@@ -245,7 +245,7 @@ class InternalHTTP extends CLController implements InternalHTTPInterface
     // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
-    public function delete(String $name) : Bool
+    public function delete(String $name = NULL) : Bool
     {
         $name  = $this->settings['name']  ?? $name;
         $input = $this->settings['input'] ?? false;
