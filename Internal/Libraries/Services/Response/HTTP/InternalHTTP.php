@@ -58,11 +58,12 @@ class InternalHTTP extends CLController implements InternalHTTPInterface
 
            if( stristr($requestKey, CURRENT_PROJECT) )
            {
-                $request = Arrays::removeFirst($request);
+                $request = [];
            }
         }
 
-        return ( ! empty($request) && ! server('referer') && $this->isCurl() === false );    }
+        return ( ! empty($request) && ! server('referer') && $this->isCurl() === false );
+    }
 
     //--------------------------------------------------------------------------------------------------------
     // Is Ajax
