@@ -214,14 +214,7 @@ class InternalHTTP extends CLController implements InternalHTTPInterface
 
         $this->settings = [];
 
-        switch( $input )
-        {
-            case 'post'    : return Method::post($name);    break;
-            case 'get'     : return Method::get($name);     break;
-            case 'env'     : return Method::env($name);     break;
-            case 'server'  : return Method::server($name);  break;
-            case 'request' : return Method::request($name); break;
-        }
+        return Method::$input($name);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -240,14 +233,7 @@ class InternalHTTP extends CLController implements InternalHTTPInterface
 
         $this->settings = [];
 
-        switch( $input )
-        {
-            case 'post'    : return Method::post($name, $value);    break;
-            case 'get'     : return Method::get($name, $value);     break;
-            case 'env'     : return Method::env($name, $value);     break;
-            case 'server'  : return Method::server($name, $value);  break;
-            case 'request' : return Method::request($name, $value); break;
-        }
+        return Method::$input($name, $value);
     }
 
     //--------------------------------------------------------------------------------------------------------
