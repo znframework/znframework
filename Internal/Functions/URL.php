@@ -67,8 +67,7 @@ function siteUrl(String $uri = '', Int $index = 0) : String
            $host.
            $newBaseDir.
            indexStatus().
-           suffix(currentLang()).
-           internalCleanInjection((CURRENT_PROJECT === DEFAULT_PROJECT ? NULL : suffix(CURRENT_PROJECT)).$uri);
+           internalCleanInjection((CURRENT_PROJECT === DEFAULT_PROJECT ? NULL : suffix(CURRENT_PROJECT)) . suffix(currentLang()) . $uri);
 }
 
 //--------------------------------------------------------------------------------------------------

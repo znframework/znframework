@@ -21,9 +21,9 @@
 //--------------------------------------------------------------------------------------------------
 function currentPath(Bool $isPath = true) : String
 {
-    $currentPagePath = str_replace("/".getLang()."/", "", server('currentPath'));
+    $currentPagePath = str_replace('/'.getLang().'/', '', server('currentPath'));
 
-    if( isset($currentPagePath[0]) && $currentPagePath[0] === "/" )
+    if( isset($currentPagePath[0]) && $currentPagePath[0] === '/' )
     {
         $currentPagePath = substr($currentPagePath, 1, strlen($currentPagePath) - 1);
     }
@@ -34,7 +34,7 @@ function currentPath(Bool $isPath = true) : String
     }
     else
     {
-        $str = explode("/", $currentPagePath);
+        $str = explode('/', $currentPagePath);
 
         if( count($str) > 1 )
         {
@@ -59,14 +59,12 @@ function basePath(String $uri = '', Int $index = 0) : String
 {
     $newBaseDir = substr(BASE_DIR, 1);
 
-    if( BASE_DIR !== "/" )
+    if( BASE_DIR !== '/' )
     {
         if( $index < 0 )
         {
-            $baseDir = substr(BASE_DIR, 1, -1);
-
-            $baseDir = explode("/", $baseDir);
-
+            $baseDir    = substr(BASE_DIR, 1, -1);
+            $baseDir    = explode('/', $baseDir);
             $newBaseDir = '';
 
             for( $i = 0; $i < count($baseDir) + $index; $i++ )
@@ -99,7 +97,7 @@ function prevPath(Bool $isPath = true) : String
 
     if( currentLang() )
     {
-        $str = explode("/",$str); return $str[1];
+        return explode('/', $str)[1];
     }
 
     if( $isPath === true )
@@ -108,8 +106,7 @@ function prevPath(Bool $isPath = true) : String
     }
     else
     {
-        $str = explode('/', $str);
-
+        $str   = explode('/', $str);
         $count = count($str);
 
         if( $count > 1 )
