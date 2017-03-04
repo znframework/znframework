@@ -108,7 +108,7 @@ function prevPath(Bool $isPath = true) : String
     }
     else
     {
-        $str = explode("/", $str);
+        $str = explode('/', $str);
 
         $count = count($str);
 
@@ -117,7 +117,7 @@ function prevPath(Bool $isPath = true) : String
             return $str[$count - 1];
         }
 
-        return $str[0];
+        return (string) $str[0];
     }
 }
 
