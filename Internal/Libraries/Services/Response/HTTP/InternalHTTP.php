@@ -50,19 +50,12 @@ class InternalHTTP extends CLController implements InternalHTTPInterface
     //--------------------------------------------------------------------------------------------------------
     public function isInvalidRequest() : Bool
     {
-        $request = Method::request();
-
-        if( count($request) === 1 )
+        if( count($request) > 1 )
         {
-            $requestKey = key($request);
+            return ( ! empty($request) && ! server('referer') && $this->isCurl() === false );
+        }   
 
-           if( stristr($requestKey, CURRENT_PROJECT) )
-           {
-                $request = [];
-           }
-        }
-
-        return ( ! empty($request) && ! server('referer') && $this->isCurl() === false );
+        return false;
     }
 
     //--------------------------------------------------------------------------------------------------------
