@@ -67,7 +67,8 @@ class InternalExceptions extends Exception implements InternalExceptionsInterfac
         $table = $this->_template($msg, $file, $line, $no, $trace);
 
         // Error Type: TypeHint -> exit
-        if( in_array($no, ['0', '2']) )
+
+        if( in_array($no, Config::get('Project', 'exitErrors')) )
         {
             exit($table);
         }
