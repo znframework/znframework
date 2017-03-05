@@ -1,7 +1,7 @@
 <?php return
 [
     //--------------------------------------------------------------------------------------------------
-    // Autoloader 
+    // Autoloader
     //--------------------------------------------------------------------------------------------------
     //
     // Author     : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
@@ -12,37 +12,37 @@
     //--------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------
-    // Autoloader Directory Scanning                                                             
+    // Autoloader Directory Scanning
     //--------------------------------------------------------------------------------------------------
     //
-    // Genel Kullanım: Çağrılan bir sınıf bulunamadığında tarama yapıp classMap yapısının      
-    // yeniden oluşturulmasını sağlamak içindir. Bu ayar true olarak kalırsa yeni             
-    // oluşturduğunuz sınıfların kullanıma hazır hale gelmesi için belirtilen dizinleri       
-    // arar kullandığınız sınıf bulunrsa classmap yeniden oluşturularak sınıfınız çalışması   
-    // sağlanır. False olarak ayarlanırsa böyle bir tarama yapmaz.                            
-    //                                                                                        
+    // Genel Kullanım: Çağrılan bir sınıf bulunamadığında tarama yapıp classMap yapısının
+    // yeniden oluşturulmasını sağlamak içindir. Bu ayar true olarak kalırsa yeni
+    // oluşturduğunuz sınıfların kullanıma hazır hale gelmesi için belirtilen dizinleri
+    // arar kullandığınız sınıf bulunrsa classmap yeniden oluşturularak sınıfınız çalışması
+    // sağlanır. False olarak ayarlanırsa böyle bir tarama yapmaz.
+    //
     //--------------------------------------------------------------------------------------------------
     'directoryScanning' => true,
 
     //--------------------------------------------------------------------------------------------------
-    // Autoloader Directory Permission                                                             
+    // Autoloader Directory Permission
     //--------------------------------------------------------------------------------------------------
     //
     // Genel Kullanım: Dosyalar otomatik yükleme ile oluşturulurken oluşturulduğu dizine ait yetki
-    // derecesi ayarlanır.                            
-    //                                                                                        
+    // derecesi ayarlanır.
+    //
     //--------------------------------------------------------------------------------------------------
     'directoryPermission' => 0755,
 
     //--------------------------------------------------------------------------------------------------
-    // Autoloader Class Map                                                                   
+    // Autoloader Class Map
     //--------------------------------------------------------------------------------------------------
     //
-    // Genel Kullanım: Sınıf yolları oluşturulacak dizinler belirtiliyor.                     
-    // Dizi içerisinde dizin bilgileri yer alır.                                              
+    // Genel Kullanım: Sınıf yolları oluşturulacak dizinler belirtiliyor.
+    // Dizi içerisinde dizin bilgileri yer alır.
     //
     //--------------------------------------------------------------------------------------------------
-    'classMap' => 
+    'classMap' =>
     [
         INTERNAL_LIBRARIES_DIR,
         LIBRARIES_DIR,
@@ -52,24 +52,24 @@
     ],
 
     //--------------------------------------------------------------------------------------------------
-    // Autoloader Aliases                                                               
+    // Autoloader Aliases
     //--------------------------------------------------------------------------------------------------
     //
     // Genel Kullanım: Sınıflara takma isimler vermek için kullanılır.
     //
-    // Example: ['aliasName' => 'originName', ...]                                            
+    // Example: ['aliasName' => 'originName', ...]
     //
     //--------------------------------------------------------------------------------------------------
     'aliases' => [],
 
     //--------------------------------------------------------------------------------------------------
-    // Composer                                                                       
+    // Composer
     //--------------------------------------------------------------------------------------------------
     //
-    // Genel Kullanım: Composer autoload dosyasının dahil edilip edilmeyeceğine karar verir.   
-    // Parametre: True, false veya yol değeri alır. True, vendor/autoload.php dosyasının       
-    // dahil edilmesi anlamına gelir. Parametre olarak yol değeri belirtilebilir.             
-    // Example: 'example/vendor/autoload.php' / true / false                                                                  
+    // Genel Kullanım: Composer autoload dosyasının dahil edilip edilmeyeceğine karar verir.
+    // Parametre: True, false veya yol değeri alır. True, vendor/autoload.php dosyasının
+    // dahil edilmesi anlamına gelir. Parametre olarak yol değeri belirtilebilir.
+    // Example: 'example/vendor/autoload.php' / true / false
     //
     //--------------------------------------------------------------------------------------------------
     'composer' => false

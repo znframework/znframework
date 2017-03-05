@@ -53,9 +53,7 @@ if( PROJECT_MODE !== 'publication' )
 //--------------------------------------------------------------------------------------------------
 // INI Ayarlarını Yapılandırma İşlemi
 //--------------------------------------------------------------------------------------------------
-$iniSet = Config::get('Htaccess', 'ini')['settings'];
-
-if( ! empty($iniSet) )
+if( $iniSet = Config::get('Htaccess', 'ini')['settings'] )
 {
     Config::iniSet($iniSet);
 }
@@ -101,32 +99,35 @@ if( $invalidRequest['control'] === true && Http::isInvalidRequest() )
 //--------------------------------------------------------------------------------------------------
 // Composer Autoloader
 //--------------------------------------------------------------------------------------------------
-$composer = Config::get('Autoloader', 'composer');
-
-if( $composer === true )
+if( $composer = Config::get('Autoloader', 'composer') )
 {
     $path = 'vendor/autoload.php';
 
-    if( file_exists($path) )
+    if( $composer === true )
     {
-        import($path);
+        if( file_exists($path) )
+        {
+            import($path);
+        }
+        else
+        {
+            report('Error', lang('Error', 'fileNotFound', $path) ,'AutoloadComposer');
+
+            die(Errors::message('Error', 'fileNotFound', $path));
+        }
+    }
+    elseif( is_file($composer) )
+    {
+        require_once($composer);
     }
     else
     {
+        $path = suffix($composer) . $path;
+
         report('Error', lang('Error', 'fileNotFound', $path) ,'AutoloadComposer');
 
         die(Errors::message('Error', 'fileNotFound', $path));
     }
-}
-elseif( is_file($composer) )
-{
-    require_once($composer);
-}
-elseif( ! empty($composer) )
-{
-    report('Error', lang('Error', 'fileNotFound', $composer) ,'AutoloadComposer');
-
-    die(Errors::message('Error', 'fileNotFound', $composer));
 }
 //--------------------------------------------------------------------------------------------------------
 
@@ -172,33 +173,5 @@ if( $starting['autoload']['status'] === true )
 if( ! empty($starting['handload']) )
 {
     Import::handload(...$starting['handload']);
-}
-//--------------------------------------------------------------------------------------------------------
-
-//--------------------------------------------------------------------------------------------------------
-// Starting Controllers
-//--------------------------------------------------------------------------------------------------------
-$startController = $starting['controller'];
-
-if( ! empty($startController) )
-{
-    if( is_string($startController) )
-    {
-        internalStartingContoller($startController);
-    }
-    elseif( is_array($startController) )
-    {
-        foreach( $startController as $key => $val )
-        {
-            if( is_numeric($key) )
-            {
-                internalStartingContoller($val);
-            }
-            else
-            {
-                internalStartingContoller($key, $val);
-            }
-        }
-    }
 }
 //--------------------------------------------------------------------------------------------------------
