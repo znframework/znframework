@@ -212,11 +212,10 @@ class ODBCDriver extends DriverConnectionMappingAbstract
             return false;
         }
 
-        $columns = [];
+        $columns   = [];
+        $numFields = $this->numFields();
 
-        $count = $this->numFields();
-
-        for ($i = 0, $index = 1; $i < $count; $i++, $index++)
+        for( $index = 1; $index <= $numFields; $index++ )
         {
             $fieldName = odbc_field_name($this->query, $index);
 
@@ -269,12 +268,12 @@ class ODBCDriver extends DriverConnectionMappingAbstract
             return false;
         }
 
-        $columns = [];
-        $num_fields = $this->numFields();
+        $columns   = [];
+        $numFields = $this->numFields();
 
-        for($i=0; $i < $num_fields; $i++)
+        for( $index = 1;  $index <= $numFields; $index++ )
         {
-            $columns[] = odbc_field_name($this->query, $i);
+            $columns[] = odbc_field_name($this->query, $index);
         }
 
         return $columns;
