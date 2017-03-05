@@ -133,6 +133,8 @@ elseif( ! empty($composer) )
 //--------------------------------------------------------------------------------------------------------
 // Autoload Files
 //--------------------------------------------------------------------------------------------------------
+$starting = Config::get('Starting');
+
 if( $starting['autoload']['status'] === true )
 {
     $startingAutoload       = Folder::allFiles(AUTOLOAD_DIR, $starting['autoload']['recursive']);
@@ -176,7 +178,6 @@ if( ! empty($starting['handload']) )
 //--------------------------------------------------------------------------------------------------------
 // Starting Controllers
 //--------------------------------------------------------------------------------------------------------
-$starting        = Config::get('Starting');
 $startController = $starting['controller'];
 
 if( ! empty($startController) )
