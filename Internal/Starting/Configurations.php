@@ -79,6 +79,25 @@ if( Config::get('Robots','createFile') === true )
 }
 //--------------------------------------------------------------------------------------------------
 
+//--------------------------------------------------------------------------------------------------------
+// Invalid Request Page
+//--------------------------------------------------------------------------------------------------------
+$invalidRequest = Config::get('Services', 'route')['invalidRequest'];
+
+if( $invalidRequest['control'] === true && Http::isInvalidRequest() )
+{
+    if( ! in_array(strtolower(CURRENT_CFURI), array_map('strtolower', $invalidRequest['allowPages'])) )
+    {
+        if( empty($invalidRequest['page']) )
+        {
+            trace(lang('Error', 'invalidRequest'));
+        }
+
+        redirect($invalidRequest['page']);
+    }
+}
+//--------------------------------------------------------------------------------------------------------
+
 //--------------------------------------------------------------------------------------------------
 // Composer Autoloader
 //--------------------------------------------------------------------------------------------------
@@ -108,5 +127,77 @@ elseif( ! empty($composer) )
     report('Error', lang('Error', 'fileNotFound', $composer) ,'AutoloadComposer');
 
     die(Errors::message('Error', 'fileNotFound', $composer));
+}
+//--------------------------------------------------------------------------------------------------------
+
+//--------------------------------------------------------------------------------------------------------
+// Autoload Files
+//--------------------------------------------------------------------------------------------------------
+if( $starting['autoload']['status'] === true )
+{
+    $startingAutoload       = Folder::allFiles(AUTOLOAD_DIR, $starting['autoload']['recursive']);
+    $commonStartingAutoload = Folder::allFiles(EXTERNAL_AUTOLOAD_DIR, $starting['autoload']['recursive']);
+
+    if( ! empty($startingAutoload) ) foreach( $startingAutoload as $file )
+    {
+        if( extension($file) === 'php' )
+        {
+            if( is_file($file) )
+            {
+                import($file);
+            }
+        }
+    }
+
+    if( ! empty($commonStartingAutoload) ) foreach( $commonStartingAutoload as $file )
+    {
+        if( extension($file) === 'php' )
+        {
+            $commonIsSameExistsFile = str_ireplace(EXTERNAL_AUTOLOAD_DIR, AUTOLOAD_DIR, $file);
+
+            if( ! is_file($commonIsSameExistsFile) && is_file($file) )
+            {
+                import($file);
+            }
+        }
+    }
+}
+//--------------------------------------------------------------------------------------------------------
+
+//--------------------------------------------------------------------------------------------------------
+// Handload Files
+//--------------------------------------------------------------------------------------------------------
+if( ! empty($starting['handload']) )
+{
+    Import::handload(...$starting['handload']);
+}
+//--------------------------------------------------------------------------------------------------------
+
+//--------------------------------------------------------------------------------------------------------
+// Starting Controllers
+//--------------------------------------------------------------------------------------------------------
+$starting        = Config::get('Starting');
+$startController = $starting['controller'];
+
+if( ! empty($startController) )
+{
+    if( is_string($startController) )
+    {
+        internalStartingContoller($startController);
+    }
+    elseif( is_array($startController) )
+    {
+        foreach( $startController as $key => $val )
+        {
+            if( is_numeric($key) )
+            {
+                internalStartingContoller($val);
+            }
+            else
+            {
+                internalStartingContoller($key, $val);
+            }
+        }
+    }
 }
 //--------------------------------------------------------------------------------------------------------

@@ -77,7 +77,7 @@ define('CURRENT_CNAMESPACE', $namespace);
 // @return Aktif çalıştırılan sayfaya ait namespace bilgisi.
 //
 //--------------------------------------------------------------------------------------------------
-define('CURRENT_CCLASS', $namespace.CURRENT_CONTROLLER);
+define('CURRENT_CCLASS', $namespace . CURRENT_CONTROLLER);
 
 //--------------------------------------------------------------------------------------------------
 // CURRENT_CPATH
@@ -105,101 +105,6 @@ define('CURRENT_CFURI', CURRENT_CFPATH);
 //
 //--------------------------------------------------------------------------------------------------
 define('CURRENT_CFURL', siteUrl(CURRENT_CFPATH));
-
-//--------------------------------------------------------------------------------------------------
-// Invalid Request Page
-//--------------------------------------------------------------------------------------------------
-$invalidRequest = Config::get('Services', 'route')['invalidRequest'];
-
-if( $invalidRequest['control'] === true && Http::isInvalidRequest() )
-{
-    if( ! in_array(strtolower(CURRENT_CFURI), array_map('strtolower', $invalidRequest['allowPages'])) )
-    {
-        if( empty($invalidRequest['page']) )
-        {
-            trace(lang('Error', 'invalidRequest'));
-        }
-
-        redirect($invalidRequest['page']);
-    }
-}
-//--------------------------------------------------------------------------------------------------
-
-//--------------------------------------------------------------------------------------------------
-// Fonksiyon Yükleme İşlemleri
-//--------------------------------------------------------------------------------------------------
-$starting = Config::get('Starting');
-
-//--------------------------------------------------------------------------------------------------
-// Starting Controllers
-//--------------------------------------------------------------------------------------------------
-$startController = $starting['controller'];
-
-if( ! empty($startController) )
-{
-    if( is_string($startController) )
-    {
-        internalStartingContoller($startController);
-    }
-    elseif( is_array($startController) )
-    {
-        foreach( $startController as $key => $val )
-        {
-            if( is_numeric($key) )
-            {
-                internalStartingContoller($val);
-            }
-            else
-            {
-                internalStartingContoller($key, $val);
-            }
-        }
-    }
-}
-
-if( $starting['autoload']['status'] === true )
-{
-    $startingAutoload       = Folder::allFiles(AUTOLOAD_DIR, $starting['autoload']['recursive']);
-    $commonStartingAutoload = Folder::allFiles(EXTERNAL_AUTOLOAD_DIR, $starting['autoload']['recursive']);
-
-    //----------------------------------------------------------------------------------------------
-    // Yerel Otomatik Olarak Yüklenen Fonksiyonlar
-    //----------------------------------------------------------------------------------------------
-    if( ! empty($startingAutoload) ) foreach( $startingAutoload as $file )
-    {
-        if( extension($file) === 'php' )
-        {
-            if( is_file($file) )
-            {
-                import($file);
-            }
-        }
-    }
-
-    //------------------------------------------------------------------------------------------------
-    // Ortak Otomatik Olarak Yüklenen Fonksiyonlar
-    //------------------------------------------------------------------------------------------------
-    if( ! empty($commonStartingAutoload) ) foreach( $commonStartingAutoload as $file )
-    {
-        if( extension($file) === 'php' )
-        {
-            $commonIsSameExistsFile = str_ireplace(EXTERNAL_AUTOLOAD_DIR, AUTOLOAD_DIR, $file);
-
-            if( ! is_file($commonIsSameExistsFile) && is_file($file) )
-            {
-                import($file);
-            }
-        }
-    }
-}
-
-//--------------------------------------------------------------------------------------------------
-// El ile Yüklenen Fonksiyonlar
-//--------------------------------------------------------------------------------------------------
-if( ! empty($starting['handload']) )
-{
-    Import::handload(...$starting['handload']);
-}
 
 //--------------------------------------------------------------------------------------------------
 // SAYFA KONTROLÜ YAPILIYOR...

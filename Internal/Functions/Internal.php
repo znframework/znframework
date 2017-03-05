@@ -500,6 +500,11 @@ function internalStartingContoller(String $startController = '', Array $param = 
     $controllerFile  = CONTROLLERS_DIR.suffix($controllerPath, '.php');
     $controllerClass = divide($controllerPath, '/', -1);
 
+    if( ! class_exists($controllerClass, false) )
+    {
+        $controllerClass = PROJECT_CONTROLLER_NAMESPACE . $controllerClass;
+    }
+
     if( is_file($controllerFile) )
     {
         import($controllerFile);
