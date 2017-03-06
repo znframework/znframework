@@ -21,11 +21,11 @@
 //--------------------------------------------------------------------------------------------------
 function currentUrl(String $fix = '') : String
 {
-    $currentUrl = sslStatus().host().internalCleanInjection(server('requestUri'));
+    $currentUrl = hostUrl(server('requestUri'));
 
     if( ! empty($fix) )
     {
-        return rtrim(suffix($currentUrl), $fix).$fix;
+        return rtrim(suffix($currentUrl), $fix) . $fix;
     }
 
     return $currentUrl;
@@ -43,31 +43,29 @@ function currentUrl(String $fix = '') : String
 //--------------------------------------------------------------------------------------------------
 function siteUrl(String $uri = '', Int $index = 0) : String
 {
-    $newBaseDir = BASE_DIR;
-
-    if( BASE_DIR !== "/" )
-    {
-        $baseDir = substr(BASE_DIR, 1, -1);
-
-        if( $index < 0 )
-        {
-            $baseDir    = explode("/", $baseDir);
-            $newBaseDir = "/";
-
-            for( $i = 0; $i < count($baseDir) + $index; $i++ )
-            {
-                $newBaseDir .= suffix($baseDir[$i]);
-            }
-        }
-    }
-
-    $host = host();
-
-    return sslStatus().
-           $host.
-           $newBaseDir.
+    return hostUrl
+    (
+           internalBaseDir($index).
            indexStatus().
-           internalCleanInjection((CURRENT_PROJECT === DEFAULT_PROJECT ? NULL : suffix(CURRENT_PROJECT)) . suffix(currentLang()) . $uri);
+           internalGetCurrentProject().
+           suffix(currentLang()).
+           $uri
+     );
+}
+
+//--------------------------------------------------------------------------------------------------
+// siteUrls() - v.4.2.6
+//--------------------------------------------------------------------------------------------------
+//
+// @param string $uri
+// @param int    $index
+//
+// @return string
+//
+//--------------------------------------------------------------------------------------------------
+function siteUrls(String $uri = '', Int $index = 0) : String
+{
+    return str_replace(sslStatus(), httpFix(true), siteUrl($uri, $index));
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -82,27 +80,7 @@ function siteUrl(String $uri = '', Int $index = 0) : String
 //--------------------------------------------------------------------------------------------------
 function baseUrl(String $uri = '', Int $index = 0) : String
 {
-    $newBaseDir = BASE_DIR;
-
-    if( BASE_DIR !== "/" )
-    {
-        $baseDir = substr(BASE_DIR, 1, -1);
-
-        if( $index < 0 )
-        {
-            $baseDir    = explode("/", $baseDir);
-            $newBaseDir = "/";
-
-            for($i = 0; $i < count($baseDir) + $index; $i++)
-            {
-                $newBaseDir .= suffix($baseDir[$i]);
-            }
-        }
-    }
-
-    $host = host();
-
-    return sslStatus().$host.$newBaseDir.internalCleanInjection(absoluteRelativePath($uri));
+    return hostUrl(internalBaseDir($index) . absoluteRelativePath($uri));
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -116,20 +94,7 @@ function baseUrl(String $uri = '', Int $index = 0) : String
 //--------------------------------------------------------------------------------------------------
 function prevUrl() : String
 {
-    if( ! isset($_SERVER['HTTP_REFERER']) )
-    {
-        return false;
-    }
-
-    $str = str_replace(sslStatus().host().BASE_DIR.indexStatus(), "", $_SERVER['HTTP_REFERER']);
-
-    if( currentLang() )
-    {
-        $strEx = explode("/", $str);
-        $str   = str_replace($strEx[0]."/", "", $str);
-    }
-
-    return siteUrl(internalCleanInjection($str));
+    return  $_SERVER['HTTP_REFERER'] ?? '';
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -143,5 +108,5 @@ function prevUrl() : String
 //--------------------------------------------------------------------------------------------------
 function hostUrl(String $uri = '') : String
 {
-    return sslStatus().suffix(host()).internalCleanInjection($uri);
+    return sslStatus() . host() . ($uri === '' ? '/' : prefix(internalCleanInjection($uri)));
 }

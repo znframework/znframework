@@ -74,7 +74,7 @@ function basePath(String $uri = '', Int $index = 0) : String
         }
     }
 
-    return internalCleanInjection($newBaseDir.$uri);
+    return internalCleanInjection($newBaseDir . $uri);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -93,7 +93,7 @@ function prevPath(Bool $isPath = true) : String
         return false;
     }
 
-    $str = str_replace(sslStatus().host().BASE_DIR.indexStatus().suffix(currentLang()), '', $_SERVER['HTTP_REFERER']);
+    $str = str_replace(siteUrl(), '', $_SERVER['HTTP_REFERER']);
 
     if( $isPath === true )
     {
