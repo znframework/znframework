@@ -1979,7 +1979,14 @@ class InternalDB extends Connection implements InternalDBInterface
             $value = presuffix($this->db->realEscapeString($value), "'");
         }
 
-        if( preg_match('/^\w+$/', trim($column)) )
+        $control = $column;
+
+        if( strstr($column, '.') )
+        {
+            $control = str_replace('.', '', $control);
+        }
+
+        if( preg_match('/^\w+$/', trim($control)) )
         {
             $column .= ' = ';
         }
