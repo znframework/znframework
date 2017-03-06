@@ -33,6 +33,18 @@ class InternalPagination extends CLController implements InternalPaginationInter
     //--------------------------------------------------------------------------------------------------------
     protected $settings = [];
 
+    protected function _uriGetCotrol($page)
+    {
+        if( strstr($this->url, '?') )
+        {
+            $urlEx = explode('?', $this->url);
+
+            return suffix($urlEx[0]) . $page . '?' . rtrim($urlEx[1], '/');
+        }
+
+        return suffix($this->url) . $page;
+    }
+
     //--------------------------------------------------------------------------------------------------------
     // Settings
     //--------------------------------------------------------------------------------------------------------
@@ -70,7 +82,7 @@ class InternalPagination extends CLController implements InternalPaginationInter
         }
         else
         {
-            $this->url = suffix(CURRENT_CFURL);
+            $this->url = CURRENT_CFURL;
         }
         // ---------------------------------------------------------------------------------------
 
@@ -173,7 +185,7 @@ class InternalPagination extends CLController implements InternalPaginationInter
                     $currentLink = $linksStyleClass;
                 }
 
-                $links .= '<a href="'.$this->url.$page.'"'.$this->_ajax($page).$currentLink.'>'.$i.'</a>';
+                $links .= '<a href="'.$this->_uriGetCotrol($page).'"'.$this->_ajax($page).$currentLink.'>'.$i.'</a>';
             }
             // LINKS -------------------------------------------------------------------
 
@@ -186,7 +198,7 @@ class InternalPagination extends CLController implements InternalPaginationInter
                 $firstStcl  = $classPrev.$stylePrev;
 
                 $pageRowNumber = $startPage - $this->limit;
-                $first = '<a href="'.$this->url.$pageRowNumber.'"'.$this->_ajax($pageRowNumber).$firstStcl.'>'.$this->prevTag.'</a>';
+                $first = '<a href="'.$this->_uriGetCotrol($pageRowNumber).'"'.$this->_ajax($pageRowNumber).$firstStcl.'>'.$this->prevTag.'</a>';
             }
             else
             {
@@ -203,7 +215,7 @@ class InternalPagination extends CLController implements InternalPaginationInter
 
                 $pageRowNumber = $startPage + $this->limit;
 
-                $lastUrl   = $this->url.($pageRowNumber);
+                $lastUrl   = $this->_uriGetCotrol($pageRowNumber);
                 $lastStcl  = $classNext.$styleNext;
 
                 $last = '<a href="'.$lastUrl.'"'.$this->_ajax($pageRowNumber).$lastStcl.'>'.$this->nextTag.'</a>';
@@ -269,7 +281,7 @@ class InternalPagination extends CLController implements InternalPaginationInter
             $outNumber = ( $mod == 0 ? $this->limit : 0 );
 
             $pageRowNumber     = ($this->totalRows - ($this->totalRows % $this->limit) ) - $outNumber;
-            $lastTagNum        = $this->url.$pageRowNumber;
+            $lastTagNum        = $this->_uriGetCotrol($pageRowNumber);
             $lastTagStyleClass = $lastTagClass.$lastTagStyle;
 
 
@@ -282,7 +294,7 @@ class InternalPagination extends CLController implements InternalPaginationInter
             // -------------------------------------------------------------------------
             $firstTagStyleClass = $firstTagClass.$firstTagStyle;
 
-            $firstTag = '<a href="'.$this->url.'0"'.$this->_ajax(0).$firstTagStyleClass.'>'.$this->firstTag.'</a>';
+            $firstTag = '<a href="'.$this->_uriGetCotrol('0').'"'.$this->_ajax(0).$firstTagStyleClass.'>'.$this->firstTag.'</a>';
             // -------------------------------------------------------------------------
 
             if( $startPage > 0 )
@@ -291,7 +303,7 @@ class InternalPagination extends CLController implements InternalPaginationInter
                 // PREV TAG
                 // -------------------------------------------------------------------------
                 $pageRowNumber = $startPage - $this->limit;
-                $firstNum = $this->url.$pageRowNumber;
+                $firstNum = $this->_uriGetCotrol($pageRowNumber);
                 $prevTagStyleClass = $prevTagClass.$prevTagStyle;
 
                 $first = '<a href="'.$firstNum.'"'.$this->_ajax($pageRowNumber).$prevTagStyleClass.'>'.$this->prevTag.'</a>';
@@ -317,7 +329,7 @@ class InternalPagination extends CLController implements InternalPaginationInter
                 // NEXT TAG
                 // -------------------------------------------------------------------------
                 $pageRowNumber = $startPage + $this->limit;
-                $lastNum = $this->url.($pageRowNumber);
+                $lastNum = $this->_uriGetCotrol($pageRowNumber);
                 $nextTagStyleClass = $nextTagClass.$nextTagStyle;
 
                 $last = '<a href="'.$lastNum.'"'.$this->_ajax($pageRowNumber).$nextTagStyleClass.'>'.$this->nextTag.'</a>';
@@ -360,7 +372,7 @@ class InternalPagination extends CLController implements InternalPaginationInter
                     $currentLink = $linksStyleClass;
                 }
 
-                $links .= '<a href="'.$this->url.$page.'"'.$this->_ajax($page).$currentLink.'>'.$i.'</a>';
+                $links .= '<a href="'.$this->_uriGetCotrol($page).'"'.$this->_ajax($page).$currentLink.'>'.$i.'</a>';
                 // -------------------------------------------------------------------------
             }
 

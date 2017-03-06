@@ -93,25 +93,6 @@ if( currentLang() )
 //--------------------------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------------------------
-// Invalid Request Page
-//--------------------------------------------------------------------------------------------------------
-$invalidRequest = Config::get('Services', 'route')['invalidRequest'];
-
-if( $invalidRequest['control'] === true && Http::isInvalidRequest() )
-{
-    if( ! in_array(strtolower(CURRENT_CFURI), array_map('strtolower', $invalidRequest['allowPages'])) )
-    {
-        if( empty($invalidRequest['page']) )
-        {
-            trace(lang('Error', 'invalidRequest'));
-        }
-
-        redirect($invalidRequest['page']);
-    }
-}
-//--------------------------------------------------------------------------------------------------------
-
-//--------------------------------------------------------------------------------------------------------
 // Composer Autoloader
 //--------------------------------------------------------------------------------------------------------
 if( $composer = Config::get('Autoloader', 'composer') )

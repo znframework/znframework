@@ -107,6 +107,25 @@ define('CURRENT_CFURI', CURRENT_CFPATH);
 define('CURRENT_CFURL', siteUrl(CURRENT_CFPATH));
 
 //--------------------------------------------------------------------------------------------------------
+// Invalid Request Page
+//--------------------------------------------------------------------------------------------------------
+$invalidRequest = Config::get('Services', 'route')['invalidRequest'];
+
+if( $invalidRequest['control'] === true && Http::isInvalidRequest() )
+{
+    if( ! in_array(strtolower(CURRENT_CFURI), array_map('strtolower', $invalidRequest['allowPages'])) )
+    {
+        if( empty($invalidRequest['page']) )
+        {
+            trace(lang('Error', 'invalidRequest'));
+        }
+
+        redirect($invalidRequest['page']);
+    }
+}
+//--------------------------------------------------------------------------------------------------------
+
+//--------------------------------------------------------------------------------------------------------
 // Starting Controllers
 //--------------------------------------------------------------------------------------------------------
 if( $startController = Config::get('Starting', 'controller') )
