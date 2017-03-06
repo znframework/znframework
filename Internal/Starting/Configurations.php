@@ -82,7 +82,7 @@ if( Config::get('Robots','createFile') === true )
 //--------------------------------------------------------------------------------------------------------
 if( currentLang() )
 {
-    $langFix = str_ireplace([suffix(illustrate('_CURRENT_PROJECT'))], '', server('currentPath'));
+    $langFix = str_ireplace([suffix((string) illustrate('_CURRENT_PROJECT'))], '', server('currentPath'));
     $langFix = explode('/', $langFix)[1] ?? NULL;
 
     if( strlen($langFix) === 2 )

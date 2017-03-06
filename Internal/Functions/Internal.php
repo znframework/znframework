@@ -51,7 +51,7 @@ function internalRequestURI() : String
 //--------------------------------------------------------------------------------------------------
 function internalCleanURIPrefix(String $uri = '', String $cleanData = NULL) : String
 {
-    $suffixData = suffix($cleanData);
+    $suffixData = suffix((string) $cleanData);
 
     if( ! empty($cleanData) && stripos($uri, $suffixData) === 0 )
     {
