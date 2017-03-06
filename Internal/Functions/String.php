@@ -35,7 +35,7 @@ function length($data) : Int
 // @return mixed
 //
 //--------------------------------------------------------------------------------------------------
-function illustrate(String $const, $value = NULL)
+function illustrate(String $const, $value = '')
 {
     if( ! defined($const) )
     {
@@ -43,7 +43,10 @@ function illustrate(String $const, $value = NULL)
     }
     else
     {
-        return $value;
+        if( $value !== '' )
+        {
+            return $value;
+        }
     }
 
     return constant($const);

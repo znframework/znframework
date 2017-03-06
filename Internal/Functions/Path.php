@@ -21,7 +21,7 @@
 //--------------------------------------------------------------------------------------------------
 function currentPath(Bool $isPath = true) : String
 {
-    $currentPagePath = str_replace('/'.getLang().'/', '', server('currentPath'));
+    $currentPagePath = str_replace(getLang().'/', '', server('currentPath'));
 
     if( isset($currentPagePath[0]) && $currentPagePath[0] === '/' )
     {
@@ -93,12 +93,7 @@ function prevPath(Bool $isPath = true) : String
         return false;
     }
 
-    $str = str_replace(sslStatus().host().BASE_DIR.indexStatus(), '', $_SERVER['HTTP_REFERER']);
-
-    if( currentLang() )
-    {
-        return explode('/', $str)[1];
-    }
+    $str = str_replace(sslStatus().host().BASE_DIR.indexStatus().suffix(currentLang()), '', $_SERVER['HTTP_REFERER']);
 
     if( $isPath === true )
     {
@@ -106,15 +101,7 @@ function prevPath(Bool $isPath = true) : String
     }
     else
     {
-        $str   = explode('/', $str);
-        $count = count($str);
-
-        if( $count > 1 )
-        {
-            return $str[$count - 1];
-        }
-
-        return (string) $str[0];
+        return divide($str, '/', -1);
     }
 }
 
