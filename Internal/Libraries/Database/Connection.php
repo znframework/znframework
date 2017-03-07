@@ -182,7 +182,7 @@ class Connection implements ConnectionInterface
         }
 
         $getCalledClass = get_called_class();
-    
+
         return new $getCalledClass($connection);
     }
 
@@ -335,6 +335,21 @@ class Connection implements ConnectionInterface
         return $this->db->version();
     }
 
+    protected function _convertInt($column = '', $value = '')
+    {
+        if( stristr($column, 'int:') )
+        {
+            $value  = (int) $value;
+            $column = str_ireplace('int:', '', $column);
+        }
+
+        return (object)
+        [
+            'value'  => $value,
+            'column' => $column
+        ];
+    }
+
     //--------------------------------------------------------------------------------------------------------
     // Protected Query Security
     //--------------------------------------------------------------------------------------------------------
@@ -370,7 +385,9 @@ class Connection implements ConnectionInterface
             {
                 foreach( $this->secure as $k => $v )
                 {
-                    $secureParams[$k] = $this->db->realEscapeString($v);
+                    $convertInt = $this->_convertInt($k, $v);
+
+                    $secureParams[$convertInt->column] = $this->db->realEscapeString($convertInt->value);
                 }
             }
 
