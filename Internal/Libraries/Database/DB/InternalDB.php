@@ -1970,13 +1970,34 @@ class InternalDB extends Connection implements InternalDBInterface
     }
 
     //--------------------------------------------------------------------------------------------------------
+    // Protected Where Key Control
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $column
+    // @param string $value
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _whereKeyControl($column, $value)
+    {
+        $keys   = ['between', 'in'];
+        $column = trim($column);
+
+        if( in_array(strtolower(divide($column, ' ', -1)), $keys) )
+        {
+            return $value;
+        }
+
+        return $this->_excapeStringAddNail($value);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
     // Protected Where Having
     //--------------------------------------------------------------------------------------------------------
     protected function _whereHaving($column, $value, $logical)
     {
         if( $value !== '' )
         {
-            $value = presuffix($this->db->realEscapeString($value), "'");
+            $value = $this->_whereKeyControl($column, $value);
         }
 
         $convertInt = $this->_convertInt($column, $value);

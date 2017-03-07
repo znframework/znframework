@@ -335,6 +335,32 @@ class Connection implements ConnectionInterface
         return $this->db->version();
     }
 
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Escape String Add Nail
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $column
+    // @param string $value
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _excapeStringAddNail($value, $numeric = false)
+    {
+        if( $numeric === true && is_numeric($value) )
+        {
+            return $value;
+        }
+
+        return presuffix($this->db->realEscapeString($value), "'");
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Convert Int
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $column
+    // @param string $value
+    //
+    //--------------------------------------------------------------------------------------------------------
     protected function _convertInt($column = '', $value = '')
     {
         if( stristr($column, 'int:') )
