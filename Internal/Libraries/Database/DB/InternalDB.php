@@ -1990,6 +1990,23 @@ class InternalDB extends Connection implements InternalDBInterface
         return $this->_excapeStringAddNail($value);
     }
 
+    protected function _equalControl($column)
+    {
+        $control = trim($column);
+
+        if( strstr($column, '.') )
+        {
+            $control = str_replace('.', '', $control);
+        }
+
+        if( preg_match('/^\w+$/', $control) )
+        {
+            $column .= ' = ';
+        }
+
+        return $column;
+    }
+
     //--------------------------------------------------------------------------------------------------------
     // Protected Where Having
     //--------------------------------------------------------------------------------------------------------
@@ -2003,17 +2020,7 @@ class InternalDB extends Connection implements InternalDBInterface
         $convertInt = $this->_convertInt($column, $value);
         $value      = $convertInt->value;
         $column     = $convertInt->column;
-        $control    = trim($column);
-
-        if( strstr($column, '.') )
-        {
-            $control = str_replace('.', '', $control);
-        }
-
-        if( preg_match('/^\w+$/', $control, $result) )
-        {
-            $column .= ' = ';
-        }
+        $column     = $this->_equalControl($column);
 
         return ' '.$column.' '.$value.' '.$logical.' ';
     }
