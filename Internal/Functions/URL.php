@@ -25,7 +25,7 @@ function currentUrl(String $fix = '') : String
 
     if( ! empty($fix) )
     {
-        return rtrim(suffix($currentUrl), $fix) . $fix;
+        return suffix(rtrim($currentUrl, $fix)) . $fix;
     }
 
     return $currentUrl;

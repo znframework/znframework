@@ -110,25 +110,25 @@ interface InternalURLInterface
     // Build Query
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param  string $data         : empty
+    // @param  mixed  $data         : empty
     // @param  string $numericPrefix: NULL
     // @param  string $separator    : NULL
     // @param  string $enctype      : RFC1738
     // @return mixed
     //
     //--------------------------------------------------------------------------------------------------------
-    public function buildQuery(String $data, String $numericPrefix = NULL, String $separator = NULL, String $enctype = 'RFC1738') : String;
+    public function buildQuery($data, String $numericPrefix = NULL, String $separator = NULL, String $enctype = 'RFC1738') : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Parse
     //--------------------------------------------------------------------------------------------------------
     //
     // @param  string  $url      : empty
-    // @param  numeric $component: 1
+    // @param  scalar  $component: 1
     // @return mixed
     //
     //--------------------------------------------------------------------------------------------------------
-    public function parse(String $url, Int $component = 1);
+    public function parse(String $url, $component = 1);
 
     //--------------------------------------------------------------------------------------------------------
     // Raw Decode
