@@ -49,6 +49,7 @@ class GetElement implements GetElementInterface
     {
         if( $count <= 1 )
         {
+            $array = current($array) ?? NULL;
         }
         else
         {
