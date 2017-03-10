@@ -118,7 +118,9 @@ function isDeclaredClass(String $class) : Bool
 //--------------------------------------------------------------------------------------------------
 function isHash(String $type) : Bool
 {
-    return ! in_array($type, hash_algos())
+    $hashAlgos = Arrays::addLast(hash_algos(), ['super', 'golden']);
+
+    return ! in_array($type, $hashAlgos)
            ? false
            : true;
 }
