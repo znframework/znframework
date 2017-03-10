@@ -21,8 +21,8 @@
 //--------------------------------------------------------------------------------------------------
 function getLang() : String
 {
-    $systemLanguageData        = md5(baseUrl(server('currentPath')) . 'SystemLanguageData');
-    $defaultSystemLanguageData = md5(baseUrl(server('currentPath')) . 'DefaultSystemLanguageData');
+    $systemLanguageData        = md5(baseUrl(CURRENT_PROJECT) . 'SystemLanguageData');
+    $defaultSystemLanguageData = md5(baseUrl(CURRENT_PROJECT) . 'DefaultSystemLanguageData');
 
     $default = Config::get('Language', 'default');
 
@@ -69,7 +69,7 @@ function setLang(String $l = NULL) : Bool
         $l = Config::get('Language', 'default');
     }
 
-    return Session::insert(md5(baseUrl(server('currentPath')) . 'SystemLanguageData'), $l);
+    return Session::insert(md5(baseUrl(CURRENT_PROJECT) . 'SystemLanguageData'), $l);
 }
 
 //--------------------------------------------------------------------------------------------------
