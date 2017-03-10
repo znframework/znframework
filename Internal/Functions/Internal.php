@@ -19,7 +19,7 @@
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function internalDefaultProjectKey() : String
+function internalDefaultProjectKey(String $fix = '') : String
 {
     if( defined('_CURRENT_PROJECT') )
     {
@@ -27,11 +27,11 @@ function internalDefaultProjectKey() : String
 
         if( ! empty($containers[_CURRENT_PROJECT]) )
         {
-            return md5(baseUrl(strtolower($containers[_CURRENT_PROJECT])));
+            return md5(baseUrl(strtolower($containers[_CURRENT_PROJECT])) . $fix);
         }
     }
 
-    return md5(baseUrl(strtolower(CURRENT_PROJECT)));
+    return md5(baseUrl(strtolower(CURRENT_PROJECT)) . $fix);
 }
 
 //--------------------------------------------------------------------------------------------------
