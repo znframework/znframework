@@ -273,8 +273,7 @@ class InternalURI extends CallController implements InternalURIInterface
     //--------------------------------------------------------------------------------------------------------
     public function totalSegments() : Int
     {
-        $segmentEx     = explode("/", $this->_cleanPath());
-        $segmentEx     = array_diff($segmentEx, ["", " "]);
+        $segmentEx     = array_diff($this->segmentArray(), ["", " "]);
         $totalSegments = count($segmentEx);
 
         return $totalSegments;

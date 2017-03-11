@@ -31,4 +31,16 @@ interface InternalRouteInterface
     //
     //--------------------------------------------------------------------------------------------------------
     public function run(String $functionName, $functionRun, Array $route = NULL);
+
+    //--------------------------------------------------------------------------------------------------------
+    // Redirect Show 404
+    //--------------------------------------------------------------------------------------------------------
+    //
+    //  @param  string $function
+    //  @param  string $lang
+    //  @param  string $report
+    //  @return void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function redirectShow404(String $function, String $lang = 'callUserFuncArrayError', String $report = 'SystemCallUserFuncArrayError');
 }

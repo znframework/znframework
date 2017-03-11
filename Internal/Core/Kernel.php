@@ -167,9 +167,10 @@ if( is_file($isFile) )
 
     if( class_exists($page, false) )
     {
-        if( strtolower($function) === 'index' && ! is_callable([$page, $function]) )
+        if( ! is_callable([$page, $function]) )
         {
-            $function = 'main';
+            $parameters = Arrays::addFirst($parameters, $function);
+            $function   = 'main';
         }
 
         if( is_callable([$page, $function]) )
@@ -178,41 +179,23 @@ if( is_file($isFile) )
             {
                 uselib($page)->$function(...$parameters);
             }
-            catch( \Throwable $e )
+            catch( Throwable $e )
             {
                 if( PROJECT_MODE !== 'publication' )
                 {
-                    \Exceptions::table($e->getCode(), $e->getMessage(), $e->getFile(), $e->getLine(), $e->getTrace());
+                    Exceptions::table($e->getCode(), $e->getMessage(), $e->getFile(), $e->getLine(), $e->getTrace());
                 }
             }
         }
         else
         {
-            if( $routeShow404 = Config::get('Services', 'route')['show404'] )
-            {
-                redirect($routeShow404);
-            }
-            else
-            {
-                report('Error', lang('Error', 'callUserFuncArrayError', $function), 'SystemCallUserFuncArrayError');
-
-                die(Errors::message('Error', 'callUserFuncArrayError', $function));
-            }
+            Route::redirectShow404($function);
         }
     }
 }
 else
 {
-    if( $routeShow404 = Config::get('Services', 'route')['show404'] )
-    {
-        redirect($routeShow404);
-    }
-    else
-    {
-        report('Error', lang('Error', 'notFoundController', CURRENT_CONTROLLER), 'SystemNotFoundControllerError');
-
-        die(Errors::message('Error', 'notFoundController', CURRENT_CONTROLLER));
-    }
+    Route::redirectShow404(CURRENT_CONTROLLER, 'notFoundController', 'SystemNotFoundControllerError');
 }
 
 //--------------------------------------------------------------------------------------------------------
