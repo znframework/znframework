@@ -31,7 +31,7 @@ function redirect(String $url, Int $time = 0, Array $data = [], Bool $exit = tru
     {
         foreach( $data as $k => $v )
         {
-            Session::insert('redirect:'.$k, $v);
+            Session::insert('redirect:' . $k, $v);
         }
     }
 
@@ -40,7 +40,7 @@ function redirect(String $url, Int $time = 0, Array $data = [], Bool $exit = tru
         sleep($time);
     }
 
-    header("Location: $url", true);
+    header('Location: ' . $url, true);
 
     if( $exit === true )
     {
