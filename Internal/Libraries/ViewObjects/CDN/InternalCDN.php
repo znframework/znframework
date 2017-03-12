@@ -33,7 +33,6 @@ class InternalCDN extends CallController implements InternalCDNInterface
         }
 
         $data = array_change_key_case($configData);
-
         $name = strtolower($name);
 
         if( isset($data[$name]) )

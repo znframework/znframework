@@ -238,27 +238,22 @@ class PostgresDriver extends DriverConnectionMappingAbstract
             return false;
         }
 
-        $columns = [];
-        $count   = $this->numFields();
+        $columns   = [];
+        $numFields = $this->numFields();
 
-        for( $i = 0; $i < $count; $i++ )
+        for( $i = 0; $i < $numFields; $i++ )
         {
             $fieldName = pg_field_name($this->query, $i);
 
-            $columns[$fieldName]                = new \stdClass();
-            $columns[$fieldName]->name          = $fieldName;
-            $columns[$fieldName]->type          = pg_field_type($this->query, $i);
-            $columns[$fieldName]->maxLength     = pg_field_size($this->query, $i);
-            $columns[$fieldName]->primaryKey    = NULL;
-            $columns[$fieldName]->default       = NULL;
+            $columns[$fieldName]             = new \stdClass();
+            $columns[$fieldName]->name       = $fieldName;
+            $columns[$fieldName]->type       = pg_field_type($this->query, $i);
+            $columns[$fieldName]->maxLength  = pg_field_size($this->query, $i);
+            $columns[$fieldName]->primaryKey = NULL;
+            $columns[$fieldName]->default    = NULL;
         }
 
-        if( isset($columns[$col]) )
-        {
-            return $columns[$col];
-        }
-
-        return $columns;
+        return $columns[$col] ?? $columns;
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -294,10 +289,10 @@ class PostgresDriver extends DriverConnectionMappingAbstract
             return false;
         }
 
-        $columns = [];
-        $num_fields = $this->numFields();
+        $columns   = [];
+        $numFields = $this->numFields();
 
-        for($i=0; $i < $num_fields; $i++)
+        for( $i = 0; $i < $numFields; $i++ )
         {
             $columns[] = pg_field_name($this->query, $i);
         }

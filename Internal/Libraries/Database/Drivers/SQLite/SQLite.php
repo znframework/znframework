@@ -216,37 +216,32 @@ class SQLiteDriver extends DriverConnectionMappingAbstract
             return false;
         }
 
-        $dataTypes = array
-        (
+        $dataTypes =
+        [
             SQLITE3_INTEGER => 'integer',
             SQLITE3_FLOAT   => 'float',
             SQLITE3_TEXT    => 'text',
             SQLITE3_BLOB    => 'blob',
             SQLITE3_NULL    => 'null'
-        );
+        ];
 
-        $columns = [];
-        $count   = $this->numFields();
+        $columns   = [];
+        $numFields = $this->numFields();
 
-        for ($i = 0; $i < $count; $i++)
+        for( $i = 0; $i < $numFields; $i++ )
         {
-            $type       = $this->query->columnType($i);
-            $fieldName  = $this->query->columnName($i);
+            $type      = $this->query->columnType($i);
+            $fieldName = $this->query->columnName($i);
 
-            $columns[$fieldName]                = new \stdClass();
-            $columns[$fieldName]->name          = $fieldName;
-            $columns[$fieldName]->type          = isset($dataTypes[$type]) ? $dataTypes[$type] : $type;
-            $columns[$fieldName]->maxLength     = NULL;
-            $columns[$fieldName]->primaryKey    = NULL;
-            $columns[$fieldName]->default       = NULL;
+            $columns[$fieldName]             = new \stdClass();
+            $columns[$fieldName]->name       = $fieldName;
+            $columns[$fieldName]->type       = $dataTypes[$type] ?? $type;
+            $columns[$fieldName]->maxLength  = NULL;
+            $columns[$fieldName]->primaryKey = NULL;
+            $columns[$fieldName]->default    = NULL;
         }
 
-        if( isset($columns[$col]) )
-        {
-            return $columns[$col];
-        }
-
-        return $columns;
+        return $columns[$col] ?? $columns;
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -281,10 +276,10 @@ class SQLiteDriver extends DriverConnectionMappingAbstract
             return false;
         }
 
-        $columns = [];
-        $num_fields = $this->numFields();
+        $columns   = [];
+        $numFields = $this->numFields();
 
-        for($i=0; $i < $num_fields; $i++)
+        for( $i = 0; $i < $numFields; $i++ )
         {
             $columns[] = $this->query->columnName($i);
         }

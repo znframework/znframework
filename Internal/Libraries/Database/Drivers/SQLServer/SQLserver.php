@@ -241,20 +241,15 @@ class SQLServerDriver extends DriverConnectionMappingAbstract
         {
             $fieldName = $field['Name'];
 
-            $columns[$fieldName]                = new \stdClass();
-            $columns[$fieldName]->name          = $fieldName;
-            $columns[$fieldName]->type          = $field['Type'];
-            $columns[$fieldName]->maxLength     = $field['Size'];
-            $columns[$fieldName]->primaryKey    = NULL;
-            $columns[$fieldName]->default       = NULL;
+            $columns[$fieldName]             = new \stdClass();
+            $columns[$fieldName]->name       = $fieldName;
+            $columns[$fieldName]->type       = $field['Type'];
+            $columns[$fieldName]->maxLength  = $field['Size'];
+            $columns[$fieldName]->primaryKey = NULL;
+            $columns[$fieldName]->default    = NULL;
         }
 
-        if( isset($columns[$col]) )
-        {
-            return $columns[$col];
-        }
-
-        return $columns;
+        return $columns[$col] ?? $columns;
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -290,10 +285,10 @@ class SQLServerDriver extends DriverConnectionMappingAbstract
             return false;
         }
 
-        $columns = [];
-        $num_fields = $this->numFields();
+        $columns   = [];
+        $numFields = $this->numFields();
 
-        for($i=0; $i < $num_fields; $i++)
+        for( $i = 0; $i < $numFields; $i++ )
         {
             $columns[] = sqlsrv_get_field($this->query, $i);
         }
@@ -458,8 +453,7 @@ class SQLServerDriver extends DriverConnectionMappingAbstract
     {
         if( ! empty($this->connect) )
         {
-            $info = sqlsrv_server_info($this->connect);
-            return $info['SQLServerVersion'];
+            return sqlsrv_server_info($this->connect)['SQLServerVersion'];
         }
         else
         {

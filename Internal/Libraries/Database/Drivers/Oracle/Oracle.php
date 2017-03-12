@@ -201,11 +201,7 @@ class OracleDriver extends DriverConnectionMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function transStart()
     {
-        $commit_mode = ( phpversion() > '5.3.2' )
-                       ? OCI_NO_AUTO_COMMIT
-                       : OCI_DEFAULT;
-
-        $this->exec($commit_mode);
+        $this->exec(OCI_NO_AUTO_COMMIT);
         return true;
     }
 
@@ -219,8 +215,7 @@ class OracleDriver extends DriverConnectionMappingAbstract
     public function transRollback()
     {
         oci_rollback($this->connect);
-        $commit_mode = OCI_COMMIT_ON_SUCCESS;
-        return $this->exec($commit_mode);
+        return $this->exec(OCI_COMMIT_ON_SUCCESS);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -233,8 +228,7 @@ class OracleDriver extends DriverConnectionMappingAbstract
     public function transCommit()
     {
         oci_commit($this->connect);
-        $commit_mode = OCI_COMMIT_ON_SUCCESS;
-        return $this->exec($commit_mode);
+        return $this->exec(OCI_COMMIT_ON_SUCCESS);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -251,28 +245,22 @@ class OracleDriver extends DriverConnectionMappingAbstract
             return false;
         }
 
-        $columns = [];
+        $columns   = [];
+        $numFields = $this->numFields();
 
-        $count = $this->numFields();
-
-        for ($i = 1; $i <= $count; $i++)
+        for( $i = 1; $i <= $numFields; $i++ )
         {
             $fieldName = oci_field_name($this->query, $i);
 
-            $columns[$fieldName]                = new \stdClass();
-            $columns[$fieldName]->name          = $fieldName;
-            $columns[$fieldName]->type          = oci_field_type($this->query, $i);
-            $columns[$fieldName]->maxLength     = oci_field_size($this->query, $i);
-            $columns[$fieldName]->primaryKey    = NULL;
-            $columns[$fieldName]->default       = NULL;
+            $columns[$fieldName]             = new \stdClass();
+            $columns[$fieldName]->name       = $fieldName;
+            $columns[$fieldName]->type       = oci_field_type($this->query, $i);
+            $columns[$fieldName]->maxLength  = oci_field_size($this->query, $i);
+            $columns[$fieldName]->primaryKey = NULL;
+            $columns[$fieldName]->default    = NULL;
         }
 
-        if( isset($columns[$col]) )
-        {
-            return $columns[$col];
-        }
-
-        return $columns;
+        return $columns[$col] ?? $columns;
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -308,12 +296,12 @@ class OracleDriver extends DriverConnectionMappingAbstract
             return false;
         }
 
-        $columns = [];
-        $num_fields = $this->numFields();
+        $columns   = [];
+        $numFields = $this->numFields();
 
-        for($i=0; $i < $num_fields; $i++)
+        for( $i = 0; $i < $numFields; $i++ )
         {
-                $columns[] = oci_field_name($this->query,$i);
+                $columns[] = oci_field_name($this->query, $i);
         }
 
         return $columns;
@@ -361,8 +349,7 @@ class OracleDriver extends DriverConnectionMappingAbstract
     {
         if( ! empty($this->connect) )
         {
-            $error = oci_error($this->connect);
-            return  $error['message'];
+            return  oci_error($this->connect)['message'];
         }
         else
         {

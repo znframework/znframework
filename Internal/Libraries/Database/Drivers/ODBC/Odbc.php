@@ -219,20 +219,15 @@ class ODBCDriver extends DriverConnectionMappingAbstract
         {
             $fieldName = odbc_field_name($this->query, $index);
 
-            $columns[$fieldName]                = new \stdClass();
-            $columns[$fieldName]->name          = $fieldName;
-            $columns[$fieldName]->type          = odbc_field_type($this->query, $index);
-            $columns[$fieldName]->maxLength     = odbc_field_len($this->query, $index);
-            $columns[$fieldName]->primaryKey    = NULL;
-            $columns[$fieldName]->default       = NULL;
+            $columns[$fieldName]             = new \stdClass();
+            $columns[$fieldName]->name       = $fieldName;
+            $columns[$fieldName]->type       = odbc_field_type($this->query, $index);
+            $columns[$fieldName]->maxLength  = odbc_field_len($this->query, $index);
+            $columns[$fieldName]->primaryKey = NULL;
+            $columns[$fieldName]->default    = NULL;
         }
 
-        if( isset($columns[$col]) )
-        {
-            return $columns[$col];
-        }
-
-        return $columns;
+        return $columns[$col] ?? $columns;
     }
 
     //--------------------------------------------------------------------------------------------------------
