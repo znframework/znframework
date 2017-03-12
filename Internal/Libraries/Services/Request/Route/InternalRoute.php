@@ -91,7 +91,7 @@ class InternalRoute extends Controller implements InternalRouteInterface
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Redirect Show 404
+    // Redirect Show 404 -> 4.2.7
     //--------------------------------------------------------------------------------------------------------
     //
     //  @param  string $function

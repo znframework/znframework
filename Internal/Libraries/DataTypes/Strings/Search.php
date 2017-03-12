@@ -21,7 +21,7 @@ class Search implements SearchInterface
     // @param string $case
     //
     //--------------------------------------------------------------------------------------------------------
-    public function use(String $str, String $needle, String $type = 'string', Bool $case = true) : String
+    public function use(String $str, String $needle, String $type = 'string', Bool $case = true)
     {
         if( $type === 'string' )
         {
@@ -61,7 +61,7 @@ class Search implements SearchInterface
     // @param string $case
     //
     //--------------------------------------------------------------------------------------------------------
-    public function position(String $str, String $needle, Bool $case = true) : String
+    public function position(String $str, String $needle, Bool $case = true)
     {
         return $this->use($str, $needle, __FUNCTION__, $case);
     }
