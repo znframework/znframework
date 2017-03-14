@@ -503,7 +503,7 @@ class Ajax extends CallController
     // @param string $success
     //
     //--------------------------------------------------------------------------------------------------------
-    public function success(String $params, String $success) : Ajax
+    public function success(String $params, $success) : Ajax
     {
         $this->_functions('success', $params, $success);
 
@@ -518,7 +518,7 @@ class Ajax extends CallController
     // @param string $error
     //
     //--------------------------------------------------------------------------------------------------------
-    public function error(String $params, String $error) : Ajax
+    public function error(String $params, $error) : Ajax
     {
         $this->_functions('error', $params, $error);
 
@@ -533,7 +533,7 @@ class Ajax extends CallController
     // @param string $complete
     //
     //--------------------------------------------------------------------------------------------------------
-    public function complete(String $params, String $complete) : Ajax
+    public function complete(String $params, $complete) : Ajax
     {
         $this->_functions('complete', $params, $complete);
 
@@ -548,7 +548,7 @@ class Ajax extends CallController
     // @param string $beforeSend
     //
     //--------------------------------------------------------------------------------------------------------
-    public function beforeSend(String $params, String $beforeSend) : Ajax
+    public function beforeSend(String $params, $beforeSend) : Ajax
     {
         $this->_functions('beforeSend', $params, $beforeSend);
 
@@ -563,7 +563,7 @@ class Ajax extends CallController
     // @param string $dataFilter
     //
     //--------------------------------------------------------------------------------------------------------
-    public function dataFilter(String $params, String $dataFilter) : Ajax
+    public function dataFilter(String $params, $dataFilter) : Ajax
     {
         $this->_functions('dataFilter', $params, $dataFilter);
 
@@ -744,6 +744,11 @@ class Ajax extends CallController
     protected function _functions($name, $params, $codes)
     {
         $eol = EOL;
+
+        if( is_callable($codes) )
+        {
+            $codes = \Buffer::callback($codes);
+        }
 
         $this->functions[$name] = $eol."\t$name:function($params)".$eol."\t{".$eol."\t\t$codes".$eol."\t}";
     }

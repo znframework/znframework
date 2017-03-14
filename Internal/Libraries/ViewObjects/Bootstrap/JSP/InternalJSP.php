@@ -36,12 +36,6 @@ class InternalJSP extends \FactoryController
             'addeventlistener'      => 'JSP\Events::addeventlistener',
             'removeeventlistener'   => 'JSP\Events::removeeventlistener',
             'ajax'                  => 'JSP\Ajax::send',
-            'ajaxurl'               => 'JSP\Ajax::url',
-            'ajaxdata'              => 'JSP\Ajax::data',
-            'ajaxdatatype'          => 'JSP\Ajax::datatype',
-            'ajaxsuccess'           => 'JSP\Ajax::success',
-            'ajaxerror'             => 'JSP\Ajax::error',
-            'ajaxmethod'            => 'JSP\Ajax::method',
         ]
     ];
 }
