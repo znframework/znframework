@@ -1,7 +1,7 @@
-<?php return 
+<?php return
 [
     //--------------------------------------------------------------------------------------------------
-    // Htaccess 
+    // Htaccess
     //--------------------------------------------------------------------------------------------------
     //
     // Author     : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
@@ -12,16 +12,16 @@
     //--------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------
-    // CREATE FILE                                                                             
+    // CREATE FILE
     //--------------------------------------------------------------------------------------------------
     //
-    // Genel Kullanım: .htaccess dosyasının oluşturulup oluşturulmayacağına karar verir.          
-    // Parametreler: true veya false                                                              
-    // Varsayılan: true                                                                       
-    // Url'de zeroneed.php ekini kullanmak istemiyorsanız ve .htaccess yönlendirmesi              
-    // sunucunuzda aktifse bu değeri true yapıp bu dosyanın oluşmasını sağlayın.                  
-    // Bu işlem dışında Config/Uri.php dosyasındaki zeroneed.php ayarını false                    
-    // durumuna getirmeyi unutmayın.                                                          
+    // Genel Kullanım: .htaccess dosyasının oluşturulup oluşturulmayacağına karar verir.
+    // Parametreler: true veya false
+    // Varsayılan: true
+    // Url'de zeroneed.php ekini kullanmak istemiyorsanız ve .htaccess yönlendirmesi
+    // sunucunuzda aktifse bu değeri true yapıp bu dosyanın oluşmasını sağlayın.
+    // Bu işlem dışında Config/Uri.php dosyasındaki zeroneed.php ayarını false
+    // durumuna getirmeyi unutmayın.
     //
     //--------------------------------------------------------------------------------------------------
     'createFile' => true,
@@ -34,26 +34,26 @@
     // düzenleme yapmayı sağlayan ayarlardır.
     //
     //--------------------------------------------------------------------------------------------------
-    'uri' => 
+    'uri' =>
     [
         //----------------------------------------------------------------------------------------------
-        // Directory Index(zeroneed.php)                                                                                 
+        // Directory Index(zeroneed.php)
         //----------------------------------------------------------------------------------------------
         //
-        // Genel Kullanımı: Url de yer alan zeroneed.php uzantısının görünüm durumunu ayalarmak için 
-        // kullanılır. Değer false olursa url'lerde zeroneed.php uzantısı görünmez.                               
-        // Parametreler: true, false.                                                             
-        // Varsayılan: true 
+        // Genel Kullanımı: Url de yer alan zeroneed.php uzantısının görünüm durumunu ayalarmak için
+        // kullanılır. Değer false olursa url'lerde zeroneed.php uzantısı görünmez.
+        // Parametreler: true, false.
+        // Varsayılan: true
         //
         //----------------------------------------------------------------------------------------------
         'directoryIndex' => false,
-        
+
         //----------------------------------------------------------------------------------------------
-        // Index Suffix                                                                                
+        // Index Suffix
         //----------------------------------------------------------------------------------------------
-        // Genel Kullanımı: .htaccess dosyasında zeroneed.php bölümü sonuna ? ekler                   
-        // Parametreler: "", ?                                                                    
-        // Varsayılan: "".  
+        // Genel Kullanımı: .htaccess dosyasında zeroneed.php bölümü sonuna ? ekler
+        // Parametreler: "", ?
+        // Varsayılan: "".
         //
         //----------------------------------------------------------------------------------------------
         'indexSuffix' => ''
@@ -64,12 +64,12 @@
     //--------------------------------------------------------------------------------------------------
     //
     // Başlık bilgileri ile ilgili ayarlardır.
-    //                                                                    
+    //
     //--------------------------------------------------------------------------------------------------
-    'headers' => 
+    'headers' =>
     [
         //----------------------------------------------------------------------------------------------
-        // Status                                                                                
+        // Status
         //----------------------------------------------------------------------------------------------
         //
         // Başlık ayarlarının .htaccess dosyasına kaydedilip kaydedilmeyeceği ayarlanır.
@@ -77,15 +77,15 @@
         //
         //----------------------------------------------------------------------------------------------
         'status' => false,
-        
+
         //----------------------------------------------------------------------------------------------
-        // Settings                                                                                
+        // Settings
         //----------------------------------------------------------------------------------------------
         //
         // Sistemin çalışması esnasında kullanılması istenilen başlık bilgisi ayarlarıdır.
         //
         //----------------------------------------------------------------------------------------------
-        'settings' => 
+        'settings' =>
         [
             'Header set Connection keep-alive'
         ]
@@ -95,13 +95,13 @@
     // Upload
     //--------------------------------------------------------------------------------------------------
     //
-    // Genel Kullanım: Dosya yükleme ile ilgili ayarlar yer alır.                                       
+    // Genel Kullanım: Dosya yükleme ile ilgili ayarlar yer alır.
     //
     //--------------------------------------------------------------------------------------------------
-    'upload' => 
+    'upload' =>
     [
         //----------------------------------------------------------------------------------------------
-        // Status                                                                                
+        // Status
         //----------------------------------------------------------------------------------------------
         //
         // Dosya yükleme ayarlarının .htaccess dosyasına kaydedilip kaydedilmeyeceği ayarlanır.
@@ -109,15 +109,15 @@
         //
         //----------------------------------------------------------------------------------------------
         'status' => false,
-        
+
         //----------------------------------------------------------------------------------------------
-        // Settings                                                                                
+        // Settings
         //----------------------------------------------------------------------------------------------
         //
         // Dosya yükleme ile ilgili ayarlardır.
         //
         //----------------------------------------------------------------------------------------------
-        'settings' => 
+        'settings' =>
         [
             'file_uploads'            => '',    // "1"
             'post_max_size'           => '',  // "8M"
@@ -125,7 +125,7 @@
             'upload_tmp_dir'          => '',  // NULL
             'max_input_nesting_level' => '',    // 64
             'max_input_vars'          => '',    // 1000
-            'max_file_uploads'        => '',    // 20   
+            'max_file_uploads'        => '',    // 20
             'max_input_time'          => '',    // "-1"
             'max_execution_time'      => '' // "30"
         ]
@@ -135,13 +135,13 @@
     // Session
     //--------------------------------------------------------------------------------------------------
     //
-    // Genel Kullanım: Oturum ayarları yapılır.                                   
+    // Genel Kullanım: Oturum ayarları yapılır.
     //
     //--------------------------------------------------------------------------------------------------
-    'session' => 
+    'session' =>
     [
         //----------------------------------------------------------------------------------------------
-        // Status                                                                                
+        // Status
         //----------------------------------------------------------------------------------------------
         //
         // Oturum ayarlarının .htaccess dosyasına kaydedilip kaydedilmeyeceği ayarlanır.
@@ -149,15 +149,15 @@
         //
         //----------------------------------------------------------------------------------------------
         'status' => false,
-        
+
         //----------------------------------------------------------------------------------------------
-        // Settings                                                                                
+        // Settings
         //----------------------------------------------------------------------------------------------
         //
         // Oturumlarla ilgili ayarlardır.
         //
         //----------------------------------------------------------------------------------------------
-        'settings' => 
+        'settings' =>
         [
             'session.save_path'                => '', // NULL
             'session.name'                     => '', // PHPSESSID
@@ -196,47 +196,47 @@
     //--------------------------------------------------------------------------------------------------
     //
     // Ön bellekleme ile ilgili ayarlar yer alır.
-    //            
+    //
     //--------------------------------------------------------------------------------------------------
-    'cache' => 
+    'cache' =>
     [
         //----------------------------------------------------------------------------------------------
-        // Mod Gzip                                                                                
+        // Mod Gzip
         //----------------------------------------------------------------------------------------------
         //
-        // Genel Kullanım: Gzip sıkıştırmayı aktif hale getirmek için kullanılır.                  
-        // Parametreler                                                                           
-        // 1-status: Gzip sıkıştırmanın kullanılıp kullanılmayacağı belirlenir.                   
+        // Genel Kullanım: Gzip sıkıştırmayı aktif hale getirmek için kullanılır.
+        // Parametreler
+        // 1-status: Gzip sıkıştırmanın kullanılıp kullanılmayacağı belirlenir.
         // 2-included_file_extension: Hangi uzantılı dosyaların ön belleklemeye dahil edileceğidir.
-        // Örnek: array('status' => true, 'includedFileExtension' => 'txt|css')   
+        // Örnek: array('status' => true, 'includedFileExtension' => 'txt|css')
         //
         //----------------------------------------------------------------------------------------------
-        'modGzip' => 
+        'modGzip' =>
         [
             // true olması durumunda .htaccess dosyasına eklenir.
             'status' => false,
             // Ön belleğe alınacak dahil edilebilir dosya uzantıları.
             'includedFileExtension' => 'html?|txt|css|js|php|pl'
         ],
-        
+
         //----------------------------------------------------------------------------------------------
-        // Mod Expires                                                                                
+        // Mod Expires
         //----------------------------------------------------------------------------------------------
         //
-        // Genel Kullanım: Tarayıcı ön belleklemenin aktif hale getirmek için kullanılır.          
-        // Parametreler                                                                           
-        // 1-status: Tarayıcı ön belleklemenin kullanılıp kullanılmayacağı belirlenir.            
-        // 2-file_type_time: Hangi tür dosyaların ne kadar süre ile belleğe alınacağı belirtilir.  
-        // 3-defaul_time: Tarayıcı ön bellekleme için dosyaların var sayılan ön bellekleme süresi. 
-        // Örnek: array('status' => true, 'fileTypeTime' => array('text/html' => 20))     
+        // Genel Kullanım: Tarayıcı ön belleklemenin aktif hale getirmek için kullanılır.
+        // Parametreler
+        // 1-status: Tarayıcı ön belleklemenin kullanılıp kullanılmayacağı belirlenir.
+        // 2-file_type_time: Hangi tür dosyaların ne kadar süre ile belleğe alınacağı belirtilir.
+        // 3-defaul_time: Tarayıcı ön bellekleme için dosyaların var sayılan ön bellekleme süresi.
+        // Örnek: array('status' => true, 'fileTypeTime' => array('text/html' => 20))
         //
         //----------------------------------------------------------------------------------------------
-        'modExpires' => 
+        'modExpires' =>
         [
             // true olması durumunda .htaccess dosyasına eklenir.
             'status' => false,
             // Ön belleğe alınacak dahil edilebilir dosya uzantıları.
-            'fileTypeTime' => 
+            'fileTypeTime' =>
             [
                 'text/html'                => 1,        // 1 Saniye
                 'image/gif'                => 2592000,  // 1 Ay
@@ -248,24 +248,24 @@
             ],
             'defaultTime' => 1 // 1 Saniye
         ],
-        
+
         //----------------------------------------------------------------------------------------------
-        // Mod Headers                                                                                
+        // Mod Headers
         //----------------------------------------------------------------------------------------------
         //
-        // Genel Kullanım: Header belleklemenin aktif hale getirmek için kullanılır.               
-        // Parametreler                                                                           
-        // 1-status: Tarayıcı ön belleklemenin kullanılıp kullanılmayacağı belirlenir.            
-        // 2-file_extension_time_access: Hangi uzantılı dosyaların ne kadar süre ile ve hangi      
-        // erişim yöntemi ile belleğe alınacağı belirtilir. 
+        // Genel Kullanım: Header belleklemenin aktif hale getirmek için kullanılır.
+        // Parametreler
+        // 1-status: Tarayıcı ön belleklemenin kullanılıp kullanılmayacağı belirlenir.
+        // 2-file_extension_time_access: Hangi uzantılı dosyaların ne kadar süre ile ve hangi
+        // erişim yöntemi ile belleğe alınacağı belirtilir.
         //
         //----------------------------------------------------------------------------------------------
-        'modHeaders' => 
+        'modHeaders' =>
         [
             // true olması durumunda .htaccess dosyasına eklenir.
             'status' => false,
-            
-            'fileExtensionTimeAccess' => 
+
+            'fileExtensionTimeAccess' =>
             [
                 // Ön belleğe alınacak uzantılar   => Ön bellekleme süresi, Erişim yöntemi
                 'ico|pdf|flv|jpg|jpeg|png|gif|swf' => ['time' => 2592000, 'access' => 'public'],
@@ -281,13 +281,13 @@
     // INI
     //--------------------------------------------------------------------------------------------------
     //
-    // PHP INI ile ilgili ayarların yapılandırılması içindir.                                                 
+    // PHP INI ile ilgili ayarların yapılandırılması içindir.
     //
     //--------------------------------------------------------------------------------------------------
-    'ini' => 
+    'ini' =>
     [
         //----------------------------------------------------------------------------------------------
-        // Status                                                                                
+        // Status
         //----------------------------------------------------------------------------------------------
         //
         // Ini ayarlarının .htaccess dosyasına kaydedilip kaydedilmeyeceği ayarlanır.
@@ -295,14 +295,14 @@
         //
         //----------------------------------------------------------------------------------------------
         'status' => false,
-        
+
         //----------------------------------------------------------------------------------------------
-        // Settings                                                                                
+        // Settings
         //----------------------------------------------------------------------------------------------
         //
-        // Ini ile ilgili ayarlardır. .htaccess üzerinden hangi ini ayarlarını yapacaksanız onları            
-        // yazıyorsunuz.                                                  
-        // Example: [upload_max_filesize => "10M"] 
+        // Ini ile ilgili ayarlardır. .htaccess üzerinden hangi ini ayarlarını yapacaksanız onları
+        // yazıyorsunuz.
+        // Example: [upload_max_filesize => "10M"]
         //
         //----------------------------------------------------------------------------------------------
         'settings' => []
@@ -312,17 +312,17 @@
     // Settings
     //--------------------------------------------------------------------------------------------------
     //
-    // Genel Kullanım: Bu yöntemin kullanılabilmesi için yukarıdaki ayarın true olması        
-    // gerekmektedir. htaccess dosyasına header ayarları eklemek için kullanılır.             
-    // Type: ['module' => ['setting1', 'setting2', ...]]                                                                                      
-    // Bu yöntemi kullanırken < > işaretlerini kullanmayınız.                                 
-    // Modülü kapatma işlemini kendisi gerçekleştirmektedir.                                   
-    // Dizi içerisindeki birinci parametre modül adı ve tip                                   
-    // İkinci parametre ise bu aralıkta olması gereken kodlar.  
-    // Example: ['IfModule mod_rewrite.c' => ['RewriteEngine On', 'RewriteBase /', ...]                               
+    // Genel Kullanım: Bu yöntemin kullanılabilmesi için yukarıdaki ayarın true olması
+    // gerekmektedir. htaccess dosyasına header ayarları eklemek için kullanılır.
+    // Type: ['module' => ['setting1', 'setting2', ...]]
+    // Bu yöntemi kullanırken < > işaretlerini kullanmayınız.
+    // Modülü kapatma işlemini kendisi gerçekleştirmektedir.
+    // Dizi içerisindeki birinci parametre modül adı ve tip
+    // İkinci parametre ise bu aralıkta olması gereken kodlar.
+    // Example: ['IfModule mod_rewrite.c' => ['RewriteEngine On', 'RewriteBase /', ...]
     //
     //--------------------------------------------------------------------------------------------------
-    'settings' => 
+    'settings' =>
     [
         'ifmodule mod_headers.c' => ['Options -Indexes']
     ]

@@ -14,7 +14,7 @@ class Callback implements CallbackInterface
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
-    // Do
+    // Do -> 4.2.8[edited]
     //--------------------------------------------------------------------------------------------------------
     //
     // @param  string/callable $func
@@ -33,11 +33,11 @@ class Callback implements CallbackInterface
 
         if( ! empty($params) )
         {
-            return call_user_func_array($func, $params);
+            call_user_func_array($func, $params);
         }
         else
         {
-            return $func();
+            $func();
         }
 
         $contents = ob_get_contents();

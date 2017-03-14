@@ -2049,6 +2049,13 @@ class InternalDB extends Connection implements InternalDBInterface
         return $this->_excapeStringAddNail($value);
     }
 
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Equal Control
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $column
+    //
+    //--------------------------------------------------------------------------------------------------------
     protected function _equalControl($column)
     {
         $control = trim($column);
