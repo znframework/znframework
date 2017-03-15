@@ -10,42 +10,42 @@ class Statements
     // Copyright  : (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
-    
-    public function if($condition, $callback)
+
+    public function if(String $condition, Callable $callback)
     {
         echo 'if(' . $condition . ') { ' . EOL;
         echo $callback();
         echo '}' . EOL;
     }
 
-    public function elseif($condition, $callback)
+    public function elseif(String $condition, Callable $callback)
     {
         echo 'else if(' . $condition . ') { ' . EOL;
         echo $callback();
         echo '}' . EOL;
     }
 
-    public function else($callback)
+    public function else(Callable $callback)
     {
         echo 'else{ ' . EOL;
         echo $callback();
         echo '}' . EOL;
     }
 
-    public function switch($condition, $callback)
+    public function switch(String $condition, Callable $callback)
     {
         echo 'switch(' . $condition . '){' . EOL;
         echo $callback();
         echo '}' . EOL;
     }
 
-    public function case($condition, $callback)
+    public function case(String $condition, Callable $callback)
     {
         echo 'case ' . $condition . ' :' . EOL;
         echo $callback() . EOL;
     }
 
-    public function defaultCase($callback)
+    public function defaultCase(Callable $callback)
     {
         echo 'default:' . EOL;
         echo $callback() . EOL;

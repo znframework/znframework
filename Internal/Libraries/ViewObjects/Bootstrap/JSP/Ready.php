@@ -10,8 +10,8 @@ class Ready
     // Copyright  : (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
-    
-    public function use($callback)
+
+    public function use(Callable $callback)
     {
         echo '$(document).ready(function()' . EOL .'{' . EOL;
         echo $callback();

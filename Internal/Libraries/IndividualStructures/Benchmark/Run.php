@@ -22,13 +22,8 @@ class Run implements RunInterface
     // @return Run
     //
     //--------------------------------------------------------------------------------------------------------
-    public function test($test) : Run
+    public function test(Callable $test) : Run
     {
-        if( ! is_callable($test) )
-        {
-            throw new InvalidArgumentException('Error', 'callableParameter', '1.($test)');
-        }
-
         Benchmark::start('run');
         $test();
         Benchmark::end('run');

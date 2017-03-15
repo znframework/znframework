@@ -10,22 +10,22 @@ class Loops
     // Copyright  : (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
-    
-    public function while($condition, $callback)
+
+    public function while(String $condition, Callable $callback)
     {
         echo 'while(' . $condition . ') { ' . EOL;
         echo $callback();
         echo '}' . EOL;
     }
 
-    public function doWhile($condition, $callback)
+    public function doWhile(String $condition, Callable $callback)
     {
         echo 'do{ ' . EOL;
         echo $callback();
         echo '}while(' . $condition . ');' . EOL;
     }
 
-    public function for($condition, $callback)
+    public function for(String $condition, Callable $callback)
     {
         echo 'for(' . $condition . ') {' . EOL;
         echo $callback();

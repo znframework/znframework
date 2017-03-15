@@ -22,7 +22,7 @@ class Events implements EventsInterface
     // @param callable $callback
     //
     //--------------------------------------------------------------------------------------------------------
-    public function addEventListener($selector, $event, $callback)
+    public function addEventListener(String $selector, String $event, Callable $callback)
     {
         echo Jquery::event()->$event($selector, Buffer::callback($callback));
     }
@@ -35,7 +35,7 @@ class Events implements EventsInterface
     // @param string   $event
     //
     //--------------------------------------------------------------------------------------------------------
-    public function removeEventListener($selector, $event)
+    public function removeEventListener(String $selector, String $event)
     {
         echo Jquery::event()->selector($selector)->unbind('', $event);
     }

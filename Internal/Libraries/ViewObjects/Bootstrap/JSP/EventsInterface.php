@@ -20,7 +20,7 @@ interface EventsInterface
     // @param callable $callback
     //
     //--------------------------------------------------------------------------------------------------------
-    public function addEventListener($selector, $event, $callback);
+    public function addEventListener(String $selector, String $event, Callable $callback);
 
     //--------------------------------------------------------------------------------------------------------
     // Remove Event Listener
@@ -30,5 +30,5 @@ interface EventsInterface
     // @param string   $event
     //
     //--------------------------------------------------------------------------------------------------------
-    public function removeEventListener($selector, $event);
+    public function removeEventListener(String $selector, String $event);
 }

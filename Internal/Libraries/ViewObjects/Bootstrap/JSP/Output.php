@@ -10,13 +10,13 @@ class Output
     // Copyright  : (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
-    
-    public function alert($value)
+
+    public function alert(String $value)
     {
         echo 'alert(' . $value . ');' . EOL;
     }
 
-    public function write($value)
+    public function write(String $value)
     {
         echo 'document.write(' . $value . ');' . EOL;
     }

@@ -30,7 +30,7 @@ interface InternalRouteInterface
     //  @return mixed
     //
     //--------------------------------------------------------------------------------------------------------
-    public function run(String $functionName, $functionRun, Array $route = NULL);
+    public function run(String $functionName, Callable $functionRun, Array $route = NULL);
 
     //--------------------------------------------------------------------------------------------------------
     // Redirect Show 404

@@ -13,7 +13,7 @@ trait HelperTrait
     //
     //--------------------------------------------------------------------------------------------------------
 
-    public function create($callback)
+    public function create(Callable $callback)
     {
         $class    = strtolower(Classes::onlyName(__CLASS__));
         $function = 'create';

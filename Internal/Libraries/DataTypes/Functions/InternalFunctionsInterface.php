@@ -19,7 +19,7 @@ interface InternalFunctionsInterface
     // @param array    $params
     //
     //--------------------------------------------------------------------------------------------------------
-    public function callArray($callback, Array $params = []);
+    public function callArray(Callable $callback, Array $params = []);
 
     //--------------------------------------------------------------------------------------------------------
     // Call
@@ -38,7 +38,7 @@ interface InternalFunctionsInterface
     // @param array    $params
     //
     //--------------------------------------------------------------------------------------------------------
-    public function staticCallArray($callback, Array $params = []);
+    public function staticCallArray(Callable $callback, Array $params = []);
 
     //--------------------------------------------------------------------------------------------------------
     // Static Call

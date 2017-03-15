@@ -22,13 +22,8 @@ class InternalFunctions extends CallController implements InternalFunctionsInter
     // @param array    $params
     //
     //--------------------------------------------------------------------------------------------------------
-    public function callArray($callback, Array $params = [])
+    public function callArray(Callable $callback, Array $params = [])
     {
-        if( ! is_callable($callback) )
-        {
-            throw new InvalidArgumentException('Error', 'callableParameter', '1.($callback)');
-        }
-
         return call_user_func_array($callback, $params);
     }
 
@@ -52,13 +47,8 @@ class InternalFunctions extends CallController implements InternalFunctionsInter
     // @param array    $params
     //
     //--------------------------------------------------------------------------------------------------------
-    public function staticCallArray($callback, Array $params = [])
+    public function staticCallArray(Callable $callback, Array $params = [])
     {
-        if( ! is_callable($callback) )
-        {
-            throw new InvalidArgumentException('Error', 'callableParameter', '1.($callback)');
-        }
-
         return forward_static_call_array($callback, $params);
     }
 

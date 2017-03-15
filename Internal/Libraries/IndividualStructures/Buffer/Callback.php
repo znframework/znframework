@@ -22,23 +22,11 @@ class Callback implements CallbackInterface
     // @return callable
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function do($func, Array $params = [])
+    public static function do(Callable $func, Array $params = [])
     {
-        if( ! is_callable($func) )
-        {
-            throw new InvalidArgumentException('Error', 'callableParameter', '1.($func)');
-        }
-
         ob_start();
 
-        if( ! empty($params) )
-        {
-            call_user_func_array($func, $params);
-        }
-        else
-        {
-            $func();
-        }
+        echo $func(...$params);
 
         $contents = ob_get_contents();
 

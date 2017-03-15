@@ -48,6 +48,7 @@ class InternalJSP extends \FactoryController
             'val'                   => 'JSP\JqueryMethods::val',
             'html'                  => 'JSP\JqueryMethods::html',
             'text'                  => 'JSP\JqueryMethods::text',
+            'query'                 => 'JSP\Query::create'
         ]
     ];
 }

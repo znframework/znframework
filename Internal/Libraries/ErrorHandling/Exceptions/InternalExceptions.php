@@ -109,13 +109,8 @@ class InternalExceptions extends Exception implements InternalExceptionsInterfac
     // @param callable $handler
     //
     //--------------------------------------------------------------------------------------------------------
-    public function handler($handler)
+    public function handler(Callable $handler)
     {
-        if( ! is_callable($handler) )
-        {
-            return $this->set(lang('Error', 'callableParameter', '1.(handler)'));
-        }
-
         return set_exception_handler($handler);
     }
 

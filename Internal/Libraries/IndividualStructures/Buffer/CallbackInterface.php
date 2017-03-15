@@ -20,5 +20,5 @@ interface CallbackInterface
     // @return callable
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function do($func, Array $params = []);
+    public static function do(Callable $func, Array $params = []);
 }

@@ -88,13 +88,8 @@ class InternalErrors implements InternalErrorsInterface
     // @param int      $errorTypes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function handler($handler, Int $errorTypes = E_ALL | E_STRICT)
+    public function handler(Callable $handler, Int $errorTypes = E_ALL | E_STRICT)
     {
-        if( ! is_callable($handler) )
-        {
-            return $this->set(lang('Error', 'callableParameter', '1.(handler)'));
-        }
-
         return set_error_handler($handler, $errorTypes);
     }
 

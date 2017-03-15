@@ -12,23 +12,23 @@ class Variable
     // Copyright  : (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
-    
-    public function var($variable, $value = NULL)
+
+    public function var(String $variable, String $value = NULL)
     {
         echo JS::define($variable, $value) . EOL;
     }
 
-    public function varch($variable, $value = NULL)
+    public function varch(String $variable, String $value = NULL)
     {
         echo $this->_equalControl($variable) . ' ' . $value . ';' . EOL;
     }
 
-    public function vardec($variable, $decrement = 1)
+    public function vardec(String $variable, Int $decrement = 1)
     {
         echo $variable . ' = ' . $variable . ' - ' . $decrement . ';' . EOL;
     }
 
-    public function varinc($variable, $decrement = 1)
+    public function varinc(String $variable, Int $decrement = 1)
     {
         echo $variable . ' = ' . $variable . ' + ' . $decrement . ';' . EOL;
     }

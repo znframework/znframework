@@ -51,5 +51,5 @@ interface InternalExceptionsInterface
     // @param callable $handler
     //
     //--------------------------------------------------------------------------------------------------------
-    public function handler($handler);
+    public function handler(Callable $handler);
 }

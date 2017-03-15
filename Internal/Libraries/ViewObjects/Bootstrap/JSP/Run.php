@@ -13,7 +13,7 @@ class Run
     //
     //--------------------------------------------------------------------------------------------------------
 
-    public function use($callback, $jquery = true, $jqueryAnimate = false)
+    public function use(Callable $callback, Bool $jquery = true, Bool $jqueryAnimate = false)
     {
         echo Script::open(false, $jquery, $jqueryAnimate);
         echo $callback();

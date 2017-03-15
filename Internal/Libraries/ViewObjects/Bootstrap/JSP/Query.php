@@ -1,6 +1,8 @@
 <?php namespace ZN\ViewObjects\Bootstrap\JSP;
 
-interface HelperInterface
+use Jquery;
+
+class Query implements QueryInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -11,5 +13,12 @@ interface HelperInterface
     //
     //--------------------------------------------------------------------------------------------------------
 
-    public function create(Callable $callback);
+    public function create(String $selector, Callable $callback)
+    {
+        $class = new Jquery;
+
+        $class->selector($selector);
+        echo $callback($class) . EOL;
+        echo $class->create();
+    }
 }

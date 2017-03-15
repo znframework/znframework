@@ -47,7 +47,7 @@ class InternalRoute extends Controller implements InternalRouteInterface
     //  @return mixed
     //
     //--------------------------------------------------------------------------------------------------------
-    public function run(String $functionName, $functionRun = NULL, Array $route = NULL)
+    public function run(String $functionName, Callable $functionRun = NULL, Array $route = NULL)
     {
         if( ! empty($this->route) )
         {
@@ -64,7 +64,7 @@ class InternalRoute extends Controller implements InternalRouteInterface
         $isFile     = $datas['file'];
         $function   = $datas['function'];
 
-        if( Arrays::valueExists(['construct', 'destruct'], $functionName) && is_callable($functionRun) )
+        if( Arrays::valueExists(['construct', 'destruct'], $functionName) )
         {
             call_user_func_array($functionRun, $parameters);
         }
@@ -78,14 +78,7 @@ class InternalRoute extends Controller implements InternalRouteInterface
 
             if( $functionName === $function )
             {
-                if( is_callable($functionRun) )
-                {
-                    call_user_func_array($functionRun, $parameters);
-                }
-                else
-                {
-                    $this->redirectShow404($function);
-                }
+                call_user_func_array($functionRun, $parameters);
             }
         }
     }

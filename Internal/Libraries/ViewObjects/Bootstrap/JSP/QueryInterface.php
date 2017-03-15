@@ -1,6 +1,6 @@
 <?php namespace ZN\ViewObjects\Bootstrap\JSP;
 
-interface HelperInterface
+interface QueryInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -11,5 +11,5 @@ interface HelperInterface
     //
     //--------------------------------------------------------------------------------------------------------
 
-    public function create(Callable $callback);
+    public function create(String $selector, Callable $callback);
 }

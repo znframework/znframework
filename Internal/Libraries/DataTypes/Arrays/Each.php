@@ -21,13 +21,8 @@ class Each implements EachInterface
     // @param callable $callable
     //
     //--------------------------------------------------------------------------------------------------------
-    public function use(Array $array, $callable)
+    public function use(Array $array, Callable $callable)
     {
-        if( ! is_callable($callable) )
-        {
-            throw new InvalidArgumentException('Error', 'callableParameter', '2.($callable)');
-        }
-
         foreach( $array as $k => $v )
         {
             $callable($v, $k);
