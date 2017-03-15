@@ -90,21 +90,22 @@ class Event
     //--------------------------------------------------------------------------------------------------------
     public function __call($method, $parameters)
     {
-        $method = strtolower($method);
+        $realMethodName = $method;
+        $method         = strtolower($method);
 
         if( in_array($method, $this->events) )
         {
-            $this->_event($method, ...$parameters);
+            $this->_event($realMethodName, ...$parameters);
         }
         elseif( in_array($method, $this->properties) )
         {
-            $this->property = $method;
+            $this->property = $realMethodName;
             $this->selector = $parameters[0];
             $this->params   = Arrays::removeFirst($parameters);
         }
         else
         {
-            Support::classMethod('Jquery::event()', $method);
+            Support::classMethod('Jquery::event()', $realMethodName);
         }
 
         return $this->create();

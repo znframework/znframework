@@ -1,8 +1,8 @@
 <?php namespace ZN\ViewObjects\Bootstrap\JSP;
 
-use Jquery, Buffer;
+use Jquery;
 
-class Ajax
+class Ajax implements HelperInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -13,11 +13,5 @@ class Ajax
     //
     //--------------------------------------------------------------------------------------------------------
 
-    public function send($callback)
-    {
-        $ajax = Jquery::ajax();
-
-        echo $callback($ajax) . EOL;
-        echo $ajax->send();
-    }
+    use HelperTrait;
 }

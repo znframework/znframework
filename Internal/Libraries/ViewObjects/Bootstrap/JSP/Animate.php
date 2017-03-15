@@ -1,8 +1,8 @@
 <?php namespace ZN\ViewObjects\Bootstrap\JSP;
 
-use Script;
+use Jquery;
 
-class Run
+class Animate implements HelperInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -13,10 +13,5 @@ class Run
     //
     //--------------------------------------------------------------------------------------------------------
 
-    public function use($callback, $jquery = true, $jqueryAnimate = false)
-    {
-        echo Script::open(false, $jquery, $jqueryAnimate);
-        echo $callback();
-        echo Script::close();
-    }
+    use HelperTrait;
 }

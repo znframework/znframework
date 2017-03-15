@@ -1,6 +1,8 @@
 <?php namespace ZN\ViewObjects\Bootstrap\JSP;
 
-class Functions implements FunctionsInterface
+use Jquery;
+
+class Action
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -12,26 +14,15 @@ class Functions implements FunctionsInterface
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
-    // Define
+    // Magic Call
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string   $functionName
-    // @param mixed    $parameters
-    // @param callable $function
+    // @param string $method
+    // @param array  $parameters
     //
     //--------------------------------------------------------------------------------------------------------
-    public function define(String $functionName = NULL, $parameters = NULL, $function = NULL)
+    public function __call($method, $parameters)
     {
-        $params = $parameters;
-
-        if( is_callable($parameters) )
-        {
-            $params   = '';
-            $function = $parameters;
-        }
-
-        echo 'function ' . $functionName . '(' . $params . '){' . EOL;
-        echo $function();
-        echo '}' . EOL;
+        echo Jquery::action()->$method(...$parameters);
     }
 }

@@ -1,5 +1,7 @@
 <?php namespace ZN\ViewObjects\Bootstrap;
 
+use JQ;
+
 class InternalJSP extends \FactoryController
 {
     //--------------------------------------------------------------------------------------------------------
@@ -29,14 +31,23 @@ class InternalJSP extends \FactoryController
             'for'                   => 'JSP\Loops::for',
             'alert'                 => 'JSP\Output::alert',
             'write'                 => 'JSP\Output::write',
-            'prompt'                => 'JSP\Input::prompt',
-            'val'                   => 'JSP\Input::val',
-            'html'                  => 'JSP\Input::html',
-            'text'                  => 'JSP\Input::text',
             'addeventlistener'      => 'JSP\Events::addeventlistener',
             'removeeventlistener'   => 'JSP\Events::removeeventlistener',
-            'ajax'                  => 'JSP\Ajax::send',
-            'function'              => 'JSP\Functions::define'
+            'ajax'                  => 'JSP\Ajax::create',
+            'animate'               => 'JSP\Animate::create',
+            'fadeout'               => 'JSP\Action::fadeOut',
+            'fadein'                => 'JSP\Action::fadeIn',
+            'fadeto'                => 'JSP\Action::fadeTo',
+            'slideup'               => 'JSP\Action::slideUp',
+            'slidedown'             => 'JSP\Action::slideDown',
+            'slidetoggle'           => 'JSP\Action::slideToggle',
+            'show'                  => 'JSP\Action::show',
+            'hide'                  => 'JSP\Action::hide',
+            'function'              => 'JSP\Functions::define',
+            'attr'                  => 'JSP\JqueryMethods::attr',
+            'val'                   => 'JSP\JqueryMethods::val',
+            'html'                  => 'JSP\JqueryMethods::html',
+            'text'                  => 'JSP\JqueryMethods::text',
         ]
     ];
 }

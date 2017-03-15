@@ -1,8 +1,8 @@
 <?php namespace ZN\ViewObjects\Bootstrap\JSP;
 
-use Script;
+use Jquery, Classes;
 
-class Run
+trait HelperTrait
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -13,10 +13,19 @@ class Run
     //
     //--------------------------------------------------------------------------------------------------------
 
-    public function use($callback, $jquery = true, $jqueryAnimate = false)
+    public function create($callback)
     {
-        echo Script::open(false, $jquery, $jqueryAnimate);
-        echo $callback();
-        echo Script::close();
+        $class    = strtolower(Classes::onlyName(__CLASS__));
+        $function = 'create';
+
+        if( $class === 'ajax' )
+        {
+            $function = 'send';
+        }
+
+        $class = Jquery::$class();
+
+        echo $callback($class) . EOL;
+        echo $class->$function();
     }
 }

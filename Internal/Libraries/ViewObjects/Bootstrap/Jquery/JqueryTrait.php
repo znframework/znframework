@@ -1,6 +1,6 @@
 <?php namespace ZN\ViewObjects\Bootstrap;
 
-use JQ, Script;
+use JQ, Script, Json;
 
 trait JqueryTrait
 {
@@ -87,8 +87,13 @@ trait JqueryTrait
     // @param string $callback
     //
     //--------------------------------------------------------------------------------------------------------
-    public function callback(String $params, String $callback)
+    public function callback(String $params, $callback)
     {
+        if( is_callable($callback) )
+        {
+            $callback = \Buffer::callback($callback);
+        }
+
         $this->callback = JQ::func($params, $callback);
 
         return $this;
@@ -102,7 +107,7 @@ trait JqueryTrait
     // @param string $callback
     //
     //--------------------------------------------------------------------------------------------------------
-    public function func(String $params, String $callback)
+    public function func(String $params, $callback)
     {
         $this->callback($params, $callback);
 
@@ -210,14 +215,7 @@ trait JqueryTrait
 
         if( is_array($array) )
         {
-            $object  = '';
-            $object .= "{";
-            if( ! empty($array)) foreach($array as $k => $v)
-            {
-                $object .= $k.":".$v.", ";
-            }
-            $object  = substr($object, 0, -2);
-            $object .= "}";
+            $object  = Json::encode($array);
         }
         else
         {

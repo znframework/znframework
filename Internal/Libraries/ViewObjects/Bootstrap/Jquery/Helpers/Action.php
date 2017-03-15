@@ -73,17 +73,18 @@ class Action
     //--------------------------------------------------------------------------------------------------------
     public function __call($method, $parameters)
     {
-        $method = strtolower($method);
+        $realMethodName = $method;
+        $method         = strtolower($method);
 
         if( in_array($method, $this->effects) )
         {
-            $this->_effect($method, ...$parameters);
+            $this->_effect($realMethodName, ...$parameters);
 
             return $this->create();
         }
         else
         {
-            Support::classMethod('Jquery::action()', $method);
+            Support::classMethod('Jquery::action()', $realMethodName);
         }
     }
 

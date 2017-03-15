@@ -1,6 +1,6 @@
 <?php namespace ZN\ViewObjects\Bootstrap\JSP;
 
-class Functions implements FunctionsInterface
+interface FunctionsInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -20,18 +20,5 @@ class Functions implements FunctionsInterface
     // @param callable $function
     //
     //--------------------------------------------------------------------------------------------------------
-    public function define(String $functionName = NULL, $parameters = NULL, $function = NULL)
-    {
-        $params = $parameters;
-
-        if( is_callable($parameters) )
-        {
-            $params   = '';
-            $function = $parameters;
-        }
-
-        echo 'function ' . $functionName . '(' . $params . '){' . EOL;
-        echo $function();
-        echo '}' . EOL;
-    }
+    public function define(String $functionName = NULL, $parameters = NULL, $function = NULL);
 }

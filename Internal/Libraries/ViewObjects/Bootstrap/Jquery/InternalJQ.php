@@ -1,6 +1,6 @@
 <?php namespace ZN\ViewObjects\Bootstrap;
 
-use CallController, Support;
+use CallController, Support, Json;
 
 class InternalJQ extends CallController
 {
@@ -125,7 +125,7 @@ class InternalJQ extends CallController
         {
             $return = $code;
         }
-        elseif( $this->_isKeySelector($code) || $this->_isFunc($code) || $this->_isJquery($code) )
+        elseif( $this->_isKeySelector($code) || $this->_isFunc($code) || $this->_isJquery($code) || Json::check($code) )
         {
             $return = $code;
         }

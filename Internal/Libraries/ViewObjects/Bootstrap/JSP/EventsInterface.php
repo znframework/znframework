@@ -1,8 +1,6 @@
 <?php namespace ZN\ViewObjects\Bootstrap\JSP;
 
-use Jquery, Buffer;
-
-class Events implements EventsInterface
+interface EventsInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -22,10 +20,7 @@ class Events implements EventsInterface
     // @param callable $callback
     //
     //--------------------------------------------------------------------------------------------------------
-    public function addEventListener($selector, $event, $callback)
-    {
-        echo Jquery::event()->$event($selector, Buffer::callback($callback));
-    }
+    public function addEventListener($selector, $event, $callback);
 
     //--------------------------------------------------------------------------------------------------------
     // Remove Event Listener
@@ -35,8 +30,5 @@ class Events implements EventsInterface
     // @param string   $event
     //
     //--------------------------------------------------------------------------------------------------------
-    public function removeEventListener($selector, $event)
-    {
-        echo Jquery::event()->selector($selector)->unbind('', $event);
-    }
+    public function removeEventListener($selector, $event);
 }
