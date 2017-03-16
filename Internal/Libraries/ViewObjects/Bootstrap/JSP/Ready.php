@@ -1,6 +1,6 @@
 <?php namespace ZN\ViewObjects\Bootstrap\JSP;
 
-class Ready
+class Ready implements ReadyInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

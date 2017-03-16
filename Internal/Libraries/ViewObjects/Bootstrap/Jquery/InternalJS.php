@@ -1197,7 +1197,7 @@ class InternalJS extends CallController
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // If Clause
+    // If Clause -> 4.2.8[edited]
     //--------------------------------------------------------------------------------------------------------
     //
     // @param  string $condition
@@ -1205,7 +1205,7 @@ class InternalJS extends CallController
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function ifClause(String $condition, String $code = NULL , String $elseCode = NULL) : String
+    public function if(String $condition, String $code = NULL , String $elseCode = NULL) : String
     {
         $elseCode = ! empty($elseCode) ? $this->elseClause($elseCode) : '';
 
@@ -1213,7 +1213,7 @@ class InternalJS extends CallController
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Else If Clause
+    // Else If Clause -> 4.2.8[edited]
     //--------------------------------------------------------------------------------------------------------
     //
     // @param  string $condition
@@ -1221,26 +1221,26 @@ class InternalJS extends CallController
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function elseIfClause(String $condition, String $code = NULL) : String
+    public function elseIf(String $condition, String $code = NULL) : String
     {
         return $this->_clause('else if', $condition, $code);
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Else Clause
+    // Else Clause -> 4.2.8[edited]
     //--------------------------------------------------------------------------------------------------------
     //
     // @param  string $code
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function elseClause(String $code = NULL) : String
+    public function else(String $code = NULL) : String
     {
         return "else{".$code."}";
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // For Loop
+    // For Loop -> 4.2.8[edited]
     //--------------------------------------------------------------------------------------------------------
     //
     // @param  string $condition
@@ -1248,13 +1248,13 @@ class InternalJS extends CallController
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function forLoop(String $condition, String $code = NULL) : String
+    public function for(String $condition, String $code = NULL) : String
     {
         return $this->_clause('for', $condition, $code);
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // While Loop
+    // While Loop -> 4.2.8[edited]
     //--------------------------------------------------------------------------------------------------------
     //
     // @param  string $condition
@@ -1262,13 +1262,13 @@ class InternalJS extends CallController
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function whileLoop(String $condition, String $code = NULL) : String
+    public function while(String $condition, String $code = NULL) : String
     {
         return $this->_clause('while', $condition, $code);
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Do While Loop
+    // Do While Loop -> 4.2.8[edited]
     //--------------------------------------------------------------------------------------------------------
     //
     // @param  string $condition
@@ -1276,13 +1276,13 @@ class InternalJS extends CallController
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function doWhileLoop(String $condition, String $code = NULL) : String
+    public function doWhile(String $condition, String $code = NULL) : String
     {
         return "do{".$code."}while(".$condition.");";
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Switch Clause
+    // Switch Clause -> 4.2.8[edited]
     //--------------------------------------------------------------------------------------------------------
     //
     // @param  string $condition
@@ -1290,7 +1290,7 @@ class InternalJS extends CallController
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function switchClause(String $condition, Array $cases) : String
+    public function switch(String $condition, Array $cases) : String
     {
         $clause = '';
 

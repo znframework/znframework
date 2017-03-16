@@ -1,8 +1,6 @@
 <?php namespace ZN\ViewObjects\Bootstrap\JSP;
 
-use Script;
-
-class Run implements RunInterface
+interface VariableInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -13,10 +11,11 @@ class Run implements RunInterface
     //
     //--------------------------------------------------------------------------------------------------------
 
-    public function use(Callable $callback, Bool $jquery = true, Bool $jqueryAnimate = false)
-    {
-        echo Script::open(false, $jquery, $jqueryAnimate);
-        echo $callback();
-        echo Script::close();
-    }
+    public function var(String $variable, String $value = NULL);
+
+    public function varch(String $variable, String $value = NULL);
+
+    public function vardec(String $variable, Int $decrement = 1);
+
+    public function varinc(String $variable, Int $decrement = 1);
 }

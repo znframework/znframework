@@ -2,7 +2,7 @@
 
 use JS;
 
-class Variable
+class Variable implements VariableInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

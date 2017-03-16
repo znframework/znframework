@@ -1,6 +1,8 @@
 <?php namespace ZN\ViewObjects\Bootstrap\JSP;
 
-class Output
+use JQ;
+
+class Output implements OutputInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -13,11 +15,11 @@ class Output
 
     public function alert(String $value)
     {
-        echo 'alert(' . $value . ');' . EOL;
+        echo 'alert(' . JQ::stringControl($value) . ');' . EOL;
     }
 
     public function write(String $value)
     {
-        echo 'document.write(' . $value . ');' . EOL;
+        echo 'document.write(' . JQ::stringControl($value) . ');' . EOL;
     }
 }

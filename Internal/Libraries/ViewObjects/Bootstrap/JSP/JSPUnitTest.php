@@ -1,8 +1,6 @@
-<?php namespace ZN\ViewObjects\Bootstrap\JSP;
+<?php namespace ZN\ViewObjects\Bootstrap;
 
-use Script;
-
-class Run implements RunInterface
+class JSPUnitTest extends \UnitTestController
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -13,10 +11,9 @@ class Run implements RunInterface
     //
     //--------------------------------------------------------------------------------------------------------
 
-    public function use(Callable $callback, Bool $jquery = true, Bool $jqueryAnimate = false)
-    {
-        echo Script::open(false, $jquery, $jqueryAnimate);
-        echo $callback();
-        echo Script::close();
-    }
+    const unit =
+    [
+        'class'   => 'JSP',
+        'methods' => []
+    ];
 }

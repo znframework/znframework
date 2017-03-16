@@ -354,19 +354,54 @@ class Connection implements ConnectionInterface
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Protected Convert Int
+    // Protected Exp
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $column
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _exp($column = '', $exp = 'exp')
+    {
+        return stristr($column, $exp . ':');
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Clear Exp
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $column
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _clearExp($column, $exp = 'exp')
+    {
+        return str_ireplace($exp . ':', '', $column);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Convert Type
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string $column
     // @param string $value
     //
     //--------------------------------------------------------------------------------------------------------
-    protected function _convertInt($column = '', $value = '')
+    protected function _convertType($column = '', $value = '')
     {
-        if( stristr($column, 'int:') )
+        if( $this->_exp($column, 'int') )
         {
             $value  = (int) $value;
-            $column = str_ireplace('int:', '', $column);
+            $column = $this->_clearExp($column, 'int');
+        }
+
+        if( $this->_exp($column, 'float') )
+        {
+            $value  = (float) $value;
+            $column = $this->_clearExp($column, 'float');
+        }
+
+        if( $this->_exp($column, 'exp') )
+        {
+            $column = $this->_clearExp($column);
         }
 
         return (object)
@@ -411,8 +446,8 @@ class Connection implements ConnectionInterface
             {
                 foreach( $this->secure as $k => $v )
                 {
-                    $convertInt = $this->_convertInt($k, $v);
-
+                    $convertInt = $this->_convertType($k, $v);
+                    
                     $secureParams[$convertInt->column] = $this->db->realEscapeString($convertInt->value);
                 }
             }

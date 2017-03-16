@@ -2041,7 +2041,7 @@ class InternalDB extends Connection implements InternalDBInterface
         $keys   = ['between', 'in'];
         $column = trim($column);
 
-        if( in_array(strtolower(divide($column, ' ', -1)), $keys) )
+        if( in_array(strtolower(divide($column, ' ', -1)), $keys) || $this->_exp($column) || is_numeric($value) )
         {
             return $value;
         }
@@ -2080,10 +2080,10 @@ class InternalDB extends Connection implements InternalDBInterface
     {
         if( $value !== '' )
         {
-            $value = $this->_whereKeyControl($column, $value);
+            $value  = $this->_whereKeyControl($column, $value);
         }
 
-        $convertInt = $this->_convertInt($column, $value);
+        $convertInt = $this->_convertType($column, $value);
         $value      = $convertInt->value;
         $column     = $convertInt->column;
         $column     = $this->_equalControl($column);

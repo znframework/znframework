@@ -1,8 +1,6 @@
 <?php namespace ZN\ViewObjects\Bootstrap\JSP;
 
-use Script;
-
-class Run implements RunInterface
+interface RunInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -13,10 +11,5 @@ class Run implements RunInterface
     //
     //--------------------------------------------------------------------------------------------------------
 
-    public function use(Callable $callback, Bool $jquery = true, Bool $jqueryAnimate = false)
-    {
-        echo Script::open(false, $jquery, $jqueryAnimate);
-        echo $callback();
-        echo Script::close();
-    }
+    public function use(Callable $callback, Bool $jquery = true, Bool $jqueryAnimate = false);
 }

@@ -1,6 +1,6 @@
 <?php namespace ZN\ViewObjects\Bootstrap\JSP;
 
-class Statements
+class Statements implements StatementsInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -45,7 +45,7 @@ class Statements
         echo $callback() . EOL;
     }
 
-    public function defaultCase(Callable $callback)
+    public function default(Callable $callback)
     {
         echo 'default:' . EOL;
         echo $callback() . EOL;

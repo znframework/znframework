@@ -238,7 +238,7 @@ trait JqueryTrait
             {
                 if( is_callable($v) )
                 {
-                    $implode .= JQ::callback('e', Buffer::callback($v));
+                    $implode .= JQ::callback('', Buffer::callback($v));
                 }
                 elseif( ! empty($v) )
                 {
@@ -250,7 +250,11 @@ trait JqueryTrait
         }
         else
         {
-            if( ! empty($array) )
+            if( is_callable($array) )
+            {
+                $implode = JQ::callback('', Buffer::callback($array));
+            }
+            elseif( ! empty($array) )
             {
                 $implode = JQ::stringControl($array);
             }

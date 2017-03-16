@@ -1,6 +1,6 @@
 <?php namespace ZN\ViewObjects\Bootstrap\JSP;
 
-class Loops
+class Loops implements LoopsInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

@@ -125,7 +125,14 @@ class InternalJQ extends CallController
         {
             $return = $code;
         }
-        elseif( $this->_isKeySelector($code) || $this->_isFunc($code) || $this->_isJquery($code) || Json::check($code) )
+        elseif
+        ( 
+            $this->_isKeySelector($code) ||
+            $this->_isFunc($code)        ||
+            $this->_isJquery($code)      ||
+            Json::check($code)           ||
+            is_numeric($code)
+        )
         {
             $return = $code;
         }
