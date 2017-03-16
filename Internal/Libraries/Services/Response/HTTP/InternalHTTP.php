@@ -14,7 +14,7 @@ class InternalHTTP extends CLController implements InternalHTTPInterface
     //
     //--------------------------------------------------------------------------------------------------------
 
-    const config = 'Services:http';
+    const config = ['Services:http', 'Services:route'];
 
     //--------------------------------------------------------------------------------------------------------
     // Settings
@@ -50,7 +50,8 @@ class InternalHTTP extends CLController implements InternalHTTPInterface
     //--------------------------------------------------------------------------------------------------------
     public function isInvalidRequest() : Bool
     {
-        $request = Method::request();
+        $disallowMethods = SERVICES_ROUTE_CONFIG['invalidRequest']['disallowMethods'];
+        $request         = array_merge(...$disallowMethods);
 
         unset($request[prefix(currentPath())]);
 

@@ -1,6 +1,6 @@
 <?php namespace ZN\ViewObjects\Bootstrap;
 
-use JQ, Script, Json;
+use JQ, Script, Json, Buffer;
 
 trait JqueryTrait
 {
@@ -236,7 +236,11 @@ trait JqueryTrait
         {
             if( ! empty($array) ) foreach( $array as $v )
             {
-                if( ! empty($v) )
+                if( is_callable($v) )
+                {
+                    $implode .= JQ::callback('e', Buffer::callback($v));
+                }
+                elseif( ! empty($v) )
                 {
                     $implode .= JQ::stringControl($v).",";
                 }
