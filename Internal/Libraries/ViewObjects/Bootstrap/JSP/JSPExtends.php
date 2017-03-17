@@ -1,6 +1,6 @@
 <?php namespace ZN\ViewObjects\Bootstrap\JSP;
 
-class Loops extends JSPExtends implements LoopsInterface
+class JSPExtends
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -11,20 +11,10 @@ class Loops extends JSPExtends implements LoopsInterface
     //
     //--------------------------------------------------------------------------------------------------------
 
-    public function while(String $condition, Callable $callback)
+    protected function _statements($condition, $callback, $function)
     {
-        $this->_statements($condition, $callback, 'while');
-    }
-
-    public function doWhile(String $condition, Callable $callback)
-    {
-        echo 'do{ ' . EOL;
+        echo $function . ( ! empty($condition) ? '(' . $condition . ')' : '' ) .'{ ' . EOL;
         echo $callback();
-        echo '}while(' . $condition . ');' . EOL;
-    }
-
-    public function for(String $condition, Callable $callback)
-    {
-        $this->_statements($condition, $callback, 'for');
+        echo '}' . EOL;
     }
 }

@@ -1,6 +1,6 @@
 <?php namespace ZN\ViewObjects\Bootstrap;
 
-use CallController;
+use CallController, JQ;
 
 class InternalJS extends CallController
 {
@@ -1157,7 +1157,7 @@ class InternalJS extends CallController
     //--------------------------------------------------------------------------------------------------------
     public function alert(String $code, Bool $comma = true) : String
     {
-        return $this->_jsFunc('alert', $code, $comma);
+        return $this->_jsFunc('alert', JQ::stringControl($code), $comma);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -1186,7 +1186,7 @@ class InternalJS extends CallController
     //--------------------------------------------------------------------------------------------------------
     public function confirm(String $code, String $true = NULL, String $false = NULL) : String
     {
-         $confirm = $this->_jsFunc('confirm', \JQ::stringControl($code), false);
+         $confirm = $this->_jsFunc('confirm', JQ::stringControl($code), false);
 
          if( empty($true) )
          {

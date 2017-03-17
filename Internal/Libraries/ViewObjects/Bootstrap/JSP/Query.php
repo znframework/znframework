@@ -21,4 +21,23 @@ class Query implements QueryInterface
         echo $callback($class) . EOL;
         echo $class->create();
     }
+
+    public function selector(String $selector)
+    {
+        Jquery::selector($selector);
+
+        return $this;
+    }
+
+    public function property(...$args)
+    {
+        Jquery::property(...$args);
+
+        return $this;
+    }
+
+    public function complete()
+    {
+        echo Jquery::create();
+    }
 }

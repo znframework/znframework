@@ -1,6 +1,6 @@
 <?php namespace ZN\ViewObjects\Bootstrap\JSP;
 
-use JS;
+use JS, JQ;
 
 class Variable implements VariableInterface
 {
@@ -15,12 +15,12 @@ class Variable implements VariableInterface
 
     public function var(String $variable, String $value = NULL)
     {
-        echo JS::define($variable, $value) . EOL;
+        echo JS::define($variable, JQ::stringControl($value)) . EOL;
     }
 
     public function varch(String $variable, String $value = NULL)
     {
-        echo $this->_equalControl($variable) . ' ' . $value . ';' . EOL;
+        echo $this->_equalControl($variable) . ' ' . JQ::stringControl($value) . ';' . EOL;
     }
 
     public function vardec(String $variable, Int $decrement = 1)
