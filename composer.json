@@ -1,9 +1,9 @@
 {
-    "name": "znframework/Develop",
+    "name": "znframework/Development",
     "type": "project",
     "description": "zeroneed",
     "keywords": ["zn","zeroneed"],
-    "homepage": "https://github.com/znframework/Develop",
+    "homepage": "https://github.com/znframework/Development",
     "license": "MIT",
     "authors": 
     [
