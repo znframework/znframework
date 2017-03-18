@@ -578,7 +578,7 @@ class Ajax extends CallController
     // @param string $done
     //
     //--------------------------------------------------------------------------------------------------------
-    public function done(String $params = 'e', String $done = NULL) : Ajax
+    public function done(String $params = 'e', $done = NULL) : Ajax
     {
         $this->_callbacks('done', $params, $done);
 
@@ -593,7 +593,7 @@ class Ajax extends CallController
     // @param string $fail
     //
     //--------------------------------------------------------------------------------------------------------
-    public function fail(String $params = 'e', String $fail = NULL) : Ajax
+    public function fail(String $params = 'e', $fail = NULL) : Ajax
     {
         $this->_callbacks('fail', $params, $fail);
 
@@ -608,7 +608,7 @@ class Ajax extends CallController
     // @param string $always
     //
     //--------------------------------------------------------------------------------------------------------
-    public function always(String $params = 'e', String $always = NULL) : Ajax
+    public function always(String $params = 'e', $always = NULL) : Ajax
     {
         $this->_callbacks('always', $params, $always);
 
@@ -623,7 +623,7 @@ class Ajax extends CallController
     // @param string $then
     //
     //--------------------------------------------------------------------------------------------------------
-    public function then(String $params = 'e', String $then = NULL) : Ajax
+    public function then(String $params = 'e', $then = NULL) : Ajax
     {
         $this->_callbacks('then', $params, $then);
 
@@ -758,6 +758,11 @@ class Ajax extends CallController
     //--------------------------------------------------------------------------------------------------------
     protected function _callbacks($name, $params, $codes)
     {
+        if( is_callable($codes) )
+        {
+            $codes = \Buffer::callback($codes);
+        }
+
         if( ! ( is_string($params) || is_string($codes) ) )
         {
             return $this;

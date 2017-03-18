@@ -23,8 +23,9 @@ class TemplateWizard extends CallController implements TemplateWizardInterface
     //--------------------------------------------------------------------------------------------------------
     public static function data(String $string, Array $data = []) : String
     {
-        $htmlRegexChar  = '.*?';
-        $htmlTagClose   = "</$1>";
+        $htmlRegexChar     = '.*?';
+        $htmlTagClose      = "</$1>";
+        $htmlAttributesTag = '\#(!*\w+)\s*(\[(.*?)\])*';
 
         $pattern =
         [
@@ -65,11 +66,11 @@ class TemplateWizard extends CallController implements TemplateWizardInterface
 
             // HTML TAGS
             '/\s+\#\#(\w+)/'                                                    => $htmlTagClose,
-            '/\#(!*\w+)\s*(\[(.*?)\])*\:/'                                      => '<$1 $3>',
-            '/\#(!*\w+)\s*(\[(.*?)\])*\s+/'                                     => '<$1 $3>',
-            '/\#(\w+)\s*(\[(.*?)\])*\s*\(\s*(.*?)\s*\)\:/s'                     => '<$1 $3>$4'.$htmlTagClose,
+            '/'.$htmlAttributesTag.'\:/'                                        => '<$1 $3>',
+            '/'.$htmlAttributesTag.'\s+/'                                       => '<$1 $3>',
+            '/'.$htmlAttributesTag.'\s*\(\s*(.*?)\s*\)\:/s'                     => '<$1 $3>$4'.$htmlTagClose,
+            '/'.$htmlAttributesTag.'\s*/'                                       => '<$1 $3>',
             '/\<(\w+)\s+\>/'                                                    => '<$1>',
-
             '/\+\[symbol\?\?dies\]\+/'                                          => '#'
         ];
 

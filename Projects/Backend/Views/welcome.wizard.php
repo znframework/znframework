@@ -40,13 +40,13 @@
             /#title
             {
                 font-size: 96px;
-                color:#BFC4C8;
+                color:/#BFC4C8;
             }
 
             /#sub-title
             {
                 font-size: 44.4px;
-                color:#BFC4C8;
+                color:/#BFC4C8;
             }
         ##style
     ##head
