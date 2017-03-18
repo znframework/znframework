@@ -1,8 +1,6 @@
 <?php namespace ZN\ViewObjects\Bootstrap\JSP;
 
-use Jquery;
-
-class Ajax implements AjaxInterface
+interface AnimateInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -13,11 +11,5 @@ class Ajax implements AjaxInterface
     //
     //--------------------------------------------------------------------------------------------------------
 
-    public function send(Callable $callback)
-    {
-        $class = Jquery::ajax();
-
-        echo $callback($class) . EOL;
-        echo $class->send();
-    }
+    public function create(String $selector, Callable $callback);
 }

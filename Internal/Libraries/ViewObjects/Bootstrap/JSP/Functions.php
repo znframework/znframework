@@ -22,6 +22,13 @@ class Functions implements FunctionsInterface
     //--------------------------------------------------------------------------------------------------------
     public function define(String $functionName = NULL, $parameters = NULL, $function = NULL)
     {
+        if( ( is_scalar($parameters) || $parameters === NULL ) && $function === NULL )
+        {
+            echo $functionName . '(' . $parameters . ');' . EOL;
+
+            return;
+        }
+
         $params = $parameters;
 
         if( is_callable($parameters) )

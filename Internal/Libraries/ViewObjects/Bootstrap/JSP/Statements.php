@@ -1,5 +1,7 @@
 <?php namespace ZN\ViewObjects\Bootstrap\JSP;
 
+use JQ;
+
 class Statements extends JSPExtends implements StatementsInterface
 {
     //--------------------------------------------------------------------------------------------------------
@@ -37,18 +39,29 @@ class Statements extends JSPExtends implements StatementsInterface
 
     public function case(String $condition, Callable $callback)
     {
-        echo 'case ' . $condition . ' :' . EOL;
+        echo 'case ' . JQ::stringControl($condition) . ' :' . EOL;
         echo $callback() . EOL;
+
+        return $this;
     }
 
     public function default(Callable $callback)
     {
         echo 'default:' . EOL;
         echo $callback() . EOL;
+
+        return $this;
     }
 
     public function break()
     {
         echo 'break;' . EOL;
+
+        return $this;
+    }
+
+    public function return(String $data = NULL)
+    {
+        echo 'return' . ( ! empty($data) ? ' '.$data : '' ) . ';' . EOL;
     }
 }

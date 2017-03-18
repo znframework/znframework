@@ -1171,7 +1171,7 @@ class InternalJS extends CallController
     //--------------------------------------------------------------------------------------------------------
     public function prompt(String $code, Bool $comma = true) : String
     {
-        return $this->_jsFunc('prompt', $code, $comma);
+        return $this->_jsFunc('prompt', JQ::stringControl($code), $comma);
     }
 
     //--------------------------------------------------------------------------------------------------------

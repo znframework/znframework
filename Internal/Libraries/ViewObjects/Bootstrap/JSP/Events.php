@@ -37,6 +37,6 @@ class Events implements EventsInterface
     //--------------------------------------------------------------------------------------------------------
     public function removeEventListener(String $selector, String $event)
     {
-        echo Jquery::event()->selector($selector)->unbind('', $event);
+        echo Jquery::event()->unbind($selector, $event);
     }
 }

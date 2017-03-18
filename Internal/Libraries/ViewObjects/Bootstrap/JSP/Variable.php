@@ -15,12 +15,12 @@ class Variable implements VariableInterface
 
     public function var(String $variable, String $value = NULL)
     {
-        echo JS::define($variable, JQ::stringControl($value)) . EOL;
+        echo 'var ' . $this->_var($variable, $value);
     }
 
     public function varch(String $variable, String $value = NULL)
     {
-        echo $this->_equalControl($variable) . ' ' . JQ::stringControl($value) . ';' . EOL;
+        echo $this->_var($variable, $value);
     }
 
     public function vardec(String $variable, Int $decrement = 1)
@@ -31,6 +31,11 @@ class Variable implements VariableInterface
     public function varinc(String $variable, Int $decrement = 1)
     {
         echo $variable . ' = ' . $variable . ' + ' . $decrement . ';' . EOL;
+    }
+
+    protected function _var($variable, $value)
+    {
+        return $this->_equalControl($variable) . ' ' . JQ::stringControl($value) . ';' . EOL;
     }
 
     protected function _equalControl($column)

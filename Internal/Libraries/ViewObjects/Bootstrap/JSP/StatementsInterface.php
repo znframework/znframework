@@ -24,4 +24,6 @@ interface StatementsInterface
     public function default(Callable $callback);
 
     public function break();
+
+    public function return(String $data = NULL);
 }

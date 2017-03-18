@@ -2,7 +2,7 @@
 
 use Jquery;
 
-class Animate implements HelperInterface
+class Animate implements AnimateInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -13,5 +13,12 @@ class Animate implements HelperInterface
     //
     //--------------------------------------------------------------------------------------------------------
 
-    use HelperTrait;
+    public function create(String $selector, Callable $callback)
+    {
+        $class = Jquery::animate();
+
+        $class->selector($selector);
+        echo $callback($class) . EOL;
+        echo $class->create();
+    }
 }
