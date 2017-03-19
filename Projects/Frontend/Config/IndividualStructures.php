@@ -15,10 +15,7 @@
     // Compress
     //--------------------------------------------------------------------------------------------------
     //
-    // Author     : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
-    // Site       : www.znframework.com
-    // License    : The MIT License
-    // Copyright  : Copyright (c) 2012-2016, ZN Framework
+    // Genel Kullanım: Sıkıştırma kütüphanesine ait sürücü ayarını içerir.
     //
     //--------------------------------------------------------------------------------------------------
     'compress' =>
@@ -37,10 +34,7 @@
     // Cache
     //--------------------------------------------------------------------------------------------------
     //
-    // Author     : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
-    // Site       : www.znframework.com
-    // License    : The MIT License
-    // Copyright  : Copyright (c) 2012-2016, ZN Framework
+    // Genel Kullanım: Ön bellekleme kütüphanesine ait ayarları içerir.
     //
     //--------------------------------------------------------------------------------------------------
     'cache' =>
@@ -112,10 +106,7 @@
     // Cart
     //--------------------------------------------------------------------------------------------------
     //
-    // Author     : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
-    // Site       : www.znframework.com
-    // License    : The MIT License
-    // Copyright  : Copyright (c) 2012-2016, ZN Framework
+    // Genel Kullanım: Sepet kütüphanesine ait ayarları içerir.
     //
     //--------------------------------------------------------------------------------------------------
     'cart' =>
@@ -136,10 +127,7 @@
     // Permission
     //--------------------------------------------------------------------------------------------------
     //
-    // Author     : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
-    // Site       : www.znframework.com
-    // License    : The MIT License
-    // Copyright  : Copyright (c) 2012-2016, ZN Framework
+    // Genel Kullanım: Yetki kütüphanesine ait ayarları içerir.
     //
     //--------------------------------------------------------------------------------------------------
     'permission' =>
@@ -193,10 +181,7 @@
     // USER
     //--------------------------------------------------------------------------------------------------
     //
-    // Author     : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
-    // Site       : www.znframework.com
-    // License    : The MIT License
-    // Copyright  : Copyright (c) 2012-2016, ZN Framework
+    // Genel Kullanım: Kullanıcı sıfına ait ayarları içerir.
     //
     //--------------------------------------------------------------------------------------------------
     'user' =>

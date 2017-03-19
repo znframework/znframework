@@ -58,7 +58,7 @@
         //----------------------------------------------------------------------------------------------
         'invalidRequest' =>
         [
-            'control'         => true,
+            'control'         => false,
             'page'            => '',
             'allowPages'      => [],
             'disallowMethods' => [Method::post(), Method::get()]

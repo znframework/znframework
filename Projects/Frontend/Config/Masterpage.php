@@ -1,7 +1,7 @@
 <?php return
 [
     //--------------------------------------------------------------------------------------------------
-    // Masterpage 
+    // Masterpage
     //--------------------------------------------------------------------------------------------------
     //
     // Author     : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
@@ -15,10 +15,10 @@
     // Head Page
     //--------------------------------------------------------------------------------------------------
     //
-    // Genel Kullanım: Masterpage olarak belirlen sayfanın head etiketleri arasına harici kod  
-    // yazmak için sayfa belirlemek için kullanlır.                                           
-    // Parametre:Metinsel türde Views/ dizininden tüm sayfalar için geçerli olacak bir         
-    // head sayfası belirlenir. Örnek: "head";  veya array(h1, h2 ....)                            
+    // Genel Kullanım: Masterpage olarak belirlen sayfanın head etiketleri arasına harici kod
+    // yazmak için sayfa belirlemek için kullanlır.
+    // Parametre:Metinsel türde Views/ dizininden tüm sayfalar için geçerli olacak bir
+    // head sayfası belirlenir. Örnek: "head";  veya array(h1, h2 ....)
     //
     //--------------------------------------------------------------------------------------------------
     'headPage' => '', // String veya Array veri türü içerebilir.
@@ -27,9 +27,9 @@
     // Body Page
     //--------------------------------------------------------------------------------------------------
     //
-    // Genel Kullanım: Masterpage olacak sayfayı ayarlamak için kullanılır.                   
-    // Parametre:Metinsel türde Views/ dizininden masterpage olarak düşünülen sayfa               
-    // adı bilgisi girilir. Örnek: "body";                                                      
+    // Genel Kullanım: Masterpage olacak sayfayı ayarlamak için kullanılır.
+    // Parametre:Metinsel türde Views/ dizininden masterpage olarak düşünülen sayfa
+    // adı bilgisi girilir. Örnek: "body";
     //
     //--------------------------------------------------------------------------------------------------
     'bodyPage' => '',
@@ -38,7 +38,7 @@
     // Doctype
     //--------------------------------------------------------------------------------------------------
     //
-    // Genel Kullanım: Sayfanın döküman türü varsayılan:xhtml1-trans.                          
+    // Genel Kullanım: Sayfanın döküman türü varsayılan:xhtml1-trans.
     //
     //--------------------------------------------------------------------------------------------------
     'docType' => 'xhtml1Transitional',
@@ -47,7 +47,7 @@
     // Content Charset
     //--------------------------------------------------------------------------------------------------
     //
-    // Genel Kullanım: Sayfanın dil kodlaması varsayılarn:utf-8.                                  
+    // Genel Kullanım: Sayfanın dil kodlaması varsayılarn:utf-8.
     //
     //--------------------------------------------------------------------------------------------------
     'content' =>
@@ -60,8 +60,8 @@
     // Browser Icon
     //--------------------------------------------------------------------------------------------------
     //
-    // Genel Kullanım: Web sitesinin tarayıcıda görünen ikon eklemek için ikonun              
-    // yolunu yazınız.                                                                         
+    // Genel Kullanım: Web sitesinin tarayıcıda görünen ikon eklemek için ikonun
+    // yolunu yazınız.
     //
     //--------------------------------------------------------------------------------------------------
     'browserIcon' => '',
@@ -69,8 +69,8 @@
     //--------------------------------------------------------------------------------------------------
     // Background Image
     //--------------------------------------------------------------------------------------------------
-    // 
-    // Genel Kullanım: Web sitesinin arkaplan resmi.                                              
+    //
+    // Genel Kullanım: Web sitesinin arkaplan resmi.
     //
     //--------------------------------------------------------------------------------------------------
     'backgroundImage' => '',
@@ -78,11 +78,11 @@
     //--------------------------------------------------------------------------------------------------
     // Body Attributes
     //--------------------------------------------------------------------------------------------------
-    // 
-    // Genel Kullanım: <html>, <head> ve <body> taglarına özellik değer çifti eklemek istediğiniz zaman 
-    // kullanabilirsiniz. 
     //
-    // array('id' => 'body', 'name' => 'Body') -- <body id="body" name="Body">                                            
+    // Genel Kullanım: <html>, <head> ve <body> taglarına özellik değer çifti eklemek istediğiniz zaman
+    // kullanabilirsiniz.
+    //
+    // ['id' => 'body', 'name' => 'Body'] -- <body id="body" name="Body">
     //
     //--------------------------------------------------------------------------------------------------
     'attributes' =>
@@ -96,7 +96,7 @@
     // Theme
     //--------------------------------------------------------------------------------------------------
     //
-    // Genel Kullanım: Resources/Themes/ içindeki dahil edilmek istenen tema belirtilir.            
+    // Genel Kullanım: Resources/Themes/ içindeki dahil edilmek istenen tema belirtilir.
     //
     //--------------------------------------------------------------------------------------------------
     'theme' =>
@@ -109,7 +109,7 @@
     // Plugin
     //--------------------------------------------------------------------------------------------------
     //
-    // Genel Kullanım: Resources/Plugins/ içindeki dahil edilmek istenen eklentiler belirtilir.         
+    // Genel Kullanım: Resources/Plugins/ içindeki dahil edilmek istenen eklentiler belirtilir.
     //
     //--------------------------------------------------------------------------------------------------
     'plugin' =>
@@ -122,11 +122,11 @@
     // Font
     //--------------------------------------------------------------------------------------------------
     //
-    // Genel Kullanım: Harici font kullanımı kullanmak istediğiniz özel fontları              
-    // Resources/Fonts/                                                                       
-    // dizinine atıp bu dizin içindek dosyanın adını yazarak kullanabilirsiniz.               
-    // Aşağıdaki dizi içerisine Resources/Fonts/ dizinindeki dosya/dosyaların isimlerini       
-    // yazmanız yeterlidir.                                                                     
+    // Genel Kullanım: Harici font kullanımı kullanmak istediğiniz özel fontları
+    // Resources/Fonts/
+    // dizinine atıp bu dizin içindek dosyanın adını yazarak kullanabilirsiniz.
+    // Aşağıdaki dizi içerisine Resources/Fonts/ dizinindeki dosya/dosyaların isimlerini
+    // yazmanız yeterlidir.
     //
     //--------------------------------------------------------------------------------------------------
     'font' => [], // string veya array
@@ -135,10 +135,10 @@
     // Style
     //--------------------------------------------------------------------------------------------------
     //
-    // Genel Kullanım: Harici css dosyası kullanımı kullanmak istediğiniz stil dosyalarını     
-    // Resources/Styles/ dizinine atmanız gerekmektedir. Aşağıdaki dizi içerisine              
-    // Resources/Styles/                                                                      
-    // dizinindeki dosya/dosyaların isimlerini yazmanız yeterlidir.                             
+    // Genel Kullanım: Harici css dosyası kullanımı kullanmak istediğiniz stil dosyalarını
+    // Resources/Styles/ dizinine atmanız gerekmektedir. Aşağıdaki dizi içerisine
+    // Resources/Styles/
+    // dizinindeki dosya/dosyaların isimlerini yazmanız yeterlidir.
     //
     //--------------------------------------------------------------------------------------------------
     'style' => [], // string veya array
@@ -147,8 +147,8 @@
     // Script
     //--------------------------------------------------------------------------------------------------
     //
-    // Genel Kullanım: Harici javascript dosyası kullanımı. Aşağıdaki dizi içerisine          
-    // Resources/Scripts/ dizinindeki dosya/dosyaların isimlerini yazmanız yeterlidir.          
+    // Genel Kullanım: Harici javascript dosyası kullanımı. Aşağıdaki dizi içerisine
+    // Resources/Scripts/ dizinindeki dosya/dosyaların isimlerini yazmanız yeterlidir.
     //
     //--------------------------------------------------------------------------------------------------
     'script' => [], // string veya array
@@ -157,7 +157,7 @@
     // Title
     //--------------------------------------------------------------------------------------------------
     //
-    // Genel Kullanım: Tüm sayfalar için varsayılan başlık bilgisi.                           
+    // Genel Kullanım: Tüm sayfalar için varsayılan başlık bilgisi.
     //
     //--------------------------------------------------------------------------------------------------
     'title' => '',
@@ -166,16 +166,16 @@
     // Meta
     //--------------------------------------------------------------------------------------------------
     //
-    // Genel Kullanım: Standart olarak kullanılan meta verilerini kullanmak için oluşturuldu.  
-    // Meta içeri name ise name: ayracı, http-equiv ise http: ayracı kullanılarak             
-    // meta tagları ekleyebilirsiniz.                                                         
-    //                                                                                        
-    // Aşağıdaki taglar ön tanımlı meta taglarıdır.                                           
-    //                                                                                        
+    // Genel Kullanım: Standart olarak kullanılan meta verilerini kullanmak için oluşturuldu.
+    // Meta içeri name ise name: ayracı, http-equiv ise http: ayracı kullanılarak
+    // meta tagları ekleyebilirsiniz.
+    //
+    // Aşağıdaki taglar ön tanımlı meta taglarıdır.
+    //
     //--------------------------------------------------------------------------------------------------
     'meta' =>
     [
-        'name:description'      => '', 
+        'name:description'      => '',
         'name:author'           => '',
         'name:designer'         => '',
         'name:distribution'     => '',
@@ -195,7 +195,7 @@
     //--------------------------------------------------------------------------------------------------
     //
     // Genel Kullanım: Head tagları arasına farklı bir bilgi veya bilgiler eklenmek isteniyorsa
-    // dizi elemanı olarak yazmanız yeterlidir.                                               
+    // dizi elemanı olarak yazmanız yeterlidir.
     //
     //--------------------------------------------------------------------------------------------------
     'data' => []

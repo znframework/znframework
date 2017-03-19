@@ -1,7 +1,7 @@
-<?php return 
+<?php return
 [
     //--------------------------------------------------------------------------------------------------
-    // Robots 
+    // Robots
     //--------------------------------------------------------------------------------------------------
     //
     // Author     : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
@@ -12,11 +12,11 @@
     //--------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------
-    // Create File                                                                        
+    // Create File
     //--------------------------------------------------------------------------------------------------
     //
-    // Genel Kullanım: Ana dizine robots.txt dosyası oluşturmak içindir.                                                                                                                                        
-    //                        
+    // Genel Kullanım: Ana dizine robots.txt dosyası oluşturmak içindir.
+    //
     //--------------------------------------------------------------------------------------------------
     'createFile' => true,
 
@@ -25,22 +25,22 @@
     //--------------------------------------------------------------------------------------------------
     //
     // Genel Kullanım: Kurallar oluşturmak için kullanılır. Rules dizisi içerisinde sınırsız sayıda
-    // dizilerden oluşan kurallar kullanılabilir. Her bir dizi elemanı için user-agent, allow ve 
+    // dizilerden oluşan kurallar kullanılabilir. Her bir dizi elemanı için user-agent, allow ve
     // disallow ayarlanabilir. Birden fazla user-agent kullanılacaksa eleman sayısı artırılabilir.
     //
     // Çoklu Kullanım: array( array('userAgent' => '*', ...), array('userAgent' => '*') ) Dizi türü
-    // Tekli Kullanım: array( 'userAgent' => '*' ) Dizge türü 
-    //                                                                                  
+    // Tekli Kullanım: array( 'userAgent' => '*' ) Dizge türü
+    //
     //--------------------------------------------------------------------------------------------------
-    'rules' => 
+    'rules' =>
     [
         'userAgent' => '*',
         'allow'     => [],
-        'disallow'  => 
+        'disallow'  =>
         [
-            '/External/', 
-            '/Internal/', 
+            '/External/',
+            '/Internal/',
             '/Projects/'
-        ]   
+        ]
     ]
 ];
