@@ -2,7 +2,7 @@
 
 use CallController, Support, Json;
 
-class InternalJQ extends CallController
+class InternalJQ extends CallController implements InternalJQInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -204,7 +204,7 @@ class InternalJQ extends CallController
             return false;
         }
 
-        if( is_callable($parameters) )
+        if( is_callable($code) )
         {
             $code = \Buffer::callback($code);
         }

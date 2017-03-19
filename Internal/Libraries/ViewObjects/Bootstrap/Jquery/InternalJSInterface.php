@@ -1,8 +1,6 @@
 <?php namespace ZN\ViewObjects\Bootstrap;
 
-use CallController, JQ;
-
-class InternalJS extends CallController implements InternalJSInterface
+interface InternalJSInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -23,10 +21,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function interval(String $time, String $code, Bool $comma = true) : String
-    {
-        return $this->_jsFunc('setInterval', "$code, $time", $comma);
-    }
+    public function interval(String $time, String $code, Bool $comma = true) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Timeout
@@ -38,10 +33,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function timeout(String $time, String $code, Bool $comma = true) : String
-    {
-        return $this->_jsFunc('setTimeout', "$code, $time", $comma);
-    }
+    public function timeout(String $time, String $code, Bool $comma = true) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // indexOf
@@ -53,10 +45,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function indexOf(String $str, String $find, Bool $comma = true) : String
-    {
-        return $this->_jsFunc("String($str).indexOf", $find, $comma);
-    }
+    public function indexOf(String $str, String $find, Bool $comma = true) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // indexOf
@@ -68,10 +57,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function arrayIndexOf(String $str, String $find, Bool $comma = true) : String
-    {
-        return $this->_jsFunc("Array($str).indexOf", $find, $comma);
-    }
+    public function arrayIndexOf(String $str, String $find, Bool $comma = true) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Join
@@ -83,10 +69,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function arrayJoin(String $str, String $find, Bool $comma = true) : String
-    {
-        return $this->_jsFunc("Array($str).join", $find, $comma);
-    }
+    public function arrayJoin(String $str, String $find, Bool $comma = true) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // lastIndexOf
@@ -98,10 +81,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function lastIndexOf(String $str, String $find, Bool $comma = true) : String
-    {
-        return $this->_jsFunc("String($str).lastIndexOf", $find, $comma);
-    }
+    public function lastIndexOf(String $str, String $find, Bool $comma = true) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // lastIndexOf
@@ -113,10 +93,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function arrayLastIndexOf(String $str, String $find, Bool $comma = true) : String
-    {
-        return $this->_jsFunc("Array($str).lastIndexOf", $find, $comma);
-    }
+    public function arrayLastIndexOf(String $str, String $find, Bool $comma = true) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // arraySplice
@@ -131,15 +108,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function arraySplice(String $str, String $p1 = NULL, String $p2 = NULL, String $p3 = NULL, String $p4 = NULL, Bool $comma = true) : String
-    {
-        $param[] = $p1;
-        $param[] = $p2;
-        $param[] = $p3;
-        $param[] = $p4;
-
-        return $this->_jsFunc("Array($str).splice", implode(",", array_diff($param, [''])), $comma);
-    }
+    public function arraySplice(String $str, String $p1 = NULL, String $p2 = NULL, String $p3 = NULL, String $p4 = NULL, Bool $comma = true) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // length
@@ -151,10 +120,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function length(String $str, Bool $comma = true) : String
-    {
-        return "String($str).length".($comma === true ? ';' : '');
-    }
+    public function length(String $str, Bool $comma = true) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // length
@@ -166,10 +132,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function arrayLength(String $str, Bool $comma = true) : String
-    {
-        return "Array($str).length".($comma === true ? ';' : '');
-    }
+    public function arrayLength(String $str, Bool $comma = true) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // arrayUnshift
@@ -181,10 +144,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function arrayUnshift(String $str, String $find, Bool $comma = true) : String
-    {
-        return $this->_jsFunc("Array($str).unshift", $find, $comma);
-    }
+    public function arrayUnshift(String $str, String $find, Bool $comma = true) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // arrayUnshift
@@ -196,10 +156,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function arraySort(String $str, String $find, Bool $comma = true) : String
-    {
-        return $this->_jsFunc("Array($str).sort", $find, $comma);
-    }
+    public function arraySort(String $str, String $find, Bool $comma = true) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // pop
@@ -211,10 +168,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function arrayPop(String $str, Bool $comma = true) : String
-    {
-        return $this->_jsFunc("Array($str).pop", $comma);
-    }
+    public function arrayPop(String $str, Bool $comma = true) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Reverse
@@ -226,10 +180,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function arrayReverse(String $str, Bool $comma = true) : String
-    {
-        return $this->_jsFunc("Array($str).reverse", $comma);
-    }
+    public function arrayReverse(String $str, Bool $comma = true) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // toString
@@ -241,10 +192,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function arrayToString(String $str, Bool $comma = true) : String
-    {
-        return $this->_jsFunc("Array($str).toString", $comma);
-    }
+    public function arrayToString(String $str, Bool $comma = true) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Shift
@@ -256,10 +204,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function arrayShift(String $str, Bool $comma = true) : String
-    {
-        return $this->_jsFunc("Array($str).shift", $comma);
-    }
+    public function arrayShift(String $str, Bool $comma = true) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // push
@@ -271,10 +216,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function arrayPush(String $str, String $param, Bool $comma = true) : String
-    {
-        return $this->_jsFunc("Array($str).push", $param, $comma);
-    }
+    public function arrayPush(String $str, String $param, Bool $comma = true) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // search
@@ -286,10 +228,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function search(String $str, String $find, Bool $comma = true) : String
-    {
-        return $this->_jsFunc("String($str).search", $find, $comma);
-    }
+    public function search(String $str, String $find, Bool $comma = true) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // slice
@@ -301,10 +240,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function slice(String $str, String $p1, String $p2 = NULL, Bool $comma = true) : String
-    {
-        return $this->_jsFunc("String($str).slice", "$p1, $p2" , $comma);
-    }
+    public function slice(String $str, String $p1, String $p2 = NULL, Bool $comma = true) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // slice
@@ -316,10 +252,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function arraySlice(String $str, String $p1, String $p2 = NULL, Bool $comma = true) : String
-    {
-        return $this->_jsFunc("Array($str).slice", "$p1, $p2" , $comma);
-    }
+    public function arraySlice(String $str, String $p1, String $p2 = NULL, Bool $comma = true) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // substr
@@ -331,10 +264,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function substr(String $str, String $p1, String $p2 = NULL, Bool $comma = true) : String
-    {
-        return $this->_jsFunc("String($str).substr", "$p1, $p2" , $comma);
-    }
+    public function substr(String $str, String $p1, String $p2 = NULL, Bool $comma = true) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // substring
@@ -346,10 +276,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function substring(String $str, String $p1, String $p2 = NULL, Bool $comma = true) : String
-    {
-        return $this->_jsFunc("String($str).substring", "$p1, $p2" , $comma);
-    }
+    public function substring(String $str, String $p1, String $p2 = NULL, Bool $comma = true) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // replace
@@ -361,10 +288,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function replace(String $str, String $p1, String $p2 = NULL, Bool $comma = true) : String
-    {
-        return $this->_jsFunc("String($str).replace", "$p1, $p2" , $comma);
-    }
+    public function replace(String $str, String $p1, String $p2 = NULL, Bool $comma = true) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Upper Case
@@ -375,10 +299,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function upperCase(String $str, Bool $comma = true) : String
-    {
-        return $this->_jsFunc("String($str).toUpperCase", '' , $comma);
-    }
+    public function upperCase(String $str, Bool $comma = true) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Lowe Case
@@ -389,10 +310,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function lowerCase(String $str, Bool $comma = true) : String
-    {
-        return $this->_jsFunc("String($str).toLowerCase", '' , $comma);
-    }
+    public function lowerCase(String $str, Bool $comma = true) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // concat
@@ -404,10 +322,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function concat(String $str, String $param, Bool $comma = true) : String
-    {
-        return $this->_jsFunc("String($str).concat", $param , $comma);
-    }
+    public function concat(String $str, String $param, Bool $comma = true) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // concat
@@ -419,10 +334,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function arrayConcat(String $str, String $param, Bool $comma = true) : String
-    {
-        return $this->_jsFunc("Array($str).concat", $param , $comma);
-    }
+    public function arrayConcat(String $str, String $param, Bool $comma = true) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // charAt
@@ -434,10 +346,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function charAt(String $str, String $param, Bool $comma = true) : String
-    {
-        return $this->_jsFunc("String($str).charAt", $param , $comma);
-    }
+    public function charAt(String $str, String $param, Bool $comma = true) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // charCodeAt
@@ -449,10 +358,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function codeAt(String $str, String $param, Bool $comma = true) : String
-    {
-        return $this->_jsFunc("String($str).charCodeAt", $param , $comma);
-    }
+    public function codeAt(String $str, String $param, Bool $comma = true) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // split
@@ -464,10 +370,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function split(String $str, String $param, Bool $comma = true) : String
-    {
-        return $this->_jsFunc("String($str).split", $param , $comma);
-    }
+    public function split(String $str, String $param, Bool $comma = true) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // localeCompare
@@ -479,10 +382,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function localeCompare(String $str, String $param, Bool $comma = true) : String
-    {
-        return $this->_jsFunc("String($str).localeCompare", $param , $comma);
-    }
+    public function localeCompare(String $str, String $param, Bool $comma = true) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // match
@@ -494,10 +394,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function match(String $str, String $param, Bool $comma = true) : String
-    {
-        return $this->_jsFunc("String($str).match", $param , $comma);
-    }
+    public function match(String $str, String $param, Bool $comma = true) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // trim
@@ -509,10 +406,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function trim(String $str, Bool $comma = true) : String
-    {
-        return $this->_jsFunc("String($str).trim", '' , $comma);
-    }
+    public function trim(String $str, Bool $comma = true) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // anchor
@@ -524,10 +418,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function anchor(String $str, String $param, Bool $comma = true) : String
-    {
-        return $this->_jsFunc("String($str).anchor", $param , $comma);
-    }
+    public function anchor(String $str, String $param, Bool $comma = true) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // fontcolor
@@ -539,10 +430,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function fontColor(String $str, String $param, Bool $comma = true) : String
-    {
-        return $this->_jsFunc("String($str).fontcolor", $param , $comma);
-    }
+    public function fontColor(String $str, String $param, Bool $comma = true) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // fontsize
@@ -554,10 +442,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function fontSize(String $str, String $param, Bool $comma = true) : String
-    {
-        return $this->_jsFunc("String($str).fontsize", $param , $comma);
-    }
+    public function fontSize(String $str, String $param, Bool $comma = true) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // link
@@ -569,10 +454,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function link(String $str, String $param, Bool $comma = true) : String
-    {
-        return $this->_jsFunc("String($str).link", $param , $comma);
-    }
+    public function link(String $str, String $param, Bool $comma = true) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // big
@@ -584,10 +466,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function big(String $str, Bool $comma = true) : String
-    {
-        return $this->_jsFunc("String($str).big", '' , $comma);
-    }
+    public function big(String $str, Bool $comma = true) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // small
@@ -599,10 +478,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function small(String $str, Bool $comma = true) : String
-    {
-        return $this->_jsFunc("String($str).small", '' , $comma);
-    }
+    public function small(String $str, Bool $comma = true) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // strike
@@ -614,10 +490,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function strike(String $str, Bool $comma = true) : String
-    {
-        return $this->_jsFunc("String($str).strike", '' , $comma);
-    }
+    public function strike(String $str, Bool $comma = true) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // sub
@@ -629,10 +502,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function sub(String $str, Bool $comma = true) : String
-    {
-        return $this->_jsFunc("String($str).sub", '' , $comma);
-    }
+    public function sub(String $str, Bool $comma = true) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // sup
@@ -644,10 +514,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function sup(String $str, Bool $comma = true) : String
-    {
-        return $this->_jsFunc("String($str).sup", '' , $comma);
-    }
+    public function sup(String $str, Bool $comma = true) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // toString
@@ -659,10 +526,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function toString(String $str, Bool $comma = true) : String
-    {
-        return $this->_jsFunc("Number($str).toString", '' , $comma);
-    }
+    public function toString(String $str, Bool $comma = true) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // valueOf
@@ -674,10 +538,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function valueOf(String $str, Bool $comma = true) : String
-    {
-        return $this->_jsFunc("Number($str).valueOf", '' , $comma);
-    }
+    public function valueOf(String $str, Bool $comma = true) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // toExponential
@@ -689,10 +550,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function toExponential(String $str, String $param, Bool $comma = true) : String
-    {
-        return $this->_jsFunc("Number($str).toExponential", $param , $comma);
-    }
+    public function toExponential(String $str, String $param, Bool $comma = true) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // toFixed
@@ -704,10 +562,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function toFixed(String $str, String $param, Bool $comma = true) : String
-    {
-        return $this->_jsFunc("Number($str).toFixed", $param , $comma);
-    }
+    public function toFixed(String $str, String $param, Bool $comma = true) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // toPrecision
@@ -719,10 +574,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function toPrecision(String $str, String $param, Bool $comma = true) : String
-    {
-        return $this->_jsFunc("Number($str).toPrecision", $param , $comma);
-    }
+    public function toPrecision(String $str, String $param, Bool $comma = true) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // sqrt
@@ -734,10 +586,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function sqrt(String $param, Bool $comma = true) : String
-    {
-        return $this->_jsFunc("Math.sqrt", $param , $comma);
-    }
+    public function sqrt(String $param, Bool $comma = true) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // abs
@@ -749,10 +598,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function abs(String $param, Bool $comma = true) : String
-    {
-        return $this->_jsFunc("Math.abs", $param , $comma);
-    }
+    public function abs(String $param, Bool $comma = true) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // acos
@@ -764,10 +610,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function acos(String $param, Bool $comma = true) : String
-    {
-        return $this->_jsFunc("Math.acos", $param , $comma);
-    }
+    public function acos(String $param, Bool $comma = true) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // asin
@@ -779,10 +622,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function asin(String $param, Bool $comma = true) : String
-    {
-        return $this->_jsFunc("Math.asin", $param , $comma);
-    }
+    public function asin(String $param, Bool $comma = true) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // atan
@@ -794,10 +634,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function atan(String $param, Bool $comma = true) : String
-    {
-        return $this->_jsFunc("Math.atan", $param , $comma);
-    }
+    public function atan(String $param, Bool $comma = true) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // atan2
@@ -809,13 +646,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function atan2(String $p1, String $p2 = NULL, Bool $comma = true) : String
-    {
-        $param[] = $p1;
-        $param[] = $p2;
-
-        return $this->_jsFunc("Math.atan2", "$p1, $p2" , $comma);
-    }
+    public function atan2(String $p1, String $p2 = NULL, Bool $comma = true) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // ceil
@@ -827,10 +658,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function ceil(String $param, Bool $comma = true) : String
-    {
-        return $this->_jsFunc("Math.ceil", $param , $comma);
-    }
+    public function ceil(String $param, Bool $comma = true) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // cos
@@ -842,10 +670,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function cos(String $param, Bool $comma = true) : String
-    {
-        return $this->_jsFunc("Math.cos", $param , $comma);
-    }
+    public function cos(String $param, Bool $comma = true) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // exp
@@ -857,10 +682,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function exp(String $param, Bool $comma = true) : String
-    {
-        return $this->_jsFunc("Math.exp", $param , $comma);
-    }
+    public function exp(String $param, Bool $comma = true) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // floor
@@ -872,10 +694,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function floor(String $param, Bool $comma = true) : String
-    {
-        return $this->_jsFunc("Math.floor", $param , $comma);
-    }
+    public function floor(String $param, Bool $comma = true) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // log
@@ -887,10 +706,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function log(String $param, Bool $comma = true) : String
-    {
-        return $this->_jsFunc("Math.log", $param , $comma);
-    }
+    public function log(String $param, Bool $comma = true) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // max
@@ -902,10 +718,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function max(String $param, Bool $comma = true) : String
-    {
-        return $this->_jsFunc("Math.max", $param , $comma);
-    }
+    public function max(String $param, Bool $comma = true) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // round
@@ -917,10 +730,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function round(String $param, Bool $comma = true) : String
-    {
-        return $this->_jsFunc("Math.round", $param , $comma);
-    }
+    public function round(String $param, Bool $comma = true) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // sin
@@ -932,10 +742,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function sin(String $param, Bool $comma = true) : String
-    {
-        return $this->_jsFunc("Math.sin", $param , $comma);
-    }
+    public function sin(String $param, Bool $comma = true) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // tan
@@ -947,10 +754,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function tan(String $param, Bool $comma = true) : String
-    {
-        return $this->_jsFunc("Math.tan", $param , $comma);
-    }
+    public function tan(String $param, Bool $comma = true) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // random
@@ -962,10 +766,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function random(Bool $comma = true) : String
-    {
-        return $this->_jsFunc("Math.random", '' , $comma);
-    }
+    public function random(Bool $comma = true) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // min
@@ -977,10 +778,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function min(String $param, Bool $comma = true) : String
-    {
-        return $this->_jsFunc("Math.min", $param , $comma);
-    }
+    public function min(String $param, Bool $comma = true) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // pow
@@ -992,13 +790,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function pow(String $p1, String $p2 = NULL, Bool $comma = true) : String
-    {
-        $param[] = $p1;
-        $param[] = $p2;
-
-        return $this->_jsFunc("Math.pow", "$p1, $p2" , $comma);
-    }
+    public function pow(String $p1, String $p2 = NULL, Bool $comma = true) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // pi
@@ -1010,10 +802,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function pi(Bool $comma = true) : String
-    {
-        return $this->_jsFunc("Math.pi", '' , $comma);
-    }
+    public function pi(Bool $comma = true) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // blink
@@ -1025,10 +814,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function blink(String $str, Bool $comma = true) : String
-    {
-        return $this->_jsFunc("String($str).blink", '' , $comma);
-    }
+    public function blink(String $str, Bool $comma = true) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // bold
@@ -1040,10 +826,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function bold(String $str, Bool $comma = true) : String
-    {
-        return $this->_jsFunc("String($str).bold", '' , $comma);
-    }
+    public function bold(String $str, Bool $comma = true) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // fixed
@@ -1055,10 +838,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function fixed(String $str, Bool $comma = true) : String
-    {
-        return $this->_jsFunc("String($str).fixed", '' , $comma);
-    }
+    public function fixed(String $str, Bool $comma = true) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // italic
@@ -1070,10 +850,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function italic(String $str, Bool $comma = true) : String
-    {
-        return $this->_jsFunc("String($str).italics", '' , $comma);
-    }
+    public function italic(String $str, Bool $comma = true) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // fromCharCode
@@ -1085,10 +862,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function ascii(String $str, Bool $comma = true) : String
-    {
-        return $this->_jsFunc("String.fromCharCode", $str , $comma);
-    }
+    public function ascii(String $str, Bool $comma = true) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // var
@@ -1099,10 +873,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function var(String $varname, String $value) : String
-    {
-        return $this->_var($varname, $value, true);
-    }
+    public function var(String $varname, String $value) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // varch
@@ -1113,10 +884,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function varch(String $variable, String $value = NULL) : String
-    {
-        echo  $this->_var($variable, $value, false);
-    }
+    public function varch(String $variable, String $value = NULL) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // vardec
@@ -1127,10 +895,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function vardec(String $variable, Int $decrement = 1) : String
-    {
-        return $variable . ' = ' . $variable . ' - ' . $decrement . ';' . EOL;
-    }
+    public function vardec(String $variable, Int $decrement = 1) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // varin
@@ -1141,10 +906,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function varinc(String $variable, Int $decrement = 1) : String
-    {
-        return $variable . ' = ' . $variable . ' + ' . $decrement . ';' . EOL;
-    }
+    public function varinc(String $variable, Int $decrement = 1) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Function
@@ -1155,27 +917,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function function(String $functionName = NULL, $parameters = NULL, $function = NULL) : String
-    {
-        if( ( is_scalar($parameters) || $parameters === NULL ) && $function === NULL )
-        {
-            return $functionName . '(' . $parameters . ');' . EOL;
-        }
-
-        $params = $parameters;
-
-        if( is_callable($parameters) )
-        {
-            $params   = '';
-            $function = $parameters;
-        }
-
-        $str  = 'function ' . $functionName . '(' . $params . '){' . EOL;
-        $str .= \Buffer::callback($function);
-        $str .= '}' . EOL;
-
-        return $str;
-    }
+    public function function(String $functionName = NULL, $parameters = NULL, $function = NULL) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Alert
@@ -1186,10 +928,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function alert(String $code, Bool $comma = true) : String
-    {
-        return $this->_jsFunc('alert', JQ::stringControl($code), $comma);
-    }
+    public function alert(String $code, Bool $comma = true) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Write
@@ -1200,10 +939,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function write(String $code, Bool $comma = true) : String
-    {
-        return $this->_jsFunc('document.write', JQ::stringControl($code), $comma);
-    }
+    public function write(String $code, Bool $comma = true) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Prompt
@@ -1214,10 +950,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function prompt(String $code, Bool $comma = true) : String
-    {
-        return $this->_jsFunc('prompt', JQ::stringControl($code), $comma);
-    }
+    public function prompt(String $code, Bool $comma = true) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Confirm
@@ -1229,17 +962,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function confirm(String $code, $true = NULL, $false = NULL) : String
-    {
-         $confirm = $this->_jsFunc('confirm', JQ::stringControl($code), false);
-
-         if( empty($true) )
-         {
-             return "$confirm;";
-         }
-
-         return $this->if("$confirm === true", $true).$this->else($false);
-    }
+    public function confirm(String $code, $true = NULL, $false = NULL) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // If Clause -> 4.2.8[edited]
@@ -1250,12 +973,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function if(String $condition, $code = NULL , $elseCode = NULL) : String
-    {
-        $elseCode = ! empty($elseCode) ? $this->else($elseCode) : '';
-
-        return $this->_clause('if', $condition, $code).$elseCode;
-    }
+    public function if(String $condition, $code = NULL , $elseCode = NULL) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Else If Clause -> 4.2.8[edited]
@@ -1266,10 +984,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function elseIf(String $condition, $code = NULL) : String
-    {
-        return $this->_clause('else if', $condition, $code);
-    }
+    public function elseIf(String $condition, $code = NULL) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Else Clause -> 4.2.8[edited]
@@ -1279,15 +994,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function else($code = NULL) : String
-    {
-        if( is_callable($code) )
-        {
-            $code = \Buffer::callback($code);
-        }
-
-        return "else" . EOL . "{" . EOL . HT . $code . EOL . "}";
-    }
+    public function else($code = NULL) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // break
@@ -1297,10 +1004,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function break() : String
-    {
-        return 'break;' . EOL;
-    }
+    public function break() : String;
 
     //--------------------------------------------------------------------------------------------------------
     // return
@@ -1310,10 +1014,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function return(String $data = NULL) : String
-    {
-        return 'return' . ( ! empty($data) ? ' '.$data : '' ) . ';' . EOL;
-    }
+    public function return(String $data = NULL) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // For Loop -> 4.2.8[edited]
@@ -1324,10 +1025,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function for(String $condition, $code = NULL) : String
-    {
-        return $this->_clause('for', $condition, $code);
-    }
+    public function for(String $condition, $code = NULL) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // While Loop -> 4.2.8[edited]
@@ -1338,10 +1036,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function while(String $condition, $code = NULL) : String
-    {
-        return $this->_clause('while', $condition, $code);
-    }
+    public function while(String $condition, $code = NULL) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Do While Loop -> 4.2.8[edited]
@@ -1352,15 +1047,7 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function doWhile(String $condition, $code = NULL) : String
-    {
-        if( is_callable($code) )
-        {
-            $code = \Buffer::callback($code);
-        }
-
-        return "do" . EOL . "{" . EOL . HT . $code . EOL ."}while(".$condition.");";
-    }
+    public function doWhile(String $condition, $code = NULL) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Switch Clause -> 4.2.8[edited]
@@ -1371,113 +1058,5 @@ class InternalJS extends CallController implements InternalJSInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function switch(String $condition, Array $cases) : String
-    {
-        $clause = '';
-
-        if( ! empty($cases) ) foreach( $cases as $case => $code )
-        {
-            if( stristr(',', $case) )
-            {
-                if( $case !== 'default' )
-                {
-                    $clause .= "case $case : $code break; ";
-                }
-                else
-                {
-                    $clause .= "$case : $code";
-                }
-            }
-            else
-            {
-                $multiple = array_map('trim', explode(',', $case));
-
-                if( ! empty($multiple) ) foreach( $multiple as $val )
-                {
-                    $clause .= "case $val : ";
-                }
-
-                $clause .= "$code break; ";
-            }
-        }
-
-        return "switch($condition){".$clause."}";
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Js Func
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  string $func
-    // @param  string $code
-    // @param  bool   $comma
-    // @return string
-    //
-    //--------------------------------------------------------------------------------------------------------
-    protected function _jsFunc($func, $code, $comma = false)
-    {
-        return "$func($code)".($comma === true ? ";" : "");
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Clause
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  string $type
-    // @param  string $condition
-    // @param  string $code
-    // @return string
-    //
-    //--------------------------------------------------------------------------------------------------------
-    protected function _clause($type = '', $condition = '', $code = '')
-    {
-        $eol = EOL;
-
-        if( is_callable($code) )
-        {
-            $code = \Buffer::callback($code);
-        }
-
-        return $this->_jsFunc($type, $condition, false). EOL . "{" . EOL . HT . $code . EOL . "}" . EOL;
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Var
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  string $variable
-    // @param  string $value
-    // @param  bool   $var
-    // @return string
-    //
-    //--------------------------------------------------------------------------------------------------------
-    protected function _var($variable, $value, $var = false)
-    {
-        return ( $var === true ? 'var ' : '' ) . $this->_equalControl($variable) . ' ' . JQ::stringControl($value) . ';' . EOL;
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Equal Control
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  string $column
-    // @return string
-    //
-    //--------------------------------------------------------------------------------------------------------
-    protected function _equalControl($column)
-    {
-        $control = trim($column);
-
-        if( strstr($column, '.') )
-        {
-            $control = str_replace('.', '', $control);
-        }
-
-        if( preg_match('/^\w+$/', $control) )
-        {
-            $column .= ' = ';
-        }
-
-        return $column;
-    }
+    public function switch(String $condition, Array $cases) : String;
 }

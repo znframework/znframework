@@ -1,9 +1,6 @@
 <?php namespace ZN\ViewObjects\Bootstrap\Jquery\Helpers;
 
-use ZN\ViewObjects\Bootstrap\JqueryTrait;
-use CallController, Json, JQ, URL, Arrays;
-
-class Ajax extends CallController implements AjaxInterface
+interface AjaxInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -15,60 +12,13 @@ class Ajax extends CallController implements AjaxInterface
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
-    // Jquery Trait
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @methods
-    //
-    //--------------------------------------------------------------------------------------------------------
-    use JqueryTrait;
-
-    //--------------------------------------------------------------------------------------------------------
-    // Functions
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var array
-    //
-    //--------------------------------------------------------------------------------------------------------
-    protected $functions = [];
-
-    //--------------------------------------------------------------------------------------------------------
-    // Sets
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var array
-    //
-    //--------------------------------------------------------------------------------------------------------
-    protected $sets = [];
-
-    //--------------------------------------------------------------------------------------------------------
-    // Callbacks
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var array
-    //
-    //--------------------------------------------------------------------------------------------------------
-    protected $callbacks = [];
-
-    //--------------------------------------------------------------------------------------------------------
     // URL
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string $url
     //
     //--------------------------------------------------------------------------------------------------------
-    public function url(String $url = '') : Ajax
-    {
-        // Veri bir url içermiyorsa siteUrl yöntemi ile url'ye dönüştürülür.
-        if( ! isUrl($url) )
-        {
-            $url = siteUrl($url);
-        }
-
-        $this->sets['url'] = "\turl:\"$url\",".EOL;
-
-        return $this;
-    }
+    public function url(String $url = '') : Ajax;
 
     //--------------------------------------------------------------------------------------------------------
     // Data -> 4.2.8[edit]
@@ -79,35 +29,7 @@ class Ajax extends CallController implements AjaxInterface
     // @send-form: #serialize, [json], 'classic'
     //
     //--------------------------------------------------------------------------------------------------------
-    public function data($data) : Ajax
-    {
-        if( ! is_scalar($data) )
-        {
-            $serialize = '';
-
-            if( isset($data[0]) && is_numeric(key($data)) && substr($data[0], 0 , 1) === '#' )
-            {
-                $serialize = JQ::serialize($data[0]);
-                $data      = Arrays::removeFirst($data);
-                $array     = $data;
-            }
-
-            $data = Json::encode((array) $data);
-
-            if( ! empty($serialize) )
-            {
-                $data = $serialize . ( ! empty($array) ? ' + ' . presuffix('&' . URL::buildQuery($array, '', '&'), '"') : '' ) ;
-            }
-        }
-        elseif( isset($data[0]) && $data[0] === '#' )
-        {
-            $data = JQ::serialize($data);
-        }
-
-        $this->sets['data'] = "\tdata:$data," . EOL;
-
-        return $this;
-    }
+    public function data($data) : Ajax;
 
     //--------------------------------------------------------------------------------------------------------
     // Headers
@@ -116,12 +38,7 @@ class Ajax extends CallController implements AjaxInterface
     // @param string $url
     //
     //--------------------------------------------------------------------------------------------------------
-    public function headers(String $headers) : Ajax
-    {
-        $this->sets['headers'] = "\theaders:$headers,".EOL;
-
-        return $this;
-    }
+    public function headers(String $headers) : Ajax;
 
     //--------------------------------------------------------------------------------------------------------
     // If Modified
@@ -130,14 +47,7 @@ class Ajax extends CallController implements AjaxInterface
     // @param bool $ifModified
     //
     //--------------------------------------------------------------------------------------------------------
-    public function ifModified(String $ifModified) : Ajax
-    {
-        $ifModified = $this->_boolToStr($ifModified);
-
-        $this->sets['ifModified'] = "\tifModified:$ifModified,".EOL;
-
-        return $this;
-    }
+    public function ifModified(String $ifModified) : Ajax;
 
     //--------------------------------------------------------------------------------------------------------
     // Is Local
@@ -146,14 +56,7 @@ class Ajax extends CallController implements AjaxInterface
     // @param bool $isLocal
     //
     //--------------------------------------------------------------------------------------------------------
-    public function isLocal(String $isLocal) : Ajax
-    {
-        $isLocal = $this->_boolToStr($isLocal);
-
-        $this->sets['isLocal'] = "\tisLocal:$isLocal,".EOL;
-
-        return $this;
-    }
+    public function isLocal(String $isLocal) : Ajax;
 
     //--------------------------------------------------------------------------------------------------------
     // Mime Type
@@ -162,13 +65,7 @@ class Ajax extends CallController implements AjaxInterface
     // @param bool $isLocal
     //
     //--------------------------------------------------------------------------------------------------------
-    public function mimeType(String $mimeType) : Ajax
-    {
-        $mimeType = $this->_boolToStr($mimeType);
-        $this->sets['mimeType'] = "\tmimeType:$mimeType,".EOL;
-
-        return $this;
-    }
+    public function mimeType(String $mimeType) : Ajax;
 
     //--------------------------------------------------------------------------------------------------------
     // Jsonp
@@ -177,21 +74,7 @@ class Ajax extends CallController implements AjaxInterface
     // @param scalar $jsonp
     //
     //--------------------------------------------------------------------------------------------------------
-    public function jsonp(String $jsonp) : Ajax
-    {
-        if( is_numeric($jsonp) )
-        {
-            $jsonp = $this->_boolToStr($jsonp);
-        }
-        elseif( is_string($jsonp) )
-        {
-            $jsonp = "\"$jsonp\"";
-        }
-
-        $this->sets['jsonp'] = "\tjsonp:$jsonp,".EOL;
-
-        return $this;
-    }
+    public function jsonp(String $jsonp) : Ajax;
 
     //--------------------------------------------------------------------------------------------------------
     // Jsonp Callback
@@ -200,17 +83,7 @@ class Ajax extends CallController implements AjaxInterface
     // @param scalar $jsonpCallback
     //
     //--------------------------------------------------------------------------------------------------------
-    public function jsonpCallback(String $jsonpCallback) : Ajax
-    {
-        if( $this->_isFunc($jsonpCallback) === false )
-        {
-            $jsonpCallback = "\"$jsonpCallback\"";
-        }
-
-        $this->sets['jsonpCallback'] = "\tjsonpCallback:$jsonpCallback,".EOL;
-
-        return $this;
-    }
+    public function jsonpCallback(String $jsonpCallback) : Ajax;
 
     //--------------------------------------------------------------------------------------------------------
     // Data Type
@@ -219,12 +92,7 @@ class Ajax extends CallController implements AjaxInterface
     // @param string $type
     //
     //--------------------------------------------------------------------------------------------------------
-    public function dataType(String $type) : Ajax
-    {
-        $this->sets['type'] = "\tdataType:\"$type\",".EOL;
-
-        return $this;
-    }
+    public function dataType(String $type) : Ajax;
 
     //--------------------------------------------------------------------------------------------------------
     // Password
@@ -233,12 +101,7 @@ class Ajax extends CallController implements AjaxInterface
     // @param string $password
     //
     //--------------------------------------------------------------------------------------------------------
-    public function password(String $password) : Ajax
-    {
-        $this->sets['password'] = "\tpassword:\"$password\",".EOL;
-
-        return $this;
-    }
+    public function password(String $password) : Ajax;
 
     //--------------------------------------------------------------------------------------------------------
     // Username
@@ -247,12 +110,7 @@ class Ajax extends CallController implements AjaxInterface
     // @param string $
     //
     //--------------------------------------------------------------------------------------------------------
-    public function username(String $username) : Ajax
-    {
-        $this->sets['username'] = "\tusername:\"$username\",".EOL;
-
-        return $this;
-    }
+    public function username(String $username) : Ajax;
 
     //--------------------------------------------------------------------------------------------------------
     // Method
@@ -261,12 +119,7 @@ class Ajax extends CallController implements AjaxInterface
     // @param string $method
     //
     //--------------------------------------------------------------------------------------------------------
-    public function method(String $method = 'post') : Ajax
-    {
-        $this->sets['method'] = "\tmethod:\"$method\",".EOL;
-
-        return $this;
-    }
+    public function method(String $method = 'post') : Ajax;
 
     //--------------------------------------------------------------------------------------------------------
     // Type
@@ -275,12 +128,7 @@ class Ajax extends CallController implements AjaxInterface
     // @param string $method
     //
     //--------------------------------------------------------------------------------------------------------
-    public function type(String $method = 'post') : Ajax
-    {
-        $this->method($method);
-
-        return $this;
-    }
+    public function type(String $method = 'post') : Ajax;
 
     //--------------------------------------------------------------------------------------------------------
     // Script Charset
@@ -289,12 +137,7 @@ class Ajax extends CallController implements AjaxInterface
     // @param string $sr
     //
     //--------------------------------------------------------------------------------------------------------
-    public function scriptCharset(String $scriptCharset = 'utf-8') : Ajax
-    {
-        $this->sets['scriptCharset'] = "\tscriptCharset:\"$scriptCharset\",".EOL;
-
-        return $this;
-    }
+    public function scriptCharset(String $scriptCharset = 'utf-8') : Ajax;
 
     //--------------------------------------------------------------------------------------------------------
     // Traditional
@@ -303,13 +146,7 @@ class Ajax extends CallController implements AjaxInterface
     // @param scalar $tratidional
     //
     //--------------------------------------------------------------------------------------------------------
-    public function traditional(String $traditional) : Ajax
-    {
-        $traditional = $this->_boolToStr($traditional);
-        $this->sets['traditional'] = "\ttraditional:$traditional,".EOL;
-
-        return $this;
-    }
+    public function traditional(String $traditional) : Ajax;
 
     //--------------------------------------------------------------------------------------------------------
     // Process Data
@@ -318,13 +155,7 @@ class Ajax extends CallController implements AjaxInterface
     // @param scalar $processData
     //
     //--------------------------------------------------------------------------------------------------------
-    public function processData(String $processData) : Ajax
-    {
-        $processData = $this->_boolToStr($processData);
-        $this->sets['processData'] = "\tprocessData:$processData,".EOL;
-
-        return $this;
-    }
+    public function processData(String $processData) : Ajax;
 
     //--------------------------------------------------------------------------------------------------------
     // Cache
@@ -333,13 +164,7 @@ class Ajax extends CallController implements AjaxInterface
     // @param scalar $cache
     //
     //--------------------------------------------------------------------------------------------------------
-    public function cache(String $cache) : Ajax
-    {
-        $cache = $this->_boolToStr($cache);
-        $this->sets['cache'] = "\tcache:$cache,".EOL;
-
-        return $this;
-    }
+    public function cache(String $cache) : Ajax;
 
     //--------------------------------------------------------------------------------------------------------
     // XHR Fields
@@ -348,12 +173,7 @@ class Ajax extends CallController implements AjaxInterface
     // @param string $xhrFields
     //
     //--------------------------------------------------------------------------------------------------------
-    public function xhrFields(String $xhrFields) : Ajax
-    {
-        $this->sets['xhrFields'] = "\txhrFields:$xhrFields,".EOL;
-
-        return $this;
-    }
+    public function xhrFields(String $xhrFields) : Ajax;
 
     //--------------------------------------------------------------------------------------------------------
     // Context
@@ -362,12 +182,7 @@ class Ajax extends CallController implements AjaxInterface
     // @param string $context
     //
     //--------------------------------------------------------------------------------------------------------
-    public function context(String $context) : Ajax
-    {
-        $this->sets['context'] = "\tcontext:$context,".EOL;
-
-        return $this;
-    }
+    public function context(String $context) : Ajax;
 
     //--------------------------------------------------------------------------------------------------------
     // Accepts
@@ -376,12 +191,7 @@ class Ajax extends CallController implements AjaxInterface
     // @param string $accepts
     //
     //--------------------------------------------------------------------------------------------------------
-    public function accepts(String $accepts) : Ajax
-    {
-        $this->sets['accepts'] = "\taccepts:$accepts,".EOL;
-
-        return $this;
-    }
+    public function accepts(String $accepts) : Ajax;
 
     //--------------------------------------------------------------------------------------------------------
     // Contents
@@ -390,12 +200,7 @@ class Ajax extends CallController implements AjaxInterface
     // @param string $contents
     //
     //--------------------------------------------------------------------------------------------------------
-    public function contents(String $contents) : Ajax
-    {
-        $this->sets['contents'] = "\tcontents:$contents,".EOL;
-
-        return $this;
-    }
+    public function contents(String $contents) : Ajax;
 
     //--------------------------------------------------------------------------------------------------------
     // Async
@@ -404,13 +209,7 @@ class Ajax extends CallController implements AjaxInterface
     // @param scalar $async
     //
     //--------------------------------------------------------------------------------------------------------
-    public function async(String $async) : Ajax
-    {
-        $async = $this->_boolToStr($async);
-        $this->sets['async'] = "\tasync:$async,".EOL;
-
-        return $this;
-    }
+    public function async(String $async) : Ajax;
 
     //--------------------------------------------------------------------------------------------------------
     // Cross Domain
@@ -419,13 +218,7 @@ class Ajax extends CallController implements AjaxInterface
     // @param scalar $crossDomain
     //
     //--------------------------------------------------------------------------------------------------------
-    public function crossDomain(String $crossDomain) : Ajax
-    {
-        $crossDomain = $this->_boolToStr($crossDomain);
-        $this->sets['crossDomain'] = "\tcrossDomain:$crossDomain,".EOL;
-
-        return $this;
-    }
+    public function crossDomain(String $crossDomain) : Ajax;
 
     //--------------------------------------------------------------------------------------------------------
     // Timeout
@@ -434,12 +227,7 @@ class Ajax extends CallController implements AjaxInterface
     // @param int $timeout
     //
     //--------------------------------------------------------------------------------------------------------
-    public function timeout(Int $timeout) : Ajax
-    {
-        $this->sets['timeout'] = "\ttimeout:$timeout,".EOL;
-
-        return $this;
-    }
+    public function timeout(Int $timeout) : Ajax;
 
     //--------------------------------------------------------------------------------------------------------
     // Globals
@@ -448,13 +236,7 @@ class Ajax extends CallController implements AjaxInterface
     // @param scalar $globals
     //
     //--------------------------------------------------------------------------------------------------------
-    public function globals(String $globals) : Ajax
-    {
-        $globals = $this->_boolToStr($globals);
-        $this->sets['globals'] = "\tglobal:$globals,".EOL;
-
-        return $this;
-    }
+    public function globals(String $globals) : Ajax;
 
     //--------------------------------------------------------------------------------------------------------
     // Content Type
@@ -463,21 +245,7 @@ class Ajax extends CallController implements AjaxInterface
     // @param scalar $contentType
     //
     //--------------------------------------------------------------------------------------------------------
-    public function contentType(String $contentType = 'application/x-www-form-urlencoded; charset=UTF-8') : Ajax
-    {
-        if( is_numeric($contentType) )
-        {
-            $contentType = $this->_boolToStr($contentType);
-        }
-        elseif( is_string($contentType) )
-        {
-            $contentType = "\"$contentType\"";
-        }
-
-        $this->sets['contentType'] = "\tcontentType:$contentType,".EOL;
-
-        return $this;
-    }
+    public function contentType(String $contentType = 'application/x-www-form-urlencoded; charset=UTF-8') : Ajax;
 
 
 
@@ -488,12 +256,7 @@ class Ajax extends CallController implements AjaxInterface
     // @param array $codes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function statusCode(Array $codes) : Ajax
-    {
-        $this->_object('statusCode', $codes);
-
-        return $this;
-    }
+    public function statusCode(Array $codes) : Ajax;
 
     //--------------------------------------------------------------------------------------------------------
     // Converters
@@ -502,12 +265,7 @@ class Ajax extends CallController implements AjaxInterface
     // @param array $codes
     //
     //--------------------------------------------------------------------------------------------------------
-    public function converters(Array $codes) : Ajax
-    {
-        $this->_object('converters', $codes);
-
-        return $this;
-    }
+    public function converters(Array $codes) : Ajax;
 
     //--------------------------------------------------------------------------------------------------------
     // Success
@@ -517,12 +275,7 @@ class Ajax extends CallController implements AjaxInterface
     // @param string $success
     //
     //--------------------------------------------------------------------------------------------------------
-    public function success(String $params, $success) : Ajax
-    {
-        $this->_functions('success', $params, $success);
-
-        return $this;
-    }
+    public function success(String $params, $success) : Ajax;
 
     //--------------------------------------------------------------------------------------------------------
     // Success
@@ -532,12 +285,7 @@ class Ajax extends CallController implements AjaxInterface
     // @param string $error
     //
     //--------------------------------------------------------------------------------------------------------
-    public function error(String $params, $error) : Ajax
-    {
-        $this->_functions('error', $params, $error);
-
-        return $this;
-    }
+    public function error(String $params, $error) : Ajax;
 
     //--------------------------------------------------------------------------------------------------------
     // Complete
@@ -547,12 +295,7 @@ class Ajax extends CallController implements AjaxInterface
     // @param string $complete
     //
     //--------------------------------------------------------------------------------------------------------
-    public function complete(String $params, $complete) : Ajax
-    {
-        $this->_functions('complete', $params, $complete);
-
-        return $this;
-    }
+    public function complete(String $params, $complete) : Ajax;
 
     //--------------------------------------------------------------------------------------------------------
     // Before Send
@@ -562,12 +305,7 @@ class Ajax extends CallController implements AjaxInterface
     // @param string $beforeSend
     //
     //--------------------------------------------------------------------------------------------------------
-    public function beforeSend(String $params, $beforeSend) : Ajax
-    {
-        $this->_functions('beforeSend', $params, $beforeSend);
-
-        return $this;
-    }
+    public function beforeSend(String $params, $beforeSend) : Ajax;
 
     //--------------------------------------------------------------------------------------------------------
     // Data Filter
@@ -577,12 +315,7 @@ class Ajax extends CallController implements AjaxInterface
     // @param string $dataFilter
     //
     //--------------------------------------------------------------------------------------------------------
-    public function dataFilter(String $params, $dataFilter) : Ajax
-    {
-        $this->_functions('dataFilter', $params, $dataFilter);
-
-        return $this;
-    }
+    public function dataFilter(String $params, $dataFilter) : Ajax;
 
     //--------------------------------------------------------------------------------------------------------
     // Done
@@ -592,12 +325,7 @@ class Ajax extends CallController implements AjaxInterface
     // @param string $done
     //
     //--------------------------------------------------------------------------------------------------------
-    public function done(String $params = 'e', $done = NULL) : Ajax
-    {
-        $this->_callbacks('done', $params, $done);
-
-        return $this;
-    }
+    public function done(String $params = 'e', $done = NULL) : Ajax;
 
     //--------------------------------------------------------------------------------------------------------
     // Fail
@@ -607,12 +335,7 @@ class Ajax extends CallController implements AjaxInterface
     // @param string $fail
     //
     //--------------------------------------------------------------------------------------------------------
-    public function fail(String $params = 'e', $fail = NULL) : Ajax
-    {
-        $this->_callbacks('fail', $params, $fail);
-
-        return $this;
-    }
+    public function fail(String $params = 'e', $fail = NULL) : Ajax;
 
     //--------------------------------------------------------------------------------------------------------
     // Always
@@ -622,12 +345,7 @@ class Ajax extends CallController implements AjaxInterface
     // @param string $always
     //
     //--------------------------------------------------------------------------------------------------------
-    public function always(String $params = 'e', $always = NULL) : Ajax
-    {
-        $this->_callbacks('always', $params, $always);
-
-        return $this;
-    }
+    public function always(String $params = 'e', $always = NULL) : Ajax;
 
     //--------------------------------------------------------------------------------------------------------
     // Then
@@ -637,12 +355,7 @@ class Ajax extends CallController implements AjaxInterface
     // @param string $then
     //
     //--------------------------------------------------------------------------------------------------------
-    public function then(String $params = 'e', $then = NULL) : Ajax
-    {
-        $this->_callbacks('then', $params, $then);
-
-        return $this;
-    }
+    public function then(String $params = 'e', $then = NULL) : Ajax;
 
     //--------------------------------------------------------------------------------------------------------
     // Send
@@ -652,60 +365,7 @@ class Ajax extends CallController implements AjaxInterface
     // @param string $data
     //
     //--------------------------------------------------------------------------------------------------------
-    public function send(String $url = '', $data = NULL) : String
-    {
-        if( ! empty($url) )
-        {
-            $this->url($url);
-        }
-
-        if( ! empty($data) )
-        {
-            $this->data($data);
-        }
-
-        if( ! isset($this->sets['method']) )
-        {
-            $this->method('post');
-        }
-
-        $eol  = EOL;
-        $ajax = '';
-
-        if( ! empty($this->sets) ) foreach( $this->sets as $val )
-        {
-            $ajax .= $val;
-        }
-
-        if( ! empty($this->functions) ) foreach( $this->functions as $val )
-        {
-            $ajax .= "\t$val,";
-        }
-
-        $ajax = rtrim(trim($ajax), ',');
-
-        $callbacks = '';
-
-        if( ! empty($this->callbacks) )
-        {
-            foreach( $this->callbacks as $val )
-            {
-                $callbacks .= $val;
-            }
-
-            $callbacks .= ";".$eol;
-        }
-        else
-        {
-            $callbacks = ";".$eol;
-        }
-
-        $ajax = $this->_tag($eol."$.ajax".$eol."({".$eol."$ajax".$eol."})$callbacks");
-
-        $this->_defaultVariable();
-
-        return $ajax;
-    }
+    public function send(String $url = '', $data = NULL) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Create
@@ -715,85 +375,5 @@ class Ajax extends CallController implements AjaxInterface
     // @param string $dataFilter
     //
     //--------------------------------------------------------------------------------------------------------
-    public function create(String $url = '', String $data = NULL) : String
-    {
-        return $this->send($url, $data);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Protected
-    //--------------------------------------------------------------------------------------------------------
-    protected function _object($name, $codes = [])
-    {
-        $eol = EOL;
-
-        $statusCode = $eol."\t$name:".$eol."\t{";
-
-        if( ! empty($codes) )
-        {
-            foreach( $codes as $code => $value )
-            {
-                $param = '';
-                if(strstr($value, '->'))
-                {
-                    $params = explode('->', $value);
-                    $param = $params[0];
-                    $value = $params[1];
-                }
-
-                $statusCode .= $eol."\t\t$code:function($param)".$eol."\t\t{".$eol."\t\t\t$value".$eol."\t\t},".$eol;
-            }
-
-            $statusCode = trim(trim($statusCode), ',').$eol;
-        }
-
-        $statusCode .= "\t}";
-
-        $this->functions[$name] = $eol."\t".$statusCode;
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Protected
-    //--------------------------------------------------------------------------------------------------------
-    protected function _functions($name, $params, $codes)
-    {
-        $eol = EOL;
-
-        if( is_callable($codes) )
-        {
-            $codes = \Buffer::callback($codes);
-        }
-
-        $this->functions[$name] = $eol."\t$name:function($params)".$eol."\t{".$eol."\t\t$codes".$eol."\t}";
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Protected
-    //--------------------------------------------------------------------------------------------------------
-    protected function _callbacks($name, $params, $codes)
-    {
-        if( is_callable($codes) )
-        {
-            $codes = \Buffer::callback($codes);
-        }
-
-        if( ! ( is_string($params) || is_string($codes) ) )
-        {
-            return $this;
-        }
-
-        $eol = EOL;
-
-        $this->callbacks[$name] = $eol.".$name(function($params)".$eol."{".$eol."\t$codes".$eol."})";
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Protected
-    //--------------------------------------------------------------------------------------------------------
-    protected function _defaultVariable()
-    {
-        $this->functions = [];
-        $this->sets      = [];
-        $this->callbacks = [];
-    }
+    public function create(String $url = '', String $data = NULL) : String;
 }

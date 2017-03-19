@@ -38,7 +38,7 @@ class InternalJSP extends \FactoryController
             'write'                 => 'JSP\Output::write',
             'addeventlistener'      => 'JSP\Events::addeventlistener',
             'removeeventlistener'   => 'JSP\Events::removeeventlistener',
-            'ajax'                  => 'JSP\Ajax::create',
+            'ajax'                  => 'JSP\Ajax::send',
             'animate'               => 'JSP\Animate::create',
             'fadeout'               => 'JSP\Action::fadeOut',
             'fadein'                => 'JSP\Action::fadeIn',

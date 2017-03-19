@@ -1,9 +1,6 @@
 <?php namespace ZN\ViewObjects\Bootstrap\Jquery\Helpers;
 
-use ZN\ViewObjects\Bootstrap\JqueryTrait;
-use CallController, Support, Arrays;
-
-class Event implements EventInterface
+interface AnimateInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -15,136 +12,85 @@ class Event implements EventInterface
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
-    // Jquery Trait
+    // Speed
     //--------------------------------------------------------------------------------------------------------
     //
-    // @methods
+    // @param scalar $duration
     //
     //--------------------------------------------------------------------------------------------------------
-    use JqueryTrait;
+    public function speed(String $duration) : Animate;
 
     //--------------------------------------------------------------------------------------------------------
-    // Type
+    // Duration
     //--------------------------------------------------------------------------------------------------------
     //
-    // @var string
+    // @param scalar $duration
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $type = '';
+    public function duration(String $duration) : Animate;
 
     //--------------------------------------------------------------------------------------------------------
-    // Params
+    // Queue
     //--------------------------------------------------------------------------------------------------------
     //
-    // @var string
+    // @param scalar $queue
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $params = '';
+    public function queue(String $queue) : Animate;
 
     //--------------------------------------------------------------------------------------------------------
-    // Property
+    // Attr
     //--------------------------------------------------------------------------------------------------------
     //
-    // @var string
+    // @param array $attr
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $property = 'bind';
+    public function attr(Array $attr) : Animate;
 
     //--------------------------------------------------------------------------------------------------------
-    // Events
+    // Easing
     //--------------------------------------------------------------------------------------------------------
     //
-    // @var array
+    // @param string $easing
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $events =
-    [
-        'click'     , 'dblclick' , 'blur'    , 'change'    , 'resize'   ,
-        'scroll'    , 'unload'   , 'load'    , 'ready'     , 'focus'    ,
-        'focusin'   , 'focusout' , 'keypress', 'keydown'   , 'keyup'    ,
-        'mouseenter', 'mousedown', 'mouseup' , 'mouseleave', 'mousemove',
-        'mouseout'  , 'mouseover', 'hover'   , 'select'    , 'submit'   ,
-        'error'     , 'toggle'
-    ];
+    public function easing(String $easing) : Animate;
 
     //--------------------------------------------------------------------------------------------------------
-    // Properties
+    // Special Easing
     //--------------------------------------------------------------------------------------------------------
     //
-    // @var array
+    // @param array $specialEasing
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $properties =
-    [
-        'bind', 'unbind', 'trigger', 'triggerhandler', 'delegate',
-        'one' , 'on'    , 'off'    , 'live'          , 'die'
-    ];
+    public function specialEasing(Array $specialEasing) : Animate;
 
     //--------------------------------------------------------------------------------------------------------
-    // Magic Call
+    // Step
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $method
-    // @param array  $parameters
+    // @param string $step
     //
     //--------------------------------------------------------------------------------------------------------
-    public function __call($method, $parameters)
-    {
-        $realMethodName = $method;
-        $method         = strtolower($method);
-
-        if( in_array($method, $this->events) )
-        {
-            $this->_event($realMethodName, ...$parameters);
-        }
-        elseif( in_array($method, $this->properties) )
-        {
-            $this->property = $realMethodName;
-            $this->selector = $parameters[0];
-            $this->params   = Arrays::removeFirst($parameters);
-        }
-        else
-        {
-            Support::classMethod('Jquery::event()', $realMethodName);
-        }
-
-        return $this->create();
-    }
+    public function step(String $step) : Animate;
 
     //--------------------------------------------------------------------------------------------------------
-    // Type
+    // Comp
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $type
+    // @param string $comp
     //
     //--------------------------------------------------------------------------------------------------------
-    public function type(String $type = 'click') : Event
-    {
-        $this->property = $type;
-
-        return $this;
-    }
+    public function complete(String $comp) : Animate;
 
     //--------------------------------------------------------------------------------------------------------
-    // Complete
+    // Completed
     //--------------------------------------------------------------------------------------------------------
     //
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function complete() : String
-    {
-        if( isset($this->callback) )
-        {
-            $this->params[] = $this->callback;
-        }
-
-        $event = \JQ::property($this->property, $this->params);
-
-        $this->_defaultVariable();
-
-        return $event;
-    }
+    public function completed() : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Create
@@ -153,49 +99,5 @@ class Event implements EventInterface
     // @param string variadic $args
     //
     //--------------------------------------------------------------------------------------------------------
-    public function create(...$args) : String
-    {
-        $combineEvent = $args;
-
-        $event  = EOL.\JQ::selector($this->selector);
-        $event .= $this->complete();
-        if( ! empty($combineEvent))foreach($combineEvent as $e)
-        {
-            $event .= $e;
-        }
-
-        $event .= ";";
-
-        return $this->_tag($event);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Protected
-    //--------------------------------------------------------------------------------------------------------
-    protected function _event($type, $selector, $callback)
-    {
-        $this->property = strtolower($type);
-
-        if( ! empty($selector))
-        {
-            $this->selector($selector);
-        }
-
-        if( ! empty($callback))
-        {
-            $this->callback('e', $callback);
-        }
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Protected
-    //--------------------------------------------------------------------------------------------------------
-    protected function _defaultVariable()
-    {
-        $this->selector = 'this';
-        $this->type     = '';
-        $this->callback = '';
-        $this->property = 'bind';
-        $this->params   = '';
-    }
+    public function create(...$args) : String;
 }
