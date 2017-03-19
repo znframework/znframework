@@ -15,43 +15,21 @@ class Variable implements VariableInterface
 
     public function var(String $variable, String $value = NULL)
     {
-        echo 'var ' . $this->_var($variable, $value);
+        echo JS::var($variable, $value, true);
     }
 
     public function varch(String $variable, String $value = NULL)
     {
-        echo $this->_var($variable, $value);
+        echo JS::varch($variable, $value);
     }
 
     public function vardec(String $variable, Int $decrement = 1)
     {
-        echo $variable . ' = ' . $variable . ' - ' . $decrement . ';' . EOL;
+        echo JQ::vardec($variable, $decrement);
     }
 
     public function varinc(String $variable, Int $decrement = 1)
     {
-        echo $variable . ' = ' . $variable . ' + ' . $decrement . ';' . EOL;
-    }
-
-    protected function _var($variable, $value)
-    {
-        return $this->_equalControl($variable) . ' ' . JQ::stringControl($value) . ';' . EOL;
-    }
-
-    protected function _equalControl($column)
-    {
-        $control = trim($column);
-
-        if( strstr($column, '.') )
-        {
-            $control = str_replace('.', '', $control);
-        }
-
-        if( preg_match('/^\w+$/', $control) )
-        {
-            $column .= ' = ';
-        }
-
-        return $column;
+        echo JQ::varinc($variable, $decrement);
     }
 }

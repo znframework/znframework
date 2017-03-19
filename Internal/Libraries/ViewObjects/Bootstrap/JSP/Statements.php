@@ -1,6 +1,6 @@
 <?php namespace ZN\ViewObjects\Bootstrap\JSP;
 
-use JQ;
+use JQ, JS;
 
 class Statements extends JSPExtends implements StatementsInterface
 {
@@ -15,21 +15,21 @@ class Statements extends JSPExtends implements StatementsInterface
 
     public function if(String $condition, Callable $callback)
     {
-        $this->_statements($condition, $callback, 'if');
+        echo JS::if($condition, $callback);
 
         return $this;
     }
 
     public function elseif(String $condition, Callable $callback)
     {
-        $this->_statements($condition, $callback, 'else if');
+        echo JS::elseIf($condition, $callback);
 
         return $this;
     }
 
     public function else(Callable $callback)
     {
-        $this->_statements($condition = NULL, $callback, 'else');
+        echo JS::else($callback);
     }
 
     public function switch(String $condition, Callable $callback)
@@ -55,13 +55,13 @@ class Statements extends JSPExtends implements StatementsInterface
 
     public function break()
     {
-        echo 'break;' . EOL;
+        echo JS::break();
 
         return $this;
     }
 
     public function return(String $data = NULL)
     {
-        echo 'return' . ( ! empty($data) ? ' '.$data : '' ) . ';' . EOL;
+        echo JS::return($data);
     }
 }

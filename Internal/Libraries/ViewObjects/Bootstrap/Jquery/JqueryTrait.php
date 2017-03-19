@@ -89,12 +89,7 @@ trait JqueryTrait
     //--------------------------------------------------------------------------------------------------------
     public function callback(String $params, $callback)
     {
-        if( is_callable($callback) )
-        {
-            $callback = \Buffer::callback($callback);
-        }
-
-        $this->callback = JQ::func($params, $callback);
+        $this->callback = JQ::function($params, $callback);
 
         return $this;
     }

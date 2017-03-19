@@ -1,5 +1,7 @@
 <?php namespace ZN\ViewObjects\Bootstrap\JSP;
 
+use JS;
+
 class Functions implements FunctionsInterface
 {
     //--------------------------------------------------------------------------------------------------------
@@ -22,23 +24,6 @@ class Functions implements FunctionsInterface
     //--------------------------------------------------------------------------------------------------------
     public function define(String $functionName = NULL, $parameters = NULL, $function = NULL)
     {
-        if( ( is_scalar($parameters) || $parameters === NULL ) && $function === NULL )
-        {
-            echo $functionName . '(' . $parameters . ');' . EOL;
-
-            return;
-        }
-
-        $params = $parameters;
-
-        if( is_callable($parameters) )
-        {
-            $params   = '';
-            $function = $parameters;
-        }
-
-        echo 'function ' . $functionName . '(' . $params . '){' . EOL;
-        echo $function();
-        echo '}' . EOL;
+        echo JS::function($functionName, $parameters, $function);
     }
 }

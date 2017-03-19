@@ -1091,7 +1091,7 @@ class InternalJS extends CallController
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // define
+    // var
     //--------------------------------------------------------------------------------------------------------
     //
     // @param  string $varname
@@ -1099,13 +1099,13 @@ class InternalJS extends CallController
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function define(String $varname, String $value, String $operator = '=') : String
+    public function var(String $varname, String $value) : String
     {
-        return EOL.'var '.$varname.' '.$operator.' '.suffix(trim($value, EOL), ';');
+        return $this->_var($varname, $value, true);
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // redefine
+    // varch
     //--------------------------------------------------------------------------------------------------------
     //
     // @param  string $varname
@@ -1113,9 +1113,37 @@ class InternalJS extends CallController
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function redefine(String $varname, String $value, String $operator = '=') : String
+    public function varch(String $variable, String $value = NULL)
     {
-        return EOL.$varname.' '.$operator.' '.suffix(trim($value, EOL), ';');
+        echo  $this->_var($variable, $value, false);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // vardec
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param  string $variable
+    // @param  int    $decrement
+    // @return string
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function vardec(String $variable, Int $decrement = 1)
+    {
+        return $variable . ' = ' . $variable . ' - ' . $decrement . ';' . EOL;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // varin
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param  string $variable
+    // @param  int    $decrement
+    // @return string
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function varinc(String $variable, Int $decrement = 1)
+    {
+        return $variable . ' = ' . $variable . ' + ' . $decrement . ';' . EOL;
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -1127,23 +1155,26 @@ class InternalJS extends CallController
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function defineFunc(String $funcname, String $param = NULL, String $code = NULL) : String
+    public function function(String $functionName = NULL, $parameters = NULL, $function = NULL) : String
     {
-        return EOL.'function '.$funcname.' ('.$param.') {'.$code.'}'.EOL;
-    }
+        if( ( is_scalar($parameters) || $parameters === NULL ) && $function === NULL )
+        {
+            return $functionName . '(' . $parameters . ');' . EOL;
+        }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Function
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  string $varname
-    // @param  string $value
-    // @return string
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function func(String $funcname, String $param = NULL) : String
-    {
-        return $funcname.'('.$param.');';
+        $params = $parameters;
+
+        if( is_callable($parameters) )
+        {
+            $params   = '';
+            $function = $parameters;
+        }
+
+        $str  = 'function ' . $functionName . '(' . $params . '){' . EOL;
+        $str .= \Buffer::callback($function);
+        $str .= '}' . EOL;
+
+        return $str;
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -1158,6 +1189,20 @@ class InternalJS extends CallController
     public function alert(String $code, Bool $comma = true) : String
     {
         return $this->_jsFunc('alert', JQ::stringControl($code), $comma);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Write
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param  string $code
+    // @param  bool   $comma
+    // @return string
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function write(String $code, Bool $comma = true)
+    {
+        return $this->_jsFunc('document.write', JQ::stringControl($code), $comma);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -1184,7 +1229,7 @@ class InternalJS extends CallController
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function confirm(String $code, String $true = NULL, String $false = NULL) : String
+    public function confirm(String $code, $true = NULL, $false = NULL) : String
     {
          $confirm = $this->_jsFunc('confirm', JQ::stringControl($code), false);
 
@@ -1193,7 +1238,7 @@ class InternalJS extends CallController
              return "$confirm;";
          }
 
-         return $this->ifClause("$confirm === true", $true).$this->elseClause($false);
+         return $this->if("$confirm === true", $true).$this->else($false);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -1205,9 +1250,9 @@ class InternalJS extends CallController
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function if(String $condition, String $code = NULL , String $elseCode = NULL) : String
+    public function if(String $condition, $code = NULL , $elseCode = NULL) : String
     {
-        $elseCode = ! empty($elseCode) ? $this->elseClause($elseCode) : '';
+        $elseCode = ! empty($elseCode) ? $this->else($elseCode) : '';
 
         return $this->_clause('if', $condition, $code).$elseCode;
     }
@@ -1221,7 +1266,7 @@ class InternalJS extends CallController
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function elseIf(String $condition, String $code = NULL) : String
+    public function elseIf(String $condition, $code = NULL) : String
     {
         return $this->_clause('else if', $condition, $code);
     }
@@ -1234,9 +1279,40 @@ class InternalJS extends CallController
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function else(String $code = NULL) : String
+    public function else($code = NULL) : String
     {
-        return "else{".$code."}";
+        if( is_callable($code) )
+        {
+            $code = \Buffer::callback($code);
+        }
+
+        return "else" . EOL . "{" . EOL . HT . $code . EOL . "}";
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // break
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param  void
+    // @return string
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function break()
+    {
+        return 'break;' . EOL;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // return
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param  string $data
+    // @return string
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function return(String $data = NULL)
+    {
+        return 'return' . ( ! empty($data) ? ' '.$data : '' ) . ';' . EOL;
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -1248,7 +1324,7 @@ class InternalJS extends CallController
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function for(String $condition, String $code = NULL) : String
+    public function for(String $condition, $code = NULL) : String
     {
         return $this->_clause('for', $condition, $code);
     }
@@ -1262,7 +1338,7 @@ class InternalJS extends CallController
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function while(String $condition, String $code = NULL) : String
+    public function while(String $condition, $code = NULL) : String
     {
         return $this->_clause('while', $condition, $code);
     }
@@ -1276,9 +1352,14 @@ class InternalJS extends CallController
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function doWhile(String $condition, String $code = NULL) : String
+    public function doWhile(String $condition, $code = NULL) : String
     {
-        return "do{".$code."}while(".$condition.");";
+        if( is_callable($code) )
+        {
+            $code = \Buffer::callback($code);
+        }
+
+        return "do" . EOL . "{" . EOL . HT . $code . EOL ."}while(".$condition.");";
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -1351,6 +1432,52 @@ class InternalJS extends CallController
     protected function _clause($type = '', $condition = '', $code = '')
     {
         $eol = EOL;
-        return $this->_jsFunc($type, $condition, false)."{".$code."}";
+
+        if( is_callable($code) )
+        {
+            $code = \Buffer::callback($code);
+        }
+
+        return $this->_jsFunc($type, $condition, false). EOL . "{" . EOL . HT . $code . EOL . "}" . EOL;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Var
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param  string $variable
+    // @param  string $value
+    // @param  bool   $var
+    // @return string
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _var($variable, $value, $var = false)
+    {
+        return ( $var === true ? 'var ' : '' ) . $this->_equalControl($variable) . ' ' . JQ::stringControl($value) . ';' . EOL;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Equal Control
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param  string $column
+    // @return string
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _equalControl($column)
+    {
+        $control = trim($column);
+
+        if( strstr($column, '.') )
+        {
+            $control = str_replace('.', '', $control);
+        }
+
+        if( preg_match('/^\w+$/', $control) )
+        {
+            $column .= ' = ';
+        }
+
+        return $column;
     }
 }

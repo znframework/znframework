@@ -126,7 +126,7 @@ class InternalJQ extends CallController
             $return = $code;
         }
         elseif
-        ( 
+        (
             $this->_isKeySelector($code) ||
             $this->_isFunc($code)        ||
             $this->_isJquery($code)      ||
@@ -191,17 +191,22 @@ class InternalJQ extends CallController
     // Jquery fonksiyonu oluşturmak için kullanılır.
     //
     // @param string $params
-    // @param string $code
+    // @param mixed  $code
     // @param bool   $comma false
     //
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function func(String $params = NULL, String $code = NULL, Bool $comma = false) : String
+    public function function(String $params = NULL, $code = NULL, Bool $comma = false) : String
     {
         if( empty($code) )
         {
             return false;
+        }
+
+        if( is_callable($parameters) )
+        {
+            $code = \Buffer::callback($code);
         }
 
         return "function($params){".$code."}".($comma === true ? ";" : "");
@@ -214,15 +219,15 @@ class InternalJQ extends CallController
     // Jquery fonksiyonu oluşturmak için kullanılır.
     //
     // @param string $params
-    // @param string $code
+    // @param mixed  $code
     // @param bool   $comma false
     //
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function callback(String $params = NULL, String $code = NULL, Bool $comma = false) : String
+    public function callback(String $params = NULL, $code = NULL, Bool $comma = false) : String
     {
-        return $this->func($params, $code, $comma);
+        return $this->function($params, $code, $comma);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -240,11 +245,11 @@ class InternalJQ extends CallController
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function combine(String $selector = NULL, String $property = NULL, $params = NULL, String $callback = NULL, Bool $comma = false) : String
+    public function combine(String $selector = NULL, String $property = NULL, $params = NULL, $callback = NULL, Bool $comma = false) : String
     {
         if( ! empty($callback) )
         {
-            $params = [$params, $this->func('e', $callback)];
+            $params = [$params, $this->function('e', $callback)];
         }
 
         $select = '';
@@ -266,7 +271,7 @@ class InternalJQ extends CallController
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function get(String $url = NULL, String $callback = NULL, Bool $comma = true) : String
+    public function get(String $url = NULL, $callback = NULL, Bool $comma = true) : String
     {
         $params[] = $url;
         $params[] = $callback;
@@ -283,7 +288,7 @@ class InternalJQ extends CallController
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function post(String $url = NULL, String $data = NULL, String $callback = NULL, Bool $comma = true) : String
+    public function post(String $url = NULL, String $data = NULL, $callback = NULL, Bool $comma = true) : String
     {
         $params[] = $url;
         $params[] = $data;
