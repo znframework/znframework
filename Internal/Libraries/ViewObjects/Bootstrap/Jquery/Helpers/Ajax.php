@@ -1,7 +1,7 @@
 <?php namespace ZN\ViewObjects\Bootstrap\Jquery\Helpers;
 
 use ZN\ViewObjects\Bootstrap\JqueryTrait;
-use CallController, Json, JQ, URL, Arrays;
+use CallController, Json, JQ, URL, Arrays, JS;
 
 class Ajax extends CallController implements AjaxInterface
 {
@@ -49,6 +49,15 @@ class Ajax extends CallController implements AjaxInterface
     //
     //--------------------------------------------------------------------------------------------------------
     protected $callbacks = [];
+
+    //--------------------------------------------------------------------------------------------------------
+    // Callbacks
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var array
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected $jsonType = NULL;
 
     //--------------------------------------------------------------------------------------------------------
     // URL
@@ -221,6 +230,7 @@ class Ajax extends CallController implements AjaxInterface
     //--------------------------------------------------------------------------------------------------------
     public function dataType(String $type) : Ajax
     {
+        $this->jsonType     = $type;
         $this->sets['type'] = "\tdataType:\"$type\",".EOL;
 
         return $this;
@@ -525,7 +535,7 @@ class Ajax extends CallController implements AjaxInterface
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Success
+    // Error
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string $params
@@ -535,6 +545,25 @@ class Ajax extends CallController implements AjaxInterface
     public function error(String $params, $error) : Ajax
     {
         $this->_functions('error', $params, $error);
+
+        return $this;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Show Error
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $params
+    // @param string $error
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function showError() : Ajax
+    {
+        $data = isset($this->jsonType) ? '+data.responseText' : '+data';
+
+        $this->jsonType = NULL;
+
+        $this->_functions('error', 'data', JS::write($data));
 
         return $this;
     }
