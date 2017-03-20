@@ -259,20 +259,15 @@ class MySQLiDriver extends DriverConnectionMappingAbstract
         {
             $fieldName = $fieldData[$i]->name;
 
-            $columns[$fieldName]                = new \stdClass();
-            $columns[$fieldName]->name          = $fieldName;
-            $columns[$fieldName]->type          = $fieldData[$i]->type;
-            $columns[$fieldName]->maxLength     = $fieldData[$i]->max_length;
-            $columns[$fieldName]->primaryKey    = (int) ($fieldData[$i]->flags & 2);
-            $columns[$fieldName]->default       = $fieldData[$i]->def;
+            $columns[$fieldName]             = new \stdClass();
+            $columns[$fieldName]->name       = $fieldName;
+            $columns[$fieldName]->type       = $fieldData[$i]->type;
+            $columns[$fieldName]->maxLength  = $fieldData[$i]->max_length;
+            $columns[$fieldName]->primaryKey = (int) ($fieldData[$i]->flags & 2);
+            $columns[$fieldName]->default    = $fieldData[$i]->def;
         }
 
-        if( isset($columns[$column]) )
-        {
-            return $columns[$column];
-        }
-
-        return $columns;
+        return $columns[$column] ?? $columns;
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -308,11 +303,11 @@ class MySQLiDriver extends DriverConnectionMappingAbstract
             return false;
         }
 
-        $columns    = [];
-        $fields     = mysqli_fetch_fields($this->query);
-        $num_fields = $this->numFields();
+        $columns   = [];
+        $fields    = mysqli_fetch_fields($this->query);
+        $numFields = $this->numFields();
 
-        for($i=0; $i < $num_fields; $i++)
+        for( $i = 0; $i < $numFields; $i++ )
         {
             $columns[] = $fields[$i]->name;
         }

@@ -55,7 +55,7 @@ interface InternalHTTPInterface
     // @param numeric $code
     //
     //--------------------------------------------------------------------------------------------------------
-    public function code(Int $code = 200) : String;
+    public function code($code = 200) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Message
@@ -100,7 +100,7 @@ interface InternalHTTPInterface
     // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
-    public function select(String $name);
+    public function select(String $name = NULL);
 
     //--------------------------------------------------------------------------------------------------------
     // Insert
@@ -110,7 +110,7 @@ interface InternalHTTPInterface
     // @param string $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function insert(String $name, $value) : Bool;
+    public function insert(String $name = NULL, $value = NULL) : Bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Delete
@@ -119,5 +119,5 @@ interface InternalHTTPInterface
     // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
-    public function delete(String $name) : Bool;
+    public function delete(String $name = NULL) : Bool;
 }

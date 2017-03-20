@@ -14,7 +14,7 @@ class InternalHTTP extends CLController implements InternalHTTPInterface
     //
     //--------------------------------------------------------------------------------------------------------
 
-    const config = 'Services:http';
+    const config = ['Services:http', 'Services:route'];
 
     //--------------------------------------------------------------------------------------------------------
     // Settings
@@ -50,7 +50,12 @@ class InternalHTTP extends CLController implements InternalHTTPInterface
     //--------------------------------------------------------------------------------------------------------
     public function isInvalidRequest() : Bool
     {
-        return ( Method::request() && ! server('referer') && $this->isCurl() === false );
+        $disallowMethods = SERVICES_ROUTE_CONFIG['invalidRequest']['disallowMethods'];
+        $request         = array_merge(...$disallowMethods);
+
+        unset($request[prefix(currentPath())]);
+
+        return ( ! empty($request) && ! server('referer') && $this->isCurl() === false );
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -115,7 +120,7 @@ class InternalHTTP extends CLController implements InternalHTTPInterface
     // @param numeric $code
     //
     //--------------------------------------------------------------------------------------------------------
-    public function code(Int $code = 200) : String
+    public function code($code = 200) : String
     {
         $messages = Arrays::multikey(SERVICES_HTTP_CONFIG['messages']);
 
@@ -195,21 +200,14 @@ class InternalHTTP extends CLController implements InternalHTTPInterface
     // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
-    public function select(String $name)
+    public function select(String $name = NULL)
     {
         $name  = $this->settings['name']  ?? $name;
         $input = $this->settings['input'] ?? false;
 
         $this->settings = [];
 
-        switch( $input )
-        {
-            case 'post'    : return Method::post($name);    break;
-            case 'get'     : return Method::get($name);     break;
-            case 'env'     : return Method::env($name);     break;
-            case 'server'  : return Method::server($name);  break;
-            case 'request' : return Method::request($name); break;
-        }
+        return Method::$input($name);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -220,7 +218,7 @@ class InternalHTTP extends CLController implements InternalHTTPInterface
     // @param string $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function insert(String $name, $value) : Bool
+    public function insert(String $name = NULL, $value = NULL) : Bool
     {
         $name  = $this->settings['name']  ?? $name;
         $input = $this->settings['input'] ?? false;
@@ -228,14 +226,7 @@ class InternalHTTP extends CLController implements InternalHTTPInterface
 
         $this->settings = [];
 
-        switch( $input )
-        {
-            case 'post'    : return Method::post($name, $value);    break;
-            case 'get'     : return Method::get($name, $value);     break;
-            case 'env'     : return Method::env($name, $value);     break;
-            case 'server'  : return Method::server($name, $value);  break;
-            case 'request' : return Method::request($name, $value); break;
-        }
+        return Method::$input($name, $value);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -245,7 +236,7 @@ class InternalHTTP extends CLController implements InternalHTTPInterface
     // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
-    public function delete(String $name) : Bool
+    public function delete(String $name = NULL) : Bool
     {
         $name  = $this->settings['name']  ?? $name;
         $input = $this->settings['input'] ?? false;

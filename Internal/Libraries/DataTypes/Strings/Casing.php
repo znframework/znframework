@@ -75,7 +75,7 @@ class Casing implements CasingInterface
     //--------------------------------------------------------------------------------------------------------
     public function camel(String $str) : String
     {
-        $string = $this->title($str);
+        $string = $this->title(trim($str));
 
         $string[0] = $this->lower($string);
 
@@ -91,7 +91,7 @@ class Casing implements CasingInterface
     //--------------------------------------------------------------------------------------------------------
     public function pascal(String $str) : String
     {
-        $string = $this->title($str);
+        $string = $this->title(trim($str));
 
         return Strings::mtrim($string);
     }

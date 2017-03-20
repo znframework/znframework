@@ -1,7 +1,7 @@
-<?php return 
+<?php return
 [
     //--------------------------------------------------------------------------------------------------
-    // Regex 
+    // Regex
     //--------------------------------------------------------------------------------------------------
     //
     // Author     : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
@@ -15,11 +15,11 @@
     // Regex Chars
     //--------------------------------------------------------------------------------------------------
     //
-    // Genel Kullanımı: Düzenli ifadelerde yer alan özel karakterlerle ilgili aşağıdaki           
-    // değişiklikler yapılmıştır.                                                             
+    // Genel Kullanımı: Düzenli ifadelerde yer alan özel karakterlerle ilgili aşağıdaki
+    // değişiklikler yapılmıştır.
     //
     //--------------------------------------------------------------------------------------------------
-    'regexChars' => 
+    'regexChars' =>
     [
         '{nonWord}'    => '\W+',
         '{word}'       => '\w+',
@@ -48,16 +48,16 @@
     // Setting Chars
     //--------------------------------------------------------------------------------------------------
     //
-    // Genel Kullanımı: Düzenli ifadelerde oluşturulan desen sonuna konulan karakterlerle     
-    // ilgili aşağıdaki değişiklikler yapılmıştır                                             
+    // Genel Kullanımı: Düzenli ifadelerde oluşturulan desen sonuna konulan karakterlerle
+    // ilgili aşağıdaki değişiklikler yapılmıştır
     //
     //--------------------------------------------------------------------------------------------------
-    'settingChars' => 
+    'settingChars' =>
     [
         '{insens}'    => 'i',
         '{generic}'   => 'g',
         '{each}'      => 's',
-        '{multiline}' => 'm', 
+        '{multiline}' => 'm',
         '{inspace}'   => 'x'
     ],
 
@@ -65,11 +65,11 @@
     // Special Chars
     //--------------------------------------------------------------------------------------------------
     //
-    // Genel Kullanımı: Düzenli ifadelerde yer alan özel karakterleri normal karakterler gibi  
-    // kullanmak için aşağıdaki değişiklikler yapılmıştır.                                    
+    // Genel Kullanımı: Düzenli ifadelerde yer alan özel karakterleri normal karakterler gibi
+    // kullanmak için aşağıdaki değişiklikler yapılmıştır.
     //
     //--------------------------------------------------------------------------------------------------
-    'specialChars' => 
+    'specialChars' =>
     [
         '.' => '\.',
         '^' => '\^',

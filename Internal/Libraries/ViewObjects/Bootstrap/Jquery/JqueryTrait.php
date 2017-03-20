@@ -1,6 +1,6 @@
 <?php namespace ZN\ViewObjects\Bootstrap;
 
-use JQ, Script;
+use JQ, Script, Json, Buffer;
 
 trait JqueryTrait
 {
@@ -87,9 +87,9 @@ trait JqueryTrait
     // @param string $callback
     //
     //--------------------------------------------------------------------------------------------------------
-    public function callback(String $params, String $callback)
+    public function callback(String $params, $callback)
     {
-        $this->callback = JQ::func($params, $callback);
+        $this->callback = JQ::function($params, $callback);
 
         return $this;
     }
@@ -102,7 +102,7 @@ trait JqueryTrait
     // @param string $callback
     //
     //--------------------------------------------------------------------------------------------------------
-    public function func(String $params, String $callback)
+    public function func(String $params, $callback)
     {
         $this->callback($params, $callback);
 
@@ -210,14 +210,7 @@ trait JqueryTrait
 
         if( is_array($array) )
         {
-            $object  = '';
-            $object .= "{";
-            if( ! empty($array)) foreach($array as $k => $v)
-            {
-                $object .= $k.":".$v.", ";
-            }
-            $object  = substr($object, 0, -2);
-            $object .= "}";
+            $object  = Json::encode($array);
         }
         else
         {
@@ -238,7 +231,11 @@ trait JqueryTrait
         {
             if( ! empty($array) ) foreach( $array as $v )
             {
-                if( ! empty($v) )
+                if( is_callable($v) )
+                {
+                    $implode .= JQ::callback('', Buffer::callback($v));
+                }
+                elseif( ! empty($v) )
                 {
                     $implode .= JQ::stringControl($v).",";
                 }
@@ -248,7 +245,11 @@ trait JqueryTrait
         }
         else
         {
-            if( ! empty($array) )
+            if( is_callable($array) )
+            {
+                $implode = JQ::callback('', Buffer::callback($array));
+            }
+            elseif( ! empty($array) )
             {
                 $implode = JQ::stringControl($array);
             }

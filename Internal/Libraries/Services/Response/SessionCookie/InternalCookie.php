@@ -1,6 +1,6 @@
 <?php namespace ZN\Services\Response;
 
-use Session, Json, CLController;
+use Session, Json, CLController, Encode;
 use ZN\Services\Response\SessionCookie\Exception\SetcookieException;
 
 class InternalCookie extends CLController implements InternalCookieInterface, SessionCookieCommonInterface
@@ -174,7 +174,7 @@ class InternalCookie extends CLController implements InternalCookieInterface, Se
             {
                 if( isHash($this->encode['name']) )
                 {
-                    $name = hash($this->encode['name'], $name);
+                    $name = Encode::type($name, $this->encode['name']);
                 }
             }
 
@@ -182,7 +182,7 @@ class InternalCookie extends CLController implements InternalCookieInterface, Se
             {
                 if( isHash($this->encode['value']) )
                 {
-                    $value = hash($this->encode['value'], $value);
+                    $value = Encode::type($value, $this->encode['value']);
                 }
             }
         }
@@ -207,7 +207,7 @@ class InternalCookie extends CLController implements InternalCookieInterface, Se
             {
                 if( isHash($encode) )
                 {
-                    $name = hash($encode, $name);
+                    $name = Encode::type($name, $encode);
                 }
             }
         }
@@ -248,7 +248,7 @@ class InternalCookie extends CLController implements InternalCookieInterface, Se
         {
             if(isHash($this->encode['name']))
             {
-                $name = hash($this->encode['name'], $name);
+                $name = Encode::type($name, $this->encode['name']);
                 $this->encode = [];
             }
         }
@@ -264,7 +264,7 @@ class InternalCookie extends CLController implements InternalCookieInterface, Se
             {
                 if( isHash($encode) )
                 {
-                    $name = hash($encode, $name);
+                    $name = Encode::type($name, $encode);
                 }
             }
         }
@@ -330,7 +330,7 @@ class InternalCookie extends CLController implements InternalCookieInterface, Se
         {
             if( isHash($this->encode['name']) )
             {
-                $name = hash($this->encode['name'], $name);
+                $name = Encode::type($name, $this->encode['name']);
                 $this->encode = [];
             }
         }
@@ -346,7 +346,7 @@ class InternalCookie extends CLController implements InternalCookieInterface, Se
             {
                 if( isHash($encode) )
                 {
-                    $name = hash($encode, $name);
+                    $name = Encode::type($name, $encode);
                 }
             }
         }

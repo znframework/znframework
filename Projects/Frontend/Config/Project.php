@@ -19,7 +19,7 @@
     // amacı her projede yer alan kullanıcı şifrelerinin birbirlerinden farklı olmasını
     // sağlayarak şifre güvenliğini sağlamaktır.
     //----------------------------------------------------------------------------------------------
-    'key' => 'default project',
+    'key' => internalDefaultProjectKey(),
 
     //--------------------------------------------------------------------------------------------------
     // Benchmarking Test
@@ -53,10 +53,20 @@
     // Escape Errors
     //--------------------------------------------------------------------------------------------------
     //
-    // Engellenecek Hata Numaraları Belirtilir.
+    // Hata gösterimi engellenecek hata numaraları belirtilir.
     //
     //--------------------------------------------------------------------------------------------------
     'escapeErrors' => [],
+
+    //--------------------------------------------------------------------------------------------------
+    // Exit Errors
+    //--------------------------------------------------------------------------------------------------
+    //
+    // Hata seviyesine göre kod akışını durdurmak için hata numaraları belirtilir. Yani numara olarak
+    // belirtilen seviyede hata oluştması durumunda kod akışı hatadan sonra kesilir.
+    //
+    //--------------------------------------------------------------------------------------------------
+    'exitErrors' => [0, 2],
 
     //--------------------------------------------------------------------------------------------------
     // Restoration

@@ -60,7 +60,7 @@ interface InternalErrorsInterface
     // @param int
     //
     //--------------------------------------------------------------------------------------------------------
-    public function handler($handler, Int $errorTypes = E_ALL | E_STRICT);
+    public function handler(Callable $handler, Int $errorTypes = E_ALL | E_STRICT);
 
     //--------------------------------------------------------------------------------------------------------
     // Trigger

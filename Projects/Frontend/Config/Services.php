@@ -49,17 +49,19 @@
         //
         // Eğer formlar dışında curl ile veya url üzerinden yapılan isteği engellemek için kullanılır.
         //
-        // Control   : Bu değer true ayarlanırsa kontrol yapılır.
-        // Page      : Eğer konrolden sonra geçersiz istek tespit edilirse hangi sayfaya gideceği
-        //             belirlenebilr.
-        // AllowPages: Kontrol dışında tutulacak sayfaları belirlemek için kullanılır.
+        // Control        : Bu değer true ayarlanırsa kontrol yapılır.
+        // Page           : Eğer konrolden sonra geçersiz istek tespit edilirse hangi sayfaya gideceği
+        //                  belirlenebilr.
+        // AllowPages     : Kontrol dışında tutulacak sayfaları belirlemek için kullanılır.
+        // DisallowMethods: Engellencek veri türleri belirtilir.
         //
         //----------------------------------------------------------------------------------------------
         'invalidRequest' =>
         [
-            'control'    => true,
-            'page'       => '',
-            'allowPages' => []
+            'control'         => false,
+            'page'            => '',
+            'allowPages'      => [],
+            'disallowMethods' => [Method::post(), Method::get()]
         ],
 
         //----------------------------------------------------------------------------------------------
@@ -193,7 +195,7 @@
         // yeterlidir. Boş bırakılması halinde herhangi bir şifreleme yapmayacaktır.
         //
         //----------------------------------------------------------------------------------------------
-        'encode'      => '',
+        'encode'      => 'super',
 
         //----------------------------------------------------------------------------------------------
         // Regenerate
@@ -274,7 +276,7 @@
         // Boş bırakılması halinde herhangi bir şifreleme yapmayacaktır.
         //
         //----------------------------------------------------------------------------------------------
-        'encode' => 'md5',
+        'encode' => 'super',
 
         //----------------------------------------------------------------------------------------------
         // Regenerate

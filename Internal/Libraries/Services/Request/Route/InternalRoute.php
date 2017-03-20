@@ -1,7 +1,7 @@
 <?php namespace ZN\Services\Request;
 
 use ZN\Core\Structure;
-use Config, Errors, Controller;
+use Arrays, Config, Errors, Controller;
 
 class InternalRoute extends Controller implements InternalRouteInterface
 {
@@ -47,7 +47,7 @@ class InternalRoute extends Controller implements InternalRouteInterface
     //  @return mixed
     //
     //--------------------------------------------------------------------------------------------------------
-    public function run(String $functionName, $functionRun = NULL, Array $route = NULL)
+    public function run(String $functionName, Callable $functionRun = NULL, Array $route = NULL)
     {
         if( ! empty($this->route) )
         {
@@ -64,12 +64,12 @@ class InternalRoute extends Controller implements InternalRouteInterface
         $isFile     = $datas['file'];
         $function   = $datas['function'];
 
-        if( ( $functionName === 'construct' || $functionName === 'destruct' ) && is_callable($functionRun) )
+        if( Arrays::valueExists(['construct', 'destruct'], $functionName) )
         {
             call_user_func_array($functionRun, $parameters);
         }
 
-        if( file_exists($isFile) )
+        if( is_file($isFile) )
         {
             if( strtolower($function) ===  'index' && strtolower($functionName) === 'main')
             {
@@ -78,27 +78,35 @@ class InternalRoute extends Controller implements InternalRouteInterface
 
             if( $functionName === $function )
             {
-                if( is_callable($functionRun) )
-                {
-                    call_user_func_array($functionRun, $parameters);
-                }
-                else
-                {
-                    // Sayfa bilgisine erişilemezse hata bildir.
-                    if( ! $routeShow404 = Config::get('Services', 'route')['show404'] )
-                    {
-                        // Hatayı rapor et.
-                        report('Error', lang('Error', 'callUserFuncArrayError'), 'SystemCallUserFuncArrayError');
-
-                        // Hatayı ekrana yazdır.
-                        die(Errors::message('Error', 'callUserFuncArrayError', $functionRun));
-                    }
-                    else
-                    {
-                        redirect($routeShow404);
-                    }
-                }
+                call_user_func_array($functionRun, $parameters);
             }
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Redirect Show 404 -> 4.2.7
+    //--------------------------------------------------------------------------------------------------------
+    //
+    //  @param  string $function
+    //  @param  string $lang
+    //  @param  string $report
+    //  @return void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function redirectShow404(String $function, String $lang = 'callUserFuncArrayError', String $report = 'SystemCallUserFuncArrayError')
+    {
+        // Sayfa bilgisine erişilemezse hata bildir.
+        if( ! $routeShow404 = Config::get('Services', 'route')['show404'] )
+        {
+            // Hatayı rapor et.
+            report('Error', lang('Error', $lang), $report);
+
+            // Hatayı ekrana yazdır.
+            die(Errors::message('Error', $lang, $function));
+        }
+        else
+        {
+            redirect($routeShow404);
         }
     }
 }

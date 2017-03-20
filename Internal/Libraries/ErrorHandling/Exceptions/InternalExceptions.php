@@ -67,7 +67,8 @@ class InternalExceptions extends Exception implements InternalExceptionsInterfac
         $table = $this->_template($msg, $file, $line, $no, $trace);
 
         // Error Type: TypeHint -> exit
-        if( in_array($no, ['0', '2']) )
+
+        if( in_array($no, Config::get('Project', 'exitErrors')) )
         {
             exit($table);
         }
@@ -108,13 +109,8 @@ class InternalExceptions extends Exception implements InternalExceptionsInterfac
     // @param callable $handler
     //
     //--------------------------------------------------------------------------------------------------------
-    public function handler($handler)
+    public function handler(Callable $handler)
     {
-        if( ! is_callable($handler) )
-        {
-            return $this->set(lang('Error', 'callableParameter', '1.(handler)'));
-        }
-
         return set_exception_handler($handler);
     }
 

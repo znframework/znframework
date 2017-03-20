@@ -21,9 +21,9 @@
 //--------------------------------------------------------------------------------------------------
 function currentPath(Bool $isPath = true) : String
 {
-    $currentPagePath = str_replace("/".getLang()."/", "", server('currentPath'));
+    $currentPagePath = str_replace(getLang().'/', '', server('currentPath'));
 
-    if( isset($currentPagePath[0]) && $currentPagePath[0] === "/" )
+    if( isset($currentPagePath[0]) && $currentPagePath[0] === '/' )
     {
         $currentPagePath = substr($currentPagePath, 1, strlen($currentPagePath) - 1);
     }
@@ -34,7 +34,7 @@ function currentPath(Bool $isPath = true) : String
     }
     else
     {
-        $str = explode("/", $currentPagePath);
+        $str = explode('/', $currentPagePath);
 
         if( count($str) > 1 )
         {
@@ -59,14 +59,12 @@ function basePath(String $uri = '', Int $index = 0) : String
 {
     $newBaseDir = substr(BASE_DIR, 1);
 
-    if( BASE_DIR !== "/" )
+    if( BASE_DIR !== '/' )
     {
         if( $index < 0 )
         {
-            $baseDir = substr(BASE_DIR, 1, -1);
-
-            $baseDir = explode("/", $baseDir);
-
+            $baseDir    = substr(BASE_DIR, 1, -1);
+            $baseDir    = explode('/', $baseDir);
             $newBaseDir = '';
 
             for( $i = 0; $i < count($baseDir) + $index; $i++ )
@@ -76,7 +74,7 @@ function basePath(String $uri = '', Int $index = 0) : String
         }
     }
 
-    return internalCleanInjection($newBaseDir.$uri);
+    return internalCleanInjection($newBaseDir . $uri);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -95,12 +93,7 @@ function prevPath(Bool $isPath = true) : String
         return false;
     }
 
-    $str = str_replace(sslStatus().host().BASE_DIR.indexStatus(), '', $_SERVER['HTTP_REFERER']);
-
-    if( currentLang() )
-    {
-        $str = explode("/",$str); return $str[1];
-    }
+    $str = str_replace(siteUrl(), '', $_SERVER['HTTP_REFERER']);
 
     if( $isPath === true )
     {
@@ -108,16 +101,7 @@ function prevPath(Bool $isPath = true) : String
     }
     else
     {
-        $str = explode("/", $str);
-
-        $count = count($str);
-
-        if( $count > 1 )
-        {
-            return $str[$count - 1];
-        }
-
-        return $str[0];
+        return divide($str, '/', -1);
     }
 }
 

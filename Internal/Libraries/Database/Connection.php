@@ -182,7 +182,7 @@ class Connection implements ConnectionInterface
         }
 
         $getCalledClass = get_called_class();
-    
+
         return new $getCalledClass($connection);
     }
 
@@ -336,6 +336,82 @@ class Connection implements ConnectionInterface
     }
 
     //--------------------------------------------------------------------------------------------------------
+    // Protected Escape String Add Nail
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $column
+    // @param string $value
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _excapeStringAddNail($value, $numeric = false)
+    {
+        if( $numeric === true && is_numeric($value) )
+        {
+            return $value;
+        }
+
+        return presuffix($this->db->realEscapeString($value), "'");
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Exp
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $column
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _exp($column = '', $exp = 'exp')
+    {
+        return stristr($column, $exp . ':');
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Clear Exp
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $column
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _clearExp($column, $exp = 'exp')
+    {
+        return str_ireplace($exp . ':', '', $column);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Convert Type
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $column
+    // @param string $value
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _convertType($column = '', $value = '')
+    {
+        if( $this->_exp($column, 'int') )
+        {
+            $value  = (int) $value;
+            $column = $this->_clearExp($column, 'int');
+        }
+
+        if( $this->_exp($column, 'float') )
+        {
+            $value  = (float) $value;
+            $column = $this->_clearExp($column, 'float');
+        }
+
+        if( $this->_exp($column, 'exp') )
+        {
+            $column = $this->_clearExp($column);
+        }
+
+        return (object)
+        [
+            'value'  => $value,
+            'column' => $column
+        ];
+    }
+
+    //--------------------------------------------------------------------------------------------------------
     // Protected Query Security
     //--------------------------------------------------------------------------------------------------------
     //
@@ -370,7 +446,9 @@ class Connection implements ConnectionInterface
             {
                 foreach( $this->secure as $k => $v )
                 {
-                    $secureParams[$k] = $this->db->realEscapeString($v);
+                    $convertInt = $this->_convertType($k, $v);
+                    
+                    $secureParams[$convertInt->column] = $this->db->realEscapeString($convertInt->value);
                 }
             }
 

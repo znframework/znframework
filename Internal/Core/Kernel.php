@@ -77,7 +77,7 @@ define('CURRENT_CNAMESPACE', $namespace);
 // @return Aktif çalıştırılan sayfaya ait namespace bilgisi.
 //
 //--------------------------------------------------------------------------------------------------
-define('CURRENT_CCLASS', $namespace.CURRENT_CONTROLLER);
+define('CURRENT_CCLASS', $namespace . CURRENT_CONTROLLER);
 
 //--------------------------------------------------------------------------------------------------
 // CURRENT_CPATH
@@ -106,9 +106,9 @@ define('CURRENT_CFURI', CURRENT_CFPATH);
 //--------------------------------------------------------------------------------------------------
 define('CURRENT_CFURL', siteUrl(CURRENT_CFPATH));
 
-//--------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------------
 // Invalid Request Page
-//--------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------------
 $invalidRequest = Config::get('Services', 'route')['invalidRequest'];
 
 if( $invalidRequest['control'] === true && Http::isInvalidRequest() )
@@ -123,19 +123,12 @@ if( $invalidRequest['control'] === true && Http::isInvalidRequest() )
         redirect($invalidRequest['page']);
     }
 }
-//--------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------------
 
-//--------------------------------------------------------------------------------------------------
-// Fonksiyon Yükleme İşlemleri
-//--------------------------------------------------------------------------------------------------
-$starting = Config::get('Starting');
-
-//--------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------------
 // Starting Controllers
-//--------------------------------------------------------------------------------------------------
-$startController = $starting['controller'];
-
-if( ! empty($startController) )
+//--------------------------------------------------------------------------------------------------------
+if( $startController = Config::get('Starting', 'controller') )
 {
     if( is_string($startController) )
     {
@@ -156,56 +149,13 @@ if( ! empty($startController) )
         }
     }
 }
+//--------------------------------------------------------------------------------------------------------
 
-if( $starting['autoload']['status'] === true )
-{
-    $startingAutoload       = Folder::allFiles(AUTOLOAD_DIR, $starting['autoload']['recursive']);
-    $commonStartingAutoload = Folder::allFiles(EXTERNAL_AUTOLOAD_DIR, $starting['autoload']['recursive']);
-
-    //----------------------------------------------------------------------------------------------
-    // Yerel Otomatik Olarak Yüklenen Fonksiyonlar
-    //----------------------------------------------------------------------------------------------
-    if( ! empty($startingAutoload) ) foreach( $startingAutoload as $file )
-    {
-        if( extension($file) === 'php' )
-        {
-            if( is_file($file) )
-            {
-                import($file);
-            }
-        }
-    }
-
-    //------------------------------------------------------------------------------------------------
-    // Ortak Otomatik Olarak Yüklenen Fonksiyonlar
-    //------------------------------------------------------------------------------------------------
-    if( ! empty($commonStartingAutoload) ) foreach( $commonStartingAutoload as $file )
-    {
-        if( extension($file) === 'php' )
-        {
-            $commonIsSameExistsFile = str_ireplace(EXTERNAL_AUTOLOAD_DIR, AUTOLOAD_DIR, $file);
-
-            if( ! is_file($commonIsSameExistsFile) && is_file($file) )
-            {
-                import($file);
-            }
-        }
-    }
-}
-
-//--------------------------------------------------------------------------------------------------
-// El ile Yüklenen Fonksiyonlar
-//--------------------------------------------------------------------------------------------------
-if( ! empty($starting['handload']) )
-{
-    Import::handload(...$starting['handload']);
-}
-
-//--------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------------
 // SAYFA KONTROLÜ YAPILIYOR...
-//--------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------------
 //  Sayfa bilgisine erişilmişse sayfa dahil edilir.
-//--------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------------
 if( is_file($isFile) )
 {
     import($isFile);
@@ -217,9 +167,10 @@ if( is_file($isFile) )
 
     if( class_exists($page, false) )
     {
-        if( strtolower($function) === 'index' && ! is_callable([$page, $function]) )
+        if( ! is_callable([$page, $function]) )
         {
-            $function = 'main';
+            $parameters = Arrays::addFirst($parameters, $function);
+            $function   = 'main';
         }
 
         if( is_callable([$page, $function]) )
@@ -228,63 +179,38 @@ if( is_file($isFile) )
             {
                 uselib($page)->$function(...$parameters);
             }
-            catch( \Throwable $e )
+            catch( Throwable $e )
             {
                 if( PROJECT_MODE !== 'publication' )
                 {
-                    \Exceptions::table($e->getCode(), $e->getMessage(), $e->getFile(), $e->getLine(), $e->getTrace());
+                    Exceptions::table($e->getCode(), $e->getMessage(), $e->getFile(), $e->getLine(), $e->getTrace());
                 }
             }
         }
         else
         {
-            if( $routeShow404 = Config::get('Services', 'route')['show404'] )
-            {
-                redirect($routeShow404);
-            }
-            else
-            {
-                report('Error', lang('Error', 'callUserFuncArrayError', $function), 'SystemCallUserFuncArrayError');
-
-                die(Errors::message('Error', 'callUserFuncArrayError', $function));
-            }
+            Route::redirectShow404($function);
         }
     }
 }
 else
 {
-    if( $routeShow404 = Config::get('Services', 'route')['show404'] )
-    {
-        redirect($routeShow404);
-    }
-    else
-    {
-        report('Error', lang('Error', 'notFoundController', CURRENT_CONTROLLER), 'SystemNotFoundControllerError');
-
-        die(Errors::message('Error', 'notFoundController', CURRENT_CONTROLLER));
-    }
+    Route::redirectShow404(CURRENT_CONTROLLER, 'notFoundController', 'SystemNotFoundControllerError');
 }
 
-//--------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------------
 // Restore Error Handler
-//--------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------------
 //
 // @mode = 'publication'
 //
-//--------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------------
 if( PROJECT_MODE !== 'publication' )
 {
     restore_error_handler();
 }
 else
 {
-    //----------------------------------------------------------------------------------------------
-    // Report Error Last Error
-    //----------------------------------------------------------------------------------------------
-    //
-    // Yakalanan son hata log dosyasına kaydediliyor.
-    //
-    //----------------------------------------------------------------------------------------------
     if(  Config::get('General', 'log')['createFile'] === true && $errorLast = Errors::last() )
     {
         $lang    = lang('Templates');
@@ -296,11 +222,11 @@ else
     }
 }
 
-//--------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------------
 // Ob End Flush
-//--------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------------
 //
 // Tampon kapatılıyor.
 //
-//--------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------------
 ob_end_flush();

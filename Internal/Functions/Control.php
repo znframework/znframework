@@ -21,9 +21,7 @@
 //--------------------------------------------------------------------------------------------------
 function isImport(String $path) : Bool
 {
-    return ! in_array( realpath(suffix($path, '.php')), get_required_files() )
-           ? false
-           : true;
+    return in_array( realpath(suffix($path, '.php')), get_required_files() );
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -37,9 +35,7 @@ function isImport(String $path) : Bool
 //--------------------------------------------------------------------------------------------------
 function isUrl(String $url) : Bool
 {
-    return ! preg_match('#^(\w+:)?//#i', $url)
-           ? false
-           : true;
+    return preg_match('#^(\w+:)?//#i', $url);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -53,9 +49,7 @@ function isUrl(String $url) : Bool
 //--------------------------------------------------------------------------------------------------
 function isEmail(String $email) : Bool
 {
-    return ! preg_match("/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix", $email)
-           ? false
-           : true;
+    return preg_match("/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix", $email);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -69,9 +63,7 @@ function isEmail(String $email) : Bool
 //--------------------------------------------------------------------------------------------------
 function isChar($str) : Bool
 {
-    return ! is_scalar($str)
-           ? false
-           : true;
+    return is_scalar($str);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -85,9 +77,7 @@ function isChar($str) : Bool
 //--------------------------------------------------------------------------------------------------
 function isRealNumeric($num = 0) : Bool
 {
-    return ! is_string($num) && is_numeric($num)
-           ? true
-           : false;
+    return ! is_string($num) && is_numeric($num);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -101,9 +91,7 @@ function isRealNumeric($num = 0) : Bool
 //--------------------------------------------------------------------------------------------------
 function isDeclaredClass(String $class) : Bool
 {
-    return ! in_array(strtolower($class), array_map('strtolower', get_declared_classes()))
-           ? false
-           : true;
+    return in_array(strtolower($class), array_map('strtolower', get_declared_classes()));
 }
 
 
@@ -118,9 +106,9 @@ function isDeclaredClass(String $class) : Bool
 //--------------------------------------------------------------------------------------------------
 function isHash(String $type) : Bool
 {
-    return ! in_array($type, hash_algos())
-           ? false
-           : true;
+    $hashAlgos = Arrays::addLast(hash_algos(), ['super', 'golden']);
+
+    return in_array($type, $hashAlgos);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -134,9 +122,7 @@ function isHash(String $type) : Bool
 //--------------------------------------------------------------------------------------------------
 function isCharset(String $charset) : Bool
 {
-    return ! array_search(strtolower($charset), array_map('strtolower', mb_list_encodings()), true)
-           ? false
-           : true;
+    return array_search(strtolower($charset), array_map('strtolower', mb_list_encodings()), true);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -150,9 +136,7 @@ function isCharset(String $charset) : Bool
 //--------------------------------------------------------------------------------------------------
 function isArray($array) : Bool
 {
-    return ! empty($array) && is_array($array)
-           ? true
-           : false;
+    return ! empty($array) && is_array($array);
 }
 
 //--------------------------------------------------------------------------------------------------

@@ -154,7 +154,7 @@ class ODBCDriver extends DriverConnectionMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function query($query, $security = [])
     {
-        $this->query = $this->exec($query);
+        $this->query = odbc_prepare($this->connect, $query);
         return odbc_execute($this->query, $security);
     }
 
@@ -212,28 +212,22 @@ class ODBCDriver extends DriverConnectionMappingAbstract
             return false;
         }
 
-        $columns = [];
+        $columns   = [];
+        $numFields = $this->numFields();
 
-        $count = $this->numFields();
-
-        for ($i = 0, $index = 1; $i < $count; $i++, $index++)
+        for( $index = 1; $index <= $numFields; $index++ )
         {
             $fieldName = odbc_field_name($this->query, $index);
 
-            $columns[$fieldName]                = new \stdClass();
-            $columns[$fieldName]->name          = $fieldName;
-            $columns[$fieldName]->type          = odbc_field_type($this->query, $index);
-            $columns[$fieldName]->maxLength     = odbc_field_len($this->query, $index);
-            $columns[$fieldName]->primaryKey    = NULL;
-            $columns[$fieldName]->default       = NULL;
+            $columns[$fieldName]             = new \stdClass();
+            $columns[$fieldName]->name       = $fieldName;
+            $columns[$fieldName]->type       = odbc_field_type($this->query, $index);
+            $columns[$fieldName]->maxLength  = odbc_field_len($this->query, $index);
+            $columns[$fieldName]->primaryKey = NULL;
+            $columns[$fieldName]->default    = NULL;
         }
 
-        if( isset($columns[$col]) )
-        {
-            return $columns[$col];
-        }
-
-        return $columns;
+        return $columns[$col] ?? $columns;
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -269,12 +263,12 @@ class ODBCDriver extends DriverConnectionMappingAbstract
             return false;
         }
 
-        $columns = [];
-        $num_fields = $this->numFields();
+        $columns   = [];
+        $numFields = $this->numFields();
 
-        for($i=0; $i < $num_fields; $i++)
+        for( $index = 1;  $index <= $numFields; $index++ )
         {
-            $columns[] = odbc_field_name($this->query, $i);
+            $columns[] = odbc_field_name($this->query, $index);
         }
 
         return $columns;

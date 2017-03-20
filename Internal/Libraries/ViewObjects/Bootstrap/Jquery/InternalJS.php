@@ -1,8 +1,8 @@
 <?php namespace ZN\ViewObjects\Bootstrap;
 
-use CallController;
+use CallController, JQ;
 
-class InternalJS extends CallController
+class InternalJS extends CallController implements InternalJSInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -1091,7 +1091,7 @@ class InternalJS extends CallController
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // define
+    // var
     //--------------------------------------------------------------------------------------------------------
     //
     // @param  string $varname
@@ -1099,13 +1099,13 @@ class InternalJS extends CallController
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function define(String $varname, String $value, String $operator = '=') : String
+    public function var(String $varname, String $value) : String
     {
-        return EOL.'var '.$varname.' '.$operator.' '.suffix(trim($value, EOL), ';');
+        return $this->_var($varname, $value, true);
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // redefine
+    // varch
     //--------------------------------------------------------------------------------------------------------
     //
     // @param  string $varname
@@ -1113,9 +1113,37 @@ class InternalJS extends CallController
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function redefine(String $varname, String $value, String $operator = '=') : String
+    public function varch(String $variable, String $value = NULL) : String
     {
-        return EOL.$varname.' '.$operator.' '.suffix(trim($value, EOL), ';');
+        echo  $this->_var($variable, $value, false);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // vardec
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param  string $variable
+    // @param  int    $decrement
+    // @return string
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function vardec(String $variable, Int $decrement = 1) : String
+    {
+        return $variable . ' = ' . $variable . ' - ' . $decrement . ';' . EOL;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // varin
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param  string $variable
+    // @param  int    $decrement
+    // @return string
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function varinc(String $variable, Int $decrement = 1) : String
+    {
+        return $variable . ' = ' . $variable . ' + ' . $decrement . ';' . EOL;
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -1127,23 +1155,26 @@ class InternalJS extends CallController
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function defineFunc(String $funcname, String $param = NULL, String $code = NULL) : String
+    public function function(String $functionName = NULL, $parameters = NULL, $function = NULL) : String
     {
-        return EOL.'function '.$funcname.' ('.$param.') {'.$code.'}'.EOL;
-    }
+        if( ( is_scalar($parameters) || $parameters === NULL ) && $function === NULL )
+        {
+            return $functionName . '(' . $parameters . ');' . EOL;
+        }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Function
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  string $varname
-    // @param  string $value
-    // @return string
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function func(String $funcname, String $param = NULL) : String
-    {
-        return $funcname.'('.$param.');';
+        $params = $parameters;
+
+        if( is_callable($parameters) )
+        {
+            $params   = '';
+            $function = $parameters;
+        }
+
+        $str  = 'function ' . $functionName . '(' . $params . '){' . EOL;
+        $str .= \Buffer::callback($function);
+        $str .= '}' . EOL;
+
+        return $str;
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -1157,7 +1188,35 @@ class InternalJS extends CallController
     //--------------------------------------------------------------------------------------------------------
     public function alert(String $code, Bool $comma = true) : String
     {
-        return $this->_jsFunc('alert', $code, $comma);
+        return $this->_jsFunc('alert', JQ::stringControl($code), $comma);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Write
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param  string $code
+    // @param  bool   $comma
+    // @return string
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function write(String $code, Bool $comma = true) : String
+    {
+        return $this->_jsFunc('document.write', JQ::stringControl($code), $comma);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Prompt
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param  string $code
+    // @param  bool   $comma
+    // @return string
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function prompt(String $code, Bool $comma = true) : String
+    {
+        return $this->_jsFunc('prompt', JQ::stringControl($code), $comma);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -1170,20 +1229,20 @@ class InternalJS extends CallController
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function confirm(String $code, String $true = NULL, String $false = NULL) : String
+    public function confirm(String $code, $true = NULL, $false = NULL) : String
     {
-         $confirm = $this->_jsFunc('confirm', \JQ::stringControl($code), false);
+         $confirm = $this->_jsFunc('confirm', JQ::stringControl($code), false);
 
          if( empty($true) )
          {
              return "$confirm;";
          }
 
-         return $this->ifClause("$confirm === true", $true).$this->elseClause($false);
+         return $this->if("$confirm === true", $true).$this->else($false);
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // If Clause
+    // If Clause -> 4.2.8[edited]
     //--------------------------------------------------------------------------------------------------------
     //
     // @param  string $condition
@@ -1191,15 +1250,15 @@ class InternalJS extends CallController
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function ifClause(String $condition, String $code = NULL , String $elseCode = NULL) : String
+    public function if(String $condition, $code = NULL , $elseCode = NULL) : String
     {
-        $elseCode = ! empty($elseCode) ? $this->elseClause($elseCode) : '';
+        $elseCode = ! empty($elseCode) ? $this->else($elseCode) : '';
 
         return $this->_clause('if', $condition, $code).$elseCode;
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Else If Clause
+    // Else If Clause -> 4.2.8[edited]
     //--------------------------------------------------------------------------------------------------------
     //
     // @param  string $condition
@@ -1207,26 +1266,57 @@ class InternalJS extends CallController
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function elseIfClause(String $condition, String $code = NULL) : String
+    public function elseIf(String $condition, $code = NULL) : String
     {
         return $this->_clause('else if', $condition, $code);
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Else Clause
+    // Else Clause -> 4.2.8[edited]
     //--------------------------------------------------------------------------------------------------------
     //
     // @param  string $code
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function elseClause(String $code = NULL) : String
+    public function else($code = NULL) : String
     {
-        return "else{".$code."}";
+        if( is_callable($code) )
+        {
+            $code = \Buffer::callback($code);
+        }
+
+        return "else" . EOL . "{" . EOL . HT . $code . EOL . "}";
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // For Loop
+    // break
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param  void
+    // @return string
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function break() : String
+    {
+        return 'break;' . EOL;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // return
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param  string $data
+    // @return string
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function return(String $data = NULL) : String
+    {
+        return 'return' . ( ! empty($data) ? ' '.$data : '' ) . ';' . EOL;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // For Loop -> 4.2.8[edited]
     //--------------------------------------------------------------------------------------------------------
     //
     // @param  string $condition
@@ -1234,13 +1324,13 @@ class InternalJS extends CallController
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function forLoop(String $condition, String $code = NULL) : String
+    public function for(String $condition, $code = NULL) : String
     {
         return $this->_clause('for', $condition, $code);
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // While Loop
+    // While Loop -> 4.2.8[edited]
     //--------------------------------------------------------------------------------------------------------
     //
     // @param  string $condition
@@ -1248,13 +1338,13 @@ class InternalJS extends CallController
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function whileLoop(String $condition, String $code = NULL) : String
+    public function while(String $condition, $code = NULL) : String
     {
         return $this->_clause('while', $condition, $code);
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Do While Loop
+    // Do While Loop -> 4.2.8[edited]
     //--------------------------------------------------------------------------------------------------------
     //
     // @param  string $condition
@@ -1262,13 +1352,18 @@ class InternalJS extends CallController
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function doWhileLoop(String $condition, String $code = NULL) : String
+    public function doWhile(String $condition, $code = NULL) : String
     {
-        return "do{".$code."}while(".$condition.");";
+        if( is_callable($code) )
+        {
+            $code = \Buffer::callback($code);
+        }
+
+        return "do" . EOL . "{" . EOL . HT . $code . EOL ."}while(".$condition.");";
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Switch Clause
+    // Switch Clause -> 4.2.8[edited]
     //--------------------------------------------------------------------------------------------------------
     //
     // @param  string $condition
@@ -1276,7 +1371,7 @@ class InternalJS extends CallController
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function switchClause(String $condition, Array $cases) : String
+    public function switch(String $condition, Array $cases) : String
     {
         $clause = '';
 
@@ -1337,6 +1432,52 @@ class InternalJS extends CallController
     protected function _clause($type = '', $condition = '', $code = '')
     {
         $eol = EOL;
-        return $this->_jsFunc($type, $condition, false)."{".$code."}";
+
+        if( is_callable($code) )
+        {
+            $code = \Buffer::callback($code);
+        }
+
+        return $this->_jsFunc($type, $condition, false). EOL . "{" . EOL . HT . $code . EOL . "}" . EOL;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Var
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param  string $variable
+    // @param  string $value
+    // @param  bool   $var
+    // @return string
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _var($variable, $value, $var = false)
+    {
+        return ( $var === true ? 'var ' : '' ) . $this->_equalControl($variable) . ' ' . JQ::stringControl($value) . ';' . EOL;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Equal Control
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param  string $column
+    // @return string
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _equalControl($column)
+    {
+        $control = trim($column);
+
+        if( strstr($column, '.') )
+        {
+            $control = str_replace('.', '', $control);
+        }
+
+        if( preg_match('/^\w+$/', $control) )
+        {
+            $column .= ' = ';
+        }
+
+        return $column;
     }
 }

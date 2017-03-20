@@ -11,6 +11,76 @@
 //--------------------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------------------
+// internalDefaultProjectKey() - ZN >= 4.2.7
+//--------------------------------------------------------------------------------------------------
+//
+// @param void
+//
+// @return string
+//
+//--------------------------------------------------------------------------------------------------
+function internalDefaultProjectKey(String $fix = '') : String
+{
+    if( defined('_CURRENT_PROJECT') )
+    {
+        $containers = PROJECTS_CONFIG['containers'];
+
+        if( ! empty($containers[_CURRENT_PROJECT]) )
+        {
+            return md5(baseUrl(strtolower($containers[_CURRENT_PROJECT])) . $fix);
+        }
+    }
+
+    return md5(baseUrl(strtolower(CURRENT_PROJECT)) . $fix);
+}
+
+//--------------------------------------------------------------------------------------------------
+// internalGetCurrentProject() - ZN >= 4.2.6
+//--------------------------------------------------------------------------------------------------
+//
+// @param void
+//
+// @return string
+//
+//--------------------------------------------------------------------------------------------------
+function internalGetCurrentProject() : String
+{
+    return (CURRENT_PROJECT === DEFAULT_PROJECT ? '' : suffix(CURRENT_PROJECT));
+}
+
+//--------------------------------------------------------------------------------------------------
+// internalBaseDir() - ZN >= 4.2.6
+//--------------------------------------------------------------------------------------------------
+//
+// @param int $index = 0
+//
+// @return string
+//
+//--------------------------------------------------------------------------------------------------
+function internalBaseDir(Int $index = 0) : String
+{
+    $newBaseDir = BASE_DIR;
+
+    if( BASE_DIR !== '/' )
+    {
+        $baseDir = substr(BASE_DIR, 1, -1);
+
+        if( $index < 0 )
+        {
+            $baseDir    = explode('/', $baseDir);
+            $newBaseDir = '/';
+
+            for( $i = 0; $i < count($baseDir) + $index; $i++ )
+            {
+                $newBaseDir .= suffix($baseDir[$i]);
+            }
+        }
+    }
+
+    return $newBaseDir;
+}
+
+//--------------------------------------------------------------------------------------------------
 // internalRequestURI()
 //--------------------------------------------------------------------------------------------------
 //
@@ -51,7 +121,7 @@ function internalRequestURI() : String
 //--------------------------------------------------------------------------------------------------
 function internalCleanURIPrefix(String $uri = '', String $cleanData = NULL) : String
 {
-    $suffixData = suffix($cleanData);
+    $suffixData = suffix((string) $cleanData);
 
     if( ! empty($cleanData) && stripos($uri, $suffixData) === 0 )
     {
@@ -499,6 +569,11 @@ function internalStartingContoller(String $startController = '', Array $param = 
     $controllerFunc  = ! empty($controllerEx[1]) ? $controllerEx[1] : 'main';
     $controllerFile  = CONTROLLERS_DIR.suffix($controllerPath, '.php');
     $controllerClass = divide($controllerPath, '/', -1);
+
+    if( ! class_exists($controllerClass, false) )
+    {
+        $controllerClass = PROJECT_CONTROLLER_NAMESPACE . $controllerClass;
+    }
 
     if( is_file($controllerFile) )
     {

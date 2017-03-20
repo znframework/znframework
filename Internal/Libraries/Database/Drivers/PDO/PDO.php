@@ -262,29 +262,23 @@ class PDODriver extends DriverConnectionMappingAbstract
             return false;
         }
 
-        $columns = [];
+        $columns   = [];
+        $numFields = $this->numFields();
 
-        $count = $this->numFields();
-
-        for( $i = 0; $i < $count; $i++ )
+        for( $i = 0; $i < $numFields; $i++ )
         {
             $field     = $this->query->getColumnMeta($i);
             $fieldName = $field['name'];
 
-            $columns[$fieldName]                = new \stdClass();
-            $columns[$fieldName]->name          = $fieldName;
-            $columns[$fieldName]->type          = $field['native_type'];
-            $columns[$fieldName]->maxLength     = ($field['len'] > 0) ? $field['len'] : NULL;
-            $columns[$fieldName]->primaryKey    = (int) ( ! empty($field['flags']) && in_array('primary_key', $field['flags'], TRUE));
-            $columns[$fieldName]->default       = NULL;
+            $columns[$fieldName]             = new \stdClass();
+            $columns[$fieldName]->name       = $fieldName;
+            $columns[$fieldName]->type       = $field['native_type'];
+            $columns[$fieldName]->maxLength  = ($field['len'] > 0) ? $field['len'] : NULL;
+            $columns[$fieldName]->primaryKey = (int) ( ! empty($field['flags']) && in_array('primary_key', $field['flags'], TRUE));
+            $columns[$fieldName]->default    = NULL;
         }
 
-        if( isset($columns[$col]) )
-        {
-            return $columns[$col];
-        }
-
-        return $columns;
+        return $columns[$col] ?? $columns;
 
     }
 
@@ -314,16 +308,17 @@ class PDODriver extends DriverConnectionMappingAbstract
             return false;
         }
 
-        $columns = [];
+        $columns   = [];
+        $numFields = $this->numFields();
 
-        $total_columns = $this->numFields();
-
-        for ($i = 0; $i < $total_columns; $i ++)
+        for( $i = 0; $i < $numFields; $i++ )
         {
             $meta = $this->query->getColumnMeta($i);
 
-            if($meta['name'] !== NULL)
+            if( $meta['name'] !== NULL )
+            {
                 $columns[] = $meta['name'];
+            }
         }
 
         return $columns;

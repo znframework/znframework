@@ -26,7 +26,7 @@ class GetElement implements GetElementInterface
     {
         if( $count <= 1 )
         {
-            $array = end($array);
+            $array = end($array) ?? NULL;
         }
         else
         {
@@ -49,7 +49,7 @@ class GetElement implements GetElementInterface
     {
         if( $count <= 1 )
         {
-            $array = $array[0];
+            $array = current($array) ?? NULL;
         }
         else
         {

@@ -104,12 +104,18 @@ class InternalGD extends CallController implements InternalGDInterface
     // @param int    $p1
     //
     //--------------------------------------------------------------------------------------------------------
-    public function canvas($width, $height, $rgb = 'transparent', $real = false, $p1 = 0) : InternalGD
+    public function canvas($width, $height = NULL, $rgb = 'transparent', $real = false, $p1 = 0) : InternalGD
     {
         if( is_file($width) )
         {
             $this->type   = extension($width);
-            $this->canvas = $this->createFrom($this->type, $width, $height, $rgb, $real, $p1);
+            $this->canvas = $this->createFrom($this->type, $width,
+            [
+                'x'      => (int) $height,
+                'y'      => (int) $rgb,
+                'width'  => (int) $real,
+                'height' => (int) $p2
+            ]);
 
             return $this;
         }
@@ -159,10 +165,10 @@ class InternalGD extends CallController implements InternalGDInterface
             case 'gd2p'   : $return = imagecreatefromgd2part
             (
                 $source,
-                isset($settings['x'])      ? $settings['x']      : NULL,
-                isset($settings['y'])      ? $settings['y']      : NULL,
-                isset($settings['width'])  ? $settings['width']  : NULL,
-                isset($settings['height']) ? $settings['height'] : NULL
+                $settings['x']      ?? NULL,
+                $settings['y']      ?? NULL,
+                $settings['width']  ?? NULL,
+                $settings['height'] ?? NULL
             );
         }
 
@@ -191,14 +197,15 @@ class InternalGD extends CallController implements InternalGDInterface
             throw new InvalidArgumentException('Error', 'fileParameter', '1.($fileName)');
         }
 
-        $newData['width']       = $data[0];
-        $newData['height']      = $data[1];
-        $newData['extension']   = $this->extension($data[2]);
-        $newData['img']         = $data['3'];
-        $newData['bits']        = $data['bits'];
-        $newData['mime']        = $data['mime'];
-
-        return (object) $newData;
+        return (object)
+        [
+            'width'     => $data[0],
+            'height'    => $data[1],
+            'extension' => $this->extension($data[2]),
+            'img'       => $data[3],
+            'bits'      => $data['bits'],
+            'mime'      => $data['mime']
+        ];
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -254,9 +261,9 @@ class InternalGD extends CallController implements InternalGDInterface
     {
         if( is_file($jpegFile) )
         {
-            $height    = isset($settings['height'])    ? $settings['height']    : 0;
-            $width     = isset($settings['width'])     ? $settings['width']     : 0;
-            $threshold = isset($settings['threshold']) ? $settings['threshold'] : 0;
+            $height    = $settings['height']    ?? 0;
+            $width     = $settings['width']     ?? 0;
+            $threshold = $settings['threshold'] ?? 0;
 
             return jpeg2wbmp($jpegFile, $wbmpFile, $height, $width, $threshold);
         }
@@ -279,9 +286,9 @@ class InternalGD extends CallController implements InternalGDInterface
     {
         if( is_file($pngFile) )
         {
-            $height    = isset($settings['height'])    ? $settings['height']    : 0;
-            $width     = isset($settings['width'])     ? $settings['width']     : 0;
-            $threshold = isset($settings['threshold']) ? $settings['threshold'] : 0;
+            $height    = $settings['height']    ?? 0;
+            $width     = $settings['width']     ?? 0;
+            $threshold = $settings['threshold'] ?? 0;
 
             return png2wbmp($pngFile, $wbmpFile, $height, $width, $threshold);
         }
@@ -342,14 +349,14 @@ class InternalGD extends CallController implements InternalGDInterface
     //--------------------------------------------------------------------------------------------------------
     public function arc(Array $settings) : InternalGD
     {
-        $x      = isset($settings['x'])      ? $settings['x']       : 0;
-        $y      = isset($settings['y'])      ? $settings['y']       : 0;
-        $width  = isset($settings['width'])  ? $settings['width']   : 100;
-        $height = isset($settings['height']) ? $settings['height']  : 100;
-        $start  = isset($settings['start'])  ? $settings['start']   : 0;
-        $end    = isset($settings['end'])    ? $settings['end']     : 360;
-        $color  = isset($settings['color'])  ? $settings['color']   : '0|0|0';
-        $style  = isset($settings['type'])   ? $settings['type']    : NULL;
+        $x      = $settings['x']       ?? 0;
+        $y      = $settings['y']       ?? 0;
+        $width  = $settings['width']   ?? 100;
+        $height = $settings['height']  ?? 100;
+        $start  = $settings['start']   ?? 0;
+        $end    = $settings['end']     ?? 360;
+        $color  = $settings['color']   ?? '0|0|0';
+        $style  = $settings['type']    ?? NULL;
 
         if( $style === NULL )
         {
@@ -377,12 +384,12 @@ class InternalGD extends CallController implements InternalGDInterface
     //--------------------------------------------------------------------------------------------------------
     public function ellipse(Array $settings) : InternalGD
     {
-        $x      = isset($settings['x'])      ? $settings['x']       : 0;
-        $y      = isset($settings['y'])      ? $settings['y']       : 0;
-        $width  = isset($settings['width'])  ? $settings['width']   : 100;
-        $height = isset($settings['height']) ? $settings['height']  : 100;
-        $color  = isset($settings['color'])  ? $settings['color']   : '0|0|0';
-        $style  = isset($settings['type'])   ? $settings['type']    : NULL;
+        $x      = $settings['x']       ?? 0;
+        $y      = $settings['y']       ?? 0;
+        $width  = $settings['width']   ?? 100;
+        $height = $settings['height']  ?? 100;
+        $color  = $settings['color']   ?? '0|0|0';
+        $style  = $settings['type']    ?? NULL;
 
         if( $style === NULL )
         {
@@ -405,10 +412,10 @@ class InternalGD extends CallController implements InternalGDInterface
     //--------------------------------------------------------------------------------------------------------
     public function polygon(Array $settings) : InternalGD
     {
-        $points     = isset($settings['points'])     ? $settings['points']     : 0;
-        $pointCount = isset($settings['pointCount']) ? $settings['pointCount'] : ceil(count($points) / 2);
-        $color      = isset($settings['color'])      ? $settings['color']      : '0|0|0';
-        $style      = isset($settings['type'])       ? $settings['type']       : NULL;
+        $points     = $settings['points']     ?? 0;
+        $pointCount = $settings['pointCount'] ?? ceil(count($points) / 2);
+        $color      = $settings['color']      ?? '0|0|0';
+        $style      = $settings['type']       ?? NULL;
 
         if( $style === NULL )
         {
@@ -431,12 +438,12 @@ class InternalGD extends CallController implements InternalGDInterface
     //--------------------------------------------------------------------------------------------------------
     public function rectangle(Array $settings) : InternalGD
     {
-        $x      = isset($settings['x'])      ? $settings['x']      : 0;
-        $y      = isset($settings['y'])      ? $settings['y']      : 0;
-        $width  = isset($settings['width'])  ? $settings['width']  : 100;
-        $height = isset($settings['height']) ? $settings['height'] : 100;
-        $color  = isset($settings['color'])  ? $settings['color']  : '0|0|0';
-        $style  = isset($settings['type'])   ? $settings['type']   : NULL;
+        $x      = $settings['x']      ?? 0;
+        $y      = $settings['y']      ?? 0;
+        $width  = $settings['width']  ?? 100;
+        $height = $settings['height'] ?? 100;
+        $color  = $settings['color']  ?? '0|0|0';
+        $style  = $settings['type']   ?? NULL;
 
         $width  += $x;
         $height += $y;
@@ -463,9 +470,9 @@ class InternalGD extends CallController implements InternalGDInterface
     //--------------------------------------------------------------------------------------------------------
     public function fill(Array $settings) : InternalGD
     {
-        $x      = isset($settings['x'])      ? $settings['x']       : 0;
-        $y      = isset($settings['y'])      ? $settings['y']       : 0;
-        $color  = isset($settings['color'])  ? $settings['color']   : '0|0|0';
+        $x      = $settings['x']     ?? 0;
+        $y      = $settings['y']     ?? 0;
+        $color  = $settings['color'] ?? '0|0|0';
 
         imagefill($this->canvas, $x, $y, $this->allocate($color));
 
@@ -481,10 +488,10 @@ class InternalGD extends CallController implements InternalGDInterface
     //--------------------------------------------------------------------------------------------------------
     public function fillArea(Array $settings) : InternalGD
     {
-        $x           = isset($settings['x'])            ? $settings['x']            : 0;
-        $y           = isset($settings['y'])            ? $settings['y']            : 0;
-        $borderColor = isset($settings['borderColor'])  ? $settings['borderColor']  : '0|0|0';
-        $color       = isset($settings['color'])        ? $settings['color']        : '255|255|255';
+        $x           = $settings['x']           ?? 0;
+        $y           = $settings['y']           ?? 0;
+        $borderColor = $settings['borderColor'] ?? '0|0|0';
+        $color       = $settings['color']       ?? '255|255|255';
 
         imagefilltoborder($this->canvas, $x, $y, $this->allocate($borderColor), $this->allocate($color));
 
@@ -529,11 +536,11 @@ class InternalGD extends CallController implements InternalGDInterface
     //--------------------------------------------------------------------------------------------------------
     public function char(String $char, Array $settings) : InternalGD
     {
-        $x      = isset($settings['x'])      ? $settings['x']       : 0;
-        $y      = isset($settings['y'])      ? $settings['y']       : 0;
-        $font   = isset($settings['font'])   ? $settings['font']    : 1;
-        $color  = isset($settings['color'])  ? $settings['color']   : '0|0|0';
-        $type   = isset($settings['type'])   ? $settings['type']    : NULL;
+        $x      = $settings['x']     ?? 0;
+        $y      = $settings['y']     ?? 0;
+        $font   = $settings['font']  ?? 1;
+        $color  = $settings['color'] ?? '0|0|0';
+        $type   = $settings['type']  ?? NULL;
 
         if( $type === 'vertical')
         {
@@ -557,11 +564,11 @@ class InternalGD extends CallController implements InternalGDInterface
     //--------------------------------------------------------------------------------------------------------
     public function text(String $text, Array $settings) : InternalGD
     {
-        $x      = isset($settings['x'])      ? $settings['x']       : 0;
-        $y      = isset($settings['y'])      ? $settings['y']       : 0;
-        $font   = isset($settings['font'])   ? $settings['font']    : 1;
-        $color  = isset($settings['color'])  ? $settings['color']   : '0|0|0';
-        $type   = isset($settings['type'])   ? $settings['type']    : NULL;
+        $x      = $settings['x']     ?? 0;
+        $y      = $settings['y']     ?? 0;
+        $font   = $settings['font']  ?? 1;
+        $color  = $settings['color'] ?? '0|0|0';
+        $type   = $settings['type']  ?? NULL;
 
         if( $type === 'vertical')
         {
@@ -582,16 +589,28 @@ class InternalGD extends CallController implements InternalGDInterface
     // @param string $rgb
     //
     //--------------------------------------------------------------------------------------------------------
-    public function closest(String $rgb) : Int
+    public function _imageColor($rgb, $function)
     {
         $rgb = explode('|', $rgb);
 
-        $red   = isset($rgb[0]) ? $rgb[0] : 0;
-        $green = isset($rgb[1]) ? $rgb[1] : 0;
-        $blue  = isset($rgb[2]) ? $rgb[2] : 0;
-        $alpha = isset($rgb[3]) ? $rgb[3] : 0;
+        $red   = $rgb[0] ?? 0;
+        $green = $rgb[1] ?? 0;
+        $blue  = $rgb[2] ?? 0;
+        $alpha = $rgb[3] ?? 0;
 
-        return imagecolorclosestalpha($this->canvas, $red, $green, $blue, $alpha);
+        return $function($this->canvas, $red, $green, $blue, $alpha);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Closest
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $rgb
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function closest(String $rgb) : Int
+    {
+        return $this->_imageColor($rgb, 'imagecolorclosestalpha');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -603,14 +622,7 @@ class InternalGD extends CallController implements InternalGDInterface
     //--------------------------------------------------------------------------------------------------------
     public function resolve(String $rgb) : Int
     {
-        $rgb = explode('|', $rgb);
-
-        $red   = isset($rgb[0]) ? $rgb[0] : 0;
-        $green = isset($rgb[1]) ? $rgb[1] : 0;
-        $blue  = isset($rgb[2]) ? $rgb[2] : 0;
-        $alpha = isset($rgb[3]) ? $rgb[3] : 0;
-
-        return imagecolorresolvealpha($this->canvas, $red, $green, $blue, $alpha);
+        return $this->_imageColor($rgb, 'imagecolorresolvealpha');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -622,14 +634,7 @@ class InternalGD extends CallController implements InternalGDInterface
     //--------------------------------------------------------------------------------------------------------
     public function index(String $rgb) : Int
     {
-        $rgb = explode('|', $rgb);
-
-        $red   = isset($rgb[0]) ? $rgb[0] : 0;
-        $green = isset($rgb[1]) ? $rgb[1] : 0;
-        $blue  = isset($rgb[2]) ? $rgb[2] : 0;
-        $alpha = isset($rgb[3]) ? $rgb[3] : 0;
-
-        return imagecolorexactalpha($this->canvas, $red, $green, $blue, $alpha);
+        return $this->_imageColor($rgb, 'imagecolorexactalpha');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -654,13 +659,7 @@ class InternalGD extends CallController implements InternalGDInterface
     //--------------------------------------------------------------------------------------------------------
     public function closestHwb(String $rgb) : Int
     {
-        $rgb = explode('|', $rgb);
-
-        $red   = isset($rgb[0]) ? $rgb[0] : 0;
-        $green = isset($rgb[1]) ? $rgb[1] : 0;
-        $blue  = isset($rgb[2]) ? $rgb[2] : 0;
-
-        return imagecolorclosesthwb($this->canvas, $red, $green, $blue);
+        return $this->_imageColor($rgb, 'imagecolorclosesthwb');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -692,13 +691,9 @@ class InternalGD extends CallController implements InternalGDInterface
     //--------------------------------------------------------------------------------------------------------
     public function set(Int $index, String $rgb) : InternalGD
     {
-        $rgb = explode('|', $rgb);
+        $rgb = $index . '|' . $rgb;
 
-        $red   = isset($rgb[0]) ? $rgb[0] : 0;
-        $green = isset($rgb[1]) ? $rgb[1] : 0;
-        $blue  = isset($rgb[2]) ? $rgb[2] : 0;
-
-        imagecolorset($this->canvas, $index, $red, $green, $blue);
+        $this->_imageColor($rgb, 'imagecolorset');
 
         return $this;
     }
@@ -774,12 +769,12 @@ class InternalGD extends CallController implements InternalGDInterface
             throw new InvalidArgumentException('Error', 'resourceParameter', '1.($source)');
         }
 
-        $xt     = isset($settings['xt'])     ? $settings['xt']     : 0;
-        $yt     = isset($settings['yt'])     ? $settings['yt']     : 0;
-        $xs     = isset($settings['xs'])     ? $settings['xs']     : 0;
-        $ys     = isset($settings['ys'])     ? $settings['ys']     : 0;
-        $width  = isset($settings['width'])  ? $settings['width']  : 0;
-        $height = isset($settings['height']) ? $settings['height'] : 0;
+        $xt     = $settings['xt']     ?? 0;
+        $yt     = $settings['yt']     ?? 0;
+        $xs     = $settings['xs']     ?? 0;
+        $ys     = $settings['ys']     ?? 0;
+        $width  = $settings['width']  ?? 0;
+        $height = $settings['height'] ?? 0;
 
         imagecopy($this->canvas, $source, $xt, $yt, $xs, $ys, $width, $height);
 
@@ -794,22 +789,22 @@ class InternalGD extends CallController implements InternalGDInterface
     // @param array    $settings
     //
     //--------------------------------------------------------------------------------------------------------
-    public function mix($source, Array $settings) : InternalGD
+    public function mix($source, Array $settings, $function = 'imagecopymerge') : InternalGD
     {
         if( ! is_resource($source) )
         {
             throw new InvalidArgumentException('Error', 'resourceParameter', '1.($source)');
         }
 
-        $xt      = isset($settings['xt'])      ? $settings['xt']      : 0;
-        $yt      = isset($settings['yt'])      ? $settings['yt']      : 0;
-        $xs      = isset($settings['xs'])      ? $settings['xs']      : 0;
-        $ys      = isset($settings['ys'])      ? $settings['ys']      : 0;
-        $width   = isset($settings['width'])   ? $settings['width']   : 0;
-        $height  = isset($settings['height'])  ? $settings['height']  : 0;
-        $percent = isset($settings['percent']) ? $settings['percent'] : 0;
+        $xt      = $settings['xt']      ?? 0;
+        $yt      = $settings['yt']      ?? 0;
+        $xs      = $settings['xs']      ?? 0;
+        $ys      = $settings['ys']      ?? 0;
+        $width   = $settings['width']   ?? 0;
+        $height  = $settings['height']  ?? 0;
+        $percent = $settings['percent'] ?? 0;
 
-        imagecopymerge($this->canvas, $source, $xt, $yt, $xs, $ys, $width, $height, $percent);
+        $function($this->canvas, $source, $xt, $yt, $xs, $ys, $width, $height, $percent);
 
         return $this;
     }
@@ -824,20 +819,7 @@ class InternalGD extends CallController implements InternalGDInterface
     //--------------------------------------------------------------------------------------------------------
     public function mixGray($source, Array $settings) : InternalGD
     {
-        if( ! is_resource($source) )
-        {
-            throw new InvalidArgumentException('Error', 'resourceParameter', '1.($source)');
-        }
-
-        $xt      = isset($settings['xt'])      ? $settings['xt']      : 0;
-        $yt      = isset($settings['yt'])      ? $settings['yt']      : 0;
-        $xs      = isset($settings['xs'])      ? $settings['xs']      : 0;
-        $ys      = isset($settings['ys'])      ? $settings['ys']      : 0;
-        $width   = isset($settings['width'])   ? $settings['width']   : 0;
-        $height  = isset($settings['height'])  ? $settings['height']  : 0;
-        $percent = isset($settings['percent']) ? $settings['percent'] : 0;
-
-        imagecopymergegray($this->canvas, $source, $xt, $yt, $xs, $ys, $width, $height, $percent);
+        $this->mix($source, $settings, 'imagecopymergegray');
 
         return $this;
     }
@@ -850,23 +832,23 @@ class InternalGD extends CallController implements InternalGDInterface
     // @param array    $settings
     //
     //--------------------------------------------------------------------------------------------------------
-    public function resample($source, Array $settings) : InternalGD
+    public function resample($source, Array $settings, $function = 'imagecopyresampled') : InternalGD
     {
         if( ! is_resource($source) )
         {
             throw new InvalidArgumentException('Error', 'resourceParameter', '1.($source)');
         }
 
-        $xt = isset($settings['xt']) ? $settings['xt'] : 0;
-        $yt = isset($settings['yt']) ? $settings['yt'] : 0;
-        $xs = isset($settings['xs']) ? $settings['xs'] : 0;
-        $ys = isset($settings['ys']) ? $settings['ys'] : 0;
-        $wt = isset($settings['wt']) ? $settings['wt'] : 0;
-        $ht = isset($settings['ht']) ? $settings['ht'] : 0;
-        $ws = isset($settings['ws']) ? $settings['ws'] : 0;
-        $hs = isset($settings['hs']) ? $settings['hs'] : 0;
+        $xt = $settings['xt'] ?? 0;
+        $yt = $settings['yt'] ?? 0;
+        $xs = $settings['xs'] ?? 0;
+        $ys = $settings['ys'] ?? 0;
+        $wt = $settings['wt'] ?? 0;
+        $ht = $settings['ht'] ?? 0;
+        $ws = $settings['ws'] ?? 0;
+        $hs = $settings['hs'] ?? 0;
 
-        imagecopyresampled($this->canvas, $source, $xt, $yt, $xs, $ys, $wt, $yt, $ws, $hs);
+        $function($this->canvas, $source, $xt, $yt, $xs, $ys, $wt, $yt, $ws, $hs);
 
         return $this;
     }
@@ -881,21 +863,7 @@ class InternalGD extends CallController implements InternalGDInterface
     //--------------------------------------------------------------------------------------------------------
     public function resize($source, Array $settings) : InternalGD
     {
-        if( ! is_resource($source) )
-        {
-            throw new InvalidArgumentException('Error', 'resourceParameter', '1.($source)');
-        }
-
-        $xt = isset($settings['xt']) ? $settings['xt'] : 0;
-        $yt = isset($settings['yt']) ? $settings['yt'] : 0;
-        $xs = isset($settings['xs']) ? $settings['xs'] : 0;
-        $ys = isset($settings['ys']) ? $settings['ys'] : 0;
-        $wt = isset($settings['wt']) ? $settings['wt'] : 0;
-        $ht = isset($settings['ht']) ? $settings['ht'] : 0;
-        $ws = isset($settings['ws']) ? $settings['ws'] : 0;
-        $hs = isset($settings['hs']) ? $settings['hs'] : 0;
-
-        imagecopyresized($this->canvas, $source, $xt, $yt, $xs, $ys, $wt, $yt, $ws, $hs);
+        $this->resample($source, $settings, 'imagecopyresized');
 
         return $this;
     }
@@ -939,12 +907,12 @@ class InternalGD extends CallController implements InternalGDInterface
     //--------------------------------------------------------------------------------------------------------
     public function line(Array $settings) : InternalGD
     {
-        $x1   = isset($settings['x1']) ? $settings['x1'] : 0;
-        $y1   = isset($settings['y1']) ? $settings['y1'] : 0;
-        $x2   = isset($settings['x2']) ? $settings['x2'] : 0;
-        $y2   = isset($settings['y2']) ? $settings['y2'] : 0;
-        $rgb  = isset($settings['color']) ? $settings['color'] : '0|0|0';
-        $type = isset($settings['type']) ? $settings['type'] : 'solid';
+        $x1   = $settings['x1']    ?? 0;
+        $y1   = $settings['y1']    ?? 0;
+        $x2   = $settings['x2']    ?? 0;
+        $y2   = $settings['y2']    ?? 0;
+        $rgb  = $settings['color'] ?? '0|0|0';
+        $type = $settings['type']  ?? 'solid';
 
         $type = strtolower($type);
 
@@ -1110,9 +1078,9 @@ class InternalGD extends CallController implements InternalGDInterface
     //--------------------------------------------------------------------------------------------------------
     public function pixel(Array $settings) : InternalGD
     {
-        $x   = isset($settings['x'])     ? $settings['x'] : 0;
-        $y   = isset($settings['y'])     ? $settings['y'] : 0;
-        $rgb = isset($settings['color']) ? $settings['color'] : '0|0|0';
+        $x   = $settings['x']     ?? 0;
+        $y   = $settings['y']     ?? 0;
+        $rgb = $settings['color'] ?? '0|0|0';
 
         imagesetpixel($this->canvas, $x, $y, $this->allocate($rgb));
 

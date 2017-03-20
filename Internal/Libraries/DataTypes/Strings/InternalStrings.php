@@ -34,7 +34,8 @@ class InternalStrings extends \FactoryController implements InternalStringsInter
             'toarray'        => 'Strings\Transform::array',
             'toascii'        => 'Strings\Transform::ascii',
             'tochar'         => 'Strings\Transform::char',
-            'encode'         => 'Strings\Security::encode',
+            'toarray'        => 'Strings\Transform::array',
+            'split'          => 'Strings\Transform::split',
             'addslashes'     => 'Strings\Security::addSlashes',
             'removeslashes'  => 'Strings\Security::removeSlashes',
         ]

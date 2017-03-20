@@ -3,7 +3,7 @@
 use ZN\ViewObjects\Bootstrap\JqueryTrait;
 use CallController, JQ;
 
-class Animate extends CallController
+class Animate extends CallController implements AnimateInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -143,7 +143,7 @@ class Animate extends CallController
     //--------------------------------------------------------------------------------------------------------
     public function step(String $step) : Animate
     {
-        $this->easing['step'] = JQ::func('now, fx', $step);
+        $this->easing['step'] = JQ::function('now, fx', $step);
 
         return $this;
     }
@@ -157,7 +157,7 @@ class Animate extends CallController
     //--------------------------------------------------------------------------------------------------------
     public function complete(String $comp) : Animate
     {
-        $this->easing['complete'] = JQ::func('', $comp);
+        $this->easing['complete'] = JQ::function('', $comp);
 
         return $this;
     }

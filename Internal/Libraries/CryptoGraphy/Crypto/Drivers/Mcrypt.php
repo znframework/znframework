@@ -74,12 +74,7 @@ class McryptDriver extends CryptoMapping
 
         $ciphers = Arrays::multikey($ciphers);
 
-        if( ! isset($ciphers[$cipher]) )
-        {
-            $ciphers[$cipher] = 8;
-        }
-
-        return mb_substr(hash('md5', PROJECT_CONFIG['key']), 0, $ciphers[$cipher]);
+        return mb_substr(hash('md5', PROJECT_CONFIG['key']), 0, $ciphers[$cipher] ?? 8);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -98,11 +93,11 @@ class McryptDriver extends CryptoMapping
         ];
 
         $modes = Arrays::multikey($modes);
-        $mode  = isset($modes[$mode]) ? $modes[$mode] : 8;
+        $mode  = $modes[$mode] ?? 8;
 
         if( ! empty($cipher) )
         {
-            $mode = isset($modes[$cipher]) ? $modes[$cipher] : $mode;
+            $mode = $modes[$cipher] ?? $mode;
         }
 
         return mb_substr(hash('sha1', PROJECT_CONFIG['key']), 0, $mode);

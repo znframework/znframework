@@ -63,10 +63,6 @@ interface InternalCookieInterface
     // @param string $name
     // @param mixed  $value
     // @param int    $time
-    // @param string $path
-    // @param string $domain
-    // @param bool   $secure
-    // @param bool   $httpOnly
     //
     //--------------------------------------------------------------------------------------------------------
     public function insert(String $name, $value, Int $time) : Bool;

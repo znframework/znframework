@@ -19,5 +19,5 @@ interface EachInterface
     // @param callable $callable
     //
     //--------------------------------------------------------------------------------------------------------
-    public function use(Array $array, $callable);
+    public function use(Array $array, Callable $callable);
 }

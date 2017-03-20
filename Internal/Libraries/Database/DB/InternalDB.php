@@ -372,6 +372,24 @@ class InternalDB extends Connection implements InternalDBInterface
     private $duplicateCheck;
 
     //--------------------------------------------------------------------------------------------------------
+    // Join Type
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var string
+    //
+    //--------------------------------------------------------------------------------------------------------
+    private $joinType;
+
+    //--------------------------------------------------------------------------------------------------------
+    // Join Table
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var string
+    //
+    //--------------------------------------------------------------------------------------------------------
+    private $joinTable;
+
+    //--------------------------------------------------------------------------------------------------------
     // Magic Call
     //--------------------------------------------------------------------------------------------------------
     //
@@ -541,6 +559,9 @@ class InternalDB extends Connection implements InternalDBInterface
         }
 
         $type    = strtoupper($type);
+
+        $this->joinType  = $type;
+        $this->joinTable = $table;
 
         $this->join .= ' '.$type.' JOIN '.$table.' ON '.$condition.' ';
 
@@ -1516,6 +1537,7 @@ class InternalDB extends Connection implements InternalDBInterface
                         $this->lowPriority.
                         $this->ignore.
                         $this->_p($table).
+                        $this->join.
                         $set.
                         $this->_where().
                         $this->_orderBy().
@@ -1539,8 +1561,10 @@ class InternalDB extends Connection implements InternalDBInterface
                        $this->lowPriority.
                        $this->quick.
                        $this->ignore.
+                       $this->_deleteJoinTables($table).
                        ' FROM '.
                        $this->_p($table).
+                       $this->join.
                        $this->partition.
                        $this->_where().
                        $this->_orderBy().
@@ -1970,19 +1994,99 @@ class InternalDB extends Connection implements InternalDBInterface
     }
 
     //--------------------------------------------------------------------------------------------------------
+    // Protected Delete Join Tables
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $table
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _deleteJoinTables($table)
+    {
+        if( $this->join )
+        {
+            $joinType = strtolower($this->joinType);
+
+            if( $joinType === 'inner' )
+            {
+                $joinTables = $this->_p($table).', '.$this->joinTable;
+            }
+            elseif( $joinType === 'right' )
+            {
+                $joinTables = $this->joinTable;
+            }
+            else
+            {
+                $joinTables = $this->_p($table);
+            }
+
+            $this->joinType  = NULL;
+            $this->joinTable = NULL;
+
+            return presuffix($joinTables, ' ');
+        }
+
+        return NULL;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Where Key Control
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $column
+    // @param string $value
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _whereKeyControl($column, $value)
+    {
+        $keys   = ['between', 'in'];
+        $column = trim($column);
+
+        if( in_array(strtolower(divide($column, ' ', -1)), $keys) || $this->_exp($column) || is_numeric($value) )
+        {
+            return $value;
+        }
+
+        return $this->_excapeStringAddNail($value);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Equal Control
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $column
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _equalControl($column)
+    {
+        $control = trim($column);
+
+        if( strstr($column, '.') )
+        {
+            $control = str_replace('.', '', $control);
+        }
+
+        if( preg_match('/^\w+$/', $control) )
+        {
+            $column .= ' = ';
+        }
+
+        return $column;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
     // Protected Where Having
     //--------------------------------------------------------------------------------------------------------
     protected function _whereHaving($column, $value, $logical)
     {
         if( $value !== '' )
         {
-            $value = presuffix($this->db->realEscapeString($value), "'");
+            $value  = $this->_whereKeyControl($column, $value);
         }
 
-        if( preg_match('/^\w+$/', trim($column)) )
-        {
-            $column .= ' = ';
-        }
+        $convertInt = $this->_convertType($column, $value);
+        $value      = $convertInt->value;
+        $column     = $convertInt->column;
+        $column     = $this->_equalControl($column);
 
         return ' '.$column.' '.$value.' '.$logical.' ';
     }
@@ -2342,6 +2446,7 @@ class InternalDB extends Connection implements InternalDBInterface
         $this->orderBy         = NULL;
         $this->limit           = NULL;
         $this->table           = NULL;
+        $this->join            = NULL;
         $this->column          = NULL;
     }
 
@@ -2354,6 +2459,7 @@ class InternalDB extends Connection implements InternalDBInterface
         $this->lowPriority     = NULL;
         $this->quick           = NULL;
         $this->ignore          = NULL;
+        $this->join            = NULL;
         $this->partition       = NULL;
         $this->orderBy         = NULL;
         $this->limit           = NULL;
