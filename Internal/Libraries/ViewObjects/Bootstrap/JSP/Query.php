@@ -22,14 +22,14 @@ class Query implements QueryInterface
         echo $class->create();
     }
 
-    public function selector(String $selector)
+    public function selector(String $selector) : Query
     {
         Jquery::selector($selector);
 
         return $this;
     }
 
-    public function property(...$args)
+    public function property(...$args) : Query
     {
         Jquery::property(...$args);
 

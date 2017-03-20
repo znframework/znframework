@@ -1,9 +1,6 @@
 <?php namespace ZN\ViewObjects\Bootstrap\Sheet\Helpers;
 
-use ZN\ViewObjects\Bootstrap\SheetTrait;
-use CallController;
-
-class Transition extends CallController implements TransitionInterface
+interface TransitionInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -15,27 +12,13 @@ class Transition extends CallController implements TransitionInterface
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
-    // Style Sheet Trait
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // methods
-    //
-    //--------------------------------------------------------------------------------------------------------
-    use SheetTrait;
-
-    //--------------------------------------------------------------------------------------------------------
     // Property
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string $property
     //
     //--------------------------------------------------------------------------------------------------------
-    public function property(String $property) : Transition
-    {
-        $this->transitions .= $this->_transitions("transition-property:$property;".EOL);
-
-        return $this;
-    }
+    public function property(String $property) : Transition;
 
     //--------------------------------------------------------------------------------------------------------
     // Duration
@@ -44,17 +27,7 @@ class Transition extends CallController implements TransitionInterface
     // @param string $duration
     //
     //--------------------------------------------------------------------------------------------------------
-    public function duration(String $duration) : Transition
-    {
-        if( is_numeric($duration) )
-        {
-            $duration = $duration."s";
-        }
-
-        $this->transitions .= $this->_transitions("transition-duration:$duration;".EOL);
-
-        return $this;
-    }
+    public function duration(String $duration) : Transition;
 
     //--------------------------------------------------------------------------------------------------------
     // Delay
@@ -63,17 +36,7 @@ class Transition extends CallController implements TransitionInterface
     // @param string $delay
     //
     //--------------------------------------------------------------------------------------------------------
-    public function delay(String $delay) : Transition
-    {
-        if( is_numeric($delay) )
-        {
-            $delay = $delay."s";
-        }
-
-        $this->transitions .= $this->_transitions("transition-delay:$delay;".EOL);
-
-        return $this;
-    }
+    public function delay(String $delay) : Transition;
 
     //--------------------------------------------------------------------------------------------------------
     // Easing
@@ -82,10 +45,5 @@ class Transition extends CallController implements TransitionInterface
     // @param string $easing
     //
     //--------------------------------------------------------------------------------------------------------
-    public function easing(String $easing) : Transition
-    {
-        $this->transitions .= $this->_transitions("transition-timing-function:$easing;".EOL);
-
-        return $this;
-    }
+    public function easing(String $easing) : Transition;
 }

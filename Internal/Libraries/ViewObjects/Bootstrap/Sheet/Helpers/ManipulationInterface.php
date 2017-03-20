@@ -1,9 +1,6 @@
 <?php namespace ZN\ViewObjects\Bootstrap\Sheet\Helpers;
 
-use ZN\ViewObjects\Bootstrap\SheetTrait;
-use CallController;
-
-class Transition extends CallController implements TransitionInterface
+interface ManipulationInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -15,77 +12,39 @@ class Transition extends CallController implements TransitionInterface
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
-    // Style Sheet Trait
+    // Attr
     //--------------------------------------------------------------------------------------------------------
     //
-    // methods
+    // @param array $attr
     //
     //--------------------------------------------------------------------------------------------------------
-    use SheetTrait;
+    public function attr(Array $attr) : String;
 
     //--------------------------------------------------------------------------------------------------------
-    // Property
+    // File
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $property
+    // @param string $file
     //
     //--------------------------------------------------------------------------------------------------------
-    public function property(String $property) : Transition
-    {
-        $this->transitions .= $this->_transitions("transition-property:$property;".EOL);
-
-        return $this;
-    }
+    public function file(String $file) : Manipulation;
 
     //--------------------------------------------------------------------------------------------------------
-    // Duration
+    // Get Selector
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $duration
+    // @param string $selector
     //
     //--------------------------------------------------------------------------------------------------------
-    public function duration(String $duration) : Transition
-    {
-        if( is_numeric($duration) )
-        {
-            $duration = $duration."s";
-        }
-
-        $this->transitions .= $this->_transitions("transition-duration:$duration;".EOL);
-
-        return $this;
-    }
+    public function getSelector(String $selector) : String;
 
     //--------------------------------------------------------------------------------------------------------
-    // Delay
+    // Set Selector
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $delay
+    // @param string $selector
+    // @param array  $attr
     //
     //--------------------------------------------------------------------------------------------------------
-    public function delay(String $delay) : Transition
-    {
-        if( is_numeric($delay) )
-        {
-            $delay = $delay."s";
-        }
-
-        $this->transitions .= $this->_transitions("transition-delay:$delay;".EOL);
-
-        return $this;
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Easing
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $easing
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function easing(String $easing) : Transition
-    {
-        $this->transitions .= $this->_transitions("transition-timing-function:$easing;".EOL);
-
-        return $this;
-    }
+    public function setSelector(String $selector, Array $attr) : Bool;
 }

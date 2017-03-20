@@ -1,9 +1,6 @@
 <?php namespace ZN\ViewObjects\Bootstrap\Sheet\Helpers;
 
-use ZN\ViewObjects\Bootstrap\SheetTrait;
-use CallController;
-
-class Transform extends CallController implements TransformInterface
+interface TransformInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -15,36 +12,13 @@ class Transform extends CallController implements TransformInterface
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
-    // Style Sheet Trait
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // methods
-    //
-    //--------------------------------------------------------------------------------------------------------
-    use SheetTrait;
-
-    //--------------------------------------------------------------------------------------------------------
-    // Transform
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var array
-    //
-    //--------------------------------------------------------------------------------------------------------
-    protected $transforms = [];
-
-    //--------------------------------------------------------------------------------------------------------
     // Matrix
     //--------------------------------------------------------------------------------------------------------
     //
     // @param numeric variadic $arguments
     //
     //--------------------------------------------------------------------------------------------------------
-    public function matrix(...$arguments) : Transform
-    {
-        $this->_object(__FUNCTION__, $arguments);
-
-        return $this;
-    }
+    public function matrix(...$arguments) : Transform;
 
     //--------------------------------------------------------------------------------------------------------
     // Matrix 3d
@@ -53,12 +27,7 @@ class Transform extends CallController implements TransformInterface
     // @param numeric variadic $arguments
     //
     //--------------------------------------------------------------------------------------------------------
-    public function matrix3d(...$arguments) : Transform
-    {
-        $this->_object(__FUNCTION__, $arguments);
-
-        return $this;
-    }
+    public function matrix3d(...$arguments) : Transform;
 
     //--------------------------------------------------------------------------------------------------------
     // Rotate
@@ -67,12 +36,7 @@ class Transform extends CallController implements TransformInterface
     // @param string $argument
     //
     //--------------------------------------------------------------------------------------------------------
-    public function rotate(String $argument) : Transform
-    {
-        $this->_numeric(__FUNCTION__, $argument, 'deg');
-
-        return $this;
-    }
+    public function rotate(String $argument) : Transform;
 
     //--------------------------------------------------------------------------------------------------------
     // Rotate 3d
@@ -84,12 +48,7 @@ class Transform extends CallController implements TransformInterface
     // @param string $angle
     //
     //--------------------------------------------------------------------------------------------------------
-    public function rotate3d(String $x, String $y, String $z, String $angle) : Transform
-    {
-        $this->_numeric(__FUNCTION__, "$x,$y,$z,".( is_numeric($angle) ? $angle.'deg' : $angle ), 'deg');
-
-        return $this;
-    }
+    public function rotate3d(String $x, String $y, String $z, String $angle) : Transform;
 
     //--------------------------------------------------------------------------------------------------------
     // Rotate X
@@ -98,12 +57,7 @@ class Transform extends CallController implements TransformInterface
     // @param string $argument
     //
     //--------------------------------------------------------------------------------------------------------
-    public function rotateX(String $argument) : Transform
-    {
-        $this->_numeric(__FUNCTION__, $argument, 'deg');
-
-        return $this;
-    }
+    public function rotateX(String $argument) : Transform;
 
     //--------------------------------------------------------------------------------------------------------
     // Rotate Y
@@ -112,12 +66,7 @@ class Transform extends CallController implements TransformInterface
     // @param string $argument
     //
     //--------------------------------------------------------------------------------------------------------
-    public function rotateY(String $argument) : Transform
-    {
-        $this->_numeric(__FUNCTION__, $argument, 'deg');
-
-        return $this;
-    }
+    public function rotateY(String $argument) : Transform;
 
     //--------------------------------------------------------------------------------------------------------
     // Rotate Z
@@ -126,12 +75,7 @@ class Transform extends CallController implements TransformInterface
     // @param string $argument
     //
     //--------------------------------------------------------------------------------------------------------
-    public function rotateZ(String $argument) : Transform
-    {
-        $this->_numeric(__FUNCTION__, $argument, 'deg');
-
-        return $this;
-    }
+    public function rotateZ(String $argument) : Transform;
 
     //--------------------------------------------------------------------------------------------------------
     // Scale
@@ -141,12 +85,7 @@ class Transform extends CallController implements TransformInterface
     // @param int $y
     //
     //--------------------------------------------------------------------------------------------------------
-    public function scale(Int $x, Int $y) : Transform
-    {
-        $this->_object(__FUNCTION__, "$x,$y");
-
-        return $this;
-    }
+    public function scale(Int $x, Int $y) : Transform;
 
     //--------------------------------------------------------------------------------------------------------
     // Scale 3d
@@ -157,12 +96,7 @@ class Transform extends CallController implements TransformInterface
     // @param int $z
     //
     //--------------------------------------------------------------------------------------------------------
-    public function scale3d(Int $x, Int $y, Int $z) : Transform
-    {
-        $this->_object(__FUNCTION__, "$x,$y,$z");
-
-        return $this;
-    }
+    public function scale3d(Int $x, Int $y, Int $z) : Transform;
 
     //--------------------------------------------------------------------------------------------------------
     // Scale X
@@ -171,12 +105,7 @@ class Transform extends CallController implements TransformInterface
     // @param int $x
     //
     //--------------------------------------------------------------------------------------------------------
-    public function scaleX(Int $x) : Transform
-    {
-        $this->_object(__FUNCTION__, $x);
-
-        return $this;
-    }
+    public function scaleX(Int $x) : Transform;
 
     //--------------------------------------------------------------------------------------------------------
     // Scale Y
@@ -185,12 +114,7 @@ class Transform extends CallController implements TransformInterface
     // @param int $y
     //
     //--------------------------------------------------------------------------------------------------------
-    public function scaleY(Int $y) : Transform
-    {
-        $this->_object(__FUNCTION__, $y);
-
-        return $this;
-    }
+    public function scaleY(Int $y) : Transform;
 
     //--------------------------------------------------------------------------------------------------------
     // Scale Z
@@ -199,12 +123,7 @@ class Transform extends CallController implements TransformInterface
     // @param int $z
     //
     //--------------------------------------------------------------------------------------------------------
-    public function scaleZ(Int $z) : Transform
-    {
-        $this->_object(__FUNCTION__, $z);
-
-        return $this;
-    }
+    public function scaleZ(Int $z) : Transform;
 
     //--------------------------------------------------------------------------------------------------------
     // Skew
@@ -214,22 +133,7 @@ class Transform extends CallController implements TransformInterface
     // @param string $y
     //
     //--------------------------------------------------------------------------------------------------------
-    public function skew(String $x, String $y) : Transform
-    {
-        if( is_numeric($x) )
-        {
-            $x = $x."deg";
-        }
-
-        if( is_numeric($y) )
-        {
-            $y = $y."deg";
-        }
-
-        $this->_object(__FUNCTION__, "$x, $y");
-
-        return $this;
-    }
+    public function skew(String $x, String $y) : Transform;
 
     //--------------------------------------------------------------------------------------------------------
     // Skew X
@@ -238,12 +142,7 @@ class Transform extends CallController implements TransformInterface
     // @param string $x
     //
     //--------------------------------------------------------------------------------------------------------
-    public function skewX(String $x) : Transform
-    {
-        $this->_numeric(__FUNCTION__, $x, 'deg');
-
-        return $this;
-    }
+    public function skewX(String $x) : Transform;
 
     //--------------------------------------------------------------------------------------------------------
     // Skew Y
@@ -252,12 +151,7 @@ class Transform extends CallController implements TransformInterface
     // @param string $y
     //
     //--------------------------------------------------------------------------------------------------------
-    public function skewY(String $y) : Transform
-    {
-        $this->_numeric(__FUNCTION__, $y, 'deg');
-
-        return $this;
-    }
+    public function skewY(String $y) : Transform;
 
     //--------------------------------------------------------------------------------------------------------
     // Translate 3d
@@ -268,27 +162,7 @@ class Transform extends CallController implements TransformInterface
     // @param string $z
     //
     //--------------------------------------------------------------------------------------------------------
-    public function translate3d(String $x, String $y, String $z) : Transform
-    {
-        if( is_numeric($x) )
-        {
-            $x = $x."px";
-        }
-
-        if( is_numeric($y) )
-        {
-            $y = $y."px";
-        }
-
-        if( is_numeric($z) )
-        {
-            $z = $z."px";
-        }
-
-        $this->_object(__FUNCTION__, "$x,$y,$z");
-
-        return $this;
-    }
+    public function translate3d(String $x, String $y, String $z) : Transform;
 
     //--------------------------------------------------------------------------------------------------------
     // Translate
@@ -298,22 +172,7 @@ class Transform extends CallController implements TransformInterface
     // @param string $y
     //
     //--------------------------------------------------------------------------------------------------------
-    public function translate(String $x, String $y) : Transform
-    {
-        if( is_numeric($x) )
-        {
-            $x = $x."px";
-        }
-
-        if( is_numeric($y) )
-        {
-            $y = $y."px";
-        }
-
-        $this->_object(__FUNCTION__, "$x,$y");
-
-        return $this;
-    }
+    public function translate(String $x, String $y) : Transform;
 
     //--------------------------------------------------------------------------------------------------------
     // Translate X
@@ -322,12 +181,7 @@ class Transform extends CallController implements TransformInterface
     // @param string $x
     //
     //--------------------------------------------------------------------------------------------------------
-    public function translateX(String $x) : Transform
-    {
-        $this->_numeric(__FUNCTION__, $x);
-
-        return $this;
-    }
+    public function translateX(String $x) : Transform;
 
     //--------------------------------------------------------------------------------------------------------
     // Translate Y
@@ -336,12 +190,7 @@ class Transform extends CallController implements TransformInterface
     // @param string $y
     //
     //--------------------------------------------------------------------------------------------------------
-    public function translateY(String $y) : Transform
-    {
-        $this->_numeric(__FUNCTION__, $y);
-
-        return $this;
-    }
+    public function translateY(String $y) : Transform;
 
     //--------------------------------------------------------------------------------------------------------
     // Translate Z
@@ -350,12 +199,7 @@ class Transform extends CallController implements TransformInterface
     // @param string $z
     //
     //--------------------------------------------------------------------------------------------------------
-    public function translateZ(String $z) : Transform
-    {
-        $this->_numeric(__FUNCTION__, $z);
-
-        return $this;
-    }
+    public function translateZ(String $z) : Transform;
 
     //--------------------------------------------------------------------------------------------------------
     // Perspective
@@ -364,12 +208,7 @@ class Transform extends CallController implements TransformInterface
     // @param int $n
     //
     //--------------------------------------------------------------------------------------------------------
-    public function perspective(String $n) : Transform
-    {
-        $this->_numeric(__FUNCTION__, $n);
-
-        return $this;
-    }
+    public function perspective(String $n) : Transform;
 
     //--------------------------------------------------------------------------------------------------------
     // Create
@@ -378,117 +217,5 @@ class Transform extends CallController implements TransformInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function create() : String
-    {
-        $transforms = '';
-
-        if( ! empty($this->transforms) ) foreach( $this->transforms as $trans )
-        {
-            $transforms .= $trans;
-        }
-
-        $transforms = $this->_transform($transforms);
-
-        $this->_defaultVariable();
-
-        return $this->_tag($transforms);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Numeric
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $method
-    // @param string $param
-    // @param string $type
-    //
-    //--------------------------------------------------------------------------------------------------------
-    protected function _numeric($method, $param, $type = 'px')
-    {
-        if( is_numeric($param) )
-        {
-            $param = $param.$type;
-        }
-
-        $this->_object($method, $param);
-
-        return $this;
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Object
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $method
-    // @param mixed  $parameters
-    //
-    //--------------------------------------------------------------------------------------------------------
-    protected function _object($method, $parameters)
-    {
-        $this->transforms[strtolower($method)] = $method."(".$this->_params($parameters).")";
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Params
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array $data
-    //
-    //--------------------------------------------------------------------------------------------------------
-    protected function _params($data)
-    {
-        $arguments = $data;
-        $argument  = '';
-
-        if( is_array($data) )
-        {
-            foreach($arguments as $arg)
-            {
-                $argument .= $arg.",";
-            }
-
-            $argument = substr($argument, 0, -1);
-        }
-        else
-        {
-            $argument = $data;
-        }
-
-        return $argument;
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Transform
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $data
-    //
-    //--------------------------------------------------------------------------------------------------------
-    protected function _transform($data)
-    {
-        $str  = '';
-        $str .= $this->selector."{".EOL;
-
-        foreach( $this->browsers as $val )
-        {
-            $str .= $val."transform:$data;".EOL;
-        }
-
-        $str .= "}".EOL;
-
-        return $str;
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Default Variable
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
-    protected function _defaultVariable()
-    {
-        $this->selector   = 'this';
-        $this->transforms = [];
-    }
+    public function create() : String;
 }

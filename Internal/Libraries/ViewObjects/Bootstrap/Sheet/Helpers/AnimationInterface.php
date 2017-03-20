@@ -1,9 +1,6 @@
 <?php namespace ZN\ViewObjects\Bootstrap\Sheet\Helpers;
 
-use ZN\ViewObjects\Bootstrap\SheetTrait;
-use CallController;
-
-class Animation extends CallController implements AnimationInterface
+interface AnimationInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -15,27 +12,13 @@ class Animation extends CallController implements AnimationInterface
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
-    // Style Sheet Trait
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // methods
-    //
-    //--------------------------------------------------------------------------------------------------------
-    use SheetTrait;
-
-    //--------------------------------------------------------------------------------------------------------
     // Animation
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
-    public function name(String $name) : Animation
-    {
-        $this->transitions .= $this->_transitions("animation-name:$name;".EOL);
-
-        return $this;
-    }
+    public function name(String $name) : Animation;
 
     //--------------------------------------------------------------------------------------------------------
     // Direction
@@ -44,12 +27,7 @@ class Animation extends CallController implements AnimationInterface
     // @param string $direction
     //
     //--------------------------------------------------------------------------------------------------------
-    public function direction(String $direction = 'reverse') : Animation
-    {
-        $this->transitions .= $this->_transitions("animation-direction:$direction;".EOL);
-
-        return $this;
-    }
+    public function direction(String $direction = 'reverse') : Animation;
 
     //--------------------------------------------------------------------------------------------------------
     // Status
@@ -58,12 +36,7 @@ class Animation extends CallController implements AnimationInterface
     // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
-    public function status(String $status) : Animation
-    {
-        $this->transitions .= $this->_transitions("animation-play-state:$status;".EOL);
-
-        return $this;
-    }
+    public function status(String $status) : Animation;
 
     //--------------------------------------------------------------------------------------------------------
     // Fill
@@ -72,12 +45,7 @@ class Animation extends CallController implements AnimationInterface
     // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
-    public function fill(String $fill) : Animation
-    {
-        $this->transitions .= $this->_transitions("animation-fill-mode:$fill;".EOL);
-
-        return $this;
-    }
+    public function fill(String $fill) : Animation;
 
     //--------------------------------------------------------------------------------------------------------
     // Repeat
@@ -86,12 +54,7 @@ class Animation extends CallController implements AnimationInterface
     // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
-    public function repeat(String $repeat) : Animation
-    {
-        $this->transitions .= $this->_transitions("animation-iteration-count:$repeat;".EOL);
-
-        return $this;
-    }
+    public function repeat(String $repeat) : Animation;
 
     //--------------------------------------------------------------------------------------------------------
     // Duration
@@ -100,17 +63,7 @@ class Animation extends CallController implements AnimationInterface
     // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
-    public function duration(String $duration) : Animation
-    {
-        if( is_numeric($duration) )
-        {
-            $duration = $duration."s";
-        }
-
-        $this->transitions .= $this->_transitions("animation-duration:$duration;".EOL);
-
-        return $this;
-    }
+    public function duration(String $duration) : Animation;
 
     //--------------------------------------------------------------------------------------------------------
     // Delay
@@ -119,17 +72,7 @@ class Animation extends CallController implements AnimationInterface
     // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
-    public function delay(String $delay) : Animation
-    {
-        if( is_numeric($delay) )
-        {
-            $delay = $delay."s";
-        }
-
-        $this->transitions .= $this->_transitions("animation-delay:$delay;".EOL);
-
-        return $this;
-    }
+    public function delay(String $delay) : Animation;
 
     //--------------------------------------------------------------------------------------------------------
     // Easing
@@ -138,10 +81,5 @@ class Animation extends CallController implements AnimationInterface
     // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
-    public function easing(String $easing) : Animation
-    {
-        $this->transitions .= $this->_transitions("animation-timing-function:$easing;".EOL);
-
-        return $this;
-    }
+    public function easing(String $easing) : Animation;
 }

@@ -12,4 +12,10 @@ interface QueryInterface
     //--------------------------------------------------------------------------------------------------------
 
     public function create(String $selector, Callable $callback);
+
+    public function selector(String $selector) : Query;
+
+    public function property(...$args) : Query;
+
+    public function complete();
 }

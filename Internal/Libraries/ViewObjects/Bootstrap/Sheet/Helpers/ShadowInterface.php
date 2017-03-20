@@ -1,9 +1,6 @@
 <?php namespace ZN\ViewObjects\Bootstrap\Sheet\Helpers;
 
-use ZN\ViewObjects\Bootstrap\SheetTrait;
-use CallController;
-
-class Shadow extends CallController implements ShadowInterface
+interface ShadowInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -15,41 +12,13 @@ class Shadow extends CallController implements ShadowInterface
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
-    // Style Sheet Trait
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // methods
-    //
-    //--------------------------------------------------------------------------------------------------------
-    use SheetTrait;
-
-    //--------------------------------------------------------------------------------------------------------
-    // Params
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var array
-    //
-    //--------------------------------------------------------------------------------------------------------
-    protected $params = [];
-
-    //--------------------------------------------------------------------------------------------------------
     // X
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string $val
     //
     //--------------------------------------------------------------------------------------------------------
-    public function x(String $val) : Shadow
-    {
-        if( is_numeric($val) )
-        {
-            $val = $val."px";
-        }
-
-        $this->params['horizontal'] = $val;
-
-        return $this;
-    }
+    public function x(String $val) : Shadow;
 
     //--------------------------------------------------------------------------------------------------------
     // Horizontal
@@ -58,12 +27,7 @@ class Shadow extends CallController implements ShadowInterface
     // @param string $val
     //
     //--------------------------------------------------------------------------------------------------------
-    public function horizontal(String $val) : Shadow
-    {
-        $this->x($val);
-
-        return $this;
-    }
+    public function horizontal(String $val) : Shadow;
 
     //--------------------------------------------------------------------------------------------------------
     // Y
@@ -72,17 +36,7 @@ class Shadow extends CallController implements ShadowInterface
     // @param string $val
     //
     //--------------------------------------------------------------------------------------------------------
-    public function y(String $val) : Shadow
-    {
-        if( is_numeric($val) )
-        {
-            $val = $val."px";
-        }
-
-        $this->params['vertical'] = $val;
-
-        return $this;
-    }
+    public function y(String $val) : Shadow;
 
     //--------------------------------------------------------------------------------------------------------
     // Vertical
@@ -91,12 +45,7 @@ class Shadow extends CallController implements ShadowInterface
     // @param string $val
     //
     //--------------------------------------------------------------------------------------------------------
-    public function vertical(String $val) : Shadow
-    {
-        $this->y($val);
-
-        return $this;
-    }
+    public function vertical(String $val) : Shadow;
 
     //--------------------------------------------------------------------------------------------------------
     // Blur
@@ -105,17 +54,7 @@ class Shadow extends CallController implements ShadowInterface
     // @param string $val
     //
     //--------------------------------------------------------------------------------------------------------
-    public function blur(String $val) : Shadow
-    {
-        if( is_numeric($val) )
-        {
-            $val = $val."px";
-        }
-
-        $this->params['blur'] = $val;
-
-        return $this;
-    }
+    public function blur(String $val) : Shadow;
 
     //--------------------------------------------------------------------------------------------------------
     // Diffusion
@@ -124,17 +63,7 @@ class Shadow extends CallController implements ShadowInterface
     // @param string $val
     //
     //--------------------------------------------------------------------------------------------------------
-    public function diffusion(String $val) : Shadow
-    {
-        if( is_numeric($val) )
-        {
-            $val = $val."px";
-        }
-
-        $this->params['spread'] = $val;
-
-        return $this;
-    }
+    public function diffusion(String $val) : Shadow;
 
     //--------------------------------------------------------------------------------------------------------
     // Spread
@@ -143,12 +72,7 @@ class Shadow extends CallController implements ShadowInterface
     // @param string $val
     //
     //--------------------------------------------------------------------------------------------------------
-    public function spread(String $val) : Shadow
-    {
-        $this->diffusion($val);
-
-        return $this;
-    }
+    public function spread(String $val) : Shadow;
 
     //--------------------------------------------------------------------------------------------------------
     // Color
@@ -157,17 +81,7 @@ class Shadow extends CallController implements ShadowInterface
     // @param string $val
     //
     //--------------------------------------------------------------------------------------------------------
-    public function color(String $val) : Shadow
-    {
-        if( is_numeric($val) )
-        {
-            $val = "#".$val;
-        }
-
-        $this->params['color'] = $val;
-
-        return $this;
-    }
+    public function color(String $val) : Shadow;
 
     //--------------------------------------------------------------------------------------------------------
     // Type
@@ -176,12 +90,7 @@ class Shadow extends CallController implements ShadowInterface
     // @param string $val
     //
     //--------------------------------------------------------------------------------------------------------
-    public function type(String $val = 'box') : Shadow
-    {
-        $this->params['type'] = $val;
-
-        return $this;
-    }
+    public function type(String $val = 'box') : Shadow;
 
     //--------------------------------------------------------------------------------------------------------
     // Create
@@ -190,56 +99,5 @@ class Shadow extends CallController implements ShadowInterface
     // @param string $type
     //
     //--------------------------------------------------------------------------------------------------------
-    public function create(String $type = 'box') : String
-    {
-        $str  = $this->selector."{".EOL;
-        $str .= $this->attr.EOL;
-
-        if( isset($this->params['type']) )
-        {
-            $type = $this->params['type'];
-        }
-
-        $x          = ! isset($this->params['horizontal']) ? 0 : $this->params['horizontal'];
-        $y          = ! isset($this->params['vertical'])   ? 0 : $this->params['vertical'];
-        $blur       = ! isset($this->params['blur'])       ? 0 : $this->params['blur'];
-        $diffusion  = ! isset($this->params['spread'])     ? 0 : $this->params['spread'];
-        $color      = ! isset($this->params['color'])      ? 0 : $this->params['color'];
-
-        if( $type === 'box' )
-        {
-            $shadow = "$type-shadow:$x $y $blur $diffusion $color;".EOL;
-        }
-        else
-        {
-            $shadow = "$type-shadow:$x $y $blur $color;".EOL;
-        }
-
-        $browser = '';
-
-        foreach( $this->browsers as $val )
-        {
-            $str .= $val.$shadow.EOL;
-        }
-
-        $str .= "}".EOL;
-
-        $this->_defaultVariable();
-
-        return $this->_tag($str);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Default Variable
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
-    protected function _defaultVariable()
-    {
-        if( ! empty($this->attr) )          $this->attr = NULL;
-        if( ! empty($this->params) )        $this->params = [];
-        if( $this->selector !== 'this' )    $this->selector = 'this';
-    }
+    public function create(String $type = 'box') : String;
 }
