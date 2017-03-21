@@ -120,7 +120,7 @@ class Package implements PackageInterface
                 {
                     if( $getContents === true )
                     {
-                        $return .= Import::something($val, '', true);
+                        $return .= Import::something($val, [], true);
                     }
                     else
                     {
@@ -138,7 +138,7 @@ class Package implements PackageInterface
         elseif( is_file($packages) )
         {
             // Local Directory
-            return Import::something($packages, '', $getContents);
+            return Import::something($packages, [], $getContents);
         }
     }
 }
