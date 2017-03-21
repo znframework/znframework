@@ -13,13 +13,6 @@
             "role": "Developer"
         }
     ],
-    "repositories": 
-    [	
-        {
-            "type": "vcs",
-            "url": "https://github.com/znframework/Development"
-        }
-    ],
     "require": 
     {
         "php": ">=7.0.0"
