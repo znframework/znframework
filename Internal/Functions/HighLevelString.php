@@ -113,7 +113,7 @@ function getOS() : String
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function suffix(String $string, String $fix = '/') : String
+function suffix(String $string = NULL, String $fix = '/') : String
 {
     if( strlen($fix) <= strlen($string) )
     {
@@ -147,7 +147,7 @@ function suffix(String $string, String $fix = '/') : String
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function prefix(String $string, String $fix = '/') : String
+function prefix(String $string = NULL, String $fix = '/') : String
 {
     if( strlen($fix) <= strlen($string) )
     {
@@ -181,7 +181,7 @@ function prefix(String $string, String $fix = '/') : String
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function presuffix(String $string, String $fix = '/') : String
+function presuffix(String $string = NULL, String $fix = '/') : String
 {
     return suffix(prefix($string, $fix), $fix);
 }
@@ -197,7 +197,7 @@ function presuffix(String $string, String $fix = '/') : String
 // @return mixed
 //
 //--------------------------------------------------------------------------------------------------
-function divide(String $str, String $separator = '|', String $index = '0')
+function divide(String $str = NULL, String $separator = '|', String $index = '0')
 {
     $arrayEx = explode($separator, $str);
 

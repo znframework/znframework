@@ -19,7 +19,7 @@
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function internalDefaultProjectKey(String $fix = '') : String
+function internalDefaultProjectKey(String $fix = NULL) : String
 {
     if( defined('_CURRENT_PROJECT') )
     {
@@ -119,7 +119,7 @@ function internalRequestURI() : String
 // @param string $cleanData
 //
 //--------------------------------------------------------------------------------------------------
-function internalCleanURIPrefix(String $uri = '', String $cleanData = NULL) : String
+function internalCleanURIPrefix(String $uri = NULL, String $cleanData = NULL) : String
 {
     $suffixData = suffix((string) $cleanData);
 
@@ -140,7 +140,7 @@ function internalCleanURIPrefix(String $uri = '', String $cleanData = NULL) : St
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function internalRouteURI(String $requestUri = '') : String
+function internalRouteURI(String $requestUri = NULL) : String
 {
     $config = Config::get('Services', 'route');
 
@@ -201,7 +201,7 @@ function internalRouteURI(String $requestUri = '') : String
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function internalCleanInjection(String $string = '') : String
+function internalCleanInjection(String $string = NULL) : String
 {
     $urlInjectionChangeChars = Config::get('IndividualStructures', 'security')['urlChangeChars'];
 
@@ -561,7 +561,7 @@ function internalCreateHtaccessFile()
 // @param array  $param
 //
 //--------------------------------------------------------------------------------------------------
-function internalStartingContoller(String $startController = '', Array $param = [])
+function internalStartingContoller(String $startController = NULL, Array $param = [])
 {
     $controllerEx = explode(':', $startController);
 

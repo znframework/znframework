@@ -20,7 +20,7 @@
 // @param bool   $exit
 //
 //--------------------------------------------------------------------------------------------------
-function redirect(String $url, Int $time = 0, Array $data = [], Bool $exit = true)
+function redirect(String $url = NULL, Int $time = 0, Array $data = NULL, Bool $exit = true)
 {
     if( ! isUrl($url) )
     {

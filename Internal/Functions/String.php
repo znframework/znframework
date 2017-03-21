@@ -77,7 +77,7 @@ function symbol(String $symbolName = 'turkishLira') : String
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function getErrorMessage(String $langFile, String $errorMsg = '', $ex = NULL) : String
+function getErrorMessage(String $langFile, String $errorMsg = NULL, $ex = NULL) : String
 {
     $style  = 'border:solid 1px #E1E4E5;';
     $style .= 'background:#FEFEFE;';
@@ -134,7 +134,7 @@ function getErrorMessage(String $langFile, String $errorMsg = '', $ex = NULL) : 
 // @return bool
 //
 //--------------------------------------------------------------------------------------------------
-function report(String $subject, String $message, String $destination = '', String $time = '') : Bool
+function report(String $subject, String $message, String $destination = NULL, String $time = NULL) : Bool
 {
     if( ! Config::get('General', 'log')['createFile'] )
     {

@@ -95,7 +95,7 @@ function internalProjectMode(String $mode, Int $report = -1)
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function internalOutput($data, String $tab = '', Int $start = 0, Array $settings = []) : String
+function internalOutput($data, String $tab = NULL, Int $start = 0, Array $settings = []) : String
 {
     static $start;
 

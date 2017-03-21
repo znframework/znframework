@@ -51,11 +51,11 @@ function ipv4() : String
 // @return mixed
 //
 //--------------------------------------------------------------------------------------------------
-function server(String $type = '')
+function server(String $type = NULL)
 {
     $server =
     [
-        ''                           => $_SERVER,
+        NULL                         => $_SERVER,
         'name'                       => $_SERVER['SERVER_NAME']           ?? false,
         'admin'                      => $_SERVER['SERVER_ADMIN']          ?? false,
         'protocol'                   => $_SERVER['SERVER_PROTOCOL']       ?? false,
