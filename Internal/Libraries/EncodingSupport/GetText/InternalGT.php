@@ -45,9 +45,11 @@ class InternalGT extends CallController implements InternalGTInterface
     // @param mixed  $locale
     //
     //--------------------------------------------------------------------------------------------------------
-    public function locale(String $category, $locale) : String
+    public function locale(String $category, $locale) : GT
     {
-        return setlocale(Converter::toConstant($category, 'LC_'), $locale);
+        setlocale(Converter::toConstant($category, 'LC_'), $locale);
+
+        return $this;
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -98,12 +100,12 @@ class InternalGT extends CallController implements InternalGTInterface
     //
     // @param string $domain
     // @param string $message
-    // @param int    $category
+    // @param string $category
     //
     //--------------------------------------------------------------------------------------------------------
-    public function search(String $domain, String $message, Int $category = 0) : String
+    public function search(String $domain, String $message, String $category = 'ctype') : String
     {
-        return dcgettext($domain, $message, $category);
+        return dcgettext($domain, $message, Converter::toConstant($category, 'LC_'));
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -114,12 +116,12 @@ class InternalGT extends CallController implements InternalGTInterface
     // @param string $msgId1
     // @param string $msgId2
     // @param int    $count
-    // @param int    $category
+    // @param string $category
     //
     //--------------------------------------------------------------------------------------------------------
-    public function searches(String $domain, String $msgId1, String $msgId2, Int $count = 0, Int $category = 0) : String
+    public function searches(String $domain, String $msgId1, String $msgId2, Int $count = 0, String $category = 'ctype') : String
     {
-        return dcngettext($domain, $msgId1, $msgId2, $count, $category);
+        return dcngettext($domain, $msgId1, $msgId2, $count, Converter::toConstant($category, 'LC_'));
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -130,9 +132,11 @@ class InternalGT extends CallController implements InternalGTInterface
     // @param string $codeset
     //
     //--------------------------------------------------------------------------------------------------------
-    public function codeset(String $domain, String $codeset) : String
+    public function codeset(String $domain, String $codeset) : GT
     {
-        return bind_textdomain_codeset($domain, $codeset);
+        bind_textdomain_codeset($domain, $codeset);
+
+        return $this;
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -143,9 +147,12 @@ class InternalGT extends CallController implements InternalGTInterface
     // @param string $directory
     //
     //--------------------------------------------------------------------------------------------------------
-    public function dir(String $domain, String $directory) : String
+    public function dir(String $domain, String $directory) : GT
     {
-        return bindtextdomain($domain, $directory);
+        bindtextdomain($domain, $directory);
+        $this->name($domain);
+
+        return $this;
     }
 
     //--------------------------------------------------------------------------------------------------------

@@ -28,7 +28,7 @@ interface InternalGTInterface
     // @param mixed  $locale
     //
     //--------------------------------------------------------------------------------------------------------
-    public function locale(String $category, $locale) : String;
+    public function locale(String $category, $locale) : GT;
 
     //--------------------------------------------------------------------------------------------------------
     // Datas
@@ -69,10 +69,10 @@ interface InternalGTInterface
     //
     // @param string $domain
     // @param string $message
-    // @param int    $category
+    // @param string $category
     //
     //--------------------------------------------------------------------------------------------------------
-    public function search(String $domain, String $message, Int $category = 0) : String;
+    public function search(String $domain, String $message, String $category = 'ctype') : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Searches
@@ -82,10 +82,10 @@ interface InternalGTInterface
     // @param string $msgId1
     // @param string $msgId2
     // @param int    $count
-    // @param int    $category
+    // @param string $category
     //
     //--------------------------------------------------------------------------------------------------------
-    public function searches(String $domain, String $msgId1, String $msgId2, Int $count = 0, Int $category = 0) : String;
+    public function searches(String $domain, String $msgId1, String $msgId2, Int $count = 0, String $category = 'ctype') : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Codeset
@@ -95,7 +95,7 @@ interface InternalGTInterface
     // @param string $codeset
     //
     //--------------------------------------------------------------------------------------------------------
-    public function codeset(String $domain, String $codeset) : String;
+    public function codeset(String $domain, String $codeset) : GT;
 
     //--------------------------------------------------------------------------------------------------------
     // Dir
@@ -105,7 +105,7 @@ interface InternalGTInterface
     // @param string $directory
     //
     //--------------------------------------------------------------------------------------------------------
-    public function dir(String $domain, String $directory) : String;
+    public function dir(String $domain, String $directory) : GT;
 
     //--------------------------------------------------------------------------------------------------------
     // Name

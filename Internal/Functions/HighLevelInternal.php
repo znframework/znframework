@@ -155,11 +155,11 @@ function internalOutput($data, String $tab = NULL, Int $start = 0, Array $settin
                     $type = 'boolean';
                 }
 
-                $output .= "$tab<span$keystyle>$k</span> => <span$typestyle>$type</span> <span$valstyle>$v</span> <span$lengthstyle>( length = ".strlen($v)." )</span>,$eof";
+                $output .= "$tab<span$keystyle>$k</span> => <span$typestyle>$type</span> <span$valstyle>$v</span> <span$lengthstyle>( length = ".strlen($v)." )</span>$eof";
             }
             else
             {
-                $output .= "$tab<span$keystyle>$k</span> => <span$typestyle>$vartype</span> $eof $tab( $eof ".internalOutput($v, $tab, (int) $start++)." $tab), ".$eof;
+                $output .= "$tab<span$keystyle>$k</span> => <span$typestyle>$vartype</span> $eof $tab( $eof ".internalOutput($v, $tab, (int) $start++)." $tab) ".$eof;
                 $start--;
             }
         }
