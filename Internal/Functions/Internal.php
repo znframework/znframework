@@ -223,8 +223,7 @@ function internalCleanInjection(String $string = NULL) : String
 //--------------------------------------------------------------------------------------------------
 function internalCreateRobotsFile()
 {
-    $rules = Config::get('Robots', 'rules');
-
+    $rules  = Config::get('Robots', 'rules');
     $robots = '';
 
     if( isArray($rules) ) foreach( $rules as $key => $val )
