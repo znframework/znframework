@@ -2,9 +2,9 @@
 # This file automatically created and updated
 #----------------------------------------------------------------------------------------------------
 
-<ifmodule mod_headers.c>
+<Ifmodule mod_headers.c>
 	Options -Indexes
-</ifmodule>
+</Ifmodule>
 
 <IfModule mod_rewrite.c>
 	RewriteEngine On
