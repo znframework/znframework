@@ -2010,16 +2010,8 @@ class InternalDB extends Connection implements InternalDBInterface
         if( stristr($table, $ignore) )
         {
             $table      = str_ireplace($ignore, '', $table);
-            $columns    = Arrays::values($this->query('SELECT * FROM ' . $table)->columns());
-            $newColumns = [];
-
-            foreach( $data as $key => $val )
-            {
-                if( Arrays::valueExists($columns, $key) )
-                {
-                    $newColumns[$key] = $val;
-                }
-            }
+            $columns    = Arrays::transform($this->query('SELECT * FROM ' . $table)->columns());
+            $newColumns = Arrays::intersectKey($data, $columns);
 
             return $newColumns;
         }
