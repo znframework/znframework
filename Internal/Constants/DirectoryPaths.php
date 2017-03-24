@@ -11,23 +11,13 @@
 //--------------------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------------------
-// Project Container Dir
-//--------------------------------------------------------------------------------------------------
-//
-// Container varsa kapyasıyıcı dizini belirlenir.
-//
-//--------------------------------------------------------------------------------------------------
-$containerDir = internalProjectContainerDir();
-//--------------------------------------------------------------------------------------------------
-
-//--------------------------------------------------------------------------------------------------
 // CONFIG_DIR
 //--------------------------------------------------------------------------------------------------
 //
 // @return Projects/Config/
 //
 //--------------------------------------------------------------------------------------------------
-define('CONFIG_DIR', $containerDir.'Config'.DS);
+define('CONFIG_DIR', internalProjectContainerDir('Config'));
 
 //--------------------------------------------------------------------------------------------------
 // STORAGE_DIR
@@ -45,7 +35,7 @@ define('STORAGE_DIR', PROJECT_DIR.'Storage'.DS);
 // @return Projects/Resources/
 //
 //--------------------------------------------------------------------------------------------------
-define('RESOURCES_DIR', $containerDir.'Resources'.DS);
+define('RESOURCES_DIR', internalProjectContainerDir('Resources'));
 
 //--------------------------------------------------------------------------------------------------
 // EXTERNAL_RESOURCES_DIR
@@ -63,7 +53,7 @@ define('EXTERNAL_RESOURCES_DIR', EXTERNAL_DIR.'Resources'.DS);
 // @return Projects/Starting/
 //
 //--------------------------------------------------------------------------------------------------
-define('STARTING_DIR', $containerDir.'Starting'.DS);
+define('STARTING_DIR', internalProjectContainerDir('Starting'));
 
 //--------------------------------------------------------------------------------------------------
 // EXTERNAL_STARTING_DIR
@@ -126,7 +116,7 @@ define('INTERNAL_LANGUAGES_DIR', INTERNAL_DIR.'Languages'.DS);
 // @return Projects/Languages/
 //
 //--------------------------------------------------------------------------------------------------
-define('LANGUAGES_DIR', $containerDir.'Languages'.DS);
+define('LANGUAGES_DIR', internalProjectContainerDir('Languages'));
 
 //--------------------------------------------------------------------------------------------------
 // EXTERNAL_LANGUAGES_DIR
@@ -153,7 +143,7 @@ define('INTERNAL_LIBRARIES_DIR', INTERNAL_DIR.'Libraries'.DS);
 // @return Projects/Libraries/
 //
 //--------------------------------------------------------------------------------------------------
-define('LIBRARIES_DIR', $containerDir.'Libraries'.DS);
+define('LIBRARIES_DIR', internalProjectContainerDir('Libraries'));
 
 //--------------------------------------------------------------------------------------------------
 // EXTERNAL_LIBRARIES_DIR
@@ -180,7 +170,7 @@ define('CONTROLLERS_DIR', PROJECT_DIR.'Controllers'.DS);
 // @return Projects/Models/
 //
 //--------------------------------------------------------------------------------------------------
-define('MODELS_DIR', $containerDir.'Models'.DS);
+define('MODELS_DIR', internalProjectContainerDir('Models'));
 
 //--------------------------------------------------------------------------------------------------
 // EXTERNAL_MODELS_DIR

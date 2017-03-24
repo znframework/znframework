@@ -1431,6 +1431,7 @@ class InternalDB extends Connection implements InternalDBInterface
     //--------------------------------------------------------------------------------------------------------
     public function insert(String $table = NULL, Array $datas = [])
     {
+        $datas = $this->_ignoreData($table, $datas);
         $datas = $this->_p($datas, 'column');
         $data  = ""; $values = "";
 
@@ -1521,6 +1522,7 @@ class InternalDB extends Connection implements InternalDBInterface
     //--------------------------------------------------------------------------------------------------------
     public function update(String $table = NULL, Array $set = [])
     {
+        $set  = $this->_ignoreData($table, $set);
         $set  = $this->_p($set, 'column');
         $data = '';
 
@@ -1991,6 +1993,38 @@ class InternalDB extends Connection implements InternalDBInterface
     public function simpleDelete(String $table, String $column, String $value)
     {
         return $this->where($column, $value)->delete($table);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Ignore Data
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string &$table
+    // @param array  $datas
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _ignoreData(&$table, $data)
+    {
+        $ignore = 'ignore:';
+
+        if( stristr($table, $ignore) )
+        {
+            $table      = str_ireplace($ignore, '', $table);
+            $columns    = Arrays::values($this->query('SELECT * FROM ' . $table)->columns());
+            $newColumns = [];
+
+            foreach( $data as $key => $val )
+            {
+                if( Arrays::valueExists($columns, $key) )
+                {
+                    $newColumns[$key] = $val;
+                }
+            }
+
+            return $newColumns;
+        }
+
+        return $data;
     }
 
     //--------------------------------------------------------------------------------------------------------

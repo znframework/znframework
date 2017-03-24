@@ -19,18 +19,20 @@
 // @param string
 //
 //--------------------------------------------------------------------------------------------------
-function internalProjectContainerDir() : String
+function internalProjectContainerDir($path = NULL) : String
 {
-    $containers = PROJECTS_CONFIG['containers'];
+    $path                = suffix($path, DS);
+    $containers          = PROJECTS_CONFIG['containers'];
+    $containerProjectDir = PROJECT_DIR . $path;
 
     if( ! empty($containers) && defined('_CURRENT_PROJECT') )
     {
-        return ! empty($containers[_CURRENT_PROJECT])
-               ? PROJECTS_DIR . suffix($containers[_CURRENT_PROJECT])
-               : PROJECT_DIR;
+        return ! empty($containers[_CURRENT_PROJECT]) && ! file_exists($containerProjectDir)
+               ? PROJECTS_DIR . suffix($containers[_CURRENT_PROJECT], DS) . $path
+               : $containerProjectDir;
     }
 
-    return PROJECT_DIR;
+    return $containerProjectDir;
 }
 
 //--------------------------------------------------------------------------------------------------
