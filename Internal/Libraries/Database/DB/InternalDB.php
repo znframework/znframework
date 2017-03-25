@@ -1,6 +1,6 @@
 <?php namespace ZN\Database;
 
-use URI, Pagination, Arrays, Classes;
+use URI, Pagination, Arrays, Classes, Method;
 use ZN\Database\Exception\DuplicateCheckException;
 
 class InternalDB extends Connection implements InternalDBInterface
@@ -2007,13 +2007,24 @@ class InternalDB extends Connection implements InternalDBInterface
     //--------------------------------------------------------------------------------------------------------
     protected function _ignoreData(&$table, &$data)
     {
-        $ignore = 'ignore:';
+        $methods = ['ignore', 'post', 'get', 'request'];
 
-        if( stristr($table, $ignore) )
+        if( stristr($table, ':') )
         {
-            $table   = str_ireplace($ignore, '', $table);
-            $columns = Arrays::transform($this->query('SELECT * FROM ' . $table)->columns());
-            $data    = Arrays::intersectKey($data, $columns);
+            $tableEx = explode(':', $table);
+            $method  = $tableEx[0];
+            $table   = $tableEx[1];
+
+            if( Arrays::valueExists($methods, $method) )
+            {
+                if( $method !== 'ignore' )
+                {
+                    $data = Method::$method();
+                }
+
+                $columns = Arrays::transform($this->query('SELECT * FROM ' . $table)->columns());
+                $data    = Arrays::intersectKey($data, $columns);
+            }
         }
     }
 
