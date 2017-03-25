@@ -2315,9 +2315,10 @@ class InternalDB extends Connection implements InternalDBInterface
             break;
 
             default:
-                $table  = $tableAndColumn;
+                $table  = $tableAndColumn[0];
                 $column = $otherColumn;
         }
+
 
 
         $condition = $db.$table.'.'.$column.' '.$operator.' '.$this->prefix.$otherColumn.' ';
