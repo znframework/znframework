@@ -417,7 +417,7 @@ class InternalMigration extends \CallController implements InternalMigrationInte
     {
         preg_match('(\w+([0-9][0-9][0-9]))', $this->tbl, $match);
 
-        return isset( $match[1] ) ? $match[1] : '000';
+        return $match[1] ?? '000';
     }
 
     //--------------------------------------------------------------------------------------------------------

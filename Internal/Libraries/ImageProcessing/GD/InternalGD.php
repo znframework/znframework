@@ -1319,10 +1319,10 @@ class InternalGD extends CallController implements InternalGDInterface
     {
         $rgb = explode('|', $this->_colors($rgb));
 
-        $red   = isset($rgb[0]) ? $rgb[0] : 0;
-        $green = isset($rgb[1]) ? $rgb[1] : 0;
-        $blue  = isset($rgb[2]) ? $rgb[2] : 0;
-        $alpha = isset($rgb[3]) ? $rgb[3] : 0;
+        $red   = $rgb[0] ?? 0;
+        $green = $rgb[1] ?? 0;
+        $blue  = $rgb[2] ?? 0;
+        $alpha = $rgb[3] ?? 0;
 
         return imagecolorallocatealpha($this->canvas, $red, $green, $blue, $alpha);
     }

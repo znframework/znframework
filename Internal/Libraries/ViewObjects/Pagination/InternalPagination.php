@@ -69,8 +69,8 @@ class InternalPagination extends CLController implements InternalPaginationInter
         if( isset($config['lastName']) )    $this->lastTag      = $config['lastName'];
         if( isset($config['type']) )        $this->type         = $config['type'];
 
-        $this->class = array_merge($configs['class'], ( isset($config['class']) ? $config['class'] : []) );
-        $this->style = array_merge($configs['style'], ( isset($config['style']) ? $config['style'] : []) );
+        $this->class = array_merge($configs['class'], ( $config['class'] ?? []) );
+        $this->style = array_merge($configs['style'], ( $config['style'] ?? []) );
 
         if( isset($config['url']) && $this->type !== 'ajax' )
         {

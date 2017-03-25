@@ -200,11 +200,11 @@ class Shadow extends CallController implements ShadowInterface
             $type = $this->params['type'];
         }
 
-        $x          = ! isset($this->params['horizontal']) ? 0 : $this->params['horizontal'];
-        $y          = ! isset($this->params['vertical'])   ? 0 : $this->params['vertical'];
-        $blur       = ! isset($this->params['blur'])       ? 0 : $this->params['blur'];
-        $diffusion  = ! isset($this->params['spread'])     ? 0 : $this->params['spread'];
-        $color      = ! isset($this->params['color'])      ? 0 : $this->params['color'];
+        $x          = $this->params['horizontal'] ?? 0;
+        $y          = $this->params['vertical']   ?? 0;
+        $blur       = $this->params['blur']       ?? 0;
+        $diffusion  = $this->params['spread']     ?? 0;
+        $color      = $this->params['color']      ?? 0;
 
         if( $type === 'box' )
         {

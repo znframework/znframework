@@ -98,10 +98,10 @@ class Builder implements BuilderInterface
 
         foreach( $xml as $data )
         {
-            $name    = isset( $data['name'] )    ?  $data['name']    : '';
-            $attr    = isset( $data['attr'] )    ?  $data['attr']    : '';
-            $content = isset( $data['content'] ) ?  $data['content'] : '';
-            $child   = isset( $data['child'] )   ?  $data['child']   : '';
+            $name    = $data['name']    ?? '';
+            $attr    = $data['attr']    ?? '';
+            $content = $data['content'] ?? '';
+            $child   = $data['child']   ?? '';
 
             $output .= "$tab<$name".Html::attributes($attr).">";
 

@@ -1431,7 +1431,8 @@ class InternalDB extends Connection implements InternalDBInterface
     //--------------------------------------------------------------------------------------------------------
     public function insert(String $table = NULL, Array $datas = [])
     {
-        $datas = $this->_ignoreData($table, $datas);
+        $this->_ignoreData($table, $datas);
+
         $datas = $this->_p($datas, 'column');
         $data  = ""; $values = "";
 
@@ -1522,7 +1523,8 @@ class InternalDB extends Connection implements InternalDBInterface
     //--------------------------------------------------------------------------------------------------------
     public function update(String $table = NULL, Array $set = [])
     {
-        $set  = $this->_ignoreData($table, $set);
+        $this->_ignoreData($table, $set);
+
         $set  = $this->_p($set, 'column');
         $data = '';
 
@@ -2003,20 +2005,16 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param array  $datas
     //
     //--------------------------------------------------------------------------------------------------------
-    protected function _ignoreData(&$table, $data)
+    protected function _ignoreData(&$table, &$data)
     {
         $ignore = 'ignore:';
 
         if( stristr($table, $ignore) )
         {
-            $table      = str_ireplace($ignore, '', $table);
-            $columns    = Arrays::transform($this->query('SELECT * FROM ' . $table)->columns());
-            $newColumns = Arrays::intersectKey($data, $columns);
-
-            return $newColumns;
+            $table   = str_ireplace($ignore, '', $table);
+            $columns = Arrays::transform($this->query('SELECT * FROM ' . $table)->columns());
+            $data    = Arrays::intersectKey($data, $columns);
         }
-
-        return $data;
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -2109,10 +2107,9 @@ class InternalDB extends Connection implements InternalDBInterface
             $value  = $this->_whereKeyControl($column, $value);
         }
 
-        $convertInt = $this->_convertType($column, $value);
-        $value      = $convertInt->value;
-        $column     = $convertInt->column;
-        $column     = $this->_equalControl($column);
+        $this->_convertType($column, $value);
+
+        $column = $this->_equalControl($column);
 
         return ' '.$column.' '.$value.' '.$logical.' ';
     }
@@ -2135,9 +2132,9 @@ class InternalDB extends Connection implements InternalDBInterface
             {
                 if( is_array($col) )
                 {
-                    $c = isset($col[0]) ? $col[0] : '';
-                    $v = isset($col[1]) ? $col[1] : '';
-                    $l = isset($col[2]) ? $col[2] : '';
+                    $c = $col[0] ?? '';
+                    $v = $col[1] ?? '';
+                    $l = $col[2] ?? '';
 
                     $this->$type .= $this->_whereHaving($c, $v, $l);
                 }
@@ -2187,9 +2184,9 @@ class InternalDB extends Connection implements InternalDBInterface
 
         if( is_array($conditions) ) foreach( $conditions as $column )
         {
-            $col     = isset( $column[0] ) ? $column[0] : '';
-            $value   = isset( $column[1] ) ? $column[1] : '';
-            $logical = isset( $column[2] ) ? $column[2] : '';
+            $col     = $column[0] ?? '';
+            $value   = $column[1] ?? '';
+            $logical = $column[2] ?? '';
 
             $whereGroup .= $this->_whereHaving($col, $value, $logical);
         }

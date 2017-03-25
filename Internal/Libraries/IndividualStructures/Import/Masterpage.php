@@ -198,7 +198,7 @@ class Masterpage implements MasterpageInterface
             {
                 $nameEx     = explode(":", $name);
                 $httpOrName = ( $nameEx[0] === 'http' ) ? 'http-equiv' : 'name';
-                $name       = ( isset($nameEx[1]) ) ? $nameEx[1] : $nameEx[0];
+                $name       = $nameEx[1] ?? $nameEx[0];
 
                 if( ! is_array($content) )
                 {
