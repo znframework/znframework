@@ -190,23 +190,15 @@ if( is_file($isFile) )
 
                 if( ! empty($data = (array) $pageClass->masterpage) )
                 {
-                    $masterpage = $pageClass->masterpage;
-
-                    if( isset($masterpage->headData) )   Import::headData($masterpage->headData);
-                    if( isset($masterpage->body) )       Import::body($masterpage->body);
-                    if( isset($masterpage->head) )       Import::head($masterpage->head);
-                    if( isset($masterpage->title) )      Import::title($masterpage->title);
-                    if( isset($masterpage->meta) )       Import::meta($masterpage->meta);
-                    if( isset($masterpage->attributes) ) Import::attributes($masterpage->attributes);
-                    if( isset($masterpage->content) )    Import::content($masterpage->content);
+                    Config::set('Masterpage', $data);
 
                     Import::masterpage($data);
                 }
-                elseif( is_file($wizardPath) )
+                elseif( is_file($wizardPath) && ! isImport($viewPath) && ! isImport($wizardPath) )
                 {
                     Import::view(str_replace(PAGES_DIR, NULL, $wizardPath), (array) $pageClass->wizard);
                 }
-                elseif( is_file($viewPath) )
+                elseif( is_file($viewPath) && ! isImport($viewPath) && ! isImport($wizardPath) )
                 {
                     Import::view(str_replace(PAGES_DIR, NULL, $viewPath), (array) $pageClass->view);
                 }
