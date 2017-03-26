@@ -1,5 +1,7 @@
 <?php namespace ZN\Requirements\System;
 
+use Config;
+
 class Restoration
 {
     //--------------------------------------------------------------------------------------------------------
@@ -10,24 +12,23 @@ class Restoration
     // Copyright  : (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Is Machines IP
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function isMachinesIP()
+    public static function isMachinesIP($manipulation = NULL)
     {
-        $projects = \Config::get('Project');
-
+        $projects      = Config::get('Project');
         $restorationIP = $projects['restoration']['machinesIP'];
-        
-        if( PROJECT_MODE === 'restoration' )
+
+        if( PROJECT_MODE === 'restoration' || $manipulation !== NULL)
         {
             $ipv4 = ipv4();
-            
+
             if( is_array($restorationIP) )
             {
                 $result = in_array($ipv4, $restorationIP);
@@ -36,68 +37,79 @@ class Restoration
             {
                 $result = true;
             }
-            else 
+            else
             {
                 $result = false;
             }
         }
         else
         {
-            $result = false;    
+            $result = false;
         }
-    
+
         return (bool) $result;
     }
 
     //--------------------------------------------------------------------------------------------------------
     // Mode
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function mode()
+    public static function mode($settings = NULL)
     {
-        if( self::isMachinesIP() === true ) 
+        $restorable = NULL;
+
+        if( isset($settings['machinesIP']) )
+        {
+            $restorable = true;
+
+            Config::set('Project', 'restoration', ['machinesIP' => $settings['machinesIP']]);
+        }
+
+        if( self::isMachinesIP($settings) === true )
         {
             return false;
         }
-    
-        error_reporting(0); 
-            
-        $projects           = \Config::get('Project');
         
-        $restoration        = $projects['restoration'];
-        $restorationPages   = $restoration['pages'];
-        $routePage          = strtolower($restoration['routePage']);
-        $currentPath        = strtolower(currentPath()); 
-        
+        error_reporting(0);
+
+        $currentPath          = $restorable === true ? strtolower(CURRENT_CFUNCTION) : strtolower(currentPath());
+        $projects             = Config::get('Project');
+        $restoration          = $projects['restoration'];
+        $restorationPages     = $restorable === true && ! isset($settings['functions'])
+                              ? ['main']
+                              : (array) $settings['functions'] ?? $restoration['pages'];
+        $restorationRoutePage = $settings['routePage'] ?? $restoration['routePage'];
+        $routePage            = strtolower($restorationRoutePage);
+
         if( is_string($restorationPages) )
         {
-            if( $restorationPages === "all" )
+            if( $restorationPages === 'all' )
             {
-                if( $currentPath !== $routePage ) 
+                if( $currentPath !== $routePage )
                 {
-                    redirect($restoration['routePage']);
+                    redirect($restorationRoutePage);
                 }
             }
         }
-        
-        if( is_array($restorationPages) && ! empty($restorationPages) )
-        {       
-            if( $restorationPages[0] === "all" )
+
+        if( isArray($restorationPages) )
+        {
+            if( $restorationPages[0] === 'all' )
             {
-                if( $currentPath !== $routePage ) 
+                if( $currentPath !== $routePage )
                 {
-                    redirect($restoration['routePage']);
+                    redirect($restorationRoutePage);
                 }
             }
-        
+
             foreach( $restorationPages as $k => $rp )
             {
                 if( strstr($currentPath, strtolower($k)) )
                 {
-                    redirect($rp);  
+                    redirect($rp);
                 }
                 else
                 {
@@ -105,13 +117,13 @@ class Restoration
                     {
                         if( $currentPath !== $routePage )
                         {
-                            redirect($restoration['routePage']);
+                            redirect($restorationRoutePage);
                         }
-                    }   
+                    }
                 }
             }
-        }   
-    }   
+        }
+    }
 }
 
 class_alias('ZN\Requirements\System\Restoration', 'Restoration');

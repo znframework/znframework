@@ -17,13 +17,14 @@
 // @return Aktif çalıştırılan kontrolcü dosyasının yol bilgisi.
 //
 //--------------------------------------------------------------------------------------------------
-$datas      = ZN\Core\Structure::data();
+$datas        = ZN\Core\Structure::data();
 
-$parameters = $datas['parameters'];
-$page       = $datas['page'];
-$isFile     = $datas['file'];
-$function   = $datas['function'];
-$namespace  = $datas['namespace'];
+$parameters   = $datas['parameters'];
+$page         = $datas['page'];
+$isFile       = $datas['file'];
+$function     = $datas['function'];
+$openFunction = $datas['openFunction'];
+$namespace    = $datas['namespace'];
 
 //--------------------------------------------------------------------------------------------------
 // CURRENT_CFILE
@@ -172,14 +173,14 @@ if( is_file($isFile) )
         if( ! is_callable([$page, $function]) )
         {
             $parameters   = Arrays::addFirst($parameters, $function);
-            $function     = 'main';
+            $function     = $openFunction;
         }
 
         if( is_callable([$page, $function]) )
         {
             try
             {
-                $viewFunction = $function === 'main' ? NULL : '-'.$function;
+                $viewFunction = $function === $openFunction ? NULL : '-'.$function;
                 $pageClass    = uselib($page);
 
                 $pageClass->$function(...$parameters);
