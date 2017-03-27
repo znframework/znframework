@@ -1,6 +1,6 @@
 <?php namespace ZN\FileSystem;
 
-use CallController, Folder, File, DBTool, Config;
+use CallController, Folder, File, DB, DBTool, DBForge, Arrays, Config;
 
 class InternalGenerate extends CallController implements InternalGenerateInterface
 {
@@ -12,6 +12,19 @@ class InternalGenerate extends CallController implements InternalGenerateInterfa
     // Copyright  : (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
+
+    //--------------------------------------------------------------------------------------------------------
+    // Database
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function databases()
+    {
+        $this->_addDatabases();
+        $this->_archivesDatabases();
+    }
 
     //--------------------------------------------------------------------------------------------------------
     // Grand Vision
@@ -533,5 +546,107 @@ class InternalGenerate extends CallController implements InternalGenerateInterfa
         }
 
         return presuffix($return, DS);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Add Database
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _addDatabases()
+    {
+        $activesPath = DATABASES_DIR . 'Actives/';
+
+        $folders = Folder::files($activesPath, 'dir');
+
+        if( empty($folders) )
+        {
+            return false;
+        }
+
+        $currentDriver = Config::get('Database', 'database')['driver'];
+
+        if( stristr('pdo|pdo:mysql|mysqli', $currentDriver) )
+        {
+            $encoding = DB::encoding();
+        }
+        else
+        {
+            $encoding = NULL;
+        }
+
+        foreach( $folders as $database )
+        {
+            DBForge::createDatabase($database, $encoding);
+
+            $databasePath = $activesPath . $database . '/';
+
+            $tables = Folder::files($databasePath, 'php');
+
+            if( ! empty($tables) )
+            {
+                $dbForge = DBForge::differentConnection(['database' => $database]);
+
+                foreach( $tables as $table )
+                {
+                    $tableData = import($databasePath . $table);
+
+                    if( ! Arrays::keyExists($tableData, 'id') )
+                    {
+                        $tableData = Arrays::addFirst($tableData,
+                        [
+                            'id' => [DB::int(11), DB::notNull(), DB::autoIncrement(), DB::primaryKey()]
+                        ]);
+                    }
+
+                    $dbForge->createTable(removeExtension($table), $tableData);
+                }
+            }
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Add Database
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _archivesDatabases()
+    {
+        $archivesPath = DATABASES_DIR . 'Archives/';
+
+        $folders = Folder::files($archivesPath, 'dir');
+
+        if( empty($folders) )
+        {
+            return false;
+        }
+
+        foreach( $folders as $database )
+        {
+            $databasePath = $archivesPath . $database . '/';
+
+            $tables = Folder::files($databasePath, 'php');
+
+            if( ! empty($tables) )
+            {
+                $dbForge = DBForge::differentConnection(['database' => $database]);
+
+                foreach( $tables as $table )
+                {
+                    $dbForge->dropTable(removeExtension($table));
+                }
+            }
+
+            $tool = DBTool::differentConnection(['database' => $database]);
+
+            if( empty($tool->listTables()) )
+            {
+                DBForge::dropDatabase($database);
+            }
+        }
     }
 }
