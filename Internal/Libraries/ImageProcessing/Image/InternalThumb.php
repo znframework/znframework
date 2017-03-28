@@ -106,7 +106,7 @@ class InternalThumb extends CallController implements InternalThumbInterface
     // @param int $height
     //
     //--------------------------------------------------------------------------------------------------------
-    public function prosize(Int $width, Int $height) : InternalThumb
+    public function prosize(Int $width, Int $height = 0) : InternalThumb
     {
         $this->sets['prowidth']  = $width;
         $this->sets['proheight'] = $height;

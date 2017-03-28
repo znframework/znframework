@@ -67,7 +67,7 @@ interface InternalThumbInterface
     // @param int $height
     //
     //--------------------------------------------------------------------------------------------------------
-    public function prosize(Int $width, Int $height) : InternalThumb;
+    public function prosize(Int $width, Int $height = 0) : InternalThumb;
 
     //--------------------------------------------------------------------------------------------------------
     // Create
