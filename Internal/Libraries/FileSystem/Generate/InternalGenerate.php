@@ -1,6 +1,6 @@
 <?php namespace ZN\FileSystem;
 
-use CallController, Folder, File, DB, DBTool, DBForge, Arrays, Config;
+use CallController, Folder, File, DB, DBTool, DBForge, Arrays, Config, Json;
 
 class InternalGenerate extends CallController implements InternalGenerateInterface
 {
@@ -557,7 +557,8 @@ class InternalGenerate extends CallController implements InternalGenerateInterfa
     //--------------------------------------------------------------------------------------------------------
     protected function _addDatabases()
     {
-        $activesPath = DATABASES_DIR . 'Actives/';
+        $activesPath  = DATABASES_DIR . 'Actives/';
+        $archivesPath = DATABASES_DIR . 'Archives/';
 
         $folders = Folder::files($activesPath, 'dir');
 
@@ -568,7 +569,7 @@ class InternalGenerate extends CallController implements InternalGenerateInterfa
 
         $currentDriver = Config::get('Database', 'database')['driver'];
 
-        if( stristr('pdo|pdo:mysql|mysqli', $currentDriver) )
+        if( stristr('pdo:mysql|mysqli', $currentDriver) )
         {
             $encoding = DB::encoding();
         }
@@ -576,6 +577,9 @@ class InternalGenerate extends CallController implements InternalGenerateInterfa
         {
             $encoding = NULL;
         }
+
+        $status = false;
+        $tableKeyColumnValues = [DB::varchar(1), DB::null()];
 
         foreach( $folders as $database )
         {
@@ -588,10 +592,13 @@ class InternalGenerate extends CallController implements InternalGenerateInterfa
             if( ! empty($tables) )
             {
                 $dbForge = DBForge::differentConnection(['database' => $database]);
+                $db      = DB::differentConnection(['database' => $database]);
 
                 foreach( $tables as $table )
                 {
                     $tableData = import($databasePath . $table);
+                    $file      = $table;
+                    $table     = removeExtension($table);
 
                     if( ! Arrays::keyExists($tableData, 'id') )
                     {
@@ -601,7 +608,58 @@ class InternalGenerate extends CallController implements InternalGenerateInterfa
                         ]);
                     }
 
-                    $dbForge->createTable(removeExtension($table), $tableData);
+                    $tableColumns    = $db->get($table)->columns();
+                    $currentTableKey = strtolower(Arrays::getLast($tableColumns));
+                    $currentColumns  = Arrays::removeLast($tableColumns);
+                    $tableKey        = strtolower($table.'_' . md5(Json::encode($tableData)));
+
+                    if( ! empty($currentColumns) )
+                    {
+                        $columnsMerge = Arrays::merge(Arrays::flip($currentColumns), $tableData);
+
+                        foreach( $columnsMerge as $key => $val )
+                        {
+                            if( is_numeric($val) )
+                            {
+                                $dbForge->dropColumn($table, $key);
+                                $status = true;
+                            }
+                            elseif( Arrays::valueExists($currentColumns, $key) )
+                            {
+                                if( $currentTableKey !== $tableKey )
+                                {
+                                    $dbForge->modifyColumn($table, [$key => $val]);
+                                    $status = true;
+                                }
+                                else
+                                {
+                                    $status = false;
+                                }
+                            }
+                            else
+                            {
+                                $status = $dbForge->addColumn($table, [$key => $val]);
+                                $status = true;
+                            }
+                        }
+
+                        if( $status === true )
+                        {
+                            $tableName    = $database . '/' . $table;
+                            $writePath    = $archivesPath . $tableName . '_' . time() . '.php';
+                            $writeContent = File::contents($activesPath . $tableName . '.php');
+
+                            File::write($writePath, $writeContent);
+
+                            $dbForge->renameColumn($table, [$currentTableKey.' '.$tableKey => $tableKeyColumnValues]);
+                        }
+                    }
+                    else
+                    {
+                        $tableData[$tableKey] = $tableKeyColumnValues;
+
+                        $dbForge->createTable($table, $tableData);
+                    }
                 }
             }
         }
@@ -629,11 +687,13 @@ class InternalGenerate extends CallController implements InternalGenerateInterfa
         {
             $databasePath = $archivesPath . $database . '/';
 
-            $tables = Folder::files($databasePath, 'php');
+            $tables   = Folder::files($databasePath, 'php');
+            $pregGrep = preg_grep("/\_[0-9]*\.php/", $tables);
+            $tables   = Arrays::deleteElement($tables, $pregGrep);
 
             if( ! empty($tables) )
             {
-                $dbForge = DBForge::differentConnection(['database' => $database]);
+                $dbForge  = DBForge::differentConnection(['database' => $database]);
 
                 foreach( $tables as $table )
                 {
