@@ -106,11 +106,7 @@ class InternalProcessor extends RemoteCommon implements InternalProcessorInterfa
     //--------------------------------------------------------------------------------------------------------
     public function php(String $command) : String
     {
-        $phpCommand = "require_once '".REAL_BASE_DIR."zerocore'; ".$command.";";
-        $phpCommand = presuffix(str_replace('"', '\"', $phpCommand), '"');
-        $commands   = $this->path;
-        $commands  .= ' -r ';
-        $commands  .= $phpCommand;
+        $commands = $this->_php($command, $this->path);
 
         $this->stringCommand = $commands;
 
@@ -159,35 +155,21 @@ class InternalProcessor extends RemoteCommon implements InternalProcessorInterfa
     //--------------------------------------------------------------------------------------------------------
     public function controller(String $path) : String
     {
-        $command  = '$datas = ZN\Core\Structure::data("'.$path.'");';
-        $command .= '$parameters = $datas["parameters"];';
-        $command .= '$page       = $datas["page"];';
-        $command .= '$isFile     = $datas["file"];';
-        $command .= '$function   = $datas["function"];';
-        $command .= '$namespace  = $datas["namespace"];';
-        $command .= 'if( ! is_file($isFile) )';
-        $command .= '{';
-        $command .= 'exit("Error: URL does not contain a valid controller information! `".$page."` controller could not be found!");';
-        $command .= '}';
-        $command .= 'import($isFile);';
-        $command .= 'if( ! class_exists($page, false) )';
-        $command .= '{';
-        $command .= '$page = $namespace.$page;';
-        $command .= '}';
-        $command .= 'if( strtolower($function) === "index" && ! is_callable([$page, $function]) )';
-        $command .= '{';
-        $command .= '$function = "main";';
-        $command .= '}';
-        $command .= 'if( is_callable([$page, $function]) )';
-        $command .= '{';
-        $command .= 'uselib($page)->$function(...$parameters);';
-        $command .= '}';
-        $command .= 'else';
-        $command .= '{';
-        $command .= 'exit("Error: URL does not contain a valid function or method information! `".$function."` method could not be found!");';
-        $command .= '}';
+        $command = $this->_controller($path);
 
         return $this->php($command);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Add Nail
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $data
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function addNail($data)
+    {
+        return presuffix($data, '"');
     }
 
     //--------------------------------------------------------------------------------------------------------

@@ -47,6 +47,11 @@ class Controller
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
+        if( defined('static::restore') )
+        {
+            \Restoration::mode(static::restore);
+        }
+
         $this->view       = new \stdClass;
         $this->wizard     = new \stdClass;
         $this->masterpage = new \stdClass;

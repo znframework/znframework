@@ -144,7 +144,7 @@ function internalRouteURI(String $requestUri = NULL) : String
 {
     $config = Config::get('Services', 'route');
 
-    if( $config['openPage'] )
+    if( $config['openController'] )
     {
         $internalDir = NULL;
 
@@ -170,7 +170,7 @@ function internalRouteURI(String $requestUri = NULL) : String
             empty($requestUri)
         )
         {
-            $requestUri = $config['openPage'];
+            $requestUri = $config['openController'];
         }
     }
 

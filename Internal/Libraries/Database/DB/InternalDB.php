@@ -1784,7 +1784,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function value() : String
+    public function value()
     {
         return current((array) $this->db->row());
     }

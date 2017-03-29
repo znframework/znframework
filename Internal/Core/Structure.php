@@ -41,13 +41,24 @@ class Structure
         $page           = '';
 
         //----------------------------------------------------------------------------------------------
+        // Open Function
+        //----------------------------------------------------------------------------------------------
+        //
+        // @var string
+        //
+        //----------------------------------------------------------------------------------------------
+        $openFunction   = Config::get('Services', 'route')['openFunction'];
+
+        //----------------------------------------------------------------------------------------------
         // Function
         //----------------------------------------------------------------------------------------------
         //
         // @var string
         //
         //----------------------------------------------------------------------------------------------
-        $function       = 'index';
+        $function       = $openFunction
+                        ? $openFunction
+                        : 'main';
 
         //----------------------------------------------------------------------------------------------
         // Parameters
@@ -134,7 +145,7 @@ class Structure
 
             $pageControl = strtolower($page);
 
-            if( $pageControl === 'index' || $pageControl === 'main')
+            if( $pageControl === $openFunction)
             {
                 report('Error', lang('Error', 'controllerNameError', $pageControl), 'ControllerNameError');
 
@@ -176,15 +187,17 @@ class Structure
         // @key string $page
         // @key string $file
         // @key string $function
+        // @key string $openFunction
         //
         //----------------------------------------------------------------------------------------------
         return
         [
-            'parameters' => $parameters,
-            'page'       => $page,
-            'file'       => str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $isFile),
-            'function'   => $function,
-            'namespace'  => $namespace
+            'parameters'   => $parameters,
+            'page'         => $page,
+            'file'         => str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $isFile),
+            'function'     => $function,
+            'namespace'    => $namespace,
+            'openFunction' => $openFunction
         ];
     }
 }
