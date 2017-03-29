@@ -30,7 +30,7 @@ interface InternalCrontabInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function list() : Bool;
+    public function list() : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Create File
@@ -40,7 +40,7 @@ interface InternalCrontabInterface
     // @return object
     //
     //--------------------------------------------------------------------------------------------------------
-    public function createFile(String $name) : Bool;
+    public function createFile(String $name);
 
     //--------------------------------------------------------------------------------------------------------
     // Delete File
@@ -50,7 +50,7 @@ interface InternalCrontabInterface
     // @return object
     //
     //--------------------------------------------------------------------------------------------------------
-    public function deleteFile(String $name) : Bool;
+    public function deleteFile(String $name);
 
     //--------------------------------------------------------------------------------------------------------
     // Remove
@@ -60,7 +60,7 @@ interface InternalCrontabInterface
     // @return object
     //
     //--------------------------------------------------------------------------------------------------------
-    public function remove(String $name) : Bool;
+    public function remove(String $name) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Add
@@ -80,7 +80,7 @@ interface InternalCrontabInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function run(String $cmd = NULL) : Bool;
+    public function run(String $cmd = NULL) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Debug
