@@ -1,6 +1,6 @@
 <?php namespace ZN\Services\Remote;
 
-use File, SSH, Arrays;
+use File, SSH;
 
 class InternalProcessor extends RemoteCommon implements InternalProcessorInterface
 {
@@ -106,11 +106,7 @@ class InternalProcessor extends RemoteCommon implements InternalProcessorInterfa
     //--------------------------------------------------------------------------------------------------------
     public function php(String $command) : String
     {
-        $phpCommand = "require_once '".REAL_BASE_DIR."zerocore'; ".$command.";";
-        $phpCommand = presuffix(str_replace('"', '\"', $phpCommand), '"');
-        $commands   = $this->path;
-        $commands  .= ' -r ';
-        $commands  .= $phpCommand;
+        $commands = $this->_php($command, $this->path);
 
         $this->stringCommand = $commands;
 
@@ -159,17 +155,7 @@ class InternalProcessor extends RemoteCommon implements InternalProcessorInterfa
     //--------------------------------------------------------------------------------------------------------
     public function controller(String $path) : String
     {
-        $datas = \ZN\Core\Structure::data($path);
-
-        $controller = $datas['page'];
-        $function   = $datas['function'] ?? 'main';
-        $namespace  = $datas['namespace'];
-        $parameters = $datas['parameters'];
-        $class      = $namespace . $controller;
-        $file       = str_replace('\\', '\\\\', $datas['file']);
-
-        $command    = 'import("'.$file.'");';
-        $command   .= 'uselib("'.$class.'")->'.$function.'('. implode(',', Arrays::map('Processor::addNail', $parameters)) .')';
+        $command = $this->_controller($path);
 
         return $this->php($command);
     }

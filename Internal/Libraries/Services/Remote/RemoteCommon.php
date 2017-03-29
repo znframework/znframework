@@ -51,4 +51,46 @@ class RemoteCommon extends CLController implements RemoteCommonInterface
     {
         return $this->stringCommand;
     }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Controller
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $path
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _controller($path)
+    {
+        $datas = \ZN\Core\Structure::data($path);
+
+        $controller = $datas['page'];
+        $function   = $datas['function'] ?? 'main';
+        $namespace  = $datas['namespace'];
+        $parameters = $datas['parameters'];
+        $class      = $namespace . $controller;
+        $file       = str_replace('\\', '\\\\', $datas['file']);
+
+        $command    = 'import("'.$file.'");';
+        $command   .= 'uselib("'.$class.'")->'.$function.'('. implode(',', \Arrays::map('Processor::addNail', $parameters)) .')';
+
+        return $command;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected PHP
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $path
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _php($command, $path = NULL)
+    {
+        $phpCommand = "require_once '".REAL_BASE_DIR."zerocore'; ".$command.";";
+        $phpCommand = presuffix(str_replace('"', '\"', $phpCommand), '"');
+        $commands   = $path;
+        $commands  .= ' -r ';
+        $commands  .= $phpCommand;
+
+        return $commands;
+    }
 }
