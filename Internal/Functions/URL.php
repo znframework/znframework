@@ -19,7 +19,7 @@
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function currentUrl(String $fix = '') : String
+function currentUrl(String $fix = NULL) : String
 {
     $currentUrl = hostUrl(server('requestUri'));
 
@@ -41,7 +41,7 @@ function currentUrl(String $fix = '') : String
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function siteUrl(String $uri = '', Int $index = 0) : String
+function siteUrl(String $uri = NULL, Int $index = 0) : String
 {
     return hostUrl
     (
@@ -63,7 +63,7 @@ function siteUrl(String $uri = '', Int $index = 0) : String
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function siteUrls(String $uri = '', Int $index = 0) : String
+function siteUrls(String $uri = NULL, Int $index = 0) : String
 {
     return str_replace(sslStatus(), httpFix(true), siteUrl($uri, $index));
 }
@@ -78,7 +78,7 @@ function siteUrls(String $uri = '', Int $index = 0) : String
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function baseUrl(String $uri = '', Int $index = 0) : String
+function baseUrl(String $uri = NULL, Int $index = 0) : String
 {
     return hostUrl(internalBaseDir($index) . absoluteRelativePath($uri));
 }
@@ -106,7 +106,7 @@ function prevUrl() : String
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function hostUrl(String $uri = '') : String
+function hostUrl(String $uri = NULL) : String
 {
     return sslStatus() . host() . ($uri === '' ? '/' : prefix(internalCleanInjection($uri)));
 }

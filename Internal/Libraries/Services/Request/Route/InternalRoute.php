@@ -71,11 +71,6 @@ class InternalRoute extends Controller implements InternalRouteInterface
 
         if( is_file($isFile) )
         {
-            if( strtolower($function) ===  'index' && strtolower($functionName) === 'main')
-            {
-                $function = 'main';
-            }
-
             if( $functionName === $function )
             {
                 call_user_func_array($functionRun, $parameters);

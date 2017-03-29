@@ -112,7 +112,7 @@ trait ConfigurableAbility
         [
             'name'  => $name,
             'key'   => $key,
-            'const' => strtoupper($const)
+            'const' => Strings::upperCase($const)
         ];
     }
 }

@@ -31,6 +31,8 @@ class InternalJSP extends \FactoryController
             'varch'                 => 'JSP\Variable::varch',
             'vardec'                => 'JSP\Variable::vardec',
             'varinc'                => 'JSP\Variable::varinc',
+            'varprop'               => 'JSP\Variable::varprop',
+            'array'                 => 'JSP\Variable::array',
             'while'                 => 'JSP\Loops::while',
             'dowhile'               => 'JSP\Loops::dowhile',
             'for'                   => 'JSP\Loops::for',

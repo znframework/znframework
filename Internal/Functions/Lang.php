@@ -83,7 +83,7 @@ function setLang(String $l = NULL) : Bool
 // @return mixed
 //
 //--------------------------------------------------------------------------------------------------
-function lang(String $file, String $str = NULL, $changed = NULL)
+function lang(String $file = NULL, String $str = NULL, $changed = NULL)
 {
     global $lang;
 

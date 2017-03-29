@@ -19,18 +19,20 @@
 // @param string
 //
 //--------------------------------------------------------------------------------------------------
-function internalProjectContainerDir() : String
+function internalProjectContainerDir($path = NULL) : String
 {
-    $containers = PROJECTS_CONFIG['containers'];
+    $path                = suffix($path, DS);
+    $containers          = PROJECTS_CONFIG['containers'];
+    $containerProjectDir = PROJECT_DIR . $path;
 
     if( ! empty($containers) && defined('_CURRENT_PROJECT') )
     {
-        return ! empty($containers[_CURRENT_PROJECT])
-               ? PROJECTS_DIR . suffix($containers[_CURRENT_PROJECT])
-               : PROJECT_DIR;
+        return ! empty($containers[_CURRENT_PROJECT]) && ! file_exists($containerProjectDir)
+               ? PROJECTS_DIR . suffix($containers[_CURRENT_PROJECT], DS) . $path
+               : $containerProjectDir;
     }
 
-    return PROJECT_DIR;
+    return $containerProjectDir;
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -95,7 +97,7 @@ function internalProjectMode(String $mode, Int $report = -1)
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function internalOutput($data, String $tab = '', Int $start = 0, Array $settings = []) : String
+function internalOutput($data, String $tab = NULL, Int $start = 0, Array $settings = []) : String
 {
     static $start;
 
@@ -155,11 +157,11 @@ function internalOutput($data, String $tab = '', Int $start = 0, Array $settings
                     $type = 'boolean';
                 }
 
-                $output .= "$tab<span$keystyle>$k</span> => <span$typestyle>$type</span> <span$valstyle>$v</span> <span$lengthstyle>( length = ".strlen($v)." )</span>,$eof";
+                $output .= "$tab<span$keystyle>$k</span> => <span$typestyle>$type</span> <span$valstyle>$v</span> <span$lengthstyle>( length = ".strlen($v)." )</span>$eof";
             }
             else
             {
-                $output .= "$tab<span$keystyle>$k</span> => <span$typestyle>$vartype</span> $eof $tab( $eof ".internalOutput($v, $tab, (int) $start++)." $tab), ".$eof;
+                $output .= "$tab<span$keystyle>$k</span> => <span$typestyle>$vartype</span> $eof $tab( $eof ".internalOutput($v, $tab, (int) $start++)." $tab) ".$eof;
                 $start--;
             }
         }

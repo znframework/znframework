@@ -17,13 +17,14 @@
 // @return Aktif çalıştırılan kontrolcü dosyasının yol bilgisi.
 //
 //--------------------------------------------------------------------------------------------------
-$datas      = ZN\Core\Structure::data();
+$datas        = ZN\Core\Structure::data();
 
-$parameters = $datas['parameters'];
-$page       = $datas['page'];
-$isFile     = $datas['file'];
-$function   = $datas['function'];
-$namespace  = $datas['namespace'];
+$parameters   = $datas['parameters'];
+$page         = $datas['page'];
+$isFile       = $datas['file'];
+$function     = $datas['function'];
+$openFunction = $datas['openFunction'];
+$namespace    = $datas['namespace'];
 
 //--------------------------------------------------------------------------------------------------
 // CURRENT_CFILE
@@ -160,6 +161,8 @@ if( is_file($isFile) )
 {
     import($isFile);
 
+    $view = $page;
+
     if( ! class_exists($page, false) )
     {
         $page = $namespace.$page;
@@ -169,15 +172,38 @@ if( is_file($isFile) )
     {
         if( ! is_callable([$page, $function]) )
         {
-            $parameters = Arrays::addFirst($parameters, $function);
-            $function   = 'main';
+            $parameters   = Arrays::addFirst($parameters, $function);
+            $function     = $openFunction;
         }
 
         if( is_callable([$page, $function]) )
         {
             try
             {
-                uselib($page)->$function(...$parameters);
+                $viewFunction = $function === $openFunction ? NULL : '-'.$function;
+                $pageClass    = uselib($page);
+
+                $pageClass->$function(...$parameters);
+
+                $viewDir    = PAGES_DIR . $view . $viewFunction;
+                $viewPath   = $viewDir  . '.php';
+                $wizardPath = $viewDir  . '.wizard.php';
+
+                if( ! empty($data = (array) $pageClass->masterpage) )
+                {
+                    Config::set('Masterpage', $data);
+
+                    Import::masterpage($data);
+                }
+                elseif( is_file($wizardPath) && ! isImport($viewPath) && ! isImport($wizardPath) )
+                {
+                    Import::view(str_replace(PAGES_DIR, NULL, $wizardPath), (array) $pageClass->wizard);
+                }
+                elseif( is_file($viewPath) && ! isImport($viewPath) && ! isImport($wizardPath) )
+                {
+                    Import::view(str_replace(PAGES_DIR, NULL, $viewPath), (array) $pageClass->view);
+                }
+
             }
             catch( Throwable $e )
             {

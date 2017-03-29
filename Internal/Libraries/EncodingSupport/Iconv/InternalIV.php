@@ -14,6 +14,8 @@ class InternalIV extends CallController implements InternalIVInterface
     //
     //--------------------------------------------------------------------------------------------------------
 
+    protected $mimeErrors = ['strict' => ICONV_MIME_DECODE_STRICT, 'continue' => ICONV_MIME_DECODE_CONTINUE_ON_ERROR];
+
     //--------------------------------------------------------------------------------------------------------
     // Inputs
     //--------------------------------------------------------------------------------------------------------
@@ -105,14 +107,14 @@ class InternalIV extends CallController implements InternalIVInterface
     // @param string $charset
     //
     //--------------------------------------------------------------------------------------------------------
-    public function mimesDecode(String $encodedHeaders, Int $mode = 0, String $charset = NULL) : Array
+    public function mimesDecode(String $encodedHeaders, $mode = 0, String $charset = NULL) : Array
     {
         if( $charset === NULL )
         {
             $charset = ini_get("iconv.internal_encoding");
         }
 
-        return iconv_mime_decode_headers($encodedHeaders, $mode, $charset);
+        return iconv_mime_decode_headers($encodedHeaders, $this->mimeErrors[$mode] ?? $mode, $charset);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -120,18 +122,18 @@ class InternalIV extends CallController implements InternalIVInterface
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string $encodedHeader
-    // @param int    $mode
+    // @param mixed  $mode: 0, 1, 2, continue, strict
     // @param string $charset
     //
     //--------------------------------------------------------------------------------------------------------
-    public function mimeDecode(String $encodedHeader, Int $mode = 0, String $charset = NULL) : String
+    public function mimeDecode(String $encodedHeader, $mode = 0, String $charset = NULL) : String
     {
         if( $charset === NULL )
         {
             $charset = ini_get("iconv.internal_encoding");
         }
 
-        return iconv_mime_decode($encodedHeader, $mode, $charset);
+        return iconv_mime_decode($encodedHeader, $this->mimeErrors[$mode] ?? $mode, $charset);
     }
 
     //--------------------------------------------------------------------------------------------------------

@@ -72,7 +72,7 @@ class Text implements TextInterface
         $string         = ! empty( $settings['string:color'] )  ? $settings['string:color']  : '#183691';
         $stringStyle    = ! empty( $settings['string:style'] )  ? $settings['string:style']  : '';
         $background     = ! empty( $settings['background'] )    ? $settings['background'] : '';
-        $tags           =   isset( $settings['tags'] )          ? $settings['tags']  : true;
+        $tags           = $settings['tags'] ?? true;
 
         ini_set("highlight.comment", "$comment; $phpFamily; $phpSize; $phpStyle; $commentStyle");
         ini_set("highlight.default", "$default; $phpFamily; $phpSize; $phpStyle; $defaultStyle");

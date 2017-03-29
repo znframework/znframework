@@ -3,7 +3,7 @@
 use ZN\ViewObjects\Bootstrap\SheetTrait;
 use CallController, File;
 
-class Manipulation extends CallController
+class Manipulation extends CallController implements ManipulationInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

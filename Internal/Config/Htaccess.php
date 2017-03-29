@@ -52,11 +52,11 @@
         // Index Suffix
         //----------------------------------------------------------------------------------------------
         // Genel Kullanımı: .htaccess dosyasında zeroneed.php bölümü sonuna ? ekler
-        // Parametreler: "", ?
-        // Varsayılan: "".
+        // Parametreler   : '', ?
+        // Varsayılan     : server('pathInfo') ? '' : '?'.
         //
         //----------------------------------------------------------------------------------------------
-        'indexSuffix' => ''
+        'indexSuffix' => server('pathInfo') !== false ? '' : '?'
     ],
 
     //--------------------------------------------------------------------------------------------------
@@ -324,6 +324,6 @@
     //--------------------------------------------------------------------------------------------------
     'settings' =>
     [
-        'ifmodule mod_headers.c' => ['Options -Indexes']
+        'Ifmodule mod_headers.c' => ['Options -Indexes']
     ]
 ];

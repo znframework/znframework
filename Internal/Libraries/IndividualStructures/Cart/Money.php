@@ -23,9 +23,9 @@ class Money implements MoneyInterface
     {
         $moneyFormat = '';
         $money       = round($money, 2);
-        $str_ex      = explode(".",$money);
+        $strEx      = explode(".",$money);
         $join        = [];
-        $str         = strrev($str_ex[0]);
+        $str         = strrev($strEx[0]);
 
         for( $i = 0; $i < strlen($str); $i++ )
         {
@@ -46,9 +46,7 @@ class Money implements MoneyInterface
                 ? ' '.$type
                 : '';
 
-        $remaining = ( isset($str_ex[1]) )
-                     ? $str_ex[1]
-                     : '00';
+        $remaining = $strEx[1] ?? '00';
 
         if( strlen($remaining) === 1 )
         {

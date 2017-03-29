@@ -385,7 +385,7 @@ class Connection implements ConnectionInterface
     // @param string $value
     //
     //--------------------------------------------------------------------------------------------------------
-    protected function _convertType($column = '', $value = '')
+    protected function _convertType(&$column = '', &$value = '')
     {
         if( $this->_exp($column, 'int') )
         {
@@ -403,12 +403,6 @@ class Connection implements ConnectionInterface
         {
             $column = $this->_clearExp($column);
         }
-
-        return (object)
-        [
-            'value'  => $value,
-            'column' => $column
-        ];
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -433,9 +427,7 @@ class Connection implements ConnectionInterface
 
                 if( ! empty($strex) ) for( $i = 0; $i < count($strex) - 1; $i++ )
                 {
-                    $sec = isset($secure[$i])
-                         ? $secure[$i]
-                         : NULL;
+                    $sec = $secure[$i] ?? NULL;
 
                     $newstr .= $strex[$i].$this->db->realEscapeString($sec);
                 }
@@ -446,9 +438,9 @@ class Connection implements ConnectionInterface
             {
                 foreach( $this->secure as $k => $v )
                 {
-                    $convertInt = $this->_convertType($k, $v);
-                    
-                    $secureParams[$convertInt->column] = $this->db->realEscapeString($convertInt->value);
+                    $this->_convertType($k, $v);
+
+                    $secureParams[$k] = $this->db->realEscapeString($v);
                 }
             }
 

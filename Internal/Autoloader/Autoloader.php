@@ -349,7 +349,7 @@ class Autoloader
         $files = array_diff
         (
             $files,
-            isset($configClassMap['classes']) ? $configClassMap['classes'] : []
+            $configClassMap['classes'] ?? []
         );
 
         $staticAccessDirectory = self::_relativePath(RESOURCES_DIR.'Statics/');

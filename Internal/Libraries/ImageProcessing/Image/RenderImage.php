@@ -79,7 +79,7 @@ class RenderImage implements RenderImageInterface
         $y        = $set["y"]        ?? 0;
         $quality  = $set["quality"]  ?? 0;
 
-        if( isset($set["proheight"]) )
+        if( ! empty($set["proheight"]) )
         {
             if( $set["proheight"] < $currentHeight )
             {
@@ -88,7 +88,7 @@ class RenderImage implements RenderImageInterface
             }
         }
 
-        if( isset($set["prowidth"]) )
+        if( ! empty($set["prowidth"]) )
         {
             if( $set["prowidth"] < $currentWidth )
             {
@@ -129,7 +129,7 @@ class RenderImage implements RenderImageInterface
 
         $nFile   = imagecreatetruecolor($width, $height);
 
-        if( isset($set["prowidth"]) || isset($set["proheight"]) )
+        if( ! empty($set["prowidth"]) || ! empty($set["proheight"]) )
         {
             $rWidth = $currentWidth; $rHeight = $currentHeight;
         }

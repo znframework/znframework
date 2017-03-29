@@ -1,6 +1,6 @@
 <?php namespace ZN\FileSystem;
 
-use CallController, Folder, File, DBTool, Config;
+use CallController, Folder, File, DB, DBTool, DBForge, Arrays, Config, Json;
 
 class InternalGenerate extends CallController implements InternalGenerateInterface
 {
@@ -12,6 +12,19 @@ class InternalGenerate extends CallController implements InternalGenerateInterfa
     // Copyright  : (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
+
+    //--------------------------------------------------------------------------------------------------------
+    // Database
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function databases()
+    {
+        $this->_addDatabases();
+        $this->_archivesDatabases();
+    }
 
     //--------------------------------------------------------------------------------------------------------
     // Grand Vision
@@ -533,5 +546,170 @@ class InternalGenerate extends CallController implements InternalGenerateInterfa
         }
 
         return presuffix($return, DS);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Add Database
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _addDatabases()
+    {
+        $activesPath  = DATABASES_DIR . 'Actives'  . DS;
+        $archivesPath = DATABASES_DIR . 'Archives' . DS;
+
+        $folders = Folder::files($activesPath, 'dir');
+
+        if( empty($folders) )
+        {
+            return false;
+        }
+
+        $currentDriver = Config::get('Database', 'database')['driver'];
+
+        if( stristr('pdo:mysql|mysqli', $currentDriver) )
+        {
+            $encoding = DB::encoding();
+        }
+        else
+        {
+            $encoding = NULL;
+        }
+
+        $status = false;
+        $tableKeyColumnValues = [DB::varchar(1), DB::null()];
+
+        foreach( $folders as $database )
+        {
+            DBForge::createDatabase($database, $encoding);
+
+            $databasePath = $activesPath . $database . DS;
+
+            $tables = Folder::files($databasePath, 'php');
+
+            if( ! empty($tables) )
+            {
+                $dbForge = DBForge::differentConnection(['database' => $database]);
+                $db      = DB::differentConnection(['database' => $database]);
+
+                foreach( $tables as $table )
+                {
+                    $tableData = import($databasePath . $table);
+                    $file      = $table;
+                    $table     = removeExtension($table);
+
+                    if( ! Arrays::keyExists($tableData, 'id') )
+                    {
+                        $tableData = Arrays::addFirst($tableData,
+                        [
+                            'id' => [DB::int(11), DB::notNull(), DB::autoIncrement(), DB::primaryKey()]
+                        ]);
+                    }
+
+                    $tableColumns    = $db->get($table)->columns();
+                    $pregGrepArray   = preg_grep('/_000/', $tableColumns);
+                    $currentTableKey = strtolower(Arrays::value($pregGrepArray));
+                    $currentColumns  = Arrays::deleteElement($tableColumns, $pregGrepArray);
+                    $tableKey        = strtolower($table.'_000' . md5(Json::encode($tableData)));
+
+                    if( ! empty($currentColumns) )
+                    {
+                        $columnsMerge = Arrays::merge(Arrays::flip($currentColumns), $tableData);
+
+                        foreach( $columnsMerge as $key => $val )
+                        {
+                            if( is_numeric($val) )
+                            {
+                                $dbForge->dropColumn($table, $key);
+                                $status = true;
+                            }
+                            elseif( Arrays::valueExists($currentColumns, $key) )
+                            {
+                                if( $currentTableKey !== $tableKey )
+                                {
+                                    $dbForge->modifyColumn($table, [$key => $val]);
+                                    $status = true;
+                                }
+                                else
+                                {
+                                    $status = false;
+                                }
+                            }
+                            else
+                            {
+                                $dbForge->addColumn($table, [$key => $val]);
+                                $status = true;
+                            }
+                        }
+
+                        if( $status === true )
+                        {
+                            $tableName     = $database . DS . $table;
+                            $dbArchivePath = $archivesPath . $database . DS;
+                            $writePath     = $archivesPath . $tableName . '_' . time() . '.php';
+                            $writeContent  = File::contents($activesPath . $tableName . '.php');
+
+                            Folder::create($dbArchivePath);
+                            File::write($writePath, $writeContent);
+
+                            $dbForge->renameColumn($table, [$currentTableKey.' '.$tableKey => $tableKeyColumnValues]);
+                        }
+                    }
+                    else
+                    {
+                        $tableData[$tableKey] = $tableKeyColumnValues;
+
+                        $dbForge->createTable($table, $tableData);
+                    }
+                }
+            }
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Add Database
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _archivesDatabases()
+    {
+        $archivesPath = DATABASES_DIR . 'Archives' . DS;
+
+        $folders = Folder::files($archivesPath, 'dir');
+
+        if( empty($folders) )
+        {
+            return false;
+        }
+
+        foreach( $folders as $database )
+        {
+            $databasePath = $archivesPath . $database . DS;
+
+            $tables   = Folder::files($databasePath, 'php');
+            $pregGrep = preg_grep("/\_[0-9]*\.php/", $tables);
+            $tables   = Arrays::deleteElement($tables, $pregGrep);
+
+            if( ! empty($tables) )
+            {
+                $dbForge  = DBForge::differentConnection(['database' => $database]);
+
+                foreach( $tables as $table )
+                {
+                    $dbForge->dropTable(removeExtension($table));
+                }
+            }
+
+            $tool = DBTool::differentConnection(['database' => $database]);
+
+            if( empty($tool->listTables()) )
+            {
+                DBForge::dropDatabase($database);
+            }
+        }
     }
 }

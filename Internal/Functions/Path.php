@@ -55,7 +55,7 @@ function currentPath(Bool $isPath = true) : String
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function basePath(String $uri = '', Int $index = 0) : String
+function basePath(String $uri = NULL, Int $index = 0) : String
 {
     $newBaseDir = substr(BASE_DIR, 1);
 
@@ -115,7 +115,7 @@ function prevPath(Bool $isPath = true) : String
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function filePath(String $file = '', String $removeUrl = '') : String
+function filePath(String $file = NULL, String $removeUrl = NULL) : String
 {
     if( isUrl($file) )
     {

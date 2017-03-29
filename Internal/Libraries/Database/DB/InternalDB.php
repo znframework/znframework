@@ -1,6 +1,6 @@
 <?php namespace ZN\Database;
 
-use URI, Pagination, Arrays, Classes;
+use URI, Pagination, Arrays, Classes, Method;
 use ZN\Database\Exception\DuplicateCheckException;
 
 class InternalDB extends Connection implements InternalDBInterface
@@ -1431,6 +1431,8 @@ class InternalDB extends Connection implements InternalDBInterface
     //--------------------------------------------------------------------------------------------------------
     public function insert(String $table = NULL, Array $datas = [])
     {
+        $this->_ignoreData($table, $datas);
+
         $datas = $this->_p($datas, 'column');
         $data  = ""; $values = "";
 
@@ -1521,6 +1523,8 @@ class InternalDB extends Connection implements InternalDBInterface
     //--------------------------------------------------------------------------------------------------------
     public function update(String $table = NULL, Array $set = [])
     {
+        $this->_ignoreData($table, $set);
+
         $set  = $this->_p($set, 'column');
         $data = '';
 
@@ -1780,7 +1784,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function value() : String
+    public function value()
     {
         return current((array) $this->db->row());
     }
@@ -1994,6 +1998,37 @@ class InternalDB extends Connection implements InternalDBInterface
     }
 
     //--------------------------------------------------------------------------------------------------------
+    // Protected Ignore Data
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string &$table
+    // @param array  $datas
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _ignoreData(&$table, &$data)
+    {
+        $methods = ['ignore', 'post', 'get', 'request'];
+
+        if( stristr($table, ':') )
+        {
+            $tableEx = explode(':', $table);
+            $method  = $tableEx[0];
+            $table   = $tableEx[1];
+
+            if( Arrays::valueExists($methods, $method) )
+            {
+                if( $method !== 'ignore' )
+                {
+                    $data = Method::$method();
+                }
+
+                $columns = Arrays::transform($this->query('SELECT * FROM ' . $table)->columns());
+                $data    = Arrays::intersectKey($data, $columns);
+            }
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------------
     // Protected Delete Join Tables
     //--------------------------------------------------------------------------------------------------------
     //
@@ -2083,10 +2118,9 @@ class InternalDB extends Connection implements InternalDBInterface
             $value  = $this->_whereKeyControl($column, $value);
         }
 
-        $convertInt = $this->_convertType($column, $value);
-        $value      = $convertInt->value;
-        $column     = $convertInt->column;
-        $column     = $this->_equalControl($column);
+        $this->_convertType($column, $value);
+
+        $column = $this->_equalControl($column);
 
         return ' '.$column.' '.$value.' '.$logical.' ';
     }
@@ -2109,9 +2143,9 @@ class InternalDB extends Connection implements InternalDBInterface
             {
                 if( is_array($col) )
                 {
-                    $c = isset($col[0]) ? $col[0] : '';
-                    $v = isset($col[1]) ? $col[1] : '';
-                    $l = isset($col[2]) ? $col[2] : '';
+                    $c = $col[0] ?? '';
+                    $v = $col[1] ?? '';
+                    $l = $col[2] ?? '';
 
                     $this->$type .= $this->_whereHaving($c, $v, $l);
                 }
@@ -2161,9 +2195,9 @@ class InternalDB extends Connection implements InternalDBInterface
 
         if( is_array($conditions) ) foreach( $conditions as $column )
         {
-            $col     = isset( $column[0] ) ? $column[0] : '';
-            $value   = isset( $column[1] ) ? $column[1] : '';
-            $logical = isset( $column[2] ) ? $column[2] : '';
+            $col     = $column[0] ?? '';
+            $value   = $column[1] ?? '';
+            $logical = $column[2] ?? '';
 
             $whereGroup .= $this->_whereHaving($col, $value, $logical);
         }
@@ -2292,9 +2326,10 @@ class InternalDB extends Connection implements InternalDBInterface
             break;
 
             default:
-                $table  = $tableAndColumn;
+                $table  = $tableAndColumn[0];
                 $column = $otherColumn;
         }
+
 
 
         $condition = $db.$table.'.'.$column.' '.$operator.' '.$this->prefix.$otherColumn.' ';

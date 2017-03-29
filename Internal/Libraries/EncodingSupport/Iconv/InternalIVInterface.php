@@ -60,7 +60,7 @@ interface InternalIVInterface
     // @param string $charset
     //
     //--------------------------------------------------------------------------------------------------------
-    public function mimesDecode(String $encodedHeaders, Int $mode = 0, String $charset = NULL) : Array;
+    public function mimesDecode(String $encodedHeader, $mode = 0, String $charset = NULL) : Array;
 
     //--------------------------------------------------------------------------------------------------------
     // Mime Decode
@@ -71,7 +71,7 @@ interface InternalIVInterface
     // @param string $charset
     //
     //--------------------------------------------------------------------------------------------------------
-    public function mimeDecode(String $encodedHeader, Int $mode = 0, String $charset = NULL) : String;
+    public function mimeDecode(String $encodedHeader, $mode = 0, String $charset = NULL) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Mime Encode

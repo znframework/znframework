@@ -49,7 +49,7 @@ function configs(...$configs) : Array
 // @return mixed
 //
 //--------------------------------------------------------------------------------------------------
-function config(String $file, String $value = '', $newValue = NULL)
+function config(String $file, String $value = NULL, $newValue = NULL)
 {
     if( $newValue === NULL )
     {

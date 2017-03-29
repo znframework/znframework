@@ -1,86 +1,85 @@
-<?php namespace ZN\FileSystem;
+<?php namespace ZN\ViewObjects\Bootstrap\Sheet\Helpers;
 
-interface InternalGenerateInterface
+interface AnimationInterface
 {
     //--------------------------------------------------------------------------------------------------------
-    // Database
-    //--------------------------------------------------------------------------------------------------------
     //
-    // @param void
+    // Author     : Ozan UYKUN <ozanbote@gmail.com>
+    // Site       : www.znframework.com
+    // License    : The MIT License
+    // Copyright  : (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
-    public function databases();
 
     //--------------------------------------------------------------------------------------------------------
-    // Grand Vision
+    // Animation
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param mixed $database = NULL
-    //
-    // @param void
+    // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
-    public function grandVision($database = NULL);
+    public function name(String $name) : Animation;
 
     //--------------------------------------------------------------------------------------------------------
-    // Delete Vision
+    // Direction
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $database = '*'
-    // @param array  $tables   = NULL
-    //
-    // @param void
+    // @param string $direction
     //
     //--------------------------------------------------------------------------------------------------------
-    public function deleteVision(String $database = '*', Array $tables = NULL);
+    public function direction(String $direction = 'reverse') : Animation;
 
     //--------------------------------------------------------------------------------------------------------
-    // Settings
+    // Status
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param array $settings: empty
+    // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
-    public function settings(Array $settings) : InternalGenerate;
+    public function status(String $status) : Animation;
 
     //--------------------------------------------------------------------------------------------------------
-    // Model
+    // Fill
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $name: empty
-    // @param array  $settings: empty
+    // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
-    public function model(String $name, Array $settings = []) : Bool;
+    public function fill(String $fill) : Animation;
 
     //--------------------------------------------------------------------------------------------------------
-    // Controller
+    // Repeat
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $name: empty
-    // @param array  $settings: empty
+    // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
-    public function controller(String $name, Array $settings = []) : Bool;
+    public function repeat(String $repeat) : Animation;
 
     //--------------------------------------------------------------------------------------------------------
-    // Library
+    // Duration
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $name: empty
-    // @param array  $settings: empty
-    // @param string $app : empty
+    // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
-    public function library(String $name, Array $settings = []) : Bool;
+    public function duration(String $duration) : Animation;
 
     //--------------------------------------------------------------------------------------------------------
-    // Delete
+    // Delay
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $name: empty
-    // @param string $type: 'controller', 'model', 'library'
+    // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
-    public function delete(String $name, String $type = 'controller', String $app) : Bool;
+    public function delay(String $delay) : Animation;
+
+    //--------------------------------------------------------------------------------------------------------
+    // Easing
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $name
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function easing(String $easing) : Animation;
 }

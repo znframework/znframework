@@ -206,12 +206,12 @@ class InternalExceptions extends Exception implements InternalExceptionsInterfac
         {
             $traceInfo = $trace[$p1];
 
-            $traceInfo['class']    = isset($trace[$p2]['class']) ? $trace[$p2]['class'] : $trace[$p1]['class'];
-            $traceInfo['function'] = isset($trace[$p2]['function']) ? $trace[$p2]['function'] : $trace[$p1]['function'];
+            $traceInfo['class']    = $trace[$p2]['class']    ?? $trace[$p1]['class'];
+            $traceInfo['function'] = $trace[$p2]['function'] ?? $trace[$p1]['function'];
         }
         else
         {
-            $traceInfo = isset($trace[$p2]) ? $trace[$p2] : $this->_traceFinder(debug_backtrace(2), 8, 6);
+            $traceInfo = $trace[$p2] ?? $this->_traceFinder(debug_backtrace(2), 8, 6);
         }
 
         if( ! isset($traceInfo['class']) )

@@ -37,7 +37,7 @@ function import(String $file)
 // Dönen Değerler: Sistem kullanıyor.
 //
 //--------------------------------------------------------------------------------------------------
-function trace($message)
+function trace(String $message)
 {
     $style  = 'border:solid 1px #E1E4E5;';
     $style .= 'background:#FEFEFE;';
@@ -66,15 +66,8 @@ function trace($message)
 // Dönen Değerler: Geçerli sürümse true değilse false değerleri döner.
 //
 //--------------------------------------------------------------------------------------------------
-function isPhpVersion($version = '5.2.4')
+function isPhpVersion(String $version = '5.2.4')
 {
-    if( ! is_scalar($version) )
-    {
-        return false;
-    }
-
-    $version = (string) $version;
-
     return version_compare(PHP_VERSION, $version, '>=') ? true : false;
 }
 

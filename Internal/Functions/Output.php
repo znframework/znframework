@@ -21,7 +21,7 @@
 // @return void
 //
 //--------------------------------------------------------------------------------------------------
-function output($data, Array $settings = [], Bool $content = false)
+function output($data, Array $settings = NULL, Bool $content = false)
 {
     // ---------------------------------------------------------------------------------------------
     // AYARLAR
@@ -33,7 +33,7 @@ function output($data, Array $settings = [], Bool $content = false)
     $globalStyle = ' style="font-family:'.$textType.'; font-size:'.$textSize .';"';
 
     $output  = "<span$globalStyle>";
-    $output .= internalOutput($data, '', 0, $settings);
+    $output .= internalOutput($data, '', 0, (array) $settings);
     $output .= "</span>";
 
     if( $content === false)
@@ -56,7 +56,7 @@ function output($data, Array $settings = [], Bool $content = false)
 // @return void
 //
 //--------------------------------------------------------------------------------------------------
-function write(String $data, Array $vars = [])
+function write(String $data = NULL, Array $vars = NULL)
 {
     if( ! is_scalar($data) )
     {
@@ -89,7 +89,7 @@ function write(String $data, Array $vars = [])
 // @return void
 //
 //--------------------------------------------------------------------------------------------------
-function writeLine(String $data, Array $vars = [], Int $brCount = 1)
+function writeLine(String $data = NULL, Array $vars = NULL, Int $brCount = 1)
 {
     echo write($data, $vars) . str_repeat('<br>', $brCount);
 }
