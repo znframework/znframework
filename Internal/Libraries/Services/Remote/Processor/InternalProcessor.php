@@ -1,6 +1,6 @@
 <?php namespace ZN\Services\Remote;
 
-use File, SSH;
+use File, SSH, Arrays;
 
 class InternalProcessor extends RemoteCommon implements InternalProcessorInterface
 {
@@ -169,9 +169,21 @@ class InternalProcessor extends RemoteCommon implements InternalProcessorInterfa
         $file       = str_replace('\\', '\\\\', $datas['file']);
 
         $command    = 'import("'.$file.'");';
-        $command   .= 'uselib("'.$class.'")->'.$function.'()';
+        $command   .= 'uselib("'.$class.'")->'.$function.'('. implode(',', Arrays::map('Processor::addNail', $parameters)) .')';
 
         return $this->php($command);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Add Nail
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $data
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function addNail($data)
+    {
+        return presuffix($data, '"');
     }
 
     //--------------------------------------------------------------------------------------------------------
