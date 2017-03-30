@@ -52,7 +52,7 @@ class Font extends BootstrapExtends implements BootsrapInterface
             {
                 if( is_file($fontFile) )
                 {
-                    $strEx = Import::something($fontFile, '', true);
+                    $strEx = Import::something($fontFile, NULL, true);
 
                     break;
                 }

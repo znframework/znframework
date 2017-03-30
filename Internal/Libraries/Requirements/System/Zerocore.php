@@ -1,6 +1,9 @@
 <?php namespace ZN\Requirements\System;
 
-class Zerocore
+use Arrays;
+use ZN\Core\Structure;
+
+class ZeroCore
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -77,7 +80,7 @@ class Zerocore
     //--------------------------------------------------------------------------------------------------------
     protected static function _runController()
     {
-        $datas = \ZN\Core\Structure::data(self::$command);
+        $datas = Structure::data(self::$command);
 
         $page       = $datas['page'];
         $function   = $datas['function'] ?? 'main';
