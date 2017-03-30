@@ -351,14 +351,14 @@ class Masterpage implements MasterpageInterface
             // Tek bir üst sayfa kullanımı için.
             if( ! is_array($page) )
             {
-                $return .= Import::page($page, '', true).$eol;
+                $return .= Import::page($page, NULL, true).$eol;
             }
             else
             {
                 // Birden fazla üst sayfa kullanımı için.
                 foreach( $page as $p )
                 {
-                    $return .= Import::page($p, '', true).$eol;
+                    $return .= Import::page($p, NULL, true).$eol;
                 }
             }
 
