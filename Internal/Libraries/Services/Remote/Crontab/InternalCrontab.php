@@ -116,7 +116,7 @@ class InternalCrontab extends RemoteCommon implements InternalCrontabInterface, 
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function list() : Bool
+    public function list() : String
     {
         return Processor::exec('crontab -l');
     }
@@ -129,7 +129,7 @@ class InternalCrontab extends RemoteCommon implements InternalCrontabInterface, 
     // @return object
     //
     //--------------------------------------------------------------------------------------------------------
-    public function createFile(String $name = 'crontab.txt') : Bool
+    public function createFile(String $name = 'crontab.txt')
     {
         if( ! Folder::exists($this->crontabDir) )
         {
@@ -156,7 +156,7 @@ class InternalCrontab extends RemoteCommon implements InternalCrontabInterface, 
     // @return object
     //
     //--------------------------------------------------------------------------------------------------------
-    public function deleteFile(String $name = 'crontab.txt') : Bool
+    public function deleteFile(String $name = 'crontab.txt')
     {
         $cronFile = $this->crontabDir.$name;
 
@@ -178,7 +178,7 @@ class InternalCrontab extends RemoteCommon implements InternalCrontabInterface, 
     // @return object
     //
     //--------------------------------------------------------------------------------------------------------
-    public function remove(String $name = 'crontab.txt') : Bool
+    public function remove(String $name = 'crontab.txt') : String
     {
         $this->deleteFile($name);
 
@@ -212,7 +212,7 @@ class InternalCrontab extends RemoteCommon implements InternalCrontabInterface, 
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function run(String $cmd = NULL) : Bool
+    public function run(String $cmd = NULL) : String
     {
         $command = '';
 
@@ -231,18 +231,19 @@ class InternalCrontab extends RemoteCommon implements InternalCrontabInterface, 
         }
         else
         {
-            $jobs = $this->jobs;
+            $output = '';
+            $jobs   = $this->jobs;
 
             $this->jobs = [];
 
             foreach( $jobs as $job )
             {
-                Processor::exec($job);
+                $output .= Processor::exec($job) . Html::br();
 
                 $this->stringCommand .= $job.Html::br();
             }
 
-            return true;
+            return $output;
         }
     }
 

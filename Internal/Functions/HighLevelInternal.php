@@ -210,8 +210,16 @@ function internalCurrentProject()
 {
     $projectConfig = PROJECTS_CONFIG['directory']['others'];
     $projectDir    = $projectConfig;
-    $currentPath   = server('currentPath');
-    $internalDir   = ( ! empty($currentPath) ? explode('/', ltrim($currentPath, '/'))[0] : '' );
+    
+    if( defined('CONSOLE_PROJECT_NAME') )
+    {
+        $internalDir = CONSOLE_PROJECT_NAME;
+    }
+    else
+    {
+        $currentPath   = server('currentPath');
+        $internalDir   = ( ! empty($currentPath) ? explode('/', ltrim($currentPath, '/'))[0] : '' );
+    }
 
     if( is_array($projectDir) )
     {
