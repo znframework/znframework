@@ -12,29 +12,29 @@ class RedisDriver extends CacheDriverMappingAbstract
     // Copyright  : (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Redis
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @var object
     //
     //--------------------------------------------------------------------------------------------------------
     protected $redis;
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Serialized
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param array
     //
     //--------------------------------------------------------------------------------------------------------
     protected $serialized = [];
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Construct
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
@@ -42,35 +42,35 @@ class RedisDriver extends CacheDriverMappingAbstract
     {
         \Support::extension('redis');
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Connect
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param  array $settings
     //
     //--------------------------------------------------------------------------------------------------------
     public function connect(Array $settings = NULL)
     {
         $config =  \Config::get('IndividualStructures', 'cache')['driverSettings'];
-        
+
         $config = ! empty($settings)
                   ? $settings
-                  : $config['redis'];   
-        
+                  : $config['redis'];
+
         $this->redis = new \Redis();
-        
+
         try
         {
             if( $config['socketType'] === 'unix' )
             {
                 $success = $this->redis->connect($config['socket']);
             }
-            else 
+            else
             {
                 $success = $this->redis->connect($config['host'], $config['port'], $config['timeout']);
             }
-            
+
             if ( empty($success) )
             {
                 die(getErrorMessage('IndividualStructures', 'cache:connectionRefused', 'Connection'));
@@ -80,7 +80,7 @@ class RedisDriver extends CacheDriverMappingAbstract
         {
             die(getErrorMessage('IndividualStructures', 'cache:connectionRefused', $e->getMessage()));
         }
-        
+
         if( isset($config['password']) )
         {
             if ( ! $this->redis->auth($config['password']))
@@ -90,19 +90,19 @@ class RedisDriver extends CacheDriverMappingAbstract
         }
 
         $serialized = $this->redis->sMembers('ZNRedisSerialized');
-        
+
         if ( ! empty($serialized) )
         {
             $this->serialized = array_flip($serialized);
         }
-        
+
         return true;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Select
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param  string $key
     // @param  mixed  $compressed
     // @return mixed
@@ -111,19 +111,19 @@ class RedisDriver extends CacheDriverMappingAbstract
     public function select($key, $compressed = NULL)
     {
         $value = $this->redis->get($key);
-        
+
         if( $value !== false && isset($this->serialized[$key]) )
         {
             return unserialize($value);
         }
-        
+
         return $value;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Insert
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param  string   $key
     // @param  variable $var
     // @param  numeric  $time
@@ -139,27 +139,28 @@ class RedisDriver extends CacheDriverMappingAbstract
             {
                 return false;
             }
-            
+
             if( ! isset($this->serialized[$key]) )
             {
-                $this->serialized[$key] = true; 
+                $this->serialized[$key] = true;
             }
-            
+
             $data = serialize($data);
         }
         elseif( isset($this->serialized[$key]) )
         {
             $this->serialized[$key] = NULL;
-            
+
             $this->redis->sRemove('ZNRedisSerialized', $key);
         }
+        
         return $this->redis->set($key, $data, $time);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Delete
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param  string $key
     // @return mixed
     //
@@ -170,21 +171,21 @@ class RedisDriver extends CacheDriverMappingAbstract
         {
             return false;
         }
-        
+
         if( isset($this->serialized[$key]) )
         {
             $this->serialized[$key] = NULL;
-            
+
             $this->redis->sRemove('ZNRedisSerialized', $key);
         }
-        
+
         return true;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Increment
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param  string  $key
     // @param  numeric $increment
     // @return void
@@ -194,11 +195,11 @@ class RedisDriver extends CacheDriverMappingAbstract
     {
         return $this->redis->incr($key, $increment);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Decrement
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param  string  $key
     // @param  numeric $decrement
     // @return void
@@ -208,11 +209,11 @@ class RedisDriver extends CacheDriverMappingAbstract
     {
         return $this->redis->decr($key, $decrement);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Clean
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param  void
     // @return void
     //
@@ -221,11 +222,11 @@ class RedisDriver extends CacheDriverMappingAbstract
     {
         return $this->redis->flushDB();
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Info
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param  mixed  $info
     // @return mixed
     //
@@ -234,11 +235,11 @@ class RedisDriver extends CacheDriverMappingAbstract
     {
         return $this->redis->info();
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Get Meta Data
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param  string  $key
     // @return mixed
     //
@@ -246,23 +247,23 @@ class RedisDriver extends CacheDriverMappingAbstract
     public function getMetaData($key)
     {
         $data = $this->select($key);
-        
+
         if( $data !== false )
         {
-            return 
+            return
             [
                 'expire' => time() + $this->redis->ttl($key),
                 'data'   => $data
             ];
         }
-        
+
         return false;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Destruct
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
