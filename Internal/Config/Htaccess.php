@@ -324,6 +324,7 @@
     //--------------------------------------------------------------------------------------------------
     'settings' =>
     [
-        'Ifmodule mod_headers.c' => ['Options -Indexes']
+        'IfModule mod_headers.c' => ['Options -Indexes'],
+        'IfModule mime_module'   => ['AddType application/x-httpd-ea-php70 .php .php7 .phtml']
     ]
 ];
