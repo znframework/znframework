@@ -1,6 +1,6 @@
 <?php namespace ZN\FileSystem\Folder;
 
-class Factory
+class Factory extends \Factory
 {
     //--------------------------------------------------------------------------------------------------------
     //
