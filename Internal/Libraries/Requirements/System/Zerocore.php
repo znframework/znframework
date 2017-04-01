@@ -50,7 +50,7 @@ class Zerocore
     //--------------------------------------------------------------------------------------------------------
     public static function commander($commands)
     {
-        $commands       = Arrays::removeFirst($commands);
+        $commands = Arrays::removeFirst($commands);
 
         if( ($commands[0] ?? NULL) !== 'project-name' )
         {
@@ -158,7 +158,7 @@ class Zerocore
 
         import($file);
 
-        echo uselib($class)->$function($parameters);
+        echo uselib($class)->$function(...$parameters);
     }
 
     //--------------------------------------------------------------------------------------------------------
