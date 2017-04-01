@@ -35,17 +35,13 @@ class InternalGenerate extends CallController implements InternalGenerateInterfa
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function grandVision($database = NULL)
+    public function grandVision(...$database)
     {
-        $databases = [];
+        $databases = $database;
 
-        if( is_string($database) )
+        if( is_array(($database[0] ?? NULL)) )
         {
-            $databases[0] = $database;
-        }
-        else
-        {
-            $databases = $database;
+            $databases = $database[0];
         }
 
         if( empty($database) )
@@ -53,9 +49,8 @@ class InternalGenerate extends CallController implements InternalGenerateInterfa
             $databases = DBTool::listDatabases();
         }
 
-        $visionPath = 'Visions'.DS;
-
-        $defaultDB = Config::get('Database', 'database')['database'];
+        $visionPath = 'Visions' . DS;
+        $defaultDB  = Config::get('Database', 'database')['database'];
 
         foreach( $databases as $connection => $database )
         {

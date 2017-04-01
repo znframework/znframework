@@ -48,7 +48,9 @@
         LIBRARIES_DIR,
         EXTERNAL_LIBRARIES_DIR,
         MODELS_DIR,
-        EXTERNAL_MODELS_DIR
+        EXTERNAL_MODELS_DIR,
+        COMMANDS_DIR,
+        EXTERNAL_COMMANDS,DIR
     ],
 
     //--------------------------------------------------------------------------------------------------

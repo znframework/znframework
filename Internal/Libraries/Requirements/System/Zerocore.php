@@ -88,6 +88,7 @@ class Zerocore
             case 'run-controller' : self::_runController(); break;
             case 'run-model'      :
             case 'run-class'      : self::_runModel($parameters); break;
+            case 'run-command'    : self::_runCommand($parameters); break;
             case 'run-function'   : self::_runFunction($parameters); break;
             case 'command-list'   :
             default               : self::_commandList();
@@ -142,6 +143,7 @@ class Zerocore
             'run-controller  run-controller controller/function/p1/p2/.../pN',
             'run-model       run-model model:function p1 p2 ... pN',
             'run-class       run-class class:function p1 p2 ... pN',
+            'run-command     run-command command:function p1 p2 ...pN',
             'run-function    run-function function p1 p2 ... pN'
         ]);
 
@@ -182,6 +184,23 @@ class Zerocore
         $runModel    = self::$command;
         $runModelEx  = explode(':', $runModel);
         $class       = $runModelEx[0];
+        $method      = $runModelEx[1] ?? NULL;
+
+        echo uselib($class)->$method(...$parameters);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Run Model
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param array $parameters
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected static function _runCommand($parameters)
+    {
+        $runModel    = self::$command;
+        $runModelEx  = explode(':', $runModel);
+        $class       = PROJECT_COMMANDS_NAMESPACE . $runModelEx[0];
         $method      = $runModelEx[1] ?? NULL;
 
         echo uselib($class)->$method(...$parameters);
