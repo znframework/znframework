@@ -3,7 +3,7 @@
 use Arrays;
 use ZN\Core\Structure;
 
-class ZeroCore
+class Zerocore
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -33,6 +33,24 @@ class ZeroCore
     protected static $command;
 
     //--------------------------------------------------------------------------------------------------------
+    // Protected Php
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var string
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected static $php;
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Zerocore
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var string
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected static $zerocore;
+
+    //--------------------------------------------------------------------------------------------------------
     // Protected Default Variables
     //--------------------------------------------------------------------------------------------------------
     //
@@ -41,7 +59,9 @@ class ZeroCore
     //--------------------------------------------------------------------------------------------------------
     public static function commander($commands)
     {
-        $commands = Arrays::removeFirst($commands);
+        self::$php      = divide(server('SUDO_COMMAND'), ' ');
+        self::$zerocore = $commands[0];
+        $commands       = Arrays::removeFirst($commands);
 
         if( ($commands[0] ?? NULL) !== 'project-name' )
         {
@@ -50,15 +70,17 @@ class ZeroCore
         }
 
         self::$project = $commands[1] ?? DEFAULT_PROJECT;
-        self::$command = $commands[3] ?? NULL;
         $command       = $commands[2] ?? NULL;
+        self::$command = $commands[3] ?? NULL;
 
         if( $command === NULL )
         {
-            exit(lang('Commands', 'emptyCommand'));
+            self::_commandList(); exit;
         }
 
         $parameters = Arrays::removeFirst($commands, 4);
+
+        echo self::_output();
 
         switch( $command )
         {
@@ -67,8 +89,63 @@ class ZeroCore
             case 'run-model'      :
             case 'run-class'      : self::_runModel($parameters); break;
             case 'run-function'   : self::_runFunction($parameters); break;
-            default               : exit(lang('Commands', 'invalidCommand', $command));
+            case 'command-list'   :
+            default               : self::_commandList();
         }
+
+        echo EOL . self::_line();
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Line
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected static function _line()
+    {
+        return '--------------------------------------------------------------------' . EOL;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Output
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $message
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected static function _output($message = 'OUTPUT')
+    {
+        $str  = self::_line();
+        $str .= '| ' . $message . EOL;
+        $str .= self::_line();
+
+        return $str;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Command List
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected static function _commandList()
+    {
+        echo self::_output('COMMAND LIST');
+
+        echo implode
+        (EOL, [
+            'Command Name    Usage of Example' . EOL,
+            'run-uri         run-uri controller/function/p1/p2/.../pN',
+            'run-controller  run-controller controller/function/p1/p2/.../pN',
+            'run-model       run-model model:function p1 p2 ... pN',
+            'run-class       run-class class:function p1 p2 ... pN',
+            'run-function    run-function function p1 p2 ... pN'
+        ]);
+
+        echo EOL . self::_line();
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -80,8 +157,7 @@ class ZeroCore
     //--------------------------------------------------------------------------------------------------------
     protected static function _runController()
     {
-        $datas = Structure::data(self::$command);
-
+        $datas      = Structure::data(self::$command);
         $page       = $datas['page'];
         $function   = $datas['function'] ?? 'main';
         $namespace  = $datas['namespace'];

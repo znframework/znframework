@@ -1727,7 +1727,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param boolean $printable
     //
     //--------------------------------------------------------------------------------------------------------
-    public function fetchRow(Bool $printable = false) : Array
+    public function fetchRow(Bool $printable = false)
     {
         $row = $this->db->fetchRow();
 

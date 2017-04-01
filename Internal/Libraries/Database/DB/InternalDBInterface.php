@@ -276,7 +276,7 @@ interface InternalDBInterface
     // @param boolean $printable
     //
     //--------------------------------------------------------------------------------------------------------
-    public function fetchRow(Bool $printable = false) : Array;
+    public function fetchRow(Bool $printable = false);
 
     //--------------------------------------------------------------------------------------------------------
     // Row
