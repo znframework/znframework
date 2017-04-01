@@ -207,7 +207,7 @@ class FileDriver extends CacheDriverMappingAbstract
             return $info[$type];
         }
 
-        return false;
+        return [];
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -222,7 +222,7 @@ class FileDriver extends CacheDriverMappingAbstract
     {
         if( ! file_exists($this->path.$key) )
         {
-            return false;
+            return [];
         }
 
         $data = unserialize(\File::read($this->path.$key));
@@ -243,7 +243,7 @@ class FileDriver extends CacheDriverMappingAbstract
             ];
         }
 
-        return false;
+        return [];
     }
 
     //--------------------------------------------------------------------------------------------------------

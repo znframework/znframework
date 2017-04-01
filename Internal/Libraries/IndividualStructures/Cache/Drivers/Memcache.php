@@ -12,11 +12,11 @@ class MemcacheDriver extends CacheDriverMappingAbstract
     // Copyright  : (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Construct
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
@@ -24,36 +24,36 @@ class MemcacheDriver extends CacheDriverMappingAbstract
     {
         \Support::func('memcache_add_server', 'Memcache');
     }
-        
+
     //--------------------------------------------------------------------------------------------------------
     // Connect
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param  array $settings
     //
     //--------------------------------------------------------------------------------------------------------
     public function connect(Array $settings = NULL)
-    {   
+    {
         $config = \Config::get('IndividualStructures', 'cache')['driverSettings'];
-        
+
         $config = ! empty($settings)
                   ? $settings
                   : $config['memcache'];
-            
-        $connect = @memcache_add_server($config['host'], $config['port'], $config['weight']);       
-        
+
+        $connect = @memcache_add_server($config['host'], $config['port'], $config['weight']);
+
         if( empty($connect) )
         {
             die(getErrorMessage('IndividualStructures', 'cache:unsupported', 'Memcache'));
         }
-        
+
         return true;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Select
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param  string $key
     // @param  mixed  $compressed
     // @return mixed
@@ -62,16 +62,16 @@ class MemcacheDriver extends CacheDriverMappingAbstract
     public function select($key, $compressed = NULL)
     {
         $data = memcache_get($key);
-        
-        return ( is_array($data) ) 
-               ? $data[0] 
+
+        return ( is_array($data) )
+               ? $data[0]
                : $data;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Insert
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param  string   $key
     // @param  variable $var
     // @param  numeric  $time
@@ -85,14 +85,14 @@ class MemcacheDriver extends CacheDriverMappingAbstract
         {
             $var = [$var, time(), $time];
         }
-        
+
         return memcache_set($key, $var, 0, $time);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Delete
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param  string $key
     // @return mixed
     //
@@ -101,11 +101,11 @@ class MemcacheDriver extends CacheDriverMappingAbstract
     {
         return memcache_delete($key);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Increment
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param  string  $key
     // @param  numeric $increment
     // @return void
@@ -115,11 +115,11 @@ class MemcacheDriver extends CacheDriverMappingAbstract
     {
         return memcache_increment($key, $increment);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Decrement
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param  string  $key
     // @param  numeric $decrement
     // @return void
@@ -129,11 +129,11 @@ class MemcacheDriver extends CacheDriverMappingAbstract
     {
         memcache_decrement($key, $decrement);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Clean
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param  void
     // @return void
     //
@@ -142,11 +142,11 @@ class MemcacheDriver extends CacheDriverMappingAbstract
     {
         return memcache_flush();
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Info
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param  mixed  $info
     // @return mixed
     //
@@ -155,11 +155,11 @@ class MemcacheDriver extends CacheDriverMappingAbstract
     {
         return memcache_get_stats(true);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Get Meta Data
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param  string  $key
     // @return mixed
     //
@@ -167,15 +167,15 @@ class MemcacheDriver extends CacheDriverMappingAbstract
     public function getMetaData($key)
     {
         $stored = memcache_get($key);
-        
+
         if( count($stored) !== 3 )
         {
-            return false;
+            return [];
         }
-        
+
         list($data, $time, $expire) = $stored;
-        
-        return 
+
+        return
         [
             'expire' => $time + $expire,
             'mtime'  => $time,
