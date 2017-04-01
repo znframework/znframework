@@ -1,6 +1,6 @@
 <?php namespace Project\Commands;
 
-class CommandsController extends \BaseController
+class Command extends \BaseController
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -24,4 +24,4 @@ class CommandsController extends \BaseController
     }
 }
 
-class_alias('Project\Commands\CommandsController', 'CommandsController');
+class_alias('Project\Commands\Command', 'Command');

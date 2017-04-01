@@ -2,7 +2,7 @@
 
 use Email;
 
-class Example extends CommandsController
+class Example extends Command
 {
     public function send()
     {
