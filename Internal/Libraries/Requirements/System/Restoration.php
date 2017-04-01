@@ -31,7 +31,7 @@ class Restoration
 
             if( is_array($restorationIP) )
             {
-                $result = in_array($ipv4, $restorationIP);
+                $result = (bool) in_array($ipv4, $restorationIP);
             }
             elseif( $ipv4 == $restorationIP )
             {
@@ -47,7 +47,7 @@ class Restoration
             $result = false;
         }
 
-        return (bool) $result;
+        return $result;
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -72,28 +72,17 @@ class Restoration
         {
             return false;
         }
-        
+
         error_reporting(0);
 
-        $currentPath          = $restorable === true ? strtolower(CURRENT_CFUNCTION) : strtolower(currentPath());
+        $currentPath          = $restorable === true ? strtolower(CURRENT_CFUNCTION) : strtolower(internalRequestURI());
         $projects             = Config::get('Project');
         $restoration          = $projects['restoration'];
         $restorationPages     = $restorable === true && ! isset($settings['functions'])
                               ? ['main']
-                              : (array) $settings['functions'] ?? $restoration['pages'];
+                              : (array) ($settings['functions'] ?? $restoration['pages']);
         $restorationRoutePage = $settings['routePage'] ?? $restoration['routePage'];
         $routePage            = strtolower($restorationRoutePage);
-
-        if( is_string($restorationPages) )
-        {
-            if( $restorationPages === 'all' )
-            {
-                if( $currentPath !== $routePage )
-                {
-                    redirect($restorationRoutePage);
-                }
-            }
-        }
 
         if( isArray($restorationPages) )
         {
