@@ -50,7 +50,7 @@
         MODELS_DIR,
         EXTERNAL_MODELS_DIR,
         COMMANDS_DIR,
-        EXTERNAL_COMMANDS,DIR
+        EXTERNAL_COMMANDS_DIR
     ],
 
     //--------------------------------------------------------------------------------------------------
