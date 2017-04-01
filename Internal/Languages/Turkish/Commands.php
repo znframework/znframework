@@ -11,6 +11,7 @@
     //
     //--------------------------------------------------------------------------------------------------------
 
-    'invalidCommand' => '`%` Geçersiz komut!',
-    'emptyCommand'   => 'Komut parametresi boş!'
+    'invalidCommand'     => '`%` Geçersiz komut!',
+    'emptyCommand'       => 'Komut parametresi boş!',
+    'canNotCommandClass' => '[Komut sınıfları] sadece [konsol] komutları ile kullanılabilir!'
 ];

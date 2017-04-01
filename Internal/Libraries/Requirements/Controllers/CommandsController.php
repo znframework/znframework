@@ -13,12 +13,14 @@ class CommandsController extends \BaseController
 
     public function __construct()
     {
-        if( server('documentRoot') !== false )
+        if( server('documentRoot') )
         {
-            return false;
+            throw new \GeneralException
+            (
+                'Commands',
+                'canNotCommandClass'
+            );
         }
-
-        parent::__construct();
     }
 }
 
