@@ -6,9 +6,10 @@ class Example extends Command
 {
     public function send()
     {
-        // Email::to('example@example.com')
-        //     ->subject('Subject')
-        //     ->message('Message')
-        //     ->send();
+        // Email::to('to@example.com')
+        //      ->from('from@example.com')
+        //      ->subject('Subject')
+        //      ->message('Message')
+        //      ->send();
     }
 }
