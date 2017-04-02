@@ -1,6 +1,8 @@
-<?php namespace Project\Commands;
+<?php namespace External\Commands;
 
-class Command extends \BaseController
+use Project\Commands\Command as ProjectCommand;
+
+class Command extends ProjectCommand
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -10,16 +12,4 @@ class Command extends \BaseController
     // Copyright  : (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
-
-    public function __construct()
-    {
-        if( server('documentRoot') )
-        {
-            throw new \GeneralException
-            (
-                'Commands',
-                'canNotCommandClass'
-            );
-        }
-    }
 }

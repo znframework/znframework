@@ -73,14 +73,15 @@ class Zerocore
 
         switch( $command )
         {
-            case 'run-uri'        :
-            case 'run-controller' : self::_runController();                      break;
-            case 'run-model'      :
-            case 'run-class'      : self::_runClass();                           break;
-            case 'run-command'    : self::_runClass(PROJECT_COMMANDS_NAMESPACE); break;
-            case 'run-function'   : self::_runFunction();                        break;
-            case 'command-list'   :
-            default               : self::_commandList();
+            case 'run-uri'              :
+            case 'run-controller'       : self::_runController();                       break;
+            case 'run-model'            :
+            case 'run-class'            : self::_runClass();                            break;
+            case 'run-command'          : self::_runClass(PROJECT_COMMANDS_NAMESPACE);  break;
+            case 'run-external-command' : self::_runClass(EXTERNAL_COMMANDS_NAMESPACE); break;
+            case 'run-function'         : self::_runFunction();                         break;
+            case 'command-list'         :
+            default                     : self::_commandList();
         }
 
         echo EOL . self::_line();
@@ -127,13 +128,14 @@ class Zerocore
 
         echo implode
         (EOL, [
-            'Command Name      Usage of Example' . EOL,
-            'run-uri           run-uri controller/function/p1/p2/.../pN',
-            'run-controller    run-controller controller/function/p1/p2/.../pN',
-            'run-model         run-model model:function p1 p2 ... pN',
-            'run-class         run-class class:function p1 p2 ... pN',
-            'run-command       run-command command:function p1 p2 ...pN',
-            'run-function      run-function function p1 p2 ... pN'
+            'Command Name            Usage of Example' . EOL,
+            'run-uri                 run-uri controller/function/p1/p2/.../pN',
+            'run-controller          run-controller controller/function/p1/p2/.../pN',
+            'run-model               run-model model:function p1 p2 ... pN',
+            'run-class               run-class class:function p1 p2 ... pN',
+            'run-command             run-command command:function p1 p2 ...pN',
+            'run-external-command    run-command command:function p1 p2 ...pN',
+            'run-function            run-function function p1 p2 ... pN'
         ]);
 
         echo EOL . self::_line();
@@ -172,7 +174,9 @@ class Zerocore
     {
         self::_classMethod($class, $method);
 
-        echo uselib($namespace . $class)->$method(...self::$parameters);
+        $className = $namespace . $class;
+
+        echo uselib($className)->$method(...self::$parameters);
     }
 
     //--------------------------------------------------------------------------------------------------------
