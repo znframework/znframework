@@ -61,7 +61,6 @@
         // Invalid Request Page -> ZN >= 4.2.7
         //----------------------------------------------------------------------------------------------
         //
-        //
         // Eğer formlar dışında curl ile veya url üzerinden yapılan isteği engellemek için kullanılır.
         //
         // Control        : Bu değer true ayarlanırsa kontrol yapılır.
@@ -69,6 +68,10 @@
         //                  belirlenebilr.
         // AllowPages     : Kontrol dışında tutulacak sayfaları belirlemek için kullanılır.
         // DisallowMethods: Engellencek veri türleri belirtilir.
+        // RuquestMethods : Control değerine bağlı kalmadan bu ayara girilecek olan anahtarlar
+        //                  controller/function bilgisi içerirken değerler hangi methodların sayfada
+        //                  geçerli olacağını belirtir.
+        //                  Örnek: home/contact => ['post', get]
         //
         //----------------------------------------------------------------------------------------------
         'invalidRequest' =>
@@ -76,7 +79,8 @@
             'control'         => false,
             'page'            => '',
             'allowPages'      => [],
-            'disallowMethods' => [Method::post(), Method::get()]
+            'disallowMethods' => [Method::post(), Method::get()],
+            'requestMethods'  => [] // ZN >= 4.3.1
         ],
 
         //----------------------------------------------------------------------------------------------

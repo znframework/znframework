@@ -127,6 +127,26 @@ if( $invalidRequest['control'] === true && Http::isInvalidRequest() )
 //--------------------------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------------------------
+// Request Methods
+//--------------------------------------------------------------------------------------------------------
+if( $requestMethods = $invalidRequest['requestMethods'] )
+{
+    if( ! empty($requestMethod = $requestMethods[CURRENT_CFURI] ?? NULL) )
+    {
+        if( Http::isRequestMethod(...(array) $requestMethod) === false )
+        {
+            if( empty($invalidRequest['page']) )
+            {
+                trace(lang('Error', 'invalidRequest'));
+            }
+
+            redirect($invalidRequest['page']);
+        }
+    }
+}
+//--------------------------------------------------------------------------------------------------------
+
+//--------------------------------------------------------------------------------------------------------
 // Starting Controllers
 //--------------------------------------------------------------------------------------------------------
 if( $startController = Config::get('Starting', 'controller') )

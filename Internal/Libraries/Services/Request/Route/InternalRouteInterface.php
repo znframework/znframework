@@ -16,9 +16,20 @@ interface InternalRouteInterface
     //--------------------------------------------------------------------------------------------------------
     //
     // @param array $route
+    // @param string $type = 'special' Available Options: special, classic
     //
     //--------------------------------------------------------------------------------------------------------
-    public function change(Array $route) : InternalRoute;
+    public function change(Array $route, String $type = 'special') : InternalRoute;
+
+    //--------------------------------------------------------------------------------------------------------
+    // Method 404 -> 4.3.1
+    //--------------------------------------------------------------------------------------------------------
+    //
+    //  @param  variadic ...$function
+    //  @return void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function method(...$methods) : InternalRoute;
 
     //--------------------------------------------------------------------------------------------------------
     // Run
@@ -27,10 +38,12 @@ interface InternalRouteInterface
     //
     //  @param  string   $functionName
     //  @param  function $functionRun
+    //  @param  array    $route
+    //  @param  string   $type
     //  @return mixed
     //
     //--------------------------------------------------------------------------------------------------------
-    public function run(String $functionName, Callable $functionRun, Array $route = NULL);
+    public function run(String $functionName, Callable $functionRun = NULL, Array $route = NULL, String $type = NULL);
 
     //--------------------------------------------------------------------------------------------------------
     // Redirect Show 404
