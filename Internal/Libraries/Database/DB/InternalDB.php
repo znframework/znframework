@@ -1,7 +1,6 @@
 <?php namespace ZN\Database;
 
 use URI, Pagination, Arrays, Classes, Method;
-use ZN\Database\Exception\DuplicateCheckException;
 
 class InternalDB extends Connection implements InternalDBInterface
 {
@@ -1478,23 +1477,7 @@ class InternalDB extends Connection implements InternalDBInterface
             {
                 $this->duplicateCheck = NULL;
 
-                try
-                {
-                    throw new DuplicateCheckException
-                    (
-                        'Database',
-                        'duplicateCheckError',
-                        implode(',', $duplicateCheckColumn)
-                    );
-                }
-                catch( DuplicateCheckException $e )
-                {
-                    $e->continue();
-                }
-                finally
-                {
-                    return false;
-                }
+                return false;
             }
         }
 
