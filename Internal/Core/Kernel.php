@@ -114,7 +114,7 @@ $invalidRequest = Config::get('Services', 'route')['invalidRequest'];
 
 if( $invalidRequest['control'] === true && Http::isInvalidRequest() )
 {
-    if( ! in_array(CURRENT_CFURI, $invalidRequest['allowPages']) )
+    if( ! Arrays::valueExistsInsenstive($invalidRequest['allowPages'], CURRENT_CFURI) )
     {
         Route::redirectInvalidRequest();
     }
@@ -126,6 +126,8 @@ if( $invalidRequest['control'] === true && Http::isInvalidRequest() )
 //--------------------------------------------------------------------------------------------------------
 if( $requestMethods = $invalidRequest['requestMethods'] )
 {
+    $requestMethods = Arrays::lowerKeys($requestMethods);
+
     if( ! empty($requestMethod = $requestMethods[CURRENT_CFURI] ?? NULL) )
     {
         if( Http::isRequestMethod(...(array) $requestMethod) === false )
