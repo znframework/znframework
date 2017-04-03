@@ -96,7 +96,7 @@ define('CURRENT_CFPATH', str_replace(CONTROLLERS_DIR, '', CURRENT_CONTROLLER).'/
 // @return Aktif çalıştırılan sayfaya ait kontrolcü ve fonksiyon yolu   bilgisi.
 //
 //--------------------------------------------------------------------------------------------------
-define('CURRENT_CFURI', CURRENT_CFPATH);
+define('CURRENT_CFURI', strtolower(CURRENT_CFPATH));
 
 //--------------------------------------------------------------------------------------------------
 // CURRENT_CPATH
@@ -114,7 +114,7 @@ $invalidRequest = Config::get('Services', 'route')['invalidRequest'];
 
 if( $invalidRequest['control'] === true && Http::isInvalidRequest() )
 {
-    if( ! in_array(strtolower(CURRENT_CFURI), array_map('strtolower', $invalidRequest['allowPages'])) )
+    if( ! in_array(CURRENT_CFURI, $invalidRequest['allowPages']) )
     {
         if( empty($invalidRequest['page']) )
         {
