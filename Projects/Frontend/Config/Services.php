@@ -58,29 +58,26 @@
         'show404' => '',
 
         //----------------------------------------------------------------------------------------------
-        // Invalid Request Page -> ZN >= 4.2.7
+        // Request Methods -> ZN >= 4.3.1
         //----------------------------------------------------------------------------------------------
         //
         // Eğer formlar dışında curl ile veya url üzerinden yapılan isteği engellemek için kullanılır.
         //
-        // Control        : Bu değer true ayarlanırsa kontrol yapılır.
         // Page           : Eğer konrolden sonra geçersiz istek tespit edilirse hangi sayfaya gideceği
         //                  belirlenebilr.
-        // AllowPages     : Kontrol dışında tutulacak sayfaları belirlemek için kullanılır.
-        // DisallowMethods: Engellencek veri türleri belirtilir.
-        // RuquestMethods : Control değerine bağlı kalmadan bu ayara girilecek olan anahtarlar
-        //                  controller/function bilgisi içerirken değerler hangi methodların sayfada
-        //                  geçerli olacağını belirtir.
-        //                  Örnek: home/contact => ['post', get]
+        // DisallowMethods: Bu ayara girilecek olan anahtarlar, controller/function bilgisi içerirken
+        //                  değerler, hangi methodların sayfada geçersiz olacağını belirtir.
+        //                  Örnek: 'home/contact' => ['post', 'get']
+        // AllowMethods   : Bu ayara girilecek olan anahtarlar, controller/function bilgisi içerirken
+        //                  değerler, hangi methodların sayfada geçerli olacağını belirtir.
+        //                  Örnek: 'home/contact' => ['post', 'get']
         //
         //----------------------------------------------------------------------------------------------
-        'invalidRequest' =>
+        'requestMethods' =>
         [
-            'control'         => false,
             'page'            => '',
-            'allowPages'      => [],
-            'disallowMethods' => [Method::post(), Method::get()],
-            'requestMethods'  => [] // ZN >= 4.3.1
+            'disallowMethods' => [], // ZN >= 4.3.1 Updated
+            'allowMethods'    => []  // ZN >= 4.3.1
         ],
 
         //----------------------------------------------------------------------------------------------

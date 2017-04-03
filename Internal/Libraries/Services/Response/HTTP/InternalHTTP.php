@@ -42,23 +42,6 @@ class InternalHTTP extends CLController implements InternalHTTPInterface
     ];
 
     //--------------------------------------------------------------------------------------------------------
-    // Is Invalid Request
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function isInvalidRequest() : Bool
-    {
-        $disallowMethods = SERVICES_ROUTE_CONFIG['invalidRequest']['disallowMethods'];
-        $request         = array_merge(...$disallowMethods);
-
-        unset($request[prefix(currentPath())]);
-
-        return ( ! empty($request) && ! server('referer') && $this->isCurl() === false );
-    }
-
-    //--------------------------------------------------------------------------------------------------------
     // Is Request Request -> 4.3.1
     //--------------------------------------------------------------------------------------------------------
     //

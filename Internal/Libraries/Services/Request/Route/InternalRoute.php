@@ -132,7 +132,7 @@ class InternalRoute extends Controller implements InternalRouteInterface
     //--------------------------------------------------------------------------------------------------------
     public function redirectInvalidRequest()
     {
-        $invalidRequest = Config::get('Services', 'route')['invalidRequest'];
+        $invalidRequest = Config::get('Services', 'route')['requestMethods'];
 
         if( empty($invalidRequest['page']) )
         {

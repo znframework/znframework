@@ -110,13 +110,18 @@ define('CURRENT_CFURL', siteUrl(CURRENT_CFPATH));
 //--------------------------------------------------------------------------------------------------------
 // Invalid Request Page
 //--------------------------------------------------------------------------------------------------------
-$invalidRequest = Config::get('Services', 'route')['invalidRequest'];
+$invalidRequest = Config::get('Services', 'route')['requestMethods'];
 
-if( $invalidRequest['control'] === true && Http::isInvalidRequest() )
+if( $requestMethods = $invalidRequest['disallowMethods'] )
 {
-    if( ! Arrays::valueExistsInsenstive($invalidRequest['allowPages'], CURRENT_CFURI) )
+    $requestMethods = Arrays::lowerKeys($requestMethods);
+
+    if( ! empty($requestMethod = $requestMethods[CURRENT_CFURI] ?? NULL) )
     {
-        Route::redirectInvalidRequest();
+        if( Http::isRequestMethod(...(array) $requestMethod) === true )
+        {
+            Route::redirectInvalidRequest();
+        }
     }
 }
 //--------------------------------------------------------------------------------------------------------
@@ -124,7 +129,7 @@ if( $invalidRequest['control'] === true && Http::isInvalidRequest() )
 //--------------------------------------------------------------------------------------------------------
 // Request Methods
 //--------------------------------------------------------------------------------------------------------
-if( $requestMethods = $invalidRequest['requestMethods'] )
+if( $requestMethods = $invalidRequest['allowMethods'] )
 {
     $requestMethods = Arrays::lowerKeys($requestMethods);
 
@@ -209,7 +214,9 @@ if( is_file($isFile) )
                 }
                 elseif( is_file($wizardPath) && ! isImport($viewPath) && ! isImport($wizardPath) )
                 {
-                    Import::view(str_replace(PAGES_DIR, NULL, $wizardPath), (array) $pageClass->wizard);
+                    $data = ! empty((array) $pageClass->wizard) ? $pageClass->wizard : $pageClass->view;
+
+                    Import::view(str_replace(PAGES_DIR, NULL, $wizardPath), (array) $data);
                 }
                 elseif( is_file($viewPath) && ! isImport($viewPath) && ! isImport($wizardPath) )
                 {
