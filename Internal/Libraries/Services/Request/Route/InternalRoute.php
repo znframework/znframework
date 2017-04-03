@@ -96,7 +96,7 @@ class InternalRoute extends Controller implements InternalRouteInterface
             {
                 if( Http::isRequestMethod(...$this->method) === false )
                 {
-                    $this->redirectShow404('Invalid Method Type');
+                    $this->redirectInvalidRequest();
                 }
 
                 call_user_func_array($functionRun, $parameters);
@@ -124,24 +124,41 @@ class InternalRoute extends Controller implements InternalRouteInterface
     }
 
     //--------------------------------------------------------------------------------------------------------
+    // Redirect Invalid Request -> 4.3.1
+    //--------------------------------------------------------------------------------------------------------
+    //
+    //  @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function redirectInvalidRequest()
+    {
+        $invalidRequest = Config::get('Services', 'route')['invalidRequest'];
+
+        if( empty($invalidRequest['page']) )
+        {
+            report('Error', lang('Error', 'invalidRequest'), 'InvalidRequestError');
+            trace(lang('Error', 'invalidRequest'));
+        }
+        else
+        {
+            redirect($invalidRequest['page']);
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------------
     // Redirect Show 404 -> 4.2.7
     //--------------------------------------------------------------------------------------------------------
     //
     //  @param  string $function
     //  @param  string $lang
     //  @param  string $report
-    //  @return void
     //
     //--------------------------------------------------------------------------------------------------------
     public function redirectShow404(String $function, String $lang = 'callUserFuncArrayError', String $report = 'SystemCallUserFuncArrayError')
     {
-        // Sayfa bilgisine erişilemezse hata bildir.
         if( ! $routeShow404 = Config::get('Services', 'route')['show404'] )
         {
-            // Hatayı rapor et.
             report('Error', lang('Error', $lang), $report);
-
-            // Hatayı ekrana yazdır.
             die(Errors::message('Error', $lang, $function));
         }
         else

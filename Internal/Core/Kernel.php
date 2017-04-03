@@ -116,12 +116,7 @@ if( $invalidRequest['control'] === true && Http::isInvalidRequest() )
 {
     if( ! in_array(CURRENT_CFURI, $invalidRequest['allowPages']) )
     {
-        if( empty($invalidRequest['page']) )
-        {
-            trace(lang('Error', 'invalidRequest'));
-        }
-
-        redirect($invalidRequest['page']);
+        Route::redirectInvalidRequest();
     }
 }
 //--------------------------------------------------------------------------------------------------------
@@ -135,12 +130,7 @@ if( $requestMethods = $invalidRequest['requestMethods'] )
     {
         if( Http::isRequestMethod(...(array) $requestMethod) === false )
         {
-            if( empty($invalidRequest['page']) )
-            {
-                trace(lang('Error', 'invalidRequest'));
-            }
-
-            redirect($invalidRequest['page']);
+            Route::redirectInvalidRequest();
         }
     }
 }
