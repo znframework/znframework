@@ -317,7 +317,7 @@ class InternalArrays extends \FactoryController implements InternalArraysInterfa
     // @param bool  $insenstive
     //
     //--------------------------------------------------------------------------------------------------------
-    public function valueExistsInsenstive(Array $array, $element, Bool $strict = false) : Bool
+    public function valueExistsInsensitive(Array $array, $element, Bool $strict = false) : Bool
     {
         return $this->valueExists($this->map('strtolower', $array), strtolower($element), $strict);
     }
