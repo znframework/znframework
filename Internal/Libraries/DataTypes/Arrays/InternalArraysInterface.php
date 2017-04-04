@@ -201,7 +201,7 @@ interface InternalArraysInterface
     // @param bool  $insenstive
     //
     //--------------------------------------------------------------------------------------------------------
-    public function valueExistsInsenstive(Array $array, $element, Bool $strict = false) : Bool;
+    public function valueExistsInsensitive(Array $array, $element, Bool $strict = false) : Bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Key Exists
