@@ -117,9 +117,7 @@ class SMTPDriver extends EmailMappingAbstract
             return true;
         }
 
-        $ssl = $this->encode === 'ssl'
-             ? 'ssl://'
-             : '';
+        $ssl = $this->encode === 'ssl' ? 'ssl://' : '';
 
         $this->connect = fsockopen($ssl.$this->host, $this->port, $errno, $errstr, $this->timeout);
 
@@ -169,28 +167,19 @@ class SMTPDriver extends EmailMappingAbstract
 
         $this->_setCommand('from', $this->from);
 
-        if( ! empty($this->tos) )
+        if( ! empty($this->tos) ) foreach( $this->tos as $key => $val )
         {
-            foreach( $this->tos as $key => $val )
-            {
-                $this->_setCommand('to', $key);
-            }
+            $this->_setCommand('to', $key);
         }
 
-        if( ! empty($this->cc) )
+        if( ! empty($this->cc) ) foreach( $this->cc as $key => $val )
         {
-            foreach( $this->cc as $key => $val )
-            {
-                $this->_setCommand('to', $key);
-            }
+            $this->_setCommand('to', $key);
         }
 
-        if( ! empty($this->bcc) )
+        if( ! empty($this->bcc) ) foreach( $this->bcc as $key => $val )
         {
-            foreach( $this->bcc as $key => $val )
-            {
-                $this->_setCommand('to', $key);
-            }
+            $this->_setCommand('to', $key);
         }
 
         $this->_setCommand('data');
@@ -238,6 +227,7 @@ class SMTPDriver extends EmailMappingAbstract
         }
 
         $this->_setData('AUTH LOGIN');
+
         $reply = $this->_getData();
 
         if( strpos($reply, '503') === 0 )
@@ -250,6 +240,7 @@ class SMTPDriver extends EmailMappingAbstract
         }
 
         $this->_setData(base64_encode($this->user));
+
         $reply = $this->_getData();
 
         if( strpos($reply, '334') !== 0 )
@@ -258,6 +249,7 @@ class SMTPDriver extends EmailMappingAbstract
         }
 
         $this->_setData(base64_encode($this->password));
+
         $reply = $this->_getData();
 
         if( strpos($reply, '235') !== 0 )
@@ -277,10 +269,14 @@ class SMTPDriver extends EmailMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     protected function _setCommand($cmd, $data = '')
     {
-
         switch( $cmd )
         {
-            case 'hello' :
+            case 'starttls' : $this->_setData('STARTTLS');              $resp = 220; break;
+            case 'from'     : $this->_setData('MAIL FROM:<'.$data.'>'); $resp = 250; break;
+            case 'data'     : $this->_setData('DATA');                  $resp = 354; break;
+            case 'reset'    : $this->_setData('RSET');                  $resp = 250; break;
+            case 'quit'     : $this->_setData('QUIT');                  $resp = 221; break;
+            case 'hello'    :
                 if( $this->auth || $this->encoding === '8bit' )
                 {
                     $this->_setData('EHLO '.$this->_hostname() );
@@ -292,17 +288,6 @@ class SMTPDriver extends EmailMappingAbstract
 
                 $resp = 250;
             break;
-
-            case 'starttls' :
-                $this->_setData('STARTTLS');
-                $resp = 220;
-            break;
-
-            case 'from' :
-                $this->_setData('MAIL FROM:<'.$data.'>');
-                $resp = 250;
-            break;
-
             case 'to' :
                 if( $this->dsn )
                 {
@@ -313,21 +298,6 @@ class SMTPDriver extends EmailMappingAbstract
                     $this->_setData('RCPT TO:<'.$data.'>');
                 }
                 $resp = 250;
-            break;
-
-            case 'data' :
-                $this->_setData('DATA');
-                $resp = 354;
-            break;
-
-            case 'reset':
-                $this->_setData('RSET');
-                $resp = 250;
-            break;
-
-            case 'quit' :
-                $this->_setData('QUIT');
-                $resp = 221;
             break;
         }
 
@@ -359,9 +329,9 @@ class SMTPDriver extends EmailMappingAbstract
     {
         $data .= $this->lf;
 
-        for( $written = $timestamp = 0, $length = strlen($data); $written < $length; $written += $result )
+        for( $index = 0; $index < strlen($data); $index += $result )
         {
-            $result = fwrite($this->connect, substr($data, $written));
+            $result = fwrite($this->connect, substr($data, $index));
 
             if( $result === false )
             {

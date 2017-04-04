@@ -1087,12 +1087,10 @@ class InternalEmail extends CLController implements InternalEmailInterface
 
             $attachment = [];
 
-            for( $i = 0, $c = count($this->attachments), $z = 0; $i < $c; $i++ )
+            for( $i = 0, $z = 0; $i < count($this->attachments); $i++ )
             {
                 $filename = $this->attachments[$i]['name'][0];
-                $basename = ( $this->attachments[$i]['name'][1] === NULL )
-                            ? basename($filename)
-                            : $this->attachments[$i]['name'][1];
+                $basename = $this->attachments[$i]['name'][1] ?? basename($filename);
 
                 $attachment[$z++] = '--'.$this->boundary.$this->lf.
                                     'Content-Type: '.$this->attachments[$i]['type'].'; name="'.$basename.'"'.$this->lf.
