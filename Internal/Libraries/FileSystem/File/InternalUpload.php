@@ -353,8 +353,7 @@ class InternalUpload extends CallController implements InternalUploadInterface
             for( $index = 0; $index < count($name); $index++ )
             {
                 $src = $source[$index];
-
-                $nm = $name[$index];
+                $nm  = $name[$index];
 
                 if( $this->settings['convertName'] === true )
                 {
@@ -373,10 +372,10 @@ class InternalUpload extends CallController implements InternalUploadInterface
                     }
                 }
 
-                $target = $root.$encryption.$nm;
-
-                $this->encodeName[] = $encryption.$nm;
-                $this->path[] = $target;
+                $encryptionName     = $encryption.$nm;
+                $target             = $root . $encryptionName;
+                $this->encodeName[] = $encryptionName;
+                $this->path[]       = $target;
 
                 if( isset($this->settings['extensions']) && ! in_array(extension($nm), $extensions) )
                 {
@@ -432,11 +431,10 @@ class InternalUpload extends CallController implements InternalUploadInterface
                 }
             }
 
-            $target = $root.$encryption.$name;
-
-            $this->encodeName = $encryption.$name;
-
-            $this->path = $target;
+            $encryptionName   = $encryption . $name;
+            $target           = $root . $encryptionName;
+            $this->encodeName = $encryptionName;
+            $this->path       = $target;
 
             if( isset($this->settings['extensions']) && ! in_array(extension($name),$extensions) )
             {
@@ -520,12 +518,12 @@ class InternalUpload extends CallController implements InternalUploadInterface
     //--------------------------------------------------------------------------------------------------------
     public function error()
     {
-        if( ! isset($_FILES[$this->file]['error']) )
+        $errorNo = $_FILES[$this->file]['error'] ?? NULL;
+
+        if( $errorNo === NULL )
         {
             return lang('FileSystem', 'upload:unknownError');
         }
-
-        $errorNo = $_FILES[$this->file]['error'];
 
         if( is_array($errorNo) )
         {
@@ -543,9 +541,9 @@ class InternalUpload extends CallController implements InternalUploadInterface
             $errorNo = $errno;
         }
 
-        $this->errors = array
-        (
-            '0'  => "scc",            // Dosya başarı ile yüklendi.
+        $this->errors =
+        [
+            '0'  => "scc",                          // Dosya başarı ile yüklendi.
             '1'  => lang('FileSystem', 'upload:1'), // Php.ini dosyasındaki maximum dosya boyutu aşıldı.
             '2'  => lang('FileSystem', 'upload:2'), // Formtaki max_file_size direktifindeki dosya boyutu limiti aşıldı.
             '3'  => lang('FileSystem', 'upload:3'), // Dosya yükleme işlemi tamamlanmadı.
@@ -555,7 +553,7 @@ class InternalUpload extends CallController implements InternalUploadInterface
             '8'  => lang('FileSystem', 'upload:8'), // Dosya yükleme uzantı desteği yok.
             '9'  => lang('FileSystem', 'upload:9'), // Dosya yükleme yolu geçerli değil.
             '10' => lang('FileSystem', 'upload:10') // Belirlenen maksimum dosya boyutu aşıldı!
-        );
+        ];
         // Manuel belirlenen hata oluşmuşsa
         if( ! empty($this->manuelError) )
         {

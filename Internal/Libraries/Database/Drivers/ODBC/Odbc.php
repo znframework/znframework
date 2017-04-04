@@ -260,7 +260,7 @@ class ODBCDriver extends DriverConnectionMappingAbstract
     {
         if( empty($this->query) )
         {
-            return false;
+            return [];
         }
 
         $columns   = [];
@@ -339,7 +339,7 @@ class ODBCDriver extends DriverConnectionMappingAbstract
         }
         else
         {
-            return false;
+            return [];
         }
     }
 
@@ -358,7 +358,7 @@ class ODBCDriver extends DriverConnectionMappingAbstract
         }
         else
         {
-            return false;
+            return [];
         }
     }
 
@@ -377,7 +377,7 @@ class ODBCDriver extends DriverConnectionMappingAbstract
         }
         else
         {
-            return 0;
+            return [];
         }
     }
 
@@ -392,11 +392,11 @@ class ODBCDriver extends DriverConnectionMappingAbstract
     {
         if( ! empty($this->connect) )
         {
-            return false;
+            return 0;
         }
         else
         {
-            return false;
+            return 0;
         }
     }
 

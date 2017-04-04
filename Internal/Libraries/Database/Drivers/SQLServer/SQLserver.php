@@ -282,7 +282,7 @@ class SQLServerDriver extends DriverConnectionMappingAbstract
     {
         if( empty($this->query) )
         {
-            return false;
+            return [];
         }
 
         $columns   = [];
@@ -362,7 +362,7 @@ class SQLServerDriver extends DriverConnectionMappingAbstract
         }
         else
         {
-            return false;
+            return [];
         }
     }
 
@@ -381,7 +381,7 @@ class SQLServerDriver extends DriverConnectionMappingAbstract
         }
         else
         {
-            return false;
+            return [];
         }
     }
 
@@ -400,7 +400,7 @@ class SQLServerDriver extends DriverConnectionMappingAbstract
         }
         else
         {
-            return 0;
+            return [];
         }
     }
 
@@ -419,7 +419,7 @@ class SQLServerDriver extends DriverConnectionMappingAbstract
         }
         else
         {
-            return false;
+            return 0;
         }
     }
 

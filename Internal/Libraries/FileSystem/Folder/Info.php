@@ -1,6 +1,6 @@
 <?php namespace ZN\FileSystem\Folder;
 
-use File;
+use File, Folder;
 use ZN\FileSystem\Exception\FolderNotFoundException;
 
 class Info implements InfoInterface
@@ -62,7 +62,7 @@ class Info implements InfoInterface
 
         if( is_dir($dir) )
         {
-            $files = Factory::class('FileList')->files($dir, $extension);
+            $files = Folder::files($dir, $extension);
 
             $dir = suffix($dir);
 

@@ -1,7 +1,7 @@
 <?php namespace ZN\IndividualStructures\Cache\Drivers;
 
 use ZN\IndividualStructures\Abstracts\CacheDriverMappingAbstract;
-    
+
 class WincacheDriver extends CacheDriverMappingAbstract
 {
     //--------------------------------------------------------------------------------------------------------
@@ -12,11 +12,11 @@ class WincacheDriver extends CacheDriverMappingAbstract
     // Copyright  : (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Construct
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @return bool
     //
     //--------------------------------------------------------------------------------------------------------
@@ -24,11 +24,11 @@ class WincacheDriver extends CacheDriverMappingAbstract
     {
         \Support::extension('wincache');
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Select
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param  string $key
     // @param  mixed  $compressed
     // @return mixed
@@ -37,18 +37,18 @@ class WincacheDriver extends CacheDriverMappingAbstract
     public function select($key, $compressed = NULL)
     {
         $success = false;
-        
+
         $data = wincache_ucache_get($key, $success);
-        
-        return ( $success ) 
-               ? $data 
+
+        return ( $success )
+               ? $data
                : false;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Insert
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param  string   $key
     // @param  variable $var
     // @param  numeric  $time
@@ -60,11 +60,11 @@ class WincacheDriver extends CacheDriverMappingAbstract
     {
         return wincache_ucache_set($key, $var, $time);
     }
-        
+
     //--------------------------------------------------------------------------------------------------------
     // Delete
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param  string $key
     // @return mixed
     //
@@ -73,11 +73,11 @@ class WincacheDriver extends CacheDriverMappingAbstract
     {
         return wincache_ucache_delete($key);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Increment
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param  string  $key
     // @param  numeric $increment
     // @return void
@@ -86,18 +86,18 @@ class WincacheDriver extends CacheDriverMappingAbstract
     public function increment($key, $increment)
     {
         $success = false;
-        
+
         $value = wincache_ucache_inc($key, $increment, $success);
-        
-        return ( $success === true ) 
-               ? $value 
+
+        return ( $success === true )
+               ? $value
                : false;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Decrement
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param  string  $key
     // @param  numeric $decrement
     // @return void
@@ -107,16 +107,16 @@ class WincacheDriver extends CacheDriverMappingAbstract
     {
         $success = false;
         $value   = wincache_ucache_dec($key, $decrement, $success);
-        
-        return ( $success === true ) 
-               ? $value 
+
+        return ( $success === true )
+               ? $value
                : false;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Clean
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param  void
     // @return void
     //
@@ -125,11 +125,11 @@ class WincacheDriver extends CacheDriverMappingAbstract
     {
         return wincache_ucache_clear();
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Info
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param  mixed  $info
     // @return mixed
     //
@@ -138,11 +138,11 @@ class WincacheDriver extends CacheDriverMappingAbstract
     {
         return wincache_ucache_info(true);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Get Meta Data
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param  string  $key
     // @return mixed
     //
@@ -154,7 +154,7 @@ class WincacheDriver extends CacheDriverMappingAbstract
             $age      = $stored['ucache_entries'][1]['age_seconds'];
             $ttl      = $stored['ucache_entries'][1]['ttl_seconds'];
             $hitcount = $stored['ucache_entries'][1]['hitcount'];
-            
+
             return
             [
                 'expire'    => $ttl - $age,
@@ -163,7 +163,7 @@ class WincacheDriver extends CacheDriverMappingAbstract
                 'ttl'       => $ttl
             ];
         }
-        
-        return false;
+
+        return [];
     }
 }

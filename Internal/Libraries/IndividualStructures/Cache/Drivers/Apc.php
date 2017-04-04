@@ -12,11 +12,11 @@ class ApcDriver extends CacheDriverMappingAbstract
     // Copyright  : (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Construct
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param  string $driver
     // @return bool
     //
@@ -25,11 +25,11 @@ class ApcDriver extends CacheDriverMappingAbstract
     {
         \Support::extension('apc');
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Select
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param  string $key
     // @param  mixed  $compressed
     // @return mixed
@@ -38,23 +38,23 @@ class ApcDriver extends CacheDriverMappingAbstract
     public function select($key, $compressed = NULL)
     {
         $success = false;
-        
+
         $data = apc_fetch($key, $success);
-        
+
         if( $success === true )
         {
             return ( is_array($data) )
                    ? unserialize($data[0])
                    : $data;
         }
-        
+
         return false;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Insert
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param  string   $key
     // @param  variable $var
     // @param  numeric  $time
@@ -63,9 +63,9 @@ class ApcDriver extends CacheDriverMappingAbstract
     //
     //--------------------------------------------------------------------------------------------------------
     public function insert($key, $var, $time, $compressed)
-    {   
+    {
         $time = (int)$time;
-        
+
         return apc_store
         (
             $key,
@@ -73,11 +73,11 @@ class ApcDriver extends CacheDriverMappingAbstract
             $time
         );
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Delete
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param  string $key
     // @return mixed
     //
@@ -86,11 +86,11 @@ class ApcDriver extends CacheDriverMappingAbstract
     {
         return apc_delete($key);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Increment
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param  string  $key
     // @param  numeric $increment
     // @return void
@@ -100,25 +100,25 @@ class ApcDriver extends CacheDriverMappingAbstract
     {
         return apc_inc($key, $increment);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Decrement
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param  string  $key
     // @param  numeric $decrement
     // @return void
     //
     //--------------------------------------------------------------------------------------------------------
     public function decrement($key, $decrement)
-    {   
+    {
         return apc_dec($key, $decrement);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Clean
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param  void
     // @return void
     //
@@ -127,24 +127,24 @@ class ApcDriver extends CacheDriverMappingAbstract
     {
         return apc_clear_cache('user');
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Info
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param  mixed  $info
     // @return mixed
     //
     //--------------------------------------------------------------------------------------------------------
     public function info($type = NULL)
-    {   
+    {
         return apc_cache_info($type);
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // Get Meta Data
     //--------------------------------------------------------------------------------------------------------
-    // 
+    //
     // @param  string  $key
     // @return mixed
     //
@@ -152,17 +152,16 @@ class ApcDriver extends CacheDriverMappingAbstract
     public function getMetaData($key)
     {
         $success = false;
-        
-        $stored = apc_fetch($key, $success);
-        
+        $stored  = apc_fetch($key, $success);
+
         if( $success === false || count($stored) !== 3 )
         {
-            return false;
+            return [];
         }
-        
+
         list($data, $time, $expire) = $stored;
-        
-        return 
+
+        return
         [
             'expire' => $time + $expire,
             'mtime'  => $time,

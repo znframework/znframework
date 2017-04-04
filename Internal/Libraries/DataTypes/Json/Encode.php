@@ -1,7 +1,6 @@
 <?php namespace ZN\DataTypes\Json;
 
 use Converter;
-use ZN\DataTypes\Json\Exception\JsonErrorException;
 
 class Encode implements EncodeInterface
 {
@@ -24,13 +23,6 @@ class Encode implements EncodeInterface
     //--------------------------------------------------------------------------------------------------------
     public function do($data, String $type = 'unescaped_unicode') : String
     {
-        $return = json_encode($data, Converter::toConstant($type, 'JSON_'));
-
-        if( ErrorInfo::no() )
-        {
-            throw new JsonErrorException('[Json::encode()] -> '.ErrorInfo::message());
-        }
-
-        return $return;
+        return json_encode($data, Converter::toConstant($type, 'JSON_'));
     }
 }

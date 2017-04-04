@@ -1,6 +1,6 @@
-<?php namespace ZN\FileSystem\Folder;
+<?php namespace Project\Commands;
 
-class Factory extends \Factory
+class Command extends \BaseController
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -10,4 +10,16 @@ class Factory extends \Factory
     // Copyright  : (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
+
+    public function __construct()
+    {
+        if( server('documentRoot') )
+        {
+            throw new \GeneralException
+            (
+                'Commands',
+                'canNotCommandClass'
+            );
+        }
+    }
 }

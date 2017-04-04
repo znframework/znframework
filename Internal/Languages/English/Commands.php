@@ -11,6 +11,7 @@
     //
     //--------------------------------------------------------------------------------------------------------
 
-    'invalidCommand' => '`%` Invalid Command!',
-    'emptyCommand'   => 'The command parameter is empty!'
+    'invalidCommand'     => '`%` Invalid Command!',
+    'emptyCommand'       => 'The command parameter is empty!',
+    'canNotCommandClass' => '[Command classes] can only be used with [console] commands!'
 ];

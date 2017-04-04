@@ -1,6 +1,8 @@
-<?php namespace ZN\FileSystem\Folder;
+<?php namespace External\Commands;
 
-class Factory extends \Factory
+use Project\Commands\Command as ProjectCommand;
+
+class Command extends ProjectCommand
 {
     //--------------------------------------------------------------------------------------------------------
     //

@@ -17,7 +17,9 @@ class InternalBuffer extends \FactoryController implements InternalBufferInterfa
         [
             'file'     => 'Buffer\File::do',
             'func'     => 'Buffer\Callback::do',
+            'function' => 'Buffer\Callback::do',
             'callback' => 'Buffer\Callback::do',
+            'closure'  => 'Buffer\Callback::do',
             'insert'   => 'Buffer\Insert::do',
             'select'   => 'Buffer\Select::do',
             'delete'   => 'Buffer\Delete::do'

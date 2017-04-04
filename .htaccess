@@ -2,9 +2,13 @@
 # This file automatically created and updated
 #----------------------------------------------------------------------------------------------------
 
-<Ifmodule mod_headers.c>
+<IfModule mod_headers.c>
 	Options -Indexes
-</Ifmodule>
+</IfModule>
+
+<IfModule mime_module>
+	AddType application/x-httpd-ea-php70 .php .php7 .phtml
+</IfModule>
 
 <IfModule mod_rewrite.c>
 	RewriteEngine On
