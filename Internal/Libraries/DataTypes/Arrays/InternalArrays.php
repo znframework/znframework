@@ -309,7 +309,7 @@ class InternalArrays extends \FactoryController implements InternalArraysInterfa
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Value Exists Insenstive
+    // Value Exists Insensitive
     //--------------------------------------------------------------------------------------------------------
     //
     // @param array $array
@@ -333,6 +333,19 @@ class InternalArrays extends \FactoryController implements InternalArraysInterfa
     public function keyExists(Array $array, $key) : Bool
     {
         return array_key_exists($key, $array);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Key Exists Insensitive
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param array $array
+    // @param mixed $key
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function keyExistsInsensitive(Array $array, $key) : Bool
+    {
+        return $this->keyExists($this->lowerKeys($array), strtolower($key));
     }
 
     //--------------------------------------------------------------------------------------------------------
