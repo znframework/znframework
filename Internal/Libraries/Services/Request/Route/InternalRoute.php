@@ -94,7 +94,7 @@ class InternalRoute extends Controller implements InternalRouteInterface
         {
             if( $functionName === $function )
             {
-                if( Http::isRequestMethod(...$this->method) === false )
+                if( ! empty($this->method) && Http::isRequestMethod(...$this->method) === false )
                 {
                     $this->redirectInvalidRequest();
                 }

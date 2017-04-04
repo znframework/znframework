@@ -1,6 +1,6 @@
 <?php namespace ZN\Database;
 
-use URI, Pagination, Arrays, Classes, Method;
+use URI, Pagination, Arrays, Classes, Method, Config;
 
 class InternalDB extends Connection implements InternalDBInterface
 {
@@ -1819,7 +1819,7 @@ class InternalDB extends Connection implements InternalDBInterface
     //--------------------------------------------------------------------------------------------------------
     public function pagination(String $url = NULL, Array $settings = [], Bool $output = true)
     {
-        $pagcon = \Config::get('ViewObjects', 'pagination');
+        $pagcon = Config::get('ViewObjects', 'pagination');
         $limit  = $this->pagination['limit'];
         $start  = $this->pagination['start'];
 
