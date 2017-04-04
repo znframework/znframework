@@ -6,7 +6,7 @@ use ZN\Services\Remote\Email\Exception\SMTPEmptyHostNameException;
 use ZN\Services\Remote\Email\Exception\SMTPEmptyUserPasswordException;
 use ZN\Services\Remote\Email\Exception\SMTPFailedLoginException;
 use ZN\Services\Remote\Email\Exception\SMTPDataFailureException;
-use ZN\Servcies\Remote\Email\Exception\SMTPAuthException;
+use ZN\Services\Remote\Email\Exception\SMTPAuthException;
 
 class SMTPDriver extends EmailMappingAbstract
 {
