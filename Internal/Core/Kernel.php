@@ -96,7 +96,7 @@ define('CURRENT_CFPATH', str_replace(CONTROLLERS_DIR, '', CURRENT_CONTROLLER).'/
 // @return Aktif çalıştırılan sayfaya ait kontrolcü ve fonksiyon yolu   bilgisi.
 //
 //--------------------------------------------------------------------------------------------------
-define('CURRENT_CFURI', CURRENT_CFPATH);
+define('CURRENT_CFURI', strtolower(CURRENT_CFPATH));
 
 //--------------------------------------------------------------------------------------------------
 // CURRENT_CPATH
@@ -110,18 +110,35 @@ define('CURRENT_CFURL', siteUrl(CURRENT_CFPATH));
 //--------------------------------------------------------------------------------------------------------
 // Invalid Request Page
 //--------------------------------------------------------------------------------------------------------
-$invalidRequest = Config::get('Services', 'route')['invalidRequest'];
+$invalidRequest = Config::get('Services', 'route')['requestMethods'];
 
-if( $invalidRequest['control'] === true && Http::isInvalidRequest() )
+if( $requestMethods = $invalidRequest['disallowMethods'] )
 {
-    if( ! in_array(strtolower(CURRENT_CFURI), array_map('strtolower', $invalidRequest['allowPages'])) )
-    {
-        if( empty($invalidRequest['page']) )
-        {
-            trace(lang('Error', 'invalidRequest'));
-        }
+    $requestMethods = Arrays::lowerKeys($requestMethods);
 
-        redirect($invalidRequest['page']);
+    if( ! empty($requestMethod = $requestMethods[CURRENT_CFURI] ?? NULL) )
+    {
+        if( Http::isRequestMethod(...(array) $requestMethod) === true )
+        {
+            Route::redirectInvalidRequest();
+        }
+    }
+}
+//--------------------------------------------------------------------------------------------------------
+
+//--------------------------------------------------------------------------------------------------------
+// Request Methods
+//--------------------------------------------------------------------------------------------------------
+if( $requestMethods = $invalidRequest['allowMethods'] )
+{
+    $requestMethods = Arrays::lowerKeys($requestMethods);
+
+    if( ! empty($requestMethod = $requestMethods[CURRENT_CFURI] ?? NULL) )
+    {
+        if( Http::isRequestMethod(...(array) $requestMethod) === false )
+        {
+            Route::redirectInvalidRequest();
+        }
     }
 }
 //--------------------------------------------------------------------------------------------------------
@@ -197,7 +214,9 @@ if( is_file($isFile) )
                 }
                 elseif( is_file($wizardPath) && ! isImport($viewPath) && ! isImport($wizardPath) )
                 {
-                    Import::view(str_replace(PAGES_DIR, NULL, $wizardPath), (array) $pageClass->wizard);
+                    $data = ! empty((array) $pageClass->wizard) ? $pageClass->wizard : $pageClass->view;
+
+                    Import::view(str_replace(PAGES_DIR, NULL, $wizardPath), (array) $data);
                 }
                 elseif( is_file($viewPath) && ! isImport($viewPath) && ! isImport($wizardPath) )
                 {

@@ -286,7 +286,7 @@ class PostgresDriver extends DriverConnectionMappingAbstract
     {
         if( empty($this->query) )
         {
-            return false;
+            return [];
         }
 
         $columns   = [];
@@ -365,7 +365,7 @@ class PostgresDriver extends DriverConnectionMappingAbstract
         }
         else
         {
-            return false;
+            return [];
         }
     }
 
@@ -384,7 +384,7 @@ class PostgresDriver extends DriverConnectionMappingAbstract
         }
         else
         {
-            return false;
+            return [];
         }
     }
 
@@ -403,7 +403,7 @@ class PostgresDriver extends DriverConnectionMappingAbstract
         }
         else
         {
-            return 0;
+            return [];
         }
     }
 
@@ -422,7 +422,7 @@ class PostgresDriver extends DriverConnectionMappingAbstract
         }
         else
         {
-            return false;
+            return 0;
         }
     }
 

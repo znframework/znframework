@@ -262,7 +262,7 @@ class Grid extends MLExtends implements GridInterface
 
         if( empty($this->url) )
         {
-            $paginationUrl = CURRENT_CFURI;
+            $paginationUrl = CURRENT_CFPATH;
         }
         else
         {

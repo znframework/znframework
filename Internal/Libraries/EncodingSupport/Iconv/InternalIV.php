@@ -95,7 +95,7 @@ class InternalIV extends CallController implements InternalIVInterface
             throw new InvalidArgumentException('Error', 'charsetParameter', '2.($charset)');
         }
 
-        return iconv_set_encoding($type.'_encoding', $charset);
+        return iconv_set_encoding($type . '_encoding', $charset);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -109,12 +109,12 @@ class InternalIV extends CallController implements InternalIVInterface
     //--------------------------------------------------------------------------------------------------------
     public function mimesDecode(String $encodedHeaders, $mode = 0, String $charset = NULL) : Array
     {
-        if( $charset === NULL )
-        {
-            $charset = ini_get("iconv.internal_encoding");
-        }
-
-        return iconv_mime_decode_headers($encodedHeaders, $this->mimeErrors[$mode] ?? $mode, $charset);
+        return iconv_mime_decode_headers
+        (
+            $encodedHeaders,
+            $this->mimeErrors[$mode] ?? $mode,
+            $charset ?? ini_get("iconv.internal_encoding")
+        );
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -128,12 +128,12 @@ class InternalIV extends CallController implements InternalIVInterface
     //--------------------------------------------------------------------------------------------------------
     public function mimeDecode(String $encodedHeader, $mode = 0, String $charset = NULL) : String
     {
-        if( $charset === NULL )
-        {
-            $charset = ini_get("iconv.internal_encoding");
-        }
-
-        return iconv_mime_decode($encodedHeader, $this->mimeErrors[$mode] ?? $mode, $charset);
+        return iconv_mime_decode
+        (
+            $encodedHeader,
+            $this->mimeErrors[$mode] ?? $mode,
+            $charset ?? ini_get("iconv.internal_encoding")
+        );
     }
 
     //--------------------------------------------------------------------------------------------------------

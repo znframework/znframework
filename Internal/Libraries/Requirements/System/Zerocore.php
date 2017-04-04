@@ -3,7 +3,7 @@
 use Arrays;
 use ZN\Core\Structure;
 
-class ZeroCore
+class Zerocore
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -33,6 +33,15 @@ class ZeroCore
     protected static $command;
 
     //--------------------------------------------------------------------------------------------------------
+    // Protected Parameters
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var string
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected static $parameters;
+
+    //--------------------------------------------------------------------------------------------------------
     // Protected Default Variables
     //--------------------------------------------------------------------------------------------------------
     //
@@ -50,25 +59,86 @@ class ZeroCore
         }
 
         self::$project = $commands[1] ?? DEFAULT_PROJECT;
-        self::$command = $commands[3] ?? NULL;
         $command       = $commands[2] ?? NULL;
+        self::$command = $commands[3] ?? NULL;
 
         if( $command === NULL )
         {
-            exit(lang('Commands', 'emptyCommand'));
+            self::_commandList(); exit;
         }
 
-        $parameters = Arrays::removeFirst($commands, 4);
+        self::$parameters = Arrays::removeFirst($commands, 4);
+
+        echo self::_output();
 
         switch( $command )
         {
-            case 'run-uri'        :
-            case 'run-controller' : self::_runController(); break;
-            case 'run-model'      :
-            case 'run-class'      : self::_runModel($parameters); break;
-            case 'run-function'   : self::_runFunction($parameters); break;
-            default               : exit(lang('Commands', 'invalidCommand', $command));
+            case 'run-uri'              :
+            case 'run-controller'       : self::_runController();                       break;
+            case 'run-model'            :
+            case 'run-class'            : self::_runClass();                            break;
+            case 'run-command'          : self::_runClass(PROJECT_COMMANDS_NAMESPACE);  break;
+            case 'run-external-command' : self::_runClass(EXTERNAL_COMMANDS_NAMESPACE); break;
+            case 'run-function'         : self::_runFunction();                         break;
+            case 'command-list'         :
+            default                     : self::_commandList();
         }
+
+        echo EOL . self::_line();
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Line
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected static function _line()
+    {
+        return '--------------------------------------------------------------------' . EOL;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Output
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $message
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected static function _output($message = 'OUTPUT')
+    {
+        $str  = self::_line();
+        $str .= '| ' . $message . EOL;
+        $str .= self::_line();
+
+        return $str;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Command List
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected static function _commandList()
+    {
+        echo self::_output('COMMAND LIST');
+
+        echo implode
+        (EOL, [
+            'Command Name            Usage of Example' . EOL,
+            'run-uri                 run-uri controller/function/p1/p2/.../pN',
+            'run-controller          run-controller controller/function/p1/p2/.../pN',
+            'run-model               run-model model:function p1 p2 ... pN',
+            'run-class               run-class class:function p1 p2 ... pN',
+            'run-command             run-command command:function p1 p2 ...pN',
+            'run-external-command    run-command command:function p1 p2 ...pN',
+            'run-function            run-function function p1 p2 ... pN'
+        ]);
+
+        echo EOL . self::_line();
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -80,8 +150,7 @@ class ZeroCore
     //--------------------------------------------------------------------------------------------------------
     protected static function _runController()
     {
-        $datas = Structure::data(self::$command);
-
+        $datas      = Structure::data(self::$command);
         $page       = $datas['page'];
         $function   = $datas['function'] ?? 'main';
         $namespace  = $datas['namespace'];
@@ -91,24 +160,23 @@ class ZeroCore
 
         import($file);
 
-        echo uselib($class)->$function($parameters);
+        echo uselib($class)->$function(...$parameters);
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Protected Run Model
+    // Protected Run Class
     //--------------------------------------------------------------------------------------------------------
     //
     // @param array $parameters
     //
     //--------------------------------------------------------------------------------------------------------
-    protected static function _runModel($parameters)
+    protected static function _runClass($namespace = NULL)
     {
-        $runModel    = self::$command;
-        $runModelEx  = explode(':', $runModel);
-        $class       = $runModelEx[0];
-        $method      = $runModelEx[1] ?? NULL;
+        self::_classMethod($class, $method);
 
-        echo uselib($class)->$method(...$parameters);
+        $className = $namespace . $class;
+
+        echo uselib($className)->$method(...self::$parameters);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -118,11 +186,25 @@ class ZeroCore
     // @param array $parameters
     //
     //--------------------------------------------------------------------------------------------------------
-    protected static function _runFunction($parameters)
+    protected static function _runFunction()
     {
         $method = self::$command;
 
-        echo $method(...$parameters);
+        echo $method(...self::$parameters);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Class Method
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param array $parameters
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected static function _classMethod(&$class = NULL, &$method = NULL)
+    {
+        $commandEx = explode(':', self::$command);
+        $class     = $commandEx[0];
+        $method    = $commandEx[1] ?? NULL;
     }
 }
 

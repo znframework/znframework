@@ -1,7 +1,7 @@
 <?php namespace ZN\Services\Request;
 
 use ZN\Core\Structure;
-use Arrays, Config, Errors, Controller;
+use Arrays, Config, Errors, Controller, Http;
 
 class InternalRoute extends Controller implements InternalRouteInterface
 {
@@ -15,6 +15,15 @@ class InternalRoute extends Controller implements InternalRouteInterface
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
+    // Method -> 4.3.1
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var array
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected $method = [];
+
+    //--------------------------------------------------------------------------------------------------------
     // Route
     //--------------------------------------------------------------------------------------------------------
     //
@@ -24,15 +33,25 @@ class InternalRoute extends Controller implements InternalRouteInterface
     protected $route = [];
 
     //--------------------------------------------------------------------------------------------------------
+    // Pattern Type
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var string
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected $patternType = 'special';
+
+    //--------------------------------------------------------------------------------------------------------
     // Change
     //--------------------------------------------------------------------------------------------------------
     //
     // @param array $route
     //
     //--------------------------------------------------------------------------------------------------------
-    public function change(Array $route) : InternalRoute
+    public function change(Array $route, String $type = 'special') : InternalRoute
     {
-        $this->route = $route;
+        $this->route      = $route;
+        $this->paternType = $type;
 
         return $this;
     }
@@ -44,10 +63,12 @@ class InternalRoute extends Controller implements InternalRouteInterface
     //
     //  @param  string   $functionName
     //  @param  function $functionRun
+    //  @param  array    $route
+    //  @param  string   $type
     //  @return mixed
     //
     //--------------------------------------------------------------------------------------------------------
-    public function run(String $functionName, Callable $functionRun = NULL, Array $route = NULL)
+    public function run(String $functionName, Callable $functionRun = NULL, Array $route = NULL, String $type = NULL)
     {
         if( ! empty($this->route) )
         {
@@ -56,7 +77,7 @@ class InternalRoute extends Controller implements InternalRouteInterface
 
         if( ! empty($route) )
         {
-            Config::set('Services', 'route', ['changeUri' => $route]);
+            Config::set('Services', 'route', ['changeUri' => $route, 'patternType' => $type ?? $this->patternType]);
         }
 
         $datas      = Structure::data();
@@ -73,8 +94,54 @@ class InternalRoute extends Controller implements InternalRouteInterface
         {
             if( $functionName === $function )
             {
+                if( Http::isRequestMethod(...$this->method) === false )
+                {
+                    $this->redirectInvalidRequest();
+                }
+
                 call_user_func_array($functionRun, $parameters);
+
+                $this->_defaultVariable();
+
+                exit;
             }
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Method 404 -> 4.3.1
+    //--------------------------------------------------------------------------------------------------------
+    //
+    //  @param  variadic ...$function
+    //  @return void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function method(...$methods) : InternalRoute
+    {
+        $this->method = $methods;
+
+        return $this;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Redirect Invalid Request -> 4.3.1
+    //--------------------------------------------------------------------------------------------------------
+    //
+    //  @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function redirectInvalidRequest()
+    {
+        $invalidRequest = Config::get('Services', 'route')['requestMethods'];
+
+        if( empty($invalidRequest['page']) )
+        {
+            report('Error', lang('Error', 'invalidRequest'), 'InvalidRequestError');
+            trace(lang('Error', 'invalidRequest'));
+        }
+        else
+        {
+            redirect($invalidRequest['page']);
         }
     }
 
@@ -85,23 +152,32 @@ class InternalRoute extends Controller implements InternalRouteInterface
     //  @param  string $function
     //  @param  string $lang
     //  @param  string $report
-    //  @return void
     //
     //--------------------------------------------------------------------------------------------------------
     public function redirectShow404(String $function, String $lang = 'callUserFuncArrayError', String $report = 'SystemCallUserFuncArrayError')
     {
-        // Sayfa bilgisine erişilemezse hata bildir.
         if( ! $routeShow404 = Config::get('Services', 'route')['show404'] )
         {
-            // Hatayı rapor et.
             report('Error', lang('Error', $lang), $report);
-
-            // Hatayı ekrana yazdır.
             die(Errors::message('Error', $lang, $function));
         }
         else
         {
             redirect($routeShow404);
         }
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Default Variable -> 4.3.1
+    //--------------------------------------------------------------------------------------------------------
+    //
+    //  @return void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _defaultVariable()
+    {
+        $this->route       = [];
+        $this->method      = [];
+        $this->patternType = 'special';
     }
 }

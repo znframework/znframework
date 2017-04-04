@@ -48,7 +48,7 @@ class ZN
     // @param array  $parameters
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function __callSTatic($class, $parameters)
+    public static function __callStatic($class, $parameters)
     {
         return uselib($class, $parameters);
     }

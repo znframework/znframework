@@ -20,7 +20,7 @@ interface InternalGenerateInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function grandVision($database = NULL);
+    public function grandVision(...$database);
 
     //--------------------------------------------------------------------------------------------------------
     // Delete Vision

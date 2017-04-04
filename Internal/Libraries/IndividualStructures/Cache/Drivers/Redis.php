@@ -153,7 +153,7 @@ class RedisDriver extends CacheDriverMappingAbstract
 
             $this->redis->sRemove('ZNRedisSerialized', $key);
         }
-        
+
         return $this->redis->set($key, $data, $time);
     }
 
@@ -257,7 +257,7 @@ class RedisDriver extends CacheDriverMappingAbstract
             ];
         }
 
-        return false;
+        return [];
     }
 
     //--------------------------------------------------------------------------------------------------------

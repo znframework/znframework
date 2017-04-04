@@ -120,7 +120,7 @@ class GrandModel extends CallController
     // @param mixed $select: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function select(...$select) : Grand
+    public function select(...$select)
     {
         $this->connect->select(...$select);
 
@@ -271,7 +271,7 @@ class GrandModel extends CallController
     // @param string $logical: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function where($column, String $value = NULL, String $logical = NULL) : Grand
+    public function where($column, String $value = NULL, String $logical = NULL)
     {
         $this->connect->where($column, $value, $logical);
 
@@ -287,7 +287,7 @@ class GrandModel extends CallController
     // @param string $logical: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function having($column, String $value = NULL, String $logical = NULL) : Grand
+    public function having($column, String $value = NULL, String $logical = NULL)
     {
         $this->connect->having($column, $value, $logical);
 
@@ -301,7 +301,7 @@ class GrandModel extends CallController
     // @param array ...$args
     //
     //--------------------------------------------------------------------------------------------------------
-    public function whereGroup(...$args) : Grand
+    public function whereGroup(...$args)
     {
         $this->connect->whereGroup(...$args);
 
@@ -315,7 +315,7 @@ class GrandModel extends CallController
     // @param array ...$args
     //
     //--------------------------------------------------------------------------------------------------------
-    public function havingGroup(...$args) : Grand
+    public function havingGroup(...$args)
     {
         $this->connect->havingGroup(...$args);
 
@@ -331,7 +331,7 @@ class GrandModel extends CallController
     // @param string $operator   : empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function innerJoin(String $table, String $otherColumn, String $operator = '=') : Grand
+    public function innerJoin(String $table, String $otherColumn, String $operator = '=')
     {
         $this->connect->innerJoin($table, $otherColumn, $operator);
 
@@ -347,7 +347,7 @@ class GrandModel extends CallController
     // @param string $operator   : empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function outerJoin(String $table, String $otherColumn, String $operator = '=') : Grand
+    public function outerJoin(String $table, String $otherColumn, String $operator = '=')
     {
         $this->connect->outerJoin($table, $otherColumn, $operator);
 
@@ -363,7 +363,7 @@ class GrandModel extends CallController
     // @param string $operator   : empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function leftJoin(String $table, String $otherColumn, String $operator = '=') : Grand
+    public function leftJoin(String $table, String $otherColumn, String $operator = '=')
     {
         $this->connect->leftJoin($table, $otherColumn, $operator);
 
@@ -379,7 +379,7 @@ class GrandModel extends CallController
     // @param string $operator   : empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function rightJoin(String $table, String $otherColumn, String $operator = '=') : Grand
+    public function rightJoin(String $table, String $otherColumn, String $operator = '=')
     {
         $this->connect->rightJoin($table, $otherColumn, $operator);
 
@@ -395,7 +395,7 @@ class GrandModel extends CallController
     // @param string $type     : empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function join(String $table, String $condition, String $type = NULL) : Grand
+    public function join(String $table, String $condition, String $type = NULL)
     {
         $this->connect->join($table, $condition, $type);
 
@@ -409,7 +409,7 @@ class GrandModel extends CallController
     // @param string ...$args
     //
     //--------------------------------------------------------------------------------------------------------
-    public function duplicateCheck(...$args) : Grand
+    public function duplicateCheck(...$args)
     {
         $this->connect->duplicateCheck(...$args);
 
@@ -424,7 +424,7 @@ class GrandModel extends CallController
     // @param string $type     : empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function orderBy($condition, String $type = NULL) : Grand
+    public function orderBy($condition, String $type = NULL)
     {
         $this->connect->orderBy($condition, $type);
 
@@ -438,7 +438,7 @@ class GrandModel extends CallController
     // @param string ...$args
     //
     //--------------------------------------------------------------------------------------------------------
-    public function groupBy(...$args) : Grand
+    public function groupBy(...$args)
     {
         $this->connect->groupBy(...$args);
 
@@ -453,7 +453,7 @@ class GrandModel extends CallController
     // @param int   $limit: 0
     //
     //--------------------------------------------------------------------------------------------------------
-    public function limit($start = 0, Int $limit = 0) : Grand
+    public function limit($start = 0, Int $limit = 0)
     {
         $this->connect->limit($start, $limit);
 
@@ -617,17 +617,44 @@ class GrandModel extends CallController
     //--------------------------------------------------------------------------------------------------------
     public function error()
     {
-        if( $error = $this->connect->error() )
-        {
-            return $error;
-        }
-        elseif( $error = $this->connectForge->error() )
+        if( $error = $this->connectForge->error() )
         {
             return $error;
         }
         elseif( $error = $this->connectTool->error() )
         {
             return $error;
+        }
+        elseif( $error = $this->connect->error() )
+        {
+            return $error;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Error
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function stringQuery()
+    {
+        if( $string = $this->connectForge->stringQuery() )
+        {
+            return $string;
+        }
+        elseif( $string = $this->connectTool->stringQuery() )
+        {
+            return $string;
+        }
+        elseif( $string = $this->connect->stringQuery() )
+        {
+            return $string;
         }
         else
         {

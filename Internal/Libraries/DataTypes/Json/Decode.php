@@ -1,7 +1,5 @@
 <?php namespace ZN\DataTypes\Json;
 
-use ZN\DataTypes\Json\Exception\JsonErrorException;
-
 class Decode implements DecodeInterface
 {
     //--------------------------------------------------------------------------------------------------------
@@ -25,18 +23,6 @@ class Decode implements DecodeInterface
     public function do(String $data, Bool $array = false, Int $length = 512)
     {
         $return = json_decode($data, $array, $length);
-
-        if( ErrorInfo::no() )
-        {
-            try
-            {
-                throw new JsonErrorException('[Json::decode()] -> '.ErrorInfo::message());
-            }
-            catch( JsonErrorException $e )
-            {
-                $e->continue();
-            }
-        }
 
         return $return;
     }

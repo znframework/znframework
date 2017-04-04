@@ -273,7 +273,7 @@ class SQLiteDriver extends DriverConnectionMappingAbstract
     {
         if( empty($this->query) )
         {
-            return false;
+            return [];
         }
 
         $columns   = [];
@@ -357,7 +357,7 @@ class SQLiteDriver extends DriverConnectionMappingAbstract
         }
         else
         {
-            return false;
+            return [];
         }
     }
 
@@ -376,7 +376,7 @@ class SQLiteDriver extends DriverConnectionMappingAbstract
         }
         else
         {
-            return false;
+            return [];
         }
     }
 
@@ -395,7 +395,7 @@ class SQLiteDriver extends DriverConnectionMappingAbstract
         }
         else
         {
-            return 0;
+            return [];
         }
     }
 
@@ -414,7 +414,7 @@ class SQLiteDriver extends DriverConnectionMappingAbstract
         }
         else
         {
-            return false;
+            return 0;
         }
     }
 

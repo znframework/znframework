@@ -300,7 +300,7 @@ class MySQLiDriver extends DriverConnectionMappingAbstract
     {
         if( empty($this->query) )
         {
-            return false;
+            return [];
         }
 
         $columns   = [];
@@ -387,7 +387,7 @@ class MySQLiDriver extends DriverConnectionMappingAbstract
         }
         else
         {
-            return false;
+            return [];
         }
     }
 
@@ -406,7 +406,7 @@ class MySQLiDriver extends DriverConnectionMappingAbstract
         }
         else
         {
-            return false;
+            return [];
         }
     }
 
@@ -425,7 +425,7 @@ class MySQLiDriver extends DriverConnectionMappingAbstract
         }
         else
         {
-            return 0;
+            return [];
         }
     }
 
@@ -444,7 +444,7 @@ class MySQLiDriver extends DriverConnectionMappingAbstract
         }
         else
         {
-            return false;
+            return 0;
         }
     }
 

@@ -293,7 +293,7 @@ class OracleDriver extends DriverConnectionMappingAbstract
     {
         if( empty($this->query) )
         {
-            return false;
+            return [];
         }
 
         $columns   = [];
@@ -372,7 +372,7 @@ class OracleDriver extends DriverConnectionMappingAbstract
         }
         else
         {
-            return false;
+            return [];
         }
     }
 
@@ -391,7 +391,7 @@ class OracleDriver extends DriverConnectionMappingAbstract
         }
         else
         {
-            return false;
+            return [];
         }
     }
 
@@ -410,7 +410,7 @@ class OracleDriver extends DriverConnectionMappingAbstract
         }
         else
         {
-            return 0;
+            return [];
         }
     }
 
@@ -425,11 +425,11 @@ class OracleDriver extends DriverConnectionMappingAbstract
     {
         if( ! empty($this->connect) )
         {
-            return false;
+            return 0;
         }
         else
         {
-            return false;
+            return 0;
         }
     }
 
