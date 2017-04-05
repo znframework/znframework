@@ -379,7 +379,7 @@ class InternalURI extends CallController implements InternalURIInterface
     //--------------------------------------------------------------------------------------------------------
     protected function _cleanPath()
     {
-        $pathInfo = Security::htmlEncode(internalRequestURI());
+        $pathInfo = Security::htmlEncode(INTERNAL_ROUTE_URI);
 
         return $pathInfo;
     }

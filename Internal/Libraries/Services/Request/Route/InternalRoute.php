@@ -1,9 +1,9 @@
 <?php namespace ZN\Services\Request;
 
 use ZN\Core\Structure;
-use Arrays, Config, Errors, Controller, Http;
+use Arrays, Config, Errors, BaseController, Http, Import, Regex;
 
-class InternalRoute extends Controller implements InternalRouteInterface
+class InternalRoute extends BaseController implements InternalRouteInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -33,6 +33,51 @@ class InternalRoute extends Controller implements InternalRouteInterface
     protected $route = [];
 
     //--------------------------------------------------------------------------------------------------------
+    // Use Run Method
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var bool
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected $useRunMethod = false;
+
+    //--------------------------------------------------------------------------------------------------------
+    // Route
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var array
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected $routes = [];
+
+    //--------------------------------------------------------------------------------------------------------
+    // Status
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var array
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected $status = [];
+
+    //--------------------------------------------------------------------------------------------------------
+    // Data
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var array
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected $data = [];
+
+    //--------------------------------------------------------------------------------------------------------
+    // Masterpage Data
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var array
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected $mdata = [];
+
+    //--------------------------------------------------------------------------------------------------------
     // Pattern Type
     //--------------------------------------------------------------------------------------------------------
     //
@@ -40,6 +85,84 @@ class InternalRoute extends Controller implements InternalRouteInterface
     //
     //--------------------------------------------------------------------------------------------------------
     protected $patternType = 'special';
+
+    //--------------------------------------------------------------------------------------------------------
+    // Destruct
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function __destruct()
+    {
+        if( $this->useRunMethod === true && empty($this->status) )
+        {
+            $this->redirectShow404(CURRENT_CFUNCTION);
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Data
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param array $data
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function all()
+    {
+        if( ! empty($this->routes) )
+        {
+            $config = Config::get('Services', 'route');
+
+            Config::set('Services', 'route',
+            [
+                'requestMethods'      =>
+                [
+                    'disallowMethods' => array_merge([], $config['requestMethods']['disallowMethods']),
+                    'allowMethods'    => array_merge($this->routes['allowMethods'], $config['requestMethods']['allowMethods'])
+                ],
+                'changeUri'           => array_merge($this->routes['changeUri'], $config['changeUri'])
+            ]);
+
+            $this->_defaultVariable();
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Data
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param array $data
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function data(Array $data = NULL)
+    {
+        $this->data = $data;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Wizard Data
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param array $data
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function wdata(Array $data = NULL)
+    {
+        $this->data = $data;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Masterpage Data
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param array $data
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function mdata(Array $data = NULL)
+    {
+        $this->mdata = $data;
+    }
 
     //--------------------------------------------------------------------------------------------------------
     // Change
@@ -50,10 +173,64 @@ class InternalRoute extends Controller implements InternalRouteInterface
     //--------------------------------------------------------------------------------------------------------
     public function change($route, String $type = 'special') : InternalRoute
     {
-        $this->route      = $route;
-        $this->paternType = $type;
+        $this->route       = $route;
+        $this->patternType = $type;
 
         return $this;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Method 404 -> 4.3.1
+    //--------------------------------------------------------------------------------------------------------
+    //
+    //  @param  variadic ...$function
+    //  @return void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function method(...$methods) : InternalRoute
+    {
+        $this->method = $methods;
+
+        return $this;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // URI
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $path
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function uri(String $path = NULL)
+    {
+        if( empty($this->route) )
+        {
+            return false;
+        }
+
+        $configPatternType = Config::get('Services', 'route')['patternType'];
+
+        if( $this->patternType === 'classic' && $configPatternType === 'classic' )
+        {
+            $routeString = $this->route;
+            $this->route = Regex::classic2special($this->route);
+        }
+        elseif( $this->patternType === 'special' && $configPatternType === 'classic' )
+        {
+            $routeString = Regex::special2classic($this->route);
+        }
+        elseif( $this->patternType === 'special' && $configPatternType === 'special' )
+        {
+            $routeString = $this->route;
+        }
+        elseif( $this->patternType === 'classic' && $configPatternType === 'special' )
+        {
+            $routeString = Regex::classic2special($this->route);
+            $this->route = $routeString;
+        }
+
+        $this->routes['allowMethods'][$path]     = $this->method;
+        $this->routes['changeUri'][$routeString] = $this->_stringRoute($path, $this->route)[$this->route];
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -79,31 +256,18 @@ class InternalRoute extends Controller implements InternalRouteInterface
         {
             if( is_string($route) )
             {
-                preg_match_all('/\:\w+/', $route, $match);
-
-                $newMatch = [];
-
-                $matchAll = $match[0] ?? [];
-
-                foreach( $matchAll as $key => $val )
-                {
-                    $key++;
-
-                    $newMatch[] = "$$key";
-                }
-
-                $changeRoute = str_replace($matchAll, $newMatch, $route);
-                $changeRoute = str_replace(divide($route, '/'), $functionName, $changeRoute);
-                $route       = [$route => $changeRoute];
+                $route = $this->_stringRoute($functionName, $route);
             }
 
             Config::set('Services', 'route', ['changeUri' => $route, 'patternType' => $type ?? $this->patternType]);
         }
 
-        $datas      = Structure::data();
-        $parameters = $datas['parameters'];
-        $isFile     = $datas['file'];
-        $function   = $datas['function'];
+        $datas        = Structure::data();
+        $parameters   = $datas['parameters'];
+        $view         = $datas['page'];
+        $isFile       = $datas['file'];
+        $function     = $datas['function'];
+        $openFunction = $datas['openFunction'];
 
         if( Arrays::valueExists(['construct', 'destruct'], $functionName) )
         {
@@ -121,26 +285,17 @@ class InternalRoute extends Controller implements InternalRouteInterface
 
                 call_user_func_array($functionRun, $parameters);
 
-                $this->_defaultVariable();
+                $this->_import($functionName, $openFunction, $view);
+
+                $this->status[] = $functionName;
 
                 exit;
             }
         }
-    }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Method 404 -> 4.3.1
-    //--------------------------------------------------------------------------------------------------------
-    //
-    //  @param  variadic ...$function
-    //  @return void
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function method(...$methods) : InternalRoute
-    {
-        $this->method = $methods;
+        $this->useRunMethod = true;
 
-        return $this;
+        $this->_defaultVariable();
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -188,6 +343,68 @@ class InternalRoute extends Controller implements InternalRouteInterface
     }
 
     //--------------------------------------------------------------------------------------------------------
+    // Protected String Route
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $functionName
+    // @param string $route
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _stringRoute($functionName, $route)
+    {
+        preg_match_all('/\:\w+/', $route, $match);
+
+        $newMatch = [];
+
+        $matchAll = $match[0] ?? [];
+
+        foreach( $matchAll as $key => $val )
+        {
+            $key++;
+
+            $newMatch[] = "$$key";
+        }
+
+        $changeRoute = str_replace($matchAll, $newMatch, $route);
+        $changeRoute = str_replace(divide($route, '/'), $functionName, $changeRoute);
+        $route       = [$route => $changeRoute];
+
+        return $route;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Import
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $function
+    // @param string $openFunction
+    // @param string $view
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _import($function, $openFunction, $view)
+    {
+        $viewFunction = $function === $openFunction ? NULL : '-'.$function;
+        $viewDir      = PAGES_DIR . $view . $viewFunction;
+        $viewPath     = $viewDir  . '.php';
+        $wizardPath   = $viewDir  . '.wizard.php';
+
+        if( ! empty($this->mdata) )
+        {
+            Config::set('Masterpage', $this->mdata);
+
+            Import::masterpage($this->mdata);
+        }
+        elseif( is_file($wizardPath) && ! isImport($viewPath) && ! isImport($wizardPath) )
+        {
+            Import::view(str_replace(PAGES_DIR, NULL, $wizardPath), $this->data);
+        }
+        elseif( is_file($viewPath) && ! isImport($viewPath) && ! isImport($wizardPath) )
+        {
+            Import::view(str_replace(PAGES_DIR, NULL, $viewPath), $this->data);
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------------
     // Protected Default Variable -> 4.3.1
     //--------------------------------------------------------------------------------------------------------
     //
@@ -196,8 +413,11 @@ class InternalRoute extends Controller implements InternalRouteInterface
     //--------------------------------------------------------------------------------------------------------
     protected function _defaultVariable()
     {
+        $this->mdata       = [];
+        $this->data        = [];
         $this->route       = [];
         $this->method      = [];
+        $this->routes      = [];
         $this->patternType = 'special';
     }
 }

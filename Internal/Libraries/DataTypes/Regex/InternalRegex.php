@@ -16,6 +16,40 @@ class InternalRegex extends CLController implements InternalRegexInterface
     const config = 'Regex';
 
     //--------------------------------------------------------------------------------------------------------
+    // Special 2 Classic -> 4.3.2
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $pattern
+    // @param string $ex
+    // @param string $delimiter
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function special2classic(String $pattern, String $ex = NULL, String $delimiter = '/') : String
+    {
+        return (string) $this->_regularConverting($pattern, $ex, $delimiter);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Classic 2 Special -> 4.3.2
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $pattern
+    // @param string $ex
+    // @param string $delimiter
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function classic2special(String $pattern, String $delimiter = '/') : String
+    {
+        $specialChars = REGEX_CONFIG['specialChars'];
+        $regexChars   = Arrays::multikey(REGEX_CONFIG['regexChars']);
+        $settingChars = Arrays::multikey(REGEX_CONFIG['settingChars']);
+        $pattern      = str_ireplace(array_values($regexChars), array_keys($regexChars), $pattern);
+        $pattern      = str_ireplace(array_values($specialChars), array_keys($specialChars), $pattern);
+
+        return rtrim(ltrim($pattern, $delimiter), $delimiter);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
     // Match
     //--------------------------------------------------------------------------------------------------------
     //
@@ -125,10 +159,9 @@ class InternalRegex extends CLController implements InternalRegexInterface
     //--------------------------------------------------------------------------------------------------------
     protected function _regularConverting($pattern, $ex, $delimiter)
     {
-
         $specialChars = REGEX_CONFIG['specialChars'];
 
-        $pattern = str_ireplace(array_keys($specialChars ), array_values($specialChars), $pattern);
+        $pattern = str_ireplace(array_keys($specialChars), array_values($specialChars), $pattern);
 
         // Config/Regex.php dosyasından düzenlenmiş karakter
         // listeleri alınıyor.
