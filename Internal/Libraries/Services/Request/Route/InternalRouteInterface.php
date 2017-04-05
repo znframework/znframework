@@ -19,7 +19,7 @@ interface InternalRouteInterface
     // @param string $type = 'special' Available Options: special, classic
     //
     //--------------------------------------------------------------------------------------------------------
-    public function change(Array $route, String $type = 'special') : InternalRoute;
+    public function change($route, String $type = 'special') : InternalRoute;
 
     //--------------------------------------------------------------------------------------------------------
     // Method 404 -> 4.3.1
@@ -43,7 +43,7 @@ interface InternalRouteInterface
     //  @return mixed
     //
     //--------------------------------------------------------------------------------------------------------
-    public function run(String $functionName, Callable $functionRun = NULL, Array $route = NULL, String $type = NULL);
+    public function run(String $functionName, Callable $functionRun = NULL, $route = NULL, String $type = NULL);
 
     //--------------------------------------------------------------------------------------------------------
     // Redirect Invalid Request -> 4.3.1

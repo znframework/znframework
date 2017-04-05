@@ -48,7 +48,7 @@ class InternalRoute extends Controller implements InternalRouteInterface
     // @param array $route
     //
     //--------------------------------------------------------------------------------------------------------
-    public function change(Array $route, String $type = 'special') : InternalRoute
+    public function change($route, String $type = 'special') : InternalRoute
     {
         $this->route      = $route;
         $this->paternType = $type;
@@ -68,7 +68,7 @@ class InternalRoute extends Controller implements InternalRouteInterface
     //  @return mixed
     //
     //--------------------------------------------------------------------------------------------------------
-    public function run(String $functionName, Callable $functionRun = NULL, Array $route = NULL, String $type = NULL)
+    public function run(String $functionName, Callable $functionRun = NULL, $route = NULL, String $type = NULL)
     {
         if( ! empty($this->route) )
         {
@@ -77,6 +77,26 @@ class InternalRoute extends Controller implements InternalRouteInterface
 
         if( ! empty($route) )
         {
+            if( is_string($route) )
+            {
+                preg_match_all('/\:\w+/', $route, $match);
+
+                $newMatch = [];
+
+                $matchAll = $match[0] ?? [];
+
+                foreach( $matchAll as $key => $val )
+                {
+                    $key++;
+
+                    $newMatch[] = "$$key";
+                }
+
+                $changeRoute = str_replace($matchAll, $newMatch, $route);
+                $changeRoute = str_replace(divide($route, '/'), $functionName, $changeRoute);
+                $route       = [$route => $changeRoute];
+            }
+
             Config::set('Services', 'route', ['changeUri' => $route, 'patternType' => $type ?? $this->patternType]);
         }
 
