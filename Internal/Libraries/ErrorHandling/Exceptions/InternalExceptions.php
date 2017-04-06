@@ -168,7 +168,11 @@ class InternalExceptions extends Exception implements InternalExceptionsInterfac
         {
             $templateWizardData        = $this->_templateWizard();
             $exceptionData['file']     = $templateWizardData->file;
-            $exceptionData['message'] .= '! '.$templateWizardData->message;
+
+            if( empty($exceptionData['message']) )
+            {
+                $exceptionData['message'] = $templateWizardData->message;
+            }
         }
 
         $message = Import::template('ExceptionTable', $exceptionData, true);

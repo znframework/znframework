@@ -127,7 +127,6 @@ if( ! empty($files)  )
     {
         Import::something(ROUTES_DIR . $file);
     }
-
     Route::all();
 }
 

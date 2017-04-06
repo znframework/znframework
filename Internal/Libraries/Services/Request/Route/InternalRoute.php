@@ -199,13 +199,22 @@ class InternalRoute extends BaseController implements InternalRouteInterface
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string $path
+    // @param bool   $usable
     //
     //--------------------------------------------------------------------------------------------------------
-    public function uri(String $path = NULL)
+    public function uri(String $path = NULL, $usable = true)
     {
         if( empty($this->route) )
         {
             return false;
+        }
+
+        if( $usable === false )
+        {
+            if( stripos(requestURI(), $path) === 0 )
+            {
+                $this->redirectShow404($path);
+            }
         }
 
         $configPatternType = Config::get('Services', 'route')['patternType'];
@@ -230,7 +239,7 @@ class InternalRoute extends BaseController implements InternalRouteInterface
         }
 
         $this->routes['allowMethods'][$path]     = $this->method;
-        $this->routes['changeUri'][$routeString] = $this->_stringRoute($path, $this->route)[$this->route];
+        $this->routes['changeUri'][$routeString] = $newRoute = $this->_stringRoute($path, $this->route)[$this->route];
     }
 
     //--------------------------------------------------------------------------------------------------------

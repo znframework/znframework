@@ -16,7 +16,7 @@
 //
 // method: Sayfada hangi yöntem veya yöntemlerin geçerli olacağı.
 // change: Eskisinin ne ile değiştirileceği. Yani yeni URI bilgisi.
-// uri   : Hangi kontrol/fonksiyon için kullanılacak.
+// uri   : Hangi controller/method için kullanılacak.
 //
 //--------------------------------------------------------------------------------------------------
 
