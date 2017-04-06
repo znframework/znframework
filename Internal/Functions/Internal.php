@@ -89,6 +89,8 @@ function internalBaseDir(Int $index = 0) : String
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
+define('INTERNAL_REQUEST_URI', internalRequestURI());
+
 function internalRequestURI() : String
 {
     $requestUri = currentUri()
@@ -132,6 +134,30 @@ function internalCleanURIPrefix(String $uri = NULL, String $cleanData = NULL) : 
 }
 
 //--------------------------------------------------------------------------------------------------
+// internalRouteAll()
+//--------------------------------------------------------------------------------------------------
+//
+// @param void
+//
+//--------------------------------------------------------------------------------------------------
+function internalRouteAll()
+{
+    $externalRouteFiles = (array) Folder::files(EXTERNAL_ROUTES_DIR, 'php');
+    $routeFiles         = (array) Folder::files(ROUTES_DIR, 'php');
+    $files              = array_merge($externalRouteFiles, $routeFiles);
+
+    if( ! empty($files)  )
+    {
+        foreach( $files as $file )
+        {
+            Import::something(ROUTES_DIR . $file);
+        }
+
+        Route::all();
+    }
+}
+
+//--------------------------------------------------------------------------------------------------
 // internalRouteURI()
 //--------------------------------------------------------------------------------------------------
 //
@@ -142,6 +168,8 @@ function internalCleanURIPrefix(String $uri = NULL, String $cleanData = NULL) : 
 //--------------------------------------------------------------------------------------------------
 function internalRouteURI(String $requestUri = NULL) : String
 {
+    internalRouteAll();
+
     $config = Config::get('Services', 'route');
 
     if( $config['openController'] )
