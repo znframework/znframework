@@ -117,9 +117,13 @@ if( currentLang() )
 //--------------------------------------------------------------------------------------------------------
 // Routes
 //--------------------------------------------------------------------------------------------------------
-if( $routeFiles = Folder::files(ROUTES_DIR, 'php') )
+$externalRouteFiles = (array) Folder::files(EXTERNAL_ROUTES_DIR, 'php');
+$routeFiles         = (array) Folder::files(ROUTES_DIR, 'php');
+$files              = array_merge($externalRouteFiles, $routeFiles);
+
+if( ! empty($files)  )
 {
-    foreach( $routeFiles as $file )
+    foreach( $files as $file )
     {
         Import::something(ROUTES_DIR . $file);
     }
