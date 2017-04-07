@@ -23,6 +23,7 @@ class InternalSecurity extends \FactoryController implements InternalSecurityInt
             'escapestringencode' => 'Security\Injection::escapeStringEncode',
             'escapestringdecode' => 'Security\Injection::escapeStringDecode',
             'xssencode'          => 'Security\CrossSiteScripting::encode',
+            'csrftoken'          => 'Security\CrossSiteRequestForgery::token',
             'htmlencode'         => 'Security\HTML::encode',
             'htmldecode'         => 'Security\HTML::decode',
             'htmltagclean'       => 'Security\HTML::tagClean',
@@ -32,7 +33,7 @@ class InternalSecurity extends \FactoryController implements InternalSecurityInt
             'scripttagencode'    => 'Security\Script::encode',
             'scripttagdecode'    => 'Security\Script::decode',
             'foreigncharencode'  => 'Security\ForeignChar::encode',
-            'foreignchardecode'  => 'Security\ForeignChar::decode',
+            'foreignchardecode'  => 'Security\ForeignChar::decode'
         ]
     ];
 }
