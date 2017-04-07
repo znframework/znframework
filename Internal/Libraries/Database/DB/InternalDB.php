@@ -344,24 +344,6 @@ class InternalDB extends Connection implements InternalDBInterface
     private $transError;
 
     //--------------------------------------------------------------------------------------------------------
-    // Pagination
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var array
-    //
-    //--------------------------------------------------------------------------------------------------------
-    private $pagination = ['start' => 0, 'limit' => 0];
-
-    //--------------------------------------------------------------------------------------------------------
-    // Unlimited Query
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var string
-    //
-    //--------------------------------------------------------------------------------------------------------
-    private $unlimitedQuery;
-
-    //--------------------------------------------------------------------------------------------------------
     // Duplicate Check
     //--------------------------------------------------------------------------------------------------------
     //
@@ -387,6 +369,15 @@ class InternalDB extends Connection implements InternalDBInterface
     //
     //--------------------------------------------------------------------------------------------------------
     private $joinTable;
+
+    //--------------------------------------------------------------------------------------------------------
+    // Pagination
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var array
+    //
+    //--------------------------------------------------------------------------------------------------------
+    private $pagination = ['start' => 0, 'limit' => 0];
 
     //--------------------------------------------------------------------------------------------------------
     // Magic Call
@@ -725,48 +716,52 @@ class InternalDB extends Connection implements InternalDBInterface
             $this->select = ' * ';
         }
 
-        // First Query Build
-        $firstQueryBuilder  = 'SELECT '.
-                              $this->all.
-                              $this->distinct.
-                              $this->distinctRow.
-                              $this->highPriority.
-                              $this->maxStatementTime.
-                              $this->straightJoin.
-                              $this->smallResult.
-                              $this->bigResult.
-                              $this->bufferResult.
-                              $this->cache.
-                              $this->noCache.
-                              $this->calcFoundRows.
-                              $this->select.
-                              ' FROM '.
-                              $table.' '.
-                              $this->join.
-                              $this->_where().
-                              $this->_groupBy().
-                              $this->_having().
-                              $this->_orderBy();
-        // Second Query Build
-        $secondQueryBuilder = $this->procedure.
-                              $this->outFile.
-                              $this->characterSet.
-                              $this->dumpFile.
-                              $this->into.
-                              $this->forUpdate.
-                              $this->lockInShareMode;
+        // Query Build
+        $selectBuilder  = 'SELECT '.
+                          $this->all.
+                          $this->distinct.
+                          $this->distinctRow.
+                          $this->highPriority.
+                          $this->maxStatementTime.
+                          $this->straightJoin.
+                          $this->smallResult.
+                          $this->bigResult.
+                          $this->bufferResult.
+                          $this->cache.
+                          $this->noCache.
+                          $this->calcFoundRows.
+                          $this->select;
 
-        // Limited
-        $queryBuilder = $firstQueryBuilder.$this->limit.$secondQueryBuilder;
+        $fromBuilder   =  ' FROM '.
+                          $table.' '.
+                          $this->join.
+                          $this->_where().
+                          $this->_groupBy().
+                          $this->_having().
+                          $this->_orderBy().
+                          $this->limit.
+                          $this->procedure.
+                          $this->outFile.
+                          $this->characterSet.
+                          $this->dumpFile.
+                          $this->into.
+                          $this->forUpdate.
+                          $this->lockInShareMode;
 
-        // Unlimited
-        $this->unlimitedQuery = $firstQueryBuilder.$secondQueryBuilder;
+        $queryBuilder   = $selectBuilder . $fromBuilder;
+
+        // Unlimited Query
+        $unlimitedQuery = str_ireplace($this->limit, NULL, 'SELECT COUNT(*) ' . $fromBuilder);
 
         // Clear Query
         $this->_resetSelectQuery();
 
         // Query Security
         $secureQueryBuilder = $this->_querySecurity($queryBuilder);
+
+        $pagination['unlimitedQuery'] = $this->_querySecurity($unlimitedQuery);
+        $pagination['limit']          = $this->pagination['limit'];
+        $pagination['start']          = $this->pagination['start'];
 
         if( $return === 'string' )
         {
@@ -779,9 +774,7 @@ class InternalDB extends Connection implements InternalDBInterface
             return $secureQueryBuilder;
         }
 
-        $this->db->query($secureQueryBuilder, $this->secure);
-
-        return $this;
+        return (new self)->query($secureQueryBuilder, $this->secure, $pagination);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -1283,8 +1276,15 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param array  $secure
     //
     //--------------------------------------------------------------------------------------------------------
-    public function query(String $query, Array $secure = []) : InternalDB
+    public function query(String $query, Array $secure = [], $pagination = NULL) : InternalDB
     {
+        if( ! empty($pagination) )
+        {
+            $this->pagination['unlimitedQuery'] = $pagination['unlimitedQuery'];
+            $this->pagination['start']          = $pagination['start'];
+            $this->pagination['limit']          = $pagination['limit'];
+        }
+
         $this->db->query($this->_querySecurity($query), $this->_p($secure, 'secure'));
 
         if( ! empty($this->transStart) )
@@ -1571,18 +1571,14 @@ class InternalDB extends Connection implements InternalDBInterface
     //--------------------------------------------------------------------------------------------------------
     public function totalRows(Bool $total = false) : Int
     {
-        if( $total === false )
+        if( $total === true )
         {
-            return $this->db->numRows();
-        }
-        else
-        {
-            $query = $this->query($this->_querySecurity($this->unlimitedQuery), $this->secure)->totalRows();
+            $this->db->query($this->unlimitedQuery);
 
-            $this->unlimitedQuery = NULL;
-
-            return $query;
+            return current($this->db->fetchArray());
         }
+
+        return $this->db->numRows();
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -1739,20 +1735,16 @@ class InternalDB extends Connection implements InternalDBInterface
 
             if( $printable < 0 )
             {
-                return isset( $result[count($result) + $printable] )
-                       ? (object) $result[count($result) + $printable]
-                       : false;
+                return $result[count($result) + $printable] ?? false;
             }
             else
             {
-                return isset( $result[$printable] )
-                       ? (object) $result[$printable]
-                       : false;
+                return ((object) $result[$printable]) ?? false;
             }
         }
         elseif( $printable === true )
         {
-            return current((array)$this->db->row());
+            return current((array) $this->db->row());
         }
         else
         {
@@ -1819,26 +1811,30 @@ class InternalDB extends Connection implements InternalDBInterface
     //--------------------------------------------------------------------------------------------------------
     public function pagination(String $url = NULL, Array $settings = [], Bool $output = true)
     {
-        $pagcon = Config::get('ViewObjects', 'pagination');
-        $limit  = $this->pagination['limit'];
-        $start  = $this->pagination['start'];
-
-        $settings['totalRows'] = $this->totalRows(true);
-        $settings['limit']     = ! empty($limit) ? $limit : $pagcon['limit'];
-        $settings['start']     = $start ?? $pagcon['start'];
-
-        if( ! empty($url) )
+        if( isset($this->pagination['unlimitedQuery']) )
         {
-            $settings['url'] = $url;
+            $pagcon = Config::get('ViewObjects', 'pagination');
+            $limit  = $this->pagination['limit'];
+            $start  = $this->pagination['start'];
+
+            $this->db->query($this->pagination['unlimitedQuery']);
+
+            $settings['totalRows'] = current((array) $this->db->fetchArray());
+            $settings['limit']     = ! empty($limit) ? $limit : $pagcon['limit'];
+            $settings['start']     = $start ?? $pagcon['start'];
+            $this->pagination      = ['start' => 0, 'limit' => 0];
+
+            if( ! empty($url) )
+            {
+                $settings['url'] = $url;
+            }
+
+            $return = $output === true
+                    ? Pagination::create(NULL, $settings)
+                    : $settings;
+
+            return $return;
         }
-
-        $return = $output === true
-                ? Pagination::create(NULL, $settings)
-                : $settings;
-
-        $this->pagination = ['start' => 0, 'limit' => 0];
-
-        return $return;
     }
 
     //--------------------------------------------------------------------------------------------------------
