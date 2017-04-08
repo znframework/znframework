@@ -1,9 +1,9 @@
 <?php namespace ZN\Services\Request;
 
 use ZN\Core\Structure;
-use Arrays, Config, Errors, BaseController, Http, Import, Regex;
+use Arrays, Config, Errors, CLController, Http, Import, Regex, Security, Restoration;
 
-class InternalRoute extends BaseController implements InternalRouteInterface
+class InternalRoute extends CLController implements InternalRouteInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -13,6 +13,8 @@ class InternalRoute extends BaseController implements InternalRouteInterface
     // Copyright  : (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
+
+    const config = ['Services:route', 'Project:restoration'];
 
     //--------------------------------------------------------------------------------------------------------
     // Method -> 4.3.1
@@ -69,6 +71,78 @@ class InternalRoute extends BaseController implements InternalRouteInterface
     protected $data = [];
 
     //--------------------------------------------------------------------------------------------------------
+    // Restore
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var string
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected $restore;
+
+    //--------------------------------------------------------------------------------------------------------
+    // Restores
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var array
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected $restores;
+
+    //--------------------------------------------------------------------------------------------------------
+    // CSRF
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var string
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected $csrf;
+
+    //--------------------------------------------------------------------------------------------------------
+    // CSRFS
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var array
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected $csrfs = [];
+
+    //--------------------------------------------------------------------------------------------------------
+    // CSRF
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var string
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected $redirect;
+
+    //--------------------------------------------------------------------------------------------------------
+    // CSRFS
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var array
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected $redirects = [];
+
+    //--------------------------------------------------------------------------------------------------------
+    // Methods
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var array
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected $methods = [];
+
+    //--------------------------------------------------------------------------------------------------------
+    // Usable
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var array
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected $usable = [];
+
+    //--------------------------------------------------------------------------------------------------------
     // Masterpage Data
     //--------------------------------------------------------------------------------------------------------
     //
@@ -102,6 +176,53 @@ class InternalRoute extends BaseController implements InternalRouteInterface
     }
 
     //--------------------------------------------------------------------------------------------------------
+    // Method 404 -> 4.3.2
+    //--------------------------------------------------------------------------------------------------------
+    //
+    //  @param  variadic ...$function
+    //  @return void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function restore($ips, String $uri = NULL) : InternalRoute
+    {
+        $this->restore['ips'] = (array) $ips;
+        $this->restore['uri'] = $uri;
+
+        return $this;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Method 404 -> 4.3.2
+    //--------------------------------------------------------------------------------------------------------
+    //
+    //  @param  variadic ...$function
+    //  @return void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function CSRF(String $uri = 'post') : InternalRoute
+    {
+        $this->csrf = $uri;
+
+        return $this;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Filter -> 4.3.2
+    //--------------------------------------------------------------------------------------------------------
+    //
+    //  @param  variadic ...$function
+    //  @return void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function filter()
+    {
+        $this->_csrf();
+        $this->_restore();
+        $this->_method();
+        $this->_usable();
+    }
+
+    //--------------------------------------------------------------------------------------------------------
     // Method 404 -> 4.3.1
     //--------------------------------------------------------------------------------------------------------
     //
@@ -117,6 +238,21 @@ class InternalRoute extends BaseController implements InternalRouteInterface
     }
 
     //--------------------------------------------------------------------------------------------------------
+    // Redirect -> 4.3.2
+    //--------------------------------------------------------------------------------------------------------
+    //
+    //  @param  variadic ...$function
+    //  @return void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function redirect(String $redirect) : InternalRoute
+    {
+        $this->redirect = $redirect;
+
+        return $this;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
     // URI
     //--------------------------------------------------------------------------------------------------------
     //
@@ -126,20 +262,45 @@ class InternalRoute extends BaseController implements InternalRouteInterface
     //--------------------------------------------------------------------------------------------------------
     public function uri(String $path = NULL, $usable = true)
     {
+        if( ! strstr($path, '/') )
+        {
+            $path = suffix($path) . SERVICES_ROUTE_CONFIG['openFunction'];
+        }
+
+        if( ! empty($this->csrf) )
+        {
+            $this->csrfs[$path]['csrf'] = $this->csrf;
+
+            $this->csrf = NULL;
+        }
+
+        if( ! empty($this->restore) )
+        {
+            $this->restores[$path]['restore'] = $this->restore;
+
+            $this->restore = NULL;
+        }
+
+        if( ! empty($this->method) )
+        {
+            $this->methods[$path]['method'] = $this->method;
+
+            $this->method = NULL;
+        }
+
+        if( ! empty($this->redirect) )
+        {
+            $this->redirects[$path]['redirect'] = $this->redirect;
+
+            $this->redirect = NULL;
+        }
+
         if( empty($this->route) )
         {
             return false;
         }
 
-        if( $usable === false )
-        {
-            if( stripos(requestURI(), $path) === 0 )
-            {
-                $this->redirectShow404($path);
-            }
-        }
-
-        $configPatternType = Config::get('Services', 'route')['patternType'];
+        $configPatternType = SERVICES_ROUTE_CONFIG['patternType'];
 
         if( $this->patternType === 'classic' && $configPatternType === 'classic' )
         {
@@ -160,8 +321,14 @@ class InternalRoute extends BaseController implements InternalRouteInterface
             $this->route = $routeString;
         }
 
-        $this->routes['allowMethods'][$path]     = $this->method;
         $this->routes['changeUri'][$routeString] = $newRoute = $this->_stringRoute($path, $this->route)[$this->route];
+
+        if( $usable === false )
+        {
+            $this->usable[$path]['usable'] = $path;
+        }
+
+        $this->route = NULL;
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -175,16 +342,11 @@ class InternalRoute extends BaseController implements InternalRouteInterface
     {
         if( ! empty($this->routes) )
         {
-            $config = Config::get('Services', 'route');
+            $config = SERVICES_ROUTE_CONFIG;
 
             Config::set('Services', 'route',
             [
-                'requestMethods'      =>
-                [
-                    'disallowMethods' => array_merge([], $config['requestMethods']['disallowMethods']),
-                    'allowMethods'    => array_merge($this->routes['allowMethods'], $config['requestMethods']['allowMethods'])
-                ],
-                'changeUri'           => array_merge($this->routes['changeUri'], $config['changeUri'])
+                'changeUri' => array_merge($this->routes['changeUri'], $config['changeUri'])
             ]);
 
             $this->_defaultVariable();
@@ -316,7 +478,7 @@ class InternalRoute extends BaseController implements InternalRouteInterface
     //--------------------------------------------------------------------------------------------------------
     public function redirectInvalidRequest()
     {
-        $invalidRequest = Config::get('Services', 'route')['requestMethods'];
+        $invalidRequest = SERVICES_ROUTE_CONFIG['requestMethods'];
 
         if( empty($invalidRequest['page']) )
         {
@@ -340,7 +502,7 @@ class InternalRoute extends BaseController implements InternalRouteInterface
     //--------------------------------------------------------------------------------------------------------
     public function redirectShow404(String $function, String $lang = 'callUserFuncArrayError', String $report = 'SystemCallUserFuncArrayError')
     {
-        if( ! $routeShow404 = Config::get('Services', 'route')['show404'] )
+        if( ! $routeShow404 = SERVICES_ROUTE_CONFIG['show404'] )
         {
             report('Error', lang('Error', $lang), $report);
             die(Errors::message('Error', $lang, $function));
@@ -348,6 +510,107 @@ class InternalRoute extends BaseController implements InternalRouteInterface
         else
         {
             redirect($routeShow404);
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected CSRF
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _csrf()
+    {
+        if( ! empty($this->csrfs) )
+        {
+            if( $type = ($this->csrfs[CURRENT_CFURI]['csrf'] ?? NULL) )
+            {
+                $redirect = $this->redirects[CURRENT_CFURI]['redirect'] ?? SERVICES_ROUTE_CONFIG['requestMethods']['page'];
+
+                Security::CSRFtoken($redirect, $type);
+            }
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Restore
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _restore()
+    {
+        if( ! empty($this->restores) )
+        {
+            if( $restore = ($this->restores[CURRENT_CFURI]['restore'] ?? NULL) )
+            {
+                $routeURI = empty($restore['uri'])
+                          ? $this->redirects[CURRENT_CFURI]['redirect'] ?? PROJECT_RESTORATION_CONFIG['routePage']
+                          : $restore['uri'];
+
+                Restoration::routeURI($restore['ips'], $routeURI);
+            }
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Method
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _method()
+    {
+        if( ! empty($this->methods) )
+        {
+            if( $method = ($this->methods[CURRENT_CFURI]['method'] ?? NULL) )
+            {
+                if( Http::isRequestMethod(...$method) === false )
+                {
+                    $this->_redirect();
+                    $this->redirectInvalidRequest();
+                }
+            }
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Usable
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _usable()
+    {
+        if( ! empty($this->usable) )
+        {
+            if( isset($this->usable[CURRENT_CFURI]['usable']) )
+            {
+                if( strpos(currentUri(), CURRENT_CFURI) === 0 )
+                {
+                    $this->_redirect();
+                    $this->redirectInvalidRequest();
+                }
+            }
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Redirect
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _redirect()
+    {
+        if( $redirect = ($this->redirects[CURRENT_CFURI]['redirect'] ?? NULL) )
+        {
+            redirect($redirect);
         }
     }
 

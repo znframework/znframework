@@ -238,8 +238,8 @@ function currentUri() : String
 
     if( indexStatus() )
     {
-        $currentUri = str_replace(indexStatus(), '', $currentUri);
+        $currentUri = str_replace(indexStatus(), NULL, $currentUri);
     }
 
-    return $currentUri;
+    return str_replace(internalGetCurrentProject(), NULL, $currentUri);
 }

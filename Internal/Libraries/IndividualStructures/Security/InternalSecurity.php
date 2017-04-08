@@ -24,6 +24,8 @@ class InternalSecurity extends \FactoryController implements InternalSecurityInt
             'escapestringdecode' => 'Security\Injection::escapeStringDecode',
             'xssencode'          => 'Security\CrossSiteScripting::encode',
             'csrftoken'          => 'Security\CrossSiteRequestForgery::token',
+            'csrfpost'           => 'Security\CrossSiteRequestForgery::token',
+            'csrfget'            => 'Security\CrossSiteRequestForgery::get',
             'htmlencode'         => 'Security\HTML::encode',
             'htmldecode'         => 'Security\HTML::decode',
             'htmltagclean'       => 'Security\HTML::tagClean',

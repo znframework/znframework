@@ -1,6 +1,6 @@
 <?php namespace ZN\IndividualStructures\Security;
 
-use Session, Method, Encode;
+use Session, Method, Encode, Crypto;
 
 class CrossSiteRequestForgery extends SecurityExtends implements CrossSiteRequestForgeryInterface
 {
@@ -17,23 +17,34 @@ class CrossSiteRequestForgery extends SecurityExtends implements CrossSiteReques
     // CSRF Token
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $encrypt = 'token'
     // @param string $uri     = NULL
     //
     //--------------------------------------------------------------------------------------------------------
-    public function token(String $encrypt = 'token', String $uri = NULL)
+    public function token(String $uri = NULL, String $type = 'post')
     {
         if( ! Session::select('token') )
         {
-            Session::insert('token', Encode::super($encrypt));
+            Session::insert('token', Encode::super(Crypto::keygen(32)));
         }
 
-        if( Method::post() )
+        if( Method::$type() )
         {
-            if( Method::post('token') !== Session::select('token') )
+            if( Method::$type('token') !== Session::select('token') )
             {
                 redirect($uri);
             }
         }
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // CSRF Get Token
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $uri     = NULL
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function get(String $uri = NULL)
+    {
+        $this->token($uri, 'get');
     }
 }
