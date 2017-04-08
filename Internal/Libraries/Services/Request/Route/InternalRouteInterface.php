@@ -88,11 +88,10 @@ interface InternalRouteInterface
     // Change
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param array $route
-    // @param string $type = 'special' Available Options: special, classic
+    // @param string $route
     //
     //--------------------------------------------------------------------------------------------------------
-    public function change($route, String $type = 'special') : InternalRoute;
+    public function change(String $route) : InternalRoute;
 
     //--------------------------------------------------------------------------------------------------------
     // URI
@@ -121,12 +120,11 @@ interface InternalRouteInterface
     //
     //  @param  string   $functionName
     //  @param  function $functionRun
-    //  @param  array    $route
-    //  @param  string   $type
+    //  @param  bool     $usable = true
     //  @return mixed
     //
     //--------------------------------------------------------------------------------------------------------
-    public function run(String $functionName, Callable $functionRun = NULL, $route = NULL, String $type = NULL);
+    public function run(String $functionName, Callable $functionRun = NULL, Bool $usable = true);
 
     //--------------------------------------------------------------------------------------------------------
     // Redirect Invalid Request -> 4.3.1

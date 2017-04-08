@@ -327,23 +327,13 @@ class InternalRoute extends CLController implements InternalRouteInterface
 
         $configPatternType = SERVICES_ROUTE_CONFIG['patternType'];
 
-        if( $this->patternType === 'classic' && $configPatternType === 'classic' )
-        {
-            $routeString = $this->route;
-            $this->route = Regex::classic2special($this->route);
-        }
-        elseif( $this->patternType === 'special' && $configPatternType === 'classic' )
+        if( $configPatternType === 'classic' )
         {
             $routeString = Regex::special2classic($this->route);
         }
-        elseif( $this->patternType === 'special' && $configPatternType === 'special' )
+        elseif( $configPatternType === 'special' )
         {
             $routeString = $this->route;
-        }
-        elseif( $this->patternType === 'classic' && $configPatternType === 'special' )
-        {
-            $routeString = Regex::classic2special($this->route);
-            $this->route = $routeString;
         }
 
         $this->routes['changeUri'][$routeString] = $newRoute = $this->_stringRoute($path, $this->route)[$this->route];
@@ -418,13 +408,12 @@ class InternalRoute extends CLController implements InternalRouteInterface
     // Change
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param array $route
+    // @param string $route
     //
     //--------------------------------------------------------------------------------------------------------
-    public function change($route, String $type = 'special') : InternalRoute
+    public function change(String $route) : InternalRoute
     {
-        $this->route       = $route;
-        $this->patternType = $type;
+        $this->route = $route;
 
         return $this;
     }
@@ -436,34 +425,31 @@ class InternalRoute extends CLController implements InternalRouteInterface
     //
     //  @param  string   $functionName
     //  @param  function $functionRun
-    //  @param  array    $route
-    //  @param  string   $type
+    //  @param  bool     $usable = true
     //  @return mixed
     //
     //--------------------------------------------------------------------------------------------------------
-    public function run(String $functionName, Callable $functionRun = NULL, $route = NULL, String $type = NULL)
+    public function run(String $functionName, Callable $functionRun = NULL, Bool $usable = true)
     {
-        if( ! empty($this->route) )
-        {
-            $route = $this->route;
-        }
+        $route        = $this->route;
+        $parameters   = CURRENT_CPARAMETERS;
+        $view         = CURRENT_CONTROLLER;
+        $isFile       = CURRENT_CFILE;
+        $function     = CURRENT_CFUNCTION;
+        $openFunction = CURRENT_COPEN_PAGE;
+        $requestURI   = rtrim(str_replace($view . '/', NULL, requestURI()), '/');
+        $matchURI     = NULL;
 
         if( ! empty($route) )
         {
             if( is_string($route) )
             {
-                $route = $this->_stringRoute($functionName, $route);
+                $matchURI = Regex::match($route, $requestURI);
+                $route    = $this->_stringRoute($functionName, $route);
             }
 
-            Config::set('Services', 'route', ['changeUri' => $route, 'patternType' => $type ?? $this->patternType]);
+            Config::set('Services', 'route', ['changeUri' => $route, 'patternType' => 'special']);
         }
-
-        $datas        = Structure::data();
-        $parameters   = $datas['parameters'];
-        $view         = $datas['page'];
-        $isFile       = $datas['file'];
-        $function     = $datas['function'];
-        $openFunction = $datas['openFunction'];
 
         if( Arrays::valueExists(['construct', 'destruct'], $functionName) )
         {
@@ -472,7 +458,9 @@ class InternalRoute extends CLController implements InternalRouteInterface
 
         if( is_file($isFile) )
         {
-            if( $functionName === $function )
+            $matches = ! empty($matchURI) ? (bool) $matchURI : ( $usable === true ? $functionName === $function : false );
+
+            if( $matches )
             {
                 $this->uri(CURRENT_CFURI);
 
@@ -744,6 +732,5 @@ class InternalRoute extends CLController implements InternalRouteInterface
         $this->route       = [];
         $this->method      = [];
         $this->routes      = [];
-        $this->patternType = 'special';
     }
 }
