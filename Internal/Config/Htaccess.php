@@ -53,7 +53,7 @@
         //----------------------------------------------------------------------------------------------
         // Genel Kullanımı: .htaccess dosyasında zeroneed.php bölümü sonuna ? ekler
         // Parametreler   : '', ?
-        // Varsayılan     : server('pathInfo') ? '' : '?'.
+        // Varsayılan     : ! server('pathInfo') ? '?' : ''
         //
         //----------------------------------------------------------------------------------------------
         'indexSuffix' => ! server('pathInfo') ? '?' : ''

@@ -17,6 +17,15 @@ class InternalRoute extends CLController implements InternalRouteInterface
     const config = ['Services:route', 'Project:restoration'];
 
     //--------------------------------------------------------------------------------------------------------
+    // Container -> 4.3.2
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var array
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected $container;
+
+    //--------------------------------------------------------------------------------------------------------
     // Method -> 4.3.1
     //--------------------------------------------------------------------------------------------------------
     //
@@ -465,10 +474,9 @@ class InternalRoute extends CLController implements InternalRouteInterface
         {
             if( $functionName === $function )
             {
-                if( ! empty($this->method) && Http::isRequestMethod(...$this->method) === false )
-                {
-                    $this->redirectInvalidRequest();
-                }
+                $this->uri(CURRENT_CFURI);
+
+                $this->filter();
 
                 call_user_func_array($functionRun, $parameters);
 

@@ -37,7 +37,7 @@ interface InternalRouteInterface
     //  @param  string $uri = 'post'
     //
     //--------------------------------------------------------------------------------------------------------
-    public function CSRF(String $uri = 'redirect') : InternalRoute;
+    public function CSRF(String $uri = 'post') : InternalRoute;
 
     //--------------------------------------------------------------------------------------------------------
     // Redirect -> 4.3.2
