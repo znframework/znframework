@@ -44,7 +44,7 @@ class InternalRoute extends CLController implements InternalRouteInterface
     protected $useRunMethod = false;
 
     //--------------------------------------------------------------------------------------------------------
-    // Route
+    // Routes
     //--------------------------------------------------------------------------------------------------------
     //
     // @var array
@@ -107,7 +107,7 @@ class InternalRoute extends CLController implements InternalRouteInterface
     protected $csrfs = [];
 
     //--------------------------------------------------------------------------------------------------------
-    // CSRF
+    // Redirect
     //--------------------------------------------------------------------------------------------------------
     //
     // @var string
@@ -116,7 +116,7 @@ class InternalRoute extends CLController implements InternalRouteInterface
     protected $redirect;
 
     //--------------------------------------------------------------------------------------------------------
-    // CSRFS
+    // Redirects
     //--------------------------------------------------------------------------------------------------------
     //
     // @var array
@@ -176,11 +176,29 @@ class InternalRoute extends CLController implements InternalRouteInterface
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Method 404 -> 4.3.2
+    // Container -> 4.3.2
     //--------------------------------------------------------------------------------------------------------
     //
-    //  @param  variadic ...$function
-    //  @return void
+    // @param callable $callback
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function container(Callable $callback)
+    {
+        $this->container = true;
+
+        $callback();
+
+        $this->container = false;
+
+        $this->_containerDefaultVariables();
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Restore -> 4.3.2
+    //--------------------------------------------------------------------------------------------------------
+    //
+    //  @param  mixed  $ips
+    //  @param  string $uri
     //
     //--------------------------------------------------------------------------------------------------------
     public function restore($ips, String $uri = NULL) : InternalRoute
@@ -192,11 +210,10 @@ class InternalRoute extends CLController implements InternalRouteInterface
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Method 404 -> 4.3.2
+    // CSRF -> 4.3.2
     //--------------------------------------------------------------------------------------------------------
     //
-    //  @param  variadic ...$function
-    //  @return void
+    //  @param  string $uri = 'post'
     //
     //--------------------------------------------------------------------------------------------------------
     public function CSRF(String $uri = 'post') : InternalRoute
@@ -241,8 +258,7 @@ class InternalRoute extends CLController implements InternalRouteInterface
     // Redirect -> 4.3.2
     //--------------------------------------------------------------------------------------------------------
     //
-    //  @param  variadic ...$function
-    //  @return void
+    //  @param  string $redirect
     //
     //--------------------------------------------------------------------------------------------------------
     public function redirect(String $redirect) : InternalRoute
@@ -271,28 +287,28 @@ class InternalRoute extends CLController implements InternalRouteInterface
         {
             $this->csrfs[$path]['csrf'] = $this->csrf;
 
-            $this->csrf = NULL;
+            $this->_isContainer($this->csrf);
         }
 
         if( ! empty($this->restore) )
         {
             $this->restores[$path]['restore'] = $this->restore;
 
-            $this->restore = NULL;
+            $this->_isContainer($this->restore);
         }
 
         if( ! empty($this->method) )
         {
             $this->methods[$path]['method'] = $this->method;
 
-            $this->method = NULL;
+            $this->_isContainer($this->method);
         }
 
         if( ! empty($this->redirect) )
         {
             $this->redirects[$path]['redirect'] = $this->redirect;
 
-            $this->redirect = NULL;
+            $this->_isContainer($this->redirect);
         }
 
         if( empty($this->route) )
@@ -674,6 +690,36 @@ class InternalRoute extends CLController implements InternalRouteInterface
         {
             Import::view(str_replace(PAGES_DIR, NULL, $viewPath), $this->data);
         }
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Is Container -> 4.3.2
+    //--------------------------------------------------------------------------------------------------------
+    //
+    //  @return var &$data
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _isContainer(&$data)
+    {
+        if( $this->container !== true )
+        {
+            $data = NULL;
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Container Default Variable -> 4.3.2
+    //--------------------------------------------------------------------------------------------------------
+    //
+    //  @return void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _containerDefaultVariables()
+    {
+        $this->method   = NULL;
+        $this->redirect = NULL;
+        $this->restore  = NULL;
+        $this->csrf     = NULL;
     }
 
     //--------------------------------------------------------------------------------------------------------
