@@ -241,7 +241,7 @@ abstract class DriverConnectionMappingAbstract
         {
             if( $type === 'object' )
             {
-                $data = (object)$data;
+                $data = (object) $data;
             }
 
             $rows[] = $data;
@@ -275,7 +275,7 @@ abstract class DriverConnectionMappingAbstract
         {
             $data = $this->fetchAssoc();
 
-            return (object)$data;
+            return (object) $data;
         }
         else
         {
