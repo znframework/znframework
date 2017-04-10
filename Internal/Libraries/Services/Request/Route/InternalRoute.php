@@ -292,30 +292,32 @@ class InternalRoute extends CLController implements InternalRouteInterface
             $path = suffix($path) . SERVICES_ROUTE_CONFIG['openFunction'];
         }
 
+        $lowerPath = strtolower($path);
+
         if( ! empty($this->csrf) )
         {
-            $this->csrfs[$path]['csrf'] = $this->csrf;
+            $this->csrfs[$lowerPath]['csrf'] = $this->csrf;
 
             $this->_isContainer($this->csrf);
         }
 
         if( ! empty($this->restore) )
         {
-            $this->restores[$path]['restore'] = $this->restore;
+            $this->restores[$lowerPath]['restore'] = $this->restore;
 
             $this->_isContainer($this->restore);
         }
 
         if( ! empty($this->method) )
         {
-            $this->methods[$path]['method'] = $this->method;
+            $this->methods[$lowerPath]['method'] = $this->method;
 
             $this->_isContainer($this->method);
         }
 
         if( ! empty($this->redirect) )
         {
-            $this->redirects[$path]['redirect'] = $this->redirect;
+            $this->redirects[$lowerPath]['redirect'] = $this->redirect;
 
             $this->_isContainer($this->redirect);
         }
@@ -340,7 +342,7 @@ class InternalRoute extends CLController implements InternalRouteInterface
 
         if( $usable === false )
         {
-            $this->usable[$path]['usable'] = $path;
+            $this->usable[$lowerPath]['usable'] = $path;
         }
 
         $this->route = NULL;
@@ -602,7 +604,7 @@ class InternalRoute extends CLController implements InternalRouteInterface
         {
             if( isset($this->usable[CURRENT_CFURI]['usable']) )
             {
-                if( strpos(currentUri(), CURRENT_CFURI) === 0 )
+                if( strpos(strtolower(currentUri()), CURRENT_CFURI) === 0 )
                 {
                     $this->_redirect();
                     $this->redirectInvalidRequest();
