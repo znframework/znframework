@@ -1580,18 +1580,14 @@ class InternalDB extends Connection implements InternalDBInterface
     //--------------------------------------------------------------------------------------------------------
     public function result(String $type = 'object')
     {
-        if( $type === 'object' )
+        emptyCoalesce($this->results, $this->db->result($type));
+
+        if( $type === 'json' )
         {
-            return $this->db->result();
+            return json_encode($this->results);
         }
-        elseif( $type === 'json' )
-        {
-            return json_encode($this->db->result());
-        }
-        else
-        {
-            return $this->db->resultArray();
-        }
+
+        return $this->results;
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -1603,7 +1599,7 @@ class InternalDB extends Connection implements InternalDBInterface
     //--------------------------------------------------------------------------------------------------------
     public function resultJson() : String
     {
-        return json_encode($this->db->result());
+        return $this->result('json');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -1615,7 +1611,7 @@ class InternalDB extends Connection implements InternalDBInterface
     //--------------------------------------------------------------------------------------------------------
     public function resultArray() : Array
     {
-        return $this->db->resultArray();
+        return $this->result('array');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -1693,28 +1689,22 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param mixed $printable
     //
     //--------------------------------------------------------------------------------------------------------
-    public function row($printable = false)
+    public function row($printable = 0)
     {
-        if( is_numeric($printable) )
-        {
-            $result = $this->db->resultArray();
+        $result = $this->resultArray();
 
-            if( $printable < 0 )
-            {
-                return $result[count($result) + $printable] ?? false;
-            }
-            else
-            {
-                return ((object) $result[$printable]) ?? false;
-            }
-        }
-        elseif( $printable === true )
+        if( $printable < 0 )
         {
-            return current((array) $this->db->row());
+            return $result[count($result) + $printable] ?? false;
         }
         else
         {
-            return $this->db->row();
+            if( $printable === true )
+            {
+                return current($result[0] ?? []);
+            }
+
+            return ((object) $result[$printable]) ?? false;;
         }
     }
 
@@ -1727,7 +1717,7 @@ class InternalDB extends Connection implements InternalDBInterface
     //--------------------------------------------------------------------------------------------------------
     public function value()
     {
-        return current((array) $this->db->row());
+        return $this->row(true);
     }
 
     //--------------------------------------------------------------------------------------------------------
