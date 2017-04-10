@@ -1,6 +1,6 @@
 <?php namespace ZN\Requirements\System;
 
-use Config;
+use Config, Arrays;
 
 class Restoration
 {
@@ -12,6 +12,22 @@ class Restoration
     // Copyright  : (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
+
+    //--------------------------------------------------------------------------------------------------------
+    // routeURI
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param mixed  $machinesIP
+    // @param string $uri
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public static function routeURI($machinesIP, String $uri)
+    {
+        if( ! Arrays::valueExists((array) $machinesIP, ipv4()) && requestURI() !== $uri )
+        {
+            redirect($uri);
+        }
+    }
 
     //--------------------------------------------------------------------------------------------------------
     // Is Machines IP
@@ -75,7 +91,7 @@ class Restoration
 
         error_reporting(0);
 
-        $currentPath          = $restorable === true ? strtolower(CURRENT_CFUNCTION) : strtolower(internalRequestURI());
+        $currentPath          = $restorable === true ? strtolower(CURRENT_CFUNCTION) : strtolower(INTERNAL_REQUEST_URI);
         $projects             = Config::get('Project');
         $restoration          = $projects['restoration'];
         $restorationPages     = $restorable === true && ! isset($settings['functions'])

@@ -6,10 +6,6 @@
 	Options -Indexes
 </IfModule>
 
-<IfModule mime_module>
-	AddType application/x-httpd-ea-php70 .php .php7 .phtml
-</IfModule>
-
 <IfModule mod_rewrite.c>
 	RewriteEngine On
 	RewriteBase /

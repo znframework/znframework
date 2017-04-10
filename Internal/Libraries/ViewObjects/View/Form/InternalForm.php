@@ -1,6 +1,6 @@
 <?php namespace ZN\ViewObjects\View;
 
-use Validation, Arrays, DB;
+use Validation, Arrays, DB, Session;
 
 class InternalForm implements InternalFormInterface, ViewCommonInterface
 {
@@ -82,6 +82,13 @@ class InternalForm implements InternalFormInterface, ViewCommonInterface
         $this->method = $_attributes['method'];
 
         $return = '<form'.$this->attributes($_attributes).'>'.EOL;
+
+        if( isset($this->settings['token']) )
+        {
+            $return .= $this->hidden('token', Session::select('token'));
+        }
+
+        $this->settings['token'] = NULL;
 
         return $return;
     }
