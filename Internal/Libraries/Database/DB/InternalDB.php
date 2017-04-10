@@ -1,6 +1,6 @@
 <?php namespace ZN\Database;
 
-use URI, Pagination, Arrays, Classes, Method;
+use URI, Pagination, Arrays, Classes, Method, Config;
 
 class InternalDB extends Connection implements InternalDBInterface
 {
@@ -344,24 +344,6 @@ class InternalDB extends Connection implements InternalDBInterface
     private $transError;
 
     //--------------------------------------------------------------------------------------------------------
-    // Pagination
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var array
-    //
-    //--------------------------------------------------------------------------------------------------------
-    private $pagination = ['start' => 0, 'limit' => 0];
-
-    //--------------------------------------------------------------------------------------------------------
-    // Unlimited Query
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var string
-    //
-    //--------------------------------------------------------------------------------------------------------
-    private $unlimitedQuery;
-
-    //--------------------------------------------------------------------------------------------------------
     // Duplicate Check
     //--------------------------------------------------------------------------------------------------------
     //
@@ -557,7 +539,7 @@ class InternalDB extends Connection implements InternalDBInterface
             break;
         }
 
-        $type    = strtoupper($type);
+        $type = strtoupper($type);
 
         $this->joinType  = $type;
         $this->joinTable = $table;
@@ -684,9 +666,6 @@ class InternalDB extends Connection implements InternalDBInterface
 
         $start = (int) $start;
 
-        $this->pagination['start'] = $start;
-        $this->pagination['limit'] = $limit;
-
         $this->limit = ' LIMIT '.$start.( ! empty($limit) ? ' , '.$limit.' ' : '' );
 
         return $this;
@@ -725,63 +704,52 @@ class InternalDB extends Connection implements InternalDBInterface
             $this->select = ' * ';
         }
 
-        // First Query Build
-        $firstQueryBuilder  = 'SELECT '.
-                              $this->all.
-                              $this->distinct.
-                              $this->distinctRow.
-                              $this->highPriority.
-                              $this->maxStatementTime.
-                              $this->straightJoin.
-                              $this->smallResult.
-                              $this->bigResult.
-                              $this->bufferResult.
-                              $this->cache.
-                              $this->noCache.
-                              $this->calcFoundRows.
-                              $this->select.
-                              ' FROM '.
-                              $table.' '.
-                              $this->join.
-                              $this->_where().
-                              $this->_groupBy().
-                              $this->_having().
-                              $this->_orderBy();
-        // Second Query Build
-        $secondQueryBuilder = $this->procedure.
-                              $this->outFile.
-                              $this->characterSet.
-                              $this->dumpFile.
-                              $this->into.
-                              $this->forUpdate.
-                              $this->lockInShareMode;
-
-        // Limited
-        $queryBuilder = $firstQueryBuilder.$this->limit.$secondQueryBuilder;
-
-        // Unlimited
-        $this->unlimitedQuery = $firstQueryBuilder.$secondQueryBuilder;
+        // First Query
+        $finalQuery =     'SELECT '.
+                          $this->all.
+                          $this->distinct.
+                          $this->distinctRow.
+                          $this->highPriority.
+                          $this->maxStatementTime.
+                          $this->straightJoin.
+                          $this->smallResult.
+                          $this->bigResult.
+                          $this->bufferResult.
+                          $this->cache.
+                          $this->noCache.
+                          $this->calcFoundRows.
+                          $this->select.
+                          ' FROM '.
+                          $table.' '.
+                          $this->join.
+                          $this->_where().
+                          $this->_groupBy().
+                          $this->_having().
+                          $this->_orderBy().
+                          $this->limit.
+                          $this->procedure.
+                          $this->outFile.
+                          $this->characterSet.
+                          $this->dumpFile.
+                          $this->into.
+                          $this->forUpdate.
+                          $this->lockInShareMode;
 
         // Clear Query
         $this->_resetSelectQuery();
 
         // Query Security
-        $secureQueryBuilder = $this->_querySecurity($queryBuilder);
+        $secureFinalQuery = $this->_querySecurity($finalQuery);
 
-        if( $return === 'string' )
-        {
-            return $secureQueryBuilder;
-        }
-
-        if( $this->string === true )
+        // String Query
+        if( $this->string === true || $return === 'string' )
         {
             $this->string = NULL;
-            return $secureQueryBuilder;
+
+            return $secureFinalQuery;
         }
 
-        $this->db->query($secureQueryBuilder, $this->secure);
-
-        return $this;
+        return (new self)->query($secureFinalQuery, $this->secure);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -1571,18 +1539,12 @@ class InternalDB extends Connection implements InternalDBInterface
     //--------------------------------------------------------------------------------------------------------
     public function totalRows(Bool $total = false) : Int
     {
-        if( $total === false )
+        if( $total === true )
         {
-            return $this->db->numRows();
+            return (new self)->query($this->_cleanLimit($this->stringQuery()))->totalRows();
         }
-        else
-        {
-            $query = $this->query($this->_querySecurity($this->unlimitedQuery), $this->secure)->totalRows();
 
-            $this->unlimitedQuery = NULL;
-
-            return $query;
-        }
+        return $this->db->numRows();
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -1618,18 +1580,14 @@ class InternalDB extends Connection implements InternalDBInterface
     //--------------------------------------------------------------------------------------------------------
     public function result(String $type = 'object')
     {
-        if( $type === 'object' )
+        emptyCoalesce($this->results, $this->db->result($type));
+
+        if( $type === 'json' )
         {
-            return $this->db->result();
+            return json_encode($this->results);
         }
-        elseif( $type === 'json' )
-        {
-            return json_encode($this->db->result());
-        }
-        else
-        {
-            return $this->db->resultArray();
-        }
+
+        return $this->results;
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -1641,7 +1599,7 @@ class InternalDB extends Connection implements InternalDBInterface
     //--------------------------------------------------------------------------------------------------------
     public function resultJson() : String
     {
-        return json_encode($this->db->result());
+        return $this->result('json');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -1653,7 +1611,7 @@ class InternalDB extends Connection implements InternalDBInterface
     //--------------------------------------------------------------------------------------------------------
     public function resultArray() : Array
     {
-        return $this->db->resultArray();
+        return $this->result('array');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -1731,32 +1689,22 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param mixed $printable
     //
     //--------------------------------------------------------------------------------------------------------
-    public function row($printable = false)
+    public function row($printable = 0)
     {
-        if( is_numeric($printable) )
-        {
-            $result = $this->db->resultArray();
+        $result = $this->resultArray();
 
-            if( $printable < 0 )
-            {
-                return isset( $result[count($result) + $printable] )
-                       ? (object) $result[count($result) + $printable]
-                       : false;
-            }
-            else
-            {
-                return isset( $result[$printable] )
-                       ? (object) $result[$printable]
-                       : false;
-            }
-        }
-        elseif( $printable === true )
+        if( $printable < 0 )
         {
-            return current((array)$this->db->row());
+            return $result[count($result) + $printable] ?? false;
         }
         else
         {
-            return $this->db->row();
+            if( $printable === true )
+            {
+                return current($result[0] ?? []);
+            }
+
+            return ((object) $result[$printable]) ?? false;;
         }
     }
 
@@ -1769,7 +1717,7 @@ class InternalDB extends Connection implements InternalDBInterface
     //--------------------------------------------------------------------------------------------------------
     public function value()
     {
-        return current((array) $this->db->row());
+        return $this->row(true);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -1819,9 +1767,10 @@ class InternalDB extends Connection implements InternalDBInterface
     //--------------------------------------------------------------------------------------------------------
     public function pagination(String $url = NULL, Array $settings = [], Bool $output = true)
     {
-        $pagcon = \Config::get('ViewObjects', 'pagination');
-        $limit  = $this->pagination['limit'];
-        $start  = $this->pagination['start'];
+        $pagcon   = Config::get('ViewObjects', 'pagination');
+        $getLimit = $this->_getLimitValues($this->stringQuery());
+        $start    = $getLimit[1] ?? NULL;
+        $limit    = $getLimit[3] ?? NULL;
 
         $settings['totalRows'] = $this->totalRows(true);
         $settings['limit']     = ! empty($limit) ? $limit : $pagcon['limit'];
@@ -1835,8 +1784,6 @@ class InternalDB extends Connection implements InternalDBInterface
         $return = $output === true
                 ? Pagination::create(NULL, $settings)
                 : $settings;
-
-        $this->pagination = ['start' => 0, 'limit' => 0];
 
         return $return;
     }
@@ -2009,6 +1956,32 @@ class InternalDB extends Connection implements InternalDBInterface
                 $data    = Arrays::intersectKey($data, $columns);
             }
         }
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Clean Limit
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $data
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _cleanLimit($data)
+    {
+        return preg_replace('/limit\s+[0-9]+(\s*\,\s*[0-9]+)*/xi', '', $data);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Get Limit Values
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $data
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _getLimitValues($data)
+    {
+        preg_match('/limit\s+([0-9]+)(\s*\,\s*([0-9]+))*/xi', $data, $match);
+
+        return $match;
     }
 
     //--------------------------------------------------------------------------------------------------------

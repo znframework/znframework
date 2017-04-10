@@ -1,9 +1,9 @@
 <?php namespace ZN\Services\Request;
 
 use ZN\Core\Structure;
-use Arrays, Config, Errors, Controller, Http;
+use Arrays, Config, Errors, CLController, Http, Import, Regex, Security, Restoration;
 
-class InternalRoute extends Controller implements InternalRouteInterface
+class InternalRoute extends CLController implements InternalRouteInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -13,6 +13,17 @@ class InternalRoute extends Controller implements InternalRouteInterface
     // Copyright  : (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
+
+    const config = ['Services:route', 'Project:restoration'];
+
+    //--------------------------------------------------------------------------------------------------------
+    // Container -> 4.3.2
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var array
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected $container;
 
     //--------------------------------------------------------------------------------------------------------
     // Method -> 4.3.1
@@ -33,6 +44,123 @@ class InternalRoute extends Controller implements InternalRouteInterface
     protected $route = [];
 
     //--------------------------------------------------------------------------------------------------------
+    // Use Run Method
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var bool
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected $useRunMethod = false;
+
+    //--------------------------------------------------------------------------------------------------------
+    // Routes
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var array
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected $routes = [];
+
+    //--------------------------------------------------------------------------------------------------------
+    // Status
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var array
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected $status = [];
+
+    //--------------------------------------------------------------------------------------------------------
+    // Data
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var array
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected $data = [];
+
+    //--------------------------------------------------------------------------------------------------------
+    // Restore
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var string
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected $restore;
+
+    //--------------------------------------------------------------------------------------------------------
+    // Restores
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var array
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected $restores;
+
+    //--------------------------------------------------------------------------------------------------------
+    // CSRF
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var string
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected $csrf;
+
+    //--------------------------------------------------------------------------------------------------------
+    // CSRFS
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var array
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected $csrfs = [];
+
+    //--------------------------------------------------------------------------------------------------------
+    // Redirect
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var string
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected $redirect;
+
+    //--------------------------------------------------------------------------------------------------------
+    // Redirects
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var array
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected $redirects = [];
+
+    //--------------------------------------------------------------------------------------------------------
+    // Methods
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var array
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected $methods = [];
+
+    //--------------------------------------------------------------------------------------------------------
+    // Usable
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var array
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected $usable = [];
+
+    //--------------------------------------------------------------------------------------------------------
+    // Masterpage Data
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var array
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected $mdata = [];
+
+    //--------------------------------------------------------------------------------------------------------
     // Pattern Type
     //--------------------------------------------------------------------------------------------------------
     //
@@ -42,70 +170,82 @@ class InternalRoute extends Controller implements InternalRouteInterface
     protected $patternType = 'special';
 
     //--------------------------------------------------------------------------------------------------------
-    // Change
+    // Destruct
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param array $route
+    // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function change(Array $route, String $type = 'special') : InternalRoute
+    public function __destruct()
     {
-        $this->route      = $route;
-        $this->paternType = $type;
+        if( $this->useRunMethod === true && empty($this->status) )
+        {
+            $this->redirectShow404(CURRENT_CFUNCTION);
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Container -> 4.3.2
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param callable $callback
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function container(Callable $callback)
+    {
+        $this->container = true;
+
+        $callback();
+
+        $this->container = false;
+
+        $this->_containerDefaultVariables();
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Restore -> 4.3.2
+    //--------------------------------------------------------------------------------------------------------
+    //
+    //  @param  mixed  $ips
+    //  @param  string $uri
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function restore($ips, String $uri = NULL) : InternalRoute
+    {
+        $this->restore['ips'] = (array) $ips;
+        $this->restore['uri'] = $uri;
 
         return $this;
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Run
+    // CSRF -> 4.3.2
     //--------------------------------------------------------------------------------------------------------
-    // Genel Kullanım: Çalıştırılmak istenen kod bloklarını yönetmek için kullanılır.
     //
-    //  @param  string   $functionName
-    //  @param  function $functionRun
-    //  @param  array    $route
-    //  @param  string   $type
-    //  @return mixed
+    //  @param  string $uri = 'post'
     //
     //--------------------------------------------------------------------------------------------------------
-    public function run(String $functionName, Callable $functionRun = NULL, Array $route = NULL, String $type = NULL)
+    public function CSRF(String $uri = 'post') : InternalRoute
     {
-        if( ! empty($this->route) )
-        {
-            $route = $this->route;
-        }
+        $this->csrf = $uri;
 
-        if( ! empty($route) )
-        {
-            Config::set('Services', 'route', ['changeUri' => $route, 'patternType' => $type ?? $this->patternType]);
-        }
+        return $this;
+    }
 
-        $datas      = Structure::data();
-        $parameters = $datas['parameters'];
-        $isFile     = $datas['file'];
-        $function   = $datas['function'];
-
-        if( Arrays::valueExists(['construct', 'destruct'], $functionName) )
-        {
-            call_user_func_array($functionRun, $parameters);
-        }
-
-        if( is_file($isFile) )
-        {
-            if( $functionName === $function )
-            {
-                if( Http::isRequestMethod(...$this->method) === false )
-                {
-                    $this->redirectInvalidRequest();
-                }
-
-                call_user_func_array($functionRun, $parameters);
-
-                $this->_defaultVariable();
-
-                exit;
-            }
-        }
+    //--------------------------------------------------------------------------------------------------------
+    // Filter -> 4.3.2
+    //--------------------------------------------------------------------------------------------------------
+    //
+    //  @param  variadic ...$function
+    //  @return void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function filter()
+    {
+        $this->_csrf();
+        $this->_restore();
+        $this->_method();
+        $this->_usable();
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -124,6 +264,224 @@ class InternalRoute extends Controller implements InternalRouteInterface
     }
 
     //--------------------------------------------------------------------------------------------------------
+    // Redirect -> 4.3.2
+    //--------------------------------------------------------------------------------------------------------
+    //
+    //  @param  string $redirect
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function redirect(String $redirect) : InternalRoute
+    {
+        $this->redirect = $redirect;
+
+        return $this;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // URI
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $path
+    // @param bool   $usable
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function uri(String $path = NULL, $usable = true)
+    {
+        if( ! strstr($path, '/') )
+        {
+            $path = suffix($path) . SERVICES_ROUTE_CONFIG['openFunction'];
+        }
+
+        if( ! empty($this->csrf) )
+        {
+            $this->csrfs[$path]['csrf'] = $this->csrf;
+
+            $this->_isContainer($this->csrf);
+        }
+
+        if( ! empty($this->restore) )
+        {
+            $this->restores[$path]['restore'] = $this->restore;
+
+            $this->_isContainer($this->restore);
+        }
+
+        if( ! empty($this->method) )
+        {
+            $this->methods[$path]['method'] = $this->method;
+
+            $this->_isContainer($this->method);
+        }
+
+        if( ! empty($this->redirect) )
+        {
+            $this->redirects[$path]['redirect'] = $this->redirect;
+
+            $this->_isContainer($this->redirect);
+        }
+
+        if( empty($this->route) )
+        {
+            return false;
+        }
+
+        $configPatternType = SERVICES_ROUTE_CONFIG['patternType'];
+
+        if( $configPatternType === 'classic' )
+        {
+            $routeString = Regex::special2classic($this->route);
+        }
+        elseif( $configPatternType === 'special' )
+        {
+            $routeString = $this->route;
+        }
+
+        $this->routes['changeUri'][$routeString] = $newRoute = $this->_stringRoute($path, $this->route)[$this->route];
+
+        if( $usable === false )
+        {
+            $this->usable[$path]['usable'] = $path;
+        }
+
+        $this->route = NULL;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Data
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param array $data
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function all()
+    {
+        if( ! empty($this->routes) )
+        {
+            $config = SERVICES_ROUTE_CONFIG;
+
+            Config::set('Services', 'route',
+            [
+                'changeUri' => array_merge($this->routes['changeUri'], $config['changeUri'])
+            ]);
+
+            $this->_defaultVariable();
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Data
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param array $data
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function data(Array $data = NULL)
+    {
+        $this->data = $data;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Wizard Data
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param array $data
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function wdata(Array $data = NULL)
+    {
+        $this->data = $data;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Masterpage Data
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param array $data
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function mdata(Array $data = NULL)
+    {
+        $this->mdata = $data;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Change
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $route
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function change(String $route) : InternalRoute
+    {
+        $this->route = $route;
+
+        return $this;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Run
+    //--------------------------------------------------------------------------------------------------------
+    // Genel Kullanım: Çalıştırılmak istenen kod bloklarını yönetmek için kullanılır.
+    //
+    //  @param  string   $functionName
+    //  @param  function $functionRun
+    //  @param  bool     $usable = true
+    //  @return mixed
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function run(String $functionName, Callable $functionRun = NULL, Bool $usable = true)
+    {
+        $route        = $this->route;
+        $parameters   = CURRENT_CPARAMETERS;
+        $view         = CURRENT_CONTROLLER;
+        $isFile       = CURRENT_CFILE;
+        $function     = CURRENT_CFUNCTION;
+        $openFunction = CURRENT_COPEN_PAGE;
+        $requestURI   = rtrim(str_replace($view . '/', NULL, requestURI()), '/');
+        $matchURI     = NULL;
+
+        if( ! empty($route) )
+        {
+            if( is_string($route) )
+            {
+                $matchURI = Regex::match($route, $requestURI);
+                $route    = $this->_stringRoute($functionName, $route);
+            }
+
+            Config::set('Services', 'route', ['changeUri' => $route, 'patternType' => 'special']);
+        }
+
+        if( Arrays::valueExists(['construct', 'destruct'], $functionName) )
+        {
+            call_user_func_array($functionRun, $parameters);
+        }
+
+        if( is_file($isFile) )
+        {
+            $matches = ! empty($matchURI) ? (bool) $matchURI : ( $usable === true ? $functionName === $function : false );
+
+            if( $matches )
+            {
+                $this->uri(CURRENT_CFURI);
+
+                $this->filter();
+
+                call_user_func_array($functionRun, $parameters);
+
+                $this->_import($functionName, $openFunction, $view);
+
+                $this->status[] = $functionName;
+
+                exit;
+            }
+        }
+
+        $this->useRunMethod = true;
+
+        $this->_defaultVariable();
+    }
+
+    //--------------------------------------------------------------------------------------------------------
     // Redirect Invalid Request -> 4.3.1
     //--------------------------------------------------------------------------------------------------------
     //
@@ -132,7 +490,7 @@ class InternalRoute extends Controller implements InternalRouteInterface
     //--------------------------------------------------------------------------------------------------------
     public function redirectInvalidRequest()
     {
-        $invalidRequest = Config::get('Services', 'route')['requestMethods'];
+        $invalidRequest = SERVICES_ROUTE_CONFIG['requestMethods'];
 
         if( empty($invalidRequest['page']) )
         {
@@ -156,7 +514,7 @@ class InternalRoute extends Controller implements InternalRouteInterface
     //--------------------------------------------------------------------------------------------------------
     public function redirectShow404(String $function, String $lang = 'callUserFuncArrayError', String $report = 'SystemCallUserFuncArrayError')
     {
-        if( ! $routeShow404 = Config::get('Services', 'route')['show404'] )
+        if( ! $routeShow404 = SERVICES_ROUTE_CONFIG['show404'] )
         {
             report('Error', lang('Error', $lang), $report);
             die(Errors::message('Error', $lang, $function));
@@ -168,6 +526,199 @@ class InternalRoute extends Controller implements InternalRouteInterface
     }
 
     //--------------------------------------------------------------------------------------------------------
+    // Protected CSRF
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _csrf()
+    {
+        if( ! empty($this->csrfs) )
+        {
+            if( $type = ($this->csrfs[CURRENT_CFURI]['csrf'] ?? NULL) )
+            {
+                $redirect = $this->redirects[CURRENT_CFURI]['redirect'] ?? SERVICES_ROUTE_CONFIG['requestMethods']['page'];
+
+                Security::CSRFtoken($redirect, $type);
+            }
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Restore
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _restore()
+    {
+        if( ! empty($this->restores) )
+        {
+            if( $restore = ($this->restores[CURRENT_CFURI]['restore'] ?? NULL) )
+            {
+                $routeURI = empty($restore['uri'])
+                          ? $this->redirects[CURRENT_CFURI]['redirect'] ?? PROJECT_RESTORATION_CONFIG['routePage']
+                          : $restore['uri'];
+
+                Restoration::routeURI($restore['ips'], $routeURI);
+            }
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Method
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _method()
+    {
+        if( ! empty($this->methods) )
+        {
+            if( $method = ($this->methods[CURRENT_CFURI]['method'] ?? NULL) )
+            {
+                if( Http::isRequestMethod(...$method) === false )
+                {
+                    $this->_redirect();
+                    $this->redirectInvalidRequest();
+                }
+            }
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Usable
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _usable()
+    {
+        if( ! empty($this->usable) )
+        {
+            if( isset($this->usable[CURRENT_CFURI]['usable']) )
+            {
+                if( strpos(currentUri(), CURRENT_CFURI) === 0 )
+                {
+                    $this->_redirect();
+                    $this->redirectInvalidRequest();
+                }
+            }
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Redirect
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _redirect()
+    {
+        if( $redirect = ($this->redirects[CURRENT_CFURI]['redirect'] ?? NULL) )
+        {
+            redirect($redirect);
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected String Route
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $functionName
+    // @param string $route
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _stringRoute($functionName, $route)
+    {
+        preg_match_all('/\:\w+/', $route, $match);
+
+        $newMatch = [];
+
+        $matchAll = $match[0] ?? [];
+
+        foreach( $matchAll as $key => $val )
+        {
+            $key++;
+
+            $newMatch[] = "$$key";
+        }
+
+        $changeRoute = str_replace($matchAll, $newMatch, $route);
+        $changeRoute = str_replace(divide($route, '/'), $functionName, $changeRoute);
+        $route       = [$route => $changeRoute];
+
+        return $route;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Import
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $function
+    // @param string $openFunction
+    // @param string $view
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _import($function, $openFunction, $view)
+    {
+        $viewFunction = $function === $openFunction ? NULL : '-'.$function;
+        $viewDir      = PAGES_DIR . $view . $viewFunction;
+        $viewPath     = $viewDir  . '.php';
+        $wizardPath   = $viewDir  . '.wizard.php';
+
+        if( ! empty($this->mdata) )
+        {
+            Config::set('Masterpage', $this->mdata);
+
+            Import::masterpage($this->mdata);
+        }
+        elseif( is_file($wizardPath) && ! isImport($viewPath) && ! isImport($wizardPath) )
+        {
+            Import::view(str_replace(PAGES_DIR, NULL, $wizardPath), $this->data);
+        }
+        elseif( is_file($viewPath) && ! isImport($viewPath) && ! isImport($wizardPath) )
+        {
+            Import::view(str_replace(PAGES_DIR, NULL, $viewPath), $this->data);
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Is Container -> 4.3.2
+    //--------------------------------------------------------------------------------------------------------
+    //
+    //  @return var &$data
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _isContainer(&$data)
+    {
+        if( $this->container !== true )
+        {
+            $data = NULL;
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Container Default Variable -> 4.3.2
+    //--------------------------------------------------------------------------------------------------------
+    //
+    //  @return void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _containerDefaultVariables()
+    {
+        $this->method   = NULL;
+        $this->redirect = NULL;
+        $this->restore  = NULL;
+        $this->csrf     = NULL;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
     // Protected Default Variable -> 4.3.1
     //--------------------------------------------------------------------------------------------------------
     //
@@ -176,8 +727,10 @@ class InternalRoute extends Controller implements InternalRouteInterface
     //--------------------------------------------------------------------------------------------------------
     protected function _defaultVariable()
     {
+        $this->mdata       = [];
+        $this->data        = [];
         $this->route       = [];
         $this->method      = [];
-        $this->patternType = 'special';
+        $this->routes      = [];
     }
 }

@@ -54,6 +54,9 @@ class InternalArrays extends \FactoryController implements InternalArraysInterfa
             'excluding'             => 'Arrays\Excluding::use',
             'exclude'               => 'Arrays\Excluding::use',
             'each'                  => 'Arrays\Each::use',
+            'force'                 => 'Arrays\Force::do',
+            'forcevalues'           => 'Arrays\Force::values',
+            'forcekeys'             => 'Arrays\Force::keys',
             'multikey'              => 'Arrays\MultipleKey::use',
             'keyval'                => 'Arrays\KeyValue::use',
             'key'                   => 'Arrays\KeyValue::key',
@@ -309,7 +312,7 @@ class InternalArrays extends \FactoryController implements InternalArraysInterfa
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Value Exists Insenstive
+    // Value Exists Insensitive
     //--------------------------------------------------------------------------------------------------------
     //
     // @param array $array
@@ -333,6 +336,19 @@ class InternalArrays extends \FactoryController implements InternalArraysInterfa
     public function keyExists(Array $array, $key) : Bool
     {
         return array_key_exists($key, $array);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Key Exists Insensitive
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param array $array
+    // @param mixed $key
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function keyExistsInsensitive(Array $array, $key) : Bool
+    {
+        return $this->keyExists($this->lowerKeys($array), strtolower($key));
     }
 
     //--------------------------------------------------------------------------------------------------------
