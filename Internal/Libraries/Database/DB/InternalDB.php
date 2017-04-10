@@ -371,15 +371,6 @@ class InternalDB extends Connection implements InternalDBInterface
     private $joinTable;
 
     //--------------------------------------------------------------------------------------------------------
-    // Pagination
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var array
-    //
-    //--------------------------------------------------------------------------------------------------------
-    private $pagination = ['start' => 0, 'limit' => 0];
-
-    //--------------------------------------------------------------------------------------------------------
     // Magic Call
     //--------------------------------------------------------------------------------------------------------
     //
@@ -675,9 +666,6 @@ class InternalDB extends Connection implements InternalDBInterface
 
         $start = (int) $start;
 
-        $this->pagination['start'] = $start;
-        $this->pagination['limit'] = $limit;
-
         $this->limit = ' LIMIT '.$start.( ! empty($limit) ? ' , '.$limit.' ' : '' );
 
         return $this;
@@ -717,7 +705,7 @@ class InternalDB extends Connection implements InternalDBInterface
         }
 
         // First Query
-        $firstQuery =     'SELECT '.
+        $finalQuery =     'SELECT '.
                           $this->all.
                           $this->distinct.
                           $this->distinctRow.
@@ -737,10 +725,9 @@ class InternalDB extends Connection implements InternalDBInterface
                           $this->_where().
                           $this->_groupBy().
                           $this->_having().
-                          $this->_orderBy();
-
-        // Second Query
-        $secondQuery =    $this->procedure.
+                          $this->_orderBy().
+                          $this->limit.
+                          $this->procedure.
                           $this->outFile.
                           $this->characterSet.
                           $this->dumpFile.
@@ -748,22 +735,11 @@ class InternalDB extends Connection implements InternalDBInterface
                           $this->forUpdate.
                           $this->lockInShareMode;
 
-        // Final Query
-        $finalQuery     = $firstQuery . $this->limit . $secondQuery;
-
-        // Unlimited Query
-        $unlimitedQuery = $firstQuery . $secondQuery;
-
         // Clear Query
         $this->_resetSelectQuery();
 
         // Query Security
         $secureFinalQuery = $this->_querySecurity($finalQuery);
-
-        // For Pagination
-        $pagination['unlimitedQuery'] = $this->_querySecurity($unlimitedQuery);
-        $pagination['limit']          = $this->pagination['limit'];
-        $pagination['start']          = $this->pagination['start'];
 
         // String Query
         if( $this->string === true || $return === 'string' )
@@ -773,7 +749,7 @@ class InternalDB extends Connection implements InternalDBInterface
             return $secureFinalQuery;
         }
 
-        return (new self)->query($secureFinalQuery, $this->secure, $pagination);
+        return (new self)->query($secureFinalQuery, $this->secure);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -1275,12 +1251,8 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param array  $secure
     //
     //--------------------------------------------------------------------------------------------------------
-    public function query(String $query, Array $secure = [], $pagination = NULL) : InternalDB
+    public function query(String $query, Array $secure = []) : InternalDB
     {
-        $this->unlimitedQuery      = $pagination['unlimitedQuery'];
-        $this->pagination['start'] = $pagination['start'];
-        $this->pagination['limit'] = $pagination['limit'];
-
         $this->db->query($this->_querySecurity($query), $this->_p($secure, 'secure'));
 
         if( ! empty($this->transStart) )
@@ -1569,7 +1541,7 @@ class InternalDB extends Connection implements InternalDBInterface
     {
         if( $total === true )
         {
-            return (new self)->query($this->unlimitedQuery)->totalRows();
+            return (new self)->query($this->_cleanLimit($this->stringQuery()))->totalRows();
         }
 
         return $this->db->numRows();
@@ -1805,14 +1777,14 @@ class InternalDB extends Connection implements InternalDBInterface
     //--------------------------------------------------------------------------------------------------------
     public function pagination(String $url = NULL, Array $settings = [], Bool $output = true)
     {
-        $pagcon = Config::get('ViewObjects', 'pagination');
-        $limit  = $this->pagination['limit'];
-        $start  = $this->pagination['start'];
+        $pagcon   = Config::get('ViewObjects', 'pagination');
+        $getLimit = $this->_getLimitValues($this->stringQuery());
+        $start    = $getLimit[1] ?? NULL;
+        $limit    = $getLimit[3] ?? NULL;
 
         $settings['totalRows'] = $this->totalRows(true);
         $settings['limit']     = ! empty($limit) ? $limit : $pagcon['limit'];
         $settings['start']     = $start ?? $pagcon['start'];
-        $this->pagination      = ['start' => 0, 'limit' => 0];
 
         if( ! empty($url) )
         {
@@ -1994,6 +1966,32 @@ class InternalDB extends Connection implements InternalDBInterface
                 $data    = Arrays::intersectKey($data, $columns);
             }
         }
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Clean Limit
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $data
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _cleanLimit($data)
+    {
+        return preg_replace('/limit\s+[0-9]+(\s*\,\s*[0-9]+)*/xi', '', $data);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Get Limit Values
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $data
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _getLimitValues($data)
+    {
+        preg_match('/limit\s+([0-9]+)(\s*\,\s*([0-9]+))*/xi', $data, $match);
+
+        return $match;
     }
 
     //--------------------------------------------------------------------------------------------------------
