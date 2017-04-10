@@ -324,7 +324,8 @@
     //--------------------------------------------------------------------------------------------------
     'settings' =>
     [
-        'IfModule mod_headers.c' => ['Options -Indexes'],
-        //'IfModule mime_module'   => ['AddType application/x-httpd-ea-php70 .php .php7 .phtml']
+        'IfModule mod_headers.c'    => ['Options -Indexes'],
+        //'IfModule mod_security.c' => ['SecFilterEngine Off', 'SecFilterScanPOST Off']
+        //'IfModule mime_module'    => ['AddType application/x-httpd-ea-php70 .php .php7 .phtml']
     ]
 ];
