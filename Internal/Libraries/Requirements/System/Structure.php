@@ -29,7 +29,7 @@ class Structure
         // @var string
         //
         //----------------------------------------------------------------------------------------------
-        $namespace      = PROJECT_CONTROLLER_NAMESPACE;
+        $namespace = PROJECT_CONTROLLER_NAMESPACE;
 
         //----------------------------------------------------------------------------------------------
         // Page
@@ -38,7 +38,7 @@ class Structure
         // @var string
         //
         //----------------------------------------------------------------------------------------------
-        $page           = '';
+        $page = '';
 
         //----------------------------------------------------------------------------------------------
         // Open Function
@@ -47,7 +47,7 @@ class Structure
         // @var string
         //
         //----------------------------------------------------------------------------------------------
-        $openFunction   = Config::get('Services', 'route')['openFunction'];
+        $openFunction = Config::get('Services', 'route')['openFunction'];
 
         //----------------------------------------------------------------------------------------------
         // Function
@@ -56,9 +56,9 @@ class Structure
         // @var string
         //
         //----------------------------------------------------------------------------------------------
-        $function       = $openFunction
-                        ? $openFunction
-                        : 'main';
+        $function = $openFunction
+                  ? $openFunction
+                  : 'main';
 
         //----------------------------------------------------------------------------------------------
         // Parameters
@@ -67,7 +67,7 @@ class Structure
         // @var array
         //
         //----------------------------------------------------------------------------------------------
-        $parameters     = [];
+        $parameters = [];
 
         //----------------------------------------------------------------------------------------------
         // Segments
@@ -76,7 +76,7 @@ class Structure
         // @var string
         //
         //----------------------------------------------------------------------------------------------
-        $segments       = '';
+        $segments = '';
 
         //----------------------------------------------------------------------------------------------
         // Is File
@@ -85,7 +85,7 @@ class Structure
         // @var string
         //
         //----------------------------------------------------------------------------------------------
-        $isFile         = '';
+        $isFile = '';
 
         //----------------------------------------------------------------------------------------------
         // Request Uri
@@ -102,12 +102,12 @@ class Structure
         //----------------------------------------------------------------------------------------------
         //  $_GET kontrolü yapılarak temel URL bilgisi elde ediliyor.
         //----------------------------------------------------------------------------------------------
-        $url            = explode('?', $requestUri);
+        $url = explode('?', $requestUri);
 
         //----------------------------------------------------------------------------------------------
         //  Temel URL adresi / karakteri ile bölümlere ayrılıyor.
         //----------------------------------------------------------------------------------------------
-        $segments       = explode('/', $url[0]);
+        $segments = explode('/', $url[0]);
 
         //----------------------------------------------------------------------------------------------
         //  Controller/Sayfa: Controller/ dizini içinde çalıştırılacak dosya adı.
@@ -115,7 +115,7 @@ class Structure
         if( isset($segments[0]) )
         {
             $page   = $segments[0];
-            $isFile = CONTROLLERS_DIR.suffix($page, '.php');
+            $isFile = CONTROLLERS_DIR . suffix($page, '.php');
 
             if( ! is_file($isFile) )
             {
@@ -126,7 +126,7 @@ class Structure
                 {
                     $if    .= $segments[$i].'/';
                     $ifTrim = rtrim($if, '/');
-                    $isF    = CONTROLLERS_DIR.suffix($ifTrim , '.php');
+                    $isF    = CONTROLLERS_DIR . suffix($ifTrim , '.php');
 
                     if( is_file($isF) )
                     {
@@ -186,7 +186,7 @@ class Structure
         [
             'parameters'   => $parameters,
             'page'         => $page,
-            'file'         => str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $isFile),
+            'file'         => str_replace(['/', '\\'], DS, $isFile),
             'function'     => $function,
             'namespace'    => $namespace,
             'openFunction' => $openFunction
