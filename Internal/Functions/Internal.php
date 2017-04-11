@@ -89,8 +89,6 @@ function internalBaseDir(Int $index = 0) : String
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-define('INTERNAL_REQUEST_URI', internalRequestURI());
-
 function internalRequestURI() : String
 {
     $requestUri = currentUri()
