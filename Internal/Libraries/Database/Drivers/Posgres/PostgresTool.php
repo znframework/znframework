@@ -26,14 +26,14 @@ class PostgresTool extends DriverTool
     public function listDatabases()
     {
         $result = \DB::query('SELECT datname FROM pg_database')->result();
-        
-        if( \DB::error() ) 
+
+        if( \DB::error() )
         {
             return false;
         }
-        
+
         $newDatabases = [];
-        
+
         foreach( $result as $databases )
         {
             foreach( $databases as $db => $database )
@@ -41,10 +41,10 @@ class PostgresTool extends DriverTool
                 $newDatabases[] = $database;
             }
         }
-        
+
         return $newDatabases;
     }
-    
+
     //--------------------------------------------------------------------------------------------------------
     // List Tables
     //--------------------------------------------------------------------------------------------------------
@@ -58,14 +58,14 @@ class PostgresTool extends DriverTool
     public function listTables()
     {
         $result = \DB::query("SELECT table_name FROM information_schema.tables WHERE table_schema = 'public'")->result();
-        
-        if( \DB::error() ) 
+
+        if( \DB::error() )
         {
             return false;
         }
-        
+
         $newTables = [];
-        
+
         foreach( $result as $tables )
         {
             foreach( $tables as $tb => $table )
@@ -73,7 +73,7 @@ class PostgresTool extends DriverTool
                 $newTables[] = $table;
             }
         }
-        
+
         return $newTables;
     }
 }

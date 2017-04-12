@@ -91,7 +91,7 @@ class Restoration
 
         error_reporting(0);
 
-        $currentPath          = $restorable === true ? strtolower(CURRENT_CFUNCTION) : strtolower(INTERNAL_REQUEST_URI);
+        $currentPath          = $restorable === true ? strtolower(CURRENT_CFUNCTION) : strtolower(currentUri());
         $projects             = Config::get('Project');
         $restoration          = $projects['restoration'];
         $restorationPages     = $restorable === true && ! isset($settings['functions'])

@@ -46,7 +46,7 @@ interface ConnectionInterface
     // @param mixed $connectName
     //
     //--------------------------------------------------------------------------------------------------------
-    public function differentConnection($connectName) : Connection;
+    public function differentConnection($connectName = NULL) : Connection;
 
     //--------------------------------------------------------------------------------------------------------
     // Secure

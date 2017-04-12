@@ -238,22 +238,30 @@ function requestURI() : String
 // currentUri()
 //--------------------------------------------------------------------------------------------------
 //
-// @param void
+// @param bool $fullPath = false
 //
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function currentUri() : String
+function currentUri(Bool $fullPath = false) : String
 {
     $requestUri = server('requestUri');
     $currentUri = BASE_DIR !== '/'
                 ? str_replace(BASE_DIR, '', $requestUri)
                 : substr($requestUri, 1);
 
-    if( indexStatus() )
+    if( $fullPath === false )
     {
-        $currentUri = str_replace(indexStatus(), NULL, $currentUri);
+        $currentUri = internalCleanURIPrefix($currentUri, indexStatus());
+
+        if( suffix($currentUri) === internalGetCurrentProject() )
+        {
+            return Config::get('Services', 'route')['openController'];
+        }
+
+        $currentUri = internalCleanURIPrefix($currentUri, internalGetCurrentProject());
+        $currentUri = internalCleanURIPrefix($currentUri, currentLang());
     }
 
-    return str_replace(internalGetCurrentProject(), NULL, $currentUri);
+    return $currentUri;
 }
