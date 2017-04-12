@@ -21,6 +21,8 @@
 //--------------------------------------------------------------------------------------------------
 function CSRFInput()
 {
+    Session::insert('token', Encode::create(32));
+
     return Form::hidden('token', Session::select('token'));
 }
 

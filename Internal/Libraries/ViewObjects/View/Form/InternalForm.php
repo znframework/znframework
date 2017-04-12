@@ -85,7 +85,7 @@ class InternalForm implements InternalFormInterface, ViewCommonInterface
 
         if( isset($this->settings['token']) )
         {
-            $return .= $this->hidden('token', Session::select('token'));
+            $return .= CSRFInput();
         }
 
         $this->settings['token'] = NULL;
