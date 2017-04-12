@@ -22,11 +22,6 @@ class CrossSiteRequestForgery extends SecurityExtends implements CrossSiteReques
     //--------------------------------------------------------------------------------------------------------
     public function token(String $uri = NULL, String $type = 'post')
     {
-        if( ! Session::select('token') )
-        {
-            Session::insert('token', Encode::super(Crypto::keygen(32)));
-        }
-
         if( Method::$type() )
         {
             if( Method::$type('token') !== Session::select('token') )
