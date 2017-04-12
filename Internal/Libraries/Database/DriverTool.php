@@ -26,9 +26,9 @@ class DriverTool extends DriverExtends
     //--------------------------------------------------------------------------------------------------------
     public function listDatabases()
     {
-        $result = $this->connect->query('SHOW DATABASES')->result();
+        $result = $this->differentConnection->query('SHOW DATABASES')->result();
 
-        if( $this->connect->error() )
+        if( $this->differentConnection->error() )
         {
             return [];
         }
@@ -58,9 +58,9 @@ class DriverTool extends DriverExtends
     //--------------------------------------------------------------------------------------------------------
     public function listTables()
     {
-        $result = $this->connect->query('SHOW TABLES')->result();
+        $result = $this->differentConnection->query('SHOW TABLES')->result();
 
-        if( $this->connect->error() )
+        if( $this->differentConnection->error() )
         {
             return [];
         }
@@ -96,19 +96,19 @@ class DriverTool extends DriverExtends
 
             foreach( $listTables as $table )
             {
-                $infos->$table = $this->connect->status($table)->row();
+                $infos->$table = $this->differentConnection->status($table)->row();
             }
         }
         elseif( is_array($table) )
         {
             foreach( $table as $tbl )
             {
-                $infos->$tbl = $this->connect->status($tbl)->row();
+                $infos->$tbl = $this->differentConnection->status($tbl)->row();
             }
         }
         else
         {
-            $infos = $this->connect->status($table)->row();
+            $infos = $this->differentConnection->status($table)->row();
         }
 
         return $infos;
@@ -126,7 +126,7 @@ class DriverTool extends DriverExtends
     //--------------------------------------------------------------------------------------------------------
     public function optimizeTables($table)
     {
-        $result = $this->connect->query("SHOW TABLES")->result();
+        $result = $this->differentConnection->query("SHOW TABLES")->result();
 
         if( $table === '*' )
         {
@@ -134,11 +134,11 @@ class DriverTool extends DriverExtends
             {
                 foreach( $tables as $db => $tableName )
                 {
-                    $this->connect->query("OPTIMIZE TABLE ".$tableName);
+                    $this->differentConnection->query("OPTIMIZE TABLE ".$tableName);
                 }
             }
 
-            if( $this->connect->error() )
+            if( $this->differentConnection->error() )
             {
                 return false;
             }
@@ -151,10 +151,10 @@ class DriverTool extends DriverExtends
 
             foreach( $tables as $tableName )
             {
-                $this->connect->query("OPTIMIZE TABLE ".Properties::$prefix.$tableName);
+                $this->differentConnection->query("OPTIMIZE TABLE ".Properties::$prefix.$tableName);
             }
 
-            if( $this->connect->error() )
+            if( $this->differentConnection->error() )
             {
                 return false;
             }
@@ -175,7 +175,7 @@ class DriverTool extends DriverExtends
     //--------------------------------------------------------------------------------------------------------
     public function repairTables($table)
     {
-        $result = $this->connect->query("SHOW TABLES")->result();
+        $result = $this->differentConnection->query("SHOW TABLES")->result();
 
         if( $table === '*' )
         {
@@ -183,11 +183,11 @@ class DriverTool extends DriverExtends
             {
                 foreach( $tables as $db => $tableName )
                 {
-                    $this->connect->query("REPAIR TABLE ".$tableName);
+                    $this->differentConnection->query("REPAIR TABLE ".$tableName);
                 }
             }
 
-            if( $this->connect->error() )
+            if( $this->differentConnection->error() )
             {
                 return false;
             }
@@ -200,10 +200,10 @@ class DriverTool extends DriverExtends
 
             foreach( $tables as $tableName )
             {
-                $this->connect->query("REPAIR TABLE  ".Properties::$prefix.$tableName);
+                $this->differentConnection->query("REPAIR TABLE  ".Properties::$prefix.$tableName);
             }
 
-            if( $this->connect->error() )
+            if( $this->differentConnection->error() )
             {
                 return false;
             }
@@ -237,7 +237,7 @@ class DriverTool extends DriverExtends
         {
             $tables = [];
 
-            $resultArray = $this->connect->query('SHOW TABLES')->resultArray();
+            $resultArray = $this->differentConnection->query('SHOW TABLES')->resultArray();
 
             foreach( $resultArray as $key => $val )
             {
@@ -260,13 +260,13 @@ class DriverTool extends DriverExtends
                 $table = Properties::$prefix.$table;
             }
 
-            $return.= 'DROP TABLE IF EXISTS '.$table.';';
+            $return .= 'DROP TABLE IF EXISTS '.$table.';';
 
-            $fetchRow = $this->connect->query('SHOW CREATE TABLE '.$table)->fetchRow();
+            $fetchRow = $this->differentConnection->query('SHOW CREATE TABLE '.$table)->fetchRow();
 
-            $fetchResult = $this->connect->query('SELECT * FROM '.$table)->result();
+            $fetchResult = \DB::differentConnection($this->settings)->query('SELECT * FROM '.$table)->result();
 
-            $return.= $eol.$eol.$fetchRow[1].";".$eol.$eol;
+            $return .= $eol.$eol.$fetchRow[1].";".$eol.$eol;
 
             if( ! empty($fetchResult) ) foreach( $fetchResult as $row )
             {
@@ -274,7 +274,7 @@ class DriverTool extends DriverExtends
 
                 foreach( $row as $k => $v )
                 {
-                    $v  = $this->connect->realEscapeString((string) $v);
+                    $v  = $this->differentConnection->realEscapeString((string) $v);
                     $v  = preg_replace("/\n/","\\n", $v );
 
                     if ( isset($v) )
@@ -289,7 +289,7 @@ class DriverTool extends DriverExtends
 
                 $return = rtrim(trim($return), ', ');
 
-                $return.= ");".$eol;
+                $return .= ");".$eol;
             }
 
             $return .= $eol.$eol.$eol;
