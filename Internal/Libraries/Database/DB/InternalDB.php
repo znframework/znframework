@@ -749,7 +749,7 @@ class InternalDB extends Connection implements InternalDBInterface
             return $secureFinalQuery;
         }
 
-        return (new self)->query($secureFinalQuery, $this->secure);
+        return $this->query($secureFinalQuery, $this->secure);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -1251,21 +1251,9 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param array  $secure
     //
     //--------------------------------------------------------------------------------------------------------
-    public function query(String $query, Array $secure = []) : InternalDB
+    public function query(String $query, Array $secure = [])
     {
-        $this->db->query($this->_querySecurity($query), $this->_p($secure, 'secure'));
-
-        if( ! empty($this->transStart) )
-        {
-            $transError = $this->db->error();
-
-            if( ! empty($transError) )
-            {
-                $this->transError = $transError;
-            }
-        }
-
-        return $this;
+        return (new self)->_query($query, $secure);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -1541,7 +1529,7 @@ class InternalDB extends Connection implements InternalDBInterface
     {
         if( $total === true )
         {
-            return (new self)->query($this->_cleanLimit($this->stringQuery()))->totalRows();
+            return $this->query($this->_cleanLimit($this->stringQuery()))->totalRows();
         }
 
         return $this->db->numRows();
@@ -1952,7 +1940,7 @@ class InternalDB extends Connection implements InternalDBInterface
                     $data = Method::$method();
                 }
 
-                $columns = Arrays::transform($this->query('SELECT * FROM ' . $table)->columns());
+                $columns = Arrays::transform($this->_query('SELECT * FROM ' . $table)->columns());
                 $data    = Arrays::intersectKey($data, $columns);
             }
         }
@@ -2372,6 +2360,31 @@ class InternalDB extends Connection implements InternalDBInterface
         $this->where = NULL;
 
         return $this->db->query($updateQuery);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // _Query
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $query
+    // @param array  $secure
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function _query(String $query, Array $secure = [])
+    {
+        $this->db->query($this->_querySecurity($query), $this->_p($secure, 'secure'));
+
+        if( ! empty($this->transStart) )
+        {
+            $transError = $this->db->error();
+
+            if( ! empty($transError) )
+            {
+                $this->transError = $transError;
+            }
+        }
+
+        return $this;
     }
 
     //--------------------------------------------------------------------------------------------------------

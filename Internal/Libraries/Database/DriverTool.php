@@ -26,7 +26,7 @@ class DriverTool extends DriverExtends
     //--------------------------------------------------------------------------------------------------------
     public function listDatabases()
     {
-        $result = $this->differentConnection->query('SHOW DATABASES')->result();
+        $result = $this->differentConnection->_query('SHOW DATABASES')->result();
 
         if( $this->differentConnection->error() )
         {
@@ -58,7 +58,7 @@ class DriverTool extends DriverExtends
     //--------------------------------------------------------------------------------------------------------
     public function listTables()
     {
-        $result = $this->differentConnection->query('SHOW TABLES')->result();
+        $result = $this->differentConnection->_query('SHOW TABLES')->result();
 
         if( $this->differentConnection->error() )
         {
@@ -126,7 +126,7 @@ class DriverTool extends DriverExtends
     //--------------------------------------------------------------------------------------------------------
     public function optimizeTables($table)
     {
-        $result = $this->differentConnection->query("SHOW TABLES")->result();
+        $result = $this->differentConnection->_query("SHOW TABLES")->result();
 
         if( $table === '*' )
         {
@@ -134,7 +134,7 @@ class DriverTool extends DriverExtends
             {
                 foreach( $tables as $db => $tableName )
                 {
-                    $this->differentConnection->query("OPTIMIZE TABLE ".$tableName);
+                    $this->differentConnection->_query("OPTIMIZE TABLE ".$tableName);
                 }
             }
 
@@ -151,7 +151,7 @@ class DriverTool extends DriverExtends
 
             foreach( $tables as $tableName )
             {
-                $this->differentConnection->query("OPTIMIZE TABLE ".Properties::$prefix.$tableName);
+                $this->differentConnection->_query("OPTIMIZE TABLE ".Properties::$prefix.$tableName);
             }
 
             if( $this->differentConnection->error() )
@@ -175,7 +175,7 @@ class DriverTool extends DriverExtends
     //--------------------------------------------------------------------------------------------------------
     public function repairTables($table)
     {
-        $result = $this->differentConnection->query("SHOW TABLES")->result();
+        $result = $this->differentConnection->_query("SHOW TABLES")->result();
 
         if( $table === '*' )
         {
@@ -183,7 +183,7 @@ class DriverTool extends DriverExtends
             {
                 foreach( $tables as $db => $tableName )
                 {
-                    $this->differentConnection->query("REPAIR TABLE ".$tableName);
+                    $this->differentConnection->_query("REPAIR TABLE ".$tableName);
                 }
             }
 
@@ -200,7 +200,7 @@ class DriverTool extends DriverExtends
 
             foreach( $tables as $tableName )
             {
-                $this->differentConnection->query("REPAIR TABLE  ".Properties::$prefix.$tableName);
+                $this->differentConnection->_query("REPAIR TABLE  ".Properties::$prefix.$tableName);
             }
 
             if( $this->differentConnection->error() )
@@ -237,7 +237,7 @@ class DriverTool extends DriverExtends
         {
             $tables = [];
 
-            $resultArray = $this->differentConnection->query('SHOW TABLES')->resultArray();
+            $resultArray = $this->differentConnection->_query('SHOW TABLES')->resultArray();
 
             foreach( $resultArray as $key => $val )
             {
@@ -262,9 +262,9 @@ class DriverTool extends DriverExtends
 
             $return .= 'DROP TABLE IF EXISTS '.$table.';';
 
-            $fetchRow = $this->differentConnection->query('SHOW CREATE TABLE '.$table)->fetchRow();
+            $fetchRow = $this->differentConnection->_query('SHOW CREATE TABLE '.$table)->fetchRow();
 
-            $fetchResult = \DB::differentConnection($this->settings)->query('SELECT * FROM '.$table)->result();
+            $fetchResult = \DB::differentConnection($this->settings)->_query('SELECT * FROM '.$table)->result();
 
             $return .= $eol.$eol.$fetchRow[1].";".$eol.$eol;
 
@@ -274,8 +274,8 @@ class DriverTool extends DriverExtends
 
                 foreach( $row as $k => $v )
                 {
-                    $v  = $this->differentConnection->realEscapeString((string) $v);
-                    $v  = preg_replace("/\n/","\\n", $v );
+                    $v = $this->differentConnection->realEscapeString((string) $v);
+                    $v = preg_replace("/\n/","\\n", $v );
 
                     if ( isset($v) )
                     {
