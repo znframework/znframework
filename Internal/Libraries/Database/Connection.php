@@ -161,8 +161,15 @@ class Connection implements ConnectionInterface
     // @param mixed $connectName
     //
     //--------------------------------------------------------------------------------------------------------
-    public function differentConnection($connectName) : Connection
+    public function differentConnection($connectName = NULL) : Connection
     {
+        $getCalledClass = get_called_class();
+
+        if( empty($connectName) )
+        {
+            return new $getCalledClass;
+        }
+
         $config          = Config::get('Database', 'database');
         $configDifferent = $config['differentConnection'];
 
@@ -189,8 +196,6 @@ class Connection implements ConnectionInterface
                 }
             }
         }
-
-        $getCalledClass = get_called_class();
 
         return new $getCalledClass($connection);
     }

@@ -148,7 +148,7 @@ interface InternalDBInterface
     // @param array  $secure
     //
     //--------------------------------------------------------------------------------------------------------
-    public function query(String $query, Array $secure = []) : InternalDB;
+    public function query(String $query, Array $secure = []);
 
     //--------------------------------------------------------------------------------------------------------
     // Exec Query

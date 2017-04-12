@@ -12,18 +12,12 @@ class DriverExtends
     // Copyright  : (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
+    protected $differentConnection;
+    protected $settings;
 
-    protected $connect;
-
-    public function __construct($settngs = [])
+    public function __construct($settings = [])
     {
-        if( empty($settngs) )
-        {
-            $this->connect = new DB;
-        }
-        else
-        {
-            $this->connect = DB::differentConnection($settngs);
-        }
+        $this->settings = $settings;
+        $this->differentConnection = DB::differentConnection($settings);
     }
 }
