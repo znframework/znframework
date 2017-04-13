@@ -1,8 +1,6 @@
 <?php namespace ZN\ViewObjects\View;
 
-use FactoryController;
-
-class InternalBS extends FactoryController
+class BSUnitTest extends \UnitTestController
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -13,15 +11,9 @@ class InternalBS extends FactoryController
     //
     //--------------------------------------------------------------------------------------------------------
 
-    use BSCommonMethodsTrait;
-
-    const factory =
+    const unit =
     [
-        'methods' =>
-        [
-            'bar'        => 'BS\Progress::bar',
-            'pagination' => 'BS\Pagination::create',
-            'url'        => 'BS\Pagination::url:this',
-        ]
+        'class'   => 'BS',
+        'methods' => []
     ];
 }
