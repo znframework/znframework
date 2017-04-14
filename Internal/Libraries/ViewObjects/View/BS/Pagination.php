@@ -45,18 +45,18 @@ class Pagination implements PaginationInterface
     // Create
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param int $totalRows = 5
+    // @param int $pageCount = 5
     // @param int $active    = NULL
     //
     //--------------------------------------------------------------------------------------------------------
-    public function create(Int $totalRows = 5, Int $active = NULL) : String
+    public function create(Int $pageCount = 5, Int $active = NULL) : String
     {
         $active  = $active ?? (int) URI::segment(-1);
         $size    = Properties::$size ? ' pagination-' . Properties::$size : NULL;
 
         $return  = '<ul class="pagination' . $size  . '">' . EOL;
 
-        for( $index = 1; $index <= $totalRows; $index++ )
+        for( $index = 1; $index <= $pageCount; $index++ )
         {
             $return .= '<li' . ($active === $index ? ' class="active"' : NULL) . '><a href="'. suffix($this->url) . $index . '">' . $index . '</a></li>' . EOL;
         }

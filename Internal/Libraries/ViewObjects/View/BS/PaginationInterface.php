@@ -24,9 +24,9 @@ interface PaginationInterface
     // Create
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param int $totalRows = 5
+    // @param int $pageCount = 5
     // @param int $active    = NULL
     //
     //--------------------------------------------------------------------------------------------------------
-    public function create(Int $totalRows = 5, Int $active = NULL) : String;
+    public function create(Int $pageCount = 5, Int $active = NULL) : String;
 }
