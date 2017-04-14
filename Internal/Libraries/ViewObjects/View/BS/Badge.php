@@ -1,6 +1,8 @@
 <?php namespace ZN\ViewObjects\View\BS;
 
-interface ButtonInterface
+use BS;
+
+class Badge implements BadgeInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -12,41 +14,50 @@ interface ButtonInterface
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
-    // Button Group
+    // Badge Link
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param callable $group
+    // @paran int    $badge = 5
     //
     //--------------------------------------------------------------------------------------------------------
-    public function buttonGroup(Callable $group) : String;
+    public function badge(Int $badge = 5) : String
+    {
+        return '<span class="badge">' . $badge . '</span>';
+    }
 
     //--------------------------------------------------------------------------------------------------------
-    // Button Link
+    // Badge Link
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string $url   = NULL
     // @param string $value = NULL
+    // @paran int    $badge = 5
     //
     //--------------------------------------------------------------------------------------------------------
-    public function buttonLink(String $url = NULL, String $value = NULL);
+    public function badgeLink(String $url = NULL, String $value = NULL, Int $badge = 5) : String
+    {
+        $return = BS::type(Properties::$type)->buttonLink($url, $value . ' ' . $this->badge($badge));
+
+        Properties::$type = NULL;
+
+        return $return;
+    }
 
     //--------------------------------------------------------------------------------------------------------
-    // Button
+    // Badge Link
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string $name  = NULL
     // @param string $value = NULL
+    // @paran int    $badge = 5
     //
     //--------------------------------------------------------------------------------------------------------
-    public function button(String $name = NULL, String $value = NULL);
+    public function badgeButton(String $name = NULL, String $value = NULL, Int $badge = 5) : String
+    {
+        $return = '<button type="button" name="'.$name.'" class="btn btn-'.(Properties::$type ?? 'primary').'">'.$value.' '.$this->badge($badge).'</button>';
 
-    //--------------------------------------------------------------------------------------------------------
-    // Submit
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $name  = NULL
-    // @param string $value = NULL
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function submit(String $name = NULL, String $value = NULL);
+        Properties::$type = NULL;
+
+        return $return;
+    }
 }

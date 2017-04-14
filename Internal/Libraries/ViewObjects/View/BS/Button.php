@@ -1,6 +1,6 @@
 <?php namespace ZN\ViewObjects\View\BS;
 
-use Html, Form;
+use Html, Form, Buffer;
 
 class Button implements ButtonInterface
 {
@@ -13,6 +13,29 @@ class Button implements ButtonInterface
     //
     //--------------------------------------------------------------------------------------------------------
 
+    protected $buttonGroup = false;
+
+    //--------------------------------------------------------------------------------------------------------
+    // Button Group
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param callable $group
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function buttonGroup(Callable $group) : String
+    {
+        $this->buttonGroup = true;
+
+        $return  = '<div class="btn-group'.(Properties::$type ? ' btn-group-'.Properties::$type : NULL).'">';
+        $return .= Buffer::callback($group, [new \BS]);
+        $return .= '</div>';
+
+        Properties::$type  = NULL;
+        $this->buttonGroup = false;
+
+        return $return;
+    }
+
     //--------------------------------------------------------------------------------------------------------
     // Button Link
     //--------------------------------------------------------------------------------------------------------
@@ -21,13 +44,18 @@ class Button implements ButtonInterface
     // @param string $value = NULL
     //
     //--------------------------------------------------------------------------------------------------------
-    public function buttonLink(String $url = NULL, String $value = NULL) : String
+    public function buttonLink(String $url = NULL, String $value = NULL)
     {
         $return = Html::role('button')->class('btn'. (Properties::$type ? ' btn-'.Properties::$type : NULL))->anchor($url, $value);
 
         Properties::$type = NULL;
 
-        return $return;
+        if( $this->buttonGroup === false )
+        {
+            return $return;
+        }
+
+        echo $return;
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -38,13 +66,18 @@ class Button implements ButtonInterface
     // @param string $value = NULL
     //
     //--------------------------------------------------------------------------------------------------------
-    public function button(String $name = NULL, String $value = NULL) : String
+    public function button(String $name = NULL, String $value = NULL)
     {
         $return = Form::class('btn'. (Properties::$type ? ' btn-'.Properties::$type : NULL))->button($name, $value);
 
         Properties::$type = NULL;
 
-        return $return;
+        if( $this->buttonGroup === false )
+        {
+            return $return;
+        }
+
+        echo $return;
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -55,12 +88,17 @@ class Button implements ButtonInterface
     // @param string $value = NULL
     //
     //--------------------------------------------------------------------------------------------------------
-    public function submit(String $name = NULL, String $value = NULL) : String
+    public function submit(String $name = NULL, String $value = NULL)
     {
         $return = Form::class('btn'. (Properties::$type ? ' btn-'.Properties::$type : NULL))->submit($name, $value);
 
         Properties::$type = NULL;
 
-        return $return;
+        if( $this->buttonGroup === false )
+        {
+            return $return;
+        }
+
+        echo $return;
     }
 }

@@ -1,6 +1,8 @@
 <?php namespace ZN\ViewObjects\View\BS;
 
-interface ButtonInterface
+use Html, Buffer;
+
+class Pager implements PagerInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -12,41 +14,46 @@ interface ButtonInterface
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
-    // Button Group
+    // Pager
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param callable $group
+    // @param callable $pager
     //
     //--------------------------------------------------------------------------------------------------------
-    public function buttonGroup(Callable $group) : String;
+    public function pager(Callable $pager) : String
+    {
+        $return  = '<ul class="pager">';
+        $return .= Buffer::callback($pager, [$this]);
+        $return .= '</ul>';
+
+        return $return;
+    }
 
     //--------------------------------------------------------------------------------------------------------
-    // Button Link
+    // Prev
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string $url   = NULL
     // @param string $value = NULL
     //
     //--------------------------------------------------------------------------------------------------------
-    public function buttonLink(String $url = NULL, String $value = NULL);
+    public function prev(String $url = NULL, String $value = NULL, $t = 'previous')
+    {
+        $type = Properties::$type === 'center' ? ' class="'.$t.'"' : NULL;
+
+        echo '<li'.$type.'>' . Html::anchor($url, $value) . '</li>';
+    }
 
     //--------------------------------------------------------------------------------------------------------
-    // Button
+    // Next
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $name  = NULL
+    // @param string $url   = NULL
     // @param string $value = NULL
     //
     //--------------------------------------------------------------------------------------------------------
-    public function button(String $name = NULL, String $value = NULL);
-
-    //--------------------------------------------------------------------------------------------------------
-    // Submit
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $name  = NULL
-    // @param string $value = NULL
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function submit(String $name = NULL, String $value = NULL);
+    public function next(String $url = NULL, String $value = NULL)
+    {
+        $this->prev($url, $value, 'next');
+    }
 }

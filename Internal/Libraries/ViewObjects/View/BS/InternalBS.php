@@ -19,16 +19,22 @@ class InternalBS extends FactoryController
     [
         'methods' =>
         [
-            'bar'        => 'BS\Progress::bar',
-            'pagination' => 'BS\Pagination::create',
-            'url'        => 'BS\Pagination::url:this',
-            'image'      => 'BS\Image::use',
-            'alt'        => 'BS\Image::alt:this',
-            'well'       => 'BS\Well::use',
-            'alert'      => 'BS\Alert::use',
-            'button'     => 'BS\Button::button',
-            'submit'     => 'BS\Button::submit',
-            'buttonlink' => 'BS\Button::buttonlink',
+            'bar'         => 'BS\Progress::bar',
+            'pagination'  => 'BS\Pagination::create',
+            'url'         => 'BS\Pagination::url:this',
+            'image'       => 'BS\Image::use',
+            'alt'         => 'BS\Image::alt:this',
+            'well'        => 'BS\Well::use',
+            'alert'       => 'BS\Alert::use',
+            'button'      => 'BS\Button::button',
+            'submit'      => 'BS\Button::submit',
+            'buttonlink'  => 'BS\Button::buttonlink',
+            'buttongroup' => 'BS\Button::buttongroup',
+            'icon'        => 'BS\Icon::icon',
+            'badge'       => 'BS\Badge::badge',
+            'badgebutton' => 'BS\Badge::badgebutton',
+            'badgelink'   => 'BS\Badge::badgelink',
+            'pager'       => 'BS\Pager::pager',
         ]
     ];
 }
