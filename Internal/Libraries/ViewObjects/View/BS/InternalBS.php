@@ -35,6 +35,9 @@ class InternalBS extends FactoryController
             'badgebutton' => 'BS\Badge::badgebutton',
             'badgelink'   => 'BS\Badge::badgelink',
             'pager'       => 'BS\Pager::pager',
+            'listgroup'   => 'BS\ListGroup::listgroup',
+            'panel'       => 'BS\Panel::panel',
+            'dropdown'    => 'BS\Dropdown::dropdown',
         ]
     ];
 }
