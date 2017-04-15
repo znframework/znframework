@@ -142,15 +142,6 @@ class Structure
             }
 
             unset($segments[0]);
-
-            $pageControl = strtolower($page);
-
-            if( $pageControl === $openFunction)
-            {
-                report('Error', lang('Error', 'controllerNameError', $pageControl), 'ControllerNameError');
-
-                die(Errors::message('Error', 'controllerNameError', $pageControl));
-            }
         }
 
         //----------------------------------------------------------------------------------------------
