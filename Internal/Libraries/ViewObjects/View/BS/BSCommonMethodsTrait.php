@@ -20,7 +20,7 @@ trait BSCommonMethodsTrait
     // @param int $active = 1
     //
     //--------------------------------------------------------------------------------------------------------
-    public function active(Int $active = 1)
+    public function active(Int $active = 1) : InternalBS
     {
         Properties::$active = $active;
 
@@ -37,6 +37,34 @@ trait BSCommonMethodsTrait
     public function type(String $type = NULL) : InternalBS
     {
         Properties::$type = $type;
+
+        return $this;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Type
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $type = NULL
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function attr(Array $attr = NULL) : InternalBS
+    {
+        Properties::$attr = $attr;
+
+        return $this;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Container
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $type = NULL
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function container(String $type = NULL) : InternalBS
+    {
+        Properties::$container = $type;
 
         return $this;
     }

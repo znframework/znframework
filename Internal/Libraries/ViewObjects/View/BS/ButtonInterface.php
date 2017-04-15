@@ -36,9 +36,10 @@ interface ButtonInterface
     //
     // @param string $name  = NULL
     // @param string $value = NULL
+    // @param array  $attr  = []
     //
     //--------------------------------------------------------------------------------------------------------
-    public function button(String $name = NULL, String $value = NULL);
+    public function button(String $name = NULL, String $value = NULL, Array $attr = []);
 
     //--------------------------------------------------------------------------------------------------------
     // Submit
@@ -46,7 +47,8 @@ interface ButtonInterface
     //
     // @param string $name  = NULL
     // @param string $value = NULL
+    // @param array  $attr  = []
     //
     //--------------------------------------------------------------------------------------------------------
-    public function submit(String $name = NULL, String $value = NULL);
+    public function submit(String $name = NULL, String $value = NULL, Array $attr = []);
 }

@@ -64,11 +64,12 @@ class Button implements ButtonInterface
     //
     // @param string $name  = NULL
     // @param string $value = NULL
+    // @param array  $attr  = []
     //
     //--------------------------------------------------------------------------------------------------------
-    public function button(String $name = NULL, String $value = NULL)
+    public function button(String $name = NULL, String $value = NULL, Array $attr = [])
     {
-        $return = Form::class('btn'. (Properties::$type ? ' btn-'.Properties::$type : NULL))->button($name, $value);
+        $return = Form::attr($attr)->class('btn'. (Properties::$type ? ' btn-'.Properties::$type : NULL))->button($name, $value);
 
         Properties::$type = NULL;
 
@@ -86,11 +87,12 @@ class Button implements ButtonInterface
     //
     // @param string $name  = NULL
     // @param string $value = NULL
+    // @param array  $attr  = []
     //
     //--------------------------------------------------------------------------------------------------------
-    public function submit(String $name = NULL, String $value = NULL)
+    public function submit(String $name = NULL, String $value = NULL, Array $attr = [])
     {
-        $return = Form::class('btn'. (Properties::$type ? ' btn-'.Properties::$type : NULL))->submit($name, $value);
+        $return = Form::attr($attr)->class('btn'. (Properties::$type ? ' btn-'.Properties::$type : NULL))->submit($name, $value);
 
         Properties::$type = NULL;
 

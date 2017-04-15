@@ -39,7 +39,9 @@ class InternalBS extends FactoryController implements InternalBSInterface
             'panel'       => 'BS\Panel::panel',
             'dropdown'    => 'BS\Dropdown::dropdown',
             'collapse'    => 'BS\Collapse::collapse',
-            'menu'        => 'BS\Menu::menu'
+            'menu'        => 'BS\Menu::menu',
+            'navbar'      => 'BS\Navbar::navbar',
+            'form'        => 'BS\Forms::form'
         ]
     ];
 }
