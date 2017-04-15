@@ -1736,7 +1736,7 @@ class InternalDB extends Connection implements InternalDBInterface
                 return current($result[0] ?? []);
             }
 
-            return ((object) $result[$printable]) ?? false;;
+            return isset($result[$printable]) ? (object) $result[$printable] : false;
         }
     }
 

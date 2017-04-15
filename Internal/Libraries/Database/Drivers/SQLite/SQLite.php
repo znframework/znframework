@@ -253,12 +253,12 @@ class SQLiteDriver extends DriverConnectionMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function numRows()
     {
-        if( empty($this->result) )
+        if( ! empty($this->query) )
         {
-            return false;
+            return count($this->result());
         }
 
-        return count($this->result());
+        return 0;
     }
 
     //--------------------------------------------------------------------------------------------------------
