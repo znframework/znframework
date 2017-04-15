@@ -1,8 +1,6 @@
 <?php namespace ZN\ViewObjects\View;
 
-use ZN\ViewObjects\View\BS\Properties;
-
-trait BSCommonMethodsTrait
+interface InternalBSInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -20,12 +18,7 @@ trait BSCommonMethodsTrait
     // @param int $active = 1
     //
     //--------------------------------------------------------------------------------------------------------
-    public function active(Int $active = 1)
-    {
-        Properties::$active = $active;
-
-        return $this;
-    }
+    public function active(Int $active = 1);
 
     //--------------------------------------------------------------------------------------------------------
     // Type
@@ -34,12 +27,7 @@ trait BSCommonMethodsTrait
     // @param string $type = NULL
     //
     //--------------------------------------------------------------------------------------------------------
-    public function type(String $type = NULL) : InternalBS
-    {
-        Properties::$type = $type;
-
-        return $this;
-    }
+    public function type(String $type = NULL) : InternalBS;
 
     //--------------------------------------------------------------------------------------------------------
     // Class
@@ -48,12 +36,7 @@ trait BSCommonMethodsTrait
     // @param string $class = NULL
     //
     //--------------------------------------------------------------------------------------------------------
-    public function class(String $class = NULL) : InternalBS
-    {
-        Properties::$class = $class;
-
-        return $this;
-    }
+    public function class(String $class = NULL) : InternalBS;
 
     //--------------------------------------------------------------------------------------------------------
     // Size
@@ -62,10 +45,5 @@ trait BSCommonMethodsTrait
     // @param string $size = NULL
     //
     //--------------------------------------------------------------------------------------------------------
-    public function size(String $size = NULL) : InternalBS
-    {
-        Properties::$size = $size;
-
-        return $this;
-    }
+    public function size(String $size = NULL) : InternalBS;
 }

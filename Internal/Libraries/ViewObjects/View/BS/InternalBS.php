@@ -2,7 +2,7 @@
 
 use FactoryController;
 
-class InternalBS extends FactoryController
+class InternalBS extends FactoryController implements InternalBSInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -38,6 +38,8 @@ class InternalBS extends FactoryController
             'listgroup'   => 'BS\ListGroup::listgroup',
             'panel'       => 'BS\Panel::panel',
             'dropdown'    => 'BS\Dropdown::dropdown',
+            'collapse'    => 'BS\Collapse::collapse',
+            'menu'        => 'BS\Menu::menu'
         ]
     ];
 }
