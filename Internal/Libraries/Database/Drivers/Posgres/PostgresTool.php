@@ -25,9 +25,9 @@ class PostgresTool extends DriverTool
     //--------------------------------------------------------------------------------------------------------
     public function listDatabases()
     {
-        $result = \DB::query('SELECT datname FROM pg_database')->result();
+        $result = $this->differentConnection->query('SELECT datname FROM pg_database')->result();
 
-        if( \DB::error() )
+        if( $this->differentConnection->error() )
         {
             return false;
         }
@@ -57,9 +57,9 @@ class PostgresTool extends DriverTool
     //--------------------------------------------------------------------------------------------------------
     public function listTables()
     {
-        $result = \DB::query("SELECT table_name FROM information_schema.tables WHERE table_schema = 'public'")->result();
+        $result = $this->differentConnection->query("SELECT table_name FROM information_schema.tables WHERE table_schema = 'public'")->result();
 
-        if( \DB::error() )
+        if( $this->differentConnection->error() )
         {
             return false;
         }
