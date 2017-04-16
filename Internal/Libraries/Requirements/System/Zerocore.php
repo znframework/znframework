@@ -1,6 +1,6 @@
 <?php namespace ZN\Requirements\System;
 
-use Arrays;
+use Arrays, Json;
 use ZN\Core\Structure;
 
 class Zerocore
@@ -67,7 +67,19 @@ class Zerocore
             self::_commandList(); exit;
         }
 
-        self::$parameters = Arrays::removeFirst($commands, 4);
+        $parameters = Arrays::removeFirst($commands, 4);
+
+        self::$parameters = Arrays::forceValues($parameters, function($data)
+        {
+            $return = $data;
+
+            if( Json::check($return) )
+            {
+                $return = Json::decodeArray($return);
+            }
+
+            return $return;
+        });
 
         echo self::_output();
 
