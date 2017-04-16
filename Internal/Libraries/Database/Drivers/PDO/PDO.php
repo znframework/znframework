@@ -291,7 +291,12 @@ class PDODriver extends DriverConnectionMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function numRows()
     {
-        return $this->query->rowCount();
+        if( ! empty($this->query) )
+        {
+            return $this->query->rowCount();
+        }
+
+        return 0;
     }
 
     //--------------------------------------------------------------------------------------------------------

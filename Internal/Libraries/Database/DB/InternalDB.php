@@ -371,6 +371,15 @@ class InternalDB extends Connection implements InternalDBInterface
     private $joinTable;
 
     //--------------------------------------------------------------------------------------------------------
+    // Union Query
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var string
+    //
+    //--------------------------------------------------------------------------------------------------------
+    private $unionQuery = NULL;
+
+    //--------------------------------------------------------------------------------------------------------
     // Magic Call
     //--------------------------------------------------------------------------------------------------------
     //
@@ -576,7 +585,7 @@ class InternalDB extends Connection implements InternalDBInterface
     //--------------------------------------------------------------------------------------------------------
     public function outerJoin(String $table, String $otherColumn, String $operator = '=') : InternalDB
     {
-        $this->_join($table, $otherColumn, $operator, 'OUTER');
+        $this->_join($table, $otherColumn, $operator, 'FULL OUTER');
 
         return $this;
     }
@@ -734,6 +743,13 @@ class InternalDB extends Connection implements InternalDBInterface
                           $this->into.
                           $this->forUpdate.
                           $this->lockInShareMode;
+
+        // Union Query
+        if( $this->unionQuery !== NULL )
+        {
+            $finalQuery = $this->unionQuery . ' ' . $finalQuery;
+            $this->unionQuery = NULL;
+        }
 
         // Clear Query
         $this->_resetSelectQuery();
@@ -1244,6 +1260,34 @@ class InternalDB extends Connection implements InternalDBInterface
     }
 
     //--------------------------------------------------------------------------------------------------------
+    // Union
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $table
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function union(String $table = NULL, $name = 'UNION') : InternalDB
+    {
+        $this->unionQuery .= $this->get($table, 'string') . $name;
+
+        return $this;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Union All
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $table
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function unionAll(String $table = NULL) : InternalDB
+    {
+        $this->union($table, 'UNION ALL');
+
+        return $this;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
     // Query
     //--------------------------------------------------------------------------------------------------------
     //
@@ -1692,7 +1736,7 @@ class InternalDB extends Connection implements InternalDBInterface
                 return current($result[0] ?? []);
             }
 
-            return ((object) $result[$printable]) ?? false;;
+            return isset($result[$printable]) ? (object) $result[$printable] : false;
         }
     }
 
