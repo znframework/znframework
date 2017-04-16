@@ -1297,7 +1297,7 @@ class InternalDB extends Connection implements InternalDBInterface
     //--------------------------------------------------------------------------------------------------------
     public function query(String $query, Array $secure = [])
     {
-        return (new self($this->config))->_query($query, $secure);
+        return (new self($this->config))->_query($query, $this->_p($secure, 'secure'));
     }
 
     //--------------------------------------------------------------------------------------------------------
