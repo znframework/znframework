@@ -1314,6 +1314,21 @@ class InternalDB extends Connection implements InternalDBInterface
     }
 
     //--------------------------------------------------------------------------------------------------------
+    // Trans Query
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $query
+    // @param array  $secure
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function transQuery(String $query, Array $secure = []) : InternalDB
+    {
+        $this->_query($query, $this->_p($secure, 'secure'));
+
+        return $this;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
     // Multi Query
     //--------------------------------------------------------------------------------------------------------
     //
@@ -2064,7 +2079,7 @@ class InternalDB extends Connection implements InternalDBInterface
         $keys   = ['between', 'in'];
         $column = trim($column);
 
-        if( in_array(strtolower(divide($column, ' ', -1)), $keys) || $this->_exp($column) || is_numeric($value) )
+        if( in_array(strtolower(divide($column, ' ', -1)), $keys) || $this->_exp($column) )
         {
             return $value;
         }
