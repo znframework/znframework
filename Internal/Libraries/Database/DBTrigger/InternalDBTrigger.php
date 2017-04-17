@@ -108,7 +108,7 @@ class InternalDBTrigger extends Connection implements InternalDBTriggerInterface
     // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
-    public function createTrigger(String $name) : Bool
+    public function createTrigger(String $name)
     {
         $query = $this->trigger->createTrigger($name);
 
@@ -122,7 +122,7 @@ class InternalDBTrigger extends Connection implements InternalDBTriggerInterface
     // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
-    public function create(String $name) : Bool
+    public function create(String $name)
     {
         return $this->createTrigger($name);
     }
@@ -134,7 +134,7 @@ class InternalDBTrigger extends Connection implements InternalDBTriggerInterface
     // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
-    public function dropTrigger(String $name) : Bool
+    public function dropTrigger(String $name)
     {
         $query = $this->trigger->dropTrigger($name);
 
@@ -148,7 +148,7 @@ class InternalDBTrigger extends Connection implements InternalDBTriggerInterface
     // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
-    public function drop(String $name) : Bool
+    public function drop(String $name)
     {
         return $this->dropTrigger($name);
     }

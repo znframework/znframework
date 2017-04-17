@@ -63,7 +63,7 @@ interface InternalDBTriggerInterface
     // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
-    public function createTrigger(String $name) : Bool;
+    public function createTrigger(String $name);
 
     //--------------------------------------------------------------------------------------------------------
     // create()
@@ -72,7 +72,7 @@ interface InternalDBTriggerInterface
     // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
-    public function create(String $name) : Bool;
+    public function create(String $name);
 
     //--------------------------------------------------------------------------------------------------------
     // dropTrigger()
@@ -81,7 +81,7 @@ interface InternalDBTriggerInterface
     // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
-    public function dropTrigger(String $name) : Bool;
+    public function dropTrigger(String $name);
 
     //--------------------------------------------------------------------------------------------------------
     // drop()
@@ -90,5 +90,5 @@ interface InternalDBTriggerInterface
     // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
-    public function drop(String $name) : Bool;
+    public function drop(String $name);
 }
