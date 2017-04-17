@@ -173,7 +173,14 @@ class Autoloader
             }
         }
 
-        file_put_contents($path, $classMapPage, FILE_APPEND);
+        if( ! is_file($path) )
+        {
+            file_put_contents($path, $classMapPage);
+        }
+        elseif( trim($classMapPage) !== trim(file_get_contents($path)) )
+        {
+            file_put_contents($path, $classMapPage, FILE_APPEND);
+        }
     }
 
     //--------------------------------------------------------------------------------------------------
