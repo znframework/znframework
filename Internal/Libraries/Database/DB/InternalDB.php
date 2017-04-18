@@ -1373,8 +1373,12 @@ class InternalDB extends Connection implements InternalDBInterface
             $this->db->transCommit();
         }
 
+        $status = ! (bool) $this->transError;
+
         $this->transStart = NULL;
         $this->transError = NULL;
+
+        return $status;
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -1508,7 +1512,9 @@ class InternalDB extends Connection implements InternalDBInterface
 
         $this->_resetInsertQuery();
 
-        return $this->_runQuery($insertQuery);
+        $this->_runQuery($insertQuery);
+
+        return ! (bool) $this->error();
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -1547,7 +1553,9 @@ class InternalDB extends Connection implements InternalDBInterface
 
         $this->_resetUpdateQuery();
 
-        return $this->_runQuery($updateQuery);
+        $this->_runQuery($updateQuery);
+
+        return ! (bool) $this->error();
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -1574,7 +1582,9 @@ class InternalDB extends Connection implements InternalDBInterface
 
         $this->_resetDeleteQuery();
 
-        return $this->_runQuery($deleteQuery);
+        $this->_runQuery($deleteQuery);
+
+        return ! (bool) $this->error();
     }
 
     //--------------------------------------------------------------------------------------------------------
