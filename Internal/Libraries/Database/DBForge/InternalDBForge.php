@@ -69,9 +69,7 @@ class InternalDBForge extends Connection implements InternalDBForgeInterface
     {
         $query = $this->forge->createDatabase($dbname, $this->_p($extras, 'extras'));
 
-        $this->_runExecQuery($query);
-
-        return ! (bool) $this->error();
+        return $this->_runExecQuery($query);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -85,9 +83,7 @@ class InternalDBForge extends Connection implements InternalDBForgeInterface
     {
         $query = $this->forge->dropDatabase($dbname);
 
-        $this->_runExecQuery($query);
-
-        return ! (bool) $this->error();
+        return $this->_runExecQuery($query);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -103,9 +99,7 @@ class InternalDBForge extends Connection implements InternalDBForgeInterface
     {
         $query = $this->forge->createTable($this->_p($table), $this->_p($colums, 'column'), $extras);
 
-        $this->_runExecQuery($query);
-
-        return ! (bool) $this->error();
+        return $this->_runExecQuery($query);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -119,9 +113,7 @@ class InternalDBForge extends Connection implements InternalDBForgeInterface
     {
         $query = $this->forge->dropTable($this->_p($table));
 
-        $this->_runExecQuery($query);
-
-        return ! (bool) $this->error();
+        return $this->_runExecQuery($query);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -170,9 +162,7 @@ class InternalDBForge extends Connection implements InternalDBForgeInterface
     {
         $query = $this->forge->renameTable($this->_p($name, 'prefix'), $this->_p($newName, 'prefix'));
 
-        $this->_runExecQuery($query);
-
-        return ! (bool) $this->error();
+        return $this->_runExecQuery($query);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -186,9 +176,7 @@ class InternalDBForge extends Connection implements InternalDBForgeInterface
     {
         $query = $this->forge->truncate($this->_p($table));
 
-        $this->_runExecQuery($query);
-
-        return ! (bool) $this->error();
+        return $this->_runExecQuery($query);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -203,9 +191,7 @@ class InternalDBForge extends Connection implements InternalDBForgeInterface
     {
         $query = $this->forge->addColumn($this->_p($table), $this->_p($columns, 'column'));
 
-        $this->_runExecQuery($query);
-
-        return ! (bool) $this->error();
+        return $this->_runExecQuery($query);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -224,7 +210,7 @@ class InternalDBForge extends Connection implements InternalDBForgeInterface
         {
             $query = $this->forge->dropColumn($this->_p($table), $columns);
 
-            $this->_runExecQuery($query);
+            return $this->_runExecQuery($query);
         }
         else
         {
@@ -239,9 +225,9 @@ class InternalDBForge extends Connection implements InternalDBForgeInterface
 
                 $this->_runExecQuery($query);
             }
-        }
 
-        return ! (bool) $this->error();
+            return ! (bool) $this->error();
+        }
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -256,9 +242,7 @@ class InternalDBForge extends Connection implements InternalDBForgeInterface
     {
         $query = $this->forge->modifyColumn($this->_p($table), $this->_p($columns, 'column'));
 
-        $this->_runExecQuery($query);
-
-        return ! (bool) $this->error();
+        return $this->_runExecQuery($query);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -273,8 +257,6 @@ class InternalDBForge extends Connection implements InternalDBForgeInterface
     {
         $query = $this->forge->renameColumn($this->_p($table), $this->_p($columns, 'column'));
 
-        $this->_runExecQuery($query);
-
-        return ! (bool) $this->error();
+        return $this->_runExecQuery($query);
     }
 }
