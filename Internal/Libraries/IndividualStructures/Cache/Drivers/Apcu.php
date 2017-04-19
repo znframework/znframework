@@ -1,8 +1,8 @@
-<?php namespace ZN\IndividualStructures;
+<?php namespace ZN\IndividualStructures\Cache\Drivers;
 
-use Support, CLController, DriverAbility;
+use ZN\IndividualStructures\Abstracts\CacheDriverMappingAbstract;
 
-class InternalCache extends CLController implements InternalCacheInterface
+class ApcuDriver extends CacheDriverMappingAbstract
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -13,50 +13,65 @@ class InternalCache extends CLController implements InternalCacheInterface
     //
     //--------------------------------------------------------------------------------------------------------
 
-    use DriverAbility;
-
     //--------------------------------------------------------------------------------------------------------
-    // Consts
+    // Construct
     //--------------------------------------------------------------------------------------------------------
     //
-    // @const string
+    // @param  string $driver
+    // @return bool
     //
     //--------------------------------------------------------------------------------------------------------
-    const config = 'IndividualStructures:cache';
-    const driver =
-    [
-        'options'   => ['file', 'apc', 'apcu', 'memcache', 'redis', 'wincache'],
-        'namespace' => 'ZN\IndividualStructures\Cache\Drivers'
-    ];
+    public function __construct()
+    {
+        \Support::func('apcu_fetch', 'Apcu');
+    }
 
     //--------------------------------------------------------------------------------------------------------
     // Select
     //--------------------------------------------------------------------------------------------------------
     //
     // @param  string $key
-    // @param  mixed $expressed
+    // @param  mixed  $compressed
     // @return mixed
     //
     //--------------------------------------------------------------------------------------------------------
-    public function select(String $key, $compressed = false)
+    public function select($key, $compressed = NULL)
     {
-        return $this->driver->select($key, $compressed);
+        $success = false;
+
+        $data = apcu_fetch($key, $success);
+
+        if( $success === true )
+        {
+            return ( is_array($data) )
+                   ? unserialize($data[0])
+                   : $data;
+        }
+
+        return false;
     }
 
     //--------------------------------------------------------------------------------------------------------
     // Insert
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param  string $key
+    // @param  string   $key
     // @param  variable $var
-    // @param  numeric $time
-    // @param  mixed $expressed
+    // @param  numeric  $time
+    // @param  mixed    $compressed
     // @return bool
     //
     //--------------------------------------------------------------------------------------------------------
-    public function insert(String $key, $var, Int $time = 60, $compressed = false) : Bool
+    public function insert($key, $var, $time, $compressed)
     {
-        return $this->driver->insert($key, $var, $time, $compressed);
+        $time = (int) $time;
+
+        return apcu_store
+        (
+            $key,
+            $compressed === true ? $var : [serialize($var), time(), $time],
+            $time
+        );
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -67,9 +82,9 @@ class InternalCache extends CLController implements InternalCacheInterface
     // @return mixed
     //
     //--------------------------------------------------------------------------------------------------------
-    public function delete(String $key) : Bool
+    public function delete($key)
     {
-        return $this->driver->delete($key);
+        return apcu_delete($key);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -81,13 +96,13 @@ class InternalCache extends CLController implements InternalCacheInterface
     // @return void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function increment(String $key, Int $increment = 1) : Int
+    public function increment($key, $increment)
     {
-        return $this->driver->increment($key, $increment);
+        return apcu_inc($key, $increment);
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Deccrement
+    // Decrement
     //--------------------------------------------------------------------------------------------------------
     //
     // @param  string  $key
@@ -95,9 +110,9 @@ class InternalCache extends CLController implements InternalCacheInterface
     // @return void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function decrement(String $key, Int $decrement = 1) : Int
+    public function decrement($key, $decrement)
     {
-        return $this->driver->decrement($key, $decrement);
+        return apcu_dec($key, $decrement);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -108,9 +123,9 @@ class InternalCache extends CLController implements InternalCacheInterface
     // @return void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function clean() : Bool
+    public function clean()
     {
-        return $this->driver->clean();
+        return apcu_clear_cache('user');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -121,9 +136,9 @@ class InternalCache extends CLController implements InternalCacheInterface
     // @return mixed
     //
     //--------------------------------------------------------------------------------------------------------
-    public function info($type = NULL) : Array
+    public function info($type = NULL)
     {
-        return $this->driver->info($type);
+        return apcu_cache_info($type);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -134,8 +149,23 @@ class InternalCache extends CLController implements InternalCacheInterface
     // @return mixed
     //
     //--------------------------------------------------------------------------------------------------------
-    public function getMetaData(String $key) : Array
+    public function getMetaData($key)
     {
-        return $this->driver->getMetaData($key);
+        $success = false;
+        $stored  = apcu_fetch($key, $success);
+
+        if( $success === false || count($stored) !== 3 )
+        {
+            return [];
+        }
+
+        list($data, $time, $expire) = $stored;
+
+        return
+        [
+            'expire' => $time + $expire,
+            'mtime'  => $time,
+            'data'   => unserialize($data)
+        ];
     }
 }
