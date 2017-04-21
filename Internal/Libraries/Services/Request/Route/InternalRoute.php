@@ -116,6 +116,42 @@ class InternalRoute extends CLController implements InternalRouteInterface
     protected $csrfs = [];
 
     //--------------------------------------------------------------------------------------------------------
+    // Ajax
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var bool
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected $ajax;
+
+    //--------------------------------------------------------------------------------------------------------
+    // Ajaxs
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var array
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected $ajaxs = [];
+
+    //--------------------------------------------------------------------------------------------------------
+    // Curl
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var bool
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected $curl;
+
+    //--------------------------------------------------------------------------------------------------------
+    // Curls
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var array
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected $curls = [];
+
+    //--------------------------------------------------------------------------------------------------------
     // Redirect
     //--------------------------------------------------------------------------------------------------------
     //
@@ -159,6 +195,15 @@ class InternalRoute extends CLController implements InternalRouteInterface
     //
     //--------------------------------------------------------------------------------------------------------
     protected $mdata = [];
+
+    //--------------------------------------------------------------------------------------------------------
+    // Filters
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var array
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected $filters = ['csrf', 'ajax', 'curl', 'restore', 'method', 'usable'];
 
     //--------------------------------------------------------------------------------------------------------
     // Pattern Type
@@ -233,6 +278,34 @@ class InternalRoute extends CLController implements InternalRouteInterface
     }
 
     //--------------------------------------------------------------------------------------------------------
+    // Ajax -> 4.3.4
+    //--------------------------------------------------------------------------------------------------------
+    //
+    //  @param  bool $ajax = true
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function ajax() : InternalRoute
+    {
+        $this->ajax = true;
+
+        return $this;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Curl -> 4.3.4
+    //--------------------------------------------------------------------------------------------------------
+    //
+    //  @param  bool $curl = true
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function curl(Bool $curl = false) : InternalRoute
+    {
+        $this->curl = $curl;
+
+        return $this;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
     // Filter -> 4.3.2
     //--------------------------------------------------------------------------------------------------------
     //
@@ -242,10 +315,15 @@ class InternalRoute extends CLController implements InternalRouteInterface
     //--------------------------------------------------------------------------------------------------------
     public function filter()
     {
-        $this->_csrf();
-        $this->_restore();
-        $this->_method();
-        $this->_usable();
+        foreach( $this->filters as $filter )
+        {
+            $filt = '_' . $filter;
+
+            if( method_exists($this, $filt) )
+            {
+                $this->{$filt}();
+            }
+        }
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -294,33 +372,11 @@ class InternalRoute extends CLController implements InternalRouteInterface
 
         $lowerPath = strtolower($path);
 
-        if( ! empty($this->csrf) )
-        {
-            $this->csrfs[$lowerPath]['csrf'] = $this->csrf;
+        $filters = $this->filters;
+        $filters = Arrays::addLast($filters, 'redirect');
+        $filters = Arrays::deleteElement($filters, 'usable');
 
-            $this->_isContainer($this->csrf);
-        }
-
-        if( ! empty($this->restore) )
-        {
-            $this->restores[$lowerPath]['restore'] = $this->restore;
-
-            $this->_isContainer($this->restore);
-        }
-
-        if( ! empty($this->method) )
-        {
-            $this->methods[$lowerPath]['method'] = $this->method;
-
-            $this->_isContainer($this->method);
-        }
-
-        if( ! empty($this->redirect) )
-        {
-            $this->redirects[$lowerPath]['redirect'] = $this->redirect;
-
-            $this->_isContainer($this->redirect);
-        }
+        $this->_filter($filters, $lowerPath);
 
         if( empty($this->route) )
         {
@@ -528,6 +584,24 @@ class InternalRoute extends CLController implements InternalRouteInterface
     }
 
     //--------------------------------------------------------------------------------------------------------
+    // Protected Filter
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param array  $types
+    // @param string $lowerPath
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _filter($types, $lowerPath)
+    {
+        foreach( $types as $type ) if( ! empty($this->{$type}) )
+        {
+            $this->{$type . 's'}[$lowerPath][$type] = $this->{$type};
+
+            $this->_isContainer($this->{$type});
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------------
     // Protected CSRF
     //--------------------------------------------------------------------------------------------------------
     //
@@ -543,6 +617,48 @@ class InternalRoute extends CLController implements InternalRouteInterface
                 $redirect = $this->redirects[CURRENT_CFURI]['redirect'] ?? SERVICES_ROUTE_CONFIG['requestMethods']['page'];
 
                 Security::CSRFtoken($redirect, $type);
+            }
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Ajax
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _ajax()
+    {
+        if( ! empty($this->ajaxs) )
+        {
+            if( $type = ($this->ajaxs[CURRENT_CFURI]['ajax'] ?? NULL) )
+            {
+                if( Http::isAjax() !== true )
+                {
+                    $this->_redirect();
+                }
+            }
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Ajax
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _curl()
+    {
+        if( ! empty($this->curls) )
+        {
+            if( $type = ($this->curls[CURRENT_CFURI]['curl'] ?? NULL) )
+            {
+                if( Http::isCurl() === true )
+                {
+                    $this->_redirect();
+                }
             }
         }
     }
@@ -620,9 +736,9 @@ class InternalRoute extends CLController implements InternalRouteInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    protected function _redirect()
+    protected function _redirect($direct = SERVICES_ROUTE_CONFIG['requestMethods']['page'])
     {
-        if( $redirect = ($this->redirects[CURRENT_CFURI]['redirect'] ?? NULL) )
+        if( $redirect = ($this->redirects[CURRENT_CFURI]['redirect'] ?? $direct) )
         {
             redirect($redirect);
         }
@@ -718,6 +834,8 @@ class InternalRoute extends CLController implements InternalRouteInterface
         $this->redirect = NULL;
         $this->restore  = NULL;
         $this->csrf     = NULL;
+        $this->ajax     = NULL;
+        $this->curl     = NULL;
     }
 
     //--------------------------------------------------------------------------------------------------------
