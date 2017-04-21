@@ -281,7 +281,7 @@ class InternalRoute extends CLController implements InternalRouteInterface
     // Ajax -> 4.3.4
     //--------------------------------------------------------------------------------------------------------
     //
-    //  @param  bool $ajax = true
+    //  @param void
     //
     //--------------------------------------------------------------------------------------------------------
     public function ajax() : InternalRoute
@@ -295,12 +295,12 @@ class InternalRoute extends CLController implements InternalRouteInterface
     // Curl -> 4.3.4
     //--------------------------------------------------------------------------------------------------------
     //
-    //  @param  bool $curl = true
+    //  @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function curl(Bool $curl = false) : InternalRoute
+    public function curl() : InternalRoute
     {
-        $this->curl = $curl;
+        $this->curl = true;
 
         return $this;
     }
