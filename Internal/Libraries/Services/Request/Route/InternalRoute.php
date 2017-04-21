@@ -394,7 +394,7 @@ class InternalRoute extends CLController implements InternalRouteInterface
             $routeString = $this->route;
         }
 
-        $this->routes['changeUri'][$routeString] = $newRoute = $this->_stringRoute($path, $this->route)[$this->route];
+        $this->routes['changeUri'][$routeString] = $this->_stringRoute($path, $this->route)[$this->route];
 
         if( $usable === false )
         {
