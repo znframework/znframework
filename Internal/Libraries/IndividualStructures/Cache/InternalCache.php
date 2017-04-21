@@ -25,7 +25,7 @@ class InternalCache extends CLController implements InternalCacheInterface
     const config = 'IndividualStructures:cache';
     const driver =
     [
-        'options'   => ['file', 'apc', 'memcache', 'redis', 'wincache'],
+        'options'   => ['file', 'apc', 'apcu', 'memcache', 'redis', 'wincache'],
         'namespace' => 'ZN\IndividualStructures\Cache\Drivers'
     ];
 

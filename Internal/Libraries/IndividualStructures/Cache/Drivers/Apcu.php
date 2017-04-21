@@ -1,6 +1,8 @@
-<?php namespace ZN\Database;
+<?php namespace ZN\IndividualStructures\Cache\Drivers;
 
-interface InternalDBTriggerInterface
+use ZN\IndividualStructures\Abstracts\CacheDriverMappingAbstract;
+
+class ApcuDriver extends CacheDriverMappingAbstract
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -12,101 +14,158 @@ interface InternalDBTriggerInterface
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
-    // user()
+    // Construct
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $user
+    // @param  string $driver
+    // @return bool
     //
     //--------------------------------------------------------------------------------------------------------
-    public function user(String $user) : InternalDBTrigger;
+    public function __construct()
+    {
+        \Support::func('apcu_fetch', 'Apcu');
+    }
 
     //--------------------------------------------------------------------------------------------------------
-    // when()
+    // Select
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $type: BEFORE, AFTER
+    // @param  string $key
+    // @param  mixed  $compressed
+    // @return mixed
     //
     //--------------------------------------------------------------------------------------------------------
-    public function when(String $type) : InternalDBTrigger;
+    public function select($key, $compressed = NULL)
+    {
+        $success = false;
+
+        $data = apcu_fetch($key, $success);
+
+        if( $success === true )
+        {
+            return ( is_array($data) )
+                   ? unserialize($data[0])
+                   : $data;
+        }
+
+        return false;
+    }
 
     //--------------------------------------------------------------------------------------------------------
-    // event()
+    // Insert
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $type: INSERT, UPDATE, DELETE
+    // @param  string   $key
+    // @param  variable $var
+    // @param  numeric  $time
+    // @param  mixed    $compressed
+    // @return bool
     //
     //--------------------------------------------------------------------------------------------------------
-    public function event(String $type) : InternalDBTrigger;
+    public function insert($key, $var, $time, $compressed)
+    {
+        $time = (int) $time;
+
+        return apcu_store
+        (
+            $key,
+            $compressed === true ? $var : [serialize($var), time(), $time],
+            $time
+        );
+    }
 
     //--------------------------------------------------------------------------------------------------------
-    // order()
+    // Delete
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $type: FOLLOWS, PRECEDES
+    // @param  string $key
+    // @return mixed
     //
     //--------------------------------------------------------------------------------------------------------
-    public function order(String $type, String $name) : InternalDBTrigger;
+    public function delete($key)
+    {
+        return apcu_delete($key);
+    }
 
     //--------------------------------------------------------------------------------------------------------
-    // body()
+    // Increment
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param mixed $args: BEGIN $arg1; $arg2; .... $arg3; END;
+    // @param  string  $key
+    // @param  numeric $increment
+    // @return void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function body(...$args) : InternalDBTrigger;
+    public function increment($key, $increment)
+    {
+        return apcu_inc($key, $increment);
+    }
 
     //--------------------------------------------------------------------------------------------------------
-    // createTrigger()
+    // Decrement
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $name
+    // @param  string  $key
+    // @param  numeric $decrement
+    // @return void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function createTrigger(String $name);
+    public function decrement($key, $decrement)
+    {
+        return apcu_dec($key, $decrement);
+    }
 
     //--------------------------------------------------------------------------------------------------------
-    // create()
+    // Clean
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $name
+    // @param  void
+    // @return void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function create(String $name);
+    public function clean()
+    {
+        return apcu_clear_cache('user');
+    }
 
     //--------------------------------------------------------------------------------------------------------
-    // dropTrigger()
+    // Info
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $name
+    // @param  mixed  $info
+    // @return mixed
     //
     //--------------------------------------------------------------------------------------------------------
-    public function dropTrigger(String $name);
+    public function info($type = NULL)
+    {
+        return apcu_cache_info($type);
+    }
 
     //--------------------------------------------------------------------------------------------------------
-    // drop()
+    // Get Meta Data
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $name
+    // @param  string  $key
+    // @return mixed
     //
     //--------------------------------------------------------------------------------------------------------
-    public function drop(String $name);
+    public function getMetaData($key)
+    {
+        $success = false;
+        $stored  = apcu_fetch($key, $success);
 
-    //--------------------------------------------------------------------------------------------------------
-    // list()
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function list();
+        if( $success === false || count($stored) !== 3 )
+        {
+            return [];
+        }
 
-    //--------------------------------------------------------------------------------------------------------
-    // list()
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function exists(String $name);
+        list($data, $time, $expire) = $stored;
+
+        return
+        [
+            'expire' => $time + $expire,
+            'mtime'  => $time,
+            'data'   => unserialize($data)
+        ];
+    }
 }

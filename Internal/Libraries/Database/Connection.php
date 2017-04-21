@@ -574,7 +574,9 @@ class Connection implements ConnectionInterface
             return $query;
         }
 
-        return $this->db->query($this->_querySecurity($query), $this->secure);
+        $this->db->query($this->_querySecurity($query), $this->secure);
+
+        return ! (bool) $this->db->error();
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -592,7 +594,9 @@ class Connection implements ConnectionInterface
             return $query;
         }
 
-        return $this->db->exec($this->_querySecurity($query), $this->secure);
+        $this->db->exec($this->_querySecurity($query), $this->secure);
+
+        return ! (bool) $this->db->error();
     }
 
     //--------------------------------------------------------------------------------------------------------

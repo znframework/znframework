@@ -317,7 +317,7 @@ class InternalDBUser extends Connection implements InternalDBUserInterface
     // @param string  $name: USER()
     //
     //--------------------------------------------------------------------------------------------------------
-    public function alter(String $name = NULL) : Bool
+    public function alter(String $name = NULL)
     {
         nullCoalesce($name, 'USER()');
 
@@ -333,7 +333,7 @@ class InternalDBUser extends Connection implements InternalDBUserInterface
     // @param string  $name: USER()
     //
     //--------------------------------------------------------------------------------------------------------
-    public function create(String $name = NULL) : Bool
+    public function create(String $name = NULL)
     {
         nullCoalesce($name, 'USER()');
 
@@ -349,7 +349,7 @@ class InternalDBUser extends Connection implements InternalDBUserInterface
     // @param string  $name: USER()
     //
     //--------------------------------------------------------------------------------------------------------
-    public function drop(String $name = NULL) : Bool
+    public function drop(String $name = NULL)
     {
         nullCoalesce($name, 'USER()');
 
@@ -367,7 +367,7 @@ class InternalDBUser extends Connection implements InternalDBUserInterface
     // @param string  $select: *.*
     //
     //--------------------------------------------------------------------------------------------------------
-    public function grant(String $name = 'ALL', String $type = NULL, String $select = '*.*') : Bool
+    public function grant(String $name = 'ALL', String $type = NULL, String $select = '*.*')
     {
         $query = $this->user->grant($name, $type, $select);
 
@@ -383,7 +383,7 @@ class InternalDBUser extends Connection implements InternalDBUserInterface
     // @param string  $select: *.*
     //
     //--------------------------------------------------------------------------------------------------------
-    public function revoke(String $name = 'ALL', String $type = NULL, String $select = '*.*') : Bool
+    public function revoke(String $name = 'ALL', String $type = NULL, String $select = '*.*')
     {
         $query = $this->user->revoke($name, $type, $select);
 
@@ -398,7 +398,7 @@ class InternalDBUser extends Connection implements InternalDBUserInterface
     // @param string  $newName: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function rename(String $oldName, String $newName) : Bool
+    public function rename(String $oldName, String $newName)
     {
         $query = $this->user->rename($oldName, $newName);
 
@@ -413,7 +413,7 @@ class InternalDBUser extends Connection implements InternalDBUserInterface
     // @param string  $pass: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function setPassword(String $user = NULL, String $pass = NULL) : Bool
+    public function setPassword(String $user = NULL, String $pass = NULL)
     {
         $query = $this->user->setPassword($user, $pass);
 
