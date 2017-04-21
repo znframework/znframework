@@ -28,7 +28,7 @@ interface InternalDBForgeInterface
     // @param mixed  $extras
     //
     //--------------------------------------------------------------------------------------------------------
-    public function createDatabase(String $dbname, $extras = NULL) : Bool;
+    public function createDatabase(String $dbname, $extras = NULL);
 
     //--------------------------------------------------------------------------------------------------------
     // Drop Database
@@ -37,7 +37,7 @@ interface InternalDBForgeInterface
     // @param string $dbname
     //
     //--------------------------------------------------------------------------------------------------------
-    public function dropDatabase(String $dbname) : Bool;
+    public function dropDatabase(String $dbname);
 
     //--------------------------------------------------------------------------------------------------------
     // Create Table
@@ -48,7 +48,7 @@ interface InternalDBForgeInterface
     // @param mixed  $extras
     //
     //--------------------------------------------------------------------------------------------------------
-    public function createTable(String $table = NULL, Array $colums = NULL, $extras = NULL) : Bool;
+    public function createTable(String $table = NULL, Array $colums = NULL, $extras = NULL);
 
     //--------------------------------------------------------------------------------------------------------
     // Drop Table
@@ -57,7 +57,7 @@ interface InternalDBForgeInterface
     // @param string $table
     //
     //--------------------------------------------------------------------------------------------------------
-    public function dropTable(String $table = NULL) : Bool;
+    public function dropTable(String $table = NULL);
 
     //--------------------------------------------------------------------------------------------------------
     // Alter Table
@@ -67,7 +67,7 @@ interface InternalDBForgeInterface
     // @param array  $condition
     //
     //--------------------------------------------------------------------------------------------------------
-    public function alterTable(String $table = NULL, Array $condition = NULL) : Bool;
+    public function alterTable(String $table = NULL, Array $condition = NULL);
 
     //--------------------------------------------------------------------------------------------------------
     // Rename Table
@@ -77,7 +77,7 @@ interface InternalDBForgeInterface
     // @param string $newName
     //
     //--------------------------------------------------------------------------------------------------------
-    public function renameTable(String $name, String $newName) : Bool;
+    public function renameTable(String $name, String $newName);
 
     //--------------------------------------------------------------------------------------------------------
     // Truncate
@@ -86,7 +86,7 @@ interface InternalDBForgeInterface
     // @param string $table
     //
     //--------------------------------------------------------------------------------------------------------
-    public function truncate(String $table = NULL) : Bool;
+    public function truncate(String $table = NULL);
 
     //--------------------------------------------------------------------------------------------------------
     // Add Column
@@ -96,7 +96,7 @@ interface InternalDBForgeInterface
     // @param array  $columns
     //
     //--------------------------------------------------------------------------------------------------------
-    public function addColumn(String $table = NULL, Array $columns = NULL) : Bool;
+    public function addColumn(String $table = NULL, Array $columns = NULL);
 
     //--------------------------------------------------------------------------------------------------------
     // Drop Column
@@ -106,7 +106,7 @@ interface InternalDBForgeInterface
     // @param mixed  $column
     //
     //--------------------------------------------------------------------------------------------------------
-    public function dropColumn(String $table = NULL, $columns = NULL) : Bool;
+    public function dropColumn(String $table = NULL, $columns = NULL);
 
     //--------------------------------------------------------------------------------------------------------
     // Modify Column
@@ -116,7 +116,7 @@ interface InternalDBForgeInterface
     // @param mixed  $columns
     //
     //--------------------------------------------------------------------------------------------------------
-    public function modifyColumn(String $table = NULL, Array $columns = NULL) : Bool;
+    public function modifyColumn(String $table = NULL, Array $columns = NULL);
 
     //--------------------------------------------------------------------------------------------------------
     // Rename Column
@@ -126,5 +126,5 @@ interface InternalDBForgeInterface
     // @param mixed  $columns
     //
     //--------------------------------------------------------------------------------------------------------
-    public function renameColumn(String $table = NULL, Array $columns = NULL) : Bool;
+    public function renameColumn(String $table = NULL, Array $columns = NULL);
 }

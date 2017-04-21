@@ -1373,8 +1373,12 @@ class InternalDB extends Connection implements InternalDBInterface
             $this->db->transCommit();
         }
 
+        $status = ! (bool) $this->transError;
+
         $this->transStart = NULL;
         $this->transError = NULL;
+
+        return $status;
     }
 
     //--------------------------------------------------------------------------------------------------------

@@ -201,7 +201,7 @@ interface InternalDBUserInterface
     // @param string  $name: USER()
     //
     //--------------------------------------------------------------------------------------------------------
-    public function alter(String $name) : Bool;
+    public function alter(String $name);
 
     //--------------------------------------------------------------------------------------------------------
     // create()
@@ -210,7 +210,7 @@ interface InternalDBUserInterface
     // @param string $name: USER()
     //
     //--------------------------------------------------------------------------------------------------------
-    public function create(String $name) : Bool;
+    public function create(String $name);
 
     //--------------------------------------------------------------------------------------------------------
     // drop()
@@ -219,7 +219,7 @@ interface InternalDBUserInterface
     // @param string  $name: USER()
     //
     //--------------------------------------------------------------------------------------------------------
-    public function drop(String $name) : Bool;
+    public function drop(String $name);
 
     //--------------------------------------------------------------------------------------------------------
     // grant()
@@ -230,7 +230,7 @@ interface InternalDBUserInterface
     // @param string  $select: *.*
     //
     //--------------------------------------------------------------------------------------------------------
-    public function grant(String $name = 'ALL', String $type = NULL, String $select = '*.*') : Bool;
+    public function grant(String $name = 'ALL', String $type = NULL, String $select = '*.*');
 
     //--------------------------------------------------------------------------------------------------------
     // revoke()
@@ -241,7 +241,7 @@ interface InternalDBUserInterface
     // @param string  $select: *.*
     //
     //--------------------------------------------------------------------------------------------------------
-    public function revoke(String $name = 'ALL', String $type = NULL, String $select = '*.*') : Bool;
+    public function revoke(String $name = 'ALL', String $type = NULL, String $select = '*.*');
 
     //--------------------------------------------------------------------------------------------------------
     // rename()
@@ -251,7 +251,7 @@ interface InternalDBUserInterface
     // @param string  $newName: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function rename(String $oldName, String $newName) : Bool;
+    public function rename(String $oldName, String $newName);
 
     //--------------------------------------------------------------------------------------------------------
     // setPassword()
@@ -261,5 +261,5 @@ interface InternalDBUserInterface
     // @param string  $pass: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function setPassword(String $user, String $pass) : Bool;
+    public function setPassword(String $user, String $pass);
 }
