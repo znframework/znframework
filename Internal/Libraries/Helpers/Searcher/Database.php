@@ -129,14 +129,14 @@ class Database implements DatabaseInterface
         }
 
         $word     = addslashes($word);
-        $operator = ' LIKE ';
+        $operator = ' like ';
         $str      = $word;
 
         if( $type === 'equal')
         {
             $operator = ' = ';
         }
-        elseif( $type === "auto" )
+        elseif( $type === 'auto' )
         {
             if( is_numeric($word) )
             {
@@ -158,30 +158,28 @@ class Database implements DatabaseInterface
 
             foreach( $values as $keys )
             {
-                DB::where($keys.$operator, $str, 'OR');
+                DB::where($keys.$operator, $str, 'or');
 
                 if( ! empty($this->filter) )
                 {
                     foreach( $this->filter as $val )
                     {
-                        $exval = explode("|", $val);
+                        $exval = explode('|', $val);
 
-                        if( $exval[2] === "and" )
+                        if( $exval[2] === 'and' )
                         {
-                            DB::where("$exval[0] ", $exval[1], 'AND');
+                            DB::where($exval[0], $exval[1], 'and');
                         }
 
-                        if( $exval[2] === "or" )
+                        if( $exval[2] === 'or' )
                         {
-                            DB::where("$exval[0] ", $exval[1], 'OR');
+                            DB::where($exval[0], $exval[1], 'or');
                         }
                     }
                 }
             }
 
-            DB::get($key);
-
-            $this->result[$key] = DB::result();
+            $this->result[$key] = DB::get($key)->result();
         }
 
         $result = $this->result;
