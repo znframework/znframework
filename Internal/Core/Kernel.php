@@ -11,93 +11,22 @@
 //--------------------------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------------------------
-//  Restore Modu
+// URI Datas
 //--------------------------------------------------------------------------------------------------------
-if( PROJECT_MODE === 'restoration' )
-{
-    Restoration::mode();
-}
+//  Get URI Datas
 //--------------------------------------------------------------------------------------------------------
-
-//--------------------------------------------------------------------------------------------------------
-// Route Filter
-//--------------------------------------------------------------------------------------------------------
-Route::filter();
-//--------------------------------------------------------------------------------------------------------
-
 $parameters   = CURRENT_CPARAMETERS;
 $page         = CURRENT_CONTROLLER;
 $isFile       = CURRENT_CFILE;
 $function     = CURRENT_CFUNCTION;
 $openFunction = CURRENT_COPEN_PAGE;
 $namespace    = CURRENT_CNAMESPACE;
-
-//--------------------------------------------------------------------------------------------------------
-// Invalid Request Page
-//--------------------------------------------------------------------------------------------------------
-$invalidRequest = Config::get('Services', 'route')['requestMethods'];
-
-if( $requestMethods = $invalidRequest['disallowMethods'] )
-{
-    $requestMethods = Arrays::lowerKeys($requestMethods);
-
-    if( ! empty($requestMethod = $requestMethods[CURRENT_CFURI] ?? NULL) )
-    {
-        if( Http::isRequestMethod(...(array) $requestMethod) === true )
-        {
-            Route::redirectInvalidRequest();
-        }
-    }
-}
 //--------------------------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------------------------
-// Request Methods
+// Running Controller
 //--------------------------------------------------------------------------------------------------------
-if( $requestMethods = $invalidRequest['allowMethods'] )
-{
-    $requestMethods = Arrays::lowerKeys($requestMethods);
-
-    if( ! empty($requestMethod = $requestMethods[CURRENT_CFURI] ?? NULL) )
-    {
-        if( Http::isRequestMethod(...(array) $requestMethod) === false )
-        {
-            Route::redirectInvalidRequest();
-        }
-    }
-}
-//--------------------------------------------------------------------------------------------------------
-
-//--------------------------------------------------------------------------------------------------------
-// Starting Controllers
-//--------------------------------------------------------------------------------------------------------
-if( $startController = Config::get('Starting', 'controller') )
-{
-    if( is_string($startController) )
-    {
-        internalStartingContoller($startController);
-    }
-    elseif( is_array($startController) )
-    {
-        foreach( $startController as $key => $val )
-        {
-            if( is_numeric($key) )
-            {
-                internalStartingContoller($val);
-            }
-            else
-            {
-                internalStartingContoller($key, $val);
-            }
-        }
-    }
-}
-//--------------------------------------------------------------------------------------------------------
-
-//--------------------------------------------------------------------------------------------------------
-// SAYFA KONTROLÜ YAPILIYOR...
-//--------------------------------------------------------------------------------------------------------
-//  Sayfa bilgisine erişilmişse sayfa dahil edilir.
+//  Running Controller
 //--------------------------------------------------------------------------------------------------------
 if( is_file($isFile) )
 {
@@ -167,36 +96,4 @@ else
 {
     Route::redirectShow404(CURRENT_CONTROLLER, 'notFoundController', 'SystemNotFoundControllerError');
 }
-
 //--------------------------------------------------------------------------------------------------------
-// Restore Error Handler
-//--------------------------------------------------------------------------------------------------------
-//
-// @mode = 'publication'
-//
-//--------------------------------------------------------------------------------------------------------
-if( PROJECT_MODE !== 'publication' )
-{
-    restore_error_handler();
-}
-else
-{
-    if(  Config::get('General', 'log')['createFile'] === true && $errorLast = Errors::last() )
-    {
-        $lang    = lang('Templates');
-        $message = $lang['line']   .':'.$errorLast['line'].', '.
-                   $lang['file']   .':'.$errorLast['file'].', '.
-                   $lang['message'].':'.$errorLast['message'];
-
-        report('GeneralError', $message, 'GeneralError');
-    }
-}
-
-//--------------------------------------------------------------------------------------------------------
-// Ob End Flush
-//--------------------------------------------------------------------------------------------------------
-//
-// Tampon kapatılıyor.
-//
-//--------------------------------------------------------------------------------------------------------
-ob_end_flush();
