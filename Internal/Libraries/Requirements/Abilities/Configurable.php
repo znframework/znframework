@@ -23,7 +23,7 @@ trait ConfigurableAbility
     {
         if( ! defined('static::config') )
         {
-            throw new UndefinedConstException('[const config] is required to use the [Config Ability]!');
+            return false;
         }
 
         $configs = static::config;

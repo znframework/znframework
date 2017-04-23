@@ -20,7 +20,7 @@
     {
         if( ! defined('static::unit') )
         {
-            throw new UndefinedConstException('[const unit] is required to use the [UnitTest Ability]!');
+            return false;
         }
 
         $class   = static::unit['class'];
