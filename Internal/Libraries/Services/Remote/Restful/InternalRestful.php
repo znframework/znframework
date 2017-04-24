@@ -32,15 +32,6 @@ class InternalRestful extends CallController implements InternalRestfulInterface
     protected $data;
 
     //--------------------------------------------------------------------------------------------------------
-    // Protected $type
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var string
-    //
-    //--------------------------------------------------------------------------------------------------------
-    protected $type;
-
-    //--------------------------------------------------------------------------------------------------------
     // Url
     //--------------------------------------------------------------------------------------------------------
     //
@@ -50,20 +41,6 @@ class InternalRestful extends CallController implements InternalRestfulInterface
     public function url(String $url) : InternalRestful
     {
         $this->url = $url;
-
-        return $this;
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Type
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $type
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function type(String $type) : InternalRestful
-    {
-        $this->type = $type;
 
         return $this;
     }
@@ -176,13 +153,13 @@ class InternalRestful extends CallController implements InternalRestfulInterface
 
         $this->_default();
 
-        if( $this->type === 'xml' )
+        if( Json::check($response) )
         {
-            return XML::parseObject($response);
+            return Json::decodeObject($response);
         }
         else
         {
-            return Json::decodeObject($response);
+            return XML::parseObject($response);
         }
     }
 
