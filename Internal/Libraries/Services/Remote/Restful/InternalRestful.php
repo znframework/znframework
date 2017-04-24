@@ -1,8 +1,8 @@
 <?php namespace ZN\Services\Remote;
 
-use CURL, Json, URL, XML, CallController;
+use CURL, Json, URL, XML;
 
-class InternalRestful extends CallController implements InternalRestfulInterface
+class InternalRestful implements InternalRestfulInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -30,6 +30,40 @@ class InternalRestful extends CallController implements InternalRestfulInterface
     //
     //--------------------------------------------------------------------------------------------------------
     protected $data;
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected $info
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var array
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected $info;
+
+    //--------------------------------------------------------------------------------------------------------
+    // Magic Call
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $method
+    // @param array  $parameters
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function __call($method, $parameters)
+    {
+        return $this->info($method);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Info
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function info(String $key = NULL)
+    {
+        return $key === NULL ? $this->info : ($this->info[$key] ?? false);
+    }
 
     //--------------------------------------------------------------------------------------------------------
     // Url
@@ -141,6 +175,28 @@ class InternalRestful extends CallController implements InternalRestfulInterface
     }
 
     //--------------------------------------------------------------------------------------------------------
+    // Protected Info
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param mixed $response
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _info()
+    {
+        $this->info['getHttpCode']          = CURL::info('http_code');
+        $this->info['getFileTime']          = CURL::info('filetime');
+        $this->info['getTotalTime']         = CURL::info('total_time');
+        $this->info['getPretransferTime']   = CURL::info('pretransfer_time');
+        $this->info['getStartTransferTime'] = CURL::info('starttransfer_time');
+        $this->info['getRedirectTime']      = CURL::info('redirect_time');
+        $this->info['getUploadSize']        = CURL::info('size_upload');
+        $this->info['getDownloadSize']      = CURL::info('size_download');
+        $this->info['getRequestSize']       = CURL::info('request_size');
+        $this->info['getDownloadSpeed']     = CURL::info('speed_download');
+        $this->info['getUploadSpeed']       = CURL::info('speed_upload');
+    }
+
+    //--------------------------------------------------------------------------------------------------------
     // Protected Result
     //--------------------------------------------------------------------------------------------------------
     //
@@ -149,6 +205,8 @@ class InternalRestful extends CallController implements InternalRestfulInterface
     //--------------------------------------------------------------------------------------------------------
     protected function _result($response)
     {
+        $this->_info();
+
         CURL::close();
 
         $this->_default();
