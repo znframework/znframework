@@ -65,7 +65,7 @@ class InternalCURL extends CallController implements InternalCURLInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function exec() : Bool
+    public function exec()
     {
         if( ! is_resource($this->init) )
         {
