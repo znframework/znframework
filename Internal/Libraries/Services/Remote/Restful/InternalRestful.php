@@ -157,9 +157,13 @@ class InternalRestful extends CallController implements InternalRestfulInterface
         {
             return Json::decodeObject($response);
         }
-        else
+        elseif( XML::check($response) )
         {
             return XML::parseObject($response);
+        }
+        else
+        {
+            return false;
         }
     }
 
