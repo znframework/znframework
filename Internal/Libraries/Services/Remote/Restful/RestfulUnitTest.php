@@ -1,5 +1,6 @@
 <?php namespace ZN\Services\Remote;
 
+class RestfulUnitTest extends \UnitTestController
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -12,6 +13,7 @@
 
     const unit =
     [
+        'class'   => 'Restful',
         'methods' => []
     ];
 }
