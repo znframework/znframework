@@ -218,11 +218,11 @@ class Grid extends MLExtends implements GridInterface
                 {
                     $newValues = [];
 
-                    foreach( $val as $v )
+                    foreach( $val as $k => $v )
                     {
                         if( stristr($v, $searchWord) )
                         {
-                            $newValues[] = $v;
+                            $newValues = array_merge($newValues, $val);
                         }
                     }
 
@@ -232,7 +232,7 @@ class Grid extends MLExtends implements GridInterface
                     }
                 }
             }
-
+            
             $words = $newWords;
         }
 

@@ -11,6 +11,32 @@
 //--------------------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------------------
+// internalInvalidRequest() - ZN >= 4.3.5
+//--------------------------------------------------------------------------------------------------
+//
+// @param string $type
+// @param bool   $bool
+//
+//--------------------------------------------------------------------------------------------------
+function internalInvalidRequest(String $type, Bool $bool)
+{
+    $invalidRequest = Config::get('Services', 'route')['requestMethods'];
+
+    if( $requestMethods = $invalidRequest[$type] )
+    {
+        $requestMethods = Arrays::lowerKeys($requestMethods);
+
+        if( ! empty($requestMethod = $requestMethods[CURRENT_CFURI] ?? NULL) )
+        {
+            if( Http::isRequestMethod(...(array) $requestMethod) === $bool )
+            {
+                Route::redirectInvalidRequest();
+            }
+        }
+    }
+}
+
+//--------------------------------------------------------------------------------------------------
 // internalDefaultProjectKey() - ZN >= 4.2.7
 //--------------------------------------------------------------------------------------------------
 //
