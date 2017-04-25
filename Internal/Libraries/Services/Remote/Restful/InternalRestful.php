@@ -1,6 +1,6 @@
 <?php namespace ZN\Services\Remote;
 
-use CURL, Json, URL, XML;
+use CURL, Json, URL, XML, Http, Route;
 
 class InternalRestful implements InternalRestfulInterface
 {
@@ -155,6 +155,23 @@ class InternalRestful implements InternalRestfulInterface
     }
 
     //--------------------------------------------------------------------------------------------------------
+    // Return
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param callable $callback
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function return(Callable $callback)
+    {
+        if( ! Http::isCurl() )
+        {
+            Route::redirectInvalidRequest();
+        }
+
+        return $callback();
+    }
+
+    //--------------------------------------------------------------------------------------------------------
     // Protected Custom Request
     //--------------------------------------------------------------------------------------------------------
     //
@@ -221,7 +238,7 @@ class InternalRestful implements InternalRestfulInterface
         }
         else
         {
-            return false;
+            return $response;
         }
     }
 
