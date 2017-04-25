@@ -33,6 +33,15 @@ class Autoloader
     protected static $namespaces;
 
     //--------------------------------------------------------------------------------------------------
+    // Protected Static Path
+    //--------------------------------------------------------------------------------------------------
+    //
+    // @var string
+    //
+    //--------------------------------------------------------------------------------------------------
+    protected static $path = CONFIG_DIR . 'ClassMap.php';
+
+    //--------------------------------------------------------------------------------------------------
     // Run
     //--------------------------------------------------------------------------------------------------
     //
@@ -42,15 +51,13 @@ class Autoloader
     //--------------------------------------------------------------------------------------------------
     public static function run(String $class)
     {
-        $path = CONFIG_DIR.'ClassMap.php';
-
-        if( ! is_file($path) )
+        if( ! is_file(self::$path) )
         {
             self::createClassMap();
         }
 
         $classInfo = self::getClassFileInfo($class);
-        $file      = self::_originPath(REAL_BASE_DIR.$classInfo['path']);
+        $file      = self::_originPath(REAL_BASE_DIR . $classInfo['path']);
 
         if( is_file($file) )
         {
@@ -70,8 +77,6 @@ class Autoloader
         {
             self::tryAgainCreateClassMap($class);
         }
-
-        clearstatcache();
     }
 
     //--------------------------------------------------------------------------------------------------
@@ -86,12 +91,9 @@ class Autoloader
     //--------------------------------------------------------------------------------------------------
     public static function restart()
     {
-        $path = CONFIG_DIR.'ClassMap.php';
-
-        if( is_file($path) )
+        if( is_file(self::$path) )
         {
-            unlink($path);
-            clearstatcache();
+            unlink(self::$path);
         }
 
         return self::createClassMap();
@@ -110,6 +112,8 @@ class Autoloader
     //--------------------------------------------------------------------------------------------------
     public static function createClassMap()
     {
+        clearstatcache();
+
         $configAutoloader = Config::get('Autoloader');
         $configClassMap   = self::_config();
 
@@ -133,9 +137,7 @@ class Autoloader
 
         $eol  = EOL;
 
-        $path = CONFIG_DIR.'ClassMap.php';
-
-        if( ! is_file($path) )
+        if( ! is_file(self::$path) )
         {
             $classMapPage  = '<?php'.$eol;
             $classMapPage .= '//--------------------------------------------------------------------------------------------------'.$eol;
@@ -173,14 +175,7 @@ class Autoloader
             }
         }
 
-        if( ! is_file($path) )
-        {
-            file_put_contents($path, $classMapPage);
-        }
-        elseif( trim($classMapPage) !== trim(file_get_contents($path)) )
-        {
-            file_put_contents($path, $classMapPage, FILE_APPEND);
-        }
+        file_put_contents(self::$path, $classMapPage, FILE_APPEND);
     }
 
     //--------------------------------------------------------------------------------------------------
@@ -504,13 +499,11 @@ class Autoloader
     //--------------------------------------------------------------------------------------------------
     private static function _config()
     {
-        $path = CONFIG_DIR . 'ClassMap.php';
-
-        if( is_file($path) )
+        if( is_file(self::$path) )
         {
             global $classMap;
 
-            require_once $path;
+            require_once self::$path;
 
             return $classMap;
         }

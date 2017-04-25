@@ -13,7 +13,7 @@
     {
         if( ! defined('static::factory') )
         {
-            throw new UndefinedConstException('[const factory] is required to use the [Call Factory Method Ability]!');
+            return false;
         }
 
         $originMethodName = $method;

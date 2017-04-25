@@ -54,9 +54,7 @@ class Register extends UserExtends implements RegisterInterface
         if( ! empty($joinTables) )
         {
             $joinData = $data;
-            $data     = isset($data[$tableName])
-                      ? $data[$tableName]
-                      : [$tableName];
+            $data     = $data[$tableName] ?? [$tableName];
         }
 
         if( ! isset($data[$usernameColumn]) ||  ! isset($data[$passwordColumn]) )

@@ -545,8 +545,8 @@ class InternalDBGrid extends Abstracts\GridAbstract
         foreach( $result as $key => $value )
         {
             $value       = Arrays::casing($value, 'lower', 'key');
-            $hiddenValue = $value[strtolower($this->processColumn)];
-            $hiddenId    = Form::hidden('id', $value[strtolower($this->processColumn)] );
+            $hiddenValue = $value[strtolower($this->processColumn)] ?? NULL;
+            $hiddenId    = Form::hidden('id', $hiddenValue);
 
             if( ! empty( $this->joins ) )
             {
@@ -633,7 +633,7 @@ class InternalDBGrid extends Abstracts\GridAbstract
                     $newGetRow = $newGet->row();
                 }
 
-                $table .= '<td>'.$this->_editTable($newGet->columns(), $join['table'], $newGetRow).'</td>';
+                $table .= '<td>'.$this->_editTable($newGet->columns(), $join['table'], $newGetRow, $newGet->columnData()).'</td>';
             }
         }
         else
@@ -650,7 +650,7 @@ class InternalDBGrid extends Abstracts\GridAbstract
                 $newGetRow = $newGet->row();
             }
 
-            $table .= '<td>'.$this->_editTable($newGet->columns(), $this->table, $newGetRow).'</td>';
+            $table .= '<td>'.$this->_editTable($newGet->columns(), $this->table, $newGetRow, $newGet->columnData()).'</td>';
         }
 
         $table .= '<tr><td colspan="'.count($joinsData).'">'.
@@ -671,7 +671,7 @@ class InternalDBGrid extends Abstracts\GridAbstract
     // @param array  $row
     //
     //--------------------------------------------------------------------------------------------------------
-    protected function _editTable($columns, $tbl, $row)
+    protected function _editTable($columns, $tbl, $row, $columnData)
     {
         $table  = '<table'.Html::attributes(VIEWOBJECTS_DATAGRID_CONFIG['attributes']['editTables']).'>';
         $table .= '<tr><td width="100">'.Strings::upperCase($tbl).'</td></tr>';
@@ -688,13 +688,14 @@ class InternalDBGrid extends Abstracts\GridAbstract
         {
             if( ! in_array($column, $this->joinColumns) && strtolower($column) !== $processColumn )
             {
-                $columnData = DB::columnData($column);
+                $columnDataType = $columnData[$column]->type;
+                $columnDataMax  = $columnData[$column]->maxLength;
 
-                if( isset($columnDatas[$columnData->type]) )
+                if( isset($columnDatas[$columnDataType]) )
                 {
-                    $type = $columnDatas[$columnData->type];
+                    $type = $columnDatas[$columnDataType];
                 }
-                elseif( $columnData->maxLength > 255 || $columnData->maxLength === NULL )
+                elseif( $columnDataMax > 255 || $columnDataMax === NULL )
                 {
                     $type = 'textarea';
                 }
@@ -777,7 +778,7 @@ class InternalDBGrid extends Abstracts\GridAbstract
         }
         else
         {
-            DB::where('id', Method::post('id'))->delete($this->table);
+            DB::where($this->processColumn, Method::post('id'))->delete($this->table);
         }
 
        redirect(CURRENT_URL);
