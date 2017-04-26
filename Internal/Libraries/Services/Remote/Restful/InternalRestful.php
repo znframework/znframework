@@ -62,7 +62,7 @@ class InternalRestful implements InternalRestfulInterface
     //--------------------------------------------------------------------------------------------------------
     public function info(String $key = NULL)
     {
-        return $key === NULL ? $this->info : ($this->info[$key] ?? false);
+        return $key === NULL ? $this->info : ($this->info[strtolower($key)] ?? false);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -200,17 +200,17 @@ class InternalRestful implements InternalRestfulInterface
     //--------------------------------------------------------------------------------------------------------
     protected function _info()
     {
-        $this->info['getHttpCode']          = CURL::info('http_code');
-        $this->info['getFileTime']          = CURL::info('filetime');
-        $this->info['getTotalTime']         = CURL::info('total_time');
-        $this->info['getPretransferTime']   = CURL::info('pretransfer_time');
-        $this->info['getStartTransferTime'] = CURL::info('starttransfer_time');
-        $this->info['getRedirectTime']      = CURL::info('redirect_time');
-        $this->info['getUploadSize']        = CURL::info('size_upload');
-        $this->info['getDownloadSize']      = CURL::info('size_download');
-        $this->info['getRequestSize']       = CURL::info('request_size');
-        $this->info['getDownloadSpeed']     = CURL::info('speed_download');
-        $this->info['getUploadSpeed']       = CURL::info('speed_upload');
+        $this->info['gethttpcode']          = CURL::info('http_code');
+        $this->info['getfiletime']          = CURL::info('filetime');
+        $this->info['gettotaltime']         = CURL::info('total_time');
+        $this->info['getpretransfertime']   = CURL::info('pretransfer_time');
+        $this->info['getstarttransfertime'] = CURL::info('starttransfer_time');
+        $this->info['getredirecttime']      = CURL::info('redirect_time');
+        $this->info['getuploadsize']        = CURL::info('size_upload');
+        $this->info['getdownloadsize']      = CURL::info('size_download');
+        $this->info['getrequestsize']       = CURL::info('request_size');
+        $this->info['getdownloadspeed']     = CURL::info('speed_download');
+        $this->info['getuploadspeed']       = CURL::info('speed_upload');
     }
 
     //--------------------------------------------------------------------------------------------------------
