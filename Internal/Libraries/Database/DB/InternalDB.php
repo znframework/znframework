@@ -534,15 +534,14 @@ class InternalDB extends Connection implements InternalDBInterface
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Caching
+    // Caching -> 4.3.6
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param mixed  $column
-    // @param scalar $value
-    // @param string $logical
+    // @param string $time
+    // @param string $driver
     //
     //--------------------------------------------------------------------------------------------------------
-    public function caching(String $time, String $driver = NULL)
+    public function caching(String $time, String $driver = NULL) : InternalDB
     {
         $timeEx = explode(' ', $time);
 
@@ -553,13 +552,13 @@ class InternalDB extends Connection implements InternalDBInterface
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Clean Caching
+    // Clean Caching -> 4.3.6
     //--------------------------------------------------------------------------------------------------------
     //
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function cleanCaching()
+    public function cleanCaching() : Bool
     {
         return Cache::delete($this->_cacheQuery());
     }
