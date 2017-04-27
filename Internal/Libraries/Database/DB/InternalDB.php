@@ -1,6 +1,6 @@
 <?php namespace ZN\Database;
 
-use URI, Pagination, Arrays, Classes, Method, Config;
+use URI, Pagination, Arrays, Classes, Method, Config, Converter, Cache, Json;
 
 class InternalDB extends Connection implements InternalDBInterface
 {
@@ -380,6 +380,15 @@ class InternalDB extends Connection implements InternalDBInterface
     private $unionQuery = NULL;
 
     //--------------------------------------------------------------------------------------------------------
+    // Caching
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var array
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public $caching = [];
+
+    //--------------------------------------------------------------------------------------------------------
     // Magic Call
     //--------------------------------------------------------------------------------------------------------
     //
@@ -522,6 +531,37 @@ class InternalDB extends Connection implements InternalDBInterface
         $this->_wh($column, $value, $logical, __FUNCTION__);
 
         return $this;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Caching
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param mixed  $column
+    // @param scalar $value
+    // @param string $logical
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function caching(String $time, String $driver = NULL)
+    {
+        $timeEx = explode(' ', $time);
+
+        $this->caching['time']   = Converter::time($timeEx[0], $timeEx[1] ?? 'second', 'second');
+        $this->caching['driver'] = $driver ?? $this->config['cacheDriver'] ?? 'file';
+
+        return $this;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Clean Caching
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function cleanCaching()
+    {
+        return Cache::delete($this->_cacheQuery());
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -1297,7 +1337,11 @@ class InternalDB extends Connection implements InternalDBInterface
     //--------------------------------------------------------------------------------------------------------
     public function query(String $query, Array $secure = [])
     {
-        return (new self($this->config))->_query($query, $this->_p($secure, 'secure'));
+        $caching = $this->caching;
+
+        $this->caching = [];
+
+        return (new self($this->config))->_query($query, $this->_p($secure, 'secure'), ['caching' => $caching]);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -1646,7 +1690,12 @@ class InternalDB extends Connection implements InternalDBInterface
     //--------------------------------------------------------------------------------------------------------
     public function result(String $type = 'object')
     {
-        emptyCoalesce($this->results, $this->db->result($type));
+        $this->_resultCache($type);
+
+        if( empty((array) $this->results) )
+        {
+            $this->results = $this->db->result($type);
+        }
 
         if( $type === 'json' )
         {
@@ -1991,6 +2040,34 @@ class InternalDB extends Connection implements InternalDBInterface
     public function simpleDelete(String $table, String $column, String $value)
     {
         return $this->where($column, $value)->delete($table);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Result Cache
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string &$table
+    // @param array  $datas
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _resultCache($type)
+    {
+        if( ! empty($this->caching) )
+        {
+            if( $cacheResult = Cache::select($this->_cacheQuery()) )
+            {
+                $this->results = $cacheResult;
+            }
+            else
+            {
+                if( ! empty($this->caching['driver']) )
+                {
+                    Cache::driver($this->caching['driver']);
+                }
+
+                Cache::insert($this->_cacheQuery(), $this->results = $this->db->result($type), (int) ($this->caching['time'] ?? 0));
+            }
+        }
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -2448,21 +2525,36 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param array  $secure
     //
     //--------------------------------------------------------------------------------------------------------
-    public function _query(String $query, Array $secure = [])
+    public function _query(String $query, Array $secure = [], $data = NULL)
     {
-        $this->db->query($this->_querySecurity($query), $this->_p($secure, 'secure'));
+        $this->stringQuery = $query;
 
-        if( ! empty($this->transStart) )
+        $this->caching = $data['caching'] ?? [];
+
+        if( empty($this->caching) || ! Cache::select($this->_cacheQuery()) )
         {
-            $transError = $this->db->error();
+            $this->db->query($this->_querySecurity($query), $this->_p($secure, 'secure'));
 
-            if( ! empty($transError) )
+            if( ! empty($this->transStart) )
             {
-                $this->transError = $transError;
+                $transError = $this->db->error();
+
+                if( ! empty($transError) )
+                {
+                    $this->transError = $transError;
+                }
             }
         }
 
         return $this;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Cache Query
+    //--------------------------------------------------------------------------------------------------------
+    protected function _cacheQuery()
+    {
+        return md5(Json::encode($this->config) . $this->stringQuery());
     }
 
     //--------------------------------------------------------------------------------------------------------
