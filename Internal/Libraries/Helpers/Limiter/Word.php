@@ -22,7 +22,7 @@ class Word implements CommonInterface
     // @param string $encoding
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do(String $str, Int $limit, String $endChar = '...', Bool $stripTags = true, String $encoding = "utf-8") : String
+    public function do(String $str, Int $limit = 100, String $endChar = '...', Bool $stripTags = true, String $encoding = "utf-8") : String
     {
         $str = trim($str);
 
@@ -35,11 +35,13 @@ class Word implements CommonInterface
 
         preg_match('/^\s*+(?:\S++\s*+){1,'.(int) $limit.'}/', $str, $matches);
 
-        if( mb_strlen($str, $encoding) === mb_strlen($matches[0], $encoding) )
+        $match = $matches[0] ?? NULL;
+
+        if( mb_strlen($str, $encoding) === mb_strlen($match, $encoding) )
         {
             $endChar = '';
         }
 
-        return rtrim($matches[0]).$endChar;
+        return rtrim($match ?? NULL).$endChar;
     }
 }
