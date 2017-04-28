@@ -1131,7 +1131,7 @@ function internalRouteAll()
     {
         foreach( $files as $file )
         {
-            Import::something(ROUTES_DIR . $file);
+            import(ROUTES_DIR . $file);
         }
 
         Route::all();
