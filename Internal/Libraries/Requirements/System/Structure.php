@@ -1,6 +1,6 @@
 <?php namespace ZN\Core;
 
-use Errors, Restoration;
+use Errors, Restoration, ZN\Classes\Config;
 
 class Structure
 {

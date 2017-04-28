@@ -1460,9 +1460,9 @@ class InternalDB extends Connection implements InternalDBInterface
     //--------------------------------------------------------------------------------------------------------
     public function status(String $table = NULL) : InternalDB
     {
-        $table = "'".$this->_p($table)."'";
+        $table = presuffix($this->_p($table), "'");
 
-        $query = "SHOW TABLE STATUS FROM ".$this->config['database']." LIKE $table";
+        $query = "SHOW TABLE STATUS FROM " . $this->config['database'] . " LIKE $table";
 
         $this->_runQuery($query);
 
@@ -1501,8 +1501,9 @@ class InternalDB extends Connection implements InternalDBInterface
     // Insert
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param mixed $table
-    // @param mixed $datas
+    // @param  mixed $table
+    // @param  mixed $datas
+    // @return mixed
     //
     //--------------------------------------------------------------------------------------------------------
     public function insert(String $table = NULL, Array $datas = [])
@@ -1510,13 +1511,19 @@ class InternalDB extends Connection implements InternalDBInterface
         $this->_ignoreData($table, $datas);
 
         $datas = $this->_p($datas, 'column');
-        $data  = ""; $values = "";
+        $data  = NULL; $values = NULL;
 
         $duplicateCheckWhere = [];
 
         foreach( $datas as $key => $value )
         {
-            $data .= $key.",";
+            if( $this->_exp($key) )
+            {
+                $key   = $this->_clearExp($key);
+                $isExp = true;
+            }
+
+            $data .= suffix($key, ',');
 
             if( ! empty($this->duplicateCheck) )
             {
@@ -1531,18 +1538,22 @@ class InternalDB extends Connection implements InternalDBInterface
                 {
                     $duplicateCheckWhere[] = [$key.' = ', $value, 'and'];
                 }
-
             }
 
             $value = $this->nailEncode($value);
 
-            if( $value !== '?' )
+            if( isset($isExp) )
             {
-                $values .= "'".$value."'".",";
+                $values .= suffix($value, ',');
+                unset($isExp);
+            }
+            elseif( $value !== '?' )
+            {
+                $values .= suffix(presuffix($value, "'"), ',');
             }
             else
             {
-                $values .= $value.",";
+                $values .= suffix($value, ',');
             }
         }
 
@@ -1577,8 +1588,9 @@ class InternalDB extends Connection implements InternalDBInterface
     // Updated
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param mixed $table
-    // @param mixed $set
+    // @param  mixed $table
+    // @param  mixed $set
+    // @return mixed
     //
     //--------------------------------------------------------------------------------------------------------
     public function update(String $table = NULL, Array $set = [])
@@ -1586,13 +1598,22 @@ class InternalDB extends Connection implements InternalDBInterface
         $this->_ignoreData($table, $set);
 
         $set  = $this->_p($set, 'column');
-        $data = '';
+        $data = NULL;
 
         foreach( $set as $key => $value )
         {
             $value = $this->nailEncode($value);
 
-            $data .= $key.'='."'".$value."'".',';
+            if( $this->_exp($key) )
+            {
+                $key = $this->_clearExp($key);
+            }
+            else
+            {
+                $value = presuffix($value, "'");
+            }
+
+            $data .= $key . '=' . suffix($value, ',');
         }
 
         $set = ' SET '.substr($data,0,-1);

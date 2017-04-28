@@ -1,4 +1,4 @@
-<?php namespace ZN\Core;
+<?php namespace ZN\Classes;
 
 class Config
 {
@@ -253,4 +253,4 @@ class Config
     }
 }
 
-class_alias('ZN\Core\Config', 'Config');
+class_alias('ZN\Classes\Config', 'Config');
