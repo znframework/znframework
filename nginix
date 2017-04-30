@@ -4,13 +4,21 @@
 
 index zeroneed.php;
 
+<<<<<<< HEAD
 error_page 403 /zeroneed.php;
+=======
+error_page 403 /zn/zeroneed.php;
+>>>>>>> origin/develop
 
 location /
 {
     if (!-e $request_filename)
     {
+<<<<<<< HEAD
         rewrite ^(.*)$ /zeroneed.php?/$1;
+=======
+        rewrite ^(.*)$ /zn/zeroneed.php?/$1;
+>>>>>>> origin/develop
     }
 }
 
