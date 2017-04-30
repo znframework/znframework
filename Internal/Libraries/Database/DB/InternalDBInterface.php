@@ -60,7 +60,7 @@ interface InternalDBInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function cleanCaching() : Bool;
+    public function cleanCaching(String $driver = 'file') : Bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Where Group
