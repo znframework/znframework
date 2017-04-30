@@ -558,9 +558,9 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function cleanCaching() : Bool
+    public function cleanCaching(String $driver = 'file') : Bool
     {
-        return Cache::delete($this->_cacheQuery());
+        return Cache::driver($this->caching['driver'] ?? $driver)->delete($this->_cacheQuery());
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -2074,18 +2074,15 @@ class InternalDB extends Connection implements InternalDBInterface
     {
         if( ! empty($this->caching) )
         {
-            if( $cacheResult = Cache::select($this->_cacheQuery()) )
+            $driver = $this->caching['driver'] ?? 'file';
+
+            if( $cacheResult = Cache::driver($driver)->select($this->_cacheQuery()) )
             {
                 $this->results = $cacheResult;
             }
             else
             {
-                if( ! empty($this->caching['driver']) )
-                {
-                    Cache::driver($this->caching['driver']);
-                }
-
-                Cache::insert($this->_cacheQuery(), $this->results = $this->db->result($type), (int) ($this->caching['time'] ?? 0));
+                Cache::driver($driver)->insert($this->_cacheQuery(), $this->results = $this->db->result($type), (int) ($this->caching['time'] ?? 0));
             }
         }
     }
