@@ -1028,6 +1028,11 @@ function internalDefaultProjectKey(String $fix = NULL) : String
 //--------------------------------------------------------------------------------------------------
 function internalGetCurrentProject() : String
 {
+    if( isSubdomain() )
+    {
+        return false;
+    }
+
     return (CURRENT_PROJECT === DEFAULT_PROJECT ? '' : suffix(CURRENT_PROJECT));
 }
 
