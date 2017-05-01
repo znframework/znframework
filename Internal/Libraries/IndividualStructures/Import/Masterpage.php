@@ -189,15 +189,10 @@ class Masterpage implements MasterpageInterface
                 $content = $head['meta'][$name];
             }
 
-            if( ! stristr($name, 'http:') && ! stristr($name, 'name:') )
-            {
-                $name = 'name:'.$name;
-            }
-
             if( ! empty($content) )
             {
                 $nameEx     = explode(":", $name);
-                $httpOrName = ( $nameEx[0] === 'http' ) ? 'http-equiv' : 'name';
+                $httpOrName = ( $nameEx[0] === 'http' ) ? 'http-equiv' : ( isset($nameEx[1]) ? $nameEx[0] : 'name' );
                 $name       = $nameEx[1] ?? $nameEx[0];
 
                 if( ! is_array($content) )

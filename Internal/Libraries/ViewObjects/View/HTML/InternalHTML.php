@@ -884,6 +884,10 @@ class InternalHTML implements InternalHTMLInterface, ViewCommonInterface
         {
             $name = ' http-equiv="'.str_ireplace('http:', NULL, $name).'"';
         }
+        elseif( stripos($name, 'property:') === 0 )
+        {
+            $name = ' property="'.str_ireplace('property:', NULL, $name).'"';
+        }
         else
         {
             $name = ' name="'.str_ireplace('name:', NULL, $name).'"';
