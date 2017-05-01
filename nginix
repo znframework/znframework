@@ -4,13 +4,13 @@
 
 index zeroneed.php;
 
-error_page 403 /zn/zeroneed.php;
+error_page 403 /zeroneed.php;
 
 location /
 {
     if (!-e $request_filename)
     {
-        rewrite ^(.*)$ /zn/zeroneed.php?/$1;
+        rewrite ^(.*)$ /zeroneed.php?/$1;
     }
 }
 
