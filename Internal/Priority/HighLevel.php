@@ -776,7 +776,7 @@ function prefix(String $string = NULL, String $fix = '/') : String
 //--------------------------------------------------------------------------------------------------
 function presuffix(String $string = NULL, String $fix = '/') : String
 {
-    return suffix(prefix($string ?? ' ', $fix), $fix);
+    return suffix(prefix(empty($string) ? ' ' : $string, $fix), $fix);
 }
 
 //--------------------------------------------------------------------------------------------------
