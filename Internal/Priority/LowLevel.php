@@ -782,7 +782,7 @@ function filePath(String $file = NULL, String $removeUrl = NULL) : String
 //--------------------------------------------------------------------------------------------------
 function redirect(String $url = NULL, Int $time = 0, Array $data = NULL, Bool $exit = true)
 {
-    if( ! isUrl($url) )
+    if( ! isUrl((string) $url) )
     {
         $url = siteUrl($url);
     }
