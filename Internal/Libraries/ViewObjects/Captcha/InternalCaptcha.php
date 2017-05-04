@@ -1,6 +1,6 @@
 <?php namespace ZN\ViewObjects;
 
-use Config, Session, CLController;
+use Config, Session, CLController, Encode, File;
 
 class InternalCaptcha extends CLController implements InternalCaptchaInterface
 {
@@ -402,24 +402,21 @@ class InternalCaptcha extends CLController implements InternalCaptchaInterface
             }
             // ---------------------------------------------------------------------------------------------
 
-            $filePath = FILES_DIR.'captcha';
+            $captchaPathEncode = md5('captchaPathEncode');
 
-            if( function_exists('imagepng') )
+            $filePath = FILES_DIR . Encode::create(16) . '.png';
+
+            if( $selectRandompath = Session::select($captchaPathEncode) )
             {
-                $extension = '.png';
-                imagepng($file, $filePath.$extension);
-            }
-            elseif( function_exists('imagejpg'))
-            {
-                $extension = '.jpg';
-                imagepng($file, $filePath.$extension);
-            }
-            else
-            {
-                return false;
+                if( File::exists($selectRandompath) )
+                {
+                    File::delete($selectRandompath);
+                }
             }
 
-            $filePath .= $extension;
+            Session::insert($captchaPathEncode, $filePath);
+
+            imagepng($file, $filePath);
 
             if( $img === true )
             {
