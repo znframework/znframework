@@ -1567,29 +1567,29 @@ function internalCreateHtaccessFile()
 }
 
 //--------------------------------------------------------------------------------------------------
-// internalStartingContoller()
+// internalStartingController()
 //--------------------------------------------------------------------------------------------------
 //
 // @param string $startController
 // @param array  $param
 //
 //--------------------------------------------------------------------------------------------------
-function internalStartingContoller(String $startController = NULL, Array $param = [])
+function internalStartingController(String $startController = NULL, Array $param = [])
 {
     $controllerEx = explode(':', $startController);
 
     $controllerPath  = ! empty($controllerEx[0]) ? $controllerEx[0] : '';
     $controllerFunc  = ! empty($controllerEx[1]) ? $controllerEx[1] : 'main';
-    $controllerFile  = CONTROLLERS_DIR.suffix($controllerPath, '.php');
+    $controllerFile  = CONTROLLERS_DIR . suffix($controllerPath, '.php');
     $controllerClass = divide($controllerPath, '/', -1);
-
-    if( ! class_exists($controllerClass, false) )
-    {
-        $controllerClass = PROJECT_CONTROLLER_NAMESPACE . $controllerClass;
-    }
 
     if( is_file($controllerFile) )
     {
+        if( ! class_exists($controllerClass, false) )
+        {
+            $controllerClass = PROJECT_CONTROLLER_NAMESPACE . $controllerClass;
+        }
+
         import($controllerFile);
 
         if( ! is_callable([$controllerClass, $controllerFunc]) )
@@ -1603,9 +1603,7 @@ function internalStartingContoller(String $startController = NULL, Array $param 
     }
     else
     {
-        report('Error', lang('Error', 'notIsFileError', $controllerFile), 'SystemNotIsFileError');
-
-        die(Errors::message('Error', 'notIsFileError', $controllerFile));
+        return false;
     }
 }
 
