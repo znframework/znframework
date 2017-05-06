@@ -1,6 +1,6 @@
 <?php namespace ZN\ViewObjects;
 
-use Config, Session, Cookie, CLController, Encode, File;
+use Config, Session, Cookie, CLController, Encode, File, Folder;
 
 class InternalCaptcha extends CLController implements InternalCaptchaInterface
 {
@@ -25,6 +25,32 @@ class InternalCaptcha extends CLController implements InternalCaptchaInterface
     //
     //--------------------------------------------------------------------------------------------------------
     protected $sets = [];
+
+    //--------------------------------------------------------------------------------------------------------
+    // Sets
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // Güvenlik kodu nesnesine ait yol bilgisi
+    //
+    // @var  string
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected $path = FILES_DIR . 'Captcha' . DS;
+
+    public function __construct()
+    {
+        parent::__construct();
+
+        if( Folder::exists($this->path) )
+        {
+            $files = Folder::files($this->path);
+
+            foreach( $files as $file )
+            {
+                File::delete($this->path . $file);
+            }
+        }
+    }
 
     //--------------------------------------------------------------------------------------------------------
     // Size
@@ -281,6 +307,11 @@ class InternalCaptcha extends CLController implements InternalCaptchaInterface
 
         if( $sessionCaptchaCode = Session::select($systemCaptchaCodeData) )
         {
+            if( ! Folder::exists($this->path) )
+            {
+                Folder::create($this->path);
+            }
+
             $sizeWidthC       = $set['size']['width']       ?? 100;
             $sizeHeightC      = $set['size']['height']      ?? 30;
             $textColorC       = $set['text']['color']       ?? '0|0|0';
@@ -404,18 +435,7 @@ class InternalCaptcha extends CLController implements InternalCaptchaInterface
 
             $captchaPathEncode = md5('captchaPathEncode');
 
-            $filePath = FILES_DIR . Encode::create(16) . '.png';
-
-            if( ($selectRandompath = Session::select($captchaPathEncode)) || ($selectRandompath = Cookie::select($captchaPathEncode)) )
-            {
-                if( File::exists($selectRandompath) )
-                {
-                    File::delete($selectRandompath);
-                }
-            }
-
-            Session::insert($captchaPathEncode, $filePath);
-            Cookie::insert($captchaPathEncode, $filePath);
+            $filePath = $this->path . Encode::create(16) . '.png';
 
             imagepng($file, $filePath);
 
