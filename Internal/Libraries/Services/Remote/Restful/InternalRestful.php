@@ -41,6 +41,15 @@ class InternalRestful implements InternalRestfulInterface
     protected $info;
 
     //--------------------------------------------------------------------------------------------------------
+    // Protected $sslVerifyPeer
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var bool
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected $sslVerifyPeer = false;
+
+    //--------------------------------------------------------------------------------------------------------
     // Magic Call
     //--------------------------------------------------------------------------------------------------------
     //
@@ -94,6 +103,20 @@ class InternalRestful implements InternalRestfulInterface
     }
 
     //--------------------------------------------------------------------------------------------------------
+    // SSL Verify Peer
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param bool $type = false
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function sslVerifyPeer(Bool $type = false) : InternalRestful
+    {
+        $this->sslVerifyPeer = $type;
+
+        return $this;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
     // Get
     //--------------------------------------------------------------------------------------------------------
     //
@@ -104,6 +127,7 @@ class InternalRestful implements InternalRestfulInterface
     {
         $response = CURL::init($this->url ?? $url)
                         ->option('returntransfer', true)
+                        ->option('ssl_verifypeer', $this->sslVerifyPeer)
                         ->exec();
 
         return $this->_result($response);
@@ -122,6 +146,7 @@ class InternalRestful implements InternalRestfulInterface
         $response = CURL::init($this->url ?? $url)
                         ->option('returntransfer', true)
                         ->option('post', true)
+                        ->option('ssl_verifypeer', $this->sslVerifyPeer)
                         ->option('postfields', $this->data ?? $data)
                         ->exec();
 
@@ -185,6 +210,7 @@ class InternalRestful implements InternalRestfulInterface
         $response = CURL::init($this->url ?? $url)
                         ->option('returntransfer', true)
                         ->option('customrequest', strtoupper($type))
+                        ->option('ssl_verifypeer', $this->sslVerifyPeer)
                         ->option('postfields', $data)
                         ->exec();
 
@@ -251,7 +277,8 @@ class InternalRestful implements InternalRestfulInterface
     //--------------------------------------------------------------------------------------------------------
     protected function _default()
     {
-        $this->url  = NULL;
-        $this->data = NULL;
+        $this->url           = NULL;
+        $this->data          = NULL;
+        $this->sslVerifyPeer = false;
     }
 }
