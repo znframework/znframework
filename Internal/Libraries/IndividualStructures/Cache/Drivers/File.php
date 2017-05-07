@@ -1,6 +1,7 @@
 <?php namespace ZN\IndividualStructures\Cache\Drivers;
 
 use ZN\IndividualStructures\Abstracts\CacheDriverMappingAbstract;
+use File, Folder, Support, Compress;
 
 class FileDriver extends CacheDriverMappingAbstract
 {
@@ -35,10 +36,10 @@ class FileDriver extends CacheDriverMappingAbstract
 
         if( ! is_dir($this->path) )
         {
-            \Folder::create($this->path, 0755);
+            Folder::create($this->path, 0755);
         }
 
-        \Support::writable($this->path);
+        Support::writable($this->path);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -58,7 +59,7 @@ class FileDriver extends CacheDriverMappingAbstract
         {
             if( $compressed !== false )
             {
-                $data['data'] = \Compress::driver($compressed)->uncompress($data['data']);
+                $data['data'] = Compress::driver($compressed)->uncompress($data['data']);
             }
 
             return $data['data'];
@@ -82,19 +83,19 @@ class FileDriver extends CacheDriverMappingAbstract
     {
         if( $compressed !== false )
         {
-            $var = \Compress::driver($compressed)->compress($var);
+            $var = Compress::driver($compressed)->compress($var);
         }
 
-        $datas = array
-        (
+        $datas =
+        [
             'time'  => time(),
             'ttl'   => $time,
             'data'  => $var
-        );
+        ];
 
-        if( \File::write($this->path.$key, serialize($datas)) )
+        if( File::write($this->path.$key, serialize($datas)) )
         {
-            \File::permission($this->path.$key, 0640);
+            File::permission($this->path.$key, 0640);
 
             return true;
         }
@@ -112,7 +113,7 @@ class FileDriver extends CacheDriverMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function delete($key)
     {
-        return \File::delete($this->path.$key);
+        return File::delete($this->path.$key);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -183,7 +184,7 @@ class FileDriver extends CacheDriverMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function clean()
     {
-        return \Folder::delete($this->path);
+        return Folder::delete($this->path);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -196,7 +197,7 @@ class FileDriver extends CacheDriverMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function info($type = NULL)
     {
-        $info = \Folder::fileInfo($this->path);
+        $info = Folder::fileInfo($this->path);
 
         if( $type === NULL )
         {
@@ -225,7 +226,7 @@ class FileDriver extends CacheDriverMappingAbstract
             return [];
         }
 
-        $data = unserialize(\File::read($this->path.$key));
+        $data = unserialize(File::read($this->path.$key));
 
         if( is_array($data) )
         {
@@ -255,16 +256,16 @@ class FileDriver extends CacheDriverMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     protected function _select($key)
     {
-        if( ! \File::available($this->path.$key) )
+        if( ! File::available($this->path.$key) )
         {
             return false;
         }
 
-        $data = unserialize(\File::read($this->path.$key));
+        $data = unserialize(File::read($this->path.$key));
 
         if( $data['ttl'] > 0 && time() > $data['time'] + $data['ttl'] )
         {
-            \File::delete($this->path.$key);
+            File::delete($this->path.$key);
 
             return false;
         }

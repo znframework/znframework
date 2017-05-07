@@ -313,7 +313,7 @@ if( $startController = Config::get('Starting', 'controller') )
 {
     if( is_string($startController) )
     {
-        internalStartingContoller($startController);
+        internalStartingController($startController);
     }
     elseif( is_array($startController) )
     {
@@ -321,11 +321,11 @@ if( $startController = Config::get('Starting', 'controller') )
         {
             if( is_numeric($key) )
             {
-                internalStartingContoller($val);
+                internalStartingController($val);
             }
             else
             {
-                internalStartingContoller($key, $val);
+                internalStartingController($key, $val);
             }
         }
     }
