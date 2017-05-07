@@ -357,7 +357,7 @@ class InternalUpload extends CallController implements InternalUploadInterface
 
                 if( $this->settings['convertName'] === true )
                 {
-                     $nm = Converter::urlWord($nm);
+                    $nm = $this->_convertName($nm);
                 }
 
                 if( $this->settings['encryption'] )
@@ -404,7 +404,7 @@ class InternalUpload extends CallController implements InternalUploadInterface
         {
             if( $this->settings['convertName'] === true )
             {
-                 $name = Converter::urlWord($name);
+                 $name = $this->_convertName($name);
             }
 
             if( empty($_FILES[$fileName]['name']) )
@@ -580,6 +580,18 @@ class InternalUpload extends CallController implements InternalUploadInterface
         {
             return lang('FileSystem', 'upload:unknownError');
         }
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Convert Name
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _convertName($name = NULL)
+    {
+        return  Converter::urlWord(removeExtension($name)) . '.' . extension($name);
     }
 
     //--------------------------------------------------------------------------------------------------------
