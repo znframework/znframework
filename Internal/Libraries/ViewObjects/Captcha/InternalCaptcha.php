@@ -1,6 +1,6 @@
 <?php namespace ZN\ViewObjects;
 
-use Config, Session, Cookie, CLController, Encode, File, Folder;
+use Config, Session, Cookie, CLController, Encode, File, Folder, Arrays;
 
 class InternalCaptcha extends CLController implements InternalCaptchaInterface
 {
@@ -35,21 +35,20 @@ class InternalCaptcha extends CLController implements InternalCaptchaInterface
     // @var  string
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $path = FILES_DIR . 'Captcha' . DS;
+    protected $path = FILES_DIR;
 
+    //--------------------------------------------------------------------------------------------------------
+    // Constructor
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
         parent::__construct();
 
-        if( Folder::exists($this->path) )
-        {
-            $files = Folder::files($this->path);
-
-            foreach( $files as $file )
-            {
-                File::delete($this->path . $file);
-            }
-        }
+        $this->_clean();
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -435,7 +434,7 @@ class InternalCaptcha extends CLController implements InternalCaptchaInterface
 
             $captchaPathEncode = md5('captchaPathEncode');
 
-            $filePath = $this->path . Encode::create(16) . '.png';
+            $filePath = $this->path . $this->_name();
 
             imagepng($file, $filePath);
 
@@ -467,6 +466,37 @@ class InternalCaptcha extends CLController implements InternalCaptchaInterface
     public function getCode() : String
     {
         return Session::select(md5('SystemCaptchaCodeData'));
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected fuction Clean
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _clean()
+    {
+        $files   = Folder::files($this->path, 'png');
+        $match   = Arrays::getFirst(preg_grep('/captcha\-([a-z]|[0-9])+\.png/i', $files));
+        $captcha = $this->path . $match;
+
+        if( File::exists($captcha) )
+        {
+            File::delete($captcha);
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected fuction Name
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _name()
+    {
+        return 'captcha-' . Encode::create(16) . '.png';
     }
 
     //--------------------------------------------------------------------------------------------------------
