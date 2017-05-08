@@ -40,5 +40,5 @@ interface ParserInterface
     // @return object
     //
     //--------------------------------------------------------------------------------------------------------
-    public function object(String $data) : \stdClass;
+    public function object(String $data);
 }

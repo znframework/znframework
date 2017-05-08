@@ -35,6 +35,6 @@ class ElapsedTime implements ElapsedTimeInterface
             throw new BenchmarkException('[Benchmark::elapsedTime(\''.$result.'\')] -> Parameter is not a valid test end!');
         }
 
-        return round((Properties::$tests[$resend] - Properties::$tests[$restart]), $decimal);
+        return round(((float) Properties::$tests[$resend] - (float) Properties::$tests[$restart]), $decimal);
     }
 }

@@ -26,6 +26,7 @@ class Parser implements ParserInterface
 
         if( ! empty($tags) ) foreach( $tags as $tag )
         {
+
             $index = count($elements);
 
             if( $tag['type'] === 'complete' || $tag['type'] === 'open' )
@@ -67,7 +68,7 @@ class Parser implements ParserInterface
             }
         }
 
-        return $elements[0] ?? NULL;
+        return $elements[0] ?? [];
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -104,7 +105,7 @@ class Parser implements ParserInterface
     // @return object
     //
     //--------------------------------------------------------------------------------------------------------
-    public function object(String $data) : \stdClass
+    public function object(String $data)
     {
         return $this->do($data, 'object');
     }

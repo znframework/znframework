@@ -210,9 +210,9 @@ class Masterpage implements MasterpageInterface
         }
 
         $header .= $this->_links($masterPageSet, $head, 'font');
-        $header .= $this->_links($masterPageSet, $head, 'script');
         $header .= $this->_links($masterPageSet, $head, 'style');
-
+        $header .= $this->_links($masterPageSet, $head, 'script');
+ 
         $browserIcon = $head['browserIcon'] ?? $masterPageSet["browserIcon"];
 
         if( ! empty($browserIcon) && is_file($browserIcon) )

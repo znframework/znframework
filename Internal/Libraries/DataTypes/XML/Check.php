@@ -11,6 +11,11 @@ class Check implements CheckInterface
     //--------------------------------------------------------------------------------------------------------
     public function check(String $xml) : Bool
     {
+        if( empty($xml) )
+        {
+            return false;
+        }
+        
         libxml_use_internal_errors(true);
 
         simplexml_load_string($xml);
