@@ -27,7 +27,7 @@ class Delete extends CartExtends implements DeleteInterface
             return false;
         }
 
-        $i=0;
+        $i = 0;
 
         foreach( Properties::$items as $row )
         {
