@@ -3,20 +3,11 @@
 class InternalTime extends DateTimeCommon implements InternalDateTimeCommonInterface
 {
     //--------------------------------------------------------------------------------------------------------
-    // TIME CLASS
-    //--------------------------------------------------------------------------------------------------------
     //
-    // Yazar: Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
-    // Site: www.zntr.net
-    // Lisans: The MIT License
-    // Telif Hakkı: Copyright (c) 2012-2016, zntr.net
-    //
-    // Sınıf Adı: Time
-    // Versiyon: 2.0
-    // Tanımlanma: Statik
-    // Dahil Edilme: Gerektirmez
-    // Erişim: time::, $this->time, zn::$use->time, uselib('time'), new Time
-    // Not: Büyük-küçük harf duyarlılığı yoktur.
+    // Author     : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
+    // Site       : www.znframework.com
+    // License    : The MIT License
+    // Copyright  : Copyright (c) 2012-2016, ZN Framework
     //
     //--------------------------------------------------------------------------------------------------------
 

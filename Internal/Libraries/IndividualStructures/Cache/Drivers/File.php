@@ -59,7 +59,7 @@ class FileDriver extends CacheDriverMappingAbstract
         {
             if( $compressed !== false )
             {
-                $data['data'] = Compress::driver($compressed)->uncompress($data['data']);
+                $data['data'] = Compress::driver($compressed)->undo($data['data']);
             }
 
             return $data['data'];
@@ -83,7 +83,7 @@ class FileDriver extends CacheDriverMappingAbstract
     {
         if( $compressed !== false )
         {
-            $var = Compress::driver($compressed)->compress($var);
+            $var = Compress::driver($compressed)->do($var);
         }
 
         $datas =
