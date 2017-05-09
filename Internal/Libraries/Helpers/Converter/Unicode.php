@@ -101,10 +101,11 @@ class Unicode implements UnicodeInterface
     {
         $badChars = Config::get('IndividualStructures', 'security')['urlBadChars'];
 
+        $str = preg_replace('/&\w+\;/', '', $str);
+        $str = preg_replace('/\-+/', '-', $str);
         $str = $this->accent($str);
         $str = str_replace($badChars, '', $str);
         $str = preg_replace("/\s+/", ' ', $str);
-        $str = str_replace("&nbsp;", '', $str);
         $str = str_replace(' ', $splitWord, trim(strtolower($str)));
 
         return $str;
