@@ -23,6 +23,8 @@ class InternalML extends \FactoryController implements InternalMLInterface
             'deleteall'    => 'MultiLanguage\Delete::all',
             'grid'         => 'MultiLanguage\Grid::create',
             'table'        => 'MultiLanguage\Grid::create',
+            'limit'        => 'MultiLanguage\Grid::limit',
+            'url'          => 'MultiLanguage\Grid::url'
         ]
     ];
 
