@@ -461,6 +461,11 @@ class Connection implements ConnectionInterface
             $query = str_replace(array_keys($secureParams), array_values($secureParams), $query);
         }
 
+        if( ($this->config['queryLog'] ?? NULL) === true )
+        {
+            report('DatabaseQueries', $query, 'DatabaseQueries');
+        }
+
         $this->stringQuery = $query;
 
         $this->secure = [];
