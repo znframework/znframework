@@ -107,4 +107,4 @@ $finish = microtime();
 // Benchmark
 //
 //--------------------------------------------------------------------------------------------------
-internalBenchmarkReport($start, $finish);
+internalBenchmarkReport((float) $start, (float) $finish);
