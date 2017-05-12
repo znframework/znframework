@@ -1,8 +1,8 @@
 <?php namespace ZN\Requirements\Models;
 
-use CallController, DB, DBTool, DBForge, Arrays, GeneralException, Config;
+use BaseController, DB, DBTool, DBForge, Arrays, GeneralException, Config, Support;
 
-class GrandModel extends CallController
+class GrandModel extends BaseController
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -108,6 +108,28 @@ class GrandModel extends CallController
     }
 
     //--------------------------------------------------------------------------------------------------------
+    // Magic Call
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $method
+    // @param array  $parameters
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function __call($method, $parameters)
+    {
+        if( $return = $this->_callColumn($method, $parameters, 'row') )
+        {
+            return $return;
+        }
+        elseif( $return = $this->_callColumn($method, $parameters, 'result') )
+        {
+            return $return;
+        }
+
+        Support::classMethod(get_called_class(), $method);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
     // Destructor
     //--------------------------------------------------------------------------------------------------------
     //
@@ -140,7 +162,9 @@ class GrandModel extends CallController
     //--------------------------------------------------------------------------------------------------------
     public function insert(Array $data) : Bool
     {
-        return $this->connect->insert($this->grandTable, $data);
+        $this->_postGet($table, $data);
+
+        return $this->connect->insert($table, $data);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -189,9 +213,11 @@ class GrandModel extends CallController
     // @param array $data: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function update(Array $data, String $column, String $value) : Bool
+    public function update($data, String $column, String $value) : Bool
     {
-        return $this->connect->where($column, $value)->update($this->grandTable, $data);
+        $this->_postGet($table, $data);
+
+        return $this->connect->where($column, $value)->update($table, $data);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -716,6 +742,44 @@ class GrandModel extends CallController
         else
         {
             return false;
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Post Get
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string &$table, &$data
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _postGet(&$table, &$data)
+    {
+        $table = $this->grandTable;
+
+        if( is_string($data) )
+        {
+            $table = $data . ':' . $table;
+            $data  = [];
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Call Column
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $method
+    // @param array  $params
+    // @param string $type
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _callColumn($method, $params, $type)
+    {
+        if( stristr($method, $type) )
+        {
+            $func = $type;
+            $col  = substr($method, strlen($type));
+
+            return $this->where($col, $params[0])->$func();
         }
     }
 }

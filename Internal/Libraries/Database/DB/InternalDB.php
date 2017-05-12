@@ -353,6 +353,15 @@ class InternalDB extends Connection implements InternalDBInterface
     private $duplicateCheck;
 
     //--------------------------------------------------------------------------------------------------------
+    // Duplicate Check Update
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var string
+    //
+    //--------------------------------------------------------------------------------------------------------
+    private $duplicateCheckUpdate;
+
+    //--------------------------------------------------------------------------------------------------------
     // Join Type
     //--------------------------------------------------------------------------------------------------------
     //
@@ -824,6 +833,24 @@ class InternalDB extends Connection implements InternalDBInterface
         {
             $this->duplicateCheck[0] = '*';
         }
+
+        return $this;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Duplicate Check Update -> 4.4.7
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $table
+    // @param string $column
+    // @param string $otherColumn
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function duplicateCheckUpdate(...$args) : InternalDB
+    {
+        $this->duplicateCheck(...$args);
+
+        $this->duplicateCheckUpdate = true;
 
         return $this;
     }
@@ -1564,6 +1591,13 @@ class InternalDB extends Connection implements InternalDBInterface
             if( $this->where($duplicateCheckWhere)->get($table)->totalRows() )
             {
                 $this->duplicateCheck = NULL;
+
+                if( $this->duplicateCheckUpdate === true )
+                {
+                    $this->duplicateCheckUpdate = NULL;
+
+                    return $this->where($duplicateCheckWhere)->update($table, $datas);
+                }
 
                 return false;
             }
@@ -2624,6 +2658,7 @@ class InternalDB extends Connection implements InternalDBInterface
         $this->ignore          = NULL;
         $this->delayed         = NULL;
         $this->duplicateCheck  = NULL;
+        $this->duplicateCheckUpdate = NULL;
     }
 
     //--------------------------------------------------------------------------------------------------------
