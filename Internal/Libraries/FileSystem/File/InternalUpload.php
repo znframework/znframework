@@ -591,7 +591,7 @@ class InternalUpload extends CallController implements InternalUploadInterface
     //--------------------------------------------------------------------------------------------------------
     protected function _convertName($name = NULL)
     {
-        return  Converter::urlWord(removeExtension($name)) . '.' . extension($name);
+        return  Converter::slug(removeExtension($name)) . '.' . extension($name);
     }
 
     //--------------------------------------------------------------------------------------------------------

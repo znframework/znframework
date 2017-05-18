@@ -101,12 +101,31 @@ class Unicode implements UnicodeInterface
     {
         $badChars = Config::get('IndividualStructures', 'security')['urlBadChars'];
 
-        $str = preg_replace('/&\w+\;/', '', $str);
-        $str = preg_replace('/\-+/', '-', $str);
         $str = $this->accent($str);
-        $str = str_replace($badChars, '', $str);
-        $str = preg_replace("/\s+/", ' ', $str);
-        $str = str_replace(' ', $splitWord, trim(strtolower($str)));
+        $str = preg_replace('/&\w+\;/', '' ,  $str);
+        $str = preg_replace('/\-+/'   , '-',  $str);
+        $str = str_replace($badChars  , '' ,  $str);
+        $str = preg_replace("/\s+/"   , ' ',  $str);
+        $str = str_replace(' '        , $splitWord, trim(strtolower($str)));
+
+        return $str;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Slug -> 4.4.8
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $str
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function slug(String $str) : String
+    {
+        $str = $this->accent($str);
+        $str = preg_replace('/&\w+\;/', '' , $str);
+        $str = preg_replace("/\s+/"   , '_', $str);
+        $str = preg_replace("/\W/"    , '' , $str);
+        $str = preg_replace("/\_/"    , '-', $str);
+        $str = preg_replace('/\-+/'   , '-', $str);
 
         return $str;
     }

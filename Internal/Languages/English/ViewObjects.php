@@ -22,6 +22,7 @@
     'dbgrid:deleteButton'       => 'Delete',
     'dbgrid:editButton'         => 'Edit',
     'dbgrid:saveButton'         => 'Save',
+    'dbgrid:closeButton'        => 'Close',
     'dbgrid:updateButton'       => 'Update',
     'dbgrid:addButton'          => 'Add New',
     'dbgrid:deleteSelectedName' => 'Delete Selected',
