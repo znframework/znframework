@@ -22,6 +22,7 @@
     'dbgrid:deleteButton'       => 'Sil',
     'dbgrid:editButton'         => 'Düzenle',
     'dbgrid:saveButton'         => 'Kaydet',
+    'dbgrid:closeButton'        => 'Kapat',
     'dbgrid:updateButton'       => 'Güncelle',
     'dbgrid:addButton'          => 'Yeni Ekle',
     'dbgrid:deleteSelectedName' => 'Seçilileri Sil',

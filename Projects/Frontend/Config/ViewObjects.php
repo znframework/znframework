@@ -217,6 +217,7 @@
             'edit'          => lang('ViewObjects', 'dbgrid:editButton'),
             'update'        => lang('ViewObjects', 'dbgrid:updateButton'),
             'save'          => lang('ViewObjects', 'dbgrid:saveButton'),
+            'close'         => lang('ViewObjects', 'dbgrid:closeButton'),
             'delete'        => lang('ViewObjects', 'dbgrid:deleteButton'),
             'deleteSelected'=> lang('ViewObjects', 'dbgrid:deleteSelectedName'),
             'deleteAll'     => lang('ViewObjects', 'dbgrid:deleteAllName')
