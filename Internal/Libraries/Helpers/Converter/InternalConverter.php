@@ -24,6 +24,7 @@ class InternalConverter extends \FactoryController implements InternalConverterI
             'char'       => 'Converter\Unicode::char',
             'accent'     => 'Converter\Unicode::accent',
             'urlword'    => 'Converter\Unicode::urlWord',
+            'slug'       => 'Converter\Unicode::slug',
             'charset'    => 'Converter\Unicode::charset',
             'toint'      => 'Converter\VariableTypes::toInt',
             'tointeger'  => 'Converter\VariableTypes::toInteger',

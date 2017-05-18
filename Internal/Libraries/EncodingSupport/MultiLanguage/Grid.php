@@ -232,7 +232,7 @@ class Grid extends MLExtends implements GridInterface
                     }
                 }
             }
-            
+
             $words = $newWords;
         }
 

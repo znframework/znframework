@@ -169,6 +169,19 @@ class InternalGenerate extends CallController implements InternalGenerateInterfa
     }
 
     //--------------------------------------------------------------------------------------------------------
+    // Command
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $name: empty
+    // @param array  $settings: empty
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function command(String $name, Array $settings = []) : Bool
+    {
+        return $this->_object($name, __FUNCTION__, $settings);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
     // Library
     //--------------------------------------------------------------------------------------------------------
     //
@@ -538,6 +551,10 @@ class InternalGenerate extends CallController implements InternalGenerateInterfa
         elseif( $type === 'library' )
         {
             $return = 'Libraries';
+        }
+        elseif( $type === 'command' )
+        {
+            $return = 'Commands';
         }
 
         return presuffix($return, DS);

@@ -557,7 +557,7 @@ class InternalDBGrid extends Abstracts\GridAbstract
                     implode('</td><td>', $value).
                     '</td><td align="right">'.
 
-                    Form::action(CURRENT_CFPATH.( URI::get('page') ? '/page/'.URI::get('page') : NULL).'/column/'.$hiddenValue.'/process/edit')
+                    Form::action(CURRENT_CFPATH.( URI::get('page') ? '/page/'.URI::get('page') : NULL).'/column/'.suffix($hiddenValue).'process/edit')
                         ->open('editButtonForm').
                     $hiddenId.
                     $hiddenJoins.
@@ -654,7 +654,10 @@ class InternalDBGrid extends Abstracts\GridAbstract
         }
 
         $table .= '<tr><td colspan="'.count($joinsData).'">'.
-                      Form::attr(VIEWOBJECTS_DATAGRID_CONFIG['attributes']['save'])->submit('saveButton', VIEWOBJECTS_DATAGRID_CONFIG['buttonNames']['save']).
+                       Form::attr(VIEWOBJECTS_DATAGRID_CONFIG['attributes']['save'])->submit('saveButton', VIEWOBJECTS_DATAGRID_CONFIG['buttonNames']['save']).
+                       Html::style('text-decoration:none')->anchor(CURRENT_CFPATH,
+                             Form::attr(VIEWOBJECTS_DATAGRID_CONFIG['attributes']['save'])->button('closeButton', VIEWOBJECTS_DATAGRID_CONFIG['buttonNames']['close'] ?? 'Close')
+                       ).
                       '</td></tr>';
         $table .= '</tr></table>';
         $table .= Form::close();
