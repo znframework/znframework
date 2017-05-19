@@ -553,9 +553,19 @@ class InternalDBGrid extends Abstracts\GridAbstract
                 $hiddenJoins = Form::hidden('joinsId', $this->_encode($joinsData));
             }
 
-            $table .= '<tr><td>'.($key + 1).'</td><td>'.
-                    implode('</td><td>', $value).
-                    '</td><td align="right">'.
+            $table  = '<tr><td>'.($key + 1).'</td>';
+
+            foreach( $value as $val )
+            {
+                $table .= '<td>'.($val ?? NULL).'</td>';
+            }
+
+            if( $countColumns > ($countValue = count($value))) for( $i = 1; $i <= $countColumns - $countValue; $i++ )
+            {
+                $table .= '<td></td>';
+            }
+
+            $table .= '<td align="right">'.
 
                     Form::action(CURRENT_CFPATH.( URI::get('page') ? '/page/'.URI::get('page') : NULL).'/column/'.suffix($hiddenValue).'process/edit')
                         ->open('editButtonForm').
