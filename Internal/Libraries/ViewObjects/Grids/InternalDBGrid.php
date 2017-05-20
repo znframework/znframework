@@ -392,7 +392,7 @@ class InternalDBGrid extends Abstracts\GridAbstract
         //----------------------------------------------------------------------------------------------------
         $joinsData = [];
 
-        if( ! empty($this->joins) ) foreach( array_unique($this->joins) as $join )
+        if( ! empty($this->joins) ) foreach( $this->joins as $join )
         {
             $joinEx        = explode('.', $join);
             $joinTable     = $joinEx[0] ?? NULL;
@@ -554,7 +554,7 @@ class InternalDBGrid extends Abstracts\GridAbstract
             }
 
             $table .= '<tr><td>'.($key + 1).'</td><td>'.
-                    implode('</td><td>', $value).
+                    implode('</td><td>', Arrays::force($value, function($data){ return \Limiter::word((string) $data, 20);})).
                     '</td><td align="right">'.
                     Form::action(CURRENT_CFPATH.( URI::get('page') ? '/page/'.URI::get('page') : NULL).'/column/'.suffix($hiddenValue).'process/edit')
                         ->open('editButtonForm').
@@ -948,8 +948,7 @@ class InternalDBGrid extends Abstracts\GridAbstract
                 $this->joinTables[$currentTable] = $currentColumn;
             }
 
-            $this->joins[1] = $this->joins[0];
-            $this->joins[0] = $this->table.'.'.$this->processColumn;
+            $this->joins = Arrays::order(array_unique($this->joins));
         }
     }
 }
