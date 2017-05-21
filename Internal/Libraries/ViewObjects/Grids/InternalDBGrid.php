@@ -70,7 +70,7 @@ class InternalDBGrid extends Abstracts\GridAbstract
     // @var string
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $processColumn = 'ID';
+    protected $processColumn = 'id';
 
     //--------------------------------------------------------------------------------------------------------
     // Confirm
@@ -346,7 +346,7 @@ class InternalDBGrid extends Abstracts\GridAbstract
         //
         //----------------------------------------------------------------------------------------------------
         $get          = DB::get($this->table);
-        $columns      = $get->columns();
+        $columns      = array_unique($get->columns());
         $result       = $get->resultArray();
         $countColumns = count($columns);
 
@@ -554,9 +554,8 @@ class InternalDBGrid extends Abstracts\GridAbstract
             }
 
             $table .= '<tr><td>'.($key + 1).'</td><td>'.
-                    implode('</td><td>', $value).
+                    implode('</td><td>', Arrays::force($value, function($data){ return \Limiter::word((string) $data, 20);})).
                     '</td><td align="right">'.
-
                     Form::action(CURRENT_CFPATH.( URI::get('page') ? '/page/'.URI::get('page') : NULL).'/column/'.suffix($hiddenValue).'process/edit')
                         ->open('editButtonForm').
                     $hiddenId.
@@ -733,7 +732,7 @@ class InternalDBGrid extends Abstracts\GridAbstract
 
         if( ! empty($this->joins) )
         {
-            $select = Arrays::addFirst($this->select, $this->table.'.'.$this->processColumn.' as ID');
+            $select = Arrays::addFirst($this->select, $this->table.'.'.$this->processColumn.' as id');
         }
 
         DB::select(...$select);
@@ -949,8 +948,7 @@ class InternalDBGrid extends Abstracts\GridAbstract
                 $this->joinTables[$currentTable] = $currentColumn;
             }
 
-            $this->joins[1] = $this->joins[0];
-            $this->joins[0] = $this->table.'.'.$this->processColumn;
+            $this->joins = Arrays::order(array_unique($this->joins));
         }
     }
 }

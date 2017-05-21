@@ -85,7 +85,7 @@ class FileList implements FileListInterface
                 }
             }
 
-            return $classes;
+            return (array) $classes;
         }
 
         if( strstr($pattern, '/') && strstr($pattern, '*') === false )
