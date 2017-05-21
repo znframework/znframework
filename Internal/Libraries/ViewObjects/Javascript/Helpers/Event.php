@@ -1,9 +1,9 @@
-<?php namespace ZN\ViewObjects\Bootstrap\Jquery\Helpers;
+<?php namespace ZN\ViewObjects\Javascript\Helpers;
 
-use ZN\ViewObjects\Bootstrap\JqueryTrait;
-use Support;
+use ZN\ViewObjects\JqueryTrait;
+use CallController, Support, Arrays;
 
-class Action implements ActionInterface
+class Event implements EventInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -30,25 +30,42 @@ class Action implements ActionInterface
     // @var string
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $type = 'show';
+    protected $type = '';
 
     //--------------------------------------------------------------------------------------------------------
-    // Speed
+    // Params
     //--------------------------------------------------------------------------------------------------------
     //
     // @var string
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $speed = '';
+    protected $params = '';
 
     //--------------------------------------------------------------------------------------------------------
-    // Easing
+    // Property
     //--------------------------------------------------------------------------------------------------------
     //
     // @var string
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $easing = '';
+    protected $property = 'bind';
+
+    //--------------------------------------------------------------------------------------------------------
+    // Events
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var array
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected $events =
+    [
+        'click'     , 'dblclick' , 'blur'    , 'change'    , 'resize'   ,
+        'scroll'    , 'unload'   , 'load'    , 'ready'     , 'focus'    ,
+        'focusin'   , 'focusout' , 'keypress', 'keydown'   , 'keyup'    ,
+        'mouseenter', 'mousedown', 'mouseup' , 'mouseleave', 'mousemove',
+        'mouseout'  , 'mouseover', 'hover'   , 'select'    , 'submit'   ,
+        'error'     , 'toggle'
+    ];
 
     //--------------------------------------------------------------------------------------------------------
     // Properties
@@ -57,10 +74,10 @@ class Action implements ActionInterface
     // @var array
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $effects =
+    protected $properties =
     [
-        'show'   , 'hide'     , 'fadein'     , 'fadeout', 'fadeto',
-        'slideup', 'slidedown', 'slidetoggle'
+        'bind', 'unbind', 'trigger', 'triggerhandler', 'delegate',
+        'one' , 'on'    , 'off'    , 'live'          , 'die'
     ];
 
     //--------------------------------------------------------------------------------------------------------
@@ -76,58 +93,22 @@ class Action implements ActionInterface
         $realMethodName = $method;
         $method         = strtolower($method);
 
-        if( in_array($method, $this->effects) )
+        if( in_array($method, $this->events) )
         {
-            $this->_effect($realMethodName, ...$parameters);
-
-            return $this->create();
+            $this->_event($realMethodName, ...$parameters);
+        }
+        elseif( in_array($method, $this->properties) )
+        {
+            $this->property = $realMethodName;
+            $this->selector = $parameters[0];
+            $this->params   = Arrays::removeFirst($parameters);
         }
         else
         {
-            Support::classMethod('Jquery::action()', $realMethodName);
+            Support::classMethod('Jquery::event()', $realMethodName);
         }
-    }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Speed
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param scalar $speed
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function speed(String $speed) : Action
-    {
-        $this->speed = $speed;
-
-        return $this;
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Duration
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param scalar $speed
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function duration(String $speed) : Action
-    {
-        $this->speed($speed);
-
-        return $this;
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Easing
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $data
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function easing(String $data) : Action
-    {
-        $this->easing = $data;
-
-        return $this;
+        return $this->create();
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -137,9 +118,9 @@ class Action implements ActionInterface
     // @param string $type
     //
     //--------------------------------------------------------------------------------------------------------
-    public function type(String $type = 'show') : Action
+    public function type(String $type = 'click') : Event
     {
-        $this->type = $type;
+        $this->property = $type;
 
         return $this;
     }
@@ -153,7 +134,12 @@ class Action implements ActionInterface
     //--------------------------------------------------------------------------------------------------------
     public function complete() : String
     {
-        $event = \JQ::property($this->type, [$this->speed, $this->easing, $this->callback]);
+        if( isset($this->callback) )
+        {
+            $this->params[] = $this->callback;
+        }
+
+        $event = \JQ::property($this->property, $this->params);
 
         $this->_defaultVariable();
 
@@ -169,14 +155,13 @@ class Action implements ActionInterface
     //--------------------------------------------------------------------------------------------------------
     public function create(...$args) : String
     {
-        $combineEffect = $args;
+        $combineEvent = $args;
 
         $event  = EOL.\JQ::selector($this->selector);
         $event .= $this->complete();
-
-        if( ! empty($combineEffect) ) foreach($combineEffect as $effect)
+        if( ! empty($combineEvent))foreach($combineEvent as $e)
         {
-            $event .= $effect;
+            $event .= $e;
         }
 
         $event .= ";";
@@ -187,18 +172,13 @@ class Action implements ActionInterface
     //--------------------------------------------------------------------------------------------------------
     // Protected
     //--------------------------------------------------------------------------------------------------------
-    protected function _effect($type = '', $selector = '', $speed = '', $callback = '')
+    protected function _event($type, $selector, $callback)
     {
-        $this->type = $type;
+        $this->property = strtolower($type);
 
         if( ! empty($selector))
         {
             $this->selector($selector);
-        }
-
-        if( ! empty($speed))
-        {
-            $this->speed($speed);
         }
 
         if( ! empty($callback))
@@ -213,9 +193,9 @@ class Action implements ActionInterface
     protected function _defaultVariable()
     {
         $this->selector = 'this';
-        $this->type     = 'show';
+        $this->type     = '';
         $this->callback = '';
-        $this->speed    = '';
-        $this->easing   = '';
+        $this->property = 'bind';
+        $this->params   = '';
     }
 }

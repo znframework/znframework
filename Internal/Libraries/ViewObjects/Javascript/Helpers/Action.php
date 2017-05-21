@@ -1,260 +1,221 @@
-<?php namespace ZN\ViewObjects\Bootstrap;
+<?php namespace ZN\ViewObjects\Javascript\Helpers;
 
-use JQ, Script, Json, Buffer;
+use ZN\ViewObjects\JqueryTrait;
+use Support;
 
-trait JqueryTrait
+class Action implements ActionInterface
 {
     //--------------------------------------------------------------------------------------------------------
-    // Selector
+    //
+    // Author     : Ozan UYKUN <ozanbote@gmail.com>
+    // Site       : www.znframework.com
+    // License    : The MIT License
+    // Copyright  : (c) 2012-2016, znframework.com
+    //
+    //--------------------------------------------------------------------------------------------------------
+
+    //--------------------------------------------------------------------------------------------------------
+    // Jquery Trait
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @methods
+    //
+    //--------------------------------------------------------------------------------------------------------
+    use JqueryTrait;
+
+    //--------------------------------------------------------------------------------------------------------
+    // Type
     //--------------------------------------------------------------------------------------------------------
     //
     // @var string
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $selector = 'this';
+    protected $type = 'show';
 
     //--------------------------------------------------------------------------------------------------------
-    // Callback
+    // Speed
     //--------------------------------------------------------------------------------------------------------
     //
     // @var string
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $callback = '';
+    protected $speed = '';
 
     //--------------------------------------------------------------------------------------------------------
-    // Tag
+    // Easing
     //--------------------------------------------------------------------------------------------------------
     //
-    // @var bool
+    // @var string
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $tag = false;
+    protected $easing = '';
 
     //--------------------------------------------------------------------------------------------------------
-    // Jquery CDN
+    // Properties
     //--------------------------------------------------------------------------------------------------------
     //
-    // @var bool
+    // @var array
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $jqueryCdn = false;
+    protected $effects =
+    [
+        'show'   , 'hide'     , 'fadein'     , 'fadeout', 'fadeto',
+        'slideup', 'slidedown', 'slidetoggle'
+    ];
 
     //--------------------------------------------------------------------------------------------------------
-    // Jquery UI CDN
+    // Magic Call
     //--------------------------------------------------------------------------------------------------------
     //
-    // @var bool
+    // @param string $method
+    // @param array  $parameters
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $jqueryUiCdn = false;
-
-    //--------------------------------------------------------------------------------------------------------
-    // Construct
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param bool $tag
-    // @param bool $jqueryCDN
-    // @param bool $jqueryUICDN
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function __construct($tag = false, $jqueryCdn = false, $jqueryUiCdn = false)
+    public function __call($method, $parameters)
     {
-        $this->tag          = $tag;
-        $this->jqueryCdn    = $jqueryCdn;
-        $this->jqueryUiCdn  = $jqueryUiCdn;
+        $realMethodName = $method;
+        $method         = strtolower($method);
+
+        if( in_array($method, $this->effects) )
+        {
+            $this->_effect($realMethodName, ...$parameters);
+
+            return $this->create();
+        }
+        else
+        {
+            Support::classMethod('Jquery::action()', $realMethodName);
+        }
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Selector
+    // Speed
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $selector
+    // @param scalar $speed
     //
     //--------------------------------------------------------------------------------------------------------
-    public function selector(String $selector = 'this')
+    public function speed(String $speed) : Action
     {
-        $this->selector = $selector;
+        $this->speed = $speed;
 
         return $this;
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Callback
+    // Duration
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $params
-    // @param string $callback
+    // @param scalar $speed
     //
     //--------------------------------------------------------------------------------------------------------
-    public function callback(String $params, $callback)
+    public function duration(String $speed) : Action
     {
-        $this->callback = JQ::function($params, $callback);
+        $this->speed($speed);
 
         return $this;
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Func
+    // Easing
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $params
-    // @param string $callback
+    // @param string $data
     //
     //--------------------------------------------------------------------------------------------------------
-    public function func(String $params, $callback)
+    public function easing(String $data) : Action
     {
-        $this->callback($params, $callback);
+        $this->easing = $data;
 
         return $this;
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Protected
+    // Type
     //--------------------------------------------------------------------------------------------------------
-    protected function _tag($code)
+    //
+    // @param string $type
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function type(String $type = 'show') : Action
     {
-        if( $this->tag === true )
+        $this->type = $type;
+
+        return $this;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Complete
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function complete() : String
+    {
+        $event = \JQ::property($this->type, [$this->speed, $this->easing, $this->callback]);
+
+        $this->_defaultVariable();
+
+        return $event;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Create
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string variadic $args
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function create(...$args) : String
+    {
+        $combineEffect = $args;
+
+        $event  = EOL.\JQ::selector($this->selector);
+        $event .= $this->complete();
+
+        if( ! empty($combineEffect) ) foreach($combineEffect as $effect)
         {
-            return Script::open(true, $this->jqueryCdn, $this->jqueryUiCdn).$code.Script::close();
+            $event .= $effect;
         }
 
-        return $code;
+        $event .= ";";
+
+        return $this->_tag($event);
     }
 
     //--------------------------------------------------------------------------------------------------------
     // Protected
     //--------------------------------------------------------------------------------------------------------
-    protected function _nailConvert($str, $nail = '"')
+    protected function _effect($type = '', $selector = '', $speed = '', $callback = '')
     {
-        if( $nail === '"')
+        $this->type = $type;
+
+        if( ! empty($selector))
         {
-            $str = str_replace('"', "'", $str);
+            $this->selector($selector);
         }
 
-        return $str;
-    }
+        if( ! empty($speed))
+        {
+            $this->speed($speed);
+        }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected
-    //--------------------------------------------------------------------------------------------------------
-    protected function _boolToStr($bool = true)
-    {
-        if( $bool == true )
+        if( ! empty($callback))
         {
-            return 'true';
-        }
-        elseif( $bool == false )
-        {
-            return 'false';
-        }
-        else
-        {
-            return $bool;
-        }
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Protected
-    //--------------------------------------------------------------------------------------------------------
-    protected function _isKeySelector($data)
-    {
-        $keyword  = ['document', 'this', 'window'];
-
-        if( in_array($data, $keyword) )
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Protected
-    //--------------------------------------------------------------------------------------------------------
-    protected function _isFunc($data)
-    {
-        if( preg_match('/function.*\(.*\)/', $data) )
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Protected
-    //--------------------------------------------------------------------------------------------------------
-    protected function _isJquery($data)
-    {
-        if( preg_match('/(\$|jQuery)(\.\w+)*\(.*\)/i', $data) )
-        {
-            return true;
-        }
-        else
-        {
-            return false;
+            $this->callback('e', $callback);
         }
     }
 
     //--------------------------------------------------------------------------------------------------------
     // Protected
     //--------------------------------------------------------------------------------------------------------
-    protected function _object($array)
+    protected function _defaultVariable()
     {
-        $object = '';
-
-        if( is_array($array) )
-        {
-            $object  = Json::encode($array);
-        }
-        else
-        {
-            $object = EOL."\"$array\"";
-        }
-
-        return $object;
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Protected
-    //--------------------------------------------------------------------------------------------------------
-    protected function _params($array = [])
-    {
-        $implode = '';
-
-        if( is_array($array) )
-        {
-            if( ! empty($array) ) foreach( $array as $v )
-            {
-                if( is_callable($v) )
-                {
-                    $implode .= JQ::callback('', Buffer::callback($v));
-                }
-                elseif( ! empty($v) )
-                {
-                    $implode .= JQ::stringControl($v).",";
-                }
-            }
-
-            $implode = rtrim($implode, ",");
-        }
-        else
-        {
-            if( is_callable($array) )
-            {
-                $implode = JQ::callback('', Buffer::callback($array));
-            }
-            elseif( ! empty($array) )
-            {
-                $implode = JQ::stringControl($array);
-            }
-        }
-
-        return $implode;
+        $this->selector = 'this';
+        $this->type     = 'show';
+        $this->callback = '';
+        $this->speed    = '';
+        $this->easing   = '';
     }
 }

@@ -1,6 +1,6 @@
-<?php namespace ZN\ViewObjects\Bootstrap;
+<?php namespace ZN\ViewObjects;
 
-class StyleUnitTest extends \UnitTestController
+class ScriptUnitTest extends \UnitTestController
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -13,7 +13,7 @@ class StyleUnitTest extends \UnitTestController
 
     const unit =
     [
-        'class'   => 'Style',
+        'class'   => 'Script',
         'methods' => []
     ];
 }

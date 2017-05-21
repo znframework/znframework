@@ -1,6 +1,6 @@
-<?php namespace ZN\ViewObjects\Bootstrap\Sheet\Helpers;
+<?php namespace ZN\ViewObjects\Sheet\Helpers;
 
-use ZN\ViewObjects\Bootstrap\SheetTrait;
+use ZN\ViewObjects\SheetTrait;
 use CallController;
 
 class Transform extends CallController implements TransformInterface

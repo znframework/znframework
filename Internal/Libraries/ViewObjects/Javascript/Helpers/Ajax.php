@@ -1,6 +1,6 @@
-<?php namespace ZN\ViewObjects\Bootstrap\Jquery\Helpers;
+<?php namespace ZN\ViewObjects\Javascript\Helpers;
 
-use ZN\ViewObjects\Bootstrap\JqueryTrait;
+use ZN\ViewObjects\JqueryTrait;
 use CallController, Json, JQ, URL, Arrays, JS;
 
 class Ajax extends CallController implements AjaxInterface

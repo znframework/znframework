@@ -1,4 +1,4 @@
-<?php namespace ZN\ViewObjects\Bootstrap\Jquery\Helpers;
+<?php namespace ZN\ViewObjects\Javascript\Helpers;
 
 interface AjaxInterface
 {

@@ -1,4 +1,4 @@
-<?php namespace ZN\ViewObjects\Bootstrap;
+<?php namespace ZN\ViewObjects;
 
 class JqueryUnitTest extends \UnitTestController
 {

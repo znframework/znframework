@@ -1,4 +1,4 @@
-<?php namespace ZN\ViewObjects\Bootstrap\Sheet\Helpers;
+<?php namespace ZN\ViewObjects\Sheet\Helpers;
 
 interface ManipulationInterface
 {

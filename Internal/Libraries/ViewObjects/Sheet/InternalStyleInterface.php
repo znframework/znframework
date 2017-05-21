@@ -1,8 +1,6 @@
-<?php namespace ZN\ViewObjects\Bootstrap;
+<?php namespace ZN\ViewObjects;
 
-use Import, CallController;
-
-class InternalStyle extends CallController implements TextCommonInterface
+interface InternalStyleInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -17,38 +15,19 @@ class InternalStyle extends CallController implements TextCommonInterface
     // Type
     //--------------------------------------------------------------------------------------------------------
     //
-    // @var string
+    // @param string $type
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $type = 'text/css';
-
-    //--------------------------------------------------------------------------------------------------------
-    // Type
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $type()
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function type(String $type)
-    {
-        $this->type = $type;
-
-        return $this;
-    }
+    public function type(String $type);
 
     //--------------------------------------------------------------------------------------------------------
     // Library
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param variadic $libraries
+    // @param string ...$args
     //
     //--------------------------------------------------------------------------------------------------------
-    public function library(...$libraries)
-    {
-        Import::style(...$libraries);
-
-        return $this;
-    }
+    public function library(...$libraries);
 
     //--------------------------------------------------------------------------------------------------------
     // Open
@@ -57,12 +36,7 @@ class InternalStyle extends CallController implements TextCommonInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function open() : String
-    {
-        $script = "<style type=\"$this->type\">".EOL;
-
-        return $script;
-    }
+    public function open() : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Close
@@ -71,9 +45,5 @@ class InternalStyle extends CallController implements TextCommonInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function close() : String
-    {
-        $script =  '</style>'.EOL;
-        return $script;
-    }
+    public function close() : String;
 }
