@@ -392,6 +392,18 @@ class Connection implements ConnectionInterface
     }
 
     //--------------------------------------------------------------------------------------------------------
+    // Protected Clear Nail
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $value
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _clearNail($value)
+    {
+        return trim($value, '\'');
+    }
+
+    //--------------------------------------------------------------------------------------------------------
     // Protected Convert Type
     //--------------------------------------------------------------------------------------------------------
     //
@@ -403,13 +415,13 @@ class Connection implements ConnectionInterface
     {
         if( $this->_exp($column, 'int') )
         {
-            $value  = (int) $value;
+            $value  = (int) $this->_clearNail($value);
             $column = $this->_clearExp($column, 'int');
         }
 
         if( $this->_exp($column, 'float') )
         {
-            $value  = (float) $value;
+            $value  = (float) $this->_clearNail($value);
             $column = $this->_clearExp($column, 'float');
         }
 
