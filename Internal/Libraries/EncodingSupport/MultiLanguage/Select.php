@@ -24,10 +24,19 @@ class Select extends MLExtends implements SelectInterface
     //--------------------------------------------------------------------------------------------------------
     public function do(String $key, $convert = NULL) : String
     {
-        $read = File::read($this->lang);
+        if( File::exists($this->lang) )
+        {
+            $read   = File::read($this->lang);
+        }
 
-        $array = Json::decodeArray($read);
+        if( File::exists($this->externalLang) )
+        {
+            $eread  = File::read($this->externalLang);
+        }
 
+        $read   = Json::decodeArray($read  ?? '');
+        $eread  = Json::decodeArray($eread ?? '');
+        $array  = array_merge($eread, $read);
         $return = '';
 
         if( isset($array[$key]) )

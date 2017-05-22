@@ -50,6 +50,6 @@ class Decode implements DecodeInterface
     //--------------------------------------------------------------------------------------------------------
     public function array(String $data, Int $length = 512) : Array
     {
-        return $this->do($data, true, $length);
+        return (array) $this->do($data, true, $length);
     }
 }
