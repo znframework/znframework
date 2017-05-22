@@ -1,6 +1,6 @@
-<?php namespace ZN\DataTypes\Json;
+<?php namespace ZN\ViewObjects\Sheet\Helpers;
 
-class Decode implements DecodeInterface
+interface TransitionInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -12,44 +12,38 @@ class Decode implements DecodeInterface
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
-    // Do
+    // Property
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $data
-    // @param bool   $array
-    // @param int    $length
+    // @param string $property
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do(String $data, Bool $array = false, Int $length = 512)
-    {
-        $return = json_decode($data, $array, $length);
-
-        return $return;
-    }
+    public function property(String $property) : Transition;
 
     //--------------------------------------------------------------------------------------------------------
-    // Decode Object
+    // Duration
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $data
-    // @param int    $length
+    // @param string $duration
     //
     //--------------------------------------------------------------------------------------------------------
-    public function object(String $data, Int $length = 512)
-    {
-        return $this->do($data, false, $length);
-    }
+    public function duration(String $duration) : Transition;
 
     //--------------------------------------------------------------------------------------------------------
-    // Decode Array
+    // Delay
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $data
-    // @param int    $length
+    // @param string $delay
     //
     //--------------------------------------------------------------------------------------------------------
-    public function array(String $data, Int $length = 512) : Array
-    {
-        return (array) $this->do($data, true, $length);
-    }
+    public function delay(String $delay) : Transition;
+
+    //--------------------------------------------------------------------------------------------------------
+    // Easing
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $easing
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function easing(String $easing) : Transition;
 }

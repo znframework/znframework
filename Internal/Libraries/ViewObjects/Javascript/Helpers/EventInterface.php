@@ -1,6 +1,6 @@
-<?php namespace ZN\DataTypes\Json;
+<?php namespace ZN\ViewObjects\Javascript\Helpers;
 
-class Decode implements DecodeInterface
+interface EventInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -12,44 +12,29 @@ class Decode implements DecodeInterface
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
-    // Do
+    // Type
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $data
-    // @param bool   $array
-    // @param int    $length
+    // @param string $type
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do(String $data, Bool $array = false, Int $length = 512)
-    {
-        $return = json_decode($data, $array, $length);
-
-        return $return;
-    }
+    public function type(String $type = 'click') : Event;
 
     //--------------------------------------------------------------------------------------------------------
-    // Decode Object
+    // Complete
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $data
-    // @param int    $length
+    // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function object(String $data, Int $length = 512)
-    {
-        return $this->do($data, false, $length);
-    }
+    public function complete() : String;
 
     //--------------------------------------------------------------------------------------------------------
-    // Decode Array
+    // Create
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $data
-    // @param int    $length
+    // @param string variadic $args
     //
     //--------------------------------------------------------------------------------------------------------
-    public function array(String $data, Int $length = 512) : Array
-    {
-        return (array) $this->do($data, true, $length);
-    }
+    public function create(...$args) : String;
 }

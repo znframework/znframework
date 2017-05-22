@@ -1,8 +1,6 @@
-<?php namespace ZN\EncodingSupport\MultiLanguage;
+<?php namespace ZN\ViewObjects;
 
-use CLController, Folder;
-
-class MLExtends extends CLController
+interface InternalJQInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -13,87 +11,113 @@ class MLExtends extends CLController
     //
     //--------------------------------------------------------------------------------------------------------
 
-    const config = 'EncodingSupport:ml';
+    //--------------------------------------------------------------------------------------------------------
+    // String Control
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // Metnin string olup olmadığı ayırt etmek için kullanılır. Parametre başında : nokta ile belirtilirse
+    // verinin string olmadığı hiç bir şey belirtilmezse string veri olduğu anlaşılır. Bu durumda
+    // metin için başına ve sonuna tırnak işaretleri kullanmanız gerekmez.
+    //
+    // @param  string $code
+    // @return string
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function stringControl(String $code = '') : String;
 
     //--------------------------------------------------------------------------------------------------------
-    // $appdir
+    // Selector
     //--------------------------------------------------------------------------------------------------------
     //
-    // @var string: NULL
+    // Seçici belirtmek için kullanılır.
+    //
+    // @param  string $selector
+    // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $appdir;
+    public function selector(String $selector = NULL) : String;
 
     //--------------------------------------------------------------------------------------------------------
-    // $externalAppdir
+    // Property
     //--------------------------------------------------------------------------------------------------------
     //
-    // @var string: NULL
+    // Jquery propertisi oluşturmak için kullanılır.
+    //
+    // @param string $property
+    // @param array  $params
+    // @param bool   $comma false
+    //
+    // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $externalAppdir;
+    public function property(String $property, $params = [], Bool $comma = false) : String;
 
     //--------------------------------------------------------------------------------------------------------
-    // $extension
+    // Func
     //--------------------------------------------------------------------------------------------------------
     //
-    // @var string: .ml
+    // Jquery fonksiyonu oluşturmak için kullanılır.
+    //
+    // @param string $params
+    // @param mixed  $code
+    // @param bool   $comma false
+    //
+    // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $extension = '.ml';
+    public function function(String $params = NULL, $code = NULL, Bool $comma = false) : String;
 
     //--------------------------------------------------------------------------------------------------------
-    // $lang
+    // Callback / Func
     //--------------------------------------------------------------------------------------------------------
     //
-    // @var string:
+    // Jquery fonksiyonu oluşturmak için kullanılır.
+    //
+    // @param string $params
+    // @param mixed  $code
+    // @param bool   $comma false
+    //
+    // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $lang;
+    public function callback(String $params = NULL, $code = NULL, Bool $comma = false) : String;
 
     //--------------------------------------------------------------------------------------------------------
-    // $externalLang
+    // Combine
     //--------------------------------------------------------------------------------------------------------
     //
-    // @var string:
+    // Genel jquery komutu oluşturmak için kullanılır.
+    //
+    // @param string $selector
+    // @param string $property
+    // @param array  $params
+    // @param string $callback
+    // @param bool   $comma false
+    //
+    // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $externalLang;
+    public function combine(String $selector = NULL, String $property = NULL, $params = NULL, $callback = NULL, Bool $comma = false) : String;
 
     //--------------------------------------------------------------------------------------------------------
-    // Constructor
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // __construct()
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function __construct()
-    {
-        parent::__construct();
-
-        $mlDir = 'ML' . DS;
-
-        $this->appdir = LANGUAGES_DIR . $mlDir;
-        $this->externalAppdir = EXTERNAL_LANGUAGES_DIR . $mlDir;
-
-        if( ! Folder::exists($this->appdir) )
-        {
-            Folder::create($this->appdir, 0755);
-        }
-
-        $this->lang = $this->appdir.getLang().$this->extension;
-        $this->externalLang = $this->externalAppdir.getLang().$this->extension;
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Lang File
+    // get
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param array  $rows
+    // @param  mixed  $params
+    // @param  boole  $comma
+    // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    protected function _langFile($app)
-    {
-        return $this->appdir.$app.$this->extension;
-    }
+    public function get(String $url = NULL, $callback = NULL, Bool $comma = true) : String;
+
+    //--------------------------------------------------------------------------------------------------------
+    // post
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param  mixed  $params
+    // @param  boole  $comma
+    // @return string
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function post(String $url = NULL, String $data = NULL, $callback = NULL, Bool $comma = true) : String;
 }

@@ -1,9 +1,6 @@
-<?php namespace ZN\Database;
+<?php namespace ZN\ViewObjects\Javascript\Helpers;
 
-use Support, Arrays, Config;
-use ZN\Database\Exception\InvalidArgumentException;
-
-class Connection implements ConnectionInterface
+interface AjaxInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -15,652 +12,378 @@ class Connection implements ConnectionInterface
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
-    // Results
+    // URL
     //--------------------------------------------------------------------------------------------------------
     //
-    // @var array
+    // @param string $url
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $results;
+    public function url(String $url = '') : Ajax;
 
     //--------------------------------------------------------------------------------------------------------
-    // Drivers
+    // Data -> 4.2.8[edit]
     //--------------------------------------------------------------------------------------------------------
     //
-    // @var array
+    // @param mixed $data
+    //
+    // @send-form: #serialize, [json], 'classic'
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $drivers =
-    [
-        'odbc',
-        'mysqli',
-        'pdo',
-        'oracle',
-        'postgres',
-        'sqlite',
-        'sqlserver',
-        'pdo:mysql',
-        'pdo:postgres',
-        'pdo:sqlite',
-        'pdo:sqlserver',
-        'pdo:odbc'
-    ];
+    public function data($data) : Ajax;
 
     //--------------------------------------------------------------------------------------------------------
-    // Config
+    // Headers
     //--------------------------------------------------------------------------------------------------------
     //
-    // @var array
+    // @param string $url
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $config;
+    public function headers(String $headers) : Ajax;
 
     //--------------------------------------------------------------------------------------------------------
-    // Prefix
+    // If Modified
     //--------------------------------------------------------------------------------------------------------
     //
-    // @var string
+    // @param bool $ifModified
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $prefix;
+    public function ifModified(String $ifModified) : Ajax;
 
     //--------------------------------------------------------------------------------------------------------
-    // Secure
+    // Is Local
     //--------------------------------------------------------------------------------------------------------
     //
-    // @var array
+    // @param bool $isLocal
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $secure = [];
+    public function isLocal(String $isLocal) : Ajax;
 
     //--------------------------------------------------------------------------------------------------------
-    // Table
+    // Mime Type
     //--------------------------------------------------------------------------------------------------------
     //
-    // @var string
+    // @param bool $isLocal
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $table;
+    public function mimeType(String $mimeType) : Ajax;
 
     //--------------------------------------------------------------------------------------------------------
-    // Table Name
+    // Jsonp
     //--------------------------------------------------------------------------------------------------------
     //
-    // @var string
+    // @param scalar $jsonp
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $tableName;
+    public function jsonp(String $jsonp) : Ajax;
 
     //--------------------------------------------------------------------------------------------------------
-    // String Query
+    // Jsonp Callback
     //--------------------------------------------------------------------------------------------------------
     //
-    // @var string
+    // @param scalar $jsonpCallback
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $stringQuery;
+    public function jsonpCallback(String $jsonpCallback) : Ajax;
 
     //--------------------------------------------------------------------------------------------------------
-    // Select Functions
+    // Data Type
     //--------------------------------------------------------------------------------------------------------
     //
-    // @var string
+    // @param string $type
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $selectFunctions;
+    public function dataType(String $type) : Ajax;
 
     //--------------------------------------------------------------------------------------------------------
-    // Column
+    // Password
     //--------------------------------------------------------------------------------------------------------
     //
-    // @var array
+    // @param string $password
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $column;
+    public function password(String $password) : Ajax;
 
     //--------------------------------------------------------------------------------------------------------
-    // Driver
+    // Username
     //--------------------------------------------------------------------------------------------------------
     //
-    // @var string
+    // @param string $
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $driver;
+    public function username(String $username) : Ajax;
 
     //--------------------------------------------------------------------------------------------------------
-    // String
+    // Method
     //--------------------------------------------------------------------------------------------------------
     //
-    // @var string
+    // @param string $method
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $string;
+    public function method(String $method = 'post') : Ajax;
 
     //--------------------------------------------------------------------------------------------------------
-    // Construct
+    // Type
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param array $config
+    // @param string $method
     //
     //--------------------------------------------------------------------------------------------------------
-    public function __construct(Array $config = [])
-    {
-        $this->config = array_merge(Config::get('Database', 'database'), $config);
-        $this->db = $this->_run();
-
-        $this->prefix       = $this->config['prefix'];
-        Properties::$prefix = $this->prefix;
-
-        $this->db->connect($this->config);
-    }
+    public function type(String $method = 'post') : Ajax;
 
     //--------------------------------------------------------------------------------------------------------
-    // Different Connection
+    // Script Charset
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param mixed $connectName
+    // @param string $sr
     //
     //--------------------------------------------------------------------------------------------------------
-    public function differentConnection($connectName = NULL) : Connection
-    {
-        $getCalledClass = get_called_class();
-
-        if( empty($connectName) )
-        {
-            return new $getCalledClass;
-        }
-
-        $config          = Config::get('Database', 'database');
-        $configDifferent = $config['differentConnection'];
-
-        if( is_string($connectName) && isset($configDifferent[$connectName]) )
-        {
-            $connection = $configDifferent[$connectName];
-        }
-        elseif( is_array($connectName) )
-        {
-            $connection = $connectName;
-        }
-        else
-        {
-            throw new InvalidArgumentException('Error', 'invalidInput', 'Mixed $connectName');
-        }
-
-        foreach( $config as $key => $val )
-        {
-            if( $key !== 'differentConnection' )
-            {
-                if( ! isset($connection[$key]) )
-                {
-                    $connection[$key] = $val;
-                }
-            }
-        }
-
-        return new $getCalledClass($connection);
-    }
+    public function scriptCharset(String $scriptCharset = 'utf-8') : Ajax;
 
     //--------------------------------------------------------------------------------------------------------
-    // Variable Types
+    // Traditional
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param  void
+    // @param scalar $tratidional
     //
     //--------------------------------------------------------------------------------------------------------
-    public function vartypes() : Array
-    {
-        return $this->db->vartypes();
-    }
+    public function traditional(String $traditional) : Ajax;
 
     //--------------------------------------------------------------------------------------------------------
-    // Table
+    // Process Data
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $table
+    // @param scalar $processData
     //
     //--------------------------------------------------------------------------------------------------------
-    public function table(String $table) : Connection
-    {
-        $this->table       = ' '.$this->prefix.$table.' ';
-        $this->tableName   = $this->prefix.$table;
-        Properties::$table = $this->tableName;
-
-        return $this;
-    }
+    public function processData(String $processData) : Ajax;
 
     //--------------------------------------------------------------------------------------------------------
-    // Column
+    // Cache
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $col
-    // @param mixed  $val
+    // @param scalar $cache
     //
     //--------------------------------------------------------------------------------------------------------
-    public function column(String $col, $val = NULL) : Connection
-    {
-        $this->column[$col] = $val;
-
-        return $this;
-    }
+    public function cache(String $cache) : Ajax;
 
     //--------------------------------------------------------------------------------------------------------
-    // Column
+    // XHR Fields
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $col
-    // @param mixed  $val
+    // @param string $xhrFields
     //
     //--------------------------------------------------------------------------------------------------------
-    public function string() : Connection
-    {
-        $this->string = true;
-
-        return $this;
-    }
+    public function xhrFields(String $xhrFields) : Ajax;
 
     //--------------------------------------------------------------------------------------------------------
-    // String Query
+    // Context
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param void
+    // @param string $context
     //
     //--------------------------------------------------------------------------------------------------------
-    public function stringQuery() : String
-    {
-        if( ! empty($this->stringQuery) )
-        {
-            return $this->stringQuery;
-        }
-
-        return false;
-    }
+    public function context(String $context) : Ajax;
 
     //--------------------------------------------------------------------------------------------------------
-    // Secure
+    // Accepts
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param array $data
+    // @param string $accepts
     //
     //--------------------------------------------------------------------------------------------------------
-    public function secure(Array $data) : Connection
-    {
-        $this->secure = $data;
-
-        return $this;
-    }
+    public function accepts(String $accepts) : Ajax;
 
     //--------------------------------------------------------------------------------------------------------
-    // Func
+    // Contents
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param variadic $args
+    // @param string $contents
     //
     //--------------------------------------------------------------------------------------------------------
-    public function func(...$args)
-    {
-        $array = Arrays::removeFirst($args);
-        $math  = $this->_math(isset($args[0]) ? mb_strtoupper($args[0]) : false, $array);
+    public function contents(String $contents) : Ajax;
 
-        if( $math->return === true )
-        {
-            return $math->args;
-        }
-        else
-        {
-            $this->selectFunctions[] = $math->args;
+    //--------------------------------------------------------------------------------------------------------
+    // Async
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param scalar $async
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function async(String $async) : Ajax;
 
-            return $this;
-        }
-    }
+    //--------------------------------------------------------------------------------------------------------
+    // Cross Domain
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param scalar $crossDomain
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function crossDomain(String $crossDomain) : Ajax;
+
+    //--------------------------------------------------------------------------------------------------------
+    // Timeout
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param int $timeout
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function timeout(Int $timeout) : Ajax;
+
+    //--------------------------------------------------------------------------------------------------------
+    // Globals
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param scalar $globals
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function globals(String $globals) : Ajax;
+
+    //--------------------------------------------------------------------------------------------------------
+    // Content Type
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param scalar $contentType
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function contentType(String $contentType = 'application/x-www-form-urlencoded; charset=UTF-8') : Ajax;
+
+
+
+    //--------------------------------------------------------------------------------------------------------
+    // Status Code
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param array $codes
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function statusCode(Array $codes) : Ajax;
+
+    //--------------------------------------------------------------------------------------------------------
+    // Converters
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param array $codes
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function converters(Array $codes) : Ajax;
+
+    //--------------------------------------------------------------------------------------------------------
+    // Success
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $params
+    // @param string $success
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function success(String $params, $success) : Ajax;
 
     //--------------------------------------------------------------------------------------------------------
     // Error
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param void
+    // @param string $params
+    // @param string $error
     //
     //--------------------------------------------------------------------------------------------------------
-    public function error()
-    {
-        return $this->db->error();
-    }
+    public function error(String $params, $error) : Ajax;
 
     //--------------------------------------------------------------------------------------------------------
-    // Close
+    // Show Error
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param void
+    // @param string $params
+    // @param string $error
     //
     //--------------------------------------------------------------------------------------------------------
-    public function close()
-    {
-        return $this->db->close();
-    }
+    public function showError() : Ajax;
 
     //--------------------------------------------------------------------------------------------------------
-    // Version
+    // Complete
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param void
+    // @param string $params
+    // @param string $complete
     //
     //--------------------------------------------------------------------------------------------------------
-    public function version()
-    {
-        return $this->db->version();
-    }
+    public function complete(String $params, $complete) : Ajax;
 
     //--------------------------------------------------------------------------------------------------------
-    // Protected Escape String Add Nail
+    // Before Send
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $column
-    // @param string $value
+    // @param string $params
+    // @param string $beforeSend
     //
     //--------------------------------------------------------------------------------------------------------
-    protected function _excapeStringAddNail($value, $numeric = false)
-    {
-        if( $numeric === true && is_numeric($value) )
-        {
-            return $value;
-        }
-
-        return presuffix($this->db->realEscapeString($value), "'");
-    }
+    public function beforeSend(String $params, $beforeSend) : Ajax;
 
     //--------------------------------------------------------------------------------------------------------
-    // Protected Exp
+    // Data Filter
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $column
+    // @param string $params
+    // @param string $dataFilter
     //
     //--------------------------------------------------------------------------------------------------------
-    protected function _exp($column = '', $exp = 'exp')
-    {
-        return stristr($column, $exp . ':');
-    }
+    public function dataFilter(String $params, $dataFilter) : Ajax;
 
     //--------------------------------------------------------------------------------------------------------
-    // Protected Clear Exp
+    // Done
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $column
+    // @param string $params
+    // @param string $done
     //
     //--------------------------------------------------------------------------------------------------------
-    protected function _clearExp($column, $exp = 'exp')
-    {
-        return str_ireplace($exp . ':', '', $column);
-    }
+    public function done(String $params = 'e', $done = NULL) : Ajax;
 
     //--------------------------------------------------------------------------------------------------------
-    // Protected Clear Nail
+    // Fail
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $value
+    // @param string $params
+    // @param string $fail
     //
     //--------------------------------------------------------------------------------------------------------
-    protected function _clearNail($value)
-    {
-        return trim($value, '\'');
-    }
+    public function fail(String $params = 'e', $fail = NULL) : Ajax;
 
     //--------------------------------------------------------------------------------------------------------
-    // Protected Convert Type
+    // Always
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $column
-    // @param string $value
+    // @param string $params
+    // @param string $always
     //
     //--------------------------------------------------------------------------------------------------------
-    protected function _convertType(&$column = '', &$value = '')
-    {
-        if( $this->_exp($column, 'int') )
-        {
-            $value  = (int) $this->_clearNail($value);
-            $column = $this->_clearExp($column, 'int');
-        }
-
-        if( $this->_exp($column, 'float') )
-        {
-            $value  = (float) $this->_clearNail($value);
-            $column = $this->_clearExp($column, 'float');
-        }
-
-        if( $this->_exp($column, 'exp') )
-        {
-            $column = $this->_clearExp($column);
-        }
-    }
+    public function always(String $params = 'e', $always = NULL) : Ajax;
 
     //--------------------------------------------------------------------------------------------------------
-    // Protected Query Security
+    // Then
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $query
+    // @param string $params
+    // @param string $then
     //
     //--------------------------------------------------------------------------------------------------------
-    protected function _querySecurity($query)
-    {
-        if( isset($this->secure) )
-        {
-            $secure = $this->secure;
-
-            $secureParams = [];
-
-            if( is_numeric(key($secure)) )
-            {
-                $strex  = explode('?', $query);
-                $newstr = '';
-
-                if( ! empty($strex) ) for( $i = 0; $i < count($strex) - 1; $i++ )
-                {
-                    $sec = $secure[$i] ?? NULL;
-
-                    $newstr .= $strex[$i].$this->db->realEscapeString($sec);
-                }
-
-                $query = $newstr;
-            }
-            else
-            {
-                foreach( $this->secure as $k => $v )
-                {
-                    $this->_convertType($k, $v);
-
-                    $secureParams[$k] = $this->db->realEscapeString($v);
-                }
-            }
-
-            $query = str_replace(array_keys($secureParams), array_values($secureParams), $query);
-        }
-
-        if( ($this->config['queryLog'] ?? NULL) === true )
-        {
-            report('DatabaseQueries', $query, 'DatabaseQueries');
-        }
-
-        $this->stringQuery = $query;
-
-        $this->secure = [];
-
-        return $query;
-    }
+    public function then(String $params = 'e', $then = NULL) : Ajax;
 
     //--------------------------------------------------------------------------------------------------------
-    // Protected Math
+    // Send
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $type
-    // @param array  $args
+    // @param string $url
+    // @param string $data
     //
     //--------------------------------------------------------------------------------------------------------
-    protected function _math($type, $args)
-    {
-        $type    = strtoupper($type);
-        $getLast = Arrays::getLast($args);
-
-        $asparam = ' ';
-
-        if( $getLast === true )
-        {
-            $args   = Arrays::removeLast($args);
-            $return = true;
-
-            $as     = Arrays::getLast($args);
-
-            if( stripos(trim($as), 'as') === 0 )
-            {
-                $asparam .= $as;
-                $args   = Arrays::removeLast($args);
-            }
-        }
-        else
-        {
-            $return = false;
-        }
-
-        if( stripos(trim($getLast), 'as') === 0 )
-        {
-            $asparam .= $getLast;
-            $args     = Arrays::removeLast($args);
-        }
-
-        $args = $type.'('.rtrim(implode(',', $args), ',').')'.$asparam;
-
-        return (object)array
-        (
-            'args'   => $args,
-            'return' => $return
-        );
-    }
+    public function send(String $url = '', $data = NULL) : String;
 
     //--------------------------------------------------------------------------------------------------------
-    // Protected Run
+    // Create
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param void
+    // @param string $params
+    // @param string $dataFilter
     //
     //--------------------------------------------------------------------------------------------------------
-    protected function _run($settings = [])
-    {
-        $this->driver = explode(':', $this->config['driver'])[0];
-
-        return $this->_drvlib('Driver', $settings);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Driver Library
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $driver
-    // @param string $suffix
-    //
-    //--------------------------------------------------------------------------------------------------------
-    protected function _drvlib($suffix = 'Driver', $settings = [])
-    {
-        Support::driver($this->drivers, $this->driver);
-
-        $class = 'ZN\Database\Drivers\\'.$this->driver.$suffix;
-
-        return new $class($settings);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Nail Encode
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  string $data
-    //
-    //--------------------------------------------------------------------------------------------------------
-    protected function nailEncode($data)
-    {
-        return str_replace(["'", "\&#39;", "\\&#39;"], "&#39;", $data);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Run Query
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $query
-    //
-    //--------------------------------------------------------------------------------------------------------
-    protected function _runQuery($query)
-    {
-        if( $this->string === true )
-        {
-            $this->string = NULL;
-            return $query;
-        }
-
-        $this->db->query($this->_querySecurity($query), $this->secure);
-
-        return ! (bool) $this->db->error();
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Run Exec Query
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $query
-    //
-    //--------------------------------------------------------------------------------------------------------
-    protected function _runExecQuery($query)
-    {
-        if( $this->string === true )
-        {
-            $this->string = NULL;
-            return $query;
-        }
-
-        $this->db->exec($this->_querySecurity($query), $this->secure);
-
-        return ! (bool) $this->db->error();
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Protected P
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param var    $p
-    // @param string $name
-    //
-    //--------------------------------------------------------------------------------------------------------
-    protected function _p($p = NULL, $name = 'table')
-    {
-        if( $name === 'prefix' )
-        {
-            return $this->$name.$p;
-        }
-
-        if( $name === 'table' )
-        {
-            $p = $this->prefix.$p;
-        }
-
-        if( ! empty($this->$name) )
-        {
-            $data = $this->$name;
-
-            $this->$name = NULL;
-
-            return $data;
-        }
-        else
-        {
-            return $p;
-        }
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Desctruct
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function __destruct()
-    {
-        $this->results = NULL;
-        $this->db->close();
-        $this->db->closeConnection();
-    }
+    public function create(String $url = '', String $data = NULL) : String;
 }

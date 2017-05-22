@@ -1,6 +1,6 @@
-<?php namespace ZN\DataTypes\Json;
+<?php namespace ZN\ViewObjects\Sheet\Helpers;
 
-class Decode implements DecodeInterface
+interface ManipulationInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -12,44 +12,39 @@ class Decode implements DecodeInterface
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
-    // Do
+    // Attr
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $data
-    // @param bool   $array
-    // @param int    $length
+    // @param array $attr
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do(String $data, Bool $array = false, Int $length = 512)
-    {
-        $return = json_decode($data, $array, $length);
-
-        return $return;
-    }
+    public function attr(Array $attr) : String;
 
     //--------------------------------------------------------------------------------------------------------
-    // Decode Object
+    // File
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $data
-    // @param int    $length
+    // @param string $file
     //
     //--------------------------------------------------------------------------------------------------------
-    public function object(String $data, Int $length = 512)
-    {
-        return $this->do($data, false, $length);
-    }
+    public function file(String $file) : Manipulation;
 
     //--------------------------------------------------------------------------------------------------------
-    // Decode Array
+    // Get Selector
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $data
-    // @param int    $length
+    // @param string $selector
     //
     //--------------------------------------------------------------------------------------------------------
-    public function array(String $data, Int $length = 512) : Array
-    {
-        return (array) $this->do($data, true, $length);
-    }
+    public function getSelector(String $selector) : String;
+
+    //--------------------------------------------------------------------------------------------------------
+    // Set Selector
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $selector
+    // @param array  $attr
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function setSelector(String $selector, Array $attr) : Bool;
 }
