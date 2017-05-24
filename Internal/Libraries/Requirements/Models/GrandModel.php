@@ -160,7 +160,7 @@ class GrandModel extends BaseController
     // @param array $data: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function insert(Array $data) : Bool
+    public function insert($data) : Bool
     {
         $this->_postGet($table, $data);
 
