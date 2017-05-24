@@ -218,6 +218,7 @@ class TemplateWizard extends CallController implements TemplateWizardInterface
         {
             $array =
             [
+                '/\/#/'                                         => '+[symbol??dies]+',
                 '/\s+\#\#(\w+)/'                                => $htmlTagClose,
                 '/'.$htmlAttributesTag.'\:/'                    => '<$1 $3>',
                 '/'.$htmlAttributesTag.'\s+/'                   => '<$1 $3>',
@@ -243,7 +244,6 @@ class TemplateWizard extends CallController implements TemplateWizardInterface
         return
         [
             '/\/@/' => '+[symbol??at]+',
-            '/\/#/' => '+[symbol??dies]+',
             '/::/'  => '+[symbol??static]+',
             '/\/:/' => '+[symbol??colon]+',
         ];

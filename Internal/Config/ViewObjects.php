@@ -81,7 +81,9 @@
             'jqueryUi'  => 'https://code.jquery.com/ui/1.11.3/jquery-ui.js',
             'bootstrap' => 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js',
             'bootlint'  => 'https://maxcdn.bootstrapcdn.com/bootlint/0.14.1/bootlint.min.js',
-            'angular'   => 'https://ajax.googleapis.com/ajax/libs/angularjs/1.2.29/angular.min.js'
+            'angular'   => 'https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js',
+            'react'     => 'https://cdnjs.cloudflare.com/ajax/libs/react/15.5.4/react.min.js',
+            'vue'       => 'https://cdnjs.cloudflare.com/ajax/libs/vue/2.3.3/vue.min.js'
         ],
 
         //----------------------------------------------------------------------------------------------
