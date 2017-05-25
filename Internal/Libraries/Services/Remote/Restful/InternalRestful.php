@@ -268,6 +268,7 @@ class InternalRestful implements InternalRestfulInterface
         $this->info['getrequestsize']       = CURL::info('request_size');
         $this->info['getdownloadspeed']     = CURL::info('speed_download');
         $this->info['getuploadspeed']       = CURL::info('speed_upload');
+        $this->info['all']                  = CURL::info(NULL);
     }
 
     //--------------------------------------------------------------------------------------------------------

@@ -54,7 +54,7 @@ interface InternalCURLInterface
     // @param string $opt
     //
     //--------------------------------------------------------------------------------------------------------
-    public function info(String $opt);
+    public function info(String $opt = NULL);
 
     //--------------------------------------------------------------------------------------------------------
     // Error
