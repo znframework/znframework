@@ -99,7 +99,7 @@ class Builder implements BuilderInterface
         foreach( $xml as $data )
         {
             $name    = $data['name']    ?? '';
-            $attr    = $data['attr']    ?? '';
+            $attr    = $data['attr']    ?? [];
             $content = $data['content'] ?? '';
             $child   = $data['child']   ?? '';
 
