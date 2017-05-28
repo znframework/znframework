@@ -33,6 +33,27 @@
     'controller' => '',
 
     //--------------------------------------------------------------------------------------------------
+    // Destruct -> 4.6.0
+    //--------------------------------------------------------------------------------------------------
+    //
+    // Bitişte çalıştırılmak istenen kontrolcü varsa kullanılır. Bir veya birden fazla, parametreli
+    // veya parametresiz kontrolcü çalıştırılabilir. Bunun için ayar değeri hem dizge hem de dizi
+    // olabilir. Dikkat edilmesi gereken nokta kontrolcü ismi ile sınıfı adı aynı olmalıdır.
+    // Verinin class bölümü aslında sayfa adıdır.
+    //
+    // Tekil Kullanım
+    // 'file:func'
+    //
+    // Çoğul Kullanım
+    // ['file1:func1', 'file2:func2', ...]
+    //
+    // Parametreli Kullanım
+    // ['file1:func1' => ['p1', 'p2'], ... ]
+    //
+    //--------------------------------------------------------------------------------------------------
+    'destruct' => '',
+
+    //--------------------------------------------------------------------------------------------------
     // Autoload
     //--------------------------------------------------------------------------------------------------
     //

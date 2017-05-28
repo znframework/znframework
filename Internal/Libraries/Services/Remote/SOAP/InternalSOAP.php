@@ -1,6 +1,6 @@
 <?php namespace ZN\Services\Remote;
 
-use SoapClient, Arrays, XML;
+use SoapClient, SoapServer, SoapHeader, Arrays, XML;
 
 class InternalSOAP implements InternalSOAPInterface
 {
@@ -86,7 +86,7 @@ class InternalSOAP implements InternalSOAPInterface
     //--------------------------------------------------------------------------------------------------------
     public function message(...$param) : InternalSOAP
     {
-        $this->_element('message', $param);
+        $this->_element('wsdl:message', $param);
 
         return $this;
     }
@@ -100,7 +100,7 @@ class InternalSOAP implements InternalSOAPInterface
     //--------------------------------------------------------------------------------------------------------
     public function types(...$param) : InternalSOAP
     {
-        $this->_element('types', $param);
+        $this->_element('wsdl:types', $param);
 
         return $this;
     }
@@ -114,7 +114,7 @@ class InternalSOAP implements InternalSOAPInterface
     //--------------------------------------------------------------------------------------------------------
     public function portType(...$param) : InternalSOAP
     {
-        $this->_element('portType', $param);
+        $this->_element('wsdl:portType', $param);
 
         return $this;
     }
@@ -128,7 +128,7 @@ class InternalSOAP implements InternalSOAPInterface
     //--------------------------------------------------------------------------------------------------------
     public function binding(...$param) : InternalSOAP
     {
-        $this->_element('binding', $param);
+        $this->_element('wsdl:binding', $param);
 
         return $this;
     }
@@ -143,11 +143,27 @@ class InternalSOAP implements InternalSOAPInterface
     //--------------------------------------------------------------------------------------------------------
     public function createWSDL(Array $data = [])
     {
-        return XML::build(
-        [
-            'name'  => 'definitions',
+        return XML::build
+        ([
+            'name'  => 'wsdl:definitions',
+            'attr'  => $data,
             'child' => $this->createWSDL
         ]);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Content Type
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $type    = 'json'
+    // @param string $charset = 'utf-8'
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function contentType(String $type = 'xml', String $charset = 'utf-8') : InternalSOAP
+    {
+        header('Content-Type: application/' . $type . '; charset=' . $charset);
+
+        return $this;
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -165,15 +181,103 @@ class InternalSOAP implements InternalSOAPInterface
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Client
+    // Is Url
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $url
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _isUrl(&$url)
+    {
+        if( $url !== NULL )
+        {
+            if( ! isUrl($url) )
+            {
+                $url = siteUrl($url);
+            }
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Data
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param array $data
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function options(Array $options) : InternalSOAP
+    {
+        $this->options = $options;
+
+        return $this;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Get
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string $url
     // @param array  $options
     //
     //--------------------------------------------------------------------------------------------------------
-    public function client(String $url, Array $options = []) : SoapClient
+    public function get(String $url = NULL, Array $options = []) : SoapClient
     {
-        return $this->client = new SoapClient($url, $options);
+        return $this->_class('SoapClient', 'client', $url, $options);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Return
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $url
+    // @param array  $options
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function return(String $url = NULL, Array $options = []) : SoapServer
+    {
+        return $this->_class('SoapServer', 'server', $url, $options);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Data
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param array $data
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function data($data) : InternalSOAP
+    {
+        $this->data = $data;
+
+        return $this;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Headers
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $namespace
+    // @param string $name
+    // @param mixed  $data = NULL
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function headers(String $namespace, String $name, $data = NULL)
+    {
+          $this->setSoapHeaders(new SoapHeader($namespace, $name, $this->data ?? $data));
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Class
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $url
+    // @param array  $options
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _class($class, $object, $url, $options)
+    {
+        $this->_isUrl($url);
+
+        return $this->$object = new $class($url, $this->options ?? $options);
     }
 }
