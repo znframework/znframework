@@ -25,6 +25,7 @@ class InternalImport extends \FactoryController implements InternalImportInterfa
             'meta'       => 'Import\Masterpage::meta:this',
             'attributes' => 'Import\Masterpage::attributes:this',
             'content'    => 'Import\Masterpage::content:this',
+            'bodycontent'=> 'Import\Masterpage::bodyContent:this',
             'masterpage' => 'Import\Masterpage::use',
             'page'       => 'Import\View::use',
             'view'       => 'Import\View::use',

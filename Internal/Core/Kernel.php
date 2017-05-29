@@ -60,23 +60,36 @@ if( is_file($isFile) )
                 $viewPath   = $viewDir  . '.php';
                 $wizardPath = $viewDir  . '.wizard.php';
 
-                if( ! empty($data = (array) $pageClass->masterpage) )
+                if( is_file($wizardPath) && ! isImport($viewPath) && ! isImport($wizardPath) )
                 {
-                    Config::set('Masterpage', $data);
-
-                    Import::masterpage($data);
-                }
-                elseif( is_file($wizardPath) && ! isImport($viewPath) && ! isImport($wizardPath) )
-                {
-                    $data = ! empty((array) $pageClass->wizard) ? $pageClass->wizard : $pageClass->view;
-
-                    Import::view(str_replace(PAGES_DIR, NULL, $wizardPath), (array) $data);
+                    $data = (array) ( ! empty((array) $pageClass->wizard) ? $pageClass->wizard : $pageClass->view );
+                    $view = Import::usable()->view(str_replace(PAGES_DIR, NULL, $wizardPath), $data);
                 }
                 elseif( is_file($viewPath) && ! isImport($viewPath) && ! isImport($wizardPath) )
                 {
-                    Import::view(str_replace(PAGES_DIR, NULL, $viewPath), (array) $pageClass->view);
+                    $data = (array) $pageClass->view;
+                    $view = Import::usable()->view(str_replace(PAGES_DIR, NULL, $viewPath), $data);
                 }
 
+                if( ($data['masterpage'] ?? NULL) === true )
+                {
+                    $isMasterpage = true;
+                }
+                elseif( ! empty($data = (array) $pageClass->masterpage) )
+                {
+                    $isMasterpage = true;
+                }
+                elseif( ! empty($view) )
+                {
+                    echo $view; exit;
+                }
+
+                if( $isMasterpage === true )
+                {
+                    Config::set('Masterpage', $data);
+
+                    Import::bodyContent($view)->masterpage($data);
+                }
             }
             catch( Throwable $e )
             {
