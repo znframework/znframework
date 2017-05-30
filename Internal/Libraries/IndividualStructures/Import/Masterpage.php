@@ -1,6 +1,6 @@
 <?php namespace ZN\IndividualStructures\Import;
 
-use Config, HTML, Import;
+use Config, HTML, Import, Arrays;
 
 class Masterpage implements MasterpageInterface
 {
@@ -236,7 +236,7 @@ class Masterpage implements MasterpageInterface
             $header .= '<link rel="shortcut icon" href="'.baseUrl($browserIcon).'" />'.$eol;
         }
 
-        $theme          = $head['theme']['name']      ?? $masterPageSet['theme']['name'];
+        $theme          = Arrays::deleteElement(Arrays::merge((array) ($masterPageSet['theme']['name'] ?? []), (array) ($head['theme']['name'] ?? [])), '');
         $themeRecursive = $head['theme']['recursive'] ?? $masterPageSet['theme']['recursive'];
 
         if( ! empty($theme) )
@@ -244,7 +244,7 @@ class Masterpage implements MasterpageInterface
             $header .= Import::theme($theme, $themeRecursive, true);
         }
 
-        $plugin          = $head['plugin']['name']      ?? $masterPageSet['plugin']['name'];
+        $plugin          = Arrays::deleteElement(Arrays::merge((array) ($masterPageSet['plugin']['name'] ?? []), (array) ($head['plugin']['name'] ?? [])), '');
         $pluginRecursive = $head['plugin']['recursive'] ?? $masterPageSet['plugin']['recursive'];
 
         if( ! empty($plugin) )

@@ -86,9 +86,7 @@ if( is_file($isFile) )
 
                 if( $isMasterpage === true )
                 {
-                    Config::set('Masterpage', $data);
-
-                    Import::bodyContent($view)->masterpage($data);
+                    Import::headData($data)->bodyContent($view)->masterpage($data);
                 }
             }
             catch( Throwable $e )
