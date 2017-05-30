@@ -34,6 +34,7 @@ class TemplateWizard extends CallController implements TemplateWizardInterface
             self::_printable($htmlRegexChar),
             self::_functions($htmlRegexChar),
             self::_symbolsFooter(),
+            self::_comments($htmlRegexChar),
             self::_required($htmlRegexChar),
             self::_tags($htmlRegexChar),
             self::_html($htmlAttributesTag, $htmlTagClose)
