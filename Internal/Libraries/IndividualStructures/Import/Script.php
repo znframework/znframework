@@ -47,7 +47,7 @@ class Script extends BootstrapExtends implements BootsrapInterface
                 {
                     $str .= '<script type="text/javascript" src="'.baseUrl($scriptFile).'"></script>'.$eol;
                 }
-                elseif( isUrl($script) && extension($script) === 'js' )
+                elseif( isUrl($script) )
                 {
                     $str .= '<script type="text/javascript" src="'.$script.'"></script>'.$eol;
                 }

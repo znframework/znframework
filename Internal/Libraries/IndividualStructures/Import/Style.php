@@ -47,7 +47,7 @@ class Style extends BootstrapExtends implements BootsrapInterface
                 {
                     $str .= '<link href="'.baseUrl($styleFile).'" rel="stylesheet" type="text/css" />'.$eol;
                 }
-                elseif( isUrl($style) && extension($style) === 'css' )
+                elseif( isUrl($style) )
                 {
                     $str .= '<link href="'.$style.'" rel="stylesheet" type="text/css" />'.$eol;
                 }

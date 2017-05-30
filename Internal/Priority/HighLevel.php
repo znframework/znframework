@@ -396,6 +396,8 @@ function writeLine(String $data = NULL, Array $vars = NULL, Int $brCount = 1)
 //--------------------------------------------------------------------------------------------------
 function ipv4() : String
 {
+    $localIP = '127.0.0.1';
+
     if( isset($_SERVER['HTTP_CLIENT_IP']) )
     {
         $ip = $_SERVER['HTTP_CLIENT_IP'];
@@ -406,12 +408,12 @@ function ipv4() : String
     }
     else
     {
-        $ip = $_SERVER['REMOTE_ADDR'];
+        $ip = $_SERVER['REMOTE_ADDR'] ?? $localIP;
     }
 
     if( $ip === '::1')
     {
-        $ip = '127.0.0.1';
+        $ip = $localIP;
     }
 
     return $ip;
