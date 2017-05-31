@@ -73,7 +73,7 @@ if( is_file($isFile) )
 
                 if( ($data['masterpage'] ?? NULL) === true || ! empty($data = (array) $pageClass->masterpage) )
                 {
-                    Import::headData($data)->bodyContent($usableView)->masterpage($data);
+                    Import::headData($data)->bodyContent($usableView ?? '')->masterpage($data);
                 }
                 elseif( ! empty($usableView) )
                 {
