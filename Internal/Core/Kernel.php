@@ -63,30 +63,21 @@ if( is_file($isFile) )
                 if( is_file($wizardPath) && ! isImport($viewPath) && ! isImport($wizardPath) )
                 {
                     $data = (array) ( ! empty((array) $pageClass->wizard) ? $pageClass->wizard : $pageClass->view );
-                    $view = Import::usable()->view(str_replace(PAGES_DIR, NULL, $wizardPath), $data);
+                    $usableView = Import::view(str_replace(PAGES_DIR, NULL, $wizardPath), $data, true);
                 }
                 elseif( is_file($viewPath) && ! isImport($viewPath) && ! isImport($wizardPath) )
                 {
                     $data = (array) $pageClass->view;
-                    $view = Import::usable()->view(str_replace(PAGES_DIR, NULL, $viewPath), $data);
+                    $usableView = Import::view(str_replace(PAGES_DIR, NULL, $viewPath), $data, true);
                 }
 
-                if( ($data['masterpage'] ?? NULL) === true )
-                {
-                    $isMasterpage = true;
-                }
-                elseif( ! empty($data = (array) $pageClass->masterpage) )
-                {
-                    $isMasterpage = true;
-                }
-                elseif( ! empty($view) )
-                {
-                    echo $view; exit;
-                }
-
-                if( $isMasterpage === true )
+                if( ($data['masterpage'] ?? NULL) === true || ! empty($data = (array) $pageClass->masterpage) )
                 {
                     Import::headData($data)->bodyContent($view)->masterpage($data);
+                }
+                elseif( ! empty($usableView) )
+                {
+                    echo $usableView; exit;
                 }
             }
             catch( Throwable $e )
