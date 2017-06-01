@@ -127,7 +127,7 @@ class Unicode implements UnicodeInterface
         $str = preg_replace("/\_/"    , '-', $str);
         $str = preg_replace('/\-+/'   , '-', $str);
 
-        return $str;
+        return strtolower($str);
     }
 
     //--------------------------------------------------------------------------------------------------------
