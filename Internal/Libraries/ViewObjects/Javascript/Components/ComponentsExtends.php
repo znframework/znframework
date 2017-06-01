@@ -15,6 +15,6 @@ class ComponentsExtends
 
     protected function _path() : String
     {
-        return INTERNAL_LIBRARIES_DIR . 'ViewObjects' . DS . 'Javascript' . DS . 'Components' . DS;
+        return realpath(__DIR__) . DS;
     }
 }
