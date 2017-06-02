@@ -1,6 +1,6 @@
 <?php namespace ZN\IndividualStructures\Import;
 
-class Style extends BootstrapExtends implements BootsrapInterface
+class Style extends BootstrapExtends implements BootstrapInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

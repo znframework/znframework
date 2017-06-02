@@ -1,6 +1,6 @@
 <?php namespace ZN\IndividualStructures\Import;
 
-class Script extends BootstrapExtends implements BootsrapInterface
+class Script extends BootstrapExtends implements BootstrapInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

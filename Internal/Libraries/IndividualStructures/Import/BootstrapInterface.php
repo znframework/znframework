@@ -1,6 +1,6 @@
 <?php namespace ZN\IndividualStructures\Import;
 
-interface BootsrapInterface
+interface BootstrapInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
