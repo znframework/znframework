@@ -1,6 +1,6 @@
 <?php namespace ZN\ViewObjects\Javascript\Components;
 
-interface DatatablesInterface
+interface ChartsInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -19,5 +19,5 @@ interface DatatablesInterface
     // @param array $attr = NULL
     //
     //--------------------------------------------------------------------------------------------------------
-    public function generate(Array $result, Array $attr = NULL) : String;
+    public function generate(String $type = 'area', Array $attr = NULL) : String;
 }

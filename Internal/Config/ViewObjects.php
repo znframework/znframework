@@ -99,7 +99,9 @@
             'rowGroupDatatables'         => 'https://cdn.datatables.net/rowgroup/1.0.0/js/dataTables.rowGroup.min.js',
             'rowReorderDatatables'       => 'https://cdn.datatables.net/rowreorder/1.2.0/js/dataTables.rowReorder.min.js',
             'scrollerDatatables'         => 'https://cdn.datatables.net/scroller/1.4.2/js/dataTables.scroller.min.js',
-            'selectDatatables'           => 'https://cdn.datatables.net/select/1.2.2/js/dataTables.select.min.js'
+            'selectDatatables'           => 'https://cdn.datatables.net/select/1.2.2/js/dataTables.select.min.js',
+            'morris'                     => 'https://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js',
+            'raphael'                    => 'https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.js'
         ],
 
         //----------------------------------------------------------------------------------------------
@@ -127,7 +129,8 @@
             'rowGroupDatatables'      => 'https://cdn.datatables.net/rowgroup/1.0.0/css/rowGroup.dataTables.min.css',
             'rowReorderDatatables'    => 'https://cdn.datatables.net/rowreorder/1.2.0/css/rowReorder.dataTables.min.css',
             'scrollerDatatables'      => 'https://cdn.datatables.net/scroller/1.4.2/css/scroller.dataTables.min.css',
-            'selectDatatables'        => 'https://cdn.datatables.net/select/1.2.2/css/select.dataTables.min.css'
+            'selectDatatables'        => 'https://cdn.datatables.net/select/1.2.2/css/select.dataTables.min.css',
+            'morris'                  => 'https://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css'
         ],
 
         //----------------------------------------------------------------------------------------------

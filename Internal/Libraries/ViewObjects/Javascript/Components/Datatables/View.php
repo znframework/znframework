@@ -21,6 +21,22 @@ $process    = $process    ?? NULL;
 $length     = $length     ?? 100;
 $serverSide = $properties['serverSide'] ?? NULL;
 $result     = (array) $result;
+$extensions = $extensions ?? [];
+
+//--------------------------------------------------------------------------------------------------------
+// Autoloader Extension
+//--------------------------------------------------------------------------------------------------------
+//
+// @extension jquery
+// @extension bootstrap
+// @extension raphael
+// @extension morris
+//
+//--------------------------------------------------------------------------------------------------------
+if( ! empty($autoloadExtensions) )
+{
+    $extensions = array_merge(['jquery', 'bootstrap', 'datatables'], $extensions);
+}
 
 //--------------------------------------------------------------------------------------------------------
 // Server Side

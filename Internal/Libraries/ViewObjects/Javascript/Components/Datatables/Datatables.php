@@ -19,7 +19,7 @@ class Datatables extends ComponentsExtends implements DatatablesInterface
     // @param array $attr = NULL
     //
     //--------------------------------------------------------------------------------------------------------
-    public function generate(Array $result, Array $attr = NULL)
+    public function generate(Array $result, Array $attr = NULL) : String
     {
         $attr['result'] = $result;
 
