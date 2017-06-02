@@ -15,8 +15,8 @@ class Charts extends ComponentsExtends implements ChartsInterface
     // Generate
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param array $result
-    // @param array $attr = NULL
+    // @param string $type = 'area'
+    // @param array  $attr = NULL
     //
     //--------------------------------------------------------------------------------------------------------
     public function generate(String $type = 'area', Array $attr = NULL) : String

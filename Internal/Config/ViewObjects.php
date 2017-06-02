@@ -130,7 +130,8 @@
             'rowReorderDatatables'    => 'https://cdn.datatables.net/rowreorder/1.2.0/css/rowReorder.dataTables.min.css',
             'scrollerDatatables'      => 'https://cdn.datatables.net/scroller/1.4.2/css/scroller.dataTables.min.css',
             'selectDatatables'        => 'https://cdn.datatables.net/select/1.2.2/css/select.dataTables.min.css',
-            'morris'                  => 'https://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css'
+            'morris'                  => 'https://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css',
+            'datepicker'              => 'https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css'
         ],
 
         //----------------------------------------------------------------------------------------------

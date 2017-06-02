@@ -1,6 +1,6 @@
 <?php namespace ZN\ViewObjects\Javascript\Components;
 
-interface ChartsInterface
+interface DatepickerInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -15,9 +15,9 @@ interface ChartsInterface
     // Generate
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $type = 'area'
+    // @param string $id   = 'datepicker'
     // @param array  $attr = NULL
     //
     //--------------------------------------------------------------------------------------------------------
-    public function generate(String $type = 'area', Array $attr = NULL) : String;
+    public function generate(String $id = 'datepicker', Array $attr = NULL) : String;
 }
