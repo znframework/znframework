@@ -13,8 +13,8 @@ class ComponentsExtends
     //
     //--------------------------------------------------------------------------------------------------------
 
-    protected function _path() : String
+    protected function load($path, $attr) : String
     {
-        return realpath(__DIR__) . DS;
+        return Import::page($path, $attr, true, realpath(__DIR__) . DS);
     }
 }
