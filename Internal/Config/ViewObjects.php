@@ -101,7 +101,8 @@
             'scrollerDatatables'         => 'https://cdn.datatables.net/scroller/1.4.2/js/dataTables.scroller.min.js',
             'selectDatatables'           => 'https://cdn.datatables.net/select/1.2.2/js/dataTables.select.min.js',
             'morris'                     => 'https://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js',
-            'raphael'                    => 'https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.js'
+            'raphael'                    => 'https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.js',
+            'select2'                    => 'https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js'
         ],
 
         //----------------------------------------------------------------------------------------------
@@ -131,7 +132,8 @@
             'scrollerDatatables'      => 'https://cdn.datatables.net/scroller/1.4.2/css/scroller.dataTables.min.css',
             'selectDatatables'        => 'https://cdn.datatables.net/select/1.2.2/css/select.dataTables.min.css',
             'morris'                  => 'https://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css',
-            'datepicker'              => 'https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css'
+            'datepicker'              => 'https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css',
+            'select2'                 => 'https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css'
         ],
 
         //----------------------------------------------------------------------------------------------

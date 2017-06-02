@@ -17,7 +17,8 @@ class InternalJC extends \FactoryController
         [
             'datatable'  => 'Javascript\Components\Datatables::generate',
             'chart'      => 'Javascript\Components\Charts::generate',
-            'datepicker' => 'Javascript\Components\Datepicker::generate'
+            'datepicker' => 'Javascript\Components\Datepicker::generate',
+            'select2'    => 'Javascript\Components\Select2::generate'
         ]
     ];
 }
