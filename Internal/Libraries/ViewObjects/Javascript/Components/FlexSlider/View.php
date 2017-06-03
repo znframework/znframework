@@ -11,6 +11,7 @@
 //--------------------------------------------------------------------------------------------------------,
 $extensions = $extensions ?? [];
 $attributes = $attributes ?? [];
+$path       = ($path ? suffix($path) : NULL);
 
 //--------------------------------------------------------------------------------------------------------
 // Autoloader Extension
@@ -45,11 +46,17 @@ if( ! empty($extensions) )
 }
 ?>
 
-<div<?php echo Html::attributes($attributes);?> id="<?php echo $id ?>">
+<div class="flexslider"<?php echo Html::attributes($attributes);?> id="<?php echo $id ?>">
     <ul class="slides">
         <?php if( isArray($images ?? NULL) ) foreach( $images as $image ): ?>
         <li>
-          <img src="<?php echo baseUrl($image); ?>" />
+            <?php
+            if( ! is_array($image) ):
+                echo Html::image($path . $image);
+            else:
+                echo Html::anchor($image[0], Html::image($path . $image[1]));
+            endif;
+            ?>
         </li>
         <?php endforeach; ?>
     </ul>
