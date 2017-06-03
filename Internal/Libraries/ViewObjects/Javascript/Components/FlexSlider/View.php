@@ -54,7 +54,7 @@ if( ! empty($extensions) )
             if( ! is_array($image) ):
                 echo Html::image($path . $image);
             else:
-                echo Html::anchor($image[0], Html::image($path . $image[1]));
+                echo Html::anchor(Arrays::key($image), Html::image($path . Arrays::value($image)));
             endif;
             ?>
         </li>

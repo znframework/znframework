@@ -104,7 +104,8 @@
             'morris'                     => 'https://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js',
             'raphael'                    => 'https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.js',
             'select2'                    => 'https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js',
-            'flexSlider'                 => 'https://cdnjs.cloudflare.com/ajax/libs/flexslider/2.6.3/jquery.flexslider.js'
+            'flexSlider'                 => 'https://cdnjs.cloudflare.com/ajax/libs/flexslider/2.6.3/jquery.flexslider.js',
+            'ace'                        => 'https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ace.js'
         ],
 
         //----------------------------------------------------------------------------------------------
