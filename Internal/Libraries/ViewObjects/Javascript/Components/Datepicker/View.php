@@ -44,7 +44,12 @@ if( ! empty($extensions) )
     Import::style(...$extensions);
 }
 
-echo Form::id($id)->attr($attributes)->text($id);
+if( ! empty($class) )
+{
+    Form::class($class);
+}
+
+echo Form::id($id)->attr($attributes)->text($name ?? $id);
 
 if( ! empty($extensions) )
 {

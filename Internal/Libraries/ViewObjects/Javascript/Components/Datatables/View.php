@@ -20,7 +20,12 @@ $class      = $class      ?? 'table-striped table-bordered table-hover';
 $process    = $process    ?? NULL;
 $length     = $length     ?? 100;
 $serverSide = $properties['serverSide'] ?? NULL;
-$result     = (array) $result;
+
+if( is_string($result) )
+{
+    $result = DB::get($result)->resultArray();
+}
+
 $extensions = $extensions ?? [];
 
 //--------------------------------------------------------------------------------------------------------
@@ -35,7 +40,7 @@ $extensions = $extensions ?? [];
 //--------------------------------------------------------------------------------------------------------
 if( ! empty($autoloadExtensions) )
 {
-    $extensions = array_merge(['jquery', 'bootstrap', 'datatables'], (array) $extensions);
+    $extensions = array_merge(['jquery', 'datatables'], (array) $extensions);
 }
 
 //--------------------------------------------------------------------------------------------------------
@@ -112,7 +117,7 @@ if( ! empty($extensions) )
             <td><?php echo Limiter::word($row[$column] ?? '', $length) ?></td>
             <?php endforeach; ?>
             <?php if( is_callable($process) ): ?>
-            <td><?php echo $process((object) $row); ?></td>
+            <td><?php echo $process((object) $row, new Html); ?></td>
             <?php endif; ?>
         </tr>
         <?php endforeach; ?>

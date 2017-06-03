@@ -15,9 +15,9 @@ interface DatatablesInterface
     // Generate
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param array $result
+    // @param mixed $result
     // @param array $attr = NULL
     //
     //--------------------------------------------------------------------------------------------------------
-    public function generate(Array $result, Array $attr = NULL) : String;
+    public function generate($result, Array $attr = NULL) : String;
 }
