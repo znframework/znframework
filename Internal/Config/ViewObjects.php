@@ -79,6 +79,7 @@
         [
             'jquery'                     => 'https://code.jquery.com/jquery-latest.js',
             'jqueryUi'                   => 'https://code.jquery.com/ui/1.11.3/jquery-ui.js',
+            'jqueryValidator'            => 'https://cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/jquery.form-validator.min.js',
             'bootstrap'                  => 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js',
             'bootlint'                   => 'https://maxcdn.bootstrapcdn.com/bootlint/0.14.1/bootlint.min.js',
             'angular'                    => 'https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js',

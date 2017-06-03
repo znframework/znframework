@@ -26,7 +26,7 @@ $attributes = $attributes ?? [];
 //--------------------------------------------------------------------------------------------------------
 if( ! empty($autoloadExtensions) )
 {
-    $extensions = array_merge(['jquery', 'bootstrap', 'raphael', 'morris'], $extensions);
+    $extensions = array_merge(['jquery', 'raphael', 'morris'], (array) $extensions);
 }
 
 //--------------------------------------------------------------------------------------------------------

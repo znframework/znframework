@@ -25,7 +25,7 @@ $path       = ($path ? suffix($path) : NULL);
 //--------------------------------------------------------------------------------------------------------
 if( ! empty($autoloadExtensions) )
 {
-    $extensions = array_merge(['jquery', 'flexSlider'], $extensions);
+    $extensions = array_merge(['jquery', 'flexSlider'], (array) $extensions);
 }
 
 //--------------------------------------------------------------------------------------------------------

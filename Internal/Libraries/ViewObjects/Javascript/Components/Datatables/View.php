@@ -35,7 +35,7 @@ $extensions = $extensions ?? [];
 //--------------------------------------------------------------------------------------------------------
 if( ! empty($autoloadExtensions) )
 {
-    $extensions = array_merge(['jquery', 'bootstrap', 'datatables'], $extensions);
+    $extensions = array_merge(['jquery', 'bootstrap', 'datatables'], (array) $extensions);
 }
 
 //--------------------------------------------------------------------------------------------------------

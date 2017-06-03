@@ -29,7 +29,7 @@ $attributes = $attributes ?? [];
 //--------------------------------------------------------------------------------------------------------
 if( ! empty($autoloadExtensions) )
 {
-    $extensions = array_merge(['jquery', 'bootstrap', 'select2'], $extensions);
+    $extensions = array_merge(['jquery', 'select2'], (array) $extensions);
 }
 
 //--------------------------------------------------------------------------------------------------------

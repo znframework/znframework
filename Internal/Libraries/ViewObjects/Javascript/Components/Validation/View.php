@@ -3,7 +3,6 @@
 // Extract Vars
 //--------------------------------------------------------------------------------------------------------
 //
-// @var string $id
 // @var array  $extensions
 // @var array  $properties
 // @var array  $attributes
@@ -11,6 +10,7 @@
 //--------------------------------------------------------------------------------------------------------,
 $extensions = $extensions ?? [];
 $attributes = $attributes ?? [];
+$name       = $name       ?? 'form';
 
 //--------------------------------------------------------------------------------------------------------
 // Autoloader Extension
@@ -24,7 +24,7 @@ $attributes = $attributes ?? [];
 //--------------------------------------------------------------------------------------------------------
 if( ! empty($autoloadExtensions) )
 {
-    $extensions = array_merge(['jquery', 'jqueryui', 'datepicker'], (array) $extensions);
+    $extensions = array_merge(['jquery', 'jqueryValidator'], (array) $extensions);
 }
 
 //--------------------------------------------------------------------------------------------------------
@@ -44,7 +44,29 @@ if( ! empty($extensions) )
     Import::style(...$extensions);
 }
 
-echo Form::id($id)->attr($attributes)->text($id);
+if( ! empty($action) )
+{
+    Form::action($action);
+}
+
+if( ! empty($method) )
+{
+    Form::method($method);
+}
+
+if( ! empty($multipart) )
+{
+    Form::multipart($multipart);
+}
+
+if( ! empty($class) )
+{
+    Form::class($class);
+}
+
+echo Form::attr($attributes)->open($name);
+echo $form(new Form, new Html);
+echo Form::close();
 
 if( ! empty($extensions) )
 {
@@ -55,6 +77,6 @@ if( ! empty($extensions) )
 <script>
 $(function()
 {
-    $('#<?php echo $id ?>').datepicker(<?php echo ! empty($properties) ? Json::encode($properties) : NULL?>);
+    $.validate(<?php echo ! empty($properties) ? Json::encode($properties) : NULL?>);
 });
 </script>

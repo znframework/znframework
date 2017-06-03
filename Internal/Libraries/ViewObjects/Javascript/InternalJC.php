@@ -19,7 +19,8 @@ class InternalJC extends \FactoryController
             'chart'      => 'Javascript\Components\Charts::generate',
             'datepicker' => 'Javascript\Components\Datepicker::generate',
             'select2'    => 'Javascript\Components\Select2::generate',
-            'flexslider' => 'Javascript\Components\FlexSlider::generate'
+            'flexslider' => 'Javascript\Components\FlexSlider::generate',
+            'validation' => 'Javascript\Components\Validation::generate'
         ]
     ];
 }
