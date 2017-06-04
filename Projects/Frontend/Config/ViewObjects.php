@@ -19,6 +19,7 @@
     //
     // keywords : for, if, while, foreach gibi kullanımlara izin ver.
     // printable: @@function:, @variable: kullanımına izin ver.
+    // functions: @function: kullanımına izin ver.
     // comments : {-- yorum satırı --} kullanımına izin ver.
     // tags     : {[ php codes ]} php tagları olarak kullanımına izin ver.
     // html     : #html kodlarını # kare symbolü ile kullanıma izin ver.
@@ -26,12 +27,12 @@
     //--------------------------------------------------------------------------------------------------
     'wizard' =>
     [
-        'keywords'      => true,
-        'printable'     => true,
-        'functions'     => true,
-        'comments'      => true,
-        'tags'          => true,
-        'html'          => true
+        'keywords'  => true,
+        'printable' => true,
+        'functions' => true,
+        'comments'  => true,
+        'tags'      => true,
+        'html'      => true
     ],
 
     //--------------------------------------------------------------------------------------------------
