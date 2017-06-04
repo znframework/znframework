@@ -21,7 +21,8 @@ class InternalJC extends \FactoryController
             'select2'    => 'Javascript\Components\Select2::generate',
             'flexslider' => 'Javascript\Components\FlexSlider::generate',
             'validation' => 'Javascript\Components\Validation::generate',
-            'aceeditor'  => 'Javascript\Components\AceEditor::generate'
+            'aceeditor'  => 'Javascript\Components\AceEditor::generate',
+            'pagination' => 'Javascript\Components\Pagination::generate'
         ]
     ];
 }
