@@ -7,8 +7,6 @@
 //
 //--------------------------------------------------------------------------------------------------------
 $extensions = $extensions ?? [];
-$size       = $size ?? 'normal';
-$close      = $close ?? true;
 
 //--------------------------------------------------------------------------------------------------------
 // Autoloader Extension
@@ -54,10 +52,10 @@ if( ! empty($extensions) )
 <?php endif; ?>
 <!-- Modal -->
 <div<?php echo Html::attributes($modal['attributes'] ?? [])?> id="<?php echo $id; ?>" class="modal fade" role="dialog">
-    <div class="modal-dialog modal-<?php echo $modal['size'];?>">
+    <div class="modal-dialog modal-<?php echo $modal['size'] ?? 'normal';?>">
         <div class="modal-content">
             <div class="modal-header">
-            <?php if( $close === true ): ?>
+            <?php if( ($modal['close'] ?? true) === true ): ?>
             <button type="button" class="close" data-dismiss="modal">&times;</button>
             <?php endif; ?>
             <h4 class="modal-title"><?php echo $modal['title'] ?? 'Modal Title'; ?></h4>
