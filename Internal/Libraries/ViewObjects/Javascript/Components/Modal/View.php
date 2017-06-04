@@ -10,11 +10,10 @@
 //
 //--------------------------------------------------------------------------------------------------------
 $extensions = $extensions ?? [];
-$attributes = $attributes ?? [];
-
-$config     = Config::get('ViewObjects', 'pagination');
-$type       = $type       ?? $config['type'];
-$index      = md5($index);
+$buttonValue = $button['value'] ?? 'Open Modal';
+$buttonClass = $button['class'] ?? 'btn-info btn-lg';
+$size        = $size ?? 'normal';
+$close       = $close ?? true;
 
 //--------------------------------------------------------------------------------------------------------
 // Autoloader Extension
@@ -46,17 +45,6 @@ if( ! empty($extensions) )
     Import::style(...$extensions);
 }
 
-preg_match('/limit\s+([0-9]+)(\s*\,\s*([0-9]+))*/xi', $get->stringQuery(), $match);
-
-$start = $match[1];
-
-if( $type === 'ajax' )
-{
-    $start = Method::post('start');
-}
-
-$limit = $match[3] ?? $config['limit'];
-
 //--------------------------------------------------------------------------------------------------------
 // Creating Pagination
 //--------------------------------------------------------------------------------------------------------
@@ -65,59 +53,34 @@ $limit = $match[3] ?? $config['limit'];
 //
 //--------------------------------------------------------------------------------------------------------
 ?>
-<ul<?php echo Html::attributes($attributes); ?> class="pagination">
-    <?php
-    $rows = ceil($get->totalRows(true) / $limit);
 
-    for( $i = 1; $i <= $rows; $i++ ):
-        $s = ($i - 1) * $limit;
-    ?>
-
-    <li <?php echo $s == ($start ?? 0) ? 'class="active"' : '' ?>>
-        <?php
-            if( $type === 'ajax' )
-            {
-                Html::onclick('JCAjaxPagination'.$index.'('.$s.')');
-                $anchor = '#' . $s;
-            }
-            else
-            {
-                $anchor = siteUrl(Pagination::getURI($s));
-            }
-
-            echo Html::anchor($anchor, $i);
-        ?>
-    </li>
-    <?php endfor; ?>
-</ul>
+<?php if( isset($button) ): ?>
+<input<?php echo Html::attributes($button['attributes'] ?? [])?> type="<?php echo $button['type'] ?? 'button'?>" value="<?php echo $button['value'] ?? 'Open Modal'?>" class="btn <?php echo $button['class'] ?? 'btn-info'?>" data-toggle="modal" data-target="#<?php echo $id;?>">
+<?php endif; ?>
+<!-- Modal -->
+<div<?php echo Html::attributes($modal['attributes'] ?? [])?> id="<?php echo $id; ?>" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-<?php echo $modal['size'];?>">
+        <div class="modal-content">
+            <div class="modal-header">
+            <?php if( $close === true ): ?>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <?php endif; ?>
+            <h4 class="modal-title"><?php echo $modal['title'] ?? 'Modal Title'; ?></h4>
+            </div>
+            <div class="modal-body">
+            <p><?php echo $modal['content'] ?? 'Modal Content'?></p>
+            </div>
+            <?php if( is_callable($modal['process'] ?? NULL) ): ?>
+            <div class="modal-footer">
+            <?php echo $modal['process'](new Form, new Html) ?>
+            </div>
+        <?php endif; ?>
+        </div>
+    </div>
+</div>
 
 <?php
 if( ! empty($extensions) )
 {
     Import::script(...$extensions);
 }
-
-//--------------------------------------------------------------------------------------------------------
-// JC Ajax Pagination Function
-//--------------------------------------------------------------------------------------------------------
-//
-// @param string start
-//
-//--------------------------------------------------------------------------------------------------------
-if( $type === 'ajax' ):
-?>
-<script>
-function JCAjaxPagination<?php echo $index; ?>(start)
-{
-    $.ajax
-    ({
-    	data:{"start" : start},
-    	method:"post",
-    	success:function(data)
-    	{
-            document.documentElement.innerHTML = data;
-    	}
-    });
-}
-</script>
-<?php endif; ?>
