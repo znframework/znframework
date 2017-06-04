@@ -3,17 +3,12 @@
 // Extract Vars
 //--------------------------------------------------------------------------------------------------------
 //
-// @var string $type
 // @var array  $extensions
-// @var array  $properties
-// @var array  $attributes
 //
 //--------------------------------------------------------------------------------------------------------
 $extensions = $extensions ?? [];
-$buttonValue = $button['value'] ?? 'Open Modal';
-$buttonClass = $button['class'] ?? 'btn-info btn-lg';
-$size        = $size ?? 'normal';
-$close       = $close ?? true;
+$size       = $size ?? 'normal';
+$close      = $close ?? true;
 
 //--------------------------------------------------------------------------------------------------------
 // Autoloader Extension
@@ -46,7 +41,7 @@ if( ! empty($extensions) )
 }
 
 //--------------------------------------------------------------------------------------------------------
-// Creating Pagination
+// Creating Modal
 //--------------------------------------------------------------------------------------------------------
 //
 // @output string
