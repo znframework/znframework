@@ -1,6 +1,6 @@
 <?php namespace ZN\Services\Remote;
 
-use CURL, Json, URL, XML, Http, Route;
+use CURL, Json, URL, XML, Http, Redirect, Route;
 
 class InternalRestful implements InternalRestfulInterface
 {
@@ -60,6 +60,37 @@ class InternalRestful implements InternalRestfulInterface
     public function __call($method, $parameters)
     {
         return $this->info($method);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Content Type
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $type    = 'json'
+    // @param string $charset = 'utf-8'
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function contentType(String $type = 'json', String $charset = 'utf-8') : InternalRestful
+    {
+        header('Content-Type: application/' . $type . '; charset=' . $charset);
+
+        return $this;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Http Status
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param int $code
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function httpStatus(Int $code = NULL) : InternalRestful
+    {
+        $code = $code ?? Redirect::status();
+
+        header('HTTP/1.1 ' . $code . ' ' . Http::code($code));
+
+        return $this;
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -237,6 +268,7 @@ class InternalRestful implements InternalRestfulInterface
         $this->info['getrequestsize']       = CURL::info('request_size');
         $this->info['getdownloadspeed']     = CURL::info('speed_download');
         $this->info['getuploadspeed']       = CURL::info('speed_upload');
+        $this->info['all']                  = CURL::info(NULL);
     }
 
     //--------------------------------------------------------------------------------------------------------

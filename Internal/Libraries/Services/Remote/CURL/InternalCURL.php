@@ -125,11 +125,16 @@ class InternalCURL extends CallController implements InternalCURLInterface
     // @param string $opt
     //
     //--------------------------------------------------------------------------------------------------------
-    public function info(String $opt)
+    public function info(String $opt = NULL)
     {
         if( ! is_resource($this->init) )
         {
             throw new InvalidArgumentException('Error', 'resourceParameter', '1.(ch)');
+        }
+
+        if( $opt === NULL )
+        {
+            return curl_getinfo($this->init);
         }
 
         return curl_getinfo($this->init, Converter::toConstant($opt, 'CURLINFO_'));

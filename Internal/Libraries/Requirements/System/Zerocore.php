@@ -50,6 +50,8 @@ class Zerocore
     //--------------------------------------------------------------------------------------------------------
     public static function commander($commands)
     {
+        report('TerminalCommands', implode(' ', $commands), 'TerminalCommands');
+
         $commands = Arrays::removeFirst($commands);
 
         if( ($commands[0] ?? NULL) !== 'project-name' )
@@ -172,7 +174,37 @@ class Zerocore
 
         import($file);
 
-        echo uselib($class)->$function(...$parameters);
+        self::_result(uselib($class)->$function(...$parameters));
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Result
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $result
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected static function _result($result)
+    {
+        if( $result === true || $result === NULL )
+        {
+            echo lang('Success', 'success');
+        }
+        elseif( $result === false )
+        {
+            echo lang('Error', 'error');
+        }
+        else
+        {
+            if( is_array($result) )
+            {
+                print_r($result);
+            }
+            else
+            {
+                echo $result;
+            }
+        }
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -188,7 +220,7 @@ class Zerocore
 
         $className = $namespace . $class;
 
-        echo uselib($className)->$method(...self::$parameters);
+        self::_result(uselib($className)->$method(...self::$parameters));
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -202,7 +234,7 @@ class Zerocore
     {
         $method = self::$command;
 
-        echo $method(...self::$parameters);
+        self::_result($method(...self::$parameters));
     }
 
     //--------------------------------------------------------------------------------------------------------

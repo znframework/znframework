@@ -2,7 +2,7 @@
 
 use Config, Import;
 
-class Font extends BootstrapExtends implements BootsrapInterface
+class Font extends BootstrapExtends implements BootstrapInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

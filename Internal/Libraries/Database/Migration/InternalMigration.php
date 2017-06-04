@@ -249,7 +249,7 @@ class InternalMigration extends \CallController implements InternalMigrationInte
             $str .= "\t".'public function up()'.$eol;
             $str .= "\t".'{'.$eol;
             $str .= "\t\t".'// Default Query'.$eol;
-            $str .= "\t\t".'$this->createTable(["id" => [DB::int(11), DB::primaryKey(), DB::autoIncrement()]]);'.$eol;
+            $str .= "\t\t".'return $this->createTable([\'id\' => [DB::int(11), DB::primaryKey(), DB::autoIncrement()]]);'.$eol;
             $str .= "\t".'}'.$eol.$eol;
             $str .= "\t".'//--------------------------------------------------------------------------------------------------------'.$eol;
             $str .= "\t".'// Down'.$eol;
@@ -257,7 +257,7 @@ class InternalMigration extends \CallController implements InternalMigrationInte
             $str .= "\t".'public function down()'.$eol;
             $str .= "\t".'{'.$eol;
             $str .= "\t\t".'// Default Query'.$eol;
-            $str .= "\t\t".'$this->dropTable();'.$eol;
+            $str .= "\t\t".'return $this->dropTable();'.$eol;
             $str .= "\t".'}'.$eol;
             $str .= '}';
 

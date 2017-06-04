@@ -132,7 +132,11 @@ class Forge implements ForgeInterface
         {
             if( ! $fileListClass->files($source) )
             {
-                return copy($source, $target);
+                $emptyFilePath = suffix($source, DS) . 'empty';
+
+                File::create($emptyFilePath);
+
+                return copy($emptyFilePath, $target);
             }
             else
             {

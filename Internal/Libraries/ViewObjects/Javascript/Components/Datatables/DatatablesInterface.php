@@ -1,6 +1,6 @@
-<?php namespace ZN\IndividualStructures\Import;
+<?php namespace ZN\ViewObjects\Javascript\Components;
 
-interface BootsrapInterface
+interface DatatablesInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -12,11 +12,12 @@ interface BootsrapInterface
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
-    // use()
+    // Generate
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param variadic $scripts
+    // @param mixed $result
+    // @param array $attr = NULL
     //
     //--------------------------------------------------------------------------------------------------------
-    public function use(...$file);
+    public function generate($result, Array $attr = NULL) : String;
 }

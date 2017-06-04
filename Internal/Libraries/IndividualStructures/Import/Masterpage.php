@@ -1,6 +1,6 @@
 <?php namespace ZN\IndividualStructures\Import;
 
-use Config, HTML, Import;
+use Config, HTML, Import, Arrays;
 
 class Masterpage implements MasterpageInterface
 {
@@ -112,6 +112,20 @@ class Masterpage implements MasterpageInterface
     }
 
     //--------------------------------------------------------------------------------------------------------
+    // bodyContent() -> 4.6.0
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var string $content
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function bodyContent(String $content) : Masterpage
+    {
+        Properties::$parameters['bodyContent'] = $content;
+
+        return $this;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
     // masterpage()
     //--------------------------------------------------------------------------------------------------------
     //
@@ -130,6 +144,8 @@ class Masterpage implements MasterpageInterface
         {
             $randomDataVariable = Properties::$parameters['data'];
         }
+
+        $bodyContent = Properties::$parameters['bodyContent'] ?? NULL;
 
         Properties::$parameters = [];
 
@@ -212,7 +228,7 @@ class Masterpage implements MasterpageInterface
         $header .= $this->_links($masterPageSet, $head, 'font');
         $header .= $this->_links($masterPageSet, $head, 'style');
         $header .= $this->_links($masterPageSet, $head, 'script');
- 
+
         $browserIcon = $head['browserIcon'] ?? $masterPageSet["browserIcon"];
 
         if( ! empty($browserIcon) && is_file($browserIcon) )
@@ -220,7 +236,7 @@ class Masterpage implements MasterpageInterface
             $header .= '<link rel="shortcut icon" href="'.baseUrl($browserIcon).'" />'.$eol;
         }
 
-        $theme          = $head['theme']['name']      ?? $masterPageSet['theme']['name'];
+        $theme          = Arrays::deleteElement(Arrays::merge((array) ($masterPageSet['theme']['name'] ?? []), (array) ($head['theme']['name'] ?? [])), '');
         $themeRecursive = $head['theme']['recursive'] ?? $masterPageSet['theme']['recursive'];
 
         if( ! empty($theme) )
@@ -228,7 +244,7 @@ class Masterpage implements MasterpageInterface
             $header .= Import::theme($theme, $themeRecursive, true);
         }
 
-        $plugin          = $head['plugin']['name']      ?? $masterPageSet['plugin']['name'];
+        $plugin          = Arrays::deleteElement(Arrays::merge((array) ($masterPageSet['plugin']['name'] ?? []), (array) ($head['plugin']['name'] ?? [])), '');
         $pluginRecursive = $head['plugin']['recursive'] ?? $masterPageSet['plugin']['recursive'];
 
         if( ! empty($plugin) )
@@ -272,7 +288,13 @@ class Masterpage implements MasterpageInterface
 
         if( ! empty($randomPageVariable) )
         {
+            $randomDataVariable['view'] = $bodyContent;
+
             Import::page($randomPageVariable, $randomDataVariable);
+        }
+        else
+        {
+            echo $bodyContent;
         }
 
         $randomFooterVariable  = $eol.'</body>'.$eol;

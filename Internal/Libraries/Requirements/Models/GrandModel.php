@@ -76,24 +76,11 @@ class GrandModel extends BaseController
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
-        if( defined('static::connection') )
-        {
-            $this->connect      = DB::differentConnection(static::connection);
-            $this->connectTool  = DBTool::differentConnection(static::connection);
-            $this->connectForge = DBForge::differentConnection(static::connection);
-
-            $tables = $this->connectTool->listTables();
-        }
-        else
-        {
-            $this->connect      = new DB;
-            $this->connectTool  = new DBTool;
-            $this->connectForge = new DBForge;
-
-            $tables = $this->connectTool->listTables();
-        }
-
-        $this->tables = $tables;
+        $staticConnection   = defined('static::connection') ? static::connection : NULL;
+        $this->connect      = DB::differentConnection($staticConnection);
+        $this->connectTool  = DBTool::differentConnection($staticConnection);
+        $this->connectForge = DBForge::differentConnection($staticConnection);
+        $this->tables       = $this->connectTool->listTables();
 
         if( defined('static::table') )
         {
@@ -122,6 +109,14 @@ class GrandModel extends BaseController
             return $return;
         }
         elseif( $return = $this->_callColumn($method, $parameters, 'result') )
+        {
+            return $return;
+        }
+        elseif( $return = $this->_callColumn($method, $parameters, 'update') )
+        {
+            return $return;
+        }
+        elseif( $return = $this->_callColumn($method, $parameters, 'delete') )
         {
             return $return;
         }
@@ -160,7 +155,7 @@ class GrandModel extends BaseController
     // @param array $data: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function insert(Array $data) : Bool
+    public function insert($data) : Bool
     {
         $this->_postGet($table, $data);
 
@@ -213,11 +208,16 @@ class GrandModel extends BaseController
     // @param array $data: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function update($data, String $column, String $value) : Bool
+    public function update($data, String $column = NULL, String $value = NULL) : Bool
     {
         $this->_postGet($table, $data);
 
-        return $this->connect->where($column, $value)->update($table, $data);
+        if( $column !== NULL )
+        {
+            $this->connect->where($column, $value);
+        }
+
+        return $this->connect->update($table, $data);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -228,9 +228,14 @@ class GrandModel extends BaseController
     // @param string $value : empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function delete(String $column, String $value) : Bool
+    public function delete(String $column = NULL, String $value = NULL) : Bool
     {
-        return $this->connect->where($column, $value)->delete($this->grandTable);
+        if( $column !== NULL )
+        {
+            $this->connect->where($column, $value);
+        }
+
+        return $this->connect->delete($this->grandTable);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -493,6 +498,20 @@ class GrandModel extends BaseController
     public function duplicateCheck(...$args)
     {
         $this->connect->duplicateCheck(...$args);
+
+        return $this;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Duplicate Check Update
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string ...$args
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function duplicateCheckUpdate(...$args)
+    {
+        $this->connect->duplicateCheckUpdate(...$args);
 
         return $this;
     }
@@ -778,6 +797,17 @@ class GrandModel extends BaseController
         {
             $func = $type;
             $col  = substr($method, strlen($type));
+            $data = NULL;
+
+            if( $func === 'update' )
+            {
+                if( ! isset($params[1]) )
+                {
+                    return false;
+                }
+
+                return $this->where($col, $params[1])->$func($params[0]);
+            }
 
             return $this->where($col, $params[0])->$func();
         }
