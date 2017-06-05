@@ -23,7 +23,8 @@ class InternalJC extends \FactoryController
             'validation' => 'Javascript\Components\Validation::generate',
             'aceeditor'  => 'Javascript\Components\AceEditor::generate',
             'pagination' => 'Javascript\Components\Pagination::generate',
-            'modalbox'   => 'Javascript\Components\Modal::generate'
+            'modalbox'   => 'Javascript\Components\Modal::generate',
+            'gridsystem' => 'Javascript\Components\GridSystem::generate'
         ]
     ];
 }
