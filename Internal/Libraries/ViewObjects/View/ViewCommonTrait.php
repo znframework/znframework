@@ -62,7 +62,8 @@ trait ViewCommonTrait
     //--------------------------------------------------------------------------------------------------------
     public function __call($method, $parameters)
     {
-        $method = strtolower($method);
+        $realMethod = $method;
+        $method     = strtolower($method);
 
         if( empty($parameters) )
         {
@@ -85,6 +86,29 @@ trait ViewCommonTrait
         {
             $method = $this->useElements[$method];
         }
+
+        //----------------------------------------------------------------------------------------------------
+        // 4.6.1 -> convert exampleData to example-data
+        //----------------------------------------------------------------------------------------------------
+        if( ! ctype_lower($realMethod) )
+        {
+            $newMethod = NULL;
+
+            for( $i = 0; $i < strlen($realMethod); $i++ )
+            {
+                if( ctype_upper($realMethod[$i]) )
+                {
+                    $newMethod .= '-' . strtolower($realMethod[$i]);
+                }
+                else
+                {
+                    $newMethod .= $realMethod[$i];
+                }
+            }
+
+            $method = $newMethod;
+        }
+        //----------------------------------------------------------------------------------------------------
 
         $this->_element($method, ...$parameters);
 
