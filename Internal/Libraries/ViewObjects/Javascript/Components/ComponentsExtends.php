@@ -1,6 +1,6 @@
 <?php namespace ZN\ViewObjects\Javascript\Components;
 
-use Import;
+use Import, RevolvingAbility;
 
 class ComponentsExtends
 {
@@ -12,6 +12,8 @@ class ComponentsExtends
     // Copyright  : (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
+
+    use RevolvingAbility;
 
     protected function load($path, $attr) : String
     {
