@@ -25,6 +25,7 @@ class InternalStrings extends \FactoryController implements InternalStringsInter
             'titlecase'      => 'Strings\Casing::title',
             'pascalcase'     => 'Strings\Casing::pascal',
             'camelcase'      => 'Strings\Casing::camel',
+            'underscorecase' => 'Strings\Casing::underscore',
             'search'         => 'Strings\Search::use',
             'searchposition' => 'Strings\Search::position',
             'searchstring'   => 'Strings\Search::string',
