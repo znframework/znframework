@@ -11,9 +11,6 @@
 //--------------------------------------------------------------------------------------------------------
 $extensions = $extensions ?? [];
 $attributes = $attributes ?? [];
-
-$config     = Config::get('ViewObjects', 'pagination');
-$type       = $type       ?? $config['type'];
 $index      = md5($index);
 
 //--------------------------------------------------------------------------------------------------------
@@ -55,7 +52,7 @@ if( $type === 'ajax' )
     $start = Method::post('start');
 }
 
-$limit = $match[3] ?? $config['limit'];
+$limit = $match[3] ?? Config::get('ViewObjects', 'pagination')['limit'];
 
 //--------------------------------------------------------------------------------------------------------
 // Creating Pagination

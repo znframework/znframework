@@ -37,8 +37,7 @@ interface GridSystemInterface
     //--------------------------------------------------------------------------------------------------------
     //
     // @param callable $grid
-    // @param array    $attr = NULL
     //
     //--------------------------------------------------------------------------------------------------------
-    public function generate(Callable $grid, Array $attr = NULL) : String;
+    public function generate(Callable $grid) : String;
 }

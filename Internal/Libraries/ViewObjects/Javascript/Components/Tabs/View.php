@@ -1,17 +1,5 @@
 <?php
 //--------------------------------------------------------------------------------------------------------
-// Extract Vars
-//--------------------------------------------------------------------------------------------------------
-//
-// @var array  $extensions
-// @var array  $properties
-// @var array  $attributes
-//
-//--------------------------------------------------------------------------------------------------------,
-$extensions = $extensions ?? [];
-$attributes = $attributes ?? [];
-
-//--------------------------------------------------------------------------------------------------------
 // Autoloader Extension
 //--------------------------------------------------------------------------------------------------------
 //
@@ -23,7 +11,7 @@ $attributes = $attributes ?? [];
 //--------------------------------------------------------------------------------------------------------
 if( ! empty($autoloadExtensions) )
 {
-    $extensions = array_merge(['bootstrap'], (array) $extensions);
+    $extensions = array_merge(['jquery', 'bootstrap'], (array) $extensions);
 }
 
 //--------------------------------------------------------------------------------------------------------
@@ -42,10 +30,22 @@ if( ! empty($extensions) )
 {
     Import::style(...$extensions);
 }
+
+$i = 1;
 ?>
 
-<div<?php echo Html::attributes($attributes); ?> class="container<?php echo isset($type) ? '-' . $type : NULL; ?>">
-    <?php echo $contents; ?>
+<ul class="nav nav-<?php echo $type; ?>s">
+    <?php foreach( $tabs as $key => $val ): ?>
+    <li<?php echo $i === 1 ? ' class="active"' : NULL; $i++?>><a data-toggle="<?php echo $type; ?>" href="#<?php echo Converter::slug($key);?>"><?php echo $key;?></a></li>
+    <?php endforeach; ?>
+</ul>
+<?php $i = 1;?>
+<div class="tab-content">
+    <?php foreach( $tabs as $key => $val ): ?>
+    <div id="<?php echo Converter::slug($key);?>" class="tab-pane fade<?php echo $i === 1 ? ' in active' : NULL; $i++?>">
+        <?php echo $val ?>
+    </div>
+    <?php endforeach; ?>
 </div>
 
 <?php

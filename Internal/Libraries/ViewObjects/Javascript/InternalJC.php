@@ -20,12 +20,14 @@ class InternalJC extends \FactoryController
             'datepicker' => 'Javascript\Components\Datepicker::generate',
             'select2'    => 'Javascript\Components\Select2::generate',
             'flexslider' => 'Javascript\Components\FlexSlider::generate',
-            'validation' => 'Javascript\Components\Validation::generate',
+            'form'       => 'Javascript\Components\Form::generate',
             'aceeditor'  => 'Javascript\Components\AceEditor::generate',
             'pagination' => 'Javascript\Components\Pagination::generate',
             'modalbox'   => 'Javascript\Components\Modal::generate',
             'gridsystem' => 'Javascript\Components\GridSystem::generate',
-            'dropdown'   => 'Javascript\Components\Dropdown::generate'
+            'dropdown'   => 'Javascript\Components\Dropdown::generate',
+            'tab'        => 'Javascript\Components\Tabs::generate',
+            'pill'       => 'Javascript\Components\Tabs::pill'
         ]
     ];
 }

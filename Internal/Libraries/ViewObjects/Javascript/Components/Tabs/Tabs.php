@@ -1,8 +1,8 @@
 <?php namespace ZN\ViewObjects\Javascript\Components;
 
-use Html, Form, Buffer;
+use Html, Buffer;
 
-class GridSystem extends ComponentsExtends implements GridSystemInterface
+class Tabs extends ComponentsExtends implements TabsInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -13,55 +13,55 @@ class GridSystem extends ComponentsExtends implements GridSystemInterface
     //
     //--------------------------------------------------------------------------------------------------------
 
-    //--------------------------------------------------------------------------------------------------------
-    // Row
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param callable $columns
-    // @param array    $attr = NULL
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function row(Callable $columns, Array $attr = [])
-    {
-        $content = Buffer::function($columns, [$this]);
+    protected $tabs = [];
 
-        echo Html::attr($attr)->class('row')->div($content);
+    //--------------------------------------------------------------------------------------------------------
+    // Tab
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string   $menu
+    // @param callable $content
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function tab(String $menu, Callable $content)
+    {
+        $content = Buffer::function($content, [new Html]);
+
+        $this->tabs[$menu] = $content;
+
+        return $this;
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Col
+    // Pill
     //--------------------------------------------------------------------------------------------------------
     //
-    // @poram scalar   $size
-    // @param callable $code
-    // @param array    $attr = NULL
+    // @param callable $tab
     //
     //--------------------------------------------------------------------------------------------------------
-    public function col($size, Callable $code, Array $attr = [])
+    public function pill(Callable $tab) : String
     {
-        $content = Buffer::function($code, [new Form, new Html]);
-
-        echo Html::attr($attr)->class('col-' . ( is_numeric($size) ? 'lg-' . $size : $size))->div($content);
+        return $this->generate($tab, 'pill');
     }
 
     //--------------------------------------------------------------------------------------------------------
     // Generate
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param callable $grid
+    // @param callable $tab
     //
     //--------------------------------------------------------------------------------------------------------
-    public function generate(Callable $grid) : String
+    public function generate(Callable $tab, $type = 'tab') : String
     {
-        $contents = Buffer::function($grid, [$this]);
+        $tab($this);
 
         $attr['autoloadExtensions'] = $this->autoloadExtensions ?? false;
         $attr['extensions']         = $this->extensions         ?? [];
-        $attr['attributes']         = $this->attributes         ?? [];
-        $attr['contents']           = $contents;
+        $attr['tabs']               = $this->tabs;
+        $attr['type']               = $type;
 
         $this->defaultVariables();
 
-        return $this->load('GridSystem/View', $attr);
+        return $this->load('Tabs/View', $attr);
     }
 }

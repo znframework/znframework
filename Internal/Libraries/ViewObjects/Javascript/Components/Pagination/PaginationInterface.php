@@ -15,9 +15,9 @@ interface PaginationInterface
     // Generate
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param mixed $get
-    // @param array $attr = NULL
+    // @param mixed    $get
+    // @param callable $paginations = NULL
     //
     //--------------------------------------------------------------------------------------------------------
-    public function generate($get, Array $attr = NULL) : String;
+    public function generate($get, Callable $paginations = NULL) : String;
 }

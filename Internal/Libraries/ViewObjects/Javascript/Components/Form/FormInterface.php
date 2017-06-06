@@ -1,6 +1,6 @@
 <?php namespace ZN\ViewObjects\Javascript\Components;
 
-interface AceEditorInterface
+interface FormInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -15,9 +15,8 @@ interface AceEditorInterface
     // Generate
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string   $id   = 'editor'
-    // @param callable $editors
+    // @param callable $form
     //
     //--------------------------------------------------------------------------------------------------------
-    public function generate(String $id = 'editor', Callable $editors) : String;
+    public function generate(Callable $form) : String;
 }
