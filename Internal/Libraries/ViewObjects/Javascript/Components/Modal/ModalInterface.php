@@ -17,8 +17,7 @@ interface ModalInterface
     //
     // @param string   $id   = 'myModal'
     // @param callable $modalboxs
-    // @param array    $attr = NULL
     //
     //--------------------------------------------------------------------------------------------------------
-    public function generate(String $id = 'myModal', Callable $modalboxs, Array $attr = NULL) : String;
+    public function generate(String $id = 'myModal', Callable $modalboxs) : String;
 }

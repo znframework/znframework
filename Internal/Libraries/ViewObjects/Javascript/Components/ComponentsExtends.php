@@ -15,8 +15,25 @@ class ComponentsExtends
 
     use RevolvingAbility;
 
+    protected $button = NULL;
+
     protected function load($path, $attr) : String
     {
         return Import::page($path, $attr, true, realpath(__DIR__) . DS);
+    }
+
+    public function button(String $name, String $value, Array $attr = [])
+    {
+        $this->button =
+        [
+            'name'       => $name,
+            'value'      => $value,
+            'attributes' => $attr,
+            'class'      => $this->class ?? 'btn-info'
+        ];
+
+        $this->class  = NULL;
+
+        return $this;
     }
 }

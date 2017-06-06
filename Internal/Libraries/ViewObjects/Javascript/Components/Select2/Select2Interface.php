@@ -15,9 +15,9 @@ interface Select2Interface
     // Generate
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $id   = 'select2'
-    // @param array  $attr = NULL
+    // @param string   $id   = 'select2'
+    // @param callable $select2
     //
     //--------------------------------------------------------------------------------------------------------
-    public function generate(String $id = 'select2', Array $attr = NULL) : String;
+    public function generate(String $id = 'select2', Callable $select2) : String;
 }

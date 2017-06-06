@@ -13,12 +13,6 @@
 // @var array    $extensions = []
 //
 //--------------------------------------------------------------------------------------------------------
-$width      = $width      ?? '100%';
-$attributes = $attributes ?? [];
-$id         = $id         ?? 'datatable';
-$class      = $class      ?? 'table-striped table-bordered table-hover';
-$process    = $process    ?? NULL;
-$length     = $length     ?? 100;
 $serverSide = $properties['serverSide'] ?? NULL;
 
 if( is_string($result) )

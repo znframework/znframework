@@ -10,7 +10,6 @@
 // @var string $type
 //
 //--------------------------------------------------------------------------------------------------------
-$id = $id ?? 'morris-area-chart';
 $extensions = $extensions ?? [];
 $attributes = $attributes ?? [];
 

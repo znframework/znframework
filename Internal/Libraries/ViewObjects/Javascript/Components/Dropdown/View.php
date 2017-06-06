@@ -43,13 +43,18 @@ if( ! empty($extensions) )
 }
 ?>
 
-<div<?php echo Html::attributes($dropdown['attributes'] ?? []); ?> class="drop<?php echo $dropdown['type'] ?? 'down'; ?>">
-    <button<?php echo Html::attributes($button['attributes'] ?? []); ?> class="btn <?php echo $button['class'] ?? 'btn-default' ?> dropdown-toggle" type="button" data-toggle="dropdown">
+<div class="drop<?php echo $type ?? 'down'; ?>">
+    <button<?php echo Html::attributes($attributes); ?> class="btn <?php echo $class ?> dropdown-toggle" type="button" data-toggle="dropdown">
         <?php echo $value; ?>
         <span class="caret"></span>
     </button>
     <ul class="dropdown-menu">
-    <?php echo $dropdowns(new ZN\ViewObjects\Javascript\Components\Dropdown); ?>
+    <?php
+    foreach( $li as $l )
+    {
+        echo $l . EOL;
+    }
+    ?>
     </ul>
 </div>
 

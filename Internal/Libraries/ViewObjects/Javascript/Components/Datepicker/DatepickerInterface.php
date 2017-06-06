@@ -15,9 +15,9 @@ interface DatepickerInterface
     // Generate
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $id   = 'datepicker'
-    // @param array  $attr = NULL
+    // @param string   $id   = 'datepicker'
+    // @param callable $datapickers
     //
     //--------------------------------------------------------------------------------------------------------
-    public function generate(String $id = 'datepicker', Array $attr = NULL) : String;
+    public function generate(String $id = 'datepicker', Callable $datepickers) : String;
 }

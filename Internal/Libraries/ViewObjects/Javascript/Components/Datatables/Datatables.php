@@ -1,5 +1,7 @@
 <?php namespace ZN\ViewObjects\Javascript\Components;
 
+use Arrays;
+
 class Datatables extends ComponentsExtends implements DatatablesInterface
 {
     //--------------------------------------------------------------------------------------------------------
@@ -15,13 +17,33 @@ class Datatables extends ComponentsExtends implements DatatablesInterface
     // Generate
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param mixed $result
-    // @param array $attr = NULL
+    // @param mixed    $result
+    // @param callable $datatable = NULL
     //
     //--------------------------------------------------------------------------------------------------------
-    public function generate($result, Array $attr = NULL) : String
+    public function generate($result, Callable $datatable = NULL) : String
     {
-        $attr['result'] = $result;
+        if( $datatable !== NULL )
+        {
+            $datatable($this);
+        }
+
+        $attr['result']  = $result;
+        $attr['width']   = $this->width   ?? '100%';
+        $attr['id']      = $this->id      ?? 'datatable';
+        $attr['class']   = $this->class   ?? 'table-striped table-bordered table-hover';
+        $attr['process'] = $this->process ?? NULL;
+        $attr['length']  = $this->length  ?? 100;
+
+        $attr['autoloadExtensions'] = $this->autoloadExtensions ?? false;
+        $attr['extensions']         = $this->extensions         ?? [];
+        $attr['attributes']         = $this->attributes         ?? [];
+        $attr['properties']         = $this->properties         ?? Arrays::removeKey($this->revolvings,
+        [
+            'width', 'id', 'class', 'process', 'length', 'autoloadExtensions', 'extensions', 'attributes', 'properties'
+        ]);
+
+        $this->defaultVariable();
 
         return $this->load('Datatables/View', $attr);
     }

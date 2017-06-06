@@ -45,8 +45,7 @@ interface DropdownInterface
     //
     // @param string   $value
     // @param callable $dropdown
-    // @param array    $attr = NULL
     //
     //--------------------------------------------------------------------------------------------------------
-    public function generate(String $value, Callable $dropdown, Array $attr = NULL) : String;
+    public function generate(String $value, Callable $dropdown) : String;
 }

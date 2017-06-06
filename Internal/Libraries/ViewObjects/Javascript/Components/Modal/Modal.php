@@ -11,42 +11,31 @@ class Modal extends ComponentsExtends implements ModalInterface
     //
     //--------------------------------------------------------------------------------------------------------
 
-    protected $button = NULL;
-
-    public function button(String $name, String $value, Array $attr = [])
-    {
-        $this->button =
-        [
-            'name'       => $name,
-            'value'      => $value,
-            'attributes' => $attr,
-            'class'      => $this->class ?? 'btn-info'
-        ];
-
-        $this->class  = NULL;
-
-        return $this;
-    }
-
     //--------------------------------------------------------------------------------------------------------
     // Generate
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string   $id   = 'myModal'
     // @param callable $modalboxs
-    // @param array    $attr = NULL
     //
     //--------------------------------------------------------------------------------------------------------
-    public function generate(String $id = 'myModal', Callable $modalboxs, Array $attr = NULL) : String
+    public function generate(String $id = 'myModal', Callable $modalboxs) : String
     {
         $modalboxs($this);
 
-        $attr['id']        = $id;
-        $attr['title']     = $this->title;
-        $attr['content']   = $this->content;
-        $attr['process']   = $this->process;
-        $attr['button']    = $this->button;
-        $attr['modal']     = ['size' => $this->size ?? 'normal', 'close' => $this->close ?? true];
+        $attr['id']      = $id;
+        $attr['title']   = $this->title   ?? 'Modal Title';
+        $attr['content'] = $this->content ?? 'Modal Content';
+        $attr['process'] = $this->process ?? NULL;
+        $attr['button']  = $this->button  ?? NULL;
+        $attr['modal']   =
+        [
+            'size'  => $this->size  ?? 'normal',
+            'close' => $this->close ?? true
+        ];
+
+        $attr['autoloadExtensions'] = $this->autoloadExtensions ?? false;
+        $attr['extensions']         = $this->extensions         ?? [];
 
         $this->defaultVariables();
 

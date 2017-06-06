@@ -13,6 +13,8 @@ class Dropdown extends ComponentsExtends implements DropdownInterface
     //
     //--------------------------------------------------------------------------------------------------------
 
+    protected $li = [];
+
     //--------------------------------------------------------------------------------------------------------
     // Divider
     //--------------------------------------------------------------------------------------------------------
@@ -22,7 +24,7 @@ class Dropdown extends ComponentsExtends implements DropdownInterface
     //--------------------------------------------------------------------------------------------------------
     public function divider()
     {
-        echo '<li class="divider"></li>';
+        $this->li[] = '<li class="divider"></li>';
 
         return $this;
     }
@@ -36,7 +38,7 @@ class Dropdown extends ComponentsExtends implements DropdownInterface
     //--------------------------------------------------------------------------------------------------------
     public function header(String $content = NULL)
     {
-        echo '<li class="dropdown-header">' . $content . '</li>';
+        $this->li[] = '<li class="dropdown-header">' . $content . '</li>';
 
         return $this;
     }
@@ -56,7 +58,7 @@ class Dropdown extends ComponentsExtends implements DropdownInterface
             $active = ' class="active"';
         }
 
-        echo '<li'.($active ?? NULL).'>' . Html::attr($attr)->anchor($url, $content) . '</li>';
+        $this->li[] ='<li'.($active ?? NULL).'>' . Html::attr($attr)->anchor($url, $content) . '</li>';
 
         return $this;
     }
@@ -67,13 +69,26 @@ class Dropdown extends ComponentsExtends implements DropdownInterface
     //
     // @param string   $value
     // @param callable $dropdown
-    // @param array    $attr = NULL
     //
     //--------------------------------------------------------------------------------------------------------
-    public function generate(String $value, Callable $dropdowns, Array $attr = NULL) : String
+    public function generate(String $value, Callable $dropdowns) : String
     {
+        $dropdowns($this);
+
+        $attr['li']       = $this->li ?? [];
         $attr['value']    = $value;
-        $attr['dropdowns'] = $dropdowns;
+        $attr['button']   = $this->button ?? NULL;
+        $attr['class']    = $this->class  ?? 'btn-default';
+        $attr['type']     = $this->type   ?? 'down';
+        $attr['dropdown'] =
+        [
+            'type' => $this->type ?? 'down',
+        ];
+        $attr['autoloadExtensions'] = $this->autoloadExtensions ?? false;
+        $attr['extensions']         = $this->extensions         ?? [];
+        $attr['attributes']         = $this->attributes         ?? [];
+
+        $this->defaultVariable();
 
         return $this->load('Dropdown/View', $attr);
     }

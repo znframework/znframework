@@ -15,9 +15,9 @@ interface FlexSliderInterface
     // Generate
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $id   = 'datepicker'
-    // @param array  $attr = NULL
+    // @param string   $id   = 'datepicker'
+    // @param callable $flexsliders
     //
     //--------------------------------------------------------------------------------------------------------
-    public function generate(String $id = 'flexslider', Array $attr = NULL) : String;
+    public function generate(String $id = 'flexslider', Callable $flexsliders) : String;
 }

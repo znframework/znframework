@@ -69,7 +69,7 @@ if( ! empty($class) )
     Form::class($class);
 }
 
-echo Form::id($id)->attr($attributes)->select($name ?? $id, $data ?? [], $selected ?? 0);
+echo Form::id($id)->attr($attributes)->select($name, $data ?? [], $selected);
 
 if( ! empty($extensions) )
 {

@@ -15,9 +15,9 @@ interface ChartsInterface
     // Generate
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $type = 'area'
-    // @param array  $attr = NULL
+    // @param string  $type = 'area'
+    // @param calable $charts
     //
     //--------------------------------------------------------------------------------------------------------
-    public function generate(String $type = 'area', Array $attr = NULL) : String;
+    public function generate(String $type = 'area', Callable $charts) : String;
 }
