@@ -27,7 +27,7 @@ class InternalSocialite extends CLController implements InternalSocialiteInterfa
     {
         $social = '\Hybridauth\Provider\\' . $method;
 
-        if( $param = (INDIVIDUALSTRUCTURES_SOCIALITE_CONFIG[strtolower($method)] ?? NULL) && empty($parameters) );
+        if( ($param = INDIVIDUALSTRUCTURES_SOCIALITE_CONFIG[strtolower($method)] ?? NULL) && empty($parameters) )
         {
             $parameters = $param;
         }
