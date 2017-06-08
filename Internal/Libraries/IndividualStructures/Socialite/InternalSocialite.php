@@ -2,7 +2,7 @@
 
 use CLController;
 
-class InternalSocialite extends CLController
+class InternalSocialite extends CLController implements InternalSocialiteInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
