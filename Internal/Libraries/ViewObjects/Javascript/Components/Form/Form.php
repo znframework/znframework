@@ -13,6 +13,13 @@ class Form extends ComponentsExtends implements FormInterface
     //
     //--------------------------------------------------------------------------------------------------------
 
+    public function design(Callable $form)
+    {
+        echo $form(new Forms, new Html);
+
+        return $this;
+    }
+
     //--------------------------------------------------------------------------------------------------------
     // Generate
     //--------------------------------------------------------------------------------------------------------
@@ -22,7 +29,7 @@ class Form extends ComponentsExtends implements FormInterface
     //--------------------------------------------------------------------------------------------------------
     public function generate(Callable $form) : String
     {
-        $contents = Buffer::function($form, [new Forms, new Html, $this]);
+        $contents = Buffer::function($form, [$this]);
 
         $attr['contents']           = $contents;
         $attr['form']               = $form;
@@ -34,15 +41,11 @@ class Form extends ComponentsExtends implements FormInterface
         $attr['multipart']          = $this->multipart          ?? NULL;
         $attr['extensions']         = $this->extensions         ?? [];
         $attr['attributes']         = $this->attributes         ?? [];
-        $attr['submit']             = $this->submit             ?? NULL;
-        $attr['table']              = $this->table              ?? NULL;
-        $attr['error']              = $this->error              ?? NULL;
-        $attr['success']            = $this->success            ?? NULL;
         $attr['attributes']         = $this->attributes         ?? [];
         $attr['properties']         = $this->properties         ?? Arrays::removeKey($this->revolvings,
         [
             'autoloadExtensions', 'extensions', 'attributes', 'properties', 'form', 'action',
-            'class', 'method', 'multipart', 'submit', 'table', 'error', 'success'
+            'class', 'method', 'multipart'
         ]);
 
         $this->defaultVariable();

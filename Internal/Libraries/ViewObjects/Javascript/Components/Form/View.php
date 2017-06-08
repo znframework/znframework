@@ -1,29 +1,4 @@
 <?php
-
-if( isset($table) && Method::post($submit) )
-{
-    if( DB::insert('post:' . $table) )
-    {
-        $successData = true;
-    }
-    else
-    {
-        $errorData = true;
-    }
-}
-
-//--------------------------------------------------------------------------------------------------------
-// Extract Vars
-//--------------------------------------------------------------------------------------------------------
-//
-// @var array  $extensions
-// @var array  $properties
-// @var array  $attributes
-//
-//--------------------------------------------------------------------------------------------------------
-$extensions = $extensions ?? [];
-$attributes = $attributes ?? [];
-
 //--------------------------------------------------------------------------------------------------------
 // Autoloader Extension
 //--------------------------------------------------------------------------------------------------------
@@ -80,22 +55,6 @@ echo Form::attr($attributes)->open($name);
 
 echo $contents;
 
-if( ! empty($successData) && ! empty($success) ):
-?>
-<div class="alert alert-success">
-    <?php echo $success; ?>
-</div>
-<?php
-endif;
-
-if( ! empty($errorData) && ! empty($error)  ):
-?>
-<div class="alert alert-danger">
-  <?php echo $error; ?>
-</div>
-<?php
-endif;
-
 echo Form::close();
 
 if( ! empty($extensions) )
@@ -105,6 +64,16 @@ if( ! empty($extensions) )
 ?>
 
 <script>
+
+<?php if( ! empty($messageInterval) ): ?>
+$(document).ready(function(){
+   setInterval(function()
+   {
+       $(".alert").slideUp('fast');
+   },<?php echo $messageInterval;?>);
+});
+<?php endif;?>
+
 $(function()
 {
     $.validate(<?php echo ! empty($properties) ? Json::encode($properties) : NULL?>);
