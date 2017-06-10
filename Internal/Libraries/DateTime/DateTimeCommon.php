@@ -1,8 +1,9 @@
 <?php namespace ZN\DateTime;
 
 use Config, Arrays;
+use ZN\DateTime\Carbon\Carbon;
 
-class DateTimeCommon extends \Carbon\Carbon
+class DateTimeCommon extends Carbon
 {
     //--------------------------------------------------------------------------------------------------------
     //

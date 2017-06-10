@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Carbon;
+namespace ZN\DateTime\Carbon;
 
-use Carbon\Exceptions\InvalidDateException;
+use ZN\DateTime\Carbon\Exceptions\InvalidDateException;
 use Closure;
 use DatePeriod;
 use DateTime;

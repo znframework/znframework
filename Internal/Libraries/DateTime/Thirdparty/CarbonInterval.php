@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Carbon;
+namespace ZN\DateTime\Carbon;
 
 use DateInterval;
 use InvalidArgumentException;

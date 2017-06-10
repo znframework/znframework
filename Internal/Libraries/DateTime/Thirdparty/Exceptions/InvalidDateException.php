@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Carbon\Exceptions;
+namespace ZN\DateTime\Carbon\Exceptions;
 
 use Exception;
 use InvalidArgumentException;
