@@ -99,7 +99,7 @@ class CarbonInterval extends DateInterval
      */
     private static function wasCreatedFromDiff(DateInterval $interval)
     {
-        return $interval->days !== false && $interval->days !== static::PHP_DAYS_FALSE;
+        return $interval->days !== false && $interval->days !== self::PHP_DAYS_FALSE;
     }
 
     ///////////////////////////////////////////////////////////////////
@@ -119,27 +119,27 @@ class CarbonInterval extends DateInterval
      */
     public function __construct($years = 1, $months = null, $weeks = null, $days = null, $hours = null, $minutes = null, $seconds = null)
     {
-        $spec = static::PERIOD_PREFIX;
+        $spec = self::PERIOD_PREFIX;
 
-        $spec .= $years > 0 ? $years.static::PERIOD_YEARS : '';
-        $spec .= $months > 0 ? $months.static::PERIOD_MONTHS : '';
+        $spec .= $years > 0 ? $years.self::PERIOD_YEARS : '';
+        $spec .= $months > 0 ? $months.self::PERIOD_MONTHS : '';
 
         $specDays = 0;
         $specDays += $weeks > 0 ? $weeks * Carbon::DAYS_PER_WEEK : 0;
         $specDays += $days > 0 ? $days : 0;
 
-        $spec .= $specDays > 0 ? $specDays.static::PERIOD_DAYS : '';
+        $spec .= $specDays > 0 ? $specDays.self::PERIOD_DAYS : '';
 
         if ($hours > 0 || $minutes > 0 || $seconds > 0) {
-            $spec .= static::PERIOD_TIME_PREFIX;
-            $spec .= $hours > 0 ? $hours.static::PERIOD_HOURS : '';
-            $spec .= $minutes > 0 ? $minutes.static::PERIOD_MINUTES : '';
-            $spec .= $seconds > 0 ? $seconds.static::PERIOD_SECONDS : '';
+            $spec .= self::PERIOD_TIME_PREFIX;
+            $spec .= $hours > 0 ? $hours.self::PERIOD_HOURS : '';
+            $spec .= $minutes > 0 ? $minutes.self::PERIOD_MINUTES : '';
+            $spec .= $seconds > 0 ? $seconds.self::PERIOD_SECONDS : '';
         }
 
-        if ($spec === static::PERIOD_PREFIX) {
+        if ($spec === self::PERIOD_PREFIX) {
             // Allow the zero interval.
-            $spec .= '0'.static::PERIOD_YEARS;
+            $spec .= '0'.self::PERIOD_YEARS;
         }
 
         parent::__construct($spec);
@@ -163,7 +163,7 @@ class CarbonInterval extends DateInterval
      */
     public static function create($years = 1, $months = null, $weeks = null, $days = null, $hours = null, $minutes = null, $seconds = null)
     {
-        return new static($years, $months, $weeks, $days, $hours, $minutes, $seconds);
+        return new self($years, $months, $weeks, $days, $hours, $minutes, $seconds);
     }
 
     /**
@@ -184,32 +184,32 @@ class CarbonInterval extends DateInterval
         switch ($name) {
             case 'years':
             case 'year':
-                return new static($arg);
+                return new self($arg);
 
             case 'months':
             case 'month':
-                return new static(null, $arg);
+                return new self(null, $arg);
 
             case 'weeks':
             case 'week':
-                return new static(null, null, $arg);
+                return new self(null, null, $arg);
 
             case 'days':
             case 'dayz':
             case 'day':
-                return new static(null, null, null, $arg);
+                return new self(null, null, null, $arg);
 
             case 'hours':
             case 'hour':
-                return new static(null, null, null, null, $arg);
+                return new self(null, null, null, null, $arg);
 
             case 'minutes':
             case 'minute':
-                return new static(null, null, null, null, null, $arg);
+                return new self(null, null, null, null, null, $arg);
 
             case 'seconds':
             case 'second':
-                return new static(null, null, null, null, null, null, $arg);
+                return new self(null, null, null, null, null, null, $arg);
         }
     }
 
@@ -226,11 +226,11 @@ class CarbonInterval extends DateInterval
      */
     public static function instance(DateInterval $di)
     {
-        if (static::wasCreatedFromDiff($di)) {
+        if (self::wasCreatedFromDiff($di)) {
             throw new InvalidArgumentException('Can not instance a DateInterval object created from DateTime::diff().');
         }
 
-        $instance = new static($di->y, $di->m, 0, $di->d, $di->h, $di->i, $di->s);
+        $instance = new self($di->y, $di->m, 0, $di->d, $di->h, $di->i, $di->s);
         $instance->invert = $di->invert;
         $instance->days = $di->days;
 
@@ -248,13 +248,13 @@ class CarbonInterval extends DateInterval
      */
     protected static function translator()
     {
-        if (static::$translator === null) {
-            static::$translator = new Translator('en');
-            static::$translator->addLoader('array', new ArrayLoader());
-            static::setLocale('en');
+        if (self::$translator === null) {
+            self::$translator = new Translator('en');
+            self::$translator->addLoader('array', new ArrayLoader());
+            self::setLocale('en');
         }
 
-        return static::$translator;
+        return self::$translator;
     }
 
     /**
@@ -264,7 +264,7 @@ class CarbonInterval extends DateInterval
      */
     public static function getTranslator()
     {
-        return static::translator();
+        return self::translator();
     }
 
     /**
@@ -274,7 +274,7 @@ class CarbonInterval extends DateInterval
      */
     public static function setTranslator(TranslatorInterface $translator)
     {
-        static::$translator = $translator;
+        self::$translator = $translator;
     }
 
     /**
@@ -284,7 +284,7 @@ class CarbonInterval extends DateInterval
      */
     public static function getLocale()
     {
-        return static::translator()->getLocale();
+        return self::translator()->getLocale();
     }
 
     /**
@@ -294,10 +294,10 @@ class CarbonInterval extends DateInterval
      */
     public static function setLocale($locale)
     {
-        static::translator()->setLocale($locale);
+        self::translator()->setLocale($locale);
 
         // Ensure the locale has been loaded.
-        static::translator()->addResource('array', require __DIR__.'/Lang/'.$locale.'.php', $locale);
+        self::translator()->addResource('array', require __DIR__.'/Lang/'.$locale.'.php', $locale);
     }
 
     ///////////////////////////////////////////////////////////////////
@@ -478,7 +478,7 @@ class CarbonInterval extends DateInterval
         $parts = array();
         foreach ($periods as $unit => $count) {
             if ($count > 0) {
-                array_push($parts, static::translator()->transChoice($unit, $count, array(':count' => $count)));
+                array_push($parts, self::translator()->transChoice($unit, $count, array(':count' => $count)));
             }
         }
 
@@ -506,7 +506,7 @@ class CarbonInterval extends DateInterval
     {
         $sign = $interval->invert === 1 ? -1 : 1;
 
-        if (static::wasCreatedFromDiff($interval)) {
+        if (self::wasCreatedFromDiff($interval)) {
             $this->dayz += $interval->days * $sign;
         } else {
             $this->years += $interval->y * $sign;
@@ -528,30 +528,30 @@ class CarbonInterval extends DateInterval
     public function spec()
     {
         $date = array_filter(array(
-            static::PERIOD_YEARS => $this->y,
-            static::PERIOD_MONTHS => $this->m,
-            static::PERIOD_DAYS => $this->d,
+            self::PERIOD_YEARS => $this->y,
+            self::PERIOD_MONTHS => $this->m,
+            self::PERIOD_DAYS => $this->d,
         ));
 
         $time = array_filter(array(
-            static::PERIOD_HOURS => $this->h,
-            static::PERIOD_MINUTES => $this->i,
-            static::PERIOD_SECONDS => $this->s,
+            self::PERIOD_HOURS => $this->h,
+            self::PERIOD_MINUTES => $this->i,
+            self::PERIOD_SECONDS => $this->s,
         ));
 
-        $specString = static::PERIOD_PREFIX;
+        $specString = self::PERIOD_PREFIX;
 
         foreach ($date as $key => $value) {
             $specString .= $value.$key;
         }
 
         if (count($time) > 0) {
-            $specString .= static::PERIOD_TIME_PREFIX;
+            $specString .= self::PERIOD_TIME_PREFIX;
             foreach ($time as $key => $value) {
                 $specString .= $value.$key;
             }
         }
 
-        return $specString === static::PERIOD_PREFIX ? 'PT0S' : $specString;
+        return $specString === self::PERIOD_PREFIX ? 'PT0S' : $specString;
     }
 }
