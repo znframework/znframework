@@ -32,6 +32,18 @@ class InternalSocialite extends CLController implements InternalSocialiteInterfa
             $parameters = $param;
         }
 
+        // Default Callback Value: Current URL
+        if( ! isset($parameters['callback']) )
+        {
+            $parameters['callback'] = currentUrl();
+        }
+        else
+        {
+            $parameters['callback'] = isUrl($parameters['callback'])
+                                    ? $parameters['callback']
+                                    : siteUrl($parameters['callback']);
+        }
+
         return new $social($parameters);
     }
 }
