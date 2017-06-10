@@ -20,6 +20,7 @@ use InvalidArgumentException;
 use Symfony\Component\Translation\Loader\ArrayLoader;
 use Symfony\Component\Translation\Translator;
 use Symfony\Component\Translation\TranslatorInterface;
+use Config;
 
 /**
  * A simple API extension for DateTime
@@ -229,7 +230,7 @@ class Carbon extends DateTime
     {
         if ($object === null) {
             // Don't return null... avoid Bug #52063 in PHP <5.3.6
-            return new DateTimeZone(date_default_timezone_get());
+            return new DateTimeZone(date_default_timezone_get(Config::get('DateTime', 'timeZone')));
         }
 
         if ($object instanceof DateTimeZone) {
@@ -689,7 +690,7 @@ class Carbon extends DateTime
                 return $this->format('I') === '1';
 
             case $name === 'local':
-                return $this->getOffset() === $this->copy()->setTimezone(date_default_timezone_get())->getOffset();
+                return $this->getOffset() === $this->copy()->setTimezone(date_default_timezone_get(Config::get('DateTime', 'timeZone')))->getOffset();
 
             case $name === 'utc':
                 return $this->getOffset() === 0;
@@ -1092,9 +1093,9 @@ class Carbon extends DateTime
     protected static function translator()
     {
         if (self::$translator === null) {
-            self::$translator = new Translator('en');
+            self::$translator = new Translator(getLang());
             self::$translator->addLoader('array', new ArrayLoader());
-            self::setLocale('en');
+            self::setLocale(getLang());
         }
 
         return self::$translator;

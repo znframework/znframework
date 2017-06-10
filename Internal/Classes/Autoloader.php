@@ -373,14 +373,14 @@ class Autoloader
                     {
                         $className = strtolower($classInfo['namespace']).'\\'.$class;
 
-                        $classes['namespaces'][$className] = $class;
+                        $classes['namespaces'][self::_cleanNail($className)] = self::_cleanNail($class);
                     }
                     else
                     {
                         $className = $class;
                     }
 
-                    $classes['classes'][$className] = $v;
+                    $classes['classes'][self::_cleanNail($className)] = self::_cleanNail($v);
 
                     $useStaticAccess = strtolower(INTERNAL_ACCESS);
 
@@ -567,6 +567,19 @@ class Autoloader
     protected static function _originPath($string)
     {
         return str_replace(['/', '\\'], DS, $string);
+    }
+
+    //--------------------------------------------------------------------------------------------------
+    // Protected Clean Nail
+    //--------------------------------------------------------------------------------------------------
+    //
+    // @param  string $string
+    // @return string
+    //
+    //--------------------------------------------------------------------------------------------------
+    protected static function _cleanNail($string)
+    {
+        return str_replace(["'", '"'], NULL, $string);
     }
 }
 

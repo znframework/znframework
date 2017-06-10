@@ -249,9 +249,9 @@ class CarbonInterval extends DateInterval
     protected static function translator()
     {
         if (self::$translator === null) {
-            self::$translator = new Translator('en');
+            self::$translator = new Translator(getLang());
             self::$translator->addLoader('array', new ArrayLoader());
-            self::setLocale('en');
+            self::setLocale(getLang());
         }
 
         return self::$translator;
