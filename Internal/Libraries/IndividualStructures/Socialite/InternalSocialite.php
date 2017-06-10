@@ -1,6 +1,7 @@
 <?php namespace ZN\IndividualStructures;
 
-use CLController;
+use CLController, Arrays;
+use ZN\IndividualStructures\Socialite\Exception\InvalidArgumentException;
 
 class InternalSocialite extends CLController implements InternalSocialiteInterface
 {
@@ -27,10 +28,25 @@ class InternalSocialite extends CLController implements InternalSocialiteInterfa
     {
         $social = '\Hybridauth\Provider\\' . $method;
 
+        $parameters = $parameters[0] ?? NULL;
+
         if( ($param = INDIVIDUALSTRUCTURES_SOCIALITE_CONFIG[strtolower($method)] ?? NULL) && empty($parameters) )
         {
             $parameters = $param;
         }
+
+        if( is_null($parameters) )
+        {
+            throw new InvalidArgumentException('Socialite::' . $method . '(Array $config) : 1. parameter can not be empty!');
+        }
+
+        $parameters['keys'] =
+        [
+            'id'     => $parameters['id'],
+            'secret' => $parameters['secret']
+        ];
+
+        $parameters = Arrays::removeKey($parameters, ['id', 'secret']);
 
         // Default Callback Value: Current URL
         if( ! isset($parameters['callback']) )
