@@ -1,8 +1,8 @@
 <?php namespace ZN\DateTime;
 
-use Config, Arrays, CLController;
+use Config, Arrays;
 
-class DateTimeCommon extends CLController
+class DateTimeCommon extends \Carbon\Carbon
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -14,13 +14,13 @@ class DateTimeCommon extends CLController
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
-    // Consts
+    // Confi
     //--------------------------------------------------------------------------------------------------------
     //
-    // @const string
+    // @var array
     //
     //--------------------------------------------------------------------------------------------------------
-    const config = 'DateTime';
+    protected $config;
 
     //--------------------------------------------------------------------------------------------------------
     // Class Name
@@ -45,9 +45,11 @@ class DateTimeCommon extends CLController
     {
         parent::__construct();
 
-        date_default_timezone_set(DATETIME_CONFIG['timeZone']);
+        $this->config = Config::get('DateTime');
 
-        setlocale(LC_ALL, DATETIME_CONFIG['setLocale']['charset'], DATETIME_CONFIG['setLocale']['language']);
+        date_default_timezone_set($this->config['timeZone']);
+
+        setlocale(LC_ALL, $this->config['setLocale']['charset'], $this->config['setLocale']['language']);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -139,7 +141,7 @@ class DateTimeCommon extends CLController
     {
         $config = $this->_chartype();
 
-        $chars = DATETIME_CONFIG[$config];
+        $chars = $this->config[$config];
 
         $chars = Arrays::multikey($chars);
 

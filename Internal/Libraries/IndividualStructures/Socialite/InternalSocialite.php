@@ -59,7 +59,7 @@ class InternalSocialite extends CLController implements InternalSocialiteInterfa
                                     ? $parameters['callback']
                                     : siteUrl($parameters['callback']);
         }
-
+    
         return new $social($parameters);
     }
 }
