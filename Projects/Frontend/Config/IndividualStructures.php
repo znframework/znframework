@@ -26,8 +26,8 @@
         //
         // 'github' =>
         // [
-        //      'callback' => 'https://path/to/hybridauth/examples/example_01.php',
-        //      'keys'     => [ 'id' => 'your-app-id', 'secret' => 'your-app-secret' ]
+        //      'id'       => 'your-app-id',
+        //      'secret'   => 'your-app-secret'
         // ],
         //
         // ...
