@@ -77,7 +77,7 @@ if( is_file($isFile) )
                 }
                 elseif( ! empty($usableView) )
                 {
-                    echo $usableView; exit;
+                    echo $usableView;
                 }
             }
             catch( Throwable $e )
