@@ -3,7 +3,7 @@
 
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <title>ZN5 ORIGINAL COMMUNITY EDITION</title>
+        <title>{{$title}}</title>
         <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
         <style>
             html, body{height: 100%;}
@@ -18,8 +18,8 @@
     <body>
     	<div id="container">
             <div id="content">
-                <div id="title">ZN5 ORIGINAL</div>
-                <div id="sub-title">Community Edition</div>
+                <div id="title">{{$title}}</div>
+                <div id="sub-title">{{$subtitle}}</div>
             </div>
         </div>
     </body>
