@@ -637,13 +637,13 @@ class InternalHTML implements InternalHTMLInterface, ViewCommonInterface
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Style -> 5.0.0
+    // Link -> 5.0.0
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string $path
     //
     //--------------------------------------------------------------------------------------------------------
-    public function style(String $path) : String
+    public function link(String $path) : String
     {
         if( ! isUrl($path) )
         {
