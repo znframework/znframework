@@ -32,10 +32,7 @@ class FlexSlider extends ComponentsExtends implements FlexSliderInterface
         $attr['autoloadExtensions'] = $this->autoloadExtensions ?? false;
         $attr['extensions']         = $this->extensions         ?? [];
         $attr['attributes']         = $this->attributes         ?? [];
-        $attr['properties']         = $this->properties         ?? Arrays::removeKey($this->revolvings,
-        [
-            'autoloadExtensions', 'extensions', 'attributes', 'properties', 'path', 'images'
-        ]);
+        $attr['properties']         = $this->properties         ?? $this->prop($attr);
 
         $this->defaultVariable();
 

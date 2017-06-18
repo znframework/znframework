@@ -32,10 +32,7 @@ class Datepicker extends ComponentsExtends implements DatepickerInterface
         $attr['autoloadExtensions'] = $this->autoloadExtensions ?? false;
         $attr['extensions']         = $this->extensions         ?? [];
         $attr['attributes']         = $this->attributes         ?? [];
-        $attr['properties']         = $this->properties         ?? Arrays::removeKey($this->revolvings,
-        [
-            'autoloadExtensions', 'extensions', 'attributes', 'properties', 'class', 'name'
-        ]);
+        $attr['properties']         = $this->properties         ?? $this->prop($attr);
 
         $this->defaultVariable();
 

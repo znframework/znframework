@@ -42,11 +42,7 @@ class Form extends ComponentsExtends implements FormInterface
         $attr['extensions']         = $this->extensions         ?? [];
         $attr['attributes']         = $this->attributes         ?? [];
         $attr['attributes']         = $this->attributes         ?? [];
-        $attr['properties']         = $this->properties         ?? Arrays::removeKey($this->revolvings,
-        [
-            'autoloadExtensions', 'extensions', 'attributes', 'properties', 'form', 'action',
-            'class', 'method', 'multipart'
-        ]);
+        $attr['properties']         = $this->properties         ?? $this->prop($attr);
 
         $this->defaultVariable();
 

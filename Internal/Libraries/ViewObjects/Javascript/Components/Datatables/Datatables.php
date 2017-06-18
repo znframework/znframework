@@ -38,10 +38,7 @@ class Datatables extends ComponentsExtends implements DatatablesInterface
         $attr['autoloadExtensions'] = $this->autoloadExtensions ?? false;
         $attr['extensions']         = $this->extensions         ?? [];
         $attr['attributes']         = $this->attributes         ?? [];
-        $attr['properties']         = $this->properties         ?? Arrays::removeKey($this->revolvings,
-        [
-            'width', 'id', 'class', 'process', 'length', 'autoloadExtensions', 'extensions', 'attributes', 'properties'
-        ]);
+        $attr['properties']         = $this->properties         ?? $this->prop($attr);
 
         $this->defaultVariable();
 

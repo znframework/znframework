@@ -1,6 +1,6 @@
 <?php namespace ZN\ViewObjects\Javascript\Components;
 
-use Import, RevolvingAbility;
+use Import, RevolvingAbility, Arrays;
 
 class ComponentsExtends
 {
@@ -20,6 +20,11 @@ class ComponentsExtends
     protected function load($path, $attr) : String
     {
         return Import::page($path, $attr, true, realpath(__DIR__) . DS);
+    }
+
+    protected function prop($array)
+    {
+        return Arrays::removeKey($this->revolvings, Arrays::keys($array));
     }
 
     public function button(String $name, String $value, Array $attr = [])
