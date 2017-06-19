@@ -1,6 +1,6 @@
 <?php namespace ZN\ViewObjects\Javascript\Components;
 
-use Arrays, Buffer, Html, Form as Forms;
+use Buffer, Html, Form as Forms;
 
 class Form extends ComponentsExtends implements FormInterface
 {
@@ -29,23 +29,14 @@ class Form extends ComponentsExtends implements FormInterface
     //--------------------------------------------------------------------------------------------------------
     public function generate(Callable $form) : String
     {
-        $contents = Buffer::function($form, [$this]);
+        $attr['contents']  = Buffer::function($form, [$this]);
+        $attr['form']      = $form;
+        $attr['action']    = $this->action             ?? NULL;
+        $attr['class']     = $this->class              ?? NULL;
+        $attr['name']      = $this->name               ?? 'form';
+        $attr['method']    = $this->method             ?? NULL;
+        $attr['multipart'] = $this->multipart          ?? NULL;
 
-        $attr['contents']           = $contents;
-        $attr['form']               = $form;
-        $attr['autoloadExtensions'] = $this->autoloadExtensions ?? false;
-        $attr['action']             = $this->action             ?? NULL;
-        $attr['class']              = $this->class              ?? NULL;
-        $attr['name']               = $this->name               ?? 'form';
-        $attr['method']             = $this->method             ?? NULL;
-        $attr['multipart']          = $this->multipart          ?? NULL;
-        $attr['extensions']         = $this->extensions         ?? [];
-        $attr['attributes']         = $this->attributes         ?? [];
-        $attr['attributes']         = $this->attributes         ?? [];
-        $attr['properties']         = $this->properties         ?? $this->prop($attr);
-
-        $this->defaultVariable();
-
-        return $this->load('Form/View', $attr);
+        return $this->prop($attr);
     }
 }

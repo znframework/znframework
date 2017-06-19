@@ -1,7 +1,5 @@
 <?php namespace ZN\ViewObjects\Javascript\Components;
 
-use Arrays;
-
 class Charts extends ComponentsExtends implements ChartsInterface
 {
     //--------------------------------------------------------------------------------------------------------
@@ -26,15 +24,8 @@ class Charts extends ComponentsExtends implements ChartsInterface
         $charts($this);
 
         $attr['type'] = $type;
-        $attr['id']   = $this->id      ?? 'morris-area-chart';
+        $attr['id']   = $this->id ?? 'morris-area-chart';
 
-        $attr['autoloadExtensions'] = $this->autoloadExtensions ?? false;
-        $attr['extensions']         = $this->extensions         ?? [];
-        $attr['attributes']         = $this->attributes         ?? [];
-        $attr['properties']         = $this->properties         ?? $this->prop($attr);
-
-        $this->defaultVariable();
-
-        return $this->load('Charts/View', $attr);
+        return $this->prop($attr);
     }
 }

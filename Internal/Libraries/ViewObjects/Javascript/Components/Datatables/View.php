@@ -32,10 +32,8 @@ $extensions = $extensions ?? [];
 // @extension morris
 //
 //--------------------------------------------------------------------------------------------------------
-if( ! empty($autoloadExtensions) )
-{
-    $extensions = array_merge(['jquery', 'datatables'], (array) $extensions);
-}
+
+$extensions = JC::extensions($extensions, ['jquery', 'datatables']);
 
 //--------------------------------------------------------------------------------------------------------
 // Server Side

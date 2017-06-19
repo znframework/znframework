@@ -30,4 +30,9 @@ class InternalJC extends \FactoryController
             'pill'       => 'Javascript\Components\Tabs::pill'
         ]
     ];
+
+    public function extensions($extensions, $parameters)
+    {
+        return array_merge($parameters, (array) $extensions);
+    }
 }

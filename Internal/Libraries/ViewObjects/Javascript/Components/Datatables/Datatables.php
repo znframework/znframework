@@ -1,7 +1,5 @@
 <?php namespace ZN\ViewObjects\Javascript\Components;
 
-use Arrays;
-
 class Datatables extends ComponentsExtends implements DatatablesInterface
 {
     //--------------------------------------------------------------------------------------------------------
@@ -35,13 +33,6 @@ class Datatables extends ComponentsExtends implements DatatablesInterface
         $attr['process'] = $this->process ?? NULL;
         $attr['length']  = $this->length  ?? 100;
 
-        $attr['autoloadExtensions'] = $this->autoloadExtensions ?? false;
-        $attr['extensions']         = $this->extensions         ?? [];
-        $attr['attributes']         = $this->attributes         ?? [];
-        $attr['properties']         = $this->properties         ?? $this->prop($attr);
-
-        $this->defaultVariable();
-
-        return $this->load('Datatables/View', $attr);
+        return $this->prop($attr);
     }
 }

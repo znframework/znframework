@@ -75,7 +75,7 @@ class Dropdown extends ComponentsExtends implements DropdownInterface
     {
         $dropdowns($this);
 
-        $attr['li']       = $this->li ?? [];
+        $attr['li']       = $this->li     ?? [];
         $attr['value']    = $value;
         $attr['button']   = $this->button ?? NULL;
         $attr['class']    = $this->class  ?? 'btn-default';
@@ -84,12 +84,7 @@ class Dropdown extends ComponentsExtends implements DropdownInterface
         [
             'type' => $this->type ?? 'down',
         ];
-        $attr['autoloadExtensions'] = $this->autoloadExtensions ?? false;
-        $attr['extensions']         = $this->extensions         ?? [];
-        $attr['attributes']         = $this->attributes         ?? [];
 
-        $this->defaultVariable();
-
-        return $this->load('Dropdown/View', $attr);
+        return $this->prop($attr);
     }
 }

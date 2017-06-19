@@ -55,13 +55,9 @@ class Tabs extends ComponentsExtends implements TabsInterface
     {
         $tab($this);
 
-        $attr['autoloadExtensions'] = $this->autoloadExtensions ?? false;
-        $attr['extensions']         = $this->extensions         ?? [];
-        $attr['tabs']               = $this->tabs;
-        $attr['type']               = $type;
+        $attr['tabs'] = $this->tabs;
+        $attr['type'] = $type;
 
-        $this->defaultVariables();
-
-        return $this->load('Tabs/View', $attr);
+        return $this->prop($attr);
     }
 }

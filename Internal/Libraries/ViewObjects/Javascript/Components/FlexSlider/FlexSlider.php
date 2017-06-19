@@ -1,7 +1,5 @@
 <?php namespace ZN\ViewObjects\Javascript\Components;
 
-use Arrays;
-
 class FlexSlider extends ComponentsExtends implements FlexSliderInterface
 {
     //--------------------------------------------------------------------------------------------------------
@@ -29,13 +27,6 @@ class FlexSlider extends ComponentsExtends implements FlexSliderInterface
         $attr['path']   = $this->path ? suffix($this->path) : NULL;
         $attr['images'] = $this->images ?? NULL;
 
-        $attr['autoloadExtensions'] = $this->autoloadExtensions ?? false;
-        $attr['extensions']         = $this->extensions         ?? [];
-        $attr['attributes']         = $this->attributes         ?? [];
-        $attr['properties']         = $this->properties         ?? $this->prop($attr);
-
-        $this->defaultVariable();
-
-        return $this->load('FlexSlider/View', $attr);
+        return $this->prop($attr);
     }
 }

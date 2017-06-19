@@ -9,10 +9,8 @@
 // @extension morris
 //
 //--------------------------------------------------------------------------------------------------------
-if( ! empty($autoloadExtensions) )
-{
-    $extensions = array_merge(['bootstrap', 'jquery', 'jqueryValidator'], (array) $extensions);
-}
+
+$extensions = JC::extensions($extensions, ['jquery', 'bootstrap', 'jqueryValidator']);
 
 //--------------------------------------------------------------------------------------------------------
 // Available Extensions
