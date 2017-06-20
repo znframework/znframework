@@ -13,27 +13,7 @@
 //--------------------------------------------------------------------------------------------------------
 // Ending Controllers
 //--------------------------------------------------------------------------------------------------------
-if( $destruct = Config::get('Starting', 'destruct') )
-{
-    if( is_string($destruct) )
-    {
-        internalStartingController($destruct);
-    }
-    elseif( is_array($destruct) )
-    {
-        foreach( $destruct as $key => $val )
-        {
-            if( is_numeric($key) )
-            {
-                internalStartingController($val);
-            }
-            else
-            {
-                internalStartingController($key, $val);
-            }
-        }
-    }
-}
+internalStartingConfig('destruct');
 //--------------------------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------------------------

@@ -326,25 +326,5 @@ internalInvalidRequest('allowMethods', false);
 //--------------------------------------------------------------------------------------------------------
 // Starting Controllers
 //--------------------------------------------------------------------------------------------------------
-if( $startController = Config::get('Starting', 'controller') )
-{
-    if( is_string($startController) )
-    {
-        internalStartingController($startController);
-    }
-    elseif( is_array($startController) )
-    {
-        foreach( $startController as $key => $val )
-        {
-            if( is_numeric($key) )
-            {
-                internalStartingController($val);
-            }
-            else
-            {
-                internalStartingController($key, $val);
-            }
-        }
-    }
-}
+internalStartingConfig('controller');
 //--------------------------------------------------------------------------------------------------------

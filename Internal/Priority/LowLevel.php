@@ -1608,6 +1608,38 @@ function internalStartingController(String $startController = NULL, Array $param
 }
 
 //--------------------------------------------------------------------------------------------------
+// internalStartingConfig()
+//--------------------------------------------------------------------------------------------------
+//
+// @param string $config
+//
+//--------------------------------------------------------------------------------------------------
+function internalStartingConfig($config)
+{
+    if( $destruct = Config::get('Starting', $config) )
+    {
+        if( is_string($destruct) )
+        {
+            internalStartingController($destruct);
+        }
+        elseif( is_array($destruct) )
+        {
+            foreach( $destruct as $key => $val )
+            {
+                if( is_numeric($key) )
+                {
+                    internalStartingController($val);
+                }
+                else
+                {
+                    internalStartingController($key, $val);
+                }
+            }
+        }
+    }
+}
+
+//--------------------------------------------------------------------------------------------------
 // internalBenchmarkReport()
 //--------------------------------------------------------------------------------------------------
 //
