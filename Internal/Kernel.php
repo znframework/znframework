@@ -232,47 +232,7 @@ function symbol(String $symbolName = 'turkishLira') : String
 //--------------------------------------------------------------------------------------------------
 function getErrorMessage(String $langFile, String $errorMsg = NULL, $ex = NULL) : String
 {
-    $style  = 'border:solid 1px #E1E4E5;';
-    $style .= 'background:#FEFEFE;';
-    $style .= 'padding:10px;';
-    $style .= 'margin-bottom:10px;';
-    $style .= 'font-family:Calibri, Ebrima, Century Gothic, Consolas, Courier New, Courier, monospace, Tahoma, Arial;';
-    $style .= 'color:#666;';
-    $style .= 'text-align:left;';
-    $style .= 'font-size:14px;';
-
-    $exStyle = 'color:#900;';
-
-    if( ! is_array($ex) )
-    {
-        $ex = '<span style="'.$exStyle .'">'.$ex.'</span>';
-    }
-    else
-    {
-        $newArray = [];
-
-        if( ! empty($ex) ) foreach( $ex as $k => $v )
-        {
-            $newArray[$k] = $v;
-        }
-
-        $ex = $newArray;
-    }
-
-    $str  = "<div style=\"$style\">";
-
-    if( ! empty($errorMsg) )
-    {
-        $str .= lang($langFile, $errorMsg, $ex);
-    }
-    else
-    {
-        $str .= $langFile;
-    }
-
-    $str .= '</div><br>';
-
-    return $str;
+    Errors::message($langFile, $errorMsg, $ex);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -289,47 +249,7 @@ function getErrorMessage(String $langFile, String $errorMsg = NULL, $ex = NULL) 
 //--------------------------------------------------------------------------------------------------
 function report(String $subject, String $message, String $destination = NULL, String $time = NULL) : Bool
 {
-    if( ! Config::get('General', 'log')['createFile'] )
-    {
-        return false;
-    }
-
-    if( empty($destination) )
-    {
-        $destination = str_replace(' ', '-', $subject);
-    }
-
-    $logDir    = STORAGE_DIR.'Logs/';
-    $extension = '.log';
-
-    if( ! is_dir($logDir) )
-    {
-        Folder::create($logDir, 0755);
-    }
-
-    if( is_file($logDir.suffix($destination, $extension)) )
-    {
-        if( empty($time) )
-        {
-            $time = Config::get('General', 'log')['fileTime'];
-        }
-
-        $createDate = File::createDate($logDir.suffix($destination, $extension), 'd.m.Y');
-        $endDate    = strtotime("$time", strtotime($createDate));
-        $endDate    = date('Y.m.d', $endDate);
-
-        if( date('Y.m.d')  >  $endDate )
-        {
-            File::delete($logDir.suffix($destination, $extension));
-        }
-    }
-
-    $message = 'IP: ' . ipv4().
-               ' | Subject: ' . $subject.
-               ' | Date: '.Date::set('{dayNumber0}.{monthNumber0}.{year} {H024}:{minute}:{second}').
-               ' | Message: ' . $message . EOL;
-
-    return error_log($message, 3, $logDir.suffix($destination, $extension));
+    return Logger::report($subject, $message, $destination, $time);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -416,36 +336,7 @@ function currentUri(Bool $fullPath = false) : String
 //--------------------------------------------------------------------------------------------------
 function getLang() : String
 {
-    $systemLanguageData        = ZN\In::defaultProjectKey('SystemLanguageData');
-    $defaultSystemLanguageData = ZN\In::defaultProjectKey('DefaultSystemLanguageData');
-
-    $default = Config::get('Language', 'default');
-
-    if( ! Session::select($defaultSystemLanguageData) )
-    {
-        Session::insert($defaultSystemLanguageData, $default);
-    }
-    else
-    {
-        if( Session::select($defaultSystemLanguageData) !== $default )
-        {
-            Session::insert($defaultSystemLanguageData, $default);
-            Session::insert($systemLanguageData, $default);
-
-            return $default;
-        }
-    }
-
-    if( Session::select($systemLanguageData) === false )
-    {
-        Session::insert($systemLanguageData, $default);
-
-        return $default;
-    }
-    else
-    {
-        return Session::select($systemLanguageData);
-    }
+    return Lang::get();
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -459,12 +350,7 @@ function getLang() : String
 //--------------------------------------------------------------------------------------------------
 function setLang(String $l = NULL) : Bool
 {
-    if( empty($l) )
-    {
-        $l = Config::get('Language', 'default');
-    }
-
-    return Session::insert(ZN\In::defaultProjectKey('SystemLanguageData'), $l);
+    return Lang::set($l);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -480,69 +366,7 @@ function setLang(String $l = NULL) : Bool
 //--------------------------------------------------------------------------------------------------
 function lang(String $file = NULL, String $str = NULL, $changed = NULL)
 {
-    global $lang;
-
-    $file          = ( Config::get('Language', 'shortCodes')[getLang()] ?? 'English').'/'.suffix($file, '.php');
-    $langDir       = LANGUAGES_DIR.$file;
-    $sysLangDir    = INTERNAL_LANGUAGES_DIR.$file;
-    $commonLangDir = EXTERNAL_LANGUAGES_DIR.$file;
-
-    if( is_file($langDir) && ! isImport($langDir) )
-    {
-        $lang[$file] = import($langDir);
-    }
-    elseif( is_file($sysLangDir) && ! isImport($sysLangDir) )
-    {
-        $lang[$file] = import($sysLangDir);
-    }
-    elseif( is_file($commonLangDir) && ! isImport($commonLangDir) )
-    {
-        $lang[$file] = import($commonLangDir);
-    }
-
-    if( empty($str) && isset($lang[$file]) )
-    {
-        return $lang[$file];
-    }
-    elseif( ! empty($lang[$file][$str]) )
-    {
-        $langstr = $lang[$file][$str];
-    }
-    else
-    {
-        return false;
-    }
-
-    if( ! is_array($changed) )
-    {
-        if( strstr($langstr, "%") && ! empty($changed) )
-        {
-            return str_replace("%", $changed , $langstr);
-        }
-        else
-        {
-            return $langstr;
-        }
-    }
-    else
-    {
-        if( ! empty($changed) )
-        {
-            $values = [];
-
-            foreach( $changed as $key => $value )
-            {
-                $keys[]   = $key;
-                $values[] = $value;
-            }
-
-            return str_replace($keys, $values, $langstr);
-        }
-        else
-        {
-            return $langstr;
-        }
-    }
+    return Lang::select($file, $str, $changed);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -556,14 +380,7 @@ function lang(String $file = NULL, String $str = NULL, $changed = NULL)
 //--------------------------------------------------------------------------------------------------
 function currentLang() : String
 {
-    if( ! Config::get('Services','uri')['lang'] )
-    {
-        return false;
-    }
-    else
-    {
-        return getLang();
-    }
+    return Lang::current();
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -1258,27 +1075,7 @@ function emptyCoalesce( & $var, $value)
 //--------------------------------------------------------------------------------------------------
 function output($data, Array $settings = NULL, Bool $content = false)
 {
-    // ---------------------------------------------------------------------------------------------
-    // AYARLAR
-    // ---------------------------------------------------------------------------------------------
-    $textType = $settings['textType'] ?? 'monospace, Tahoma, Arial';
-    $textSize = $settings['textSize'] ?? '12px';
-    // ---------------------------------------------------------------------------------------------
-
-    $globalStyle = ' style="font-family:'.$textType.'; font-size:'.$textSize .';"';
-
-    $output  = "<span$globalStyle>";
-    $output .= internalOutput($data, '', 0, (array) $settings);
-    $output .= "</span>";
-
-    if( $content === false)
-    {
-        echo $output;
-    }
-    else
-    {
-        return $output;
-    }
+    return Output::display($data, $settings, $content);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -1291,26 +1088,9 @@ function output($data, Array $settings = NULL, Bool $content = false)
 // @return void
 //
 //--------------------------------------------------------------------------------------------------
-function write(String $data = NULL, Array $vars = NULL)
+function write($data = NULL, Array $vars = NULL)
 {
-    if( ! is_scalar($data) )
-    {
-        echo 'Not String!'; return false;
-    }
-
-    if( ! empty($data) && is_array($vars) )
-    {
-        $varsArray = [];
-
-        foreach( $vars as $k => $v )
-        {
-            $varsArray['{'.$k.'}']  = $v;
-        }
-
-        $data = str_replace(array_keys($varsArray), array_values($varsArray), $data);
-    }
-
-    echo $data;
+    Output::write($data, $vars);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -1324,9 +1104,9 @@ function write(String $data = NULL, Array $vars = NULL)
 // @return void
 //
 //--------------------------------------------------------------------------------------------------
-function writeLine(String $data = NULL, Array $vars = NULL, Int $brCount = 1)
+function writeLine($data = NULL, Array $vars = NULL, Int $brCount = 1)
 {
-    echo write($data, $vars) . str_repeat('<br>', $brCount);
+    Output::writeLine($data, $vars, $brCount);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -1788,91 +1568,6 @@ function internalProjectContainerDir($path = NULL) : String
     }
 
     return $containerProjectDir;
-}
-
-//--------------------------------------------------------------------------------------------------
-// internalOutput()
-//--------------------------------------------------------------------------------------------------
-//
-// @param mixed  $data
-// @param string $tab      = ''
-// @param int    $start    = 0
-// @param array  $settings = []
-//
-// @return string
-//
-//--------------------------------------------------------------------------------------------------
-function internalOutput($data, String $tab = NULL, Int $start = 0, Array $settings = []) : String
-{
-    static $start;
-
-    $lengthColor    = $settings['lengthColor']  ?? 'grey';
-    $keyColor       = $settings['keyColor']     ?? '#000';
-    $typeColor      = $settings['typeColor']    ?? '#8C2300';
-    $stringColor    = $settings['stringColor']  ?? 'red';
-    $numericColor   = $settings['numericColor'] ?? 'green';
-
-    $output = '';
-    $eof    = '<br>';
-    $tab    = str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;', $start);
-
-    $lengthstyle = ' style="color:'.$lengthColor.'"';
-    $keystyle    = ' style="color:'.$keyColor.'"';
-    $typestyle   = ' style="color:'.$typeColor.'"';
-
-    $vartype = 'array';
-
-    if( is_object($data) )
-    {
-        $data = (array) $data;
-        $vartype = 'object';
-    }
-
-    if( ! is_array($data) )
-    {
-        return $data.$eof;
-    }
-    else
-    {
-        foreach( $data as $k => $v )
-        {
-            if( is_object($v) )
-            {
-                $v = (array) $v;
-                $vartype = 'object';
-            }
-
-            if( ! is_array($v) )
-            {
-                $valstyle  = ' style="color:'.$numericColor.';"';
-
-                $type = gettype($v);
-
-                if( $type === 'string' )
-                {
-                    $v = "'".$v."'";
-                    $valstyle = ' style="color:'.$stringColor.';"';
-
-                    $type = 'string';
-                }
-                elseif( $type === 'boolean' )
-                {
-                    $v = ( $v === true ) ? 'true' : 'false';
-
-                    $type = 'boolean';
-                }
-
-                $output .= "$tab<span$keystyle>$k</span> => <span$typestyle>$type</span> <span$valstyle>$v</span> <span$lengthstyle>( length = ".strlen($v)." )</span>$eof";
-            }
-            else
-            {
-                $output .= "$tab<span$keystyle>$k</span> => <span$typestyle>$vartype</span> $eof $tab( $eof ".internalOutput($v, $tab, (int) $start++)." $tab) ".$eof;
-                $start--;
-            }
-        }
-    }
-
-    return $output;
 }
 
 //--------------------------------------------------------------------------------------------------
