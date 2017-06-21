@@ -15,6 +15,22 @@ class Kernel
 
     public static function start()
     {
+        if( $autoloaderAliases = Config::get('Autoloader')['aliases'] ) foreach( $autoloaderAliases as $alias => $origin )
+        {
+            class_alias($origin, $alias);
+        }
+
+        $appcon = Config::get('Project');
+
+        if( empty($appcon) )
+        {
+            trace('["Container"] Not Found! Check the [\'containers\'] setting in the [Projects/Projects.php] file.');
+        }
+
+        define('PROJECT_MODE', strtolower($appcon['mode']));
+
+        \ZN\In::projectMode(PROJECT_MODE, $appcon['errorReporting']);
+
         define('BASE_URL', baseUrl());
         define('SITE_URL', siteUrl());
         define('CURRENT_URL', currentUrl());
@@ -57,12 +73,12 @@ class Kernel
 
         if( Config::get('Htaccess','createFile') === true )
         {
-            internalCreateHtaccessFile();
+            \ZN\In::createHtaccessFile();
         }
 
         if( Config::get('Robots','createFile') === true )
         {
-            internalCreateRobotsFile();
+            \ZN\In::createRobotsFile();
         }
 
         $generateConfig = Config::get('FileSystem', 'generate');
@@ -165,9 +181,9 @@ class Kernel
 
         Route::filter();
 
-        internalInvalidRequest('disallowMethods', true);
-        internalInvalidRequest('allowMethods', false);
-        internalStartingConfig('controller');
+        \ZN\In::invalidRequest('disallowMethods', true);
+        \ZN\In::invalidRequest('allowMethods', false);
+        \ZN\In::startingConfig('controller');
 
         return new self;
     }
@@ -264,7 +280,7 @@ class Kernel
 
     public static function end()
     {
-        internalStartingConfig('destruct');
+        \ZN\In::startingConfig('destruct');
 
         if( PROJECT_MODE !== 'publication' )
         {

@@ -44,7 +44,16 @@ class InternalErrors implements InternalErrorsInterface
     //--------------------------------------------------------------------------------------------------------
     public function last(String $type = NULL)
     {
-        return lastError($type);
+        $result = error_get_last();
+
+        if( $type === NULL )
+        {
+            return $result;
+        }
+        else
+        {
+            return $result[$type] ?? false;
+        }
     }
 
     //--------------------------------------------------------------------------------------------------------

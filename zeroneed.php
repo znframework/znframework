@@ -65,13 +65,14 @@ define('INTERNAL_DIR', REAL_BASE_DIR . 'Internal' . DS);
 define('PRIORITY_DIR', INTERNAL_DIR . 'Priority' . DS);
 
 //--------------------------------------------------------------------------------------------------
-// Core File
+// Require Kernel
 //--------------------------------------------------------------------------------------------------
 //
-// Internal/ZEROCORE.php
+// All necessary function pats and codes for ZN
 //
 //--------------------------------------------------------------------------------------------------
-require_once INTERNAL_DIR . 'Levels.php';
+require_once INTERNAL_DIR . 'Kernel.php';
+//--------------------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------------------
 // Run Kernel
@@ -98,4 +99,4 @@ $finish = microtime();
 // Benchmark
 //
 //--------------------------------------------------------------------------------------------------
-internalBenchmarkReport((float) $start, (float) $finish);
+ZN\In::benchmarkReport((float) $start, (float) $finish);

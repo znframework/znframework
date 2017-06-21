@@ -1,6 +1,6 @@
 <?php
 //--------------------------------------------------------------------------------------------------
-// High Level
+// Kernel
 //--------------------------------------------------------------------------------------------------
 //
 // Author     : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
@@ -11,103 +11,49 @@
 //--------------------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------------------
-// EOL
+// VERSION INFO CONSTANTS
 //--------------------------------------------------------------------------------------------------
-//
-// @return \r\n
-//
+define('ZN_VERSION'          , '4.6.4');
+define('REQUIRED_PHP_VERSION', '7.0.0');
 //--------------------------------------------------------------------------------------------------
-define('EOL', PHP_EOL);
 
 //--------------------------------------------------------------------------------------------------
-// CRLF
+// REQUIREMENT CONSNTANTS
 //--------------------------------------------------------------------------------------------------
-//
-// @return \r\n
-//
+define('INTERNAL_CONSTANTS_DIR'      , INTERNAL_DIR . 'Constants' . DS                            );
+define('INTERNAL_FUNCTIONS_DIR'      , INTERNAL_DIR . 'Functions' . DS                            );
+define('PROJECT_CONTROLLER_NAMESPACE', 'Project\Controllers\\'                                    );
+define('PROJECT_COMMANDS_NAMESPACE'  , 'Project\Commands\\'                                       );
+define('EXTERNAL_COMMANDS_NAMESPACE' , 'External\Commands\\'                                      );
+define('DIRECTORY_INDEX'             , 'zeroneed.php'                                             );
+define('INTERNAL_ACCESS'             , 'Internal'                                                 );
+define('REQUEST_URI'                 , $_SERVER['REQUEST_URI'] ?? NULL                            );
+define('BASE_DIR'                    , explode(DIRECTORY_INDEX, $_SERVER['SCRIPT_NAME'])[0] ?? '/');
+define('PROJECTS_DIR'                , REAL_BASE_DIR.'Projects'.DS                                );
+define('EXTERNAL_DIR'                , REAL_BASE_DIR.'External'.DS                                );
+define('CLASSES_DIR'                 , INTERNAL_DIR . 'Classes'.DS                                );
 //--------------------------------------------------------------------------------------------------
-define('CRLF', "\r\n");
 
 //--------------------------------------------------------------------------------------------------
-// CR
+// SPACE CHAR CONSTANTS
 //--------------------------------------------------------------------------------------------------
-//
-// @return \r
-//
+define('EOL' , PHP_EOL);
+define('CRLF', "\r\n" );
+define('CR'  , "\r"   );
+define('LF'  , "\n"   );
+define('HT'  , "\t"   );
+define('TAB' , "\t"   );
+define('FF'  , "\f"   );
 //--------------------------------------------------------------------------------------------------
-define('CR', "\r");
 
 //--------------------------------------------------------------------------------------------------
-// LF
+// REQUIREMENT CONTANTS
 //--------------------------------------------------------------------------------------------------
-//
-// @return \n
-//
+define('PROJECTS_CONFIG'    , import(PROJECTS_DIR . 'Projects.php')  );
+define('DEFAULT_PROJECT'    , PROJECTS_CONFIG['directory']['default']);
+define('EXTERNAL_CONFIG_DIR', EXTERNAL_DIR . 'Config'.DS             );
+define('INTERNAL_CONFIG_DIR', INTERNAL_DIR . 'Config'.DS             );
 //--------------------------------------------------------------------------------------------------
-define('LF', "\n");
-
-//--------------------------------------------------------------------------------------------------
-// LF
-//--------------------------------------------------------------------------------------------------
-//
-// @return \t
-//
-//--------------------------------------------------------------------------------------------------
-define('HT', "\t");
-
-//--------------------------------------------------------------------------------------------------
-// TAB
-//--------------------------------------------------------------------------------------------------
-//
-// @return \t
-//
-//--------------------------------------------------------------------------------------------------
-define('TAB', "\t");
-
-//--------------------------------------------------------------------------------------------------
-// FF
-//--------------------------------------------------------------------------------------------------
-//
-// @return \f
-//
-//--------------------------------------------------------------------------------------------------
-define('FF', "\f");
-
-//--------------------------------------------------------------------------------------------------
-// PROJECTS_CONFIG
-//--------------------------------------------------------------------------------------------------
-//
-// @return Projects/Projects.php
-//
-//--------------------------------------------------------------------------------------------------
-define('PROJECTS_CONFIG', import(PROJECTS_DIR . 'Projects.php'));
-
-//--------------------------------------------------------------------------------------------------
-// DEFAULT_PROJECT
-//--------------------------------------------------------------------------------------------------
-//
-// @return Frontend/
-//
-//--------------------------------------------------------------------------------------------------
-define('DEFAULT_PROJECT', PROJECTS_CONFIG['directory']['default']);
-
-//--------------------------------------------------------------------------------------------------
-// EXTERNAL_CONFIG_DIR
-//--------------------------------------------------------------------------------------------------
-//
-// @return External/Config/
-//
-//--------------------------------------------------------------------------------------------------
-define('EXTERNAL_CONFIG_DIR', EXTERNAL_DIR . 'Config'.DS);
-
-//--------------------------------------------------------------------------------------------------
-// INTERNAL_CONFIG_DIR
-//--------------------------------------------------------------------------------------------------
-//
-// @return Internal/Config/
-//
-//--------------------------------------------------------------------------------------------------
-define('INTERNAL_CONFIG_DIR', INTERNAL_DIR . 'Config'.DS);
 
 //--------------------------------------------------------------------------------------------------
 // Current Project
@@ -117,6 +63,1013 @@ define('INTERNAL_CONFIG_DIR', INTERNAL_DIR . 'Config'.DS);
 //
 //--------------------------------------------------------------------------------------------------
 internalCurrentProject();
+
+//--------------------------------------------------------------------------------------------------
+// DIRECTORY CONSTANTS
+//--------------------------------------------------------------------------------------------------
+//
+// Almost every directory in the ZN Framework has constants. For this reason, these constants
+// vary according to the project name. It can be quite useful for you.
+//
+//--------------------------------------------------------------------------------------------------
+define('ROUTES_DIR'            , internalProjectContainerDir('Routes'));
+define('EXTERNAL_ROUTES_DIR'   , EXTERNAL_DIR.'Routes'.DS);
+define('DATABASES_DIR'         , internalProjectContainerDir('Databases'));
+define('CONFIG_DIR'            , internalProjectContainerDir('Config'));
+define('STORAGE_DIR'           , PROJECT_DIR.'Storage'.DS);
+define('COMMANDS_DIR'          , internalProjectContainerDir('Commands'));
+define('EXTERNAL_COMMANDS_DIR' , EXTERNAL_DIR.'Commands'.DS);
+define('RESOURCES_DIR'         , internalProjectContainerDir('Resources'));
+define('EXTERNAL_RESOURCES_DIR', EXTERNAL_DIR.'Resources'.DS);
+define('STARTING_DIR'          , internalProjectContainerDir('Starting'));
+define('EXTERNAL_STARTING_DIR' , EXTERNAL_DIR.'Starting'.DS);
+define('AUTOLOAD_DIR'          , STARTING_DIR.'Autoload'.DS);
+define('EXTERNAL_AUTOLOAD_DIR' , EXTERNAL_STARTING_DIR.'Autoload'.DS);
+define('HANDLOAD_DIR'          , STARTING_DIR.'Handload'.DS);
+define('EXTERNAL_HANDLOAD_DIR' , EXTERNAL_STARTING_DIR.'Handload'.DS);
+define('INTERNAL_LANGUAGES_DIR', INTERNAL_DIR.'Languages'.DS);
+define('LANGUAGES_DIR'         , internalProjectContainerDir('Languages'));
+define('EXTERNAL_LANGUAGES_DIR', EXTERNAL_DIR.'Languages'.DS);
+define('INTERNAL_LIBRARIES_DIR', INTERNAL_DIR.'Libraries'.DS);
+define('LIBRARIES_DIR'         , internalProjectContainerDir('Libraries'));
+define('EXTERNAL_LIBRARIES_DIR', EXTERNAL_DIR.'Libraries'.DS);
+define('CONTROLLERS_DIR'       , PROJECT_DIR.'Controllers'.DS);
+define('MODELS_DIR'            , internalProjectContainerDir('Models'));
+define('EXTERNAL_MODELS_DIR'   , EXTERNAL_DIR.'Models'.DS);
+define('VIEWS_DIR'             , PROJECT_DIR.'Views'.DS);
+define('PAGES_DIR'             , VIEWS_DIR);
+define('PROCESSOR_DIR'         , RESOURCES_DIR.'Processor'.DS);
+define('EXTERNAL_PROCESSOR_DIR', EXTERNAL_RESOURCES_DIR.'Processor'.DS);
+define('FILES_DIR'             , RESOURCES_DIR.'Files'.DS);
+define('EXTERNAL_FILES_DIR'    , EXTERNAL_RESOURCES_DIR.'Files'.DS);
+define('FONTS_DIR'             , RESOURCES_DIR.'Fonts'.DS);
+define('EXTERNAL_FONTS_DIR'    , EXTERNAL_RESOURCES_DIR.'Fonts'.DS);
+define('SCRIPTS_DIR'           , RESOURCES_DIR.'Scripts'.DS);
+define('EXTERNAL_SCRIPTS_DIR'  , EXTERNAL_RESOURCES_DIR.'Scripts'.DS);
+define('STYLES_DIR'            , RESOURCES_DIR.'Styles'.DS);
+define('EXTERNAL_STYLES_DIR'   , EXTERNAL_RESOURCES_DIR.'Styles'.DS);
+define('TEMPLATES_DIR'         , RESOURCES_DIR.'Templates'.DS);
+define('EXTERNAL_TEMPLATES_DIR', EXTERNAL_RESOURCES_DIR.'Templates'.DS);
+define('THEMES_DIR'            , RESOURCES_DIR.'Themes'.DS);
+define('EXTERNAL_THEMES_DIR'   , EXTERNAL_RESOURCES_DIR.'Themes'.DS);
+define('PLUGINS_DIR'           , RESOURCES_DIR.'Plugins'.DS);
+define('EXTERNAL_PLUGINS_DIR'  , EXTERNAL_RESOURCES_DIR.'Plugins'.DS);
+define('UPLOADS_DIR'           , RESOURCES_DIR.'Uploads'.DS);
+define('EXTERNAL_UPLOADS_DIR'  , EXTERNAL_RESOURCES_DIR.'Uploads'.DS);
+define('INTERNAL_TEMPLATES_DIR', INTERNAL_DIR.'Templates'.DS);
+//--------------------------------------------------------------------------------------------------
+
+//--------------------------------------------------------------------------------------------------
+// Predefined Libraries
+//--------------------------------------------------------------------------------------------------
+import(CLASSES_DIR . 'Config.php'    );
+import(CLASSES_DIR . 'Autoloader.php');
+//--------------------------------------------------------------------------------------------------
+
+//--------------------------------------------------------------------------------------------------
+// Structure Data
+//--------------------------------------------------------------------------------------------------
+//
+// Current Controller Constants
+//
+//--------------------------------------------------------------------------------------------------
+define('STRUCTURE_DATA'     , ZN\Core\Structure::data());
+define('CURRENT_COPEN_PAGE' , STRUCTURE_DATA['openFunction']);
+define('CURRENT_CPARAMETERS', STRUCTURE_DATA['parameters']);
+define('CURRENT_CFILE'      , STRUCTURE_DATA['file']);
+define('CURRENT_CFUNCTION'  , STRUCTURE_DATA['function']);
+define('CURRENT_CPAGE'      , ($page = STRUCTURE_DATA['page']) . '.php');
+define('CURRENT_CONTROLLER' , $page);
+define('CURRENT_CNAMESPACE' , $namespace = STRUCTURE_DATA['namespace']);
+define('CURRENT_CCLASS'     , $namespace . CURRENT_CONTROLLER);
+define('CURRENT_CFPATH'     , str_replace(CONTROLLERS_DIR, '', CURRENT_CONTROLLER).'/'.CURRENT_CFUNCTION);
+define('CURRENT_CFURI'      , strtolower(CURRENT_CFPATH));
+define('CURRENT_CFURL'      , siteUrl(CURRENT_CFPATH));
+//--------------------------------------------------------------------------------------------------
+
+//--------------------------------------------------------------------------------------------------
+// Illustrate
+//--------------------------------------------------------------------------------------------------
+//
+// @param string $const
+// @param  mixed $value
+// @return mixed
+//
+//--------------------------------------------------------------------------------------------------
+function illustrate(String $const, $value = '')
+{
+    if( ! defined($const) )
+    {
+        define($const, $value);
+    }
+    else
+    {
+        if( $value !== '' )
+        {
+            return $value;
+        }
+    }
+
+    return constant($const);
+}
+
+//--------------------------------------------------------------------------------------------------
+// CSRFInput
+//--------------------------------------------------------------------------------------------------
+//
+// @param string data
+//
+// @return int
+//
+//--------------------------------------------------------------------------------------------------
+function CSRFInput()
+{
+    Session::insert('token', Encode::create(32));
+
+    return Form::hidden('token', Session::select('token'));
+}
+
+//--------------------------------------------------------------------------------------------------
+// Length
+//--------------------------------------------------------------------------------------------------
+//
+// @param string data
+//
+// @return int
+//
+//--------------------------------------------------------------------------------------------------
+function length($data) : Int
+{
+    return ! is_scalar($data)
+           ? count((array) $data)
+           : strlen($data);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Symbol
+//--------------------------------------------------------------------------------------------------
+//
+// @param string $symbolName
+//
+// @return string
+//
+//--------------------------------------------------------------------------------------------------
+function symbol(String $symbolName = 'turkishLira') : String
+{
+    return Config::get('Symbols', $symbolName);
+}
+
+//--------------------------------------------------------------------------------------------------
+// getErrorMessage()
+//--------------------------------------------------------------------------------------------------
+//
+// @param string $langFile
+// @param string $errorMsg
+// @param mixed  $ex
+//
+// @return string
+//
+//--------------------------------------------------------------------------------------------------
+function getErrorMessage(String $langFile, String $errorMsg = NULL, $ex = NULL) : String
+{
+    $style  = 'border:solid 1px #E1E4E5;';
+    $style .= 'background:#FEFEFE;';
+    $style .= 'padding:10px;';
+    $style .= 'margin-bottom:10px;';
+    $style .= 'font-family:Calibri, Ebrima, Century Gothic, Consolas, Courier New, Courier, monospace, Tahoma, Arial;';
+    $style .= 'color:#666;';
+    $style .= 'text-align:left;';
+    $style .= 'font-size:14px;';
+
+    $exStyle = 'color:#900;';
+
+    if( ! is_array($ex) )
+    {
+        $ex = '<span style="'.$exStyle .'">'.$ex.'</span>';
+    }
+    else
+    {
+        $newArray = [];
+
+        if( ! empty($ex) ) foreach( $ex as $k => $v )
+        {
+            $newArray[$k] = $v;
+        }
+
+        $ex = $newArray;
+    }
+
+    $str  = "<div style=\"$style\">";
+
+    if( ! empty($errorMsg) )
+    {
+        $str .= lang($langFile, $errorMsg, $ex);
+    }
+    else
+    {
+        $str .= $langFile;
+    }
+
+    $str .= '</div><br>';
+
+    return $str;
+}
+
+//--------------------------------------------------------------------------------------------------
+// report()
+//--------------------------------------------------------------------------------------------------
+//
+// @param string $subject
+// @param string $message
+// @param string $destination
+// @param string $time
+//
+// @return bool
+//
+//--------------------------------------------------------------------------------------------------
+function report(String $subject, String $message, String $destination = NULL, String $time = NULL) : Bool
+{
+    if( ! Config::get('General', 'log')['createFile'] )
+    {
+        return false;
+    }
+
+    if( empty($destination) )
+    {
+        $destination = str_replace(' ', '-', $subject);
+    }
+
+    $logDir    = STORAGE_DIR.'Logs/';
+    $extension = '.log';
+
+    if( ! is_dir($logDir) )
+    {
+        Folder::create($logDir, 0755);
+    }
+
+    if( is_file($logDir.suffix($destination, $extension)) )
+    {
+        if( empty($time) )
+        {
+            $time = Config::get('General', 'log')['fileTime'];
+        }
+
+        $createDate = File::createDate($logDir.suffix($destination, $extension), 'd.m.Y');
+        $endDate    = strtotime("$time", strtotime($createDate));
+        $endDate    = date('Y.m.d', $endDate);
+
+        if( date('Y.m.d')  >  $endDate )
+        {
+            File::delete($logDir.suffix($destination, $extension));
+        }
+    }
+
+    $message = 'IP: ' . ipv4().
+               ' | Subject: ' . $subject.
+               ' | Date: '.Date::set('{dayNumber0}.{monthNumber0}.{year} {H024}:{minute}:{second}').
+               ' | Message: ' . $message . EOL;
+
+    return error_log($message, 3, $logDir.suffix($destination, $extension));
+}
+
+//--------------------------------------------------------------------------------------------------
+// headers()
+//--------------------------------------------------------------------------------------------------
+//
+// @param mixed $header
+//
+//--------------------------------------------------------------------------------------------------
+function headers($header)
+{
+    if( empty($header) )
+    {
+        return false;
+    }
+
+    if( ! is_array($header) )
+    {
+         header($header);
+    }
+    else
+    {
+        if( ! empty($header) ) foreach( $header as $k => $v )
+        {
+            header($v);
+        }
+    }
+}
+
+//--------------------------------------------------------------------------------------------------
+// requestURI()
+//--------------------------------------------------------------------------------------------------
+//
+// @param void
+//
+// @return string
+//
+//--------------------------------------------------------------------------------------------------
+function requestURI() : String
+{
+    return (string) ZN\In::requestURI();
+}
+
+//--------------------------------------------------------------------------------------------------
+// currentUri()
+//--------------------------------------------------------------------------------------------------
+//
+// @param bool $fullPath = false
+//
+// @return string
+//
+//--------------------------------------------------------------------------------------------------
+function currentUri(Bool $fullPath = false) : String
+{
+    $requestUri = server('requestUri');
+    $currentUri = BASE_DIR !== '/'
+                ? str_replace(BASE_DIR, '', $requestUri)
+                : substr($requestUri, 1);
+
+    if( $fullPath === false )
+    {
+        $currentUri = ZN\In::cleanURIPrefix($currentUri, indexStatus());
+
+        if( suffix($currentUri) === ZN\In::getCurrentProject() )
+        {
+            return Config::get('Services', 'route')['openController'];
+        }
+
+        $currentUri = ZN\In::cleanURIPrefix($currentUri, ZN\In::getCurrentProject());
+        $currentUri = ZN\In::cleanURIPrefix($currentUri, currentLang());
+    }
+
+    return $currentUri;
+}
+
+//--------------------------------------------------------------------------------------------------
+// getLang()
+//--------------------------------------------------------------------------------------------------
+//
+// @param void
+//
+// @return string
+//
+//--------------------------------------------------------------------------------------------------
+function getLang() : String
+{
+    $systemLanguageData        = ZN\In::defaultProjectKey('SystemLanguageData');
+    $defaultSystemLanguageData = ZN\In::defaultProjectKey('DefaultSystemLanguageData');
+
+    $default = Config::get('Language', 'default');
+
+    if( ! Session::select($defaultSystemLanguageData) )
+    {
+        Session::insert($defaultSystemLanguageData, $default);
+    }
+    else
+    {
+        if( Session::select($defaultSystemLanguageData) !== $default )
+        {
+            Session::insert($defaultSystemLanguageData, $default);
+            Session::insert($systemLanguageData, $default);
+
+            return $default;
+        }
+    }
+
+    if( Session::select($systemLanguageData) === false )
+    {
+        Session::insert($systemLanguageData, $default);
+
+        return $default;
+    }
+    else
+    {
+        return Session::select($systemLanguageData);
+    }
+}
+
+//--------------------------------------------------------------------------------------------------
+// setLang()
+//--------------------------------------------------------------------------------------------------
+//
+// @param string $l
+//
+// @return bool
+//
+//--------------------------------------------------------------------------------------------------
+function setLang(String $l = NULL) : Bool
+{
+    if( empty($l) )
+    {
+        $l = Config::get('Language', 'default');
+    }
+
+    return Session::insert(ZN\In::defaultProjectKey('SystemLanguageData'), $l);
+}
+
+//--------------------------------------------------------------------------------------------------
+// lang()
+//--------------------------------------------------------------------------------------------------
+//
+// @param string $file
+// @param string $str
+// @param mixed  $changed
+//
+// @return mixed
+//
+//--------------------------------------------------------------------------------------------------
+function lang(String $file = NULL, String $str = NULL, $changed = NULL)
+{
+    global $lang;
+
+    $file          = ( Config::get('Language', 'shortCodes')[getLang()] ?? 'English').'/'.suffix($file, '.php');
+    $langDir       = LANGUAGES_DIR.$file;
+    $sysLangDir    = INTERNAL_LANGUAGES_DIR.$file;
+    $commonLangDir = EXTERNAL_LANGUAGES_DIR.$file;
+
+    if( is_file($langDir) && ! isImport($langDir) )
+    {
+        $lang[$file] = import($langDir);
+    }
+    elseif( is_file($sysLangDir) && ! isImport($sysLangDir) )
+    {
+        $lang[$file] = import($sysLangDir);
+    }
+    elseif( is_file($commonLangDir) && ! isImport($commonLangDir) )
+    {
+        $lang[$file] = import($commonLangDir);
+    }
+
+    if( empty($str) && isset($lang[$file]) )
+    {
+        return $lang[$file];
+    }
+    elseif( ! empty($lang[$file][$str]) )
+    {
+        $langstr = $lang[$file][$str];
+    }
+    else
+    {
+        return false;
+    }
+
+    if( ! is_array($changed) )
+    {
+        if( strstr($langstr, "%") && ! empty($changed) )
+        {
+            return str_replace("%", $changed , $langstr);
+        }
+        else
+        {
+            return $langstr;
+        }
+    }
+    else
+    {
+        if( ! empty($changed) )
+        {
+            $values = [];
+
+            foreach( $changed as $key => $value )
+            {
+                $keys[]   = $key;
+                $values[] = $value;
+            }
+
+            return str_replace($keys, $values, $langstr);
+        }
+        else
+        {
+            return $langstr;
+        }
+    }
+}
+
+//--------------------------------------------------------------------------------------------------
+// currentLang()
+//--------------------------------------------------------------------------------------------------
+//
+// @param void
+//
+// @return string
+//
+//--------------------------------------------------------------------------------------------------
+function currentLang() : String
+{
+    if( ! Config::get('Services','uri')['lang'] )
+    {
+        return false;
+    }
+    else
+    {
+        return getLang();
+    }
+}
+
+//--------------------------------------------------------------------------------------------------
+// currentUrl()
+//--------------------------------------------------------------------------------------------------
+//
+// @param string $fix
+//
+// @return string
+//
+//--------------------------------------------------------------------------------------------------
+function currentUrl(String $fix = NULL) : String
+{
+    $currentUrl = hostUrl(server('requestUri'));
+
+    if( ! empty($fix) )
+    {
+        return suffix(rtrim($currentUrl, $fix)) . $fix;
+    }
+
+    return $currentUrl;
+}
+
+//--------------------------------------------------------------------------------------------------
+// siteUrl()
+//--------------------------------------------------------------------------------------------------
+//
+// @param string $uri
+// @param int    $index
+//
+// @return string
+//
+//--------------------------------------------------------------------------------------------------
+function siteUrl(String $uri = NULL, Int $index = 0) : String
+{
+    return hostUrl
+    (
+           ZN\In::baseDir($index).
+           indexStatus().
+           ZN\In::getCurrentProject().
+           suffix(currentLang()).
+           $uri
+     );
+}
+
+//--------------------------------------------------------------------------------------------------
+// siteUrls() - v.4.2.6
+//--------------------------------------------------------------------------------------------------
+//
+// @param string $uri
+// @param int    $index
+//
+// @return string
+//
+//--------------------------------------------------------------------------------------------------
+function siteUrls(String $uri = NULL, Int $index = 0) : String
+{
+    return str_replace(sslStatus(), httpFix(true), siteUrl($uri, $index));
+}
+
+//--------------------------------------------------------------------------------------------------
+// baseUrl()
+//--------------------------------------------------------------------------------------------------
+//
+// @param string $uri
+// @param int    $index
+//
+// @return string
+//
+//--------------------------------------------------------------------------------------------------
+function baseUrl(String $uri = NULL, Int $index = 0) : String
+{
+    return hostUrl(ZN\In::baseDir($index) . absoluteRelativePath($uri));
+}
+
+//--------------------------------------------------------------------------------------------------
+// prevUrl()
+//--------------------------------------------------------------------------------------------------
+//
+// @param void
+//
+// @return string
+//
+//--------------------------------------------------------------------------------------------------
+function prevUrl() : String
+{
+    return  $_SERVER['HTTP_REFERER'] ?? '';
+}
+
+//--------------------------------------------------------------------------------------------------
+// hostUrl()
+//--------------------------------------------------------------------------------------------------
+//
+// @param string $uri
+//
+// @return string
+//
+//--------------------------------------------------------------------------------------------------
+function hostUrl(String $uri = NULL) : String
+{
+    return sslStatus() . host() . ($uri === '' ? '/' : prefix(ZN\In::cleanInjection($uri)));
+}
+
+//--------------------------------------------------------------------------------------------------
+// currentPath()
+//--------------------------------------------------------------------------------------------------
+//
+// @param bool $isPath
+//
+// @return string
+//
+//--------------------------------------------------------------------------------------------------
+function currentPath(Bool $isPath = true) : String
+{
+    $currentPagePath = str_replace(getLang().'/', '', server('currentPath'));
+
+    if( isset($currentPagePath[0]) && $currentPagePath[0] === '/' )
+    {
+        $currentPagePath = substr($currentPagePath, 1, strlen($currentPagePath) - 1);
+    }
+
+    if( $isPath === true )
+    {
+        return $currentPagePath;
+    }
+    else
+    {
+        $str = explode('/', $currentPagePath);
+
+        if( count($str) > 1 )
+        {
+            return $str[count($str) - 1];
+        }
+
+        return $str[0];
+    }
+}
+
+//--------------------------------------------------------------------------------------------------
+// basePath()
+//--------------------------------------------------------------------------------------------------
+//
+// @param string $uri
+// @param int    $index
+//
+// @return string
+//
+//--------------------------------------------------------------------------------------------------
+function basePath(String $uri = NULL, Int $index = 0) : String
+{
+    $newBaseDir = substr(BASE_DIR, 1);
+
+    if( BASE_DIR !== '/' )
+    {
+        if( $index < 0 )
+        {
+            $baseDir    = substr(BASE_DIR, 1, -1);
+            $baseDir    = explode('/', $baseDir);
+            $newBaseDir = '';
+
+            for( $i = 0; $i < count($baseDir) + $index; $i++ )
+            {
+                $newBaseDir .= suffix($baseDir[$i]);
+            }
+        }
+    }
+
+    return ZN\In::cleanInjection($newBaseDir . $uri);
+}
+
+//--------------------------------------------------------------------------------------------------
+// prevPath()
+//--------------------------------------------------------------------------------------------------
+//
+// @param bool $isPath
+//
+// @return string
+//
+//--------------------------------------------------------------------------------------------------
+function prevPath(Bool $isPath = true) : String
+{
+    if( ! isset($_SERVER['HTTP_REFERER']) )
+    {
+        return false;
+    }
+
+    $str = str_replace(siteUrl(), '', $_SERVER['HTTP_REFERER']);
+
+    if( $isPath === true )
+    {
+        return $str;
+    }
+    else
+    {
+        return divide($str, '/', -1);
+    }
+}
+
+//--------------------------------------------------------------------------------------------------
+// filePath()
+//--------------------------------------------------------------------------------------------------
+//
+// @param string $file
+// @param string $removeurl
+//
+// @return string
+//
+//--------------------------------------------------------------------------------------------------
+function filePath(String $file = NULL, String $removeUrl = NULL) : String
+{
+    if( isUrl($file) )
+    {
+        if( ! isUrl($removeUrl) )
+        {
+            $removeUrl = baseUrl();
+        }
+
+        $file = trim(str_replace($removeUrl, '', $file));
+    }
+
+    return $file;
+}
+
+//--------------------------------------------------------------------------------------------------
+// redirect()
+//--------------------------------------------------------------------------------------------------
+//
+// @param string $url
+// @param int    $time
+// @param array  $data
+// @param bool   $exit
+//
+//--------------------------------------------------------------------------------------------------
+function redirect(String $url = NULL, Int $time = 0, Array $data = NULL, Bool $exit = true)
+{
+    if( ! isUrl((string) $url) )
+    {
+        $url = siteUrl($url);
+    }
+
+    if( ! empty($data) )
+    {
+        foreach( $data as $k => $v )
+        {
+            Session::insert('redirect:' . $k, $v);
+        }
+    }
+
+    if( $time > 0 )
+    {
+        sleep($time);
+    }
+
+    header('Location: ' . $url, true);
+
+    if( $exit === true )
+    {
+        exit;
+    }
+}
+
+//--------------------------------------------------------------------------------------------------
+// redirectData()
+//--------------------------------------------------------------------------------------------------
+//
+// @param string $k
+//
+// @return mixed
+//
+//--------------------------------------------------------------------------------------------------
+function redirectData(String $k)
+{
+    if( $data = Session::select('redirect:'.$k) )
+    {
+        return $data;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+//--------------------------------------------------------------------------------------------------
+// redirectDeleteData()
+//--------------------------------------------------------------------------------------------------
+//
+// @param mixed $data
+//
+// @return bool
+//
+//--------------------------------------------------------------------------------------------------
+function redirectDeleteData($data) : Bool
+{
+    if( is_array($data) ) foreach( $data as $v )
+    {
+        Session::delete('redirect:'.$v);
+    }
+    else
+    {
+        return Session::delete('redirect:'.$data);
+    }
+
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+// httpFix() - ZN >= 4.2.6
+//--------------------------------------------------------------------------------------------------
+//
+// @param bool $security = false
+//
+// @return string
+//
+//--------------------------------------------------------------------------------------------------
+function httpFix(Bool $security = false) : String
+{
+    return ( $security === false )
+           ? 'http://'
+           : 'https://';
+}
+
+//--------------------------------------------------------------------------------------------------
+// sslStatus()
+//--------------------------------------------------------------------------------------------------
+//
+// @param void
+//
+// @return string
+//
+//--------------------------------------------------------------------------------------------------
+function sslStatus() : String
+{
+    return ! Config::get('Services','uri')['ssl']
+           ? 'http://'
+           : 'https://';
+}
+
+//--------------------------------------------------------------------------------------------------
+// indexStatus()
+//--------------------------------------------------------------------------------------------------
+//
+// @param void
+//
+// @return string
+//
+//--------------------------------------------------------------------------------------------------
+function indexStatus() : String
+{
+    return ! Config::get('Htaccess', 'uri')['directoryIndex']
+           ? ''
+           : suffix(DIRECTORY_INDEX);
+}
+
+//--------------------------------------------------------------------------------------------------
+// internalDefaultProjectKey()
+//--------------------------------------------------------------------------------------------------
+//
+// @param void
+//
+// @return string
+//
+//--------------------------------------------------------------------------------------------------
+function internalDefaultProjectKey()
+{
+    return ZN\In::defaultProjectKey();
+}
+
+//--------------------------------------------------------------------------------------------------
+// library()
+//--------------------------------------------------------------------------------------------------
+//
+// @param string $class
+// @param string $function
+// @param mixed  $parameters
+//
+// @return callable
+//
+//--------------------------------------------------------------------------------------------------
+function library(String $class, String $function, $parameters = [])
+{
+    $var = uselib($class);
+
+    if( ! is_array($parameters) )
+    {
+        $parameters = [$parameters];
+    }
+
+    if( is_callable([$var, $function]) )
+    {
+        return call_user_func_array([$var, $function], $parameters);
+    }
+    else
+    {
+        return false;
+    }
+}
+
+//--------------------------------------------------------------------------------------------------
+// uselib()
+//--------------------------------------------------------------------------------------------------
+//
+// @param string $class
+// @param array  $parameters
+//
+// @return class
+//
+//--------------------------------------------------------------------------------------------------
+function uselib(String $class, Array $parameters = [])
+{
+    if( ! class_exists($class) )
+    {
+        $classInfo = Autoloader::getClassFileInfo($class);
+
+        $class = $classInfo['namespace'];
+
+        if( ! class_exists($class) )
+        {
+            die(getErrorMessage('Error', 'classError', $class));
+        }
+    }
+
+    if( ! isset(ZN::$use->$class) )
+    {
+        if( ! is_object(ZN::$use) )
+        {
+            ZN::$use = new stdClass();
+        }
+
+        ZN::$use->$class = new $class(...$parameters);
+    }
+
+    return ZN::$use->$class;
+}
+
+//--------------------------------------------------------------------------------------------------
+// Import
+//--------------------------------------------------------------------------------------------------
+//
+// Require Once
+//
+//--------------------------------------------------------------------------------------------------
+function import(String $file)
+{
+    $constant = 'ImportFilePrefix' . $file;
+
+    if( ! defined($constant) )
+    {
+        define($constant, true);
+
+        return require $file;
+    }
+}
+
+//--------------------------------------------------------------------------------------------------
+// trace()
+//--------------------------------------------------------------------------------------------------
+//
+// İşlev: Sistem kullanıyor.
+// Dönen Değerler: Sistem kullanıyor.
+//
+//--------------------------------------------------------------------------------------------------
+function trace(String $message)
+{
+    $style  = 'border:solid 1px #E1E4E5;';
+    $style .= 'background:#FEFEFE;';
+    $style .= 'padding:10px;';
+    $style .= 'margin-bottom:10px;';
+    $style .= 'font-family:Calibri, Ebrima, Century Gothic, Consolas, Courier New, Courier, monospace, Tahoma, Arial;';
+    $style .= 'color:#666;';
+    $style .= 'text-align:left;';
+    $style .= 'font-size:14px;';
+
+    $message = preg_replace('/\[(.*?)\]/', '<span style="color:#990000;">$1</span>', $message);
+
+    $str  = "<div style=\"$style\">";
+    $str .= $message;
+    $str .= '</div>';
+
+    exit($str);
+}
+
+//--------------------------------------------------------------------------------------------------
+// isPhpVersion()
+//--------------------------------------------------------------------------------------------------
+//
+// İşlev: Parametrenin geçerli php sürümü olup olmadığını kontrol eder.
+// Parametreler: $version => Geçerliliği kontrol edilecek veri.
+// Dönen Değerler: Geçerli sürümse true değilse false değerleri döner.
+//
+//--------------------------------------------------------------------------------------------------
+function isPhpVersion(String $version = '5.2.4')
+{
+    return version_compare(PHP_VERSION, $version, '>=') ? true : false;
+}
+
+//--------------------------------------------------------------------------------------------------
+// absoluteRelativePath()
+//--------------------------------------------------------------------------------------------------
+//
+// Gerçek yolu yalın yola çevirir.
+//
+//--------------------------------------------------------------------------------------------------
+function absoluteRelativePath(String $path = NULL)
+{
+    return str_replace([REAL_BASE_DIR, DS], [NULL, '/'], $path);
+}
 
 //--------------------------------------------------------------------------------------------------
 // isImport()
@@ -813,29 +1766,6 @@ function divide(String $str = NULL, String $separator = '|', String $index = '0'
 }
 
 //--------------------------------------------------------------------------------------------------
-// lastError()
-//--------------------------------------------------------------------------------------------------
-//
-// @param string $type = NULL
-//
-// @param mixed
-//
-//--------------------------------------------------------------------------------------------------
-function lastError(String $type = NULL)
-{
-    $result = error_get_last();
-
-    if( $type === NULL )
-    {
-        return $result;
-    }
-    else
-    {
-        return $result[$type] ?? false;
-    }
-}
-
-//--------------------------------------------------------------------------------------------------
 // internalProjectContainerDir)
 //--------------------------------------------------------------------------------------------------
 //
@@ -858,56 +1788,6 @@ function internalProjectContainerDir($path = NULL) : String
     }
 
     return $containerProjectDir;
-}
-
-//--------------------------------------------------------------------------------------------------
-// Project Mode
-//--------------------------------------------------------------------------------------------------
-//
-// @param string $mode: publication, development, restoration
-// @param int    $report: -1
-//
-// @return void
-//
-//--------------------------------------------------------------------------------------------------
-function internalProjectMode(String $mode, Int $report = -1)
-{
-    //----------------------------------------------------------------------------------------------
-    // Kullanılabilir Uygulama Seçenekleri
-    //----------------------------------------------------------------------------------------------
-    switch( strtolower($mode) )
-    {
-        //------------------------------------------------------------------------------------------
-        // Publication Yayın Modu
-        // Tüm hatalar kapalıdır.
-        // Projenin tamamlanmasından sonra bu modun kullanılması önerilir.
-        //------------------------------------------------------------------------------------------
-        case 'publication' :
-            error_reporting(0);
-        break;
-        //------------------------------------------------------------------------------------------
-
-        //------------------------------------------------------------------------------------------
-        // Restoration Onarım Modu
-        // Hataların görünümü görecelidir.
-        //------------------------------------------------------------------------------------------
-        case 'restoration' :
-        //------------------------------------------------------------------------------------------
-        // Development Geliştirme Modu
-        // Tüm hatalar açıktır.
-        //------------------------------------------------------------------------------------------
-        case 'development' :
-            error_reporting($report);
-        break;
-        //------------------------------------------------------------------------------------------
-
-        //------------------------------------------------------------------------------------------
-        // Farklı bir kullanım hatası
-        //------------------------------------------------------------------------------------------
-        default: trace('Invalid Application Mode! Available Options: ["development"], ["restoration"] or ["publication"]');
-        //------------------------------------------------------------------------------------------
-    }
-    //----------------------------------------------------------------------------------------------
 }
 
 //--------------------------------------------------------------------------------------------------
