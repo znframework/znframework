@@ -199,7 +199,7 @@ class Kernel
     {
         $parameters   = CURRENT_CPARAMETERS;
         $page         = CURRENT_CONTROLLER;
-         $isFile      = CURRENT_CFILE;
+        $isFile       = CURRENT_CFILE;
         $function     = CURRENT_CFUNCTION;
         $openFunction = CURRENT_COPEN_PAGE;
         $namespace    = CURRENT_CNAMESPACE;
@@ -227,14 +227,28 @@ class Kernel
                 {
                     try
                     {
-                        $viewFunction = $function === $openFunction ? NULL : '-'.$function;
-                        $pageClass    = uselib($page);
+                        if( ! $viewNameType = Config::get('ViewObjects', 'viewNameType') )
+                        {
+                            $viewNameType = 'file';
+                        }
+                        
+                        if( $viewNameType === 'file' )
+                        {
+                            $viewFunction = $function === $openFunction ? NULL : '-' . $function;
+                            $viewDir      = PAGES_DIR . $view . $viewFunction;
+                        }
+                        else
+                        {
+                            $viewFunction = $function === $openFunction ? $openFunction : $function;
+                            $viewDir      = PAGES_DIR . $view . DS . $viewFunction;
+                        }
 
-                        $pageClass->$function(...$parameters);
-
-                        $viewDir    = PAGES_DIR . $view . $viewFunction;
                         $viewPath   = $viewDir  . '.php';
                         $wizardPath = $viewDir  . '.wizard.php';
+
+                        $pageClass = uselib($page);
+
+                        $pageClass->$function(...$parameters);
 
                         if( is_file($wizardPath) && ! isImport($viewPath) && ! isImport($wizardPath) )
                         {
