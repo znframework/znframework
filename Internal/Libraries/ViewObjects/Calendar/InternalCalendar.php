@@ -1,6 +1,6 @@
 <?php namespace ZN\ViewObjects;
 
-use Config, URI, CLController;
+use Config, URI, URL, CLController;
 
 class InternalCalendar extends CLController implements InternalCalendarInterface
 {
@@ -311,7 +311,7 @@ class InternalCalendar extends CLController implements InternalCalendarInterface
 
         if( isset($_SERVER['HTTP_REFERER']) )
         {
-            $arrays = array_diff(explode('/', prevUrl()), explode('/', currentUrl()));
+            $arrays = array_diff(explode('/', prevUrl()), explode('/', URL::current()));
 
             $prevMonth = end($arrays);
         }

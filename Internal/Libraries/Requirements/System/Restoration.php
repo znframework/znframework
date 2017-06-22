@@ -1,6 +1,6 @@
 <?php namespace ZN\Requirements\System;
 
-use Config, Arrays;
+use Config, Arrays, URI;
 
 class Restoration
 {
@@ -91,7 +91,7 @@ class Restoration
 
         error_reporting(0);
 
-        $currentPath          = $restorable === true ? strtolower(CURRENT_CFUNCTION) : strtolower(currentUri());
+        $currentPath          = $restorable === true ? strtolower(CURRENT_CFUNCTION) : strtolower(URI::active());
         $projects             = Config::get('Project');
         $restoration          = $projects['restoration'];
         $restorationPages     = $restorable === true && ! isset($settings['functions'])

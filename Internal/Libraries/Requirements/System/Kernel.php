@@ -1,6 +1,6 @@
 <?php namespace ZN\Core;
 
-use Arrays, Import, Route, Throwable, Exceptions, Config, Errors, Generate, Folder, Restoration;
+use Arrays, Import, Route, Throwable, Exceptions, Config, Errors, Generate, Folder, Restoration, URL;
 
 class Kernel
 {
@@ -30,25 +30,6 @@ class Kernel
         define('PROJECT_MODE', strtolower($appcon['mode']));
 
         \ZN\In::projectMode(PROJECT_MODE, $appcon['errorReporting']);
-
-        define('BASE_URL', baseUrl());
-        define('SITE_URL', siteUrl());
-        define('CURRENT_URL', currentUrl());
-        define('PREV_URL', prevUrl());
-        define('HOST_URL', hostUrl());
-        define('BASE_PATH', basePath());
-        define('CURRENT_PATH', currentPath());
-        define('PREV_PATH', prevPath());
-        define('HOST', host());
-        define('HOST_NAME', HOST);
-        define('FILES_URL'    , baseUrl(FILES_DIR    ));
-        define('FONTS_URL'    , baseUrl(FONTS_DIR    ));
-        define('PLUGINS_URL'  , baseUrl(PLUGINS_DIR  ));
-        define('SCRIPTS_URL'  , baseUrl(SCRIPTS_DIR  ));
-        define('STYLES_URL'   , baseUrl(STYLES_DIR   ));
-        define('THEMES_URL'   , baseUrl(THEMES_DIR   ));
-        define('UPLOADS_URL'  , baseUrl(UPLOADS_DIR  ));
-        define('RESOURCES_URL', baseUrl(RESOURCES_DIR));
 
         if( Config::get('IndividualStructures', 'cache')['obGzhandler'] && substr_count(server('acceptEncoding'), 'gzip') )
         {
@@ -231,7 +212,7 @@ class Kernel
                         {
                             $viewNameType = 'file';
                         }
-                        
+
                         if( $viewNameType === 'file' )
                         {
                             $viewFunction = $function === $openFunction ? NULL : '-' . $function;

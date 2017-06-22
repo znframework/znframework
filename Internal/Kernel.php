@@ -18,7 +18,7 @@ define('REQUIRED_PHP_VERSION', '7.0.0');
 //--------------------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------------------
-// REQUIREMENT CONSNTANTS
+// REQUIREMENT CONSTANTS
 //--------------------------------------------------------------------------------------------------
 define('INTERNAL_CONSTANTS_DIR'      , INTERNAL_DIR . 'Constants' . DS                            );
 define('INTERNAL_FUNCTIONS_DIR'      , INTERNAL_DIR . 'Functions' . DS                            );
@@ -47,7 +47,7 @@ define('FF'  , "\f"   );
 //--------------------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------------------
-// REQUIREMENT CONTANTS
+// REQUIREMENT CONSTANTS
 //--------------------------------------------------------------------------------------------------
 define('PROJECTS_CONFIG'    , import(PROJECTS_DIR . 'Projects.php')  );
 define('DEFAULT_PROJECT'    , PROJECTS_CONFIG['directory']['default']);
@@ -145,6 +145,33 @@ define('CURRENT_CCLASS'     , $namespace . CURRENT_CONTROLLER);
 define('CURRENT_CFPATH'     , str_replace(CONTROLLERS_DIR, '', CURRENT_CONTROLLER).'/'.CURRENT_CFUNCTION);
 define('CURRENT_CFURI'      , strtolower(CURRENT_CFPATH));
 define('CURRENT_CFURL'      , siteUrl(CURRENT_CFPATH));
+//--------------------------------------------------------------------------------------------------
+
+//--------------------------------------------------------------------------------------------------
+// URL CONSTANTS
+//--------------------------------------------------------------------------------------------------
+//
+// Useful current constants.
+//
+//--------------------------------------------------------------------------------------------------
+define('BASE_URL'     , baseUrl()             );
+define('SITE_URL'     , siteUrl()             );
+define('CURRENT_URL'  , URL::current()        );
+define('PREV_URL'     , prevUrl()             );
+define('HOST_URL'     , URL::host()           );
+define('BASE_PATH'    , basePath()            );
+define('CURRENT_PATH' , currentPath()         );
+define('PREV_PATH'    , prevPath()            );
+define('HOST'         , host()                );
+define('HOST_NAME'    , HOST                  );
+define('FILES_URL'    , baseUrl(FILES_DIR)    );
+define('FONTS_URL'    , baseUrl(FONTS_DIR)    );
+define('PLUGINS_URL'  , baseUrl(PLUGINS_DIR)  );
+define('SCRIPTS_URL'  , baseUrl(SCRIPTS_DIR)  );
+define('STYLES_URL'   , baseUrl(STYLES_DIR)   );
+define('THEMES_URL'   , baseUrl(THEMES_DIR)   );
+define('UPLOADS_URL'  , baseUrl(UPLOADS_DIR)  );
+define('RESOURCES_URL', baseUrl(RESOURCES_DIR));
 //--------------------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------------------
@@ -304,25 +331,7 @@ function requestURI() : String
 //--------------------------------------------------------------------------------------------------
 function currentUri(Bool $fullPath = false) : String
 {
-    $requestUri = server('requestUri');
-    $currentUri = BASE_DIR !== '/'
-                ? str_replace(BASE_DIR, '', $requestUri)
-                : substr($requestUri, 1);
-
-    if( $fullPath === false )
-    {
-        $currentUri = ZN\In::cleanURIPrefix($currentUri, indexStatus());
-
-        if( suffix($currentUri) === ZN\In::getCurrentProject() )
-        {
-            return Config::get('Services', 'route')['openController'];
-        }
-
-        $currentUri = ZN\In::cleanURIPrefix($currentUri, ZN\In::getCurrentProject());
-        $currentUri = ZN\In::cleanURIPrefix($currentUri, currentLang());
-    }
-
-    return $currentUri;
+    return URI::active($fullPath);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -394,14 +403,7 @@ function currentLang() : String
 //--------------------------------------------------------------------------------------------------
 function currentUrl(String $fix = NULL) : String
 {
-    $currentUrl = hostUrl(server('requestUri'));
-
-    if( ! empty($fix) )
-    {
-        return suffix(rtrim($currentUrl, $fix)) . $fix;
-    }
-
-    return $currentUrl;
+    return URL::current($fix);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -416,14 +418,7 @@ function currentUrl(String $fix = NULL) : String
 //--------------------------------------------------------------------------------------------------
 function siteUrl(String $uri = NULL, Int $index = 0) : String
 {
-    return hostUrl
-    (
-           ZN\In::baseDir($index).
-           indexStatus().
-           ZN\In::getCurrentProject().
-           suffix(currentLang()).
-           $uri
-     );
+    return URL::site($uri, $index);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -438,7 +433,7 @@ function siteUrl(String $uri = NULL, Int $index = 0) : String
 //--------------------------------------------------------------------------------------------------
 function siteUrls(String $uri = NULL, Int $index = 0) : String
 {
-    return str_replace(sslStatus(), httpFix(true), siteUrl($uri, $index));
+    return URL::sites($uri, $index);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -453,7 +448,7 @@ function siteUrls(String $uri = NULL, Int $index = 0) : String
 //--------------------------------------------------------------------------------------------------
 function baseUrl(String $uri = NULL, Int $index = 0) : String
 {
-    return hostUrl(ZN\In::baseDir($index) . absoluteRelativePath($uri));
+    return URL::base($uri, $index);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -467,7 +462,7 @@ function baseUrl(String $uri = NULL, Int $index = 0) : String
 //--------------------------------------------------------------------------------------------------
 function prevUrl() : String
 {
-    return  $_SERVER['HTTP_REFERER'] ?? '';
+    return URL::prev();
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -481,7 +476,7 @@ function prevUrl() : String
 //--------------------------------------------------------------------------------------------------
 function hostUrl(String $uri = NULL) : String
 {
-    return sslStatus() . host() . ($uri === '' ? '/' : prefix(ZN\In::cleanInjection($uri)));
+    return URL::host($uri);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -495,28 +490,7 @@ function hostUrl(String $uri = NULL) : String
 //--------------------------------------------------------------------------------------------------
 function currentPath(Bool $isPath = true) : String
 {
-    $currentPagePath = str_replace(getLang().'/', '', server('currentPath'));
-
-    if( isset($currentPagePath[0]) && $currentPagePath[0] === '/' )
-    {
-        $currentPagePath = substr($currentPagePath, 1, strlen($currentPagePath) - 1);
-    }
-
-    if( $isPath === true )
-    {
-        return $currentPagePath;
-    }
-    else
-    {
-        $str = explode('/', $currentPagePath);
-
-        if( count($str) > 1 )
-        {
-            return $str[count($str) - 1];
-        }
-
-        return $str[0];
-    }
+    return URI::current($isPath);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -531,24 +505,7 @@ function currentPath(Bool $isPath = true) : String
 //--------------------------------------------------------------------------------------------------
 function basePath(String $uri = NULL, Int $index = 0) : String
 {
-    $newBaseDir = substr(BASE_DIR, 1);
-
-    if( BASE_DIR !== '/' )
-    {
-        if( $index < 0 )
-        {
-            $baseDir    = substr(BASE_DIR, 1, -1);
-            $baseDir    = explode('/', $baseDir);
-            $newBaseDir = '';
-
-            for( $i = 0; $i < count($baseDir) + $index; $i++ )
-            {
-                $newBaseDir .= suffix($baseDir[$i]);
-            }
-        }
-    }
-
-    return ZN\In::cleanInjection($newBaseDir . $uri);
+    return URI::base($uri, $index);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -562,46 +519,7 @@ function basePath(String $uri = NULL, Int $index = 0) : String
 //--------------------------------------------------------------------------------------------------
 function prevPath(Bool $isPath = true) : String
 {
-    if( ! isset($_SERVER['HTTP_REFERER']) )
-    {
-        return false;
-    }
-
-    $str = str_replace(siteUrl(), '', $_SERVER['HTTP_REFERER']);
-
-    if( $isPath === true )
-    {
-        return $str;
-    }
-    else
-    {
-        return divide($str, '/', -1);
-    }
-}
-
-//--------------------------------------------------------------------------------------------------
-// filePath()
-//--------------------------------------------------------------------------------------------------
-//
-// @param string $file
-// @param string $removeurl
-//
-// @return string
-//
-//--------------------------------------------------------------------------------------------------
-function filePath(String $file = NULL, String $removeUrl = NULL) : String
-{
-    if( isUrl($file) )
-    {
-        if( ! isUrl($removeUrl) )
-        {
-            $removeUrl = baseUrl();
-        }
-
-        $file = trim(str_replace($removeUrl, '', $file));
-    }
-
-    return $file;
+    return URI::prev($isPath);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -873,7 +791,7 @@ function trace(String $message)
 //--------------------------------------------------------------------------------------------------
 function isPhpVersion(String $version = '5.2.4')
 {
-    return version_compare(PHP_VERSION, $version, '>=') ? true : false;
+    return IS::phpVersion($version);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -899,7 +817,7 @@ function absoluteRelativePath(String $path = NULL)
 //--------------------------------------------------------------------------------------------------
 function isImport(String $path) : Bool
 {
-    return in_array( realpath(suffix($path, '.php')), get_required_files() );
+    return IS::import($path);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -913,7 +831,7 @@ function isImport(String $path) : Bool
 //--------------------------------------------------------------------------------------------------
 function isUrl(String $url) : Bool
 {
-    return preg_match('#^(\w+:)?//#i', $url);
+    return IS::url($url);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -927,7 +845,7 @@ function isUrl(String $url) : Bool
 //--------------------------------------------------------------------------------------------------
 function isEmail(String $email) : Bool
 {
-    return preg_match("/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix", $email);
+    return IS::email($email);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -941,7 +859,7 @@ function isEmail(String $email) : Bool
 //--------------------------------------------------------------------------------------------------
 function isChar($str) : Bool
 {
-    return is_scalar($str);
+    return IS::char($str);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -955,7 +873,7 @@ function isChar($str) : Bool
 //--------------------------------------------------------------------------------------------------
 function isRealNumeric($num = 0) : Bool
 {
-    return ! is_string($num) && is_numeric($num);
+    return IS::realNumeric($num);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -969,9 +887,8 @@ function isRealNumeric($num = 0) : Bool
 //--------------------------------------------------------------------------------------------------
 function isDeclaredClass(String $class) : Bool
 {
-    return in_array(strtolower($class), array_map('strtolower', get_declared_classes()));
+    return IS::declaredClass($class);
 }
-
 
 //--------------------------------------------------------------------------------------------------
 // isHash()
@@ -984,9 +901,7 @@ function isDeclaredClass(String $class) : Bool
 //--------------------------------------------------------------------------------------------------
 function isHash(String $type) : Bool
 {
-    $hashAlgos = Arrays::addLast(hash_algos(), ['super', 'golden']);
-
-    return in_array($type, $hashAlgos);
+    return IS::hash($type);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -1000,7 +915,7 @@ function isHash(String $type) : Bool
 //--------------------------------------------------------------------------------------------------
 function isCharset(String $charset) : Bool
 {
-    return array_search(strtolower($charset), array_map('strtolower', mb_list_encodings()), true);
+    return IS::charset($charset);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -1014,7 +929,7 @@ function isCharset(String $charset) : Bool
 //--------------------------------------------------------------------------------------------------
 function isArray($array) : Bool
 {
-    return ! empty($array) && is_array($array);
+    return IS::array($array);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -1029,7 +944,7 @@ function isArray($array) : Bool
 //--------------------------------------------------------------------------------------------------
 function nullCoalesce( & $var, $value)
 {
-    $var = $var ?? $value;
+    Coalesce::null($var, $value);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -1044,7 +959,7 @@ function nullCoalesce( & $var, $value)
 //--------------------------------------------------------------------------------------------------
 function falseCoalesce( & $var, $value)
 {
-    $var = $var === false ? $value : $var;
+    Coalesce::false($var, $value);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -1059,7 +974,7 @@ function falseCoalesce( & $var, $value)
 //--------------------------------------------------------------------------------------------------
 function emptyCoalesce( & $var, $value)
 {
-    $var = empty($var) ? $value : $var;
+    Coalesce::empty($var, $value);
 }
 
 //--------------------------------------------------------------------------------------------------

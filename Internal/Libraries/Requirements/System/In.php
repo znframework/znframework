@@ -1,6 +1,6 @@
 <?php namespace ZN;
 
-use Config, Import, Errors, File, GeneralException, Regex, Folder, Route, Arrays, Http;
+use Config, Import, Errors, File, GeneralException, Regex, Folder, Route, Arrays, Http, Lang, URI;
 
 class In
 {
@@ -176,8 +176,8 @@ class In
     //--------------------------------------------------------------------------------------------------
     public static function requestURI() : String
     {
-        $requestUri = currentUri()
-                    ? str_replace(DIRECTORY_INDEX.'/', '', currentUri())
+        $requestUri = URI::active()
+                    ? str_replace(DIRECTORY_INDEX.'/', '', URI::active())
                     : substr(server('currentPath'), 1);
 
         if( isset($requestUri[strlen($requestUri) - 1]) && $requestUri[strlen($requestUri) - 1] === '/' )
@@ -191,7 +191,7 @@ class In
         }
 
         $requestUri = self::cleanInjection(self::routeURI($requestUri));
-        $requestUri = self::cleanURIPrefix($requestUri, currentLang());
+        $requestUri = self::cleanURIPrefix($requestUri, Lang::current());
 
         return $requestUri;
     }

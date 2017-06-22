@@ -1,7 +1,7 @@
 <?php namespace ZN\Services\Request;
 
 use ZN\Core\Structure;
-use Arrays, Config, Errors, CLController, Http, Import, Regex, Security, Restoration;
+use Arrays, Config, Errors, CLController, Http, Import, Regex, Security, Restoration, URI;
 
 class InternalRoute extends CLController implements InternalRouteInterface
 {
@@ -772,7 +772,7 @@ class InternalRoute extends CLController implements InternalRouteInterface
         {
             if( isset($this->usable[CURRENT_CFURI]['usable']) )
             {
-                if( strpos(strtolower(currentUri()), CURRENT_CFURI) === 0 )
+                if( strpos(strtolower(URI::active()), CURRENT_CFURI) === 0 )
                 {
                     $this->_redirect();
                 }
