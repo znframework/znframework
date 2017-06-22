@@ -1,6 +1,6 @@
 <?php namespace ZN;
 
-use Config, Import, Errors, File, GeneralException, Regex, Folder, Route, Arrays, Http, Lang, URI;
+use Config, Import, Errors, File, GeneralException, Regex, Folder, Route, Arrays, Http, Lang, URI, URL, IS;
 
 class In
 {
@@ -106,11 +106,25 @@ class In
 
             if( ! empty($containers[_CURRENT_PROJECT]) )
             {
-                return md5(baseUrl(strtolower($containers[_CURRENT_PROJECT])) . $fix);
+                return md5(URL::base(strtolower($containers[_CURRENT_PROJECT])) . $fix);
             }
         }
 
-        return md5(baseUrl(strtolower(CURRENT_PROJECT)) . $fix);
+        return md5(URL::base(strtolower(CURRENT_PROJECT)) . $fix);
+    }
+
+    //--------------------------------------------------------------------------------------------------
+    // isSubdomain() -> 4.4.1
+    //--------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    // @return string
+    //
+    //--------------------------------------------------------------------------------------------------
+    protected static function isSubdomain()
+    {
+        return (bool) (PROJECTS_CONFIG['directory']['others'][host()] ?? false);
     }
 
     //--------------------------------------------------------------------------------------------------
@@ -124,7 +138,7 @@ class In
     //--------------------------------------------------------------------------------------------------
     public static function getCurrentProject() : String
     {
-        if( isSubdomain() )
+        if( self::isSubdomain() )
         {
             return false;
         }
@@ -193,7 +207,7 @@ class In
         $requestUri = self::cleanInjection(self::routeURI($requestUri));
         $requestUri = self::cleanURIPrefix($requestUri, Lang::current());
 
-        return $requestUri;
+        return (string) $requestUri;
     }
 
     //--------------------------------------------------------------------------------------------------
@@ -276,7 +290,7 @@ class In
             if
             (
                 $requestUri === DIRECTORY_INDEX ||
-                $requestUri === getLang()       ||
+                $requestUri === Lang::get()     ||
                 $requestUri === $internalDir    ||
                 empty($requestUri)
             )
@@ -722,7 +736,7 @@ class In
         $rules  = Config::get('Robots', 'rules');
         $robots = '';
 
-        if( isArray($rules) ) foreach( $rules as $key => $val )
+        if( IS::array($rules) ) foreach( $rules as $key => $val )
         {
             if( ! is_numeric($key) ) // Single Use
             {
@@ -743,7 +757,7 @@ class In
             }
             else
             {
-                if( isArray($val) ) foreach( $val as $r => $v ) // Multi Use
+                if( IS::array($val) ) foreach( $val as $r => $v ) // Multi Use
                 {
                     switch( $r )
                     {

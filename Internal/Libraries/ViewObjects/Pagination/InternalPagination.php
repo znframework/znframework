@@ -1,6 +1,6 @@
 <?php namespace ZN\ViewObjects;
 
-use URI, CLController;
+use URI, URL, CLController;
 
 class InternalPagination extends CLController implements InternalPaginationInterface, InternalPaginationPropertiesInterface
 {
@@ -86,7 +86,7 @@ class InternalPagination extends CLController implements InternalPaginationInter
 
         if( isset($config['url']) && $this->type !== 'ajax' )
         {
-            $this->url = suffix(siteUrl($config['url']));
+            $this->url = suffix(URL::site($config['url']));
         }
         elseif( $this->type === 'ajax' )
         {

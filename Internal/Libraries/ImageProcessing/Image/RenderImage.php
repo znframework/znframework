@@ -1,6 +1,6 @@
 <?php namespace ZN\ImageProcessing\Image;
 
-use Folder;
+use Folder, URL;
 use ZN\EncodingSupport\ImageProcessing\Image\Exception\ImageNotFoundException;
 use ZN\EncodingSupport\ImageProcessing\Image\Exception\InvalidImageFileException;
 
@@ -53,10 +53,11 @@ class RenderImage implements RenderImageInterface
     public function do(String $fpath, Array $set) : String
     {
         $filePath = trim($fpath);
+        $baseUrl  = URL::base();
 
-        if( strstr($filePath, baseUrl()) )
+        if( strstr($filePath, $baseUrl) )
         {
-            $filePath = str_replace(baseUrl(), '', $filePath);
+            $filePath = str_replace($baseUrl, '', $filePath);
         }
 
         if( ! file_exists($filePath) )
@@ -122,7 +123,7 @@ class RenderImage implements RenderImageInterface
 
         if( file_exists($this->thumbPath.$newFile) )
         {
-            return baseUrl($this->thumbPath.$newFile);
+            return URL::base($this->thumbPath.$newFile);
         }
 
         $rFile   = $this->fromFileType($filePath);
@@ -148,7 +149,7 @@ class RenderImage implements RenderImageInterface
 
         imagedestroy($rFile); imagedestroy($nFile);
 
-        return baseUrl($this->thumbPath.$newFile);
+        return URL::base($this->thumbPath.$newFile);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -168,7 +169,7 @@ class RenderImage implements RenderImageInterface
 
         $this->thumbPath = suffix($this->thumbPath);
 
-        $this->thumbPath = str_replace(baseUrl(), "", $this->thumbPath);
+        $this->thumbPath = str_replace(URL::base(), "", $this->thumbPath);
     }
 
     //--------------------------------------------------------------------------------------------------------

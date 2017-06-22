@@ -1,6 +1,6 @@
 <?php namespace ZN\Services\Request;
 
-use Security, CallController, ZN\In, Lang, URI, URL, Config;
+use Security, CallController, ZN\In, Lang, URL, Config, IS;
 
 class InternalURI extends CallController implements InternalURIInterface
 {
@@ -25,7 +25,7 @@ class InternalURI extends CallController implements InternalURIInterface
     public function get($get = 1, $index = 1, Bool $while = false) : String
     {
         // Parametre kontrolleri yapılıyor. ---------------------------------------------------
-        if( ! isChar($index) )
+        if( ! IS::char($index) )
         {
             $index = 1;
         }
@@ -463,7 +463,7 @@ class InternalURI extends CallController implements InternalURIInterface
     //--------------------------------------------------------------------------------------------------------
     protected function _cleanPath()
     {
-        $pathInfo = Security::htmlEncode(URI::active());
+        $pathInfo = Security::htmlEncode($this->active());
 
         return $pathInfo;
     }

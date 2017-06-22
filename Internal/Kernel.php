@@ -154,24 +154,24 @@ define('CURRENT_CFURL'      , siteUrl(CURRENT_CFPATH));
 // Useful current constants.
 //
 //--------------------------------------------------------------------------------------------------
-define('BASE_URL'     , baseUrl()             );
-define('SITE_URL'     , siteUrl()             );
-define('CURRENT_URL'  , URL::current()        );
-define('PREV_URL'     , prevUrl()             );
-define('HOST_URL'     , URL::host()           );
-define('BASE_PATH'    , basePath()            );
-define('CURRENT_PATH' , currentPath()         );
-define('PREV_PATH'    , prevPath()            );
-define('HOST'         , host()                );
-define('HOST_NAME'    , HOST                  );
-define('FILES_URL'    , baseUrl(FILES_DIR)    );
-define('FONTS_URL'    , baseUrl(FONTS_DIR)    );
-define('PLUGINS_URL'  , baseUrl(PLUGINS_DIR)  );
-define('SCRIPTS_URL'  , baseUrl(SCRIPTS_DIR)  );
-define('STYLES_URL'   , baseUrl(STYLES_DIR)   );
-define('THEMES_URL'   , baseUrl(THEMES_DIR)   );
-define('UPLOADS_URL'  , baseUrl(UPLOADS_DIR)  );
-define('RESOURCES_URL', baseUrl(RESOURCES_DIR));
+define('BASE_URL'     , URL::base()             );
+define('SITE_URL'     , URL::site()             );
+define('CURRENT_URL'  , URL::current()          );
+define('PREV_URL'     , URL::prev()             );
+define('HOST_URL'     , URL::host()             );
+define('BASE_PATH'    , URI::base()             );
+define('CURRENT_PATH' , URI::current()          );
+define('PREV_PATH'    , URI::prev()             );
+define('HOST'         , host()                  );
+define('HOST_NAME'    , HOST                    );
+define('FILES_URL'    , URL::base(FILES_DIR)    );
+define('FONTS_URL'    , URL::base(FONTS_DIR)    );
+define('PLUGINS_URL'  , URL::base(PLUGINS_DIR)  );
+define('SCRIPTS_URL'  , URL::base(SCRIPTS_DIR)  );
+define('STYLES_URL'   , URL::base(STYLES_DIR)   );
+define('THEMES_URL'   , URL::base(THEMES_DIR)   );
+define('UPLOADS_URL'  , URL::base(UPLOADS_DIR)  );
+define('RESOURCES_URL', URL::base(RESOURCES_DIR));
 //--------------------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------------------
@@ -304,20 +304,6 @@ function headers($header)
             header($v);
         }
     }
-}
-
-//--------------------------------------------------------------------------------------------------
-// requestURI()
-//--------------------------------------------------------------------------------------------------
-//
-// @param void
-//
-// @return string
-//
-//--------------------------------------------------------------------------------------------------
-function requestURI() : String
-{
-    return (string) ZN\In::requestURI();
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -536,7 +522,7 @@ function redirect(String $url = NULL, Int $time = 0, Array $data = NULL, Bool $e
 {
     if( ! isUrl((string) $url) )
     {
-        $url = siteUrl($url);
+        $url = URL::site($url);
     }
 
     if( ! empty($data) )
@@ -807,20 +793,6 @@ function absoluteRelativePath(String $path = NULL)
 }
 
 //--------------------------------------------------------------------------------------------------
-// isImport()
-//--------------------------------------------------------------------------------------------------
-//
-// @param string $path
-//
-// @return Bool
-//
-//--------------------------------------------------------------------------------------------------
-function isImport(String $path) : Bool
-{
-    return IS::import($path);
-}
-
-//--------------------------------------------------------------------------------------------------
 // isUrl()
 //--------------------------------------------------------------------------------------------------
 //
@@ -860,34 +832,6 @@ function isEmail(String $email) : Bool
 function isChar($str) : Bool
 {
     return IS::char($str);
-}
-
-//--------------------------------------------------------------------------------------------------
-// isRealNumeric()
-//--------------------------------------------------------------------------------------------------
-//
-// @param numeric $num = 0
-//
-// @return Bool
-//
-//--------------------------------------------------------------------------------------------------
-function isRealNumeric($num = 0) : Bool
-{
-    return IS::realNumeric($num);
-}
-
-//--------------------------------------------------------------------------------------------------
-// isDeclaredClass()
-//--------------------------------------------------------------------------------------------------
-//
-// @param string $class
-//
-// @return Bool
-//
-//--------------------------------------------------------------------------------------------------
-function isDeclaredClass(String $class) : Bool
-{
-    return IS::declaredClass($class);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -1189,20 +1133,6 @@ function removeExtension(String $file) : String
 }
 
 //--------------------------------------------------------------------------------------------------
-// isSubdomain() -> 4.4.1
-//--------------------------------------------------------------------------------------------------
-//
-// @param void
-//
-// @return string
-//
-//--------------------------------------------------------------------------------------------------
-function isSubdomain()
-{
-    return (bool) (PROJECTS_CONFIG['directory']['others'][host()] ?? false);
-}
-
-//--------------------------------------------------------------------------------------------------
 // host()
 //--------------------------------------------------------------------------------------------------
 //
@@ -1242,22 +1172,6 @@ function host() : String
 function hostName() : String
 {
     return host();
-}
-
-//--------------------------------------------------------------------------------------------------
-// Objects
-//--------------------------------------------------------------------------------------------------
-//
-// @param array $array
-//
-// @return object
-//
-//--------------------------------------------------------------------------------------------------
-function objects(Array $array) : stdClass
-{
-    $object = new stdClass;
-
-    return internalObjects($array, $object);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -1483,35 +1397,6 @@ function internalProjectContainerDir($path = NULL) : String
     }
 
     return $containerProjectDir;
-}
-
-//--------------------------------------------------------------------------------------------------
-// Internal Objects
-//--------------------------------------------------------------------------------------------------
-//
-// @param array    $array
-// @param stdClass $obj
-//
-// @return string
-//
-//--------------------------------------------------------------------------------------------------
-function internalObjects(Array $array, stdClass &$std) : stdClass
-{
-    foreach( $array as $key => $value )
-    {
-        if( is_array($value) )
-        {
-            $std->$key = new stdClass;
-
-            internalObjects($value, $std->$key);
-        }
-        else
-        {
-            $std->$key = $value;
-        }
-    }
-
-    return $std;
 }
 
 //--------------------------------------------------------------------------------------------------

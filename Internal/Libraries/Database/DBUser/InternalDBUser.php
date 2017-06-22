@@ -1,5 +1,7 @@
 <?php namespace ZN\Database;
 
+use Coalesce;
+
 class InternalDBUser extends Connection implements InternalDBUserInterface
 {
     //--------------------------------------------------------------------------------------------------------
@@ -319,7 +321,7 @@ class InternalDBUser extends Connection implements InternalDBUserInterface
     //--------------------------------------------------------------------------------------------------------
     public function alter(String $name = NULL)
     {
-        nullCoalesce($name, 'USER()');
+        Coalesce::null($name, 'USER()');
 
         $query = $this->user->alter($name);
 
@@ -335,7 +337,7 @@ class InternalDBUser extends Connection implements InternalDBUserInterface
     //--------------------------------------------------------------------------------------------------------
     public function create(String $name = NULL)
     {
-        nullCoalesce($name, 'USER()');
+        Coalesce::null($name, 'USER()');
 
         $query = $this->user->create($name);
 
@@ -351,7 +353,7 @@ class InternalDBUser extends Connection implements InternalDBUserInterface
     //--------------------------------------------------------------------------------------------------------
     public function drop(String $name = NULL)
     {
-        nullCoalesce($name, 'USER()');
+        Coalesce::null($name, 'USER()');
 
         $query = $this->user->drop($name);
 

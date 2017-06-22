@@ -1,5 +1,6 @@
 <?php namespace ZN\ViewObjects\View;
 
+use URL, IS, Coalesce;
 use ZN\ViewObjects\View\HTML\Exception\InvalidArgumentException;
 
 class InternalHTML implements InternalHTMLInterface, ViewCommonInterface
@@ -282,9 +283,9 @@ class InternalHTML implements InternalHTMLInterface, ViewCommonInterface
     //--------------------------------------------------------------------------------------------------------
     public function image(String $src, Int $width = NULL, Int $height = NULL, Array $attributes = []) : String
     {
-        if( ! isUrl($src) )
+        if( ! IS::url($src) )
         {
-            $src = baseUrl($src);
+            $src = URL::base($src);
         }
 
         $attributes['src'] = $src;
@@ -449,14 +450,14 @@ class InternalHTML implements InternalHTMLInterface, ViewCommonInterface
     //--------------------------------------------------------------------------------------------------------
     public function anchor(String $url, String $value = NULL, Array $attributes = []) : String
     {
-        if( ! isUrl($url) && strpos($url, '#') !== 0 )
+        if( ! IS::url($url) && strpos($url, '#') !== 0 )
         {
-            $url = siteUrl($url);
+            $url = URL::site($url);
         }
 
         $attributes['href'] = $url;
 
-        nullCoalesce($value, $url);
+        Coalesce::null($value, $url);
 
         return $this->_multiElement('a', $value, $attributes);
     }
@@ -472,14 +473,14 @@ class InternalHTML implements InternalHTMLInterface, ViewCommonInterface
     //--------------------------------------------------------------------------------------------------------
     public function mailTo(String $mail, String $value = NULL, Array $attributes = []) : String
     {
-        if( ! isEmail($mail) )
+        if( ! IS::email($mail) )
         {
             throw new InvalidArgumentException('Error', 'emailParameter', '1.($mail)');
         }
 
         $attributes['href'] = 'mailto:'.$mail;
 
-        nullCoalesce($value, $mail);
+        Coalesce::null($value, $mail);
 
         return $this->_multiElement('a', $value, $attributes);
     }
@@ -625,9 +626,9 @@ class InternalHTML implements InternalHTMLInterface, ViewCommonInterface
     //--------------------------------------------------------------------------------------------------------
     public function script(String $path) : String
     {
-        if( ! isUrl($path) )
+        if( ! IS::url($path) )
         {
-            $path = baseUrl(suffix($path, '.js'));
+            $path = URL::base(suffix($path, '.js'));
         }
 
         $attributes['href'] = $path;
@@ -645,9 +646,9 @@ class InternalHTML implements InternalHTMLInterface, ViewCommonInterface
     //--------------------------------------------------------------------------------------------------------
     public function link(String $path) : String
     {
-        if( ! isUrl($path) )
+        if( ! IS::url($path) )
         {
-            $path = baseUrl(suffix($path, '.css'));
+            $path = URL::base(suffix($path, '.css'));
         }
 
         $attributes['href'] = $path;

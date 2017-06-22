@@ -1,6 +1,6 @@
 <?php namespace ZN\Core;
 
-use Arrays, Import, Route, Throwable, Exceptions, Config, Errors, Generate, Folder, Restoration, URL;
+use Arrays, Import, Route, Throwable, Exceptions, Config, Errors, Generate, Folder, Restoration, URL, Lang, IS;
 
 class Kernel
 {
@@ -76,14 +76,14 @@ class Kernel
             Generate::grandVision($databases);
         }
 
-        if( currentLang() )
+        if( Lang::current() )
         {
             $langFix = str_ireplace([suffix((string) illustrate('_CURRENT_PROJECT'))], '', server('currentPath'));
             $langFix = explode('/', $langFix)[1] ?? NULL;
 
             if( strlen($langFix) === 2 )
             {
-                setLang($langFix);
+                Lang::set($langFix);
             }
         }
 
@@ -231,12 +231,12 @@ class Kernel
 
                         $pageClass->$function(...$parameters);
 
-                        if( is_file($wizardPath) && ! isImport($viewPath) && ! isImport($wizardPath) )
+                        if( is_file($wizardPath) && ! IS::import($viewPath) && ! IS::import($wizardPath) )
                         {
                             $data = (array) ( ! empty((array) $pageClass->wizard) ? $pageClass->wizard : $pageClass->view );
                             $usableView = Import::view(str_replace(PAGES_DIR, NULL, $wizardPath), $data, true);
                         }
-                        elseif( is_file($viewPath) && ! isImport($viewPath) && ! isImport($wizardPath) )
+                        elseif( is_file($viewPath) && ! IS::import($viewPath) && ! IS::import($wizardPath) )
                         {
                             $data = (array) $pageClass->view;
                             $usableView = Import::view(str_replace(PAGES_DIR, NULL, $viewPath), $data, true);

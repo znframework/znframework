@@ -1,6 +1,6 @@
 <?php namespace ZN\IndividualStructures;
 
-use ZN\In, Config, Session;
+use ZN\In, Config, Session, IS;
 
 class InternalLang implements InternalLangInterface
 {
@@ -49,20 +49,20 @@ class InternalLang implements InternalLangInterface
     {
         global $lang;
 
-        $file          = ( Config::get('Language', 'shortCodes')[getLang()] ?? 'English').'/'.suffix($file, '.php');
+        $file          = ( Config::get('Language', 'shortCodes')[$this->get()] ?? 'English').'/'.suffix($file, '.php');
         $langDir       = LANGUAGES_DIR.$file;
         $sysLangDir    = INTERNAL_LANGUAGES_DIR.$file;
         $commonLangDir = EXTERNAL_LANGUAGES_DIR.$file;
 
-        if( is_file($langDir) && ! isImport($langDir) )
+        if( is_file($langDir) && ! IS::import($langDir) )
         {
             $lang[$file] = import($langDir);
         }
-        elseif( is_file($sysLangDir) && ! isImport($sysLangDir) )
+        elseif( is_file($sysLangDir) && ! IS::import($sysLangDir) )
         {
             $lang[$file] = import($sysLangDir);
         }
-        elseif( is_file($commonLangDir) && ! isImport($commonLangDir) )
+        elseif( is_file($commonLangDir) && ! IS::import($commonLangDir) )
         {
             $lang[$file] = import($commonLangDir);
         }

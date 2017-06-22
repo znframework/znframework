@@ -1,6 +1,6 @@
 <?php namespace ZN\IndividualStructures\User;
 
-use DB, Email, Arrays;
+use DB, Email, Arrays, IS;
 
 class SendEmail extends UserExtends implements SendEmailInterface
 {
@@ -55,11 +55,11 @@ class SendEmail extends UserExtends implements SendEmailInterface
 			{
                 $username = $user->{$columns['username']};
 
-                $email = isEmail($username)
+                $email = IS::email($username)
                        ? $username
                        : ($user->{$columns['email']} ?? NULL);
 
-                if( isEmail($email) )
+                if( IS::email($email) )
                 {
                     Email::bcc($email, $username);
                 }

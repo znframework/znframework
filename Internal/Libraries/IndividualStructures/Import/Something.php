@@ -1,6 +1,6 @@
 <?php namespace ZN\IndividualStructures\Import;
 
-use Config;
+use Config, URL;
 use ZN\IndividualStructures\Import\Exception\InvalidArgumentException;
 
 class Something implements SomethingInterface
@@ -40,7 +40,7 @@ class Something implements SomethingInterface
         $eol = EOL;
 
         $randomPageVariableExtension = extension($randomPageVariable);
-        $randomPageVariableBaseUrl   = baseUrl($randomPageVariable);
+        $randomPageVariableBaseUrl   = URL::base($randomPageVariable);
 
         $return = '';
 

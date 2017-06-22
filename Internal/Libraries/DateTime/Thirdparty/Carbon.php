@@ -21,6 +21,7 @@ use Symfony\Component\Translation\Loader\ArrayLoader;
 use Symfony\Component\Translation\Translator;
 use Symfony\Component\Translation\TranslatorInterface;
 use Config;
+use Lang;
 
 /**
  * A simple API extension for DateTime
@@ -1093,9 +1094,9 @@ class Carbon extends DateTime
     protected static function translator()
     {
         if (self::$translator === null) {
-            self::$translator = new Translator(getLang());
+            self::$translator = new Translator(Lang::get());
             self::$translator->addLoader('array', new ArrayLoader());
-            self::setLocale(getLang());
+            self::setLocale(Lang::get());
         }
 
         return self::$translator;

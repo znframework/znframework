@@ -1,6 +1,6 @@
 <?php namespace ZN\IndividualStructures\Import;
 
-use Config, Import;
+use Config, Import, URL;
 
 class Font extends BootstrapExtends implements BootstrapInterface
 {
@@ -46,7 +46,7 @@ class Font extends BootstrapExtends implements BootstrapInterface
                 $fontFile = EXTERNAL_FONTS_DIR.$font;
             }
 
-            $baseUrl  = baseUrl($fontFile);
+            $baseUrl  = URL::base($fontFile);
 
             if( extension($fontFile) )
             {

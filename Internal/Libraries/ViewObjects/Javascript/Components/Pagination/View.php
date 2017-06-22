@@ -65,7 +65,7 @@ $limit = $match[3] ?? Config::get('ViewObjects', 'pagination')['limit'];
             }
             else
             {
-                $anchor = siteUrl(Pagination::getURI($s));
+                $anchor = URL::site(Pagination::getURI($s));
             }
 
             echo Html::anchor($anchor, $i);

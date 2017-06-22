@@ -1,6 +1,6 @@
 <?php namespace ZN\Requirements\System;
 
-use Config, Arrays, URI;
+use Config, Arrays, URI, ZN\In, IS;
 
 class Restoration
 {
@@ -23,7 +23,7 @@ class Restoration
     //--------------------------------------------------------------------------------------------------------
     public static function routeURI($machinesIP, String $uri)
     {
-        if( ! Arrays::valueExists((array) $machinesIP, ipv4()) && requestURI() !== $uri )
+        if( ! Arrays::valueExists((array) $machinesIP, ipv4()) && In::requestURI() !== $uri )
         {
             redirect($uri);
         }
@@ -100,7 +100,7 @@ class Restoration
         $restorationRoutePage = $settings['routePage'] ?? $restoration['routePage'];
         $routePage            = strtolower($restorationRoutePage);
 
-        if( isArray($restorationPages) )
+        if( IS::array($restorationPages) )
         {
             if( $restorationPages[0] === 'all' )
             {

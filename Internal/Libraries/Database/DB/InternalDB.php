@@ -1,6 +1,6 @@
 <?php namespace ZN\Database;
 
-use URI, Pagination, Arrays, Classes, Method, Config, Converter, Cache, Json;
+use URI, Pagination, Arrays, Classes, Method, Config, Converter, Cache, Json, IS, Coalesce;
 
 class InternalDB extends Connection implements InternalDBInterface
 {
@@ -719,7 +719,7 @@ class InternalDB extends Connection implements InternalDBInterface
     //--------------------------------------------------------------------------------------------------------
     public function limit($start = NULL, Int $limit = 0) : InternalDB
     {
-        nullCoalesce($start, (int) URI::segment(-1));
+        Coalesce::null($start, (int) URI::segment(-1));
 
         $start = (int) $start;
 
@@ -2280,7 +2280,7 @@ class InternalDB extends Connection implements InternalDBInterface
     //--------------------------------------------------------------------------------------------------------
     protected function _wh($column, $value, $logical, $type = 'where')
     {
-        if( isArray($column) )
+        if( IS::array($column) )
         {
             $columns = func_get_args();
 

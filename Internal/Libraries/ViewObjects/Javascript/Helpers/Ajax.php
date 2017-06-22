@@ -1,7 +1,7 @@
 <?php namespace ZN\ViewObjects\Javascript\Helpers;
 
 use ZN\ViewObjects\JqueryTrait;
-use CallController, Json, JQ, URL, Arrays, JS;
+use CallController, Json, JQ, URL, Arrays, JS, URL, IS;
 
 class Ajax extends CallController implements AjaxInterface
 {
@@ -69,9 +69,9 @@ class Ajax extends CallController implements AjaxInterface
     public function url(String $url = '') : Ajax
     {
         // Veri bir url içermiyorsa siteUrl yöntemi ile url'ye dönüştürülür.
-        if( ! isUrl($url) )
+        if( ! IS::url($url) )
         {
-            $url = siteUrl($url);
+            $url = URL::site($url);
         }
 
         $this->sets['url'] = "\turl:\"$url\",".EOL;

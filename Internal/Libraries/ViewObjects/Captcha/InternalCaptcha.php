@@ -1,6 +1,6 @@
 <?php namespace ZN\ViewObjects;
 
-use Config, Session, Cookie, CLController, Encode, File, Folder, Arrays;
+use Config, Session, Cookie, CLController, Encode, File, Folder, Arraysi URL;
 
 class InternalCaptcha extends CLController implements InternalCaptchaInterface
 {
@@ -438,13 +438,15 @@ class InternalCaptcha extends CLController implements InternalCaptchaInterface
 
             imagepng($file, $filePath);
 
+            $baseUrl = URL::base($filePath);
+
             if( $img === true )
             {
-                $captcha = '<img src="'.baseUrl($filePath).'">';
+                $captcha = '<img src="'.$baseUrl.'">';
             }
             else
             {
-                $captcha = baseUrl($filePath);
+                $captcha = $baseUrl;
             }
 
             imagedestroy($file);

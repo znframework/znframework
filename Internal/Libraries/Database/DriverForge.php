@@ -1,5 +1,7 @@
 <?php namespace ZN\Database;
 
+use IS;
+
 class DriverForge
 {
     //--------------------------------------------------------------------------------------------------------
@@ -205,7 +207,7 @@ class DriverForge
     //--------------------------------------------------------------------------------------------------------
     protected function _extras($extras)
     {
-        if( isArray($extras) )
+        if( IS::array($extras) )
         {
             $extraCodes = ' '.implode(' ', $extras).';';
         }
