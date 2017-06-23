@@ -19,7 +19,7 @@
     // yükler. Ancak kontrolcüler alt yöntemleri ile birden fazla görünümü aynı kontrolcü içinde
     // çalıştırabileceğil için görünüm yapınız her kontrolcü için birden fazla dosya da içerebileceği
     // için görünümlerinizi kontrolcü ismiyle aynı isme sahip bir dizin altında toplamak
-    // isteyebilirsiniz. İşte bu ayar bu duruma yardımcı olmak için konulmuştur.
+    // isteyebilirsiniz. İşte bu ayar bu duruma yardımcı olmak için kullanılır.
     //
     // Kullanılabilir Seçenekler
     //
@@ -31,7 +31,7 @@
     // example/altyontem.php
     //
     //--------------------------------------------------------------------------------------------------
-    'viewNameType' => 'file',
+    'viewNameType' => 'directory',
 
     //--------------------------------------------------------------------------------------------------
     // Wizard

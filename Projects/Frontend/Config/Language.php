@@ -15,7 +15,7 @@
     // Default
     //--------------------------------------------------------------------------------------------------
     //
-    // Sistem ve uygulamanın dilini ayarlamak için kullanılır. Ön tanımlı olarak en ve tr seçenekleri
+    // Sistem ve uygulamanın dilini ayarlamak için kullanılır. Ön tanımlı olarak en, fr ve tr seçenekleri
     // kullanılabilir.
     //
     //--------------------------------------------------------------------------------------------------
