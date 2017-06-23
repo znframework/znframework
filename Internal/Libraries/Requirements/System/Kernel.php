@@ -1,6 +1,6 @@
 <?php namespace ZN\Core;
 
-use Arrays, Import, Route, Throwable, Exceptions, Config, Errors, Generate, Folder, Restoration, URL, Lang, IS;
+use Arrays, Import, Route, Throwable, Exceptions, Config, Errors, Generate, Folder, File, Restoration, URL, Lang, IS;
 
 class Kernel
 {
@@ -127,7 +127,7 @@ class Kernel
 
             if( ! empty($startingAutoload) ) foreach( $startingAutoload as $file )
             {
-                if( extension($file) === 'php' )
+                if( File::extension($file) === 'php' )
                 {
                     if( is_file($file) )
                     {
@@ -138,7 +138,7 @@ class Kernel
 
             if( ! empty($commonStartingAutoload) ) foreach( $commonStartingAutoload as $file )
             {
-                if( extension($file) === 'php' )
+                if( File::extension($file) === 'php' )
                 {
                     $commonIsSameExistsFile = str_ireplace(EXTERNAL_AUTOLOAD_DIR, AUTOLOAD_DIR, $file);
 

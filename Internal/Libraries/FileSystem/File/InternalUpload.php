@@ -1,6 +1,6 @@
 <?php namespace ZN\FileSystem;
 
-use Config, Folder, Converter, Encode, CallController, IS;
+use Config, Folder, File, Converter, Encode, CallController, IS;
 
 class InternalUpload extends CallController implements InternalUploadInterface
 {
@@ -377,7 +377,7 @@ class InternalUpload extends CallController implements InternalUploadInterface
                 $this->encodeName[] = $encryptionName;
                 $this->path[]       = $target;
 
-                if( isset($this->settings['extensions']) && ! in_array(extension($nm), $extensions) )
+                if( isset($this->settings['extensions']) && ! in_array(File::extension($nm), $extensions) )
                 {
                     $this->extensionControl = lang('FileSystem', 'upload:extensionError');
                 }
@@ -436,7 +436,7 @@ class InternalUpload extends CallController implements InternalUploadInterface
             $this->encodeName = $encryptionName;
             $this->path       = $target;
 
-            if( isset($this->settings['extensions']) && ! in_array(extension($name),$extensions) )
+            if( isset($this->settings['extensions']) && ! in_array(File::extension($name),$extensions) )
             {
                 return ! $this->extensionControl = lang('FileSystem', 'upload:extensionError');
             }
@@ -591,7 +591,7 @@ class InternalUpload extends CallController implements InternalUploadInterface
     //--------------------------------------------------------------------------------------------------------
     protected function _convertName($name = NULL)
     {
-        return  Converter::slug(removeExtension($name)) . '.' . extension($name);
+        return  Converter::slug(File::removeExtension($name)) . '.' . File::extension($name);
     }
 
     //--------------------------------------------------------------------------------------------------------

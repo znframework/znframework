@@ -39,7 +39,9 @@ class InternalUser extends \FactoryController implements InternalUserInterface
             'error'              => 'User\Information::error',
             'success'            => 'User\Information::success',
             'attachment'         => 'User\SendEmail::attachment:this',
-            'sendemailall'       => 'User\SendEmail::send'
+            'sendemailall'       => 'User\SendEmail::send',
+            'ipv4'               => 'User\IP::v4',
+            'ip'                 => 'User\IP::v4',
         ]
     ];
 }

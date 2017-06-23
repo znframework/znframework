@@ -72,51 +72,51 @@ internalCurrentProject();
 // vary according to the project name. It can be quite useful for you.
 //
 //--------------------------------------------------------------------------------------------------
-define('ROUTES_DIR'            , internalProjectContainerDir('Routes'));
-define('EXTERNAL_ROUTES_DIR'   , EXTERNAL_DIR.'Routes'.DS);
+define('ROUTES_DIR'            , internalProjectContainerDir('Routes')   );
+define('EXTERNAL_ROUTES_DIR'   , EXTERNAL_DIR.'Routes'.DS                );
 define('DATABASES_DIR'         , internalProjectContainerDir('Databases'));
-define('CONFIG_DIR'            , internalProjectContainerDir('Config'));
-define('STORAGE_DIR'           , PROJECT_DIR.'Storage'.DS);
-define('COMMANDS_DIR'          , internalProjectContainerDir('Commands'));
-define('EXTERNAL_COMMANDS_DIR' , EXTERNAL_DIR.'Commands'.DS);
+define('CONFIG_DIR'            , internalProjectContainerDir('Config')   );
+define('STORAGE_DIR'           , PROJECT_DIR.'Storage'.DS                );
+define('COMMANDS_DIR'          , internalProjectContainerDir('Commands') );
+define('EXTERNAL_COMMANDS_DIR' , EXTERNAL_DIR.'Commands'.DS              );
 define('RESOURCES_DIR'         , internalProjectContainerDir('Resources'));
-define('EXTERNAL_RESOURCES_DIR', EXTERNAL_DIR.'Resources'.DS);
-define('STARTING_DIR'          , internalProjectContainerDir('Starting'));
-define('EXTERNAL_STARTING_DIR' , EXTERNAL_DIR.'Starting'.DS);
-define('AUTOLOAD_DIR'          , STARTING_DIR.'Autoload'.DS);
-define('EXTERNAL_AUTOLOAD_DIR' , EXTERNAL_STARTING_DIR.'Autoload'.DS);
-define('HANDLOAD_DIR'          , STARTING_DIR.'Handload'.DS);
-define('EXTERNAL_HANDLOAD_DIR' , EXTERNAL_STARTING_DIR.'Handload'.DS);
-define('INTERNAL_LANGUAGES_DIR', INTERNAL_DIR.'Languages'.DS);
+define('EXTERNAL_RESOURCES_DIR', EXTERNAL_DIR.'Resources'.DS             );
+define('STARTING_DIR'          , internalProjectContainerDir('Starting') );
+define('EXTERNAL_STARTING_DIR' , EXTERNAL_DIR.'Starting'.DS              );
+define('AUTOLOAD_DIR'          , STARTING_DIR.'Autoload'.DS              );
+define('EXTERNAL_AUTOLOAD_DIR' , EXTERNAL_STARTING_DIR.'Autoload'.DS     );
+define('HANDLOAD_DIR'          , STARTING_DIR.'Handload'.DS              );
+define('EXTERNAL_HANDLOAD_DIR' , EXTERNAL_STARTING_DIR.'Handload'.DS     );
+define('INTERNAL_LANGUAGES_DIR', INTERNAL_DIR.'Languages'.DS             );
 define('LANGUAGES_DIR'         , internalProjectContainerDir('Languages'));
-define('EXTERNAL_LANGUAGES_DIR', EXTERNAL_DIR.'Languages'.DS);
-define('INTERNAL_LIBRARIES_DIR', INTERNAL_DIR.'Libraries'.DS);
+define('EXTERNAL_LANGUAGES_DIR', EXTERNAL_DIR.'Languages'.DS             );
+define('INTERNAL_LIBRARIES_DIR', INTERNAL_DIR.'Libraries'.DS             );
 define('LIBRARIES_DIR'         , internalProjectContainerDir('Libraries'));
-define('EXTERNAL_LIBRARIES_DIR', EXTERNAL_DIR.'Libraries'.DS);
-define('CONTROLLERS_DIR'       , PROJECT_DIR.'Controllers'.DS);
-define('MODELS_DIR'            , internalProjectContainerDir('Models'));
-define('EXTERNAL_MODELS_DIR'   , EXTERNAL_DIR.'Models'.DS);
-define('VIEWS_DIR'             , PROJECT_DIR.'Views'.DS);
-define('PAGES_DIR'             , VIEWS_DIR);
-define('PROCESSOR_DIR'         , RESOURCES_DIR.'Processor'.DS);
-define('EXTERNAL_PROCESSOR_DIR', EXTERNAL_RESOURCES_DIR.'Processor'.DS);
-define('FILES_DIR'             , RESOURCES_DIR.'Files'.DS);
-define('EXTERNAL_FILES_DIR'    , EXTERNAL_RESOURCES_DIR.'Files'.DS);
-define('FONTS_DIR'             , RESOURCES_DIR.'Fonts'.DS);
-define('EXTERNAL_FONTS_DIR'    , EXTERNAL_RESOURCES_DIR.'Fonts'.DS);
-define('SCRIPTS_DIR'           , RESOURCES_DIR.'Scripts'.DS);
-define('EXTERNAL_SCRIPTS_DIR'  , EXTERNAL_RESOURCES_DIR.'Scripts'.DS);
-define('STYLES_DIR'            , RESOURCES_DIR.'Styles'.DS);
-define('EXTERNAL_STYLES_DIR'   , EXTERNAL_RESOURCES_DIR.'Styles'.DS);
-define('TEMPLATES_DIR'         , RESOURCES_DIR.'Templates'.DS);
-define('EXTERNAL_TEMPLATES_DIR', EXTERNAL_RESOURCES_DIR.'Templates'.DS);
-define('THEMES_DIR'            , RESOURCES_DIR.'Themes'.DS);
-define('EXTERNAL_THEMES_DIR'   , EXTERNAL_RESOURCES_DIR.'Themes'.DS);
-define('PLUGINS_DIR'           , RESOURCES_DIR.'Plugins'.DS);
-define('EXTERNAL_PLUGINS_DIR'  , EXTERNAL_RESOURCES_DIR.'Plugins'.DS);
-define('UPLOADS_DIR'           , RESOURCES_DIR.'Uploads'.DS);
-define('EXTERNAL_UPLOADS_DIR'  , EXTERNAL_RESOURCES_DIR.'Uploads'.DS);
-define('INTERNAL_TEMPLATES_DIR', INTERNAL_DIR.'Templates'.DS);
+define('EXTERNAL_LIBRARIES_DIR', EXTERNAL_DIR.'Libraries'.DS             );
+define('CONTROLLERS_DIR'       , PROJECT_DIR.'Controllers'.DS            );
+define('MODELS_DIR'            , internalProjectContainerDir('Models')   );
+define('EXTERNAL_MODELS_DIR'   , EXTERNAL_DIR.'Models'.DS                );
+define('VIEWS_DIR'             , PROJECT_DIR.'Views'.DS                  );
+define('PAGES_DIR'             , VIEWS_DIR                               );
+define('PROCESSOR_DIR'         , RESOURCES_DIR.'Processor'.DS            );
+define('EXTERNAL_PROCESSOR_DIR', EXTERNAL_RESOURCES_DIR.'Processor'.DS   );
+define('FILES_DIR'             , RESOURCES_DIR.'Files'.DS                );
+define('EXTERNAL_FILES_DIR'    , EXTERNAL_RESOURCES_DIR.'Files'.DS       );
+define('FONTS_DIR'             , RESOURCES_DIR.'Fonts'.DS                );
+define('EXTERNAL_FONTS_DIR'    , EXTERNAL_RESOURCES_DIR.'Fonts'.DS       );
+define('SCRIPTS_DIR'           , RESOURCES_DIR.'Scripts'.DS              );
+define('EXTERNAL_SCRIPTS_DIR'  , EXTERNAL_RESOURCES_DIR.'Scripts'.DS     );
+define('STYLES_DIR'            , RESOURCES_DIR.'Styles'.DS               );
+define('EXTERNAL_STYLES_DIR'   , EXTERNAL_RESOURCES_DIR.'Styles'.DS      );
+define('TEMPLATES_DIR'         , RESOURCES_DIR.'Templates'.DS            );
+define('EXTERNAL_TEMPLATES_DIR', EXTERNAL_RESOURCES_DIR.'Templates'.DS   );
+define('THEMES_DIR'            , RESOURCES_DIR.'Themes'.DS               );
+define('EXTERNAL_THEMES_DIR'   , EXTERNAL_RESOURCES_DIR.'Themes'.DS      );
+define('PLUGINS_DIR'           , RESOURCES_DIR.'Plugins'.DS              );
+define('EXTERNAL_PLUGINS_DIR'  , EXTERNAL_RESOURCES_DIR.'Plugins'.DS     );
+define('UPLOADS_DIR'           , RESOURCES_DIR.'Uploads'.DS              );
+define('EXTERNAL_UPLOADS_DIR'  , EXTERNAL_RESOURCES_DIR.'Uploads'.DS     );
+define('INTERNAL_TEMPLATES_DIR', INTERNAL_DIR.'Templates'.DS             );
 //--------------------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------------------
@@ -133,18 +133,18 @@ import(CLASSES_DIR . 'Autoloader.php');
 // Current Controller Constants
 //
 //--------------------------------------------------------------------------------------------------
-define('STRUCTURE_DATA'     , ZN\Core\Structure::data());
-define('CURRENT_COPEN_PAGE' , STRUCTURE_DATA['openFunction']);
-define('CURRENT_CPARAMETERS', STRUCTURE_DATA['parameters']);
-define('CURRENT_CFILE'      , STRUCTURE_DATA['file']);
-define('CURRENT_CFUNCTION'  , STRUCTURE_DATA['function']);
+define('STRUCTURE_DATA'     , ZN\Core\Structure::data()                );
+define('CURRENT_COPEN_PAGE' , STRUCTURE_DATA['openFunction']           );
+define('CURRENT_CPARAMETERS', STRUCTURE_DATA['parameters']             );
+define('CURRENT_CFILE'      , STRUCTURE_DATA['file']                   );
+define('CURRENT_CFUNCTION'  , STRUCTURE_DATA['function']               );
 define('CURRENT_CPAGE'      , ($page = STRUCTURE_DATA['page']) . '.php');
-define('CURRENT_CONTROLLER' , $page);
-define('CURRENT_CNAMESPACE' , $namespace = STRUCTURE_DATA['namespace']);
-define('CURRENT_CCLASS'     , $namespace . CURRENT_CONTROLLER);
+define('CURRENT_CONTROLLER' , $page                                    );
+define('CURRENT_CNAMESPACE' , $namespace = STRUCTURE_DATA['namespace'] );
+define('CURRENT_CCLASS'     , $namespace . CURRENT_CONTROLLER          );
 define('CURRENT_CFPATH'     , str_replace(CONTROLLERS_DIR, '', CURRENT_CONTROLLER).'/'.CURRENT_CFUNCTION);
-define('CURRENT_CFURI'      , strtolower(CURRENT_CFPATH));
-define('CURRENT_CFURL'      , siteUrl(CURRENT_CFPATH));
+define('CURRENT_CFURI'      , strtolower(CURRENT_CFPATH)               );
+define('CURRENT_CFURL'      , siteUrl(CURRENT_CFPATH)                  );
 //--------------------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------------------
@@ -979,27 +979,7 @@ function writeLine($data = NULL, Array $vars = NULL, Int $brCount = 1)
 //--------------------------------------------------------------------------------------------------
 function ipv4() : String
 {
-    $localIP = '127.0.0.1';
-
-    if( isset($_SERVER['HTTP_CLIENT_IP']) )
-    {
-        $ip = $_SERVER['HTTP_CLIENT_IP'];
-    }
-    elseif( isset($_SERVER['HTTP_X_FORWARDED_FOR']) )
-    {
-        $ip = divide($_SERVER['HTTP_X_FORWARDED_FOR'], ',');
-    }
-    else
-    {
-        $ip = $_SERVER['REMOTE_ADDR'] ?? $localIP;
-    }
-
-    if( $ip === '::1')
-    {
-        $ip = $localIP;
-    }
-
-    return $ip;
+    return User::ip();
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -1096,9 +1076,7 @@ function server(String $type = NULL)
 //--------------------------------------------------------------------------------------------------
 function pathInfos(String $file, String $info = 'basename') : String
 {
-    $pathInfo = pathinfo($file);
-
-    return $pathInfo[$info] ?? false;
+    return File::pathInfo($file, $info);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -1113,9 +1091,7 @@ function pathInfos(String $file, String $info = 'basename') : String
 //--------------------------------------------------------------------------------------------------
 function extension(String $file, Bool $dote = false) : String
 {
-    $dote = $dote === true ? '.' : '';
-
-    return $dote . strtolower(pathInfos($file, "extension"));
+    return File::extension($file, $dote);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -1129,7 +1105,7 @@ function extension(String $file, Bool $dote = false) : String
 //--------------------------------------------------------------------------------------------------
 function removeExtension(String $file) : String
 {
-    return preg_replace('/\\.[^.\\s]{3,4}$/', '', $file);
+    return File::removeExtension($file);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -1202,53 +1178,6 @@ function charsetList() : Array
 function compare(String $p1, String $operator, String $p2) : Bool
 {
     return version_compare($p1, $p2, $operator);
-}
-
-//--------------------------------------------------------------------------------------------------
-// EOL
-//--------------------------------------------------------------------------------------------------
-//
-// @param int $repeat = 1
-//
-// @return string
-//
-//--------------------------------------------------------------------------------------------------
-function eol(Int $repeat = 1) : String
-{
-    return str_repeat(EOL, $repeat);
-}
-
-//--------------------------------------------------------------------------------------------------
-// getOS()
-//--------------------------------------------------------------------------------------------------
-//
-// @param void
-//
-// @return string
-//
-//--------------------------------------------------------------------------------------------------
-function getOS() : String
-{
-    if( stristr(PHP_OS, 'WIN') )
-    {
-        return 'WIN';
-    }
-    elseif( stristr(PHP_OS, 'MAC') )
-    {
-        return 'MAC';
-    }
-    elseif( stristr(PHP_OS, 'LINUX') )
-    {
-        return 'LINUX';
-    }
-    elseif( stristr(PHP_OS, 'UNIX') )
-    {
-        return 'UNIX';
-    }
-    else
-    {
-        return 'UNKNOWN';
-    }
 }
 
 //--------------------------------------------------------------------------------------------------

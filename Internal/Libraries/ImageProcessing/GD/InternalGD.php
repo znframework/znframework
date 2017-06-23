@@ -108,7 +108,7 @@ class InternalGD extends CallController implements InternalGDInterface
     {
         if( is_file($width) )
         {
-            $this->type   = extension($width);
+            $this->type   = File::extension($width);
             $this->canvas = $this->createFrom($this->type, $width,
             [
                 'x'      => (int) $height,
@@ -184,7 +184,7 @@ class InternalGD extends CallController implements InternalGDInterface
     //--------------------------------------------------------------------------------------------------------
     public function size(String $fileName) : \stdClass
     {
-        if( extension($fileName) && is_file($fileName) )
+        if( File::extension($fileName) && is_file($fileName) )
         {
             $data = getimagesize($fileName);
         }

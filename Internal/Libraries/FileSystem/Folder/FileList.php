@@ -130,7 +130,7 @@ class FileList implements FileListInterface
             {
                 if( ! empty($extension) && $extension !== 'dir' )
                 {
-                    if( extension($file) === $extension )
+                    if( File::extension($file) === $extension )
                     {
                         $files[] = $prefixPath.$file;
                     }

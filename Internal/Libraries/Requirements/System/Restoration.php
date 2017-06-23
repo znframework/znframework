@@ -1,6 +1,6 @@
 <?php namespace ZN\Requirements\System;
 
-use Config, Arrays, URI, ZN\In, IS;
+use Config, Arrays, URI, ZN\In, IS, User;
 
 class Restoration
 {
@@ -23,7 +23,7 @@ class Restoration
     //--------------------------------------------------------------------------------------------------------
     public static function routeURI($machinesIP, String $uri)
     {
-        if( ! Arrays::valueExists((array) $machinesIP, ipv4()) && In::requestURI() !== $uri )
+        if( ! Arrays::valueExists((array) $machinesIP, User::ip()) && In::requestURI() !== $uri )
         {
             redirect($uri);
         }
@@ -43,7 +43,7 @@ class Restoration
 
         if( PROJECT_MODE === 'restoration' || $manipulation !== NULL)
         {
-            $ipv4 = ipv4();
+            $ipv4 = User::ip();
 
             if( is_array($restorationIP) )
             {

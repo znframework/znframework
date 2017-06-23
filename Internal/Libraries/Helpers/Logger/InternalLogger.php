@@ -1,6 +1,6 @@
 <?php namespace ZN\Helpers;
 
-use Config, Folder, File, Date;
+use Config, Folder, File, Date, User;
 
 class InternalLogger implements InternalLoggerInterface
 {
@@ -182,7 +182,7 @@ class InternalLogger implements InternalLoggerInterface
             }
         }
 
-        $message = 'IP: ' . ipv4().
+        $message = 'IP: ' . User::ip().
                    ' | Subject: ' . $subject.
                    ' | Date: '.Date::set('{dayNumber0}.{monthNumber0}.{year} {H024}:{minute}:{second}').
                    ' | Message: ' . $message . EOL;
