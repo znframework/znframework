@@ -3,7 +3,7 @@
 use ZN\ViewObjects\JqueryTrait;
 use CallController, JQ;
 
-class Animate extends CallController implements AnimateInterface
+class Animate extends CallController
 {
     //--------------------------------------------------------------------------------------------------------
     //

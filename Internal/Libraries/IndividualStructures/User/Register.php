@@ -2,7 +2,7 @@
 
 use Encode, DB, Email, Import, URI, URL, IS;
 
-class Register extends UserExtends implements RegisterInterface
+class Register extends UserExtends
 {
     //--------------------------------------------------------------------------------------------------------
     // Auto Login

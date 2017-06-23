@@ -1,6 +1,6 @@
 <?php namespace ZN\Helpers\Rounder;
 
-class Average implements CommonInterface
+class Average
 {
     //--------------------------------------------------------------------------------------------------------
     //

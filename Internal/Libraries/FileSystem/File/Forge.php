@@ -6,7 +6,7 @@ use ZN\FileSystem\Exception\FileAllreadyException;
 use ZN\FileSystem\FileSystemFactory;
 use ZN\FileSystem\InternalGenerate;
 
-class Forge implements ForgeInterface
+class Forge
 {
     //--------------------------------------------------------------------------------------------------------
     //

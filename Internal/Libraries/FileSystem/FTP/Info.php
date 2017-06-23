@@ -2,7 +2,7 @@
 
 use File;
 
-class Info extends Connection implements InfoInterface
+class Info extends Connection
 {
     //--------------------------------------------------------------------------------------------------------
     //

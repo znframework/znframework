@@ -3,7 +3,7 @@
 use ZN\ViewObjects\JqueryTrait;
 use CallController, Json, JQ, URL, Arrays, JS, URL, IS;
 
-class Ajax extends CallController implements AjaxInterface
+class Ajax extends CallController
 {
     //--------------------------------------------------------------------------------------------------------
     //

@@ -2,7 +2,7 @@
 
 use Buffer, Html, Form as Forms;
 
-class Form extends ComponentsExtends implements FormInterface
+class Form extends ComponentsExtends
 {
     //--------------------------------------------------------------------------------------------------------
     //

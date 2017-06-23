@@ -3,7 +3,7 @@
 use Encode, IS;
 use ZN\CryptoGraphy\Exception\InvalidArgumentException;
 
-class Type extends EncodeExtends implements TypeInterface
+class Type extends EncodeExtends
 {
     //--------------------------------------------------------------------------------------------------------
     //

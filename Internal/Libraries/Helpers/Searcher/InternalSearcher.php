@@ -1,6 +1,6 @@
 <?php namespace ZN\Helpers;
 
-class InternalSearcher extends \FactoryController implements InternalSearcherInterface
+class InternalSearcher extends \FactoryController
 {
     //--------------------------------------------------------------------------------------------------------
     //

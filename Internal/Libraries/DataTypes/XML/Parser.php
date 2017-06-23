@@ -2,7 +2,7 @@
 
 use Json;
 
-class Parser implements ParserInterface
+class Parser
 {
     //--------------------------------------------------------------------------------------------------------
     // Parse

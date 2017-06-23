@@ -2,7 +2,7 @@
 
 use Session;
 
-class Select implements SelectInterface
+class Select
 {
     //--------------------------------------------------------------------------------------------------------
     //

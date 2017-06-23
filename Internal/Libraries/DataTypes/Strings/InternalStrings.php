@@ -2,7 +2,7 @@
 
 use Converter;
 
-class InternalStrings extends \FactoryController implements InternalStringsInterface
+class InternalStrings extends \FactoryController
 {
     //--------------------------------------------------------------------------------------------------------
     //

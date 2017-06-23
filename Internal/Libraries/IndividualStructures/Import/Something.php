@@ -3,7 +3,7 @@
 use Config, URL, File;
 use ZN\IndividualStructures\Import\Exception\InvalidArgumentException;
 
-class Something implements SomethingInterface
+class Something
 {
     //--------------------------------------------------------------------------------------------------------
     //

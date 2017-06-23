@@ -1,6 +1,6 @@
 <?php namespace ZN\FileSystem;
 
-class InternalExcel extends \FactoryController implements InternalExcelInterface
+class InternalExcel extends \FactoryController
 {
     //--------------------------------------------------------------------------------------------------------
     //

@@ -1,6 +1,6 @@
 <?php namespace ZN\CryptoGraphy;
 
-class InternalEncode extends \FactoryController implements InternalEncodeInterface
+class InternalEncode extends \FactoryController
 {
     //--------------------------------------------------------------------------------------------------------
     //

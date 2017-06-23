@@ -3,7 +3,7 @@
 use CLController, Config;
 use ZN\FileSystem\Exception\IOException;
 
-class Connection extends CLController implements ConnectionInterface
+class Connection extends CLController
 {
     //--------------------------------------------------------------------------------------------------------
     //

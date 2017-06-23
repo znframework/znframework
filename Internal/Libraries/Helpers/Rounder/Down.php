@@ -2,7 +2,7 @@
 
 use ZN\Helpers\Rounder\Exception\LogicException;
 
-class Down implements CommonInterface
+class Down
 {
     //--------------------------------------------------------------------------------------------------------
     //

@@ -2,7 +2,7 @@
 
 use URL, IS;
 
-class Style extends BootstrapExtends implements BootstrapInterface
+class Style extends BootstrapExtends
 {
     //--------------------------------------------------------------------------------------------------------
     //

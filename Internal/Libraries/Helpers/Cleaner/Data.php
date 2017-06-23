@@ -2,7 +2,7 @@
 
 use ZN\Helpers\Cleaner\Exception\LogicException;
 
-class Data implements DataInterface
+class Data
 {
     //--------------------------------------------------------------------------------------------------------
     //

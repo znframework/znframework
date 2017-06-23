@@ -1,6 +1,6 @@
 <?php namespace ZN\IndividualStructures\Security;
 
-class CrossSiteScripting extends SecurityExtends implements CrossSiteScriptingInterface
+class CrossSiteScripting extends SecurityExtends
 {
     //--------------------------------------------------------------------------------------------------------
     //

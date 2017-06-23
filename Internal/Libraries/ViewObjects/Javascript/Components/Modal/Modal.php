@@ -1,6 +1,6 @@
 <?php namespace ZN\ViewObjects\Javascript\Components;
 
-class Modal extends ComponentsExtends implements ModalInterface
+class Modal extends ComponentsExtends
 {
     //--------------------------------------------------------------------------------------------------------
     //

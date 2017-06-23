@@ -1,6 +1,6 @@
 <?php namespace ZN\ViewObjects\Javascript\Components;
 
-class Datatables extends ComponentsExtends implements DatatablesInterface
+class Datatables extends ComponentsExtends
 {
     //--------------------------------------------------------------------------------------------------------
     //

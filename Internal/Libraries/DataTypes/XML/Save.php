@@ -2,7 +2,7 @@
 
 use File;
 
-class Save implements SaveInterface
+class Save
 {
     //--------------------------------------------------------------------------------------------------------
     // Extension

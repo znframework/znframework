@@ -1,6 +1,6 @@
 <?php namespace ZN\IndividualStructures;
 
-class InternalUser extends \FactoryController implements InternalUserInterface
+class InternalUser extends \FactoryController
 {
     //--------------------------------------------------------------------------------------------------------
     //

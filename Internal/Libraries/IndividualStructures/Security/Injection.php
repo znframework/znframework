@@ -1,6 +1,6 @@
 <?php namespace ZN\IndividualStructures\Security;
 
-class Injection extends SecurityExtends implements InjectionInterface
+class Injection extends SecurityExtends
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -18,7 +18,7 @@ class Injection extends SecurityExtends implements InjectionInterface
     // @var array
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $nailChars = 
+    protected $nailChars =
     [
         "'" => "&#39;",
         '"' => "&#34;"

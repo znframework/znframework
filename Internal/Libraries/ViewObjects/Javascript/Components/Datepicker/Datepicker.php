@@ -1,6 +1,6 @@
 <?php namespace ZN\ViewObjects\Javascript\Components;
 
-class Datepicker extends ComponentsExtends implements DatepickerInterface
+class Datepicker extends ComponentsExtends
 {
     //--------------------------------------------------------------------------------------------------------
     //

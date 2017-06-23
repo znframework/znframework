@@ -2,7 +2,7 @@
 
 use Html, Buffer;
 
-class Tabs extends ComponentsExtends implements TabsInterface
+class Tabs extends ComponentsExtends
 {
     //--------------------------------------------------------------------------------------------------------
     //

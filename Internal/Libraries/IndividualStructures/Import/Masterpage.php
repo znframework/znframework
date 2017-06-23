@@ -2,7 +2,7 @@
 
 use Config, HTML, Import, Arrays, URL;
 
-class Masterpage implements MasterpageInterface
+class Masterpage
 {
     //--------------------------------------------------------------------------------------------------------
     //

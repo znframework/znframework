@@ -1,6 +1,6 @@
 <?php namespace ZN\ViewObjects\Javascript\Components;
 
-class Charts extends ComponentsExtends implements ChartsInterface
+class Charts extends ComponentsExtends
 {
     //--------------------------------------------------------------------------------------------------------
     //

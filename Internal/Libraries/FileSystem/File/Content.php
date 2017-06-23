@@ -2,7 +2,7 @@
 
 use stdClass, File;
 
-class Content implements ContentInterface
+class Content
 {
     //--------------------------------------------------------------------------------------------------------
     //

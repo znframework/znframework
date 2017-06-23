@@ -4,7 +4,7 @@ use File;
 use ZN\ViewObjects\TemplateWizard;
 use ZN\IndividualStructures\Import\Exception\FileNotFoundException;
 
-class View implements ViewInterface
+class View
 {
     //--------------------------------------------------------------------------------------------------------
     //

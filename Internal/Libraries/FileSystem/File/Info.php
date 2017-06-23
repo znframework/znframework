@@ -3,7 +3,7 @@
 use Folder, Config, File;
 use ZN\FileSystem\Exception\FileNotFoundException;
 
-class Info implements InfoInterface
+class Info
 {
     //--------------------------------------------------------------------------------------------------------
     //

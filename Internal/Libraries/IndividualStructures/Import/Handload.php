@@ -1,6 +1,6 @@
 <?php namespace ZN\IndividualStructures\Import;
 
-class Handload implements HandloadInterface
+class Handload
 {
     //--------------------------------------------------------------------------------------------------------
     //

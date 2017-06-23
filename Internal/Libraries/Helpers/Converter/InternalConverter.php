@@ -1,6 +1,6 @@
 <?php namespace ZN\Helpers;
 
-class InternalConverter extends \FactoryController implements InternalConverterInterface
+class InternalConverter extends \FactoryController
 {
     //--------------------------------------------------------------------------------------------------------
     //

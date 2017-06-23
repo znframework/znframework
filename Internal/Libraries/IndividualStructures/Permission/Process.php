@@ -1,6 +1,6 @@
 <?php namespace ZN\IndividualStructures\Permission;
 
-class Process extends PermissionExtends implements ProcessInterface
+class Process extends PermissionExtends
 {
     //--------------------------------------------------------------------------------------------------------
     //

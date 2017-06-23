@@ -1,6 +1,6 @@
 <?php namespace ZN\IndividualStructures\Cart;
 
-class Money implements MoneyInterface
+class Money
 {
     //--------------------------------------------------------------------------------------------------------
     //

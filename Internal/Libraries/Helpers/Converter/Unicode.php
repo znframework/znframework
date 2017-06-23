@@ -4,7 +4,7 @@ use Config, Arrays;
 use ZN\Helpers\Converter\Exception\InvalidArgumentException;
 use ZN\Helpers\Converter\Exception\LogicException;
 
-class Unicode implements UnicodeInterface
+class Unicode
 {
     //--------------------------------------------------------------------------------------------------------
     //

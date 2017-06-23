@@ -2,7 +2,7 @@
 
 use ZN\DataTypes\Arrays\Exception\InvalidArgumentException;
 
-class Each implements EachInterface
+class Each
 {
     //--------------------------------------------------------------------------------------------------------
     //

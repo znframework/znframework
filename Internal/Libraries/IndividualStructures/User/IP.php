@@ -1,6 +1,6 @@
 <?php namespace ZN\IndividualStructures\User;
 
-class IP extends UserExtends implements IPInterface
+class IP
 {
     //--------------------------------------------------------------------------------------------------
     // ipv4()

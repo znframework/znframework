@@ -2,7 +2,7 @@
 
 use Html, Form, Buffer;
 
-class GridSystem extends ComponentsExtends implements GridSystemInterface
+class GridSystem extends ComponentsExtends
 {
     //--------------------------------------------------------------------------------------------------------
     //

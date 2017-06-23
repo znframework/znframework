@@ -2,7 +2,7 @@
 
 use IS;
 
-class GoldenAlgorithm extends EncodeExtends implements GoldenAlgorithmInterface
+class GoldenAlgorithm extends EncodeExtends
 {
     //--------------------------------------------------------------------------------------------------------
     //

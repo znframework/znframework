@@ -1,6 +1,6 @@
 <?php namespace ZN\ViewObjects\Javascript\Components;
 
-class Select2 extends ComponentsExtends implements Select2Interface
+class Select2 extends ComponentsExtends
 {
     //--------------------------------------------------------------------------------------------------------
     //

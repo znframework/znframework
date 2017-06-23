@@ -1,6 +1,6 @@
 <?php namespace ZN\DataTypes\Separator;
 
-class Encode extends SeparatorExtends implements EncodeInterface
+class Encode extends SeparatorExtends
 {
     //--------------------------------------------------------------------------------------------------------
     //

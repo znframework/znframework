@@ -3,7 +3,7 @@
 use ZN\ViewObjects\SheetTrait;
 use CallController;
 
-class Transform extends CallController implements TransformInterface
+class Transform extends CallController
 {
     //--------------------------------------------------------------------------------------------------------
     //

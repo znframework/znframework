@@ -2,7 +2,7 @@
 
 use URL, IS;
 
-class Script extends BootstrapExtends implements BootstrapInterface
+class Script extends BootstrapExtends
 {
     //--------------------------------------------------------------------------------------------------------
     //

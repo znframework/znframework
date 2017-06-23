@@ -1,6 +1,6 @@
 <?php namespace ZN\IndividualStructures;
 
-class InternalPermission extends \FactoryController implements InternalPermissionInterface
+class InternalPermission extends \FactoryController
 {
     //--------------------------------------------------------------------------------------------------------
     //

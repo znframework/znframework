@@ -2,7 +2,7 @@
 
 use Html, Security;
 
-class Text implements TextInterface
+class Text
 {
     //--------------------------------------------------------------------------------------------------------
     //

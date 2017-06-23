@@ -2,7 +2,7 @@
 
 use DB, Email, Arrays, IS;
 
-class SendEmail extends UserExtends implements SendEmailInterface
+class SendEmail extends UserExtends
 {
     //--------------------------------------------------------------------------------------------------------
     // Attachment ->5.0.0

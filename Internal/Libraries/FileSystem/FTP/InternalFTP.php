@@ -1,6 +1,6 @@
 <?php namespace ZN\FileSystem;
 
-class InternalFTP extends \FactoryController implements InternalFTPInterface
+class InternalFTP extends \FactoryController
 {
     //--------------------------------------------------------------------------------------------------------
     //

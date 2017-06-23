@@ -2,7 +2,7 @@
 
 use stdClass;
 
-class VariableTypes implements VariableTypesInterface
+class VariableTypes
 {
     //--------------------------------------------------------------------------------------------------------
     //

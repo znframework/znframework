@@ -1,6 +1,6 @@
 <?php namespace ZN\ViewObjects\Javascript\Components;
 
-class FlexSlider extends ComponentsExtends implements FlexSliderInterface
+class FlexSlider extends ComponentsExtends
 {
     //--------------------------------------------------------------------------------------------------------
     //

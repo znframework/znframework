@@ -1,6 +1,6 @@
 <?php namespace ZN\IndividualStructures\Cart;
 
-class Total extends CartExtends implements TotalInterface
+class Total extends CartExtends
 {
     //--------------------------------------------------------------------------------------------------------
     //

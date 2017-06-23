@@ -4,7 +4,7 @@ use Folder, URL, File;
 use ZN\EncodingSupport\ImageProcessing\Image\Exception\ImageNotFoundException;
 use ZN\EncodingSupport\ImageProcessing\Image\Exception\InvalidImageFileException;
 
-class RenderImage implements RenderImageInterface
+class RenderImage
 {
     //--------------------------------------------------------------------------------------------------------
     //

@@ -2,7 +2,7 @@
 
 use Config;
 
-class Pagination extends ComponentsExtends implements PaginationInterface
+class Pagination extends ComponentsExtends
 {
     //--------------------------------------------------------------------------------------------------------
     //

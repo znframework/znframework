@@ -3,7 +3,7 @@
 use Benchmark, stdClass;
 use ZN\IndividualStructures\Benchmark\Exception\InvalidArgumentException;
 
-class Run implements RunInterface
+class Run
 {
     //--------------------------------------------------------------------------------------------------------
     //

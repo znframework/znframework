@@ -1,6 +1,6 @@
 <?php namespace ZN\DataTypes\XML;
 
-class Check implements CheckInterface
+class Check
 {
     //--------------------------------------------------------------------------------------------------------
     // Check -> 4.3.5
@@ -15,7 +15,7 @@ class Check implements CheckInterface
         {
             return false;
         }
-        
+
         libxml_use_internal_errors(true);
 
         simplexml_load_string($xml);

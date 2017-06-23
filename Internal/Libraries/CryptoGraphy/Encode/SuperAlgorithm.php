@@ -2,7 +2,7 @@
 
 use IS;
 
-class SuperAlgorithm extends EncodeExtends implements SuperAlgorithmInterface
+class SuperAlgorithm extends EncodeExtends
 {
     //--------------------------------------------------------------------------------------------------------
     //

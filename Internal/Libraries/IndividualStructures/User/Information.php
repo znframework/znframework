@@ -1,6 +1,6 @@
 <?php namespace ZN\IndividualStructures\User;
 
-class Information implements InformationInterface
+class Information
 {
     //--------------------------------------------------------------------------------------------------------
     // Error

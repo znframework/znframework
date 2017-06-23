@@ -2,7 +2,7 @@
 
 use File, Json, Folder;
 
-class Select extends MLExtends implements SelectInterface
+class Select extends MLExtends
 {
     //--------------------------------------------------------------------------------------------------------
     //

@@ -3,7 +3,7 @@
 use stdClass;
 use ZN\EncodingSupport\ImageProcessing\Image\Exception\ImageNotFoundException;
 
-class CalculateProsize implements CalculateProsizeInterface
+class CalculateProsize
 {
     //--------------------------------------------------------------------------------------------------------
     //

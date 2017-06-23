@@ -1,6 +1,6 @@
 <?php namespace ZN\FileSystem\Excel;
 
-class ArrayToXLS implements ArrayToXLSInterface
+class ArrayToXLS
 {
     //--------------------------------------------------------------------------------------------------------
     //

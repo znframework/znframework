@@ -2,7 +2,7 @@
 
 use File;
 
-class Extension implements ExtensionInterface
+class Extension
 {
     //--------------------------------------------------------------------------------------------------------
     //

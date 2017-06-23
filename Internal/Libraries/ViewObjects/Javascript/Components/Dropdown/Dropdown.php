@@ -2,7 +2,7 @@
 
 use Html, Form;
 
-class Dropdown extends ComponentsExtends implements DropdownInterface
+class Dropdown extends ComponentsExtends
 {
     //--------------------------------------------------------------------------------------------------------
     //

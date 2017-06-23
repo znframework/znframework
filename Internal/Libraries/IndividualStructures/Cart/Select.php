@@ -1,6 +1,6 @@
 <?php namespace ZN\IndividualStructures\Cart;
 
-class Select extends CartExtends implements SelectInterface
+class Select extends CartExtends
 {
     //--------------------------------------------------------------------------------------------------------
     //

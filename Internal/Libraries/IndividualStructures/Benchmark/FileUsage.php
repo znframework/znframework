@@ -1,6 +1,6 @@
 <?php namespace ZN\IndividualStructures\Benchmark;
 
-class FileUsage implements FileUsageInterface
+class FileUsage
 {
     //--------------------------------------------------------------------------------------------------------
     //

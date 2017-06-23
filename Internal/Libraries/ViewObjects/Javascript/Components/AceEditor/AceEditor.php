@@ -1,6 +1,6 @@
 <?php namespace ZN\ViewObjects\Javascript\Components;
 
-class AceEditor extends ComponentsExtends implements AceEditorInterface
+class AceEditor extends ComponentsExtends
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -24,7 +24,7 @@ class AceEditor extends ComponentsExtends implements AceEditorInterface
         $editors($this);
 
         $attr['id'] = $id;
-        
+
         return $this->prop($attr);
 
     }

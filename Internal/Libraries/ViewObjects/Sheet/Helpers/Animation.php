@@ -3,7 +3,7 @@
 use ZN\ViewObjects\SheetTrait;
 use CallController;
 
-class Animation extends CallController implements AnimationInterface
+class Animation extends CallController
 {
     //--------------------------------------------------------------------------------------------------------
     //

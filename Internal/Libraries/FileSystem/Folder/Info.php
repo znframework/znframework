@@ -3,7 +3,7 @@
 use File, Folder;
 use ZN\FileSystem\Exception\FolderNotFoundException;
 
-class Info implements InfoInterface
+class Info
 {
     //--------------------------------------------------------------------------------------------------------
     //

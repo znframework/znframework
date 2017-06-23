@@ -3,7 +3,7 @@
 use ZN\ViewObjects\JqueryTrait;
 use Support;
 
-class Action implements ActionInterface
+class Action
 {
     //--------------------------------------------------------------------------------------------------------
     //

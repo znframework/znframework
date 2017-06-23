@@ -1,6 +1,6 @@
 <?php namespace ZN\Helpers;
 
-class InternalRounder extends \FactoryController implements InternalRounderInterface
+class InternalRounder extends \FactoryController
 {
     //--------------------------------------------------------------------------------------------------------
     //

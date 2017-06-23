@@ -1,6 +1,6 @@
 <?php namespace ZN\Helpers\Limiter;
 
-class Word implements CommonInterface
+class Word
 {
     //--------------------------------------------------------------------------------------------------------
     //

@@ -3,7 +3,7 @@
 use File;
 use ZN\FileSystem\Exception\FolderNotFoundException;
 
-class FileList implements FileListInterface
+class FileList
 {
     //--------------------------------------------------------------------------------------------------------
     //

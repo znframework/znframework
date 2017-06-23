@@ -1,6 +1,6 @@
 <?php namespace ZN\DataTypes\Strings;
 
-class Security implements SecurityInterface
+class Security
 {
     //--------------------------------------------------------------------------------------------------------
     //

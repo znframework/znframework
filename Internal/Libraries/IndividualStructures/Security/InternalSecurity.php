@@ -1,6 +1,6 @@
 <?php namespace ZN\IndividualStructures;
 
-class InternalSecurity extends \FactoryController implements InternalSecurityInterface
+class InternalSecurity extends \FactoryController
 {
     //--------------------------------------------------------------------------------------------------------
     //

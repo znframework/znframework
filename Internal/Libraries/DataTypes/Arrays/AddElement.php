@@ -1,6 +1,6 @@
 <?php namespace ZN\DataTypes\Arrays;
 
-class AddElement implements AddElementInterface
+class AddElement
 {
     //--------------------------------------------------------------------------------------------------------
     //

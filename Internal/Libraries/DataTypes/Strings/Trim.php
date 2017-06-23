@@ -1,6 +1,6 @@
 <?php namespace ZN\DataTypes\Strings;
 
-class Trim implements TrimInterface
+class Trim
 {
     //--------------------------------------------------------------------------------------------------------
     //

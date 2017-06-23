@@ -2,7 +2,7 @@
 
 use DB, Encode, Import, Email, URL, IS;
 
-class ForgotPassword extends UserExtends implements ForgotPasswordInterface
+class ForgotPassword extends UserExtends
 {
     //--------------------------------------------------------------------------------------------------------
     // Username

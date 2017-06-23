@@ -2,7 +2,7 @@
 
 use Arrays;
 
-class GetElement implements GetElementInterface
+class GetElement
 {
     //--------------------------------------------------------------------------------------------------------
     //
