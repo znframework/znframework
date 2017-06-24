@@ -82,28 +82,12 @@ class Data extends UserExtends
     // @return numeric
     //
     //--------------------------------------------------------------------------------------------------------
-    public function activeCount() : Int
+    public function activeCount($type = 'active') : Int
     {
-        $activeColumn = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['columns']['active'];
-        $tableName    = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['table'];
+        $column    = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['columns'][$type];
+        $tableName = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['table'];
 
-        if( ! empty($activeColumn) )
-        {
-            $totalRows = DB::where($activeColumn, 1)
-                           ->get($tableName)
-                           ->totalRows();
-
-            if( ! empty($totalRows) )
-            {
-                return $totalRows;
-            }
-            else
-            {
-                return 0;
-            }
-        }
-
-        return 0;
+        return DB::where($column, 1)->get($tableName)->totalRows();
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -116,26 +100,7 @@ class Data extends UserExtends
     //--------------------------------------------------------------------------------------------------------
     public function bannedCount() : Int
     {
-        $bannedColumn = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['columns']['banned'];
-        $tableName    = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['table'];
-
-        if( ! empty($bannedColumn) )
-        {
-            $totalRows = DB::where($bannedColumn, 1)
-                           ->get($tableName)
-                           ->totalRows();
-
-            if( ! empty($totalRows) )
-            {
-                return $totalRows;
-            }
-            else
-            {
-                return 0;
-            }
-        }
-
-        return 0;
+        return $this->activeCount('banned');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -150,15 +115,6 @@ class Data extends UserExtends
     {
         $tableName = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['table'];
 
-        $totalRows = DB::get($tableName)->totalRows();
-
-        if( ! empty($totalRows) )
-        {
-            return $totalRows;
-        }
-        else
-        {
-            return 0;
-        }
+        return DB::get($tableName)->totalRows();
     }
 }
