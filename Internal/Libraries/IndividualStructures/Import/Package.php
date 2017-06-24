@@ -2,7 +2,7 @@
 
 use Folder, Import;
 
-class Package implements PackageInterface
+class Package
 {
     //--------------------------------------------------------------------------------------------------------
     //

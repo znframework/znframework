@@ -2,7 +2,7 @@
 
 use Strings, Converter;
 
-class Casing implements CasingInterface
+class Casing
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -94,5 +94,36 @@ class Casing implements CasingInterface
         $string = $this->title(trim($str));
 
         return Strings::mtrim($string);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Underscore Case -> 4.7.0
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $str
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function underscore(String $str) : String
+    {
+        if( ! ctype_lower($str) )
+        {
+            $newstr = NULL;
+
+            for( $i = 0; $i < strlen($str); $i++ )
+            {
+                if( ctype_upper($str[$i]) )
+                {
+                    $newstr .= '_' . strtolower($str[$i]);
+                }
+                else
+                {
+                    $newstr .= $str[$i];
+                }
+            }
+
+            $str = $newstr;
+        }
+
+        return preg_replace('/\s+/', '\_', $str);
     }
 }

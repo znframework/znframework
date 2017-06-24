@@ -3,7 +3,7 @@
 use Import;
 use ZN\IndividualStructures\Import\Exception\FileNotFoundException;
 
-class Template implements TemplateInterface
+class Template
 {
     //--------------------------------------------------------------------------------------------------------
     //

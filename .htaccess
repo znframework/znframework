@@ -11,10 +11,10 @@
 	RewriteBase /
 	RewriteCond %{REQUEST_FILENAME} !-f
 	RewriteCond %{REQUEST_FILENAME} !-d
-	RewriteRule ^(.*)$  /dev/zeroneed.php?/$1 [QSA]
+	RewriteRule ^(.*)$  /eip-edition/zeroneed.php?/$1 [QSA]
 </IfModule>
 
-ErrorDocument 403 /dev/zeroneed.php
+ErrorDocument 403 /eip-edition/zeroneed.php
 
 DirectoryIndex zeroneed.php
 

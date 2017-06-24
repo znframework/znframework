@@ -1,6 +1,6 @@
 <?php namespace ZN\ViewObjects;
 
-use Config, URI, CLController;
+use Config, URI, URL, CLController, Lang, IS;
 
 class InternalCalendar extends CLController implements InternalCalendarInterface
 {
@@ -137,9 +137,9 @@ class InternalCalendar extends CLController implements InternalCalendarInterface
     //--------------------------------------------------------------------------------------------------------
     public function url(String $url) : InternalCalendar
     {
-        if( ! isUrl($url) )
+        if( ! IS::url($url) )
         {
-            $url = siteUrl($url);
+            $url = URL::site($url);
         }
 
         $this->url = $url;
@@ -311,7 +311,7 @@ class InternalCalendar extends CLController implements InternalCalendarInterface
 
         if( isset($_SERVER['HTTP_REFERER']) )
         {
-            $arrays = array_diff(explode('/', prevUrl()), explode('/', currentUrl()));
+            $arrays = array_diff(explode('/', URL::prev()), explode('/', URL::current()));
 
             $prevMonth = end($arrays);
         }
@@ -320,7 +320,7 @@ class InternalCalendar extends CLController implements InternalCalendarInterface
             $prevMonth = $month;
         }
 
-        $monthNamesConfig = VIEWOBJECTS_CALENDAR_CONFIG['monthNames'][getLang()];
+        $monthNamesConfig = VIEWOBJECTS_CALENDAR_CONFIG['monthNames'][Lang::get()];
 
         if( $this->monthNames === 'long' )
         {
@@ -331,7 +331,7 @@ class InternalCalendar extends CLController implements InternalCalendarInterface
             $monthNames = array_values($monthNamesConfig);
         }
 
-        $dayNamesConfig = VIEWOBJECTS_CALENDAR_CONFIG['dayNames'][getLang()];
+        $dayNamesConfig = VIEWOBJECTS_CALENDAR_CONFIG['dayNames'][Lang::get()];
 
         $monthName = $monthNames[$month - 1];
         $dayNames  = ( $this->dayNames === 'long' )

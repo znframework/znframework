@@ -1,8 +1,8 @@
 <?php namespace ZN\IndividualStructures\Import;
 
-use Config, Import;
+use Config, Import, URL, File;
 
-class Font extends BootstrapExtends implements BootstrapInterface
+class Font extends BootstrapExtends
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -46,9 +46,9 @@ class Font extends BootstrapExtends implements BootstrapInterface
                 $fontFile = EXTERNAL_FONTS_DIR.$font;
             }
 
-            $baseUrl  = baseUrl($fontFile);
+            $baseUrl  = URL::base($fontFile);
 
-            if( extension($fontFile) )
+            if( File::extension($fontFile) )
             {
                 if( is_file($fontFile) )
                 {
@@ -86,7 +86,7 @@ class Font extends BootstrapExtends implements BootstrapInterface
 
             if( ! empty($cndFont) )
             {
-                $str .= '@font-face{font-family:"'.divide(removeExtension($cndFont), "/", -1).'"; src:url("'.$cndFont.'") format("truetype")}'.$eol;
+                $str .= '@font-face{font-family:"'.divide(File::removeExtension($cndFont), "/", -1).'"; src:url("'.$cndFont.'") format("truetype")}'.$eol;
             }
 
             // FARKLI FONTLAR

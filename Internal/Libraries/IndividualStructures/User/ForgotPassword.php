@@ -1,8 +1,8 @@
 <?php namespace ZN\IndividualStructures\User;
 
-use DB, Encode, Import, Email;
+use DB, Encode, Import, Email, URL, IS;
 
-class ForgotPassword extends UserExtends implements ForgotPasswordInterface
+class ForgotPassword extends UserExtends
 {
     //--------------------------------------------------------------------------------------------------------
     // Username
@@ -59,9 +59,9 @@ class ForgotPassword extends UserExtends implements ForgotPasswordInterface
 
         if( isset($row->$usernameColumn) )
         {
-            if( ! isUrl($returnLinkPath) )
+            if( ! IS::url($returnLinkPath) )
             {
-                $returnLinkPath = siteUrl($returnLinkPath);
+                $returnLinkPath = URL::site($returnLinkPath);
             }
 
             $encodeType     = INDIVIDUALSTRUCTURES_USER_CONFIG['encode'];

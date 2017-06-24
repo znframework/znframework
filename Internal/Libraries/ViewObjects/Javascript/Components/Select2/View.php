@@ -1,23 +1,5 @@
 <?php
 //--------------------------------------------------------------------------------------------------------
-// Extract Vars
-//--------------------------------------------------------------------------------------------------------
-//
-// @var string $id
-// @var array  $extensions
-// @var array  $properties
-// @var array  $attributes
-// @var array  $data
-// @var scalar $selected
-// @var string $class
-// @var string $table
-// @var string $query
-//
-//--------------------------------------------------------------------------------------------------------,
-$extensions = $extensions ?? [];
-$attributes = $attributes ?? [];
-
-//--------------------------------------------------------------------------------------------------------
 // Autoloader Extension
 //--------------------------------------------------------------------------------------------------------
 //
@@ -27,10 +9,8 @@ $attributes = $attributes ?? [];
 // @extension morris
 //
 //--------------------------------------------------------------------------------------------------------
-if( ! empty($autoloadExtensions) )
-{
-    $extensions = array_merge(['jquery', 'select2'], (array) $extensions);
-}
+
+$extensions = JC::extensions($extensions, ['jquery', 'select2']);
 
 //--------------------------------------------------------------------------------------------------------
 // Available Extensions
@@ -69,7 +49,7 @@ if( ! empty($class) )
     Form::class($class);
 }
 
-echo Form::id($id)->attr($attributes)->select($name ?? $id, $data ?? [], $selected ?? 0);
+echo Form::id($id)->attr($attributes)->select($name, $data ?? [], $selected);
 
 if( ! empty($extensions) )
 {

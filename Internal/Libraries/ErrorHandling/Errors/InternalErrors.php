@@ -31,7 +31,47 @@ class InternalErrors implements InternalErrorsInterface
     //--------------------------------------------------------------------------------------------------------
     public function message(String $langFile, String $errorMsg, $ex = NULL) : String
     {
-        return getErrorMessage($langFile, $errorMsg, $ex);
+        $style  = 'border:solid 1px #E1E4E5;';
+        $style .= 'background:#FEFEFE;';
+        $style .= 'padding:10px;';
+        $style .= 'margin-bottom:10px;';
+        $style .= 'font-family:Calibri, Ebrima, Century Gothic, Consolas, Courier New, Courier, monospace, Tahoma, Arial;';
+        $style .= 'color:#666;';
+        $style .= 'text-align:left;';
+        $style .= 'font-size:14px;';
+
+        $exStyle = 'color:#900;';
+
+        if( ! is_array($ex) )
+        {
+            $ex = '<span style="'.$exStyle .'">'.$ex.'</span>';
+        }
+        else
+        {
+            $newArray = [];
+
+            if( ! empty($ex) ) foreach( $ex as $k => $v )
+            {
+                $newArray[$k] = $v;
+            }
+
+            $ex = $newArray;
+        }
+
+        $str  = "<div style=\"$style\">";
+
+        if( ! empty($errorMsg) )
+        {
+            $str .= lang($langFile, $errorMsg, $ex);
+        }
+        else
+        {
+            $str .= $langFile;
+        }
+
+        $str .= '</div><br>';
+
+        return $str;
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -44,7 +84,16 @@ class InternalErrors implements InternalErrorsInterface
     //--------------------------------------------------------------------------------------------------------
     public function last(String $type = NULL)
     {
-        return lastError($type);
+        $result = error_get_last();
+
+        if( $type === NULL )
+        {
+            return $result;
+        }
+        else
+        {
+            return $result[$type] ?? false;
+        }
     }
 
     //--------------------------------------------------------------------------------------------------------

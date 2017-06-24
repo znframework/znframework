@@ -1,6 +1,6 @@
 <?php namespace ZN\DataTypes\Strings;
 
-class Transform implements TransformInterface
+class Transform
 {
     //--------------------------------------------------------------------------------------------------------
     //

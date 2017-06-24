@@ -1,6 +1,6 @@
 <?php namespace ZN\IndividualStructures;
 
-class InternalBuffer extends \FactoryController implements InternalBufferInterface
+class InternalBuffer extends \FactoryController
 {
     //--------------------------------------------------------------------------------------------------------
     //

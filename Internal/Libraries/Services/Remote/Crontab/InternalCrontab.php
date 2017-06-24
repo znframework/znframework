@@ -1,6 +1,6 @@
 <?php namespace ZN\Services\Remote;
 
-use Processor, SSH, Folder, File, Html;
+use Processor, SSH, Folder, File, Html, URL, IS;
 use ZN\Services\Remote\Crontab\Exception\InvalidTimeFormatException;
 
 class InternalCrontab extends RemoteCommon implements InternalCrontabInterface, InternalCrontabIntervalInterface
@@ -372,9 +372,9 @@ class InternalCrontab extends RemoteCommon implements InternalCrontabInterface, 
     //--------------------------------------------------------------------------------------------------------
     public function url(String $url) : InternalCrontab
     {
-        if( ! isUrl($url) )
+        if( ! IS::url($url) )
         {
-            $url = siteUrl($url);
+            $url = URL::site($url);
         }
 
         $this->type = $url;

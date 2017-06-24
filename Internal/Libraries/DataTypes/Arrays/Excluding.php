@@ -2,7 +2,7 @@
 
 use ZN\DataTypes\Arrays\Exception\LogicException;
 
-class Excluding implements ExcludingInterface
+class Excluding
 {
     //--------------------------------------------------------------------------------------------------------
     //

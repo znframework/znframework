@@ -6,7 +6,7 @@ use ZN\FileSystem\Exception\FolderChangeDirException;
 use ZN\FileSystem\Exception\FolderChangeNameException;
 use ZN\FileSystem\Exception\IOException;
 
-class Forge extends Connection implements ForgeInterface
+class Forge extends Connection
 {
     //--------------------------------------------------------------------------------------------------------
     //

@@ -2,7 +2,7 @@
 
 use Converter;
 
-class Casing implements CasingInterface
+class Casing
 {
     //--------------------------------------------------------------------------------------------------------
     //

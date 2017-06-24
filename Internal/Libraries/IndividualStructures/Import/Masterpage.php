@@ -1,8 +1,8 @@
 <?php namespace ZN\IndividualStructures\Import;
 
-use Config, HTML, Import, Arrays;
+use Config, HTML, Import, Arrays, URL;
 
-class Masterpage implements MasterpageInterface
+class Masterpage
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -233,7 +233,7 @@ class Masterpage implements MasterpageInterface
 
         if( ! empty($browserIcon) && is_file($browserIcon) )
         {
-            $header .= '<link rel="shortcut icon" href="'.baseUrl($browserIcon).'" />'.$eol;
+            $header .= '<link rel="shortcut icon" href="'.URL::base($browserIcon).'" />'.$eol;
         }
 
         $theme          = Arrays::deleteElement(Arrays::merge((array) ($masterPageSet['theme']['name'] ?? []), (array) ($head['theme']['name'] ?? [])), '');
@@ -277,7 +277,7 @@ class Masterpage implements MasterpageInterface
 
         $backgroundImage  = $head['backgroundImage'] ?? $masterPageSet["backgroundImage"];
         $bgImage          = ( ! empty($backgroundImage) && is_file($backgroundImage) )
-                          ? ' background="'.baseUrl($backgroundImage).'" bgproperties="fixed"'
+                          ? ' background="'.URL::base($backgroundImage).'" bgproperties="fixed"'
                           : '';
 
         $bodyAttributes = $head['attributes']['body'] ?? $masterPageSet['attributes']['body'];

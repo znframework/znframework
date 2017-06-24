@@ -3,7 +3,7 @@
 use File;
 use ZN\FileSystem\Exception\FolderNotFoundException;
 
-class FileList implements FileListInterface
+class FileList
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -130,7 +130,7 @@ class FileList implements FileListInterface
             {
                 if( ! empty($extension) && $extension !== 'dir' )
                 {
-                    if( extension($file) === $extension )
+                    if( File::extension($file) === $extension )
                     {
                         $files[] = $prefixPath.$file;
                     }

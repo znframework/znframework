@@ -19,7 +19,7 @@
     // amacı her projede yer alan kullanıcı şifrelerinin birbirlerinden farklı olmasını
     // sağlayarak şifre güvenliğini sağlamaktır.
     //----------------------------------------------------------------------------------------------
-    'key' => internalDefaultProjectKey(),
+    'key' => ZN\In::defaultProjectKey(),
 
     //--------------------------------------------------------------------------------------------------
     // Benchmarking Test

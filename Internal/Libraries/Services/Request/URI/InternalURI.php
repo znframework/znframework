@@ -1,6 +1,6 @@
 <?php namespace ZN\Services\Request;
 
-use Security, CallController;
+use Security, CallController, ZN\In, Lang, URL, Config, IS;
 
 class InternalURI extends CallController implements InternalURIInterface
 {
@@ -25,7 +25,7 @@ class InternalURI extends CallController implements InternalURIInterface
     public function get($get = 1, $index = 1, Bool $while = false) : String
     {
         // Parametre kontrolleri yapılıyor. ---------------------------------------------------
-        if( ! isChar($index) )
+        if( ! IS::char($index) )
         {
             $index = 1;
         }
@@ -342,7 +342,60 @@ class InternalURI extends CallController implements InternalURIInterface
     //--------------------------------------------------------------------------------------------------------
     public function current(Bool $isPath = true) : String
     {
-        return currentPath($isPath);
+        $currentPagePath = str_replace(Lang::get().'/', '', server('currentPath'));
+
+        if( isset($currentPagePath[0]) && $currentPagePath[0] === '/' )
+        {
+            $currentPagePath = substr($currentPagePath, 1, strlen($currentPagePath) - 1);
+        }
+
+        if( $isPath === true )
+        {
+            return $currentPagePath;
+        }
+        else
+        {
+            $str = explode('/', $currentPagePath);
+
+            if( count($str) > 1 )
+            {
+                return $str[count($str) - 1];
+            }
+
+            return $str[0];
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------
+    // active()
+    //--------------------------------------------------------------------------------------------------
+    //
+    // @param bool $fullPath = false
+    //
+    // @return string
+    //
+    //--------------------------------------------------------------------------------------------------
+    public function active(Bool $fullPath = false) : String
+    {
+        $requestUri = server('requestUri');
+        $currentUri = BASE_DIR !== '/'
+                    ? str_replace(BASE_DIR, '', $requestUri)
+                    : substr($requestUri, 1);
+
+        if( $fullPath === false )
+        {
+            $currentUri = In::cleanURIPrefix($currentUri, indexStatus());
+
+            if( suffix($currentUri) === In::getCurrentProject() )
+            {
+                return Config::get('Services', 'route')['openController'];
+            }
+
+            $currentUri = In::cleanURIPrefix($currentUri, In::getCurrentProject());
+            $currentUri = In::cleanURIPrefix($currentUri, Lang::current());
+        }
+
+        return $currentUri;
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -353,9 +406,26 @@ class InternalURI extends CallController implements InternalURIInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function base(String $uri = '', Int $index = 0) : String
+    public function base(String $uri = NULL, Int $index = 0) : String
     {
-        return basePath($uri, $index);
+        $newBaseDir = substr(BASE_DIR, 1);
+
+        if( BASE_DIR !== '/' )
+        {
+            if( $index < 0 )
+            {
+                $baseDir    = substr(BASE_DIR, 1, -1);
+                $baseDir    = explode('/', $baseDir);
+                $newBaseDir = '';
+
+                for( $i = 0; $i < count($baseDir) + $index; $i++ )
+                {
+                    $newBaseDir .= suffix($baseDir[$i]);
+                }
+            }
+        }
+
+        return In::cleanInjection($newBaseDir . $uri);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -368,7 +438,21 @@ class InternalURI extends CallController implements InternalURIInterface
     //--------------------------------------------------------------------------------------------------------
     public function prev(Bool $isPath = true) : String
     {
-        return prevPath($isPath);
+        if( ! isset($_SERVER['HTTP_REFERER']) )
+        {
+            return false;
+        }
+
+        $str = str_replace(URL::site(), '', $_SERVER['HTTP_REFERER']);
+
+        if( $isPath === true )
+        {
+            return $str;
+        }
+        else
+        {
+            return divide($str, '/', -1);
+        }
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -379,7 +463,7 @@ class InternalURI extends CallController implements InternalURIInterface
     //--------------------------------------------------------------------------------------------------------
     protected function _cleanPath()
     {
-        $pathInfo = Security::htmlEncode(currentUri());
+        $pathInfo = Security::htmlEncode($this->active());
 
         return $pathInfo;
     }

@@ -2,7 +2,7 @@
 
 use ZN\IndividualStructures\Buffer\Exception\InvalidArgumentException;
 
-class Callback implements CallbackInterface
+class Callback
 {
     //--------------------------------------------------------------------------------------------------------
     //

@@ -2,7 +2,7 @@
 
 use Session, Cookie, DB;
 
-class Data extends UserExtends implements DataInterface
+class Data extends UserExtends
 {
     //--------------------------------------------------------------------------------------------------------
     // Data
@@ -37,7 +37,7 @@ class Data extends UserExtends implements DataInterface
             if( ! empty($joinTables) )
             {
                 $this->_multiUsernameColumns($sessionUserName);
-                
+
                 $joinCol = DB::where($usernameColumn, $sessionUserName, 'and')
                              ->where($passwordColumn, $sessionPassword)
                              ->get($tableName)

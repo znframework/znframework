@@ -1,5 +1,7 @@
 <?php namespace ZN\ViewObjects\View;
 
+use URL, IS;
+
 trait FormElementsTrait
 {
     //--------------------------------------------------------------------------------------------------------
@@ -179,7 +181,7 @@ trait FormElementsTrait
     //--------------------------------------------------------------------------------------------------------
     public function action(String $url = NULL)
     {
-        $this->settings['attr']['action'] = isUrl($url) ? $url : siteUrl($url);
+        $this->settings['attr']['action'] = IS::url($url) ? $url : URL::site($url);
 
         return $this;
     }

@@ -1,7 +1,7 @@
 <?php namespace ZN\Services\Request;
 
-use ZN\Core\Structure;
-use Arrays, Config, Errors, CLController, Http, Import, Regex, Security, Restoration;
+use ZN\Core\Structure, ZN\In;
+use Arrays, Config, Errors, CLController, Http, Import, Regex, Security, Restoration, URI, IS;
 
 class InternalRoute extends CLController implements InternalRouteInterface
 {
@@ -527,7 +527,7 @@ class InternalRoute extends CLController implements InternalRouteInterface
         $isFile       = CURRENT_CFILE;
         $function     = CURRENT_CFUNCTION;
         $openFunction = CURRENT_COPEN_PAGE;
-        $requestURI   = rtrim(str_replace($view . '/', NULL, requestURI()), '/');
+        $requestURI   = rtrim(str_replace($view . '/', NULL, In::requestURI()), '/');
         $matchURI     = NULL;
 
         if( ! empty($route) )
@@ -772,7 +772,7 @@ class InternalRoute extends CLController implements InternalRouteInterface
         {
             if( isset($this->usable[CURRENT_CFURI]['usable']) )
             {
-                if( strpos(strtolower(currentUri()), CURRENT_CFURI) === 0 )
+                if( strpos(strtolower(URI::active()), CURRENT_CFURI) === 0 )
                 {
                     $this->_redirect();
                 }
@@ -849,11 +849,11 @@ class InternalRoute extends CLController implements InternalRouteInterface
 
             Import::masterpage($this->mdata);
         }
-        elseif( is_file($wizardPath) && ! isImport($viewPath) && ! isImport($wizardPath) )
+        elseif( is_file($wizardPath) && ! IS::import($viewPath) && ! IS::import($wizardPath) )
         {
             Import::view(str_replace(PAGES_DIR, NULL, $wizardPath), $this->data);
         }
-        elseif( is_file($viewPath) && ! isImport($viewPath) && ! isImport($wizardPath) )
+        elseif( is_file($viewPath) && ! IS::import($viewPath) && ! IS::import($wizardPath) )
         {
             Import::view(str_replace(PAGES_DIR, NULL, $viewPath), $this->data);
         }

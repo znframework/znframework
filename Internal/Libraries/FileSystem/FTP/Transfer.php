@@ -4,7 +4,7 @@ use Converter;
 use ZN\FileSystem\Exception\FileRemoteUploadException;
 use ZN\FileSystem\Exception\FileRemoteDownloadException;
 
-class Transfer extends Connection implements TransferInterface
+class Transfer extends Connection
 {
     //--------------------------------------------------------------------------------------------------------
     //

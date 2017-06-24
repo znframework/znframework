@@ -1,6 +1,8 @@
 <?php namespace ZN\CryptoGraphy\Encode;
 
-class GoldenAlgorithm extends EncodeExtends implements GoldenAlgorithmInterface
+use IS;
+
+class GoldenAlgorithm extends EncodeExtends
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -23,7 +25,7 @@ class GoldenAlgorithm extends EncodeExtends implements GoldenAlgorithmInterface
     {
         $algo = CRYPTOGRAPHY_ENCODE_CONFIG['type'];
 
-        if( ! isHash($algo) )
+        if( ! IS::hash($algo) )
         {
             $algo = 'md5';
         }

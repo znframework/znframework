@@ -6,7 +6,7 @@ use ZN\FileSystem\Exception\FileAllreadyException;
 use ZN\FileSystem\FileSystemFactory;
 use ZN\FileSystem\InternalGenerate;
 
-class Forge implements ForgeInterface
+class Forge
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -123,7 +123,7 @@ class Forge implements ForgeInterface
 
         if( empty($target) )
         {
-            $target = removeExtension($source);
+            $target = File::removeExtension($source);
         }
 
         $zip = new ZipArchive;
@@ -160,7 +160,7 @@ class Forge implements ForgeInterface
             unlink($zipPath);
         }
 
-        if( ! is_dir($pathDirName = pathInfos($path, 'dirname')) )
+        if( ! is_dir($pathDirName = File::pathInfo($path, 'dirname')) )
         {
             Folder::create($pathDirName);
         }

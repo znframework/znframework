@@ -1,6 +1,6 @@
 <?php namespace ZN\EncodingSupport;
 
-use Strings, Converter, CallController;
+use Strings, Converter, CallController, IS;
 use ZN\EncodingSupport\MultiByte\Exception\InvalidArgumentException;
 
 class InternalMB extends CallController implements InternalMBInterface
@@ -55,7 +55,7 @@ class InternalMB extends CallController implements InternalMBInterface
     //--------------------------------------------------------------------------------------------------------
     public function section(String $str, Int $starting = 0, Int $count = NULL, String $encoding = 'UTF-8') : String
     {
-        if( ! isCharset($encoding) )
+        if( ! IS::charset($encoding) )
         {
             throw new InvalidArgumentException('Error', 'charsetParameter', '3.($encoding)');
         }

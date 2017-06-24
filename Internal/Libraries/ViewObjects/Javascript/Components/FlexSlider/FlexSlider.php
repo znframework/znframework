@@ -1,6 +1,6 @@
 <?php namespace ZN\ViewObjects\Javascript\Components;
 
-class FlexSlider extends ComponentsExtends implements FlexSliderInterface
+class FlexSlider extends ComponentsExtends
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -15,14 +15,18 @@ class FlexSlider extends ComponentsExtends implements FlexSliderInterface
     // Generate
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $id   = 'datepicker'
-    // @param array  $attr = NULL
+    // @param string   $id   = 'datepicker'
+    // @param callable $flexsliders
     //
     //--------------------------------------------------------------------------------------------------------
-    public function generate(String $id = 'flexslider', Array $attr = NULL) : String
+    public function generate(String $id = 'flexslider', Callable $flexsliders) : String
     {
-        $attr['id'] = $id;
+        $flexsliders($this);
 
-        return $this->load('FlexSlider/View', $attr);
+        $attr['id']     = $id;
+        $attr['path']   = $this->path ? suffix($this->path) : NULL;
+        $attr['images'] = $this->images ?? NULL;
+
+        return $this->prop($attr);
     }
 }

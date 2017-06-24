@@ -1,6 +1,6 @@
 <?php namespace ZN\DataTypes\Strings;
 
-class Search implements SearchInterface
+class Search
 {
     //--------------------------------------------------------------------------------------------------------
     //

@@ -1,6 +1,6 @@
 <?php namespace ZN\DataTypes\Arrays;
 
-class RemoveElement implements RemoveElementInterface
+class RemoveElement
 {
     //--------------------------------------------------------------------------------------------------------
     //

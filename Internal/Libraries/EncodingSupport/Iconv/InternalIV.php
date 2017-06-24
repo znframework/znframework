@@ -1,6 +1,6 @@
 <?php namespace ZN\EncodingSupport;
 
-use Arrays, CallController;
+use Arrays, CallController, IS;
 use ZN\EncodingSupport\Iconv\InvalidArgumentException;
 
 class InternalIV extends CallController implements InternalIVInterface
@@ -38,7 +38,7 @@ class InternalIV extends CallController implements InternalIVInterface
     {
         $toEncodingFirst = Arrays::getFirst(explode('//', $toEncoding));
 
-        if( ! isCharset($fromEncoding) || ! isCharset($toEncodingFirst) )
+        if( ! IS::charset($fromEncoding) || ! IS::charset($toEncodingFirst) )
         {
             throw new InvalidArgumentException('Error', 'charsetParameter', '2.($fromEncoding) & 3.($toEncoding)');
         }
@@ -90,7 +90,7 @@ class InternalIV extends CallController implements InternalIVInterface
             throw new InvalidArgumentException('Error', 'invalidInput', $type);
         }
 
-        if( ! isCharset($charset) )
+        if( ! IS::charset($charset) )
         {
             throw new InvalidArgumentException('Error', 'charsetParameter', '2.($charset)');
         }

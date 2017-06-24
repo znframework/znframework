@@ -1,6 +1,6 @@
 <?php namespace ZN\ViewObjects\Javascript\Components;
 
-class Datepicker extends ComponentsExtends implements DatepickerInterface
+class Datepicker extends ComponentsExtends
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -15,14 +15,18 @@ class Datepicker extends ComponentsExtends implements DatepickerInterface
     // Generate
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $id   = 'datepicker'
-    // @param array  $attr = NULL
+    // @param string   $id   = 'datepicker'
+    // @param callable $datapickers
     //
     //--------------------------------------------------------------------------------------------------------
-    public function generate(String $id = 'datepicker', Array $attr = NULL) : String
+    public function generate(String $id = 'datepicker', Callable $datepickers) : String
     {
-        $attr['id'] = $id;
+        $datepickers($this);
 
-        return $this->load('Datepicker/View', $attr);
+        $attr['id']    = $id;
+        $attr['class'] = $this->class ?? NULL;
+        $attr['name']  = $this->name  ?? NULL;
+
+        return $this->prop($attr);
     }
 }

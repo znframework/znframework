@@ -1,6 +1,6 @@
 <?php namespace ZN\ViewObjects\View;
 
-use CallController;
+use CallController, IS;
 
 class InternalValidator extends CallController implements InternalValidatorInterface
 {
@@ -33,9 +33,7 @@ class InternalValidator extends CallController implements InternalValidatorInter
             $phoneData = '/\+*[0-9]{10,14}$/';
         }
 
-        return ! preg_match($phoneData, $data)
-               ? false
-               : true;
+        return (bool) preg_match($phoneData, $data);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -47,9 +45,7 @@ class InternalValidator extends CallController implements InternalValidatorInter
     //--------------------------------------------------------------------------------------------------------
     public function numeric($data) : Bool
     {
-        return ! is_numeric($data)
-               ? false
-               : true;
+        return is_numeric($data);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -61,9 +57,7 @@ class InternalValidator extends CallController implements InternalValidatorInter
     //--------------------------------------------------------------------------------------------------------
     public function alnum(String $data) : Bool
     {
-        return ! preg_match('/^\w+$/', $data)
-               ? false
-               : true;
+        return (bool) preg_match('/^\w+$/', $data);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -75,9 +69,7 @@ class InternalValidator extends CallController implements InternalValidatorInter
     //--------------------------------------------------------------------------------------------------------
     public function alpha(String $data) : Bool
     {
-        return ! ctype_alpha($data)
-               ? false
-               : true;
+        return ctype_alpha($data);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -130,9 +122,7 @@ class InternalValidator extends CallController implements InternalValidatorInter
     //--------------------------------------------------------------------------------------------------------
     public function email(String $data) : Bool
     {
-        return ! isEmail($data)
-               ? false
-               : true;
+        return IS::email($data);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -144,9 +134,7 @@ class InternalValidator extends CallController implements InternalValidatorInter
     //--------------------------------------------------------------------------------------------------------
     public function url(String $data) : Bool
     {
-        return ! isUrl($data)
-               ? false
-               : true;
+        return IS::url($data);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -158,9 +146,7 @@ class InternalValidator extends CallController implements InternalValidatorInter
     //--------------------------------------------------------------------------------------------------------
     public function specialChar(String $data) : Bool
     {
-        return ! preg_match('/[\W]+/', $data)
-               ? false
-               : true;
+        return (bool) preg_match('/[\W]+/', $data);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -173,9 +159,7 @@ class InternalValidator extends CallController implements InternalValidatorInter
     //--------------------------------------------------------------------------------------------------------
     public function maxchar(String $data, Int $char) : Bool
     {
-        return ( strlen($data) <= $char )
-               ? true
-               : false;
+        return ( strlen($data) <= $char );
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -188,8 +172,6 @@ class InternalValidator extends CallController implements InternalValidatorInter
     //--------------------------------------------------------------------------------------------------------
     public function minchar(String $data, Int $char) : Bool
     {
-        return ( strlen($data) >= $char )
-               ? true
-               : false;
+        return ( strlen($data) >= $char );
     }
 }

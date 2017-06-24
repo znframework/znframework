@@ -13,12 +13,6 @@
 // @var array    $extensions = []
 //
 //--------------------------------------------------------------------------------------------------------
-$width      = $width      ?? '100%';
-$attributes = $attributes ?? [];
-$id         = $id         ?? 'datatable';
-$class      = $class      ?? 'table-striped table-bordered table-hover';
-$process    = $process    ?? NULL;
-$length     = $length     ?? 100;
 $serverSide = $properties['serverSide'] ?? NULL;
 
 if( is_string($result) )
@@ -38,10 +32,8 @@ $extensions = $extensions ?? [];
 // @extension morris
 //
 //--------------------------------------------------------------------------------------------------------
-if( ! empty($autoloadExtensions) )
-{
-    $extensions = array_merge(['jquery', 'datatables'], (array) $extensions);
-}
+
+$extensions = JC::extensions($extensions, ['jquery', 'datatables']);
 
 //--------------------------------------------------------------------------------------------------------
 // Server Side

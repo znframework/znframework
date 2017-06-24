@@ -1,6 +1,6 @@
 <?php namespace ZN\IndividualStructures\Permission;
 
-class Page extends PermissionExtends implements PageInterface
+class Page extends PermissionExtends
 {
     //--------------------------------------------------------------------------------------------------------
     //

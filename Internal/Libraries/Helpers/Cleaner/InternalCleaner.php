@@ -1,6 +1,6 @@
 <?php namespace ZN\Helpers;
 
-class InternalCleaner extends \FactoryController implements InternalCleanerInterface
+class InternalCleaner extends \FactoryController
 {
     //--------------------------------------------------------------------------------------------------------
     //

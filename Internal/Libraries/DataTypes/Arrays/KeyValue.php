@@ -2,7 +2,7 @@
 
 use ZN\DataTypes\Arrays\Exception\InvalidArgumentException;
 
-class KeyValue implements KeyValueInterface
+class KeyValue
 {
     //--------------------------------------------------------------------------------------------------------
     //

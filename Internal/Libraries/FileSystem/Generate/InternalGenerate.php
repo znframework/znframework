@@ -610,7 +610,7 @@ class InternalGenerate extends CallController implements InternalGenerateInterfa
                 {
                     $tableData = import($databasePath . $table);
                     $file      = $table;
-                    $table     = removeExtension($table);
+                    $table     = File::removeExtension($table);
 
                     if( ! Arrays::keyExists($tableData, 'id') )
                     {
@@ -712,7 +712,7 @@ class InternalGenerate extends CallController implements InternalGenerateInterfa
 
                 foreach( $tables as $table )
                 {
-                    $dbForge->dropTable(removeExtension($table));
+                    $dbForge->dropTable(File::removeExtension($table));
                 }
             }
 

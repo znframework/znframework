@@ -1,10 +1,10 @@
 <?php namespace ZN\ImageProcessing\Image;
 
-use Folder;
+use Folder, URL, File;
 use ZN\EncodingSupport\ImageProcessing\Image\Exception\ImageNotFoundException;
 use ZN\EncodingSupport\ImageProcessing\Image\Exception\InvalidImageFileException;
 
-class RenderImage implements RenderImageInterface
+class RenderImage
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -53,10 +53,11 @@ class RenderImage implements RenderImageInterface
     public function do(String $fpath, Array $set) : String
     {
         $filePath = trim($fpath);
+        $baseUrl  = URL::base();
 
-        if( strstr($filePath, baseUrl()) )
+        if( strstr($filePath, $baseUrl) )
         {
-            $filePath = str_replace(baseUrl(), '', $filePath);
+            $filePath = str_replace($baseUrl, '', $filePath);
         }
 
         if( ! file_exists($filePath) )
@@ -118,11 +119,11 @@ class RenderImage implements RenderImageInterface
             Folder::create($this->thumbPath);
         }
 
-        $newFile = removeExtension($this->file).$prefix.extension($this->file, true);
+        $newFile = File::removeExtension($this->file).$prefix.File::extension($this->file, true);
 
         if( file_exists($this->thumbPath.$newFile) )
         {
-            return baseUrl($this->thumbPath.$newFile);
+            return URL::base($this->thumbPath.$newFile);
         }
 
         $rFile   = $this->fromFileType($filePath);
@@ -134,7 +135,7 @@ class RenderImage implements RenderImageInterface
             $rWidth = $currentWidth; $rHeight = $currentHeight;
         }
 
-        if( extension($filePath) === "png" )
+        if( File::extension($filePath) === "png" )
         {
             imagealphablending($nFile, false);
             imagesavealpha($nFile,true);
@@ -148,7 +149,7 @@ class RenderImage implements RenderImageInterface
 
         imagedestroy($rFile); imagedestroy($nFile);
 
-        return baseUrl($this->thumbPath.$newFile);
+        return URL::base($this->thumbPath.$newFile);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -168,7 +169,7 @@ class RenderImage implements RenderImageInterface
 
         $this->thumbPath = suffix($this->thumbPath);
 
-        $this->thumbPath = str_replace(baseUrl(), "", $this->thumbPath);
+        $this->thumbPath = str_replace(URL::base(), "", $this->thumbPath);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -181,22 +182,22 @@ class RenderImage implements RenderImageInterface
     protected function fromFileType($paths)
     {
         // UZANTI JPG
-        if( extension($this->file) === 'jpg' )
+        if( File::extension($this->file) === 'jpg' )
         {
             return imagecreatefromjpeg($paths);
         }
         // UZANTI JPEG
-        elseif( extension($this->file) === 'jpeg' )
+        elseif( File::extension($this->file) === 'jpeg' )
         {
             return imagecreatefromjpeg($paths);
         }
         // UZANTI PNG
-        elseif( extension($this->file) === 'png' )
+        elseif( File::extension($this->file) === 'png' )
         {
             return imagecreatefrompng($paths);
         }
         // UZANTI GIF
-        elseif( extension($this->file) === 'gif' )
+        elseif( File::extension($this->file) === 'gif' )
         {
             return imagecreatefromgif($paths);
         }
@@ -217,7 +218,7 @@ class RenderImage implements RenderImageInterface
     {
         $extensions = ['jpg', 'jpeg', 'png', 'gif'];
 
-        if( in_array(extension($file), $extensions))
+        if( in_array(File::extension($file), $extensions))
         {
             return true;
         }
@@ -239,7 +240,7 @@ class RenderImage implements RenderImageInterface
     protected function createFileType($files, $paths, $quality = 0)
     {
         // JPG İÇİN KALİTE AYARI
-        if( extension($this->file) === 'jpg' )
+        if( File::extension($this->file) === 'jpg' )
         {
             if( $quality === 0 )
             {
@@ -249,7 +250,7 @@ class RenderImage implements RenderImageInterface
             return imagejpeg($files, $paths, $quality);
         }
         // JPEG İÇİN KALİTE AYARI
-        elseif( extension($this->file) === 'jpeg' )
+        elseif( File::extension($this->file) === 'jpeg' )
         {
             if( $quality === 0 )
             {
@@ -259,7 +260,7 @@ class RenderImage implements RenderImageInterface
             return imagejpeg($files, $paths, $quality);
         }
         // PNG İÇİN KALİTE AYARI
-        elseif( extension($this->file) === 'png' )
+        elseif( File::extension($this->file) === 'png' )
         {
             if( $quality === 0 )
             {
@@ -269,7 +270,7 @@ class RenderImage implements RenderImageInterface
             return imagepng($files, $paths, $quality);
         }
         // GIF İÇİN KALİTE AYARI
-        elseif( extension($this->file) === 'gif' )
+        elseif( File::extension($this->file) === 'gif' )
         {
             return imagegif($files, $paths);
         }

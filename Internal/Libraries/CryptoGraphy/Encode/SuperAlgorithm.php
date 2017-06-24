@@ -1,6 +1,8 @@
 <?php namespace ZN\CryptoGraphy\Encode;
 
-class SuperAlgorithm extends EncodeExtends implements SuperAlgorithmInterface
+use IS;
+
+class SuperAlgorithm extends EncodeExtends
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -24,7 +26,7 @@ class SuperAlgorithm extends EncodeExtends implements SuperAlgorithmInterface
 
         $algo = CRYPTOGRAPHY_ENCODE_CONFIG['type'];
 
-        if( ! isHash($algo) )
+        if( ! IS::hash($algo) )
         {
             $algo = 'md5';
         }

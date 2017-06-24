@@ -1,20 +1,5 @@
 <?php
-//--------------------------------------------------------------------------------------------------------
-// Extract Vars
-//--------------------------------------------------------------------------------------------------------
-//
-// @var string $type
-// @var array  $extensions
-// @var array  $properties
-// @var array  $attributes
-//
-//--------------------------------------------------------------------------------------------------------
-$extensions = $extensions ?? [];
-$attributes = $attributes ?? [];
-
-$config     = Config::get('ViewObjects', 'pagination');
-$type       = $type       ?? $config['type'];
-$index      = md5($index);
+$index = md5($index);
 
 //--------------------------------------------------------------------------------------------------------
 // Autoloader Extension
@@ -24,10 +9,8 @@ $index      = md5($index);
 // @extension bootstrap
 //
 //--------------------------------------------------------------------------------------------------------
-if( ! empty($autoloadExtensions) )
-{
-    $extensions = array_merge(['jquery', 'bootstrap'], (array) $extensions);
-}
+
+$extensions = JC::extensions($extensions, ['jquery', 'bootstrap']);
 
 //--------------------------------------------------------------------------------------------------------
 // Available Extensions
@@ -55,7 +38,7 @@ if( $type === 'ajax' )
     $start = Method::post('start');
 }
 
-$limit = $match[3] ?? $config['limit'];
+$limit = $match[3] ?? Config::get('ViewObjects', 'pagination')['limit'];
 
 //--------------------------------------------------------------------------------------------------------
 // Creating Pagination
@@ -82,7 +65,7 @@ $limit = $match[3] ?? $config['limit'];
             }
             else
             {
-                $anchor = siteUrl(Pagination::getURI($s));
+                $anchor = URL::site(Pagination::getURI($s));
             }
 
             echo Html::anchor($anchor, $i);

@@ -3,7 +3,7 @@
 use File, Folder;
 use ZN\FileSystem\Exception\FolderNotFoundException;
 
-class Info implements InfoInterface
+class Info
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -70,7 +70,7 @@ class Info implements InfoInterface
 
             foreach( $files as $file )
             {
-                $filesInfo[$file]['basename']   = pathInfos($dir.$file, 'basename');
+                $filesInfo[$file]['basename']   = File::pathInfo($dir.$file, 'basename');
                 $filesInfo[$file]['size']       = filesize($dir.$file);
                 $filesInfo[$file]['date']       = filemtime($dir.$file);
                 $filesInfo[$file]['readable']   = is_readable($dir.$file);

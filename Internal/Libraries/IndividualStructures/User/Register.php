@@ -1,8 +1,8 @@
 <?php namespace ZN\IndividualStructures\User;
 
-use Encode, DB, Email, Import, URI;
+use Encode, DB, Email, Import, URI, URL, IS;
 
-class Register extends UserExtends implements RegisterInterface
+class Register extends UserExtends
 {
     //--------------------------------------------------------------------------------------------------------
     // Auto Login
@@ -98,7 +98,7 @@ class Register extends UserExtends implements RegisterInterface
 
             if( ! empty($activationColumn) )
             {
-                if( ! isEmail($loginUsername) )
+                if( ! IS::email($loginUsername) )
                 {
                     $email = $data[$emailColumn];
                 }
@@ -193,9 +193,9 @@ class Register extends UserExtends implements RegisterInterface
     {
         $url = suffix($activationReturnLink);
 
-        if( ! isUrl($url) )
+        if( ! IS::url($url) )
         {
-            $url = siteUrl($url);
+            $url = URL::site($url);
         }
 
         $senderInfo = INDIVIDUALSTRUCTURES_USER_CONFIG['emailSenderInfo'];

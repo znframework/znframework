@@ -2,7 +2,7 @@
 
 use Html;
 
-class Builder implements BuilderInterface
+class Builder
 {
     //--------------------------------------------------------------------------------------------------------
     // Version

@@ -1,6 +1,6 @@
 <?php namespace ZN\DataTypes\Json;
 
-class Decode implements DecodeInterface
+class Decode
 {
     //--------------------------------------------------------------------------------------------------------
     //

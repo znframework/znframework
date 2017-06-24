@@ -1,6 +1,6 @@
 <?php namespace ZN\IndividualStructures\Security;
 
-class PHP implements PHPInterface
+class PHP
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -18,7 +18,7 @@ class PHP implements PHPInterface
     // @var array
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $phpTagChars = 
+    protected $phpTagChars =
     [
         '<?' => '&#60;&#63;',
         '?>' => '&#63;&#62;'

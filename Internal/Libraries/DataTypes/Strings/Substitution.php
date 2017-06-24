@@ -1,6 +1,6 @@
 <?php namespace ZN\DataTypes\Strings;
 
-class Substitution implements SubstitutionInterface
+class Substitution
 {
     //--------------------------------------------------------------------------------------------------------
     //

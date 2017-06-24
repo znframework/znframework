@@ -1,6 +1,6 @@
 <?php namespace ZN\IndividualStructures\Security;
 
-class Script implements ScriptInterface
+class Script
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -18,7 +18,7 @@ class Script implements ScriptInterface
     // @var array
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $scriptTagChars = 
+    protected $scriptTagChars =
     [
         '/\<script(.*?)\>/i'  => '&#60;script$1&#62;',
         '/\<\/script\>/i'     => '&#60;/script&#62;'
@@ -31,7 +31,7 @@ class Script implements ScriptInterface
     // @var array
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $scriptTagCharsDecode = 
+    protected $scriptTagCharsDecode =
     [
         '/\&\#60\;script(.*?)\&\#62\;/i' => '<script$1>',
         '/\&\#60\;\/script\&\#62\;/i'    => '</script>'

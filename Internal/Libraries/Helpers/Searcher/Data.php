@@ -1,6 +1,6 @@
 <?php namespace ZN\Helpers\Searcher;
 
-class Data implements DataInterface
+class Data
 {
     //--------------------------------------------------------------------------------------------------------
     //

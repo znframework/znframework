@@ -2,7 +2,7 @@
 
 use Json;
 
-class ErrorInfo implements ErrorInfoInterface
+class ErrorInfo
 {
     //--------------------------------------------------------------------------------------------------------
     //

@@ -5,7 +5,7 @@ use ZN\FileSystem\Exception\FileNotFoundException;
 use ZN\FileSystem\FileSystemFactory;
 use ZN\FileSystem\InternalUpload;
 
-class Transfer implements TransferInterface
+class Transfer
 {
     //--------------------------------------------------------------------------------------------------------
     //

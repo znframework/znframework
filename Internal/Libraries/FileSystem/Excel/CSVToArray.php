@@ -2,7 +2,7 @@
 
 use ZN\FileSystem\Exception\FileNotFoundException;
 
-class CSVToArray implements CSVToArrayInterface
+class CSVToArray
 {
     //--------------------------------------------------------------------------------------------------------
     //

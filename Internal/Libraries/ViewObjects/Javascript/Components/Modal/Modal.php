@@ -1,6 +1,6 @@
 <?php namespace ZN\ViewObjects\Javascript\Components;
 
-class Modal extends ComponentsExtends implements ModalInterface
+class Modal extends ComponentsExtends
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -15,14 +15,25 @@ class Modal extends ComponentsExtends implements ModalInterface
     // Generate
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $id   = 'myModal'
-    // @param array  $attr = NULL
+    // @param string   $id   = 'myModal'
+    // @param callable $modalboxs
     //
     //--------------------------------------------------------------------------------------------------------
-    public function generate(String $id = 'myModal', Array $attr = NULL) : String
+    public function generate(String $id = 'myModal', Callable $modalboxs) : String
     {
-        $attr['id'] = $id;
+        $modalboxs($this);
 
-        return $this->load('Modal/View', $attr);
+        $attr['id']      = $id;
+        $attr['title']   = $this->title   ?? 'Modal Title';
+        $attr['content'] = $this->content ?? 'Modal Content';
+        $attr['process'] = $this->process ?? NULL;
+        $attr['button']  = $this->button  ?? NULL;
+        $attr['modal']   =
+        [
+            'size'  => $this->size  ?? 'normal',
+            'close' => $this->close ?? true
+        ];
+
+        return $this->prop($attr);
     }
 }

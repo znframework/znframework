@@ -1,6 +1,8 @@
 <?php namespace ZN\EncodingSupport;
 
-class InternalML extends \FactoryController implements InternalMLInterface
+use Lang;
+
+class InternalML extends \FactoryController
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -39,6 +41,6 @@ class InternalML extends \FactoryController implements InternalMLInterface
     //--------------------------------------------------------------------------------------------------------
     public function lang(String $lang = 'tr') : Bool
     {
-        setLang($lang);
+        Lang::set($lang);
     }
 }

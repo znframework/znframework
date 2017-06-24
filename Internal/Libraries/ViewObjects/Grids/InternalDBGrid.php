@@ -1,6 +1,6 @@
 <?php namespace ZN\ViewObjects\Grids;
 
-use DB, URI, Arrays, Method, Html, Form, Sheet, Style, Strings, Json;
+use DB, URI, Arrays, Method, Html, Form, Sheet, Style, Strings, Json, IS;
 use ZN\ViewObjects\Grids\Exception\NoTableException;
 use ZN\ViewObjects\Grids\Exception\DatabaseErrorException;
 use ZN\ViewObjects\Grids\Exception\NoSearchException;
@@ -502,7 +502,7 @@ class InternalDBGrid extends Abstracts\GridAbstract
         // Üst sütun bölümü.
         //
         //----------------------------------------------------------------------------------------------------
-        if( isArray($columns) ) foreach( $columns as $column )
+        if( IS::array($columns) ) foreach( $columns as $column )
         {
             $table .= '<td>'.Html::anchor
             (

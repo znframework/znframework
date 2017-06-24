@@ -2,7 +2,7 @@
 
 use DB, Session, Cookie;
 
-class Logout extends UserExtends implements LogoutInterface
+class Logout extends UserExtends
 {
     //--------------------------------------------------------------------------------------------------------
     // Logout

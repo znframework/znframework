@@ -3,7 +3,7 @@
 use File;
 use ZN\FileSystem\Exception\FolderNotFoundException;
 
-class Forge implements ForgeInterface
+class Forge
 {
     //--------------------------------------------------------------------------------------------------------
     //

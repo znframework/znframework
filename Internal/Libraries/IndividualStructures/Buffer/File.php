@@ -2,7 +2,7 @@
 
 use ZN\IndividualStructures\Buffer\Exception\InvalidArgumentException;
 
-class File implements FileInterface
+class File
 {
     //--------------------------------------------------------------------------------------------------------
     //

@@ -3,7 +3,7 @@
 use ZN\ViewObjects\SheetTrait;
 use CallController;
 
-class Shadow extends CallController implements ShadowInterface
+class Shadow extends CallController
 {
     //--------------------------------------------------------------------------------------------------------
     //

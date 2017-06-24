@@ -1,5 +1,6 @@
 <?php namespace ZN\ViewObjects\View;
 
+use URL, IS, Coalesce;
 use ZN\ViewObjects\View\HTML\Exception\InvalidArgumentException;
 
 class InternalHTML implements InternalHTMLInterface, ViewCommonInterface
@@ -22,6 +23,110 @@ class InternalHTML implements InternalHTMLInterface, ViewCommonInterface
     //
     //--------------------------------------------------------------------------------------------------------
     use ViewCommonTrait;
+
+    //--------------------------------------------------------------------------------------------------------
+    // html -> 5.0.0
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $str
+    // @param array  $attributes
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function html(String $str, Array $attributes = []) : String
+    {
+        return $this->_multiElement(__FUNCTION__, $str, $attributes);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // body -> 5.0.0
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $str
+    // @param array  $attributes
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function body(String $str, Array $attributes = []) : String
+    {
+        return $this->_multiElement(__FUNCTION__, $str, $attributes);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // head -> 5.0.0
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $str
+    // @param array  $attributes
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function head(String $str, Array $attributes = []) : String
+    {
+        return $this->_multiElement(__FUNCTION__, $str, $attributes);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // title -> 5.0.0
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $str
+    // @param array  $attributes
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function title(String $str, Array $attributes = []) : String
+    {
+        return $this->_multiElement(__FUNCTION__, $str, $attributes);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // pre -> 5.0.0
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $str
+    // @param array  $attributes
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function pre(String $str, Array $attributes = []) : String
+    {
+        return $this->_multiElement(__FUNCTION__, $str, $attributes);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // iframe -> 5.0.0
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $str
+    // @param array  $attributes
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function iframe(String $str, Array $attributes = []) : String
+    {
+        return $this->_multiElement(__FUNCTION__, $str, $attributes);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // li -> 5.0.0
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $str
+    // @param array  $attributes
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function li(String $str, Array $attributes = []) : String
+    {
+        return $this->_multiElement(__FUNCTION__, $str, $attributes);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // ul -> 5.0.0
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param callable $list
+    // @param array    $attributes
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function ul(Callable $list, Array $attributes = []) : String
+    {
+        return $this->_multiElement(__FUNCTION__, \Buffer::function($list, [new $this]), $attributes);
+    }
 
     //--------------------------------------------------------------------------------------------------------
     // Form
@@ -178,9 +283,9 @@ class InternalHTML implements InternalHTMLInterface, ViewCommonInterface
     //--------------------------------------------------------------------------------------------------------
     public function image(String $src, Int $width = NULL, Int $height = NULL, Array $attributes = []) : String
     {
-        if( ! isUrl($src) )
+        if( ! IS::url($src) )
         {
-            $src = baseUrl($src);
+            $src = URL::base($src);
         }
 
         $attributes['src'] = $src;
@@ -345,14 +450,14 @@ class InternalHTML implements InternalHTMLInterface, ViewCommonInterface
     //--------------------------------------------------------------------------------------------------------
     public function anchor(String $url, String $value = NULL, Array $attributes = []) : String
     {
-        if( ! isUrl($url) && strpos($url, '#') !== 0 )
+        if( ! IS::url($url) && strpos($url, '#') !== 0 )
         {
-            $url = siteUrl($url);
+            $url = URL::site($url);
         }
 
         $attributes['href'] = $url;
 
-        nullCoalesce($value, $url);
+        Coalesce::null($value, $url);
 
         return $this->_multiElement('a', $value, $attributes);
     }
@@ -368,14 +473,14 @@ class InternalHTML implements InternalHTMLInterface, ViewCommonInterface
     //--------------------------------------------------------------------------------------------------------
     public function mailTo(String $mail, String $value = NULL, Array $attributes = []) : String
     {
-        if( ! isEmail($mail) )
+        if( ! IS::email($mail) )
         {
             throw new InvalidArgumentException('Error', 'emailParameter', '1.($mail)');
         }
 
         $attributes['href'] = 'mailto:'.$mail;
 
-        nullCoalesce($value, $mail);
+        Coalesce::null($value, $mail);
 
         return $this->_multiElement('a', $value, $attributes);
     }
@@ -498,6 +603,59 @@ class InternalHTML implements InternalHTMLInterface, ViewCommonInterface
     public function br(Int $count = 1) : String
     {
         return str_repeat($this->_singleElement(__FUNCTION__), $count);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // HR -> 5.0.0
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function hr() : String
+    {
+        return $this->_singleElement(__FUNCTION__);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Script -> 5.0.0
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $path
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function script(String $path) : String
+    {
+        if( ! IS::url($path) )
+        {
+            $path = URL::base(suffix($path, '.js'));
+        }
+
+        $attributes['href'] = $path;
+        $attributes['type'] = 'text/javascript';
+
+        return $this->_singleElement(__FUNCTION__, $attributes);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Link -> 5.0.0
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $path
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function link(String $path) : String
+    {
+        if( ! IS::url($path) )
+        {
+            $path = URL::base(suffix($path, '.css'));
+        }
+
+        $attributes['href'] = $path;
+        $attributes['rel']  = 'stylesheet';
+        $attributes['type'] = 'text/css';
+
+        return $this->_singleElement('link', $attributes);
     }
 
     //--------------------------------------------------------------------------------------------------------

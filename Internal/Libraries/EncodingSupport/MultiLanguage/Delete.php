@@ -2,7 +2,7 @@
 
 use File, Json, Folder;
 
-class Delete extends MLExtends implements DeleteInterface
+class Delete extends MLExtends
 {
     //--------------------------------------------------------------------------------------------------------
     //

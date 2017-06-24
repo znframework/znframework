@@ -1,6 +1,6 @@
 <?php namespace ZN\IndividualStructures;
 
-class InternalCart extends \FactoryController implements InternalCartInterface
+class InternalCart extends \FactoryController
 {
     //--------------------------------------------------------------------------------------------------------
     //

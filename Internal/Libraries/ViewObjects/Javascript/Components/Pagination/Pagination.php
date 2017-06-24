@@ -1,6 +1,8 @@
 <?php namespace ZN\ViewObjects\Javascript\Components;
 
-class Pagination extends ComponentsExtends implements PaginationInterface
+use Config;
+
+class Pagination extends ComponentsExtends
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -15,16 +17,22 @@ class Pagination extends ComponentsExtends implements PaginationInterface
     // Generate
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param mixed $get
-    // @param array $attr = NULL
+    // @param mixed    $get
+    // @param callable $paginations = NULL
     //
     //--------------------------------------------------------------------------------------------------------
-    public function generate($get, Array $attr = NULL) : String
+    public function generate($get, Callable $paginations = NULL) : String
     {
+        if( $paginations !== NULL )
+        {
+            $paginations($this);
+        }
+
         $i             = 0;
         $attr['get']   = $get;
         $attr['index'] = $i++;
+        $attr['type']  = $this->type ?? Config::get('ViewObjects', 'pagination')['type'];
 
-        return $this->load('Pagination/View', $attr);
+        return $this->prop($attr);
     }
 }

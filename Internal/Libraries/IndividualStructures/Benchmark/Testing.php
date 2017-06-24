@@ -1,6 +1,6 @@
 <?php namespace ZN\IndividualStructures\Benchmark;
 
-class Testing implements TestingInterface
+class Testing
 {
     //--------------------------------------------------------------------------------------------------------
     //

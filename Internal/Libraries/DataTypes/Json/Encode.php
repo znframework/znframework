@@ -2,7 +2,7 @@
 
 use Converter;
 
-class Encode implements EncodeInterface
+class Encode
 {
     //--------------------------------------------------------------------------------------------------------
     //

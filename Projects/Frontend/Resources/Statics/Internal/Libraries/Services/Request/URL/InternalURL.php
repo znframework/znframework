@@ -5,32 +5,6 @@
 
 class URL extends StaticAccess
 {
-	const BASE = BASE_URL;
-
-	const SITE = SITE_URL;
-
-	const CURRENT = CURRENT_URL;
-
-	const PREV = PREV_URL;
-
-	const HOSTNAME = HOST_URL;
-
-	const FILES = FILES_URL;
-
-	const FONTS = FONTS_URL;
-
-	const PLUGINS = PLUGINS_URL;
-
-	const SCRIPTS = SCRIPTS_URL;
-
-	const STYLES = STYLES_URL;
-
-	const THEMES = THEMES_URL;
-
-	const UPLOADS = UPLOADS_URL;
-
-	const RESOURCES = RESOURCES_URL;
-
 	const SCHEME = PHP_URL_SCHEME;
 
 	const HOST = PHP_URL_HOST;

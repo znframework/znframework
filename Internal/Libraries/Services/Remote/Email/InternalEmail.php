@@ -1,6 +1,6 @@
 <?php namespace ZN\Services\Remote;
 
-use Support, Config, CLController, DriverAbility, InformationAbility;
+use Support, Config, CLController, DriverAbility, InformationAbility, IS;
 
 class InternalEmail extends CLController implements InternalEmailInterface
 {
@@ -386,7 +386,7 @@ class InternalEmail extends CLController implements InternalEmailInterface
     //--------------------------------------------------------------------------------------------------------
     public function charset(String $charset = 'UTF-8') : InternalEmail
     {
-        if( isCharset($charset) )
+        if( IS::charset($charset) )
         {
             $this->charset = $charset;
         }
@@ -584,7 +584,7 @@ class InternalEmail extends CLController implements InternalEmailInterface
         {
             if( ! empty($to) ) foreach( $to as $key => $val )
             {
-                if( isEmail($key) )
+                if( IS::email($key) )
                 {
                     $this->{$type}[$key] = $val;
                 }
@@ -592,7 +592,7 @@ class InternalEmail extends CLController implements InternalEmailInterface
         }
         else
         {
-            if( isEmail($to) )
+            if( IS::email($to) )
             {
                 $this->{$type}[$to] = $name;
             }
@@ -689,7 +689,7 @@ class InternalEmail extends CLController implements InternalEmailInterface
     //--------------------------------------------------------------------------------------------------------
     public function from(String $from, String $name = NULL, String $returnPath = NULL) : InternalEmail
     {
-        if( ! isEmail($from) )
+        if( ! IS::email($from) )
         {
             ! $this->error[] = lang('Error', 'emailParameter', '1.($from)');
         }
@@ -1036,7 +1036,7 @@ class InternalEmail extends CLController implements InternalEmailInterface
 
             foreach( $email as $key => $val )
             {
-                if( isEmail($key) )
+                if( IS::email($key) )
                 {
                     $string .= "$val <$key>, ";
                 }

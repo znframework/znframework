@@ -1,6 +1,6 @@
 <?php namespace ZN\Services\Response;
 
-use Config, CLController, Encode;
+use Config, CLController, Encode, IS;
 
 class InternalSession extends CLController implements InternalSessionInterface, SessionCookieCommonInterface
 {
@@ -55,7 +55,7 @@ class InternalSession extends CLController implements InternalSessionInterface, 
         {
             if( isset($this->encode['name']) )
             {
-                if( isHash($this->encode['name']) )
+                if( IS::hash($this->encode['name']) )
                 {
                     $name = Encode::type($name, $this->encode['name']);
                 }
@@ -63,7 +63,7 @@ class InternalSession extends CLController implements InternalSessionInterface, 
 
             if( isset($this->encode['value']) )
             {
-                if( isHash($this->encode['value']) )
+                if( IS::hash($this->encode['value']) )
                 {
                     $value = Encode::type($value, $this->encode['value']);
                 }
@@ -82,7 +82,7 @@ class InternalSession extends CLController implements InternalSessionInterface, 
             }
             elseif( is_string($encode) )
             {
-                if( isHash($encode) )
+                if( IS::hash($encode) )
                 {
                     $name = Encode::type($name, $encode);
                 }
@@ -119,7 +119,7 @@ class InternalSession extends CLController implements InternalSessionInterface, 
     {
         if( isset($this->encode['name']) )
         {
-            if( isHash($this->encode['name']) )
+            if( IS::hash($this->encode['name']) )
             {
                 $name = Encode::type($name, $this->encode['name']);
                 $this->encode = [];
@@ -135,7 +135,7 @@ class InternalSession extends CLController implements InternalSessionInterface, 
             }
             elseif( is_string($encode) )
             {
-                if( isHash($encode) )
+                if( IS::hash($encode) )
                 {
                     $name = Encode::type($name, $encode);
                 }
@@ -192,7 +192,7 @@ class InternalSession extends CLController implements InternalSessionInterface, 
 
         if( isset($this->encode['name']) )
         {
-            if( isHash($this->encode['name']) )
+            if( IS::hash($this->encode['name']) )
             {
                 $name = Encode::type($name, $this->encode['name']);
                 $this->encode = [];
@@ -208,7 +208,7 @@ class InternalSession extends CLController implements InternalSessionInterface, 
             }
             elseif( is_string($encode) )
             {
-                if( isHash($encode) )
+                if( IS::hash($encode) )
                 {
                     $name = Encode::type($name, $encode);
                 }

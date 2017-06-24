@@ -1,9 +1,9 @@
 <?php namespace ZN\CryptoGraphy\Encode;
 
-use Encode;
+use Encode, IS;
 use ZN\CryptoGraphy\Exception\InvalidArgumentException;
 
-class Type extends EncodeExtends implements TypeInterface
+class Type extends EncodeExtends
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -26,7 +26,7 @@ class Type extends EncodeExtends implements TypeInterface
     {
         $algos = ['golden', 'super'];
 
-        if( ! isHash($type) && ! in_array($type, $algos) )
+        if( ! IS::hash($type) && ! in_array($type, $algos) )
         {
             throw new InvalidArgumentException('Error', 'hashParameter', 'String $type');
         }

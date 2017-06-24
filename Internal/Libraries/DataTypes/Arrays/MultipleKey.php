@@ -1,6 +1,6 @@
 <?php namespace ZN\DataTypes\Arrays;
 
-class MultipleKey implements MultipleKeyInterface
+class MultipleKey
 {
     //--------------------------------------------------------------------------------------------------------
     //

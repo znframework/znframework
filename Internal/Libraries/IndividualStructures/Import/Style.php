@@ -1,6 +1,8 @@
 <?php namespace ZN\IndividualStructures\Import;
 
-class Style extends BootstrapExtends implements BootstrapInterface
+use URL, IS;
+
+class Style extends BootstrapExtends
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -45,9 +47,9 @@ class Style extends BootstrapExtends implements BootstrapInterface
             {
                 if( is_file($styleFile) )
                 {
-                    $str .= '<link href="'.baseUrl($styleFile).'" rel="stylesheet" type="text/css" />'.$eol;
+                    $str .= '<link href="'.URL::base($styleFile).'" rel="stylesheet" type="text/css" />'.$eol;
                 }
-                elseif( isUrl($style) )
+                elseif( IS::url($style) )
                 {
                     $str .= '<link href="'.$style.'" rel="stylesheet" type="text/css" />'.$eol;
                 }

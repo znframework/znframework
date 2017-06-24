@@ -1,6 +1,6 @@
 <?php namespace ZN\IndividualStructures;
 
-class InternalUser extends \FactoryController implements InternalUserInterface
+class InternalUser extends \FactoryController
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -37,7 +37,11 @@ class InternalUser extends \FactoryController implements InternalUserInterface
             'bannedcount'        => 'User\Data::bannedCount',
             'count'              => 'User\Data::count',
             'error'              => 'User\Information::error',
-            'success'            => 'User\Information::success'
+            'success'            => 'User\Information::success',
+            'attachment'         => 'User\SendEmail::attachment:this',
+            'sendemailall'       => 'User\SendEmail::send',
+            'ipv4'               => 'User\IP::v4',
+            'ip'                 => 'User\IP::v4',
         ]
     ];
 }

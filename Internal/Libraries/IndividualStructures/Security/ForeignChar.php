@@ -1,6 +1,6 @@
 <?php namespace ZN\IndividualStructures\Security;
 
-class ForeignChar extends \CLController implements ForeignCharInterface
+class ForeignChar extends \CLController
 {
     //--------------------------------------------------------------------------------------------------------
     //

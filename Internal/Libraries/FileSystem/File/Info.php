@@ -1,9 +1,9 @@
 <?php namespace ZN\FileSystem\File;
 
-use Folder, Config;
+use Folder, Config, File;
 use ZN\FileSystem\Exception\FileNotFoundException;
 
-class Info implements InfoInterface
+class Info
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -81,6 +81,23 @@ class Info implements InfoInterface
         }
 
         return false;
+    }
+
+    //--------------------------------------------------------------------------------------------------
+    // pathInfos()
+    //--------------------------------------------------------------------------------------------------
+    //
+    // @param string $file
+    // @param string $info = 'basename'
+    //
+    // @return string
+    //
+    //--------------------------------------------------------------------------------------------------
+    function pathInfo(String $file, String $info = 'basename') : String
+    {
+        $pathInfo = pathinfo($file);
+
+        return $pathInfo[$info] ?? false;
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -244,7 +261,7 @@ class Info implements InfoInterface
 
         return (object)
         [
-            'basename'   => pathInfos($file, 'basename'),
+            'basename'   => $this->pathInfo($file, 'basename'),
             'size'       => filesize($file),
             'date'       => filemtime($file),
             'readable'   => is_readable($file),
@@ -273,7 +290,7 @@ class Info implements InfoInterface
         }
 
         $size      = 0;
-        $extension = extension($file);
+        $extension = File::extension($file);
         $fileSize  = filesize($file);
 
         if( ! empty($extension) )

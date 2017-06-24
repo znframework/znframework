@@ -1,6 +1,6 @@
 <?php namespace ZN\CryptoGraphy\Encode;
 
-class RandomPassword extends EncodeExtends implements RandomPasswordInterface
+class RandomPassword extends EncodeExtends
 {
     //--------------------------------------------------------------------------------------------------------
     //

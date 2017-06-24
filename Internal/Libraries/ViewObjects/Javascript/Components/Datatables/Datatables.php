@@ -1,6 +1,6 @@
 <?php namespace ZN\ViewObjects\Javascript\Components;
 
-class Datatables extends ComponentsExtends implements DatatablesInterface
+class Datatables extends ComponentsExtends
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -15,14 +15,24 @@ class Datatables extends ComponentsExtends implements DatatablesInterface
     // Generate
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param mixed $result
-    // @param array $attr = NULL
+    // @param mixed    $result
+    // @param callable $datatable = NULL
     //
     //--------------------------------------------------------------------------------------------------------
-    public function generate($result, Array $attr = NULL) : String
+    public function generate($result, Callable $datatable = NULL) : String
     {
-        $attr['result'] = $result;
+        if( $datatable !== NULL )
+        {
+            $datatable($this);
+        }
 
-        return $this->load('Datatables/View', $attr);
+        $attr['result']  = $result;
+        $attr['width']   = $this->width   ?? '100%';
+        $attr['id']      = $this->id      ?? 'datatable';
+        $attr['class']   = $this->class   ?? 'table-striped table-bordered table-hover';
+        $attr['process'] = $this->process ?? NULL;
+        $attr['length']  = $this->length  ?? 100;
+
+        return $this->prop($attr);
     }
 }

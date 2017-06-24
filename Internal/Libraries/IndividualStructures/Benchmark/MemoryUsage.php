@@ -1,6 +1,6 @@
 <?php namespace ZN\IndividualStructures\Benchmark;
 
-class MemoryUsage implements MemoryUsageInterface
+class MemoryUsage
 {
     //--------------------------------------------------------------------------------------------------------
     //

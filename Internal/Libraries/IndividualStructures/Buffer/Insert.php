@@ -2,7 +2,7 @@
 
 use Session;
 
-class Insert implements InsertInterface
+class Insert
 {
     //--------------------------------------------------------------------------------------------------------
     //

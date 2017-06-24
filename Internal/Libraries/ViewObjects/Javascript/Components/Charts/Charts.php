@@ -1,6 +1,6 @@
 <?php namespace ZN\ViewObjects\Javascript\Components;
 
-class Charts extends ComponentsExtends implements ChartsInterface
+class Charts extends ComponentsExtends
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -15,14 +15,17 @@ class Charts extends ComponentsExtends implements ChartsInterface
     // Generate
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $type = 'area'
-    // @param array  $attr = NULL
+    // @param string  $type = 'area'
+    // @param calable $charts
     //
     //--------------------------------------------------------------------------------------------------------
-    public function generate(String $type = 'area', Array $attr = NULL) : String
+    public function generate(String $type = 'area', Callable $charts) : String
     {
-        $attr['type'] = $type;
+        $charts($this);
 
-        return $this->load('Charts/View', $attr);
+        $attr['type'] = $type;
+        $attr['id']   = $this->id ?? 'morris-area-chart';
+
+        return $this->prop($attr);
     }
 }

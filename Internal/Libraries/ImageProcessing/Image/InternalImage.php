@@ -1,6 +1,6 @@
 <?php namespace ZN\ImageProcessing;
 
-class InternalImage extends \FactoryController implements InternalImageInterface
+class InternalImage extends \FactoryController
 {
     //--------------------------------------------------------------------------------------------------------
     //

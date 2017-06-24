@@ -1,6 +1,6 @@
 <?php namespace ZN\IndividualStructures;
 
-class InternalBenchmark extends \FactoryController implements InternalBenchmarkInterface
+class InternalBenchmark extends \FactoryController
 {
     //--------------------------------------------------------------------------------------------------------
     //

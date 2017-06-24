@@ -1,6 +1,6 @@
 <?php namespace ZN\Helpers\Limiter;
 
-class Char implements CommonInterface
+class Char
 {
     //--------------------------------------------------------------------------------------------------------
     //

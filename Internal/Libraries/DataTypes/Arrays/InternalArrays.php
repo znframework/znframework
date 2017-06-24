@@ -2,7 +2,7 @@
 
 use Converter, Json;
 
-class InternalArrays extends \FactoryController implements InternalArraysInterface
+class InternalArrays extends \FactoryController
 {
     //--------------------------------------------------------------------------------------------------------
     //

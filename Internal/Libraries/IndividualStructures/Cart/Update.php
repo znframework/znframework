@@ -1,6 +1,6 @@
 <?php namespace ZN\IndividualStructures\Cart;
 
-class Update extends CartExtends implements UpdateInterface
+class Update extends CartExtends
 {
     //--------------------------------------------------------------------------------------------------------
     //

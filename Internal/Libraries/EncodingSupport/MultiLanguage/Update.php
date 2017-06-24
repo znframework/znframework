@@ -1,6 +1,6 @@
 <?php namespace ZN\EncodingSupport\MultiLanguage;
 
-class Update implements InsertInterface
+class Update
 {
     //--------------------------------------------------------------------------------------------------------
     //

@@ -2,7 +2,7 @@
 
 use DB, stdClass;
 
-class Database implements DatabaseInterface
+class Database
 {
     //--------------------------------------------------------------------------------------------------------
     //

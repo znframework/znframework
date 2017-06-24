@@ -2,7 +2,7 @@
 
 use Regex;
 
-class NastyCode extends SecurityExtends implements NastyCodeInterface
+class NastyCode extends SecurityExtends
 {
     //--------------------------------------------------------------------------------------------------------
     //

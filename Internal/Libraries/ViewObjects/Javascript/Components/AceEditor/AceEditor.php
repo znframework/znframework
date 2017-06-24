@@ -1,6 +1,6 @@
 <?php namespace ZN\ViewObjects\Javascript\Components;
 
-class AceEditor extends ComponentsExtends implements AceEditorInterface
+class AceEditor extends ComponentsExtends
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -15,14 +15,17 @@ class AceEditor extends ComponentsExtends implements AceEditorInterface
     // Generate
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $id   = 'editor'
-    // @param array  $attr = NULL
+    // @param string   $id   = 'editor'
+    // @param callable $editors
     //
     //--------------------------------------------------------------------------------------------------------
-    public function generate(String $id = 'editor', Array $attr = NULL) : String
+    public function generate(String $id = 'editor', Callable $editors) : String
     {
+        $editors($this);
+
         $attr['id'] = $id;
 
-        return $this->load('AceEditor/View', $attr);
+        return $this->prop($attr);
+
     }
 }

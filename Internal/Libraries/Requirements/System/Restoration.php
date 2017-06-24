@@ -1,6 +1,6 @@
 <?php namespace ZN\Requirements\System;
 
-use Config, Arrays;
+use Config, Arrays, URI, ZN\In, IS, User;
 
 class Restoration
 {
@@ -23,7 +23,7 @@ class Restoration
     //--------------------------------------------------------------------------------------------------------
     public static function routeURI($machinesIP, String $uri)
     {
-        if( ! Arrays::valueExists((array) $machinesIP, ipv4()) && requestURI() !== $uri )
+        if( ! Arrays::valueExists((array) $machinesIP, User::ip()) && In::requestURI() !== $uri )
         {
             redirect($uri);
         }
@@ -43,7 +43,7 @@ class Restoration
 
         if( PROJECT_MODE === 'restoration' || $manipulation !== NULL)
         {
-            $ipv4 = ipv4();
+            $ipv4 = User::ip();
 
             if( is_array($restorationIP) )
             {
@@ -91,7 +91,7 @@ class Restoration
 
         error_reporting(0);
 
-        $currentPath          = $restorable === true ? strtolower(CURRENT_CFUNCTION) : strtolower(currentUri());
+        $currentPath          = $restorable === true ? strtolower(CURRENT_CFUNCTION) : strtolower(URI::active());
         $projects             = Config::get('Project');
         $restoration          = $projects['restoration'];
         $restorationPages     = $restorable === true && ! isset($settings['functions'])
@@ -100,7 +100,7 @@ class Restoration
         $restorationRoutePage = $settings['routePage'] ?? $restoration['routePage'];
         $routePage            = strtolower($restorationRoutePage);
 
-        if( isArray($restorationPages) )
+        if( IS::array($restorationPages) )
         {
             if( $restorationPages[0] === 'all' )
             {

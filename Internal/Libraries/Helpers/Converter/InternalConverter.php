@@ -1,6 +1,6 @@
 <?php namespace ZN\Helpers;
 
-class InternalConverter extends \FactoryController implements InternalConverterInterface
+class InternalConverter extends \FactoryController
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -35,6 +35,7 @@ class InternalConverter extends \FactoryController implements InternalConverterI
             'toreal'     => 'Converter\VariableTypes::toReal',
             'todouble'   => 'Converter\VariableTypes::toDouble',
             'toobject'   => 'Converter\VariableTypes::toObject',
+            'toobjectrecursive' => 'Converter\VariableTypes::toObjectRecursive',
             'toarray'    => 'Converter\VariableTypes::toArray',
             'toconstant' => 'Converter\VariableTypes::toConstant',
         ]

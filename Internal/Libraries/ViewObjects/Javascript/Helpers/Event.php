@@ -3,7 +3,7 @@
 use ZN\ViewObjects\JqueryTrait;
 use CallController, Support, Arrays;
 
-class Event implements EventInterface
+class Event
 {
     //--------------------------------------------------------------------------------------------------------
     //

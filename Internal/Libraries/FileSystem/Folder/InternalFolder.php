@@ -1,6 +1,6 @@
 <?php namespace ZN\FileSystem;
 
-class InternalFolder extends \FactoryController implements InternalFolderInterface
+class InternalFolder extends \FactoryController
 {
     //--------------------------------------------------------------------------------------------------------
     //

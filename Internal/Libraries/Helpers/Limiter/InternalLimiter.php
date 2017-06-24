@@ -1,6 +1,6 @@
 <?php namespace ZN\Helpers;
 
-class InternalLimiter extends \FactoryController implements InternalLimiterInterface
+class InternalLimiter extends \FactoryController
 {
     //--------------------------------------------------------------------------------------------------------
     //

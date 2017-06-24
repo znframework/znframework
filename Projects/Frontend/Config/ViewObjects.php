@@ -12,6 +12,28 @@
     //--------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------
+    // Vew Name Type -> 5.0.0
+    //--------------------------------------------------------------------------------------------------
+    //
+    // Kontrolcüler kendi ismiyle aynı isimli bir görünüm dosyası olursa bu görünümü otomatik olarak
+    // yükler. Ancak kontrolcüler alt yöntemleri ile birden fazla görünümü aynı kontrolcü içinde
+    // çalıştırabileceğil için görünüm yapınız her kontrolcü için birden fazla dosya da içerebileceği
+    // için görünümlerinizi kontrolcü ismiyle aynı isme sahip bir dizin altında toplamak
+    // isteyebilirsiniz. İşte bu ayar bu duruma yardımcı olmak için kullanılır.
+    //
+    // Kullanılabilir Seçenekler
+    //
+    // file: Kontrolcü adı ile aynı görünüm adı olmalıdır. Kontrolcü main dışında alt yöntemlerde
+    // içeriyorsa görünüm adı kontrolcuadi-yontemadi formatında oluşturulmalıdır.
+    //
+    // directory: Görünüm dizininde kontrolcü adı ile aynı isimli görünüm dizini olmalıdır. Örnek
+    // olarak example.php kontrolcünüz varsa view yapısı söyle olmalıdır. example/main.php,
+    // example/altyontem.php
+    //
+    //--------------------------------------------------------------------------------------------------
+    'viewNameType' => 'directory',
+
+    //--------------------------------------------------------------------------------------------------
     // Wizard
     //--------------------------------------------------------------------------------------------------
     //
@@ -32,7 +54,7 @@
         'functions' => true,
         'comments'  => true,
         'tags'      => true,
-        'html'      => true
+        'html'      => false
     ],
 
     //--------------------------------------------------------------------------------------------------

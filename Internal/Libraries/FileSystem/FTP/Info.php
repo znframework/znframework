@@ -1,6 +1,8 @@
 <?php namespace ZN\FileSystem\FTP;
 
-class Info extends Connection implements InfoInterface
+use File;
+
+class Info extends Connection
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -22,14 +24,14 @@ class Info extends Connection implements InfoInterface
     public function files(String $path, String $extension = NULL) : Array
     {
         $list = ftp_nlist($this->connect, $path);
-    
+
         if( ! empty($list) ) foreach( $list as $file )
         {
             if( $file !== '.' && $file !== '..' )
             {
                 if( ! empty($extension) && $extension !== 'dir' )
                 {
-                    if( extension($file) === $extension )
+                    if( File::extension($file) === $extension )
                     {
                         $files[] = $file;
                     }
@@ -38,7 +40,7 @@ class Info extends Connection implements InfoInterface
                 {
                     if( $extension === 'dir' )
                     {
-                        $extens = extension($file);
+                        $extens = File::extension($file);
 
                         if( empty($extens) )
                         {
@@ -76,7 +78,7 @@ class Info extends Connection implements InfoInterface
     {
         $size = 0;
 
-        $extension = extension($path);
+        $extension = File::extension($path);
 
         if( ! empty($extension) )
         {

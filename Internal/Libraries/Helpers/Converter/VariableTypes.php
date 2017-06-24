@@ -1,6 +1,8 @@
 <?php namespace ZN\Helpers\Converter;
 
-class VariableTypes implements VariableTypesInterface
+use stdClass;
+
+class VariableTypes
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -119,9 +121,23 @@ class VariableTypes implements VariableTypesInterface
     // @param var $var
     //
     //--------------------------------------------------------------------------------------------------------
-    public function toObject($var) : \stdClass
+    public function toObject($var) : stdClass
     {
         return (object) $var;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // To Object Recursive -> 5.0.0
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param var $var
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function toObjectRecursive($var) : stdClass
+    {
+        $object = new stdClass;
+
+        return $this->objectRecursive((array) $var, $object);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -164,5 +180,34 @@ class VariableTypes implements VariableTypesInterface
 
             return $var;
         }
+    }
+
+    //--------------------------------------------------------------------------------------------------
+    // Protected Object Recursive
+    //--------------------------------------------------------------------------------------------------
+    //
+    // @param array    $array
+    // @param stdClass $obj
+    //
+    // @return string
+    //
+    //--------------------------------------------------------------------------------------------------
+    protected function objectRecursive(Array $array, stdClass &$std) : stdClass
+    {
+        foreach( $array as $key => $value )
+        {
+            if( is_array($value) )
+            {
+                $std->$key = new stdClass;
+
+                $this->objectRecursive($value, $std->$key);
+            }
+            else
+            {
+                $std->$key = $value;
+            }
+        }
+
+        return $std;
     }
 }
