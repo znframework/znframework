@@ -1,6 +1,6 @@
 <?php namespace ZN\ViewObjects;
 
-use Config, Session, Cookie, CLController, Encode, File, Folder, Arraysi URL;
+use Config, Session, Cookie, CLController, Encode, File, Folder, Arrays, URL;
 
 class InternalCaptcha extends CLController implements InternalCaptchaInterface
 {
