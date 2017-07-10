@@ -32,6 +32,7 @@ define('REQUEST_URI'                 , $_SERVER['REQUEST_URI'] ?? NULL          
 define('BASE_DIR'                    , explode(DIRECTORY_INDEX, $_SERVER['SCRIPT_NAME'])[0] ?? '/');
 define('PROJECTS_DIR'                , REAL_BASE_DIR.'Projects'.DS                                );
 define('EXTERNAL_DIR'                , REAL_BASE_DIR.'External'.DS                                );
+define('SETTINGS_DIR'                , 'Settings'.DS                                              );
 //--------------------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------------------
@@ -49,7 +50,7 @@ define('FF'  , "\f"   );
 //--------------------------------------------------------------------------------------------------
 // REQUIREMENT CONSTANTS
 //--------------------------------------------------------------------------------------------------
-define('PROJECTS_CONFIG'    , import(PROJECTS_DIR . 'Projects.php')  );
+define('PROJECTS_CONFIG'    , import(SETTINGS_DIR . 'Projects.php')  );
 define('DEFAULT_PROJECT'    , PROJECTS_CONFIG['directory']['default']);
 define('EXTERNAL_CONFIG_DIR', EXTERNAL_DIR . 'Config'.DS             );
 define('INTERNAL_CONFIG_DIR', INTERNAL_DIR . 'Config'.DS             );
@@ -91,7 +92,7 @@ define('INTERNAL_LANGUAGES_DIR', INTERNAL_DIR.'Languages'.DS                    
 define('LANGUAGES_DIR'         , internalProjectContainerDir('Languages')            );
 define('EXTERNAL_LANGUAGES_DIR', EXTERNAL_DIR.'Languages'.DS                         );
 define('INTERNAL_LIBRARIES_DIR', INTERNAL_DIR.'Libraries'.DS                         );
-define('REQUIREMENTS_DIR'      , INTERNAL_LIBRARIES_DIR.'Requirements'.DS.'System'.DS);
+define('REQUIREMENTS_DIR'      , INTERNAL_DIR.'Requirements'.DS.'System'.DS);
 define('LIBRARIES_DIR'         , internalProjectContainerDir('Libraries')            );
 define('EXTERNAL_LIBRARIES_DIR', EXTERNAL_DIR.'Libraries'.DS                         );
 define('CONTROLLERS_DIR'       , PROJECT_DIR.'Controllers'.DS                        );
@@ -230,20 +231,6 @@ function length($data) : Int
     return ! is_scalar($data)
            ? count((array) $data)
            : strlen($data);
-}
-
-//--------------------------------------------------------------------------------------------------
-// Symbol
-//--------------------------------------------------------------------------------------------------
-//
-// @param string $symbolName
-//
-// @return string
-//
-//--------------------------------------------------------------------------------------------------
-function symbol(String $symbolName = 'turkishLira') : String
-{
-    return Config::get('Symbols', $symbolName);
 }
 
 //--------------------------------------------------------------------------------------------------
