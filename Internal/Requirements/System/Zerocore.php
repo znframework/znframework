@@ -1,6 +1,6 @@
 <?php namespace ZN\Requirements\System;
 
-use Arrays, Json;
+use Arrays, Json, Crontab;
 use ZN\Core\Structure;
 
 class Zerocore
@@ -91,6 +91,8 @@ class Zerocore
             case 'run-controller'       : self::_runController();                       break;
             case 'run-model'            :
             case 'run-class'            : self::_runClass();                            break;
+            case 'run-cron'             : self::_runCron();                             break;
+            case 'cron-list'            : echo Crontab::list();                         break;
             case 'run-command'          : self::_runClass(PROJECT_COMMANDS_NAMESPACE);  break;
             case 'run-external-command' : self::_runClass(EXTERNAL_COMMANDS_NAMESPACE); break;
             case 'run-function'         : self::_runFunction();                         break;
@@ -147,6 +149,9 @@ class Zerocore
             'run-controller          run-controller controller/function/p1/p2/.../pN',
             'run-model               run-model model:function p1 p2 ... pN',
             'run-class               run-class class:function p1 p2 ... pN',
+            'run-cron                run-cron controller/method func param func param ...',
+            'cron-list               Cron Job List',
+            'run-cron                run-cron command:method func param func param ...',
             'run-command             run-command command:function p1 p2 ...pN',
             'run-external-command    run-command command:function p1 p2 ...pN',
             'run-function            run-function function p1 p2 ... pN'
@@ -175,6 +180,36 @@ class Zerocore
         import($file);
 
         self::_result(uselib($class)->$function(...$parameters));
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Run Cron
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected static function _runCron()
+    {
+        $parameters = self::$parameters;
+
+        for( $index = 0, $rindex = 1; $index < count($parameters); $index += 2, $rindex += 2 )
+        {
+            $func = $parameters[$index]  ?? NULL;
+            $prm  = $parameters[$rindex] ?? NULL;
+            Crontab::$func($prm);
+        }
+
+        if( strstr(self::$command, '/') )
+        {
+            Crontab::controller(self::$command);
+        }
+        else
+        {
+            Crontab::commandFile(self::$command);
+        }
+
+        echo Crontab::run();
     }
 
     //--------------------------------------------------------------------------------------------------------

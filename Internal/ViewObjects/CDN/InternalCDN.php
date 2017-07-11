@@ -23,7 +23,7 @@ class InternalCDN extends CallController implements InternalCDNInterface
     //--------------------------------------------------------------------------------------------------------
     public function get(String $configName, String $name) : String
     {
-        $config = Config::get('ContentDeliveryNetwork');
+        $config = Config::get('CDNLinks');
 
         $configData = ! empty($config[$configName]) ? $config[$configName] : '';
 

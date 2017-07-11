@@ -226,7 +226,7 @@ class InternalCrontab extends RemoteCommon implements InternalCrontabInterface, 
             }
 
             $this->stringCommand = $command;
-
+            
             return Processor::exec($command);
         }
         else
@@ -357,6 +357,21 @@ class InternalCrontab extends RemoteCommon implements InternalCrontabInterface, 
     public function controller(String $file) : InternalCrontab
     {
         $this->type = $this->_php($this->_controller($file, NULL));
+
+        return $this;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Command File
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param  string $file: empty
+    // @return string
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function commandFile(String $file) : InternalCrontab
+    {
+        $this->type = $this->_php($this->_commandFile($file, NULL));
 
         return $this;
     }
