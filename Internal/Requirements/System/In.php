@@ -239,15 +239,15 @@ class In
     //--------------------------------------------------------------------------------------------------
     protected static function routeAll()
     {
-        $externalRouteFiles = (array) Folder::files(EXTERNAL_ROUTES_DIR, 'php');
-        $routeFiles         = (array) Folder::files(ROUTES_DIR, 'php');
+        $externalRouteFiles = (array) Folder::allFiles(EXTERNAL_ROUTES_DIR);
+        $routeFiles         = (array) Folder::allFiles(ROUTES_DIR);
         $files              = array_merge($externalRouteFiles, $routeFiles);
 
         if( ! empty($files)  )
         {
             foreach( $files as $file )
             {
-                import(ROUTES_DIR . $file);
+                import($file);
             }
 
             Route::all();

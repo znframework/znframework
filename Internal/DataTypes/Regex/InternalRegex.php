@@ -24,33 +24,37 @@ class InternalRegex implements InternalRegexInterface
     protected $regexChars =
     [
         // Patterns For Routes
-        ':numeric'     => '(\d+$)',
-        ':alnum'       => '(\w+$)',
-        ':alpha'       => '([A-z]+$)',
-        ':all'         => '(.+)',
-        ':seo'         => '((\w+|\-)+$)',
+        ':numeric'                      => '(\d+$)',
+        ':alnum'                        => '(\w+$)',
+        ':alpha'                        => '([a-zA-Z]+$)',
+        ':all'                          => '(.+)',
+        ':seo'                          => '((\w+|\-)+$)',
 
-        '{nonWord}'    => '\W+',
-        '{word}'       => '\w+',
-        '{nonNumeric}' => '\D',
-        '{numeric}'    => '\d',
-        '{schar}'      => '\W',
-        '{nonSchar}'   => '\w',
-        '{char}'       => '.',
-        '{nonSpace}'   => '\S',
-        '{space}'      => '\s',
-        '{starting}'   => '^',
-        '{ending}'     => '$',
-        '{repeatZ}'    => '*',
-        '{repeat}'     => '+',
-        '{whether}'    => '?',
-        '{or}'         => '|',
-        '{eolR}'       => '\r',
-        '{eolN}'       => '\n',
-        '{eol}'        => '\r\n',
-        '{tab}'        => '\t',
-        '{esc}'        => '\e',
-        '{hex}'        => '\x'
+        '{nonWord}'                     => '\W+',
+        '{word}'                        => '\w+',
+        '{nonNumeric}'                  => '\D',
+        '{numeric}|{num}'               => '\d',
+        '{schar}|{specialChar}'         => '\W',
+        '{nonSchar}|{nonSpecialChar}'   => '\w',
+        '{alpha}'                       => '[a-zA-Z]',
+        '{alnum}'                       => '[a-zA-Z0-9]',
+        '{number}'                      => '[0-9]',
+        '{char}|{any}'                  => '.',
+        '{nonSpace}'                    => '\S',
+        '{space}'                       => '\s',
+        '{starting}|{start}'            => '^',
+        '{ending}|{end}'                => '$',
+        '{repeatZ}|{iterate}'           => '*',
+        '{repeat}'                      => '+',
+        '{whether}'                     => '?',
+        '{or}'                          => '|',
+        '{eolR}|{lr}|{cf}'              => '\r',
+        '{eolN}|{ln}|{lf}'              => '\n',
+        '{eol}|{crlf}|{lrln}'           => '\r\n',
+        '{lnlr}'                        => '\n\r',
+        '{tab}|{lt}|{ht}'               => '\t',
+        '{esc}|{le}'                    => '\e',
+        '{hex}|{lx}'                    => '\x'
     ];
 
     //--------------------------------------------------------------------------------------------------------
@@ -238,12 +242,8 @@ class InternalRegex implements InternalRegexInterface
 
         $pattern = str_ireplace(array_keys($specialChars), array_values($specialChars), $pattern);
 
-        // Config/Regex.php dosyasından düzenlenmiş karakter
-        // listeleri alınıyor.
         $regexChars   = Arrays::multikey($this->regexChars);
-
         $settingChars = Arrays::multikey($this->settingChars);
-        // --------------------------------------------------------------------------------------------
 
         $pattern = str_ireplace(array_keys($regexChars), array_values($regexChars), $pattern);
 

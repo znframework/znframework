@@ -75,7 +75,7 @@ class FileList
             {
                 if( is_file($v) )
                 {
-                    $classEx = explode('/', $v);
+                    $classEx = explode(DS, $v);
 
                     $classes[] = $v;
                 }
@@ -88,14 +88,14 @@ class FileList
             return (array) $classes;
         }
 
-        if( strstr($pattern, '/') && strstr($pattern, '*') === false )
+        if( strstr($pattern, DS) && strstr($pattern, '*') === false )
         {
             $pattern .= "*";
         }
 
-        if( strstr($pattern, '/') === false && strstr($pattern, '*') === false )
+        if( strstr($pattern, DS) === false && strstr($pattern, '*') === false )
         {
-            $pattern .= "/*";
+            $pattern .= DS . "*";
         }
 
         return glob($pattern);

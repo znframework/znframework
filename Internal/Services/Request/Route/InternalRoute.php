@@ -248,6 +248,20 @@ class InternalRoute extends CLController implements InternalRouteInterface
     }
 
     //--------------------------------------------------------------------------------------------------------
+    // Show 404 -> 5.1.0
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param callable $callback
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function show404(String $controllerAndMethod)
+    {
+        Config::set('Services', 'route', ['show404' => $controllerAndMethod]);
+
+        $this->uri($controllerAndMethod);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
     // Container -> 4.3.2
     //--------------------------------------------------------------------------------------------------------
     //
@@ -399,7 +413,7 @@ class InternalRoute extends CLController implements InternalRouteInterface
     {
         if( ! strstr($path, '/') )
         {
-            $path = suffix($path) . SERVICES_ROUTE_CONFIG['openFunction'];
+            $path = suffix($path) . Config::get('Services', 'route')['openFunction'];
         }
 
         $lowerPath = strtolower($path);
@@ -415,7 +429,7 @@ class InternalRoute extends CLController implements InternalRouteInterface
             return false;
         }
 
-        $configPatternType = SERVICES_ROUTE_CONFIG['patternType'];
+        $configPatternType = Config::get('Services', 'route')['patternType'];
 
         if( $configPatternType === 'classic' )
         {
@@ -447,7 +461,7 @@ class InternalRoute extends CLController implements InternalRouteInterface
     {
         if( ! empty($this->routes) )
         {
-            $config = SERVICES_ROUTE_CONFIG;
+            $config = Config::get('Services', 'route');
 
             Config::set('Services', 'route',
             [
@@ -580,7 +594,7 @@ class InternalRoute extends CLController implements InternalRouteInterface
     //--------------------------------------------------------------------------------------------------------
     public function redirectInvalidRequest()
     {
-        $invalidRequest = SERVICES_ROUTE_CONFIG['requestMethods'];
+        $invalidRequest = Config::get('Services', 'route')['requestMethods'];
 
         if( empty($invalidRequest['page']) )
         {
@@ -604,7 +618,7 @@ class InternalRoute extends CLController implements InternalRouteInterface
     //--------------------------------------------------------------------------------------------------------
     public function redirectShow404(String $function, String $lang = 'callUserFuncArrayError', String $report = 'SystemCallUserFuncArrayError')
     {
-        if( ! $routeShow404 = SERVICES_ROUTE_CONFIG['show404'] )
+        if( ! $routeShow404 = Config::get('Services', 'route')['show404'] )
         {
             report('Error', lang('Error', $lang, $function), $report);
             die(Errors::message('Error', $lang, $function));
@@ -646,7 +660,7 @@ class InternalRoute extends CLController implements InternalRouteInterface
         {
             if( $type = ($this->csrfs[CURRENT_CFURI]['csrf'] ?? NULL) )
             {
-                $redirect = $this->redirects[CURRENT_CFURI]['redirect'] ?? SERVICES_ROUTE_CONFIG['requestMethods']['page'];
+                $redirect = $this->redirects[CURRENT_CFURI]['redirect'] ?? Config::get('Services', 'route')['requestMethods']['page'];
 
                 Security::CSRFtoken($redirect, $type);
             }
