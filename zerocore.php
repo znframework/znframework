@@ -15,7 +15,7 @@ defined('REAL_BASE_DIR') || exit('You do not have permission to access this file
 //--------------------------------------------------------------------------------------------------
 // VERSION INFO CONSTANTS
 //--------------------------------------------------------------------------------------------------
-define('ZN_VERSION'          , '5.0.0');
+define('ZN_VERSION'          , '5.1.0');
 define('REQUIRED_PHP_VERSION', '7.0.0');
 //--------------------------------------------------------------------------------------------------
 
@@ -50,10 +50,13 @@ define('FF'  , "\f"   );
 //--------------------------------------------------------------------------------------------------
 // REQUIREMENT CONSTANTS
 //--------------------------------------------------------------------------------------------------
-define('PROJECTS_CONFIG'    , import(SETTINGS_DIR . 'Projects.php')  );
-define('DEFAULT_PROJECT'    , PROJECTS_CONFIG['directory']['default']);
-define('EXTERNAL_CONFIG_DIR', EXTERNAL_DIR . 'Config'.DS             );
-define('INTERNAL_CONFIG_DIR', INTERNAL_DIR . 'Config'.DS             );
+define('PROJECTS_CONFIG'    , import
+(
+    (is_file(PROJECTS_DIR . 'Projects.php') ? PROJECTS_DIR : SETTINGS_DIR) . 'Projects.php'
+));
+define('DEFAULT_PROJECT'    , PROJECTS_CONFIG['directory']['default'] );
+define('EXTERNAL_CONFIG_DIR', EXTERNAL_DIR . 'Config'.DS              );
+define('INTERNAL_CONFIG_DIR', INTERNAL_DIR . 'Config'.DS              );
 //--------------------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------------------
@@ -92,7 +95,7 @@ define('INTERNAL_LANGUAGES_DIR', INTERNAL_DIR.'Languages'.DS                    
 define('LANGUAGES_DIR'         , internalProjectContainerDir('Languages')            );
 define('EXTERNAL_LANGUAGES_DIR', EXTERNAL_DIR.'Languages'.DS                         );
 define('INTERNAL_LIBRARIES_DIR', INTERNAL_DIR.'Libraries'.DS                         );
-define('REQUIREMENTS_DIR'      , INTERNAL_DIR.'Requirements'.DS.'System'.DS);
+define('REQUIREMENTS_DIR'      , INTERNAL_DIR.'Requirements'.DS.'System'.DS          );
 define('LIBRARIES_DIR'         , internalProjectContainerDir('Libraries')            );
 define('EXTERNAL_LIBRARIES_DIR', EXTERNAL_DIR.'Libraries'.DS                         );
 define('CONTROLLERS_DIR'       , PROJECT_DIR.'Controllers'.DS                        );
