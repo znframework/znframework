@@ -175,7 +175,7 @@ class InternalCrontab extends RemoteCommon implements InternalCrontabInterface, 
     //--------------------------------------------------------------------------------------------------------
     //
     // @param  string $name: crontab.txt
-    // @return object
+    // @return string
     //
     //--------------------------------------------------------------------------------------------------------
     public function remove(String $name = 'crontab.txt') : String
@@ -183,6 +183,32 @@ class InternalCrontab extends RemoteCommon implements InternalCrontabInterface, 
         $this->deleteFile($name);
 
         return Processor::exec('crontab -r');
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Edit -> 5.1.0
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param  void
+    // @return string
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function edit() : String
+    {
+        return Processor::exec('crontab -e');
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // View -> 5.1.0
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param  void
+    // @return string
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function view() : String
+    {
+        return Processor::exec('crontab -v');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -226,7 +252,7 @@ class InternalCrontab extends RemoteCommon implements InternalCrontabInterface, 
             }
 
             $this->stringCommand = $command;
-            
+
             return Processor::exec($command);
         }
         else

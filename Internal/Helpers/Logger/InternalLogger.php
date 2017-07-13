@@ -147,7 +147,7 @@ class InternalLogger implements InternalLoggerInterface
     //--------------------------------------------------------------------------------------------------
     function report(String $subject, String $message, String $destination = NULL, String $time = NULL) : Bool
     {
-        if( ! Config::get('General', 'log')['createFile'] )
+        if( ! Config::get('Project', 'log')['createFile'] )
         {
             return false;
         }
@@ -169,7 +169,7 @@ class InternalLogger implements InternalLoggerInterface
         {
             if( empty($time) )
             {
-                $time = Config::get('General', 'log')['fileTime'];
+                $time = Config::get('Project', 'log')['fileTime'];
             }
 
             $createDate = File::createDate($logDir.suffix($destination, $extension), 'd.m.Y');

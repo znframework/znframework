@@ -150,8 +150,8 @@ class Zerocore
             'run-model               run-model model:function p1 p2 ... pN',
             'run-class               run-class class:function p1 p2 ... pN',
             'run-cron                run-cron controller/method func param func param ...',
-            'cron-list               Cron Job List',
             'run-cron                run-cron command:method func param func param ...',
+            'cron-list               Cron Job List',
             'run-command             run-command command:function p1 p2 ...pN',
             'run-external-command    run-command command:function p1 p2 ...pN',
             'run-function            run-function function p1 p2 ... pN'
