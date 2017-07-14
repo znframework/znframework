@@ -190,32 +190,8 @@ class In
     //--------------------------------------------------------------------------------------------------
     public static function requestURI() : String
     {
-        $requestUri = URI::active()
-                    ? str_replace(DIRECTORY_INDEX.'/', '', URI::active())
-                    : substr(server('currentPath'), 1);
-
-        if( isset($requestUri[strlen($requestUri) - 1]) && $requestUri[strlen($requestUri) - 1] === '/' )
-        {
-                $requestUri = substr($requestUri, 0, -1);
-        }
-
-        if( defined('_CURRENT_PROJECT') )
-        {
-            $requestUri = self::cleanURIPrefix($requestUri, _CURRENT_PROJECT);
-        }
-
-        $requestUri = self::cleanInjection(self::routeURI($requestUri));
-
-        // 5.0.3 -> Updated ------------------------------------------------------
-        $currentLang = Lang::current();
-
-        if( ! empty(Lang::current()) && strlen($segment = URI::segment(1)) === 2 )
-        {
-            $currentLang = $segment;
-        }
-        // -----------------------------------------------------------------------
-
-        $requestUri = self::cleanURIPrefix($requestUri, $currentLang);
+        $requestUri = URI::active();
+        $requestUri = self::cleanInjection(self::routeURI(rtrim($requestUri, '/')));
 
         return (string) $requestUri;
     }

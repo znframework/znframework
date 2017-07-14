@@ -385,17 +385,22 @@ class InternalURI extends CallController implements InternalURIInterface
         if( $fullPath === false )
         {
             $currentUri = In::cleanURIPrefix($currentUri, indexStatus());
-
-            if( suffix($currentUri) === In::getCurrentProject() )
-            {
-                return Config::get('Services', 'route')['openController'];
-            }
-
             $currentUri = In::cleanURIPrefix($currentUri, In::getCurrentProject());
-            $currentUri = In::cleanURIPrefix($currentUri, Lang::current());
+
+            if( $currentLang = Lang::current() )
+            {
+                $isLang = divide($currentUri, '/');
+
+                if( strlen($isLang) === 2 )
+                {
+                    $currentLang = $isLang;
+                }
+
+                $currentUri  = In::cleanURIPrefix($currentUri, $currentLang);
+            }
         }
 
-        return $currentUri;
+        return ! empty($currentUri) ? $currentUri : Config::get('Services', 'route')['openController'];
     }
 
     //--------------------------------------------------------------------------------------------------------
