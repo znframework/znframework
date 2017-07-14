@@ -6,6 +6,6 @@ class FolderChangeDirException extends GeneralException
 {
     public function __construct($folder)
     {
-        parent::__construct(lang('Exception', 'folderChangeDir', $folder));
+        parent::__construct(\Lang::select('Exception', 'folderChangeDir', $folder));
     }
 }

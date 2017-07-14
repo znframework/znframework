@@ -44,7 +44,7 @@ class MemcacheDriver extends CacheDriverMappingAbstract
 
         if( empty($connect) )
         {
-            die(getErrorMessage('IndividualStructures', 'cache:unsupported', 'Memcache'));
+            die(\Errors::message('IndividualStructures', 'cache:unsupported', 'Memcache'));
         }
 
         return true;

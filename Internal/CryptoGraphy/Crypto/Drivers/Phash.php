@@ -1,6 +1,6 @@
 <?php namespace ZN\CryptoGraphy\Drivers;
 
-use ZN\CryptoGraphy\CryptoMapping;
+use ZN\CryptoGraphy\CryptoMapping, Errors;
 
 class PhashDriver extends CryptoMapping
 {
@@ -24,7 +24,7 @@ class PhashDriver extends CryptoMapping
 	{
 		if( ! isPhpVersion('5.5.0') )
 		{
-			die(getErrorMessage('Error', 'invalidVersion', ['%' => 'password_', '#' => '5.5.0']));
+			die(Errors::message('Error', 'invalidVersion', ['%' => 'password_', '#' => '5.5.0']));
 		}
 
         parent::__construct();

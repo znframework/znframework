@@ -1,6 +1,6 @@
 <?php namespace ZN\Services\Request;
 
-use CallController;
+use CallController, URL, Session, IS;
 
 class InternalRedirect extends CallController implements InternalRedirectInterface
 {
@@ -62,6 +62,88 @@ class InternalRedirect extends CallController implements InternalRedirectInterfa
         return server('redirectQueryString');
     }
 
+    //--------------------------------------------------------------------------------------------------
+    // redirect() -> 5.1.0
+    //--------------------------------------------------------------------------------------------------
+    //
+    // @param string $url
+    // @param int    $time
+    // @param array  $data
+    // @param bool   $exit
+    //
+    //--------------------------------------------------------------------------------------------------
+    public function location(String $url = NULL, Int $time = 0, Array $data = NULL, Bool $exit = true)
+    {
+        if( ! IS::url((string) $url) )
+        {
+            $url = URL::site($url);
+        }
+
+        if( ! empty($data) )
+        {
+            foreach( $data as $k => $v )
+            {
+                Session::insert('redirect:' . $k, $v);
+            }
+        }
+
+        if( $time > 0 )
+        {
+            sleep($time);
+        }
+
+        header('Location: ' . $url, true);
+
+        if( $exit === true )
+        {
+            exit;
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------
+    // redirectData() -> 5.1.0
+    //--------------------------------------------------------------------------------------------------
+    //
+    // @param string $k
+    //
+    // @return mixed
+    //
+    //--------------------------------------------------------------------------------------------------
+    public function selectData(String $k)
+    {
+        if( $data = Session::select('redirect:'.$k) )
+        {
+            return $data;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------
+    // redirectDeleteData() -> 5.1.0
+    //--------------------------------------------------------------------------------------------------
+    //
+    // @param mixed $data
+    //
+    // @return bool
+    //
+    //--------------------------------------------------------------------------------------------------
+    public function deleteData($data) : Bool
+    {
+        if( is_array($data) ) foreach( $data as $v )
+        {
+            Session::delete('redirect:'.$v);
+        }
+        else
+        {
+            return Session::delete('redirect:'.$data);
+        }
+
+        return true;
+    }
+
     //--------------------------------------------------------------------------------------------------------
     // action()
     //--------------------------------------------------------------------------------------------------------
@@ -76,7 +158,7 @@ class InternalRedirect extends CallController implements InternalRedirectInterfa
 
         $this->redirect = [];
 
-        return redirect($action, $time, $data);
+        return $this->location($action, $time, $data);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -144,7 +226,7 @@ class InternalRedirect extends CallController implements InternalRedirectInterfa
     //--------------------------------------------------------------------------------------------------------
     public function select(String $key)
     {
-        return redirectData($key);
+        return $this->selectData($key);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -156,6 +238,6 @@ class InternalRedirect extends CallController implements InternalRedirectInterfa
     //--------------------------------------------------------------------------------------------------------
     public function delete($key) : Bool
     {
-        return redirectDeleteData($key);
+        return $this->deleteData($key);
     }
 }

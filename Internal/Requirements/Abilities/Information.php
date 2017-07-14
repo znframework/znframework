@@ -64,7 +64,7 @@
             }
             else
             {
-                return lang('Success', 'success');
+                return \Lang::select('Success', 'success');
             }
         }
         else

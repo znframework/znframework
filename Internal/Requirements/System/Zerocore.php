@@ -50,7 +50,7 @@ class Zerocore
     //--------------------------------------------------------------------------------------------------------
     public static function commander($commands)
     {
-        report('TerminalCommands', implode(' ', $commands), 'TerminalCommands');
+        \Logger::report('TerminalCommands', implode(' ', $commands), 'TerminalCommands');
 
         $commands = Arrays::removeFirst($commands);
 
@@ -223,11 +223,11 @@ class Zerocore
     {
         if( $result === true || $result === NULL )
         {
-            echo lang('Success', 'success');
+            echo \Lang::select('Success', 'success');
         }
         elseif( $result === false )
         {
-            echo lang('Error', 'error');
+            echo \Lang::select('Error', 'error');
         }
         else
         {

@@ -598,8 +598,8 @@ class InternalRoute extends CLController implements InternalRouteInterface
 
         if( empty($invalidRequest['page']) )
         {
-            report('Error', lang('Error', 'invalidRequest'), 'InvalidRequestError');
-            trace(lang('Error', 'invalidRequest'));
+            \Logger::report('Error', \Lang::select('Error', 'invalidRequest'), 'InvalidRequestError');
+            trace(\Lang::select('Error', 'invalidRequest'));
         }
         else
         {
@@ -620,7 +620,7 @@ class InternalRoute extends CLController implements InternalRouteInterface
     {
         if( ! $routeShow404 = Config::get('Services', 'route')['show404'] )
         {
-            report('Error', lang('Error', $lang, $function), $report);
+            \Logger::report('Error', \Lang::select('Error', $lang, $function), $report);
             die(Errors::message('Error', $lang, $function));
         }
         else

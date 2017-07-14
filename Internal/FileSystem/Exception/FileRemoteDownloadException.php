@@ -6,6 +6,6 @@ class FileRemoteDownloadException extends GeneralException
 {
     public function __construct($file)
     {
-        parent::__construct(lang('Exception', 'fileRemoteDownload', $file));
+        parent::__construct(\Lang::select('Exception', 'fileRemoteDownload', $file));
     }
 }

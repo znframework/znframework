@@ -6,6 +6,6 @@ class FolderAllreadyException extends GeneralException
 {
     public function __construct($folder)
     {
-        parent::__construct(lang('Exception', 'folderAllready', $folder));
+        parent::__construct(\Lang::select('Exception', 'folderAllready', $folder));
     }
 }

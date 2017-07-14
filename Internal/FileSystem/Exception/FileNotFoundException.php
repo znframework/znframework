@@ -6,6 +6,6 @@ class FileNotFoundException extends GeneralException
 {
     public function __construct($file)
     {
-        parent::__construct(lang('Exception', 'fileNotFound', $file));
+        parent::__construct(\Lang::select('Exception', 'fileNotFound', $file));
     }
 }

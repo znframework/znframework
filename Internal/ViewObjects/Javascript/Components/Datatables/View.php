@@ -97,7 +97,7 @@ if( ! empty($extensions) )
             <th><?php echo $column ?></th>
             <?php endforeach; ?>
             <?php if( is_callable($process) ): ?>
-            <th><?php echo lang('ViewObjects', 'dbgrid:processLabel') ?></th>
+            <th><?php echo \Lang::select('ViewObjects', 'dbgrid:processLabel') ?></th>
             <?php endif; ?>
         </tr>
     </thead>

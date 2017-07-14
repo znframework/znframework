@@ -1,4 +1,4 @@
-<?php return
+<?php $lang = Lang::select('ViewObjects'); return
 [
     //--------------------------------------------------------------------------------------------------
     // View Objects
@@ -259,14 +259,14 @@
         //----------------------------------------------------------------------------------------------
         'buttonNames' =>
         [
-            'add'           => lang('ViewObjects', 'dbgrid:addButton'),
-            'edit'          => lang('ViewObjects', 'dbgrid:editButton'),
-            'update'        => lang('ViewObjects', 'dbgrid:updateButton'),
-            'save'          => lang('ViewObjects', 'dbgrid:saveButton'),
-            'close'         => lang('ViewObjects', 'dbgrid:closeButton'),
-            'delete'        => lang('ViewObjects', 'dbgrid:deleteButton'),
-            'deleteSelected'=> lang('ViewObjects', 'dbgrid:deleteSelectedName'),
-            'deleteAll'     => lang('ViewObjects', 'dbgrid:deleteAllName')
+            'add'           => $lang['dbgrid:addButton'],
+            'edit'          => $lang['dbgrid:editButton'],
+            'update'        => $lang['dbgrid:updateButton'],
+            'save'          => $lang['dbgrid:saveButton'],
+            'close'         => $lang['dbgrid:closeButton'],
+            'delete'        => $lang['dbgrid:deleteButton'],
+            'deleteSelected'=> $lang['dbgrid:deleteSelectedName'],
+            'deleteAll'     => $lang['dbgrid:deleteAllName']
         ],
 
         //----------------------------------------------------------------------------------------------
@@ -279,8 +279,8 @@
         //----------------------------------------------------------------------------------------------
         'placeHolders' =>
         [
-            'search'    => lang('ViewObjects', 'dbgrid:searchHolder'),
-            'inputs'    => lang('ViewObjects', 'dbgrid:inputsHolder'),
+            'search'    => $lang['dbgrid:searchHolder'],
+            'inputs'    => $lang['dbgrid:inputsHolder'],
         ],
 
         //----------------------------------------------------------------------------------------------

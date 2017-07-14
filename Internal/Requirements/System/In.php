@@ -371,7 +371,7 @@ class In
             //----------------------------------------------------------------------------------------------
             echo $benchResult;
 
-            report('Benchmarking Test Result', $benchResult, 'BenchmarkTestResults');
+            \Logger::report('Benchmarking Test Result', $benchResult, 'BenchmarkTestResults');
             //----------------------------------------------------------------------------------------------
         }
     }
@@ -436,7 +436,7 @@ class In
 
             if( ! is_callable([$controllerClass, $controllerFunc]) )
             {
-                report('Error', lang('Error', 'callUserFuncArrayError', $controllerFunc), 'SystemCallUserFuncArrayError');
+                \Logger::report('Error', \Lang::select('Error', 'callUserFuncArrayError', $controllerFunc), 'SystemCallUserFuncArrayError');
 
                 die(Errors::message('Error', 'callUserFuncArrayError', $controllerFunc));
             }

@@ -106,7 +106,7 @@ class SQLiteDriver extends DriverConnectionMappingAbstract
         }
         catch(Exception $e)
         {
-            die(getErrorMessage('Database', 'connectError'));
+            die(\Errors::message('Database', 'connectError'));
         }
     }
 

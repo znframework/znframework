@@ -1,4 +1,4 @@
-<?php return
+<?php $lang = Lang::select('EncodingSupport'); return
 [
     //--------------------------------------------------------------------------------------------------
     // Encoding Support
@@ -38,10 +38,10 @@
             //------------------------------------------------------------------------------------------
             'labels' =>
             [
-                'title'     => lang('EncodingSupport', 'ml:titleLabel'),
-                'confirm'   => lang('EncodingSupport', 'ml:confirmLabel'),
-                'process'   => lang('EncodingSupport', 'ml:processLabel'),
-                'keywords'  => lang('EncodingSupport', 'ml:keywordsLabel'),
+                'title'     => $lang['ml:titleLabel'],
+                'confirm'   => $lang['ml:confirmLabel'],
+                'process'   => $lang['ml:processLabel'],
+                'keywords'  => $lang['ml:keywordsLabel'],
             ],
 
             //------------------------------------------------------------------------------------------
@@ -53,11 +53,11 @@
             //------------------------------------------------------------------------------------------
             'buttonNames' =>
             [
-                'add'           => lang('EncodingSupport', 'ml:addButton'),
-                'update'        => lang('EncodingSupport', 'ml:updateButton'),
-                'delete'        => lang('EncodingSupport', 'ml:deleteButton'),
-                'clear'         => lang('EncodingSupport', 'ml:clearButton'),
-                'search'        => lang('EncodingSupport', 'ml:searchButton')
+                'add'           => $lang['ml:addButton'],
+                'update'        => $lang['ml:updateButton'],
+                'delete'        => $lang['ml:deleteButton'],
+                'clear'         => $lang['ml:clearButton'],
+                'search'        => $lang['ml:searchButton']
             ],
 
             //------------------------------------------------------------------------------------------
@@ -70,9 +70,9 @@
             //------------------------------------------------------------------------------------------
             'placeHolders' =>
             [
-                'keyword'     => lang('EncodingSupport', 'ml:keywordPlaceHolder'),
-                'addLanguage' => lang('EncodingSupport', 'ml:addLanguagePlaceHolder'),
-                'search'      => lang('EncodingSupport', 'ml:searchPlaceHolder')
+                'keyword'     => $lang['ml:keywordPlaceHolder'],
+                'addLanguage' => $lang['ml:addLanguagePlaceHolder'],
+                'search'      => $lang['ml:searchPlaceHolder']
             ],
 
             //----------------------------------------------------------------------------------------------
@@ -84,8 +84,8 @@
             //----------------------------------------------------------------------------------------------
             'styleElement' =>
             [
-                '#ML_TABLE tr:nth-child(even)' => ['background' => '#E6F9FF'],
-                '#ML_TABLE tr:nth-child(odd)'  => ['background' => '#FFF']
+                //'#ML_TABLE tr:nth-child(even)' => ['background' => '#E6F9FF'],
+                //'#ML_TABLE tr:nth-child(odd)'  => ['background' => '#FFF']
             ],
 
             //------------------------------------------------------------------------------------------
@@ -98,13 +98,12 @@
             //------------------------------------------------------------------------------------------
             'attributes'    =>
             [
-                'table'         => ['width' => '100%', 'cellspacing' => 0, 'cellpadding' => 10, 'style' => 'border:solid 1px #ddd; font-family:Arial; color:#888; font-size:14px;'],
-                'add'           => ['style' => 'height:30px; color:#0085B2; background:none; border:solid 1px #0085B2; cursor:pointer'],
-                'update'        => ['style' => 'height:30px; color:#0085B2; background:none; border:solid 1px #0085B2; cursor:pointer'],
-                'delete'        => ['style' => 'height:30px; color:#0085B2; background:none; border:solid 1px #0085B2; cursor:pointer'],
-                'clear'         => ['style' => 'height:30px; color:#0085B2; background:none; border:solid 1px #0085B2; cursor:pointer'],
-                'textbox'       => ['style' => 'height:30px; color:#0085B2; border:solid 1px #0085B2; text-indent:10px']
-
+                'table'         => ['class' => 'table table-bordered table-hover table-striped'],
+                'add'           => ['style' => 'height:30px; color:#0085B2; background:none; border:solid 1px #ccc; cursor:pointer; border-radius:4px'],
+                'update'        => ['style' => 'height:30px; color:#0085B2; background:none; border:solid 1px #ccc; cursor:pointer; border-radius:4px'],
+                'delete'        => ['style' => 'height:30px; color:#0085B2; background:none; border:solid 1px #ccc; cursor:pointer; border-radius:4px'],
+                'clear'         => ['style' => 'height:30px; color:#0085B2; background:none; border:solid 1px #ccc; cursor:pointer; border-radius:4px'],
+                'textbox'       => ['style' => 'height:30px; color:#0085B2; border:solid 1px #ccc; text-indent:10px; border-radius:4px']
             ],
 
             //------------------------------------------------------------------------------------------
@@ -119,7 +118,7 @@
                 'style' =>
                 [
                     'links' => 'color:#0085B2;
-                                width:20px; height:20px;
+                                width:30px; height:30px;
                                 text-align:center;
                                 padding-top:4px;
                                 display:inline-block;

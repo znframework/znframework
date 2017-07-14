@@ -72,7 +72,7 @@ class Info
 
         if( ! function_exists($validType) || $validType === NULL )
         {
-            die(getErrorMessage('Error', 'undefinedFunction', Classes::onlyName(get_called_class()).'::'.$type.'()'));
+            die(\Errors::message('Error', 'undefinedFunction', Classes::onlyName(get_called_class()).'::'.$type.'()'));
         }
 
         if( $validType($file) )

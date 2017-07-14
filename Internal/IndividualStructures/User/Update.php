@@ -101,11 +101,11 @@ class Update extends UserExtends
 
             if( $oldPassword != $password )
             {
-                return ! Properties::$error = lang('IndividualStructures', 'user:oldPasswordError');
+                return ! Properties::$error = \Lang::select('IndividualStructures', 'user:oldPasswordError');
             }
             elseif( $newPassword != $newPasswordAgain )
             {
-                return ! Properties::$error = lang('IndividualStructures', 'user:passwordNotMatchError');
+                return ! Properties::$error = \Lang::select('IndividualStructures', 'user:passwordNotMatchError');
             }
             else
             {
@@ -128,11 +128,11 @@ class Update extends UserExtends
                 {
                     if( ! DB::where($uc, $username)->update($tn, $data) )
                     {
-                        return ! Properties::$error = lang('IndividualStructures', 'user:registerUnknownError');
+                        return ! Properties::$error = \Lang::select('IndividualStructures', 'user:registerUnknownError');
                     }
                 }
 
-                return Properties::$success = lang('IndividualStructures', 'user:updateProcessSuccess');
+                return Properties::$success = \Lang::select('IndividualStructures', 'user:updateProcessSuccess');
             }
         }
         else

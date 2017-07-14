@@ -62,7 +62,7 @@ class InternalErrors implements InternalErrorsInterface
 
         if( ! empty($errorMsg) )
         {
-            $str .= lang($langFile, $errorMsg, $ex);
+            $str .= \Lang::select($langFile, $errorMsg, $ex);
         }
         else
         {

@@ -6,6 +6,6 @@ class FileAllreadyException extends GeneralException
 {
     public function __construct($file)
     {
-        parent::__construct(lang('Exception', 'fileAllready', $file));
+        parent::__construct(\Lang::select('Exception', 'fileAllready', $file));
     }
 }

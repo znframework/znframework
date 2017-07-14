@@ -6,6 +6,6 @@ class FolderNotFoundException extends GeneralException
 {
     public function __construct($folder)
     {
-        parent::__construct(lang('Exception', 'folderNotFound', $folder));
+        parent::__construct(\Lang::select('Exception', 'folderNotFound', $folder));
     }
 }

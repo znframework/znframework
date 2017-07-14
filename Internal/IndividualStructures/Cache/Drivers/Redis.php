@@ -73,19 +73,19 @@ class RedisDriver extends CacheDriverMappingAbstract
 
             if ( empty($success) )
             {
-                die(getErrorMessage('IndividualStructures', 'cache:connectionRefused', 'Connection'));
+                die(\Errors::message('IndividualStructures', 'cache:connectionRefused', 'Connection'));
             }
         }
         catch( RedisException $e )
         {
-            die(getErrorMessage('IndividualStructures', 'cache:connectionRefused', $e->getMessage()));
+            die(\Errors::message('IndividualStructures', 'cache:connectionRefused', $e->getMessage()));
         }
 
         if( isset($config['password']) )
         {
             if ( ! $this->redis->auth($config['password']))
             {
-                die(getErrorMessage('IndividualStructures', 'cache:authenticationFailed'));
+                die(\Errors::message('IndividualStructures', 'cache:authenticationFailed'));
             }
         }
 

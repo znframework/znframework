@@ -146,7 +146,7 @@ class GrandModel extends BaseController
         {
             try
             {
-                throw new GeneralException(lang('Database', 'tableNotExistsError', 'Grand: '.$this->grandTable));
+                throw new GeneralException(\Lang::select('Database', 'tableNotExistsError', 'Grand: '.$this->grandTable));
             }
             catch( GeneralException $e )
             {

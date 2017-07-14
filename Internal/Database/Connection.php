@@ -475,7 +475,7 @@ class Connection implements ConnectionInterface
 
         if( ($this->config['queryLog'] ?? NULL) === true )
         {
-            report('DatabaseQueries', $query, 'DatabaseQueries');
+            \Logger::report('DatabaseQueries', $query, 'DatabaseQueries');
         }
 
         $this->stringQuery = $query;

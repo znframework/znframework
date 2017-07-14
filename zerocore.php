@@ -131,6 +131,17 @@ import(REQUIREMENTS_DIR . 'Autoloader.php');
 //--------------------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------------------
+// STATUS CONSTANTS
+//--------------------------------------------------------------------------------------------------
+//
+// Status Constants
+//
+//--------------------------------------------------------------------------------------------------
+define('SSL_STATUS'  , ! Config::get('Services','uri')['ssl'] ? 'http://' : 'https://');
+define('INDEX_STATUS', ! Config::get('Htaccess', 'uri')['directoryIndex'] ? '' : suffix(DIRECTORY_INDEX));
+//--------------------------------------------------------------------------------------------------
+
+//--------------------------------------------------------------------------------------------------
 // Structure Data
 //--------------------------------------------------------------------------------------------------
 //
@@ -234,39 +245,6 @@ function length($data) : Int
     return ! is_scalar($data)
            ? count((array) $data)
            : strlen($data);
-}
-
-//--------------------------------------------------------------------------------------------------
-// getErrorMessage()
-//--------------------------------------------------------------------------------------------------
-//
-// @param string $langFile
-// @param string $errorMsg
-// @param mixed  $ex
-//
-// @return string
-//
-//--------------------------------------------------------------------------------------------------
-function getErrorMessage(String $langFile, String $errorMsg = NULL, $ex = NULL) : String
-{
-    Errors::message($langFile, $errorMsg, $ex);
-}
-
-//--------------------------------------------------------------------------------------------------
-// report()
-//--------------------------------------------------------------------------------------------------
-//
-// @param string $subject
-// @param string $message
-// @param string $destination
-// @param string $time
-//
-// @return bool
-//
-//--------------------------------------------------------------------------------------------------
-function report(String $subject, String $message, String $destination = NULL, String $time = NULL) : Bool
-{
-    return Logger::report($subject, $message, $destination, $time);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -510,30 +488,7 @@ function prevPath(Bool $isPath = true) : String
 //--------------------------------------------------------------------------------------------------
 function redirect(String $url = NULL, Int $time = 0, Array $data = NULL, Bool $exit = true)
 {
-    if( ! isUrl((string) $url) )
-    {
-        $url = URL::site($url);
-    }
-
-    if( ! empty($data) )
-    {
-        foreach( $data as $k => $v )
-        {
-            Session::insert('redirect:' . $k, $v);
-        }
-    }
-
-    if( $time > 0 )
-    {
-        sleep($time);
-    }
-
-    header('Location: ' . $url, true);
-
-    if( $exit === true )
-    {
-        exit;
-    }
+    Redirect::location($url, $time, $data, $exit);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -547,14 +502,7 @@ function redirect(String $url = NULL, Int $time = 0, Array $data = NULL, Bool $e
 //--------------------------------------------------------------------------------------------------
 function redirectData(String $k)
 {
-    if( $data = Session::select('redirect:'.$k) )
-    {
-        return $data;
-    }
-    else
-    {
-        return false;
-    }
+    Redirect::selectData($k);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -568,16 +516,7 @@ function redirectData(String $k)
 //--------------------------------------------------------------------------------------------------
 function redirectDeleteData($data) : Bool
 {
-    if( is_array($data) ) foreach( $data as $v )
-    {
-        Session::delete('redirect:'.$v);
-    }
-    else
-    {
-        return Session::delete('redirect:'.$data);
-    }
-
-    return true;
+    Redirect::deleteData($data);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -594,38 +533,6 @@ function httpFix(Bool $security = false) : String
     return ( $security === false )
            ? 'http://'
            : 'https://';
-}
-
-//--------------------------------------------------------------------------------------------------
-// sslStatus()
-//--------------------------------------------------------------------------------------------------
-//
-// @param void
-//
-// @return string
-//
-//--------------------------------------------------------------------------------------------------
-function sslStatus() : String
-{
-    return ! Config::get('Services','uri')['ssl']
-           ? 'http://'
-           : 'https://';
-}
-
-//--------------------------------------------------------------------------------------------------
-// indexStatus()
-//--------------------------------------------------------------------------------------------------
-//
-// @param void
-//
-// @return string
-//
-//--------------------------------------------------------------------------------------------------
-function indexStatus() : String
-{
-    return ! Config::get('Htaccess', 'uri')['directoryIndex']
-           ? ''
-           : suffix(DIRECTORY_INDEX);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -692,7 +599,7 @@ function uselib(String $class, Array $parameters = [])
 
         if( ! class_exists($class) )
         {
-            die(getErrorMessage('Error', 'classError', $class));
+            die(\Errors::message('Error', 'classError', $class));
         }
     }
 
@@ -1266,31 +1173,7 @@ function presuffix(String $string = NULL, String $fix = '/') : String
 //--------------------------------------------------------------------------------------------------
 function divide(String $str = NULL, String $separator = '|', String $index = '0')
 {
-    $arrayEx = explode($separator, $str);
-
-    if( $index === 'all' )
-    {
-        return $arrayEx;
-    }
-
-    if( $index < 0 )
-    {
-        $ind = (count($arrayEx) + ($index));
-    }
-    elseif( $index === 'last' )
-    {
-        $ind = (count($arrayEx) - 1);
-    }
-    elseif( $index === 'first' )
-    {
-        $ind = 0;
-    }
-    else
-    {
-        $ind = $index;
-    }
-
-    return $arrayEx[$ind] ?? false;
+    return Strings::divide($str, $separator, $index);
 }
 
 //--------------------------------------------------------------------------------------------------

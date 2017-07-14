@@ -98,7 +98,7 @@ class Login extends UserExtends
 
         if( ! isset($r->$passwordColumn) )
         {
-            return ! Properties::$error = lang('IndividualStructures', 'user:loginError');
+            return ! Properties::$error = \Lang::select('IndividualStructures', 'user:loginError');
         }
 
         $passwordControl   = $r->$passwordColumn;
@@ -120,12 +120,12 @@ class Login extends UserExtends
         {
             if( ! empty($bannedColumn) && ! empty($bannedControl) )
             {
-                return ! Properties::$error = lang('IndividualStructures', 'user:bannedError');
+                return ! Properties::$error = \Lang::select('IndividualStructures', 'user:bannedError');
             }
 
             if( ! empty($activationColumn) && empty($activationControl) )
             {
-                return ! Properties::$error = lang('IndividualStructures', 'user:activationError');
+                return ! Properties::$error = \Lang::select('IndividualStructures', 'user:activationError');
             }
 
             Session::insert($usernameColumn, $username);
@@ -145,11 +145,11 @@ class Login extends UserExtends
                 DB::where($usernameColumn, $username)->update($tableName, [$activeColumn  => 1]);
             }
 
-            return Properties::$success = lang('IndividualStructures', 'user:loginSuccess');
+            return Properties::$success = \Lang::select('IndividualStructures', 'user:loginSuccess');
         }
         else
         {
-            return ! Properties::$error = lang('IndividualStructures', 'user:loginError');
+            return ! Properties::$error = \Lang::select('IndividualStructures', 'user:loginError');
         }
     }
 

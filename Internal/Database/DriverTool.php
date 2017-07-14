@@ -160,7 +160,7 @@ class DriverTool extends DriverExtends
             }
         }
 
-        return lang('Database', 'optimizeTablesSuccess');
+        return \Lang::select('Database', 'optimizeTablesSuccess');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -209,7 +209,7 @@ class DriverTool extends DriverExtends
             }
         }
 
-        return lang('Database', 'repairTablesSuccess');
+        return \Lang::select('Database', 'repairTablesSuccess');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -310,6 +310,6 @@ class DriverTool extends DriverExtends
             throw new IOException('Error', 'fileNotWrite', $path.$fileName);
         }
 
-        return lang('Database', 'backupTablesSuccess');
+        return \Lang::select('Database', 'backupTablesSuccess');
     }
 }

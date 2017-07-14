@@ -109,7 +109,7 @@ class ODBCDriver extends DriverConnectionMappingAbstract
 
         if( empty($this->connect) )
         {
-            die(getErrorMessage('Database', 'connectError'));
+            die(\Errors::message('Database', 'connectError'));
         }
     }
 

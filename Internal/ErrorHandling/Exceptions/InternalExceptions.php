@@ -38,7 +38,7 @@ class InternalExceptions extends Exception implements InternalExceptionsInterfac
     {
         $debug = $this->_throwFinder(debug_backtrace(2));
 
-        if( $lang = lang($message, $key, $send) )
+        if( $lang = \Lang::select($message, $key, $send) )
         {
             $message = '['.$this->_cleanClassName($debug['class']).'::'.$debug['function'].'()] '.$lang;
         }
@@ -59,10 +59,10 @@ class InternalExceptions extends Exception implements InternalExceptionsInterfac
     //--------------------------------------------------------------------------------------------------------
     public function table(String $no = NULL, String $msg = NULL, String $file = NULL, String $line = NULL, Array $trace = NULL)
     {
-        $lang    = lang('Templates');
+        $lang    = \Lang::select('Templates');
         $message = $lang['line'].':'.$line.', '.$lang['file'].':'.$file.', '.$lang['message'].':'.$msg;
 
-        report('ExceptionError', $message, 'ExceptionError');
+        \Logger::report('ExceptionError', $message, 'ExceptionError');
 
         $table = $this->_template($msg, $file, $line, $no, $trace);
 
@@ -323,7 +323,7 @@ class InternalExceptions extends Exception implements InternalExceptionsInterfac
 
             $exceptionData =
             [
-                'message' => lang('Error', 'typeHint', ['&' => $langMessage1, '%' => $langMessage2]),
+                'message' => \Lang::select('Error', 'typeHint', ['&' => $langMessage1, '%' => $langMessage2]),
                 'file'    => $traceInfo['file'],
                 'line'    => '['.$traceInfo['line'].']',
             ];
@@ -348,7 +348,7 @@ class InternalExceptions extends Exception implements InternalExceptionsInterfac
         preg_match('/\w+\.wizard\.php/', $requiredFiles, $match);
 
         $exceptionData['file']    = VIEWS_DIR.($match[0] ?? strtolower(CURRENT_FUNCTION).'.wizard.php');
-        $exceptionData['message'] = lang('Error', 'templateWizard');
+        $exceptionData['message'] = \Lang::select('Error', 'templateWizard');
 
         return (object) $exceptionData;
     }

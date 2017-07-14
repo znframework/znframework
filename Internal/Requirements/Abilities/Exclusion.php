@@ -20,7 +20,7 @@
     //--------------------------------------------------------------------------------------------------------
     public function __construct(String $file, String $message = NULL, $changed = NULL)
     {
-        if( $data = lang($file, $message, $changed) )
+        if( $data = \Lang::select($file, $message, $changed) )
         {
             $message = $data;
         }

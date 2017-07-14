@@ -291,7 +291,7 @@ class InternalGenerate extends CallController implements InternalGenerateInterfa
     {
         if( empty($name) )
         {
-            $this->error = getErrorMessage('Error', 'emptyParameter', '1.(name)');
+            $this->error = \Errors::message('Error', 'emptyParameter', '1.(name)');
         }
 
         $eol = EOL;

@@ -142,10 +142,36 @@ class InternalStrings extends \FactoryController
     // @param string  $seperator
     // @param numeric $index
     //
+    // @return mixed
+    //
     //--------------------------------------------------------------------------------------------------------
-    public function divide(String $str, String $separator = "|", $index = 0) : String
+    public function divide(String $str = NULL, String $separator = '|', String $index = '0')
     {
-        return divide($str, $separator, $index);
+        $arrayEx = explode($separator, $str);
+
+        if( $index === 'all' )
+        {
+            return $arrayEx;
+        }
+
+        if( $index < 0 )
+        {
+            $ind = (count($arrayEx) + ($index));
+        }
+        elseif( $index === 'last' )
+        {
+            $ind = (count($arrayEx) - 1);
+        }
+        elseif( $index === 'first' )
+        {
+            $ind = 0;
+        }
+        else
+        {
+            $ind = $index;
+        }
+
+        return $arrayEx[$ind] ?? false;
     }
 
     //--------------------------------------------------------------------------------------------------------

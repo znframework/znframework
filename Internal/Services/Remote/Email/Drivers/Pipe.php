@@ -57,8 +57,8 @@ class PipeDriver extends EmailMappingAbstract
 
         if( $status !== 0 )
         {
-            $exceptionMessage  = lang('Services', 'email:noSocket').' ';
-            $exceptionMessage .= lang('Services', 'email:exitStatus', $status);
+            $exceptionMessage  = \Lang::select('Services', 'email:noSocket').' ';
+            $exceptionMessage .= \Lang::select('Services', 'email:exitStatus', $status);
 
             throw new IOException($exceptionMessage);
         }

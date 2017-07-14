@@ -99,7 +99,7 @@ class Kernel
                 }
                 else
                 {
-                    report('Error', lang('Error', 'fileNotFound', $path) ,'AutoloadComposer');
+                    \Logger::report('Error', \Lang::select('Error', 'fileNotFound', $path) ,'AutoloadComposer');
 
                     die(Errors::message('Error', 'fileNotFound', $path));
                 }
@@ -112,7 +112,7 @@ class Kernel
             {
                 $path = suffix($composer) . $path;
 
-                report('Error', lang('Error', 'fileNotFound', $path) ,'AutoloadComposer');
+                \Logger::report('Error', \Lang::select('Error', 'fileNotFound', $path) ,'AutoloadComposer');
 
                 die(Errors::message('Error', 'fileNotFound', $path));
             }
@@ -285,12 +285,12 @@ class Kernel
         {
             if(  Config::get('General', 'log')['createFile'] === true && $errorLast = Errors::last() )
             {
-                $lang    = lang('Templates');
+                $lang    = \Lang::select('Templates');
                 $message = $lang['line']   .':'.$errorLast['line'].', '.
                            $lang['file']   .':'.$errorLast['file'].', '.
                            $lang['message'].':'.$errorLast['message'];
 
-                report('GeneralError', $message, 'GeneralError');
+                \Logger::report('GeneralError', $message, 'GeneralError');
             }
         }
 
