@@ -76,52 +76,52 @@ internalCurrentProject();
 // vary according to the project name. It can be quite useful for you.
 //
 //--------------------------------------------------------------------------------------------------
-define('ROUTES_DIR'            , internalProjectContainerDir('Routes')               );
-define('EXTERNAL_ROUTES_DIR'   , EXTERNAL_DIR.'Routes'.DS                            );
-define('DATABASES_DIR'         , internalProjectContainerDir('Databases')            );
-define('CONFIG_DIR'            , internalProjectContainerDir('Config')               );
-define('STORAGE_DIR'           , PROJECT_DIR.'Storage'.DS                            );
-define('COMMANDS_DIR'          , internalProjectContainerDir('Commands')             );
-define('EXTERNAL_COMMANDS_DIR' , EXTERNAL_DIR.'Commands'.DS                          );
-define('RESOURCES_DIR'         , internalProjectContainerDir('Resources')            );
-define('EXTERNAL_RESOURCES_DIR', EXTERNAL_DIR.'Resources'.DS                         );
-define('STARTING_DIR'          , internalProjectContainerDir('Starting')             );
-define('EXTERNAL_STARTING_DIR' , EXTERNAL_DIR.'Starting'.DS                          );
-define('AUTOLOAD_DIR'          , STARTING_DIR.'Autoload'.DS                          );
-define('EXTERNAL_AUTOLOAD_DIR' , EXTERNAL_STARTING_DIR.'Autoload'.DS                 );
-define('HANDLOAD_DIR'          , STARTING_DIR.'Handload'.DS                          );
-define('EXTERNAL_HANDLOAD_DIR' , EXTERNAL_STARTING_DIR.'Handload'.DS                 );
-define('INTERNAL_LANGUAGES_DIR', INTERNAL_DIR.'Languages'.DS                         );
-define('LANGUAGES_DIR'         , internalProjectContainerDir('Languages')            );
-define('EXTERNAL_LANGUAGES_DIR', EXTERNAL_DIR.'Languages'.DS                         );
-define('INTERNAL_LIBRARIES_DIR', INTERNAL_DIR.'Libraries'.DS                         );
-define('REQUIREMENTS_DIR'      , INTERNAL_DIR.'Requirements'.DS.'System'.DS          );
-define('LIBRARIES_DIR'         , internalProjectContainerDir('Libraries')            );
-define('EXTERNAL_LIBRARIES_DIR', EXTERNAL_DIR.'Libraries'.DS                         );
-define('CONTROLLERS_DIR'       , PROJECT_DIR.'Controllers'.DS                        );
-define('MODELS_DIR'            , internalProjectContainerDir('Models')               );
-define('EXTERNAL_MODELS_DIR'   , EXTERNAL_DIR.'Models'.DS                            );
-define('VIEWS_DIR'             , PROJECT_DIR.'Views'.DS                              );
-define('PAGES_DIR'             , VIEWS_DIR                                           );
-define('PROCESSOR_DIR'         , RESOURCES_DIR.'Processor'.DS                        );
-define('EXTERNAL_PROCESSOR_DIR', EXTERNAL_RESOURCES_DIR.'Processor'.DS               );
-define('FILES_DIR'             , RESOURCES_DIR.'Files'.DS                            );
-define('EXTERNAL_FILES_DIR'    , EXTERNAL_RESOURCES_DIR.'Files'.DS                   );
-define('FONTS_DIR'             , RESOURCES_DIR.'Fonts'.DS                            );
-define('EXTERNAL_FONTS_DIR'    , EXTERNAL_RESOURCES_DIR.'Fonts'.DS                   );
-define('SCRIPTS_DIR'           , RESOURCES_DIR.'Scripts'.DS                          );
-define('EXTERNAL_SCRIPTS_DIR'  , EXTERNAL_RESOURCES_DIR.'Scripts'.DS                 );
-define('STYLES_DIR'            , RESOURCES_DIR.'Styles'.DS                           );
-define('EXTERNAL_STYLES_DIR'   , EXTERNAL_RESOURCES_DIR.'Styles'.DS                  );
-define('TEMPLATES_DIR'         , RESOURCES_DIR.'Templates'.DS                        );
-define('EXTERNAL_TEMPLATES_DIR', EXTERNAL_RESOURCES_DIR.'Templates'.DS               );
-define('THEMES_DIR'            , RESOURCES_DIR.'Themes'.DS                           );
-define('EXTERNAL_THEMES_DIR'   , EXTERNAL_RESOURCES_DIR.'Themes'.DS                  );
-define('PLUGINS_DIR'           , RESOURCES_DIR.'Plugins'.DS                          );
-define('EXTERNAL_PLUGINS_DIR'  , EXTERNAL_RESOURCES_DIR.'Plugins'.DS                 );
-define('UPLOADS_DIR'           , RESOURCES_DIR.'Uploads'.DS                          );
-define('EXTERNAL_UPLOADS_DIR'  , EXTERNAL_RESOURCES_DIR.'Uploads'.DS                 );
-define('INTERNAL_TEMPLATES_DIR', INTERNAL_DIR.'Templates'.DS                         );
+define('ROUTES_DIR'            , internalProjectContainerDir('Routes')     );
+define('EXTERNAL_ROUTES_DIR'   , EXTERNAL_DIR.'Routes'.DS                  );
+define('DATABASES_DIR'         , internalProjectContainerDir('Databases')  );
+define('CONFIG_DIR'            , internalProjectContainerDir('Config')     );
+define('STORAGE_DIR'           , PROJECT_DIR.'Storage'.DS                  );
+define('COMMANDS_DIR'          , internalProjectContainerDir('Commands')   );
+define('EXTERNAL_COMMANDS_DIR' , EXTERNAL_DIR.'Commands'.DS                );
+define('RESOURCES_DIR'         , internalProjectContainerDir('Resources')  );
+define('EXTERNAL_RESOURCES_DIR', EXTERNAL_DIR.'Resources'.DS               );
+define('STARTING_DIR'          , internalProjectContainerDir('Starting')   );
+define('EXTERNAL_STARTING_DIR' , EXTERNAL_DIR.'Starting'.DS                );
+define('AUTOLOAD_DIR'          , STARTING_DIR.'Autoload'.DS                );
+define('EXTERNAL_AUTOLOAD_DIR' , EXTERNAL_STARTING_DIR.'Autoload'.DS       );
+define('HANDLOAD_DIR'          , STARTING_DIR.'Handload'.DS                );
+define('EXTERNAL_HANDLOAD_DIR' , EXTERNAL_STARTING_DIR.'Handload'.DS       );
+define('INTERNAL_LANGUAGES_DIR', INTERNAL_DIR.'Languages'.DS               );
+define('LANGUAGES_DIR'         , internalProjectContainerDir('Languages')  );
+define('EXTERNAL_LANGUAGES_DIR', EXTERNAL_DIR.'Languages'.DS               );
+define('INTERNAL_LIBRARIES_DIR', INTERNAL_DIR.'Libraries'.DS               );
+define('REQUIREMENTS_DIR'      , INTERNAL_DIR.'Requirements'.DS.'System'.DS);
+define('LIBRARIES_DIR'         , internalProjectContainerDir('Libraries')  );
+define('EXTERNAL_LIBRARIES_DIR', EXTERNAL_DIR.'Libraries'.DS               );
+define('CONTROLLERS_DIR'       , PROJECT_DIR.'Controllers'.DS              );
+define('MODELS_DIR'            , internalProjectContainerDir('Models')     );
+define('EXTERNAL_MODELS_DIR'   , EXTERNAL_DIR.'Models'.DS                  );
+define('VIEWS_DIR'             , PROJECT_DIR.'Views'.DS                    );
+define('PAGES_DIR'             , VIEWS_DIR                                 );
+define('PROCESSOR_DIR'         , RESOURCES_DIR.'Processor'.DS              );
+define('EXTERNAL_PROCESSOR_DIR', EXTERNAL_RESOURCES_DIR.'Processor'.DS     );
+define('FILES_DIR'             , RESOURCES_DIR.'Files'.DS                  );
+define('EXTERNAL_FILES_DIR'    , EXTERNAL_RESOURCES_DIR.'Files'.DS         );
+define('FONTS_DIR'             , RESOURCES_DIR.'Fonts'.DS                  );
+define('EXTERNAL_FONTS_DIR'    , EXTERNAL_RESOURCES_DIR.'Fonts'.DS         );
+define('SCRIPTS_DIR'           , RESOURCES_DIR.'Scripts'.DS                );
+define('EXTERNAL_SCRIPTS_DIR'  , EXTERNAL_RESOURCES_DIR.'Scripts'.DS       );
+define('STYLES_DIR'            , RESOURCES_DIR.'Styles'.DS                 );
+define('EXTERNAL_STYLES_DIR'   , EXTERNAL_RESOURCES_DIR.'Styles'.DS        );
+define('TEMPLATES_DIR'         , RESOURCES_DIR.'Templates'.DS              );
+define('EXTERNAL_TEMPLATES_DIR', EXTERNAL_RESOURCES_DIR.'Templates'.DS     );
+define('THEMES_DIR'            , RESOURCES_DIR.'Themes'.DS                 );
+define('EXTERNAL_THEMES_DIR'   , EXTERNAL_RESOURCES_DIR.'Themes'.DS        );
+define('PLUGINS_DIR'           , RESOURCES_DIR.'Plugins'.DS                );
+define('EXTERNAL_PLUGINS_DIR'  , EXTERNAL_RESOURCES_DIR.'Plugins'.DS       );
+define('UPLOADS_DIR'           , RESOURCES_DIR.'Uploads'.DS                );
+define('EXTERNAL_UPLOADS_DIR'  , EXTERNAL_RESOURCES_DIR.'Uploads'.DS       );
+define('INTERNAL_TEMPLATES_DIR', INTERNAL_DIR.'Templates'.DS               );
 //--------------------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------------------
@@ -1336,7 +1336,17 @@ function internalCurrentProject()
     }
     else
     {
-        $currentPath   = server('currentPath');
+        $currentPath = server('currentPath');
+
+        // 5.0.3 -> Updated -------------------------------------------------------
+        //
+        // QUERY_STRING & REQUEST URI Empty Control
+		if( empty($currentPath) && ($requestUri = server('requestUri')) !== '/' )
+		{
+			$currentPath = $requestUri;
+		}
+        // ------------------------------------------------------------------------
+
         $internalDir   = ( ! empty($currentPath) ? explode('/', ltrim($currentPath, '/'))[0] : '' );
     }
 
