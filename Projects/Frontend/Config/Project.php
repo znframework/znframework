@@ -120,6 +120,18 @@
     'exitErrors' => [0, 2],
 
     //--------------------------------------------------------------------------------------------------
+    // Argument Passed Error Type
+    //--------------------------------------------------------------------------------------------------
+    //
+    // Geçersiz parametre hatalarından kaynaklanan hata mesajlarını konum olarak kullanılan
+    // kütüphanelerin iç yapısında mı yoksa dış yapımısında mı göstereceğini belirler.
+    //
+    // Kullanılabilir Seçenekler: external, internal
+    //
+    //--------------------------------------------------------------------------------------------------
+    'invalidParameterErrorType' => 'external', // external, internal
+
+    //--------------------------------------------------------------------------------------------------
     // Restoration
     //--------------------------------------------------------------------------------------------------
     //
