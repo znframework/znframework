@@ -423,7 +423,7 @@ class In
         $controllerPath  = ! empty($controllerEx[0]) ? $controllerEx[0] : '';
         $controllerFunc  = ! empty($controllerEx[1]) ? $controllerEx[1] : 'main';
         $controllerFile  = CONTROLLERS_DIR . suffix($controllerPath, '.php');
-        $controllerClass = divide($controllerPath, '/', -1);
+        $controllerClass = \Strings::divide($controllerPath, '/', -1);
 
         if( is_file($controllerFile) )
         {

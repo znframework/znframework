@@ -24,7 +24,7 @@ class CallController extends BaseController
         (
             'Error',
             'undefinedFunction',
-            divide(str_ireplace(INTERNAL_ACCESS, '', get_called_class()), '\\', -1)."::$method()"
+            \Strings::divide(str_ireplace(INTERNAL_ACCESS, '', get_called_class()), '\\', -1)."::$method()"
         ));
     }
 }

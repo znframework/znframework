@@ -142,7 +142,7 @@ class InternalSupport extends CallController implements InternalSupportInterface
         (
             'Error',
             'undefinedFunction',
-            divide(str_ireplace(INTERNAL_ACCESS, '', Classes::onlyName($class)), '\\', -1)."::$method()"
+            \Strings::divide(str_ireplace(INTERNAL_ACCESS, '', Classes::onlyName($class)), '\\', -1)."::$method()"
         ));
     }
 }

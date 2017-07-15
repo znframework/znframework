@@ -98,7 +98,7 @@ class Structure
         {
             $requestUri = \ZN\In::requestURI();
         }
-        
+
         //----------------------------------------------------------------------------------------------
         //  $_GET kontrolü yapılarak temel URL bilgisi elde ediliyor.
         //----------------------------------------------------------------------------------------------
@@ -130,7 +130,7 @@ class Structure
 
                     if( is_file($isF) )
                     {
-                        $page     = divide($ifTrim, '/', -1);
+                        $page     = \Strings::divide($ifTrim, '/', -1);
                         $isFile   = $isF;
                         $segments = $nsegments;
 

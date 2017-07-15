@@ -189,7 +189,7 @@ class InternalExceptions extends Exception implements InternalExceptionsInterfac
     //--------------------------------------------------------------------------------------------------------
     protected function _cleanClassName($class)
     {
-        return str_ireplace(INTERNAL_ACCESS, '', divide($class, '\\', -1));
+        return str_ireplace(INTERNAL_ACCESS, '', \Strings::divide($class, '\\', -1));
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -299,7 +299,7 @@ class InternalExceptions extends Exception implements InternalExceptionsInterfac
         $argument = ! empty($match[1]) ? $match[1] : NULL;
         $class    = ! empty($match[2]) ? $match[2] : NULL;
         $method   = ! empty($match[3]) ? $match[3] : NULL;
-        $type     = ! empty($match[4]) ? strtolower(divide($match[4], '\\', -1)) : NULL;
+        $type     = ! empty($match[4]) ? strtolower(\Strings::divide($match[4], '\\', -1)) : NULL;
         $data     = ! empty($match[5]) ? strtolower($match[5]) : NULL;
 
         if( empty($match) )

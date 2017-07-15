@@ -835,7 +835,7 @@ class InternalRoute extends CLController implements InternalRouteInterface
         }
 
         $changeRoute = str_replace($matchAll, $newMatch, $route);
-        $changeRoute = str_replace(divide($route, '/'), $functionName, $changeRoute);
+        $changeRoute = str_replace(\Strings::divide($route, '/'), $functionName, $changeRoute);
         $route       = [$route => $changeRoute];
 
         return $route;

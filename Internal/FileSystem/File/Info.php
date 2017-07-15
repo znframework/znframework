@@ -217,9 +217,9 @@ class Info
     // @return string
     //
     //--------------------------------------------------------------------------------------------------
-    public function absolutePath(String $string) : String
+    public function absolutePath(String $string = NULL) : String
     {
-        return absoluteRelativePath($string);
+        return str_replace([REAL_BASE_DIR, DS], [NULL, '/'], $string);
     }
 
     //--------------------------------------------------------------------------------------------------------

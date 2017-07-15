@@ -389,7 +389,7 @@ class InternalURI extends CallController implements InternalURIInterface
 
             if( $currentLang = Lang::current() )
             {
-                $isLang = divide($currentUri, '/');
+                $isLang = \Strings::divide($currentUri, '/');
 
                 if( strlen($isLang) === 2 )
                 {
@@ -456,7 +456,7 @@ class InternalURI extends CallController implements InternalURIInterface
         }
         else
         {
-            return divide($str, '/', -1);
+            return \Strings::divide($str, '/', -1);
         }
     }
 

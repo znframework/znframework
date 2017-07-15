@@ -520,22 +520,6 @@ function redirectDeleteData($data) : Bool
 }
 
 //--------------------------------------------------------------------------------------------------
-// httpFix() - ZN >= 4.2.6
-//--------------------------------------------------------------------------------------------------
-//
-// @param bool $security = false
-//
-// @return string
-//
-//--------------------------------------------------------------------------------------------------
-function httpFix(Bool $security = false) : String
-{
-    return ( $security === false )
-           ? 'http://'
-           : 'https://';
-}
-
-//--------------------------------------------------------------------------------------------------
 // internalDefaultProjectKey()
 //--------------------------------------------------------------------------------------------------
 //
@@ -686,7 +670,7 @@ function isPhpVersion(String $version = '5.2.4')
 //--------------------------------------------------------------------------------------------------
 function absoluteRelativePath(String $path = NULL)
 {
-    return str_replace([REAL_BASE_DIR, DS], [NULL, '/'], $path);
+    File::absolutePath($path);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -1158,22 +1142,6 @@ function prefix(String $string = NULL, String $fix = '/') : String
 function presuffix(String $string = NULL, String $fix = '/') : String
 {
     return suffix(prefix(empty($string) ? $fix.$string.$fix : $string, $fix), $fix);
-}
-
-//--------------------------------------------------------------------------------------------------
-// divide()
-//--------------------------------------------------------------------------------------------------
-//
-// @param string $str
-// @param string $separator = '|'
-// @param scalar $index     = 0
-//
-// @return mixed
-//
-//--------------------------------------------------------------------------------------------------
-function divide(String $str = NULL, String $separator = '|', String $index = '0')
-{
-    return Strings::divide($str, $separator, $index);
 }
 
 //--------------------------------------------------------------------------------------------------

@@ -2226,7 +2226,7 @@ class InternalDB extends Connection implements InternalDBInterface
         $keys   = ['between', 'in'];
         $column = trim($column);
 
-        if( in_array(strtolower(divide($column, ' ', -1)), $keys) || $this->_exp($column) )
+        if( in_array(strtolower(\Strings::divide($column, ' ', -1)), $keys) || $this->_exp($column) )
         {
             return $value;
         }

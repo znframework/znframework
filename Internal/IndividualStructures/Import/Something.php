@@ -59,11 +59,11 @@ class Something
         }
         elseif( stristr('svg|woff|otf|ttf|'.implode('|', Properties::$differentFontExtensions), $randomPageVariableExtension) )
         {
-            $return = '<style type="text/css">@font-face{font-family:"'.divide(File::removeExtension($randomPageVariable), "/", -1).'"; src:url("'.$randomPageVariableBaseUrl.'") format("truetype")}</style>'.$eol;
+            $return = '<style type="text/css">@font-face{font-family:"'.\Strings::divide(File::removeExtension($randomPageVariable), "/", -1).'"; src:url("'.$randomPageVariableBaseUrl.'") format("truetype")}</style>'.$eol;
         }
         elseif( $randomPageVariableExtension === 'eot' )
         {
-            $return = '<style type="text/css"><!--[if IE]>@font-face{font-family:"'.divide(File::removeExtension($randomPageVariable), "/", -1).'"; src:url("'.$randomPageVariableBaseUrl.'") format("truetype")}<![endif]--></style>'.$eol;
+            $return = '<style type="text/css"><!--[if IE]>@font-face{font-family:"'.\Strings::divide(File::removeExtension($randomPageVariable), "/", -1).'"; src:url("'.$randomPageVariableBaseUrl.'") format("truetype")}<![endif]--></style>'.$eol;
         }
         else
         {

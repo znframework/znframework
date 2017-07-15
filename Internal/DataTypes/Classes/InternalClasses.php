@@ -166,7 +166,7 @@ class InternalClasses extends CallController implements InternalClassesInterface
     //--------------------------------------------------------------------------------------------------------
     public function onlyName(String $class) : String
     {
-        return divide(str_replace(INTERNAL_ACCESS, '', $class), '\\', -1);
+        return \Strings::divide(str_replace(INTERNAL_ACCESS, '', $class), '\\', -1);
     }
 
     //--------------------------------------------------------------------------------------------------------

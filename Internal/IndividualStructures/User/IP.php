@@ -21,7 +21,7 @@ class IP
         }
         elseif( isset($_SERVER['HTTP_X_FORWARDED_FOR']) )
         {
-            $ip = divide($_SERVER['HTTP_X_FORWARDED_FOR'], ',');
+            $ip = \Strings::divide($_SERVER['HTTP_X_FORWARDED_FOR'], ',');
         }
         else
         {

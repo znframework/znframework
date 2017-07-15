@@ -97,7 +97,7 @@ class GrandModel extends BaseController
         }
         else
         {
-            $grandTable = divide(str_ireplace([INTERNAL_ACCESS, 'Grand'], '', get_called_class()), '\\', -1);
+            $grandTable = \Strings::divide(str_ireplace([INTERNAL_ACCESS, 'Grand'], '', get_called_class()), '\\', -1);
         }
 
         $this->grandTable = strtolower($grandTable);

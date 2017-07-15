@@ -37,7 +37,8 @@ class InternalImport extends \FactoryController
             'something'  => 'Import\Something::use',
             'package'    => 'Import\Package::use',
             'theme'      => 'Import\Package::theme',
-            'plugin'     => 'Import\Package::plugin'
+            'plugin'     => 'Import\Package::plugin',
+            'resource'   => 'Import\Package::resource'
         ]
     ];
 }
