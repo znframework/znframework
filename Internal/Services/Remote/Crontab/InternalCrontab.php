@@ -1,6 +1,6 @@
 <?php namespace ZN\Services\Remote;
 
-use Processor, SSH, Folder, File, Html, URL, IS;
+use Processor, SSH, Folder, File, Html;
 use ZN\Services\Remote\Crontab\Exception\InvalidTimeFormatException;
 
 class InternalCrontab extends RemoteCommon implements InternalCrontabInterface, InternalCrontabIntervalInterface
@@ -60,6 +60,8 @@ class InternalCrontab extends RemoteCommon implements InternalCrontabInterface, 
     //
     //--------------------------------------------------------------------------------------------------------
     protected $jobs = [];
+
+    protected $crontabCommands = EXTERNAL_PROCESSOR_DIR . 'CrontabCommands';
 
     //--------------------------------------------------------------------------------------------------------
     // Constructor
@@ -122,112 +124,18 @@ class InternalCrontab extends RemoteCommon implements InternalCrontabInterface, 
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Create File
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  string $name: crontab.txt
-    // @return object
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function createFile(String $name = 'crontab.txt')
-    {
-        if( ! Folder::exists($this->crontabDir) )
-        {
-            return Folder::create($this->crontabDir);
-        }
-        else
-        {
-            $cronFile = $this->crontabDir.$name;
-
-            if( ! is_file($cronFile) )
-            {
-                $command = 'crontab -l > '.$cronFile.' && [ -f '.$cronFile.' ] || > '.$cronFile;
-
-                return Processor::exec($command);
-            }
-        }
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Delete File
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  string $name: crontab.txt
-    // @return object
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function deleteFile(String $name = 'crontab.txt')
-    {
-        $cronFile = $this->crontabDir.$name;
-
-        if( is_file($cronFile) )
-        {
-            $command = 'rm '.$cronFile;
-
-            return Processor::exec($command);
-        }
-
-        return false;
-    }
-
-    //--------------------------------------------------------------------------------------------------------
     // Remove
     //--------------------------------------------------------------------------------------------------------
     //
     // @param  string $name: crontab.txt
-    // @return string
+    // @return object
     //
     //--------------------------------------------------------------------------------------------------------
     public function remove(String $name = 'crontab.txt') : String
     {
-        $this->deleteFile($name);
+        File::delete($this->crontabCommands);
 
         return Processor::exec('crontab -r');
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Edit -> 5.1.0
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  void
-    // @return string
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function edit() : String
-    {
-        return Processor::exec('crontab -e');
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // View -> 5.1.0
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  void
-    // @return string
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function view() : String
-    {
-        return Processor::exec('crontab -v');
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Add
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  void
-    // @return object
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function add() : InternalCrontab
-    {
-        $command = $this->_command();
-
-        $this->_defaultVariables();
-
-        $this->jobs[] = $command;
-
-        return $this;
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -238,39 +146,16 @@ class InternalCrontab extends RemoteCommon implements InternalCrontabInterface, 
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function run(String $cmd = NULL) : String
+    public function run(String $cmd = NULL)
     {
-        $command = '';
+        $command  = $this->_command() . $cmd . EOL;
 
-        if( empty($this->jobs) )
-        {
-            $command = $this->_command();
+        $execFile = $this->crontabCommands;
 
-            if( ! empty($cmd) )
-            {
-                $command = $cmd;
-            }
+        File::append($execFile, $command);
 
-            $this->stringCommand = $command;
+        return Processor::exec('crontab ' . $execFile);
 
-            return Processor::exec($command);
-        }
-        else
-        {
-            $output = '';
-            $jobs   = $this->jobs;
-
-            $this->jobs = [];
-
-            foreach( $jobs as $job )
-            {
-                $output .= Processor::exec($job) . Html::br();
-
-                $this->stringCommand .= $job.Html::br();
-            }
-
-            return $output;
-        }
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -307,69 +192,21 @@ class InternalCrontab extends RemoteCommon implements InternalCrontabInterface, 
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Command
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  string $command: empty
-    // @return object
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function command(String $command) : InternalCrontab
-    {
-        $fix = '';
-
-        $command = str_replace('-', '', $command);
-        $command = preg_replace('/\s+/', ' ', $command);
-
-        if( strstr($command, ' ') )
-        {
-            $commands = explode(' ', $command);
-
-            $commandJoin = '';
-
-            foreach( $commands as $cmd )
-            {
-                $commandJoin .= $this->_commandFix($cmd).' ';
-            }
-
-            $this->command = rtrim($commandJoin, ' ');
-        }
-        else
-        {
-            $this->command = $this->_commandFix($command);
-        }
-
-        return $this;
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // File
+    // Controller
     //--------------------------------------------------------------------------------------------------------
     //
     // @param  string $file: empty
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function file(String $file) : InternalCrontab
+    public function controller(String $file)
     {
-        $this->type = REAL_BASE_DIR.$file;
+        $path     = $this->_convertFileName($file);
+        $fullPath = PROCESSOR_DIR . $path;
 
-        return $this;
-    }
+        File::write($fullPath, prefix(suffix($this->_controller($file), ';'), '#!/usr/bin/env php' . EOL . '<?php require_once "' . REAL_BASE_DIR . 'zeroneed.php"; '));
 
-    //--------------------------------------------------------------------------------------------------------
-    // Processor File
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  string $file: empty
-    // @return string
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function processorFile(String $file) : InternalCrontab
-    {
-        $this->type = PROCESSOR_DIR.$file;
-
-        return $this;
+        return $this->run($fullPath);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -380,47 +217,31 @@ class InternalCrontab extends RemoteCommon implements InternalCrontabInterface, 
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function controller(String $file) : InternalCrontab
+    public function command(String $file, $type = 'External')
     {
-        $this->type = $this->_php($this->_controller($file, NULL));
+        $path    = $this->_convertFileName($file);
+        $pathEx  = explode('-', $path);
+        $command = $pathEx[0];
+        $method  = $pathEx[1] ?? 'main';
 
-        return $this;
+        $fullPath = PROCESSOR_DIR . $path;
+
+        File::write($fullPath, '#!/usr/bin/env php' . EOL . '<?php require_once "' . REAL_BASE_DIR . 'zeroneed.php"; (new \\'.$type.'\Commands\\'.$command.')->'.$method.'();');
+
+        return $this->run($fullPath);
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Command File
+    // Protected Convert File Name
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param  string $file: empty
+    // @param  string $file
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function commandFile(String $file) : InternalCrontab
+    protected function _convertFileName($file)
     {
-        $this->type = $this->_php($this->_commandFile($file, NULL));
-
-        return $this;
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Url
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  string $file: empty
-    // @param  bool   $type: wget, get, curl
-    // @return string
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function url(String $url) : InternalCrontab
-    {
-        if( ! IS::url($url) )
-        {
-            $url = URL::site($url);
-        }
-
-        $this->type = $url;
-
-        return $this;
+        return str_replace(['/', ':'], ['-'], $file);
     }
 
     //--------------------------------------------------------------------------------------------------------

@@ -158,7 +158,7 @@ class InternalExceptions extends Exception implements InternalExceptionsInterfac
                 return false;
             }
 
-            if( Config::get('ErrorHandling', 'exceptions')['invalidParameterErrorType'] === 'external' )
+            if( Config::get('Project', 'invalidParameterErrorType') === 'external' )
             {
                 $exceptionData = $passed;
             }

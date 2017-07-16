@@ -206,10 +206,8 @@ class Zerocore
         }
         else
         {
-            Crontab::commandFile(self::$command);
+            Crontab::command(self::$command);
         }
-
-        echo Crontab::run();
     }
 
     //--------------------------------------------------------------------------------------------------------
