@@ -61,7 +61,7 @@ class InternalCrontab extends RemoteCommon implements InternalCrontabInterface, 
     //--------------------------------------------------------------------------------------------------------
     protected $jobs = [];
 
-    protected $crontabCommands = EXTERNAL_PROCESSOR_DIR . 'CrontabCommands';
+    protected $crontabCommands = PROCESSOR_DIR . 'CrontabCommands';
 
     //--------------------------------------------------------------------------------------------------------
     // Constructor

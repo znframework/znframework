@@ -93,7 +93,7 @@ class Info
     // @return string
     //
     //--------------------------------------------------------------------------------------------------
-    function pathInfo(String $file, String $info = 'basename') : String
+    public function pathInfo(String $file, String $info = 'basename') : String
     {
         $pathInfo = pathinfo($file);
 

@@ -20,7 +20,7 @@ class CallController extends BaseController
     //--------------------------------------------------------------------------------------------------------
     public function __call($method, $param)
     {
-        die(getErrorMessage
+        die(\Errors::message
         (
             'Error',
             'undefinedFunction',

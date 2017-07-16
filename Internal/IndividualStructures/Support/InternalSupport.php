@@ -138,7 +138,7 @@ class InternalSupport extends CallController implements InternalSupportInterface
     //--------------------------------------------------------------------------------------------------------
     public function classMethod(String $class, String $method)
     {
-        die(getErrorMessage
+        die(\Errors::message
         (
             'Error',
             'undefinedFunction',

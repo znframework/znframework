@@ -452,7 +452,7 @@ class InternalDB extends Connection implements InternalDBInterface
         }
         else
         {
-            die(getErrorMessage
+            die(\Errors::message
             (
                 'Error',
                 'undefinedFunction',
