@@ -333,7 +333,7 @@ class In
     //--------------------------------------------------------------------------------------------------
     public static function benchmarkReport($start, $finish)
     {
-        if( Config::get('Project', 'benchmark') === true && REQUEST_URI !== NULL )
+        if( Config::get('Project', 'benchmark') === true )
         {
             //----------------------------------------------------------------------------------------------
             // System Elapsed Time Calculating

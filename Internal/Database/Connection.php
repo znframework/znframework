@@ -495,7 +495,7 @@ class Connection implements ConnectionInterface
     //--------------------------------------------------------------------------------------------------------
     protected function _math($type, $args)
     {
-        $type    = strtoupper($type);
+        $type    = mb_strtoupper($type);
         $getLast = Arrays::getLast($args);
 
         $asparam = ' ';

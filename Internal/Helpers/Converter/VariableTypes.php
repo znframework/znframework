@@ -163,9 +163,11 @@ class VariableTypes
     //--------------------------------------------------------------------------------------------------------
     public function toConstant(String $var, String $prefix = NULL, String $suffix = NULL)
     {
-        if( defined(strtoupper($prefix.$var.$suffix)) )
+        $variable = mb_convert_case($prefix.$var.$suffix, MB_CASE_UPPER);
+
+        if( defined($variable) )
         {
-            return constant(strtoupper($prefix.$var.$suffix));
+            return constant($variable);
         }
         elseif( defined($var) )
         {

@@ -103,7 +103,7 @@
         [
             'name' => $name,
             'key'  => $key,
-            'const' => strtoupper($const)
+            'const' => mb_strtoupper($const)
         ];
     }
 }

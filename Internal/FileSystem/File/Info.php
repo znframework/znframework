@@ -140,7 +140,7 @@ class Info
     // @param string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function rpath(String $file) : String
+    public function rpath(String $file = NULL) : String
     {
         $config = Config::get('FileSystem', 'file', $this->access);
 

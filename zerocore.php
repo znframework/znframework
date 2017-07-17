@@ -10,8 +10,6 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-defined('REAL_BASE_DIR') || exit('You do not have permission to access this file!');
-
 //--------------------------------------------------------------------------------------------------
 // VERSION INFO CONSTANTS
 //--------------------------------------------------------------------------------------------------
@@ -22,13 +20,14 @@ define('REQUIRED_PHP_VERSION', '7.0.0');
 //--------------------------------------------------------------------------------------------------
 // REQUIREMENT CONSTANTS
 //--------------------------------------------------------------------------------------------------
+define('DS'                          , DIRECTORY_SEPARATOR                                        );
+define('REAL_BASE_DIR'               , realpath(__DIR__) . DS                                     );
 define('INTERNAL_DIR'                , REAL_BASE_DIR . 'Internal' . DS                            );
 define('PROJECT_CONTROLLER_NAMESPACE', 'Project\Controllers\\'                                    );
 define('PROJECT_COMMANDS_NAMESPACE'  , 'Project\Commands\\'                                       );
 define('EXTERNAL_COMMANDS_NAMESPACE' , 'External\Commands\\'                                      );
 define('DIRECTORY_INDEX'             , 'zeroneed.php'                                             );
 define('INTERNAL_ACCESS'             , 'Internal'                                                 );
-define('REQUEST_URI'                 , $_SERVER['REQUEST_URI'] ?? NULL                            );
 define('BASE_DIR'                    , explode(DIRECTORY_INDEX, $_SERVER['SCRIPT_NAME'])[0] ?? '/');
 define('PROJECTS_DIR'                , REAL_BASE_DIR.'Projects'.DS                                );
 define('EXTERNAL_DIR'                , REAL_BASE_DIR.'External'.DS                                );
@@ -670,7 +669,7 @@ function isPhpVersion(String $version = '5.2.4')
 //--------------------------------------------------------------------------------------------------
 function absoluteRelativePath(String $path = NULL)
 {
-    File::absolutePath($path);
+    return File::absolutePath($path);
 }
 
 //--------------------------------------------------------------------------------------------------

@@ -596,7 +596,7 @@ class InternalDB extends Connection implements InternalDBInterface
             break;
         }
 
-        $type = strtoupper($type);
+        $type = mb_strtoupper($type);
 
         $this->joinType  = $type;
         $this->joinTable = $table;
@@ -2387,7 +2387,7 @@ class InternalDB extends Connection implements InternalDBInterface
                 $this->$type = substr($trim, 0, -1);
             }
 
-            $return = ' '.strtoupper($type).' '.$this->$type;
+            $return = ' '.mb_strtoupper($type).' '.$this->$type;
 
             $this->$type = NULL;
 
