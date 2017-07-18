@@ -17,7 +17,7 @@
         }
 
         $originMethodName = $method;
-        $method           = mb_convert_case($method, MB_CASE_LOWER);
+        $method           = \Autoloader::lower($method);
         $calledClass      = get_called_class();
 
         if( ! isset(static::factory['methods'][$method]) )

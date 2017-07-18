@@ -243,6 +243,6 @@ class InternalFilters extends CallController implements InternalFiltersInterface
     //--------------------------------------------------------------------------------------------------------
     protected function _validate($const, $type)
     {
-        return constant('FILTER_'.mb_strtoupper($type).'_'.mb_strtoupper($const));
+        return constant('FILTER_'.\Autoloader::upper($type).'_'.\Autoloader::upper($const));
     }
 }

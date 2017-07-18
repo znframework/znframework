@@ -103,7 +103,7 @@
         [
             'name' => $name,
             'key'  => $key,
-            'const' => mb_strtoupper($const)
+            'const' => \Autoloader::upper($const)
         ];
     }
 }

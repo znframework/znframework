@@ -163,7 +163,7 @@ class VariableTypes
     //--------------------------------------------------------------------------------------------------------
     public function toConstant(String $var, String $prefix = NULL, String $suffix = NULL)
     {
-        $variable = mb_convert_case($prefix.$var.$suffix, MB_CASE_UPPER);
+        $variable = \Autoloader::upper($prefix.$var.$suffix);
 
         if( defined($variable) )
         {

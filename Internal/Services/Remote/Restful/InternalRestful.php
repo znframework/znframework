@@ -240,7 +240,7 @@ class InternalRestful implements InternalRestfulInterface
     {
         $response = CURL::init($this->url ?? $url)
                         ->option('returntransfer', true)
-                        ->option('customrequest', mb_strtoupper($type))
+                        ->option('customrequest', \Autoloader::upper($type))
                         ->option('ssl_verifypeer', $this->sslVerifyPeer)
                         ->option('postfields', $data)
                         ->exec();

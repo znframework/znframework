@@ -614,7 +614,14 @@ function import(String $file)
     {
         define($constant, true);
 
-        return require $file;
+        $file = prefix($file, REAL_BASE_DIR);
+
+        if( is_file($file) )
+        {
+            return require $file;
+        }
+
+        return false;
     }
 }
 

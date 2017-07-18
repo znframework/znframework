@@ -178,11 +178,11 @@ class InternalCrontab extends RemoteCommon implements InternalCrontabInterface, 
         else
         {
             $jobs = explode(EOL, rtrim(File::read($this->crontabCommands), EOL));
-            $key  = mb_strtolower($key);
+            $key  = \Autoloader::lower($key);
 
             foreach( $jobs as $i => $k )
             {
-                $match = mb_strtolower(\Strings::divide($k, '/', -1));
+                $match = \Autoloader::lower(\Strings::divide($k, '/', -1));
 
                 if( $match === $key )
                 {

@@ -60,29 +60,13 @@ class Config
             $settingsPath = SETTINGS_DIR.suffix($file,".php");
             $internalPath = INTERNAL_CONFIG_DIR.suffix($file,".php");
 
-            $allConfig    = [];
-
-            if( is_file($externalPath) )
-            {
-                $allConfig = array_merge($allConfig, (array) import($externalPath));
-            }
-
-            if( is_file($projectPath) )
-            {
-                $allConfig = array_merge($allConfig, (array) import($projectPath));
-            }
-
-            if( is_file($settingsPath) )
-            {
-                $allConfig = array_merge($allConfig, (array) import($settingsPath));
-            }
-
-            if( is_file($internalPath) )
-            {
-                $allConfig = array_merge($allConfig, (array) import($internalPath));
-            }
-
-            self::$config[$file] = $allConfig;
+            self::$config[$file] = array_merge
+            (
+                (array) import($externalPath),
+                (array) import($projectPath ),
+                (array) import($settingsPath),
+                (array) import($internalPath)
+            );
         }
     }
 

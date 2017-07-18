@@ -41,6 +41,32 @@ class Autoloader
     protected static $path = CONFIG_DIR . 'ClassMap.php';
 
     //--------------------------------------------------------------------------------------------------
+    // Lower
+    //--------------------------------------------------------------------------------------------------
+    //
+    // @param  string $string
+    // @return string
+    //
+    //--------------------------------------------------------------------------------------------------
+    public static function lower(String $string = NULL) : String
+    {
+        return str_replace('I', 'i', strtolower($string));
+    }
+
+    //--------------------------------------------------------------------------------------------------
+    // Lower
+    //--------------------------------------------------------------------------------------------------
+    //
+    // @param  string $string
+    // @return string
+    //
+    //--------------------------------------------------------------------------------------------------
+    public static function upper(String $string = NULL) : String
+    {
+        return str_replace('i', 'I', strtoupper($string));
+    }
+
+    //--------------------------------------------------------------------------------------------------
     // Run
     //--------------------------------------------------------------------------------------------------
     //
@@ -189,7 +215,7 @@ class Autoloader
     //--------------------------------------------------------------------------------------------------
     public static function getClassFileInfo(String $class) : Array
     {
-        $classCaseLower = strtolower($class);
+        $classCaseLower = self::lower($class);
         $classMap       = self::_config();
         $classes        = array_merge($classMap['classes']    ?? [], (array) self::$classes);
         $namespaces     = array_merge($classMap['namespaces'] ?? [], (array) self::$namespaces);
@@ -353,25 +379,25 @@ class Autoloader
             $configClassMap['classes'] ?? []
         );
 
-        $staticAccessDirectory = self::_relativePath(RESOURCES_DIR.'Statics/');
+        $staticAccessDirectory = RESOURCES_DIR . 'Statics' . DS;
 
         $eol = EOL;
 
-        if( ! empty($files) ) foreach( $files as $v )
+        if( ! empty($files) ) foreach( $files as $val )
         {
-            $v = self::_relativePath($v);
+            $v = self::_relativePath($val);
 
-            if( is_file($v) )
+            if( is_file($val) )
             {
-                $classInfo = self::tokenClassFileInfo($v);
+                $classInfo = self::tokenClassFileInfo($val);
 
                 if( isset($classInfo['class']) )
                 {
-                    $class = strtolower($classInfo['class']);
+                    $class = self::lower($classInfo['class']);
 
                     if( isset($classInfo['namespace']) )
                     {
-                        $className = strtolower($classInfo['namespace']).'\\'.$class;
+                        $className = self::lower($classInfo['namespace']).'\\'.$class;
 
                         $classes['namespaces'][self::_cleanNail($className)] = self::_cleanNail($class);
                     }
@@ -382,7 +408,7 @@ class Autoloader
 
                     $classes['classes'][self::_cleanNail($className)] = self::_cleanNail($v);
 
-                    $useStaticAccess = strtolower(INTERNAL_ACCESS);
+                    $useStaticAccess = self::lower(INTERNAL_ACCESS);
 
                     if
                     (
@@ -410,24 +436,24 @@ class Autoloader
                             mkdir($newDir, $directoryPermission, true);
                         }
 
-                        $path              = suffix($newDir, DS).$classInfo['class'].'.php';
+                        $rpath = $path     = suffix($newDir, DS).$classInfo['class'].'.php';
                         $path              = self::_relativePath($path);
-                        $constants         = self::_findConstants($v);
+                        $constants         = self::_findConstants($val);
                         $classContent      = self::_classFileContent($newClassName, $constants);
-                        $fileContentLength = is_file($path) ? strlen(file_get_contents($path)) : 0;
+                        $fileContentLength = is_file($rpath) ? strlen(file_get_contents($rpath)) : 0;
 
                         if( strlen($classContent) !== $fileContentLength )
                         {
-                            file_put_contents($path, $classContent);
+                            file_put_contents($rpath, $classContent);
                         }
 
-                        $classes['classes'][strtolower($newClassName)] = $path;
+                        $classes['classes'][self::lower($newClassName)] = $path;
                     }
                 }
             }
-            elseif( is_dir($v) )
+            elseif( is_dir($val) )
             {
-                self::searchClassMap($v, $baseDirectory);
+                self::searchClassMap($val, $baseDirectory);
             }
         }
 

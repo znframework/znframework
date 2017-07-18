@@ -1,4 +1,4 @@
-<?php 
+<?php
 $style  = 'position:absolute;bottom:10px;right:10px;';
 $style .= 'border:solid 1px #E1E4E5;';
 $style .= 'background:#FFF;';
@@ -10,7 +10,7 @@ $table .= 'font-size:14px;';
 
 $color =  'color:#900;';
 
-$lang  = lang('IndividualStructures'); 
+$lang  = Lang::select('IndividualStructures'); 
 ?>
 
 <div style="<?php echo $style; ?>">
