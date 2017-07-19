@@ -416,7 +416,7 @@ class Autoloader
                         ! preg_match('/(Interface|Trait)$/i', $class)
                     )
                     {
-                        $newClassName = str_ireplace($useStaticAccess, '', $classInfo['class']);
+                        $newClassName = str_ireplace(INTERNAL_ACCESS, '', $classInfo['class']);
 
                         $newPath = str_ireplace($baseDirectory, '', $v);
 
