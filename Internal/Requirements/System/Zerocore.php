@@ -1,6 +1,6 @@
 <?php namespace ZN\Requirements\System;
 
-use Arrays, Json, Crontab;
+use Arrays, Json, Crontab, IS;
 use ZN\Core\Structure;
 
 class Zerocore
@@ -93,6 +93,7 @@ class Zerocore
             case 'run-class'            : self::_runClass();                            break;
             case 'run-cron'             : self::_runCron();                             break;
             case 'cron-list'            : echo Crontab::list();                         break;
+            case 'remove-cron'          : self::_removeCron();                          break;
             case 'run-command'          : self::_runClass(PROJECT_COMMANDS_NAMESPACE);  break;
             case 'run-external-command' : self::_runClass(EXTERNAL_COMMANDS_NAMESPACE); break;
             case 'run-function'         : self::_runFunction();                         break;
@@ -152,6 +153,7 @@ class Zerocore
             'run-cron                run-cron controller/method func param func param ...',
             'run-cron                run-cron command:method func param func param ...',
             'cron-list               Cron Job List',
+            'remove-cron             remove-cron cronID',
             'run-command             run-command command:function p1 p2 ...pN',
             'run-external-command    run-command command:function p1 p2 ...pN',
             'run-function            run-function function p1 p2 ... pN'
@@ -200,14 +202,30 @@ class Zerocore
             Crontab::$func($prm);
         }
 
-        if( strstr(self::$command, '/') )
+        if( IS::url(self::$command) )
         {
-            Crontab::controller(self::$command);
+            return Crontab::wget(self::$command);
+        }
+        elseif( strstr(self::$command, '/') )
+        {
+            return Crontab::controller(self::$command);
         }
         else
         {
-            Crontab::command(self::$command);
+            return Crontab::command(self::$command);
         }
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Run Cron
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected static function _removeCron()
+    {
+        return Crontab::remove(self::$parameters[0] ?? NULL);
     }
 
     //--------------------------------------------------------------------------------------------------------
