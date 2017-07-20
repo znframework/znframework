@@ -13,7 +13,6 @@ class InternalCrontab extends RemoteCommon implements InternalCrontabInterface, 
     // Copyright  : (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
-
     const config = ['Services:crontab', 'Services:processor'];
 
     //--------------------------------------------------------------------------------------------------------
@@ -61,7 +60,9 @@ class InternalCrontab extends RemoteCommon implements InternalCrontabInterface, 
     //--------------------------------------------------------------------------------------------------------
     protected $jobs = [];
 
-    protected $crontabCommands = STORAGE_DIR . 'Crontab/Jobs';
+    protected $zerocore = 'require_once "' . REAL_BASE_DIR . 'zerocore.php"; ';
+
+    protected $crontabCommands;
 
     //--------------------------------------------------------------------------------------------------------
     // Constructor
@@ -74,9 +75,18 @@ class InternalCrontab extends RemoteCommon implements InternalCrontabInterface, 
     {
         parent::__construct();
 
-        $this->path   = SERVICES_PROCESSOR_CONFIG['path'];
-        $this->debug  = SERVICES_CRONTAB_CONFIG['debug'];
+        // For Single Edition
+        if( defined('EXTERNAL_PROCESSOR_DIR') )
+        {
+            $this->crontabCommands = EXTERNAL_PROCESSOR_DIR . 'CronJobs';
+        }
+        else
+        {
+            $this->crontabCommands = PROCESSOR_DIR . 'CronJobs';
+        }
 
+        $this->path       = SERVICES_PROCESSOR_CONFIG['path'];
+        $this->debug      = SERVICES_CRONTAB_CONFIG['debug'];
         $this->crontabDir = File::originpath(STORAGE_DIR.'Crontab'.DS);
     }
 
@@ -91,7 +101,6 @@ class InternalCrontab extends RemoteCommon implements InternalCrontabInterface, 
     public function driver(String $driver) : InternalCrontab
     {
         Processor::driver($driver);
-
         return $this;
     }
 
@@ -106,7 +115,6 @@ class InternalCrontab extends RemoteCommon implements InternalCrontabInterface, 
     public function path(String $path = NULL) : InternalCrontab
     {
         $this->path = $path;
-
         return $this;
     }
 
@@ -120,7 +128,7 @@ class InternalCrontab extends RemoteCommon implements InternalCrontabInterface, 
     //--------------------------------------------------------------------------------------------------------
     public function listArray() : Array
     {
-        return explode(EOL, rtrim(File::read($this->crontabCommands), EOL));
+        return Arrays::deleteElement(explode(EOL, File::read($this->crontabCommands)), '');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -138,13 +146,12 @@ class InternalCrontab extends RemoteCommon implements InternalCrontabInterface, 
         if( is_file($this->crontabCommands) )
         {
             $jobs  = $this->listArray();
-
             $list  = '<pre>';
-            $list .= 'Command Name: Crontab Value' . Html::br(2);
+            $list .= '[ID] CRON JOB' . Html::br(2);
 
-            foreach( $jobs as $job )
+            foreach( $jobs as $key => $job )
             {
-                $list .= Strings::divide($job, '/', -1) . ': '. $job . Html::br();
+                $list .= '[' . $key . ']: '. $job . Html::br();
             }
 
             $list .= '</pre>';
@@ -154,43 +161,43 @@ class InternalCrontab extends RemoteCommon implements InternalCrontabInterface, 
     }
 
     //--------------------------------------------------------------------------------------------------------
+    // Last Job
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param  void
+    // @return string
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function lastJob()
+    {
+        return Processor::exec('crontab -l');
+    }
+
+    //--------------------------------------------------------------------------------------------------------
     // Remove
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param  string $name: crontab.txt
-    // @return object
+    // @param  string $key
+    // @return void
     //
     //--------------------------------------------------------------------------------------------------------
     public function remove($key = NULL)
     {
-        $files = Folder::allFiles(PROCESSOR_DIR);
+        Processor::exec('crontab -r');
 
         if( $key === NULL )
         {
-            foreach( $files as $file )
-            {
-                File::delete($file);
-            }
-
-            Processor::exec('crontab -r');
-            File::write($this->crontabCommands, '');
+            File::delete($this->crontabCommands);
         }
         else
         {
-            $jobs = explode(EOL, rtrim(File::read($this->crontabCommands), EOL));
-            $key  = \Autoloader::lower($key);
+            $jobs = $this->listArray();
 
-            foreach( $jobs as $i => $k )
-            {
-                $match = \Autoloader::lower(\Strings::divide($k, '/', -1));
+            unset($jobs[$key]);
 
-                if( $match === $key )
-                {
-                    $this->_removeJob($jobs[$i] ?? NULL); unset($jobs[$i]); break;
-                }
-            }
+            File::write($this->crontabCommands, implode(EOL, $jobs) . EOL);
 
-            File::write($this->crontabCommands, implode(EOL, $jobs));
+            Processor::exec('crontab ' . $this->crontabCommands);
         }
     }
 
@@ -205,7 +212,6 @@ class InternalCrontab extends RemoteCommon implements InternalCrontabInterface, 
     public function debug(Bool $status = true) : InternalCrontab
     {
         $this->debug = $status;
-
         return $this;
     }
 
@@ -219,12 +225,24 @@ class InternalCrontab extends RemoteCommon implements InternalCrontabInterface, 
     //--------------------------------------------------------------------------------------------------------
     public function controller(String $file)
     {
-        $path     = $this->_convertFileName($file);
-        $fullPath = PROCESSOR_DIR . $path;
+        $path = $this->_convertFileName($file);
+        $code = prefix(suffix($this->_controller($file), ';\''), ' -r \'' . $this->zerocore);
 
-        File::write($fullPath, prefix(suffix($this->_controller($file), ';'), '#!/usr/bin/env php' . EOL . '<?php require_once "' . REAL_BASE_DIR . 'zerocore.php"; '));
+        $this->run($code);
+    }
 
-        $this->run($fullPath);
+    //--------------------------------------------------------------------------------------------------------
+    // Wget
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param  string $file: empty
+    // @return string
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function wget(String $url)
+    {
+        $this->path('wget');
+        $this->run($url);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -235,18 +253,16 @@ class InternalCrontab extends RemoteCommon implements InternalCrontabInterface, 
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function command(String $file, $type = 'External')
+    public function command(String $file, $type = 'Project')
     {
-        $path    = $this->_convertFileName($file);
-        $pathEx  = explode('-', $path);
-        $command = $pathEx[0];
-        $method  = $pathEx[1] ?? 'main';
+        $path     = $this->_convertFileName($file);
+        $pathEx   = explode('-', $path);
+        $command  = $pathEx[0];
+        $method   = $pathEx[1] ?? 'main';
 
-        $fullPath = PROCESSOR_DIR . $path;
+        $code = ' -r \'' . $this->zerocore . '(new \\'.$type.'\Commands\\'.$command.')->'.$method.'();\'';
 
-        File::write($fullPath, '#!/usr/bin/env php' . EOL . '<?php require_once "' . REAL_BASE_DIR . 'zerocore.php"; (new \\'.$type.'\Commands\\'.$command.')->'.$method.'();');
-
-        $this->run($fullPath);
+        $this->run($code);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -259,45 +275,23 @@ class InternalCrontab extends RemoteCommon implements InternalCrontabInterface, 
     //--------------------------------------------------------------------------------------------------------
     public function run(String $cmd = NULL)
     {
-        Processor::exec('chmod 0777 ' . $cmd);
-
         $execFile = $this->crontabCommands;
 
-        $fix    = EOL;
-
-        clearstatcache();
-
-        if( ! $content = File::read($execFile) )
+        if( ! is_file($execFile) )
         {
-            $fix = NULL;
+            File::create($execFile);
+            Processor::exec('chmod 0777 ' . $execFile);
         }
+
+        $content = File::read($execFile);
 
         if( ! stristr($content, $cmd))
         {
-            $command = $fix . $this->_command() . $cmd;
-
-            File::append($execFile, $command);
+            $content = $content . $this->_command() . $cmd . EOL;
+            File::write($execFile, $content);
         }
 
         return Processor::exec('crontab ' . $execFile);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Remove Job
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  string $job
-    // @return void
-    //
-    //--------------------------------------------------------------------------------------------------------
-    protected function _removeJob($job)
-    {
-        if( isset($job) )
-        {
-            $file = \Strings::divide($job, ' ', -1);
-
-            File::delete($file);
-        }
     }
 
     //--------------------------------------------------------------------------------------------------------
