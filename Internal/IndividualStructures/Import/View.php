@@ -86,7 +86,7 @@ class View
             else
             {
                 ob_start();
-                require($randomPagePath);
+                require $randomPagePath;
                 $randomViewFileContent = ob_get_contents();
                 ob_end_clean();
 

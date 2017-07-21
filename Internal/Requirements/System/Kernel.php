@@ -24,7 +24,7 @@ class Kernel
 
         if( empty($appcon) )
         {
-            trace('["Container"] Not Found! Check the [\'containers\'] setting in the [Projects/Projects.php] file.');
+            trace('["Container"] Not Found! Check the [\'containers\'] setting in the [Settings/Projects.php] file.');
         }
 
         define('PROJECT_MODE', strtolower($appcon['mode']));
@@ -200,8 +200,8 @@ class Kernel
             {
                 if( ! is_callable([$page, $function]) )
                 {
-                    $parameters   = Arrays::addFirst($parameters, $function);
-                    $function     = $openFunction;
+                    $parameters = Arrays::addFirst($parameters, $function);
+                    $function   = $openFunction;
                 }
 
                 if( is_callable([$page, $function]) )
@@ -224,8 +224,8 @@ class Kernel
                             $viewDir      = PAGES_DIR . $view . DS . $viewFunction;
                         }
 
-                        $viewPath   = $viewDir  . '.php';
-                        $wizardPath = $viewDir  . '.wizard.php';
+                        $viewPath   = $viewDir . '.php';
+                        $wizardPath = $viewDir . '.wizard.php';
 
                         $pageClass = uselib($page);
 
