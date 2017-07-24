@@ -13,6 +13,10 @@ class In
     //
     //--------------------------------------------------------------------------------------------------------
 
+    public static $view       = [];
+    public static $wizard     = [];
+    public static $masterpage = [];
+
     //--------------------------------------------------------------------------------------------------
     // Project Mode
     //--------------------------------------------------------------------------------------------------
@@ -441,7 +445,13 @@ class In
                 die(Errors::message('Error', 'callUserFuncArrayError', $controllerFunc));
             }
 
-            return uselib($controllerClass)->$controllerFunc(...$param);
+            $startingControllerClass = uselib($controllerClass);
+
+            $return = $startingControllerClass->$controllerFunc(...$param);
+
+            self::$view[]       = (array) $startingControllerClass->view;
+            self::$wizard[]     = (array) $startingControllerClass->wizard;
+            self::$masterpage[] = (array) $startingControllerClass->masterpage;
         }
         else
         {
