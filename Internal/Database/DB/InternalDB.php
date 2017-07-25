@@ -450,13 +450,14 @@ class InternalDB extends Connection implements InternalDBInterface
         {
             return $this->db->statements($method, ...$parameters);
         }
-        elseif( stristr($method, 'where') )
+        elseif( stripos($method, 'where') === 0|| stripos($method, 'having') === 0 )
         {
             $split     = Strings::splitUpperCase($originMethodName);
+            $met       = $split[0];
             $column    = $split[1];
             $condition = $split[2] ?? NULL;
 
-            $this->where($column, $parameters[0], $condition);
+            $this->$met($column, $parameters[0], $condition);
 
             return $this;
         }
