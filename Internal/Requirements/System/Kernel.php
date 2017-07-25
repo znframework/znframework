@@ -234,14 +234,17 @@ class Kernel
                         if( is_file($wizardPath) && ! IS::import($viewPath) && ! IS::import($wizardPath) )
                         {
                             $data = (array) ( ! empty((array) $pageClass->wizard) ? $pageClass->wizard : $pageClass->view );
-                            $data = ! empty(\ZN\In::$wizard[0]) ? array_merge($data, ...\ZN\In::$wizard) : array_merge($data, ...\ZN\In::$view);
+
+                            $data = ! empty(\ZN\In::$wizard[0])
+                                    ? array_merge($data, ...\ZN\In::$wizard)
+                                    : array_merge($data, ...\ZN\In::$view);
 
                             $usableView = Import::view(str_replace(PAGES_DIR, NULL, $wizardPath), $data, true);
                         }
                         elseif( is_file($viewPath) && ! IS::import($viewPath) && ! IS::import($wizardPath) )
                         {
-                            $data       = (array) $pageClass->view;
-                            $data       = array_merge($data, ...\ZN\In::$view);
+                            $data = (array) $pageClass->view;
+                            $data = array_merge($data, ...\ZN\In::$view);
 
                             $usableView = Import::view(str_replace(PAGES_DIR, NULL, $viewPath), $data, true);
                         }
