@@ -1,5 +1,7 @@
 <?php namespace ZN\ViewObjects\View;
 
+use Strings, Arrays;
+
 trait ViewCommonTrait
 {
     //--------------------------------------------------------------------------------------------------------
@@ -94,19 +96,8 @@ trait ViewCommonTrait
         {
             $newMethod = NULL;
 
-            for( $i = 0; $i < strlen($realMethod); $i++ )
-            {
-                if( ctype_upper($realMethod[$i]) )
-                {
-                    $newMethod .= '-' . strtolower($realMethod[$i]);
-                }
-                else
-                {
-                    $newMethod .= $realMethod[$i];
-                }
-            }
-
-            $method = $newMethod;
+            $split  = Strings::splitUpperCase($realMethod);
+            $method = implode('-', Arrays::lowerCase($split));
         }
         //----------------------------------------------------------------------------------------------------
 

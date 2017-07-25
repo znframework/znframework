@@ -1,6 +1,6 @@
 <?php namespace ZN\Database;
 
-use URI, Pagination, Arrays, Classes, Method, Config, Converter, Cache, Json, IS, Coalesce;
+use URI, Pagination, Arrays, Classes, Method, Config, Converter, Cache, Json, IS, Coalesce, Strings;
 
 class InternalDB extends Connection implements InternalDBInterface
 {
@@ -407,7 +407,7 @@ class InternalDB extends Connection implements InternalDBInterface
     //--------------------------------------------------------------------------------------------------------
     public function __call($method, $parameters)
     {
-        $method = strtolower($method);
+        $method = strtolower($originMethodName = $method);
 
         if( in_array($method, $this->functionElements) )
         {
@@ -450,14 +450,19 @@ class InternalDB extends Connection implements InternalDBInterface
         {
             return $this->db->statements($method, ...$parameters);
         }
+        elseif( stristr($method, 'where') )
+        {
+            $split     = Strings::splitUpperCase($originMethodName);
+            $column    = $split[1];
+            $condition = $split[2] ?? NULL;
+
+            $this->where($column, $parameters[0], $condition);
+
+            return $this;
+        }
         else
         {
-            die(\Errors::message
-            (
-                'Error',
-                'undefinedFunction',
-                Classes::onlyName(__CLASS__)."::$method()"
-            ));
+            return $this->get($method);
         }
     }
 
