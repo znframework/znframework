@@ -408,6 +408,7 @@ class InternalDB extends Connection implements InternalDBInterface
     public function __call($method, $parameters)
     {
         $method = strtolower($originMethodName = $method);
+        $length = strlen($method);
 
         if( in_array($method, $this->functionElements) )
         {
@@ -450,20 +451,48 @@ class InternalDB extends Connection implements InternalDBInterface
         {
             return $this->db->statements($method, ...$parameters);
         }
-        elseif( stripos($method, 'where') === 0|| stripos($method, 'having') === 0 )
+        elseif( stripos($method, 'where') === 0 || stripos($method, 'having') === 0 )
         {
             $split     = Strings::splitUpperCase($originMethodName);
             $met       = $split[0];
             $column    = $split[1];
             $condition = $split[2] ?? NULL;
+            $operator  = isset($parameters[1]) ? ' ' . $parameters[1] : NULL;
 
-            $this->$met($column, $parameters[0], $condition);
+            $this->$met($column . $operator, $parameters[0], $condition);
 
             return $this;
         }
+        elseif
+        (
+            stripos($method, 'delete') === ($length - 6) ||
+            stripos($method, 'update') === ($length - 6) ||
+            stripos($method, 'insert') === ($length - 6)
+        )
+        {
+            $split  = Strings::splitUpperCase($originMethodName);
+            $table  = $split[0];
+            $method = $split[1];
+
+            return $this->$method($table, $parameters[0] ?? NULL);
+        }
         else
         {
-            return $this->get($method);
+            if( stripos($method, 'row') === ($length - 3) || stripos($method, 'result') === ($length - 6) )
+            {
+                $split  = Strings::splitUpperCase($originMethodName);
+                $method = $split[0];
+                $result = strtolower($split[1]);
+            }
+
+            $return = $this->get($method);
+
+            if( ! isset($result) )
+            {
+                return $return;
+            }
+
+            return $return->$result($parameters[0] ?? ($result === 'row' ? 0 : 'object'));
         }
     }
 
