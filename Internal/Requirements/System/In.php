@@ -445,6 +445,27 @@ class In
                 die(Errors::message('Error', 'callUserFuncArrayError', $controllerFunc));
             }
 
+            $exclude = $controllerClass . '::exclude';
+            $include = $controllerClass . '::include';
+
+            // Note: Added Control 5.2.0
+            if( defined($exclude) )
+            {
+                if( in_array(CURRENT_CFURI, $controllerClass::exclude) || in_array(CURRENT_CONTROLLER, $controllerClass::exclude) )
+                {
+                    return false;
+                }
+            }
+
+            // Note: Added Control 5.2.0
+            if( defined($include) )
+            {
+                if( ! in_array(CURRENT_CFURI, $controllerClass::include) && ! in_array(CURRENT_CONTROLLER, $controllerClass::include) )
+                {
+                    return false;
+                }
+            }
+
             $startingControllerClass = uselib($controllerClass);
 
             $return = $startingControllerClass->$controllerFunc(...$param);

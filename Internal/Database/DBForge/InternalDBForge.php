@@ -1,5 +1,7 @@
 <?php namespace ZN\Database;
 
+use Strings;
+
 class InternalDBForge extends Connection implements InternalDBForgeInterface
 {
     //--------------------------------------------------------------------------------------------------------
@@ -28,6 +30,57 @@ class InternalDBForge extends Connection implements InternalDBForgeInterface
     //
     //--------------------------------------------------------------------------------------------------------
     protected $forge;
+
+    //--------------------------------------------------------------------------------------------------------
+    // Magic Call
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $method
+    // @param array  $parameters
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function __call($method, $parameters)
+    {
+        $method = strtolower($originMethodName = $method);
+        $length = strlen($method);
+        $split  = Strings::splitUpperCase($originMethodName);
+        $table  = $split[0];
+
+        if( stripos($method, 'create') === ($length - 6) )
+        {
+            $method = 'createTable';
+
+            return $this->$method($table, ...$parameters);
+        }
+
+        if( stripos($method, 'drop') === ($length - 4) )
+        {
+            $method = 'dropTable';
+
+            return $this->$method($table, ...$parameters);
+        }
+
+        if( stripos($method, 'alter') === ($length - 5) )
+        {
+            $method = 'alterTable';
+
+            return $this->$method($table, ...$parameters);
+        }
+
+        if( stripos($method, 'rename') === ($length - 6) )
+        {
+            $method = 'renameTable';
+
+            return $this->$method($table, ...$parameters);
+        }
+
+        if( stripos($method, 'truncate') === ($length - 8) )
+        {
+            $method = 'truncate';
+
+            return $this->$method($table, ...$parameters);
+        }
+    }
 
     //--------------------------------------------------------------------------------------------------------
     // Construct
