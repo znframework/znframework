@@ -27,7 +27,7 @@
         else
         {
             $calledClass = get_called_class();
-            $namespace   = str_ireplace(\Strings::divide($calledClass, '\\', -1), NULL, $calledClass);
+            $namespace   = str_ireplace(Strings::divide($calledClass, '\\', -1), NULL, $calledClass);
         }
 
         $class = $namespace.$class;

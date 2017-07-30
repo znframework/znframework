@@ -54,11 +54,11 @@
 
         if( $type === 'multiple' )
         {
-            $this->lang = array_merge((array) $this->lang, (array) \Lang::select($langEx->name));
+            $this->lang = array_merge((array) $this->lang, (array) Lang::select($langEx->name));
         }
         else
         {
-            $this->lang = \Lang::select($langEx->name);
+            $this->lang = Lang::select($langEx->name);
         }
 
         if( $langEx->key !== NULL )
@@ -101,9 +101,9 @@
 
         return (object)
         [
-            'name' => $name,
-            'key'  => $key,
-            'const' => \Autoloader::upper($const)
+            'name'  => $name,
+            'key'   => $key,
+            'const' => Autoloader::upper($const)
         ];
     }
 }

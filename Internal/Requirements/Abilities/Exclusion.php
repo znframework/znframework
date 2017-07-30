@@ -20,7 +20,7 @@
     //--------------------------------------------------------------------------------------------------------
     public function __construct(String $file, String $message = NULL, $changed = NULL)
     {
-        if( $data = \Lang::select($file, $message, $changed) )
+        if( $data = Lang::select($file, $message, $changed) )
         {
             $message = $data;
         }
@@ -43,6 +43,6 @@
     //--------------------------------------------------------------------------------------------------------
     public function continue()
     {
-        echo \Exceptions::continue($this->getMessage(), $this->getFile(), $this->getLine());
+        echo Exceptions::continue($this->getMessage(), $this->getFile(), $this->getLine());
     }
 }

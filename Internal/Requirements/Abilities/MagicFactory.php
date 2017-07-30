@@ -17,7 +17,7 @@
         }
 
         $originMethodName = $method;
-        $method           = \Autoloader::lower($method);
+        $method           = Autoloader::lower($method);
         $calledClass      = get_called_class();
 
         if( ! isset(static::factory['methods'][$method]) )
@@ -45,7 +45,7 @@
                 $isThis = 'this';
             }
 
-            $namespace   = str_ireplace(\Strings::divide($calledClass, '\\', -1), NULL, $calledClass);
+            $namespace   = str_ireplace(Strings::divide($calledClass, '\\', -1), NULL, $calledClass);
 
             $return = uselib($namespace.$class)->$method(...$parameters);
 

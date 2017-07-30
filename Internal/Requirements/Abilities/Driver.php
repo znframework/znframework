@@ -1,6 +1,5 @@
 <?php
 
-use Coalesce;
 use ZN\Requirements\Abilities\Exception\UndefinedConstException;
 
 trait DriverAbility

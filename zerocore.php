@@ -20,9 +20,10 @@ define('REQUIRED_PHP_VERSION', '7.0.0');
 //--------------------------------------------------------------------------------------------------
 // REQUIREMENT CONSTANTS
 //--------------------------------------------------------------------------------------------------
+define('PROJECT_TYPE'                , 'EIP'                                                      );
 define('DS'                          , DIRECTORY_SEPARATOR                                        );
 define('REAL_BASE_DIR'               , realpath(__DIR__) . DS                                     );
-define('INTERNAL_DIR'                , REAL_BASE_DIR . 'Internal' . DS                            );
+define('INTERNAL_DIR' , REAL_BASE_DIR . (PROJECT_TYPE === 'SE' ? 'Libraries' : 'Internal') . DS   );
 define('PROJECT_CONTROLLER_NAMESPACE', 'Project\Controllers\\'                                    );
 define('PROJECT_COMMANDS_NAMESPACE'  , 'Project\Commands\\'                                       );
 define('EXTERNAL_COMMANDS_NAMESPACE' , 'External\Commands\\'                                      );
@@ -30,8 +31,8 @@ define('DIRECTORY_INDEX'             , 'zeroneed.php'                           
 define('INTERNAL_ACCESS'             , 'Internal'                                                 );
 define('BASE_DIR'                    , explode(DIRECTORY_INDEX, $_SERVER['SCRIPT_NAME'])[0] ?? '/');
 define('PROJECTS_DIR'                , REAL_BASE_DIR.'Projects'.DS                                );
-define('EXTERNAL_DIR'                , REAL_BASE_DIR.'External'.DS                                );
-define('SETTINGS_DIR'                , 'Settings'.DS                                              );
+define('EXTERNAL_DIR'                , REAL_BASE_DIR.(PROJECT_TYPE === 'SE' ? '' : 'External'.DS) );
+define('SETTINGS_DIR'                , (PROJECT_TYPE === 'SE' ? 'Config' : 'Settings').DS         );
 //--------------------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------------------
@@ -1161,7 +1162,13 @@ function presuffix(String $string = NULL, String $fix = '/') : String
 //--------------------------------------------------------------------------------------------------
 function internalProjectContainerDir($path = NULL) : String
 {
-    $path                = suffix($path, DS);
+    $path = suffix($path, DS);
+
+    if( PROJECT_TYPE === 'SE' )
+    {
+        return $path;
+    }
+
     $containers          = PROJECTS_CONFIG['containers'];
     $containerProjectDir = PROJECT_DIR . $path;
 
@@ -1184,6 +1191,14 @@ function internalProjectContainerDir($path = NULL) : String
 //--------------------------------------------------------------------------------------------------
 function internalCurrentProject()
 {
+    if( PROJECT_TYPE === 'SE' )
+    {
+        define('CURRENT_PROJECT', NULL);
+        define('PROJECT_DIR'    , NULL);
+
+        return false;
+    }
+
     $projectConfig = PROJECTS_CONFIG['directory']['others'];
     $projectDir    = $projectConfig;
 

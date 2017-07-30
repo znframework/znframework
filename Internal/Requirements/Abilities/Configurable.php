@@ -1,4 +1,5 @@
 <?php
+
 use ZN\Requirements\Abilities\Exception\UndefinedConstException;
 
 trait ConfigurableAbility
@@ -112,7 +113,7 @@ trait ConfigurableAbility
         [
             'name'  => $name,
             'key'   => $key,
-            'const' => \Autoloader::upper($const)
+            'const' => Autoloader::upper($const)
         ];
     }
 }
