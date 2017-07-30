@@ -1,6 +1,6 @@
 <?php namespace ZN\Database;
 
-use Strings;
+use Strings, Support;
 
 class InternalDBForge extends Connection implements InternalDBForgeInterface
 {
@@ -41,45 +41,21 @@ class InternalDBForge extends Connection implements InternalDBForgeInterface
     //--------------------------------------------------------------------------------------------------------
     public function __call($method, $parameters)
     {
-        $method = strtolower($originMethodName = $method);
-        $length = strlen($method);
-        $split  = Strings::splitUpperCase($originMethodName);
+        $split  = Strings::splitUpperCase($originMethodName = $method);
         $table  = $split[0];
+        $method = $split[1] ?? NULL;
 
-        if( stripos($method, 'create') === ($length - 6) )
+        switch($method)
         {
-            $method = 'createTable';
-
-            return $this->$method($table, ...$parameters);
+            case 'Create'  : $method = 'createTable';
+            case 'Drop'    : $method = 'dropTable'  ;
+            case 'Alter'   : $method = 'alterTable' ;
+            case 'Rename'  : $method = 'renameTable';
+            case 'Truncate': $method = 'truncate'   ;
+            default        : Support::classMethod(get_called_class(), $originMethodName);
         }
 
-        if( stripos($method, 'drop') === ($length - 4) )
-        {
-            $method = 'dropTable';
-
-            return $this->$method($table, ...$parameters);
-        }
-
-        if( stripos($method, 'alter') === ($length - 5) )
-        {
-            $method = 'alterTable';
-
-            return $this->$method($table, ...$parameters);
-        }
-
-        if( stripos($method, 'rename') === ($length - 6) )
-        {
-            $method = 'renameTable';
-
-            return $this->$method($table, ...$parameters);
-        }
-
-        if( stripos($method, 'truncate') === ($length - 8) )
-        {
-            $method = 'truncate';
-
-            return $this->$method($table, ...$parameters);
-        }
+        return $this->$method($table, ...$parameters);
     }
 
     //--------------------------------------------------------------------------------------------------------

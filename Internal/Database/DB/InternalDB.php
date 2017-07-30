@@ -408,7 +408,8 @@ class InternalDB extends Connection implements InternalDBInterface
     public function __call($method, $parameters)
     {
         $method = strtolower($originMethodName = $method);
-        $length = strlen($method);
+        $split  = Strings::splitUpperCase($originMethodName);
+        $crud   = $split[1] ?? NULL;
 
         if( in_array($method, $this->functionElements) )
         {
@@ -451,9 +452,8 @@ class InternalDB extends Connection implements InternalDBInterface
         {
             return $this->db->statements($method, ...$parameters);
         }
-        elseif( stripos($method, 'where') === 0 || stripos($method, 'having') === 0 )
+        elseif( $split[0] === 'where' || $split[0] === 'having' )
         {
-            $split     = Strings::splitUpperCase($originMethodName);
             $met       = $split[0];
             $column    = $split[1];
             $condition = $split[2] ?? NULL;
@@ -465,12 +465,11 @@ class InternalDB extends Connection implements InternalDBInterface
         }
         elseif
         (
-            stripos($method, 'delete') === ($length - 6) ||
-            stripos($method, 'update') === ($length - 6) ||
-            stripos($method, 'insert') === ($length - 6)
+            $crud === 'Delete' ||
+            $crud === 'Update' ||
+            $crud === 'Insert'
         )
         {
-            $split  = Strings::splitUpperCase($originMethodName);
             $table  = $split[0];
             $method = $split[1];
 
@@ -478,11 +477,19 @@ class InternalDB extends Connection implements InternalDBInterface
         }
         else
         {
-            if( stripos($method, 'row') === ($length - 3) || stripos($method, 'result') === ($length - 6) )
+            $func = $split[1] ?? NULL;
+
+            if( $func === 'Row' || $func === 'Result' )
             {
-                $split  = Strings::splitUpperCase($originMethodName);
                 $method = $split[0];
-                $result = strtolower($split[1]);
+                $result = strtolower($func);
+            }
+
+            if( $select = ($split[2] ?? NULL) )
+            {
+                $result = 'value';
+
+                $this->select($select);
             }
 
             $return = $this->get($method);
