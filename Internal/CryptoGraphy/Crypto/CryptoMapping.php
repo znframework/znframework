@@ -9,7 +9,7 @@ class CryptoMapping extends CLController
     // Author     : Ozan UYKUN <ozanbote@gmail.com>
     // Site       : www.znframework.com
     // License    : The MIT License
-    // Copyright  : (c) 2012-2016, znframework.com
+    // Copyright  : (c) 2012-2017, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
 
@@ -23,7 +23,7 @@ class CryptoMapping extends CLController
     const config = 'Project';
 
     //--------------------------------------------------------------------------------------------------------
-    // Encrpt
+    // Encrypt
     //--------------------------------------------------------------------------------------------------------
     //
     // @param void
@@ -35,7 +35,7 @@ class CryptoMapping extends CLController
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Decrpt
+    // Decrypt
     //--------------------------------------------------------------------------------------------------------
     //
     // @param void
