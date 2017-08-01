@@ -31,9 +31,8 @@ class SuperAlgorithm extends EncodeExtends
             $algo = 'md5';
         }
 
-        // Proje Anahatarı belirtizme bu veri yerine
-        // Proje anahtarı olarak sitenin host adresi
-        // eklenecek ek veri kabul edilir.
+        // Proje Anahtarı Belirtme
+        // Bu veri yerine Proje Anahtarı olarak sitenin host adresi, eklenecek ek veri kabul edilir.
         if( empty($projectKey) )
         {
             $additional = hash($algo, host());
