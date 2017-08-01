@@ -1,6 +1,6 @@
 <?php namespace ZN\Helpers\Converter;
 
-use Cart;
+use Cart, Strings;
 
 class Numeric
 {
@@ -111,6 +111,18 @@ class Numeric
     public function money(Int $money = 0, String $type = NULL) : String
     {
         return Cart::moneyFormat($money, $type);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Money To Number -> 5.2.0
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $money
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function moneyToNumber($money) : Float
+    {
+        return Strings::replace(Strings::divide($money, ','), '.', NULL);
     }
 
     //--------------------------------------------------------------------------------------------------------
