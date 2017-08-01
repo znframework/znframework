@@ -4,7 +4,7 @@
 [Documentation](http:s//www.znframework.com/documentation)
 
 <p>
-"ZN Framewor"k is aimed at simplicity.<br />
+"ZN Framework" is aimed at "Simplicity".<br />
 It is very easy access to objects and integration of internal/external structures with flexibility.<br />
 PHP versions 7.0.0 + are supported.<br />
 It has been complied with PSR Standarts and contains exclusively.<br />
