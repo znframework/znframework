@@ -46,6 +46,8 @@ class View
 
         Properties::$parameters = [];
 
+        $data = (array) $data;
+
         if( stristr($page, $this->templateWizardExtension) )
         {
             $data = ! empty(\ZN\In::$wizard[0])
