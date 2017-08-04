@@ -452,16 +452,33 @@ class InternalDB extends Connection implements InternalDBInterface
         {
             return $this->db->statements($method, ...$parameters);
         }
+        elseif( ($split[1] ?? NULL) === 'Join')
+        {
+            $type    = $split[0] ?? 'left';
+            $table1  = $split[2] ?? NULL;
+            $column1 = strtolower($table1 . '.' . $split[3]);
+            $table2  = $split[4] ?? NULL;
+            $column2 = strtolower($table2 . '.' . $split[5]);
+            $met     = $type . $split[1];
+
+            return $this->$met($column1, $column2, $parameters[0] ?? '=');
+        }
+        elseif( $split[0] === 'order' || $split[0] === 'group')
+        {
+            $column = strtolower($split[2] ?? NULL);
+            $type   = $split[0] === 'order' ? $split[3] ?? 'asc' : NULL;
+            $met    = $split[0] . 'By';
+
+            return $this->$met($column, $type);
+        }
         elseif( $split[0] === 'where' || $split[0] === 'having' )
         {
             $met       = $split[0];
-            $column    = $split[1];
+            $column    = strtolower($split[1]);
             $condition = $split[2] ?? NULL;
             $operator  = isset($parameters[1]) ? ' ' . $parameters[1] : NULL;
 
-            $this->$met($column . $operator, $parameters[0], $condition);
-
-            return $this;
+            return $this->$met($column . $operator, $parameters[0], $condition);
         }
         elseif
         (
