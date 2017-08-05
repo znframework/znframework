@@ -1179,6 +1179,12 @@ function internalProjectContainerDir($path = NULL) : String
                : $containerProjectDir;
     }
 
+    // 5.1.5 -> The enclosures can be the opening controller
+    if( $container = ($containers[CURRENT_PROJECT] ?? NULL) )
+    {
+        $containerProjectDir = str_replace(CURRENT_PROJECT, $container, $containerProjectDir);
+    }
+
     return $containerProjectDir;
 }
 
