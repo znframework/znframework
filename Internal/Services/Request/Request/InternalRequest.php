@@ -1,6 +1,6 @@
 <?php namespace ZN\Services\Request;
 
-use Strings;
+use Strings, Method;
 
 class InternalRequest implements InternalRequestInterface
 {
@@ -12,6 +12,24 @@ class InternalRequest implements InternalRequestInterface
     // Copyright  : (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
+
+    //--------------------------------------------------------------------------------------------------------
+    // Magic Call
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $method
+    // @param array  $parameters
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function __call($method, $parameters)
+    {
+        if( $method === 'all' )
+        {
+            return Method::request();
+        }
+
+        return Method::request($method, $parameters[0] ?? NULL);
+    }
 
     //--------------------------------------------------------------------------------------------------------
     // Scheme -> 4.3.5
