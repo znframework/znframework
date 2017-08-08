@@ -1,6 +1,7 @@
 <?php namespace ZN\Core;
 
 use Arrays, Import, Route, Throwable, Exceptions, Config, Errors, Generate, Folder, File, Restoration, URL, Lang, IS;
+use View, Masterpage;
 
 class Kernel
 {
@@ -231,25 +232,18 @@ class Kernel
 
                         $pageClass->$function(...$parameters);
 
+                        $data = array_merge((array) $pageClass->view, View::$data, ...\ZN\In::$view);
+
                         if( is_file($wizardPath) && ! IS::import($viewPath) && ! IS::import($wizardPath) )
                         {
-                            $data = (array) ( ! empty((array) $pageClass->wizard) ? $pageClass->wizard : $pageClass->view );
-
-                            $data = ! empty(\ZN\In::$wizard[0])
-                                    ? array_merge($data, ...\ZN\In::$wizard)
-                                    : array_merge($data, ...\ZN\In::$view);
-
-                            $usableView = Import::view(str_replace(PAGES_DIR, NULL, $wizardPath), $data, true);
+                            $usableView = self::_load($wizardPath, $data);
                         }
                         elseif( is_file($viewPath) && ! IS::import($viewPath) && ! IS::import($wizardPath) )
                         {
-                            $data = (array) $pageClass->view;
-                            $data = array_merge($data, ...\ZN\In::$view);
-
-                            $usableView = Import::view(str_replace(PAGES_DIR, NULL, $viewPath), $data, true);
+                            $usableView = self::_load($viewPath, $data);
                         }
 
-                        $data = array_merge((array) $pageClass->masterpage, ...\ZN\In::$masterpage);
+                        $data = array_merge((array) $pageClass->masterpage, Masterpage::$data, ...\ZN\In::$masterpage);
 
                         if( ($data['masterpage'] ?? NULL) === true || ! empty($data) )
                         {
@@ -304,5 +298,18 @@ class Kernel
         }
 
         ob_end_flush();
+    }
+
+    //--------------------------------------------------------------------------------------------------
+    // Protected Static Load
+    //--------------------------------------------------------------------------------------------------
+    //
+    // @param string $path
+    // @param array  $data
+    //
+    //--------------------------------------------------------------------------------------------------
+    protected static function _load($path, $data)
+    {
+        return Import::view(str_replace(PAGES_DIR, NULL, $path), $data, true);
     }
 }

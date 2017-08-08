@@ -1,6 +1,7 @@
 <?php namespace ZN;
 
 use Config, Import, Errors, File, GeneralException, Regex, Folder, Route, Arrays, Http, Lang, URI, URL, IS;
+use View, Masterpage;
 
 class In
 {
@@ -14,7 +15,6 @@ class In
     //--------------------------------------------------------------------------------------------------------
 
     public static $view       = [];
-    public static $wizard     = [];
     public static $masterpage = [];
 
     //--------------------------------------------------------------------------------------------------
@@ -470,9 +470,8 @@ class In
 
             $return = $startingControllerClass->$controllerFunc(...$param);
 
-            self::$view[]       = (array) $startingControllerClass->view;
-            self::$wizard[]     = (array) $startingControllerClass->wizard;
-            self::$masterpage[] = (array) $startingControllerClass->masterpage;
+            self::$view[]       = array_merge((array) $startingControllerClass->view, View::$data);
+            self::$masterpage[] = array_merge((array) $startingControllerClass->masterpage, Masterpage::$data);
         }
         else
         {
