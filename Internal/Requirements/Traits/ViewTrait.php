@@ -1,6 +1,6 @@
 <?php namespace Project\Controllers;
 
-class View
+trait ViewTrait
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -11,7 +11,19 @@ class View
     //
     //--------------------------------------------------------------------------------------------------------
 
-    use ViewTrait;
-}
+    public static $data = [];
 
-class_alias('Project\Controllers\View', 'View');
+    public static function __callStatic($method, $parameters)
+    {
+        self::$data[$method] = $parameters[0] ?? false;
+
+        return new self;
+    }
+
+    public function __call($method, $parameters)
+    {
+        self::$data[$method] = $parameters[0] ?? false;
+
+        return $this;
+    }
+}

@@ -11,12 +11,7 @@ class Masterpage
     //
     //--------------------------------------------------------------------------------------------------------
 
-    public static $data = [];
-
-    public static function __callStatic($method, $parameters)
-    {
-        self::$data[$method] = $parameters[0] ?? false;
-    }
+    use ViewTrait;
 }
 
 class_alias('Project\Controllers\Masterpage', 'Masterpage');
