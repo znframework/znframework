@@ -786,7 +786,7 @@ class InternalRoute extends CLController implements InternalRouteInterface
         {
             if( isset($this->usable[CURRENT_CFURI]['usable']) )
             {
-                if( strpos(strtolower(URI::active()), CURRENT_CFURI) === 0 )
+                if( strpos(strtolower(URI::active()), rtrim(CURRENT_CFURI, '/main')) === 0 )
                 {
                     $this->_redirect();
                 }
