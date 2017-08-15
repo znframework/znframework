@@ -1,7 +1,7 @@
 <?php namespace ZN\ViewObjects\Javascript\Helpers;
 
 use ZN\ViewObjects\JqueryTrait;
-use CallController, Json, JQ, URL, Arrays, JS, URL, IS;
+use CallController, Json, JQ, Arrays, JS, URL, IS;
 
 class Ajax extends CallController
 {

@@ -94,7 +94,7 @@ class InternalJquery extends CallController implements InternalJqueryInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function ajax(Bool $tag = false, Bool $jq = false, Bool $jqui = false) : Jquery\Helpers\Ajax
+    public function ajax(Bool $tag = false, Bool $jq = false, Bool $jqui = false) : Javascript\Helpers\Ajax
     {
         return uselib($this->_namespace('Ajax'), [$tag, $jq, $jqui]);
     }
@@ -106,7 +106,7 @@ class InternalJquery extends CallController implements InternalJqueryInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function action(Bool $tag = false, Bool $jq = false, Bool $jqui = false) : Jquery\Helpers\Action
+    public function action(Bool $tag = false, Bool $jq = false, Bool $jqui = false) : Javascript\Helpers\Action
     {
         return uselib($this->_namespace('Action'), [$tag, $jq, $jqui]);
     }
@@ -118,7 +118,7 @@ class InternalJquery extends CallController implements InternalJqueryInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function animate(Bool $tag = false, Bool $jq = false, Bool $jqui = false) : Jquery\Helpers\Animate
+    public function animate(Bool $tag = false, Bool $jq = false, Bool $jqui = false) : Javascript\Helpers\Animate
     {
         return uselib($this->_namespace('Animate'), [$tag, $jq, $jqui]);
     }
@@ -130,7 +130,7 @@ class InternalJquery extends CallController implements InternalJqueryInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function event(Bool $tag = false, Bool $jq = false, Bool $jqui = false) : Jquery\Helpers\Event
+    public function event(Bool $tag = false, Bool $jq = false, Bool $jqui = false) : Javascript\Helpers\Event
     {
         return uselib($this->_namespace('Event'), [$tag, $jq, $jqui]);
     }
@@ -145,7 +145,7 @@ class InternalJquery extends CallController implements InternalJqueryInterface
     //--------------------------------------------------------------------------------------------------------
     protected function _namespace($class)
     {
-        return 'ZN\ViewObjects\Bootstrap\Jquery\Helpers\\'.$class;
+        return 'ZN\ViewObjects\Javascript\Helpers\\'.$class;
     }
 
     //--------------------------------------------------------------------------------------------------------

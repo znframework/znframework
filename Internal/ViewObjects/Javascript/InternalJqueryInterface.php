@@ -55,7 +55,7 @@ interface InternalJqueryInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function ajax(Bool $tag = false, Bool $jq = false, Bool $jqui = false) : Jquery\Helpers\Ajax;
+    public function ajax(Bool $tag = false, Bool $jq = false, Bool $jqui = false) : Javascript\Helpers\Ajax;
 
     //--------------------------------------------------------------------------------------------------------
     // Action
@@ -64,7 +64,7 @@ interface InternalJqueryInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function action(Bool $tag = false, Bool $jq = false, Bool $jqui = false) : Jquery\Helpers\Action;
+    public function action(Bool $tag = false, Bool $jq = false, Bool $jqui = false) : Javascript\Helpers\Action;
 
     //--------------------------------------------------------------------------------------------------------
     // Animate
@@ -73,7 +73,7 @@ interface InternalJqueryInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function animate(Bool $tag = false, Bool $jq = false, Bool $jqui = false) : Jquery\Helpers\Animate;
+    public function animate(Bool $tag = false, Bool $jq = false, Bool $jqui = false) : Javascript\Helpers\Animate;
 
     //--------------------------------------------------------------------------------------------------------
     // Event
@@ -82,5 +82,5 @@ interface InternalJqueryInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function event(Bool $tag = false, Bool $jq = false, Bool $jqui = false) : Jquery\Helpers\Event;
+    public function event(Bool $tag = false, Bool $jq = false, Bool $jqui = false) : Javascript\Helpers\Event;
 }

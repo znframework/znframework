@@ -92,6 +92,6 @@ class InternalSheet extends CallController implements InternalSheetInterface
     //--------------------------------------------------------------------------------------------------------
     protected function _namespace($class)
     {
-        return 'ZN\ViewObjects\Bootstrap\Sheet\Helpers\\'.$class;
+        return 'ZN\ViewObjects\Sheet\Helpers\\'.$class;
     }
 }
