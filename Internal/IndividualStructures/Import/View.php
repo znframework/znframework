@@ -46,7 +46,7 @@ class View
 
         Properties::$parameters = [];
 
-        $data = array_merge((array) $data, ...\ZN\In::$view);
+        $data = array_merge((array) $data, Views::$data, ...\ZN\In::$view);
 
         if( stristr($page, $this->templateWizardExtension) )
         {

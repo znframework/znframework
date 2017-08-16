@@ -237,7 +237,7 @@ class Kernel
 
                         $pageClass->$function(...$parameters);
 
-                        $data = array_merge((array) $pageClass->view, View::$data, ...\ZN\In::$view);
+                        $data = (array) $pageClass->view;
 
                         if( is_file($wizardPath) && ! IS::import($viewPath) && ! IS::import($wizardPath) )
                         {
