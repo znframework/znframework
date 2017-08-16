@@ -256,7 +256,12 @@ class InternalRoute extends CLController implements InternalRouteInterface
     //--------------------------------------------------------------------------------------------------------
     public function show404(String $controllerAndMethod)
     {
-        Config::set('Services', 'route', ['show404' => $controllerAndMethod]);
+        if( empty( $this->route ) )
+        {
+            $this->change('404');
+        }
+
+        Config::set('Services', 'route', ['show404' => $this->route]);
 
         $this->uri($controllerAndMethod);
     }
