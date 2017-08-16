@@ -43,7 +43,7 @@ class Kernel
 
         headers(Config::get('General', 'headers'));
 
-        if( IS::isTimeZone($timezone = Config::get('DateTime', 'timeZone')) )
+        if( IS::timeZone($timezone = Config::get('DateTime', 'timeZone')) )
         {
             date_default_timezone_set($timezone);
         }

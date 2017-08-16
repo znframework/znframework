@@ -13,7 +13,16 @@ class InternalIS implements InternalISInterface
     //
     //--------------------------------------------------------------------------------------------------------
 
-    public function isTimeZone(String $timezone)
+    //--------------------------------------------------------------------------------------------------
+    // timeZone() -> 5.2.6
+    //--------------------------------------------------------------------------------------------------
+    //
+    // @param string $timezone
+    //
+    // @return bool
+    //
+    //--------------------------------------------------------------------------------------------------
+    public function timeZone(String $timezone) : Bool
     {
         return Arrays::valueExists(timezone_identifiers_list(), $timezone);
     }
