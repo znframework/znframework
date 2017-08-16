@@ -43,6 +43,11 @@ class Kernel
 
         headers(Config::get('General', 'headers'));
 
+        if( IS::isTimeZone($timezone = Config::get('DateTime', 'timeZone')) )
+        {
+            date_default_timezone_set($timezone);
+        }
+
         if( PROJECT_MODE !== 'publication' )
         {
             set_error_handler('Exceptions::table');

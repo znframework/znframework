@@ -48,8 +48,6 @@ class DateTimeCommon extends Carbon
 
         $this->config = Config::get('DateTime');
 
-        date_default_timezone_set($this->config['timeZone']);
-
         setlocale(LC_ALL, $this->config['setLocale']['charset'], $this->config['setLocale']['language']);
     }
 
