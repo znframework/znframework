@@ -6,7 +6,6 @@ class Home extends Controller
     {
         // Simplicity is our choice, how about yours ?
 
-        $this->view->title    = 'ZN5 ORIGINAL';
-        $this->view->subtitle = 'Community Edition';
+        View::title('ZN5 ORIGINAL')->subtitle('Community Edition');
     }
 }
