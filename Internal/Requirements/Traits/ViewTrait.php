@@ -82,6 +82,11 @@ trait ViewTrait
             {
                 $parameters = Collection::data($parameters)->removeFirst()->addLast(true)->get();
 
+                if( strstr('page|view|something', $met) && ! is_array($parameters[0]) )
+                {
+                    $parameters = Arrays::addFirst($parameters, NULL);
+                }
+
                 self::$data[$method] = Import::$met($ex[1] ?? NULL, ...$parameters);
             }
         }

@@ -1,5 +1,7 @@
 <?php namespace Project\Controllers;
 
+use Import;
+
 class View
 {
     //--------------------------------------------------------------------------------------------------------
@@ -12,6 +14,11 @@ class View
     //--------------------------------------------------------------------------------------------------------
 
     use ViewTrait;
+
+    public static function get(String $file = NULL, $usable = false)
+    {
+        return Import::view($file, [], $usable);
+    }
 }
 
 class_alias('Project\Controllers\View', 'View');
