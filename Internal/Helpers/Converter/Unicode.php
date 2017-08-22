@@ -200,7 +200,7 @@ class Unicode
     //--------------------------------------------------------------------------------------------------------
     public function slug(String $str) : String
     {
-        $str = $this->accent($str);
+        $str = $this->accent(trim($str));
         $str = preg_replace('/&\w+\;/', '' , $str);
         $str = preg_replace("/\s+/"   , '_', $str);
         $str = preg_replace("/\W/"    , '' , $str);
