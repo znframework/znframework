@@ -48,12 +48,12 @@ class View
 
         $data = array_merge((array) $data, Views::$data, ...\ZN\In::$view);
 
-        if( stristr($page, $this->templateWizardExtension) )
+        if( is_file($randomPageDir . suffix($page, '.php')) && ! strstr($page, $this->templateWizardExtension) )
         {
-            return $this->_templateWizard($page, $data, $obGetContents, $randomPageDir);
+            return $this->_page($page, $data, $obGetContents, $randomPageDir);
         }
 
-        return $this->_page($page, $data, $obGetContents, $randomPageDir);
+        return $this->_templateWizard(suffix(rtrim($page, '.php'), $this->templateWizardExtension), $data, $obGetContents, $randomPageDir);
     }
 
     //--------------------------------------------------------------------------------------------------------
