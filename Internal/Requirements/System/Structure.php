@@ -177,10 +177,23 @@ class Structure
         [
             'parameters'   => $parameters,
             'page'         => $page,
-            'file'         => str_replace(['/', '\\'], DS, $isFile),
+            'file'         => self::_realSeparator($isFile),
             'function'     => $function,
             'namespace'    => $namespace,
-            'openFunction' => $openFunction
+            'openFunction' => $openFunction,
+            'subdir'       => self::_realSeparator($ifTrim ?? NULL)
         ];
+    }
+
+    //--------------------------------------------------------------------------------------------------
+    // Protected Real Separator
+    //--------------------------------------------------------------------------------------------------
+    //
+    // @param string $data = NULL
+    //
+    //--------------------------------------------------------------------------------------------------
+    protected static function _realSeparator($data = NULL)
+    {
+        return str_replace(['/', '\\'], DS, $data);
     }
 }

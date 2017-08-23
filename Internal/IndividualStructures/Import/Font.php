@@ -28,6 +28,7 @@ class Font extends BootstrapExtends
         $lastParam = $args->lastParam;
         $arguments = $args->arguments;
         $links     = $args->cdnLinks;
+        $strEx     = NULL;
 
         foreach( $arguments as $font )
         {
@@ -36,57 +37,45 @@ class Font extends BootstrapExtends
                 $font = '';
             }
 
-            $f = \Strings::divide($font, "/", -1);
-            // SVG IE VE MOZILLA DESTEKLEMIYOR
+            $f = $this->_fontName($font);
 
-            $fontFile = FONTS_DIR.$font;
+            $fontFile = FONTS_DIR . $font;
 
-            if( ! is_file($fontFile) )
+            if( ! is_file($fontFile) && is_dir($fontFile) )
             {
                 $fontFile = EXTERNAL_FONTS_DIR.$font;
             }
 
             $baseUrl  = URL::base($fontFile);
 
-            if( File::extension($fontFile) )
+            if( is_file(suffix($fontFile, '.svg')) )
             {
-                if( is_file($fontFile) )
-                {
-                    $strEx = Import::something($fontFile, NULL, true);
-
-                    break;
-                }
+                $str .= $this->_face($f, $baseUrl, 'svg');
             }
 
-            if( is_file($fontFile.".svg") )
+            if( is_file(suffix($fontFile, '.woff')) )
             {
-                $str .= '@font-face{font-family:"'.$f.'"; src:url("'.$baseUrl.'.svg") format("truetype")}'.$eol;
-            }
-
-            if( is_file($fontFile.".woff") )
-            {
-                $str .= '@font-face{font-family:"'.$f.'"; src:url("'.$baseUrl.'.woff") format("truetype")}'.$eol;
+                $str .= $this->_face($f, $baseUrl, 'woff');
             }
 
             // OTF IE VE CHROME DESTEKLEMIYOR
-            if( is_file($fontFile.".otf") )
+            if( is_file(suffix($fontFile, '.otf')) )
             {
-                $str .= '@font-face{font-family:"'.$f.'"; src:url("'.$baseUrl.'.otf") format("truetype")}'.$eol;
+                $str .= $this->_face($f, $baseUrl, 'otf');
             }
 
             // TTF IE DESTEKLEMIYOR
-            if( is_file($fontFile.".ttf") )
+            if( is_file(suffix($fontFile, '.ttf')) )
             {
-                $str .= '@font-face{font-family:"'.$f.'"; src:url("'.$baseUrl.'.ttf") format("truetype")}'.$eol;
+                $str .= $this->_face($f, $baseUrl, 'ttf');
             }
 
             // CND ENTEGRASYON
-
             $cndFont = isset($links[strtolower($font)]) ? $links[strtolower($font)] : NULL;
 
             if( ! empty($cndFont) )
             {
-                $str .= '@font-face{font-family:"'.\Strings::divide(File::removeExtension($cndFont), "/", -1).'"; src:url("'.$cndFont.'") format("truetype")}'.$eol;
+                $str .= $this->_face($this->_fontName($cndFont), $cndFont);
             }
 
             // FARKLI FONTLAR
@@ -98,27 +87,22 @@ class Font extends BootstrapExtends
                 {
                     if( is_file($fontFile.prefix($of, '.')) )
                     {
-                        $str .= '@font-face{font-family:"'.$f.'"; src:url("'.$baseUrl.prefix($of, '.').'") format("truetype")}'.$eol;
+                        $str .= $this->_face($f, $baseUrl . prefix($of, '.'));
                     }
                 }
             }
 
             // EOT IE DESTEKLIYOR
-            if( is_file($fontFile.".eot") )
+            if( is_file(suffix($fontFile, '.eot')) )
             {
                 $str .= '<!--[if IE]>';
-                $str .= '@font-face{font-family:"'.$f.'"; src:url("'.$baseUrl.'.eot") format("truetype")}';
+                $str .= $this->_face($f, $baseUrl, 'eot');
                 $str .= '<![endif]-->';
                 $str .= $eol;
             }
         }
 
         $str .= '</style>'.$eol;
-
-        if( isset($strEx) )
-        {
-            $str = $strEx;
-        }
 
         if( ! empty($str) )
         {
@@ -135,5 +119,51 @@ class Font extends BootstrapExtends
         {
             return false;
         }
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected fontName()
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $font
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _fontName($font)
+    {
+        $divide = explode('/', $font);
+
+        $sub  = NULL;
+        $name = $divide[0];
+
+        if( $sub = ($divide[1] ?? NULL) )
+        {
+            if( $name === $sub )
+            {
+                $sub = NULL;
+            }
+        }
+
+        return $name . $sub;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected face()
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $f
+    // @param string $baseUrl
+    // @param string $extension
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _face($f, $baseUrl, $extension = NULL)
+    {
+        $base = $baseUrl;
+
+        if( $extension !== NULL )
+        {
+            $base = suffix($baseUrl, '.' . $extension);
+        }
+
+        return '@font-face{font-family:"' . File::removeExtension($f) . '"; src:url("' . $base . '") format("truetype")}' . EOL;
     }
 }

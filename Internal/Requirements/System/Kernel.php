@@ -222,18 +222,17 @@ class Kernel
                         if( $viewNameType === 'file' )
                         {
                             $viewFunction = $function === $openFunction ? NULL : '-' . $function;
-                            $viewDir      = PAGES_DIR . $view . $viewFunction;
+                            $viewDir      = self::_view($view, $viewFunction);
                         }
                         else
                         {
                             $viewFunction = $function === $openFunction ? $openFunction : $function;
-                            $viewDir      = PAGES_DIR . $view . DS . $viewFunction;
+                            $viewDir      = self::_view($view, DS . $viewFunction);
                         }
 
                         $viewPath   = $viewDir . '.php';
                         $wizardPath = $viewDir . '.wizard.php';
-
-                        $pageClass = uselib($page);
+                        $pageClass  = uselib($page);
 
                         $pageClass->$function(...$parameters);
 
@@ -303,6 +302,24 @@ class Kernel
         }
 
         ob_end_flush();
+    }
+
+    //--------------------------------------------------------------------------------------------------
+    // Protected Static View -> 5.2.73
+    //--------------------------------------------------------------------------------------------------
+    //
+    // @param string $view
+    // @param strnig $fix
+    //
+    //--------------------------------------------------------------------------------------------------
+    protected static function _view($view, $fix)
+    {
+        if( $subdir = STRUCTURE_DATA['subdir'] )
+        {
+            $view = $subdir;
+        }
+
+        return PAGES_DIR . $view . $fix;
     }
 
     //--------------------------------------------------------------------------------------------------
