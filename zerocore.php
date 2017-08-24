@@ -10,28 +10,29 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-defined('REAL_BASE_DIR') || exit('You do not have permission to access this file!');
-
 //--------------------------------------------------------------------------------------------------
 // VERSION INFO CONSTANTS
 //--------------------------------------------------------------------------------------------------
-define('ZN_VERSION'          , '5.0.0');
+define('ZN_VERSION'          , '5.2.74');
 define('REQUIRED_PHP_VERSION', '7.0.0');
 //--------------------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------------------
 // REQUIREMENT CONSTANTS
 //--------------------------------------------------------------------------------------------------
-define('INTERNAL_DIR'                , REAL_BASE_DIR . 'Internal' . DS                            );
+define('PROJECT_TYPE'                , 'EIP'                                                      );
+define('DS'                          , DIRECTORY_SEPARATOR                                        );
+define('REAL_BASE_DIR'               , realpath(__DIR__) . DS                                     );
+define('INTERNAL_DIR' , REAL_BASE_DIR . (PROJECT_TYPE === 'SE' ? 'Libraries' : 'Internal') . DS   );
 define('PROJECT_CONTROLLER_NAMESPACE', 'Project\Controllers\\'                                    );
 define('PROJECT_COMMANDS_NAMESPACE'  , 'Project\Commands\\'                                       );
 define('EXTERNAL_COMMANDS_NAMESPACE' , 'External\Commands\\'                                      );
 define('DIRECTORY_INDEX'             , 'zeroneed.php'                                             );
 define('INTERNAL_ACCESS'             , 'Internal'                                                 );
-define('REQUEST_URI'                 , $_SERVER['REQUEST_URI'] ?? NULL                            );
 define('BASE_DIR'                    , explode(DIRECTORY_INDEX, $_SERVER['SCRIPT_NAME'])[0] ?? '/');
 define('PROJECTS_DIR'                , REAL_BASE_DIR.'Projects'.DS                                );
-define('EXTERNAL_DIR'                , REAL_BASE_DIR.'External'.DS                                );
+define('EXTERNAL_DIR'                , REAL_BASE_DIR.(PROJECT_TYPE === 'SE' ? '' : 'External'.DS) );
+define('SETTINGS_DIR'                , (PROJECT_TYPE === 'SE' ? 'Config' : 'Settings').DS         );
 //--------------------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------------------
@@ -49,10 +50,13 @@ define('FF'  , "\f"   );
 //--------------------------------------------------------------------------------------------------
 // REQUIREMENT CONSTANTS
 //--------------------------------------------------------------------------------------------------
-define('PROJECTS_CONFIG'    , import(PROJECTS_DIR . 'Projects.php')  );
-define('DEFAULT_PROJECT'    , PROJECTS_CONFIG['directory']['default']);
-define('EXTERNAL_CONFIG_DIR', EXTERNAL_DIR . 'Config'.DS             );
-define('INTERNAL_CONFIG_DIR', INTERNAL_DIR . 'Config'.DS             );
+define('PROJECTS_CONFIG'    , import
+(
+    (is_file(PROJECTS_DIR . 'Projects.php') ? PROJECTS_DIR : SETTINGS_DIR) . 'Projects.php'
+));
+define('DEFAULT_PROJECT'    , PROJECTS_CONFIG['directory']['default'] );
+define('EXTERNAL_CONFIG_DIR', EXTERNAL_DIR . 'Config'.DS              );
+define('INTERNAL_CONFIG_DIR', INTERNAL_DIR . 'Config'.DS              );
 //--------------------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------------------
@@ -72,58 +76,69 @@ internalCurrentProject();
 // vary according to the project name. It can be quite useful for you.
 //
 //--------------------------------------------------------------------------------------------------
-define('ROUTES_DIR'            , internalProjectContainerDir('Routes')               );
-define('EXTERNAL_ROUTES_DIR'   , EXTERNAL_DIR.'Routes'.DS                            );
-define('DATABASES_DIR'         , internalProjectContainerDir('Databases')            );
-define('CONFIG_DIR'            , internalProjectContainerDir('Config')               );
-define('STORAGE_DIR'           , PROJECT_DIR.'Storage'.DS                            );
-define('COMMANDS_DIR'          , internalProjectContainerDir('Commands')             );
-define('EXTERNAL_COMMANDS_DIR' , EXTERNAL_DIR.'Commands'.DS                          );
-define('RESOURCES_DIR'         , internalProjectContainerDir('Resources')            );
-define('EXTERNAL_RESOURCES_DIR', EXTERNAL_DIR.'Resources'.DS                         );
-define('STARTING_DIR'          , internalProjectContainerDir('Starting')             );
-define('EXTERNAL_STARTING_DIR' , EXTERNAL_DIR.'Starting'.DS                          );
-define('AUTOLOAD_DIR'          , STARTING_DIR.'Autoload'.DS                          );
-define('EXTERNAL_AUTOLOAD_DIR' , EXTERNAL_STARTING_DIR.'Autoload'.DS                 );
-define('HANDLOAD_DIR'          , STARTING_DIR.'Handload'.DS                          );
-define('EXTERNAL_HANDLOAD_DIR' , EXTERNAL_STARTING_DIR.'Handload'.DS                 );
-define('INTERNAL_LANGUAGES_DIR', INTERNAL_DIR.'Languages'.DS                         );
-define('LANGUAGES_DIR'         , internalProjectContainerDir('Languages')            );
-define('EXTERNAL_LANGUAGES_DIR', EXTERNAL_DIR.'Languages'.DS                         );
-define('INTERNAL_LIBRARIES_DIR', INTERNAL_DIR.'Libraries'.DS                         );
-define('REQUIREMENTS_DIR'      , INTERNAL_LIBRARIES_DIR.'Requirements'.DS.'System'.DS);
-define('LIBRARIES_DIR'         , internalProjectContainerDir('Libraries')            );
-define('EXTERNAL_LIBRARIES_DIR', EXTERNAL_DIR.'Libraries'.DS                         );
-define('CONTROLLERS_DIR'       , PROJECT_DIR.'Controllers'.DS                        );
-define('MODELS_DIR'            , internalProjectContainerDir('Models')               );
-define('EXTERNAL_MODELS_DIR'   , EXTERNAL_DIR.'Models'.DS                            );
-define('VIEWS_DIR'             , PROJECT_DIR.'Views'.DS                              );
-define('PAGES_DIR'             , VIEWS_DIR                                           );
-define('PROCESSOR_DIR'         , RESOURCES_DIR.'Processor'.DS                        );
-define('EXTERNAL_PROCESSOR_DIR', EXTERNAL_RESOURCES_DIR.'Processor'.DS               );
-define('FILES_DIR'             , RESOURCES_DIR.'Files'.DS                            );
-define('EXTERNAL_FILES_DIR'    , EXTERNAL_RESOURCES_DIR.'Files'.DS                   );
-define('FONTS_DIR'             , RESOURCES_DIR.'Fonts'.DS                            );
-define('EXTERNAL_FONTS_DIR'    , EXTERNAL_RESOURCES_DIR.'Fonts'.DS                   );
-define('SCRIPTS_DIR'           , RESOURCES_DIR.'Scripts'.DS                          );
-define('EXTERNAL_SCRIPTS_DIR'  , EXTERNAL_RESOURCES_DIR.'Scripts'.DS                 );
-define('STYLES_DIR'            , RESOURCES_DIR.'Styles'.DS                           );
-define('EXTERNAL_STYLES_DIR'   , EXTERNAL_RESOURCES_DIR.'Styles'.DS                  );
-define('TEMPLATES_DIR'         , RESOURCES_DIR.'Templates'.DS                        );
-define('EXTERNAL_TEMPLATES_DIR', EXTERNAL_RESOURCES_DIR.'Templates'.DS               );
-define('THEMES_DIR'            , RESOURCES_DIR.'Themes'.DS                           );
-define('EXTERNAL_THEMES_DIR'   , EXTERNAL_RESOURCES_DIR.'Themes'.DS                  );
-define('PLUGINS_DIR'           , RESOURCES_DIR.'Plugins'.DS                          );
-define('EXTERNAL_PLUGINS_DIR'  , EXTERNAL_RESOURCES_DIR.'Plugins'.DS                 );
-define('UPLOADS_DIR'           , RESOURCES_DIR.'Uploads'.DS                          );
-define('EXTERNAL_UPLOADS_DIR'  , EXTERNAL_RESOURCES_DIR.'Uploads'.DS                 );
-define('INTERNAL_TEMPLATES_DIR', INTERNAL_DIR.'Templates'.DS                         );
+define('ROUTES_DIR'            , internalProjectContainerDir('Routes')     );
+define('EXTERNAL_ROUTES_DIR'   , EXTERNAL_DIR.'Routes'.DS                  );
+define('DATABASES_DIR'         , internalProjectContainerDir('Databases')  );
+define('CONFIG_DIR'            , internalProjectContainerDir('Config')     );
+define('STORAGE_DIR'           , PROJECT_DIR.'Storage'.DS                  );
+define('COMMANDS_DIR'          , internalProjectContainerDir('Commands')   );
+define('EXTERNAL_COMMANDS_DIR' , EXTERNAL_DIR.'Commands'.DS                );
+define('RESOURCES_DIR'         , internalProjectContainerDir('Resources')  );
+define('EXTERNAL_RESOURCES_DIR', EXTERNAL_DIR.'Resources'.DS               );
+define('STARTING_DIR'          , internalProjectContainerDir('Starting')   );
+define('EXTERNAL_STARTING_DIR' , EXTERNAL_DIR.'Starting'.DS                );
+define('AUTOLOAD_DIR'          , STARTING_DIR.'Autoload'.DS                );
+define('EXTERNAL_AUTOLOAD_DIR' , EXTERNAL_STARTING_DIR.'Autoload'.DS       );
+define('HANDLOAD_DIR'          , STARTING_DIR.'Handload'.DS                );
+define('EXTERNAL_HANDLOAD_DIR' , EXTERNAL_STARTING_DIR.'Handload'.DS       );
+define('INTERNAL_LANGUAGES_DIR', INTERNAL_DIR.'Languages'.DS               );
+define('LANGUAGES_DIR'         , internalProjectContainerDir('Languages')  );
+define('EXTERNAL_LANGUAGES_DIR', EXTERNAL_DIR.'Languages'.DS               );
+define('INTERNAL_LIBRARIES_DIR', INTERNAL_DIR.'Libraries'.DS               );
+define('REQUIREMENTS_DIR'      , INTERNAL_DIR.'Requirements'.DS.'System'.DS);
+define('LIBRARIES_DIR'         , internalProjectContainerDir('Libraries')  );
+define('EXTERNAL_LIBRARIES_DIR', EXTERNAL_DIR.'Libraries'.DS               );
+define('CONTROLLERS_DIR'       , PROJECT_DIR.'Controllers'.DS              );
+define('MODELS_DIR'            , internalProjectContainerDir('Models')     );
+define('EXTERNAL_MODELS_DIR'   , EXTERNAL_DIR.'Models'.DS                  );
+define('VIEWS_DIR'             , PROJECT_DIR.'Views'.DS                    );
+define('PAGES_DIR'             , VIEWS_DIR                                 );
+define('PROCESSOR_DIR'         , RESOURCES_DIR.'Processor'.DS              );
+define('EXTERNAL_PROCESSOR_DIR', EXTERNAL_RESOURCES_DIR.'Processor'.DS     );
+define('FILES_DIR'             , RESOURCES_DIR.'Files'.DS                  );
+define('EXTERNAL_FILES_DIR'    , EXTERNAL_RESOURCES_DIR.'Files'.DS         );
+define('FONTS_DIR'             , RESOURCES_DIR.'Fonts'.DS                  );
+define('EXTERNAL_FONTS_DIR'    , EXTERNAL_RESOURCES_DIR.'Fonts'.DS         );
+define('SCRIPTS_DIR'           , RESOURCES_DIR.'Scripts'.DS                );
+define('EXTERNAL_SCRIPTS_DIR'  , EXTERNAL_RESOURCES_DIR.'Scripts'.DS       );
+define('STYLES_DIR'            , RESOURCES_DIR.'Styles'.DS                 );
+define('EXTERNAL_STYLES_DIR'   , EXTERNAL_RESOURCES_DIR.'Styles'.DS        );
+define('TEMPLATES_DIR'         , RESOURCES_DIR.'Templates'.DS              );
+define('EXTERNAL_TEMPLATES_DIR', EXTERNAL_RESOURCES_DIR.'Templates'.DS     );
+define('THEMES_DIR'            , RESOURCES_DIR.'Themes'.DS                 );
+define('EXTERNAL_THEMES_DIR'   , EXTERNAL_RESOURCES_DIR.'Themes'.DS        );
+define('PLUGINS_DIR'           , RESOURCES_DIR.'Plugins'.DS                );
+define('EXTERNAL_PLUGINS_DIR'  , EXTERNAL_RESOURCES_DIR.'Plugins'.DS       );
+define('UPLOADS_DIR'           , RESOURCES_DIR.'Uploads'.DS                );
+define('EXTERNAL_UPLOADS_DIR'  , EXTERNAL_RESOURCES_DIR.'Uploads'.DS       );
+define('INTERNAL_TEMPLATES_DIR', INTERNAL_DIR.'Templates'.DS               );
 //--------------------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------------------
 // Import Autoloader Library
 //--------------------------------------------------------------------------------------------------
 import(REQUIREMENTS_DIR . 'Autoloader.php');
+//--------------------------------------------------------------------------------------------------
+
+//--------------------------------------------------------------------------------------------------
+// STATUS CONSTANTS
+//--------------------------------------------------------------------------------------------------
+//
+// Status Constants
+//
+//--------------------------------------------------------------------------------------------------
+define('SSL_STATUS'  , ! Config::get('Services','uri')['ssl'] ? 'http://' : 'https://');
+define('INDEX_STATUS', ! Config::get('Htaccess', 'uri')['directoryIndex'] ? '' : suffix(DIRECTORY_INDEX));
 //--------------------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------------------
@@ -230,53 +245,6 @@ function length($data) : Int
     return ! is_scalar($data)
            ? count((array) $data)
            : strlen($data);
-}
-
-//--------------------------------------------------------------------------------------------------
-// Symbol
-//--------------------------------------------------------------------------------------------------
-//
-// @param string $symbolName
-//
-// @return string
-//
-//--------------------------------------------------------------------------------------------------
-function symbol(String $symbolName = 'turkishLira') : String
-{
-    return Config::get('Symbols', $symbolName);
-}
-
-//--------------------------------------------------------------------------------------------------
-// getErrorMessage()
-//--------------------------------------------------------------------------------------------------
-//
-// @param string $langFile
-// @param string $errorMsg
-// @param mixed  $ex
-//
-// @return string
-//
-//--------------------------------------------------------------------------------------------------
-function getErrorMessage(String $langFile, String $errorMsg = NULL, $ex = NULL) : String
-{
-    Errors::message($langFile, $errorMsg, $ex);
-}
-
-//--------------------------------------------------------------------------------------------------
-// report()
-//--------------------------------------------------------------------------------------------------
-//
-// @param string $subject
-// @param string $message
-// @param string $destination
-// @param string $time
-//
-// @return bool
-//
-//--------------------------------------------------------------------------------------------------
-function report(String $subject, String $message, String $destination = NULL, String $time = NULL) : Bool
-{
-    return Logger::report($subject, $message, $destination, $time);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -520,30 +488,7 @@ function prevPath(Bool $isPath = true) : String
 //--------------------------------------------------------------------------------------------------
 function redirect(String $url = NULL, Int $time = 0, Array $data = NULL, Bool $exit = true)
 {
-    if( ! isUrl((string) $url) )
-    {
-        $url = URL::site($url);
-    }
-
-    if( ! empty($data) )
-    {
-        foreach( $data as $k => $v )
-        {
-            Session::insert('redirect:' . $k, $v);
-        }
-    }
-
-    if( $time > 0 )
-    {
-        sleep($time);
-    }
-
-    header('Location: ' . $url, true);
-
-    if( $exit === true )
-    {
-        exit;
-    }
+    Redirect::location($url, $time, $data, $exit);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -557,14 +502,7 @@ function redirect(String $url = NULL, Int $time = 0, Array $data = NULL, Bool $e
 //--------------------------------------------------------------------------------------------------
 function redirectData(String $k)
 {
-    if( $data = Session::select('redirect:'.$k) )
-    {
-        return $data;
-    }
-    else
-    {
-        return false;
-    }
+    Redirect::selectData($k);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -578,64 +516,7 @@ function redirectData(String $k)
 //--------------------------------------------------------------------------------------------------
 function redirectDeleteData($data) : Bool
 {
-    if( is_array($data) ) foreach( $data as $v )
-    {
-        Session::delete('redirect:'.$v);
-    }
-    else
-    {
-        return Session::delete('redirect:'.$data);
-    }
-
-    return true;
-}
-
-//--------------------------------------------------------------------------------------------------
-// httpFix() - ZN >= 4.2.6
-//--------------------------------------------------------------------------------------------------
-//
-// @param bool $security = false
-//
-// @return string
-//
-//--------------------------------------------------------------------------------------------------
-function httpFix(Bool $security = false) : String
-{
-    return ( $security === false )
-           ? 'http://'
-           : 'https://';
-}
-
-//--------------------------------------------------------------------------------------------------
-// sslStatus()
-//--------------------------------------------------------------------------------------------------
-//
-// @param void
-//
-// @return string
-//
-//--------------------------------------------------------------------------------------------------
-function sslStatus() : String
-{
-    return ! Config::get('Services','uri')['ssl']
-           ? 'http://'
-           : 'https://';
-}
-
-//--------------------------------------------------------------------------------------------------
-// indexStatus()
-//--------------------------------------------------------------------------------------------------
-//
-// @param void
-//
-// @return string
-//
-//--------------------------------------------------------------------------------------------------
-function indexStatus() : String
-{
-    return ! Config::get('Htaccess', 'uri')['directoryIndex']
-           ? ''
-           : suffix(DIRECTORY_INDEX);
+    Redirect::deleteData($data);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -702,7 +583,7 @@ function uselib(String $class, Array $parameters = [])
 
         if( ! class_exists($class) )
         {
-            die(getErrorMessage('Error', 'classError', $class));
+            die(\Errors::message('Error', 'classError', $class));
         }
     }
 
@@ -734,7 +615,14 @@ function import(String $file)
     {
         define($constant, true);
 
-        return require $file;
+        $file = prefix($file, REAL_BASE_DIR);
+
+        if( is_file($file) )
+        {
+            return require $file;
+        }
+
+        return false;
     }
 }
 
@@ -789,7 +677,7 @@ function isPhpVersion(String $version = '5.2.4')
 //--------------------------------------------------------------------------------------------------
 function absoluteRelativePath(String $path = NULL)
 {
-    return str_replace([REAL_BASE_DIR, DS], [NULL, '/'], $path);
+    return File::absolutePath($path);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -1264,46 +1152,6 @@ function presuffix(String $string = NULL, String $fix = '/') : String
 }
 
 //--------------------------------------------------------------------------------------------------
-// divide()
-//--------------------------------------------------------------------------------------------------
-//
-// @param string $str
-// @param string $separator = '|'
-// @param scalar $index     = 0
-//
-// @return mixed
-//
-//--------------------------------------------------------------------------------------------------
-function divide(String $str = NULL, String $separator = '|', String $index = '0')
-{
-    $arrayEx = explode($separator, $str);
-
-    if( $index === 'all' )
-    {
-        return $arrayEx;
-    }
-
-    if( $index < 0 )
-    {
-        $ind = (count($arrayEx) + ($index));
-    }
-    elseif( $index === 'last' )
-    {
-        $ind = (count($arrayEx) - 1);
-    }
-    elseif( $index === 'first' )
-    {
-        $ind = 0;
-    }
-    else
-    {
-        $ind = $index;
-    }
-
-    return $arrayEx[$ind] ?? false;
-}
-
-//--------------------------------------------------------------------------------------------------
 // internalProjectContainerDir)
 //--------------------------------------------------------------------------------------------------
 //
@@ -1314,7 +1162,13 @@ function divide(String $str = NULL, String $separator = '|', String $index = '0'
 //--------------------------------------------------------------------------------------------------
 function internalProjectContainerDir($path = NULL) : String
 {
-    $path                = suffix($path, DS);
+    $path = suffix($path, DS);
+
+    if( PROJECT_TYPE === 'SE' )
+    {
+        return $path;
+    }
+
     $containers          = PROJECTS_CONFIG['containers'];
     $containerProjectDir = PROJECT_DIR . $path;
 
@@ -1323,6 +1177,12 @@ function internalProjectContainerDir($path = NULL) : String
         return ! empty($containers[_CURRENT_PROJECT]) && ! file_exists($containerProjectDir)
                ? PROJECTS_DIR . suffix($containers[_CURRENT_PROJECT], DS) . $path
                : $containerProjectDir;
+    }
+
+    // 5.1.5 -> The enclosures can be the opening controller
+    if( $container = ($containers[CURRENT_PROJECT] ?? NULL) )
+    {
+        $containerProjectDir = str_replace(CURRENT_PROJECT, $container, $containerProjectDir);
     }
 
     return $containerProjectDir;
@@ -1337,6 +1197,14 @@ function internalProjectContainerDir($path = NULL) : String
 //--------------------------------------------------------------------------------------------------
 function internalCurrentProject()
 {
+    if( PROJECT_TYPE === 'SE' )
+    {
+        define('CURRENT_PROJECT', NULL);
+        define('PROJECT_DIR'    , NULL);
+
+        return false;
+    }
+
     $projectConfig = PROJECTS_CONFIG['directory']['others'];
     $projectDir    = $projectConfig;
 
@@ -1346,7 +1214,17 @@ function internalCurrentProject()
     }
     else
     {
-        $currentPath   = server('currentPath');
+        $currentPath = server('currentPath');
+
+        // 5.0.3 -> Updated -------------------------------------------------------
+        //
+        // QUERY_STRING & REQUEST URI Empty Control
+		if( empty($currentPath) && ($requestUri = server('requestUri')) !== '/' )
+		{
+			$currentPath = $requestUri;
+		}
+        // ------------------------------------------------------------------------
+
         $internalDir   = ( ! empty($currentPath) ? explode('/', ltrim($currentPath, '/'))[0] : '' );
     }
 
