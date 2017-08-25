@@ -37,6 +37,7 @@ class TemplateWizard extends CallController implements TemplateWizardInterface
             self::_comments($htmlRegexChar),
             self::_required($htmlRegexChar),
             self::_tags($htmlRegexChar),
+            self::_jsdata($htmlRegexChar),
             self::_html($htmlAttributesTag, $htmlTagClose)
         );
 
@@ -176,6 +177,28 @@ class TemplateWizard extends CallController implements TemplateWizardInterface
             [
 
                 '/\{\-\-\s*('.$htmlRegexChar.')\s*\-\-\}/s' => '<!--$1-->'
+            ];
+        }
+
+        return $array;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected JS Data -> 5.2.75
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $htmlRegexChar
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected static function _jsdata($htmlRegexChar)
+    {
+        $array = [];
+
+        if( self::config()['jsdata'] ?? true )
+        {
+            $array =
+            [
+                '/\[\{\s*('.$htmlRegexChar.')\s*\}\]/s' => '{{$1}}',
             ];
         }
 

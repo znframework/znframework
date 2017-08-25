@@ -44,6 +44,7 @@
     // functions: @function: kullanımına izin ver.
     // comments : {-- yorum satırı --} kullanımına izin ver.
     // tags     : {[ php codes ]} php tagları olarak kullanımına izin ver.
+    // jsdata   : [{vue.data}] -> javascript data alımlar için {{vue.data}} normuna dönüştürür.
     // html     : #html kodlarını # kare symbolü ile kullanıma izin ver.
     //
     //--------------------------------------------------------------------------------------------------
@@ -54,6 +55,7 @@
         'functions' => true,
         'comments'  => true,
         'tags'      => true,
+        'jsdata'    => true,
         'html'      => false
     ],
 
