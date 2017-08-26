@@ -95,6 +95,9 @@ class Zerocore
             case 'run-command'          : self::_runClass(PROJECT_COMMANDS_NAMESPACE);  break;
             case 'run-external-command' : self::_runClass(EXTERNAL_COMMANDS_NAMESPACE); break;
             case 'run-function'         : self::_runFunction();                         break;
+            case 'upgrade'              : self::_result(\ZN::upgrade());                break;
+            case 'upgrade-files'        : self::_result(\ZN::upgradeFiles());           break;
+            case 'create-project'       : self::_result(\Generate::project(self::$command));  break;
             case 'command-list'         :
             default                     : self::_commandList();
         }
@@ -111,21 +114,24 @@ class Zerocore
     {
         echo implode
         (EOL, [
-            '+----------------------+-----------------------------------------------------+',
-            '| Command Name         | Usage of Example                                    |',
-            '+----------------------+-----------------------------------------------------+',
-            '| run-uri              | run-uri controller/function/p1/p2/.../pN            |',
-            '| run-controller       | run-controller controller/function/p1/p2/.../pN     |',
-            '| run-model            | run-model model:function p1 p2 ... pN               |',
-            '| run-class            | run-class class:function p1 p2 ... pN               |',
-            '| run-cron             | run-cron controller/method func param func param ...|',
-            '| run-cron             | run-cron command:method func param func param ...   |',
-            '| cron-list            | Cron Job List                                       |',
-            '| remove-cron          | remove-cron cronID                                  |',
-            '| run-command          | run-command command:function p1 p2 ...pN            |',
-            '| run-external-command | run-command command:function p1 p2 ...pN            |',
-            '| run-function         | run-function function p1 p2 ... pN                  |',
-            '+----------------------+-----------------------------------------------------+'
+            '+----------------------+--------------------------------------------------------------------------------+',
+            '| Command Name         | Usage of Example                                                               |',
+            '+----------------------+--------------------------------------------------------------------------------+',
+            '| upgrade              | upgrade                                                                        |',
+            '| upgrade-files        | upgrade-files                                                                  |',
+            '| create-project       | create-project project name                                                    |',
+            '| run-uri              | run-uri controller/function/p1/p2/.../pN                                       |',
+            '| run-controller       | run-controller controller/function/p1/p2/.../pN                                |',
+            '| run-model            | run-model model:function p1 p2 ... pN                                          |',
+            '| run-class            | run-class class:function p1 p2 ... pN                                          |',
+            '| run-cron             | run-cron controller/method func param func param ...                           |',
+            '| run-cron             | run-cron command:method func param func param ...                              |',
+            '| cron-list            | Cron Job List                                                                  |',
+            '| remove-cron          | remove-cron cronID                                                             |',
+            '| run-command          | run-command command:function p1 p2 ...pN                                       |',
+            '| run-external-command | run-command command:function p1 p2 ...pN                                       |',
+            '| run-function         | run-function function p1 p2 ... pN                                             |',
+            '+----------------------+--------------------------------------------------------------------------------+',
         ]);
     }
 
