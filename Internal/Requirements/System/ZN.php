@@ -64,7 +64,7 @@ class ZN
                     $dirname = self::_spath($dirname);
                     $file    = self::_spath($file);
 
-                    if( Strings::divide($file, '/', -1) === 'zerocore.php' )
+                    if( $file === 'zerocore.php' )
                     {
                         $content = str_replace(", 'EIP'", ", 'SE'", $content);
                     }
