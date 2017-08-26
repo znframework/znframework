@@ -1,0 +1,5 @@
+{
+    "require": {
+        "illuminate/queue": "^5.4"
+    }
+}
