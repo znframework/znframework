@@ -126,6 +126,7 @@ class Zerocore
             '| run-class            | run-class class:function p1 p2 ... pN                                          |',
             '| run-cron             | run-cron controller/method func param func param ...                           |',
             '| run-cron             | run-cron command:method func param func param ...                              |',
+            '| run-cron             | run-cron http://example.com/                                                   |',
             '| cron-list            | Cron Job List                                                                  |',
             '| remove-cron          | remove-cron cronID                                                             |',
             '| run-command          | run-command command:function p1 p2 ...pN                                       |',

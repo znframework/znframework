@@ -1,6 +1,6 @@
 <?php namespace Project\Controllers;
 
-use Restful, Separator, File, Folder, Arrays;
+use Restful, Separator, File, Folder, Arrays, Strings;
 
 class ZN
 {
@@ -42,13 +42,6 @@ class ZN
     //--------------------------------------------------------------------------------------------------
     const REQUIRED_PHP_VERSION = REQUIRED_PHP_VERSION;
 
-    protected static function _restful()
-    {
-        $return = Restful::post('https://api.znframework.com/statistics/upgrade', ['version' => ZN_VERSION]);
-
-        return Separator::decodeArray($return);
-    }
-
     //--------------------------------------------------------------------------------------------------
     // Protected Static Upgrade
     //--------------------------------------------------------------------------------------------------
@@ -66,6 +59,17 @@ class ZN
             {
                 $dirname = pathInfos($file, 'dirname');
 
+                if( PROJECT_TYPE === 'SE' )
+                {
+                    $dirname = self::_spath($dirname);
+                    $file    = self::_spath($file);
+
+                    if( Strings::divide($file, '/', -1) === 'zerocore.php' )
+                    {
+                        $content = str_replace(", 'EIP'", ", 'SE'", $content);
+                    }
+                }
+
                 Folder::create($dirname);
                 File::write($file, $content);
             }
@@ -77,7 +81,7 @@ class ZN
     }
 
     //--------------------------------------------------------------------------------------------------
-    // Protected Static Upgrade Files
+    // Upgrade Files
     //--------------------------------------------------------------------------------------------------
     //
     // @param void
@@ -99,6 +103,32 @@ class ZN
     public static function __callStatic($class, $parameters)
     {
         return uselib($class, $parameters);
+    }
+
+    //--------------------------------------------------------------------------------------------------
+    // Protected Static Restful
+    //--------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------
+    protected static function _restful()
+    {
+        $return = Restful::post('https://api.znframework.com/statistics/upgrade', ['version' => ZN_VERSION]);
+
+        return Separator::decodeArray($return);
+    }
+
+    //--------------------------------------------------------------------------------------------------
+    // Protected Static Spath
+    //--------------------------------------------------------------------------------------------------
+    //
+    // @param string $path
+    //
+    //--------------------------------------------------------------------------------------------------
+    protected static function _spath($path)
+    {
+        return str_replace(['Internal/', 'External/', 'Settings/'], ['Libraries/', NULL, 'Config/'], $path);
     }
 }
 
