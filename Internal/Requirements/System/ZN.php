@@ -1,5 +1,7 @@
 <?php namespace Project\Controllers;
 
+use Restful, Separator, File, Folder, Arrays;
+
 class ZN
 {
     //--------------------------------------------------------------------------------------------------
@@ -39,6 +41,52 @@ class ZN
     //
     //--------------------------------------------------------------------------------------------------
     const REQUIRED_PHP_VERSION = REQUIRED_PHP_VERSION;
+
+    protected static function _restful()
+    {
+        $return = Restful::post('https://api.znframework.com/statistics/upgrade', ['version' => ZN_VERSION]);
+
+        return Separator::decodeArray($return);
+    }
+
+    //--------------------------------------------------------------------------------------------------
+    // Protected Static Upgrade
+    //--------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------
+    public static function upgrade()
+    {
+        $return = self::_restful();
+
+        if( ! empty($return) )
+        {
+            foreach( $return as $file => $content )
+            {
+                $dirname = pathInfos($file, 'dirname');
+
+                Folder::create($dirname);
+                File::write($file, $content);
+            }
+
+            return true;
+        }
+
+        return false;
+    }
+
+    //--------------------------------------------------------------------------------------------------
+    // Protected Static Upgrade Files
+    //--------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------
+    public static function upgradeFiles()
+    {
+        return Arrays::keys(self::_restful());
+    }
 
     //--------------------------------------------------------------------------------------------------------
     // Magic Call Static

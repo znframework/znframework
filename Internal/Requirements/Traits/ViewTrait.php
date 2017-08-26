@@ -74,18 +74,21 @@ trait ViewTrait
     //--------------------------------------------------------------------------------------------------------
     protected static function call($method, $parameters)
     {
-        $ex = explode(':', $parameters[0]);
-
-        if( Arrays::valueExists(self::$usableMethods, $met = $ex[0]) )
+        if( is_scalar($parameters[0]) )
         {
-            $pr = Collection::data($parameters)->removeFirst()->addLast(true)->get();
+            $ex = explode(':', $parameters[0]);
 
-            if( strstr('page|view|something', $met) && ! is_array($pr[0]) )
+            if( Arrays::valueExists(self::$usableMethods, $met = $ex[0]) )
             {
-                $pr = Arrays::addFirst($pr, NULL);
-            }
+                $pr = Collection::data($parameters)->removeFirst()->addLast(true)->get();
 
-            self::$data[$method] = $value = Import::$met($ex[1] ?? NULL, ...$pr);
+                if( strstr('page|view|something', $met) && ! is_array($pr[0]) )
+                {
+                    $pr = Arrays::addFirst($pr, NULL);
+                }
+
+                self::$data[$method] = $value = Import::$met($ex[1] ?? NULL, ...$pr);
+            }
         }
 
         if( empty($value) )
