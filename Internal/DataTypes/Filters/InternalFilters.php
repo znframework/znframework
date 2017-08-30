@@ -1,6 +1,6 @@
 <?php namespace ZN\DataTypes;
 
-use Converter, CallController;
+use Converter, CallController, Cookie, Session, Server;
 
 class InternalFilters extends CallController implements InternalFiltersInterface
 {
@@ -14,63 +14,75 @@ class InternalFilters extends CallController implements InternalFiltersInterface
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
-    // Get Var
+    // Get
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string $varName
     //
     //--------------------------------------------------------------------------------------------------------
-    public function getVar(String $varName) : Bool
+    public function get(String $varName) : Bool
     {
-        return $this->_var($varName, INPUT_GET);
+        return (bool) ($_GET[$varName] ?? NULL);
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Post Var
+    // Post
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string $varName
     //
     //--------------------------------------------------------------------------------------------------------
-    public function postVar(String $varName) : Bool
+    public function post(String $varName) : Bool
     {
-        return $this->_var($varName, INPUT_POST);
+        return (bool) ($_POST[$varName] ?? NULL);
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Cookie Var
+    // Cookie
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string $varName
     //
     //--------------------------------------------------------------------------------------------------------
-    public function cookieVar(String $varName) : Bool
+    public function cookie(String $varName) : Bool
     {
-        return $this->_var($varName, INPUT_COOKIE);
+        return (bool) (Cookie::select($varName) || ($_COOKIE[$varName] ?? NULL));
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Env Var
+    // Session -> 5.3.1
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string $varName
     //
     //--------------------------------------------------------------------------------------------------------
-    public function envVar(String $varName) : Bool
+    public function session(String $varName) : Bool
     {
-        return $this->_var($varName, INPUT_ENV);
+        return (bool) (Session::select($varName) || ($_SESSION[$varName] ?? NULL));
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Server Var
+    // Env
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string $varName
     //
     //--------------------------------------------------------------------------------------------------------
-    public function serverVar(String $varName) : Bool
+    public function env(String $varName) : Bool
     {
-        return $this->_var($varName, INPUT_SERVER);
+        return (bool) ($_ENV[$varName] ?? NULL);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Server
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $varName
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function server(String $varName) : Bool
+    {
+        return (bool) (Server::data($varName) || ($_SERVER[$varName] ?? NULL));
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -86,13 +98,13 @@ class InternalFilters extends CallController implements InternalFiltersInterface
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Get List
+    // List
     //--------------------------------------------------------------------------------------------------------
     //
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function getList() : Array
+    public function list() : Array
     {
         return filter_list();
     }
@@ -112,20 +124,6 @@ class InternalFilters extends CallController implements InternalFiltersInterface
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Var Array
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array  $data
-    // @param mixed  $definition
-    // @param bool   $addEmpty
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function varArray(Array $data, $definition = NULL, Bool $addEmpty = true)
-    {
-        return filter_var_array($data, $definition, $addEmpty);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
     // Input
     //--------------------------------------------------------------------------------------------------------
     //
@@ -141,6 +139,20 @@ class InternalFilters extends CallController implements InternalFiltersInterface
     }
 
     //--------------------------------------------------------------------------------------------------------
+    // Var Array
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param array  $data
+    // @param mixed  $definition
+    // @param bool   $addEmpty
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function varArray(Array $data, $definition = NULL, Bool $addEmpty = true)
+    {
+        return filter_var_array($data, $definition, $addEmpty);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
     // Vars
     //--------------------------------------------------------------------------------------------------------
     //
@@ -149,7 +161,7 @@ class InternalFilters extends CallController implements InternalFiltersInterface
     // @param mixed  $options
     //
     //--------------------------------------------------------------------------------------------------------
-    public function vars($var, String $filter = 'default', $options = NULL)
+    public function var($var, String $filter = 'default', $options = NULL)
     {
         return filter_var($var, $this->_filterConstant($filter), $options);
     }
@@ -203,13 +215,13 @@ class InternalFilters extends CallController implements InternalFiltersInterface
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Required
+    // Require
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string $const;
     //
     //--------------------------------------------------------------------------------------------------------
-    public function required(String $const)
+    public function require(String $const)
     {
         return $this->_validate($const, 'require');
     }

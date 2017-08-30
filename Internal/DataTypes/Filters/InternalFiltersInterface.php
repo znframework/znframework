@@ -18,7 +18,7 @@ interface InternalFiltersInterface
     // @param string $varName
     //
     //--------------------------------------------------------------------------------------------------------
-    public function getVar(String $varName) : Bool;
+    public function get(String $varName) : Bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Post Var
@@ -27,7 +27,7 @@ interface InternalFiltersInterface
     // @param string $varName
     //
     //--------------------------------------------------------------------------------------------------------
-    public function postVar(String $varName) : Bool;
+    public function post(String $varName) : Bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Cookie Var
@@ -36,7 +36,16 @@ interface InternalFiltersInterface
     // @param string $varName
     //
     //--------------------------------------------------------------------------------------------------------
-    public function cookieVar(String $varName) : Bool;
+    public function cookie(String $varName) : Bool;
+
+    //--------------------------------------------------------------------------------------------------------
+    // Session -> 5.3.1
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $varName
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function session(String $varName) : Bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Env Var
@@ -45,7 +54,7 @@ interface InternalFiltersInterface
     // @param string $varName
     //
     //--------------------------------------------------------------------------------------------------------
-    public function envVar(String $varName) : Bool;
+    public function env(String $varName) : Bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Server Var
@@ -54,7 +63,7 @@ interface InternalFiltersInterface
     // @param string $varName
     //
     //--------------------------------------------------------------------------------------------------------
-    public function serverVar(String $varName) : Bool;
+    public function server(String $varName) : Bool;
 
     //--------------------------------------------------------------------------------------------------------
     // ID
@@ -72,7 +81,7 @@ interface InternalFiltersInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function getList() : Array;
+    public function list() : Array;
 
     //--------------------------------------------------------------------------------------------------------
     // Input Array
@@ -117,7 +126,7 @@ interface InternalFiltersInterface
     // @param mixed  $options
     //
     //--------------------------------------------------------------------------------------------------------
-    public function vars($var, String $filter = 'default', $options = NULL);
+    public function var($var, String $filter = 'default', $options = NULL);
 
     //--------------------------------------------------------------------------------------------------------
     // Sanitize
@@ -156,11 +165,11 @@ interface InternalFiltersInterface
     public function flag(String $const);
 
     //--------------------------------------------------------------------------------------------------------
-    // Required
+    // Require
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string $const;
     //
     //--------------------------------------------------------------------------------------------------------
-    public function required(String $const);
+    public function require(String $const);
 }

@@ -1,6 +1,6 @@
 <?php namespace ZN\DataTypes;
 
-use Arrays;
+use Arrays, Config;
 
 class InternalRegex implements InternalRegexInterface
 {
@@ -25,6 +25,7 @@ class InternalRegex implements InternalRegexInterface
     [
         // Patterns For Routes
         ':numeric'                      => '(\d+$)',
+        ':id'                           => '(\d+$)',
         ':alnum'                        => '(\w+$)',
         ':alpha'                        => '([a-zA-Z]+$)',
         ':all'                          => '(.+)',
@@ -36,9 +37,9 @@ class InternalRegex implements InternalRegexInterface
         '{numeric}|{num}'               => '\d',
         '{schar}|{specialChar}'         => '\W',
         '{nonSchar}|{nonSpecialChar}'   => '\w',
-        '{alpha}'                       => '[a-zA-Z]',
-        '{alnum}'                       => '[a-zA-Z0-9]',
-        '{number}'                      => '[0-9]',
+        '{alpha}'                       => '[a-zA-Z]+',
+        '{alnum}'                       => '[a-zA-Z0-9]+',
+        '{number}'                      => '[0-9]+',
         '{char}|{any}'                  => '.',
         '{nonSpace}'                    => '\S',
         '{space}'                       => '\s',
@@ -93,6 +94,11 @@ class InternalRegex implements InternalRegexInterface
         '|' => '\|',
         '/' => '\/'
     ];
+
+    public function __construct()
+    {
+        $this->regexChars = array_merge(Config::get('Expressions', 'regex'), $this->regexChars);
+    }
 
     //--------------------------------------------------------------------------------------------------------
     // Special 2 Classic -> 4.3.2
