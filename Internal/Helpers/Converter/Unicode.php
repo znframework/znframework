@@ -45,7 +45,7 @@ class Unicode
         'Ķ|Κ|К'                                                         => 'K',
         'ķ|κ|к'                                                         => 'k',
         'Ĺ|Ļ|Ľ|Ŀ|Ł|Λ|Л'                                                 => 'L',
-        'ĺ|ļ|ľ|ŀ|ł|λ|л'                                                     => 'l',
+        'ĺ|ļ|ľ|ŀ|ł|λ|л'                                                 => 'l',
         'М'                                                             => 'M',
         'м'                                                             => 'm',
         'Ñ|Ń|Ņ|Ň|Ν|Н'                                                   => 'N',
@@ -172,7 +172,7 @@ class Unicode
     //--------------------------------------------------------------------------------------------------------
     public function accent(String $str) : String
     {
-        $accent = $this->accentChars;
+        $accent = array_merge(Config::get('Expressions', 'accent'), $this->accentChars);
 
         $accent = Arrays::multikey($accent);
 

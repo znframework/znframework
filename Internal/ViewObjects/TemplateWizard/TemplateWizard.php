@@ -131,7 +131,7 @@ class TemplateWizard extends CallController implements TemplateWizardInterface
             [
                 '/@\$('.$htmlRegexChar.')\:/s' => '<?php echo $$1 ?>',
                 '/@@('.$htmlRegexChar.')\:/s'  => '<?php echo $1 ?>',
-                '/@('.$htmlRegexChar.')\:/s'   => '<?php $1 ?>'
+                '/@('.$htmlRegexChar.'\))\:/s' => '<?php $1 ?>'
             ];
         }
 
@@ -153,7 +153,7 @@ class TemplateWizard extends CallController implements TemplateWizardInterface
         {
             $array =
             [
-                '/@('.$htmlRegexChar.')\:/s'   => '<?php $1 ?>'
+                '/@('.$htmlRegexChar.'\))\:/s'   => '<?php $1 ?>'
             ];
         }
 

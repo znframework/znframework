@@ -1,10 +1,17 @@
 <?php namespace ZN\Helpers;
 
+use Config;
+
 class InternalSymbol
 {
     public function __call($method, $parameters)
     {
         return $this->symbols[$method] ?? false;
+    }
+
+    public function __construct()
+    {
+        $this->symbols = array_merge(Config::get('Expressions', 'symbol'), $this->symbols);
     }
 
     //--------------------------------------------------------------------------------------------------------

@@ -416,6 +416,8 @@ class InternalRoute extends CLController implements InternalRouteInterface
     //--------------------------------------------------------------------------------------------------------
     public function uri(String $path = NULL, $usable = true)
     {
+        $path = rtrim($path, '/');
+
         if( ! strstr($path, '/') )
         {
             $path = suffix($path) . Config::get('Services', 'route')['openFunction'];
