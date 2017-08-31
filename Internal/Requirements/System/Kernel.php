@@ -214,49 +214,15 @@ class Kernel
                 {
                     try
                     {
-                        if( ! $viewNameType = Config::get('ViewObjects', 'viewNameType') )
-                        {
-                            $viewNameType = 'file';
-                        }
+                        self::viewPathFinder($function, $openFunction, $view, $viewPath, $wizardPath);
 
-                        if( $viewNameType === 'file' )
-                        {
-                            $viewFunction = $function === $openFunction ? NULL : '-' . $function;
-                            $viewDir      = self::_view($view, $viewFunction);
-                        }
-                        else
-                        {
-                            $viewFunction = $function === $openFunction ? $openFunction : $function;
-                            $viewDir      = self::_view($view, DS . $viewFunction);
-                        }
-
-                        $viewPath   = $viewDir . '.php';
-                        $wizardPath = $viewDir . '.wizard.php';
-                        $pageClass  = uselib($page);
+                        $pageClass = uselib($page);
 
                         $pageClass->$function(...$parameters);
 
                         $data = (array) $pageClass->view;
 
-                        if( is_file($wizardPath) && ! IS::import($viewPath) && ! IS::import($wizardPath) )
-                        {
-                            $usableView = self::_load($wizardPath, $data);
-                        }
-                        elseif( is_file($viewPath) && ! IS::import($viewPath) && ! IS::import($wizardPath) )
-                        {
-                            $usableView = self::_load($viewPath, $data);
-                        }
-
-                        $data = array_merge((array) $pageClass->masterpage, Masterpage::$data, ...\ZN\In::$masterpage);
-
-                        if( ($data['masterpage'] ?? NULL) === true || ! empty($data) )
-                        {
-                            Import::headData($data)->bodyContent($usableView ?? '')->masterpage($data);
-                        }
-                        elseif( ! empty($usableView) )
-                        {
-                            echo $usableView;
-                        }
+                        self::viewAutoload($wizardPath, $viewPath, $data, $pageClass->masterpage);
                     }
                     catch( Throwable $e )
                     {
@@ -278,6 +244,71 @@ class Kernel
         }
 
         return new self;
+    }
+
+    //--------------------------------------------------------------------------------------------------
+    // View Path Finder
+    //--------------------------------------------------------------------------------------------------
+    //
+    // @param string $function
+    // @param string $openFunction
+    // @param string $view
+    // @param string &$viewPath
+    // @param string &$wizardPath
+    //
+    //--------------------------------------------------------------------------------------------------
+    public static function viewPathFinder($function, $openFunction, $view, &$viewPath, &$wizardPath)
+    {
+        if( ! $viewNameType = Config::get('ViewObjects', 'viewNameType') )
+        {
+            $viewNameType = 'file';
+        }
+
+        if( $viewNameType === 'file' )
+        {
+            $viewFunction = $function === $openFunction ? NULL : '-' . $function;
+            $viewDir      = self::_view($view, $viewFunction);
+        }
+        else
+        {
+            $viewFunction = $function === $openFunction ? $openFunction : $function;
+            $viewDir      = self::_view($view, DS . $viewFunction);
+        }
+
+        $viewPath   = $viewDir . '.php';
+        $wizardPath = $viewDir . '.wizard.php';
+    }
+
+    //--------------------------------------------------------------------------------------------------
+    // View Path Finder
+    //--------------------------------------------------------------------------------------------------
+    //
+    // @param string $function
+    // @param string $openFunction
+    // @param string $view
+    //
+    //--------------------------------------------------------------------------------------------------
+    public static function viewAutoload($wizardPath, $viewPath, $data, $pageClassMasterpage)
+    {
+        if( is_file($wizardPath) && ! IS::import($viewPath) && ! IS::import($wizardPath) )
+        {
+            $usableView = self::_load($wizardPath, $data);
+        }
+        elseif( is_file($viewPath) && ! IS::import($viewPath) && ! IS::import($wizardPath) )
+        {
+            $usableView = self::_load($viewPath, $data);
+        }
+
+        $data = array_merge((array) $pageClassMasterpage, Masterpage::$data, ...\ZN\In::$masterpage);
+
+        if( ($data['masterpage'] ?? NULL) === true || ! empty($data) )
+        {
+            Import::headData($data)->bodyContent($usableView ?? '')->masterpage($data);
+        }
+        elseif( ! empty($usableView) )
+        {
+            echo $usableView;
+        }
     }
 
     public static function end()

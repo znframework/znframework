@@ -1,7 +1,7 @@
 <?php namespace ZN\Services\Request;
 
 use ZN\Core\Structure, ZN\In;
-use Arrays, Config, Errors, CLController, Http, Import, Regex, Security, Restoration, URI, IS;
+use Arrays, Config, Errors, CLController, Http, Import, Regex, Security, Restoration, URI, IS, Masterpage;
 
 class InternalRoute extends CLController implements InternalRouteInterface
 {
@@ -859,25 +859,26 @@ class InternalRoute extends CLController implements InternalRouteInterface
     //--------------------------------------------------------------------------------------------------------
     protected function _import($function, $openFunction, $view)
     {
-        $viewFunction = $function === $openFunction ? NULL : '-'.$function;
-        $viewDir      = PAGES_DIR . $view . $viewFunction;
-        $viewPath     = $viewDir  . '.php';
-        $wizardPath   = $viewDir  . '.wizard.php';
+        \ZN\Core\Kernel::viewPathFinder($function, $openFunction, $view, $viewPath, $wizardPath);
+        \ZN\Core\Kernel::viewAutoload($wizardPath, $viewPath, $this->data, $this->mdata);
+    }
 
-        if( ! empty($this->mdata) )
+    //--------------------------------------------------------------------------------------------------
+    // Protected Static View -> 5.2.73
+    //--------------------------------------------------------------------------------------------------
+    //
+    // @param string $view
+    // @param strnig $fix
+    //
+    //--------------------------------------------------------------------------------------------------
+    protected static function _view($view, $fix)
+    {
+        if( $subdir = STRUCTURE_DATA['subdir'] )
         {
-            Config::set('Masterpage', $this->mdata);
+            $view = $subdir;
+        }
 
-            Import::masterpage($this->mdata);
-        }
-        elseif( is_file($wizardPath) && ! IS::import($viewPath) && ! IS::import($wizardPath) )
-        {
-            Import::view(str_replace(PAGES_DIR, NULL, $wizardPath), $this->data);
-        }
-        elseif( is_file($viewPath) && ! IS::import($viewPath) && ! IS::import($wizardPath) )
-        {
-            Import::view(str_replace(PAGES_DIR, NULL, $viewPath), $this->data);
-        }
+        return PAGES_DIR . $view . $fix;
     }
 
     //--------------------------------------------------------------------------------------------------------
