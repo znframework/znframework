@@ -156,8 +156,9 @@ class Masterpage
         $randomPageVariable = $head['bodyPage'] ?? $masterPageSet['bodyPage'];
         $headPage           = $head['headPage'] ?? $masterPageSet['headPage'];
 
+        $doctypes       = array_merge(Config::expressions('doctypes'), Properties::$doctype);
         $docType        = $head['docType'] ?? $masterPageSet["docType"];
-        $header         = (Properties::$doctype[$docType] ?? '<!DOCTYPE html>') . $eol;
+        $header         = ($doctypes[$docType] ?? '<!DOCTYPE html>') . $eol;
         $htmlAttributes = $head['attributes']['html'] ?? $masterPageSet['attributes']['html'];
 
         $header .= '<html xmlns="http://www.w3.org/1999/xhtml"'.Html::attributes($htmlAttributes).'>'.$eol;

@@ -1,9 +1,8 @@
 <?php namespace ZN\DataTypes;
 
-use Classes;
-use ZN\DataTypes\Chars\Exception\UndefinedMethodException;
+use Classes, Support;
 
-class InternalChars implements InternalCharsInterface
+class InternalChars
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -45,16 +44,11 @@ class InternalChars implements InternalCharsInterface
         {
             $ctype = 'ctype_'.$this->methods[$method];
 
-            return $ctype(...$parameters);
+            return $ctype((string) $parameters[0]);
         }
         else
         {
-            throw new UndefinedMethodException
-            (
-                'Error',
-                'undefinedFunction',
-                Classes::onlyName(__CLASS__)."::$method()"
-            );
+            Support::classMethod(__CLASS__, $method);
         }
     }
 }

@@ -1,17 +1,44 @@
 <?php namespace ZN\IndividualStructures;
 
-use Arrays;
+use Arrays, Strings, Support, Chars;
 
 class InternalIS implements InternalISInterface
 {
-    //--------------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------
     //
     // Author     : Ozan UYKUN <ozanbote@gmail.com>
     // Site       : www.znframework.com
     // License    : The MIT License
     // Copyright  : (c) 2012-2016, znframework.com
     //
-    //--------------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------
+
+    //--------------------------------------------------------------------------------------------------
+    // Magig Call -> 5.3.11
+    //--------------------------------------------------------------------------------------------------
+    //
+    // @param string $method
+    // @param array  $parameters
+    //
+    //--------------------------------------------------------------------------------------------------
+    public function __call($method, $parameters)
+    {
+        if( function_exists($ctype = 'ctype_' . $method) )
+        {
+            return $ctype((string) $parameters[0]);
+        }
+
+        $methods = Strings::splitUpperCase($realMethod = $method);
+        $method  = implode('_', Arrays::lowerCase($methods));
+        $method  = 'is_' . $method;
+
+        if( ! function_exists($method) )
+        {
+            Support::classMethod(__CLASS__, $realMethod);
+        }
+
+        return $method(...$parameters);
+    }
 
     //--------------------------------------------------------------------------------------------------
     // timeZone() -> 5.2.6
@@ -38,7 +65,7 @@ class InternalIS implements InternalISInterface
     //--------------------------------------------------------------------------------------------------
     public function phpVersion(String $version = '5.2.4')
     {
-        return version_compare(PHP_VERSION, $version, '>=') ? true : false;
+        return (bool) version_compare(PHP_VERSION, $version, '>=');
     }
 
     //--------------------------------------------------------------------------------------------------

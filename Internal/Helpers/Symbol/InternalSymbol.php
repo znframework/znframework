@@ -11,7 +11,7 @@ class InternalSymbol
 
     public function __construct()
     {
-        $this->symbols = array_merge(Config::get('Expressions', 'symbol'), $this->symbols);
+        $this->symbols = array_merge(Config::get('Expressions', 'symbols'), $this->symbols);
     }
 
     //--------------------------------------------------------------------------------------------------------

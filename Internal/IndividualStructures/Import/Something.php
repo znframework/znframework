@@ -57,7 +57,7 @@ class Something
         {
             $return = '<link href="'.$randomPageVariableBaseUrl.'" rel="stylesheet" type="text/css" />'.$eol;
         }
-        elseif( stristr('svg|woff|otf|ttf|'.implode('|', Properties::$differentFontExtensions), $randomPageVariableExtension) )
+        elseif( stristr('svg|woff|otf|ttf|'.implode('|', Config::expressions('differentFontExtensions')), $randomPageVariableExtension) )
         {
             $return = '<style type="text/css">@font-face{font-family:"'.\Strings::divide(File::removeExtension($randomPageVariable), "/", -1).'"; src:url("'.$randomPageVariableBaseUrl.'") format("truetype")}</style>'.$eol;
         }

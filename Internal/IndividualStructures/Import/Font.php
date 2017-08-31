@@ -79,7 +79,7 @@ class Font extends BootstrapExtends
             }
 
             // FARKLI FONTLAR
-            $differentSet = Properties::$differentFontExtensions;
+            $differentSet = Config::expressions('differentFontExtensions');
 
             if( ! empty($differentSet) )
             {

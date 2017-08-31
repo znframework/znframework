@@ -172,7 +172,7 @@ class Unicode
     //--------------------------------------------------------------------------------------------------------
     public function accent(String $str) : String
     {
-        $accent = array_merge(Config::get('Expressions', 'accent'), $this->accentChars);
+        $accent = array_merge(Config::get('Expressions', 'accentChars'), $this->accentChars);
 
         $accent = Arrays::multikey($accent);
 

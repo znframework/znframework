@@ -28,7 +28,7 @@
     ],
 
     //--------------------------------------------------------------------------------------------------
-    // Symbol
+    // Symbols -> 5.3.11[edit]
     //--------------------------------------------------------------------------------------------------
     //
     // Symbol kütüphanesi ile kullanılabilir ifadeler oluşturmanız içindir. Genellikle bir çok
@@ -40,14 +40,14 @@
     // Yukarıdaki gibi tanımlamadan sonra Symbol::euro() şeklinde kullanabilirsiniz.
     //
     //--------------------------------------------------------------------------------------------------
-    'symbol' =>
+    'symbols' =>
     [
         'sum'   => '&#8721;', // ∑
         'empty' => '&#8709;'  // ∅
     ],
 
     //--------------------------------------------------------------------------------------------------
-    // Accent
+    // Accent Chars -> 5.3.11[edit]
     //--------------------------------------------------------------------------------------------------
     //
     // Converter::accent() yöntemi ile süzülmesini istediğiniz sistemde öngörülmemiş karakterleri
@@ -58,9 +58,34 @@
     // Aşağıdaki kullanımlar örnek amaçlı verilmiştir.
     //
     //--------------------------------------------------------------------------------------------------
-    'accent' =>
+    'accentChars' =>
     [
         'œ' => 'oe',
         'ü' => 'u'
-    ]
+    ],
+
+    //----------------------------------------------------------------------------------------------
+    // Different Font Extensions -> 5.3.11
+    //----------------------------------------------------------------------------------------------
+    //
+    // Genel Kullanım: SVG, WOFF, EOT, OTF, TTF uzantılı fontlar dışında başka bir uzantılı
+    // font kullanacaksınız aşağıdaki diziye eklemeniz gerekmektedir. Uzantı başında (.) nokta
+    // karakteri kullanmanıza gerek yoktur.
+    //
+    // ['ufo', fon]
+    //
+    //----------------------------------------------------------------------------------------------
+    'differentFontExtensions' => [],
+
+    //----------------------------------------------------------------------------------------------
+    // Document Types -> 5.3.11
+    //----------------------------------------------------------------------------------------------
+    //
+    // Dahili doküman türü dışında kendinizde döküman türü ekleyebilirsiniz. Bu tanımlamaları
+    // Masterpage ile birlikte kullanabilirsiniz. Aşağıda basit bir örnek verilmiştir.
+    //
+    // 'html5' => '<!DOCTYPE html>'
+    //
+    //----------------------------------------------------------------------------------------------
+    'doctypes' => []
 ];
