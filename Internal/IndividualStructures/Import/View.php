@@ -65,7 +65,7 @@ class View
     // @param bool   $obGetContents
     //
     //--------------------------------------------------------------------------------------------------------
-    protected function _page($randomPageVariable, $randomDataVariable, $randomObGetContentsVariable = false, $randomPageDir = VIEWS_DIR)
+    protected function _page($randomPageVariable, $randomDataVariable, $randomObGetContentsVariable = false, $randomPageDir = VIEWS_DIR, $randomIsWizard = NULL)
     {
         if( ! File::extension($randomPageVariable) || stristr($randomPageVariable, $this->templateWizardExtension) )
         {
@@ -73,6 +73,11 @@ class View
         }
 
         $randomPagePath = $randomPageDir.$randomPageVariable;
+
+        if( $randomIsWizard === true )
+        {
+            File::replace($randomPagePath, ['<?php', '?>'], ['{[ ', ' ]}']);
+        }
 
         if( is_file($randomPagePath) )
         {
@@ -112,7 +117,7 @@ class View
     //--------------------------------------------------------------------------------------------------------
     protected function _templateWizard($page, $data, $obGetContents, $randomPageDir = PAGES_DIR)
     {
-        $return = TemplateWizard::data($this->_page($page, $data, true, $randomPageDir), (array) $data);
+        $return = TemplateWizard::data($this->_page($page, $data, true, $randomPageDir, true), (array) $data);
 
         if( $obGetContents === true )
         {

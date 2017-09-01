@@ -1,6 +1,6 @@
 <?php namespace ZN\Core;
 
-use Errors, Restoration, ZN\Classes\Config;
+use Errors, Restoration, ZN\Classes\Config, Arrays;
 
 class Structure
 {
@@ -175,7 +175,7 @@ class Structure
         //----------------------------------------------------------------------------------------------
         return
         [
-            'parameters'   => $parameters,
+            'parameters'   => Arrays::values($parameters),
             'page'         => $page,
             'file'         => self::_realSeparator($isFile),
             'function'     => $function,

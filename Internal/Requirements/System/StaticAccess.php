@@ -47,7 +47,7 @@ class StaticAccess
     //--------------------------------------------------------------------------------------------------------
     protected static function useClassName($method, $parameters)
     {
-        return uselib(INTERNAL_ACCESS.static::getClassName())->$method(...$parameters);
+        return uselib(INTERNAL_ACCESS . static::getClassName())->$method(...$parameters);
     }
 }
 
