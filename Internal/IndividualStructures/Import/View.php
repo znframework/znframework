@@ -76,7 +76,7 @@ class View
 
         if( $randomIsWizard === true )
         {
-            File::replace($randomPagePath, ['<?php', '?>'], ['{[ ', ' ]}']);
+            TemplateWizard::isolation($randomPagePath);
         }
 
         if( is_file($randomPagePath) )

@@ -1,6 +1,6 @@
 <?php namespace ZN\ViewObjects;
 
-use Errors, Exceptions, CallController, Config;
+use Errors, Exceptions, CallController, Config, File;
 
 class TemplateWizard extends CallController implements TemplateWizardInterface
 {
@@ -12,7 +12,12 @@ class TemplateWizard extends CallController implements TemplateWizardInterface
     // Copyright  : (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
-
+	
+	public static function isolation(String $data = '')
+	{
+		File::replace($data, ['<?php', '<?', '?>'], ['{[ ', '{[', ' ]}']);
+	}
+	
     //--------------------------------------------------------------------------------------------------------
     // Data
     //--------------------------------------------------------------------------------------------------------
