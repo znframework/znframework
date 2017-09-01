@@ -65,7 +65,7 @@ class Forge
 
         if( ! is_file($file))
         {
-            throw new FileNotFoundException($file);
+            return false;
         }
 
         $fileContentClass = Factory::class('Content');
