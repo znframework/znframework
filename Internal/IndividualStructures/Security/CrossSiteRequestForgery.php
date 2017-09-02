@@ -14,7 +14,7 @@ class CrossSiteRequestForgery extends SecurityExtends
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
-    // CSRF Token
+    // CSRF Token -> 5.3.15[edit]
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string $uri     = NULL
@@ -24,7 +24,9 @@ class CrossSiteRequestForgery extends SecurityExtends
     {
         if( Method::$type() )
         {
-            if( Method::$type('token') !== Session::select('token') )
+            $token = Method::$type('token');
+
+            if( $token === false || $token !== Session::select('token') )
             {
                 redirect($uri);
             }
