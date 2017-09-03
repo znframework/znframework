@@ -14,6 +14,18 @@ class Style extends BootstrapExtends
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
+    // static tag() -> 5.3.2
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $src = NULL
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public static function tag(String $src = NULL) : String
+    {
+        return '<link href="'.$src.'" rel="stylesheet" type="text/css" />' . EOL;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
     // style()
     //--------------------------------------------------------------------------------------------------------
     //
@@ -28,6 +40,7 @@ class Style extends BootstrapExtends
         $lastParam = $args->lastParam;
         $arguments = $args->arguments;
         $links     = $args->cdnLinks;
+        $styleFix  = 'style_';
 
         foreach( $arguments as $style )
         {
@@ -43,22 +56,22 @@ class Style extends BootstrapExtends
                 $styleFile = EXTERNAL_STYLES_DIR.suffix($style, ".css");
             }
 
-            if( ! in_array("style_".$style, Properties::$isImport) )
+            if( ! in_array($styleFix . $style, Properties::$isImport) )
             {
                 if( is_file($styleFile) )
                 {
-                    $str .= '<link href="'.URL::base($styleFile).'" rel="stylesheet" type="text/css" />'.$eol;
+                    $str .= self::tag(URL::base($styleFile));
                 }
                 elseif( IS::url($style) )
                 {
-                    $str .= '<link href="'.$style.'" rel="stylesheet" type="text/css" />'.$eol;
+                    $str .= self::tag($style);
                 }
-                elseif( isset($links[strtolower($style)]) )
+                elseif( $lowerLinkName = ($links[strtolower($style)] ?? NULL) )
                 {
-                    $str .= '<link href="'.$links[strtolower($style)].'" rel="stylesheet" type="text/css" />'.$eol;
+                    $str .= self::tag($lowerLinkName);
                 }
 
-                Properties::$isImport[] = "style_".$style;
+                Properties::$isImport[] = $styleFix . $style;
             }
         }
 

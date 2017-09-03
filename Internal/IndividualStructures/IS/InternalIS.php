@@ -1,6 +1,6 @@
 <?php namespace ZN\IndividualStructures;
 
-use Arrays, Strings, Support, Chars;
+use Arrays, Strings, Support, Chars, Filters;
 
 class InternalIS implements InternalISInterface
 {
@@ -13,8 +13,10 @@ class InternalIS implements InternalISInterface
     //
     //--------------------------------------------------------------------------------------------------
 
+    protected $dataTypes = ['cookie', 'session', 'get', 'post', 'env', 'server'];
+
     //--------------------------------------------------------------------------------------------------
-    // Magig Call -> 5.3.11
+    // Magig Call -> 5.3.11 - 5.3.2[edited]
     //--------------------------------------------------------------------------------------------------
     //
     // @param string $method
@@ -26,6 +28,12 @@ class InternalIS implements InternalISInterface
         if( function_exists($ctype = 'ctype_' . $method) )
         {
             return $ctype((string) $parameters[0]);
+        }
+
+        // 5.3.2[edited]
+        if( Arrays::valueExists($this->dataTypes, $method) )
+        {
+            return Filters::$method($parameters[0]);
         }
 
         $methods = Strings::splitUpperCase($realMethod = $method);

@@ -1,6 +1,6 @@
 <?php namespace ZN\IndividualStructures\Import;
 
-use File, View as Views;
+use File, View as Views, Buffer;
 use ZN\ViewObjects\TemplateWizard;
 
 class View
@@ -81,23 +81,15 @@ class View
 
         if( is_file($randomPagePath) )
         {
-            if( is_array($randomDataVariable) )
-            {
-                extract($randomDataVariable, EXTR_OVERWRITE, 'zn');
-            }
+            $return = Buffer::file($randomPagePath, $randomDataVariable);
 
             if( $randomObGetContentsVariable === false )
             {
-                return require($randomPagePath);
+                echo $return; return;
             }
             else
             {
-                ob_start();
-                require $randomPagePath;
-                $randomViewFileContent = ob_get_contents();
-                ob_end_clean();
-
-                return $randomViewFileContent;
+                return $return;
             }
         }
         else

@@ -14,18 +14,25 @@ class File
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
-    // File
+    // File -> 5.3.2[edited]
     //--------------------------------------------------------------------------------------------------------
     //
     // @param  string $file
+    // @param  array  $data
     // @return content
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function do(String $file) : String
+    public static function do(String $file, Array $data = NULL) : String
     {
         if( ! is_file($file) )
         {
             throw new InvalidArgumentException('Error', 'fileParameter', '1.($file)');
+        }
+
+        // 5.3.2[added]
+        if( is_array($data) )
+        {
+            extract($data, EXTR_OVERWRITE, 'ZN');
         }
 
         ob_start();

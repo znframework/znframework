@@ -1,6 +1,6 @@
 <?php namespace ZN\IndividualStructures\Import;
 
-use Config, URL, File;
+use Config, URL, File, Buffer;
 use ZN\IndividualStructures\Import\Exception\InvalidArgumentException;
 
 class Something
@@ -51,19 +51,19 @@ class Something
 
         if( $randomPageVariableExtension === 'js' )
         {
-            $return = '<script type="text/javascript" src="'.$randomPageVariableBaseUrl.'"></script>'.$eol;
+            $return = Script::tag($randomPageVariableBaseUrl);
         }
         elseif( $randomPageVariableExtension === 'css' )
         {
-            $return = '<link href="'.$randomPageVariableBaseUrl.'" rel="stylesheet" type="text/css" />'.$eol;
+            $return = Style::tag($randomPageVariableBaseUrl);
         }
         elseif( stristr('svg|woff|otf|ttf|'.implode('|', Config::expressions('differentFontExtensions')), $randomPageVariableExtension) )
         {
-            $return = '<style type="text/css">@font-face{font-family:"'.\Strings::divide(File::removeExtension($randomPageVariable), "/", -1).'"; src:url("'.$randomPageVariableBaseUrl.'") format("truetype")}</style>'.$eol;
+            $return = $this->_style($randomPageVariable, $randomPageVariableBaseUrl);
         }
         elseif( $randomPageVariableExtension === 'eot' )
         {
-            $return = '<style type="text/css"><!--[if IE]>@font-face{font-family:"'.\Strings::divide(File::removeExtension($randomPageVariable), "/", -1).'"; src:url("'.$randomPageVariableBaseUrl.'") format("truetype")}<![endif]--></style>'.$eol;
+            $$return = $this->_style($randomPageVariable, $randomPageVariableBaseUrl, true);
         }
         else
         {
@@ -71,23 +71,15 @@ class Something
 
             if( is_file($randomPageVariable) )
             {
-                if( is_array($randomDataVariable) )
-                {
-                    extract($randomDataVariable, EXTR_OVERWRITE, 'zn');
-                }
+                $return = Buffer::file($randomPageVariable, $randomDataVariable);
 
                 if( $randomObGetContentsVariable === false )
                 {
-                    require($randomPageVariable);
+                    echo $return; return;
                 }
                 else
                 {
-                    ob_start();
-                    require($randomPageVariable);
-                    $randomSomethingFileContent = ob_get_contents();
-                    ob_end_clean();
-
-                    return $randomSomethingFileContent;
+                    return $return;
                 }
             }
         }
@@ -100,5 +92,25 @@ class Something
         {
             return $return;
         }
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // protected style()
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $randomPageVariable
+    // @param string $randomPageVariableBaseUrl
+    // @param bool   $ie = false
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _style($randomPageVariable, $randomPageVariableBaseUrl, $ie = false)
+    {
+        return '<style type="text/css">
+                    '.( $ie === true ? '<!--[if IE]>' : NULL ).'
+                    @font-face{font-family:"'.\Strings::divide(File::removeExtension($randomPageVariable), "/", -1).'";
+                    src:url("'.$randomPageVariableBaseUrl.'")
+                    format("truetype")}
+                    '.( $ie === true ? '<![endif]-->' : NULL ).'
+                </style>' . EOL;
     }
 }

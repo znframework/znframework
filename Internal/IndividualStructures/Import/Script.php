@@ -14,6 +14,18 @@ class Script extends BootstrapExtends
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
+    // static tag() -> 5.3.2
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $src = NULL
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public static function tag(String $src = NULL) : String
+    {
+        return '<script type="text/javascript" src="'.$src.'"></script>' . EOL;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
     // scripts()
     //--------------------------------------------------------------------------------------------------------
     //
@@ -28,6 +40,7 @@ class Script extends BootstrapExtends
         $lastParam = $args->lastParam;
         $arguments = $args->arguments;
         $links     = $args->cdnLinks;
+        $scriptFix = 'script_';
 
         foreach( $arguments as $script )
         {
@@ -43,22 +56,22 @@ class Script extends BootstrapExtends
                 $scriptFile = EXTERNAL_SCRIPTS_DIR.suffix($script, ".js");
             }
 
-            if( ! in_array("script_".$script, Properties::$isImport) )
+            if( ! in_array($scriptFix . $script, Properties::$isImport) )
             {
                 if( is_file($scriptFile) )
                 {
-                    $str .= '<script type="text/javascript" src="'.URL::base($scriptFile).'"></script>'.$eol;
+                    $str .= self::tag(URL::base($scriptFile));
                 }
                 elseif( IS::url($script) )
                 {
-                    $str .= '<script type="text/javascript" src="'.$script.'"></script>'.$eol;
+                    $str .= self::tag(URL::base($script));
                 }
-                elseif( isset($links[strtolower($script)]) )
+                elseif( $lowerLinkName = ($links[strtolower($script)] ?? NULL) )
                 {
-                    $str .= '<script type="text/javascript" src="'.$links[strtolower($script)].'"></script>'.$eol;
+                    $str .= self::tag(URL::base($lowerLinkName));
                 }
 
-                Properties::$isImport[] = "script_".$script;
+                Properties::$isImport[] = $scriptFix . $script;
             }
         }
 

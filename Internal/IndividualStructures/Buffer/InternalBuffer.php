@@ -20,6 +20,7 @@ class InternalBuffer extends \FactoryController
             'function' => 'Buffer\Callback::do',
             'callback' => 'Buffer\Callback::do',
             'closure'  => 'Buffer\Callback::do',
+            'code'     => 'Buffer\Callback::code',
             'insert'   => 'Buffer\Insert::do',
             'select'   => 'Buffer\Select::do',
             'delete'   => 'Buffer\Delete::do'

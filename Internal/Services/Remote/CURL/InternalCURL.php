@@ -1,6 +1,6 @@
 <?php namespace ZN\Services\Remote;
 
-use Support, Converter, CallController;
+use Support, Converter, CallController, IS, URL;
 use ZN\Services\Remote\CURL\Exception\InvalidArgumentException;
 
 class InternalCURL extends CallController implements InternalCURLInterface
@@ -45,7 +45,7 @@ class InternalCURL extends CallController implements InternalCURLInterface
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Init
+    // Init -> 5.3.2[edit]
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string $url
@@ -53,6 +53,11 @@ class InternalCURL extends CallController implements InternalCURLInterface
     //--------------------------------------------------------------------------------------------------------
     public function init(String $url = NULL) : InternalCURL
     {
+        if( $url !== NULL && ! IS::URL($url) )
+        {
+            $url = URL::site($url);
+        }
+
         $this->init = curl_init($url);
 
         return $this;
