@@ -21,22 +21,22 @@ class Callback
     // @param arrau  $data
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function code(String $code, Array $data = NULL)
+    public static function code(String $randomBufferClassCallbackCode, Array $randomBufferClassCallbackData = NULL)
     {
-        if( is_array($data) )
+        if( is_array($randomBufferClassCallbackData) )
         {
-            extract($data, EXTR_OVERWRITE, 'ZN');
+            extract($randomBufferClassCallbackData, EXTR_OVERWRITE, 'ZN');
         }
 
         ob_start();
 
-        eval('?>' . $code);
+        eval('?>' . $randomBufferClassCallbackCode);
 
-        $contents = ob_get_contents();
+        $randomBufferClassCallbackContents = ob_get_contents();
 
         ob_end_clean();
 
-        return $contents;
+        return $randomBufferClassCallbackContents;
     }
 
     //--------------------------------------------------------------------------------------------------------
