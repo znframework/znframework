@@ -2,7 +2,7 @@
 
 use Errors, Exceptions, CallController, Config, File, Buffer;
 
-class TemplateWizard extends CallController implements TemplateWizardInterface
+class TemplateWizard extends CallController
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -13,6 +13,13 @@ class TemplateWizard extends CallController implements TemplateWizardInterface
     //
     //--------------------------------------------------------------------------------------------------------
 
+	//--------------------------------------------------------------------------------------------------------
+    // Isolation -> 5.3.15
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $string
+    //
+    //--------------------------------------------------------------------------------------------------------
 	public static function isolation(String $data = '')
 	{
 		File::replace($data, ['<?php', '<?', '?>'], ['{[', '{[', ']}']);
