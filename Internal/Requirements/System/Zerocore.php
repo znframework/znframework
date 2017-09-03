@@ -42,7 +42,7 @@ class Zerocore
     protected static $parameters;
 
     //--------------------------------------------------------------------------------------------------------
-    // Protected Default Variables
+    // Protected Default Variables -> 5.3.2[edited]
     //--------------------------------------------------------------------------------------------------------
     //
     // @param void
@@ -51,6 +51,8 @@ class Zerocore
     public static function commander($commands)
     {
         \Logger::report('TerminalCommands', implode(' ', $commands), 'TerminalCommands');
+
+        $realCommands = implode(' ', Arrays::removeFirst($commands, 3));
 
         $commands = Arrays::removeFirst($commands);
 
@@ -86,20 +88,20 @@ class Zerocore
         switch( $command )
         {
             case 'run-uri'              :
-            case 'run-controller'       : self::_runController();                       break;
+            case 'run-controller'       : self::_runController();                             break;
             case 'run-model'            :
-            case 'run-class'            : self::_runClass();                            break;
-            case 'run-cron'             : self::_runCron();                             break;
-            case 'cron-list'            : echo Crontab::list();                         break;
-            case 'remove-cron'          : self::_removeCron();                          break;
-            case 'run-command'          : self::_runClass(PROJECT_COMMANDS_NAMESPACE);  break;
-            case 'run-external-command' : self::_runClass(EXTERNAL_COMMANDS_NAMESPACE); break;
-            case 'run-function'         : self::_runFunction();                         break;
-            case 'upgrade'              : self::_result(\ZN::upgrade());                break;
-            case 'upgrade-files'        : self::_result(\ZN::upgradeFiles());           break;
+            case 'run-class'            : self::_runClass();                                  break;
+            case 'run-cron'             : self::_runCron();                                   break;
+            case 'cron-list'            : echo Crontab::list();                               break;
+            case 'remove-cron'          : self::_removeCron();                                break;
+            case 'run-command'          : self::_runClass(PROJECT_COMMANDS_NAMESPACE);        break;
+            case 'run-external-command' : self::_runClass(EXTERNAL_COMMANDS_NAMESPACE);       break;
+            case 'run-function'         : self::_runFunction();                               break;
+            case 'upgrade'              : self::_result(\ZN::upgrade());                      break;
+            case 'upgrade-files'        : self::_result(\ZN::upgradeFiles());                 break;
             case 'create-project'       : self::_result(\Generate::project(self::$command));  break;
-            case 'command-list'         :
-            default                     : self::_commandList();
+            case 'command-list'         : self::_commandList();                               break;
+            default                     : exec($realCommands, $response); self::_result($response);
         }
     }
 
