@@ -213,25 +213,49 @@ class Zerocore
     //--------------------------------------------------------------------------------------------------------
     protected static function _result($result)
     {
+        echo '+-------------------------------------------------------------------------------------------------------+' . EOL;
+        echo '| RESULT                                                                                                |' . EOL;
+        echo '+-------------------------------------------------------------------------------------------------------+' . EOL;
+
+        $success = \Lang::select('Success', 'success');
+        $error   = \Lang::select('Error', 'error');
+        $nodata  = 'No Data';
+
         if( $result === true || $result === NULL )
         {
-            echo \Lang::select('Success', 'success');
+            echo $success;
         }
         elseif( $result === false )
         {
-            echo \Lang::select('Error', 'error');
+            echo $error;
         }
         else
         {
             if( is_array($result) )
             {
-                print_r($result);
+                if( ! empty($result) )
+                {
+                    print_r($result);
+                }
+                else
+                {
+                    echo $nodata;
+                }
             }
             else
             {
-                echo $result;
+                if( ! empty($result) )
+                {
+                    echo $result;
+                }
+                else
+                {
+                    echo $nodata;
+                }
             }
         }
+
+        echo EOL . '+-------------------------------------------------------------------------------------------------------+' . EOL;
     }
 
     //--------------------------------------------------------------------------------------------------------
