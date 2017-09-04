@@ -447,7 +447,11 @@ class InternalRoute extends CLController implements InternalRouteInterface
             $routeString = $this->route;
         }
 
-        $this->routes['changeUri'][$routeString] = $this->_stringRoute($path, $this->route)[$this->route];
+        // 5.3.21[edited] is empty
+        if( trim($routeString, '/') )
+        {
+            $this->routes['changeUri'][$routeString] = $this->_stringRoute($path, $this->route)[$this->route];
+        }
 
         if( $usable === false )
         {
@@ -542,25 +546,12 @@ class InternalRoute extends CLController implements InternalRouteInterface
     //--------------------------------------------------------------------------------------------------------
     public function run(String $functionName, Callable $functionRun = NULL, Bool $usable = true)
     {
-        $route        = $this->route;
         $parameters   = CURRENT_CPARAMETERS;
         $view         = CURRENT_CONTROLLER;
         $isFile       = CURRENT_CFILE;
         $function     = CURRENT_CFUNCTION;
         $openFunction = CURRENT_COPEN_PAGE;
         $requestURI   = rtrim(str_replace($view . '/', NULL, In::requestURI()), '/');
-        $matchURI     = NULL;
-
-        if( ! empty($route) )
-        {
-            if( is_string($route) )
-            {
-                $matchURI = Regex::match($route, $requestURI);
-                $route    = $this->_stringRoute($functionName, $route);
-            }
-
-            Config::set('Services', 'route', ['changeUri' => $route, 'patternType' => 'special']);
-        }
 
         if( Arrays::valueExists(['construct', 'destruct'], $functionName) )
         {
@@ -569,7 +560,7 @@ class InternalRoute extends CLController implements InternalRouteInterface
 
         if( is_file($isFile) )
         {
-            $matches = ! empty($matchURI) ? (bool) $matchURI : ( $usable === true ? $functionName === $function : false );
+            $matches = ( $usable === true ? $functionName === $function : false );
 
             if( $matches )
             {
@@ -588,8 +579,6 @@ class InternalRoute extends CLController implements InternalRouteInterface
         }
 
         $this->useRunMethod = true;
-
-        $this->_defaultVariable();
     }
 
     //--------------------------------------------------------------------------------------------------------
