@@ -22,7 +22,7 @@ class Select extends MLExtends
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do(String $key, $convert = NULL) : String
+    public function do(String $key = NULL, $convert = NULL)
     {
         if( File::exists($this->lang) )
         {
@@ -37,6 +37,12 @@ class Select extends MLExtends
         $read   = Json::decodeArray($read  ?? '');
         $eread  = Json::decodeArray($eread ?? '');
         $array  = array_merge($eread, $read);
+
+        if( $key === NULL )
+        {
+            return $array;
+        }
+
         $return = '';
 
         if( isset($array[$key]) )
