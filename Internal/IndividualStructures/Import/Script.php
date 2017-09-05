@@ -64,11 +64,11 @@ class Script extends BootstrapExtends
                 }
                 elseif( IS::url($script) )
                 {
-                    $str .= self::tag(URL::base($script));
+                    $str .= self::tag($script);
                 }
                 elseif( $lowerLinkName = ($links[strtolower($script)] ?? NULL) )
                 {
-                    $str .= self::tag(URL::base($lowerLinkName));
+                    $str .= self::tag($lowerLinkName);
                 }
 
                 Properties::$isImport[] = $scriptFix . $script;
