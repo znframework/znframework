@@ -1,6 +1,6 @@
 <?php namespace ZN\Services\Request;
 
-use Security, CallController, ZN\In, Lang, URL, Config, IS;
+use Security, CallController, ZN\In, Lang, URL, Config, IS, Arrays;
 
 class InternalURI extends CallController implements InternalURIInterface
 {
@@ -260,7 +260,7 @@ class InternalURI extends CallController implements InternalURIInterface
     //--------------------------------------------------------------------------------------------------------
     public function segmentArray() : Array
     {
-        $segmentEx = explode("/", $this->_cleanPath());
+        $segmentEx = Arrays::deleteElement(explode('/', $this->_cleanPath()), '');
         return $segmentEx;
     }
 
@@ -377,7 +377,9 @@ class InternalURI extends CallController implements InternalURIInterface
     //--------------------------------------------------------------------------------------------------
     public function active(Bool $fullPath = false) : String
     {
-        $requestUri = server('requestUri');
+        // 5.3.22[edited]
+        $requestUri = suffix(server('requestUri'));
+
         $currentUri = BASE_DIR !== '/'
                     ? str_replace(BASE_DIR, '', $requestUri)
                     : substr($requestUri, 1);

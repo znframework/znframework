@@ -1,7 +1,7 @@
 <?php namespace ZN\Services\Request;
 
 use ZN\Core\Structure, ZN\In;
-use Arrays, Config, Errors, CLController, Http, Import, Regex, Security, Restoration, URI, IS, Masterpage;
+use Arrays, Config, Errors, CLController, Http, Import, Regex, Security, Restoration, URI, IS, Masterpage, Lang;
 
 class InternalRoute extends CLController implements InternalRouteInterface
 {
@@ -520,7 +520,7 @@ class InternalRoute extends CLController implements InternalRouteInterface
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Change
+    // Change -> 5.3.22[Edited]
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string $route
@@ -528,7 +528,61 @@ class InternalRoute extends CLController implements InternalRouteInterface
     //--------------------------------------------------------------------------------------------------------
     public function change(String $route) : InternalRoute
     {
-        $this->route = $route;
+        $route  = trim($route, '/');
+        $count  = count(explode('/', $route));
+        $return = true;
+
+        // Database Routing
+        $route = preg_replace_callback('/\[(\w+)\:(\w+)(\s*\,\s*((json|serial|separator))(\:(.*?))*)*\]/i', function($match) use ($count, &$return)
+        {
+            $decoder = $match[4] ?? NULL;
+            $value   = $val = \URI::get($count);
+            $column  = $match[2];
+
+            // Json, Serial or Separator
+            if( $decoder !== NULL )
+            {
+                $column = $match[2] . ' like';
+                $value  = \DB::like($value, 'inside');
+            }
+
+            $return = \DB::select($match[2])->where($column, $value)->get($match[1])->value();
+
+            // Json, Serial or Separator
+            if( $decoder !== NULL )
+            {
+                $row       = $match[6] ?? Lang::get();
+                $rows      = $decoder::decode($return);
+                $rowsArray = $decoder::decodeArray($return);
+                $return    = $rows->$row ?? NULL;
+
+                // Current Lang Manipulation
+                if( $return !== $value && Arrays::valueExists($rowsArray, $val) )
+                {
+                    $arrayTransform = Arrays::transform($rowsArray);
+
+                    $newRow = $arrayTransform[$val];
+                    $return = $rows->$newRow;
+
+                    if( Lang::shortCodes($newRow) )
+                    {
+                        Lang::set($newRow);
+                    }
+                }
+            }
+
+            return $return;
+
+        }, $route);
+
+        if( empty($return) )
+        {
+            $this->route = NULL;
+        }
+        else
+        {
+            $this->route = $route;
+        }
 
         return $this;
     }
