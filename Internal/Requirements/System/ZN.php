@@ -1,6 +1,6 @@
 <?php namespace Project\Controllers;
 
-use Restful, Separator, File, Folder, Arrays, Strings, Lang, URI, ZN\Core\Kernel as Kernel, Buffer, Cache, Config;
+use Restful, Separator, File, Folder, Arrays, Strings, Lang, URI, ZN\Core\Kernel as Kernel, Buffer, Cache, Config, User;
 
 class ZN
 {
@@ -105,13 +105,14 @@ class ZN
 
         if
         (
-            ($projectConfig['status'] ?? NULL) === true                                                                   &&
-            ( empty($projectConfig['include']) || Arrays::valueExists(($projectConfig['include'] ?? []), CURRENT_CFURI) ) &&
-            ( empty($projectConfig['exclude']) || ! Arrays::valueExists(($projectConfig['exclude'] ?? []), CURRENT_CFURI) )
+            ($projectConfig['status'] ?? NULL) === true                                                                    &&
+            ( ! Arrays::valueExists(($projectConfig['machinesIP'] ?? []), User::ip()) )                                    &&
+            ( empty($projectConfig['include']) || Arrays::valueExists(($projectConfig['include'] ?? []), CURRENT_CFPATH) ) &&
+            ( empty($projectConfig['exclude']) || ! Arrays::valueExists(($projectConfig['exclude'] ?? []), CURRENT_CFPATH) )
         )
         {
-            $cacheName = Lang::get() . md5(URI::current());
-            
+            $cacheName = ($projectConfig['prefix'] ?? Lang::get()) . md5(URI::current());
+
             Cache::driver($projectConfig['driver']);
 
             if( ! $select = Cache::select($cacheName, $projectConfig['compress']) )
