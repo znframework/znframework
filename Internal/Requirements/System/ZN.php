@@ -1,6 +1,6 @@
 <?php namespace Project\Controllers;
 
-use Restful, Separator, File, Folder, Arrays, Strings;
+use Restful, Separator, File, Folder, Arrays, Strings, Lang, URI, ZN\Core\Kernel as Kernel, Buffer, Cache, Config;
 
 class ZN
 {
@@ -90,6 +90,50 @@ class ZN
     public static function upgradeFiles()
     {
         return Arrays::keys(self::_restful());
+    }
+
+    //--------------------------------------------------------------------------------------------------
+    // ZN Run
+    //--------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------
+    public static function run()
+    {
+        $projectConfig = Config::get('Project', 'cache');
+
+        if
+        (
+            ($projectConfig['status'] ?? NULL) === true                                                                   &&
+            ( empty($projectConfig['include']) || Arrays::valueExists(($projectConfig['include'] ?? []), CURRENT_CFURI) ) &&
+            ( empty($projectConfig['exclude']) || ! Arrays::valueExists(($projectConfig['exclude'] ?? []), CURRENT_CFURI) )
+        )
+        {
+            $cacheName = Lang::get() . md5(URI::current());
+            
+            Cache::driver($projectConfig['driver']);
+
+            if( ! $select = Cache::select($cacheName, $projectConfig['compress']) )
+            {
+                $kernel = Buffer::callback(function()
+                {
+                    Kernel::start()::run()::end();
+                });
+
+                Cache::insert($cacheName, $kernel, $projectConfig['time'], $projectConfig['compress']);
+
+                echo $kernel;
+            }
+            else
+            {
+                echo $select;
+            }
+        }
+        else
+        {
+            Kernel::start()::run()::end();
+        }
     }
 
     //--------------------------------------------------------------------------------------------------------
