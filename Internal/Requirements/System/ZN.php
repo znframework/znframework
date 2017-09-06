@@ -101,7 +101,7 @@ class ZN
     //--------------------------------------------------------------------------------------------------
     public static function run()
     {
-        Kernel::start();
+        Kernel::route();
 
         $projectConfig = Config::get('Project', 'cache');
 
@@ -121,7 +121,7 @@ class ZN
             {
                 $kernel = Buffer::callback(function()
                 {
-                    Kernel::run()::end();
+                    Kernel::start()::run()::end();
                 });
 
                 Cache::insert($cacheName, $kernel, $projectConfig['time'], $projectConfig['compress']);
@@ -135,7 +135,7 @@ class ZN
         }
         else
         {
-            Kernel::run()::end();
+            Kernel::start()::run()::end();
         }
     }
 

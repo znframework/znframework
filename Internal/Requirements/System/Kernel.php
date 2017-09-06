@@ -14,6 +14,11 @@ class Kernel
     //
     //--------------------------------------------------------------------------------------------------
 
+    public static function route()
+    {
+        Route::filter();
+    }
+
     public static function start()
     {
         if( $autoloaderAliases = Config::get('Autoloader')['aliases'] ) foreach( $autoloaderAliases as $alias => $origin )
@@ -165,8 +170,6 @@ class Kernel
         {
             Restoration::mode();
         }
-
-        Route::filter();
 
         \ZN\In::invalidRequest('disallowMethods', true);
         \ZN\In::invalidRequest('allowMethods', false);
