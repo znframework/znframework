@@ -27,6 +27,7 @@
     [
         'status'   => false,
         'time'     => 60,
+        'prefix'   => NULL,
         'driver'   => 'file',
         'compress' => false,
         'exclude'  => [],
