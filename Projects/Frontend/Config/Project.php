@@ -23,7 +23,7 @@
     // compress  : sıkıştırma sürücülerinden biri.
     // exclude   : belleklemeye girmeyecek olan controller/method bilgisi.
     // include   : belleklemeye girecek olan controller/method bilgisi.
-    // machinesIp:
+    // machinesIp: belleklemeden etkilenmeyecek ip adreserleri tanımlanır.
     //--------------------------------------------------------------------------------------------------
     'cache' =>
     [
