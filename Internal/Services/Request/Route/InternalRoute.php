@@ -89,6 +89,15 @@ class InternalRoute extends CLController implements InternalRouteInterface
     protected $restore;
 
     //--------------------------------------------------------------------------------------------------------
+    // Cache
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var string
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected $cache;
+
+    //--------------------------------------------------------------------------------------------------------
     // Restores
     //--------------------------------------------------------------------------------------------------------
     //
@@ -96,6 +105,15 @@ class InternalRoute extends CLController implements InternalRouteInterface
     //
     //--------------------------------------------------------------------------------------------------------
     protected $restores;
+
+    //--------------------------------------------------------------------------------------------------------
+    // Caches
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var array
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected $caches;
 
     //--------------------------------------------------------------------------------------------------------
     // CSRF
@@ -221,7 +239,7 @@ class InternalRoute extends CLController implements InternalRouteInterface
     // @var array
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $filters = ['csrf', 'ajax', 'curl', 'restful', 'restore', 'method', 'usable'];
+    protected $filters = ['csrf', 'ajax', 'curl', 'restful', 'restore', 'cache', 'method', 'usable'];
 
     //--------------------------------------------------------------------------------------------------------
     // Pattern Type
@@ -296,6 +314,25 @@ class InternalRoute extends CLController implements InternalRouteInterface
     {
         $this->restore['ips'] = (array) $ips;
         $this->restore['uri'] = $uri;
+
+        return $this;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Restore -> 5.3.3
+    //--------------------------------------------------------------------------------------------------------
+    //
+    //  @param  int    $time     = 60
+    //  @param  mixed  $compress = false
+    //  @param  string $driver   = file
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function cache(Int $time = 60, $compress = false, String $driver = 'file') : InternalRoute
+    {
+        $this->cache['time']     = $time;
+        $this->cache['compress'] = $compress;
+        $this->cache['driver']   = $driver;
+        $this->cache['status']   = true;
 
         return $this;
     }
@@ -803,6 +840,25 @@ class InternalRoute extends CLController implements InternalRouteInterface
     }
 
     //--------------------------------------------------------------------------------------------------------
+    // Protected Cache
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _cache()
+    {
+        if( ! empty($this->caches) )
+        {
+
+            if( $cache = ($this->caches[CURRENT_CFURI]['cache'] ?? NULL) )
+            {
+                Config::set('Project', 'cache', $cache);
+            }
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------------
     // Protected Method
     //--------------------------------------------------------------------------------------------------------
     //
@@ -951,6 +1007,7 @@ class InternalRoute extends CLController implements InternalRouteInterface
         $this->method   = NULL;
         $this->redirect = NULL;
         $this->restore  = NULL;
+        $this->cache    = NULL;
         $this->csrf     = NULL;
         $this->ajax     = NULL;
         $this->curl     = NULL;
