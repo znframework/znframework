@@ -98,6 +98,15 @@ class InternalRoute extends CLController implements InternalRouteInterface
     protected $cache;
 
     //--------------------------------------------------------------------------------------------------------
+    // No Cache
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var string
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected $nocache;
+
+    //--------------------------------------------------------------------------------------------------------
     // Restores
     //--------------------------------------------------------------------------------------------------------
     //
@@ -114,6 +123,15 @@ class InternalRoute extends CLController implements InternalRouteInterface
     //
     //--------------------------------------------------------------------------------------------------------
     protected $caches;
+
+    //--------------------------------------------------------------------------------------------------------
+    // No Caches
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var string
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected $nocaches;
 
     //--------------------------------------------------------------------------------------------------------
     // CSRF
@@ -239,7 +257,7 @@ class InternalRoute extends CLController implements InternalRouteInterface
     // @var array
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $filters = ['csrf', 'ajax', 'curl', 'restful', 'restore', 'cache', 'method', 'usable'];
+    protected $filters = ['csrf', 'ajax', 'curl', 'restful', 'restore', 'cache', 'nocache', 'method', 'usable'];
 
     //--------------------------------------------------------------------------------------------------------
     // Pattern Type
@@ -319,7 +337,7 @@ class InternalRoute extends CLController implements InternalRouteInterface
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Restore -> 5.3.3
+    // Cache -> 5.3.3
     //--------------------------------------------------------------------------------------------------------
     //
     //  @param  int    $time     = 60
@@ -333,6 +351,20 @@ class InternalRoute extends CLController implements InternalRouteInterface
         $this->cache['compress'] = $compress;
         $this->cache['driver']   = $driver;
         $this->cache['status']   = true;
+
+        return $this;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // No Cache -> 5.3.3
+    //--------------------------------------------------------------------------------------------------------
+    //
+    //  @param  void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function nocache() : InternalRoute
+    {
+        $this->nocache['status'] = false;
 
         return $this;
     }
@@ -850,10 +882,27 @@ class InternalRoute extends CLController implements InternalRouteInterface
     {
         if( ! empty($this->caches) )
         {
-
             if( $cache = ($this->caches[CURRENT_CFURI]['cache'] ?? NULL) )
             {
                 Config::set('Project', 'cache', $cache);
+            }
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Cache
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _nocache()
+    {
+        if( ! empty($this->nocaches) )
+        {
+            if( $nocache = ($this->nocaches[CURRENT_CFURI]['nocache'] ?? NULL) )
+            {
+                Config::set('Project', 'cache', $nocache);
             }
         }
     }
@@ -1008,6 +1057,7 @@ class InternalRoute extends CLController implements InternalRouteInterface
         $this->redirect = NULL;
         $this->restore  = NULL;
         $this->cache    = NULL;
+        $this->nocache  = NULL;
         $this->csrf     = NULL;
         $this->ajax     = NULL;
         $this->curl     = NULL;
