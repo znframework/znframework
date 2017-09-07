@@ -589,7 +589,7 @@ class InternalRoute extends CLController implements InternalRouteInterface
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Change -> 5.3.22[Edited]
+    // Change -> 5.3.22[Edited] - 5.3.32[edited]
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string $route
@@ -598,12 +598,14 @@ class InternalRoute extends CLController implements InternalRouteInterface
     public function change(String $route) : InternalRoute
     {
         $route  = trim($route, '/');
-        $count  = count(explode('/', $route));
+        $count  = 0;
         $return = true;
 
         // Database Routing
-        $route = preg_replace_callback('/\[(\w+)\:(\w+)(\s*\,\s*((json|serial|separator))(\:(.*?))*)*\]/i', function($match) use ($count, &$return)
+        $route = preg_replace_callback('/\[(\w+)\:(\w+)(\s*\,\s*((json|serial|separator))(\:(.*?))*)*\]/i', function($match) use (&$count, &$return)
         {
+            $count++;
+
             $decoder = $match[4] ?? NULL;
             $value   = $val = \URI::get($count);
             $column  = $match[2];
