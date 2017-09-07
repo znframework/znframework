@@ -14,11 +14,6 @@ class Kernel
     //
     //--------------------------------------------------------------------------------------------------
 
-    public static function route()
-    {
-        Route::filter();
-    }
-
     public static function start()
     {
         if( $autoloaderAliases = Config::get('Autoloader')['aliases'] ) foreach( $autoloaderAliases as $alias => $origin )

@@ -1,6 +1,6 @@
 <?php namespace ZN\IndividualStructures;
 
-use Support, CLController, DriverAbility;
+use Support, CLController, DriverAbility, Buffer;
 
 class InternalCache extends CLController implements InternalCacheInterface
 {
@@ -28,6 +28,28 @@ class InternalCache extends CLController implements InternalCacheInterface
         'options'   => ['file', 'apc', 'apcu', 'memcache', 'redis', 'wincache'],
         'namespace' => 'ZN\IndividualStructures\Cache\Drivers'
     ];
+
+    protected $codeCount = 0;
+
+    public function code(Callable $function, Int $time, String $compress = 'gz')
+    {
+        $this->codeCount++;
+
+        $name = 'code-' . $this->codeCount . '-' . CURRENT_CONTROLLER . '-' . CURRENT_CFUNCTION;
+
+        if( ! $select = $this->select($name, $compress) )
+        {
+            $output = Buffer::callback($function);
+
+            $this->insert($name, $output, $time, 'gz');
+
+            return $output;
+        }
+        else
+        {
+            return $select;
+        }
+    }
 
     //--------------------------------------------------------------------------------------------------------
     // Select

@@ -1,6 +1,6 @@
 <?php namespace Project\Controllers;
 
-use Restful, Separator, File, Folder, Arrays, Strings, Lang, URI;
+use Restful, Separator, File, Folder, Arrays, Strings, Lang, URI, Route;
 use Converter, ZN\Core\Kernel as Kernel, Buffer, Cache, Config, User;
 
 class ZN
@@ -102,7 +102,7 @@ class ZN
     //--------------------------------------------------------------------------------------------------
     public static function run()
     {
-        Kernel::route();
+        Route::filter();
 
         $projectConfig = Config::get('Project', 'cache');
 
@@ -114,7 +114,9 @@ class ZN
             ( empty($projectConfig['exclude']) || ! Arrays::valueExists(($projectConfig['exclude'] ?? []), CURRENT_CFPATH) )
         )
         {
-            $cacheName = ($projectConfig['prefix'] ?? Lang::get()) . '-' . Converter::slug(str_replace('/', '_', trim(URI::active(), '/')));
+            $converterName = Converter::slug(str_replace('/', ' ', trim(URI::active(), '/')));
+
+            $cacheName = ($projectConfig['prefix'] ?? Lang::get()) . '-' . $converterName;
 
             Cache::driver($projectConfig['driver']);
 
