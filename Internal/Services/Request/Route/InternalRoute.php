@@ -1,7 +1,7 @@
 <?php namespace ZN\Services\Request;
 
 use ZN\Core\Structure, ZN\In;
-use Arrays, Config, Errors, CLController, Http, Import, Regex, Security, Restoration, URI, IS, Masterpage, Lang;
+use Arrays, Config, Errors, CLController, Http, Import, Regex, Security, Restoration, URI, IS, Masterpage, Lang, DB;
 
 class InternalRoute extends CLController implements InternalRouteInterface
 {
@@ -597,27 +597,26 @@ class InternalRoute extends CLController implements InternalRouteInterface
     //--------------------------------------------------------------------------------------------------------
     public function change(String $route) : InternalRoute
     {
-        $route  = trim($route, '/');
-        $count  = 0;
-        $return = true;
+        $route        = trim($route, '/');
+        $return       = true;
+        $routeSegment = explode('/', $route);
 
         // Database Routing
-        $route = preg_replace_callback('/\[(\w+)\:(\w+)(\s*\,\s*((json|serial|separator))(\:(.*?))*)*\]/i', function($match) use (&$count, &$return)
+        $route = preg_replace_callback('/\[(\w+|\.)\:(\w+|\.)(\s*\,\s*((json|serial|separator))(\:(.*?))*)*\]/i', function($match) use (&$count, &$return, $routeSegment)
         {
-            $count++;
-
+            $count   = Arrays::search($routeSegment, $match[0]);
             $decoder = $match[4] ?? NULL;
-            $value   = $val = \URI::get($count);
+            $value   = $val = URI::segment($count + 1);
             $column  = $match[2];
 
             // Json, Serial or Separator
             if( $decoder !== NULL )
             {
                 $column = $match[2] . ' like';
-                $value  = \DB::like($value, 'inside');
+                $value  = DB::like($value, 'inside');
             }
 
-            $return = \DB::select($match[2])->where($column, $value)->get($match[1])->value();
+            $return = DB::select($match[2])->where($column, $value)->get($match[1])->value();
 
             // Json, Serial or Separator
             if( $decoder !== NULL )
