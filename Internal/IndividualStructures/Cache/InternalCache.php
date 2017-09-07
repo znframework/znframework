@@ -1,6 +1,6 @@
 <?php namespace ZN\IndividualStructures;
 
-use Support, CLController, DriverAbility, Buffer;
+use Support, CLController, DriverAbility, Buffer, Converter, Import;
 
 class InternalCache extends CLController implements InternalCacheInterface
 {
@@ -30,16 +30,113 @@ class InternalCache extends CLController implements InternalCacheInterface
     ];
 
     protected $codeCount = 0;
+    protected $refresh   = false;
 
-    public function code(Callable $function, Int $time, String $compress = 'gz')
+    //--------------------------------------------------------------------------------------------------------
+    // Refresh -> 5.3.31
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param  void
+    // @return this
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function refresh()
+    {
+        $this->refresh = true;
+
+        return $this;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Data -> 5.3.31
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param  array $data = NULL
+    // @return this
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function data(Array $data = NULL)
+    {
+        Import::data($data);
+
+        return $this;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Code
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param  callable $function
+    // @param  int      $time     = 60
+    // @param  string   $compress = 'gz'
+    // @return mixed
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function code(Callable $function, Int $time = 60, String $compress = 'gz') : String
     {
         $this->codeCount++;
 
         $name = 'code-' . $this->codeCount . '-' . CURRENT_CONTROLLER . '-' . CURRENT_CFUNCTION;
 
+        $this->_refresh($name);
+
         if( ! $select = $this->select($name, $compress) )
         {
             $output = Buffer::callback($function);
+
+            $this->insert($name, $output, $time, 'gz');
+
+            return $output;
+        }
+        else
+        {
+            return $select;
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // View -> 5.3.21
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param  string $function
+    // @param  int    $time     = 60
+    // @param  string $compress = 'gz'
+    // @return string
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function view(String $file, Int $time = 60, String $compress = 'gz') : String
+    {
+        return $this->file($file, $time, $compress, 'view');
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // File -> 5.3.21
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param  string $function
+    // @param  int    $time     = 60
+    // @param  string $compress = 'gz'
+    // @return string
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function file(String $file, Int $time = 60, String $compress = 'gz', $type = 'something') : String
+    {
+        $name = Converter::slug($file);
+
+        $this->_refresh($name);
+
+        if( ! $select = $this->select($name, $compress) )
+        {
+            Import::usable();
+
+            if( $type === 'shomething' )
+            {
+                $output = Import::something($file);
+            }
+            else
+            {
+                $output = Import::view($file);
+            }
 
             $this->insert($name, $output, $time, 'gz');
 
@@ -159,5 +256,22 @@ class InternalCache extends CLController implements InternalCacheInterface
     public function getMetaData(String $key) : Array
     {
         return $this->driver->getMetaData($key);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Refresh
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param  string  $key
+    // @return void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _refresh($data)
+    {
+        if( $this->refresh === true )
+        {
+            $this->delete($data);
+            $this->refresh = false;
+        }
     }
 }

@@ -114,7 +114,7 @@ class ZN
             ( empty($projectConfig['exclude']) || ! Arrays::valueExists(($projectConfig['exclude'] ?? []), CURRENT_CFPATH) )
         )
         {
-            $converterName = Converter::slug(str_replace('/', ' ', trim(URI::active(), '/')));
+            $converterName = Converter::slug(URI::active());
 
             $cacheName = ($projectConfig['prefix'] ?? Lang::get()) . '-' . $converterName;
 
