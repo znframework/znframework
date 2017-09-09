@@ -261,6 +261,7 @@ class InternalURI extends CallController implements InternalURIInterface
     public function segmentArray() : Array
     {
         $segmentEx = Arrays::deleteElement(explode('/', $this->_cleanPath()), '');
+
         return $segmentEx;
     }
 
@@ -292,7 +293,7 @@ class InternalURI extends CallController implements InternalURIInterface
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Segment
+    // Segment -> 5.3.34[edited]
     //--------------------------------------------------------------------------------------------------------
     //
     // @param int $seg
@@ -312,9 +313,15 @@ class InternalURI extends CallController implements InternalURIInterface
             $seg   = $count + $seg;
         }
 
-        if( ! empty($segments[$seg]) )
+        $select = $segments[$seg] ?? false;
+
+        if( ! empty($select) )
         {
             return $segments[$seg];
+        }
+        elseif( $select === '0' ) // 5.3.34[added]
+        {
+            return (int) $select;
         }
 
         return false;
