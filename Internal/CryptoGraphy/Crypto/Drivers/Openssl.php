@@ -127,7 +127,7 @@ class OpensslDriver extends CryptoMapping
 	 	$key    = $settings['key']    ?? $this->keySize($cipher);
 		$mode   = $settings['mode']   ?? 'cbc';
 		$iv     = $settings['vector'] ?? $this->vectorSize($mode, $cipher);
-		$cipher = $cipher."-".$mode;
+		$cipher = $cipher . '-' . $mode;
 
         return (object)
         [

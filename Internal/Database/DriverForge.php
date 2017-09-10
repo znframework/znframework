@@ -23,7 +23,7 @@ class DriverForge
     //--------------------------------------------------------------------------------------------------------
     public function createDatabase($dbname, $extras)
     {
-        return 'CREATE DATABASE '.$dbname.$this->_extras($extras);
+        return 'CREATE DATABASE ' . $dbname . $this->_extras($extras);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -35,7 +35,7 @@ class DriverForge
     //--------------------------------------------------------------------------------------------------------
     public function dropDatabase($dbname)
     {
-        return 'DROP DATABASE '.$dbname;
+        return 'DROP DATABASE ' . $dbname;
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -57,17 +57,17 @@ class DriverForge
 
             if( is_array($value) ) foreach( $value as $val )
             {
-                $values .= ' '.$val;
+                $values .= ' ' . $val;
             }
             else
             {
                 $values = $value;
             }
 
-            $column .= $key.' '.$values.',';
+            $column .= $key . ' ' . $values . ',';
         }
 
-        return 'CREATE TABLE '.$table.'('.rtrim(trim($column), ',').')'.$this->_extras($extras);
+        return 'CREATE TABLE ' . $table . '(' .rtrim(trim($column), ',') . ')' . $this->_extras($extras);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -79,7 +79,7 @@ class DriverForge
     //--------------------------------------------------------------------------------------------------------
     public function dropTable($table)
     {
-        return 'DROP TABLE '.$table;
+        return 'DROP TABLE ' . $table;
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -102,7 +102,7 @@ class DriverForge
     //--------------------------------------------------------------------------------------------------------
     public function renameTable($name, $newName)
     {
-        return 'ALTER TABLE '.$name.' RENAME TO '.$newName;
+        return 'ALTER TABLE ' . $name . ' RENAME TO ' . $newName;
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -114,7 +114,7 @@ class DriverForge
     //--------------------------------------------------------------------------------------------------------
     public function truncate($table)
     {
-        return 'TRUNCATE TABLE '.$table;
+        return 'TRUNCATE TABLE ' . $table;
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -127,7 +127,7 @@ class DriverForge
     //--------------------------------------------------------------------------------------------------------
     public function addColumn($table, $columns)
     {
-        return 'ALTER TABLE '.$table.' ADD ('.$this->_extractColumn($columns).');';
+        return 'ALTER TABLE ' . $table . ' ADD (' . $this->_extractColumn($columns) . ');';
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -140,7 +140,7 @@ class DriverForge
     //--------------------------------------------------------------------------------------------------------
     public function dropColumn($table, $column)
     {
-        return 'ALTER TABLE '.$table.' DROP '.$column.';';
+        return 'ALTER TABLE ' . $table . ' DROP ' . $column . ';';
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -153,7 +153,7 @@ class DriverForge
     //--------------------------------------------------------------------------------------------------------
     public function modifyColumn($table, $columns)
     {
-        return 'ALTER TABLE '.$table.' MODIFY '.$this->_extractColumn($columns).';';
+        return 'ALTER TABLE ' . $table . ' MODIFY ' . $this->_extractColumn($columns) . ';';
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -166,7 +166,7 @@ class DriverForge
     //--------------------------------------------------------------------------------------------------------
     public function renameColumn($table, $columns)
     {
-        return 'ALTER TABLE '.$table.' CHANGE COLUMN  '.$this->_extractColumn($columns).';';
+        return 'ALTER TABLE ' . $table . ' CHANGE COLUMN ' . $this->_extractColumn($columns) . ';';
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -188,15 +188,15 @@ class DriverForge
             {
                 foreach( $values as $val )
                 {
-                    $colvals .= ' '.$val;
+                    $colvals .= ' ' . $val;
                 }
             }
             else
             {
-                $colvals .= ' '.$values;
+                $colvals .= ' ' . $values;
             }
 
-            $con .= $column.$colvals.',';
+            $con .= $column . $colvals . ',';
         }
 
         return rtrim($con, ',');
@@ -209,11 +209,11 @@ class DriverForge
     {
         if( IS::array($extras) )
         {
-            $extraCodes = ' '.implode(' ', $extras).';';
+            $extraCodes = ' ' . implode(' ', $extras) . ';';
         }
         elseif( is_string($extras) )
         {
-            $extraCodes = ' '.$extras.';';
+            $extraCodes = ' ' . $extras . ';';
         }
         else
         {

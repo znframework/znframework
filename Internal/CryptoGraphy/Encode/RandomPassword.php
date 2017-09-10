@@ -12,37 +12,31 @@ class RandomPassword extends EncodeExtends
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
-    // Create
+    // Create -> 5.3.35[edited]
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param int    $count
-    // @param string $chars
+    // @param int    $count = 6
+    // @param string $chars = 'alnum', options: numeric, string/alpha, special, all, alnum
     //
     //--------------------------------------------------------------------------------------------------------
-    public function create(Int $count = 6, String $chars = 'all') : String
+    public function create(Int $count = 6, String $chars = 'alnum') : String
     {
         $password = '';
         $alpha    = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOQPRSTUVWXYZ';
         $numeric  = '1234567890';
+        $special  = '*-+/?!.;,:\'\\#$%&{}[]()';
 
-        if( $chars === 'all' || $chars === 'alnum' )
+        switch( $chars )
         {
-            $characters = $numeric . $alpha;
-        }
-        if( $chars === 'numeric' )
-        {
-            $characters = $numeric;
-        }
-        if( $chars === 'string' || $chars === 'alpha' )
-        {
-            $characters = $alpha;
-        }
-
-        for( $i = 0; $i < $count; $i++ )
-        {
-            $password .= substr( $characters, rand( 0, strlen($characters)), 1 );
+            case 'numeric' : $characters = $numeric;                     break;
+            case 'string'  :
+            case 'alpha'   : $characters = $alpha;                       break;
+            case 'special' : $characters = $special;                     break;
+            case 'all'     : $characters = $alpha . $numeric . $special; break;
+            case 'alnum'   :
+            default        : $characters = $alpha . $numeric;
         }
 
-        return $password;
+        return substr(str_shuffle($characters), 0, $count);
     }
 }

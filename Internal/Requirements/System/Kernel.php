@@ -1,7 +1,8 @@
 <?php namespace ZN\Core;
 
-use Arrays, Import, Route, Throwable, Exceptions, Config, Errors, Generate, Folder, File, Restoration, URL, Lang, IS;
-use View, Masterpage;
+use Arrays, Import, Route, Throwable, Exceptions, Config, Errors;
+use Generate, Folder, File, Restoration, URL, Lang, IS;
+use View, Masterpage, ZN\In, Logger;
 
 class Kernel
 {
@@ -30,7 +31,7 @@ class Kernel
 
         define('PROJECT_MODE', strtolower($appcon['mode']));
 
-        \ZN\In::projectMode(PROJECT_MODE, $appcon['errorReporting']);
+        In::projectMode(PROJECT_MODE, $appcon['errorReporting']);
 
         if( Config::get('IndividualStructures', 'cache')['obGzhandler'] && substr_count(server('acceptEncoding'), 'gzip') )
         {
@@ -60,12 +61,12 @@ class Kernel
 
         if( Config::get('Htaccess','createFile') === true )
         {
-            \ZN\In::createHtaccessFile();
+            In::createHtaccessFile();
         }
 
         if( Config::get('Robots','createFile') === true )
         {
-            \ZN\In::createRobotsFile();
+            In::createRobotsFile();
         }
 
         $generateConfig = Config::get('FileSystem', 'generate');
@@ -105,7 +106,7 @@ class Kernel
                 }
                 else
                 {
-                    \Logger::report('Error', \Lang::select('Error', 'fileNotFound', $path) ,'AutoloadComposer');
+                    Logger::report('Error', Lang::select('Error', 'fileNotFound', $path) ,'AutoloadComposer');
 
                     die(Errors::message('Error', 'fileNotFound', $path));
                 }
@@ -118,7 +119,7 @@ class Kernel
             {
                 $path = suffix($composer) . $path;
 
-                \Logger::report('Error', \Lang::select('Error', 'fileNotFound', $path) ,'AutoloadComposer');
+                Logger::report('Error', Lang::select('Error', 'fileNotFound', $path) ,'AutoloadComposer');
 
                 die(Errors::message('Error', 'fileNotFound', $path));
             }
@@ -166,11 +167,9 @@ class Kernel
             Restoration::mode();
         }
 
-        \ZN\In::invalidRequest('disallowMethods', true);
-        \ZN\In::invalidRequest('allowMethods', false);
-        \ZN\In::startingConfig('controller');
-
-        return new self;
+        In::invalidRequest('disallowMethods', true);
+        In::invalidRequest('allowMethods', false);
+        In::startingConfig('controller');
     }
 
     //--------------------------------------------------------------------------------------------------
@@ -182,6 +181,8 @@ class Kernel
     //--------------------------------------------------------------------------------------------------
     public static function run()
     {
+        self::start();
+
         $parameters   = CURRENT_CPARAMETERS;
         $page         = CURRENT_CONTROLLER;
         $isFile       = CURRENT_CFILE;
@@ -241,7 +242,7 @@ class Kernel
             Route::redirectShow404(CURRENT_CONTROLLER, 'notFoundController', 'SystemNotFoundControllerError');
         }
 
-        return new self;
+        self::end();
     }
 
     //--------------------------------------------------------------------------------------------------
@@ -297,7 +298,7 @@ class Kernel
             $usableView = self::_load($viewPath, $data);
         }
 
-        $data = array_merge((array) $pageClassMasterpage, Masterpage::$data, ...\ZN\In::$masterpage);
+        $data = array_merge((array) $pageClassMasterpage, Masterpage::$data, ...In::$masterpage);
 
         if( ($data['masterpage'] ?? NULL) === true || ! empty($data) )
         {
@@ -311,7 +312,7 @@ class Kernel
 
     public static function end()
     {
-        \ZN\In::startingConfig('destruct');
+        In::startingConfig('destruct');
 
         if( PROJECT_MODE !== 'publication' )
         {
@@ -321,12 +322,12 @@ class Kernel
         {
             if(  Config::get('General', 'log')['createFile'] === true && $errorLast = Errors::last() )
             {
-                $lang    = \Lang::select('Templates');
+                $lang    = Lang::select('Templates');
                 $message = $lang['line']   .':'.$errorLast['line'].', '.
                            $lang['file']   .':'.$errorLast['file'].', '.
                            $lang['message'].':'.$errorLast['message'];
 
-                \Logger::report('GeneralError', $message, 'GeneralError');
+                Logger::report('GeneralError', $message, 'GeneralError');
             }
         }
 

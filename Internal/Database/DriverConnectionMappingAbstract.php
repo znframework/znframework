@@ -331,9 +331,7 @@ abstract class DriverConnectionMappingAbstract
     {
         $operator = strtolower($operator);
 
-        return isset( $this->operators[$operator] )
-               ? $this->operators[$operator]
-               : false;
+        return $this->operators[$operator] ?? false;
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -349,16 +347,16 @@ abstract class DriverConnectionMappingAbstract
     {
         $state = strtolower($state);
 
-        if( isset( $this->statements[$state] ) )
+        if( $isstate = ($this->statements[$state] ?? NULL) )
         {
-            if( strstr($this->statements[$state], '%') )
+            if( strstr($isstate, '%') )
             {
-                $vartype = str_replace('%', $len, $this->statements[$state]);
+                $vartype = str_replace('%', $len, $isstate);
 
                 return $this->cvartype($vartype);
             }
 
-            return $this->cvartype($this->statements[$state], $len, $type);
+            return $this->cvartype($isstate, $len, $type);
         }
         else
         {
@@ -379,9 +377,9 @@ abstract class DriverConnectionMappingAbstract
     {
         $vartype = strtolower($vartype);
 
-        return isset( $this->variableTypes[$vartype] )
-               ? $this->cvartype($this->variableTypes[$vartype], $len, $type)
-               : false;
+        return   ! empty( $isvartype = ($this->variableTypes[$vartype] ?? NULL) )
+                 ? $this->cvartype($isvartype, $len, $type)
+                 : false;
     }
 
     //--------------------------------------------------------------------------------------------------------

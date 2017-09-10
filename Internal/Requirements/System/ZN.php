@@ -124,7 +124,7 @@ class ZN
             {
                 $kernel = Buffer::callback(function()
                 {
-                    Kernel::start()::run()::end();
+                    Kernel::run();
                 });
 
                 Cache::insert($cacheName, $kernel, $projectConfig['time'], $projectConfig['compress']);
@@ -138,7 +138,7 @@ class ZN
         }
         else
         {
-            Kernel::start()::run()::end();
+            Kernel::run();
         }
     }
 

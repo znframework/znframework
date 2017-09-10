@@ -146,7 +146,7 @@ class InternalDBForge extends Connection implements InternalDBForgeInterface
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Alter Table
+    // Alter Table -> 5.3.35[edited]
     //--------------------------------------------------------------------------------------------------------
     //
     // @param mixed $table
@@ -156,27 +156,9 @@ class InternalDBForge extends Connection implements InternalDBForgeInterface
     public function alterTable(String $table = NULL, Array $condition = NULL)
     {
         $table = $this->_p($table);
+        $key   = key($condition);
 
-        if( key($condition) === 'renameTable' )
-        {
-            return $this->renameTable($table, $condition['renameTable']);
-        }
-        elseif( key($condition) === 'addColumn' )
-        {
-            return $this->addColumn($table, $condition['addColumn']);
-        }
-        elseif( key($condition) === 'dropColumn' )
-        {
-            return $this->dropColumn($table, $condition['dropColumn']);
-        }
-        elseif( key($condition) === 'modifyColumn' )
-        {
-            return $this->modifyColumn($table, $condition['modifyColumn']);
-        }
-        elseif( key($condition) === 'renameColumn' )
-        {
-            return $this->renameColumn($table, $condition['renameColumn']);
-        }
+        return $this->$key($table, $condition[$key]);
     }
 
     //--------------------------------------------------------------------------------------------------------

@@ -29,14 +29,11 @@ class GoldenAlgorithm extends EncodeExtends
         {
             $algo = 'md5';
         }
-        // Ek veri şifreleniyor.
 
         $additional = hash($algo, $additional);
 
-        // Veri şifreleniyor.
         $data = hash($algo, $data);
 
-        // Veri ve ek yeniden şifreleniyor.
-        return hash($algo, $data.$additional);
+        return hash($algo, $data . $additional);
     }
 }

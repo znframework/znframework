@@ -128,6 +128,11 @@ class InternalCrontab extends RemoteCommon implements InternalCrontabInterface, 
     //--------------------------------------------------------------------------------------------------------
     public function listArray() : Array
     {
+        if( ! File::exists($this->crontabCommands) )
+        {
+            return [];
+        }
+
         return Arrays::deleteElement(explode(EOL, File::read($this->crontabCommands)), '');
     }
 

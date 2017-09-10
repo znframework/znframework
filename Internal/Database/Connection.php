@@ -497,14 +497,12 @@ class Connection implements ConnectionInterface
     {
         $type    = \Autoloader::upper($type);
         $getLast = Arrays::getLast($args);
-
         $asparam = ' ';
 
         if( $getLast === true )
         {
             $args   = Arrays::removeLast($args);
             $return = true;
-
             $as     = Arrays::getLast($args);
 
             if( stripos(trim($as), 'as') === 0 )
@@ -526,7 +524,7 @@ class Connection implements ConnectionInterface
 
         $args = $type.'('.rtrim(implode(',', $args), ',').')'.$asparam;
 
-        return (object)array
+        return (object) array
         (
             'args'   => $args,
             'return' => $return

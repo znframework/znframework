@@ -13,7 +13,7 @@
 //--------------------------------------------------------------------------------------------------
 // VERSION INFO CONSTANTS
 //--------------------------------------------------------------------------------------------------
-define('ZN_VERSION'          , '5.3.34');
+define('ZN_VERSION'          , '5.3.35');
 define('REQUIRED_PHP_VERSION', '7.0.0');
 //--------------------------------------------------------------------------------------------------
 
@@ -1080,26 +1080,7 @@ function compare(String $p1, String $operator, String $p2) : Bool
 //--------------------------------------------------------------------------------------------------
 function suffix(String $string = NULL, String $fix = '/') : String
 {
-    if( strlen($fix) <= strlen($string) )
-    {
-        $suffix = substr($string, -strlen($fix));
-
-        if( $suffix !== $fix)
-        {
-            $string = $string.$fix;
-        }
-    }
-    else
-    {
-        $string = $string.$fix;
-    }
-
-    if( $string === '/' )
-    {
-        return false;
-    }
-
-    return $string;
+    return prefix($string, $fix, __FUNCTION__);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -1112,23 +1093,25 @@ function suffix(String $string = NULL, String $fix = '/') : String
 // @return string
 //
 //--------------------------------------------------------------------------------------------------
-function prefix(String $string = NULL, String $fix = '/') : String
+function prefix(String $string = NULL, String $fix = '/', $type = __FUNCTION__) : String
 {
+    $stringFix = $type === 'prefix' ? $fix . $string : $string . $fix;
+
     if( strlen($fix) <= strlen($string) )
     {
-        $prefix = substr($string, 0, strlen($fix));
+        $prefix = $type === 'prefix' ? substr($string, 0, strlen($fix)) : substr($string, -strlen($fix));
 
         if( $prefix !== $fix )
         {
-            $string = $fix.$string;
+            $string = $stringFix;
         }
     }
     else
     {
-        $string = $fix.$string;
+        $string = $stringFix;
     }
 
-    if( $string === '/' )
+    if( $string === $fix )
     {
         return false;
     }
@@ -1148,7 +1131,7 @@ function prefix(String $string = NULL, String $fix = '/') : String
 //--------------------------------------------------------------------------------------------------
 function presuffix(String $string = NULL, String $fix = '/') : String
 {
-    return suffix(prefix(empty($string) ? $fix.$string.$fix : $string, $fix), $fix);
+    return suffix(prefix(empty($string) ? $fix . $string . $fix : $string, $fix), $fix);
 }
 
 //--------------------------------------------------------------------------------------------------
