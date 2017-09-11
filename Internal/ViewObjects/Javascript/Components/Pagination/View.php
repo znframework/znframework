@@ -9,8 +9,7 @@ $index = md5($index);
 // @extension bootstrap
 //
 //--------------------------------------------------------------------------------------------------------
-
-$extensions = JC::extensions($extensions, ['jquery', 'bootstrap']);
+$extensions = JC::extensions($extensions, ['jquery', 'bootstrap'], $autoloadExtensions);
 
 //--------------------------------------------------------------------------------------------------------
 // Available Extensions

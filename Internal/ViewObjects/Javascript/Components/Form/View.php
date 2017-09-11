@@ -10,7 +10,7 @@
 //
 //--------------------------------------------------------------------------------------------------------
 
-$extensions = JC::extensions($extensions, ['jquery', 'bootstrap', 'jqueryValidator']);
+$extensions = JC::extensions($extensions, ['jquery', 'bootstrap', 'jqueryValidator'], $autoloadExtensions);
 
 //--------------------------------------------------------------------------------------------------------
 // Available Extensions

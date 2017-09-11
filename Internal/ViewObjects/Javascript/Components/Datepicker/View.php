@@ -10,7 +10,7 @@
 //
 //--------------------------------------------------------------------------------------------------------
 
-$extensions = JC::extensions($extensions, ['jquery', 'jqueryui', 'datepicker']);
+$extensions = JC::extensions($extensions, ['jquery', 'jqueryui', 'datepicker'], $autoloadExtensions);
 
 //--------------------------------------------------------------------------------------------------------
 // Available Extensions

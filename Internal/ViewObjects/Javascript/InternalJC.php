@@ -31,8 +31,13 @@ class InternalJC extends \FactoryController
         ]
     ];
 
-    public function extensions($extensions, $parameters)
+    public function extensions($extensions, $parameters, $autoloadExtensions)
     {
-        return array_merge($parameters, (array) $extensions);
+        if( $autoloadExtensions === true )
+        {
+            return array_merge($parameters, (array) $extensions);
+        }
+
+        return $extensions;
     }
 }

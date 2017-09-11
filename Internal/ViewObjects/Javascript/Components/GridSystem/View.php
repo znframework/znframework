@@ -10,7 +10,7 @@
 //
 //--------------------------------------------------------------------------------------------------------
 
-$extensions = JC::extensions($extensions, ['bootstrap']);
+$extensions = JC::extensions($extensions, ['bootstrap'], $autoloadExtensions);
 
 //--------------------------------------------------------------------------------------------------------
 // Available Extensions

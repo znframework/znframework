@@ -10,7 +10,7 @@
 //
 //--------------------------------------------------------------------------------------------------------
 
-$extensions = JC::extensions($extensions, ['jquery', 'flexSlider']);
+$extensions = JC::extensions($extensions, ['jquery', 'flexSlider'], $autoloadExtensions);
 
 //--------------------------------------------------------------------------------------------------------
 // Available Extensions

@@ -33,7 +33,7 @@ $extensions = $extensions ?? [];
 //
 //--------------------------------------------------------------------------------------------------------
 
-$extensions = JC::extensions($extensions, ['jquery', 'datatables']);
+$extensions = JC::extensions($extensions, ['jquery', 'datatables'], $autoloadExtensions);
 
 //--------------------------------------------------------------------------------------------------------
 // Server Side

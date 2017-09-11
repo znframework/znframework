@@ -10,7 +10,7 @@
 //
 //--------------------------------------------------------------------------------------------------------
 
-$extensions = JC::extensions($extensions, ['jquery', 'select2']);
+$extensions = JC::extensions($extensions, ['jquery', 'select2'], $autoloadExtensions);
 
 //--------------------------------------------------------------------------------------------------------
 // Available Extensions

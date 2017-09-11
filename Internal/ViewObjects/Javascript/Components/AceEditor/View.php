@@ -26,7 +26,7 @@ $readOnly            = $properties['readOnly']            ?? false;
 //
 //--------------------------------------------------------------------------------------------------------
 
-$extensions = JC::extensions($extensions, ['ace']);
+$extensions = JC::extensions($extensions, ['ace'], $autoloadExtensions);
 
 //--------------------------------------------------------------------------------------------------------
 // Available Extensions
