@@ -23,10 +23,11 @@ class FlexSlider extends ComponentsExtends
     {
         $flexsliders($this);
 
-        $attr['id']     = $id;
-        $attr['path']   = $this->path ? suffix($this->path) : NULL;
-        $attr['images'] = $this->images ?? NULL;
-
-        return $this->prop($attr);
+        return $this->prop
+        ([
+            'id'     => $id,
+            'path'   => $this->path ? suffix($this->path) : NULL,
+            'images' => $this->images ?? NULL
+        ]);
     }
 }

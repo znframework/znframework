@@ -53,8 +53,9 @@ class GridSystem extends ComponentsExtends
     //--------------------------------------------------------------------------------------------------------
     public function generate(Callable $grid) : String
     {
-        $attr['contents'] = Buffer::function($grid, [$this]);
-
-        return $this->prop($attr);
+        return $this->prop
+        ([
+            'contents' => Buffer::function($grid, [$this])
+        ]);
     }
 }

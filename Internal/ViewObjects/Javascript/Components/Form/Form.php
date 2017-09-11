@@ -29,14 +29,15 @@ class Form extends ComponentsExtends
     //--------------------------------------------------------------------------------------------------------
     public function generate(Callable $form) : String
     {
-        $attr['contents']  = Buffer::function($form, [$this]);
-        $attr['form']      = $form;
-        $attr['action']    = $this->action             ?? NULL;
-        $attr['class']     = $this->class              ?? NULL;
-        $attr['name']      = $this->name               ?? 'form';
-        $attr['method']    = $this->method             ?? NULL;
-        $attr['multipart'] = $this->multipart          ?? NULL;
-
-        return $this->prop($attr);
+        return $this->prop
+        ([
+            'contents'  => Buffer::function($form, [$this]),
+            'form'      => $form,
+            'action'    => $this->action    ?? NULL,
+            'class'     => $this->class     ?? NULL,
+            'name'      => $this->name      ?? 'form',
+            'method'    => $this->method    ?? NULL,
+            'multipart' => $this->multipart ?? NULL
+        ]);
     }
 }

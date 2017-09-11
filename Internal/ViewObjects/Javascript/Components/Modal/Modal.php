@@ -23,17 +23,18 @@ class Modal extends ComponentsExtends
     {
         $modalboxs($this);
 
-        $attr['id']      = $id;
-        $attr['title']   = $this->title   ?? 'Modal Title';
-        $attr['content'] = $this->content ?? 'Modal Content';
-        $attr['process'] = $this->process ?? NULL;
-        $attr['button']  = $this->button  ?? NULL;
-        $attr['modal']   =
-        [
-            'size'  => $this->size  ?? 'normal',
-            'close' => $this->close ?? true
-        ];
-
-        return $this->prop($attr);
+        return $this->prop
+        ([
+            'id'        => $id,
+            'title'     => $this->title   ?? 'Modal Title',
+            'content'   => $this->content ?? 'Modal Content',
+            'process'   => $this->process ?? NULL,
+            'button'    => $this->button  ?? NULL,
+            'modal'     =>
+            [
+                'size'  => $this->size    ?? 'normal',
+                'close' => $this->close   ?? true
+            ]
+        ]);
     }
 }

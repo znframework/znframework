@@ -23,9 +23,10 @@ class Charts extends ComponentsExtends
     {
         $charts($this);
 
-        $attr['type'] = $type;
-        $attr['id']   = $this->id ?? 'morris-area-chart';
-
-        return $this->prop($attr);
+        return $this->prop
+        ([
+            'type' => $type,
+            'id'   => $this->id ?? 'morris-area-chart'
+        ]);
     }
 }

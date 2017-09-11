@@ -75,16 +75,13 @@ class Dropdown extends ComponentsExtends
     {
         $dropdowns($this);
 
-        $attr['li']       = $this->li     ?? [];
-        $attr['value']    = $value;
-        $attr['button']   = $this->button ?? NULL;
-        $attr['class']    = $this->class  ?? 'btn-default';
-        $attr['type']     = $this->type   ?? 'down';
-        $attr['dropdown'] =
-        [
-            'type' => $this->type ?? 'down',
-        ];
-
-        return $this->prop($attr);
+        return $this->prop
+        ([
+            'li'       => $this->li     ?? [],
+            'value'    => $value,
+            'button'   => $this->button ?? NULL,
+            'class'    => $this->class  ?? 'btn-default',
+            'type'     => $this->type   ?? 'down'
+        ]);
     }
 }

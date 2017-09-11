@@ -23,9 +23,10 @@ class AceEditor extends ComponentsExtends
     {
         $editors($this);
 
-        $attr['id'] = $id;
-
-        return $this->prop($attr);
+        return $this->prop
+        ([
+            'id' => $id
+        ]);
 
     }
 }

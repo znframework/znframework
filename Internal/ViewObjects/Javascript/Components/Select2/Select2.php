@@ -23,15 +23,16 @@ class Select2 extends ComponentsExtends
     {
         $select2($this);
 
-        $attr['id']       = $id;
-        $attr['multiple'] = $this->multiple ?? NULL;
-        $attr['table']    = $this->table    ?? NULL;
-        $attr['query']    = $this->query    ?? NULL;
-        $attr['class']    = $this->class    ?? NULL;
-        $attr['name']     = $this->name     ?? $id;
-        $attr['data']     = $this->data     ?? [];
-        $attr['selected'] = $this->selected ?? 0;
-
-        return $this->prop($attr);
+        return $this->prop
+        ([
+            'id'       => $id,
+            'multiple' => $this->multiple ?? NULL,
+            'table'    => $this->table    ?? NULL,
+            'query'    => $this->query    ?? NULL,
+            'class'    => $this->class    ?? NULL,
+            'name'     => $this->name     ?? $id,
+            'data'     => $this->data     ?? [],
+            'selected' => $this->selected ?? 0
+        ]);
     }
 }

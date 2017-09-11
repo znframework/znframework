@@ -22,7 +22,7 @@ class ComponentsExtends
         return Import::page($path, $attr, true, realpath(__DIR__) . DS);
     }
 
-    protected function prop(&$attr, $view = NULL)
+    protected function prop($attr, $view = NULL)
     {
         $attr['autoloadExtensions'] = $this->autoloadExtensions ?? false;
         $attr['extensions']         = $this->extensions         ?? [];

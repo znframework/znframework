@@ -26,13 +26,14 @@ class Datatables extends ComponentsExtends
             $datatable($this);
         }
 
-        $attr['result']  = $result;
-        $attr['width']   = $this->width   ?? '100%';
-        $attr['id']      = $this->id      ?? 'datatable';
-        $attr['class']   = $this->class   ?? 'table-striped table-bordered table-hover';
-        $attr['process'] = $this->process ?? NULL;
-        $attr['length']  = $this->length  ?? 100;
-
-        return $this->prop($attr);
+        return $this->prop
+        ([
+            'result'  => $result,
+            'width'   => $this->width   ?? '100%',
+            'id'      => $this->id      ?? 'datatable',
+            'class'   => $this->class   ?? 'table-striped table-bordered table-hover',
+            'process' => $this->process ?? NULL,
+            'length'  => $this->length  ?? 100
+        ]);
     }
 }

@@ -55,9 +55,10 @@ class Tabs extends ComponentsExtends
     {
         $tab($this);
 
-        $attr['tabs'] = $this->tabs;
-        $attr['type'] = $type;
-
-        return $this->prop($attr);
+        return $this->prop
+        ([
+            'tabs' => $this->tabs,
+            'type' => $type
+        ]);
     }
 }

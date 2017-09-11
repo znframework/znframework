@@ -23,10 +23,11 @@ class Datepicker extends ComponentsExtends
     {
         $datepickers($this);
 
-        $attr['id']    = $id;
-        $attr['class'] = $this->class ?? NULL;
-        $attr['name']  = $this->name  ?? NULL;
-
-        return $this->prop($attr);
+        return $this->prop
+        ([
+            'id'    => $id,
+            'class' => $this->class ?? NULL,
+            'name'  => $this->name  ?? NULL
+        ]);
     }
 }
