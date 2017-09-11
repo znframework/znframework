@@ -1,8 +1,4 @@
-<?php
-
-use ZN\Requirements\Abilities\Exception\UndefinedConstException;
-
-trait ConfigurableAbility
+<?php trait ConfigurableAbility
 {
     //--------------------------------------------------------------------------------------------------------
     // Config

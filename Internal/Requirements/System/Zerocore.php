@@ -1,7 +1,7 @@
 <?php namespace ZN\Requirements\System;
 
-use Arrays, Json, Crontab, IS;
-use ZN\Core\Structure;
+use Arrays, Json, Crontab, IS, Folder, Logger, Config;
+use ZN\Core\Structure, Generate, Cache, ZN;
 
 class Zerocore
 {
@@ -50,7 +50,7 @@ class Zerocore
     //--------------------------------------------------------------------------------------------------------
     public static function commander($commands)
     {
-        \Logger::report('TerminalCommands', implode(' ', $commands), 'TerminalCommands');
+        Logger::report('TerminalCommands', implode(' ', $commands), 'TerminalCommands');
 
         $realCommands = implode(' ', Arrays::removeFirst($commands, 3));
 
@@ -88,19 +88,45 @@ class Zerocore
         switch( $command )
         {
             case 'run-uri'              :
-            case 'run-controller'       : self::_runController();                             break;
+            case 'run-controller'       : self::_runController();                                       break;
             case 'run-model'            :
-            case 'run-class'            : self::_runClass();                                  break;
-            case 'run-cron'             : self::_runCron();                                   break;
-            case 'cron-list'            : echo Crontab::list();                               break;
-            case 'remove-cron'          : self::_removeCron();                                break;
-            case 'run-command'          : self::_runClass(PROJECT_COMMANDS_NAMESPACE);        break;
-            case 'run-external-command' : self::_runClass(EXTERNAL_COMMANDS_NAMESPACE);       break;
-            case 'run-function'         : self::_runFunction();                               break;
-            case 'upgrade'              : self::_result(\ZN::upgrade());                      break;
-            case 'upgrade-files'        : self::_result(\ZN::upgradeFiles());                 break;
-            case 'create-project'       : self::_result(\Generate::project(self::$command));  break;
-            case 'command-list'         : self::_commandList();                               break;
+            case 'run-class'            : self::_runClass();                                            break;
+            case 'run-cron'             : self::_runCron();                                             break;
+            case 'cron-list'            : echo Crontab::list();                                         break;
+            case 'remove-cron'          : self::_removeCron();                                          break;
+            case 'run-command'          : self::_runClass(PROJECT_COMMANDS_NAMESPACE);                  break;
+            case 'run-external-command' : self::_runClass(EXTERNAL_COMMANDS_NAMESPACE);                 break;
+            case 'run-function'         : self::_runFunction();                                         break;
+            case 'upgrade'              : self::_result(ZN::upgrade());                                 break;
+            case 'upgrade-files'        : self::_result(ZN::upgradeFiles());                            break;
+            case 'create-project'       : self::_result(Generate::project(self::$command));             break;
+            case 'delete-project'       : self::_result(Folder::delete(PROJECTS_DIR . self::$command)); break;
+            case 'create-controller'    : self::_result(Generate::controller(self::$command,
+            [
+                'extends'   => 'Controller',
+                'namespace' => 'Project\Controllers',
+                'functions' => ['main']
+            ]));                                                                                        break;
+            case 'create-grand-model'   : self::_result(Generate::model(self::$command,
+            [
+                'extends'   => 'GrandModel'
+            ]));
+            case 'create-grand-vision'  : self::_result(Generate::grandVision
+            (
+                self::$command ?: Config::get('Database', 'database')['database'])
+            );                                                                                          break;
+            case 'delete-grand-vision'  : self::_result(Generate::deleteVision
+            (
+                self::$command ?: Config::get('Database', 'database')['database'])
+            );                                                                                          break;
+            case 'create-model'         : self::_result(Generate::model(self::$command,
+            [
+                'extends'   => 'Model'
+            ]));                                                                                        break;
+            case 'delete-controller'    : self::_result(Generate::delete(self::$command));              break;
+            case 'delete-model'         : self::_result(Generate::delete(self::$command, 'model'));     break;
+            case 'clean-cache'          : self::_result(Cache::clean());                                break;
+            case 'command-list'         : self::_commandList();                                         break;
             default                     : exec($realCommands, $response); self::_result($response);
         }
     }
@@ -122,6 +148,15 @@ class Zerocore
             '| upgrade              | upgrade                                                                        |',
             '| upgrade-files        | upgrade-files                                                                  |',
             '| create-project       | create-project project name                                                    |',
+            '| delete-project       | delete-project project name                                                    |',
+            '| create-controller    | create-controller controller name                                              |',
+            '| delete-controller    | delete-controller controller name                                              |',
+            '| create-model         | create-model model name                                                        |',
+            '| create-grand-model   | create-grand-model model name                                                  |',
+            '| delete-model         | delete-model model name                                                        |',
+            '| create-grand-vision  | create-grand-vision [database name]                                            |',
+            '| delete-grand-vision  | delete-grand-vision [database name]                                            |',
+            '| clean-cache          | clean-cache                                                                    |',
             '| run-uri              | run-uri controller/function/p1/p2/.../pN                                       |',
             '| run-controller       | run-controller controller/function/p1/p2/.../pN                                |',
             '| run-model            | run-model model:function p1 p2 ... pN                                          |',

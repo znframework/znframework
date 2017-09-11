@@ -49,7 +49,7 @@ class FileList
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // allFiles()
+    // allFiles() -> 5.3.36[edited]
     //--------------------------------------------------------------------------------------------------------
     //
     // Bir dizine ait tüm alt dizin ve dosyaların listesini almak için kullanılır. İç içe dizinlerde de
@@ -58,6 +58,12 @@ class FileList
     //--------------------------------------------------------------------------------------------------------
     public function allFiles(String $pattern = '*', Bool $allFiles = false) : Array
     {
+        // 5.3.36[added]
+        if( $pattern === '/' )
+        {
+            $pattern = '*';
+        }
+
         $pattern = File::rpath($pattern);
 
         if( $allFiles === true )
