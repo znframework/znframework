@@ -1,6 +1,6 @@
 <?php namespace ZN\ViewObjects\View;
 
-use Strings, Arrays;
+use Strings, Arrays, Validation, Classes;
 
 trait ViewCommonTrait
 {
@@ -66,6 +66,50 @@ trait ViewCommonTrait
     {
         $realMethod = $method;
         $method     = strtolower($method);
+        $className  = Classes::onlyName(__CLASS__);
+
+        if( $className === 'HTML')
+        {
+            $multiElement = $this->elements['multiElement'];
+
+            if( Arrays::keyExists($multiElement, $method ))
+            {
+                $realMethod = $multiElement[$method];
+
+                return $this->_multiElement($realMethod, ...$parameters);
+            }
+            elseif( Arrays::valueExists($multiElement, $method) )
+            {
+                return $this->_multiElement($realMethod, ...$parameters);
+            }
+            elseif( Arrays::valueExists($this->elements['singleElement'], $method) )
+            {
+                return $this->_singleElement($realMethod, ...$parameters);
+            }
+            elseif( Arrays::valueExists($this->elements['mediaContent'], $method) )
+            {
+                return $this->_mediaContent($parameters[0], $parameters[1] ?? NULL, $parameters[2] ?? [], $realMethod);
+            }
+            elseif( Arrays::valueExists($this->elements['media'], $method) )
+            {
+                return $this->_media($parameters[0], $parameters[1] ?? [], $realMethod);
+            }
+            elseif( Arrays::valueExists($this->elements['contentAttribute'], $method) )
+            {
+                return $this->_contentAttribute($parameters[0], $parameters[1] ?? [], $realMethod);
+            }
+            elseif( Arrays::valueExists($this->elements['content'], $method) )
+            {
+                return $this->_content($parameters[0], $realMethod);
+            }
+        }
+        elseif( $className === 'Form' )
+        {
+            if( Arrays::valueExists($this->elements['input'], $method) )
+            {
+                return $this->_input($parameters[0], $parameters[1] ?? NULL, $parameters[2] ?? [], $realMethod);
+            }
+        }
 
         if( empty($parameters) )
         {
@@ -95,9 +139,8 @@ trait ViewCommonTrait
         if( ! ctype_lower($realMethod) )
         {
             $newMethod = NULL;
-
-            $split  = Strings::splitUpperCase($realMethod);
-            $method = implode('-', Arrays::lowerCase($split));
+            $split     = Strings::splitUpperCase($realMethod);
+            $method    = implode('-', Arrays::lowerCase($split));
         }
         //----------------------------------------------------------------------------------------------------
 
@@ -194,7 +237,7 @@ trait ViewCommonTrait
             {
                 $method = ! empty($this->method) ? $this->method : $this->postback['type'];
 
-                $attributes['value'] = \Validation::postBack($attributes['name'], $method);
+                $attributes['value'] = Validation::postBack($attributes['name'], $method);
 
                 $this->postback = [];
             }

@@ -2,7 +2,7 @@
 
 use Validation, Arrays, DB, Session;
 
-class InternalForm implements InternalFormInterface, ViewCommonInterface
+class InternalForm
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -12,6 +12,18 @@ class InternalForm implements InternalFormInterface, ViewCommonInterface
     // Copyright  : (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
+
+    protected $elements =
+    [
+        'input' =>
+        [
+            'button', 'reset' , 'submit'  , 'radio', 'checkbox',
+            'date'  , 'time'  , 'datetime', 'week' , 'month'   ,
+            'text'  , 'search', 'password', 'email', 'tel'     ,
+            'number', 'url'   , 'range'   , 'image', 'color'
+        ]
+    ];
+
 
     //--------------------------------------------------------------------------------------------------------
     // $settings
@@ -106,118 +118,6 @@ class InternalForm implements InternalFormInterface, ViewCommonInterface
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Button
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $name
-    // @param string $value
-    // @param array  $attributes
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function button(String $name = NULL, String $value = NULL, Array $_attributes = []) : String
-    {
-        return $this->_input($name, $value, $_attributes, __FUNCTION__);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Reset
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $name
-    // @param string $value
-    // @param array  $attributes
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function reset(String $name = NULL, String $value = NULL, Array $_attributes = []) : String
-    {
-        return $this->_input($name, $value, $_attributes, __FUNCTION__);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Submit
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $name
-    // @param string $value
-    // @param array  $attributes
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function submit(String $name = NULL, String $value = NULL, Array $_attributes = []) : String
-    {
-        return $this->_input($name, $value, $_attributes, __FUNCTION__);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Radio
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $name
-    // @param string $value
-    // @param array  $attributes
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function radio(String $name = NULL, String $value = NULL, Array $_attributes = []) : String
-    {
-        return $this->_input($name, $value, $_attributes, __FUNCTION__);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Checkbox
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $name
-    // @param string $value
-    // @param array  $attributes
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function checkbox(String $name = NULL, String $value = NULL, Array $_attributes = []) : String
-    {
-        return $this->_input($name, $value, $_attributes, __FUNCTION__);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Date
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $name
-    // @param string $value
-    // @param array  $attributes
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function date(String $name = NULL, String $value = NULL, Array $_attributes = []) : String
-    {
-        return $this->_input($name, $value, $_attributes, __FUNCTION__);
-    }
-
-    ///--------------------------------------------------------------------------------------------------------
-    // Time
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $name
-    // @param string $value
-    // @param array  $attributes
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function time(String $name = NULL, String $value = NULL, Array $_attributes = []) : String
-    {
-        return $this->_input($name, $value, $_attributes, __FUNCTION__);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Date Time
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $name
-    // @param string $value
-    // @param array  $attributes
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function datetime(String $name = NULL, String $value = NULL, Array $_attributes = []) : String
-    {
-        return $this->_input($name, $value, $_attributes, __FUNCTION__);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
     // Date Time Local
     //--------------------------------------------------------------------------------------------------------
     //
@@ -229,48 +129,6 @@ class InternalForm implements InternalFormInterface, ViewCommonInterface
     public function datetimeLocal(String $name = NULL, String $value = NULL, Array $_attributes = []) : String
     {
         return $this->_input($name, $value, $_attributes, 'datetime-local');
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Week
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $name
-    // @param string $value
-    // @param array  $attributes
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function week(String $name = NULL, String $value = NULL, Array $_attributes = []) : String
-    {
-        return $this->_input($name, $value, $_attributes, __FUNCTION__);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Month
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $name
-    // @param string $value
-    // @param array  $attributes
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function month(String $name = NULL, String $value = NULL, Array $_attributes = []) : String
-    {
-        return $this->_input($name, $value, $_attributes, __FUNCTION__);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Text
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $name
-    // @param string $value
-    // @param array  $attributes
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function text(String $name = NULL, String $value = NULL, Array $_attributes = []) : String
-    {
-        return $this->_input($name, $value, $_attributes, __FUNCTION__);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -306,90 +164,6 @@ class InternalForm implements InternalFormInterface, ViewCommonInterface
         }
 
         return '<textarea'.$this->attributes($_attributes).'>'.$value.'</textarea>'.EOL;
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Search
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $name
-    // @param string $value
-    // @param array  $attributes
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function search(String $name = NULL, String $value = NULL, Array $_attributes = []) : String
-    {
-        return $this->_input($name, $value, $_attributes, __FUNCTION__);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Passoword
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $name
-    // @param string $value
-    // @param array  $attributes
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function password(String $name = NULL, String $value = NULL, Array $_attributes = []) : String
-    {
-        return $this->_input($name, $value, $_attributes, __FUNCTION__);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Email
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $name
-    // @param string $value
-    // @param array  $attributes
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function email(String $name = NULL, String $value = NULL, Array $_attributes = []) : String
-    {
-        return $this->_input($name, $value, $_attributes, __FUNCTION__);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Tel
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $name
-    // @param string $value
-    // @param array  $attributes
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function tel(String $name = NULL, String $value = NULL, Array $_attributes = []) : String
-    {
-        return $this->_input($name, $value, $_attributes, __FUNCTION__);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Number
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $name
-    // @param string $value
-    // @param array  $attributes
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function number(String $name = NULL, String $value = NULL, Array $_attributes = []) : String
-    {
-        return $this->_input($name, $value, $_attributes, __FUNCTION__);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Url
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $name
-    // @param string $value
-    // @param array  $attributes
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function url(String $name = NULL, String $value = NULL, Array $_attributes = []) : String
-    {
-        return $this->_input($name, $value, $_attributes, __FUNCTION__);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -549,34 +323,6 @@ class InternalForm implements InternalFormInterface, ViewCommonInterface
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Range
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $name
-    // @param string $value
-    // @param array  $attributes
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function range(String $name = NULL, String $value = NULL, Array $_attributes = []) : String
-    {
-        return $this->_input($name, $value, $_attributes, __FUNCTION__);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Image
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $name
-    // @param string $value
-    // @param array  $attributes
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function image(String $name = NULL, String $value = NULL, Array $_attributes = []) : String
-    {
-        return $this->_input($name, $value, $_attributes, __FUNCTION__);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
     // Hidden
     //--------------------------------------------------------------------------------------------------------
     //
@@ -645,19 +391,5 @@ class InternalForm implements InternalFormInterface, ViewCommonInterface
         }
 
         return $this->_input($name, '', $_attributes, 'file');
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Color
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $name
-    // @param string $value
-    // @param array  $attributes
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function color(String $name = NULL, String $value = NULL, Array $_attributes = []) : String
-    {
-        return $this->_input($name, $value, $_attributes, __FUNCTION__);
     }
 }
