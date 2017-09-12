@@ -54,7 +54,6 @@ class TemplateWizard extends CallController
         );
 
         $string  = preg_replace(array_keys($pattern), array_values($pattern), $string);
-
         $content = Buffer::code($string, $data);
 
         if( $lastError = Errors::last() )
@@ -210,7 +209,7 @@ class TemplateWizard extends CallController
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Protected Tags
+    // Protected Tags -> 5.3.36[edited]
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string $htmlRegexChar
@@ -224,7 +223,9 @@ class TemplateWizard extends CallController
         {
             $array =
             [
-                '/\{\[\s*('.$htmlRegexChar.')\s*\]\}/s' => '<?php $1 ?>',
+				// 5.3.4[added]
+				'/\{\[\=('.$htmlRegexChar.')\]\}/'      => '<?php echo $1 ?>',
+                '/\{\[\s*('.$htmlRegexChar.')\s*\]\}/s' => '<?php $1 ?>'
             ];
         }
 
