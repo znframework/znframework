@@ -202,7 +202,7 @@
 
             'en' =>
             [
-                'Janury'    => 'Jan',
+                'January'   => 'Jan',
                 'February'  => 'Feb',
                 'March'     => 'Mar',
                 'April'     => 'Apr',

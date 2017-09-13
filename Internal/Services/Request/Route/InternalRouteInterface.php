@@ -47,7 +47,7 @@ interface InternalRouteInterface
     //  @param  string $driver   = file
     //
     //--------------------------------------------------------------------------------------------------------
-    public function cache(Int $time = 60, $compress = false, String $driver = 'file') : InternalRoute;
+    public function cache($time = 60, $compress = false, String $driver = 'file') : InternalRoute;
 
     //--------------------------------------------------------------------------------------------------------
     // Restore -> 4.3.2

@@ -345,7 +345,7 @@ class InternalRoute extends CLController implements InternalRouteInterface
     //  @param  string $driver   = file
     //
     //--------------------------------------------------------------------------------------------------------
-    public function cache(Int $time = 60, $compress = false, String $driver = 'file') : InternalRoute
+    public function cache($time = 60, $compress = false, String $driver = 'file') : InternalRoute
     {
         $this->cache['time']     = $time;
         $this->cache['compress'] = $compress;

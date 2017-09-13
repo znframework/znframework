@@ -33,7 +33,7 @@ class Kernel
 
         In::projectMode(PROJECT_MODE, $appcon['errorReporting']);
 
-        if( Config::get('IndividualStructures', 'cache')['obGzhandler'] && substr_count(server('acceptEncoding'), 'gzip') )
+        if( Config::get('Htaccess', 'cache')['obGzhandler'] && substr_count(server('acceptEncoding'), 'gzip') )
         {
             ob_start('ob_gzhandler');
         }
@@ -332,6 +332,11 @@ class Kernel
         }
 
         ob_end_flush();
+
+        if( function_exists('opcache_compile_file') && (Config::htaccess('cache')['opcache'] ?? NULL) === true )
+        {
+            opcache_compile_file('zeroneed.php');
+        }
     }
 
     //--------------------------------------------------------------------------------------------------

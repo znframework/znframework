@@ -1,8 +1,8 @@
-<?php namespace ZN\IndividualStructures;
+<?php namespace ZN\IndividualStructures\Cache\Drivers;
 
-use Support, CLController, DriverAbility, Buffer, Converter, Import;
+use ZN\IndividualStructures\Abstracts\CacheDriverMappingAbstract;
 
-class InternalCache extends CLController implements InternalCacheInterface
+class OpcacheDriver extends CacheDriverMappingAbstract
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -13,139 +13,46 @@ class InternalCache extends CLController implements InternalCacheInterface
     //
     //--------------------------------------------------------------------------------------------------------
 
-    use DriverAbility;
+    //--------------------------------------------------------------------------------------------------------
+    // Redis
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var object
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected $redis;
 
     //--------------------------------------------------------------------------------------------------------
-    // Consts
+    // Serialized
     //--------------------------------------------------------------------------------------------------------
     //
-    // @const string
+    // @param array
     //
     //--------------------------------------------------------------------------------------------------------
-    const config = 'IndividualStructures:cache';
-    const driver =
-    [
-        'options'   => ['file', 'apc', 'apcu', 'memcache', 'redis', 'wincache', 'opcache'],
-        'namespace' => 'ZN\IndividualStructures\Cache\Drivers'
-    ];
-
-    protected $codeCount = 0;
-    protected $refresh   = false;
+    protected $serialized = [];
 
     //--------------------------------------------------------------------------------------------------------
-    // Refresh -> 5.3.31
+    // Construct
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param  void
-    // @return this
+    // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function refresh()
+    public function __construct()
     {
-        $this->refresh = true;
-
-        return $this;
+        \Support::function('opcache_compile_file');
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Data -> 5.3.31
+    // Connect
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param  array $data = NULL
-    // @return this
+    // @param  array $settings
     //
     //--------------------------------------------------------------------------------------------------------
-    public function data(Array $data = NULL)
+    public function connect(Array $settings = NULL)
     {
-        Import::data($data);
-
-        return $this;
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Code
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  callable $function
-    // @param  scalar   $time     = 60
-    // @param  string   $compress = 'gz'
-    // @return mixed
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function code(Callable $function, $time = 60, String $compress = 'gz') : String
-    {
-        $this->codeCount++;
-
-        $name = 'code-' . $this->codeCount . '-' . CURRENT_CONTROLLER . '-' . CURRENT_CFUNCTION;
-
-        $this->_refresh($name);
-
-        if( ! $select = $this->select($name, $compress) )
-        {
-            $output = Buffer::callback($function);
-
-            $this->insert($name, $output, $time, 'gz');
-
-            return $output;
-        }
-        else
-        {
-            return $select;
-        }
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // View -> 5.3.21
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  string $function
-    // @param  scalar $time     = 60
-    // @param  string $compress = 'gz'
-    // @return string
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function view(String $file, $time = 60, String $compress = 'gz') : String
-    {
-        return $this->file($file, $time, $compress, 'view');
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // File -> 5.3.21
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  string $function
-    // @param  scalar $time     = 60
-    // @param  string $compress = 'gz'
-    // @return string
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function file(String $file, $time = 60, String $compress = 'gz', $type = 'something') : String
-    {
-        $name = Converter::slug($file);
-
-        $this->_refresh($name);
-
-        if( ! $select = $this->select($name, $compress) )
-        {
-            Import::usable();
-
-            if( $type === 'shomething' )
-            {
-                $output = Import::something($file);
-            }
-            else
-            {
-                $output = Import::view($file);
-            }
-
-            $this->insert($name, $output, $time, 'gz');
-
-            return $output;
-        }
-        else
-        {
-            return $select;
-        }
+        return true;
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -153,33 +60,29 @@ class InternalCache extends CLController implements InternalCacheInterface
     //--------------------------------------------------------------------------------------------------------
     //
     // @param  string $key
-    // @param  mixed $expressed
+    // @param  mixed  $compressed
     // @return mixed
     //
     //--------------------------------------------------------------------------------------------------------
-    public function select(String $key, $compressed = false)
+    public function select($key, $compressed = NULL)
     {
-        return $this->driver->select($key, $compressed);
+        return false;
     }
 
     //--------------------------------------------------------------------------------------------------------
     // Insert
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param  string $key
+    // @param  string   $key
     // @param  variable $var
-    // @param  scalar $time
-    // @param  mixed $expressed
+    // @param  numeric  $time
+    // @param  mixed    $compressed
     // @return bool
     //
     //--------------------------------------------------------------------------------------------------------
-    public function insert(String $key, $var, $time = 60, $compressed = false) : Bool
+    public function insert($key, $data, $time, $compressed)
     {
-        $timeEx = explode(' ', $time);
-
-        $time = Converter::time($timeEx[0], $timeEx[1] ?? 'second', 'second');
-
-        return $this->driver->insert($key, $var, $time, $compressed);
+        return false;
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -190,9 +93,9 @@ class InternalCache extends CLController implements InternalCacheInterface
     // @return mixed
     //
     //--------------------------------------------------------------------------------------------------------
-    public function delete(String $key) : Bool
+    public function delete($key)
     {
-        return $this->driver->delete($key);
+        return false;
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -204,13 +107,13 @@ class InternalCache extends CLController implements InternalCacheInterface
     // @return void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function increment(String $key, Int $increment = 1) : Int
+    public function increment($key, $increment)
     {
-        return $this->driver->increment($key, $increment);
+        return false;
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Deccrement
+    // Decrement
     //--------------------------------------------------------------------------------------------------------
     //
     // @param  string  $key
@@ -218,9 +121,9 @@ class InternalCache extends CLController implements InternalCacheInterface
     // @return void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function decrement(String $key, Int $decrement = 1) : Int
+    public function decrement($key, $decrement)
     {
-        return $this->driver->decrement($key, $decrement);
+        return false;
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -231,9 +134,9 @@ class InternalCache extends CLController implements InternalCacheInterface
     // @return void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function clean() : Bool
+    public function clean()
     {
-        return $this->driver->clean();
+        return opcache_reset();
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -244,9 +147,9 @@ class InternalCache extends CLController implements InternalCacheInterface
     // @return mixed
     //
     //--------------------------------------------------------------------------------------------------------
-    public function info($type = NULL) : Array
+    public function info($type = NULL)
     {
-        return $this->driver->info($type);
+        return opcache_get_configuration();
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -257,25 +160,8 @@ class InternalCache extends CLController implements InternalCacheInterface
     // @return mixed
     //
     //--------------------------------------------------------------------------------------------------------
-    public function getMetaData(String $key) : Array
+    public function getMetaData($key)
     {
-        return $this->driver->getMetaData($key);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Refresh
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  string  $key
-    // @return void
-    //
-    //--------------------------------------------------------------------------------------------------------
-    protected function _refresh($data)
-    {
-        if( $this->refresh === true )
-        {
-            $this->delete($data);
-            $this->refresh = false;
-        }
+        return opcache_get_status();
     }
 }
