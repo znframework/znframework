@@ -13,7 +13,7 @@
 //--------------------------------------------------------------------------------------------------
 // VERSION INFO CONSTANTS
 //--------------------------------------------------------------------------------------------------
-define('ZN_VERSION'          , '5.3.36');
+define('ZN_VERSION'          , '5.3.37');
 define('REQUIRED_PHP_VERSION', '7.0.0');
 //--------------------------------------------------------------------------------------------------
 
@@ -138,28 +138,10 @@ import(REQUIREMENTS_DIR . 'Autoloader.php');
 //
 //--------------------------------------------------------------------------------------------------
 define('SSL_STATUS'  , ! Config::get('Services','uri')['ssl'] ? 'http://' : 'https://');
-define('INDEX_STATUS', ! Config::get('Htaccess', 'uri')['directoryIndex'] ? '' : suffix(DIRECTORY_INDEX));
-//--------------------------------------------------------------------------------------------------
-
-//--------------------------------------------------------------------------------------------------
-// Structure Data
-//--------------------------------------------------------------------------------------------------
-//
-// Current Controller Constants
-//
-//--------------------------------------------------------------------------------------------------
-define('STRUCTURE_DATA'     , ZN\Core\Structure::data()                );
-define('CURRENT_COPEN_PAGE' , STRUCTURE_DATA['openFunction']           );
-define('CURRENT_CPARAMETERS', STRUCTURE_DATA['parameters']             );
-define('CURRENT_CFILE'      , STRUCTURE_DATA['file']                   );
-define('CURRENT_CFUNCTION'  , STRUCTURE_DATA['function']               );
-define('CURRENT_CPAGE'      , ($page = STRUCTURE_DATA['page']) . '.php');
-define('CURRENT_CONTROLLER' , $page                                    );
-define('CURRENT_CNAMESPACE' , $namespace = STRUCTURE_DATA['namespace'] );
-define('CURRENT_CCLASS'     , $namespace . CURRENT_CONTROLLER          );
-define('CURRENT_CFPATH'     , str_replace(CONTROLLERS_DIR, '', CURRENT_CONTROLLER).'/'.CURRENT_CFUNCTION);
-define('CURRENT_CFURI'      , strtolower(CURRENT_CFPATH)               );
-define('CURRENT_CFURL'      , siteUrl(CURRENT_CFPATH)                  );
+define('INDEX_STATUS', ! Config::get('Htaccess', 'uri')['directoryIndex']
+                       ? ''
+                       : suffix(DIRECTORY_INDEX)
+);
 //--------------------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------------------
@@ -187,6 +169,30 @@ define('STYLES_URL'   , URL::base(STYLES_DIR)   );
 define('THEMES_URL'   , URL::base(THEMES_DIR)   );
 define('UPLOADS_URL'  , URL::base(UPLOADS_DIR)  );
 define('RESOURCES_URL', URL::base(RESOURCES_DIR));
+//--------------------------------------------------------------------------------------------------
+
+//--------------------------------------------------------------------------------------------------
+// Structure Data
+//--------------------------------------------------------------------------------------------------
+//
+// Current Controller Constants
+//
+//--------------------------------------------------------------------------------------------------
+define('STRUCTURE_DATA'     , ZN\Core\Structure::data()                );
+define('CURRENT_COPEN_PAGE' , STRUCTURE_DATA['openFunction']           );
+define('CURRENT_CPARAMETERS', STRUCTURE_DATA['parameters']             );
+define('CURRENT_CFILE'      , STRUCTURE_DATA['file']                   );
+define('CURRENT_CFUNCTION'  , STRUCTURE_DATA['function']               );
+define('CURRENT_CPAGE'      , ($page = STRUCTURE_DATA['page']) . '.php');
+define('CURRENT_CONTROLLER' , $page                                    );
+define('CURRENT_CNAMESPACE' , $namespace = STRUCTURE_DATA['namespace'] );
+define('CURRENT_CCLASS'     , $namespace . CURRENT_CONTROLLER          );
+define('CURRENT_CFPATH'     , str_replace
+(
+    CONTROLLERS_DIR, '', CURRENT_CONTROLLER) . '/' . CURRENT_CFUNCTION
+);
+define('CURRENT_CFURI'      , strtolower(CURRENT_CFPATH)               );
+define('CURRENT_CFURL'      , SITE_URL . CURRENT_CFPATH                );
 //--------------------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------------------

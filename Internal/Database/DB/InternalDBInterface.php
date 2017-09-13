@@ -47,11 +47,11 @@ interface InternalDBInterface
     // Caching -> 4.3.6
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $time
+    // @param scalar $time
     // @param string $driver
     //
     //--------------------------------------------------------------------------------------------------------
-    public function caching(String $time, String $driver = NULL) : InternalDB;
+    public function caching($time, String $driver = NULL) : InternalDB;
 
     //--------------------------------------------------------------------------------------------------------
     // Clean Caching -> 4.3.6

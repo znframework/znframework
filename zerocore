@@ -27,4 +27,4 @@ if( ($argv[1] ?? NULL) === 'project-name' )
 
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'zerocore.php';
 
-zerocore::commander($argv);
+Console::run($argv);

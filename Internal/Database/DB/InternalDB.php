@@ -1,6 +1,6 @@
 <?php namespace ZN\Database;
 
-use URI, Pagination, Arrays, Classes, Method, Config, Converter, Cache, Json, IS, Coalesce, Strings;
+use URI, Pagination, Arrays, Classes, Method, Config, Cache, Json, IS, Coalesce, Strings;
 
 class InternalDB extends Connection implements InternalDBInterface
 {
@@ -605,15 +605,13 @@ class InternalDB extends Connection implements InternalDBInterface
     // Caching -> 4.3.6
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $time
+    // @param scalar $time
     // @param string $driver
     //
     //--------------------------------------------------------------------------------------------------------
-    public function caching(String $time, String $driver = NULL) : InternalDB
+    public function caching($time, String $driver = NULL) : InternalDB
     {
-        $timeEx = explode(' ', $time);
-
-        $this->caching['time']   = Converter::time($timeEx[0], $timeEx[1] ?? 'second', 'second');
+        $this->caching['time']   = $time;
         $this->caching['driver'] = $driver ?? $this->config['cacheDriver'] ?? 'file';
 
         return $this;

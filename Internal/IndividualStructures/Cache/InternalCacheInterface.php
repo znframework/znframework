@@ -36,36 +36,36 @@ interface InternalCacheInterface
     //--------------------------------------------------------------------------------------------------------
     //
     // @param  callable $function
-    // @param  int      $time     = 60
+    // @param  scalar   $time     = 60
     // @param  string   $compress = 'gz'
     // @return mixed
     //
     //--------------------------------------------------------------------------------------------------------
-    public function code(Callable $function, Int $time = 60, String $compress = 'gz') : String;
+    public function code(Callable $function, $time = 60, String $compress = 'gz') : String;
 
     //--------------------------------------------------------------------------------------------------------
     // View -> 5.3.21
     //--------------------------------------------------------------------------------------------------------
     //
     // @param  string $function
-    // @param  int    $time     = 60
+    // @param  scalar $time     = 60
     // @param  string $compress = 'gz'
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function view(String $file, Int $time = 60, String $compress = 'gz') : String;
+    public function view(String $file, $time = 60, String $compress = 'gz') : String;
 
     //--------------------------------------------------------------------------------------------------------
     // File -> 5.3.21
     //--------------------------------------------------------------------------------------------------------
     //
     // @param  string $function
-    // @param  int    $time     = 60
+    // @param  scalar $time     = 60
     // @param  string $compress = 'gz'
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function file(String $file, Int $time = 60, String $compress = 'gz', $type = 'something') : String;
+    public function file(String $file, $time = 60, String $compress = 'gz', $type = 'something') : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Select
@@ -84,12 +84,12 @@ interface InternalCacheInterface
     //
     // @param  string $key
     // @param  variable $var
-    // @param  numeric $time
+    // @param  scalar $time
     // @param  mixed $expressed
     // @return bool
     //
     //--------------------------------------------------------------------------------------------------------
-    public function insert(String $key, $var, Int $time = 60, $compressed = false) : Bool;
+    public function insert(String $key, $var, $time = 60, $compressed = false) : Bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Delete
