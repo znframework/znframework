@@ -1,7 +1,7 @@
 <?php namespace ZN\Services\Request;
 
 use ZN\In;
-use Converter, CallController, Lang, File;
+use Converter, CallController, Lang, File, Http;
 
 class InternalURL extends CallController implements InternalURLInterface
 {
@@ -151,7 +151,7 @@ class InternalURL extends CallController implements InternalURLInterface
     //--------------------------------------------------------------------------------------------------
     function sites(String $uri = NULL, Int $index = 0) : String
     {
-        return str_replace(SSL_STATUS, \Http::fix(true), $this->site($uri, $index));
+        return str_replace(SSL_STATUS, Http::fix(true), $this->site($uri, $index));
     }
 
     //--------------------------------------------------------------------------------------------------------

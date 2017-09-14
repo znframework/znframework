@@ -31,6 +31,7 @@ class InternalCache extends CLController implements InternalCacheInterface
 
     protected $codeCount = 0;
     protected $refresh   = false;
+    protected $key       = NULL;
 
     //--------------------------------------------------------------------------------------------------------
     // Refresh -> 5.3.31
@@ -63,6 +64,21 @@ class InternalCache extends CLController implements InternalCacheInterface
     }
 
     //--------------------------------------------------------------------------------------------------------
+    // Name -> 5.3.5
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param  array $data = NULL
+    // @return this
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function key(String $key = NULL) : InternalCache
+    {
+        $this->key = $key;
+
+        return $this;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
     // Code
     //--------------------------------------------------------------------------------------------------------
     //
@@ -76,7 +92,17 @@ class InternalCache extends CLController implements InternalCacheInterface
     {
         $this->codeCount++;
 
-        $name = 'code-' . $this->codeCount . '-' . CURRENT_CONTROLLER . '-' . CURRENT_CFUNCTION;
+        if( $this->key === NULL )
+        {
+            $name = 'code-' . $this->codeCount . '-' . CURRENT_CONTROLLER . '-' . CURRENT_CFUNCTION;
+        }
+        else
+        {
+            $name = $this->key;
+
+            $this->key = NULL;
+        }
+
 
         $this->_refresh($name);
 

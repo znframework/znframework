@@ -42,7 +42,7 @@ class Kernel
             ob_start();
         }
 
-        headers(Config::get('General', 'headers'));
+        headers(Config::get('Project', 'headers'));
 
         if( IS::timeZone($timezone = Config::get('DateTime', 'timeZone')) )
         {
@@ -320,7 +320,7 @@ class Kernel
         }
         else
         {
-            if(  Config::get('General', 'log')['createFile'] === true && $errorLast = Errors::last() )
+            if(  Config::get('Project', 'log')['createFile'] === true && $errorLast = Errors::last() )
             {
                 $lang    = Lang::select('Templates');
                 $message = $lang['line']   .':'.$errorLast['line'].', '.

@@ -90,7 +90,22 @@ class DateTimeCommon extends Carbon
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Calculate
+    // To Readble -> 5.3.5[added]
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // Veriyi okunabilir tarihe çevirir.
+    //
+    // @param  string dateFormat
+    // @return numeric
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function toReadable(Int $time, String $dateFormat = 'Y-m-d H:i:s') : String
+    {
+        return $this->_datetime($dateFormat, $time);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Calculate -> 5.3.5[edited]
     //--------------------------------------------------------------------------------------------------------
     //
     // Tarihler arasında hesaplama yapmak için kullanılır.
@@ -106,6 +121,12 @@ class DateTimeCommon extends Carbon
         if( ! preg_match('/^[0-9]/', $input) )
         {
             $input = $this->_datetime($input);
+        }
+
+        // 5.3.5[added]
+        if( $this->_classname() === 'ZN\DateTime\Time' && $output === 'Y-m-d' )
+        {
+            $output = '{Hour}:{minute}:{second}';
         }
 
         $output = $this->_convert($output);
@@ -156,7 +177,7 @@ class DateTimeCommon extends Carbon
     //--------------------------------------------------------------------------------------------------------
     protected function _classname()
     {
-        return $className = str_replace(INTERNAL_ACCESS, '', get_called_class());
+        return $className = str_ireplace(INTERNAL_ACCESS, '', get_called_class());
     }
 
     //--------------------------------------------------------------------------------------------------------

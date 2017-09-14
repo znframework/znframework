@@ -320,12 +320,7 @@ class In
     {
         $urlInjectionChangeChars = Config::get('Security', 'urlChangeChars');
 
-        if( ! empty($urlInjectionChangeChars) ) foreach( $urlInjectionChangeChars as $key => $val )
-        {
-            $string = preg_replace(presuffix($key).'xi', $val, $string);
-        }
-
-        return $string;
+        return str_ireplace(array_keys($urlInjectionChangeChars), array_values($urlInjectionChangeChars), $string);
     }
 
     //--------------------------------------------------------------------------------------------------
