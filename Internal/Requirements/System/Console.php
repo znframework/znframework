@@ -126,8 +126,21 @@ class Console
             case 'delete-controller'    : self::_result(Generate::delete(self::$command));              break;
             case 'delete-model'         : self::_result(Generate::delete(self::$command, 'model'));     break;
             case 'clean-cache'          : self::_result(Cache::clean());                                break;
+
+            // 5.3.5[added]
+            case 'generate-databases'   : self::_result(Generate::databases());                         break;
             case 'command-list'         : self::_commandList();                                         break;
-            default                     : exec($realCommands, $response); self::_result($response);
+            default                     :
+
+            // 5.3.5[added]
+            if( strstr($realCommands, ':') )
+            {
+                self::_runShortClass($realCommands);
+            }
+            else
+            {
+                exec($realCommands, $response); self::_result($response);
+            }
         }
     }
 
@@ -142,34 +155,37 @@ class Console
     {
         echo implode
         (EOL, [
-            '+----------------------+--------------------------------------------------------------------------------+',
-            '| Command Name         | Usage of Example                                                               |',
-            '+----------------------+--------------------------------------------------------------------------------+',
-            '| upgrade              | upgrade                                                                        |',
-            '| upgrade-files        | upgrade-files                                                                  |',
-            '| create-project       | create-project project name                                                    |',
-            '| delete-project       | delete-project project name                                                    |',
-            '| create-controller    | create-controller controller name                                              |',
-            '| delete-controller    | delete-controller controller name                                              |',
-            '| create-model         | create-model model name                                                        |',
-            '| create-grand-model   | create-grand-model model name                                                  |',
-            '| delete-model         | delete-model model name                                                        |',
-            '| create-grand-vision  | create-grand-vision [database name]                                            |',
-            '| delete-grand-vision  | delete-grand-vision [database name]                                            |',
-            '| clean-cache          | clean-cache                                                                    |',
-            '| run-uri              | run-uri controller/function/p1/p2/.../pN                                       |',
-            '| run-controller       | run-controller controller/function/p1/p2/.../pN                                |',
-            '| run-model            | run-model model:function p1 p2 ... pN                                          |',
-            '| run-class            | run-class class:function p1 p2 ... pN                                          |',
-            '| run-cron             | run-cron controller/method func param func param ...                           |',
-            '| run-cron             | run-cron command:method func param func param ...                              |',
-            '| run-cron             | run-cron http://example.com/                                                   |',
-            '| cron-list            | Cron Job List                                                                  |',
-            '| remove-cron          | remove-cron cronID                                                             |',
-            '| run-command          | run-command command:function p1 p2 ...pN                                       |',
-            '| run-external-command | run-command command:function p1 p2 ...pN                                       |',
-            '| run-function         | run-function function p1 p2 ... pN                                             |',
-            '+----------------------+--------------------------------------------------------------------------------+',
+            '+---------------------------+---------------------------------------------------------------------------+',
+            '| Command Name              | Usage of Example                                                          |',
+            '+---------------------------+---------------------------------------------------------------------------+',
+            '| upgrade                   | upgrade                                                                   |',
+            '| upgrade-files             | upgrade-files                                                             |',
+            '| create-project            | create-project project name                                               |',
+            '| delete-project            | delete-project project name                                               |',
+            '| create-controller         | create-controller controller name                                         |',
+            '| delete-controller         | delete-controller controller name                                         |',
+            '| create-model              | create-model model name                                                   |',
+            '| create-grand-model        | create-grand-model model name                                             |',
+            '| delete-model              | delete-model model name                                                   |',
+            '| create-grand-vision       | create-grand-vision [database name]                                       |',
+            '| delete-grand-vision       | delete-grand-vision [database name]                                       |',
+            '| clean-cache               | clean-cache                                                               |',
+            '| generate-databases        | generate-databases                                                        |',
+            '| run-uri                   | run-uri controller/function/p1/p2/.../pN                                  |',
+            '| run-controller            | run-controller controller/function/p1/p2/.../pN                           |',
+            '| run-model                 | run-model model:function p1 p2 ... pN                                     |',
+            '| run-class                 | run-class class:function p1 p2 ... pN                                     |',
+            '| run-cron                  | run-cron controller/method func param func param ...                      |',
+            '| run-cron                  | run-cron command:method func param func param ...                         |',
+            '| run-cron                  | run-cron http://example.com/                                              |',
+            '| cron-list                 | Cron Job List                                                             |',
+            '| remove-cron               | remove-cron cronID                                                        |',
+            '| run-command               | run-command command:function p1 p2 ...pN                                  |',
+            '| run-external-command      | run-command command:function p1 p2 ...pN                                  |',
+            '| command:function          | command:function p1 p2 ...pN                                              |',
+            '| external\command:function | external\command:function p1 p2 ...pN                                     |',
+            '| run-function              | run-function function p1 p2 ... pN                                        |',
+            '+---------------------------+---------------------------------------------------------------------------+',
         ]);
     }
 
@@ -307,6 +323,38 @@ class Console
         $className = $namespace . $class;
 
         self::_result(uselib($className)->$method(...self::$parameters));
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Run Class -> 5.3.5
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param array $parameters
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected static function _runShortClass($command)
+    {
+        $commandEx   = explode(':', $command);
+        $classEx     = explode('\\', $commandEx[0]);
+        $funcparamEx = explode(' ', $commandEx[1]);
+        $function    = $funcparamEx[0];
+        $parameters  = [];
+
+        if( $funcparamEx[1] ?? NULL )
+        {
+            $parameters = Arrays::removeFirst($funcparamEx);
+        }
+
+        if( strtolower($classEx[0]) === 'external' )
+        {
+            $class = EXTERNAL_COMMANDS_NAMESPACE . $classEx[1];
+        }
+        else
+        {
+            $class = PROJECT_COMMANDS_NAMESPACE . $classEx[0];
+        }
+
+        self::_result(uselib($class)->$function(...$parameters));
     }
 
     //--------------------------------------------------------------------------------------------------------
