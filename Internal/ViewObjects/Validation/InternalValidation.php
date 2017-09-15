@@ -1,6 +1,6 @@
 <?php namespace ZN\ViewObjects\View;
 
-use Validator, Config, Security, Session, Encode, Method, CallController;
+use Validator, Config, Security, Session, Encode, Method, CallController, Lang;
 use ZN\ViewObjects\View\Validation\Exception\InvalidArgumentException;
 
 class InternalValidation extends CallController implements InternalValidationInterface
@@ -68,6 +68,12 @@ class InternalValidation extends CallController implements InternalValidationInt
     //--------------------------------------------------------------------------------------------------------
     protected $index = 0;
 
+    protected $config;
+    protected $name;
+    protected $viewName;
+    protected $edit;
+    protected $method;
+
     //--------------------------------------------------------------------------------------------------------
     // Validation Properties Trait
     //--------------------------------------------------------------------------------------------------------
@@ -90,60 +96,31 @@ class InternalValidation extends CallController implements InternalValidationInt
     public function rules(String $name, Array $config = [], $viewName = '', String $met = 'post')
     {
         if( ! in_array($met, $this->options) )
-        {
             throw new InvalidArgumentException('ViewObjects', 'validation:invalidMethodParameter', '4. ');
-        }
 
         if( is_array($this->_methodType($name, $met)) )
-        {
             return $this->_multipleRules($name, $config, $viewName, $met);
-        }
 
-        if( ! empty($this->settings['method']) )
-        {
-            $met = $this->settings['method'];
-        }
+        $met      = $this->settings['method'] ?? 'post';
+        $viewName = $this->settings['value']  ?? '';
 
-        if( ! empty($this->settings['value']) )
-        {
-            $viewName = $this->settings['value'];
-        }
-
-        if( ! empty($this->settings['config']) )
-        {
-            $config = array_merge($config, $this->settings['config']);
-        }
-
-        if( ! empty($this->settings['validate']) )
-        {
-            $config = array_merge($config, $this->settings['validate']);
-        }
-
-        if( ! empty($this->settings['secure']) )
-        {
-            $config = array_merge($config, $this->settings['secure']);
-        }
-
-        if( ! empty($this->settings['pattern']) )
-        {
-            $config = array_merge($config, $this->settings['pattern']);
-        }
+        $config = array_merge
+        (
+            $config,
+            $this->settings['config']   ?? [],
+            $this->settings['validate'] ?? [],
+            $this->settings['secure']   ?? [],
+            $this->settings['pattern']  ?? []
+        );
 
         $this->settings = [];
 
-        $viewName = ( empty($viewName) ) ? $name : $viewName;
+        $viewName = $viewName ?: $name;
+        $edit     = $this->_methodType($name, $met);
 
-        $edit = $this->_methodType($name, $met);
+        if( ! isset($edit) ) return false;
 
-        if( ! isset($edit) )
-        {
-            return false;
-        }
-
-        if( in_array('trim',$config) )
-        {
-            $edit = trim($edit);
-        }
+        if( in_array('trim',$config) ) $edit = trim($edit);
 
         if( in_array('nc', $config) )
         {
@@ -151,179 +128,41 @@ class InternalValidation extends CallController implements InternalValidationInt
             $edit  = Security::ncEncode($edit, $secnc['badChars'], $secnc['changeBadChars']);
         }
 
-        if( in_array('html', $config) )
-        {
-            $edit = Security::htmlEncode($edit);
-        }
-
-        if( in_array('xss', $config) )
-        {
-            $edit = Security::xssEncode($edit);
-        }
-
-        if( in_array('injection', $config) )
-        {
-            $edit = Security::injectionEncode($edit);
-        }
-
-        if( in_array('script', $config) )
-        {
-            $edit = Security::scriptTagEncode($edit);
-        }
-
-        if( in_array('php', $config) )
-        {
-            $edit = Security::phpTagEncode($edit);
-        }
+        if( in_array('html',      $config) ) $edit = Security::htmlEncode($edit);
+        if( in_array('xss',       $config) ) $edit = Security::xssEncode($edit);
+        if( in_array('injection', $config) ) $edit = Security::injectionEncode($edit);
+        if( in_array('script',    $config) ) $edit = Security::scriptTagEncode($edit);
+        if( in_array('php',       $config) ) $edit = Security::phpTagEncode($edit);
 
         $this->nval[$name] = $edit;
 
         $this->_methodNval($name, $edit, $met);
 
-        if( in_array('required', $config) )
-        {
-            if( empty($edit) )
-            {
-                $this->_messages('required', $name, $viewName);
-            }
-        }
+        $this->config   = $config;
+        $this->edit     = $edit;
+        $this->name     = $name;
+        $this->viewName = $viewName;
+        $this->method   = $met;
 
-        if( in_array('captcha', $config) )
-        {
-            Session::start();
-
-            if( $edit != Session::select(md5('SystemCaptchaCodeData')) )
-            {
-                $this->_messages('captchaCode', $name, $viewName);
-            }
-        }
-
-        if( isset($config['matchPassword']) )
-        {
-            $pm = $this->_methodType($config['matchPassword'], $met);
-
-            if( $edit != $pm )
-            {
-                $this->_messages('passwordMatch', $name, $viewName);
-            }
-        }
-
-        if( isset($config['match']) )
-        {
-            $pm = $this->_methodType($config['match'], $met);
-
-            if( $edit != $pm )
-            {
-                $this->_messages('dataMatch', $name, $viewName);
-            }
-        }
-
-        if( isset($config['oldPassword']) )
-        {
-            $pm = "";
-            $pm = $config['oldPassword'];
-
-            if( Encode::super($edit) != $pm )
-            {
-                $this->_messages('oldPasswordMatch', $name, $viewName);
-            }
-        }
-
-        if( in_array('numeric', $config) )
-        {
-            if( ! Validator::numeric($edit) )
-            {
-                $this->_messages('numeric', $name, $viewName);
-            }
-        }
-
-        if( in_array('phone', $config) )
-        {
-            if( ! Validator::phone($edit) )
-            {
-                $this->_messages('phone', $name, $viewName);
-            }
-        }
-
-        if( isset($config['phone']) )
-        {
-            if( ! Validator::phone($edit, $config['phone']) )
-            {
-                $this->_messages('phone', $name, $viewName);
-            }
-        }
-
-        if( in_array('alpha', $config) )
-        {
-            if( ! Validator::alpha($edit) )
-            {
-                $this->_messages('alpha', $name, $viewName);
-            }
-        }
-
-        if( in_array('alnum', $config) )
-        {
-            if( ! Validator::alnum($edit) )
-            {
-                $this->_messages('alnum', $name, $viewName);
-            }
-        }
-
-        if( in_array('email', $config) )
-        {
-            if( ! Validator::email($edit) )
-            {
-                $this->_messages('email', $name, $viewName);
-            }
-        }
-
-        if( in_array('url' ,$config) )
-        {
-            if( ! Validator::url($edit) )
-            {
-                $this->_messages('url', $name, $viewName);
-            }
-        }
-
-        if( in_array('identity', $config) )
-        {
-            if( ! Validator::identity($edit) )
-            {
-                $this->_messages('identity', $name, $viewName);
-            }
-        }
-
-        if( in_array('specialChar', $config) )
-        {
-            if( Validator::specialChar($edit) )
-            {
-                $this->_messages('noSpecialChar', $name, $viewName);
-            }
-        }
-
-        if( isset($config['maxchar']) )
-        {
-            if( ! Validator::maxchar($edit, $config['maxchar']) )
-            {
-                $this->_messages('maxchar', $name, ["%" => $viewName, "#" => $config['maxchar']]);
-            }
-        }
-
-        if( isset($config['minchar']) )
-        {
-            if( ! Validator::minchar($edit, $config['minchar']) )
-            {
-                $this->_messages('minchar', $name, ["%" => $viewName, "#" => $config['minchar']]);
-            }
-        }
-
-        if( isset($config['pattern']) )
-        {
-            if( ! preg_match($config['pattern'], $edit) )
-            {
-                $this->_messages('pattern', $name, $viewName);
-            }
-        }
+        $this->_singleType   (['matchPassword' => 'passwordMatch']);
+        $this->_singleType   (['match'         => 'dataMatch']);
+        $this->_singleInArray('numeric');
+        $this->_singleInArray('phone');
+        $this->_singleInArray('alpha');
+        $this->_singleInArray('alnum');
+        $this->_singleInArray('email');
+        $this->_singleInArray('url');
+        $this->_singleInArray('identity');
+        $this->_singleInArray(['specialChar' => 'noSpecialChar']);
+        $this->_between      ('between');
+        $this->_between      ('betweenBoth');
+        $this->_minmax       ('minchar');
+        $this->_minmax       ('maxchar');
+        $this->_required     ();
+        $this->_captcha      ();
+        $this->_oldPassword  ();
+        $this->_phone        ();
+        $this->_pattern      ();
 
         array_push($this->errors, $this->messages);
 
@@ -423,6 +262,195 @@ class InternalValidation extends CallController implements InternalValidationInt
     }
 
     //--------------------------------------------------------------------------------------------------------
+    // Protected Pattern
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _pattern()
+    {
+        if( isset($this->config['pattern']) )
+        {
+            if( ! preg_match($this->config['pattern'], $this->edit) )
+            {
+                $this->_messages('pattern', $this->name, $this->viewName);
+            }
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Minmax
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $type = 'minchar'
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _minmax($type = 'minchar')
+    {
+        if( isset($this->config[$type]) )
+        {
+            if( ! Validator::$type($this->edit, $this->config[$type]) )
+            {
+                $this->_messages($type, $this->name, ["%" => $this->viewName, "#" => $this->config[$type]]);
+            }
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Between
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $type = 'between'
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _between($type = 'between')
+    {
+        if( $between = ($this->config[$type] ?? NULL) )
+        {
+            if( ! Validator::$type($this->edit, $betweenMin = $between[0], $betweenMax = $between[1] ?? 0) )
+            {
+                $this->_messages($type, $this->name, ['%' => $this->viewName, '#' => $betweenMin, '$' => $betweenMax]);
+            }
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Old Password
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _phone()
+    {
+        if( isset($config['phone']) )
+        {
+            if( ! Validator::phone($this->edit, $this->config['phone']) )
+            {
+                $this->_messages('phone', $this->name, $this->viewName);
+            }
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Old Password
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _oldPassword()
+    {
+        if( isset($config['oldPassword']) )
+        {
+            $pm = '';
+            $pm = $this->config['oldPassword'];
+
+            if( Encode::super($this->edit) != $pm )
+            {
+                $this->_messages('oldPasswordMatch', $this->name, $this->viewName);
+            }
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Captcha
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _captcha()
+    {
+        if( in_array('captcha', $this->config) )
+        {
+            Session::start();
+
+            if( $this->edit != Session::select(md5('SystemCaptchaCodeData')) )
+            {
+                $this->_messages('captchaCode', $this->name, $this->viewName);
+            }
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Required
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _required()
+    {
+        if( in_array('required', $this->config) )
+        {
+            if( empty($this->edit) )
+            {
+                $this->_messages('required', $this->name, $this->viewName);
+            }
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Single Type
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param mixed  $type
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _singleType($type)
+    {
+        $typeName = $typeMsg = $type;
+
+        if( is_array($type) )
+        {
+            $typeName = key($type);
+            $typeMsg  = current($type);
+        }
+
+        if( isset($this->config[$typeName]) )
+        {
+            $pm = $this->_methodType($this->config[$typeName], $this->method);
+
+            if( $this->edit != $pm )
+            {
+                $this->_messages($typeMsg, $this->name, $this->viewName);
+            }
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Single In Array
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param array  $config
+    // @param string $edit
+    // @param string $name
+    // @param mixed  $viewName
+    // @param mixed  $type
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _singleInArray($type)
+    {
+        $typeName = $typeMsg = $type;
+
+        if( is_array($type) )
+        {
+            $typeName = key($type);
+            $typeMsg  = current($type);
+        }
+
+        if( in_array($typeName, $this->config) )
+        {
+            if( ! Validator::$typeName($this->edit) )
+            {
+                $this->_messages($typeMsg, $this->name, $this->viewName);
+            }
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------------
     // Protected Messages
     //--------------------------------------------------------------------------------------------------------
     //
@@ -433,9 +461,10 @@ class InternalValidation extends CallController implements InternalValidationInt
     //--------------------------------------------------------------------------------------------------------
     protected function _messages($type, $name, $viewName)
     {
-        $message = \Lang::select('ViewObjects', 'validation:'.$type, $viewName);
+        $message = Lang::select('ViewObjects', 'validation:'.$type, $viewName);
+
         $this->messages[$this->index] = $message.'<br>'; $this->index++;
-        $this->error[$name] = $message;
+        $this->error[$name]           = $message;
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -449,6 +478,11 @@ class InternalValidation extends CallController implements InternalValidationInt
     {
         $this->messages = [];
         $this->index    = 0;
+        $this->config   = NULL;
+        $this->edit     = NULL;
+        $this->name     = NULL;
+        $this->viewName = NULL;
+        $this->method   = NULL;
     }
 
     //--------------------------------------------------------------------------------------------------------
