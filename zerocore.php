@@ -13,7 +13,7 @@
 //--------------------------------------------------------------------------------------------------
 // VERSION INFO CONSTANTS
 //--------------------------------------------------------------------------------------------------
-define('ZN_VERSION'          , '5.3.41');
+define('ZN_VERSION'          , '5.3.42');
 define('REQUIRED_PHP_VERSION', '7.0.0');
 //--------------------------------------------------------------------------------------------------
 
@@ -589,7 +589,7 @@ function uselib(String $class, Array $parameters = [])
 
         if( ! class_exists($class) )
         {
-            die(\Errors::message('Error', 'classError', $class));
+            die(Errors::message('Error', 'classError', $class));
         }
     }
 

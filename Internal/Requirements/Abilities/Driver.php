@@ -34,7 +34,7 @@ trait DriverAbility
     protected $selectedDriverName;
 
     //--------------------------------------------------------------------------------------------------------
-    // Construct
+    // Construct -> 5.3.42[edited]
     //--------------------------------------------------------------------------------------------------------
     //
     // @param  string $driver
@@ -43,14 +43,19 @@ trait DriverAbility
     //--------------------------------------------------------------------------------------------------------
     public function __construct(String $driver = NULL)
     {
-        parent::__construct();
-
+        // 5.3.42[added]
+        if( method_exists(get_parent_class(), '__construct'))
+        {
+            parent::__construct();
+        }
+       
         if( ! defined('static::driver') )
         {
             throw new UndefinedConstException('[const driver] is required to use the [Driver Ability]!');
         }
 
-        Coalesce::null($driver, $this->config['driver'] ?? NULL);
+        // 5.3.42[edited]
+        Coalesce::null($driver, $this->config['driver'] ?? static::driver['options'][0]);
 
         $this->selectedDriverName = $driver;
 
