@@ -5,13 +5,13 @@
 
 <p>
 # We are following innovations which are developed by PHP.<br />
-# Does not require any adjustment during installation.<br />
+# Does not require any configurations during installation.<br />
 # It's built with EIP support on MVC architecture.<br />
-# Allows to build Multiple Application Developments<br />
-# Allows the use of common file for the use of multiple domains.<br />
-# Compatible with different hosting accounts.<br />
+# Allows to build Multiple Project Development.<br />
+# Allows to use of common files under multiple domains.<br />
+# Compatible with different servers.<br />
 # Supports SEO Friendly URL Structure.<br />
-# Provides Powerful Auto Loading<br />
+# Provides Powerful Auto Loading system.<br />
 # Provides easy access to libraries without "include" requirement.<br />
 # Supports a large number of different database platforms.<br />
 # Provides Multilingual development.<br />
