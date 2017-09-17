@@ -58,5 +58,7 @@
     'validation:minchar'                => '% area of ​​at least # characters long!',
     'validation:captchaCode'            => 'Security code is wrong!',
     'validation:pattern'                => 'Data patterns with incompatible %!',
-    'validation:invalidMethodParameter' => '% parameter may contain one of the options [post, get, request or data]!'
+    'validation:invalidMethodParameter' => '% parameter may contain one of the options [post, get, request or data]!',
+    'validation:between'                => 'The % field must be between [#] - [$]!',
+    'validation:betweenBoth'            => 'The % field must be between or equal [#] - [$]!'
 ];
