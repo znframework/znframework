@@ -54,16 +54,8 @@ class TemplateWizard extends CallController
         );
 
         $string  = preg_replace(array_keys($pattern), array_values($pattern), $string);
-        $content = Buffer::code($string, $data);
-
-        if( $lastError = Errors::last() )
-        {
-            return Exceptions::table('', $lastError['message'], '', $lastError['line']);
-        }
-        else
-        {
-            return $content;
-        }
+        
+        return Buffer::code($string, $data);
     }
 
     //--------------------------------------------------------------------------------------------------------

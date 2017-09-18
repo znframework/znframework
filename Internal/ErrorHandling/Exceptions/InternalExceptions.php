@@ -164,7 +164,7 @@ class InternalExceptions extends Exception implements InternalExceptionsInterfac
             }
         }
 
-        if( stristr($file, 'TemplateWizard') )
+        if( stristr($file, 'Buffer' . DS . 'Callback.php') )
         {
             $templateWizardData        = $this->_templateWizard();
             $exceptionData['file']     = $templateWizardData->file;

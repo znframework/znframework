@@ -24,6 +24,7 @@ class InternalXML extends \FactoryController
             'parsearray'  => 'XML\Parser::array',
             'parsejson'   => 'XML\Parser::json',
             'parseobject' => 'XML\Parser::object',
+            'parsesimple' => 'XML\Parser::simple',
             'check'       => 'XML\Check::check',
         ]
     ];
