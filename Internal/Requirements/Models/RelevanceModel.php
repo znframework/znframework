@@ -134,14 +134,14 @@ class RelevanceModel extends \BaseController
     // @param string $column
     //
     //--------------------------------------------------------------------------------------------------------
-    protected function _dbtablecolumn($database, $table, $column)
+    protected function _dbtablecolumn($database, $table, $column, $param)
     {
         if( $database !== NULL )
         {
-            return $table . '.' . $column . '.' . $database;
+            return $table . '.' . $column . '.' . $database . $param;
         }
 
-        return $table . '.' . $column;
+        return $table . '.' . $column . $param;
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -157,7 +157,13 @@ class RelevanceModel extends \BaseController
     {
         $this->relevance();
 
-        return DB::where($this->_dbtablecolumn($database, $table, $column), ...$parameters)->get($this->_tableName())->row();
+        return DB::where
+        (
+            $this->_dbtablecolumn($database, $table, $column, $parameters[1] ?? NULL), 
+            $parameters[0] ?? NULL
+        )
+        ->get($this->_tableName())
+        ->row();
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -173,7 +179,12 @@ class RelevanceModel extends \BaseController
     {
         $this->relevance();
 
-        return DB::where($this->_dbtablecolumn($database, $table, $column), $parameters[1] ?? NULL)->update($this->_tableName(), $parameters[0]);
+        return DB::where
+        (
+            $this->_dbtablecolumn($database, $table, $column, $parameters[2] ?? NULL), 
+            $parameters[1] ?? NULL
+        )
+        ->update($this->_tableName(), $parameters[0]);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -189,7 +200,12 @@ class RelevanceModel extends \BaseController
     {
         $this->relevance();
 
-        return DB::where($this->_dbtablecolumn($database, $table, $column), $parameters[0] ?? NULL)->delete($this->_tableName());
+        return DB::where
+        (
+            $this->_dbtablecolumn($database, $table, $column, $parameters[1] ?? NULL), 
+            $parameters[0] ?? NULL
+        )
+        ->delete($this->_tableName());
     }
 
     //--------------------------------------------------------------------------------------------------------
