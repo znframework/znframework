@@ -332,11 +332,6 @@ class Kernel
         }
 
         ob_end_flush();
-
-        if( function_exists('opcache_compile_file') && (Config::htaccess('cache')['opcache'] ?? NULL) === true )
-        {
-            opcache_compile_file('zeroneed.php');
-        }
     }
 
     //--------------------------------------------------------------------------------------------------

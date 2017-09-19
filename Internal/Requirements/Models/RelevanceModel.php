@@ -73,6 +73,10 @@ class RelevanceModel extends \BaseController
         {
             throw new GeneralException('relevance constant is not defined!');
         }
+        elseif( empty(static::relevance) )
+        {
+            throw new GeneralException('at least 1 key is needed in [first_table.column:second_table.column] form for relevance constant!');
+        }
 
         $this->relevance = static::relevance;
 

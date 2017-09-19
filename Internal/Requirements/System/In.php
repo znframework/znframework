@@ -1,7 +1,7 @@
 <?php namespace ZN;
 
-use Config, Import, Errors, File, GeneralException, Regex, Folder, Route, Arrays, Http, Lang, URI, URL, IS;
-use View, Masterpage;
+use Config, Import, Exceptions, Errors, GeneralException, Regex, Route;
+use View, Masterpage, Arrays, Http, Lang, URI, URL, IS, File, Folder;
 
 class In
 {
@@ -372,6 +372,27 @@ class In
 
             \Logger::report('Benchmarking Test Result', $benchResult, 'BenchmarkTestResults');
             //----------------------------------------------------------------------------------------------
+        }
+
+        self::opcache(); 
+    }
+
+    //--------------------------------------------------------------------------------------------------
+    // opcache() -> 5.3.5[added]
+    //--------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------
+    public static function opcache()
+    {
+        // 5.3.4[added]
+        if( function_exists('opcache_compile_file') && (Config::htaccess('cache')['opcache'] ?? NULL) === true )
+        {
+            if( ! opcache_compile_file('zeroneed.php') )
+            {
+                echo Errors::message('Error', 'undefinedFunctionExtension', 'OPCACHE');
+            }
         }
     }
 
