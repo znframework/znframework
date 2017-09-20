@@ -11,7 +11,7 @@
             #container{text-align: center;display: table-cell;vertical-align: middle;}
             #content{text-align: center;display: inline-block;}
             #title{font-size: 96px;color:#BFC4C8;}
-            #sub-title{font-size: 44.4px;color:#BFC4C8;    }
+            #sub-title{font-size: 44.4px;color:#BFC4C8;}
         </style>
     </head>
 

@@ -374,6 +374,12 @@ class In
             //----------------------------------------------------------------------------------------------
         }
 
+        //----------------------------------------------------------------------------------------------
+        // Bottom Layer
+        //----------------------------------------------------------------------------------------------
+        layer('Bottom');
+        //----------------------------------------------------------------------------------------------
+
         self::opcache(); 
     }
 
@@ -386,10 +392,10 @@ class In
     //--------------------------------------------------------------------------------------------------
     public static function opcache()
     {
-        // 5.3.4[added]
+        // 5.3.4[added] - 5.3.51[edited]
         if( function_exists('opcache_compile_file') && (Config::htaccess('cache')['opcache'] ?? NULL) === true )
         {
-            if( ! opcache_compile_file('zeroneed.php') )
+            if( ! opcache_compile_file(DIRECTORY_INDEX) )
             {
                 echo Errors::message('Error', 'undefinedFunctionExtension', 'OPCACHE');
             }
@@ -727,7 +733,7 @@ class In
             {
                 $htaccess .= $eol."<IfModule mod_php5.c>".$eol;
                 $htaccess .= $sets;
-                $htaccess .= "</IfModule>";
+                $htaccess .= "</IfModule>" . $eol;
             }
         }
 

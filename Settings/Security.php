@@ -21,12 +21,6 @@
     // alacak yeni karakterler.
     // NOT: Küçük-Büyük harf duyarlılığı yoktur.
     //
-    // Değişmesini istediğiniz karaketer özel karakter ise özel karaketerin başına \ karakteri
-    // koymanız gereklidir. Örnek \. Değiştirme işlemi için preg_replace() yöntemi kullanıldığı
-    // için özel karakterlerin başına \ karaketeri getirmelisiniz. Sınırlayıcı karakterler
-    // olan / / karakterleri kullanmanıza gerek yoktur.
-    // Örnek: Yanlış kullanım: /ab\./, doğru kullanım: ab\.
-    //
     //----------------------------------------------------------------------------------------------
     'urlChangeChars' =>
     [
