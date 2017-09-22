@@ -658,7 +658,7 @@ class InternalRoute extends CLController implements InternalRouteInterface
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Run
+    // Run -> 5.3.53
     //--------------------------------------------------------------------------------------------------------
     // Genel Kullanım: Çalıştırılmak istenen kod bloklarını yönetmek için kullanılır.
     //
@@ -691,7 +691,7 @@ class InternalRoute extends CLController implements InternalRouteInterface
 
                 $this->status[] = $functionName;
 
-                exit;
+                return;
             }
         }
 
