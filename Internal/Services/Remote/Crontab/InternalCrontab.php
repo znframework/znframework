@@ -89,19 +89,11 @@ class InternalCrontab extends RemoteCommon implements InternalCrontabInterface, 
     {
         parent::__construct();
 
-        // For Single Edition
-        if( defined('EXTERNAL_PROCESSOR_DIR') )
-        {
-            $this->crontabCommands = EXTERNAL_PROCESSOR_DIR . 'CronJobs';
-        }
-        else
-        {
-            $this->crontabCommands = PROCESSOR_DIR . 'CronJobs';
-        }
-
         $this->path       = SERVICES_PROCESSOR_CONFIG['path'];
         $this->debug      = SERVICES_CRONTAB_CONFIG['debug'];
-        $this->crontabDir = File::originpath(STORAGE_DIR.'Crontab'.DS);
+        $this->crontabDir = File::originpath($storage = STORAGE_DIR.'Crontab'.DS);
+
+        $this->crontabCommands = $storage . 'Jobs';
     }
 
     //--------------------------------------------------------------------------------------------------------
