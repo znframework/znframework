@@ -670,21 +670,14 @@ class InternalRoute extends CLController implements InternalRouteInterface
     //--------------------------------------------------------------------------------------------------------
     public function run(String $functionName, Callable $functionRun = NULL, Bool $usable = true)
     {
-        $parameters   = CURRENT_CPARAMETERS;
-        $view         = CURRENT_CONTROLLER;
-        $isFile       = CURRENT_CFILE;
-        $function     = CURRENT_CFUNCTION;
-        $openFunction = CURRENT_COPEN_PAGE;
-        $requestURI   = rtrim(str_replace($view . '/', NULL, In::requestURI()), '/');
-
         if( Arrays::valueExists(['construct', 'destruct'], $functionName) )
         {
-            call_user_func_array($functionRun, $parameters);
+            call_user_func_array($functionRun, CURRENT_CPARAMETERS);
         }
 
-        if( is_file($isFile) )
+        if( is_file(CURRENT_CFILE) )
         {
-            $matches = ( $usable === true ? $functionName === $function : false );
+            $matches = ( $usable === true ? $functionName === CURRENT_CFUNCTION : false );
 
             if( $matches )
             {
@@ -692,9 +685,9 @@ class InternalRoute extends CLController implements InternalRouteInterface
 
                 $this->filter();
 
-                call_user_func_array($functionRun, $parameters);
+                call_user_func_array($functionRun, CURRENT_CPARAMETERS);
 
-                $this->_import($functionName, $openFunction, $view);
+                $this->_import($functionName);
 
                 $this->status[] = $functionName;
 
@@ -1002,13 +995,11 @@ class InternalRoute extends CLController implements InternalRouteInterface
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string $function
-    // @param string $openFunction
-    // @param string $view
     //
     //--------------------------------------------------------------------------------------------------------
-    protected function _import($function, $openFunction, $view)
+    protected function _import($function)
     {
-        \ZN\Core\Kernel::viewPathFinder($function, $openFunction, $view, $viewPath, $wizardPath);
+        \ZN\Core\Kernel::viewPathFinder($function, $viewPath, $wizardPath);
         \ZN\Core\Kernel::viewAutoload($wizardPath, $viewPath, $this->data, $this->mdata);
     }
 
