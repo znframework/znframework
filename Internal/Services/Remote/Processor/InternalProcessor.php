@@ -1,6 +1,6 @@
 <?php namespace ZN\Services\Remote;
 
-use File, SSH;
+use SSH, Buffer;
 
 class InternalProcessor extends RemoteCommon implements InternalProcessorInterface
 {
@@ -14,15 +14,6 @@ class InternalProcessor extends RemoteCommon implements InternalProcessorInterfa
     //--------------------------------------------------------------------------------------------------------
 
     const config = 'Services:processor';
-
-    //--------------------------------------------------------------------------------------------------------
-    // Processor Path
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var string
-    //
-    //--------------------------------------------------------------------------------------------------------
-    protected $processorPath = PROCESSOR_DIR;
 
     //--------------------------------------------------------------------------------------------------------
     // Output
@@ -80,96 +71,29 @@ class InternalProcessor extends RemoteCommon implements InternalProcessorInterfa
         switch( $this->driver )
         {
             case 'exec':
-                return exec($command, $this->output, $this->return);
+                $return = exec($command, $this->output, $this->return);
             break;
 
             case 'shell_exec':
-                return shell_exec($command);
+            case 'shell'     :
+                $return       = shell_exec($command);
+                $this->output = $this->_split($return);
+                $this->return = 0;
             break;
 
             case 'system':
-                return system($command, $this->return);
+                $return       = Buffer::callback(function() use($command) {system($command, $this->return);});
+                $this->output = $this->_split($return);
             break;
 
             case 'ssh':
-                return SSH::run($command);
+                SSH::run($command);
+                $this->output = $this->_split($return = SSH::output());
+                $this->return = 0;
             break;
         }
-    }
 
-    //--------------------------------------------------------------------------------------------------------
-    // PHP
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $command
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function php(String $command) : String
-    {
-        $commands = $this->_php($command, $this->path);
-
-        $this->stringCommand = $commands;
-
-        return $this->_run($commands);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // File
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $file
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function file(String $file) : String
-    {
-        $commands  = $this->path;
-        $commands .= ' -f ';
-        $commands .= $this->_fileControl($file);
-
-        $this->stringCommand = $commands;
-
-        return $this->_run($commands);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Read
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $file
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function read(String $file) : String
-    {
-        $content = File::read($this->_fileControl($file));
-        $content = str_ireplace(['<?php', '?>'], NULL, $content);
-
-        return $this->php($content);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Controller
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $path
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function controller(String $path) : String
-    {
-        $command = $this->_controller($path);
-
-        return $this->php($command);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Add Nail
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $data
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function addNail($data)
-    {
-        return presuffix($data, '"');
+        return $return ?? false;
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -209,7 +133,7 @@ class InternalProcessor extends RemoteCommon implements InternalProcessorInterfa
     //--------------------------------------------------------------------------------------------------------
     public function output() : Array
     {
-        return $this->output;
+        return (array) $this->output;
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -221,27 +145,19 @@ class InternalProcessor extends RemoteCommon implements InternalProcessorInterfa
     //--------------------------------------------------------------------------------------------------------
     public function return() : Int
     {
-        return $this->return;
+        return (int) $this->return;
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // File Control
+    // Protected Split -> 5.3.6
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param void
+    // @param string $string
     //
     //--------------------------------------------------------------------------------------------------------
-    protected function _fileControl($path)
+    protected function _split($string)
     {
-        $path = File::originpath($path);
-        $file = $this->processorPath.$path;
-
-        if( ! is_file($file) )
-        {
-            $file = EXTERNAL_PROCESSOR_DIR.$path;
-        }
-
-        return $file;
+        return explode("\n", rtrim($string, "\n"));
     }
 
     //--------------------------------------------------------------------------------------------------------

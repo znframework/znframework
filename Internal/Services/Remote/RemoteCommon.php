@@ -49,7 +49,7 @@ class RemoteCommon extends CLController implements RemoteCommonInterface
     //--------------------------------------------------------------------------------------------------------
     public function stringCommand() : String
     {
-        return $this->stringCommand;
+        return (string) $this->stringCommand;
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -88,23 +88,5 @@ class RemoteCommon extends CLController implements RemoteCommonInterface
         $command = explode(':', $path);
 
         return '(new \Project\Commands\\'.$command[0].'")->'.$command[1].'()';
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Protected PHP
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $path
-    //
-    //--------------------------------------------------------------------------------------------------------
-    protected function _php($command, $path = NULL)
-    {
-        $phpCommand = "require_once '".REAL_BASE_DIR."zerocore'; ".$command.";";
-        $phpCommand = presuffix(str_replace('"', '\"', $phpCommand), '"');
-        $commands   = $path;
-        $commands  .= ' -r ';
-        $commands  .= $phpCommand;
-
-        return $commands;
     }
 }

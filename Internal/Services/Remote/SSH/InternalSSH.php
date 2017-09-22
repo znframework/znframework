@@ -115,9 +115,7 @@ class InternalSSH extends CLController implements InternalSSHInterface
 
             $this->_defaultVariables();
 
-            $this->stream = ssh2_exec($this->connect, $command);
-
-            return $this->stream;
+            return $this->stream = ssh2_exec($this->connect, $command);
         }
 
         return false;

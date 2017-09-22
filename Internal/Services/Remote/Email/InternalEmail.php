@@ -1,6 +1,6 @@
 <?php namespace ZN\Services\Remote;
 
-use Support, Config, CLController, DriverAbility, InformationAbility, IS;
+use Support, Config, CLController, DriverAbility, InformationAbility, IS, Lang, Mime;
 
 class InternalEmail extends CLController implements InternalEmailInterface
 {
@@ -392,7 +392,7 @@ class InternalEmail extends CLController implements InternalEmailInterface
         }
         else
         {
-            $this->error[] = \Lang::select('Error', 'charsetParameter', '1.($charset)');
+            $this->error[] = Lang::select('Error', 'charsetParameter', '1.($charset)');
         }
 
         return $this;
@@ -598,7 +598,7 @@ class InternalEmail extends CLController implements InternalEmailInterface
             }
             else
             {
-                return ! $this->error[] = \Lang::select('Error', 'emailParameter', '1.('.$type.')');
+                return ! $this->error[] = Lang::select('Error', 'emailParameter', '1.('.$type.')');
             }
         }
     }
@@ -691,7 +691,7 @@ class InternalEmail extends CLController implements InternalEmailInterface
     {
         if( ! IS::email($from) )
         {
-            ! $this->error[] = \Lang::select('Error', 'emailParameter', '1.($from)');
+            ! $this->error[] = Lang::select('Error', 'emailParameter', '1.($from)');
         }
 
         $this->from = $from;
@@ -776,7 +776,7 @@ class InternalEmail extends CLController implements InternalEmailInterface
     {
         if( $mime !== NULL )
         {
-            if( $mimes = \Mime::$mime() )
+            if( $mimes = Mime::$mime() )
             {
                 $mime = $mimes;
             }
@@ -791,12 +791,12 @@ class InternalEmail extends CLController implements InternalEmailInterface
         {
             if( strpos($file, '://') === false && ! file_exists($file) )
             {
-                $this->error[] = \Lang::select('Services', 'email:attachmentMissing', $file);
+                $this->error[] = Lang::select('Services', 'email:attachmentMissing', $file);
             }
 
             if( ! $fp = @fopen($file, 'rb') )
             {
-                $this->error[] = \Lang::select('Services', 'email:attachmentUnreadable', $file);
+                $this->error[] = Lang::select('Services', 'email:attachmentUnreadable', $file);
             }
 
             $fileContent = stream_get_contents($fp);
@@ -810,10 +810,10 @@ class InternalEmail extends CLController implements InternalEmailInterface
 
         $this->attachments[] =
         [
-            'name'          => [$file, $newName],
-            'disposition'   => $disposition ?? 'attachment',
-            'type'          => $mime,
-            'content'       => chunk_split(base64_encode($fileContent))
+            'name'        => [$file, $newName],
+            'disposition' => $disposition ?? 'attachment',
+            'type'        => $mime,
+            'content'     => chunk_split(base64_encode($fileContent))
         ];
 
         return $this;
@@ -833,13 +833,15 @@ class InternalEmail extends CLController implements InternalEmailInterface
             $this->multiPart = 'related';
         }
 
-        for( $i = 0, $c = count($this->attachments); $i < $c; $i++ )
-        {
-            if( $this->attachments[$i]['name'][0] === $filename )
-            {
-                $this->attachments[$i]['cid'] = uniqid(basename($this->attachments[$i]['name'][0]).'@');
+        $count = count($this->attachments);
 
-                return $this->attachments[$i]['cid'];
+        for( $index = 0; $index < $count; $index++ )
+        {
+            if( $this->attachments[$index]['name'][0] === $filename )
+            {
+                $this->attachments[$index]['contentId'] = uniqid(basename($this->attachments[$index]['name'][0]) . '@');
+
+                return $this->attachments[$index]['contentId'];
             }
         }
 
@@ -864,7 +866,7 @@ class InternalEmail extends CLController implements InternalEmailInterface
             }
             else
             {
-                return ! $this->error[] = \Lang::select('Services', 'email:noFrom');
+                return ! $this->error[] = Lang::select('Services', 'email:noFrom');
             }
         }
 
@@ -919,7 +921,7 @@ class InternalEmail extends CLController implements InternalEmailInterface
 
         if( empty($send) )
         {
-            return ! $this->error[] = \Lang::select('Services', 'email:noSend');
+            return ! $this->error[] = Lang::select('Services', 'email:noSend');
         }
 
         $this->_defaultVariables();
@@ -970,7 +972,7 @@ class InternalEmail extends CLController implements InternalEmailInterface
     //--------------------------------------------------------------------------------------------------------
     protected function _mimeMessage()
     {
-        return \Lang::select('Services', 'email:mimeMessage', $this->lf);
+        return Lang::select('Services', 'email:mimeMessage', $this->lf);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -1004,7 +1006,7 @@ class InternalEmail extends CLController implements InternalEmailInterface
     {
         $from = str_replace(['>', '<'], '', $this->headers['Return-Path']);
 
-        return '<'.uniqid('').strstr($from, '@').'>';
+        return '<' . uniqid('') . strstr($from, '@') . '>';
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -1101,9 +1103,9 @@ class InternalEmail extends CLController implements InternalEmailInterface
                                     'Content-Type: '.$this->attachments[$i]['type'].'; name="'.$basename.'"'.$this->lf.
                                     'Content-Disposition: '.$this->attachments[$i]['disposition'].';'.$this->lf.
                                     'Content-Transfer-Encoding: base64'.$this->lf.
-                                    ( empty($this->attachments[$i]['cid'] )
+                                    ( empty($this->attachments[$i]['contentId'] )
                                     ? ''
-                                    : 'Content-ID: <'.$this->attachments[$i]['cid'].'>'.$this->lf);
+                                    : 'Content-ID: <'.$this->attachments[$i]['contentId'].'>'.$this->lf);
 
                 $attachment[$z++] = $this->attachments[$i]['content'];
             }
