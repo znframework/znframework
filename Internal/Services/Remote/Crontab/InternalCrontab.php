@@ -107,20 +107,7 @@ class InternalCrontab extends RemoteCommon implements InternalCrontabInterface, 
     public function driver(String $driver) : InternalCrontab
     {
         Processor::driver($driver);
-        return $this;
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Path
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  string $path: empty
-    // @return object
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function path(String $path = NULL) : InternalCrontab
-    {
-        $this->path = $path;
+        
         return $this;
     }
 
