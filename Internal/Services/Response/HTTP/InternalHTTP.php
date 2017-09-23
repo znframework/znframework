@@ -266,7 +266,7 @@ class InternalHTTP extends CLController implements InternalHTTPInterface
     {
         $languages = Lang::shortCodes();
 
-        $lang = strtolower(substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2));
+        $lang = strtolower(substr(($_SERVER['HTTP_ACCEPT_LANGUAGE'] ?? $default), 0, 2));
 
         if( isset($languages[$lang]) )
         {
