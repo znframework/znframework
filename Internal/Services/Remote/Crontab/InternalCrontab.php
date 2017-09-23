@@ -1,6 +1,6 @@
 <?php namespace ZN\Services\Remote;
 
-use Processor, SSH, Folder, File, Html, Arrays, Strings;
+use Processor, SSH, Folder, File, Html, Arrays, Strings, Json;
 use ZN\Services\Remote\Crontab\Exception\InvalidTimeFormatException;
 
 class InternalCrontab extends RemoteCommon implements InternalCrontabInterface, InternalCrontabIntervalInterface
@@ -131,6 +131,51 @@ class InternalCrontab extends RemoteCommon implements InternalCrontabInterface, 
         $this->path       = SERVICES_PROCESSOR_CONFIG['path'];
         $this->debug      = SERVICES_CRONTAB_CONFIG['debug'];
         $this->crontabDir = File::originpath(STORAGE_DIR.'Crontab'.DS);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Limit -> 5.3.6
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param  int $id
+    // @oaram  int $limit = 1
+    // @return void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function limit(Int $id, Int $limit = 1)
+    {
+        $limitFile = $this->crontabCommands . 'Limit.json';
+        
+        $fileLimitValue = $default = 1;
+
+        $key = 'ID' . $id;
+
+        if( ! File::exists($limitFile) )
+        {
+            File::write($limitFile, Json::encode([$key => $default]) . EOL);
+        }
+        
+        $fileData = Json::decodeArray(File::read($limitFile));
+
+        $fileLimitValue = (int) ($fileData[$key] ?? NULL);
+
+        if( $fileLimitValue === $limit )
+        {
+            $this->remove((int) ltrim($key, 'ID'));
+
+            if( isset($fileData[$key]) )
+            {
+                unset($fileData[$key]);
+            }
+        }
+        else
+        {
+            $fileLimitValue += 1;
+
+            $fileData[$key] = $fileLimitValue;   
+        }
+
+        File::write($limitFile, Json::encode($fileData) . EOL);
     }
 
     //--------------------------------------------------------------------------------------------------------
