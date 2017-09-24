@@ -490,7 +490,18 @@ class InternalDB extends Connection implements InternalDBInterface
             $table  = $split[0];
             $method = $split[1];
 
-            return $this->$method($table, $parameters[0] ?? NULL);
+            if( is_string($parameters[0]) )
+            {
+                $prefix = $parameters[0] . ':';
+                $data   = [];
+            }
+            else
+            {
+                $prefix = NULL;
+                $data   = $parameters[0];
+            }
+
+            return $this->$method($prefix . $table, $data);
         }
         else
         {
