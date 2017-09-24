@@ -94,7 +94,7 @@ class InternalCrontab extends RemoteCommon implements InternalCrontabInterface, 
     // @var string
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $fileName = 'Jobs';
+    protected $fileName = 'Crontab' . DS . 'Jobs';
 
     //--------------------------------------------------------------------------------------------------------
     // User
@@ -118,7 +118,7 @@ class InternalCrontab extends RemoteCommon implements InternalCrontabInterface, 
 
         if( PROJECT_TYPE === 'EIP' )
         {
-            $this->crontabCommands = EXTERNAL_FILES_DIR . $this->fileName;
+            $this->crontabCommands = EXTERNAL_DIR . $this->fileName;
             $this->user            = _CURRENT_PROJECT;
             
             $this->_project($this->dzerocore = $this->zerocore);
@@ -131,6 +131,50 @@ class InternalCrontab extends RemoteCommon implements InternalCrontabInterface, 
         $this->path       = SERVICES_PROCESSOR_CONFIG['path'];
         $this->debug      = SERVICES_CRONTAB_CONFIG['debug'];
         $this->crontabDir = File::originpath(STORAGE_DIR.'Crontab'.DS);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Queue -> 5.3.6
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param  int      $id
+    // @param  callable $callable
+    // @oaram  int      $decrement = 1
+    // @return void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function queue(Int $id, Callable $callable, Int $decrement = 1)
+    {
+        $queueFile = $this->crontabCommands . 'Queue.json';
+        
+        $fileLimitValue = 0;
+
+        $key = 'ID' . $id;
+
+        if( ! File::exists($queueFile) )
+        {
+            File::write($queueFile, Json::encode([$key => $fileLimitValue]) . EOL);
+        }
+        
+        $fileData = Json::decodeArray(File::read($queueFile));
+
+        $fileLimitValue = (int) ($fileData[$key] ?? NULL);
+
+        if( $callable($fileLimitValue, $decrement) === false )
+        {
+            $this->remove((int) ltrim($key, 'ID'));
+
+            if( isset($fileData[$key]) )
+            {
+                unset($fileData[$key]);
+            }
+        }
+        else
+        {
+            $fileData[$key] = $fileLimitValue += $decrement;
+        }
+           
+        File::write($queueFile, Json::encode($fileData) . EOL);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -170,9 +214,7 @@ class InternalCrontab extends RemoteCommon implements InternalCrontabInterface, 
         }
         else
         {
-            $fileLimitValue += 1;
-
-            $fileData[$key] = $fileLimitValue;   
+            $fileData[$key] = $fileLimitValue++;   
         }
 
         File::write($limitFile, Json::encode($fileData) . EOL);

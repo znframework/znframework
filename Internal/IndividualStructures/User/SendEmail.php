@@ -22,14 +22,15 @@ class SendEmail extends UserExtends
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Send Email All -> 5.0.0
+    // Send Email All -> 5.0.0|5.3.6[edited]
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string $subject
     // @param string $body
+    // @param int    $count = 35
     //
     //--------------------------------------------------------------------------------------------------------
-    public function send(String $subject, String $body)
+    public function send(String $subject, String $body, Int $count = 35)
 	{
         $columns = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['columns'];
         $table   = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['table'];
@@ -40,8 +41,16 @@ class SendEmail extends UserExtends
         	DB::where($columns['banned'], 0);
         }
 
-		$result    = DB::get($table)->result();
-		$users     = Arrays::apportion($result, 35);
+        $usernamecol = $columns['username'];
+        $emailcol    = $columns['email'];
+
+        if( empty($usernamecol) )
+        {
+            return false;
+        }
+
+        $result    = DB::get($table)->result();              
+		$users     = Arrays::apportion($result, $count);
 		$sendCount = count($users);
 
 		$from = $sender['mail'];
@@ -53,11 +62,11 @@ class SendEmail extends UserExtends
 		{
 			foreach( $users[$i] as $user )
 			{
-                $username = $user->{$columns['username']};
+                $username = $user->$usernamecol;
 
                 $email = IS::email($username)
                        ? $username
-                       : ($user->{$columns['email']} ?? NULL);
+                       : ($user->$emailcol ?? NULL);
 
                 if( IS::email($email) )
                 {
