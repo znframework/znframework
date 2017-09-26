@@ -14,6 +14,15 @@ class InternalRedirect extends CallController implements InternalRedirectInterfa
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
+    // Fix
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var string = 'redirect:'
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected $fix = 'redirect:';
+
+    //--------------------------------------------------------------------------------------------------------
     // $redirect
     //--------------------------------------------------------------------------------------------------------
     //
@@ -83,7 +92,7 @@ class InternalRedirect extends CallController implements InternalRedirectInterfa
         {
             foreach( $data as $k => $v )
             {
-                Session::insert('redirect:' . $k, $v);
+                Session::insert($this->fix . $k, $v);
             }
         }
 
@@ -111,7 +120,7 @@ class InternalRedirect extends CallController implements InternalRedirectInterfa
     //--------------------------------------------------------------------------------------------------
     public function selectData(String $k)
     {
-        if( $data = Session::select('redirect:'.$k) )
+        if( $data = Session::select($this->fix . $k) )
         {
             return $data;
         }
@@ -134,11 +143,11 @@ class InternalRedirect extends CallController implements InternalRedirectInterfa
     {
         if( is_array($data) ) foreach( $data as $v )
         {
-            Session::delete('redirect:'.$v);
+            Session::delete($this->fix . $v);
         }
         else
         {
-            return Session::delete('redirect:'.$data);
+            return Session::delete($this->fix . $data);
         }
 
         return true;

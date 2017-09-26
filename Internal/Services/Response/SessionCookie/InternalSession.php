@@ -142,14 +142,7 @@ class InternalSession extends CLController implements InternalSessionInterface, 
             }
         }
 
-        if( isset($_SESSION[$name]) )
-        {
-            return $_SESSION[$name];
-        }
-        else
-        {
-            return false;
-        }
+        return $_SESSION[$name] ?? false;
     }
 
     //--------------------------------------------------------------------------------------------------------
