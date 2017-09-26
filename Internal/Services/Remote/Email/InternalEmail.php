@@ -1,6 +1,7 @@
 <?php namespace ZN\Services\Remote;
 
-use Support, Config, CLController, DriverAbility, InformationAbility, IS, Lang, Mime;
+use Support, Config, CLController, DriverAbility, InformationAbility, IS;
+use Lang, Mime, Arrays, Method, DB, Strings, Security, Import;
 
 class InternalEmail extends CLController implements InternalEmailInterface
 {
@@ -691,7 +692,7 @@ class InternalEmail extends CLController implements InternalEmailInterface
     {
         if( ! IS::email($from) )
         {
-            ! $this->error[] = Lang::select('Error', 'emailParameter', '1.($from)');
+            $this->error[] = Lang::select('Error', 'emailParameter', '1.($from)');
         }
 
         $this->from = $from;
@@ -732,6 +733,74 @@ class InternalEmail extends CLController implements InternalEmailInterface
         $this->addHeader('Subject', $this->subject);
 
         return $this;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Template -> 5.3.7
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $table
+    // @param mixed  $column
+    // @param array  $data
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function template(String $table, $column, Array $data = []) : InternalEmail
+    {
+        if( $content = Import::template($table, (array) $column, true) )
+        {
+            $this->message($content);
+        }
+        else
+        {
+            $tableEx  = explode(':', $table);
+            $columnEx = explode(':', $column); 
+    
+            $table    = $tableEx[0];
+            $column   = $tableEx[1] ?? NULL;
+
+            if( $column === NULL )
+            {
+                $this->error[] = Lang::select('Email', 'email:templateColumnError', '1.($table)');
+            }
+        
+            $whereColumn = $columnEx[0];
+            $whereValue  = $columnEx[1] ?? NULL;
+            
+            if( $whereValue === NULL )
+            {
+                $this->error[] = Lang::select('Email', 'email:templateValueError', '2.($column)');
+            }
+            
+            if( empty($this->error) )
+            {
+                $content = DB::select($column)->where($whereColumn, $whereValue)->get($table)->value();
+                
+                $this->message($this->templateMatch($content, $data));
+            }
+        }
+
+        return $this;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Template Match -> 5.3.7
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $table
+    // @param string $column
+    // @param array  $data
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function templateMatch(String $content, Array $data) : String
+    {
+        $newData = array();
+        
+        foreach( $data as $key => $val )
+        {
+            $newData[Strings::mtrim('{{'.$key.'}}')] = $val;
+        }
+
+        return Security::htmlDecode(str_replace(array_keys($newData), array_values($newData), $content));
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -1128,6 +1197,7 @@ class InternalEmail extends CLController implements InternalEmailInterface
 
         return true;
     }
+
 
     //--------------------------------------------------------------------------------------------------------
     // Protected Default Variables

@@ -39,7 +39,7 @@ class Template
         }
         else
         {
-            throw new FileNotFoundException('Error', 'fileNotFound', $page);
+            return false;
         }
     }
 }
