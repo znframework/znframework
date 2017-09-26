@@ -2,7 +2,7 @@
 
 use Arrays, Import, Route, Throwable, Exceptions, Config, Errors;
 use Generate, Folder, File, Restoration, URL, Lang, IS;
-use View, Masterpage, ZN\In, Logger;
+use View, Masterpage, ZN\In, Logger, Http;
 
 class Kernel
 {
@@ -293,7 +293,7 @@ class Kernel
     }
 
     //--------------------------------------------------------------------------------------------------
-    // View Path Finder
+    // View Path Finder -> 5.3.62
     //--------------------------------------------------------------------------------------------------
     //
     // @param string $function
@@ -303,6 +303,12 @@ class Kernel
     //--------------------------------------------------------------------------------------------------
     public static function viewAutoload($wizardPath, $viewPath, $data, $pageClassMasterpage)
     {
+        // 5.3.62[added]
+        if( Http::isAjax() )
+        {
+            return;
+        }
+
         if( is_file($wizardPath) && ! IS::import($viewPath) && ! IS::import($wizardPath) )
         {
             $usableView = self::_load($wizardPath, $data);
