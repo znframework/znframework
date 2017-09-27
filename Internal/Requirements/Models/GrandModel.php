@@ -77,6 +77,15 @@ class GrandModel extends BaseController
     protected $get;
 
     //--------------------------------------------------------------------------------------------------------
+    // Variable Options
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var array
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected $options = [];
+
+    //--------------------------------------------------------------------------------------------------------
     // Constructor
     //--------------------------------------------------------------------------------------------------------
     //
@@ -104,7 +113,7 @@ class GrandModel extends BaseController
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Magic Call
+    // Magic Call -> 5.3.7[edited]
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string $method
@@ -128,6 +137,14 @@ class GrandModel extends BaseController
         elseif( $return = $this->_callColumn($method, $parameters, 'delete') )
         {
             return $return;
+        }
+        else
+        {
+            // 5.3.7[added]
+
+            $this->options[$method] = $parameters[0];
+
+            return $this;
         }
 
         Support::classMethod(get_called_class(), $method);
@@ -164,7 +181,7 @@ class GrandModel extends BaseController
     // @param array $data: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function insert($data) : Bool
+    public function insert($data = NULL) : Bool
     {
         $this->_postGet($table, $data);
 
@@ -217,7 +234,7 @@ class GrandModel extends BaseController
     // @param array $data: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function update($data, String $column = NULL, String $value = NULL) : Bool
+    public function update($data = NULL, String $column = NULL, String $value = NULL) : Bool
     {
         $this->_postGet($table, $data);
 
@@ -798,10 +815,14 @@ class GrandModel extends BaseController
             $table = $data . ':' . $table;
             $data  = [];
         }
+
+        $data = $data ?: $this->options;
+
+        $this->options = [];
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Protected Call Column
+    // Protected Call Column -> 5.3.7[edited]
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string $method
@@ -819,6 +840,15 @@ class GrandModel extends BaseController
 
             if( $func === 'update' )
             {
+                // 5.3.7[added]
+                if( ! empty($this->options) )
+                {
+                    $params[1] = $params[0];
+                    $params[0] = $this->options;
+
+                    $this->options = [];
+                }
+
                 if( ! isset($params[1]) )
                 {
                     return false;
