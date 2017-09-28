@@ -1219,7 +1219,7 @@ function internalProjectContainerDir($path = NULL) : String
 //--------------------------------------------------------------------------------------------------
 function internalCurrentProject()
 {
-    if( ! is_writable('/') )
+    if( is_file('.htaccess') && ! is_writable('.htaccess') )
     {
         trace
         (
