@@ -200,6 +200,8 @@ class Autoloader
             }
         }
 
+        internalIsWritable(self::$path);
+
         file_put_contents(self::$path, $classMapPage, FILE_APPEND);
     }
 

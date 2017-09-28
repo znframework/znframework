@@ -50,5 +50,7 @@
     'email:smtpDataFailure'         => 'Unable to send data: %',
     'email:exitStatus'              => 'Exit status code: %',
     'email:mimeMessage'             => 'This is a multi-part message in MIME format.%Your email application may not support this format.',
-    'email:noHostName'              => 'SMTP Host information is empty!'
+    'email:noHostName'              => 'SMTP Host information is empty!',
+    'email:templateColumnError'     => 'The template % parameter does not contain column information! Usage -> table: column',
+    'email:templateValueError'      => 'The template % parameter does not contain column value information! Usage -> whereColumn: value'
 ];

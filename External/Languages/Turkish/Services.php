@@ -50,5 +50,7 @@
     'email:smtpDataFailure'         => 'SMPT Veri göndermek için açılamıyor: %',
     'email:exitStatus'              => 'Çıkış durum kodu: %',
     'email:mimeMessage'             => 'Bu MIME biçiminde çok parçalı mesajdır.%E-posta uygulaması bu formatı desteklemiyor olabilir.',
-    'email:noHostName'              => 'SMTP Host bilgisi boş!'
+    'email:noHostName'              => 'SMTP Host bilgisi boş!',
+    'email:templateColumnError'     => 'Şablon % parametresi kolon bilgisi içermiyor! Kullanım -> table:column',
+    'email:templateValueError'      => 'Şablon % parametresi kolon değer bilgisi içermiyor! Kullanım -> whereColumn:value'
 ];
