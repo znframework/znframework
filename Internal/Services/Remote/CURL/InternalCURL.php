@@ -1,6 +1,6 @@
 <?php namespace ZN\Services\Remote;
 
-use Support, Converter, CallController, IS, URL;
+use Support, Converter, CallController, IS, URL, Strings;
 use ZN\Services\Remote\CURL\Exception\InvalidArgumentException;
 
 class InternalCURL extends CallController implements InternalCURLInterface
@@ -42,6 +42,27 @@ class InternalCURL extends CallController implements InternalCURLInterface
     public function __construct()
     {
         Support::func('curl_exec', 'CURL');
+    }
+
+     //--------------------------------------------------------------------------------------------------------
+    // Magic Call -> 5.3.7[edited]
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $method
+    // @param array  $parameters
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function __call($method, $parameters)
+    {
+        $option = Converter::toConstant
+        (
+            implode('_', Strings::splitUpperCase($method)), 
+            'CURLOPT_'
+        );
+
+        $this->options[$option] = $parameters[0] ?? NULL;
+
+        return $this;
     }
 
     //--------------------------------------------------------------------------------------------------------

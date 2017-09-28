@@ -141,8 +141,26 @@ class GrandModel extends BaseController
         else
         {
             // 5.3.7[added]
+            $param = $parameters[0] ?? NULL;
 
-            $this->options[$method] = $parameters[0];
+            if( is_array($param) )
+            {
+                if( ! $this->modifyColumn([$method => $param]) )
+                {   
+                    if( ! $this->renameColumn([$method => $param]) )
+                    {
+                        $this->addColumn([$method => $param]);
+                    }
+                }
+            }
+            elseif( $param === NULL )
+            {
+                $this->dropColumn($method);
+            }
+            else
+            {
+                $this->options[$method] = $param;
+            }
 
             return $this;
         }
