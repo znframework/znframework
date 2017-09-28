@@ -75,10 +75,12 @@ class Config
     {
         if( empty(self::$config[$file]) )
         {
-            $externalPath = EXTERNAL_CONFIG_DIR.suffix($file,".php");
-            $projectPath  = CONFIG_DIR.suffix($file,".php");
-            $settingsPath = SETTINGS_DIR.suffix($file,".php");
-            $internalPath = INTERNAL_CONFIG_DIR.suffix($file,".php");
+            $path = suffix($file, '.php');
+
+            $externalPath = EXTERNAL_CONFIG_DIR . $path;
+            $projectPath  = CONFIG_DIR          . $path;
+            $settingsPath = SETTINGS_DIR        . $path;
+            $internalPath = INTERNAL_CONFIG_DIR . $path;
 
             self::$config[$file] = array_merge
             (
