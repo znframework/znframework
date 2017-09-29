@@ -1,6 +1,6 @@
 <?php namespace ZN\Helpers\Converter;
 
-use stdClass;
+use stdClass, Strings;
 
 class VariableTypes
 {
@@ -163,7 +163,9 @@ class VariableTypes
     //--------------------------------------------------------------------------------------------------------
     public function toConstant(String $var, String $prefix = NULL, String $suffix = NULL)
     {
-        $variable = \Autoloader::upper($prefix.$var.$suffix);
+        $var = implode('_', Strings::splitUpperCase($var));
+        
+        $variable = \Autoloader::upper($prefix . $var . $suffix);
 
         if( defined($variable) )
         {

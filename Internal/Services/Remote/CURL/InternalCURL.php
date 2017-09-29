@@ -54,11 +54,7 @@ class InternalCURL extends CallController implements InternalCURLInterface
     //--------------------------------------------------------------------------------------------------------
     public function __call($method, $parameters)
     {
-        $option = Converter::toConstant
-        (
-            implode('_', Strings::splitUpperCase($method)), 
-            'CURLOPT_'
-        );
+        $option = Converter::toConstant($method, 'CURLOPT_');
 
         $this->options[$option] = $parameters[0] ?? NULL;
 
