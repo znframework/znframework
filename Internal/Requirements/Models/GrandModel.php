@@ -145,11 +145,16 @@ class GrandModel extends BaseController
 
             if( is_array($param) )
             {
-                if( ! $this->modifyColumn([$method => $param]) )
-                {   
-                    if( ! $this->renameColumn([$method => $param]) )
+                $data = [$method => $param];
+                
+                if( ! $this->modifyColumn($data) )
+                {  
+                    if( ! $this->renameColumn($data) )
                     {
-                        $this->addColumn([$method => $param]);
+                        if( ! $this->addColumn($data) )
+                        {
+                            $this->options[$method] = $param;
+                        }
                     }
                 }
             }
@@ -631,13 +636,21 @@ class GrandModel extends BaseController
     // Create
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param array  $data : empty
+    // @param mixed  $data : empty
     // @param string $extra: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function create(Array $data, $extra = NULL) : Bool
+    public function create($data = NULL, $extra = NULL) : Bool
     {
         $this->status = 'create';
+
+        if( ! empty($this->options) )
+        {
+            $extra = $data;
+            $data  = $this->options;
+            
+            $this->options = [];
+        }  
 
         return $this->connectForge->createTable($this->grandTable, $data, $extra);
     }
