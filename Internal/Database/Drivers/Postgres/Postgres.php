@@ -101,10 +101,10 @@ class PostgresDriver extends DriverConnectionMappingAbstract
 
         $dsn = 'host='.$this->config['host'].' ';
 
-        if( ! empty($this->config['port']) )        $dsn .= 'port='.$this->config['port'].' ';
-        if( ! empty($this->config['database']) )    $dsn .= 'dbname='.$this->config['database'].' ';
-        if( ! empty($this->config['user']) )        $dsn .= 'user='.$this->config['user'].' ';
-        if( ! empty($this->config['password']) )    $dsn .= 'password='.$this->config['password'].' ';
+        if( ! empty($this->config['port']) )     $dsn .= 'port='.$this->config['port'].' ';
+        if( ! empty($this->config['database']) ) $dsn .= 'dbname='.$this->config['database'].' ';
+        if( ! empty($this->config['user']) )     $dsn .= 'user='.$this->config['user'].' ';
+        if( ! empty($this->config['password']) ) $dsn .= 'password='.$this->config['password'].' ';
 
         if( ! empty($this->config['dsn']) )
         {

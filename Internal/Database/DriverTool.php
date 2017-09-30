@@ -1,6 +1,6 @@
 <?php namespace ZN\Database;
 
-use File, Folder, Lang;
+use File, Folder, Lang, stdClass;
 use ZN\FileSystem\Exception\IOException;
 
 class DriverTool extends DriverExtends
@@ -71,7 +71,7 @@ class DriverTool extends DriverExtends
     //--------------------------------------------------------------------------------------------------------
     public function statusTables($table)
     {
-        $infos = new \stdClass;
+        $infos = new stdClass;
 
         if( $table === '*' )
         {

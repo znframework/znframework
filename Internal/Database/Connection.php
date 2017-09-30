@@ -1,6 +1,6 @@
 <?php namespace ZN\Database;
 
-use Support, Arrays, Config;
+use Support, Arrays, Config, Autoloader, Logger;
 use ZN\Database\Exception\InvalidArgumentException;
 
 class Connection implements ConnectionInterface
@@ -145,9 +145,8 @@ class Connection implements ConnectionInterface
     //--------------------------------------------------------------------------------------------------------
     public function __construct(Array $config = [])
     {
-        $this->config = array_merge(Config::get('Database', 'database'), $config);
-        $this->db = $this->_run();
-
+        $this->config       = array_merge(Config::get('Database', 'database'), $config);
+        $this->db           = $this->_run();
         $this->prefix       = $this->config['prefix'];
         Properties::$prefix = $this->prefix;
 
@@ -299,7 +298,7 @@ class Connection implements ConnectionInterface
     public function func(...$args)
     {
         $array = Arrays::removeFirst($args);
-        $math  = $this->_math(isset($args[0]) ? \Autoloader::upper($args[0]) : false, $array);
+        $math  = $this->_math(isset($args[0]) ? Autoloader::upper($args[0]) : false, $array);
 
         if( $math->return === true )
         {
@@ -475,7 +474,7 @@ class Connection implements ConnectionInterface
 
         if( ($this->config['queryLog'] ?? NULL) === true )
         {
-            \Logger::report('DatabaseQueries', $query, 'DatabaseQueries');
+            Logger::report('DatabaseQueries', $query, 'DatabaseQueries');
         }
 
         $this->stringQuery = $query;
@@ -495,7 +494,7 @@ class Connection implements ConnectionInterface
     //--------------------------------------------------------------------------------------------------------
     protected function _math($type, $args)
     {
-        $type    = \Autoloader::upper($type);
+        $type    = Autoloader::upper($type);
         $getLast = Arrays::getLast($args);
         $asparam = ' ';
 

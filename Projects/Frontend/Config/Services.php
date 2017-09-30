@@ -156,7 +156,7 @@
     //--------------------------------------------------------------------------------------------------
     'processor' =>
     [
-        'driver' => 'exec',        // exec, shell_exec, system, ssh
+        'driver' => 'exec',        // exec, shell_exec/shell, system, ssh
         'path'   => '/usr/bin/php'
     ],
 

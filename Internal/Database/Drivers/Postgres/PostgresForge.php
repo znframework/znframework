@@ -23,7 +23,7 @@ class PostgresForge extends DriverForge
     //--------------------------------------------------------------------------------------------------------
     public function modifyColumn($table, $column)
     {
-        return 'ALTER TABLE '.$table.' ALTER COLUMN '.rtrim($column, ',').';';
+        return 'ALTER TABLE '.$table.' ALTER COLUMN ' . $this->_syntax($column, 'TYPE') . ';';
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -36,6 +36,19 @@ class PostgresForge extends DriverForge
     //--------------------------------------------------------------------------------------------------------
     public function renameColumn($table, $column)
     { 
-        return 'ALTER TABLE '.$table.' RENAME COLUMN '.key($column).' TO '.current($column).';';
+        return 'ALTER TABLE '.$table.' RENAME COLUMN ' . $this->_syntax($column, 'TO') . ';';
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Add Column
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $table
+    // @param mixed  $column
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function addColumn($table, $columns)
+    {
+        return 'ALTER TABLE ' . $table . ' ADD ' . $this->_extractColumn($columns) . ';';
     }
 }
