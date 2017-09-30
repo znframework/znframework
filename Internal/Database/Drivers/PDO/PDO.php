@@ -107,15 +107,21 @@ class PDODriver extends DriverConnectionMappingAbstract
     public function connect($config = [])
     {
         $this->config = $config;
+
         try
         {
-            $this->connect = new PDO($this->_dsn($this->config), $this->config['user'], $this->config['password']);
+            $this->connect = new PDO
+            (
+                $this->config['dsn'] ?: $this->_dsn($this->config), 
+                $this->config['user'], 
+                $this->config['password']
+            );
         }
         catch( PDOException $e )
         {
             die(Errors::message('Database', 'connectError'));
         }
-
+        
         if( ! empty($this->config['charset']  ) ) $this->connect->exec("SET NAMES '".$this->config['charset']."'");
         if( ! empty($this->config['charset']  ) ) $this->connect->exec('SET CHARACTER SET '.$this->config['charset']);
         if( ! empty($this->config['collation']) ) $this->connect->exec("SET COLLATION_CONNECTION = '".$this->config['collation']."'");     
