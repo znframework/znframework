@@ -1,6 +1,7 @@
 <?php namespace ZN\Database\Drivers;
 
 use ZN\Database\Abstracts\DriverConnectionMappingAbstract;
+use Support, Errors, Exception, SQLite3, stdClass;
 
 class SQLiteDriver extends DriverConnectionMappingAbstract
 {
@@ -84,7 +85,7 @@ class SQLiteDriver extends DriverConnectionMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
-        \Support::extension('SQLite3', 'SQLite3');
+        Support::extension('SQLite3', 'SQLite3');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -101,12 +102,12 @@ class SQLiteDriver extends DriverConnectionMappingAbstract
         try
         {
             $this->connect =    ( ! empty($this->config['password']) )
-                                ? new \SQLite3($this->config['database'], SQLITE3_OPEN_READWRITE | SQLITE3_OPEN_CREATE, $this->config['password'])
-                                : new \SQLite3($this->config['database']);
+                                ? new SQLite3($this->config['database'], SQLITE3_OPEN_READWRITE | SQLITE3_OPEN_CREATE, $this->config['password'])
+                                : new SQLite3($this->config['database']);
         }
         catch(Exception $e)
         {
-            die(\Errors::message('Database', 'connectError'));
+            die(Errors::message('Database', 'connectError'));
         }
     }
 
@@ -233,7 +234,7 @@ class SQLiteDriver extends DriverConnectionMappingAbstract
             $type      = $this->query->columnType($i);
             $fieldName = $this->query->columnName($i);
 
-            $columns[$fieldName]             = new \stdClass();
+            $columns[$fieldName]             = new stdClass();
             $columns[$fieldName]->name       = $fieldName;
             $columns[$fieldName]->type       = $dataTypes[$type] ?? $type;
             $columns[$fieldName]->maxLength  = NULL;
@@ -448,7 +449,7 @@ class SQLiteDriver extends DriverConnectionMappingAbstract
     {
         if( ! empty($this->connect) )
         {
-            $version = \SQLite3::version();
+            $version = SQLite3::version();
 
             return $version[$v];
         }

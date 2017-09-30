@@ -1,6 +1,7 @@
 <?php namespace ZN\Database\Drivers;
 
 use ZN\Database\Abstracts\DriverConnectionMappingAbstract;
+use Support, Errors, stdClass;
 
 class PostgresDriver extends DriverConnectionMappingAbstract
 {
@@ -84,7 +85,7 @@ class PostgresDriver extends DriverConnectionMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
-        \Support::func('pg_connect', 'Postgres');
+        Support::func('pg_connect', 'Postgres');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -118,7 +119,7 @@ class PostgresDriver extends DriverConnectionMappingAbstract
 
         if( empty($this->connect) )
         {
-            die(\Errors::message('Database', 'connectError'));
+            die(Errors::message('Database', 'connectError'));
         }
 
         if( ! empty($this->config['charset']) )
@@ -245,7 +246,7 @@ class PostgresDriver extends DriverConnectionMappingAbstract
         {
             $fieldName = pg_field_name($this->query, $i);
 
-            $columns[$fieldName]             = new \stdClass();
+            $columns[$fieldName]             = new stdClass();
             $columns[$fieldName]->name       = $fieldName;
             $columns[$fieldName]->type       = pg_field_type($this->query, $i);
             $columns[$fieldName]->maxLength  = pg_field_size($this->query, $i);
@@ -454,7 +455,6 @@ class PostgresDriver extends DriverConnectionMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function version()
     {
-        // Ön tanımlı sorgu kullanıyor.
         if( ! empty($this->connect) )
         {
             return pg_version($this->connect);

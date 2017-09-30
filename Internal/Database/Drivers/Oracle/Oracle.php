@@ -1,6 +1,7 @@
 <?php namespace ZN\Database\Drivers;
 
 use ZN\Database\Abstracts\DriverConnectionMappingAbstract;
+use Support, Errors, Security, stdClass;
 
 class OracleDriver extends DriverConnectionMappingAbstract
 {
@@ -84,7 +85,7 @@ class OracleDriver extends DriverConnectionMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
-        \Support::func('oci_connect', 'Oracle 8');
+        Support::func('oci_connect', 'Oracle 8');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -140,7 +141,7 @@ class OracleDriver extends DriverConnectionMappingAbstract
 
         if( empty($this->connect) )
         {
-            die(\Errors::message('Database', 'connectError'));
+            die(Errors::message('Database', 'connectError'));
         }
     }
 
@@ -252,7 +253,7 @@ class OracleDriver extends DriverConnectionMappingAbstract
         {
             $fieldName = oci_field_name($this->query, $i);
 
-            $columns[$fieldName]             = new \stdClass();
+            $columns[$fieldName]             = new stdClass();
             $columns[$fieldName]->name       = $fieldName;
             $columns[$fieldName]->type       = oci_field_type($this->query, $i);
             $columns[$fieldName]->maxLength  = oci_field_size($this->query, $i);
@@ -335,7 +336,7 @@ class OracleDriver extends DriverConnectionMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function realEscapeString($data = '')
     {
-        return \Security::escapeStringEncode($data);
+        return Security::escapeStringEncode($data);
     }
 
     //--------------------------------------------------------------------------------------------------------

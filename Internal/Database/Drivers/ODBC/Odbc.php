@@ -1,6 +1,7 @@
 <?php namespace ZN\Database\Drivers;
 
 use ZN\Database\Abstracts\DriverConnectionMappingAbstract;
+use Errors, Support, Security, stdClass;
 
 class ODBCDriver extends DriverConnectionMappingAbstract
 {
@@ -84,7 +85,7 @@ class ODBCDriver extends DriverConnectionMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
-        \Support::func('odbc_connect', 'Microsoft Access(ODBC)');
+        Support::func('odbc_connect', 'Microsoft Access(ODBC)');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -109,7 +110,7 @@ class ODBCDriver extends DriverConnectionMappingAbstract
 
         if( empty($this->connect) )
         {
-            die(\Errors::message('Database', 'connectError'));
+            die(Errors::message('Database', 'connectError'));
         }
     }
 
@@ -219,7 +220,7 @@ class ODBCDriver extends DriverConnectionMappingAbstract
         {
             $fieldName = odbc_field_name($this->query, $index);
 
-            $columns[$fieldName]             = new \stdClass();
+            $columns[$fieldName]             = new stdClass();
             $columns[$fieldName]->name       = $fieldName;
             $columns[$fieldName]->type       = odbc_field_type($this->query, $index);
             $columns[$fieldName]->maxLength  = odbc_field_len($this->query, $index);
@@ -302,7 +303,7 @@ class ODBCDriver extends DriverConnectionMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function realEscapeString($data = '')
     {
-        return \Security::escapeStringEncode($data);
+        return Security::escapeStringEncode($data);
     }
 
     //--------------------------------------------------------------------------------------------------------

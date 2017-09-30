@@ -1,6 +1,7 @@
 <?php namespace ZN\Database\Drivers;
 
 use ZN\Database\Abstracts\DriverConnectionMappingAbstract;
+use Errors, stdClass, Support, PDO, PDOException;
 
 class PDODriver extends DriverConnectionMappingAbstract
 {
@@ -102,7 +103,7 @@ class PDODriver extends DriverConnectionMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
-        \Support::extension('PDO', 'PDO');
+        Support::extension('PDO', 'PDO');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -114,37 +115,15 @@ class PDODriver extends DriverConnectionMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function connect($config = [])
     {
-        $this->config = $config;
-
-        if( strstr($this->config['driver'], ':') )
-        {
-            $subdrivers = explode(":", $this->config['driver']);
-            $this->selectDriver  = $subdrivers[1];
-        }
-
-        if( empty($this->selectDriver) )
-        {
-            $this->selectDriver = 'mysql';
-        }
-
-        $this->connect = $this->_subDrivers($this->config['user'], $this->config['password']);
+        $this->config       = $config;
+        $this->selectDriver = explode(':', $this->config['driver'])[1] ?? 'mysql';
+        $this->connect      = $this->_subDrivers($this->config['user'], $this->config['password']);
 
         if( $this->selectDriver === 'mysql' )
         {
-            if( ! empty($this->config['charset']) )
-            {
-                $this->connect->exec("SET NAMES '".$this->config['charset']."'");
-            }
-
-            if( ! empty($this->config['charset']) )
-            {
-                $this->connect->exec('SET CHARACTER SET '.$this->config['charset']);
-            }
-
-            if( ! empty($this->config['collation']) )
-            {
-                $this->connect->exec("SET COLLATION_CONNECTION = '".$this->config['collation']."'");
-            }
+            if( ! empty($this->config['charset']  ) ) $this->connect->exec("SET NAMES '".$this->config['charset']."'");
+            if( ! empty($this->config['charset']  ) ) $this->connect->exec('SET CHARACTER SET '.$this->config['charset']);
+            if( ! empty($this->config['collation']) ) $this->connect->exec("SET COLLATION_CONNECTION = '".$this->config['collation']."'");     
         }
     }
 
@@ -270,7 +249,7 @@ class PDODriver extends DriverConnectionMappingAbstract
             $field     = $this->query->getColumnMeta($i);
             $fieldName = $field['name'];
 
-            $columns[$fieldName]             = new \stdClass();
+            $columns[$fieldName]             = new stdClass();
             $columns[$fieldName]->name       = $fieldName;
             $columns[$fieldName]->type       = $field['native_type'];
             $columns[$fieldName]->maxLength  = ($field['len'] > 0) ? $field['len'] : NULL;
@@ -404,7 +383,7 @@ class PDODriver extends DriverConnectionMappingAbstract
     {
         if( ! empty($this->query) )
         {
-            return $this->query->fetch(\PDO::FETCH_BOTH);
+            return $this->query->fetch(PDO::FETCH_BOTH);
         }
         else
         {
@@ -423,7 +402,7 @@ class PDODriver extends DriverConnectionMappingAbstract
     {
         if( ! empty($this->query) )
         {
-            return $this->query->fetch(\PDO::FETCH_ASSOC);
+            return $this->query->fetch(PDO::FETCH_ASSOC);
         }
         else
         {
@@ -495,7 +474,7 @@ class PDODriver extends DriverConnectionMappingAbstract
     {
         if( ! empty($this->connect) )
         {
-            return $this->connect->getAttribute(\PDO::ATTR_SERVER_VERSION);
+            return $this->connect->getAttribute(PDO::ATTR_SERVER_VERSION);
         }
         else
         {
@@ -521,11 +500,11 @@ class PDODriver extends DriverConnectionMappingAbstract
 
         try
         {
-            return new \PDO($this->subDriver->dsn($this->config), $usr, $pass);
+            return new PDO($this->subDriver->dsn($this->config), $usr, $pass);
         }
-        catch( \PDOException $e )
+        catch( PDOException $e )
         {
-            die(\Errors::message('Database', 'connectError'));
+            die(Errors::message('Database', 'connectError'));
         }
     }
 }

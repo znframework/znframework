@@ -1,6 +1,7 @@
 <?php namespace ZN\Database\Drivers;
 
 use ZN\Database\Abstracts\DriverConnectionMappingAbstract;
+use Support, Errors, Security, stdClass;
 
 class SQLServerDriver extends DriverConnectionMappingAbstract
 {
@@ -84,7 +85,7 @@ class SQLServerDriver extends DriverConnectionMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
-        \Support::func('sqlsrv_connect', 'SQL Server');
+        Support::func('sqlsrv_connect', 'SQL Server');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -122,7 +123,7 @@ class SQLServerDriver extends DriverConnectionMappingAbstract
 
         if( empty($this->connect) )
         {
-            die(\Errors::message('Database', 'connectError'));
+            die(Errors::message('Database', 'connectError'));
         }
     }
 
@@ -241,7 +242,7 @@ class SQLServerDriver extends DriverConnectionMappingAbstract
         {
             $fieldName = $field['Name'];
 
-            $columns[$fieldName]             = new \stdClass();
+            $columns[$fieldName]             = new stdClass();
             $columns[$fieldName]->name       = $fieldName;
             $columns[$fieldName]->type       = $field['Type'];
             $columns[$fieldName]->maxLength  = $field['Size'];
@@ -324,7 +325,7 @@ class SQLServerDriver extends DriverConnectionMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function realEscapeString($data)
     {
-        return \Security::escapeStringEncode($data);
+        return Security::escapeStringEncode($data);
     }
 
     //--------------------------------------------------------------------------------------------------------

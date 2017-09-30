@@ -1,6 +1,7 @@
 <?php namespace ZN\Database\Drivers;
 
 use ZN\Database\Abstracts\DriverConnectionMappingAbstract;
+use Errors, Support, stdClass;
 
 class MySQLiDriver extends DriverConnectionMappingAbstract
 {
@@ -84,7 +85,7 @@ class MySQLiDriver extends DriverConnectionMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
-        \Support::func('mysqli_connect', 'MySQLi');
+        Support::func('mysqli_connect', 'MySQLi');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -98,25 +99,22 @@ class MySQLiDriver extends DriverConnectionMappingAbstract
     {
         $this->config  = $config;
 
-        $this->connect = mysqli_connect($this->config['host'], $this->config['user'], $this->config['password'], $this->config['database']);
+        $this->connect = mysqli_connect
+        (
+            $this->config['host'], 
+            $this->config['user'],
+            $this->config['password'], 
+            $this->config['database']
+        );
 
         if( empty($this->connect) )
         {
-            die(\Errors::message('Database', 'connectError'));
+            die(Errors::message('Database', 'connectError'));
         }
 
-        if( ! empty($this->config['charset']) )
-        {
-            $this->query("SET NAMES '".$this->config['charset']."'");
-        }
-        if( ! empty($this->config['charset']) )
-        {
-            $this->query('SET CHARACTER SET '.$this->config['charset']);
-        }
-        if( ! empty($this->config['collation']) )
-        {
-            $this->query('SET COLLATION_CONNECTION = "'.$this->config['collation'].'"');
-        }
+        if( ! empty($this->config['charset']  ) ) $this->query("SET NAMES '".$this->config['charset']."'");  
+        if( ! empty($this->config['charset']  ) ) $this->query('SET CHARACTER SET '.$this->config['charset']);  
+        if( ! empty($this->config['collation']) ) $this->query('SET COLLATION_CONNECTION = "'.$this->config['collation'].'"');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -259,7 +257,7 @@ class MySQLiDriver extends DriverConnectionMappingAbstract
         {
             $fieldName = $fieldData[$i]->name;
 
-            $columns[$fieldName]             = new \stdClass();
+            $columns[$fieldName]             = new stdClass();
             $columns[$fieldName]->name       = $fieldName;
             $columns[$fieldName]->type       = $fieldData[$i]->type;
             $columns[$fieldName]->maxLength  = $fieldData[$i]->max_length;
