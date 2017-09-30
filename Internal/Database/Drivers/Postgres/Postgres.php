@@ -341,7 +341,7 @@ class PostgresDriver extends DriverConnectionMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function error()
     {
-        if( ! empty($this->connect) )
+        if( is_resource($this->connect) )
         {
             return pg_last_error($this->connect);
         }
@@ -417,7 +417,7 @@ class PostgresDriver extends DriverConnectionMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function affectedRows()
     {
-        if( ! empty($this->connect) )
+        if( is_resource($this->connect) )
         {
             return pg_affected_rows($this->connect);
         }
@@ -436,7 +436,7 @@ class PostgresDriver extends DriverConnectionMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function close()
     {
-        if( ! empty($this->connect) )
+        if( is_resource($this->connect) )
         {
             @pg_close($this->connect);
         }
@@ -455,7 +455,7 @@ class PostgresDriver extends DriverConnectionMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function version()
     {
-        if( ! empty($this->connect) )
+        if( is_resource($this->connect) )
         {
             return pg_version($this->connect);
         }

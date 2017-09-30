@@ -791,7 +791,7 @@ class InternalDB extends Connection implements InternalDBInterface
 
         $start = (int) $start;
 
-        $this->limit = ' LIMIT '.$start.( ! empty($limit) ? ' , '.$limit.' ' : '' );
+        $this->limit = ' LIMIT '. ( ! empty($limit) ? $limit . ' OFFSET '.$start.' ' : $start );
 
         return $this;
     }
@@ -2006,8 +2006,8 @@ class InternalDB extends Connection implements InternalDBInterface
     {
         $pagcon   = Config::get('ViewObjects', 'pagination');
         $getLimit = $this->_getLimitValues($this->stringQuery());
-        $start    = $getLimit[1] ?? NULL;
-        $limit    = $getLimit[3] ?? NULL;
+        $start    = $getLimit[3] ?? NULL;
+        $limit    = $getLimit[1] ?? NULL;
 
         $settings['totalRows'] = $this->totalRows(true);
         $settings['limit']     = ! empty($limit) ? $limit : $pagcon['limit'];
@@ -2229,7 +2229,7 @@ class InternalDB extends Connection implements InternalDBInterface
     //--------------------------------------------------------------------------------------------------------
     protected function _cleanLimit($data)
     {
-        return preg_replace('/limit\s+[0-9]+(\s*\,\s*[0-9]+)*/xi', '', $data);
+        return preg_replace('/limit\s+[0-9]+(\s*\OFFSET\s*[0-9]+)*/xi', '', $data);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -2241,7 +2241,7 @@ class InternalDB extends Connection implements InternalDBInterface
     //--------------------------------------------------------------------------------------------------------
     protected function _getLimitValues($data)
     {
-        preg_match('/limit\s+([0-9]+)(\s*\,\s*([0-9]+))*/xi', $data, $match);
+        preg_match('/limit\s+([0-9]+)(\s*\OFFSET\s*([0-9]+))*/xi', $data, $match);
 
         return $match;
     }
