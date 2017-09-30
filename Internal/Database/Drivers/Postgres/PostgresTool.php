@@ -23,9 +23,9 @@ class PostgresTool extends DriverTool
     // @return array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function listDatabases()
+    public function listDatabases($query = 'SELECT datname FROM pg_database')
     {
-        return $this->listTables('SELECT datname FROM pg_database');
+        return $this->_list($query);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -40,23 +40,6 @@ class PostgresTool extends DriverTool
     //--------------------------------------------------------------------------------------------------------
     public function listTables($query = "SELECT table_name FROM information_schema.tables WHERE table_schema = 'public'")
     {
-        $result = $this->differentConnection->query($query)->result();
-
-        if( empty($result) )
-        {
-            return [];
-        }
-
-        $newTables = [];
-
-        foreach( $result as $tables )
-        {
-            foreach( $tables as $tb => $table )
-            {
-                $newTables[] = $table;
-            }
-        }
-
-        return $newTables;
+        return $this->_list($query);
     }
 }

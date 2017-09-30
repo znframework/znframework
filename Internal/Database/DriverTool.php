@@ -24,9 +24,9 @@ class DriverTool extends DriverExtends
     // @return array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function listDatabases()
+    public function listDatabases($query = 'SHOW DATABASES')
     {
-        return $this->listTables('SHOW DATABASES');
+        return $this->_list($query);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -41,7 +41,22 @@ class DriverTool extends DriverExtends
     //--------------------------------------------------------------------------------------------------------
     public function listTables($query = 'SHOW TABLES')
     {
-        $result = $this->differentConnection->_query($query)->result();
+        return $this->_list($query);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // List Tables
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // Bağlı olduğunuz veritabanına ait tabloları listeler.
+    //
+    // @param  void
+    // @return array
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _list($query)
+    {
+        $result = $this->differentConnection->query($query)->result();
 
         if( empty($result) )
         {
