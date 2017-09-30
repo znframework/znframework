@@ -1,6 +1,6 @@
 <?php namespace ZN\Database;
 
-use File, Folder;
+use File, Folder, Lang;
 use ZN\FileSystem\Exception\IOException;
 
 class DriverTool extends DriverExtends
@@ -26,24 +26,7 @@ class DriverTool extends DriverExtends
     //--------------------------------------------------------------------------------------------------------
     public function listDatabases()
     {
-        $result = $this->differentConnection->_query('SHOW DATABASES')->result();
-
-        if( $this->differentConnection->error() )
-        {
-            return [];
-        }
-
-        $newDatabases = [];
-
-        foreach( $result as $databases )
-        {
-            foreach( $databases as $db => $database )
-            {
-                $newDatabases[] = $database;
-            }
-        }
-
-        return $newDatabases;
+        return $this->listTables('SHOW DATABASES');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -56,11 +39,11 @@ class DriverTool extends DriverExtends
     // @return array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function listTables()
+    public function listTables($query = 'SHOW TABLES')
     {
-        $result = $this->differentConnection->_query('SHOW TABLES')->result();
+        $result = $this->differentConnection->_query($query)->result();
 
-        if( $this->differentConnection->error() )
+        if( empty($result) )
         {
             return [];
         }
@@ -126,41 +109,7 @@ class DriverTool extends DriverExtends
     //--------------------------------------------------------------------------------------------------------
     public function optimizeTables($table)
     {
-        $result = $this->differentConnection->_query("SHOW TABLES")->result();
-
-        if( $table === '*' )
-        {
-            foreach( $result as $tables )
-            {
-                foreach( $tables as $db => $tableName )
-                {
-                    $this->differentConnection->_query("OPTIMIZE TABLE ".$tableName);
-                }
-            }
-
-            if( $this->differentConnection->error() )
-            {
-                return false;
-            }
-        }
-        else
-        {
-            $tables = is_array($table)
-                    ? $table
-                    : explode(',',$table);
-
-            foreach( $tables as $tableName )
-            {
-                $this->differentConnection->_query("OPTIMIZE TABLE ".Properties::$prefix.$tableName);
-            }
-
-            if( $this->differentConnection->error() )
-            {
-                return false;
-            }
-        }
-
-        return \Lang::select('Database', 'optimizeTablesSuccess');
+        return $this->repairTables($table, 'OPTIMIZE TABLE', 'optimizeTablesSuccess');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -173,9 +122,10 @@ class DriverTool extends DriverExtends
     // @return string message
     //
     //--------------------------------------------------------------------------------------------------------
-    public function repairTables($table)
+    public function repairTables($table, $query = 'REPAIR TABLE', $message = 'repairTablesSuccess')
     {
         $result = $this->differentConnection->_query("SHOW TABLES")->result();
+        $status = NULL;
 
         if( $table === '*' )
         {
@@ -183,13 +133,8 @@ class DriverTool extends DriverExtends
             {
                 foreach( $tables as $db => $tableName )
                 {
-                    $this->differentConnection->_query("REPAIR TABLE ".$tableName);
+                    $status = $this->differentConnection->_query($query . ' ' . $tableName);
                 }
-            }
-
-            if( $this->differentConnection->error() )
-            {
-                return false;
             }
         }
         else
@@ -200,16 +145,16 @@ class DriverTool extends DriverExtends
 
             foreach( $tables as $tableName )
             {
-                $this->differentConnection->_query("REPAIR TABLE  ".Properties::$prefix.$tableName);
-            }
-
-            if( $this->differentConnection->error() )
-            {
-                return false;
+                $status = $this->differentConnection->_query($query . ' ' . Properties::$prefix . $tableName);
             }
         }
 
-        return \Lang::select('Database', 'repairTablesSuccess');
+        if( $status !== NULL )
+        {
+            return Lang::select('Database', $message);
+        }
+
+        return false;
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -310,6 +255,6 @@ class DriverTool extends DriverExtends
             throw new IOException('Error', 'fileNotWrite', $path.$fileName);
         }
 
-        return \Lang::select('Database', 'backupTablesSuccess');
+        return Lang::select('Database', 'backupTablesSuccess');
     }
 }
