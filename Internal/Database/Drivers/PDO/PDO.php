@@ -15,15 +15,6 @@ class PDODriver extends DriverConnectionMappingAbstract
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
-    // Select Driver
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var string
-    //
-    //--------------------------------------------------------------------------------------------------------
-    protected $selectDriver;
-
-    //--------------------------------------------------------------------------------------------------------
     // Sub Driver
     //--------------------------------------------------------------------------------------------------------
     //
@@ -115,9 +106,7 @@ class PDODriver extends DriverConnectionMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function connect($config = [])
     {
-        $this->config       = $config;
-        $this->selectDriver = explode(':', $this->config['driver'])[1] ?? 'mysql';
-
+        $this->config = $config;
         try
         {
             $this->connect = new PDO($this->_dsn($this->config), $this->config['user'], $this->config['password']);
@@ -127,12 +116,9 @@ class PDODriver extends DriverConnectionMappingAbstract
             die(Errors::message('Database', 'connectError'));
         }
 
-        if( $this->selectDriver === 'mysql' )
-        {
-            if( ! empty($this->config['charset']  ) ) $this->connect->exec("SET NAMES '".$this->config['charset']."'");
-            if( ! empty($this->config['charset']  ) ) $this->connect->exec('SET CHARACTER SET '.$this->config['charset']);
-            if( ! empty($this->config['collation']) ) $this->connect->exec("SET COLLATION_CONNECTION = '".$this->config['collation']."'");     
-        }
+        if( ! empty($this->config['charset']  ) ) $this->connect->exec("SET NAMES '".$this->config['charset']."'");
+        if( ! empty($this->config['charset']  ) ) $this->connect->exec('SET CHARACTER SET '.$this->config['charset']);
+        if( ! empty($this->config['collation']) ) $this->connect->exec("SET COLLATION_CONNECTION = '".$this->config['collation']."'");     
     }
 
     //--------------------------------------------------------------------------------------------------------
