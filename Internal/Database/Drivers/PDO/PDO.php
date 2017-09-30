@@ -117,7 +117,15 @@ class PDODriver extends DriverConnectionMappingAbstract
     {
         $this->config       = $config;
         $this->selectDriver = explode(':', $this->config['driver'])[1] ?? 'mysql';
-        $this->connect      = $this->_subDrivers($this->config['user'], $this->config['password']);
+
+        try
+        {
+            $this->connect = new PDO($this->_dsn($this->config), $this->config['user'], $this->config['password']);
+        }
+        catch( PDOException $e )
+        {
+            die(Errors::message('Database', 'connectError'));
+        }
 
         if( $this->selectDriver === 'mysql' )
         {
@@ -483,28 +491,33 @@ class PDODriver extends DriverConnectionMappingAbstract
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Protected Sub Drivers
+    // Protected DNS
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $usr
-    // @param string $pass
+    // @param  array $config
+    // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    protected function _subDrivers($usr, $pass)
+    protected function _dsn(Array $config) : String
     {
-        $namespace = 'ZN\Database\Drivers\PDO\Drivers\\';
+        $dsn  = 'mysql:';
 
-        $driver = $namespace.'PDO'.$this->selectDriver.'Driver';
+        $dsn .= ( ! empty($config['host']) )
+                ? 'host='.$config['host'].';'
+                : '';
 
-        $this->subDriver = new $driver;
+        $dsn .= ( ! empty($config['database']) )
+                ? 'dbname='.$config['database'].';'
+                : '';
 
-        try
-        {
-            return new PDO($this->subDriver->dsn($this->config), $usr, $pass);
-        }
-        catch( PDOException $e )
-        {
-            die(Errors::message('Database', 'connectError'));
-        }
+        $dsn .= ( ! empty($config['port']) )
+                ? 'PORT='.$config['port'].';'
+                : '';
+
+        $dsn .= ( ! empty($config['charset']) )
+                ? 'charset='.$config['charset']
+                : '';
+
+        return rtrim($dsn, ';');
     }
 }
