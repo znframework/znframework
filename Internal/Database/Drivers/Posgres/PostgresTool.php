@@ -27,7 +27,7 @@ class PostgresTool extends DriverTool
     {
         $result = $this->differentConnection->query('SELECT datname FROM pg_database')->result();
 
-        if( $this->differentConnection->error() )
+        if( empty($result) )
         {
             return false;
         }
@@ -59,7 +59,7 @@ class PostgresTool extends DriverTool
     {
         $result = $this->differentConnection->query("SELECT table_name FROM information_schema.tables WHERE table_schema = 'public'")->result();
 
-        if( $this->differentConnection->error() )
+        if( empty($result) )
         {
             return false;
         }
