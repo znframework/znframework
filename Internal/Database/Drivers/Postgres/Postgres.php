@@ -35,7 +35,7 @@ class PostgresDriver extends DriverConnectionMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     protected $statements =
     [
-        'autoIncrement' => 'BIGSERIAL',
+        'autoincrement' => 'BIGSERIAL',
         'primarykey'    => 'PRIMARY KEY',
         'foreignkey'    => 'FOREIGN KEY',
         'unique'        => 'UNIQUE',
