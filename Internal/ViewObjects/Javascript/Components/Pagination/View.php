@@ -26,16 +26,16 @@ if( ! empty($extensions) )
     Import::style(...$extensions);
 }
 
-preg_match('/limit\s+([0-9]+)(\s*\,\s*([0-9]+))*/xi', $get->stringQuery(), $match);
+preg_match('/limit\s+([0-9]+)(\s*\OFFSET\s*([0-9]+))*/xi', $get->stringQuery(), $match);
 
-$start = $match[1];
+$start = $match[3];
 
 if( $type === 'ajax' )
 {
     $start = Method::post('start');
 }
 
-$limit = $match[3] ?? Config::get('ViewObjects', 'pagination')['limit'];
+$limit = $match[1] ?? Config::get('ViewObjects', 'pagination')['limit'];
 
 $index = md5($index);
 
