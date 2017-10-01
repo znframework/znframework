@@ -303,8 +303,8 @@ class Kernel
     //--------------------------------------------------------------------------------------------------
     public static function viewAutoload($wizardPath, $viewPath, $data, $pageClassMasterpage)
     {
-        // 5.3.62[added]
-        if( Http::isAjax() )
+        // 5.3.62[added]|5.3.77[edited]
+        if( Config::get('ViewObjects', 'ajaxCodeContinue') === false && Http::isAjax() )
         {
             return;
         }
