@@ -1190,8 +1190,20 @@ function internalProjectContainerDir($path = NULL) : String
 
     if( ! empty($containers) && defined('_CURRENT_PROJECT') )
     {
-        return ! empty($containers[_CURRENT_PROJECT]) && ! file_exists($containerProjectDir)
-               ? PROJECTS_DIR . suffix($containers[_CURRENT_PROJECT], DS) . $path
+        $restoreFix = 'Restore';
+
+        // 5.3.8[added]
+        if( _CURRENT_PROJECT[0] === $restoreFix && is_dir(PROJECTS_DIR . ($restoredir = ltrim(_CURRENT_PROJECT, $restoreFix))) )
+        {
+            $condir = $restoredir;
+        }
+        else
+        {
+            $condir = $containers[_CURRENT_PROJECT] ?? NULL;
+        }  
+
+        return ! empty($condir) && ! file_exists($containerProjectDir)
+               ? PROJECTS_DIR . suffix($condir, DS) . $path
                : $containerProjectDir;
     }
 

@@ -1,7 +1,7 @@
 <?php namespace ZN\Requirements\System;
 
 use Arrays, Json, Crontab, IS, Folder, Logger, Config;
-use ZN\Core\Structure, Generate, Cache, ZN;
+use ZN\Core\Structure, Generate, Cache, ZN, Restoration;
 
 class Console
 {
@@ -99,6 +99,14 @@ class Console
             case 'run-function'         : self::_runFunction();                                         break;
             case 'upgrade'              : self::_result(ZN::upgrade());                                 break;
             case 'upgrade-files'        : self::_result(ZN::upgradeFiles());                            break;
+            case 'start-restoration'    : 
+            self::_result(Restoration::start
+            (
+                self::$command, 
+                (self::$parameters[0] ?? NULL) === 'full' ? 'full' : self::$parameters
+            ));                                                                                         break;
+            case 'end-restoration'      : self::_result(Restoration::end(self::$command));              break;
+            case 'end-restoration-delete': self::_result(Restoration::endDelete(self::$command));       break;
             case 'create-project'       : self::_result(Generate::project(self::$command));             break;
             case 'delete-project'       : self::_result(Folder::delete(PROJECTS_DIR . self::$command)); break;
             case 'create-controller'    : self::_result(Generate::controller(self::$command,
@@ -169,6 +177,9 @@ class Console
             '| delete-model              | delete-model model name                                                   |',
             '| create-grand-vision       | create-grand-vision [database name]                                       |',
             '| delete-grand-vision       | delete-grand-vision [database name]                                       |',
+            '| start-restoration         | start-restoration project name [full, standart or [directories]]          |',
+            '| end-restoration           | end-restoration project name                                              |',
+            '| end-restoration-delete    | end-restoration-delete project name                                       |',
             '| clean-cache               | clean-cache                                                               |',
             '| generate-databases        | generate-databases                                                        |',
             '| run-uri                   | run-uri controller/function/p1/p2/.../pN                                  |',

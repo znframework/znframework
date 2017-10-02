@@ -1,6 +1,6 @@
 <?php namespace ZN\Requirements\System;
 
-use Config, Arrays, URI, ZN\In, IS, User;
+use Config, Arrays, URI, ZN\In, IS, User, Folder;
 
 class Restoration
 {
@@ -12,6 +12,76 @@ class Restoration
     // Copyright  : (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
+    
+    protected static $restoreFix = 'Restore';
+
+    //--------------------------------------------------------------------------------------------------------
+    // create -> 5.3.8[added]
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $project
+    // @param mixed  $folders = 'standart' - options: standart, full or array
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public static function start(String $project, $folders = 'standart')
+    {
+        $restoreFix = self::$restoreFix;
+
+        if( $folders === 'full' )
+        {
+            return Folder::copy(PROJECTS_DIR . $project, PROJECTS_DIR . $restoreFix . $project);
+        }
+        else
+        {
+            $array = ['Views', 'Controllers', 'Storage'];
+
+            if( $folders !== 'standart' )
+            {
+                $array = Arrays::merge($array, $folders);
+            }
+    
+            foreach( $array as $folder )
+            {
+                $path   = $project . DS . $folder;
+                $return = Folder::copy(PROJECTS_DIR . $path, PROJECTS_DIR . $restoreFix . $path);
+            }
+
+            return $return;
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // end -> 5.3.8[added]
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $project
+    // @param string $type = NULL - options: NULL or 'delete'
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public static function end(String $project, String $type = NULL)
+    {
+        $project = prefix($project, self::$restoreFix);
+        $return  = Folder::copy($restoreFolder = PROJECTS_DIR . $project, PROJECTS_DIR . ltrim($project, self::$restoreFix));
+
+        if( $type === 'delete' )
+        {
+            return Folder::delete($restoreFolder);
+        }
+
+        return $return;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // endDelete -> 5.3.8[added]
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $project
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public static function endDelete(String $project)
+    {
+        return self::end($project, 'delete');
+    }
 
     //--------------------------------------------------------------------------------------------------------
     // routeURI
