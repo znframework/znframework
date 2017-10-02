@@ -1193,15 +1193,20 @@ function internalProjectContainerDir($path = NULL) : String
         $restoreFix = 'Restore';
 
         // 5.3.8[added]
-        if( _CURRENT_PROJECT[0] === $restoreFix && is_dir(PROJECTS_DIR . ($restoredir = ltrim(_CURRENT_PROJECT, $restoreFix))) )
+        if( strpos(_CURRENT_PROJECT, $restoreFix) === 0 && is_dir(PROJECTS_DIR . ($restoredir = ltrim(_CURRENT_PROJECT, $restoreFix))) )
         {
             $condir = $restoredir;
+
+            if( $containers[$condir] ?? NULL )
+            {
+                $condir = $containers[$condir];
+            }
         }
         else
         {
             $condir = $containers[_CURRENT_PROJECT] ?? NULL;
         }  
-
+        
         return ! empty($condir) && ! file_exists($containerProjectDir)
                ? PROJECTS_DIR . suffix($condir, DS) . $path
                : $containerProjectDir;
