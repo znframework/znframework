@@ -116,4 +116,16 @@ class InternalDBTool extends Connection implements InternalDBToolInterface
     {
         return $this->tool->backup($tables, $fileName, $path);
     }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Import -> 5.3.9
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $file = NULL
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function import(String $file) : Bool
+    {
+        return $this->tool->import($file);
+    }
 }

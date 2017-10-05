@@ -39,11 +39,7 @@ class Connection implements ConnectionInterface
         'postgres',
         'sqlite',
         'sqlserver',
-        'pdo:mysql',
-        'pdo:postgres',
-        'pdo:sqlite',
-        'pdo:sqlserver',
-        'pdo:odbc'
+        'pdo:mysql'
     ];
 
     //--------------------------------------------------------------------------------------------------------

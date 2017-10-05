@@ -139,7 +139,7 @@ class DriverTool extends DriverExtends
     //--------------------------------------------------------------------------------------------------------
     public function repairTables($table, $query = 'REPAIR TABLE', $message = 'repairTablesSuccess')
     {
-        $result = $this->differentConnection->_query("SHOW TABLES")->result();
+        $result = $this->differentConnection->query("SHOW TABLES")->result();
         $status = NULL;
 
         if( $table === '*' )
@@ -148,7 +148,7 @@ class DriverTool extends DriverExtends
             {
                 foreach( $tables as $db => $tableName )
                 {
-                    $status = $this->differentConnection->_query($query . ' ' . $tableName);
+                    $status = $this->differentConnection->query($query . ' ' . $tableName);
                 }
             }
         }
@@ -160,7 +160,7 @@ class DriverTool extends DriverExtends
 
             foreach( $tables as $tableName )
             {
-                $status = $this->differentConnection->_query($query . ' ' . Properties::$prefix . $tableName);
+                $status = $this->differentConnection->query($query . ' ' . Properties::$prefix . $tableName);
             }
         }
 
@@ -197,7 +197,7 @@ class DriverTool extends DriverExtends
         {
             $tables = [];
 
-            $resultArray = $this->differentConnection->_query('SHOW TABLES')->resultArray();
+            $resultArray = $this->differentConnection->query('SHOW TABLES')->resultArray();
 
             foreach( $resultArray as $key => $val )
             {
@@ -222,7 +222,7 @@ class DriverTool extends DriverExtends
 
             $return .= 'DROP TABLE IF EXISTS '.$table.';';
 
-            $fetchRow = $this->differentConnection->_query('SHOW CREATE TABLE '.$table)->fetchRow();
+            $fetchRow = $this->differentConnection->query('SHOW CREATE TABLE '.$table)->fetchRow();
 
             $fetchResult = $this->differentConnection->query('SELECT * FROM '.$table)->result();
 
@@ -271,5 +271,22 @@ class DriverTool extends DriverExtends
         }
 
         return Lang::select('Database', 'backupTablesSuccess');
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Import -> 5.3.9
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $file = NULL
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function import(String $file) : Bool
+    {
+        if( is_file($file) )
+        {   
+            return $this->differentConnection->query(File::read($file));
+        }
+
+        return false;
     }
 }

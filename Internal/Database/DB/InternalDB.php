@@ -1,6 +1,6 @@
 <?php namespace ZN\Database;
 
-use URI, Pagination, Arrays, Classes, Method, Config, Cache, Json, IS, Coalesce, Strings;
+use URI, Pagination, Arrays, Classes, Method, Config, Cache, Json, IS, Coalesce, Strings, Excel;
 
 class InternalDB extends Connection implements InternalDBInterface
 {
@@ -1593,6 +1593,26 @@ class InternalDB extends Connection implements InternalDBInterface
     }
 
     //--------------------------------------------------------------------------------------------------------
+    // Insert CSV -> 5.3.9
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param  string $table
+    // @param  string $file
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function insertCSV(String $table, String $file) : Bool
+    {
+        $this->_csv($file);
+        
+        Arrays::forceValues($file, function($data) use($table)
+        {
+            $this->duplicateCheck()->insert(prefix($table, 'ignore:'), $data);
+        });
+        
+        return true;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
     // Insert
     //--------------------------------------------------------------------------------------------------------
     //
@@ -2218,6 +2238,24 @@ class InternalDB extends Connection implements InternalDBInterface
                 $data    = Arrays::intersectKey($data, $columns);
             }
         }
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected CSV
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $data
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _csv(&$data)
+    {
+        $csv       = Excel::CSVToArray($data);
+        $csvColumn = $csv[0];
+        $csvDatas  = Arrays::removeFirst($csv);
+        $data      = Arrays::forceValues($csvDatas, function($d) use($csvColumn)
+        {
+            return Arrays::combine($csvColumn, $d);
+        });
     }
 
     //--------------------------------------------------------------------------------------------------------
