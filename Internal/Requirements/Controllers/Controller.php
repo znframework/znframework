@@ -1,5 +1,7 @@
 <?php namespace Project\Controllers;
 
+use Arrays, Config;
+
 class Controller
 {
     //--------------------------------------------------------------------------------------------------------
@@ -43,10 +45,15 @@ class Controller
             \Restoration::mode(static::restore);
         }
 
-        $this->view       = new \stdClass;
+        $this->view       = new \stdClass();
         $this->masterpage = new \stdClass;
 
-        \ZN::$use =& $this;
+        ZN::$use =& $this;
+
+        if( defined('static::extract') || Config::starting('extractViewData') === true ) foreach( View::$data as $key => $val )
+        {
+            ZN::$use->$key = $val;
+        }
     }
 
     //--------------------------------------------------------------------------------------------------------

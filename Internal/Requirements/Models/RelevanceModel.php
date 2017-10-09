@@ -33,7 +33,8 @@ class RelevanceModel extends \BaseController
     //--------------------------------------------------------------------------------------------------------  
     protected $resultMethods = 
     [
-        'result', 'resultarray', 'row', 'columns', 'columndata', 'totalrows', 'totalcolumns', 'value'
+        'result', 'resultarray', 'row', 'columns', 'columndata', 'totalrows', 'totalcolumns', 'value',
+        'stringquery'
     ];
 
     //--------------------------------------------------------------------------------------------------------

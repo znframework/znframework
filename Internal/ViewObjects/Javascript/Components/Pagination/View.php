@@ -28,7 +28,7 @@ if( ! empty($extensions) )
 
 preg_match('/limit\s+([0-9]+)(\s*\OFFSET\s*([0-9]+))*/xi', $get->stringQuery(), $match);
 
-$start = $match[3];
+$start = $match[3] ?? NULL;
 
 if( $type === 'ajax' )
 {

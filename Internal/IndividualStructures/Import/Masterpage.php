@@ -135,157 +135,40 @@ class Masterpage
     //--------------------------------------------------------------------------------------------------------
     public function use(Array $randomDataVariable = NULL, Array $head = NULL)
     {
-        if( ! empty(Properties::$parameters['headData']) )
-        {
-            $head = Properties::$parameters['headData'];
-        }
-
-        if( ! empty(Properties::$parameters['data']) )
-        {
-            $randomDataVariable = Properties::$parameters['data'];
-        }
+        if( ! empty(Properties::$parameters['headData']) ) $head               = Properties::$parameters['headData'];
+        if( ! empty(Properties::$parameters['data'])     ) $randomDataVariable = Properties::$parameters['data'];
 
         $bodyContent = Properties::$parameters['bodyContent'] ?? NULL;
 
         Properties::$parameters = [];
 
-        $eol = EOL;
-
-        $masterPageSet = Config::get('Masterpage');
-
-        $randomPageVariable = $head['bodyPage'] ?? $masterPageSet['bodyPage'];
-        $headPage           = $head['headPage'] ?? $masterPageSet['headPage'];
-
+        $masterPageSet  = Config::get('Masterpage');
         $doctypes       = array_merge(Config::expressions('doctypes'), Properties::$doctype);
         $docType        = $head['docType'] ?? $masterPageSet["docType"];
-        $header         = ($doctypes[$docType] ?? '<!DOCTYPE html>') . $eol;
-        $htmlAttributes = $head['attributes']['html'] ?? $masterPageSet['attributes']['html'];
+        $header         = ($doctypes[$docType] ?? '<!DOCTYPE html>') . EOL;
+        $htmlAttributes = Html::attributes($head['attributes']['html'] ?? $masterPageSet['attributes']['html']);
 
-        $header .= '<html xmlns="http://www.w3.org/1999/xhtml"'.Html::attributes($htmlAttributes).'>'.$eol;
-
-        $headAttributes = $head['attributes']['head'] ?? $masterPageSet['attributes']['head'];
-
-        $header .= '<head'.Html::attributes($headAttributes).'>'.$eol;
-
-        $contentCharset = $head['content']['charset'] ?? $masterPageSet['content']['charset'];
-
-        if( is_array($contentCharset) )
-        {
-            foreach( $contentCharset as $v )
-            {
-                $header .= "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=$v\">".$eol;
-            }
-        }
-        else
-        {
-            $header .= '<meta http-equiv="Content-Type" content="text/html; charset='.$contentCharset.'">'.$eol;
-        }
-
-        $contentLanguage = $head['content']['language'] ?? $masterPageSet['content']['language'];
-
-        $header .= '<meta http-equiv="Content-Language" content="'.$contentLanguage .'">'.$eol;
-
-        $datas = $masterPageSet['data'];
-        $metas = $masterPageSet['meta'];
-        $title = $head['title'] ?? $masterPageSet["title"];
-
-        if( ! empty($title) )
-        {
-            $header .= '<title>'.$title.'</title>'.$eol;
-        }
-
-        if( isset($head['meta']) )
-        {
-            $metas = array_merge($metas, $head['meta']);
-        }
-
-        if( ! empty($metas) ) foreach( $metas as $name => $content )
-        {
-            if( isset($head['meta'][$name]) )
-            {
-                $content = $head['meta'][$name];
-            }
-
-            if( ! empty($content) )
-            {
-                $nameEx     = explode(":", $name);
-                $httpOrName = ( $nameEx[0] === 'http' ) ? 'http-equiv' : ( isset($nameEx[1]) ? $nameEx[0] : 'name' );
-                $name       = $nameEx[1] ?? $nameEx[0];
-
-                if( ! is_array($content) )
-                {
-                    $header .= "<meta $httpOrName=\"$name\" content=\"$content\">".$eol;
-                }
-                else
-                {
-                    foreach( $content as $key => $val )
-                    {
-                        $header .= "<meta $httpOrName=\"$name\" content=\"$val\">".$eol;
-                    }
-                }
-            }
-        }
-
+        $header .= '<html xmlns="http://www.w3.org/1999/xhtml"'.$htmlAttributes.'>'.EOL;
+        $header .= '<head'.Html::attributes($head['attributes']['head'] ?? $masterPageSet['attributes']['head']).'>'.EOL;
+        $header .= $this->_contentCharset($head['content']['charset'] ?? $masterPageSet['content']['charset']);
+        $header .= $this->_contentLanguage($head['content']['language'] ?? $masterPageSet['content']['language']);
+        $header .= $this->_title($head['title'] ?? $masterPageSet["title"]);
+        $header .= $this->_meta($masterPageSet['meta'], $head['meta'] ?? NULL);
         $header .= $this->_links($masterPageSet, $head, 'font');
         $header .= $this->_links($masterPageSet, $head, 'style');
         $header .= $this->_links($masterPageSet, $head, 'script');
-
-        $browserIcon = $head['browserIcon'] ?? $masterPageSet["browserIcon"];
-
-        if( ! empty($browserIcon) && is_file($browserIcon) )
-        {
-            $header .= '<link rel="shortcut icon" href="'.URL::base($browserIcon).'" />'.$eol;
-        }
-
-        $theme          = Arrays::deleteElement(Arrays::merge((array) ($masterPageSet['theme']['name'] ?? []), (array) ($head['theme']['name'] ?? [])), '');
-        $themeRecursive = $head['theme']['recursive'] ?? $masterPageSet['theme']['recursive'];
-
-        if( ! empty($theme) )
-        {
-            $header .= Import::theme($theme, $themeRecursive, true);
-        }
-
-        $plugin          = Arrays::deleteElement(Arrays::merge((array) ($masterPageSet['plugin']['name'] ?? []), (array) ($head['plugin']['name'] ?? [])), '');
-        $pluginRecursive = $head['plugin']['recursive'] ?? $masterPageSet['plugin']['recursive'];
-
-        if( ! empty($plugin) )
-        {
-            $header .= Import::plugin($plugin, $pluginRecursive, true);
-        }
-
-        if( isset($head['data']) )
-        {
-            $datas = array_merge($datas, $head['data']);
-        }
-
-        if( ! empty($datas) )
-        {
-            if( ! is_array($datas) )
-            {
-                $header .= $datas.$eol;
-            }
-            else
-            {
-                foreach( $datas as $v )
-                {
-                    $header .= $v.$eol;
-                }
-            }
-        }
-
-        $header .= $this->_setpage($headPage);
-        $header .= '</head>'.$eol;
-
-        $backgroundImage  = $head['backgroundImage'] ?? $masterPageSet["backgroundImage"];
-        $bgImage          = ( ! empty($backgroundImage) && is_file($backgroundImage) )
-                          ? ' background="'.URL::base($backgroundImage).'" bgproperties="fixed"'
-                          : '';
-
-        $bodyAttributes = $head['attributes']['body'] ?? $masterPageSet['attributes']['body'];
-
-        $header .= '<body'.Html::attributes($bodyAttributes).$bgImage.'>'.$eol;
+        $header .= $this->_browserIcon($head['browserIcon'] ?? $masterPageSet["browserIcon"]);
+        $header .= $this->_theme($masterPageSet, $head);
+        $header .= $this->_theme($masterPageSet, $head, 'plugin');
+        $header .= $this->_data($masterPageSet['data'], $head['data'] ?? NULL);
+        $header .= $this->_setpage($head['headPage'] ?? $masterPageSet['headPage']);
+        $header .= '</head>'.EOL;
+        $header .= '<body'.Html::attributes($head['attributes']['body'] ?? $masterPageSet['attributes']['body']).
+                   $this->_bgImage($head['backgroundImage'] ?? $masterPageSet["backgroundImage"]).'>'.EOL;
 
         echo $header;
+
+        $randomPageVariable = $head['bodyPage'] ?? $masterPageSet['bodyPage'];
 
         if( ! empty($randomPageVariable) )
         {
@@ -298,10 +181,197 @@ class Masterpage
             echo $bodyContent;
         }
 
-        $randomFooterVariable  = $eol.'</body>'.$eol;
+        $randomFooterVariable  = EOL.'</body>'.EOL;
         $randomFooterVariable .= '</html>';
 
         echo $randomFooterVariable;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Content Charset
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @params
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _contentCharset($contentCharset)
+    {
+        $header = NULL;
+
+        if( is_array($contentCharset) )
+        {
+            foreach( $contentCharset as $v )
+            {
+                $header .= "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=$v\">".EOL;
+            }
+        }
+        else
+        {
+            $header .= '<meta http-equiv="Content-Type" content="text/html; charset='.$contentCharset.'">'.EOL;
+        }
+
+        return $header;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Content Language
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @params
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _contentLanguage($contentLanguage)
+    {
+        return '<meta http-equiv="Content-Language" content="'.$contentLanguage .'">'.EOL;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Bg Image
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @params
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _bgImage($backgroundImage)
+    {
+        $bgImage = ( ! empty($backgroundImage) && is_file($backgroundImage) )
+                 ? ' background="'.URL::base($backgroundImage).'" bgproperties="fixed"'
+                 : '';
+                 
+        return $bgImage;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Browser Icon
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @params
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _browserIcon($browserIcon)
+    {
+        if( ! empty($browserIcon) && is_file($browserIcon) )
+        {
+           return '<link rel="shortcut icon" href="'.URL::base($browserIcon).'" />'.EOL;
+        }
+
+        return NULL;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Title
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @params
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _title($title)
+    {      
+        if( ! empty($title) )
+        {
+            return '<title>'.$title.'</title>'.EOL;
+        }
+
+        return NULL;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Meta
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @params
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _meta($metas, $headMeta)
+    {
+        if( $headMeta !== NULL )
+        {
+            $metas = array_merge($metas, $headMeta);
+        }
+
+        $header = NULL;
+
+        if( ! empty($metas) ) foreach( $metas as $name => $content )
+        {
+            if( isset($headMeta[$name]) )
+            {
+                $content = $headMeta[$name];
+            }
+
+            if( ! empty($content) )
+            {
+                $nameEx     = explode(":", $name);
+                $httpOrName = ( $nameEx[0] === 'http' ) ? 'http-equiv' : ( isset($nameEx[1]) ? $nameEx[0] : 'name' );
+                $name       = $nameEx[1] ?? $nameEx[0];
+
+                if( ! is_array($content) )
+                {
+                    $header .= "<meta $httpOrName=\"$name\" content=\"$content\">".EOL;
+                }
+                else
+                {
+                    foreach( $content as $key => $val )
+                    {
+                        $header .= "<meta $httpOrName=\"$name\" content=\"$val\">".EOL;
+                    }
+                }
+            }
+        }
+
+        return $header;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Data
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @params
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _data($datas, $headData)
+    {
+        if( $headData !== NULL )
+        {
+            $datas = array_merge($datas, $headData);
+        }
+
+        $header = NULL;
+
+        if( ! empty($datas) )
+        {
+            if( ! is_array($datas) )
+            {
+                $header .= $datas.EOL;
+            }
+            else
+            {
+                foreach( $datas as $v )
+                {
+                    $header .= $v.EOL;
+                }
+            }
+        }
+
+        return $header;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Theme
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @params
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _theme($masterPageSet, $head, $type = 'theme')
+    {
+        $theme = Arrays::deleteElement(Arrays::merge((array) ($masterPageSet[$type]['name'] ?? []), (array) ($head[$type]['name'] ?? [])), '');
+
+        if( ! empty($theme) )
+        {   
+            return Import::$type($theme, ($head[$type]['recursive'] ?? $masterPageSet[$type]['recursive']), true);
+        }
+
+        return NULL;
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -363,20 +433,19 @@ class Masterpage
     {
         if( ! empty($page) )
         {
-            $eol    = EOL;
             $return = '';
 
             // Tek bir üst sayfa kullanımı için.
             if( ! is_array($page) )
             {
-                $return .= Import::page($page, NULL, true).$eol;
+                $return .= Import::page($page, NULL, true).EOL;
             }
             else
             {
                 // Birden fazla üst sayfa kullanımı için.
                 foreach( $page as $p )
                 {
-                    $return .= Import::page($p, NULL, true).$eol;
+                    $return .= Import::page($p, NULL, true).EOL;
                 }
             }
 

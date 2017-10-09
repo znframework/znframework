@@ -27,7 +27,7 @@ class ComponentsExtends
         $attr['autoloadExtensions'] = $this->autoloadExtensions ?? false;
         $attr['extensions']         = $this->extensions         ?? [];
         $attr['attributes']         = $this->attributes         ?? [];
-        $attr['properties']         = $this->properties         ?? Arrays::removeKey($this->revolvings, Arrays::keys($attr));
+        $attr['properties']         = $this->properties         ?? Arrays::removeKey((array) $this->revolvings, Arrays::keys($attr));
 
         $this->defaultVariable();
 
