@@ -229,9 +229,7 @@ class Kernel
 
                         $pageClass->$function(...$parameters);
 
-                        $data = (array) $pageClass->view;
-
-                        self::viewAutoload($wizardPath, $viewPath, $data, $pageClass->masterpage);
+                        self::viewAutoload($wizardPath, $viewPath, (array) $pageClass->view, (array) $pageClass->masterpage);
                     }
                     catch( Throwable $e )
                     {
@@ -318,7 +316,16 @@ class Kernel
             $usableView = self::_load($viewPath, $data);
         }
 
-        $data = array_merge((array) $pageClassMasterpage, Masterpage::$data, ...In::$masterpage);
+        if( ! empty($masterpageData = In::$masterpage) )
+        {
+            $inData = array_merge(...$masterpageData);
+        }
+        else
+        {
+            $inData = [];
+        }
+
+        $data = array_merge((array) $pageClassMasterpage, $inData, Masterpage::$data);
 
         if( ($data['masterpage'] ?? NULL) === true || ! empty($data) )
         {

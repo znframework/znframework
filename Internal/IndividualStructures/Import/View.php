@@ -1,6 +1,6 @@
 <?php namespace ZN\IndividualStructures\Import;
 
-use File, View as Views, Buffer;
+use File, View as Views, Buffer, Arrays;
 use ZN\ViewObjects\TemplateWizard;
 
 class View
@@ -46,7 +46,16 @@ class View
 
         Properties::$parameters = [];
 
-        $data = array_merge((array) $data, Views::$data, ...\ZN\In::$view);
+        if( ! empty($viewData = \ZN\In::$view ) )
+        {
+            $inData = array_merge(...$viewData);
+        }
+        else
+        {
+            $inData = [];
+        }
+
+        $data = array_merge((array) $data, $inData, Views::$data);
 
         if( is_file($randomPageDir . suffix($page, '.php')) && ! strstr($page, $this->templateWizardExtension) )
         {
