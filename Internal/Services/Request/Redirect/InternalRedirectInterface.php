@@ -79,7 +79,7 @@ interface InternalRedirectInterface
     // @var string $action
     //
     //--------------------------------------------------------------------------------------------------------
-    public function action(String $action);
+    public function action(String $action = NULL);
 
     //--------------------------------------------------------------------------------------------------------
     // time()
