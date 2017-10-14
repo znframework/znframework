@@ -82,6 +82,15 @@ class InternalDBGrid extends Abstracts\GridAbstract
     protected $confirm = NULL;
 
     //--------------------------------------------------------------------------------------------------------
+    // Exclude -> 5.3.9
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var variadic
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected $exclude = [];
+
+    //--------------------------------------------------------------------------------------------------------
     // Construct
     //--------------------------------------------------------------------------------------------------------
     //
@@ -258,6 +267,22 @@ class InternalDBGrid extends Abstracts\GridAbstract
     public function table(String $table) : InternalDBGrid
     {
         $this->table = $table;
+
+        return $this;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Exclude -> 5.3.9
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $table
+    //
+    // @return InternalDBGrid
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function exclude(...$exclude) : InternalDBGrid
+    {
+        $this->exclude = $exclude;
 
         return $this;
     }
@@ -685,6 +710,10 @@ class InternalDBGrid extends Abstracts\GridAbstract
             'VAR_STRING' => 'text',
             'BLOB'       => 'textarea'
         ];
+
+        $columns = array_diff($columns, $this->exclude);
+                
+        $this->exclude = [];
 
         foreach( $columns as $column )
         {

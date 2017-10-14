@@ -101,16 +101,60 @@ class Numeric
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Money
+    // Money -> 5.3.9[updated]
     //--------------------------------------------------------------------------------------------------------
     //
     // @param int    $money
     // @param string $type
     //
     //--------------------------------------------------------------------------------------------------------
-    public function money(Int $money = 0, String $type = NULL) : String
+    public function money(Int $money = 0, String $type = NULL, Bool $float = true) : String
     {
-        return Cart::moneyFormat($money, $type);
+        $moneyFormat = '';
+        $money       = round($money, 2);
+        $strEx      = explode(".",$money);
+        $join        = [];
+        $str         = strrev($strEx[0]);
+
+        for( $i = 0; $i < strlen($str); $i++ )
+        {
+            if( $i%3 === 0 )
+            {
+                array_unshift($join, '.');
+            }
+
+            array_unshift($join, $str[$i]);
+        }
+
+        for( $i = 0; $i < count($join); $i++ )
+        {
+            $moneyFormat .= $join[$i];
+        }
+
+        // 5.3.9 -> Added
+        if( ($type[0] ?? NULL) === '!' )
+        {
+            $left  = ltrim($type, '!') . ' ';
+            $right = NULL;
+        }
+        else
+        {
+            $right = ' ' . $type;
+            $left  = NULL;
+        }
+
+        $remaining = $strEx[1] ?? '00';
+
+        if( strlen($remaining) === 1 )
+        {
+            $remaining .= '0';
+        }
+
+       
+
+        $moneyFormat = $left . substr($moneyFormat,0,-1).($float === true ? ','.$remaining : '') . $right;
+
+        return $moneyFormat;
     }
 
     //--------------------------------------------------------------------------------------------------------

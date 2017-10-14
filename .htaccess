@@ -1,21 +1,5 @@
 #----------------------------------------------------------------------------------------------------
-# This file automatically created and updated
+# Denied entry to this directory and its subdirectories
 #----------------------------------------------------------------------------------------------------
 
-<IfModule mod_headers.c>
-	Options -Indexes
-</IfModule>
-
-<IfModule mod_rewrite.c>
-	RewriteEngine On
-	RewriteBase /
-	RewriteCond %{REQUEST_FILENAME} !-f
-	RewriteCond %{REQUEST_FILENAME} !-d
-	RewriteRule ^(.*)$  /develop/zeroneed.php?/$1 [QSA]
-</IfModule>
-
-ErrorDocument 403 /develop/zeroneed.php
-
-DirectoryIndex zeroneed.php
-
-#----------------------------------------------------------------------------------------------------
+Deny from all

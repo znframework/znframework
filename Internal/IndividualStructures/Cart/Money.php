@@ -1,5 +1,7 @@
 <?php namespace ZN\IndividualStructures\Cart;
 
+use Strings, Converter;
+
 class Money
 {
     //--------------------------------------------------------------------------------------------------------
@@ -21,40 +23,18 @@ class Money
     //--------------------------------------------------------------------------------------------------------
     public function format(Int $money, String $type = NULL) : String
     {
-        $moneyFormat = '';
-        $money       = round($money, 2);
-        $strEx      = explode(".",$money);
-        $join        = [];
-        $str         = strrev($strEx[0]);
+        return Converter::money($money, $type);
+    }
 
-        for( $i = 0; $i < strlen($str); $i++ )
-        {
-            if( $i%3 === 0 )
-            {
-                array_unshift($join, '.');
-            }
-
-            array_unshift($join, $str[$i]);
-        }
-
-        for( $i = 0; $i < count($join); $i++ )
-        {
-            $moneyFormat .= $join[$i];
-        }
-
-        $type = ! empty($type)
-                ? ' '.$type
-                : '';
-
-        $remaining = $strEx[1] ?? '00';
-
-        if( strlen($remaining) === 1 )
-        {
-            $remaining .= '0';
-        }
-
-        $moneyFormat = substr($moneyFormat,0,-1).','.$remaining.$type;
-
-        return $moneyFormat;
+    //--------------------------------------------------------------------------------------------------------
+    // Money To Number -> 5.2.0
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $money
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function number($money) : Float
+    {
+        return Converter::moneyToNumber($money);
     }
 }
