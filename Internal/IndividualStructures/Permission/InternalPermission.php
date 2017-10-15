@@ -18,7 +18,11 @@ class InternalPermission extends \FactoryController
             'start'   => 'Permission\Process::start',
             'end'     => 'Permission\Process::end',
             'process' => 'Permission\Process::use',
-            'page'    => 'Permission\Page::use'
+            'page'    => 'Permission\Page::use',
+            'post'    => 'Permission\Method::post',
+            'get'     => 'Permission\Method::get',
+            'request' => 'Permission\Method::request',
+            'method'  => 'Permission\Method::use',
         ]
     ];
 }
