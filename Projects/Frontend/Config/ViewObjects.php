@@ -37,7 +37,7 @@
     // Ajax Code Continue -> 5.3.77
     //--------------------------------------------------------------------------------------------------
     //
-    // Ajax istekleri sırasıdan oluşan diğer çıktıların durdurulup durdurulmayacağıdır. Bu değer true
+    // Ajax istekleri sırasıda oluşan diğer çıktıların durdurulup durdurulmayacağıdır. Bu değer true
     // olarak bırakılacaksa ajax isteği yapılan yöntemlerin exit ile sonlandırılması tavsiye edilir.
     //
     //--------------------------------------------------------------------------------------------------
@@ -355,7 +355,7 @@
             'style' =>
             [
                 'links' => 'color:#0085B2;
-                            width:20px; height:20px;
+                            width:30px; height:30px;
                             text-align:center;
                             padding-top:4px;
                             display:inline-block;
