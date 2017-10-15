@@ -389,7 +389,7 @@ class InternalDBGrid extends Abstracts\GridAbstract
         //----------------------------------------------------------------------------------------------------
         if( ! empty($this->limit) )
         {
-            $pagination = $get->pagination(CURRENT_CFPATH.'/page/', VIEWOBJECTS_DATAGRID_CONFIG['pagination']);
+            $pagination = $get->pagination(CURRENT_CFPATH . URI::manipulation(['column', 'process', 'order', 'type', 'page' => NULL], 'left'), VIEWOBJECTS_DATAGRID_CONFIG['pagination']);
         }
         else
         {
@@ -512,7 +512,8 @@ class InternalDBGrid extends Abstracts\GridAbstract
                       ->text('search').
                   Form::close();
         $table .= '</td><td colspan="'.($countColumns - 1).'"></td><td align="right" colspan="2">';
-        $table .= Form::action(CURRENT_CFPATH.( URI::get('page') ? '/page/'.URI::get('page') : NULL).'/process/add')
+        
+        $table .= Form::action(CURRENT_CFPATH . URI::manipulation(['process' => 'add', 'order', 'type', 'page'], 'left'))
                       ->open('addForm').
                   Form::attr(VIEWOBJECTS_DATAGRID_CONFIG['attributes']['add'])
                       ->submit('addButton', VIEWOBJECTS_DATAGRID_CONFIG['buttonNames']['add']).
@@ -531,7 +532,7 @@ class InternalDBGrid extends Abstracts\GridAbstract
         {
             $table .= '<td>'.Html::anchor
             (
-                CURRENT_CFPATH.'/order/'.$column.'/type/'.(URI::get('type') === 'asc' ? 'desc' : 'asc'),
+                CURRENT_CFPATH . URI::manipulation(['column', 'process', 'order' => $column, 'type' => (URI::get('type') === 'asc' ? 'desc' : 'asc'), 'page'], 'left'),
                 Html::strong($column), VIEWOBJECTS_DATAGRID_CONFIG['attributes']['columns']
             ).'</td>';
         }
@@ -581,7 +582,8 @@ class InternalDBGrid extends Abstracts\GridAbstract
             $table .= '<tr><td>'.($key + 1).'</td><td>'.
                     implode('</td><td>', Arrays::force($value, function($data){ return \Limiter::word((string) $data, 20);})).
                     '</td><td align="right">'.
-                    Form::action(CURRENT_CFPATH.( URI::get('page') ? '/page/'.URI::get('page') : NULL).'/column/'.suffix($hiddenValue).'process/edit')
+                
+                    Form::action(CURRENT_CFPATH . URI::manipulation(['column' => $hiddenValue, 'process' => 'edit', 'order', 'type', 'page'], 'left'))
                         ->open('editButtonForm').
                     $hiddenId.
                     $hiddenJoins.
@@ -679,8 +681,10 @@ class InternalDBGrid extends Abstracts\GridAbstract
 
         $table .= '<tr><td colspan="'.count($joinsData).'">'.
                        Form::attr(VIEWOBJECTS_DATAGRID_CONFIG['attributes']['save'])->submit('saveButton', VIEWOBJECTS_DATAGRID_CONFIG['buttonNames']['save']).
-                       Html::style('text-decoration:none')->anchor(CURRENT_CFPATH,
-                             Form::attr(VIEWOBJECTS_DATAGRID_CONFIG['attributes']['save'])->button('closeButton', VIEWOBJECTS_DATAGRID_CONFIG['buttonNames']['close'] ?? 'Close')
+                       Html::style('text-decoration:none')->anchor
+                       (
+                            CURRENT_CFPATH . URI::manipulation(['order', 'type', 'page'], 'left'),
+                            Form::attr(VIEWOBJECTS_DATAGRID_CONFIG['attributes']['save'])->button('closeButton', VIEWOBJECTS_DATAGRID_CONFIG['buttonNames']['close'] ?? 'Close')
                        ).
                       '</td></tr>';
         $table .= '</tr></table>';

@@ -14,6 +14,63 @@ class InternalURI extends CallController implements InternalURIInterface
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
+    // Manipulation -> 5.3.9
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param array $rules
+    // @param string $type = 'none', optional: left, right, both
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function manipulation(Array $rules, String $type = 'none') : String
+    {
+        $query = NULL;
+
+        foreach( $rules as $key => $value )
+        {
+            if( is_numeric($key) )
+            {
+                if( ! empty($val = $this->get($value)) )
+                {
+                    $query .= $value . '/' . $val . '/';
+                }
+            }
+            else
+            {
+                $query .= $key . '/' . $value . '/';
+            }
+        }
+
+        return $this->_addFix($query, $type);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Build Query -> 5.3.9
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param array  $data
+    // @param string $seperator
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function buildQuery(Array $data, String $separator = '/', String $type = 'none') : String
+    {
+        $query = NULL;
+
+        foreach( $data as $key => $value )
+        {
+            if( is_numeric($key) )
+            {
+                $query .= $value . '/';
+            }
+            else
+            {
+                $query .= $key . '/' . $value . '/';
+            }
+        }
+
+        return $this->_addFix($query, $type);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
     // Get
     //--------------------------------------------------------------------------------------------------------
     //
@@ -480,5 +537,25 @@ class InternalURI extends CallController implements InternalURIInterface
         $pathInfo = Security::htmlEncode($this->active());
 
         return $pathInfo;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Add Fix -> 5.3.9
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string @query
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _addFix($query, $type)
+    {
+        $query = rtrim($query, '/');
+        
+        switch( $type )
+        {
+            case 'left'  : return prefix($query);
+            case 'right' : return suffix($query);
+            case 'both'  : return presuffix($query);
+            default      : return $query;
+        }
     }
 }
