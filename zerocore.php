@@ -1230,6 +1230,28 @@ function internalProjectContainerDir($path = NULL) : String
 }
 
 //--------------------------------------------------------------------------------------------------
+// Internal Is Writable
+//--------------------------------------------------------------------------------------------------
+//
+// @param string $path
+//
+//--------------------------------------------------------------------------------------------------
+function internalIsWritable(String $path)
+{
+    if( is_file($path) && ! is_writable($path) )
+    {
+        trace
+        (
+            'Please check the [file permissions]. Click the 
+                <a target="_blank" style="text-decoration:none" href="https://docs.znframework.com/getting-started/installation-instructions#sh42">
+                    [documentation]
+                </a> 
+            to see how to configure file permissions.'
+        );
+    }
+}
+
+//--------------------------------------------------------------------------------------------------
 // Internal Current Project
 //--------------------------------------------------------------------------------------------------
 //
@@ -1238,6 +1260,8 @@ function internalProjectContainerDir($path = NULL) : String
 //--------------------------------------------------------------------------------------------------
 function internalCurrentProject()
 {
+    internalIsWritable('.htaccess');
+
     if( PROJECT_TYPE === 'SE' )
     {
         define('CURRENT_PROJECT', NULL);
