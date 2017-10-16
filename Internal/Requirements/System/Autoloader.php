@@ -200,7 +200,7 @@ class Autoloader
             }
         }
 
-        internalIsWritable(self::$path);
+        chmod(self::$path, $configAutoloader['directoryPermission']);
 
         file_put_contents(self::$path, $classMapPage, FILE_APPEND);
     }
@@ -446,6 +446,8 @@ class Autoloader
 
                         if( strlen($classContent) !== $fileContentLength )
                         {
+                            chmod($rpath, $directoryPermission);
+                            
                             file_put_contents($rpath, $classContent);
                         }
 

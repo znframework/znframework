@@ -756,6 +756,8 @@ class In
             return false;
         }
 
+        chmod($htaccessTxt, Config::autoloader('directoryPermission'));
+
         if( ! File::write($htaccessTxt, trim($htaccess)) )
         {
             throw new GeneralException('Error', 'fileNotWrite', $htaccessTxt);

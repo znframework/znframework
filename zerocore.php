@@ -54,9 +54,9 @@ define('PROJECTS_CONFIG'    , import
 (
     (is_file(PROJECTS_DIR . 'Projects.php') ? PROJECTS_DIR : SETTINGS_DIR) . 'Projects.php'
 ));
-define('DEFAULT_PROJECT'    , PROJECTS_CONFIG['directory']['default'] );
-define('EXTERNAL_CONFIG_DIR', EXTERNAL_DIR . 'Config'.DS              );
-define('INTERNAL_CONFIG_DIR', INTERNAL_DIR . 'Config'.DS              );
+define('DEFAULT_PROJECT'    , PROJECTS_CONFIG['directory']['default']);
+define('EXTERNAL_CONFIG_DIR', EXTERNAL_DIR . 'Config'.DS             );
+define('INTERNAL_CONFIG_DIR', INTERNAL_DIR . 'Config'.DS             );
 //--------------------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------------------
@@ -1230,28 +1230,6 @@ function internalProjectContainerDir($path = NULL) : String
 }
 
 //--------------------------------------------------------------------------------------------------
-// Internal Is Writable
-//--------------------------------------------------------------------------------------------------
-//
-// @param string $path
-//
-//--------------------------------------------------------------------------------------------------
-function internalIsWritable(String $path)
-{
-    if( is_file($path) && ! is_writable($path) )
-    {
-        trace
-        (
-            'Please check the [file permissions]. Click the 
-                <a target="_blank" style="text-decoration:none" href="https://docs.znframework.com/getting-started/installation-instructions#sh42">
-                    [documentation]
-                </a> 
-            to see how to configure file permissions.'
-        );
-    }
-}
-
-//--------------------------------------------------------------------------------------------------
 // Internal Current Project
 //--------------------------------------------------------------------------------------------------
 //
@@ -1260,8 +1238,6 @@ function internalIsWritable(String $path)
 //--------------------------------------------------------------------------------------------------
 function internalCurrentProject()
 {
-    internalIsWritable('.htaccess');
-
     if( PROJECT_TYPE === 'SE' )
     {
         define('CURRENT_PROJECT', NULL);
