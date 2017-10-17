@@ -91,6 +91,15 @@ class InternalDBGrid extends Abstracts\GridAbstract
     protected $exclude = [];
 
     //--------------------------------------------------------------------------------------------------------
+    // Hide -> 5.3.9
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var variadic
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected $hide = [];
+
+    //--------------------------------------------------------------------------------------------------------
     // Construct
     //--------------------------------------------------------------------------------------------------------
     //
@@ -267,6 +276,22 @@ class InternalDBGrid extends Abstracts\GridAbstract
     public function table(String $table) : InternalDBGrid
     {
         $this->table = $table;
+
+        return $this;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Exclude -> 5.4.0
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $table
+    //
+    // @return InternalDBGrid
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function hide(...$hide) : InternalDBGrid
+    {
+        $this->hide = $hide;
 
         return $this;
     }
@@ -493,6 +518,23 @@ class InternalDBGrid extends Abstracts\GridAbstract
     }
 
     //--------------------------------------------------------------------------------------------------------
+    // Protected Hide Button
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $output
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _hideButton($output, $button)
+    {
+        if( Arrays::valueExists($this->hide, $button) )
+        {
+            return NULL;
+        }
+
+        return $output;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
     // Protected Thead
     //--------------------------------------------------------------------------------------------------------
     //
@@ -513,11 +555,11 @@ class InternalDBGrid extends Abstracts\GridAbstract
                   Form::close();
         $table .= '</td><td colspan="'.($countColumns - 1).'"></td><td align="right" colspan="2">';
         
-        $table .= Form::action(CURRENT_CFPATH . URI::manipulation(['process' => 'add', 'order', 'type', 'page'], 'left'))
+        $table .= $this->_hideButton(Form::action(CURRENT_CFPATH . URI::manipulation(['process' => 'add', 'order', 'type', 'page'], 'left'))
                       ->open('addForm').
                   Form::attr(VIEWOBJECTS_DATAGRID_CONFIG['attributes']['add'])
                       ->submit('addButton', VIEWOBJECTS_DATAGRID_CONFIG['buttonNames']['add']).
-                  Form::close();
+                  Form::close(), 'addButton');
         $table .= '</tr><tr'.Html::attributes(VIEWOBJECTS_DATAGRID_CONFIG['attributes']['columns']).'>';
         $table .= '<td width="20">#</td>';
 
@@ -581,7 +623,7 @@ class InternalDBGrid extends Abstracts\GridAbstract
 
             $table .= '<tr><td>'.($key + 1).'</td><td>'.
                     implode('</td><td>', Arrays::force($value, function($data){ return \Limiter::word((string) $data, 20);})).
-                    '</td><td align="right">'.
+                    '</td>'.$this->_hideButton('<td align="right">'.
                 
                     Form::action(CURRENT_CFPATH . URI::manipulation(['column' => $hiddenValue, 'process' => 'edit', 'order', 'type', 'page'], 'left'))
                         ->open('editButtonForm').
@@ -590,8 +632,8 @@ class InternalDBGrid extends Abstracts\GridAbstract
                     Form::attr(VIEWOBJECTS_DATAGRID_CONFIG['attributes']['edit'])
                         ->submit('editButton', VIEWOBJECTS_DATAGRID_CONFIG['buttonNames']['edit']).
                     Form::close().
-                    '</td>'.
-                    '<td width="60" align="right">'.
+                    '</td>', 'editButton').
+                    $this->_hideButton('<td width="60" align="right">'.
                     Form::onsubmit($this->confirm)
                         ->open('addButtonForm').
                     $hiddenId.
@@ -600,7 +642,7 @@ class InternalDBGrid extends Abstracts\GridAbstract
                         ->submit('deleteButton', VIEWOBJECTS_DATAGRID_CONFIG['buttonNames']['delete']).
                     Form::close().
 
-                    '</td></tr>'.
+                    '</td>', 'deleteButton').'</tr>'.
                     EOL;
         }
 
@@ -680,12 +722,12 @@ class InternalDBGrid extends Abstracts\GridAbstract
         }
 
         $table .= '<tr><td colspan="'.count($joinsData).'">'.
-                       Form::attr(VIEWOBJECTS_DATAGRID_CONFIG['attributes']['save'])->submit('saveButton', VIEWOBJECTS_DATAGRID_CONFIG['buttonNames']['save']).
-                       Html::style('text-decoration:none')->anchor
+        $this->_hideButton(Form::attr(VIEWOBJECTS_DATAGRID_CONFIG['attributes']['save'])->submit('saveButton', VIEWOBJECTS_DATAGRID_CONFIG['buttonNames']['save']), 'saveButton').
+        $this->_hideButton(Html::style('text-decoration:none')->anchor
                        (
                             CURRENT_CFPATH . URI::manipulation(['order', 'type', 'page'], 'left'),
                             Form::attr(VIEWOBJECTS_DATAGRID_CONFIG['attributes']['save'])->button('closeButton', VIEWOBJECTS_DATAGRID_CONFIG['buttonNames']['close'] ?? 'Close')
-                       ).
+                       ), 'closeButton').
                       '</td></tr>';
         $table .= '</tr></table>';
         $table .= Form::close();

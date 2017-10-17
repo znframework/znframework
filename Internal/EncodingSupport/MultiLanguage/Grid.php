@@ -168,7 +168,7 @@ class Grid extends MLExtends
         $words = [];
         $formObjects = '';
 
-        $languages   = implode(',', array_keys($data));
+        $languages   = implode(',', $arrayKeys = array_keys($data));
         $mlLanguages = Form::hidden('ML_LANGUAGES', $languages);
 
         foreach( $data as $lang => $values )
@@ -180,7 +180,7 @@ class Grid extends MLExtends
             $table .= '</form>';
             foreach( $values as $key => $val )
             {
-                $words[$key][] = $val;
+                $words[$key][$lang] = $val;
             }
 
             $formObjects .= '<td>'.Form::attr($attributes['textbox'])->placeholder($upperLang)->text('ML_ADD_WORDS[]').'</td>';
@@ -240,7 +240,7 @@ class Grid extends MLExtends
         {
             $words = array_slice($words, $start, $limit);
         }
-
+      
         foreach( $words as $key => $val )
         {
             $table .= '<tr>';
@@ -248,7 +248,7 @@ class Grid extends MLExtends
             $table .= '<th>'.$index++.'</th>';
             $table .= '<td>'.Form::hidden('ML_UPDATE_KEYWORD_HIDDEN', $key).$key.'</td>';
 
-            for( $i = 0; $i < $languageCount; $i++ )
+            foreach( $arrayKeys as $i )
             {
                 $table .= '<td>'.Form::attr($attributes['textbox'])->text('ML_UPDATE_WORDS[]', ( ! empty($val[$i]) ? $val[$i] : '' )).'</td>';
             }
