@@ -547,12 +547,17 @@ class InternalDBGrid extends Abstracts\GridAbstract
         $table  = '<thead>'.EOL;
         $table .= '<tr'.Html::attributes(VIEWOBJECTS_DATAGRID_CONFIG['attributes']['columns']).'>';
         $table .= '<td colspan="2">';
-        $table .= Form::open('addForm').
-                  Form::placeholder(VIEWOBJECTS_DATAGRID_CONFIG['placeHolders']['search'])
-                      ->id('datagridSearch')
-                      ->attr(VIEWOBJECTS_DATAGRID_CONFIG['attributes']['search'])
-                      ->text('search').
-                  Form::close();
+            
+        if( ! empty($this->search) || ! empty($this->select) )
+        {
+            $table .= $this->_hideButton(Form::open('addForm').
+            Form::placeholder(VIEWOBJECTS_DATAGRID_CONFIG['placeHolders']['search'])
+                ->id('datagridSearch')
+                ->attr(VIEWOBJECTS_DATAGRID_CONFIG['attributes']['search'])
+                ->text('search').
+            Form::close(), 'search');
+        }
+        
         $table .= '</td><td colspan="'.($countColumns - 1).'"></td><td align="right" colspan="2">';
         
         $table .= $this->_hideButton(Form::action(CURRENT_CFPATH . URI::manipulation(['process' => 'add', 'order', 'type', 'page'], 'left'))
@@ -822,6 +827,14 @@ class InternalDBGrid extends Abstracts\GridAbstract
     //--------------------------------------------------------------------------------------------------------
     protected function _search($search)
     {
+        if( empty($this->search) && ! empty($this->select) )
+        {
+            $this->search = Arrays::forceValues($this->select, function($data)
+            {
+                return explode(' ', $data)[0] ?? $data;
+            });
+        }
+
         if( is_array($this->search) )
         {
             foreach( $this->search as $column )
