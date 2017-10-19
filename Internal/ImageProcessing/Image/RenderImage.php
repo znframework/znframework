@@ -182,22 +182,22 @@ class RenderImage
     protected function fromFileType($paths)
     {
         // UZANTI JPG
-        if( File::extension($this->file) === 'jpg' )
+        if(mime_content_type($this->file) == "image/jpeg" )
         {
             return imagecreatefromjpeg($paths);
         }
         // UZANTI JPEG
-        elseif( File::extension($this->file) === 'jpeg' )
+        elseif(mime_content_type($this->file) == "image/jpeg" )
         {
             return imagecreatefromjpeg($paths);
         }
         // UZANTI PNG
-        elseif( File::extension($this->file) === 'png' )
+        elseif(mime_content_type($this->file) == "image/png" )
         {
             return imagecreatefrompng($paths);
         }
         // UZANTI GIF
-        elseif( File::extension($this->file) === 'gif' )
+        elseif(mime_content_type($this->file) == "image/gif" )
         {
             return imagecreatefromgif($paths);
         }
