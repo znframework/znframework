@@ -280,7 +280,7 @@ class DriverTool extends DriverExtends
     // @param string $file = NULL
     //
     //--------------------------------------------------------------------------------------------------------
-    public function import(String $file) : Bool
+    public function import(String $file)
     {
         if( is_file($file) )
         {   

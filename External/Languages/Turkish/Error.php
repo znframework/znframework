@@ -11,6 +11,7 @@
     //
     //----------------------------------------------------------------------------------------------------
 
+    'error'                     => 'İşlem başarısız.',
     'classError'                => 'Hata: `%` sınıfı bulunamadı!',
     'controllerNameError'       => 'Hata: Bir controller dosyası `%` kelimesi ile isimlendirilemez!',
     'notFoundController'        => 'Hata: URL geçerli bir kontrolcü bilgisi içermiyor! `%` kontrolcüsü bulunamadı!',

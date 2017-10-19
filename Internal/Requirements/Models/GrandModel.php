@@ -85,6 +85,15 @@ class GrandModel extends BaseController
     //--------------------------------------------------------------------------------------------------------
     protected $options = [];
 
+     //--------------------------------------------------------------------------------------------------------
+    // Variable Prefix
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var string
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected $prefix;
+
     //--------------------------------------------------------------------------------------------------------
     // Constructor
     //--------------------------------------------------------------------------------------------------------
@@ -94,11 +103,12 @@ class GrandModel extends BaseController
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
-        $staticConnection   = defined('static::connection') ? static::connection : NULL;
-        $this->connect      = DB::differentConnection($staticConnection);
-        $this->connectTool  = DBTool::differentConnection($staticConnection);
-        $this->connectForge = DBForge::differentConnection($staticConnection);
-        $this->tables       = $this->connectTool->listTables();
+        $staticConnection    = defined('static::connection') ? static::connection : NULL;
+        $this->connect       = DB::differentConnection($staticConnection);
+        $this->connectTool   = DBTool::differentConnection($staticConnection);
+        $this->connectForge  = DBForge::differentConnection($staticConnection);
+        $this->tables        = $this->connectTool->listTables();
+        $this->prefix        = $staticConnection['prefix'] ?? Config::database('database')['prefix'];
 
         if( defined('static::table') )
         {
@@ -182,11 +192,11 @@ class GrandModel extends BaseController
     //--------------------------------------------------------------------------------------------------------
     public function __destruct()
     {
-        if( ! Arrays::valueExistsInsensitive($this->tables, $this->grandTable) && $this->status !== 'create' )
+        if( ! Arrays::valueExistsInsensitive($this->tables, ($table = $this->prefix . $this->grandTable)) && $this->status !== 'create' )
         {
             try
             {
-                throw new GeneralException(\Lang::select('Database', 'tableNotExistsError', 'Grand: '.$this->grandTable));
+                throw new GeneralException(\Lang::select('Database', 'tableNotExistsError', 'Grand: '.$table));
             }
             catch( GeneralException $e )
             {

@@ -77,6 +77,41 @@ class MySQLiDriver extends DriverConnectionMappingAbstract
     ];
 
     //--------------------------------------------------------------------------------------------------------
+    // Var Types
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var array
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected $types = 
+    [
+        0   => 'DECIMAL',      
+        1   => 'TINY',
+        2   => 'SHORT',
+        3   => 'LONG',
+        4   => 'FLOAT',
+        5   => 'DOUBLE',
+        6   => 'NULL',
+        7   => 'TIMESTAMP',
+        8   => 'LONGLONG',
+        9   => 'INT24',
+        10  => 'DATE',
+        11  => 'TIME',
+        12  => 'DATETIME',
+        13  => 'YEAR',          
+        14  => 'NEWDATE',     
+        247 => 'ENUM',
+        248 => 'SET',
+        249 => 'TINY_BLOB',
+        250 => 'MEDIUM_BLOB',
+        251 => 'LONG_BLOG',
+        252 => 'BLOB',
+        253 => 'VAR_STRING',
+        254 => 'STRING',
+        255 => 'GEOMETRY'
+    ];
+
+    //--------------------------------------------------------------------------------------------------------
     // Construct
     //--------------------------------------------------------------------------------------------------------
     //
@@ -259,7 +294,7 @@ class MySQLiDriver extends DriverConnectionMappingAbstract
 
             $columns[$fieldName]             = new stdClass();
             $columns[$fieldName]->name       = $fieldName;
-            $columns[$fieldName]->type       = $fieldData[$i]->type;
+            $columns[$fieldName]->type       = $this->types[$fieldData[$i]->type] ?? NULL;
             $columns[$fieldName]->maxLength  = $fieldData[$i]->max_length;
             $columns[$fieldName]->primaryKey = (int) ($fieldData[$i]->flags & 2);
             $columns[$fieldName]->default    = $fieldData[$i]->def;

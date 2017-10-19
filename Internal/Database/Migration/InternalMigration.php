@@ -77,7 +77,7 @@ class InternalMigration extends \CallController implements InternalMigrationInte
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
-        $this->config = Config::get('Database', 'migration');
+        $this->config = Config::get('Database');
         $this->path   = MODELS_DIR.'Migrations/';
 
         if( ! is_dir($this->path) )
@@ -389,7 +389,7 @@ class InternalMigration extends \CallController implements InternalMigrationInte
 
         if( ! DBForge::error() )
         {
-            return DB::insert($this->config['table'],
+            return DB::insert($this->config['migration']['table'],
             [
                 'name'    => $table,
                 'type'    => $type,
@@ -410,8 +410,8 @@ class InternalMigration extends \CallController implements InternalMigrationInte
     //--------------------------------------------------------------------------------------------------------
     protected function _create()
     {
-        $table   = $this->config['table'];
-
+        $table   = $this->config['database']['prefix'] . $this->config['migration']['table'];
+     
         DBForge::createTable('IF NOT EXISTS '.$table, array
         (
             'name'    => [DB::varchar(512), DB::notNull()],

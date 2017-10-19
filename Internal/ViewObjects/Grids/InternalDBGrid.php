@@ -100,6 +100,15 @@ class InternalDBGrid extends Abstracts\GridAbstract
     protected $hide = [];
 
     //--------------------------------------------------------------------------------------------------------
+    // Inputs -> 5.4.0
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var variadic
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected $inputs = [];
+
+    //--------------------------------------------------------------------------------------------------------
     // Construct
     //--------------------------------------------------------------------------------------------------------
     //
@@ -145,6 +154,22 @@ class InternalDBGrid extends Abstracts\GridAbstract
         $this->limit = $limit;
 
         DB::limit((int) URI::get('page'), $limit);
+
+        return $this;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Inputs
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param array $inputs
+    //
+    // @return InternalDBGrid
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function inputs(Array $inputs) : InternalDBGrid
+    {
+        $this->inputs = $inputs;
 
         return $this;
     }
@@ -487,6 +512,8 @@ class InternalDBGrid extends Abstracts\GridAbstract
         $table .= $this->_pagination($pagination, $countColumns);
         $table .= '</table>'.EOL;
 
+        $this->_defaultVariables();
+
         return $table;
     }
 
@@ -755,8 +782,7 @@ class InternalDBGrid extends Abstracts\GridAbstract
         $table .= '<tr><td width="100">'.Strings::upperCase($tbl).'</td></tr>';
 
         $processColumn = strtolower($this->processColumn);
-
-        $columnDatas =
+        $columnDatas   =
         [
             'VAR_STRING' => 'text',
             'BLOB'       => 'textarea'
@@ -786,11 +812,25 @@ class InternalDBGrid extends Abstracts\GridAbstract
                     $type = 'text';
                 }
 
-                $table .= '<tr><td>'.Strings::titleCase($column).'</td><td>'.
-                          Form::placeholder($column)
-                          ->attr(VIEWOBJECTS_DATAGRID_CONFIG['attributes']['inputs'][$type])
-                          ->$type($tbl.':'.$column, $row->$column ?? NULL).
-                          '</td></tr>';
+                $table .= '<tr><td>'.Strings::titleCase($column).'</td><td>';
+
+                $inputName = $tbl.':'.$column;
+
+                // 5.4.0[added]
+                if( ! $input = ($this->inputs[$column] ?? NULL) )
+                {
+                    $table .= Form::placeholder($column)
+                                  ->attr(VIEWOBJECTS_DATAGRID_CONFIG['attributes']['inputs'][$type])
+                                  ->$type($inputName, $row->$column ?? NULL);
+                }
+                else
+                {
+                    Form::placeholder($column)->attr(VIEWOBJECTS_DATAGRID_CONFIG['attributes']['inputs'][$type]);
+
+                    $table .= $input(new Form, $inputName, $row->$column ?? NULL);
+                }
+
+                $table .= '</td></tr>';
             }
         }
 
@@ -1038,5 +1078,21 @@ class InternalDBGrid extends Abstracts\GridAbstract
 
             $this->joins = Arrays::order(array_unique($this->joins));
         }
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Default Variables
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _defaultVariables()
+    {
+        $this->hide    = [];
+        $this->exclude = [];
+        $this->search  = NULL;
+        $this->joins   = [];
+        $this->inputs  = [];
     }
 }

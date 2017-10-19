@@ -11,6 +11,7 @@
     //
     //----------------------------------------------------------------------------------------------------
 
+    'error'                     => 'Operation failed!',
     'classError'                => 'Error: `%` class was not found!',
     'controllerNameError'       => 'Error: A controller can not be identified by the file `%` name!',
     'notFoundController'        => 'Error: URL does not contain a valid controller information! `%` controller could not be found!',

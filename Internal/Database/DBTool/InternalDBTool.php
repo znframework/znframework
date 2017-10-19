@@ -124,7 +124,7 @@ class InternalDBTool extends Connection implements InternalDBToolInterface
     // @param string $file = NULL
     //
     //--------------------------------------------------------------------------------------------------------
-    public function import(String $file) : Bool
+    public function import(String $file)
     {
         return $this->tool->import($file);
     }

@@ -90,5 +90,5 @@ interface InternalDBToolInterface
     // @param string $file = NULL
     //
     //--------------------------------------------------------------------------------------------------------
-    public function import(String $file) : Bool;
+    public function import(String $file);
 }
