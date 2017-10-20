@@ -15,19 +15,20 @@ class InternalJC extends \FactoryController
     [
         'methods' =>
         [
-            'datatable'  => 'Javascript\Components\Datatables::generate',
-            'chart'      => 'Javascript\Components\Charts::generate',
-            'datepicker' => 'Javascript\Components\Datepicker::generate',
-            'select2'    => 'Javascript\Components\Select2::generate',
-            'flexslider' => 'Javascript\Components\FlexSlider::generate',
-            'form'       => 'Javascript\Components\Form::generate',
-            'aceeditor'  => 'Javascript\Components\AceEditor::generate',
-            'pagination' => 'Javascript\Components\Pagination::generate',
-            'modalbox'   => 'Javascript\Components\Modal::generate',
-            'gridsystem' => 'Javascript\Components\GridSystem::generate',
-            'dropdown'   => 'Javascript\Components\Dropdown::generate',
-            'tab'        => 'Javascript\Components\Tabs::generate',
-            'pill'       => 'Javascript\Components\Tabs::pill'
+            'datatable'         => 'Javascript\Components\Datatables::generate',
+            'chart'             => 'Javascript\Components\Charts::generate',
+            'datepicker'        => 'Javascript\Components\Datepicker::generate',
+            'select2'           => 'Javascript\Components\Select2::generate',
+            'flexslider'        => 'Javascript\Components\FlexSlider::generate',
+            'form'              => 'Javascript\Components\Form::generate',
+            'aceeditor'         => 'Javascript\Components\AceEditor::generate',
+            'tinymceeditor'     => 'Javascript\Components\TinymceEditor::generate',
+            'pagination'        => 'Javascript\Components\Pagination::generate',
+            'modalbox'          => 'Javascript\Components\Modal::generate',
+            'gridsystem'        => 'Javascript\Components\GridSystem::generate',
+            'dropdown'          => 'Javascript\Components\Dropdown::generate',
+            'tab'               => 'Javascript\Components\Tabs::generate',
+            'pill'              => 'Javascript\Components\Tabs::pill'
         ]
     ];
 

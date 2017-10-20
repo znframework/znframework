@@ -1,6 +1,6 @@
 <?php namespace ZN\ImageProcessing\Image;
 
-use Folder, URL, File;
+use Folder, URL, File, Mime;
 use ZN\EncodingSupport\ImageProcessing\Image\Exception\ImageNotFoundException;
 use ZN\EncodingSupport\ImageProcessing\Image\Exception\InvalidImageFileException;
 
@@ -130,15 +130,15 @@ class RenderImage
 
         $nFile   = imagecreatetruecolor($width, $height);
 
-        if( ! empty($set["prowidth"]) || ! empty($set["proheight"]) )
+        if( ! empty($set['prowidth']) || ! empty($set['proheight']) )
         {
             $rWidth = $currentWidth; $rHeight = $currentHeight;
         }
 
-        if( File::extension($filePath) === "png" )
+        if( File::extension($filePath) === 'png' )
         {
             imagealphablending($nFile, false);
-            imagesavealpha($nFile,true);
+            imagesavealpha($nFile, true);
             $transparent = imagecolorallocatealpha($nFile, 255, 255, 255, 127);
             imagefilledrectangle($nFile, 0, 0, $width, $height, $transparent);
         }
@@ -216,9 +216,9 @@ class RenderImage
     //--------------------------------------------------------------------------------------------------------
     protected function isImageFile($file)
     {
-        $extensions = ['jpg', 'jpeg', 'png', 'gif'];
+        $mimes = ['image/jpg', 'image/jpeg', 'image/png', 'image/gif'];
 
-        if( in_array(File::extension($file), $extensions))
+        if( in_array(Mime::type($file), $mimes) )
         {
             return true;
         }
@@ -239,7 +239,6 @@ class RenderImage
     //--------------------------------------------------------------------------------------------------------
     protected function createFileType($files, $paths, $quality = 0)
     {
-        // JPG İÇİN KALİTE AYARI
         if( File::extension($this->file) === 'jpg' )
         {
             if( $quality === 0 )
@@ -249,7 +248,6 @@ class RenderImage
 
             return imagejpeg($files, $paths, $quality);
         }
-        // JPEG İÇİN KALİTE AYARI
         elseif( File::extension($this->file) === 'jpeg' )
         {
             if( $quality === 0 )
@@ -259,7 +257,6 @@ class RenderImage
 
             return imagejpeg($files, $paths, $quality);
         }
-        // PNG İÇİN KALİTE AYARI
         elseif( File::extension($this->file) === 'png' )
         {
             if( $quality === 0 )
@@ -269,7 +266,6 @@ class RenderImage
 
             return imagepng($files, $paths, $quality);
         }
-        // GIF İÇİN KALİTE AYARI
         elseif( File::extension($this->file) === 'gif' )
         {
             return imagegif($files, $paths);
