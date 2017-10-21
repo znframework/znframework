@@ -78,8 +78,8 @@ class Config
             $path = suffix($file, '.php');
 
             $externalPath = EXTERNAL_CONFIG_DIR . $path;
-            $projectPath  = CONFIG_DIR          . $path;
             $settingsPath = SETTINGS_DIR        . $path;
+            $projectPath  = CONFIG_DIR          . $path;
             $internalPath = INTERNAL_CONFIG_DIR . $path;
 
             self::$config[$file] = array_merge
