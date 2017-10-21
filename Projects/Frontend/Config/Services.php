@@ -141,10 +141,10 @@
         //
         // Genel Kullanımı: http, ssl aktif olduğunda https olarak değiştirilir.
         // Parametreler: true, false.
-        // Varsayılan: false.
+        // Varsayılan: server('https') === 'on' ? true : false.
         //
         //----------------------------------------------------------------------------------------------
-        'ssl' => false
+        'ssl' => server('https') === 'on' ? true : false 
     ],
 
     //--------------------------------------------------------------------------------------------------
