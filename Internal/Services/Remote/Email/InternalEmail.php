@@ -847,16 +847,20 @@ class InternalEmail extends CLController implements InternalEmailInterface
         {
             if( $mimes = Mime::$mime() )
             {
-                $mime = $mimes;
+                if( is_array($mimes) )
+                {
+                    $mime = $mimes[0];
+                }
+                else
+                {
+                    $mime = $mimes;
+                } 
             }
+
+            $fileContent =& $file;
         }
 
-        if( is_array($mime) )
-        {
-            $mime = $mime[0];
-        }
-
-        if( $mime === '' )
+        if( empty($mime) )
         {
             if( strpos($file, '://') === false && ! file_exists($file) )
             {
@@ -871,10 +875,6 @@ class InternalEmail extends CLController implements InternalEmailInterface
             $fileContent = stream_get_contents($fp);
 
             fclose($fp);
-        }
-        else
-        {
-            $fileContent =& $file;
         }
 
         $this->attachments[] =
