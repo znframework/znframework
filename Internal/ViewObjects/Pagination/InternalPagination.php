@@ -33,7 +33,23 @@ class InternalPagination extends CLController implements InternalPaginationInter
     //--------------------------------------------------------------------------------------------------------
     protected $settings = [];
 
-    protected function _uriGetCotrol($page)
+    //--------------------------------------------------------------------------------------------------------
+    // Lc
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var string
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected $lc;
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected URI Get Control
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var string
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _uriGetControl($page)
     {
         if( strstr($this->url, '?') )
         {
@@ -54,7 +70,7 @@ class InternalPagination extends CLController implements InternalPaginationInter
     //--------------------------------------------------------------------------------------------------------
     public function getURI(String $page = NULL) : String
     {
-        return $this->_uriGetCotrol($page);
+        return $this->_uriGetControl($page);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -123,58 +139,25 @@ class InternalPagination extends CLController implements InternalPaginationInter
             $start = (int) $this->start;
         }
 
-        $page  = '';
-        $links = '';
+        $page = ''; $links = '';
 
-        // Sayfalama başlangıç parametresi boş ise
-        // Uri bilgisindeki son segmenti
-        // başlangıç değeri olarak ayarla
-        if( empty($start) && ! is_numeric($start) )
+         if( empty($start) && ! is_numeric($start) )
         {
-            // Eğer son segmen sayısal bir veri değilse
-            // Başlangıç değerini 0 olarak ayarla.
-            if( ! is_numeric(URI::segment(-1)) )
-            {
-                $startPage = 0;
-            }
-            else
-            {
-                // Son segment sayısal veri ise
-                // başlangıç değeri olarak ayarla
-                $startPage = URI::segment(-1);
-            }
+            $startPage = ! is_numeric($segment = URI::segment(-1)) ? 0 : $segment;
         }
         else
         {
-            // @start parametresi boş değilse
-
-            // @start parametresi sayılsal bir veri değilse
-            // başlangıç değeri olarak 0 ayarla
-            if( ! is_numeric($start) )
-            {
-                $start = 0;
-            }
-
-            // @start prametresi sayılsal bir değerse
-            // bu değeri başlangıç değeri olarak ayarla.
-            $startPage = $start;
+            $startPage = ! is_numeric($start) ? 0 : $start;
         }
 
-        // Kaç adet sayfa oluşacağı belirleniyor
-        // Sayfa Sayısı = Toplam Satır / Limit
-        $this->limit = $this->limit === 0 ? 1 : $this->limit;
+        $this->limit     = $this->limit === 0 ? 1 : $this->limit;
+        $perPage         = ceil($this->totalRows / $this->limit);
 
-        $perPage = ceil($this->totalRows / $this->limit);
+        $linksClass      = $this->_classLink('links');
+        $linksStyle      = $this->_styleLink('links');
 
-        $lc = ( ! empty($this->class['links']) ) ? $this->class['links'].' ' : '';
-        $ls = ( ! empty($this->style['links']) ) ? $this->style['links'].' ' : '';
+        $linksStyleClass = $linksClass . $linksStyle;
 
-        $linksClass = ! empty($lc) ? ' class="'.trim($lc).'"' : '';
-        $linksStyle = ! empty($ls) ? ' style="'.trim($ls).'"' : '';
-
-        $linksStyleClass = $linksClass.$linksStyle;
-
-        // Toplam link sayısı sayfa sayısından büyükse
         if( $this->countLinks > $perPage )
         {
             // LINKS -------------------------------------------------------------------
@@ -182,35 +165,30 @@ class InternalPagination extends CLController implements InternalPaginationInter
             {
                 $page = ($i - 1) * $this->limit;
 
-                // Kontrolere göre varsa stil veya sınıf verileri ekleniyor.
-
                 if( $i - 1 == floor($startPage / $this->limit) )
                 {
-                    $currentLinkClass = ( $classC = trim($lc.$this->class['current']) ) ? ' class="'.$classC.'"' : "";
-
-                    $currentLinkStyle = ( $styleC = trim($ls.$this->style['current']) ) ? ' style="'.$styleC.'"' : "";
-
-                    $currentLink = $currentLinkClass.$currentLinkStyle;
+                    $currentLinkClass = $this->_class('current');
+                    $currentLinkStyle = $this->_style('current');
+                    $currentLink      = $currentLinkClass . $currentLinkStyle;
                 }
                 else
                 {
                     $currentLink = $linksStyleClass;
                 }
 
-                $links .= '<a href="'.$this->_uriGetCotrol($page).'"'.$this->_ajax($page).$currentLink.'>'.$i.'</a>';
+                $links .= $this->_link($page, $currentLink, $i);
             }
             // LINKS -------------------------------------------------------------------
 
-            // PREV Sonraki butonu ile ilgili kontrol yapılıyor.
             // PREV TAG ---------------------------------------------------------------
             if( $startPage != 0 )
             {
-                $classPrev  = ( $classP = trim($lc.$this->class['prev']) ) ? ' class="'.$classP.'"' : "";
-                $stylePrev  = ( $styleP = trim($ls.$this->style['prev']) ) ? ' style="'.$styleP.'"' : "";
-                $firstStcl  = $classPrev.$stylePrev;
+                $classPrev  = $this->_class('prev');
+                $stylePrev  = $this->_style('prev');
 
                 $pageRowNumber = $startPage - $this->limit;
-                $first = '<a href="'.$this->_uriGetCotrol($pageRowNumber).'"'.$this->_ajax($pageRowNumber).$firstStcl.'>'.$this->prevTag.'</a>';
+                $firstStcl     = $classPrev . $stylePrev;
+                $first         = $this->_link($pageRowNumber, $firstStcl, $this->prevTag);
             }
             else
             {
@@ -218,19 +196,15 @@ class InternalPagination extends CLController implements InternalPaginationInter
             }
             // PREV TAG ---------------------------------------------------------------
 
-            // NEXT Sonraki butonu ile ilgili kontrol yapılıyor.
             // NEXT TAG ---------------------------------------------------------------
             if( $startPage != $page )
             {
-                $classNext = ( $classN = trim($lc.$this->class['next']) ) ? ' class="'.$classN.'"' : "";
-                $styleNext = ( $styleN = trim($ls.$this->style['next']) ) ? ' style="'.$styleN.'"' : "";
+                $classNext = $this->_class('next');
+                $styleNext = $this->_style('next');
 
                 $pageRowNumber = $startPage + $this->limit;
-
-                $lastUrl   = $this->_uriGetCotrol($pageRowNumber);
-                $lastStcl  = $classNext.$styleNext;
-
-                $last = '<a href="'.$lastUrl.'"'.$this->_ajax($pageRowNumber).$lastStcl.'>'.$this->nextTag.'</a>';
+                $lastStcl      = $classNext . $styleNext;
+                $last          = $this->_link($pageRowNumber, $lastStcl, $this->nextTag);
             }
             else
             {
@@ -251,39 +225,17 @@ class InternalPagination extends CLController implements InternalPaginationInter
         {
             $perPage = $this->countLinks;
 
-            // Linkler için class kontrolleri sağlanıyor. ------------------------------
+            $lastTagClass     = $this->_class('last');
+            $firstTagClass    = $this->_class('first');
+            $nextTagClass     = $this->_class('next');
+            $currentLinkClass = $this->_class('current');
+            $prevTagClass     = $this->_class('prev');
 
-            // LAST LINK
-            $lastTagClass     = ( $classLast = trim($lc.$this->class['last']) ) ? ' class="'.$classLast.'" ' : '';
-
-            // FIRST LINK
-            $firstTagClass    = ( $classFirst = trim($lc.$this->class['first']) ) ? ' class="'.$classFirst.'" ' : '';
-
-            // NEXT LINK
-            $nextTagClass     = ( $classNext = trim($lc.$this->class['next']) ) ? ' class="'.$classNext.'" ' : '';
-
-            // CURRENT LINK
-            $currentLinkClass = ( $classCurrent = trim($lc.$this->class['current']) ) ? ' class="'.$classCurrent.'" ' : '';
-
-            // PREV
-            $prevTagClass     = ( $classPrev = trim($lc.$this->class['prev']) ) ? ' class="'.$classPrev.'" ' : '';
-            // -------------------------------------------------------------------------
-
-            // Linkler için style kontrolleri sağlanıyor. ------------------------------
-
-            // LAST LINK
-            $lastTagStyle     = ( $styleLast = trim($ls.$this->style['last']) ) ? ' style="'.$styleLast.'" ' : '';
-
-            // FIRST LINK
-            $firstTagStyle    = ( $styleFirst = trim($ls.$this->style['first']) ) ? ' style="'.$styleFirst.'" ' : '';
-
-            // NEXT LINK
-            $nextTagStyle     = ( $styleNext = trim($ls.$this->style['next']) ) ? ' style="'.$styleNext.'" ' : '';
-
-            // CURRENT LINK
-            $currentLinkStyle = ( $styleCurrent = trim($ls.$this->style['current']) ) ? ' style="'.$styleCurrent.'" ' : '';
-            // PREV
-            $prevTagStyle     = ( $stylePrev = trim($ls.$this->style['prev']) ) ? ' style="'.$stylePrev.'" ' : '';
+            $lastTagStyle     = $this->_style('last');
+            $firstTagStyle    = $this->_style('first');
+            $nextTagStyle     = $this->_style('next');
+            $currentLinkStyle = $this->_style('current');
+            $prevTagStyle     = $this->_style('prev');
             // -------------------------------------------------------------------------
 
             // -------------------------------------------------------------------------
@@ -293,12 +245,8 @@ class InternalPagination extends CLController implements InternalPaginationInter
             $outNumber = ( $mod == 0 ? $this->limit : 0 );
 
             $pageRowNumber     = ($this->totalRows - ($this->totalRows % $this->limit) ) - $outNumber;
-            $lastTagNum        = $this->_uriGetCotrol($pageRowNumber);
-            $lastTagStyleClass = $lastTagClass.$lastTagStyle;
-
-
-
-            $lastTag = '<a href="'.$lastTagNum.'"'.$this->_ajax($pageRowNumber).$lastTagStyleClass.'>'.$this->lastTag.'</a>';
+            $lastTagStyleClass = $lastTagClass . $lastTagStyle;
+            $lastTag           = $this->_link($pageRowNumber, $lastTagStyleClass, $this->lastTag);
             // -------------------------------------------------------------------------
 
             // -------------------------------------------------------------------------
@@ -306,7 +254,7 @@ class InternalPagination extends CLController implements InternalPaginationInter
             // -------------------------------------------------------------------------
             $firstTagStyleClass = $firstTagClass.$firstTagStyle;
 
-            $firstTag = '<a href="'.$this->_uriGetCotrol('0').'"'.$this->_ajax(0).$firstTagStyleClass.'>'.$this->firstTag.'</a>';
+            $firstTag = $this->_link(0, $firstTagStyleClass, $this->firstTag);
             // -------------------------------------------------------------------------
 
             if( $startPage > 0 )
@@ -314,11 +262,9 @@ class InternalPagination extends CLController implements InternalPaginationInter
                 // -------------------------------------------------------------------------
                 // PREV TAG
                 // -------------------------------------------------------------------------
-                $pageRowNumber = $startPage - $this->limit;
-                $firstNum = $this->_uriGetCotrol($pageRowNumber);
-                $prevTagStyleClass = $prevTagClass.$prevTagStyle;
-
-                $first = '<a href="'.$firstNum.'"'.$this->_ajax($pageRowNumber).$prevTagStyleClass.'>'.$this->prevTag.'</a>';
+                $pageRowNumber     = $startPage    - $this->limit;
+                $prevTagStyleClass = $prevTagClass . $prevTagStyle;
+                $first             = $this->_link($pageRowNumber, $prevTagStyleClass, $this->prevTag);
                 // -------------------------------------------------------------------------
             }
             else
@@ -340,11 +286,9 @@ class InternalPagination extends CLController implements InternalPaginationInter
                 // -------------------------------------------------------------------------
                 // NEXT TAG
                 // -------------------------------------------------------------------------
-                $pageRowNumber = $startPage + $this->limit;
-                $lastNum = $this->_uriGetCotrol($pageRowNumber);
-                $nextTagStyleClass = $nextTagClass.$nextTagStyle;
-
-                $last = '<a href="'.$lastNum.'"'.$this->_ajax($pageRowNumber).$nextTagStyleClass.'>'.$this->nextTag.'</a>';
+                $pageRowNumber     = $startPage    + $this->limit;
+                $nextTagStyleClass = $nextTagClass . $nextTagStyle;
+                $last              = $this->_link($pageRowNumber, $nextTagStyleClass, $this->nextTag);
                 // -------------------------------------------------------------------------
             }
             else
@@ -374,7 +318,6 @@ class InternalPagination extends CLController implements InternalPaginationInter
             {
                 $page = ($i - 1) * $this->limit;
 
-                // Aktif sayfa linki kontrol ediliyor.
                 if( $i - 1 == floor((int)$startPage / $this->limit) )
                 {
                     $currentLink = $currentLinkClass.$currentLinkStyle;
@@ -384,7 +327,7 @@ class InternalPagination extends CLController implements InternalPaginationInter
                     $currentLink = $linksStyleClass;
                 }
 
-                $links .= '<a href="'.$this->_uriGetCotrol($page).'"'.$this->_ajax($page).$currentLink.'>'.$i.'</a>';
+                $links .= $this->_link($page, $currentLink, $i);
                 // -------------------------------------------------------------------------
             }
 
@@ -397,6 +340,53 @@ class InternalPagination extends CLController implements InternalPaginationInter
                 return false;
             }
         }
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Proctected
+    //--------------------------------------------------------------------------------------------------------
+    protected function _link($var, $fix, $val)
+    {
+        return '<a href="'.$this->_uriGetControl($var).'"'.$this->_ajax($var).$fix.'>'.$val.'</a>';
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Proctected
+    //--------------------------------------------------------------------------------------------------------
+    protected function _styleLink($var, $type = 'style')
+    {
+        $l = ( ! empty($this->{$type}[$var]) ) ? $this->{$type}[$var].' ' : '';
+
+        if( $type === 'class' )
+        {
+            $this->lc = $l;
+        }
+
+        return ! empty($l) ? ' '.$type.'="'.trim($l).'"' : '';
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Proctected
+    //--------------------------------------------------------------------------------------------------------
+    protected function _classLink($var)
+    {
+        return $this->_styleLink($var, 'class');
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Proctected
+    //--------------------------------------------------------------------------------------------------------
+    protected function _class($var, $type = 'class')
+    {
+        return ( $status = trim($this->lc . $this->{$type}[$var]) ) ? ' '.$type.'="'.$status.'" ' : '';
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Proctected
+    //--------------------------------------------------------------------------------------------------------
+    protected function _style($var)
+    {
+        return $this->_class($var, 'style');
     }
 
     //--------------------------------------------------------------------------------------------------------

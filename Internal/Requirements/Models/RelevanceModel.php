@@ -34,7 +34,7 @@ class RelevanceModel extends \BaseController
     protected $resultMethods = 
     [
         'result', 'resultarray', 'row', 'columns', 'columndata', 'totalrows', 'totalcolumns', 'value',
-        'stringquery'
+        'stringquery', 'pagination'
     ];
 
     //--------------------------------------------------------------------------------------------------------
@@ -262,6 +262,20 @@ class RelevanceModel extends \BaseController
     }
 
     //--------------------------------------------------------------------------------------------------------
+    // Pagination -> 5.4.02[added]
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $url     : empty
+    // @param array  $settings: empty
+    // @param bool   $output  : true
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function pagination(String $url = NULL, Array $settings = [], Bool $output = true)
+    {
+        return $this->get->pagination($url, $settings, $output);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
     // Protected Tables
     //--------------------------------------------------------------------------------------------------------
     // 
@@ -298,8 +312,10 @@ class RelevanceModel extends \BaseController
     protected function _resultMethods($method, $parameters)
     {
         $this->relevance();
+
+        $this->get = DB::get($this->_tableName());
         
-        return DB::get($this->_tableName())->$method(...$parameters);
+        return  $this->get->$method(...$parameters);
     }
 
     //--------------------------------------------------------------------------------------------------------
