@@ -53,7 +53,8 @@
         'flexSlider'                 => 'https://cdnjs.cloudflare.com/ajax/libs/flexslider/2.6.3/jquery.flexslider.js',
         'ace'                        => 'https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ace.js',
         'sweetAlert'                 => 'https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js',
-        'dropzone'                   => 'https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.2.0/min/dropzone.min.js'
+        'dropzone'                   => 'https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.2.0/min/dropzone.min.js',
+        'tinymce'                    => 'https://cloud.tinymce.com/stable/tinymce.min.js'
     ],
 
     //----------------------------------------------------------------------------------------------

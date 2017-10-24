@@ -234,7 +234,6 @@ class DriverTool extends DriverExtends
 
                 foreach( $row as $k => $v )
                 {
-                    $v = $this->differentConnection->realEscapeString((string) $v);
                     $v = preg_replace("/\n/","\\n", $v );
 
                     if ( isset($v) )

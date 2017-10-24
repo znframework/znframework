@@ -118,6 +118,15 @@ class InternalDBGrid extends Abstracts\GridAbstract
     protected $outputs = [];
 
     //--------------------------------------------------------------------------------------------------------
+    // Inputs -> 5.4.02
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var array
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected $select = [];
+
+    //--------------------------------------------------------------------------------------------------------
     // Construct
     //--------------------------------------------------------------------------------------------------------
     //
@@ -678,8 +687,16 @@ class InternalDBGrid extends Abstracts\GridAbstract
             {
                 $hiddenJoins = Form::hidden('joinsId', $this->_encode($joinsData));
             }
-
-            $combine = array_combine($originColumns = ($this->_origincolumns() ?: []), $value);
+			
+			// 5.4.02[edited]
+            if( count($originColumns = $this->_origincolumns()) === count($value) )
+            {
+                $combine = array_combine($originColumns, $value);
+            }
+            else
+            {
+                $combine = $value;
+            }
 
             $table .= '<tr><td>'.($key + 1).'</td><td>'.
                     implode('</td><td>', Arrays::force($value, function($data) use($i, $originColumns, $combine)
@@ -889,7 +906,7 @@ class InternalDBGrid extends Abstracts\GridAbstract
 
         if( ! empty($this->joins) )
         {
-            $select = Arrays::addFirst($this->select, $this->table.'.'.$this->processColumn.' as id');
+            $select = Arrays::addFirst($this->select, $this->table.'.'.$this->processColumn.' as ID');
         }
 
         DB::select(...$select);
@@ -1137,5 +1154,6 @@ class InternalDBGrid extends Abstracts\GridAbstract
         $this->joins   = [];
         $this->inputs  = [];
         $this->outputs = [];
+        $this->select  = [];
     }
 }

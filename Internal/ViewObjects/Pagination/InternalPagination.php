@@ -40,7 +40,7 @@ class InternalPagination extends CLController implements InternalPaginationInter
     // @var string
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $lc;
+    protected $lc, $ls;
 
     //--------------------------------------------------------------------------------------------------------
     // Protected URI Get Control
@@ -357,11 +357,8 @@ class InternalPagination extends CLController implements InternalPaginationInter
     {
         $l = ( ! empty($this->{$type}[$var]) ) ? $this->{$type}[$var].' ' : '';
 
-        if( $type === 'class' )
-        {
-            $this->lc = $l;
-        }
-
+        if( $type === 'class' ) $this->lc = $l; else $this->ls = $l;
+   
         return ! empty($l) ? ' '.$type.'="'.trim($l).'"' : '';
     }
 
@@ -378,7 +375,7 @@ class InternalPagination extends CLController implements InternalPaginationInter
     //--------------------------------------------------------------------------------------------------------
     protected function _class($var, $type = 'class')
     {
-        return ( $status = trim($this->lc . $this->{$type}[$var]) ) ? ' '.$type.'="'.$status.'" ' : '';
+        return ( $status = trim(( $type === 'class' ? $this->lc : $this->ls) . $this->{$type}[$var]) ) ? ' '.$type.'="'.$status.'" ' : '';
     }
 
     //--------------------------------------------------------------------------------------------------------
