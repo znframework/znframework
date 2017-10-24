@@ -679,16 +679,8 @@ class InternalDBGrid extends Abstracts\GridAbstract
         foreach( $result as $key => $value )
         {
             static $i    = 0;
-            $value       = Arrays::casing($value, 'lower', 'key');
-            $hiddenValue = $value[strtolower($this->processColumn)] ?? NULL;
-            $hiddenId    = Form::hidden('id', $hiddenValue);
 
-            if( ! empty( $this->joins ) )
-            {
-                $hiddenJoins = Form::hidden('joinsId', $this->_encode($joinsData));
-            }
-			
-			// 5.4.02[edited]
+            // 5.4.02|5.4.05[edited]
             if( count($originColumns = $this->_origincolumns()) === count($value) )
             {
                 $combine = array_combine($originColumns, $value);
@@ -696,6 +688,15 @@ class InternalDBGrid extends Abstracts\GridAbstract
             else
             {
                 $combine = $value;
+            }
+
+            $value       = Arrays::casing($combine, 'lower', 'key');
+            $hiddenValue = $value[strtolower($this->processColumn)] ?? NULL;
+            $hiddenId    = Form::hidden('id', $hiddenValue);
+     
+            if( ! empty( $this->joins ) )
+            {
+                $hiddenJoins = Form::hidden('joinsId', $this->_encode($joinsData));
             }
 
             $table .= '<tr><td>'.($key + 1).'</td><td>'.

@@ -273,7 +273,7 @@ class DriverTool extends DriverExtends
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Import -> 5.3.9
+    // Import -> 5.3.9 - 5.4.1[edited]
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string $file = NULL
@@ -283,7 +283,7 @@ class DriverTool extends DriverExtends
     {
         if( is_file($file) )
         {   
-            return $this->differentConnection->query(File::read($file));
+            return $this->differentConnection->multiQuery(File::read($file));
         }
 
         return false;
