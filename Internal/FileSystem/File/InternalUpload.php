@@ -1,6 +1,6 @@
 <?php namespace ZN\FileSystem;
 
-use Config, Folder, File, Converter, Encode, CallController, IS;
+use Config, Folder, File, Converter, Encode, CallController, IS, Mime, Lang;
 
 class InternalUpload extends CallController implements InternalUploadInterface
 {
@@ -114,6 +114,12 @@ class InternalUpload extends CallController implements InternalUploadInterface
             $this->settings['extensions']   = $set['extensions'];
         }
 
+         // 1-extensions -> Dosyanın uzantısı
+         if( isset($set['mimes']) )
+         {
+             $this->settings['mimes']   = $set['mimes'];
+         }
+
         // 2-encode -> Dosyanın şifrelenmesi
         if( isset($set['encode']) )
         {
@@ -186,6 +192,23 @@ class InternalUpload extends CallController implements InternalUploadInterface
     public function convertName(Bool $convert = true) : InternalUpload
     {
         $this->settings['convertName'] = $convert;
+
+        return $this;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Mimes -> 5.4.1[added]
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string variadic $args
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function mimes(...$args) : InternalUpload
+    {
+        if( ! empty($args ) )
+        {
+            $this->settings['mimes'] = implode('|', $args);
+        }
 
         return $this;
     }
@@ -340,6 +363,11 @@ class InternalUpload extends CallController implements InternalUploadInterface
             $extensions = explode("|", $this->settings['extensions']);
         }
 
+        if( isset($this->settings['mimes']) )
+        {
+            $mimes = explode("|", $this->settings['mimes']);
+        }
+
         $source = $_FILES[$fileName]['tmp_name'];
 
         // Çoklu yükleme yapılıyorsa.
@@ -379,7 +407,11 @@ class InternalUpload extends CallController implements InternalUploadInterface
 
                 if( isset($this->settings['extensions']) && ! in_array(File::extension($nm), $extensions) )
                 {
-                    $this->extensionControl = \Lang::select('FileSystem', 'upload:extensionError');
+                    $this->extensionControl = Lang::select('FileSystem', 'upload:extensionError');
+                }
+                elseif( isset($this->settings['mimes']) && ! in_array(Mime::type($nm), $mimes) )
+                {
+                    $this->extensionControl = Lang::select('FileSystem', 'upload:mimeError');
                 }
                 elseif( isset($this->settings['maxsize']) && $this->settings['maxsize'] < filesize($src) )
                 {
@@ -438,7 +470,11 @@ class InternalUpload extends CallController implements InternalUploadInterface
 
             if( isset($this->settings['extensions']) && ! in_array(File::extension($name),$extensions) )
             {
-                return ! $this->extensionControl = \Lang::select('FileSystem', 'upload:extensionError');
+                return ! $this->extensionControl = Lang::select('FileSystem', 'upload:extensionError');
+            }
+            elseif( isset($this->settings['mimes']) && ! in_array(Mime::type($name), $mimes) )
+            {
+                return ! $this->extensionControl = Lang::select('FileSystem', 'upload:mimeError');
             }
             else
             {
@@ -522,7 +558,7 @@ class InternalUpload extends CallController implements InternalUploadInterface
 
         if( $errorNo === NULL )
         {
-            return \Lang::select('FileSystem', 'upload:unknownError');
+            return Lang::select('FileSystem', 'upload:unknownError');
         }
 
         if( is_array($errorNo) )
@@ -541,7 +577,7 @@ class InternalUpload extends CallController implements InternalUploadInterface
             $errorNo = $errno;
         }
 
-        $lang = \Lang::select('FileSystem');
+        $lang = Lang::select('FileSystem');
 
         $this->errors =
         [
@@ -556,31 +592,26 @@ class InternalUpload extends CallController implements InternalUploadInterface
             '9'  => $lang['upload:9'], // Dosya yükleme yolu geçerli değil.
             '10' => $lang['upload:10'] // Belirlenen maksimum dosya boyutu aşıldı!
         ];
-        // Manuel belirlenen hata oluşmuşsa
+       
         if( ! empty($this->manuelError) )
         {
             return $this->errors[$this->manuelError];
         }
-        // Uzantıdan kaynaklı hata oluşmussa
         elseif( ! empty($this->extensionControl) )
         {
             return $this->extensionControl;
         }
-        // Hata numarasına göre hata bildir.
         elseif( ! empty($this->errors[$errorNo]) )
         {
             if( $this->errors[$errorNo] === "scc" )
             {
                 return false;
             }
-            // 0 Dışında herhangi bir hata numarası oluşmussa
             return $this->errors[$errorNo];
         }
-        // Bu kontroller dışında hata oluşmussa bilinmeyen
-        // hata uyarısı ver.
         else
         {
-            return \Lang::select('FileSystem', 'upload:unknownError');
+            return Lang::select('FileSystem', 'upload:unknownError');
         }
     }
 

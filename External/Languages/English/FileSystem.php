@@ -19,6 +19,7 @@
     //
     //----------------------------------------------------------------------------------------------------
     'upload:extensionError'  => 'Invalid file extension!',
+    'upload:mimeError'       => 'Invalid mime type!',
     'upload:unknownError'    => 'Unknown error or file is too large!',
     'upload:0'               => 'The file was uploaded successfully.',
     'upload:1'               => 'Maximum file size exceeded your php.ini file!',

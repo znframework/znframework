@@ -127,6 +127,15 @@ class InternalDBGrid extends Abstracts\GridAbstract
     protected $select = [];
 
     //--------------------------------------------------------------------------------------------------------
+    // Inputs -> 5.4.02
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var array
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected $add = NULL;
+
+    //--------------------------------------------------------------------------------------------------------
     // Construct
     //--------------------------------------------------------------------------------------------------------
     //
@@ -140,6 +149,20 @@ class InternalDBGrid extends Abstracts\GridAbstract
         parent::__construct();
 
         $this->confirm = 'return confirm(\''.VIEWOBJECTS_DBGRID_LANG['areYouSure'].'\');';
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Add -> 5.4.1
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $add
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function add(String $add) : InternalDBGrid
+    {
+        $this->add = $add;
+
+        return $this;
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -619,7 +642,7 @@ class InternalDBGrid extends Abstracts\GridAbstract
             Form::close(), 'search');
         }
         
-        $table .= '</td><td colspan="'.($countColumns - 1).'"></td><td align="right" colspan="2">';
+        $table .= '</td><td colspan="'.($countColumns - 1).'">'.$this->add.'</td><td align="right" colspan="2">';
         
         $table .= $this->_hideButton(Form::action(CURRENT_CFPATH . URI::manipulation(['process' => 'add', 'order', 'type', 'page'], 'left'))
                       ->open('addForm').
@@ -1156,5 +1179,6 @@ class InternalDBGrid extends Abstracts\GridAbstract
         $this->inputs  = [];
         $this->outputs = [];
         $this->select  = [];
+        $this->add     = NULL;
     }
 }

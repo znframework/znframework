@@ -19,6 +19,7 @@
     //
     //----------------------------------------------------------------------------------------------------
     'upload:extensionError'  => 'Geçersiz dosya uzantısı!',
+    'upload:mimeError'       => 'Geçersiz mime türü!',
     'upload:unknownError'    => 'Bilinmeyen hata veya çok büyük boyutlu dosya!',
     'upload:0'               => 'Dosya başarı ile yüklendi.',
     'upload:1'               => 'Php.ini dosyasındaki maximum dosya boyutu aşıldı!',
