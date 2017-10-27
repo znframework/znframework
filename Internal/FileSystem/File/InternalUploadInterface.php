@@ -15,10 +15,10 @@ interface InternalUploadInterface
     // Settings
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param array $set
+    // @param array $settings 
     //
     //--------------------------------------------------------------------------------------------------------
-    public function settings(Array $set = []) : InternalUpload;
+    public function settings(Array $settings = []) : InternalUpload;
 
     //--------------------------------------------------------------------------------------------------------
     // Extension
