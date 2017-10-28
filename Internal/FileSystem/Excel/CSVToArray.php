@@ -39,6 +39,7 @@ class CSVToArray
                 $num = count($data);
 
                 $row++;
+                
                 for( $c = 0; $c < $num; $c++ )
                 {
                     $rows[] = explode(';', $data[$c]);

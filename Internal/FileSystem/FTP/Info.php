@@ -101,21 +101,12 @@ class Info extends Connection
             }
         }
 
-        if( $type === "b" )
+        switch( $type )
         {
-            return  $size;
-        }
-        if( $type === "kb" )
-        {
-            return round($size / 1024, $decimal);
-        }
-        if( $type === "mb" )
-        {
-            return round($size / (1024 * 1024), $decimal);
-        }
-        if( $type === "gb" )
-        {
-            return round($size / (1024 * 1024 * 1024), $decimal);
+            case 'b' : return $size;
+            case 'kb': return round($size / 1024, $decimal);
+            case 'mb': return round($size / (1024 * 1024), $decimal);
+            case 'gb': return round($size / (1024 * 1024 * 1024), $decimal);
         }
     }
 }

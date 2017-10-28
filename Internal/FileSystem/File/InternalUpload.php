@@ -50,15 +50,6 @@ class InternalUpload extends CallController implements InternalUploadInterface
     protected $extensionControl;
 
     //--------------------------------------------------------------------------------------------------------
-    // Setting Status
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var bool
-    //
-    //--------------------------------------------------------------------------------------------------------
-    protected $settingStatus = false;
-
-    //--------------------------------------------------------------------------------------------------------
     // Errors
     //--------------------------------------------------------------------------------------------------------
     //
@@ -399,16 +390,16 @@ class InternalUpload extends CallController implements InternalUploadInterface
 
         $this->errors =
         [
-            '0'  => "scc",             // Dosya başarı ile yüklendi.
-            '1'  => $lang['upload:1'], // Php.ini dosyasındaki maximum dosya boyutu aşıldı.
-            '2'  => $lang['upload:2'], // Formtaki max_file_size direktifindeki dosya boyutu limiti aşıldı.
-            '3'  => $lang['upload:3'], // Dosya yükleme işlemi tamamlanmadı.
-            '4'  => $lang['upload:4'], // Yüklenecek dosya yok.
-            '6'  => $lang['upload:6'], // Dosyaların geçici olarak yükleneceği dizin bulunamadı.
-            '7'  => $lang['upload:7'], // Dosya dik üzerine yazılamadı.
-            '8'  => $lang['upload:8'], // Dosya yükleme uzantı desteği yok.
-            '9'  => $lang['upload:9'], // Dosya yükleme yolu geçerli değil.
-            '10' => $lang['upload:10'] // Belirlenen maksimum dosya boyutu aşıldı!
+            '0'  => "scc",            
+            '1'  => $lang['upload:1'],
+            '2'  => $lang['upload:2'], 
+            '3'  => $lang['upload:3'], 
+            '4'  => $lang['upload:4'], 
+            '6'  => $lang['upload:6'], 
+            '7'  => $lang['upload:7'], 
+            '8'  => $lang['upload:8'], 
+            '9'  => $lang['upload:9'],
+            '10' => $lang['upload:10']
         ];
        
         if( ! empty($this->manuelError) )

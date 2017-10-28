@@ -561,7 +561,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param string $logical
     //
     //--------------------------------------------------------------------------------------------------------
-    public function where($column, String $value = NULL, String $logical = NULL) : InternalDB
+    public function where($column, String $value = NULL, String $logical = 'and') : InternalDB
     {
         $this->_wh($column, $value, $logical, __FUNCTION__);
 
@@ -605,7 +605,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param string $logical
     //
     //--------------------------------------------------------------------------------------------------------
-    public function having($column, String $value = NULL, String $logical = NULL) : InternalDB
+    public function having($column, String $value = NULL, String $logical = 'and') : InternalDB
     {
         $this->_wh($column, $value, $logical, __FUNCTION__);
 
@@ -2367,6 +2367,12 @@ class InternalDB extends Connection implements InternalDBInterface
     //--------------------------------------------------------------------------------------------------------
     // Protected Where Having
     //--------------------------------------------------------------------------------------------------------
+     //
+    // @param string $column
+    // @param string $value
+    // @param string $logical
+    //
+    //--------------------------------------------------------------------------------------------------------
     protected function _whereHaving($column, $value, $logical)
     {
         if( $value !== '' )
@@ -2383,6 +2389,13 @@ class InternalDB extends Connection implements InternalDBInterface
 
     //--------------------------------------------------------------------------------------------------------
     // Protected Where Having
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $column
+    // @param string $value
+    // @param string $logical
+    // @param string $type 
+    //
     //--------------------------------------------------------------------------------------------------------
     protected function _wh($column, $value, $logical, $type = 'where')
     {
@@ -2401,7 +2414,7 @@ class InternalDB extends Connection implements InternalDBInterface
                 {
                     $c = $col[0] ?? '';
                     $v = $col[1] ?? '';
-                    $l = $col[2] ?? '';
+                    $l = $col[2] ?? 'and';
 
                     $this->$type .= $this->_whereHaving($c, $v, $l);
                 }
@@ -2417,6 +2430,10 @@ class InternalDB extends Connection implements InternalDBInterface
 
     //--------------------------------------------------------------------------------------------------------
     // Protected Where Having Group
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param array $conditions
+    //
     //--------------------------------------------------------------------------------------------------------
     protected function _whereHavingGroup($conditions = [])
     {
@@ -2443,7 +2460,7 @@ class InternalDB extends Connection implements InternalDBInterface
             }
             else
             {
-                $conjunction = '';
+                $conjunction = 'and';
             }
         }
 
@@ -2453,7 +2470,7 @@ class InternalDB extends Connection implements InternalDBInterface
         {
             $col     = $column[0] ?? '';
             $value   = $column[1] ?? '';
-            $logical = $column[2] ?? '';
+            $logical = $column[2] ?? 'and';
 
             $whereGroup .= $this->_whereHaving($col, $value, $logical);
         }
@@ -2464,34 +2481,15 @@ class InternalDB extends Connection implements InternalDBInterface
     //--------------------------------------------------------------------------------------------------------
     // Protected Where Having Conjuction Control
     //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $type
+    //
+    //--------------------------------------------------------------------------------------------------------
     protected function _whereHavingConjuctionControl($type)
     {
         if( ! empty($this->$type) )
         {
-            $trim  = trim($this->$type);
-            $lower = strtolower($trim);
-
-            switch( substr($lower, -3) )
-            {
-                case 'and' :
-                case 'xor' :
-                case 'not' :
-                $this->$type = substr($trim, 0, -3);
-            }
-
-            switch( substr($lower, -2) )
-            {
-                case 'or' :
-                case '||' :
-                case '&&' :
-                $this->$type = substr($trim, 0, -2);
-            }
-
-            switch( substr($lower, -1) )
-            {
-                case '!' :
-                $this->$type = substr($trim, 0, -1);
-            }
+            $this->$type = $this->_whereHavingConjuctionClean($this->$type) ?: $this->$type;
 
             $return = ' '.\Autoloader::upper($type).' '.$this->$type;
 
@@ -2503,6 +2501,10 @@ class InternalDB extends Connection implements InternalDBInterface
 
     //--------------------------------------------------------------------------------------------------------
     // Protected Where Having Conjuction Clean
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $str
+    //
     //--------------------------------------------------------------------------------------------------------
     protected function _whereHavingConjuctionClean($str)
     {
@@ -2539,6 +2541,10 @@ class InternalDB extends Connection implements InternalDBInterface
     //--------------------------------------------------------------------------------------------------------
     // Protected Where
     //--------------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
     protected function _where()
     {
         return $this->_whereHavingConjuctionControl('where');
@@ -2546,6 +2552,10 @@ class InternalDB extends Connection implements InternalDBInterface
 
     //--------------------------------------------------------------------------------------------------------
     // Protected Having
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
     //--------------------------------------------------------------------------------------------------------
     protected function _having()
     {
@@ -2709,6 +2719,10 @@ class InternalDB extends Connection implements InternalDBInterface
     //--------------------------------------------------------------------------------------------------------
     // Protected Cache Query
     //--------------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
     protected function _cacheQuery()
     {
         return md5(Json::encode($this->config) . $this->stringQuery());
@@ -2716,6 +2730,10 @@ class InternalDB extends Connection implements InternalDBInterface
 
     //--------------------------------------------------------------------------------------------------------
     // Protected Select Reset Query
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
     //--------------------------------------------------------------------------------------------------------
     protected function _resetSelectQuery()
     {
@@ -2754,6 +2772,10 @@ class InternalDB extends Connection implements InternalDBInterface
     //--------------------------------------------------------------------------------------------------------
     // Protected Reset Insert Query
     //--------------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
     protected function _resetInsertQuery()
     {
         $this->column          = NULL;
@@ -2770,6 +2792,10 @@ class InternalDB extends Connection implements InternalDBInterface
     //--------------------------------------------------------------------------------------------------------
     // Protected Reset Update Query
     //--------------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
     protected function _resetUpdateQuery()
     {
         $this->where           = NULL;
@@ -2784,6 +2810,10 @@ class InternalDB extends Connection implements InternalDBInterface
 
     //--------------------------------------------------------------------------------------------------------
     // Protected Reset Delete Query
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
     //--------------------------------------------------------------------------------------------------------
     protected function _resetDeleteQuery()
     {

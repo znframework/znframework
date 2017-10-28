@@ -29,7 +29,7 @@ interface InternalDBInterface
     // @param string $logical
     //
     //--------------------------------------------------------------------------------------------------------
-    public function where($column, String $value = NULL, String $logical = NULL) : InternalDB;
+    public function where($column, String $value = NULL, String $logical = 'and') : InternalDB;
 
 
     //--------------------------------------------------------------------------------------------------------
@@ -41,7 +41,7 @@ interface InternalDBInterface
     // @param string $logical
     //
     //--------------------------------------------------------------------------------------------------------
-    public function having($column, String $value = NULL, String $logical = NULL) : InternalDB;
+    public function having($column, String $value = NULL, String $logical = 'and') : InternalDB;
 
     //--------------------------------------------------------------------------------------------------------
     // Caching -> 4.3.6
