@@ -40,7 +40,8 @@
         [
             '/External/',
             '/Internal/',
-            '/Projects/'
+            '/Projects/',
+            '/Settings/'
         ]
     ]
 ];

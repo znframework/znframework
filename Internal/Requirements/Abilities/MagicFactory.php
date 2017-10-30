@@ -34,10 +34,10 @@
         }
         else
         {
-            $classEx   = explode('::', $class);
-            $class     = $classEx[0] ?? NULL;
-            $method    = $classEx[1] ?? NULL;
-            $isThis    = NULL;
+            $classEx = explode('::', $class);
+            $class   = $classEx[0] ?? NULL;
+            $method  = $classEx[1] ?? NULL;
+            $isThis  = NULL;
 
             if( stristr($method, ':this') )
             {
@@ -45,9 +45,9 @@
                 $isThis = 'this';
             }
 
-            $namespace   = str_ireplace(Strings::divide($calledClass, '\\', -1), NULL, $calledClass);
+            $namespace = str_ireplace(Strings::divide($calledClass, '\\', -1), NULL, $calledClass);
 
-            $return = uselib($namespace.$class)->$method(...$parameters);
+            $return = uselib($namespace . $class)->$method(...$parameters);
 
             if( $isThis === 'this' )
             {
