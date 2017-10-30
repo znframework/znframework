@@ -128,7 +128,7 @@ class InternalRegex implements InternalRegexInterface
         $specialChars = $this->specialChars;
         $regexChars   = Arrays::multikey($this->regexChars);
         $settingChars = Arrays::multikey($this->settingChars);
-        $pattern      = str_ireplace(array_values($regexChars), array_keys($regexChars), $pattern);
+        $pattern      = str_ireplace(array_values($regexChars  ), array_keys($regexChars  ), $pattern);
         $pattern      = str_ireplace(array_values($specialChars), array_keys($specialChars), $pattern);
 
         return rtrim(ltrim($pattern, $delimiter), $delimiter);

@@ -468,7 +468,7 @@ class InternalMigration extends \CallController implements InternalMigrationInte
         switch( $length )
         {
             case 1 : $numeric = '00'.$numeric; break;
-            case 2 : $numeric = '0'.$numeric;  break;
+            case 2 : $numeric = '0' .$numeric; break;
         }
 
         if( $numeric === '000' )

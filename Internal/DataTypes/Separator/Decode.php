@@ -22,15 +22,8 @@ class Decode extends SeparatorExtends
     //--------------------------------------------------------------------------------------------------------
     public function do(String $word, String $key = NULL, String $separator = NULL) : \stdClass
     {
-        if( empty($key) )
-        {
-            $key = $this->key;
-        }
-
-        if( empty($separator) )
-        {
-            $separator = $this->separator;
-        }
+        $key       = $key       ?: $this->key;
+        $separator = $separator ?: $this->separator;
 
         $keyval = explode($separator, $word);
         $splits = [];

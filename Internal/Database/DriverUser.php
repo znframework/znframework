@@ -313,9 +313,9 @@ class DriverUser
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string $resource: query       => MAX_QUERIES_PER_HOUR
-    //                          update      => 'MAX_UPDATES_PER_HOUR
-    //                          connection  => 'MAX_CONNECTIONS_PER_HOUR
-    //                          user        => 'MAX_USER_CONNECTIONS
+    //                          update      => MAX_UPDATES_PER_HOUR
+    //                          connection  => MAX_CONNECTIONS_PER_HOUR
+    //                          user        => MAX_USER_CONNECTIONS
     // @param string $count   : 0
     //
     //--------------------------------------------------------------------------------------------------------
@@ -593,7 +593,6 @@ class DriverUser
             $grant = ' '.$name.' ON '.$grantType.' '.$grantSelect.$toFrom;
 
             $name = '';
-
         }
 
         if( empty($this->name) )
