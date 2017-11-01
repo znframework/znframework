@@ -95,15 +95,11 @@ class InternalForm
         if( isset($this->settings['where']) )
         {
             $this->settings['getrow'] = DB::get($name)->row();
-  
-            unset($this->settings['where']);
         }
 
         if( $query = ($this->settings['query'] ?? NULL) )
         {
             $this->settings['getrow'] = DB::query($query)->row();
-
-            unset($this->settings['query']);
         }
 
         $this->method = $_attributes['method'];
@@ -115,7 +111,7 @@ class InternalForm
             $return .= CSRFInput();
         }
 
-        $this->settings['token'] = NULL;
+        $this->_unsetopen();
 
         return $return;
     }
@@ -319,7 +315,7 @@ class InternalForm
 
         $selectbox .= '</select>'.EOL;
 
-        $this->settings = [];
+        $this->_unsetselect();
 
         return $selectbox;
     }
@@ -408,5 +404,38 @@ class InternalForm
         }
 
         return $this->_input($name, '', $_attributes, 'file');
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Unset Select Data
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _unsetselect()
+    {
+        unset($this->settings['table']);
+        unset($this->settings['query']);
+        unset($this->settings['option']);
+        unset($this->settings['exclude']);
+        unset($this->settings['include']);
+        unset($this->settings['order']);
+        unset($this->settings['selectedKey']);
+        unset($this->settings['selectedValue']);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Unset Select Data
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _unsetopen()
+    {
+        unset($this->settings['where']);
+        unset($this->settings['query']);
+        unset($this->settings['token']);
     }
 }
