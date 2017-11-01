@@ -1,6 +1,6 @@
 <?php namespace ZN\ViewObjects\View;
 
-use Strings, Arrays, Validation, Classes;
+use Strings, Arrays, Validation, Classes, Json;
 
 trait ViewCommonTrait
 {
@@ -233,14 +233,13 @@ trait ViewCommonTrait
 
         if( ! empty($attributes['name']) )
         {
-            if( isset($this->postback['bool']) && $this->postback['bool'] === true )
-            {
-                $method = ! empty($this->method) ? $this->method : $this->postback['type'];
+            $this->_posback($attributes['name'], $attributes['value']);
 
-                $attributes['value'] = Validation::postBack($attributes['name'], $method);
+            // 5.4.2[added]
+            $this->_validate($attributes['name'], $attributes['name']);
 
-                $this->postback = [];
-            }
+            // 5.4.2[added]
+            $this->_getrow($type, $value, $attributes);
         }
 
         return '<input type="'.$type.'"'.$this->attributes($attributes).'>'.EOL;

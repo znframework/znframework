@@ -262,13 +262,13 @@ class InternalURL extends CallController implements InternalURLInterface
     // @param  mixed  $data         : empty
     // @param  string $numericPrefix: NULL
     // @param  string $separator    : NULL
-    // @param  string $enctype      : RFC1738
+    // @param  Int    $enctype = self::RFC1738
     // @return mixed
     //
     //--------------------------------------------------------------------------------------------------------
-    public function buildQuery($data, String $numericPrefix = NULL, String $separator = NULL, String $enctype = 'RFC1738') : String
+    public function buildQuery($data, String $numericPrefix = NULL, String $separator = NULL, Int $enctype = self::RFC1738) : String
     {
-        return http_build_query($data, $numericPrefix, $separator, Converter::toConstant($enctype, 'PHP_QUERY_'));
+        return http_build_query($data, $numericPrefix, $separator ?? '&', $enctype);
     }
 
     //--------------------------------------------------------------------------------------------------------

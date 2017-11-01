@@ -1,6 +1,6 @@
 <?php namespace ZN\ViewObjects\View;
 
-use Validator, Config, Security, Session, Encode, Method, CallController, Lang;
+use Validator, Config, Security, Session, Encode, Method, CallController, Lang, Post;
 use ZN\ViewObjects\View\Validation\Exception\InvalidArgumentException;
 
 class InternalValidation extends CallController implements InternalValidationInterface
@@ -102,7 +102,7 @@ class InternalValidation extends CallController implements InternalValidationInt
             return $this->_multipleRules($name, $config, $viewName, $met);
 
         $met      = $this->settings['method'] ?? 'post';
-        $viewName = $this->settings['value']  ?? '';
+        $viewName = $this->settings['value']  ?? $viewName;
 
         $config = array_merge
         (
@@ -167,6 +167,41 @@ class InternalValidation extends CallController implements InternalValidationInt
         array_push($this->errors, $this->messages);
 
         $this->_defaultVariables();
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Check -> 5.4.2
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $submit = NULL;
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function check(String $submit = NULL) : Bool
+    {
+        if( $submit !== NULL && ! Post::$submit() ) 
+        {
+            return false;
+        }
+        
+        $rules = Session::FormValidationRules();
+
+        if( is_array($rules) )
+        {
+            Session::delete('FormValidationRules');
+
+            foreach( $rules as $name => $rule )
+            {
+                $method = $rule['method'] ?? 'post';
+                $value  = $rule['value']  ??  $name;
+                
+                unset($rule['method']);
+                unset($rule['value' ]);
+                
+                $this->rules($name, $rule, $value, $method);
+            } 
+        }
+
+        return ! (Bool) $this->error('string');
     }
 
     //--------------------------------------------------------------------------------------------------------

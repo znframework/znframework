@@ -1,6 +1,6 @@
 <?php namespace ZN\ViewObjects\View;
 
-use URL, IS;
+use URL, IS, DB, Session;
 
 trait FormElementsTrait
 {
@@ -35,6 +35,29 @@ trait FormElementsTrait
     //
     //--------------------------------------------------------------------------------------------------------
     protected $postback = [];
+
+    //--------------------------------------------------------------------------------------------------------
+    // $validate
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var array
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected $validate = [];
+
+    //--------------------------------------------------------------------------------------------------------
+    // Validate
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param mixed ...$validate
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function validate(...$validate)
+    {
+        $this->validate = $validate;
+
+        return $this;
+    }
 
     //--------------------------------------------------------------------------------------------------------
     // postBack
@@ -99,6 +122,24 @@ trait FormElementsTrait
         }
 
         $this->settings['include'] = $include;
+
+        return $this;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // where()
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param mixed  $column
+    // @param string $value   = NULL
+    // @param string $logical = 'and'
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function where($column, String $value = NULL, String $logical = 'and')
+    {
+        $this->settings['where'] = true;
+
+        DB::where($column, $value, $logical);
 
         return $this;
     }
@@ -227,4 +268,90 @@ trait FormElementsTrait
 
         return $this;
     }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Postback
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $name
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _postback($name, &$default)
+    {
+        if( isset($this->postback['bool']) && $this->postback['bool'] === true )
+        {
+            $method   = ! empty($this->method) ? $this->method : $this->postback['type'];
+    
+            $this->postback = [];
+
+            $default = Validation::postBack($name, $method);
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Validate
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $name
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _validate($name, $attrName)
+    {
+        if( ! empty($this->validate) )
+        {
+            $validate[$name]           = $this->validate;
+            $validate[$name]['method'] = $this->method;
+            $validate[$name]['value']  = $this->settings['attr']['alias'] ?? $attrName;
+
+            Session::insert('FormValidationRules', array_merge(Session::select('FormValidationRules') ?: $validate, $validate));
+
+            $this->validate = [];
+        }
+    } 
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Get Row
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $type
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _getrow($type, $value, &$attributes)
+    {
+        if( $row = ($this->settings['getrow'] ?? NULL) )
+        {
+            $rowval = $row->{$attributes['name']} ?? NULL;
+
+            if( $type === 'textarea' || $type === 'select' )
+            {
+                return $value ?: $rowval;
+            }
+
+            $attributes['value'] = $value ?: $rowval;
+            
+            // For radio
+            if( $type === 'radio' && $value == $rowval )
+            {
+                $attributes['checked'] = 'checked';
+            }
+
+            // For checkbox
+            if( $type === 'checkbox' )
+            {
+                if( Json::check($rowval) )
+                {
+                    $rowval = Json::decodeArray($rowval);
+
+                    if( in_array($value, $rowval) )
+                    {
+                        $attributes['checked'] = 'checked';
+                    }
+                }
+                else
+                {
+                    $attributes['checked'] = 'checked';
+                }
+            }
+        }
+    } 
 }

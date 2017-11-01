@@ -28,7 +28,8 @@ class InternalJC extends \FactoryController
             'gridsystem'        => 'Javascript\Components\GridSystem::generate',
             'dropdown'          => 'Javascript\Components\Dropdown::generate',
             'tab'               => 'Javascript\Components\Tabs::generate',
-            'pill'              => 'Javascript\Components\Tabs::pill'
+            'pill'              => 'Javascript\Components\Tabs::pill',
+            'ajax'              => 'Javascript\Components\Ajax::generate'
         ]
     ];
 

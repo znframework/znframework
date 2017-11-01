@@ -62,6 +62,11 @@ class InternalForm
     // @param string $name
     // @param array  $attributes
     //
+    // Usable 3 Parameter For Enctype
+    // 1. multipart     => multipart/form-data
+    // 2. application   => application/x-www-form-urlencoded
+    // 3. text          => text/plain
+    //
     //--------------------------------------------------------------------------------------------------------
     public function open(String $name = NULL, Array $_attributes = []) : String
     {
@@ -72,10 +77,6 @@ class InternalForm
 
         $_attributes['name'] = $name;
 
-        // Usable 3 Parameter For Enctype
-        // 1. multipart     => multipart/form-data
-        // 2. application   => application/x-www-form-urlencoded
-        // 3. text          => text/plain
         if( isset($_attributes['enctype']) )
         {
             $enctype = $_attributes['enctype'];
@@ -89,6 +90,20 @@ class InternalForm
         if( ! isset($_attributes['method']) )
         {
             $_attributes['method'] = 'post';
+        }
+
+        if( isset($this->settings['where']) )
+        {
+            $this->settings['getrow'] = DB::get($name)->row();
+  
+            unset($this->settings['where']);
+        }
+
+        if( $query = ($this->settings['query'] ?? NULL) )
+        {
+            $this->settings['getrow'] = DB::query($query)->row();
+
+            unset($this->settings['query']);
         }
 
         $this->method = $_attributes['method'];
@@ -114,6 +129,8 @@ class InternalForm
     //--------------------------------------------------------------------------------------------------------
     public function close() : String
     {
+        unset($this->settings['getrow']);
+
         return '</form>'.EOL;
     }
 
@@ -154,13 +171,13 @@ class InternalForm
 
         if( ! empty($this->settings['attr']['name']) )
         {
-            if( isset($this->postback['bool']) && $this->postback['bool'] === true )
-            {
-                $method = ! empty($this->method) ? $this->method : $this->postback['type'];
-                $value  = Validation::postBack($this->settings['attr']['name'], $method);
+            $this->_posback($this->settings['attr']['name'], $value);
 
-                $this->postback = [];
-            }
+            // 5.4.2[added]
+            $this->_validate($this->settings['attr']['name'], $this->settings['attr']['name']);
+            
+            // 5.4.2[added]
+            $value = $this->_getrow('textarea', $value, $this->settings['attr']);
         }
 
         return '<textarea'.$this->attributes($_attributes).'>'.$value.'</textarea>'.EOL;
@@ -261,13 +278,13 @@ class InternalForm
 
         if( ! empty($_attributes['name']) )
         {
-            if( isset($this->postback['bool']) && $this->postback['bool'] === true )
-            {
-                $method   = ! empty($this->method) ? $this->method : $this->postback['type'];
-                $selected = Validation::postBack($_attributes['name'], $method);
+            $this->_posback($_attributes['name'], $selected);
 
-                $this->postback = [];
-            }
+            // 5.4.2[added]
+            $this->_validate($_attributes['name'], $_attributes['name']);
+            
+            // 5.4.2[added]
+            $selected = $this->_getrow('select', $selected, $_attributes);
         }
 
         $selectbox = '<select'.$this->attributes($_attributes).'>';

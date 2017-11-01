@@ -125,11 +125,11 @@ interface InternalURLInterface
     // @param  mixed  $data         : empty
     // @param  string $numericPrefix: NULL
     // @param  string $separator    : NULL
-    // @param  string $enctype      : RFC1738
+    // @param  Int    $enctype = self::RFC1738
     // @return mixed
     //
     //--------------------------------------------------------------------------------------------------------
-    public function buildQuery($data, String $numericPrefix = NULL, String $separator = NULL, String $enctype = 'RFC1738') : String;
+    public function buildQuery($data, String $numericPrefix = NULL, String $separator = NULL, Int $enctype = self::RFC1738) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Parse
