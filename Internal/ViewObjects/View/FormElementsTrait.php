@@ -127,6 +127,20 @@ trait FormElementsTrait
     }
 
     //--------------------------------------------------------------------------------------------------------
+    // process()
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $type - options: insert, update
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function process(String $type)
+    {
+        $this->settings['process'] = $type;
+
+        return $this;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
     // where()
     //--------------------------------------------------------------------------------------------------------
     //
@@ -137,7 +151,9 @@ trait FormElementsTrait
     //--------------------------------------------------------------------------------------------------------
     public function where($column, String $value = NULL, String $logical = 'and')
     {
-        $this->settings['where'] = true;
+        $this->settings['where']       = true;
+        $this->settings['whereValue']  = $value;
+        $this->settings['whereColumn'] = $column;
 
         DB::where($column, $value, $logical);
 
@@ -300,11 +316,11 @@ trait FormElementsTrait
         if( ! empty($this->validate) )
         {
             $validate[$name]           = $this->validate;
-            $validate[$name]['method'] = $this->method;
             $validate[$name]['value']  = $this->settings['attr']['alias'] ?? $attrName;
 
-            Session::insert('FormValidationRules', array_merge(Session::select('FormValidationRules') ?: $validate, $validate));
-
+            Session::insert('FormValidationMethod', $this->method);
+            Session::insert('FormValidationRules' , array_merge(Session::select('FormValidationRules') ?: $validate, $validate));
+ 
             $this->validate = [];
         }
     } 

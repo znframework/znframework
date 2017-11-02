@@ -1,6 +1,7 @@
 <?php namespace ZN\ViewObjects\View;
 
-use Validation, Arrays, DB, Session;
+use Validation, Arrays, DB, Session, Post, Redirect, URI;
+use ZN\ViewObjects\View\HTML\Exception\InvalidArgumentException;
 
 class InternalForm
 {
@@ -96,15 +97,18 @@ class InternalForm
         {
             $this->settings['getrow'] = DB::get($name)->row();
         }
-
+        
         if( $query = ($this->settings['query'] ?? NULL) )
         {
             $this->settings['getrow'] = DB::query($query)->row();
         }
 
-        $this->method = $_attributes['method'];
+        $this->method = $method = $_attributes['method'];
 
-        $return = '<form'.$this->attributes($_attributes).'>'.EOL;
+        $return  = '<form'.$this->attributes($_attributes).'>'.EOL;
+
+        // 5.4.2[added]
+        $return .= $this->_process($name, $method);
 
         if( isset($this->settings['token']) )
         {
@@ -114,6 +118,38 @@ class InternalForm
         $this->_unsetopen();
 
         return $return;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Validate Error Message
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function validateErrorMessage()
+    {
+        $message = Redirect::select('FormValidationErrorMessage');
+        
+        Redirect::delete('FormValidationErrorMessage');
+
+        return $message;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Validate Error Array
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function validateErrorArray()
+    {
+        $message = Redirect::select('FormValidationErrorArray');
+        
+        Redirect::delete('FormValidationErrorArray');
+
+        return $message;
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -259,9 +295,6 @@ class InternalForm
             $selected = $flip[$this->settings['selectedValue']];
         }
 
-        // Son parametrenin durumuna multiple olması belirleniyor.
-        // Ancak bu parametrenin kullanımı gerekmez.
-        // Bunun için multiple() yöntemi oluşturulmuştur.
         if( $multiple === true )
         {
             $_attributes['multiple'] ="multiple";
@@ -355,7 +388,7 @@ class InternalForm
             $value = $this->settings['attr']['value'];
         }
 
-        $this->settings = [];
+        $this->settings['attr'] = [];
 
         $hiddens = NULL;
 
@@ -407,6 +440,55 @@ class InternalForm
     }
 
     //--------------------------------------------------------------------------------------------------------
+    // Protected Process
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _process($name, $method)
+    {
+        if( $process = ($this->settings['process'] ?? NULL) )
+        {
+            if( $method::FormProcessValue() )
+            {
+                if( Validation::check() )
+                {
+                    if( $process === 'update' )
+                    {
+                        DB::where
+                        (
+                            $this->settings['whereColumn'], 
+                            $this->settings['whereValue']
+                        )
+                        ->update(strtolower($method).':'.$name);       
+                    }
+                    elseif( $process === 'insert' )
+                    {
+                        DB::insert(strtolower($method).':'.$name); 
+                    }
+                    else
+                    {
+                        throw new InvalidArgumentException('[Form::process()] method can take one of the values [update or insert].');
+                    }
+                }
+                else
+                {
+                    Redirect::data
+                    ([
+                        'FormValidationErrorMessage' => Validation::error('string'),
+                        'FormValidationErrorArray'   => Validation::error('array')
+                    ]);
+                }
+
+                Redirect::action($this->settings['attr']['action'] ?? URI::active());
+            }
+
+            return $this->hidden('FormProcessValue', 'FormProcessValue');
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------------
     // Protected Unset Select Data
     //--------------------------------------------------------------------------------------------------------
     //
@@ -435,7 +517,10 @@ class InternalForm
     protected function _unsetopen()
     {
         unset($this->settings['where']);
+        unset($this->settings['whereValue']);
+        unset($this->settings['whereColumn']);
         unset($this->settings['query']);
         unset($this->settings['token']);
+        unset($this->settings['process']);
     }
 }

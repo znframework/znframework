@@ -178,7 +178,9 @@ class InternalValidation extends CallController implements InternalValidationInt
     //--------------------------------------------------------------------------------------------------------
     public function check(String $submit = NULL) : Bool
     {
-        if( $submit !== NULL && ! Post::$submit() ) 
+        $method = Session::FormValidationMethod() ?: 'post';
+
+        if( $submit !== NULL && ! $method::$submit() ) 
         {
             return false;
         }
@@ -188,14 +190,13 @@ class InternalValidation extends CallController implements InternalValidationInt
         if( is_array($rules) )
         {
             Session::delete('FormValidationRules');
+            Session::delete('FormValidationMethod');
 
             foreach( $rules as $name => $rule )
             {
-                $method = $rule['method'] ?? 'post';
-                $value  = $rule['value']  ??  $name;
+                $value = $rule['value'] ?? $name;
                 
-                unset($rule['method']);
-                unset($rule['value' ]);
+                unset($rule['value']);
                 
                 $this->rules($name, $rule, $value, $method);
             } 
