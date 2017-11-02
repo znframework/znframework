@@ -1,6 +1,6 @@
 <?php namespace ZN\ViewObjects\View;
 
-use Validation, Arrays, DB, Session, Post, Redirect, URI;
+use Validation, Arrays, DB, Session, URI;
 use ZN\ViewObjects\View\HTML\Exception\InvalidArgumentException;
 
 class InternalForm
@@ -129,11 +129,7 @@ class InternalForm
     //--------------------------------------------------------------------------------------------------------
     public function validateErrorMessage()
     {
-        $message = Redirect::select('FormValidationErrorMessage');
-        
-        Redirect::delete('FormValidationErrorMessage');
-
-        return $message;
+        return Validation::error('string');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -145,11 +141,7 @@ class InternalForm
     //--------------------------------------------------------------------------------------------------------
     public function validateErrorArray()
     {
-        $message = Redirect::select('FormValidationErrorArray');
-        
-        Redirect::delete('FormValidationErrorArray');
-
-        return $message;
+        return Validation::error('array');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -458,10 +450,12 @@ class InternalForm
                     {
                         DB::where
                         (
-                            $this->settings['whereColumn'], 
-                            $this->settings['whereValue']
+                            $whereColumn = $this->settings['whereColumn'], 
+                            $whereValue  = $this->settings['whereValue']
                         )
                         ->update(strtolower($method).':'.$name);       
+
+                        $this->settings['getrow'] = DB::where($whereColumn, $whereValue)->get($name)->row();
                     }
                     elseif( $process === 'insert' )
                     {
@@ -472,16 +466,6 @@ class InternalForm
                         throw new InvalidArgumentException('[Form::process()] method can take one of the values [update or insert].');
                     }
                 }
-                else
-                {
-                    Redirect::data
-                    ([
-                        'FormValidationErrorMessage' => Validation::error('string'),
-                        'FormValidationErrorArray'   => Validation::error('array')
-                    ]);
-                }
-
-                Redirect::action($this->settings['attr']['action'] ?? URI::active());
             }
 
             return $this->hidden('FormProcessValue', 'FormProcessValue');
