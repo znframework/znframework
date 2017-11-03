@@ -1,4 +1,4 @@
-<?php return
+<?php $default = is_dir(PROJECTS_DIR . ($host = host())) ? $host : NULL; return
 [
     //--------------------------------------------------------------------------------------------------
     // Project Directory
@@ -16,8 +16,12 @@
         // URI' da herhangi bir uzantı gerektirmeden kullanılması istenilen proje dizini belirtilir.
         // Ön tanımlı olarak Projects/Frontend/ dizini kullanılmıştır.
         //
+        // 5.4.2[edited]
+        //
+        // Host adı ile aynı isimli dizin mevcutsa ön tanımlı açılış dizini o olur.
+        //
         //----------------------------------------------------------------------------------------------
-        'default' => 'Frontend',
+        'default' => $default ?? 'Frontend',
 
         //----------------------------------------------------------------------------------------------
         // Others

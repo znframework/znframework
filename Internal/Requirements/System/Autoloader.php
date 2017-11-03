@@ -82,8 +82,8 @@ class Autoloader
         }
 
         $classInfo = self::getClassFileInfo($class);
-        $file      = self::_originPath(REAL_BASE_DIR . $classInfo['path']);
-
+        $file      = self::_originPath(REAL_BASE_DIR . ($path = $classInfo['path']));
+        
         if( is_file($file) )
         {
             import($file);
@@ -100,6 +100,12 @@ class Autoloader
         }
         else
         {
+            // 5.4.2[added]
+            if( PROJECT_TYPE === 'EIP' && strpos($path, 'Projects' . DS . CURRENT_PROJECT) !== 0 )
+            {
+                self::restart();
+            }
+
             self::tryAgainCreateClassMap($class);
         }
     }
@@ -148,7 +154,7 @@ class Autoloader
         }
 
         $classMap = $configAutoloader['classMap'];
-
+       
         if( ! empty($classMap) ) foreach( $classMap as $directory )
         {
             $classMaps = self::searchClassMap($directory, $directory);
