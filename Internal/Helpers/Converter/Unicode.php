@@ -1,6 +1,6 @@
 <?php namespace ZN\Helpers\Converter;
 
-use Config, Arrays;
+use Config, Arrays, File;
 use ZN\Helpers\Converter\Exception\InvalidArgumentException;
 use ZN\Helpers\Converter\Exception\LogicException;
 
@@ -192,21 +192,29 @@ class Unicode
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Slug -> 4.4.8 - 5.3.31[edited]
+    // Slug -> 4.4.8 - 5.3.31|5.4.3[edited]
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string $str
+    // @param bool   $protectExtension = false
     //
     //--------------------------------------------------------------------------------------------------------
-    public function slug(String $str) : String
+    public function slug(String $str, Bool $protectExtension = false) : String
     {
+        if( $protectExtension === true )
+        {
+            $ext = File::extension($str, true);
+            $str = File::removeExtension($str);
+        }
+
         $str = $this->accent(trim($str));
+
         $str = preg_replace('/&\w+\;/', '' , $str);
         $str = preg_replace("/\W/"    , '-' , $str);
         $str = preg_replace("/\_/"    , '-', $str);
         $str = preg_replace('/\-+/'   , '-', $str);
 
-        return strtolower(trim($str, '-'));
+        return strtolower(trim($str, '-')) . ($ext ?? NULL);
     }
 
     //--------------------------------------------------------------------------------------------------------
