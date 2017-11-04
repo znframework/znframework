@@ -561,7 +561,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param string $logical
     //
     //--------------------------------------------------------------------------------------------------------
-    public function where($column, String $value = NULL, String $logical = 'and') : InternalDB
+    public function where($column, String $value = '', String $logical = NULL) : InternalDB
     {
         $this->_wh($column, $value, $logical, __FUNCTION__);
 
@@ -605,7 +605,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param string $logical
     //
     //--------------------------------------------------------------------------------------------------------
-    public function having($column, String $value = NULL, String $logical = 'and') : InternalDB
+    public function having($column, String $value = '', String $logical = NULL) : InternalDB
     {
         $this->_wh($column, $value, $logical, __FUNCTION__);
 
@@ -2398,7 +2398,7 @@ class InternalDB extends Connection implements InternalDBInterface
     //
     //--------------------------------------------------------------------------------------------------------
     protected function _wh($column, $value, $logical, $type = 'where')
-    {
+    {   
         if( IS::array($column) )
         {
             $columns = func_get_args();
@@ -2422,7 +2422,7 @@ class InternalDB extends Connection implements InternalDBInterface
         }
         else
         {
-            $this->$type .= $this->_whereHaving($column, $value, $logical);
+            $this->$type .= $this->_whereHaving($column, $value, $logical ?: 'and');
         }
 
         return $this;
