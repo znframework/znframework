@@ -576,7 +576,7 @@ class Connection implements ConnectionInterface
     // @param string $query
     //
     //--------------------------------------------------------------------------------------------------------
-    protected function _runQuery($query)
+    protected function _runQuery($query, $type = 'query')
     {
         if( $this->string === true )
         {
@@ -584,7 +584,7 @@ class Connection implements ConnectionInterface
             return $query;
         }
 
-        $this->db->query($this->_querySecurity($query), $this->secure);
+        $this->db->$type($this->_querySecurity($query), $this->secure);
 
         return ! (bool) $this->db->error();
     }
@@ -598,15 +598,7 @@ class Connection implements ConnectionInterface
     //--------------------------------------------------------------------------------------------------------
     protected function _runExecQuery($query)
     {
-        if( $this->string === true )
-        {
-            $this->string = NULL;
-            return $query;
-        }
-
-        $this->db->exec($this->_querySecurity($query), $this->secure);
-
-        return ! (bool) $this->db->error();
+        return $this->_runQuery($query, 'exec');
     }
 
     //--------------------------------------------------------------------------------------------------------

@@ -232,7 +232,7 @@ abstract class DriverConnectionMappingAbstract
     {
         if( empty($this->query) )
         {
-            return false;
+            return [];
         }
 
         $rows = [];

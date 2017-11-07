@@ -1,4 +1,4 @@
-<?php namespace ZN\ViewObjects\View\HTML\Exception;
+<?php namespace ZN\ViewObjects\View\Exception;
 
 class InvalidArgumentException extends \InvalidArgumentException
 {

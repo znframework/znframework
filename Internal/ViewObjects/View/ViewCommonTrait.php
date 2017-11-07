@@ -219,7 +219,7 @@ trait ViewCommonTrait
     // @param string $type
     //
     //--------------------------------------------------------------------------------------------------------
-    protected function _input($name = "", $value = "", $attributes = [], $type = '')
+    protected function _input($name = '', $value = '', $attributes = [], $type = '')
     {
         if( $name !== '' )
         {
@@ -233,7 +233,7 @@ trait ViewCommonTrait
 
         if( ! empty($attributes['name']) )
         {
-            $this->_posback($attributes['name'], $attributes['value']);
+            $this->_posback($attributes['name'], $attributes['value'] ?? NULL);
 
             // 5.4.2[added]
             $this->_validate($attributes['name'], $attributes['name']);

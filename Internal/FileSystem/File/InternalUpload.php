@@ -1,6 +1,6 @@
 <?php namespace ZN\FileSystem;
 
-use Config, Folder, File, Converter, Encode, CallController, IS, Mime, Lang;
+use Config, Folder, File, Converter, Encode, CallController, IS, Mime, Lang, Arrays;
 
 class InternalUpload extends CallController implements InternalUploadInterface
 {
@@ -478,8 +478,8 @@ class InternalUpload extends CallController implements InternalUploadInterface
 
         if( is_array($_FILES[$this->file]['name']) )
         {
-            $this->encodeName[] = $encryptionName;
-            $this->path[]       = $target;
+            $this->encodeName = Arrays::addLast((array) $this->encodeName, $encryptionName);
+            $this->path       = Arrays::addLast((array) $this->path      , $target        );     
         }
         else
         {

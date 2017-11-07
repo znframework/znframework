@@ -1,7 +1,7 @@
 <?php namespace ZN\ViewObjects\View;
 
 use Validation, Arrays, DB, URI;
-use ZN\ViewObjects\View\HTML\Exception\InvalidArgumentException;
+use ZN\ViewObjects\View\Exception\InvalidArgumentException;
 
 class InternalForm
 {
