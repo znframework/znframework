@@ -1,9 +1,9 @@
 <?php namespace ZN\ImageProcessing;
 
-use Image, Converter, Html, Config, CallController;
+use Image, Converter, Html, Config, RevolvingAbility;
 use ZN\EncodingSupport\ImageProcessing\GD\Exception\InvalidArgumentException;
 
-class InternalGD extends CallController implements InternalGDInterface
+class InternalGD implements InternalGDInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -13,6 +13,8 @@ class InternalGD extends CallController implements InternalGDInterface
     // Copyright  : (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
+
+    use RevolvingAbility;
 
     //--------------------------------------------------------------------------------------------------------
     // Canvas
@@ -40,15 +42,6 @@ class InternalGD extends CallController implements InternalGDInterface
     //
     //--------------------------------------------------------------------------------------------------------
     protected $quality = 0;
-
-    //--------------------------------------------------------------------------------------------------------
-    // Type
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var string
-    //
-    //--------------------------------------------------------------------------------------------------------
-    protected $type = 'jpeg';
 
     //--------------------------------------------------------------------------------------------------------
     // Output
@@ -105,7 +98,12 @@ class InternalGD extends CallController implements InternalGDInterface
     //
     //--------------------------------------------------------------------------------------------------------
     public function canvas($width, $height = NULL, $rgb = 'transparent', $real = false, $p1 = 0) : InternalGD
-    {
+    {   
+        $width  = $this->width  ?? $width;
+        $height = $this->height ?? $height;
+        $rgb    = $this->color  ?? $rgb;
+        $real   = $this->real   ?? $real;
+
         if( is_file($width) )
         {
             $this->type   = File::extension($width);
@@ -134,6 +132,8 @@ class InternalGD extends CallController implements InternalGDInterface
             $this->allocate($rgb);
         }
 
+        $this->defaultRevolvingVariables();
+
         return $this;
     }
 
@@ -152,16 +152,6 @@ class InternalGD extends CallController implements InternalGDInterface
 
         switch( $type )
         {
-            case 'gd2'    : $return = imagecreatefromgd2($source);      break;
-            case 'gd'     : $return = imagecreatefromgd($source);       break;
-            case 'gif'    : $return = imagecreatefromgif($source);      break;
-            case 'jpeg'   : $return = imagecreatefromjpeg($source);     break;
-            case 'png'    : $return = imagecreatefrompng($source);      break;
-            case 'string' : $return = imagecreatefromstring($source);   break;
-            case 'wbmp'   : $return = imagecreatefromwbmp($source);     break;
-            case 'webp'   : $return = imagecreatefromwebp($source);     break;
-            case 'xbm'    : $return = imagecreatefromxbm($source);      break;
-            case 'xpm'    : $return = imagecreatefromxpm($source);      break;
             case 'gd2p'   : $return = imagecreatefromgd2part
             (
                 $source,
@@ -169,7 +159,12 @@ class InternalGD extends CallController implements InternalGDInterface
                 $settings['y']      ?? NULL,
                 $settings['width']  ?? NULL,
                 $settings['height'] ?? NULL
-            );
+            ); 
+            break;
+
+            default: 
+                $function = 'imagecreatefrom' . ($type ?? 'jpeg');
+                $return   = $function($source);
         }
 
         return $return;
@@ -347,16 +342,16 @@ class InternalGD extends CallController implements InternalGDInterface
     // @param array $settings
     //
     //--------------------------------------------------------------------------------------------------------
-    public function arc(Array $settings) : InternalGD
+    public function arc(Array $settings = []) : InternalGD
     {
-        $x      = $settings['x']       ?? 0;
-        $y      = $settings['y']       ?? 0;
-        $width  = $settings['width']   ?? 100;
-        $height = $settings['height']  ?? 100;
-        $start  = $settings['start']   ?? 0;
-        $end    = $settings['end']     ?? 360;
-        $color  = $settings['color']   ?? '0|0|0';
-        $style  = $settings['type']    ?? NULL;
+        $x      = $settings['x']       ?? $this->x      ?? 0;
+        $y      = $settings['y']       ?? $this->y      ?? 0;
+        $width  = $settings['width']   ?? $this->width  ?? 100;
+        $height = $settings['height']  ?? $this->height ?? 100;
+        $start  = $settings['start']   ?? $this->start  ?? 0;
+        $end    = $settings['end']     ?? $this->end    ?? 360;
+        $color  = $settings['color']   ?? $this->color  ?? '0|0|0';
+        $style  = $settings['type']    ?? $this->type   ?? NULL;
 
         if( $style === NULL )
         {
@@ -371,6 +366,8 @@ class InternalGD extends CallController implements InternalGDInterface
                 Converter::toConstant($style, 'IMG_ARC_')
             );
         }
+        
+        $this->defaultRevolvingVariables();
 
         return $this;
     }
@@ -382,14 +379,14 @@ class InternalGD extends CallController implements InternalGDInterface
     // @param array $settings
     //
     //--------------------------------------------------------------------------------------------------------
-    public function ellipse(Array $settings) : InternalGD
+    public function ellipse(Array $settings = []) : InternalGD
     {
-        $x      = $settings['x']       ?? 0;
-        $y      = $settings['y']       ?? 0;
-        $width  = $settings['width']   ?? 100;
-        $height = $settings['height']  ?? 100;
-        $color  = $settings['color']   ?? '0|0|0';
-        $style  = $settings['type']    ?? NULL;
+        $x      = $settings['x']       ?? $this->x      ?? 0;
+        $y      = $settings['y']       ?? $this->y      ?? 0;
+        $width  = $settings['width']   ?? $this->width  ?? 100;
+        $height = $settings['height']  ?? $this->height ?? 100;
+        $color  = $settings['color']   ?? $this->color  ?? '0|0|0';
+        $style  = $settings['type']    ?? $this->type   ?? NULL;
 
         if( $style === NULL )
         {
@@ -399,6 +396,8 @@ class InternalGD extends CallController implements InternalGDInterface
         {
             imagefilledellipse($this->canvas, $x, $y, $width, $height, $this->allocate($color));
         }
+
+        $this->defaultRevolvingVariables();
 
         return $this;
     }
@@ -410,12 +409,12 @@ class InternalGD extends CallController implements InternalGDInterface
     // @param array $settings
     //
     //--------------------------------------------------------------------------------------------------------
-    public function polygon(Array $settings) : InternalGD
+    public function polygon(Array $settings = []) : InternalGD
     {
-        $points     = $settings['points']     ?? 0;
-        $pointCount = $settings['pointCount'] ?? ceil(count($points) / 2);
-        $color      = $settings['color']      ?? '0|0|0';
-        $style      = $settings['type']       ?? NULL;
+        $points     = $settings['points']     ?? $this->points     ?? 0;
+        $pointCount = $settings['pointCount'] ?? $this->pointCount ?? (ceil(count($this->points ?? $points) / 2));
+        $color      = $settings['color']      ?? $this->color      ?? '0|0|0';
+        $style      = $settings['type']       ?? $this->type       ?? NULL;
 
         if( $style === NULL )
         {
@@ -425,6 +424,8 @@ class InternalGD extends CallController implements InternalGDInterface
         {
             imagefilledpolygon($this->canvas, $points, $pointCount, $this->allocate($color));
         }
+
+        $this->defaultRevolvingVariables();
 
         return $this;
     }
@@ -436,14 +437,14 @@ class InternalGD extends CallController implements InternalGDInterface
     // @param array $settings
     //
     //--------------------------------------------------------------------------------------------------------
-    public function rectangle(Array $settings) : InternalGD
+    public function rectangle(Array $settings = []) : InternalGD
     {
-        $x      = $settings['x']      ?? 0;
-        $y      = $settings['y']      ?? 0;
-        $width  = $settings['width']  ?? 100;
-        $height = $settings['height'] ?? 100;
-        $color  = $settings['color']  ?? '0|0|0';
-        $style  = $settings['type']   ?? NULL;
+        $x      = $settings['x']      ?? $this->x      ?? 0;
+        $y      = $settings['y']      ?? $this->y      ?? 0;
+        $width  = $settings['width']  ?? $this->width  ?? 100;
+        $height = $settings['height'] ?? $this->height ?? 100;
+        $color  = $settings['color']  ?? $this->color  ?? '0|0|0';
+        $style  = $settings['type']   ?? $this->type   ?? NULL;
 
         $width  += $x;
         $height += $y;
@@ -457,6 +458,8 @@ class InternalGD extends CallController implements InternalGDInterface
             imagefilledrectangle($this->canvas, $x, $y, $width, $height, $this->allocate($color));
         }
 
+        $this->defaultRevolvingVariables();
+
         return $this;
     }
 
@@ -468,13 +471,15 @@ class InternalGD extends CallController implements InternalGDInterface
     // @param array $settings
     //
     //--------------------------------------------------------------------------------------------------------
-    public function fill(Array $settings) : InternalGD
+    public function fill(Array $settings = []) : InternalGD
     {
-        $x      = $settings['x']     ?? 0;
-        $y      = $settings['y']     ?? 0;
-        $color  = $settings['color'] ?? '0|0|0';
+        $x      = $settings['x']     ?? $this->x     ?? 0;
+        $y      = $settings['y']     ?? $this->y     ?? 0;
+        $color  = $settings['color'] ?? $this->color ?? '0|0|0';
 
         imagefill($this->canvas, $x, $y, $this->allocate($color));
+
+        $this->defaultRevolvingVariables();
 
         return $this;
     }
@@ -486,14 +491,16 @@ class InternalGD extends CallController implements InternalGDInterface
     // @param array $settings
     //
     //--------------------------------------------------------------------------------------------------------
-    public function fillArea(Array $settings) : InternalGD
+    public function fillArea(Array $settings = []) : InternalGD
     {
-        $x           = $settings['x']           ?? 0;
-        $y           = $settings['y']           ?? 0;
-        $borderColor = $settings['borderColor'] ?? '0|0|0';
-        $color       = $settings['color']       ?? '255|255|255';
+        $x           = $settings['x']           ?? $this->x           ?? 0;
+        $y           = $settings['y']           ?? $this->y           ?? 0;
+        $borderColor = $settings['borderColor'] ?? $this->borderColor ?? '0|0|0';
+        $color       = $settings['color']       ?? $this->color       ?? '255|255|255';
 
         imagefilltoborder($this->canvas, $x, $y, $this->allocate($borderColor), $this->allocate($color));
+
+        $this->defaultRevolvingVariables();
 
         return $this;
     }
@@ -534,22 +541,27 @@ class InternalGD extends CallController implements InternalGDInterface
     // @param array  $settings
     //
     //--------------------------------------------------------------------------------------------------------
-    public function char(String $char, Array $settings) : InternalGD
+    public function char(String $char, Array $settings = [], $function = 'char') : InternalGD
     {
-        $x      = $settings['x']     ?? 0;
-        $y      = $settings['y']     ?? 0;
-        $font   = $settings['font']  ?? 1;
-        $color  = $settings['color'] ?? '0|0|0';
-        $type   = $settings['type']  ?? NULL;
-
+        $x      = $settings['x']     ?? $this->x     ?? 0;
+        $y      = $settings['y']     ?? $this->y     ??  0;
+        $font   = $settings['font']  ?? $this->font  ??  1;
+        $color  = $settings['color'] ?? $this->color ??  '0|0|0';
+        $type   = $settings['type']  ?? $this->type  ??  NULL;
+        $method = 'image' . $function;
+        
         if( $type === 'vertical')
         {
-            imagecharup($this->canvas, $font, $x, $y, $char, $this->allocate($color));
+            $method .= 'up';
+
+            $method($this->canvas, $font, $x, $y, $char, $this->allocate($color));
         }
         else
         {
-            imagechar($this->canvas, $font, $x, $y, $char, $this->allocate($color));
+            $method($this->canvas, $font, $x, $y, $char, $this->allocate($color));
         }
+
+        $this->defaultRevolvingVariables();
 
         return $this;
     }
@@ -562,24 +574,9 @@ class InternalGD extends CallController implements InternalGDInterface
     // @param array  $settings
     //
     //--------------------------------------------------------------------------------------------------------
-    public function text(String $text, Array $settings) : InternalGD
+    public function text(String $text, Array $settings = []) : InternalGD
     {
-        $x      = $settings['x']     ?? 0;
-        $y      = $settings['y']     ?? 0;
-        $font   = $settings['font']  ?? 1;
-        $color  = $settings['color'] ?? '0|0|0';
-        $type   = $settings['type']  ?? NULL;
-
-        if( $type === 'vertical')
-        {
-            imagestringup($this->canvas, $font, $x, $y, $text, $this->allocate($color));
-        }
-        else
-        {
-            imagestring($this->canvas, $font, $x, $y, $text, $this->allocate($color));
-        }
-
-        return $this;
+        return $this->char($text, $settings, 'string');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -905,17 +902,15 @@ class InternalGD extends CallController implements InternalGDInterface
     // @param array $settings
     //
     //--------------------------------------------------------------------------------------------------------
-    public function line(Array $settings) : InternalGD
+    public function line(Array $settings = []) : InternalGD
     {
-        $x1   = $settings['x1']    ?? 0;
-        $y1   = $settings['y1']    ?? 0;
-        $x2   = $settings['x2']    ?? 0;
-        $y2   = $settings['y2']    ?? 0;
-        $rgb  = $settings['color'] ?? '0|0|0';
-        $type = $settings['type']  ?? 'solid';
-
-        $type = strtolower($type);
-
+        $x1   = $settings['x1']    ?? $this->x1    ?? 0;
+        $y1   = $settings['y1']    ?? $this->y1    ?? 0;
+        $x2   = $settings['x2']    ?? $this->x2    ?? 0;
+        $y2   = $settings['y2']    ?? $this->y2    ?? 0;
+        $rgb  = $settings['color'] ?? $this->color ?? '0|0|0';
+        $type = $settings['type']  ?? $this->type  ?? 'solid';
+        
         if( $type === 'solid' )
         {
             imageline($this->canvas, $x1, $y1, $x2, $y2, $this->allocate($rgb));
@@ -924,6 +919,8 @@ class InternalGD extends CallController implements InternalGDInterface
         {
             imagedashedline($this->canvas, $x1, $y1, $x2, $y2, $this->allocate($rgb));
         }
+
+        $this->defaultRevolvingVariables();
 
         return $this;
     }
@@ -976,19 +973,6 @@ class InternalGD extends CallController implements InternalGDInterface
     public function save(String $file) : InternalGD
     {
         $this->save = $file;
-        return $this;
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Type
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $type
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function type(String $type) : InternalGD
-    {
-        $this->type = $type;
         return $this;
     }
 
@@ -1350,7 +1334,7 @@ class InternalGD extends CallController implements InternalGDInterface
     //--------------------------------------------------------------------------------------------------------
     protected function _content()
     {
-        header("Content-type: image/".$this->type);
+        header("Content-type: image/".($this->type ?? 'jpeg'));
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -1364,7 +1348,6 @@ class InternalGD extends CallController implements InternalGDInterface
     {
         $this->canvas  = NULL;
         $this->save    = NULL;
-        $this->type    = 'jpeg';
         $this->quality = 0;
         $this->output  = true;
     }
@@ -1378,7 +1361,7 @@ class InternalGD extends CallController implements InternalGDInterface
     //--------------------------------------------------------------------------------------------------------
     protected function _types()
     {
-        $type = strtolower($this->type);
+        $type = strtolower($this->type ?? 'jpeg');
 
         if( ! empty($this->save) )
         {
