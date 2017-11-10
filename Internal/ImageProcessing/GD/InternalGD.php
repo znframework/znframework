@@ -1,6 +1,6 @@
 <?php namespace ZN\ImageProcessing;
 
-use Image, Converter, Html, Config, RevolvingAbility;
+use Image, Converter, Html, Config, RevolvingAbility, Mime;
 use ZN\EncodingSupport\ImageProcessing\GD\Exception\InvalidArgumentException;
 
 class InternalGD implements InternalGDInterface
@@ -104,9 +104,9 @@ class InternalGD implements InternalGDInterface
         $rgb    = $this->color  ?? $rgb;
         $real   = $this->real   ?? $real;
 
-        if( is_file($width) )
+        if( Mime::type($width, 0) === 'image' )
         {
-            $this->type   = File::extension($width);
+            $this->type   = Mime::type($width, 1);
             $this->canvas = $this->createFrom($this->type, $width,
             [
                 'x'      => (int) $height,
@@ -179,7 +179,7 @@ class InternalGD implements InternalGDInterface
     //--------------------------------------------------------------------------------------------------------
     public function size(String $fileName) : \stdClass
     {
-        if( File::extension($fileName) && is_file($fileName) )
+        if( Mime::type($fileName, 0) === 'image' )
         {
             $data = getimagesize($fileName);
         }

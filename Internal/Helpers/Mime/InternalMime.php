@@ -44,16 +44,24 @@ class InternalMime
     //--------------------------------------------------------------------------------------------------------
     //
     // param string $type
+    // param bool   $full = true
     //
     //--------------------------------------------------------------------------------------------------------
-    public function type(String $file)
+    public function type(String $file, $element = NULL)
     {
         if( ! is_file($file) )
         {
             return false;
         }
 
-        return mime_content_type($file);
+        $return = mime_content_type($file);
+
+        if( $element === NULL )
+        {
+            return $return;
+        }
+
+        return explode('/', $return)[$element] ?? false;
     }
 
     //--------------------------------------------------------------------------------------------------------
