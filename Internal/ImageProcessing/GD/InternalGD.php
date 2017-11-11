@@ -1,6 +1,6 @@
 <?php namespace ZN\ImageProcessing;
 
-use Image, Converter, Html, Config, RevolvingAbility, Mime;
+use Image, Converter, Html, Config, RevolvingAbility, Mime, Collection;
 use ZN\EncodingSupport\ImageProcessing\GD\Exception\InvalidArgumentException;
 
 class InternalGD implements InternalGDInterface
@@ -99,39 +99,43 @@ class InternalGD implements InternalGDInterface
     //--------------------------------------------------------------------------------------------------------
     public function canvas($width, $height = NULL, $rgb = 'transparent', $real = false, $p1 = 0) : InternalGD
     {   
-        $width  = $this->width  ?? $width;
-        $height = $this->height ?? $height;
-        $rgb    = $this->color  ?? $rgb;
-        $real   = $this->real   ?? $real;
-
         if( Mime::type($width, 0) === 'image' )
         {
             $this->type   = Mime::type($width, 1);
+            
+            $height = NULL; $rgb = NULL; $real = NULL; $p1 = NULL;
+
             $this->canvas = $this->createFrom($this->type, $width,
             [
-                'x'      => (int) $height,
-                'y'      => (int) $rgb,
-                'width'  => (int) $real,
-                'height' => (int) $p2
+                // For type gd2p
+                'x'      => (int) ($this->x      ?? $height ?? 0),
+                'y'      => (int) ($this->y      ?? $rgb    ?? 0),
+                'width'  => (int) ($this->width  ?? $real       ),
+                'height' => (int) ($this->height ?? $p1         )
             ]);
-
-            return $this;
-        }
-
-        if( $real === false )
-        {
-            $this->canvas = imagecreate($width, $height);
         }
         else
         {
-            $this->canvas = imagecreatetruecolor($width, $height);
-        }
+            $width  = $this->width  ?? $width;
+            $height = $this->height ?? $height;
+            $rgb    = $this->color  ?? $rgb;
+            $real   = $this->real   ?? $real;
 
-        if( ! empty($rgb) )
-        {
-            $this->allocate($rgb);
+            if( $real === false )
+            {
+                $this->canvas = imagecreate($width, $height);
+            }
+            else
+            {
+                $this->canvas = imagecreatetruecolor($width, $height);
+            }
+    
+            if( ! empty($rgb) )
+            {
+                $this->allocate($rgb);
+            }
         }
-
+        
         $this->defaultRevolvingVariables();
 
         return $this;
@@ -473,32 +477,19 @@ class InternalGD implements InternalGDInterface
     //--------------------------------------------------------------------------------------------------------
     public function fill(Array $settings = []) : InternalGD
     {
-        $x      = $settings['x']     ?? $this->x     ?? 0;
-        $y      = $settings['y']     ?? $this->y     ?? 0;
-        $color  = $settings['color'] ?? $this->color ?? '0|0|0';
-
-        imagefill($this->canvas, $x, $y, $this->allocate($color));
-
-        $this->defaultRevolvingVariables();
-
-        return $this;
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Fill Area
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array $settings
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function fillArea(Array $settings = []) : InternalGD
-    {
         $x           = $settings['x']           ?? $this->x           ?? 0;
         $y           = $settings['y']           ?? $this->y           ?? 0;
-        $borderColor = $settings['borderColor'] ?? $this->borderColor ?? '0|0|0';
-        $color       = $settings['color']       ?? $this->color       ?? '255|255|255';
-
-        imagefilltoborder($this->canvas, $x, $y, $this->allocate($borderColor), $this->allocate($color));
+        $color       = $settings['color']       ?? $this->color       ?? '0|0|0';
+        $borderColor = $settings['borderColor'] ?? $this->borderColor ?? NULL;
+        
+        if( $borderColor === NULL )
+        {
+            imagefill($this->canvas, $x, $y, $this->allocate($color));
+        }
+        else
+        {
+            imagefilltoborder($this->canvas, $x, $y, $this->allocate($borderColor), $this->allocate($color));
+        }
 
         $this->defaultRevolvingVariables();
 
@@ -512,9 +503,14 @@ class InternalGD implements InternalGDInterface
     // @param string $filter
     //
     //--------------------------------------------------------------------------------------------------------
-    public function filter(String $filter, Int $arg1 = 0, Int $arg2 = 0, Int $arg3 = 0, Int $arg4 = 0) : InternalGD
+    public function filter(String $filter, Int $arg1 = NULL, Int $arg2 = NULL, Int $arg3 = NULL, Int $arg4 = NULL) : InternalGD
     {
-        imagefilter($this->canvas, Converter::toConstant($filter, 'IMG_FILTER_'), $arg1, $arg2, $arg3, $arg4);
+        $filters = Collection::data(func_get_args())
+                             ->removeFirst()
+                             ->deleteElement(NULL)
+                             ->get();
+        
+        imagefilter($this->canvas, Converter::toConstant($filter, 'IMG_FILTER_'), ...$filters);
 
         return $this;
     }
