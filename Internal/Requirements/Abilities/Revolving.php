@@ -20,6 +20,7 @@
     //--------------------------------------------------------------------------------------------------------
     public function __call($method, $param)
     {   
+        $this->$method = (count($param ?? NULL) > 1) ? $param : ($param[0] ?? NULL);
         
         $this->revolvings[$method] = $this->$method;
 
