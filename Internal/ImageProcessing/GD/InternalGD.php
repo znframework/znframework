@@ -81,7 +81,7 @@ class InternalGD implements InternalGDInterface
     // @param array  $settings
     //
     //--------------------------------------------------------------------------------------------------------
-    public function thumb(String $filePath, Array $settings) : String
+    public function thumb(String $filePath, Array $settings = []) : String
     {
         return Image::thumb($filePath, $settings);
     }
@@ -105,7 +105,7 @@ class InternalGD implements InternalGDInterface
             
             $height = NULL; $rgb = NULL; $real = NULL; $p1 = NULL;
 
-            $this->canvas = $this->createFrom($this->type, $width,
+            $this->canvas = $this->createFrom($width,
             [
                 // For type gd2p
                 'x'      => (int) ($this->x      ?? $height ?? 0),
@@ -150,9 +150,9 @@ class InternalGD implements InternalGDInterface
     // @param array  $settings
     //
     //--------------------------------------------------------------------------------------------------------
-    public function createFrom(String $type, String $source, Array $settings = NULL)
+    public function createFrom(String $source, Array $settings = [])
     {
-        $type = strtolower($type);
+        $type = Mime::type($source, 1);
 
         switch( $type )
         {
@@ -256,7 +256,7 @@ class InternalGD implements InternalGDInterface
     // @param array  $setings
     //
     //--------------------------------------------------------------------------------------------------------
-    public function jpegToWbmp(String $jpegFile, String $wbmpFile, Array $settings = NULL) : Bool
+    public function jpegToWbmp(String $jpegFile, String $wbmpFile, Array $settings = []) : Bool
     {
         if( is_file($jpegFile) )
         {
@@ -281,7 +281,7 @@ class InternalGD implements InternalGDInterface
     // @param array  $setings
     //
     //--------------------------------------------------------------------------------------------------------
-    public function pngToWbmp(String $pngFile, String $wbmpFile, Array $settings = NULL) : Bool
+    public function pngToWbmp(String $pngFile, String $wbmpFile, Array $settings = []) : Bool
     {
         if( is_file($pngFile) )
         {
@@ -682,9 +682,9 @@ class InternalGD implements InternalGDInterface
     // @param string $rgb
     //
     //--------------------------------------------------------------------------------------------------------
-    public function set(Int $index, String $rgb) : InternalGD
+    public function set(Int $index, String $rgb = NULL) : InternalGD
     {
-        $rgb = $index . '|' . $rgb;
+        $rgb = $index . '|' . ($this->_colors($this->color ?? $rgb));
 
         $this->_imageColor($rgb, 'imagecolorset');
 
@@ -755,21 +755,28 @@ class InternalGD implements InternalGDInterface
     // @param array    $settings
     //
     //--------------------------------------------------------------------------------------------------------
-    public function copy($source, Array $settings) : InternalGD
+    public function copy($source, Array $settings = []) : InternalGD
     {
+        if( is_file($source) )
+        {
+            $source = $this->createFrom($source);
+        }
+
         if( ! is_resource($source) )
         {
             throw new InvalidArgumentException('Error', 'resourceParameter', '1.($source)');
         }
 
-        $xt     = $settings['xt']     ?? 0;
-        $yt     = $settings['yt']     ?? 0;
-        $xs     = $settings['xs']     ?? 0;
-        $ys     = $settings['ys']     ?? 0;
-        $width  = $settings['width']  ?? 0;
-        $height = $settings['height'] ?? 0;
+        $xt     = $settings['xt']     ?? $this->target[0] ?? 0;
+        $yt     = $settings['yt']     ?? $this->target[1] ?? 0;
+        $xs     = $settings['xs']     ?? $this->source[0] ?? 0;
+        $ys     = $settings['ys']     ?? $this->source[1] ?? 0;
+        $width  = $settings['width']  ?? $this->width     ?? 0;
+        $height = $settings['height'] ?? $this->height    ?? 0;
 
         imagecopy($this->canvas, $source, $xt, $yt, $xs, $ys, $width, $height);
+        
+        $this->defaultRevolvingVariables();
 
         return $this;
     }
@@ -782,22 +789,29 @@ class InternalGD implements InternalGDInterface
     // @param array    $settings
     //
     //--------------------------------------------------------------------------------------------------------
-    public function mix($source, Array $settings, $function = 'imagecopymerge') : InternalGD
+    public function mix($source, Array $settings = [], $function = 'imagecopymerge') : InternalGD
     {
+        if( is_file($source) )
+        {
+            $source = $this->createFrom($source);
+        }
+
         if( ! is_resource($source) )
         {
             throw new InvalidArgumentException('Error', 'resourceParameter', '1.($source)');
         }
 
-        $xt      = $settings['xt']      ?? 0;
-        $yt      = $settings['yt']      ?? 0;
-        $xs      = $settings['xs']      ?? 0;
-        $ys      = $settings['ys']      ?? 0;
-        $width   = $settings['width']   ?? 0;
-        $height  = $settings['height']  ?? 0;
-        $percent = $settings['percent'] ?? 0;
+        $xt      = $settings['xt']      ?? $this->target[0] ?? 0;
+        $yt      = $settings['yt']      ?? $this->target[1] ?? 0;
+        $xs      = $settings['xs']      ?? $this->source[0] ?? 0;
+        $ys      = $settings['ys']      ?? $this->source[1] ?? 0;
+        $width   = $settings['width']   ?? $this->width     ?? 0;
+        $height  = $settings['height']  ?? $this->height    ?? 0;
+        $percent = $settings['percent'] ?? $this->percent   ?? 0;
 
         $function($this->canvas, $source, $xt, $yt, $xs, $ys, $width, $height, $percent);
+
+        $this->defaultRevolvingVariables();
 
         return $this;
     }
@@ -810,7 +824,7 @@ class InternalGD implements InternalGDInterface
     // @param array    $settings
     //
     //--------------------------------------------------------------------------------------------------------
-    public function mixGray($source, Array $settings) : InternalGD
+    public function mixGray($source, Array $settings = []) : InternalGD
     {
         $this->mix($source, $settings, 'imagecopymergegray');
 
@@ -825,8 +839,13 @@ class InternalGD implements InternalGDInterface
     // @param array    $settings
     //
     //--------------------------------------------------------------------------------------------------------
-    public function resample($source, Array $settings, $function = 'imagecopyresampled') : InternalGD
+    public function resample($source, Array $settings = [], $function = 'imagecopyresampled') : InternalGD
     {
+        if( is_file($source) )
+        {
+            $source = $this->createFrom($source);
+        }
+
         if( ! is_resource($source) )
         {
             throw new InvalidArgumentException('Error', 'resourceParameter', '1.($source)');
@@ -854,7 +873,7 @@ class InternalGD implements InternalGDInterface
     // @param array    $settings
     //
     //--------------------------------------------------------------------------------------------------------
-    public function resize($source, Array $settings) : InternalGD
+    public function resize($source, Array $settings = []) : InternalGD
     {
         $this->resample($source, $settings, 'imagecopyresized');
 
@@ -868,7 +887,7 @@ class InternalGD implements InternalGDInterface
     // @param array $settings
     //
     //--------------------------------------------------------------------------------------------------------
-    public function crop(Array $settings) : InternalGD
+    public function crop(Array $settings = []) : InternalGD
     {
         imagecrop($this->canvas, $settings);
 
@@ -1056,13 +1075,15 @@ class InternalGD implements InternalGDInterface
     // @param array $settings
     //
     //--------------------------------------------------------------------------------------------------------
-    public function pixel(Array $settings) : InternalGD
+    public function pixel(Array $settings = []) : InternalGD
     {
-        $x   = $settings['x']     ?? 0;
-        $y   = $settings['y']     ?? 0;
-        $rgb = $settings['color'] ?? '0|0|0';
+        $x   = $settings['x']     ?? $this->x     ?? 0;
+        $y   = $settings['y']     ?? $this->y     ?? 0;
+        $rgb = $settings['color'] ?? $this->color ?? '0|0|0';
 
         imagesetpixel($this->canvas, $x, $y, $this->allocate($rgb));
+
+        $this->defaultRevolvingVariables();
 
         return $this;
     }
@@ -1225,7 +1246,7 @@ class InternalGD implements InternalGDInterface
     public function generate(String $type = NULL, String $save = NULL)
     {
         $canvas = $this->canvas;
-
+        
         if( ! empty($type) )
         {
             $this->type = $type;
@@ -1284,7 +1305,7 @@ class InternalGD implements InternalGDInterface
         }
         else
         {
-            return '0|0|0|127';
+            return $rgb ?? '0|0|0|127';
         }
     }
 

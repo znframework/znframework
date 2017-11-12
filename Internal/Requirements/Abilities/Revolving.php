@@ -19,9 +19,8 @@
     //
     //--------------------------------------------------------------------------------------------------------
     public function __call($method, $param)
-    {
-        $this->$method = $param[0] ?? NULL;
-
+    {   
+        
         $this->revolvings[$method] = $this->$method;
 
         return $this;

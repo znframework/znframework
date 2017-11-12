@@ -347,7 +347,7 @@ class InternalExceptions extends Exception implements InternalExceptionsInterfac
 
         preg_match('/\w+\.wizard\.php/', $requiredFiles, $match);
 
-        $exceptionData['file']    = VIEWS_DIR.($match[0] ?? strtolower(CURRENT_FUNCTION).'.wizard.php');
+        $exceptionData['file']    = VIEWS_DIR.($match[0] ?? strtolower(CURRENT_CFUNCTION).'.wizard.php');
         $exceptionData['message'] = \Lang::select('Error', 'templateWizard');
 
         return (object) $exceptionData;

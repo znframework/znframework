@@ -28,7 +28,7 @@ interface InternalGDInterface
     // @param array  $settings
     //
     //--------------------------------------------------------------------------------------------------------
-    public function thumb(String $filePath, Array $settings) : String;
+    public function thumb(String $filePath, Array $settings = []) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Canvas
@@ -47,12 +47,11 @@ interface InternalGDInterface
     // Create Form
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $type
     // @param string $source
     // @param array  $settings
     //
     //--------------------------------------------------------------------------------------------------------
-    public function createFrom(String $type, String $source, Array $settings);
+    public function createFrom(String $source, Array $settings = []);
 
     //--------------------------------------------------------------------------------------------------------
     // Size
@@ -101,7 +100,7 @@ interface InternalGDInterface
     // @param array  $setings
     //
     //--------------------------------------------------------------------------------------------------------
-    public function jpegToWbmp(String $jpegFile, String $wbmpFile, Array $settings = NULL) : Bool;
+    public function jpegToWbmp(String $jpegFile, String $wbmpFile, Array $settings = []) : Bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Png To Wbmp
@@ -112,7 +111,7 @@ interface InternalGDInterface
     // @param array  $setings
     //
     //--------------------------------------------------------------------------------------------------------
-    public function pngToWbmp(String $pngFile, String $wbmpFile, Array $settings = NULL) : Bool;
+    public function pngToWbmp(String $pngFile, String $wbmpFile, Array $settings = []) : Bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Alpha Blending
@@ -287,7 +286,7 @@ interface InternalGDInterface
     // @param string $rgb
     //
     //--------------------------------------------------------------------------------------------------------
-    public function set(Int $index, String $rgb) : InternalGD;
+    public function set(Int $index, String $rgb = NULL) : InternalGD;
 
     //--------------------------------------------------------------------------------------------------------
     // Total
@@ -335,7 +334,7 @@ interface InternalGDInterface
     // @param array    $settings
     //
     //--------------------------------------------------------------------------------------------------------
-    public function copy($source, Array $settings) : InternalGD;
+    public function copy($source, Array $settings = []) : InternalGD;
 
     //--------------------------------------------------------------------------------------------------------
     // Mix
@@ -345,7 +344,7 @@ interface InternalGDInterface
     // @param array    $settings
     //
     //--------------------------------------------------------------------------------------------------------
-    public function mix($source, Array $settings) : InternalGD;
+    public function mix($source, Array $settings = []) : InternalGD;
 
     //--------------------------------------------------------------------------------------------------------
     // Mix Gray
@@ -355,7 +354,7 @@ interface InternalGDInterface
     // @param array    $settings
     //
     //--------------------------------------------------------------------------------------------------------
-    public function mixGray($source, Array $settings) : InternalGD;
+    public function mixGray($source, Array $settings = []) : InternalGD;
 
     //--------------------------------------------------------------------------------------------------------
     // Resample
@@ -365,7 +364,7 @@ interface InternalGDInterface
     // @param array    $settings
     //
     //--------------------------------------------------------------------------------------------------------
-    public function resample($source, Array $settings) : InternalGD;
+    public function resample($source, Array $settings = []) : InternalGD;
 
     //--------------------------------------------------------------------------------------------------------
     // Resize
@@ -375,7 +374,7 @@ interface InternalGDInterface
     // @param array    $settings
     //
     //--------------------------------------------------------------------------------------------------------
-    public function resize($source, Array $settings) : InternalGD;
+    public function resize($source, Array $settings = []) : InternalGD;
 
     //--------------------------------------------------------------------------------------------------------
     // Copy
@@ -384,7 +383,7 @@ interface InternalGDInterface
     // @param array    $settings
     //
     //--------------------------------------------------------------------------------------------------------
-    public function crop(Array $settings) : InternalGD;
+    public function crop(Array $settings = []) : InternalGD;
 
     //--------------------------------------------------------------------------------------------------------
     // Auto Crop
@@ -498,7 +497,7 @@ interface InternalGDInterface
     // @param array $settings
     //
     //--------------------------------------------------------------------------------------------------------
-    public function pixel(Array $settings) : InternalGD;
+    public function pixel(Array $settings = []) : InternalGD;
 
     //--------------------------------------------------------------------------------------------------------
     // Style
