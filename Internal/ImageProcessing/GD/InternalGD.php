@@ -26,24 +26,6 @@ class InternalGD implements InternalGDInterface
     protected $canvas;
 
     //--------------------------------------------------------------------------------------------------------
-    // Save
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var string
-    //
-    //--------------------------------------------------------------------------------------------------------
-    protected $save;
-
-    //--------------------------------------------------------------------------------------------------------
-    // Quality
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var string
-    //
-    //--------------------------------------------------------------------------------------------------------
-    protected $quality = 0;
-
-    //--------------------------------------------------------------------------------------------------------
     // Output
     //--------------------------------------------------------------------------------------------------------
     //
@@ -240,7 +222,7 @@ class InternalGD implements InternalGDInterface
     // @param int    $threshold
     //
     //--------------------------------------------------------------------------------------------------------
-    public function toWbmp(String $fileName, Int $threshold = NULL) : InternalGD
+    public function toWbmp(String $fileName = NULL, Int $threshold = NULL) : InternalGD
     {
         image2wbmp($this->canvas, $fileName, $threshold);
 
@@ -260,9 +242,11 @@ class InternalGD implements InternalGDInterface
     {
         if( is_file($jpegFile) )
         {
-            $height    = $settings['height']    ?? 0;
-            $width     = $settings['width']     ?? 0;
-            $threshold = $settings['threshold'] ?? 0;
+            $height    = $settings['height']    ?? $this->height    ?? 0;
+            $width     = $settings['width']     ?? $this->width     ?? 0;
+            $threshold = $settings['threshold'] ?? $this->threshold ?? 0;
+
+            $this->defaultRevolvingVariables();
 
             return jpeg2wbmp($jpegFile, $wbmpFile, $height, $width, $threshold);
         }
@@ -851,16 +835,18 @@ class InternalGD implements InternalGDInterface
             throw new InvalidArgumentException('Error', 'resourceParameter', '1.($source)');
         }
 
-        $xt = $settings['xt'] ?? 0;
-        $yt = $settings['yt'] ?? 0;
-        $xs = $settings['xs'] ?? 0;
-        $ys = $settings['ys'] ?? 0;
-        $wt = $settings['wt'] ?? 0;
-        $ht = $settings['ht'] ?? 0;
-        $ws = $settings['ws'] ?? 0;
-        $hs = $settings['hs'] ?? 0;
+        $xt = $settings['xt'] ?? $this->target[0]    ?? 0;
+        $yt = $settings['yt'] ?? $this->target[1]    ?? 0;
+        $xs = $settings['xs'] ?? $this->source[0]    ?? 0;
+        $ys = $settings['ys'] ?? $this->source[1]    ?? 0;
+        $wt = $settings['wt'] ?? $this->width        ?? $this->targetWidth  ?? 0;
+        $ht = $settings['ht'] ?? $this->height       ?? $this->targetHeight ?? 0;
+        $ws = $settings['ws'] ?? $this->sourceWidth  ?? 0;
+        $hs = $settings['hs'] ?? $this->sourceHeight ?? 0;
 
-        $function($this->canvas, $source, $xt, $yt, $xs, $ys, $wt, $yt, $ws, $hs);
+        $function($this->canvas, $source, $xt, $yt, $xs, $ys, $wt, $ht, $ws, $hs);
+
+        $this->defaultRevolvingVariables();
 
         return $this;
     }
@@ -889,8 +875,19 @@ class InternalGD implements InternalGDInterface
     //--------------------------------------------------------------------------------------------------------
     public function crop(Array $settings = []) : InternalGD
     {
-        imagecrop($this->canvas, $settings);
+        $sets = 
+        [
+            'x'      => $settings['x']      ?? $this->x      ?? 0,
+            'y'      => $settings['y']      ?? $this->y      ?? 0,
+            'width'  => $settings['width']  ?? $this->width  ?? 100,
+            'height' => $settings['height'] ?? $this->height ?? 0,
 
+        ];
+
+        $this->canvas = imagecrop($this->canvas, $sets);
+
+        $this->defaultRevolvingVariables();
+        
         return $this;
     }
 
@@ -903,9 +900,16 @@ class InternalGD implements InternalGDInterface
     // @param numeric $color
     //
     //--------------------------------------------------------------------------------------------------------
-    public function autoCrop(String $mode = 'default', Float $threshold = .5, Int $color = -1) : InternalGD
+    public function autoCrop(String $mode = 'default', $threshold = .5, $color = -1) : InternalGD
     {
-        imagecropauto($this->canvas, Converter::toConstant($mode, 'IMG_CROP_'), $threshold, $color);
+        $this->canvas = imagecropauto
+        (
+            $this->canvas, Converter::toConstant($mode, 'IMG_CROP_'), 
+            $this->threshold ?? $threshold, 
+            $this->color ?? $color
+        );
+
+        $this->defaultRevolvingVariables();
 
         return $this;
     }
@@ -962,46 +966,6 @@ class InternalGD implements InternalGDInterface
     public function fontWidth(Int $width) : Int
     {
         return imagefontwidth($width);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Quality
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param int $quality
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function quality(Int $quality) : InternalGD
-    {
-        $this->quality = $quality;
-
-        return $this;
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Save
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $file
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function save(String $file) : InternalGD
-    {
-        $this->save = $file;
-        return $this;
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Output
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param boolean $output
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function output(Bool $output) : InternalGD
-    {
-        $this->output = $output;
-        return $this;
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -1365,8 +1329,8 @@ class InternalGD implements InternalGDInterface
     {
         $this->canvas  = NULL;
         $this->save    = NULL;
-        $this->quality = 0;
         $this->output  = true;
+        $this->quality = NULL;
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -1389,53 +1353,10 @@ class InternalGD implements InternalGDInterface
         {
             $save = NULL;
         }
+        
+        $function = 'image' . $type;
 
-        if( $type === 'jpeg' )
-        {
-            if( $this->quality === 0 )
-            {
-                $this->quality = 80;
-            }
-
-            imagejpeg($this->canvas, $save, $this->quality);
-        }
-        elseif( $type === 'png' )
-        {
-            if( $this->quality === 0 )
-            {
-                $this->quality = 8;
-            }
-
-            imagepng($this->canvas, $save, $this->quality);
-        }
-        elseif( $type === 'gif' )
-        {
-            imagegif($this->canvas, $save);
-        }
-        elseif( $type === 'gd' )
-        {
-            imagegd($this->canvas, $save);
-        }
-        elseif( $type === 'gd2' )
-        {
-            imagegd2($this->canvas, $save, $this->quality);
-        }
-        elseif( $type === 'wbmp' )
-        {
-            imagewbmp($this->canvas, $save, $this->quality);
-        }
-        elseif( $type === 'xbm' )
-        {
-            imagexbm($this->canvas, $save, $this->quality);
-        }
-        elseif( $type === 'xpm' )
-        {
-            imagexpm($this->canvas, $save, $this->quality);
-        }
-        elseif( $type === 'webp' )
-        {
-            imagewebp($this->canvas, $save, $this->quality);
-        }
+        $function($this->canvas, $save, $this->quality ?? ($type === 'png' ? 8 : 80));
 
         return $this;
     }
