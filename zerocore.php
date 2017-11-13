@@ -13,7 +13,7 @@
 //--------------------------------------------------------------------------------------------------
 // VERSION INFO CONSTANTS
 //--------------------------------------------------------------------------------------------------
-define('ZN_VERSION'          , '5.4.25');
+define('ZN_VERSION'          , '5.4.3');
 define('REQUIRED_PHP_VERSION', '7.0.0');
 //--------------------------------------------------------------------------------------------------
 
@@ -976,15 +976,16 @@ function server(String $type = NULL)
         }
         else
         {
-            return htmlspecialchars($server[$type], ENT_QUOTES, "utf-8");
+            $return = htmlspecialchars($server[$type], ENT_QUOTES, "utf-8");
         }
     }
     elseif( isset($_SERVER[$type]) )
     {
-        return htmlspecialchars($_SERVER[$type], ENT_QUOTES, "utf-8");
+        $return = htmlspecialchars($_SERVER[$type], ENT_QUOTES, "utf-8");
     }
 
-    return false;
+    // 5.4.3[edited]
+    return str_replace('&amp;', '&', $return) ?: false;
 }
 
 //--------------------------------------------------------------------------------------------------
