@@ -35,27 +35,33 @@ class TemplateWizard extends CallController
     //--------------------------------------------------------------------------------------------------------
     public static function data(String $string, Array $data = []) : String
     {
-        $htmlRegexChar     = '.*?';
-        $htmlTagClose      = "</$1>";
-        $htmlAttributesTag = '\#(!*\w+)\s*(\[(.*?)\])*';
-
         $pattern = array_merge
         (
             self::_symbolsHeader(),
-            self::_keywords($htmlRegexChar),
-            self::_printable($htmlRegexChar),
-            self::_functions($htmlRegexChar),
+            self::_keywords(),
+            self::_printable(),
+            self::_functions(),
             self::_symbolsFooter(),
-            self::_comments($htmlRegexChar),
-            self::_required($htmlRegexChar),
-            self::_tags($htmlRegexChar),
-            self::_jsdata($htmlRegexChar),
-            self::_html($htmlAttributesTag, $htmlTagClose)
+            self::_comments(),
+            self::_required(),
+            self::_tags(),
+            self::_jsdata(),
+            self::_html()
         );
 
-        $string  = preg_replace(array_keys($pattern), array_values($pattern), $string);
-        
-        return Buffer::code($string, $data);
+        return Buffer::code(self::replace($pattern, $string), $data);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Replace
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected static function replace($pattern, $string)
+    {
+        return preg_replace(array_keys($pattern), array_values($pattern), $string);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -77,23 +83,23 @@ class TemplateWizard extends CallController
     // @param string $htmlRegexChar
     //
     //--------------------------------------------------------------------------------------------------------
-    protected static function _required($htmlRegexChar)
+    protected static function _required()
     {
         return
         [
-            '/\{\{\{\s*('.$htmlRegexChar.')\s*\}\}\}/s' => '<?php echo htmlentities($1) ?>',
-            '/\{\{(\s*'.$htmlRegexChar.')\s*\}\}/s'     => '<?php echo $1 ?>',
+            '/\{\{\{\s*(.*?)\s*\}\}\}/s' => '<?php echo htmlentities($1) ?>',
+            '/\{\{(\s*.*?)\s*\}\}/s'     => '<?php echo $1 ?>',
         ];
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Protected Keywords
+    // Protected Keywords -> 5.4.4[edited]
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string $htmlRegexChar
     //
     //--------------------------------------------------------------------------------------------------------
-    protected static function _keywords($htmlRegexChar)
+    protected static function _keywords()
     {
         $array = [];
 
@@ -101,8 +107,11 @@ class TemplateWizard extends CallController
         {
             $array =
             [
-                '/@(endif|endforeach|endfor|endwhile|break|continue)\:/'            => '<?php $1 ?>',
-                '/@(elseif|if|else|foreach|for|while)\s*('.$htmlRegexChar.')\:/s'   => '<?php $1$2: ?>'
+                '/@endforelse:/'                                         => '<?php endif; ?>',                                       
+                '/@forelse\s*\((\s*(.*?)\s+as\s+(.*?))\)\:/s'            => '<?php if( ! empty($2) ): foreach($1): ?>',
+                '/@empty\:/'                                             => '<?php endforeach; else: ?>',           
+                '/@(endif|endforeach|endfor|endwhile|break|continue)\:/' => '<?php $1 ?>',
+                '/@(elseif|if|else|foreach|for|while)\s*(.*?)\:/s'       => '<?php $1$2: ?>'
             ];
         }
 
@@ -116,7 +125,7 @@ class TemplateWizard extends CallController
     // @param string $htmlRegexChar
     //
     //--------------------------------------------------------------------------------------------------------
-    protected static function _printable($htmlRegexChar)
+    protected static function _printable()
     {
         $array = [];
 
@@ -124,9 +133,9 @@ class TemplateWizard extends CallController
         {
             $array =
             [
-                '/@\$('.$htmlRegexChar.')\:/s' => '<?php echo $$1 ?>',
-                '/@@('.$htmlRegexChar.')\:/s'  => '<?php echo $1 ?>',
-                '/@('.$htmlRegexChar.'\))\:/s' => '<?php $1 ?>'
+                '/@\$(.*?)\:/s' => '<?php echo $$1 ?>',
+                '/@@(.*?)\:/s'  => '<?php echo $1 ?>',
+                '/@(.*?\))\:/s' => '<?php $1 ?>'
             ];
         }
 
@@ -140,7 +149,7 @@ class TemplateWizard extends CallController
     // @param string $htmlRegexChar
     //
     //--------------------------------------------------------------------------------------------------------
-    protected static function _functions($htmlRegexChar)
+    protected static function _functions()
     {
         $array = [];
 
@@ -148,7 +157,7 @@ class TemplateWizard extends CallController
         {
             $array =
             [
-                '/@('.$htmlRegexChar.'\))\:/s'   => '<?php $1 ?>'
+                '/@(.*?\))\:/s' => '<?php $1 ?>'
             ];
         }
 
@@ -162,7 +171,7 @@ class TemplateWizard extends CallController
     // @param string $htmlRegexChar
     //
     //--------------------------------------------------------------------------------------------------------
-    protected static function _comments($htmlRegexChar)
+    protected static function _comments()
     {
         $array = [];
 
@@ -171,7 +180,7 @@ class TemplateWizard extends CallController
             $array =
             [
 
-                '/\{\-\-\s*('.$htmlRegexChar.')\s*\-\-\}/s' => '<!--$1-->'
+                '/\{\-\-\s*(.*?)\s*\-\-\}/s' => '<!--$1-->'
             ];
         }
 
@@ -185,7 +194,7 @@ class TemplateWizard extends CallController
     // @param string $htmlRegexChar
     //
     //--------------------------------------------------------------------------------------------------------
-    protected static function _jsdata($htmlRegexChar)
+    protected static function _jsdata()
     {
         $array = [];
 
@@ -193,7 +202,7 @@ class TemplateWizard extends CallController
         {
             $array =
             [
-                '/\[\{\s*('.$htmlRegexChar.')\s*\}\]/s' => '{{$1}}',
+                '/\[\{\s*(.*?)\s*\}\]/s' => '{{$1}}',
             ];
         }
 
@@ -207,7 +216,7 @@ class TemplateWizard extends CallController
     // @param string $htmlRegexChar
     //
     //--------------------------------------------------------------------------------------------------------
-    protected static function _tags($htmlRegexChar)
+    protected static function _tags()
     {
         $array = [];
 
@@ -216,8 +225,8 @@ class TemplateWizard extends CallController
             $array =
             [
 				// 5.3.4[added]
-				'/\{\[\=('.$htmlRegexChar.')\]\}/'      => '<?php echo $1 ?>',
-                '/\{\[\s*('.$htmlRegexChar.')\s*\]\}/s' => '<?php $1 ?>'
+				'/\{\[\=(.*?)\]\}/'      => '<?php echo $1 ?>',
+                '/\{\[\s*(.*?)\s*\]\}/s' => '<?php $1 ?>'
             ];
         }
 
@@ -231,9 +240,11 @@ class TemplateWizard extends CallController
     // @param string $htmlRegexChar
     //
     //--------------------------------------------------------------------------------------------------------
-    protected static function _html($htmlAttributesTag, $htmlTagClose)
+    protected static function _html()
     {
-        $array = [];
+        $array             = [];
+        $htmlTagClose      = "</$1>";
+        $htmlAttributesTag = '\#(!*\w+)\s*(\[(.*?)\])*';
 
         if( self::config()['html'] ?? true )
         {
