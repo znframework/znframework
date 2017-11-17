@@ -202,7 +202,7 @@ class TemplateWizard extends CallController
         {
             $array =
             [
-                '/\[\{\s*(.*?)\s*\}\]/s' => '{{$1}}',
+                '/\[\{\s*(.*?)\s*\}\]/s' => '{{$1}}'
             ];
         }
 

@@ -19,7 +19,7 @@ class Process extends PermissionExtends
     // @param string  $process: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function start(Int $roleId = 0, String $process = NULL)
+    public function start($roleId = 0, $process = NULL)
     {
         $this->content = $this->use($roleId, $process, 'object');
 
@@ -55,13 +55,20 @@ class Process extends PermissionExtends
     // process()
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param numeric $roleId : 0
+    // @param mixed   $roleId : 0
     // @param string  $process: empty
     // @param string  $object : empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function use(Int $roleId = 0, String $process = NULL, String $object = NULL)
+    public function use($roleId = 0, $process = NULL, $object = NULL)
     {
+        if( PermissionExtends::$roleId !== NULL )
+        {
+            $object  = $process;
+            $process = $roleId;
+            $roleId  = PermissionExtends::$roleId;
+        }
+
         return $this->common($roleId, $process, $object, 'process');
     }
 }

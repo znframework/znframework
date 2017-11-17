@@ -15,11 +15,11 @@ class Page extends PermissionExtends
     // page()
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param numeric $roleId : 0
+    // @param mixed $roleId : 0
     //
     //--------------------------------------------------------------------------------------------------------
-    public function use(Int $roleId = 6)
+    public function use($roleId = 6)
     {
-        return $this->common($roleId, NULL, NULL, 'page');
+        return $this->common(PermissionExtends::$roleId ?? $roleId, NULL, NULL, 'page');
     }
 }

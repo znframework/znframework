@@ -23,6 +23,7 @@ class InternalPermission extends \FactoryController
             'get'     => 'Permission\Method::get',
             'request' => 'Permission\Method::request',
             'method'  => 'Permission\Method::use',
+            'roleid'  => 'Permission\PermissionExtends::roleId'
         ]
     ];
 }

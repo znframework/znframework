@@ -17,10 +17,10 @@ class Method extends PermissionExtends
     // post()
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param numeric $roleId : 0
+    // @param mixed $roleId : 0
     //
     //--------------------------------------------------------------------------------------------------------
-    public function post(Int $roleId = 6)
+    public function post($roleId = 6)
     {
         return $this->use($roleId, __FUNCTION__);
     }
@@ -29,10 +29,10 @@ class Method extends PermissionExtends
     // get()
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param numeric $roleId : 0
+    // @param mixed $roleId : 0
     //
     //--------------------------------------------------------------------------------------------------------
-    public function get(Int $roleId = 6)
+    public function get($roleId = 6)
     {
         return $this->use($roleId, __FUNCTION__);
     }
@@ -41,10 +41,10 @@ class Method extends PermissionExtends
     // request()
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param numeric $roleId : 0
+    // @param mixed $roleId : 0
     //
     //--------------------------------------------------------------------------------------------------------
-    public function request(Int $roleId = 6)
+    public function request($roleId = 6)
     {
         return $this->use($roleId, __FUNCTION__);
     }
@@ -53,11 +53,11 @@ class Method extends PermissionExtends
     // method()
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param numeric $roleId : 0
+    // @param mixed $roleId : 0
     //
     //--------------------------------------------------------------------------------------------------------
-    public function use(Int $roleId = 6, $method = 'post') : Bool
+    public function use($roleId = 6, $method = 'post') : Bool
     {
-        return $this->common($roleId, $method, NULL, 'method');
+        return $this->common(PermissionExtends::$roleId ?? $roleId, $method, NULL, 'method');
     }
 }
