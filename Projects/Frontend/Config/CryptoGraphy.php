@@ -22,7 +22,7 @@
         // @drivers: mcyrpt, openssl, hash, phash, mhash
         //                                                                                                                      
         //----------------------------------------------------------------------------------------------
-        'driver' => 'mcrypt'
+        'driver' => 'openssl'
     ],
 
     'encode' =>
