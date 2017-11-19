@@ -1,6 +1,6 @@
 <?php namespace ZN\ViewObjects\View;
 
-use URL, IS, DB, Session;
+use URL, IS, DB, Session, Validation;
 
 trait FormElementsTrait
 {

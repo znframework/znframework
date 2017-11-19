@@ -195,7 +195,7 @@ class InternalForm
 
         if( ! empty($this->settings['attr']['name']) )
         {
-            $this->_posback($this->settings['attr']['name'], $value);
+            $this->_postback($this->settings['attr']['name'], $value);
 
             // 5.4.2[added]
             $this->_validate($this->settings['attr']['name'], $this->settings['attr']['name']);
@@ -299,7 +299,7 @@ class InternalForm
 
         if( ! empty($_attributes['name']) )
         {
-            $this->_posback($_attributes['name'], $selected);
+            $this->_postback($_attributes['name'], $selected);
 
             // 5.4.2[added]
             $this->_validate($_attributes['name'], $_attributes['name']);

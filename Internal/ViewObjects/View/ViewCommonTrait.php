@@ -1,6 +1,6 @@
 <?php namespace ZN\ViewObjects\View;
 
-use Strings, Arrays, Validation, Classes, Json;
+use Strings, Arrays, Classes, Json;
 
 trait ViewCommonTrait
 {
@@ -233,7 +233,7 @@ trait ViewCommonTrait
 
         if( ! empty($attributes['name']) )
         {
-            $this->_posback($attributes['name'], $attributes['value'] ?? NULL);
+            $this->_postback($attributes['name'], $attributes['value']);
 
             // 5.4.2[added]
             $this->_validate($attributes['name'], $attributes['name']);
