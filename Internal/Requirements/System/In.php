@@ -1,7 +1,7 @@
 <?php namespace ZN;
 
-use Config, Import, Exceptions, Errors, GeneralException, Regex, Route;
-use View, Masterpage, Arrays, Http, Lang, URI, URL, IS, File, Folder;
+use Config, Import, Exceptions, Errors, GeneralException, Regex, Route, Strings;
+use View, Masterpage, Arrays, Http, Lang, URI, URL, IS, File, Folder, Logger;
 
 class In
 {
@@ -370,7 +370,7 @@ class In
             //----------------------------------------------------------------------------------------------
             echo $benchResult;
 
-            \Logger::report('Benchmarking Test Result', $benchResult, 'BenchmarkTestResults');
+            Logger::report('Benchmarking Test Result', $benchResult, 'BenchmarkTestResults');
             //----------------------------------------------------------------------------------------------
         }
 
@@ -449,7 +449,7 @@ class In
         $controllerPath  = ! empty($controllerEx[0]) ? $controllerEx[0] : '';
         $controllerFunc  = ! empty($controllerEx[1]) ? $controllerEx[1] : 'main';
         $controllerFile  = CONTROLLERS_DIR . suffix($controllerPath, '.php');
-        $controllerClass = \Strings::divide($controllerPath, '/', -1);
+        $controllerClass = Strings::divide($controllerPath, '/', -1);
 
         if( is_file($controllerFile) )
         {
@@ -462,7 +462,7 @@ class In
 
             if( ! is_callable([$controllerClass, $controllerFunc]) )
             {
-                \Logger::report('Error', \Lang::select('Error', 'callUserFuncArrayError', $controllerFunc), 'SystemCallUserFuncArrayError');
+                Logger::report('Error', Lang::select('Error', 'callUserFuncArrayError', $controllerFunc), 'SystemCallUserFuncArrayError');
 
                 die(Errors::message('Error', 'callUserFuncArrayError', $controllerFunc));
             }
@@ -780,7 +780,7 @@ class In
             {
                 switch( $key )
                 {
-                    case 'userAgent' :
+                    case 'userAgent':
                         $robots .= ! empty( $val ) ? 'User-agent: '.$val.EOL : '';
                     break;
 
@@ -799,7 +799,7 @@ class In
                 {
                     switch( $r )
                     {
-                        case 'userAgent' :
+                        case 'userAgent':
                             $robots .= ! empty( $v ) ? 'User-agent: '.$v.EOL : '';
                         break;
 
@@ -817,7 +817,6 @@ class In
 
         $robotTxt = 'robots.txt';
 
-        // robots.txt dosyası varsa içeriği al yok ise içeriği boş geç
         if( File::exists($robotTxt) )
         {
             $getContents = File::read($robotTxt);
@@ -826,7 +825,7 @@ class In
         {
             $getContents = '';
         }
-        // robots.txt değişkenin tuttuğu değer ile dosya içeri eşitse tekrar oluşturma
+
         if( trim($robots) === trim($getContents) )
         {
             return false;
