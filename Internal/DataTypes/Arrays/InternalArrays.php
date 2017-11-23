@@ -1,6 +1,6 @@
 <?php namespace ZN\DataTypes;
 
-use Converter, Json;
+use Converter, Json, RecursiveIteratorIterator, RecursiveArrayIterator;
 
 class InternalArrays extends \FactoryController
 {
@@ -422,5 +422,25 @@ class InternalArrays extends \FactoryController
     public function column(Array $array, $columnKey = 0, $indexKey = NULL) : Array
     {
         return array_column($array, $columnKey, $indexKey);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param array $array
+    // @param bool  $preserveKey = true
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function unidimensional(Array $array, Bool $preserveKey = true) : Array
+    {
+        return iterator_to_array
+        (
+            new RecursiveIteratorIterator
+            (
+                new RecursiveArrayIterator($array)
+            ), 
+   
+            $preserveKey
+        );
     }
 }

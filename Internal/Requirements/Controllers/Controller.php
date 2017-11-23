@@ -1,6 +1,6 @@
 <?php namespace Project\Controllers;
 
-use Arrays, Config;
+use Arrays, Config, Autoloader, Restoration, stdClass;
 
 class Controller
 {
@@ -42,11 +42,11 @@ class Controller
     {
         if( defined('static::restore') )
         {
-            \Restoration::mode(static::restore);
+            Restoration::mode(static::restore);
         }
 
-        $this->view       = new \stdClass;
-        $this->masterpage = new \stdClass;
+        $this->view       = new stdClass;
+        $this->masterpage = new stdClass;
 
         ZN::$use =& $this;
 
@@ -65,7 +65,7 @@ class Controller
     //--------------------------------------------------------------------------------------------------------
     public function restart()
     {
-        return \Autoloader::restart();
+        return Autoloader::restart();
     }
 
     //--------------------------------------------------------------------------------------------------------

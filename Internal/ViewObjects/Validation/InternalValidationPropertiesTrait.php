@@ -257,15 +257,15 @@ trait InternalValidationPropertiesTrait
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // captcha()
+    // captcha() -> 5.4.5[edited]
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $captcha
+    // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function captcha(String $captcha) : InternalValidation
+    public function captcha() : InternalValidation
     {
-        $this->settings['config']['captcha'] = $captcha;
+        $this->settings['config'][] = 'captcha';
 
         return $this;
     }

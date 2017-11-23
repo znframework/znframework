@@ -172,10 +172,10 @@ interface InternalValidationInterface
     // captcha()
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $captcha
+    // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function captcha(String $captcha) : InternalValidation;
+    public function captcha() : InternalValidation;
 
     //--------------------------------------------------------------------------------------------------------
     // Rules

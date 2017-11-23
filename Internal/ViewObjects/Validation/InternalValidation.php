@@ -1,6 +1,6 @@
 <?php namespace ZN\ViewObjects\View;
 
-use Validator, Config, Security, Session, Encode, Method, CallController, Lang, Post;
+use Validator, Config, Security, Session, Encode, Method, CallController, Lang, Post, Captcha, Arrays;
 use ZN\ViewObjects\View\Validation\Exception\InvalidArgumentException;
 
 class InternalValidation extends CallController implements InternalValidationInterface
@@ -197,7 +197,9 @@ class InternalValidation extends CallController implements InternalValidationInt
                 $value = $rule['value'] ?? $name;
                 
                 unset($rule['value']);
-                
+
+                $rule = Arrays::unidimensional($rule);
+         
                 $this->rules($name, $rule, $value, $method);
             } 
         }
@@ -401,9 +403,7 @@ class InternalValidation extends CallController implements InternalValidationInt
     {
         if( in_array('captcha', $this->config) )
         {
-            Session::start();
-
-            if( $this->edit != Session::select(md5('SystemCaptchaCodeData')) )
+            if( $this->edit !== Captcha::getCode() )
             {
                 $this->_messages('captchaCode', $this->name, $this->viewName);
             }

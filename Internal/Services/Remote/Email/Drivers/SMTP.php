@@ -379,13 +379,6 @@ class SMTPDriver extends EmailMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     protected function _hostname()
     {
-        if( isset($_SERVER['SERVER_NAME']) )
-        {
-            return $_SERVER['SERVER_NAME'];
-        }
-
-        return isset($_SERVER['SERVER_ADDR'])
-               ? '['.$_SERVER['SERVER_ADDR'].']'
-               : '[127.0.0.1]';
+        return $_SERVER['SERVER_NAME'] ?? '[' . ($_SERVER['SERVER_ADDR'] ?? '127.0.0.1') . ']';
     }
 }
