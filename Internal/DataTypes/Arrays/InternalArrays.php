@@ -1,7 +1,5 @@
 <?php namespace ZN\DataTypes;
 
-use Converter;
-
 class InternalArrays extends \FactoryController
 {
     //--------------------------------------------------------------------------------------------------------
@@ -88,106 +86,18 @@ class InternalArrays extends \FactoryController
             'intersectkey'          => 'Arrays\Intersect::key',
             'product'               => 'Arrays\Calculate::product',
             'sum'                   => 'Arrays\Calculate::sum',
+            'random'                => 'Arrays\Random::do',
+            'rand'                  => 'Arrays\Random::do',
+            'search'                => 'Arrays\Search::do',
+            'section'               => 'Arrays\Section::do',
+            'slice'                 => 'Arrays\Section::do',
+            'resection'             => 'Arrays\Section::resection',
+            'splice'                => 'Arrays\Section::resection',
+            'deleterecurrent'       => 'Arrays\Unique::do',
+            'unique'                => 'Arrays\Unique::do',
+            'series'                => 'Arrays\Series::do',
+            'range'                 => 'Arrays\Series::do',
+            'column'                => 'Arrays\Column::do',
         ]
     ];
-
-    //--------------------------------------------------------------------------------------------------------
-    // Random
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array   $array
-    // @param numeric $countRequest
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function random(Array $array, Int $countRequest = 1)
-    {
-        return array_rand($array, $countRequest);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Search
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array $array
-    // @param mixed $element
-    // @param bool  $strict
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function search(Array $array, $element, Bool $strict = false)
-    {
-        return array_search($element, $array, $strict);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Section
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array   $array
-    // @param numeric $start
-    // @param numeric $length
-    // @param bool    $preserveKey
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function section(Array $array, Int $start = 0, Int $length = NULL, Bool $preserveKeys = false) : Array
-    {
-        return array_slice($array, $start, $length, $preserveKeys);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Resection
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array   $array
-    // @param numeric $start
-    // @param numeric $length
-    // @param mixed   $newElement
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function resection(Array $array, Int $start = 0, Int $length = NULL, $newElement = NULL) : Array
-    {
-        array_splice($array, $start, $length, $newElement);
-
-        return $array;
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Delete Recurrent
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array  $array
-    // @param string $flags
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function deleteRecurrent(Array $array, String $flags = 'string') : Array
-    {
-        return array_unique($array, Converter::toConstant($flags, 'SORT_'));
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Series
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param numeric $start
-    // @param numeric $end
-    // @param numeric $count
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function series(Int $start, Int $end, Int $step = 1) : Array
-    {
-        return range($start, $end, $step);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Column
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array   $array
-    // @param mixed   $columnKey
-    // @param mixed   $indexKey
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function column(Array $array, $columnKey = 0, $indexKey = NULL) : Array
-    {
-        return array_column($array, $columnKey, $indexKey);
-    }
 }
