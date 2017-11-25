@@ -1,6 +1,6 @@
 <?php namespace ZN\DataTypes;
 
-use Converter, Json, RecursiveIteratorIterator, RecursiveArrayIterator;
+use Converter;
 
 class InternalArrays extends \FactoryController
 {
@@ -49,6 +49,7 @@ class InternalArrays extends \FactoryController
             'insensitivesort'       => 'Arrays\Sort::insensitive',
             'naturalsort'           => 'Arrays\Sort::natural',
             'shuffle'               => 'Arrays\Sort::shuffle',
+            'reverse'               => 'Arrays\Sort::reverse',
             'including'             => 'Arrays\Including::use',
             'include'               => 'Arrays\Including::use',
             'excluding'             => 'Arrays\Excluding::use',
@@ -63,212 +64,32 @@ class InternalArrays extends \FactoryController
             'value'                 => 'Arrays\KeyValue::value',
             'keys'                  => 'Arrays\KeyValue::keys',
             'values'                => 'Arrays\KeyValue::values',
+            'unidimensional'        => 'Arrays\Unidimensional::do',
+            'flatten'               => 'Arrays\Unidimensional::do',
+            'objectdata'            => 'Arrays\Convert::objectData',
+            'toJson'                => 'Arrays\Convert::json',
+            'flip'                  => 'Arrays\Transform::flip',
+            'transform'             => 'Arrays\Transform::flip',
+            'length'                => 'Arrays\Length::get',
+            'countsamevalues'       => 'Arrays\Length::sameValues',
+            'lengthsamevalues'      => 'Arrays\Length::sameValues',
+            'valueexists'           => 'Arrays\Exists::value',
+            'valueexistsinsensitive'=> 'Arrays\Exists::valueInsensitive',
+            'keyexists'             => 'Arrays\Exists::key',
+            'keyexistsinsensitive'  => 'Arrays\Exists::keyInsensitive',
+            'apportion'             => 'Arrays\Chunk::do',
+            'chunk'                 => 'Arrays\Chunk::do',
+            'combine'               => 'Arrays\Combine::do',
+            'map'                   => 'Arrays\Map::do',
+            'implementcallback'     => 'Arrays\Map::do',
+            'merge'                 => 'Arrays\Merge::do',
+            'recursivemerge'        => 'Arrays\Merge::recursive',
+            'intersect'             => 'Arrays\Intersect::do',
+            'intersectkey'          => 'Arrays\Intersect::key',
+            'product'               => 'Arrays\Calculate::product',
+            'sum'                   => 'Arrays\Calculate::sum',
         ]
     ];
-
-    //--------------------------------------------------------------------------------------------------------
-    // Object Data
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array   $array
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function objectData(Array $data) : String
-    {
-        return Json::encode($data);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Length
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array   $array
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function length(Array $data) : Int
-    {
-        return count($data);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Apportion
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array   $array
-    // @param numeric $portionCount
-    // @param bool    $preserveKeys
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function apportion(Array $data, Int $portionCount = 1, Bool $preserveKeys = false) : Array
-    {
-        return array_chunk($data, $portionCount, $preserveKeys);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Combine
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array $keys
-    // @param array $values
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function combine(Array $keys, Array $values) : Array
-    {
-        return array_combine($keys, $values);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Count Same Values
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array $array
-    // @param mixed $key
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function countSameValues(Array $array, String $key = NULL)
-    {
-        $return = array_count_values($array);
-
-        if( ! empty($key) )
-        {
-            return $return[$key] ?? false;
-        }
-
-        return $return;
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Flip
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array   $array
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function flip(Array $array) : Array
-    {
-        return array_flip($array);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Transform
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array   $array
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function transform(Array $array) : Array
-    {
-        return $this->flip($array);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Implement Callback(Map)
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param ...args
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function implementCallback(...$args) : Array
-    {
-        return $this->map(...$args);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Map
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param ...args
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function map(...$args) : Array
-    {
-        return array_map(...$args);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Recursive Merge
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param ...args
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function recursiveMerge(...$args) : Array
-    {
-        return array_merge_recursive(...$args);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Merge
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param ...args
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function merge(...$args) : Array
-    {
-        return array_merge(...$args);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Intersect
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param ...args
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function intersect(...$args) : Array
-    {
-        return array_intersect(...$args);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Intersect Key
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param ...args
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function intersectKey(...$args) : Array
-    {
-        return array_intersect_key(...$args);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Reverse
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array   $array
-    // @param bool    $preserveKeys
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function reverse(Array $array, Bool $preserveKeys = false) : Array
-    {
-        return array_reverse($array, $preserveKeys);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Product
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array   $array
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function product(Array $array) : Float
-    {
-        return array_product($array);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Sum
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array   $array
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function sum(Array $array) : Float
-    {
-        return array_sum($array);
-    }
 
     //--------------------------------------------------------------------------------------------------------
     // Random
@@ -295,60 +116,6 @@ class InternalArrays extends \FactoryController
     public function search(Array $array, $element, Bool $strict = false)
     {
         return array_search($element, $array, $strict);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Value Exists
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array $array
-    // @param mixed $element
-    // @param bool  $strict
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function valueExists(Array $array, $element, Bool $strict = false) : Bool
-    {
-        return in_array($element, $array, $strict);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Value Exists Insensitive
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array $array
-    // @param mixed $element
-    // @param bool  $insenstive
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function valueExistsInsensitive(Array $array, $element, Bool $strict = false) : Bool
-    {
-        return $this->valueExists($this->map('strtolower', $array), strtolower($element), $strict);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Key Exists
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array $array
-    // @param mixed $key
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function keyExists(Array $array, $key) : Bool
-    {
-        return array_key_exists($key, $array);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Key Exists Insensitive
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array $array
-    // @param mixed $key
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function keyExistsInsensitive(Array $array, $key) : Bool
-    {
-        return $this->keyExists($this->lowerKeys($array), strtolower($key));
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -422,26 +189,5 @@ class InternalArrays extends \FactoryController
     public function column(Array $array, $columnKey = 0, $indexKey = NULL) : Array
     {
         return array_column($array, $columnKey, $indexKey);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Unidimensional -> 5.4.5[added]
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array $array
-    // @param bool  $preserveKey = true
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function unidimensional(Array $array, Bool $preserveKey = true) : Array
-    {
-        return iterator_to_array
-        (
-            new RecursiveIteratorIterator
-            (
-                new RecursiveArrayIterator($array)
-            ), 
-   
-            $preserveKey
-        );
     }
 }

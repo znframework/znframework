@@ -1,6 +1,6 @@
 <?php namespace ZN\IndividualStructures;
 
-use Classes;
+use Classes, Arrays;
 
 class InternalReflect
 {
@@ -45,7 +45,7 @@ class InternalReflect
     {
         $lower = strtolower($method);
 
-        if( \Arrays::valueExists($this->classes, $lower) )
+        if( Arrays::valueExists($this->classes, $lower) )
         {
             return $this->call($parameters, $method);
         }
