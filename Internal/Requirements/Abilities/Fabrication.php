@@ -1,11 +1,7 @@
-<?php namespace ZN\IndividualStructures;
-
-use Classes, Arrays;
-
-class InternalReflect
+<?php trait FabricationAbility
 {
     //--------------------------------------------------------------------------------------------------------
-    // Reflect -> 5.4.5
+    // Fabrication -> 5.4.5
     //--------------------------------------------------------------------------------------------------------
     //
     // Author     : Ozan UYKUN <ozanbote@gmail.com>
@@ -14,24 +10,6 @@ class InternalReflect
     // Copyright  : (c) 2012-2016, znframework.com
     //
     //-------------------------------------------------------------------------------------------------------
-
-    //--------------------------------------------------------------------------------------------------------
-    // Classes
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var array
-    //
-    //---------------------------------------------------------------------------------------------------------
-    protected $classes = 
-    [
-        'class', 
-        'extension', 
-        'function',  
-        'method', 
-        'object', 
-        'parameter', 
-        'property'
-    ];
 
     //--------------------------------------------------------------------------------------------------------
     // Magic Call
@@ -43,14 +21,7 @@ class InternalReflect
     //---------------------------------------------------------------------------------------------------------
     public function __call($method, $parameters)
     {
-        $lower = strtolower($method);
-
-        if( Arrays::valueExists($this->classes, $lower) )
-        {
-            return $this->call($parameters, $method);
-        }
-
-        return $this->call($parameters)->$method();
+        return $this->call($parameters, $method);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -63,13 +34,8 @@ class InternalReflect
     //--------------------------------------------------------------------------------------------------------
     protected function call($parameters, $type = NULL)
     {
-        $class = 'Reflection' . $type;
-
-        if( $type === 'class' )
-        {
-            $parameters[0] = Classes::class($parameters[0]);            
-        }
-
+        $class = (self::fabrication['prefix'] ?? NULL) . $type . (self::fabrication['suffix'] ?? NULL);
+        
         return (new $class(...$parameters));
     }
 }
