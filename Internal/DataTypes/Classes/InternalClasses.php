@@ -1,6 +1,6 @@
 <?php namespace ZN\DataTypes;
 
-use Config, CallController;
+use Config, CallController, ReflectionClass;
 use ZN\DataTypes\Classes\Exception\InvalidArgumentException;
 
 class InternalClasses extends CallController implements InternalClassesInterface
@@ -15,12 +15,23 @@ class InternalClasses extends CallController implements InternalClassesInterface
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
+    // Reflection -> 5.4.5[added]
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $className
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function reflection(String $className) : ReflectionClass
+    {
+        return new ReflectionClass($this->_class($className));
+    }
+
+    //--------------------------------------------------------------------------------------------------------
     // Is Relation
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string $className
     // @param object $object
-    // @param string $prefix
     //
     //--------------------------------------------------------------------------------------------------------
     public function isRelation(String $className, $object) : Bool
@@ -39,7 +50,6 @@ class InternalClasses extends CallController implements InternalClassesInterface
     //
     // @param string $className
     // @param object $object
-    // @param string $prefix
     //
     //--------------------------------------------------------------------------------------------------------
     public function isParent(String $className, $object) : Bool
@@ -53,7 +63,6 @@ class InternalClasses extends CallController implements InternalClassesInterface
     //
     // @param string $className
     // @param object $method
-    // @param string $prefix
     //
     //--------------------------------------------------------------------------------------------------------
     public function methodExists(String $className, String $method) : Bool
@@ -67,7 +76,6 @@ class InternalClasses extends CallController implements InternalClassesInterface
     //
     // @param string $className
     // @param object $property
-    // @param string $prefix
     //
     //--------------------------------------------------------------------------------------------------------
     public function propertyExists(String $className, String $property) : Bool
@@ -80,7 +88,6 @@ class InternalClasses extends CallController implements InternalClassesInterface
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string $className
-    // @param string $prefix
     //
     //--------------------------------------------------------------------------------------------------------
     public function methods(String $className)
@@ -93,7 +100,6 @@ class InternalClasses extends CallController implements InternalClassesInterface
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string $className
-    // @param string $prefix
     //
     //--------------------------------------------------------------------------------------------------------
     public function vars(String $className)
@@ -106,7 +112,6 @@ class InternalClasses extends CallController implements InternalClassesInterface
     //--------------------------------------------------------------------------------------------------------
     //
     // @param object $var
-    // @param string $prefix
     //
     //--------------------------------------------------------------------------------------------------------
     public function name($var) : String
@@ -167,6 +172,18 @@ class InternalClasses extends CallController implements InternalClassesInterface
     public function onlyName(String $class) : String
     {
         return \Strings::divide(str_replace(INTERNAL_ACCESS, '', $class), '\\', -1);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Public Class -> 5.4.5[added]
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $className
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function class(String $className) : String
+    {
+        return $this->_class($className);
     }
 
     //--------------------------------------------------------------------------------------------------------

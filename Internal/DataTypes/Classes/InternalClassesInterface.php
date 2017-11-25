@@ -12,12 +12,20 @@ interface InternalClassesInterface
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
+    // Reflection -> 5.4.5[added]
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $className
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function reflection(String $className) : \ReflectionClass;
+
+    //--------------------------------------------------------------------------------------------------------
     // Is Relation
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string $string
     // @param object $object
-    // @param string $prefix
     //
     //--------------------------------------------------------------------------------------------------------
     public function isRelation(String $className, $object) : Bool;
@@ -28,7 +36,6 @@ interface InternalClassesInterface
     //
     // @param string $className
     // @param object $object
-    // @param string $prefix
     //
     //--------------------------------------------------------------------------------------------------------
     public function isParent(String $className, $object) : Bool;
@@ -39,7 +46,6 @@ interface InternalClassesInterface
     //
     // @param string $className
     // @param object $object
-    // @param string $prefix
     //
     //--------------------------------------------------------------------------------------------------------
     public function methodExists(String $className, String $method) : Bool;
@@ -50,7 +56,6 @@ interface InternalClassesInterface
     //
     // @param string $className
     // @param object $property
-    // @param string $prefix
     //
     //--------------------------------------------------------------------------------------------------------
     public function propertyExists(String $className, String $property) : Bool;
@@ -60,7 +65,6 @@ interface InternalClassesInterface
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string $className
-    // @param string $prefix
     //
     //--------------------------------------------------------------------------------------------------------
     public function methods(String $className);
@@ -70,7 +74,6 @@ interface InternalClassesInterface
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string $className
-    // @param string $prefix
     //
     //--------------------------------------------------------------------------------------------------------
     public function vars(String $className);
@@ -80,7 +83,6 @@ interface InternalClassesInterface
     //--------------------------------------------------------------------------------------------------------
     //
     // @param object $var
-    // @param string $prefix
     //
     //--------------------------------------------------------------------------------------------------------
     public function name($var) : String;
@@ -122,4 +124,13 @@ interface InternalClassesInterface
     //
     //--------------------------------------------------------------------------------------------------------
     public function onlyName(String $class) : String;
+
+    //--------------------------------------------------------------------------------------------------------
+    // Public Class -> 5.4.5[added]
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $className
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function class(String $className) : String;
 }
