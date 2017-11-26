@@ -1,6 +1,7 @@
 <?php namespace ZN\IndividualStructures\User;
 
-use Encode, DB;
+use DB;
+use ZN\CryptoGraphy\Encode\Type;
 
 class Update extends UserExtends
 {
@@ -85,9 +86,9 @@ class Update extends UserExtends
             $tn         = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['table'];
             $encodeType = INDIVIDUALSTRUCTURES_USER_CONFIG['encode'];
 
-            $oldPassword      = ! empty($encodeType) ? Encode::type($old, $encodeType)      : $old;
-            $newPassword      = ! empty($encodeType) ? Encode::type($new, $encodeType)      : $new;
-            $newPasswordAgain = ! empty($encodeType) ? Encode::type($newAgain, $encodeType) : $newAgain;
+            $oldPassword      = ! empty($encodeType) ? Type::create($old, $encodeType)      : $old;
+            $newPassword      = ! empty($encodeType) ? Type::create($new, $encodeType)      : $new;
+            $newPasswordAgain = ! empty($encodeType) ? Type::create($newAgain, $encodeType) : $newAgain;
 
             if( ! empty($joinTables) )
             {

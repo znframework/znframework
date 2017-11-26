@@ -1,6 +1,12 @@
 <?php namespace ZN\FileSystem;
 
-use Config, Folder, File, Converter, Encode, CallController, IS, Mime, Lang, Arrays;
+use Config, CallController, IS, Mime, Lang;
+use ZN\DataTypes\Arrays\AddElement;
+use ZN\CryptoGraphy\Encode\Type;
+use ZN\FileSystem\File\Extension;
+use ZN\FileSystem\Folder\Info;
+use ZN\FileSystem\Folder\Forge;
+use ZN\Helpers\Converter\Unicode;
 
 class InternalUpload extends CallController implements InternalUploadInterface
 {
@@ -266,9 +272,9 @@ class InternalUpload extends CallController implements InternalUploadInterface
         $fileName = $this->settings['source'] ?? $fileName;
         $rootDir  = $this->settings['target'] ?? $rootDir;
 
-        if( ! Folder::exists($rootDir) ) 
+        if( ! Info::exists($rootDir) ) 
         {
-            Folder::create($rootDir);
+            Forge::create($rootDir);
         }
 
         $extensions = $this->_separator('extensions');
@@ -458,7 +464,7 @@ class InternalUpload extends CallController implements InternalUploadInterface
         if( ($this->settings['convertName'] ?? NULL) === true )
         {
             // 5.4.3[edited] 
-            $nm = Converter::slug($nm, true);
+            $nm = Unicode::slug($nm, true);
         }
 
         if( $this->settings['encode'] ?? NULL )
@@ -478,8 +484,8 @@ class InternalUpload extends CallController implements InternalUploadInterface
 
         if( is_array($_FILES[$this->file]['name']) )
         {
-            $this->encodeName = Arrays::addLast((array) $this->encodeName, $encryptionName);
-            $this->path       = Arrays::addLast((array) $this->path      , $target        );     
+            $this->encodeName = AddElement::last((array) $this->encodeName, $encryptionName);
+            $this->path       = AddElement::last((array) $this->path      , $target        );     
         }
         else
         {
@@ -487,7 +493,7 @@ class InternalUpload extends CallController implements InternalUploadInterface
             $this->path       = $target;
         }
 
-        if( ! empty($extensions) && ! in_array(File::extension($nm), $extensions) )
+        if( ! empty($extensions) && ! in_array(Extension::get($nm), $extensions) )
         {
             return $this->extensionControl = Lang::select('FileSystem', 'upload:extensionError');
         }
@@ -529,7 +535,7 @@ class InternalUpload extends CallController implements InternalUploadInterface
             $encode = 'md5';
         }
 
-        return substr(Encode::type(uniqid(rand()), $encode), 0, $length).'-';
+        return substr(Type::create(uniqid(rand()), $encode), 0, $length).'-';
     }
 
     //--------------------------------------------------------------------------------------------------------

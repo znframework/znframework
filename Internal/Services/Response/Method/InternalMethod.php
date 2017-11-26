@@ -157,7 +157,7 @@ class InternalMethod extends CallController implements InternalMethodInterface
             }
             elseif( is_array($input[$name]) )
             {
-                return array_map('Security::htmlEncode', $input[$name]);
+                return array_map('ZN\IndividualStructures\Security\Html::encode', $input[$name]);
             }
 
             return $input[$name];

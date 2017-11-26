@@ -1,7 +1,9 @@
 <?php namespace ZN\Services\Request;
 
 use ZN\In;
-use Converter, CallController, Lang, File, Http;
+use ZN\FileSystem\File\Info;
+use ZN\Helpers\Converter\VariableTypes;
+use CallController, Lang, Http;
 
 class InternalURL extends CallController implements InternalURLInterface
 {
@@ -115,7 +117,7 @@ class InternalURL extends CallController implements InternalURLInterface
     //--------------------------------------------------------------------------------------------------------
     public function base(String $uri = NULL, Int $index = 0) : String
     {
-        return $this->host(In::baseDir($index) . File::absolutePath($uri));
+        return $this->host(In::baseDir($index) . Info::absolutePath($uri));
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -266,7 +268,7 @@ class InternalURL extends CallController implements InternalURLInterface
     // @return mixed
     //
     //--------------------------------------------------------------------------------------------------------
-    public function buildQuery($data, String $numericPrefix = NULL, String $separator = NULL, Int $enctype = self::RFC1738) : String
+    public function buildQuery($data, String $numericPrefix = NULL, String $separator = NULL, Int $enctype = PHP_QUERY_RFC1738) : String
     {
         return http_build_query($data, $numericPrefix, $separator ?? '&', $enctype);
     }
@@ -282,7 +284,7 @@ class InternalURL extends CallController implements InternalURLInterface
     //--------------------------------------------------------------------------------------------------------
     public function parse(String $url, $component = 1)
     {
-        return parse_url($url, Converter::toConstant($component, 'PHP_URL_'));
+        return parse_url($url, VariableTypes::toConstant($component, 'PHP_URL_'));
     }
 
     //--------------------------------------------------------------------------------------------------------

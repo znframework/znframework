@@ -1,6 +1,13 @@
 <?php namespace ZN\ViewObjects;
 
-use Config, Session, Cookie, CLController, Encode, File, Folder, Arrays, URL;
+use Config, Session, Cookie, CLController, Encode, Folder, URL;
+use ZN\DataTypes\Arrays\GetElement;
+use ZN\CryptoGraphy\Encode\RandomPassword;
+use ZN\FileSystem\File\Info;
+use ZN\FileSystem\File\Forge;
+use ZN\FileSystem\Folder\Info as FolderInfo;
+use ZN\FileSystem\Folder\Forge as FolderForge;
+use ZN\FileSystem\Folder\FileList;
 
 class InternalCaptcha extends CLController implements InternalCaptchaInterface
 {
@@ -306,9 +313,9 @@ class InternalCaptcha extends CLController implements InternalCaptchaInterface
 
         if( $sessionCaptchaCode = Session::select($systemCaptchaCodeData) )
         {
-            if( ! Folder::exists($this->path) )
+            if( ! FolderInfo::exists($this->path) )
             {
-                Folder::create($this->path);
+                FolderForge::create($this->path);
             }
 
             $sizeWidthC       = $set['size']['width']       ?? 100;
@@ -479,13 +486,13 @@ class InternalCaptcha extends CLController implements InternalCaptchaInterface
     //--------------------------------------------------------------------------------------------------------
     protected function _clean()
     {
-        $files   = Folder::files($this->path, 'png');
-        $match   = Arrays::getFirst(preg_grep('/captcha\-([a-z]|[0-9])+\.png/i', $files));
+        $files   = FileList::files($this->path, 'png');
+        $match   = GetElement::first(preg_grep('/captcha\-([a-z]|[0-9])+\.png/i', $files));
         $captcha = $this->path . $match;
 
-        if( File::exists($captcha) )
+        if( Info::exists($captcha) )
         {
-            File::delete($captcha);
+            Forge::delete($captcha);
         }
     }
 
@@ -498,7 +505,7 @@ class InternalCaptcha extends CLController implements InternalCaptchaInterface
     //--------------------------------------------------------------------------------------------------------
     protected function _name()
     {
-        return 'captcha-' . Encode::create(16) . '.png';
+        return 'captcha-' . RandomPassword::create(16) . '.png';
     }
 
     //--------------------------------------------------------------------------------------------------------

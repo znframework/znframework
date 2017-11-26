@@ -1,7 +1,8 @@
 <?php namespace ZN\FileSystem\File;
 
-use Folder, Config, File;
+use Config, Errors;
 use ZN\FileSystem\Exception\FileNotFoundException;
+use ZN\FileSystem\Folder\FileList;
 
 class Info
 {
@@ -21,7 +22,7 @@ class Info
     // @var array
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $access = NULL;
+    protected static $access = NULL;
 
     //--------------------------------------------------------------------------------------------------------
     // Methods
@@ -30,7 +31,7 @@ class Info
     // @var array
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $methods =
+    protected static $methods =
     [
         'executable' => 'is_executable',
         'writable'   => 'is_writable',
@@ -51,7 +52,7 @@ class Info
     //--------------------------------------------------------------------------------------------------------
     public function __call($method, $parameters)
     {
-        return $this->_is($method, ...$parameters);
+        return self::_is($method, ...$parameters);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -64,15 +65,15 @@ class Info
     // @param bool
     //
     //--------------------------------------------------------------------------------------------------------
-    protected function _is($type, $file)
+    protected static function _is($type, $file)
     {
-        $file = $this->rpath($file);
+        $file = self::rpath($file);
 
-        $validType = $this->methods[$type] ?? NULL;
+        $validType = self::$methods[$type] ?? NULL;
 
         if( ! function_exists($validType) || $validType === NULL )
         {
-            die(\Errors::message('Error', 'undefinedFunction', Classes::onlyName(get_called_class()).'::'.$type.'()'));
+            die(Errors::message('Error', 'undefinedFunction', Classes::onlyName(get_called_class()).'::'.$type.'()'));
         }
 
         if( $validType($file) )
@@ -93,7 +94,7 @@ class Info
     // @return string
     //
     //--------------------------------------------------------------------------------------------------
-    public function pathInfo(String $file, String $info = 'basename') : String
+    public static function pathInfo(String $file, String $info = 'basename') : String
     {
         $pathInfo = pathinfo($file);
 
@@ -108,7 +109,7 @@ class Info
     // @return array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function required() : Array
+    public static function required() : Array
     {
         return get_required_files();
     }
@@ -125,8 +126,8 @@ class Info
     //--------------------------------------------------------------------------------------------------------
     public function access($realPath = true, $parentDirectoryAccess = false) : Info
     {
-        $this->access['realPath']              = $realPath;
-        $this->access['parentDirectoryAccess'] = $parentDirectoryAccess;
+        self::$access['realPath']              = $realPath;
+        self::$access['parentDirectoryAccess'] = $parentDirectoryAccess;
 
         return $this;
     }
@@ -140,11 +141,11 @@ class Info
     // @param string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function rpath(String $file = NULL) : String
+    public static function rpath(String $file = NULL) : String
     {
-        $config = Config::get('FileSystem', 'file', $this->access);
+        $config = Config::get('FileSystem', 'file', self::$access);
 
-        $this->access = NULL;
+        self::$access = NULL;
 
         if( $config['parentDirectoryAccess'] === false )
         {
@@ -153,7 +154,7 @@ class Info
 
         if( $config['realPath'] === true )
         {
-            $file = prefix($this->originpath($file), REAL_BASE_DIR);
+            $file = prefix(self::originpath($file), REAL_BASE_DIR);
         }
 
         return $file;
@@ -168,9 +169,9 @@ class Info
     // @param bool
     //
     //--------------------------------------------------------------------------------------------------------
-    public function exists(String $file) : Bool
+    public static function exists(String $file) : Bool
     {
-        $file = $this->rpath($file);
+        $file = self::rpath($file);
 
         if( is_file($file) )
         {
@@ -189,7 +190,7 @@ class Info
     // @return string
     //
     //--------------------------------------------------------------------------------------------------
-    public function originpath(String $string) : String
+    public static function originpath(String $string) : String
     {
         return str_replace(['/', '\\'], DS, $string);
     }
@@ -203,9 +204,9 @@ class Info
     // @return string
     //
     //--------------------------------------------------------------------------------------------------
-    public function relativepath(String $string) : String
+    public static function relativepath(String $string) : String
     {
-        return str_replace(REAL_BASE_DIR, NULL, $this->originpath($string));
+        return str_replace(REAL_BASE_DIR, NULL, self::originpath($string));
     }
 
     //--------------------------------------------------------------------------------------------------
@@ -217,7 +218,7 @@ class Info
     // @return string
     //
     //--------------------------------------------------------------------------------------------------
-    public function absolutePath(String $string = NULL) : String
+    public static function absolutePath(String $string = NULL) : String
     {
         return str_replace([REAL_BASE_DIR, DS], [NULL, '/'], $string);
     }
@@ -231,9 +232,9 @@ class Info
     // @param bool
     //
     //--------------------------------------------------------------------------------------------------------
-    public function available(String $file) : Bool
+    public static function available(String $file) : Bool
     {
-        $file = $this->rpath($file);
+        $file = self::rpath($file);
 
         if( file_exists($file) )
         {
@@ -250,9 +251,9 @@ class Info
     // @param string $file
     //
     //--------------------------------------------------------------------------------------------------------
-    public function get(String $file) : \stdClass
+    public static function get(String $file) : \stdClass
     {
-        $file = $this->rpath($file);
+        $file = self::rpath($file);
 
         if( ! is_file($file) )
         {
@@ -261,7 +262,7 @@ class Info
 
         return (object)
         [
-            'basename'   => $this->pathInfo($file, 'basename'),
+            'basename'   => self::pathInfo($file, 'basename'),
             'size'       => filesize($file),
             'date'       => filemtime($file),
             'readable'   => is_readable($file),
@@ -280,9 +281,9 @@ class Info
     // @param int    $decimal
     //
     //--------------------------------------------------------------------------------------------------------
-    public function size(String $file, String $type = 'b', Int $decimal = 2) : Float
+    public static function size(String $file, String $type = 'b', Int $decimal = 2) : Float
     {
-        $file = $this->rpath($file);
+        $file = self::rpath($file);
 
         if( ! file_exists($file) )
         {
@@ -290,7 +291,7 @@ class Info
         }
 
         $size      = 0;
-        $extension = File::extension($file);
+        $extension = Extension::get($file);
         $fileSize  = filesize($file);
 
         if( ! empty($extension) )
@@ -299,13 +300,13 @@ class Info
         }
         else
         {
-            $folderFiles = Folder::files($file);
+            $folderFiles = FileList::files($file);
 
             if( $folderFiles )
             {
                 foreach( $folderFiles as $val )
                 {
-                    $size += $this->size($file."/".$val);
+                    $size += self::size($file."/".$val);
                 }
 
                 $size += $fileSize;
@@ -346,9 +347,9 @@ class Info
     // @param string $type
     //
     //--------------------------------------------------------------------------------------------------------
-    public function createDate(String $file, String $type = 'd.m.Y G:i:s') : String
+    public static function createDate(String $file, String $type = 'd.m.Y G:i:s') : String
     {
-        $file = $this->rpath($file);
+        $file = self::rpath($file);
 
         if( ! file_exists($file) )
         {
@@ -368,9 +369,9 @@ class Info
     // @param string $type
     //
     //--------------------------------------------------------------------------------------------------------
-    public function changeDate(String $file, String $type = 'd.m.Y G:i:s') : String
+    public static function changeDate(String $file, String $type = 'd.m.Y G:i:s') : String
     {
-        $file = $this->rpath($file);
+        $file = self::rpath($file);
 
         if( ! file_exists($file) )
         {
@@ -389,9 +390,9 @@ class Info
     // @param string $file
     //
     //--------------------------------------------------------------------------------------------------------
-    public function owner(String $file)
+    public static function owner(String $file)
     {
-        $file = $this->rpath($file);
+        $file = self::rpath($file);
 
         if( ! file_exists($file) )
         {
@@ -417,9 +418,9 @@ class Info
     // @param string $file
     //
     //--------------------------------------------------------------------------------------------------------
-    public function group(String $file)
+    public static function group(String $file)
     {
-        $file = $this->rpath($file);
+        $file = self::rpath($file);
 
         if( ! file_exists($file) )
         {
@@ -446,9 +447,9 @@ class Info
     // @param  bool   $recursive
     //
     //--------------------------------------------------------------------------------------------------------
-    public function rowCount(String $file = '/', Bool $recursive = true) : Int
+    public static function rowCount(String $file = '/', Bool $recursive = true) : Int
     {
-        $file = $this->rpath($file);
+        $file = self::rpath($file);
 
         if( ! file_exists($file) )
         {
@@ -461,7 +462,7 @@ class Info
         }
         elseif( is_dir($file) )
         {
-            $files = Folder::allFiles($file, $recursive);
+            $files = FileList::allFiles($file, $recursive);
 
             $rowCount = 0;
 

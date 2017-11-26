@@ -1,6 +1,7 @@
 <?php namespace ZN\IndividualStructures\User;
 
-use Encode, DB, Method, Session, Cookie;
+use DB, Method, Session, Cookie;
+use ZN\CryptoGraphy\Encode\Type;
 
 class Login extends UserExtends
 {
@@ -75,7 +76,7 @@ class Login extends UserExtends
         $username   = $un;
         $encodeType = INDIVIDUALSTRUCTURES_USER_CONFIG['encode'];
 
-        $password   = ! empty($encodeType) ? Encode::type($pw, $encodeType) : $pw;
+        $password   = ! empty($encodeType) ? Type::create($pw, $encodeType) : $pw;
 
         // ------------------------------------------------------------------------------
         // Settings

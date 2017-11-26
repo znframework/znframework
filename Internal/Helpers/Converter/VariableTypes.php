@@ -1,6 +1,7 @@
 <?php namespace ZN\Helpers\Converter;
 
-use stdClass, Strings;
+use stdClass;
+use ZN\DataTypes\Strings\Split;
 
 class VariableTypes
 {
@@ -20,7 +21,7 @@ class VariableTypes
     // @param var $var
     //
     //--------------------------------------------------------------------------------------------------------
-    public function toInt($var) : Int
+    public static function toInt($var) : Int
     {
         return (int) $var;
     }
@@ -32,7 +33,7 @@ class VariableTypes
     // @param var $var
     //
     //--------------------------------------------------------------------------------------------------------
-    public function toInteger($var) : Int
+    public static function toInteger($var) : Int
     {
         return (int) $var;
     }
@@ -44,7 +45,7 @@ class VariableTypes
     // @param var $var
     //
     //--------------------------------------------------------------------------------------------------------
-    public function toBool($var) : Bool
+    public static function toBool($var) : Bool
     {
         return (bool) $var;
     }
@@ -56,7 +57,7 @@ class VariableTypes
     // @param var $var
     //
     //--------------------------------------------------------------------------------------------------------
-    public function toBoolean($var) : Bool
+    public static function toBoolean($var) : Bool
     {
         return (bool) $var;
     }
@@ -68,7 +69,7 @@ class VariableTypes
     // @param var $var
     //
     //--------------------------------------------------------------------------------------------------------
-    public function toString($var) : String
+    public static function toString($var) : String
     {
         if( is_array($var) || is_object($var) )
         {
@@ -85,7 +86,7 @@ class VariableTypes
     // @param var $var
     //
     //--------------------------------------------------------------------------------------------------------
-    public function toFloat($var) : Float
+    public static function toFloat($var) : Float
     {
         return (float) $var;
     }
@@ -97,7 +98,7 @@ class VariableTypes
     // @param var $var
     //
     //--------------------------------------------------------------------------------------------------------
-    public function toReal($var)
+    public static function toReal($var)
     {
         return (real) $var;
     }
@@ -109,7 +110,7 @@ class VariableTypes
     // @param var $var
     //
     //--------------------------------------------------------------------------------------------------------
-    public function toDouble($var)
+    public static function toDouble($var)
     {
         return (double) $var;
     }
@@ -121,7 +122,7 @@ class VariableTypes
     // @param var $var
     //
     //--------------------------------------------------------------------------------------------------------
-    public function toObject($var) : stdClass
+    public static function toObject($var) : stdClass
     {
         return (object) $var;
     }
@@ -133,11 +134,11 @@ class VariableTypes
     // @param var $var
     //
     //--------------------------------------------------------------------------------------------------------
-    public function toObjectRecursive($var) : stdClass
+    public static function toObjectRecursive($var) : stdClass
     {
         $object = new stdClass;
 
-        return $this->objectRecursive((array) $var, $object);
+        return self::objectRecursive((array) $var, $object);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -147,7 +148,7 @@ class VariableTypes
     // @param var $var
     //
     //--------------------------------------------------------------------------------------------------------
-    public function toArray($var) : Array
+    public static function toArray($var) : Array
     {
         return (array) $var;
     }
@@ -161,9 +162,9 @@ class VariableTypes
     // @param string $suffix
     //
     //--------------------------------------------------------------------------------------------------------
-    public function toConstant(String $var, String $prefix = NULL, String $suffix = NULL)
+    public static function toConstant(String $var, String $prefix = NULL, String $suffix = NULL)
     {
-        $var = implode('_', Strings::splitUpperCase($var));
+        $var = implode('_', Split::upperCase($var));
         
         $variable = \Autoloader::upper($prefix . $var . $suffix);
 
@@ -196,7 +197,7 @@ class VariableTypes
     // @return string
     //
     //--------------------------------------------------------------------------------------------------
-    protected function objectRecursive(Array $array, stdClass &$std) : stdClass
+    protected static function objectRecursive(Array $array, stdClass &$std) : stdClass
     {
         foreach( $array as $key => $value )
         {
@@ -204,7 +205,7 @@ class VariableTypes
             {
                 $std->$key = new stdClass;
 
-                $this->objectRecursive($value, $std->$key);
+                self::objectRecursive($value, $std->$key);
             }
             else
             {

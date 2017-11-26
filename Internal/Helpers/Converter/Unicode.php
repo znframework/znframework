@@ -1,8 +1,10 @@
 <?php namespace ZN\Helpers\Converter;
 
-use Config, Arrays, File;
+use Config;
 use ZN\Helpers\Converter\Exception\InvalidArgumentException;
 use ZN\Helpers\Converter\Exception\LogicException;
+use ZN\DataTypes\Arrays\MultipleKey;
+use ZN\FileSystem\File\Extension;
 
 class Unicode
 {
@@ -15,7 +17,7 @@ class Unicode
     //
     //--------------------------------------------------------------------------------------------------------
 
-    public $accentChars =
+    public static $accentChars =
     [
         'ä|æ|ǽ'                                                         => 'ae',
         'œ'                                                             => 'oe',
@@ -114,7 +116,7 @@ class Unicode
     // @param string $changeType: char, dec, hex, html
     //
     //--------------------------------------------------------------------------------------------------------
-    public function char(String $string, String $type = 'char', String $changeType = 'html') : String
+    public static function char(String $string, String $type = 'char', String $changeType = 'html') : String
     {
         $options = ['char', 'html', 'hex', 'dec'];
 
@@ -128,7 +130,7 @@ class Unicode
             throw new LogicException('[Converter::char()] -> 2.($type) & 3.($changeType) parameters [can not be equal]!');
         }
 
-        $string = $this->accent($string);
+        $string = self::accent($string);
 
         if( ! is_string($type) )
         {
@@ -170,11 +172,11 @@ class Unicode
     // @param string $str
     //
     //--------------------------------------------------------------------------------------------------------
-    public function accent(String $str) : String
+    public static function accent(String $str) : String
     {
-        $accent = array_merge(Config::get('Expressions', 'accentChars'), $this->accentChars);
+        $accent = array_merge(Config::get('Expressions', 'accentChars'), self::$accentChars);
 
-        $accent = Arrays::multikey($accent);
+        $accent = MultipleKey::use($accent);
 
         return str_replace(array_keys($accent), array_values($accent), $str);
     }
@@ -186,9 +188,9 @@ class Unicode
     // @param string $str
     //
     //--------------------------------------------------------------------------------------------------------
-    public function urlWord(String $str) : String
+    public static function urlWord(String $str) : String
     {
-        return $this->slug($str);
+        return self::slug($str);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -199,15 +201,15 @@ class Unicode
     // @param bool   $protectExtension = false
     //
     //--------------------------------------------------------------------------------------------------------
-    public function slug(String $str, Bool $protectExtension = false) : String
+    public static function slug(String $str, Bool $protectExtension = false) : String
     {
         if( $protectExtension === true )
         {
-            $ext = File::extension($str, true);
-            $str = File::removeExtension($str);
+            $ext = Extension::get($str, true);
+            $str = Extension::remove($str);
         }
 
-        $str = $this->accent(trim($str));
+        $str = self::accent(trim($str));
 
         $str = preg_replace('/&\w+\;/', '' , $str);
         $str = preg_replace("/\W/"    , '-' , $str);
@@ -226,7 +228,7 @@ class Unicode
     // @param string $toCharset
     //
     //--------------------------------------------------------------------------------------------------------
-    public function charset(String $str, String $fromCharset, String $toCharset = 'utf-8') : String
+    public static function charset(String $str, String $fromCharset, String $toCharset = 'utf-8') : String
     {
         return mb_convert_encoding($str, $fromCharset, $toCharset);
     }

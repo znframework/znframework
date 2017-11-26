@@ -1,6 +1,6 @@
 <?php namespace Project\Controllers;
 
-use Import;
+use ZN\IndividualStructures\Import\View as Page;
 
 class View
 {
@@ -17,7 +17,7 @@ class View
 
     public static function get(String $file = NULL, $usable = false)
     {
-        return Import::view($file, [], $usable);
+        return Page::use($file, [], $usable);
     }
 }
 

@@ -19,9 +19,9 @@ class Process extends PermissionExtends
     // @param string  $process: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function start($roleId = 0, $process = NULL)
+    public static function start($roleId = 0, $process = NULL)
     {
-        $this->content = $this->use($roleId, $process, 'object');
+        self::$content = self::use($roleId, $process, 'object');
 
         ob_start();
     }
@@ -33,9 +33,9 @@ class Process extends PermissionExtends
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function end()
+    public static function end()
     {
-        if( ! empty($this->content) )
+        if( ! empty(self::$content) )
         {
             $content = ob_get_contents();
         }
@@ -46,7 +46,7 @@ class Process extends PermissionExtends
 
         ob_end_clean();
 
-        $this->content = NULL;
+        self::$content = NULL;
 
         echo $content;
     }
@@ -60,7 +60,7 @@ class Process extends PermissionExtends
     // @param string  $object : empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function use($roleId = 0, $process = NULL, $object = NULL)
+    public static function use($roleId = 0, $process = NULL, $object = NULL)
     {
         if( PermissionExtends::$roleId !== NULL )
         {
@@ -69,6 +69,6 @@ class Process extends PermissionExtends
             $roleId  = PermissionExtends::$roleId;
         }
 
-        return $this->common($roleId, $process, $object, 'process');
+        return self::common($roleId, $process, $object, 'process');
     }
 }

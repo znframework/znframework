@@ -1,6 +1,9 @@
 <?php namespace ZN\Requirements\Models;
 
-use DB, DBTool, DBForge, Strings, Arrays, GeneralException;
+use DB, DBTool, DBForge, GeneralException;
+use ZN\DataTypes\Strings\Split;
+use ZN\DataTypes\Arrays\Exists;
+use ZN\DataTypes\Arrays\Force;
 
 class RelevanceModel extends \BaseController
 {
@@ -96,17 +99,17 @@ class RelevanceModel extends \BaseController
     {
         $lowerMethod = strtolower($method);
 
-        $split = Strings::splitUpperCase($method);
+        $split = Split::upperCase($method);
         
-        if( Arrays::valueExists($this->resultMethods, strtolower($lowerMethod)) )
+        if( Exists::value($this->resultMethods, strtolower($lowerMethod)) )
         {
             return $this->_resultMethods($method, $parameters);
         }
-        elseif( Arrays::valueExists($this->manipulationMethods, strtolower($lowerMethod)) )
+        elseif( Exists::value($this->manipulationMethods, strtolower($lowerMethod)) )
         {
             return $this->_manipulationMethods($method, $parameters);
         }
-        elseif( Arrays::valueExists($this->toolMethods, strtolower($lowerMethod)) )
+        elseif( Exists::value($this->toolMethods, strtolower($lowerMethod)) )
         {
             return $this->_toolMethods($method, $parameters);
         }
@@ -369,7 +372,7 @@ class RelevanceModel extends \BaseController
     {
         $columns = DB::get($table)->columns();
 
-        $select  = Arrays::forceValues($columns, function($data) use($table)
+        $select  = Force::values($columns, function($data) use($table)
         {
             return prefix($data, $table . '.' . $data . ' as ' . $table . '_');
         });
@@ -418,7 +421,7 @@ class RelevanceModel extends \BaseController
     //--------------------------------------------------------------------------------------------------------  
     protected function _texplode($value, $index = 0)
     {
-        $ex = explode('.', Strings::divide($value, ':', $index));
+        $ex = explode('.', Split::divide($value, ':', $index));
 
         return count($ex) === 3 ? $ex[0].$ex[1] : $ex[0];
     }

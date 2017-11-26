@@ -1,6 +1,6 @@
 <?php namespace ZN\FileSystem\File;
 
-use stdClass, File;
+use stdClass;
 
 class Content
 {
@@ -20,9 +20,9 @@ class Content
     // @param string $file
     //
     //--------------------------------------------------------------------------------------------------------
-    public function read(String $file) : String
+    public static function read(String $file) : String
     {
-        return file_get_contents(File::rpath($file));
+        return file_get_contents(Info::rpath($file));
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -33,9 +33,9 @@ class Content
     // @param string $data
     //
     //--------------------------------------------------------------------------------------------------------
-    public function find(String $file, String $data) : stdClass
+    public static function find(String $file, String $data) : stdClass
     {
-        $contents = $this->read($file);
+        $contents = self::read($file);
         $index    = strpos($contents, $data);
 
         return (object)
@@ -53,9 +53,9 @@ class Content
     // @param string $data
     //
     //--------------------------------------------------------------------------------------------------------
-    public function write(String $file, String $data) : Int
+    public static function write(String $file, String $data) : Int
     {
-        return file_put_contents(File::rpath($file), $data);
+        return file_put_contents(Info::rpath($file), $data);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -66,8 +66,8 @@ class Content
     // @param string $data
     //
     //--------------------------------------------------------------------------------------------------------
-    public function append(String $file, String $data) : Int
+    public static function append(String $file, String $data) : Int
     {
-        return file_put_contents(File::rpath($file), $data, FILE_APPEND);
+        return file_put_contents(Info::rpath($file), $data, FILE_APPEND);
     }
 }

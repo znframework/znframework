@@ -1,6 +1,8 @@
 <?php namespace ZN\IndividualStructures\Import;
 
-use Config, HTML, Import, Arrays, URL;
+use Config, HTML, URL;
+use ZN\DataTypes\Arrays\RemoveElement;
+use ZN\DataTypes\Arrays\Merge;
 
 class Masterpage
 {
@@ -174,7 +176,7 @@ class Masterpage
         {
             $randomDataVariable['view'] = $bodyContent;
 
-            Import::page($randomPageVariable, $randomDataVariable);
+            View::use($randomPageVariable, $randomDataVariable);
         }
         else
         {
@@ -364,11 +366,11 @@ class Masterpage
     //--------------------------------------------------------------------------------------------------------
     protected function _theme($masterPageSet, $head, $type = 'theme')
     {
-        $theme = Arrays::deleteElement(Arrays::merge((array) ($masterPageSet[$type]['name'] ?? []), (array) ($head[$type]['name'] ?? [])), '');
+        $theme = RemoveElement::element(Merge::do((array) ($masterPageSet[$type]['name'] ?? []), (array) ($head[$type]['name'] ?? [])), '');
 
         if( ! empty($theme) )
         {   
-            return Import::$type($theme, ($head[$type]['recursive'] ?? $masterPageSet[$type]['recursive']), true);
+            return Package::$type($theme, ($head[$type]['recursive'] ?? $masterPageSet[$type]['recursive']), true);
         }
 
         return NULL;
@@ -384,6 +386,8 @@ class Masterpage
     protected function _links($masterPageSet, $head, $type)
     {
         $header = '';
+
+        $class = 'ZN\IndividualStructures\Import\\' . $type;
 
         if( empty($masterPageSet[$type]) && empty($head[$type]) )
         {
@@ -401,7 +405,7 @@ class Masterpage
             $params[] = true;
         }
 
-        $header .= Import::$type(...$params);
+        $header .= $class::use(...$params);
 
         if( isset($head[$type]) )
         {
@@ -416,7 +420,7 @@ class Masterpage
                 $headLinks = $head[$type];
             }
 
-            $header .= Import::$type(...$headLinks);
+            $header .= $class::use(...$headLinks);
         }
 
         return $header;
@@ -438,14 +442,14 @@ class Masterpage
             // Tek bir üst sayfa kullanımı için.
             if( ! is_array($page) )
             {
-                $return .= Import::page($page, NULL, true).EOL;
+                $return .= View::use($page, NULL, true).EOL;
             }
             else
             {
                 // Birden fazla üst sayfa kullanımı için.
                 foreach( $page as $p )
                 {
-                    $return .= Import::page($p, NULL, true).EOL;
+                    $return .= View::use($p, NULL, true).EOL;
                 }
             }
 

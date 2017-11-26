@@ -1,7 +1,8 @@
 <?php namespace ZN\CryptoGraphy\Drivers;
 
 use ZN\CryptoGraphy\CryptoMapping;
-use Converter, Arrays;
+use ZN\Helpers\Converter\VariableTypes;
+use ZN\DataTypes\Arrays\MultipleKey;
 
 class McryptDriver extends CryptoMapping
 {
@@ -72,7 +73,7 @@ class McryptDriver extends CryptoMapping
             'cast_256|gost|loki97|rijndael_256'             => 32
         ];
 
-        $ciphers = Arrays::multikey($ciphers);
+        $ciphers = MultipleKey::use($ciphers);
 
         return mb_substr(hash('md5', PROJECT_CONFIG['key']), 0, $ciphers[$cipher] ?? 8);
     }
@@ -92,7 +93,7 @@ class McryptDriver extends CryptoMapping
             'rijndael_256'                                              => 32,
         ];
 
-        $modes = Arrays::multikey($modes);
+        $modes = MultipleKey::use($modes);
         $mode  = $modes[$mode] ?? 8;
 
         if( ! empty($cipher) )
@@ -119,8 +120,8 @@ class McryptDriver extends CryptoMapping
         $mode   = $settings['mode']   ?? 'cbc';
         $iv     = $settings['vector'] ?? $this->vectorSize($mode, $cipher);
 
-        $cipher = Converter::toConstant($cipher, 'MCRYPT_');
-        $mode   = Converter::toConstant($mode, 'MCRYPT_MODE_');
+        $cipher = VariableTypes::toConstant($cipher, 'MCRYPT_');
+        $mode   = VariableTypes::toConstant($mode, 'MCRYPT_MODE_');
 
         return (object)
         [

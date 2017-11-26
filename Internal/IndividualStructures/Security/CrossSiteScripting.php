@@ -18,7 +18,7 @@ class CrossSiteScripting extends SecurityExtends
     // Genel Kullanımı: Script saldırılarına neden olacak karater listesi.
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $scriptBadChars =
+    protected static $scriptBadChars =
     [
         'document\.cookie' => 'document&#46;cookie',
         'document\.write'  => 'document&#46;write',
@@ -36,9 +36,9 @@ class CrossSiteScripting extends SecurityExtends
     // @param string $string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function encode(String $string) : String
+    public static function encode(String $string) : String
     {
-        $secBadChars = $this->scriptBadChars;
+        $secBadChars = self::$scriptBadChars;
 
         if( ! empty($secBadChars) )
         {

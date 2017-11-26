@@ -246,7 +246,7 @@ function illustrate(String $const, $value = '')
 //--------------------------------------------------------------------------------------------------
 function CSRFInput()
 {
-    Session::insert('token', Encode::create(32));
+    Session::insert('token', ZN\CryptoGraphy\Encode\RandomPassword::create(32));
 
     return Form::hidden('token', Session::select('token'));
 }
@@ -712,7 +712,7 @@ function isPhpVersion(String $version = '5.2.4')
 //--------------------------------------------------------------------------------------------------
 function absoluteRelativePath(String $path = NULL)
 {
-    return File::absolutePath($path);
+    return ZN\FileSystem\File\Info::absolutePath($path);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -1000,7 +1000,7 @@ function server(String $type = NULL)
 //--------------------------------------------------------------------------------------------------
 function pathInfos(String $file, String $info = 'basename') : String
 {
-    return File::pathInfo($file, $info);
+    return ZN\FileSystem\File\Info::pathInfo($file, $info);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -1015,7 +1015,7 @@ function pathInfos(String $file, String $info = 'basename') : String
 //--------------------------------------------------------------------------------------------------
 function extension(String $file, Bool $dote = false) : String
 {
-    return File::extension($file, $dote);
+    return ZN\FileSystem\File\Extension::get($file, $dote);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -1029,7 +1029,7 @@ function extension(String $file, Bool $dote = false) : String
 //--------------------------------------------------------------------------------------------------
 function removeExtension(String $file) : String
 {
-    return File::removeExtension($file);
+    return ZN\FileSystem\File\Extension::remove($file);
 }
 
 //--------------------------------------------------------------------------------------------------

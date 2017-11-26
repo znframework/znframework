@@ -1,6 +1,7 @@
 <?php namespace ZN\IndividualStructures;
 
-use CallController, Classes;
+use CallController, Classes, Errors;
+use ZN\DataTypes\Strings\Split;
 
 class InternalSupport extends CallController implements InternalSupportInterface
 {
@@ -34,11 +35,11 @@ class InternalSupport extends CallController implements InternalSupportInterface
         {
             if( is_string($error) )
             {
-                die(\Errors::message('Error', $error, $value));
+                die(Errors::message('Error', $error, $value));
             }
             else
             {
-                die(\Errors::message(key($error), current($error), $value));
+                die(Errors::message(key($error), current($error), $value));
             }
         }
 
@@ -135,7 +136,7 @@ class InternalSupport extends CallController implements InternalSupportInterface
     {
         if( ! in_array(strtolower($driver), $drivers) )
         {
-            die(\Errors::message('Error', 'driverError', $driver));
+            die(Errors::message('Error', 'driverError', $driver));
         }
 
         return true;
@@ -151,11 +152,11 @@ class InternalSupport extends CallController implements InternalSupportInterface
     //--------------------------------------------------------------------------------------------------------
     public function classMethod(String $class, String $method)
     {
-        die(\Errors::message
+        die(Errors::message
         (
             'Error',
             'undefinedFunction',
-            \Strings::divide(str_ireplace(INTERNAL_ACCESS, '', Classes::onlyName($class)), '\\', -1)."::$method()"
+            Split::divide(str_ireplace(INTERNAL_ACCESS, '', Classes::onlyName($class)), '\\', -1)."::$method()"
         ));
     }
 }

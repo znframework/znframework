@@ -1,7 +1,9 @@
 <?php namespace ZN\Services\Response;
 
-use Config, Arrays, Method, CLController, Lang;
+use Config, Method, CLController, Lang;
 use ZN\Services\Response\HTTP\Exception\InvalidArgumentException;
+use ZN\DataTypes\Arrays\MultipleKey;
+use ZN\DataTypes\Arrays\Exists;
 
 class InternalHTTP extends CLController implements InternalHTTPInterface
 {
@@ -213,7 +215,7 @@ class InternalHTTP extends CLController implements InternalHTTPInterface
     //--------------------------------------------------------------------------------------------------------
     public function isRequestMethod(...$methods) : Bool
     {
-        if( ! Arrays::valueExists($methods, strtolower(server('requestMethod'))) )
+        if( ! Exists::value($methods, strtolower(server('requestMethod'))) )
         {
             return false;
         }
@@ -285,7 +287,7 @@ class InternalHTTP extends CLController implements InternalHTTPInterface
     //--------------------------------------------------------------------------------------------------------
     public function code($code = 200) : String
     {
-        $messages = Arrays::multikey($this->messages);
+        $messages = MultipleKey::use($this->messages);
 
         if( isset($messages[$code]) )
         {

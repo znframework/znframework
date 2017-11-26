@@ -20,7 +20,7 @@ class Decode
     // @param int    $length
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do(String $data, Bool $array = false, Int $length = 512)
+    public static function do(String $data, Bool $array = false, Int $length = 512)
     {
         $return = json_decode($data, $array, $length);
 
@@ -35,9 +35,9 @@ class Decode
     // @param int    $length
     //
     //--------------------------------------------------------------------------------------------------------
-    public function object(String $data, Int $length = 512)
+    public static function object(String $data, Int $length = 512)
     {
-        return $this->do($data, false, $length);
+        return self::do($data, false, $length);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -48,8 +48,8 @@ class Decode
     // @param int    $length
     //
     //--------------------------------------------------------------------------------------------------------
-    public function array(String $data, Int $length = 512) : Array
+    public static function array(String $data, Int $length = 512) : Array
     {
-        return (array) $this->do($data, true, $length);
+        return (array) self::do($data, true, $length);
     }
 }

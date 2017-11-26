@@ -1,6 +1,8 @@
 <?php namespace ZN\Services\Response;
 
-use Classes, Strings, Arrays;
+use Classes;
+use ZN\DataTypes\Strings\Split;
+use ZN\DataTypes\Arrays\GetElement;
 
 trait SessionCookieCommonTrait
 {
@@ -42,9 +44,9 @@ trait SessionCookieCommonTrait
     public function __call($method, $parameters)
     {
         $class = Classes::onlyName(__CLASS__);
-        $split = Strings::splitUpperCase($method);
+        $split = Split::upperCase($method);
 
-        if( Arrays::getLast($split) === 'Delete' )
+        if( GetElement::last($split) === 'Delete' )
         {
             $method = 'delete';
 

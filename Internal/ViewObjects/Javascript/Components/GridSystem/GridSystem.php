@@ -1,6 +1,7 @@
 <?php namespace ZN\ViewObjects\Javascript\Components;
 
-use Html, Form, Buffer;
+use Html, Form;
+use ZN\IndividualStructures\Buffer\Callback as BufferCallback;
 
 class GridSystem extends ComponentsExtends
 {
@@ -23,7 +24,7 @@ class GridSystem extends ComponentsExtends
     //--------------------------------------------------------------------------------------------------------
     public function row(Callable $columns, Array $attr = [])
     {
-        $content = Buffer::function($columns, [$this]);
+        $content = BufferCallback::do($columns, [$this]);
 
         echo Html::attr($attr)->class('row')->div($content);
     }
@@ -39,7 +40,7 @@ class GridSystem extends ComponentsExtends
     //--------------------------------------------------------------------------------------------------------
     public function col($size, Callable $code, Array $attr = [])
     {
-        $content = Buffer::function($code, [new Form, new Html]);
+        $content = BufferCallback::do($code, [new Form, new Html]);
 
         echo Html::attr($attr)->class('col-' . ( is_numeric($size) ? 'lg-' . $size : $size))->div($content);
     }
@@ -55,7 +56,7 @@ class GridSystem extends ComponentsExtends
     {
         return $this->prop
         ([
-            'contents' => Buffer::function($grid, [$this])
+            'contents' => BufferCallback::do($grid, [$this])
         ]);
     }
 }

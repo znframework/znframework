@@ -18,7 +18,7 @@ class Trim
     // @param string $str
     //
     //--------------------------------------------------------------------------------------------------------
-    public function middle(String $str) : String
+    public static function middle(String $str) : String
     {
         $str = preg_replace
         (
@@ -37,7 +37,7 @@ class Trim
     // @param string $str
     //
     //--------------------------------------------------------------------------------------------------------
-    public function slashes(String $str) : String
+    public static function slashes(String $str) : String
     {
         $str = trim($str, "/");
 

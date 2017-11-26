@@ -1,6 +1,7 @@
 <?php namespace ZN\FileSystem\Folder;
 
-use File;
+use ZN\FileSystem\File\Info;
+use ZN\FileSystem\File\Forge as FileForge;
 use ZN\FileSystem\Exception\FolderNotFoundException;
 
 class Forge
@@ -21,9 +22,9 @@ class Forge
     // Dizin oluşturmak için kullanılır.
     //
     //--------------------------------------------------------------------------------------------------------
-    public function create(String $file, Int $permission = 0755, Bool $recursive = true) : Bool
+    public static function create(String $file, Int $permission = 0755, Bool $recursive = true) : Bool
     {
-        $file = File::rpath($file);
+        $file = Info::rpath($file);
 
         if( is_dir($file) )
         {
@@ -40,9 +41,9 @@ class Forge
     // Dosya veya dizinin adını değiştirmek için kullanılır.
     //
     //--------------------------------------------------------------------------------------------------------
-    public function rename(String $oldName, String $newName) : Bool
+    public static function rename(String $oldName, String $newName) : Bool
     {
-        $oldName = File::rpath($oldName);
+        $oldName = Info::rpath($oldName);
 
         if( ! file_exists($oldName) )
         {
@@ -59,9 +60,9 @@ class Forge
     // Boş bir dizini silmek için kullanılır.
     //
     //--------------------------------------------------------------------------------------------------------
-    public function deleteEmpty(String $folder) : Bool
+    public static function deleteEmpty(String $folder) : Bool
     {
-        $folder = File::rpath($folder);
+        $folder = Info::rpath($folder);
 
         if( ! is_dir($folder) )
         {
@@ -78,9 +79,9 @@ class Forge
     // Bir dizini içindekilerle birlikte silmek için kullanılır.
     //
     //--------------------------------------------------------------------------------------------------------
-    public function delete(String $name) : Bool
+    public static function delete(String $name) : Bool
     {
-        $name = File::rpath($name);
+        $name = Info::rpath($name);
 
         $fileListClass = Factory::class('FileList');
 
@@ -92,7 +93,7 @@ class Forge
         {
             if( ! $fileListClass->files($name) )
             {
-                return $this->deleteEmpty($name);
+                return self::deleteEmpty($name);
             }
             else
             {
@@ -100,12 +101,12 @@ class Forge
                 {
                     foreach( $fileListClass->files($name) as $val )
                     {
-                        $this->delete($name."/".$val);
+                        self::delete($name."/".$val);
                     }
                 }
             }
 
-            return $this->deleteEmpty($name);
+            return self::deleteEmpty($name);
         }
     }
 
@@ -117,10 +118,10 @@ class Forge
     // ait diğer alt dizin ve dosyaları da kapsamaktadır.
     //
     //--------------------------------------------------------------------------------------------------------
-    public function copy(String $source, String $target) : Bool
+    public static function copy(String $source, String $target) : Bool
     {
-        $source = File::rpath($source);
-        $target = File::rpath($target);
+        $source = Info::rpath($source);
+        $target = Info::rpath($target);
         $fileListClass = Factory::class('FileList');
 
         if( ! file_exists($source) )
@@ -134,7 +135,7 @@ class Forge
             {
                 $emptyFilePath = suffix($source, DS) . 'empty';
 
-                File::create($emptyFilePath);
+                FileForge::create($emptyFilePath);
 
                 return copy($emptyFilePath, $target);
             }
@@ -142,7 +143,7 @@ class Forge
             {
                 if( ! is_dir($target) && ! file_exists($target) )
                 {
-                    $this->create($target);
+                    self::create($target);
                 }
 
                 if( is_array($fileListClass->files($source)) ) foreach( $fileListClass->files($source) as $val )
@@ -155,7 +156,7 @@ class Forge
                         copy($sourceDir, $targetDir);
                     }
 
-                    $this->copy($sourceDir, $targetDir);
+                    self::copy($sourceDir, $targetDir);
                 }
 
                 return true;
@@ -174,9 +175,9 @@ class Forge
     // PHP'nin aktif çalışma dizinini değiştirmek için kullanılır.
     //
     //--------------------------------------------------------------------------------------------------------
-    public function change(String $name) : Bool
+    public static function change(String $name) : Bool
     {
-        $name = File::rpath($name);
+        $name = Info::rpath($name);
 
         if( ! is_dir($name) )
         {
@@ -193,8 +194,8 @@ class Forge
     // Bir dizin veya dosyaya yetki vermek için kullanılır.
     //
     //--------------------------------------------------------------------------------------------------------
-    public function permission(String $name, Int $permission = 0755) : Bool
+    public static function permission(String $name, Int $permission = 0755) : Bool
     {
-        return File::permission($name, $permission);
+        return FileForge::permission($name, $permission);
     }
 }

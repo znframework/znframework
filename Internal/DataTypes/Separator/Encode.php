@@ -20,15 +20,15 @@ class Encode extends SeparatorExtends
     // @param string $separator
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do(Array $data, String $key = NULL, String $separator = NULL) : String
+    public static function do(Array $data, String $key = NULL, String $separator = NULL) : String
     {
         $word      = NULL;
-        $key       = $key       ?: $this->key;
-        $separator = $separator ?: $this->separator;
+        $key       = $key       ?: self::$key;
+        $separator = $separator ?: self::$separator;
  
         foreach( $data as $k => $v )
         {
-            $word .= $this->_security($k).$key.$this->_security($v).$separator;
+            $word .= self::_security($k).$key.self::_security($v).$separator;
         }
 
         return mb_substr($word, 0, -(mb_strlen($separator)));

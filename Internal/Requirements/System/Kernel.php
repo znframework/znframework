@@ -1,8 +1,14 @@
 <?php namespace ZN\Core;
 
-use Arrays, Import, Route, Throwable, Exceptions, Config, Errors;
-use Generate, Folder, File, Restoration, URL, Lang, IS;
+use Route, Throwable, Exceptions, Config, Errors;
+use Generate, Restoration, URL, Lang, IS;
 use View, Masterpage, ZN\In, Logger, Http;
+use ZN\DataTypes\Arrays\AddElement;
+use ZN\FileSystem\File\Extension;
+use ZN\FileSystem\Folder\FileList;
+use ZN\IndividualStructures\Import\View as Page;
+use ZN\IndividualStructures\Import\Handload;
+use ZN\IndividualStructures\Import\Masterpage as MP;
 
 class Kernel
 {
@@ -135,12 +141,12 @@ class Kernel
 
         if( $starting['autoload']['status'] === true )
         {
-            $startingAutoload       = Folder::allFiles(AUTOLOAD_DIR, $starting['autoload']['recursive']);
-            $commonStartingAutoload = Folder::allFiles(EXTERNAL_AUTOLOAD_DIR, $starting['autoload']['recursive']);
+            $startingAutoload       = FileList::allFiles(AUTOLOAD_DIR, $starting['autoload']['recursive']);
+            $commonStartingAutoload = FileList::allFiles(EXTERNAL_AUTOLOAD_DIR, $starting['autoload']['recursive']);
 
             if( ! empty($startingAutoload) ) foreach( $startingAutoload as $file )
             {
-                if( File::extension($file) === 'php' )
+                if( Extension::get($file) === 'php' )
                 {
                     if( is_file($file) )
                     {
@@ -151,7 +157,7 @@ class Kernel
 
             if( ! empty($commonStartingAutoload) ) foreach( $commonStartingAutoload as $file )
             {
-                if( File::extension($file) === 'php' )
+                if( Extension::get($file) === 'php' )
                 {
                     $commonIsSameExistsFile = str_ireplace(EXTERNAL_AUTOLOAD_DIR, AUTOLOAD_DIR, $file);
 
@@ -165,7 +171,7 @@ class Kernel
 
         if( ! empty($starting['handload']) )
         {
-            Import::handload(...$starting['handload']);
+            Handload::use(...$starting['handload']);
         }
 
         if( PROJECT_MODE === 'restoration' )
@@ -215,7 +221,7 @@ class Kernel
             {
                 if( ! is_callable([$page, $function]) )
                 {
-                    $parameters = Arrays::addFirst($parameters, $function);
+                    $parameters = AddElement::first($parameters, $function);
                     $function   = $openFunction;
                 }
 
@@ -329,7 +335,7 @@ class Kernel
 
         if( ($data['masterpage'] ?? NULL) === true || ! empty($data) )
         {
-            Import::headData($data)->bodyContent($usableView ?? '')->masterpage($data);
+            (new MP)->headData($data)->bodyContent($usableView ?? '')->use($data);
         }
         elseif( ! empty($usableView) )
         {
@@ -404,6 +410,6 @@ class Kernel
     //--------------------------------------------------------------------------------------------------
     protected static function _load($path, $data)
     {
-        return Import::view(str_replace(PAGES_DIR, NULL, $path), $data, true);
+        return Page::use(str_replace(PAGES_DIR, NULL, $path), $data, true);
     }
 }

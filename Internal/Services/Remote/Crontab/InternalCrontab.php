@@ -1,7 +1,10 @@
 <?php namespace ZN\Services\Remote;
 
-use Processor, SSH, Folder, File, Html, Arrays, Strings, Json;
+use Processor, SSH, Folder, File, Html, Strings;
 use ZN\Services\Remote\Crontab\Exception\InvalidTimeFormatException;
+use ZN\DataTypes\Arrays\RemoveElement;
+use ZN\DataTypes\Json\Encode;
+use ZN\DataTypes\Json\Decode;
 
 class InternalCrontab extends RemoteCommon implements InternalCrontabInterface, InternalCrontabIntervalInterface
 {
@@ -153,10 +156,10 @@ class InternalCrontab extends RemoteCommon implements InternalCrontabInterface, 
 
         if( ! File::exists($queueFile) )
         {
-            File::write($queueFile, Json::encode([$key => $fileLimitValue]) . EOL);
+            File::write($queueFile, Encode::do([$key => $fileLimitValue]) . EOL);
         }
         
-        $fileData = Json::decodeArray(File::read($queueFile));
+        $fileData = Decode::array(File::read($queueFile));
 
         $fileLimitValue = (int) ($fileData[$key] ?? NULL);
 
@@ -174,7 +177,7 @@ class InternalCrontab extends RemoteCommon implements InternalCrontabInterface, 
             $fileData[$key] = $fileLimitValue += $decrement;
         }
            
-        File::write($queueFile, Json::encode($fileData) . EOL);
+        File::write($queueFile, Encode::do($fileData) . EOL);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -196,10 +199,10 @@ class InternalCrontab extends RemoteCommon implements InternalCrontabInterface, 
 
         if( ! File::exists($limitFile) )
         {
-            File::write($limitFile, Json::encode([$key => $default]) . EOL);
+            File::write($limitFile, Encode::do([$key => $default]) . EOL);
         }
         
-        $fileData = Json::decodeArray(File::read($limitFile));
+        $fileData = Decode::array(File::read($limitFile));
 
         $fileLimitValue = (int) ($fileData[$key] ?? NULL);
 
@@ -217,7 +220,7 @@ class InternalCrontab extends RemoteCommon implements InternalCrontabInterface, 
             $fileData[$key] = $fileLimitValue++;   
         }
 
-        File::write($limitFile, Json::encode($fileData) . EOL);
+        File::write($limitFile, Encode::do($fileData) . EOL);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -269,7 +272,7 @@ class InternalCrontab extends RemoteCommon implements InternalCrontabInterface, 
             return [];
         }
 
-        return Arrays::deleteElement(explode(EOL, File::read($this->crontabCommands)), '');
+        return RemoveElement::element(explode(EOL, File::read($this->crontabCommands)), '');
     }
 
     //--------------------------------------------------------------------------------------------------------

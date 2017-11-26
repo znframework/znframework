@@ -1,6 +1,9 @@
 <?php namespace ZN\Services\Request;
 
-use Security, ZN\In, Lang, URL, Config, IS, Arrays;
+use ZN\In, Lang, URL, Config, IS;
+use ZN\DataTypes\Strings\Split;
+use ZN\DataTypes\Arrays\RemoveElement;
+use ZN\IndividualStructures\Security\Html;
 
 class InternalURI implements InternalURIInterface
 {
@@ -339,7 +342,7 @@ class InternalURI implements InternalURIInterface
     //--------------------------------------------------------------------------------------------------------
     public function segmentArray() : Array
     {
-        $segmentEx = Arrays::deleteElement(explode('/', $this->_cleanPath()), '');
+        $segmentEx = RemoveElement::element(explode('/', $this->_cleanPath()), '');
 
         return $segmentEx;
     }
@@ -477,7 +480,7 @@ class InternalURI implements InternalURIInterface
 
             if( $currentLang = Lang::current() )
             {
-                $isLang = \Strings::divide($currentUri, '/');
+                $isLang = Split::divide($currentUri, '/');
 
                 if( strlen($isLang) === 2 )
                 {
@@ -544,7 +547,7 @@ class InternalURI implements InternalURIInterface
         }
         else
         {
-            return \Strings::divide($str, '/', -1);
+            return Split::divide($str, '/', -1);
         }
     }
 
@@ -556,7 +559,7 @@ class InternalURI implements InternalURIInterface
     //--------------------------------------------------------------------------------------------------------
     protected function _cleanPath()
     {
-        $pathInfo = Security::htmlEncode($this->active());
+        $pathInfo = Html::encode($this->active());
 
         return $pathInfo;
     }

@@ -1,6 +1,7 @@
 <?php namespace ZN\Services\Response;
 
-use Converter, CallController;
+use CallController;
+use ZN\Helpers\Converter\VariableTypes;
 use ZN\Services\Response\HTTP\Exception\SocketException;
 
 class InternalNet extends CallController implements InternalNetInterface
@@ -38,7 +39,7 @@ class InternalNet extends CallController implements InternalNetInterface
     //--------------------------------------------------------------------------------------------------------
     public function dnsRecords(String $host, String $type = 'any', Bool $raw = false) : \stdClass
     {
-        $dns = dns_get_record($this->cleanHttp($host), Converter::toConstant($type, 'DNS_'), $auth, $add, $raw);
+        $dns = dns_get_record($this->cleanHttp($host), VariableTypes::toConstant($type, 'DNS_'), $auth, $add, $raw);
 
         return (object)
         [

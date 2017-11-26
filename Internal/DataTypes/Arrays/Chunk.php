@@ -20,7 +20,7 @@ class Chunk
     // @param bool    $preserveKeys
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do(Array $data, Int $portionCount = 1, Bool $preserveKeys = false) : Array
+    public static function do(Array $data, Int $portionCount = 1, Bool $preserveKeys = false) : Array
     {
         return array_chunk($data, $portionCount, $preserveKeys);
     }

@@ -1,6 +1,5 @@
 <?php namespace ZN\IndividualStructures\Import;
 
-use Import;
 use ZN\IndividualStructures\Import\Exception\FileNotFoundException;
 
 class Template
@@ -23,17 +22,17 @@ class Template
     // @param bool   $obGetContents
     //
     //--------------------------------------------------------------------------------------------------------
-    public function use(String $page, Array $data = NULL, Bool $obGetContents = false)
+    public static function use(String $page, Array $data = NULL, Bool $obGetContents = false)
     {
-        if( $return = Import::page($page, $data, $obGetContents, INTERNAL_TEMPLATES_DIR) )
+        if( $return = View::use($page, $data, $obGetContents, INTERNAL_TEMPLATES_DIR) )
         {
             return $return;
         }
-        elseif( $return = Import::page($page, $data, $obGetContents, TEMPLATES_DIR) )
+        elseif( $return = View::use($page, $data, $obGetContents, TEMPLATES_DIR) )
         {
             return $return;
         }
-        elseif( $return = Import::page($page, $data, $obGetContents, EXTERNAL_TEMPLATES_DIR) )
+        elseif( $return = View::use($page, $data, $obGetContents, EXTERNAL_TEMPLATES_DIR) )
         {
             return $return;
         }

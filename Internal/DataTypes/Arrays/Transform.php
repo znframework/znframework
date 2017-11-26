@@ -18,7 +18,7 @@ class Transform
     // @param array   $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function flip(Array $array) : Array
+    public static function flip(Array $array) : Array
     {
         return array_flip($array);
     }

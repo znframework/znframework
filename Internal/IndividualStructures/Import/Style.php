@@ -32,11 +32,11 @@ class Style extends BootstrapExtends
     // @param variadic $styles
     //
     //--------------------------------------------------------------------------------------------------------
-    public function use(...$styles)
+    public static function use(...$styles)
     {
         $str       = '';
         $eol       = EOL;
-        $args      = $this->_parameters($styles, 'styles');
+        $args      = self::_parameters($styles, 'styles');
         $lastParam = $args->lastParam;
         $arguments = $args->arguments;
         $links     = $args->cdnLinks;

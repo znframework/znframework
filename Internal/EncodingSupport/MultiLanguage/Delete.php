@@ -1,6 +1,11 @@
 <?php namespace ZN\EncodingSupport\MultiLanguage;
 
-use File, Json, Folder;
+use ZN\DataTypes\Json\Encode;
+use ZN\DataTypes\Json\Decode;
+use ZN\FileSystem\File\Content;
+use ZN\FileSystem\File\Info;
+use ZN\FileSystem\File\Forge;
+use ZN\FileSystem\Folder\FileList;
 
 class Delete extends MLExtends
 {
@@ -31,9 +36,9 @@ class Delete extends MLExtends
         $createFile = $this->_langFile($app);
 
         // Dosya mevcutsa verileri al.
-        if( File::exists($createFile) )
+        if( Info::exists($createFile) )
         {
-            $datas = Json::decodeArray(File::read($createFile));
+            $datas = Decode::array(Content::read($createFile));
         }
 
         if( ! empty($datas) )
@@ -56,7 +61,7 @@ class Delete extends MLExtends
         }
 
         // Dosyayı yeniden yaz.
-        return File::write($createFile, Json::encode($json));
+        return Content::write($createFile, Encode::do($json));
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -73,7 +78,7 @@ class Delete extends MLExtends
         {
             if( $app === NULL )
             {
-                $MLFiles = Folder::files($this->appdir, 'ml');
+                $MLFiles = FileList::files($this->appdir, 'ml');
             }
             elseif( is_array($app) )
             {
@@ -98,9 +103,9 @@ class Delete extends MLExtends
         {
             $createFile = $this->_langFile($app);
             // Dosya mevcutsa verileri al.
-            if( File::exists($createFile) )
+            if( Info::exists($createFile) )
             {
-                return File::delete($createFile);
+                return Forge::delete($createFile);
             }
 
             return false;

@@ -21,7 +21,7 @@ class Search
     // @param string $case
     //
     //--------------------------------------------------------------------------------------------------------
-    public function use(String $str, String $needle, String $type = 'string', Bool $case = true)
+    public static function use(String $str, String $needle, String $type = 'string', Bool $case = true)
     {
         if( $type === 'string' )
         {
@@ -61,9 +61,9 @@ class Search
     // @param string $case
     //
     //--------------------------------------------------------------------------------------------------------
-    public function position(String $str, String $needle, Bool $case = true)
+    public static function position(String $str, String $needle, Bool $case = true)
     {
-        return $this->use($str, $needle, __FUNCTION__, $case);
+        return self::use($str, $needle, __FUNCTION__, $case);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -75,8 +75,8 @@ class Search
     // @param string $case
     //
     //--------------------------------------------------------------------------------------------------------
-    public function string(String $str, String $needle, Bool $case = true) : String
+    public static function string(String $str, String $needle, Bool $case = true) : String
     {
-        return $this->use($str, $needle, __FUNCTION__, $case);
+        return self::use($str, $needle, __FUNCTION__, $case);
     }
 }

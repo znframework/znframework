@@ -1,7 +1,12 @@
 <?php namespace ZN\IndividualStructures\Cache\Drivers;
 
 use ZN\IndividualStructures\Abstracts\CacheDriverMappingAbstract;
-use File, Folder, Support, Compress;
+use Support, Compress;
+use ZN\FileSystem\File\Content;
+use ZN\FileSystem\File\Forge;
+use ZN\FileSystem\File\Info;
+use ZN\FileSystem\Folder\Forge as FolderForge;
+use ZN\FileSystem\Folder\Info as FolderInfo;
 
 class FileDriver extends CacheDriverMappingAbstract
 {
@@ -36,7 +41,7 @@ class FileDriver extends CacheDriverMappingAbstract
 
         if( ! is_dir($this->path) )
         {
-            Folder::create($this->path, 0755);
+            FolderForge::create($this->path, 0755);
         }
 
         Support::writable($this->path);
@@ -93,9 +98,9 @@ class FileDriver extends CacheDriverMappingAbstract
             'data'  => $var
         ];
 
-        if( File::write($this->path.$key, serialize($datas)) )
+        if( Content::write($this->path.$key, serialize($datas)) )
         {
-            File::permission($this->path.$key, 0640);
+            Forge::permission($this->path.$key, 0640);
 
             return true;
         }
@@ -113,7 +118,7 @@ class FileDriver extends CacheDriverMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function delete($key)
     {
-        return File::delete($this->path.$key);
+        return Forge::delete($this->path.$key);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -184,7 +189,7 @@ class FileDriver extends CacheDriverMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function clean()
     {
-        return Folder::delete($this->path);
+        return FolderForge::delete($this->path);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -197,7 +202,7 @@ class FileDriver extends CacheDriverMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function info($type = NULL)
     {
-        $info = Folder::fileInfo($this->path);
+        $info = FolderInfo::fileInfo($this->path);
 
         if( $type === NULL )
         {
@@ -226,7 +231,7 @@ class FileDriver extends CacheDriverMappingAbstract
             return [];
         }
 
-        $data = unserialize(File::read($this->path.$key));
+        $data = unserialize(Content::read($this->path.$key));
 
         if( is_array($data) )
         {
@@ -256,16 +261,16 @@ class FileDriver extends CacheDriverMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     protected function _select($key)
     {
-        if( ! File::available($this->path.$key) )
+        if( ! Info::available($this->path.$key) )
         {
             return false;
         }
 
-        $data = unserialize(File::read($this->path.$key));
+        $data = unserialize(Content::read($this->path.$key));
 
         if( $data['ttl'] > 0 && time() > $data['time'] + $data['ttl'] )
         {
-            File::delete($this->path.$key);
+            Forge::delete($this->path.$key);
 
             return false;
         }

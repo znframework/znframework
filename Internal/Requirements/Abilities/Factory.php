@@ -1,4 +1,8 @@
-<?php trait FactoryAbility
+<?php 
+
+use ZN\DataTypes\Strings\Split;
+
+trait FactoryAbility
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -27,7 +31,7 @@
         else
         {
             $calledClass = get_called_class();
-            $namespace   = str_ireplace(Strings::divide($calledClass, '\\', -1), NULL, $calledClass);
+            $namespace   = str_ireplace(Split::divide($calledClass, '\\', -1), NULL, $calledClass);
         }
 
         $class = $namespace.$class;

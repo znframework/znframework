@@ -1,7 +1,8 @@
 <?php namespace ZN\DataTypes\XML;
 
-use File;
 use ZN\DataTypes\XML\Exception\FileNotFoundException;
+use ZN\FileSystem\File\Content;
+use ZN\FileSystem\File\Info;
 
 class Loader
 {
@@ -13,13 +14,13 @@ class Loader
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do(String $file) : String
+    public static function do(String $file) : String
     {
         $file = suffix($file, '.xml');
 
-        if( File::exists($file) )
+        if( Info::exists($file) )
         {
-            return File::read($file);
+            return Content::read($file);
         }
         else
         {

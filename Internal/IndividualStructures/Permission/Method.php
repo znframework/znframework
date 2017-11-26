@@ -20,9 +20,9 @@ class Method extends PermissionExtends
     // @param mixed $roleId : 0
     //
     //--------------------------------------------------------------------------------------------------------
-    public function post($roleId = 6)
+    public static function post($roleId = 6)
     {
-        return $this->use($roleId, __FUNCTION__);
+        return self::use($roleId, __FUNCTION__);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -32,9 +32,9 @@ class Method extends PermissionExtends
     // @param mixed $roleId : 0
     //
     //--------------------------------------------------------------------------------------------------------
-    public function get($roleId = 6)
+    public static function get($roleId = 6)
     {
-        return $this->use($roleId, __FUNCTION__);
+        return self::use($roleId, __FUNCTION__);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -44,9 +44,9 @@ class Method extends PermissionExtends
     // @param mixed $roleId : 0
     //
     //--------------------------------------------------------------------------------------------------------
-    public function request($roleId = 6)
+    public static function request($roleId = 6)
     {
-        return $this->use($roleId, __FUNCTION__);
+        return self::use($roleId, __FUNCTION__);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -56,8 +56,8 @@ class Method extends PermissionExtends
     // @param mixed $roleId : 0
     //
     //--------------------------------------------------------------------------------------------------------
-    public function use($roleId = 6, $method = 'post') : Bool
+    public static function use($roleId = 6, $method = 'post') : Bool
     {
-        return $this->common(PermissionExtends::$roleId ?? $roleId, $method, NULL, 'method');
+        return self::common(PermissionExtends::$roleId ?? $roleId, $method, NULL, 'method');
     }
 }

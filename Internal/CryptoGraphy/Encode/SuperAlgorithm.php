@@ -20,7 +20,7 @@ class SuperAlgorithm extends EncodeExtends
     // @param string $data
     //
     //--------------------------------------------------------------------------------------------------------
-    public function create(String $data) : String
+    public static function create(String $data) : String
     {
         $projectKey = PROJECT_CONFIG['key'];
 

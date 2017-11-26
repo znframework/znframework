@@ -1,6 +1,9 @@
 <?php namespace ZN\IndividualStructures\User;
 
-use DB, Encode, Import, Email, URL, IS;
+use DB, Email, URL, IS;
+use ZN\CryptoGraphy\Encode\Type;
+use ZN\CryptoGraphy\Encode\RandomPassword;
+use ZN\IndividualStructures\Import\Template;
 
 class ForgotPassword extends UserExtends
 {
@@ -65,8 +68,8 @@ class ForgotPassword extends UserExtends
             }
 
             $encodeType     = INDIVIDUALSTRUCTURES_USER_CONFIG['encode'];
-            $newPassword    = Encode::create(10);
-            $encodePassword = ! empty($encodeType) ? Encode::type($newPassword, $encodeType) : $newPassword;
+            $newPassword    = RandomPassword::create(10);
+            $encodePassword = ! empty($encodeType) ? Type::create($newPassword, $encodeType) : $newPassword;
 
             $templateData = array
             (
@@ -75,7 +78,7 @@ class ForgotPassword extends UserExtends
                 'returnLinkPath' => $returnLinkPath
             );
 
-            $message = Import::template('UserEmail/ForgotPassword', $templateData, true);
+            $message = Template::use('UserEmail/ForgotPassword', $templateData, true);
 
             Email::sender($senderInfo['mail'], $senderInfo['name'])
                  ->receiver($email, $email)

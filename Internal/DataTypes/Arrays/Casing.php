@@ -1,7 +1,5 @@
 <?php namespace ZN\DataTypes\Arrays;
 
-use Converter;
-
 class Casing
 {
     //--------------------------------------------------------------------------------------------------------
@@ -22,38 +20,27 @@ class Casing
     // @param string $keyval: all, key, value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function use(Array $array, String $type = 'lower', String $keyval = 'all') : Array
+    public static function use(Array $array, String $type = 'lower', String $keyval = 'all') : Array
     {
-        if( $type === 'lower' )
+        switch( $type )
         {
-            $caseType = 'Strings::lowerCase';
+            case 'lower': $caseType = 'ZN\DataTypes\Strings\Casing::lower'; break;
+            case 'upper': $caseType = 'ZN\DataTypes\Strings\Casing::upper'; break;
+            case 'title': $caseType = 'ZN\DataTypes\Strings\Casing::title'; break;
         }
-        elseif( $type === 'upper' )
-        {
-            $caseType = 'Strings::upperCase';
-        }
-        elseif( $type === 'title' )
-        {
-            $caseType = 'Strings::titleCase';
-        }
-
+   
         $arrayVals = array_values($array);
-        $arrayKeys = array_keys($array);
-
-        if( $keyval === 'key' )
+        $arrayKeys = array_keys  ($array);
+      
+        switch( $keyval )
         {
-            $arrayKeys = array_map($caseType, $arrayKeys);
+            case 'key'  : $arrayKeys = array_map($caseType, $arrayKeys); break;
+            case 'value': $arrayVals = array_map($caseType, $arrayVals); break;
+            case 'all'  :
+            default     : $arrayKeys = array_map($caseType, $arrayKeys);
+                          $arrayVals = array_map($caseType, $arrayVals);
         }
-        elseif( $keyval === 'value' )
-        {
-            $arrayVals = array_map($caseType, $arrayVals);
-        }
-        else
-        {
-            $arrayKeys = array_map($caseType, $arrayKeys);
-            $arrayVals = array_map($caseType, $arrayVals);
-        }
-
+   
         return array_combine($arrayKeys, $arrayVals);
     }
 
@@ -64,9 +51,9 @@ class Casing
     // @param array $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function lowerKeys(Array $array) : Array
+    public static function lowerKeys(Array $array) : Array
     {
-        return $this->use($array, 'lower', 'key');
+        return self::use($array, 'lower', 'key');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -76,9 +63,9 @@ class Casing
     // @param array $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function titleKeys(Array $array) : Array
+    public static function titleKeys(Array $array) : Array
     {
-        return $this->use($array, 'title', 'key');
+        return self::use($array, 'title', 'key');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -88,9 +75,9 @@ class Casing
     // @param array $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function upperKeys(Array $array) : Array
+    public static function upperKeys(Array $array) : Array
     {
-        return $this->use($array, 'upper', 'key');
+        return self::use($array, 'upper', 'key');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -100,9 +87,9 @@ class Casing
     // @param array $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function lowerValues(Array $array) : Array
+    public static function lowerValues(Array $array) : Array
     {
-        return $this->use($array, 'lower', 'value');
+        return self::use($array, 'lower', 'value');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -112,9 +99,9 @@ class Casing
     // @param array $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function titleValues(Array $array) : Array
+    public static function titleValues(Array $array) : Array
     {
-        return $this->use($array, 'title', 'value');
+        return self::use($array, 'title', 'value');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -124,9 +111,9 @@ class Casing
     // @param array $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function upperValues(Array $array) : Array
+    public static function upperValues(Array $array) : Array
     {
-        return $this->use($array, 'upper', 'value');
+        return self::use($array, 'upper', 'value');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -136,9 +123,9 @@ class Casing
     // @param array $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function lower(Array $array) : Array
+    public static function lower(Array $array) : Array
     {
-        return $this->use($array, 'lower', 'all');
+        return self::use($array, 'lower', 'all');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -148,9 +135,9 @@ class Casing
     // @param array $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function title(Array $array) : Array
+    public static function title(Array $array) : Array
     {
-        return $this->use($array, 'title', 'all');
+        return self::use($array, 'title', 'all');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -160,8 +147,8 @@ class Casing
     // @param array $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function upper(Array $array) : Array
+    public static function upper(Array $array) : Array
     {
-        return $this->use($array, 'upper', 'all');
+        return self::use($array, 'upper', 'all');
     }
 }

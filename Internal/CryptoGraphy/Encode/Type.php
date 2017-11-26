@@ -22,7 +22,7 @@ class Type extends EncodeExtends
     // @param string $type
     //
     //--------------------------------------------------------------------------------------------------------
-    public function create(String $data, String $type = 'md5') : String
+    public static function create(String $data, String $type = 'md5') : String
     {
         $algos = ['golden', 'super'];
 

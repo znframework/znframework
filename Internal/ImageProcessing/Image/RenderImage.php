@@ -1,8 +1,11 @@
 <?php namespace ZN\ImageProcessing\Image;
 
-use Folder, URL, File, Mime;
+use URL, Mime;
 use ZN\EncodingSupport\ImageProcessing\Image\Exception\ImageNotFoundException;
 use ZN\EncodingSupport\ImageProcessing\Image\Exception\InvalidImageFileException;
+use ZN\FileSystem\File\Extension;
+use ZN\FileSystem\Folder\Info;
+use ZN\FileSystem\Folder\Forge;
 
 class RenderImage
 {
@@ -114,12 +117,12 @@ class RenderImage
 
         $this->newPath($filePath);
 
-        if( ! Folder::exists($this->thumbPath) )
+        if( ! Info::exists($this->thumbPath) )
         {
-            Folder::create($this->thumbPath);
+            Forge::create($this->thumbPath);
         }
 
-        $newFile = File::removeExtension($this->file).$prefix.File::extension($this->file, true);
+        $newFile = Extension::remove($this->file).$prefix.Extension::get($this->file, true);
 
         if( file_exists($this->thumbPath.$newFile) )
         {
@@ -135,7 +138,7 @@ class RenderImage
             $rWidth = $currentWidth; $rHeight = $currentHeight;
         }
 
-        if( File::extension($filePath) === 'png' )
+        if( Extension::get($filePath) === 'png' )
         {
             imagealphablending($nFile, false);
             imagesavealpha($nFile, true);
@@ -161,14 +164,10 @@ class RenderImage
     //--------------------------------------------------------------------------------------------------------
     protected function newPath($filePath)
     {
-        $fileEx = explode("/", $filePath);
-
-        $this->file = $fileEx[count($fileEx) - 1];
-
+        $fileEx          = explode("/", $filePath);
+        $this->file      = $fileEx[count($fileEx) - 1];
         $this->thumbPath = substr($filePath,0,strlen($filePath) - strlen($this->file)).$this->dirName;
-
         $this->thumbPath = suffix($this->thumbPath);
-
         $this->thumbPath = str_replace(URL::base(), "", $this->thumbPath);
     }
 
@@ -181,29 +180,13 @@ class RenderImage
     //--------------------------------------------------------------------------------------------------------
     protected function fromFileType($paths)
     {
-        // UZANTI JPG
-        if( File::extension($this->file) === 'jpg' )
+        switch( Extension::get($this->file) )
         {
-            return imagecreatefromjpeg($paths);
-        }
-        // UZANTI JPEG
-        elseif( File::extension($this->file) === 'jpeg' )
-        {
-            return imagecreatefromjpeg($paths);
-        }
-        // UZANTI PNG
-        elseif( File::extension($this->file) === 'png' )
-        {
-            return imagecreatefrompng($paths);
-        }
-        // UZANTI GIF
-        elseif( File::extension($this->file) === 'gif' )
-        {
-            return imagecreatefromgif($paths);
-        }
-        else
-        {
-            return false;
+            case 'jpg' :
+            case 'jpeg': return imagecreatefromjpeg($paths);
+            case 'png' : return imagecreatefrompng ($paths);
+            case 'gif' : return imagecreatefromgif ($paths);
+            default    : return false;
         }
     }
 
@@ -239,40 +222,13 @@ class RenderImage
     //--------------------------------------------------------------------------------------------------------
     protected function createFileType($files, $paths, $quality = 0)
     {
-        if( File::extension($this->file) === 'jpg' )
+        switch( Extension::get($this->file) )
         {
-            if( $quality === 0 )
-            {
-                $quality = 80;
-            }
-
-            return imagejpeg($files, $paths, $quality);
-        }
-        elseif( File::extension($this->file) === 'jpeg' )
-        {
-            if( $quality === 0 )
-            {
-                $quality = 80;
-            }
-
-            return imagejpeg($files, $paths, $quality);
-        }
-        elseif( File::extension($this->file) === 'png' )
-        {
-            if( $quality === 0 )
-            {
-                $quality = 8;
-            }
-
-            return imagepng($files, $paths, $quality);
-        }
-        elseif( File::extension($this->file) === 'gif' )
-        {
-            return imagegif($files, $paths);
-        }
-        else
-        {
-            return false;
+            case 'jpg' :
+            case 'jpeg': return imagejpeg($files, $paths, $quality ?: 80);
+            case 'png' : return imagepng ($files, $paths, $quality ?: 8 );
+            case 'gif' : return imagegif ($files, $paths                );
+            default    : return false;
         }
     }
 }

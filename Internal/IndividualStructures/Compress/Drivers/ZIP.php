@@ -1,5 +1,8 @@
 <?php namespace ZN\IndividualStructures\Compress\Drivers;
 
+use Support;
+use ZN\FileSystem\File\Forge;
+
 class ZipDriver extends Abstracts\CompressDriverMappingAbstract
 {
     //--------------------------------------------------------------------------------------------------------
@@ -20,7 +23,7 @@ class ZipDriver extends Abstracts\CompressDriverMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
-        \Support::library('ZipArchive', 'ZIP Archive');  
+        Support::library('ZipArchive', 'ZIP Archive');  
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -34,7 +37,7 @@ class ZipDriver extends Abstracts\CompressDriverMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function extract($source, $target, $password = NULL)
     {
-        return \File::zipExtract($source, $target);
+        return Forge::zipExtract($source, $target);
     }
     
     //--------------------------------------------------------------------------------------------------------

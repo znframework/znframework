@@ -1,6 +1,7 @@
 <?php namespace ZN\ViewObjects\Javascript\Components;
 
-use Buffer, Html, Form as Forms;
+use Html, Form as Forms;
+use ZN\IndividualStructures\Buffer\Callback as BufferCallback;
 
 class Form extends ComponentsExtends
 {
@@ -31,7 +32,7 @@ class Form extends ComponentsExtends
     {
         return $this->prop
         ([
-            'contents'  => Buffer::function($form, [$this]),
+            'contents'  => BufferCallback::do($form, [$this]),
             'form'      => $form,
             'action'    => $this->action    ?? NULL,
             'class'     => $this->class     ?? NULL,

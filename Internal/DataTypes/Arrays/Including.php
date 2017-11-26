@@ -25,7 +25,7 @@ class Including
     // @param array   $including
     //
     //--------------------------------------------------------------------------------------------------------
-    public function use(Array $array, Array $including) : Array
+    public static function use(Array $array, Array $including) : Array
     {
         $newArray = [];
 

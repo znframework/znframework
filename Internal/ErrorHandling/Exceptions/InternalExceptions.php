@@ -1,6 +1,8 @@
 <?php namespace ZN\ErrorHandling;
 
-use Exception, Config, Import;
+use Exception, Config, Lang, Logger;
+use ZN\DataTypes\Strings\Split;
+use ZN\IndividualStructures\Import\Template;
 
 class InternalExceptions extends Exception implements InternalExceptionsInterface
 {
@@ -38,7 +40,7 @@ class InternalExceptions extends Exception implements InternalExceptionsInterfac
     {
         $debug = $this->_throwFinder(debug_backtrace(2));
 
-        if( $lang = \Lang::select($message, $key, $send) )
+        if( $lang = Lang::select($message, $key, $send) )
         {
             $message = '['.$this->_cleanClassName($debug['class']).'::'.$debug['function'].'()] '.$lang;
         }
@@ -59,10 +61,10 @@ class InternalExceptions extends Exception implements InternalExceptionsInterfac
     //--------------------------------------------------------------------------------------------------------
     public function table(String $no = NULL, String $msg = NULL, String $file = NULL, String $line = NULL, Array $trace = NULL)
     {
-        $lang    = \Lang::select('Templates');
+        $lang    = Lang::select('Templates');
         $message = $lang['line'].':'.$line.', '.$lang['file'].':'.$file.', '.$lang['message'].':'.$msg;
 
-        \Logger::report('ExceptionError', $message, 'ExceptionError');
+        Logger::report('ExceptionError', $message, 'ExceptionError');
 
         $table = $this->_template($msg, $file, $line, $no, $trace);
 
@@ -175,7 +177,7 @@ class InternalExceptions extends Exception implements InternalExceptionsInterfac
             }
         }
 
-        $message = Import::template('ExceptionTable', $exceptionData, true);
+        $message = Template::use('ExceptionTable', $exceptionData, true);
 
         return preg_replace('/\[(.*?)\]/', '<span style="color:#990000;">$1</span>', $message);
     }
@@ -189,7 +191,7 @@ class InternalExceptions extends Exception implements InternalExceptionsInterfac
     //--------------------------------------------------------------------------------------------------------
     protected function _cleanClassName($class)
     {
-        return str_ireplace(INTERNAL_ACCESS, '', \Strings::divide($class, '\\', -1));
+        return str_ireplace(INTERNAL_ACCESS, '', Split::divide($class, '\\', -1));
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -299,7 +301,7 @@ class InternalExceptions extends Exception implements InternalExceptionsInterfac
         $argument = ! empty($match[1]) ? $match[1] : NULL;
         $class    = ! empty($match[2]) ? $match[2] : NULL;
         $method   = ! empty($match[3]) ? $match[3] : NULL;
-        $type     = ! empty($match[4]) ? strtolower(\Strings::divide($match[4], '\\', -1)) : NULL;
+        $type     = ! empty($match[4]) ? strtolower(Split::divide($match[4], '\\', -1)) : NULL;
         $data     = ! empty($match[5]) ? strtolower($match[5]) : NULL;
 
         if( empty($match) )
@@ -323,7 +325,7 @@ class InternalExceptions extends Exception implements InternalExceptionsInterfac
 
             $exceptionData =
             [
-                'message' => \Lang::select('Error', 'typeHint', ['&' => $langMessage1, '%' => $langMessage2]),
+                'message' => Lang::select('Error', 'typeHint', ['&' => $langMessage1, '%' => $langMessage2]),
                 'file'    => $traceInfo['file'],
                 'line'    => '['.$traceInfo['line'].']',
             ];
@@ -348,7 +350,7 @@ class InternalExceptions extends Exception implements InternalExceptionsInterfac
         preg_match('/\w+\.wizard\.php/', $requiredFiles, $match);
 
         $exceptionData['file']    = VIEWS_DIR.($match[0] ?? strtolower(CURRENT_CFUNCTION).'.wizard.php');
-        $exceptionData['message'] = \Lang::select('Error', 'templateWizard');
+        $exceptionData['message'] = Lang::select('Error', 'templateWizard');
 
         return (object) $exceptionData;
     }

@@ -9,7 +9,7 @@ class Check
     // @param string $file
     //
     //--------------------------------------------------------------------------------------------------------
-    public function check(String $xml) : Bool
+    public static function check(String $xml) : Bool
     {
         if( empty($xml) )
         {

@@ -1,7 +1,13 @@
 <?php namespace Project\Controllers;
 
-use Restful, Separator, File, Folder, Arrays, Strings, Lang, URI, Route;
-use Converter, ZN\Core\Kernel as Kernel, Buffer, Cache, Config, User;
+use Restful, Separator, Strings, Lang, URI, Route;
+use ZN\Core\Kernel, Cache, Config, User;
+use ZN\DataTypes\Arrays\Element;
+use ZN\DataTypes\Arrays\Exists;
+use ZN\FileSystem\File\Content;
+use ZN\FileSystem\Folder\Forge;
+use ZN\Helpers\Converter\Unicode;
+use ZN\IndividualStructures\Buffer\Callback as BufferCallback;
 
 class ZN
 {
@@ -71,8 +77,8 @@ class ZN
                     }
                 }
 
-                Folder::create($dirname);
-                File::write($file, $content);
+                Forge::create($dirname);
+                Content::write($file, $content);
             }
 
             return true;
@@ -90,7 +96,7 @@ class ZN
     //--------------------------------------------------------------------------------------------------
     public static function upgradeFiles()
     {
-        return Arrays::keys(self::_restful());
+        return Element::keys(self::_restful());
     }
 
     //--------------------------------------------------------------------------------------------------
@@ -109,12 +115,12 @@ class ZN
         if
         (
             ($projectConfig['status'] ?? NULL) === true                                                                    &&
-            ( ! Arrays::valueExists(($projectConfig['machinesIP'] ?? []), User::ip()) )                                    &&
-            ( empty($projectConfig['include']) || Arrays::valueExists(($projectConfig['include'] ?? []), CURRENT_CFPATH) ) &&
-            ( empty($projectConfig['exclude']) || ! Arrays::valueExists(($projectConfig['exclude'] ?? []), CURRENT_CFPATH) )
+            ( ! Exists::value(($projectConfig['machinesIP'] ?? []), User::ip()) )                                    &&
+            ( empty($projectConfig['include']) || Exists::value(($projectConfig['include'] ?? []), CURRENT_CFPATH) ) &&
+            ( empty($projectConfig['exclude']) || ! Exists::value(($projectConfig['exclude'] ?? []), CURRENT_CFPATH) )
         )
         {
-            $converterName = Converter::slug(URI::active());
+            $converterName = Unicode::slug(URI::active());
 
             $cacheName = ($projectConfig['prefix'] ?? Lang::get()) . '-' . $converterName;
 
@@ -122,7 +128,7 @@ class ZN
 
             if( ! $select = Cache::select($cacheName, $projectConfig['compress']) )
             {
-                $kernel = Buffer::callback(function()
+                $kernel = BufferCallback::do(function()
                 {
                     Kernel::run();
                 });

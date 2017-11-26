@@ -18,7 +18,7 @@ class Length
     // @param array   $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function get(Array $data) : Int
+    public static function get(Array $data) : Int
     {
         return count($data);
     }
@@ -31,7 +31,7 @@ class Length
     // @param mixed $key
     //
     //--------------------------------------------------------------------------------------------------------
-    public function sameValues(Array $array, String $key = NULL)
+    public static function sameValues(Array $array, String $key = NULL)
     {
         $return = array_count_values($array);
 

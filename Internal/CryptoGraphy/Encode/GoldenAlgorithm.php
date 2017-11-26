@@ -21,7 +21,7 @@ class GoldenAlgorithm extends EncodeExtends
     // @param string $additional
     //
     //--------------------------------------------------------------------------------------------------------
-    public function create(String $data, String $additional = 'default') : String
+    public static function create(String $data, String $additional = 'default') : String
     {
         $algo = CRYPTOGRAPHY_ENCODE_CONFIG['type'];
 

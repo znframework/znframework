@@ -1,7 +1,5 @@
 <?php namespace ZN\DataTypes\Arrays;
 
-use Arrays;
-
 class Force
 {
     //--------------------------------------------------------------------------------------------------------
@@ -21,9 +19,9 @@ class Force
     // @param callable $callable
     //
     //--------------------------------------------------------------------------------------------------------
-    public function values(Array $array, Callable $callable) : Array
+    public static function values(Array $array, Callable $callable) : Array
     {
-        return Arrays::map($callable, $array);
+        return Map::do($callable, $array);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -34,11 +32,11 @@ class Force
     // @param callable $callable
     //
     //--------------------------------------------------------------------------------------------------------
-    public function keys(Array $array, Callable $callable) : Array
+    public static function keys(Array $array, Callable $callable) : Array
     {
-        $keys = Arrays::map($callable, Arrays::keys($array));
+        $keys = Map::do($callable, Element::keys($array));
 
-        return Arrays::combine($keys, Arrays::values($array));
+        return Combine::do($keys, Element::values($array));
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -49,11 +47,11 @@ class Force
     // @param callable $callable
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do(Array $array, Callable $callable) : Array
+    public static function do(Array $array, Callable $callable) : Array
     {
-        $values = Arrays::values(Arrays::map($callable, $array));
-        $keys   = Arrays::values(Arrays::map($callable, Arrays::keys($array)));
+        $values = Element::values(Map::do($callable, $array));
+        $keys   = Element::values(Map::do($callable, Element::keys($array)));
 
-        return Arrays::combine($keys, $values);
+        return Combine::do($keys, $values);
     }
 }

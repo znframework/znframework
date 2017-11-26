@@ -1,7 +1,8 @@
 <?php namespace ZN\Database\Drivers;
 
 use ZN\Database\Abstracts\DriverConnectionMappingAbstract;
-use Support, Errors, Security, stdClass;
+use ZN\IndividualStructures\Security\Injection;
+use Support, Errors, stdClass;
 
 class SQLServerDriver extends DriverConnectionMappingAbstract
 {
@@ -325,7 +326,7 @@ class SQLServerDriver extends DriverConnectionMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function realEscapeString($data)
     {
-        return Security::escapeStringEncode($data);
+        return Injection::escapeStringEncode($data);
     }
 
     //--------------------------------------------------------------------------------------------------------

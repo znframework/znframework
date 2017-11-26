@@ -1,6 +1,5 @@
 <?php namespace ZN\FileSystem\File;
 
-use File;
 use ZN\FileSystem\Exception\FileNotFoundException;
 
 class Loader
@@ -23,9 +22,9 @@ class Loader
     // @return array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function require(String $file, String $type = 'require')
+    public static function require(String $file, String $type = 'require')
     {
-        $file = File::rpath($file);
+        $file = Info::rpath($file);
 
         if( ! is_file($file) )
         {
@@ -61,9 +60,9 @@ class Loader
     // @return array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function requireOnce(String $file)
+    public static function requireOnce(String $file)
     {
-        return $this->require($file, 'require_once');
+        return self::require($file, 'require_once');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -75,9 +74,9 @@ class Loader
     // @return array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function include(String $file)
+    public static function include(String $file)
     {
-        return $this->require($file, 'include');
+        return self::require($file, 'include');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -89,8 +88,8 @@ class Loader
     // @return array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function includeOnce(String $file)
+    public static function includeOnce(String $file)
     {
-        return $this->require($file, 'include_once');
+        return self::require($file, 'include_once');
     }
 }

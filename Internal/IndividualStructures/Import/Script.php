@@ -32,11 +32,11 @@ class Script extends BootstrapExtends
     // @param variadic $scripts
     //
     //--------------------------------------------------------------------------------------------------------
-    public function use(...$scripts)
+    public static function use(...$scripts)
     {
         $str       = '';
         $eol       = EOL;
-        $args      = $this->_parameters($scripts, 'scripts');
+        $args      = self::_parameters($scripts, 'scripts');
         $lastParam = $args->lastParam;
         $arguments = $args->arguments;
         $links     = $args->cdnLinks;

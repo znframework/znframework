@@ -1,6 +1,6 @@
 <?php namespace ZN\IndividualStructures\Security;
 
-use Converter;
+use ZN\Helpers\Converter\VariableTypes;
 
 class HTML
 {
@@ -22,9 +22,9 @@ class HTML
     // @param string $encoding
     //
     //--------------------------------------------------------------------------------------------------------
-    public function encode(String $string, String $type = 'quotes', String $encoding = 'utf-8') : String
+    public static function encode(String $string, String $type = 'quotes', String $encoding = 'utf-8') : String
     {
-        return htmlspecialchars(trim($string), Converter::toConstant($type, 'ENT_'), $encoding);
+        return htmlspecialchars(trim($string), VariableTypes::toConstant($type, 'ENT_'), $encoding);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -35,9 +35,9 @@ class HTML
     // @param string $type: quotes, nonquotes, compat
     //
     //--------------------------------------------------------------------------------------------------------
-    public function decode(String $string, String $type = 'quotes') : String
+    public static function decode(String $string, String $type = 'quotes') : String
     {
-        return htmlspecialchars_decode(trim($string), Converter::toConstant($type, 'ENT_'));
+        return htmlspecialchars_decode(trim($string), VariableTypes::toConstant($type, 'ENT_'));
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -47,7 +47,7 @@ class HTML
     // @param string $string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function tagClean(String $string) : String
+    public static function tagClean(String $string) : String
     {
         return strip_tags($string);
     }

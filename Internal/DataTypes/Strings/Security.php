@@ -19,7 +19,7 @@ class Security
     // @param string $salt
     //
     //--------------------------------------------------------------------------------------------------------
-    public function encode(String $string, String $salt = 'default') : String
+    public static function encode(String $string, String $salt = 'default') : String
     {
         return crypt($string, $salt);
     }
@@ -32,7 +32,7 @@ class Security
     // @param string $addDifferentChars
     //
     //--------------------------------------------------------------------------------------------------------
-    public function addSlashes(String $string, String $addDifferentChars = NULL) : String
+    public static function addSlashes(String $string, String $addDifferentChars = NULL) : String
     {
         $return = addslashes($string);
 
@@ -51,7 +51,7 @@ class Security
     // @param string $str
     //
     //--------------------------------------------------------------------------------------------------------
-    public function removeSlashes(String $string) : String
+    public static function removeSlashes(String $string) : String
     {
         return stripslashes(stripcslashes($string));
     }

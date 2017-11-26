@@ -18,8 +18,8 @@ class Page extends PermissionExtends
     // @param mixed $roleId : 0
     //
     //--------------------------------------------------------------------------------------------------------
-    public function use($roleId = 6)
+    public static function use($roleId = 6)
     {
-        return $this->common(PermissionExtends::$roleId ?? $roleId, NULL, NULL, 'page');
+        return self::common(PermissionExtends::$roleId ?? $roleId, NULL, NULL, 'page');
     }
 }

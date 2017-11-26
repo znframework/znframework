@@ -1,6 +1,8 @@
 <?php namespace ZN\Requirements\Models;
 
-use BaseController, DB, DBTool, DBForge, Arrays, GeneralException, Config, Support;
+use BaseController, DB, DBTool, DBForge, GeneralException, Config, Support, Lang;
+use ZN\DataTypes\Strings\Split;
+use ZN\DataTypes\Arrays\Exists;
 
 class GrandModel extends BaseController
 {
@@ -116,7 +118,7 @@ class GrandModel extends BaseController
         }
         else
         {
-            $grandTable = \Strings::divide(str_ireplace([INTERNAL_ACCESS, 'Grand'], '', get_called_class()), '\\', -1);
+            $grandTable = Split::divide(str_ireplace([INTERNAL_ACCESS, 'Grand'], '', get_called_class()), '\\', -1);
         }
 
         $this->grandTable = strtolower($grandTable);
@@ -192,11 +194,11 @@ class GrandModel extends BaseController
     //--------------------------------------------------------------------------------------------------------
     public function __destruct()
     {
-        if( ! Arrays::valueExistsInsensitive($this->tables, ($table = $this->prefix . $this->grandTable)) && $this->status !== 'create' )
+        if( ! Exists::valueInsensitive($this->tables, ($table = $this->prefix . $this->grandTable)) && $this->status !== 'create' )
         {
             try
             {
-                throw new GeneralException(\Lang::select('Database', 'tableNotExistsError', 'Grand: '.$table));
+                throw new GeneralException(Lang::select('Database', 'tableNotExistsError', 'Grand: '.$table));
             }
             catch( GeneralException $e )
             {

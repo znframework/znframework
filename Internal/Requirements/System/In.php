@@ -1,7 +1,13 @@
 <?php namespace ZN;
 
-use Config, Import, Exceptions, Errors, GeneralException, Regex, Route, Strings;
-use View, Masterpage, Arrays, Http, Lang, URI, URL, IS, File, Folder, Logger;
+use Config, Exceptions, Errors, GeneralException, Regex, Route;
+use View, Masterpage, Http, Lang, URI, URL, IS, Logger;
+use ZN\DataTypes\Strings\Split;
+use ZN\DataTypes\Arrays\Casing;
+use ZN\FileSystem\File\Content;
+use ZN\FileSystem\File\Info;
+use ZN\FileSystem\Folder\FileList;
+use ZN\IndividualStructures\Import\Template;
 
 class In
 {
@@ -81,7 +87,7 @@ class In
 
         if( $requestMethods = $invalidRequest[$type] )
         {
-            $requestMethods = Arrays::lowerKeys($requestMethods);
+            $requestMethods = Casing::lowerKeys($requestMethods);
 
             if( ! empty($requestMethod = $requestMethods[CURRENT_CFURI] ?? NULL) )
             {
@@ -229,8 +235,8 @@ class In
     //--------------------------------------------------------------------------------------------------
     protected static function routeAll()
     {
-        $externalRouteFiles = (array) Folder::allFiles(EXTERNAL_ROUTES_DIR);
-        $routeFiles         = (array) Folder::allFiles(ROUTES_DIR);
+        $externalRouteFiles = (array) FileList::allFiles(EXTERNAL_ROUTES_DIR);
+        $routeFiles         = (array) FileList::allFiles(ROUTES_DIR);
         $files              = array_merge($externalRouteFiles, $routeFiles);
 
         if( ! empty($files)  )
@@ -362,7 +368,7 @@ class In
                 'maxMemoryUsage' => $maxMemoryUsage
             ];
 
-            $benchResult = Import::template('BenchmarkTable', $benchmarkData, true);
+            $benchResult = Template::use('BenchmarkTable', $benchmarkData, true);
             //----------------------------------------------------------------------------------------------
 
             //----------------------------------------------------------------------------------------------
@@ -428,7 +434,7 @@ class In
         $controllerPath  = ! empty($controllerEx[0]) ? $controllerEx[0] : '';
         $controllerFunc  = ! empty($controllerEx[1]) ? $controllerEx[1] : 'main';
         $controllerFile  = CONTROLLERS_DIR . suffix($controllerPath, '.php');
-        $controllerClass = Strings::divide($controllerPath, '/', -1);
+        $controllerClass = Split::divide($controllerPath, '/', -1);
 
         if( is_file($controllerFile) )
         {
@@ -718,9 +724,9 @@ class In
 
         $htaccessTxt = '.htaccess';
 
-        if( File::exists($htaccessTxt) )
+        if( Info::exists($htaccessTxt) )
         {
-            $getContents = trim(File::read($htaccessTxt));
+            $getContents = trim(Content::read($htaccessTxt));
         }
         else
         {
@@ -735,7 +741,7 @@ class In
             return false;
         }
 
-        if( ! File::write($htaccessTxt, trim($htaccess)) )
+        if( ! Content::write($htaccessTxt, trim($htaccess)) )
         {
             throw new GeneralException('Error', 'fileNotWrite', $htaccessTxt);
         }
@@ -796,9 +802,9 @@ class In
 
         $robotTxt = 'robots.txt';
 
-        if( File::exists($robotTxt) )
+        if( Info::exists($robotTxt) )
         {
-            $getContents = File::read($robotTxt);
+            $getContents = Content::read($robotTxt);
         }
         else
         {
@@ -810,7 +816,7 @@ class In
             return false;
         }
 
-        if( ! File::write($robotTxt, trim($robots)) )
+        if( ! Content::write($robotTxt, trim($robots)) )
         {
             throw new GeneralException('Error', 'fileNotWrite', $robotTxt);
         }

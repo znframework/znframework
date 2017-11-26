@@ -18,7 +18,7 @@ class Handload
     // @param variadic $args
     //
     //--------------------------------------------------------------------------------------------------------
-    public function use(...$args)
+    public static function use(...$args)
     {
         if( ! empty($args) ) foreach( $args as $file )
         {

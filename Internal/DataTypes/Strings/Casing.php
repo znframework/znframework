@@ -1,6 +1,6 @@
 <?php namespace ZN\DataTypes\Strings;
 
-use Strings, Converter;
+use ZN\Helpers\Converter\VariableTypes;
 
 class Casing
 {
@@ -22,9 +22,9 @@ class Casing
     // @param string $encoding
     //
     //--------------------------------------------------------------------------------------------------------
-    public function use(String $str, String $type = 'lower', String $encoding = 'utf-8') : String
+    public static function use(String $str, String $type = 'lower', String $encoding = 'utf-8') : String
     {
-        return mb_convert_case($str, Converter::toConstant($type, 'MB_CASE_'), $encoding);
+        return mb_convert_case($str, VariableTypes::toConstant($type, 'MB_CASE_'), $encoding);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -35,9 +35,9 @@ class Casing
     // @param string $encoding
     //
     //--------------------------------------------------------------------------------------------------------
-    public function upper(String $str, String $encoding = 'utf-8') : String
+    public static function upper(String $str, String $encoding = 'utf-8') : String
     {
-        return $this->use($str, __FUNCTION__, $encoding);
+        return self::use($str, __FUNCTION__, $encoding);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -48,9 +48,9 @@ class Casing
     // @param string $encoding
     //
     //--------------------------------------------------------------------------------------------------------
-    public function lower(String $str, String $encoding = 'utf-8') : String
+    public static function lower(String $str, String $encoding = 'utf-8') : String
     {
-        return $this->use($str, __FUNCTION__, $encoding);
+        return self::use($str, __FUNCTION__, $encoding);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -61,9 +61,9 @@ class Casing
     // @param string $encoding
     //
     //--------------------------------------------------------------------------------------------------------
-    public function title(String $str, String $encoding = 'utf-8') : String
+    public static function title(String $str, String $encoding = 'utf-8') : String
     {
-        return $this->use($str, __FUNCTION__, $encoding);
+        return self::use($str, __FUNCTION__, $encoding);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -73,13 +73,13 @@ class Casing
     // @param string $str
     //
     //--------------------------------------------------------------------------------------------------------
-    public function camel(String $str) : String
+    public static function camel(String $str) : String
     {
-        $string = $this->title(trim($str));
+        $string = self::title(trim($str));
 
-        $string[0] = $this->lower($string);
+        $string[0] = self::lower($string);
 
-        return Strings::mtrim($string);
+        return Trim::middle($string);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -89,11 +89,11 @@ class Casing
     // @param string $str
     //
     //--------------------------------------------------------------------------------------------------------
-    public function pascal(String $str) : String
+    public static function pascal(String $str) : String
     {
-        $string = $this->title(trim($str));
+        $string = self::title(trim($str));
 
-        return Strings::mtrim($string);
+        return Trim::middle($string);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -103,7 +103,7 @@ class Casing
     // @param string $str
     //
     //--------------------------------------------------------------------------------------------------------
-    public function underscore(String $str) : String
+    public static function underscore(String $str) : String
     {
         if( ! ctype_lower($str) )
         {

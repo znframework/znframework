@@ -21,7 +21,7 @@ class Unidimensional
     // @param bool  $preserveKey = true
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do(Array $array, Bool $preserveKey = true) : Array
+    public static function do(Array $array, Bool $preserveKey = true) : Array
     {
         return iterator_to_array
         (

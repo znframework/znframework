@@ -43,6 +43,6 @@ if( ! empty($extensions) )
 <?php $properties['element'] = $id ?>
 $(function()
 {
-    Morris.<?php echo Strings::titleCase($type) ?>(<?php echo Json::encode($properties)?>);
+    Morris.<?php echo ZN\DataTypes\Strings\Casing::title($type) ?>(<?php echo ZN\DataTypes\Json\Encode::do($properties)?>);
 });
 </script>

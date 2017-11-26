@@ -19,7 +19,7 @@ class RemoveElement
     // @param mixed $keys
     //
     //--------------------------------------------------------------------------------------------------------
-    public function key(Array $array, $keys) : Array
+    public static function key(Array $array, $keys) : Array
     {
         if( ! is_array($keys) )
         {
@@ -44,9 +44,9 @@ class RemoveElement
     // @param mixed $values
     //
     //--------------------------------------------------------------------------------------------------------
-    public function value(Array $array, $values) : Array
+    public static function value(Array $array, $values) : Array
     {
-        return $this->element($array, $values);
+        return self::element($array, $values);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -58,16 +58,16 @@ class RemoveElement
     // @param mixed $values
     //
     //--------------------------------------------------------------------------------------------------------
-    public function use(Array $array, $keys, $values) : Array
+    public static function use(Array $array, $keys, $values) : Array
     {
         if( ! empty($keys) )
         {
-            $array = $this->key($array, $keys);
+            $array = self::key($array, $keys);
         }
 
         if( ! empty($values) )
         {
-            $array = $this->value($array, $values);
+            $array = self::value($array, $values);
         }
 
         return $array;
@@ -81,7 +81,7 @@ class RemoveElement
     // @param numeric $count
     //
     //--------------------------------------------------------------------------------------------------------
-    public function last(Array $array, Int $count = 1, $type = 'array_pop') : Array
+    public static function last(Array $array, Int $count = 1, $type = 'array_pop') : Array
     {
         if( $count <= 1 )
         {
@@ -113,9 +113,9 @@ class RemoveElement
     // @param numeric $count
     //
     //--------------------------------------------------------------------------------------------------------
-    public function first(Array $array, Int $count = 1) : Array
+    public static function first(Array $array, Int $count = 1) : Array
     {
-        return $this->last($array, $count, 'array_shift');
+        return self::last($array, $count, 'array_shift');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -126,7 +126,7 @@ class RemoveElement
     // @param mixed $object
     //
     //--------------------------------------------------------------------------------------------------------
-    public function element(Array $array, $object) : Array
+    public static function element(Array $array, $object) : Array
     {
         if( ! is_array($object) )
         {

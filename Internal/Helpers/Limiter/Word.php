@@ -22,7 +22,7 @@ class Word
     // @param string $encoding
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do(String $str, Int $limit = 100, String $endChar = '...', Bool $stripTags = true, String $encoding = "utf-8") : String
+    public static function do(String $str, Int $limit = 100, String $endChar = '...', Bool $stripTags = true, String $encoding = "utf-8") : String
     {
         $str = trim($str);
 

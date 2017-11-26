@@ -38,7 +38,11 @@ if( ! empty($extensions) )
             if( ! is_array($image) ):
                 echo Html::image($path . $image);
             else:
-                echo Html::anchor(Arrays::key($image), Html::image($path . Arrays::value($image)));
+                echo Html::anchor
+                (
+                    ZN\DataTypes\Arrays\Element::key($image), 
+                    Html::image($path . ZN\DataTypes\Arrays\Element::value($image))
+                );
             endif;
             ?>
         </li>
@@ -57,6 +61,6 @@ if( ! empty($extensions) )
 <script>
 $(function()
 {
-    $('#<?php echo $id ?>').flexslider(<?php echo ! empty($properties) ? Json::encode($properties) : NULL?>);
+    $('#<?php echo $id ?>').flexslider(<?php echo ! empty($properties) ? ZN\DataTypes\Json\Encode::do($properties) : NULL?>);
 });
 </script>

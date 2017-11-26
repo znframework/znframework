@@ -1,10 +1,12 @@
 <?php namespace ZN\FileSystem\File;
 
-use ZipArchive, Folder, File;
+use ZipArchive;
 use ZN\FileSystem\Exception\FileNotFoundException;
 use ZN\FileSystem\Exception\FileAllreadyException;
 use ZN\FileSystem\FileSystemFactory;
 use ZN\FileSystem\InternalGenerate;
+use ZN\FileSystem\Folder\Forge as FolderForge;
+use ZN\FileSystem\Folder\FileList;
 
 class Forge
 {
@@ -24,7 +26,7 @@ class Forge
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function generate() : InternalGenerate
+    public static function generate() : InternalGenerate
     {
         return FileSystemFactory::class('InternalGenerate');
     }
@@ -36,9 +38,9 @@ class Forge
     // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
-    public function create(String $name) : Bool
+    public static function create(String $name) : Bool
     {
-        $name = File::rpath($name);
+        $name = Info::rpath($name);
 
         if( ! is_file($name) )
         {
@@ -59,22 +61,21 @@ class Forge
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function replace(String $file, $data, $replace) : String
+    public static function replace(String $file, $data, $replace) : String
     {
-        $file = File::rpath($file);
+        $file = Info::rpath($file);
 
         if( ! is_file($file))
         {
             return false;
         }
 
-        $fileContentClass = Factory::class('Content');
-        $contents         = $fileContentClass->read($file);
+        $contents         = Content::read($file);
         $replaceContents  = str_ireplace($data, $replace, $contents);
 
         if( $contents !== $replaceContents )
         {
-            $fileContentClass->write($file, $replaceContents);
+            Content::write($file, $replaceContents);
         }
 
         return $replaceContents;
@@ -87,9 +88,9 @@ class Forge
     // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
-    public function delete(String $name) : Bool
+    public static function delete(String $name) : Bool
     {
-        $name = File::rpath($name);
+        $name = Info::rpath($name);
 
         if( ! is_file($name))
         {
@@ -109,10 +110,10 @@ class Forge
     // @param string $target
     //
     //--------------------------------------------------------------------------------------------------------
-    public function zipExtract(String $source, String $target = NULL) : Bool
+    public static function zipExtract(String $source, String $target = NULL) : Bool
     {
-        $source = File::rpath($source);
-        $target = File::rpath($target);
+        $source = Info::rpath($source);
+        $target = Info::rpath($target);
 
         $source = suffix($source, '.zip');
 
@@ -123,7 +124,7 @@ class Forge
 
         if( empty($target) )
         {
-            $target = File::removeExtension($source);
+            $target = Extension::remove($source);
         }
 
         $zip = new ZipArchive;
@@ -149,9 +150,9 @@ class Forge
     // @param array  $data
     //
     //--------------------------------------------------------------------------------------------------------
-    public function createZip(String $path, Array $data) : Bool
+    public static function createZip(String $path, Array $data) : Bool
     {
-        $path    = File::rpath($path);
+        $path    = Info::rpath($path);
         $zip     = new ZipArchive();
         $zipPath = suffix($path, ".zip");
 
@@ -160,9 +161,9 @@ class Forge
             unlink($zipPath);
         }
 
-        if( ! is_dir($pathDirName = File::pathInfo($path, 'dirname')) )
+        if( ! is_dir($pathDirName = Info::pathInfo($path, 'dirname')) )
         {
-            Folder::create($pathDirName);
+            FolderForge::create($pathDirName);
         }
 
         if( $zip->open($zipPath, ZipArchive::CREATE) !== true )
@@ -187,7 +188,7 @@ class Forge
 
             if( is_dir($file) )
             {
-                $allFiles = Folder::allFiles($file, true);
+                $allFiles = FileList::allFiles($file, true);
 
                 foreach( $allFiles as $f )
                 {
@@ -211,9 +212,9 @@ class Forge
     // @param string $newName
     //
     //--------------------------------------------------------------------------------------------------------
-    public function rename(String $oldName, String $newName) : Bool
+    public static function rename(String $oldName, String $newName) : Bool
     {
-        $oldName = File::rpath($oldName);
+        $oldName = Info::rpath($oldName);
 
         if( ! file_exists($oldName) )
         {
@@ -231,9 +232,9 @@ class Forge
     // @param string $real
     //
     //--------------------------------------------------------------------------------------------------------
-    public function cleanCache(String $fileName = NULL, Bool $real = false)
+    public static function cleanCache(String $fileName = NULL, Bool $real = false)
     {
-        $fileName = File::rpath($fileName);
+        $fileName = Info::rpath($fileName);
 
         if( ! file_exists($fileName) )
         {
@@ -254,9 +255,9 @@ class Forge
     // @param string $mode
     //
     //--------------------------------------------------------------------------------------------------------
-    public function truncate(String $file, Int $limit = 0, String $mode = 'r+')
+    public static function truncate(String $file, Int $limit = 0, String $mode = 'r+')
     {
-        $file = File::rpath($file);
+        $file = Info::rpath($file);
 
         if( ! is_file($file) )
         {
@@ -276,9 +277,9 @@ class Forge
     // Bir dizin veya dosyaya yetki vermek için kullanılır.
     //
     //--------------------------------------------------------------------------------------------------------
-    public function permission(String $name, Int $permission = 0755) : Bool
+    public static function permission(String $name, Int $permission = 0755) : Bool
     {
-        $name = File::rpath($name);
+        $name = Info::rpath($name);
 
         if( ! file_exists($name) )
         {

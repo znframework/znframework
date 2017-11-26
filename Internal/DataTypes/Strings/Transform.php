@@ -19,11 +19,11 @@ class Transform
     // @param string $split
     //
     //--------------------------------------------------------------------------------------------------------
-    public function array(String $string, String $split = ' ') : Array
+    public static function array(String $string, String $split = ' ') : Array
     {
         if( empty($split) )
         {
-            return $this->split($string, 1);
+            return self::split($string, 1);
         }
 
         return explode($split, $string);
@@ -37,7 +37,7 @@ class Transform
     // @param int    $split
     //
     //--------------------------------------------------------------------------------------------------------
-    public function split(String $string, Int $split = 1) : Array
+    public static function split(String $string, Int $split = 1) : Array
     {
         return str_split($string, $split);
     }
@@ -49,7 +49,7 @@ class Transform
     // @param int $ascii
     //
     //--------------------------------------------------------------------------------------------------------
-    public function char(Int $ascii) : String
+    public static function char(Int $ascii) : String
     {
         return chr($ascii);
     }
@@ -61,7 +61,7 @@ class Transform
     // @param string $str
     //
     //--------------------------------------------------------------------------------------------------------
-    public function ascii(String $string) : Int
+    public static function ascii(String $string) : Int
     {
         return ord($string);
     }

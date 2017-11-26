@@ -1,7 +1,17 @@
 <?php namespace ZN\Services\Request;
 
-use ZN\Core\Structure, ZN\In;
-use Arrays, Config, Errors, CLController, Http, Import, Regex, Security, Restoration, URI, IS, Masterpage, Lang, DB;
+use ZN\Core\Structure;
+use ZN\Core\Kernel;
+use ZN\In;
+use ZN\DataTypes\Strings\Split;
+use ZN\DataTypes\Arrays\AddElement;
+use ZN\DataTypes\Arrays\RemoveElement;
+use ZN\DataTypes\Arrays\Search;
+use ZN\DataTypes\Arrays\Exists;
+use ZN\DataTypes\Arrays\Transform;
+use ZN\IndividualStructures\Security\CrossSiteRequestForgery;
+use Config, Errors, CLController, Http, Import, Regex, Restoration, URI, IS, Masterpage, Lang, DB;
+use Logger;
 
 class InternalRoute extends CLController implements InternalRouteInterface
 {
@@ -527,8 +537,8 @@ class InternalRoute extends CLController implements InternalRouteInterface
         $lowerPath = strtolower($path);
 
         $filters = $this->filters;
-        $filters = Arrays::addLast($filters, 'redirect');
-        $filters = Arrays::deleteElement($filters, 'usable');
+        $filters = AddElement::last($filters, 'redirect');
+        $filters = RemoveElement::element($filters, 'usable');
 
         $this->_filter($filters, $lowerPath);
 
@@ -636,7 +646,7 @@ class InternalRoute extends CLController implements InternalRouteInterface
         // Database Routing
         $route = preg_replace_callback('/\[(\w+|\.)\:(\w+|\.)(\s*\,\s*((json|serial|separator))(\:(.*?))*)*\]/i', function($match) use (&$count, &$return, $routeSegment)
         {
-            $count   = Arrays::search($routeSegment, $match[0]);
+            $count   = Search::do($routeSegment, $match[0]);
             $decoder = $match[4] ?? NULL;
             $value   = $val = URI::segment($count + 1);
             $column  = $match[2];
@@ -659,9 +669,9 @@ class InternalRoute extends CLController implements InternalRouteInterface
                 $return    = $rows->$row ?? NULL;
 
                 // Current Lang Manipulation
-                if( $return !== $value && Arrays::valueExists($rowsArray, $val) )
+                if( $return !== $value && Exists::value($rowsArray, $val) )
                 {
-                    $arrayTransform = Arrays::transform($rowsArray);
+                    $arrayTransform = Transform::flip($rowsArray);
 
                     $newRow = $arrayTransform[$val];
                     $return = $rows->$newRow;
@@ -702,7 +712,7 @@ class InternalRoute extends CLController implements InternalRouteInterface
     //--------------------------------------------------------------------------------------------------------
     public function run(String $functionName, Callable $functionRun = NULL, Bool $usable = true)
     {
-        if( Arrays::valueExists(['construct', 'destruct'], $functionName) )
+        if( Exists::value(['construct', 'destruct'], $functionName) )
         {
             call_user_func_array($functionRun, CURRENT_CPARAMETERS);
         }
@@ -743,8 +753,8 @@ class InternalRoute extends CLController implements InternalRouteInterface
 
         if( empty($invalidRequest['page']) )
         {
-            \Logger::report('Error', \Lang::select('Error', 'invalidRequest'), 'InvalidRequestError');
-            trace(\Lang::select('Error', 'invalidRequest'));
+            Logger::report('Error', Lang::select('Error', 'invalidRequest'), 'InvalidRequestError');
+            trace(Lang::select('Error', 'invalidRequest'));
         }
         else
         {
@@ -765,7 +775,7 @@ class InternalRoute extends CLController implements InternalRouteInterface
     {
         if( ! $routeShow404 = Config::get('Services', 'route')['show404'] )
         {
-            \Logger::report('Error', \Lang::select('Error', $lang, $function), $report);
+            Logger::report('Error', Lang::select('Error', $lang, $function), $report);
             die(Errors::message('Error', $lang, $function));
         }
         else
@@ -807,7 +817,7 @@ class InternalRoute extends CLController implements InternalRouteInterface
             {
                 $redirect = $this->redirects[CURRENT_CFURI]['redirect'] ?? Config::get('Services', 'route')['requestMethods']['page'];
 
-                Security::CSRFtoken($redirect, $type);
+                CrossSiteRequestForgery::token($redirect, $type);
             }
         }
     }
@@ -1034,7 +1044,7 @@ class InternalRoute extends CLController implements InternalRouteInterface
         }
 
         $changeRoute = str_replace($matchAll, $newMatch, $route);
-        $changeRoute = str_replace(\Strings::divide($route, '/'), $functionName, $changeRoute);
+        $changeRoute = str_replace(Split::divide($route, '/'), $functionName, $changeRoute);
         $route       = [$route => $changeRoute];
 
         return $route;
@@ -1049,8 +1059,8 @@ class InternalRoute extends CLController implements InternalRouteInterface
     //--------------------------------------------------------------------------------------------------------
     protected function _import($function)
     {
-        \ZN\Core\Kernel::viewPathFinder($function, $viewPath, $wizardPath);
-        \ZN\Core\Kernel::viewAutoload($wizardPath, $viewPath, $this->data, $this->mdata);
+        Kernel::viewPathFinder($function, $viewPath, $wizardPath);
+        Kernel::viewAutoload($wizardPath, $viewPath, $this->data, $this->mdata);
     }
 
     //--------------------------------------------------------------------------------------------------

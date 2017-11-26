@@ -20,7 +20,7 @@ class Column
     // @param mixed   $indexKey
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do(Array $array, $columnKey = 0, $indexKey = NULL) : Array
+    public static function do(Array $array, $columnKey = 0, $indexKey = NULL) : Array
     {
         return array_column($array, $columnKey, $indexKey);
     }

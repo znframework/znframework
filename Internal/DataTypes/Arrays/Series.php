@@ -20,7 +20,7 @@ class Series
     // @param numeric $count
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do(Int $start, Int $end, Int $step = 1) : Array
+    public static function do(Int $start, Int $end, Int $step = 1) : Array
     {
         return range($start, $end, $step);
     }

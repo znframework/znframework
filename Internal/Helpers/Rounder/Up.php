@@ -21,7 +21,7 @@ class Up
     // @param int    $count
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do(Float $number, Int $count = 0) : Float
+    public static function do(Float $number, Int $count = 0) : Float
     {
         if( $count === 0 )
         {

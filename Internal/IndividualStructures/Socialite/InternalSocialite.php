@@ -1,7 +1,8 @@
 <?php namespace ZN\IndividualStructures;
 
-use CLController, Arrays, URL, IS;
+use CLController, URL, IS;
 use ZN\IndividualStructures\Socialite\Exception\InvalidArgumentException;
+use ZN\DataTypes\Arrays\RemoveElement;
 
 class InternalSocialite extends CLController implements InternalSocialiteInterface
 {
@@ -46,7 +47,7 @@ class InternalSocialite extends CLController implements InternalSocialiteInterfa
             'secret' => $parameters['secret']
         ];
 
-        $parameters = Arrays::removeKey($parameters, ['id', 'secret']);
+        $parameters = RemoveElement::key($parameters, ['id', 'secret']);
 
         // Default Callback Value: Current URL
         if( ! isset($parameters['callback']) )

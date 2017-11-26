@@ -1,5 +1,7 @@
 <?php namespace ZN\DataTypes\Separator;
 
+use stdClass;
+
 class Decode extends SeparatorExtends
 {
     //--------------------------------------------------------------------------------------------------------
@@ -20,10 +22,10 @@ class Decode extends SeparatorExtends
     // @param string $separator
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do(String $word, String $key = NULL, String $separator = NULL) : \stdClass
+    public static function do(String $word, String $key = NULL, String $separator = NULL) : stdClass
     {
-        $key       = $key       ?: $this->key;
-        $separator = $separator ?: $this->separator;
+        $key       = $key       ?: self::$key;
+        $separator = $separator ?: self::$separator;
 
         $keyval = explode($separator, $word);
         $splits = [];
@@ -51,9 +53,9 @@ class Decode extends SeparatorExtends
     // @param string $separator
     //
     //--------------------------------------------------------------------------------------------------------
-    public function object(String $word, String $key = NULL, String $separator = NULL) : \stdClass
+    public static function object(String $word, String $key = NULL, String $separator = NULL) : stdClass
     {
-        return $this->do($word, $key, $separator);
+        return self::do($word, $key, $separator);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -65,8 +67,8 @@ class Decode extends SeparatorExtends
     // @param string $separator
     //
     //--------------------------------------------------------------------------------------------------------
-    public function array(String $word, String $key = NULL, String $separator = NULL) : Array
+    public static function array(String $word, String $key = NULL, String $separator = NULL) : Array
     {
-        return (array) $this->do($word, $key, $separator);
+        return (array) self::do($word, $key, $separator);
     }
 }

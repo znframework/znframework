@@ -1,7 +1,12 @@
 <?php namespace ZN\Database;
 
-use DB, DBForge, Config, Folder, File, Date;
+use DB, DBForge, Config, Date;
 use ZN\Database\Exception\DatabaseErrorException;
+use ZN\FileSystem\File\Content;
+use ZN\FileSystem\File\Info;
+use ZN\FileSystem\File\Forge;
+use ZN\FileSystem\Folder\Forge as FolderForge;
+use ZN\FileSystem\Folder\Info as FolderInfo;
 
 class InternalMigration extends \CallController implements InternalMigrationInterface
 {
@@ -82,7 +87,7 @@ class InternalMigration extends \CallController implements InternalMigrationInte
 
         if( ! is_dir($this->path) )
         {
-            Folder::create($this->path, 0755);
+            FolderForge::create($this->path, 0755);
         }
 
         $this->tbl = defined('static::table')
@@ -248,9 +253,9 @@ class InternalMigration extends \CallController implements InternalMigrationInte
         {
             $dir  = $this->path.$name.$this->versionDir;
 
-            if( ! Folder::exists($dir) )
+            if( ! FolderInfo::exists($dir) )
             {
-                Folder::create($dir);
+                FolderForge::create($dir);
             }
 
             $file = $dir.suffix($version, '.php');
@@ -261,7 +266,7 @@ class InternalMigration extends \CallController implements InternalMigrationInte
             $file = $this->path.suffix($name, '.php');
         }
 
-        if( ! File::exists($file) )
+        if( ! Info::exists($file) )
         {
             $eol  = EOL;
             $str  = '<?php'.$eol;
@@ -289,7 +294,7 @@ class InternalMigration extends \CallController implements InternalMigrationInte
             $str .= "\t".'}'.$eol;
             $str .= '}';
 
-            return File::write($file, $str);
+            return Content::write($file, $str);
         }
         else
         {
@@ -314,7 +319,7 @@ class InternalMigration extends \CallController implements InternalMigrationInte
 
             if( $ver === 'all' && is_dir($this->path.$name.$this->versionDir) )
             {
-                Folder::delete($this->path.$name.$this->versionDir);
+                FolderForge::delete($this->path.$name.$this->versionDir);
             }
         }
         else
@@ -322,7 +327,7 @@ class InternalMigration extends \CallController implements InternalMigrationInte
             $file = $this->path.suffix($name, '.php');
         }
 
-        return File::delete($file);
+        return Forge::delete($file);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -336,7 +341,7 @@ class InternalMigration extends \CallController implements InternalMigrationInte
     {
         if( is_dir($this->path) )
         {
-            return Folder::delete($this->path);
+            return FolderForge::delete($this->path);
         }
         else
         {

@@ -21,7 +21,7 @@ class Each
     // @param callable $callable
     //
     //--------------------------------------------------------------------------------------------------------
-    public function use(Array $array, Callable $callable)
+    public static function use(Array $array, Callable $callable)
     {
         foreach( $array as $k => $v )
         {

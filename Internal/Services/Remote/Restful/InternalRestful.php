@@ -1,6 +1,10 @@
 <?php namespace ZN\Services\Remote;
 
-use CURL, Json, URL, XML, Http, Redirect, Route;
+use CURL, URL, Http, Redirect, Route;
+use ZN\DataTypes\Json\Decode;
+use ZN\DataTypes\Json\ErrorInfo;
+use ZN\DataTypes\XML\Check;
+use ZN\DataTypes\XML\Parser;
 
 class InternalRestful implements InternalRestfulInterface
 {
@@ -286,13 +290,13 @@ class InternalRestful implements InternalRestfulInterface
 
         $this->_default();
 
-        if( Json::check($response) )
+        if( ErrorInfo::check($response) )
         {
-            return Json::decodeObject($response);
+            return Decode::object($response);
         }
-        elseif( XML::check($response) )
+        elseif( Check::check($response) )
         {
-            return XML::parseObject($response);
+            return Parser::object($response);
         }
         else
         {

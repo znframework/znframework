@@ -18,7 +18,7 @@ class Map
     // @param ...args
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do(...$args) : Array
+    public static function do(...$args) : Array
     {
         return array_map(...$args);
     }

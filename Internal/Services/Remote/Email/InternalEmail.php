@@ -1,7 +1,10 @@
 <?php namespace ZN\Services\Remote;
 
 use Support, Config, CLController, DriverAbility, InformationAbility, IS;
-use Lang, Mime, Arrays, Method, DB, Strings, Security, Import;
+use Lang, Mime, Arrays, Method, DB;
+use ZN\DataTypes\Strings\Trim;
+use ZN\IndividualStructures\Import\Template;
+use ZN\IndividualStructures\Security\Html;
 
 class InternalEmail extends CLController implements InternalEmailInterface
 {
@@ -746,7 +749,7 @@ class InternalEmail extends CLController implements InternalEmailInterface
     //--------------------------------------------------------------------------------------------------------
     public function template(String $table, $column, Array $data = []) : InternalEmail
     {
-        if( $content = Import::template($table, (array) $column, true) )
+        if( $content = Template::use($table, (array) $column, true) )
         {
             $this->message($content);
         }
@@ -797,10 +800,10 @@ class InternalEmail extends CLController implements InternalEmailInterface
         
         foreach( $data as $key => $val )
         {
-            $newData[Strings::mtrim('{{'.$key.'}}')] = $val;
+            $newData[Trim::middle('{{'.$key.'}}')] = $val;
         }
 
-        return Security::htmlDecode(str_replace(array_keys($newData), array_values($newData), $content));
+        return Html::decode(str_replace(array_keys($newData), array_values($newData), $content));
     }
 
     //--------------------------------------------------------------------------------------------------------

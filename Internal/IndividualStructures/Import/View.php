@@ -1,7 +1,10 @@
 <?php namespace ZN\IndividualStructures\Import;
 
-use File, View as Views, Buffer, Arrays;
+use ZN\In;
+use View as Views, Arrays;
 use ZN\ViewObjects\TemplateWizard;
+use ZN\FileSystem\File\Extension;
+use ZN\IndividualStructures\Buffer\File as BufferFile;
 
 class View
 {
@@ -21,7 +24,7 @@ class View
     // @var string
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $templateWizardExtension = '.wizard';
+    protected static $templateWizardExtension = '.wizard';
 
     //--------------------------------------------------------------------------------------------------------
     // page()
@@ -32,7 +35,7 @@ class View
     // @param bool   $obGetContents
     //
     //--------------------------------------------------------------------------------------------------------
-    public function use(String $page, Array $data = NULL, Bool $obGetContents = false, String $randomPageDir = VIEWS_DIR)
+    public static function use(String $page, Array $data = NULL, Bool $obGetContents = false, String $randomPageDir = VIEWS_DIR)
     {
         if( ! empty(Properties::$parameters['usable']) )
         {
@@ -46,7 +49,7 @@ class View
 
         Properties::$parameters = [];
 
-        if( ! empty($viewData = \ZN\In::$view ) )
+        if( ! empty($viewData = In::$view ) )
         {
             $inData = array_merge(...$viewData);
         }
@@ -57,12 +60,12 @@ class View
 
         $data = array_merge((array) $data, $inData, Views::$data);
 
-        if( is_file($randomPageDir . suffix($page, '.php')) && ! strstr($page, $this->templateWizardExtension) )
+        if( is_file($randomPageDir . suffix($page, '.php')) && ! strstr($page, self::$templateWizardExtension) )
         {
-            return $this->_page($page, $data, $obGetContents, $randomPageDir);
+            return self::_page($page, $data, $obGetContents, $randomPageDir);
         }
 
-        return $this->_templateWizard(suffix(rtrim($page, '.php'), $this->templateWizardExtension), $data, $obGetContents, $randomPageDir);
+        return self::_templateWizard(suffix(rtrim($page, '.php'), self::$templateWizardExtension), $data, $obGetContents, $randomPageDir);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -74,9 +77,9 @@ class View
     // @param bool   $obGetContents
     //
     //--------------------------------------------------------------------------------------------------------
-    protected function _page($randomPageVariable, $randomDataVariable, $randomObGetContentsVariable = false, $randomPageDir = VIEWS_DIR, $randomIsWizard = NULL)
+    protected static function _page($randomPageVariable, $randomDataVariable, $randomObGetContentsVariable = false, $randomPageDir = VIEWS_DIR, $randomIsWizard = NULL)
     {
-        if( ! File::extension($randomPageVariable) || stristr($randomPageVariable, $this->templateWizardExtension) )
+        if( ! Extension::get($randomPageVariable) || stristr($randomPageVariable, self::$templateWizardExtension) )
         {
             $randomPageVariable = suffix($randomPageVariable, '.php');
         }
@@ -90,7 +93,7 @@ class View
 
         if( is_file($randomPagePath) )
         {
-            $return = Buffer::file($randomPagePath, $randomDataVariable);
+            $return = BufferFile::do($randomPagePath, $randomDataVariable);
 
             if( $randomObGetContentsVariable === false )
             {
@@ -116,9 +119,9 @@ class View
     // @param bool   $obGetContents
     //
     //--------------------------------------------------------------------------------------------------------
-    protected function _templateWizard($page, $data, $obGetContents, $randomPageDir = PAGES_DIR)
+    protected static function _templateWizard($page, $data, $obGetContents, $randomPageDir = PAGES_DIR)
     {
-        $return = TemplateWizard::data($this->_page($page, $data, true, $randomPageDir, true), (array) $data);
+        $return = TemplateWizard::data(self::_page($page, $data, true, $randomPageDir, true), (array) $data);
 
         if( $obGetContents === true )
         {

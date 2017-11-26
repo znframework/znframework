@@ -1,6 +1,6 @@
 <?php namespace ZN\DataTypes\Arrays;
 
-use Json;
+use ZN\DataTypes\Json\Encode;
 
 class Convert
 {
@@ -20,8 +20,8 @@ class Convert
     // @param array   $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function objectData(Array $data) : String
+    public static function objectData(Array $data) : String
     {
-        return Json::encode($data);
+        return Encode::do($data);
     }
 }

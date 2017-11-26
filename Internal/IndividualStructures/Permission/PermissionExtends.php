@@ -1,8 +1,8 @@
 <?php namespace ZN\IndividualStructures\Permission;
 
-use Method;
+use Method, Config;
 
-class PermissionExtends extends \CLController
+class PermissionExtends
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -13,8 +13,6 @@ class PermissionExtends extends \CLController
     //
     //--------------------------------------------------------------------------------------------------------
 
-    const config = 'IndividualStructures:permission';
-
     //--------------------------------------------------------------------------------------------------------
     // Permission
     //--------------------------------------------------------------------------------------------------------
@@ -22,7 +20,7 @@ class PermissionExtends extends \CLController
     // @var array
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $permission = [];
+    protected static $permission = [];
 
     //--------------------------------------------------------------------------------------------------------
     // Result
@@ -31,7 +29,7 @@ class PermissionExtends extends \CLController
     // @var string
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $result;
+    protected static $result;
 
     //--------------------------------------------------------------------------------------------------------
     // Content
@@ -40,7 +38,7 @@ class PermissionExtends extends \CLController
     // @var string
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $content;
+    protected static $content;
 
     //--------------------------------------------------------------------------------------------------------
     // Role ID
@@ -58,7 +56,7 @@ class PermissionExtends extends \CLController
     // @var scalar
     //
     //--------------------------------------------------------------------------------------------------------
-    public function roleId($roleId)
+    public static function roleId($roleId)
     {
         self::$roleId = $roleId;
     }
@@ -70,13 +68,13 @@ class PermissionExtends extends \CLController
     // @param mixed $roleId : 0
     //
     //--------------------------------------------------------------------------------------------------------
-    protected function common($roleId = 6, $process, $object, $function)
+    protected static function common($roleId = 6, $process, $object, $function)
     {
-        $this->permission = INDIVIDUALSTRUCTURES_PERMISSION_CONFIG[$function];
+        self::$permission = Config::get('IndividualStructures', 'permission')[$function];
 
-        if( isset($this->permission[$roleId]) )
+        if( isset(self::$permission[$roleId]) )
         {
-            $rules = $this->permission[$roleId];
+            $rules = self::$permission[$roleId];
         }
         else
         {
@@ -125,30 +123,30 @@ class PermissionExtends extends \CLController
 
                 if( $type === "perm" )
                 {
-                    if( $this->control($currentUrl, $rule, $process, $function) )
+                    if( self::control($currentUrl, $rule, $process, $function) )
                     {
                          return $object;
                     }
                     else
                     {
-                         $this->result = false;
+                         self::$result = false;
                     }
                 }
                 else
                 {
 
-                    if( $this->control($currentUrl, $rule, $process, $function) )
+                    if( self::control($currentUrl, $rule, $process, $function) )
                     {
                          return false;
                     }
                     else
                     {
-                         $this->result = $object;
+                         self::$result = $object;
                     }
                 }
             }
 
-            return $this->result;
+            return self::$result;
         }
         else
         {
@@ -161,7 +159,7 @@ class PermissionExtends extends \CLController
                 $page = trim($rules);
             }
 
-            if( $this->control($currentUrl, $page, $process, $function) )
+            if( self::control($currentUrl, $page, $process, $function) )
             {
                 if( $rules[0] !== "!" )
                 {
@@ -186,7 +184,7 @@ class PermissionExtends extends \CLController
     // @param numeric $roleId : 0
     //
     //--------------------------------------------------------------------------------------------------------
-    protected function control($currentUrl, $page, $process, $function)
+    protected static function control($currentUrl, $page, $process, $function)
     {
         if( $function === 'method' )
         {

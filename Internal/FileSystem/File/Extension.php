@@ -1,7 +1,5 @@
 <?php namespace ZN\FileSystem\File;
 
-use File;
-
 class Extension
 {
     //--------------------------------------------------------------------------------------------------------
@@ -27,7 +25,7 @@ class Extension
     {
         $dote = $dote === true ? '.' : '';
 
-        return $dote . strtolower(File::pathInfo($file, "extension"));
+        return $dote . strtolower(Info::pathInfo($file, "extension"));
     }
 
     //--------------------------------------------------------------------------------------------------
@@ -39,7 +37,7 @@ class Extension
     // @return string
     //
     //--------------------------------------------------------------------------------------------------
-    public function remove(String $file) : String
+    public static function remove(String $file) : String
     {
         return preg_replace('/\\.[^.\\s]{3,4}$/', '', $file);
     }

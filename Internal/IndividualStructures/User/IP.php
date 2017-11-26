@@ -1,5 +1,7 @@
 <?php namespace ZN\IndividualStructures\User;
 
+use ZN\DataTypes\Strings\Split;
+
 class IP
 {
     //--------------------------------------------------------------------------------------------------
@@ -21,7 +23,7 @@ class IP
         }
         elseif( isset($_SERVER['HTTP_X_FORWARDED_FOR']) )
         {
-            $ip = \Strings::divide($_SERVER['HTTP_X_FORWARDED_FOR'], ',');
+            $ip = Split::divide($_SERVER['HTTP_X_FORWARDED_FOR'], ',');
         }
         else
         {

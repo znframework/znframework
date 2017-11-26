@@ -22,7 +22,7 @@ class Char
     // @param string $encoding
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do(String $str, Int $limit = 500, String $endChar = '...',  Bool $stripTags = false, String $encoding = "utf-8") : String
+    public static function do(String $str, Int $limit = 500, String $endChar = '...',  Bool $stripTags = false, String $encoding = "utf-8") : String
     {
         $str = trim($str);
 

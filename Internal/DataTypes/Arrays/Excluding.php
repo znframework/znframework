@@ -25,7 +25,7 @@ class Excluding
     // @param array $excluding
     //
     //--------------------------------------------------------------------------------------------------------
-    public function use(Array $array, Array $excluding) : Array
+    public static function use(Array $array, Array $excluding) : Array
     {
         $newArray = [];
 

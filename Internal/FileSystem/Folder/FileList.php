@@ -1,6 +1,7 @@
 <?php namespace ZN\FileSystem\Folder;
 
-use File;
+use ZN\FileSystem\File\Info;
+use ZN\FileSystem\File\Extension;
 use ZN\FileSystem\Exception\FolderNotFoundException;
 
 class FileList
@@ -24,9 +25,9 @@ class FileList
     // Birden fazla uzantı belirmek isterseniz 2. parametreyi ['dir', 'php'] gibi belirtebilirsiniz.
     //
     //--------------------------------------------------------------------------------------------------------
-    public function files(String $path, $extension = NULL, Bool $pathType = false) : Array
+    public static function files(String $path, $extension = NULL, Bool $pathType = false) : Array
     {
-        $path = File::rpath($path);
+        $path = Info::rpath($path);
 
         if( ! is_dir($path) )
         {
@@ -39,13 +40,13 @@ class FileList
 
             foreach( $extension as $ext )
             {
-                $allFiles = array_merge($allFiles, $this->_files($path, $ext, $pathType));
+                $allFiles = array_merge($allFiles, self::_files($path, $ext, $pathType));
             }
 
             return $allFiles;
         }
 
-        return $this->_files($path, $extension, $pathType);
+        return self::_files($path, $extension, $pathType);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -56,7 +57,7 @@ class FileList
     // yer alan dosyaların listelenmesini isterseniz 2. parametreyi true ayarlayabilirsiniz.
     //
     //--------------------------------------------------------------------------------------------------------
-    public function allFiles(String $pattern = '*', Bool $allFiles = false) : Array
+    public static function allFiles(String $pattern = '*', Bool $allFiles = false) : Array
     {
         // 5.3.36[added]
         if( $pattern === '/' )
@@ -64,7 +65,7 @@ class FileList
             $pattern = '*';
         }
 
-        $pattern = File::rpath($pattern);
+        $pattern = Info::rpath($pattern);
 
         if( $allFiles === true )
         {
@@ -87,7 +88,7 @@ class FileList
                 }
                 elseif( is_dir($v) )
                 {
-                    $this->allFiles($v, $allFiles);
+                    self::allFiles($v, $allFiles);
                 }
             }
 
@@ -110,7 +111,7 @@ class FileList
     //--------------------------------------------------------------------------------------------------------
     // protected _files()
     //--------------------------------------------------------------------------------------------------------
-    protected function _files($path, $extension, $pathType = false)
+    protected static function _files($path, $extension, $pathType = false)
     {
         $files = [];
 
@@ -136,7 +137,7 @@ class FileList
             {
                 if( ! empty($extension) && $extension !== 'dir' )
                 {
-                    if( File::extension($file) === $extension )
+                    if( Extension::get($file) === $extension )
                     {
                         $files[] = $prefixPath.$file;
                     }

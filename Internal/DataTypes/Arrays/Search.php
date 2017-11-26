@@ -20,7 +20,7 @@ class Search
     // @param bool  $strict
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do(Array $array, $element, Bool $strict = false)
+    public static function do(Array $array, $element, Bool $strict = false)
     {
         return array_search($element, $array, $strict);
     }

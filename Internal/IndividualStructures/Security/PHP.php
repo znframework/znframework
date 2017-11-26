@@ -18,7 +18,7 @@ class PHP
     // @var array
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $phpTagChars =
+    protected static $phpTagChars =
     [
         '<?' => '&#60;&#63;',
         '?>' => '&#63;&#62;'
@@ -31,9 +31,9 @@ class PHP
     // @param string $str
     //
     //--------------------------------------------------------------------------------------------------------
-    public function encode(String $str) : String
+    public static function encode(String $str) : String
     {
-        return str_replace(array_keys($this->phpTagChars), array_values($this->phpTagChars), $str);
+        return str_replace(array_keys(self::$phpTagChars), array_values(self::$phpTagChars), $str);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -43,9 +43,9 @@ class PHP
     // @param string $str
     //
     //--------------------------------------------------------------------------------------------------------
-    public function decode(String $str) : String
+    public static function decode(String $str) : String
     {
-        return str_replace(array_values($this->phpTagChars), array_keys($this->phpTagChars), $str);
+        return str_replace(array_values(self::$phpTagChars), array_keys(self::$phpTagChars), $str);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -55,7 +55,7 @@ class PHP
     // @param string $str
     //
     //--------------------------------------------------------------------------------------------------------
-    public function tagClean(String $str) : String
+    public static function tagClean(String $str) : String
     {
         return str_ireplace(['<?php', '<?', '?>'], NULL, $str);
     }

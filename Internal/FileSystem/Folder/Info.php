@@ -1,7 +1,8 @@
 <?php namespace ZN\FileSystem\Folder;
 
-use File, Folder;
 use ZN\FileSystem\Exception\FolderNotFoundException;
+use ZN\FileSystem\File\Info as FileInfo;
+use ZN\FileSystem\Folder\FileList;
 
 class Info
 {
@@ -23,7 +24,7 @@ class Info
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function basePath() : String
+    public static function basePath() : String
     {
         return getcwd();
     }
@@ -37,9 +38,9 @@ class Info
     // @param bool
     //
     //--------------------------------------------------------------------------------------------------------
-    public function exists(String $file) : Bool
+    public static function exists(String $file) : Bool
     {
-        $file = File::rpath($file);
+        $file = FileInfo::rpath($file);
 
         if( is_dir($file) )
         {
@@ -56,13 +57,13 @@ class Info
     // Bir dosya veya dizine ait dosyalar ve dizinler hakkında çeşitli bilgiler almak için kullanılır.
     //
     //--------------------------------------------------------------------------------------------------------
-    public function fileInfo(String $dir, String $extension = NULL) : Array
+    public static function fileInfo(String $dir, String $extension = NULL) : Array
     {
-        $dir = File::rpath($dir);
+        $dir = FileInfo::rpath($dir);
 
         if( is_dir($dir) )
         {
-            $files = Folder::files($dir, $extension);
+            $files = FileList::files($dir, $extension);
 
             $dir = suffix($dir);
 
@@ -70,7 +71,7 @@ class Info
 
             foreach( $files as $file )
             {
-                $filesInfo[$file]['basename']   = File::pathInfo($dir.$file, 'basename');
+                $filesInfo[$file]['basename']   = FileInfo::pathInfo($dir.$file, 'basename');
                 $filesInfo[$file]['size']       = filesize($dir.$file);
                 $filesInfo[$file]['date']       = filemtime($dir.$file);
                 $filesInfo[$file]['readable']   = is_readable($dir.$file);
@@ -83,7 +84,7 @@ class Info
         }
         elseif( is_file($dir) )
         {
-            return (array) File::info($dir);
+            return (array) FileInfo::get($dir);
         }
         else
         {
@@ -101,9 +102,9 @@ class Info
     // @return Float
     //
     //--------------------------------------------------------------------------------------------------------
-    public function disk(String $dir, String $type = 'free') : Float
+    public static function disk(String $dir, String $type = 'free') : Float
     {
-        $dir = File::rpath($dir);
+        $dir = FileInfo::rpath($dir);
 
         if( ! is_dir($dir) )
         {
@@ -129,9 +130,9 @@ class Info
     // @return Float
     //
     //--------------------------------------------------------------------------------------------------------
-    public function totalSpace(String $dir) : Float
+    public static function totalSpace(String $dir) : Float
     {
-        return $this->disk($dir, 'total');
+        return self::disk($dir, 'total');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -143,8 +144,8 @@ class Info
     // @return Float
     //
     //--------------------------------------------------------------------------------------------------------
-    public function freeSpace(String $dir) : Float
+    public static function freeSpace(String $dir) : Float
     {
-        return $this->disk($dir, 'free');
+        return self::disk($dir, 'free');
     }
 }

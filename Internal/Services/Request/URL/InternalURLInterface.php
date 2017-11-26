@@ -129,7 +129,7 @@ interface InternalURLInterface
     // @return mixed
     //
     //--------------------------------------------------------------------------------------------------------
-    public function buildQuery($data, String $numericPrefix = NULL, String $separator = NULL, Int $enctype = self::RFC1738) : String;
+    public function buildQuery($data, String $numericPrefix = NULL, String $separator = NULL, Int $enctype = PHP_QUERY_RFC1738) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Parse

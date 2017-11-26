@@ -18,7 +18,7 @@ class Merge
     // @param ...args
     //
     //--------------------------------------------------------------------------------------------------------
-    public function recursive(...$args) : Array
+    public static function recursive(...$args) : Array
     {
         return array_merge_recursive(...$args);
     }
@@ -30,7 +30,7 @@ class Merge
     // @param ...args
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do(...$args) : Array
+    public static function do(...$args) : Array
     {
         return array_merge(...$args);
     }

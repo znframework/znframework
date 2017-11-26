@@ -1,6 +1,9 @@
 <?php namespace ZN\Requirements\System;
 
-use Config, Arrays, URI, ZN\In, IS, User, Folder;
+use Config, URI, ZN\In, IS, User;
+use ZN\DataTypes\Arrays\Merge;
+use ZN\DataTypes\Arrays\Exists;
+use ZN\FileSystem\Folder\Forge;
 
 class Restoration
 {
@@ -29,7 +32,7 @@ class Restoration
 
         if( $folders === 'full' )
         {
-            return Folder::copy(PROJECTS_DIR . $project, PROJECTS_DIR . $restoreFix . $project);
+            return Forge::copy(PROJECTS_DIR . $project, PROJECTS_DIR . $restoreFix . $project);
         }
         else
         {
@@ -37,13 +40,13 @@ class Restoration
 
             if( $folders !== 'standart' )
             {
-                $array = Arrays::merge($array, $folders);
+                $array = Merge::do($array, $folders);
             }
     
             foreach( $array as $folder )
             {
                 $path   = $project . DS . $folder;
-                $return = Folder::copy(PROJECTS_DIR . $path, PROJECTS_DIR . $restoreFix . $path);
+                $return = Forge::copy(PROJECTS_DIR . $path, PROJECTS_DIR . $restoreFix . $path);
             }
 
             return $return;
@@ -61,11 +64,11 @@ class Restoration
     public static function end(String $project, String $type = NULL)
     {
         $project = prefix($project, self::$restoreFix);
-        $return  = Folder::copy($restoreFolder = PROJECTS_DIR . $project, PROJECTS_DIR . ltrim($project, self::$restoreFix));
+        $return  = Forge::copy($restoreFolder = PROJECTS_DIR . $project, PROJECTS_DIR . ltrim($project, self::$restoreFix));
 
         if( $type === 'delete' )
         {
-            return Folder::delete($restoreFolder);
+            return Forge::delete($restoreFolder);
         }
 
         return $return;
@@ -93,7 +96,7 @@ class Restoration
     //--------------------------------------------------------------------------------------------------------
     public static function routeURI($machinesIP, String $uri)
     {
-        if( ! Arrays::valueExists((array) $machinesIP, User::ip()) && In::requestURI() !== $uri )
+        if( ! Exists::value((array) $machinesIP, User::ip()) && In::requestURI() !== $uri )
         {
             redirect($uri);
         }

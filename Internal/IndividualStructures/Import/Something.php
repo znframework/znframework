@@ -1,7 +1,10 @@
 <?php namespace ZN\IndividualStructures\Import;
 
-use Config, URL, File, Buffer;
+use Config, URL;
 use ZN\IndividualStructures\Import\Exception\InvalidArgumentException;
+use ZN\DataTypes\Strings\Split;
+use ZN\FileSystem\File\Extension;
+use ZN\IndividualStructures\Buffer\File as BufferFile;
 
 class Something
 {
@@ -23,7 +26,7 @@ class Something
     // @param bool   $contents
     //
     //--------------------------------------------------------------------------------------------------------
-    public function use(String $randomPageVariable, Array $randomDataVariable = NULL, Bool $randomObGetContentsVariable = false)
+    public static function use(String $randomPageVariable, Array $randomDataVariable = NULL, Bool $randomObGetContentsVariable = false)
     {
         if( ! empty(Properties::$parameters['usable']) )
         {
@@ -39,7 +42,7 @@ class Something
 
         $eol = EOL;
 
-        $randomPageVariableExtension = File::extension($randomPageVariable);
+        $randomPageVariableExtension = Extension::get($randomPageVariable);
         $randomPageVariableBaseUrl   = URL::base($randomPageVariable);
 
         $return = '';
@@ -59,11 +62,11 @@ class Something
         }
         elseif( stristr('svg|woff|otf|ttf|'.implode('|', Config::expressions('differentFontExtensions')), $randomPageVariableExtension) )
         {
-            $return = $this->_style($randomPageVariable, $randomPageVariableBaseUrl);
+            $return = self::_style($randomPageVariable, $randomPageVariableBaseUrl);
         }
         elseif( $randomPageVariableExtension === 'eot' )
         {
-            $$return = $this->_style($randomPageVariable, $randomPageVariableBaseUrl, true);
+            $$return = self::_style($randomPageVariable, $randomPageVariableBaseUrl, true);
         }
         else
         {
@@ -71,7 +74,7 @@ class Something
 
             if( is_file($randomPageVariable) )
             {
-                $return = Buffer::file($randomPageVariable, $randomDataVariable);
+                $return = BufferFile::do($randomPageVariable, $randomDataVariable);
 
                 if( $randomObGetContentsVariable === false )
                 {
@@ -103,11 +106,11 @@ class Something
     // @param bool   $ie = false
     //
     //--------------------------------------------------------------------------------------------------------
-    protected function _style($randomPageVariable, $randomPageVariableBaseUrl, $ie = false)
+    protected static function _style($randomPageVariable, $randomPageVariableBaseUrl, $ie = false)
     {
         return '<style type="text/css">
                     '.( $ie === true ? '<!--[if IE]>' : NULL ).'
-                    @font-face{font-family:"'.\Strings::divide(File::removeExtension($randomPageVariable), "/", -1).'";
+                    @font-face{font-family:"'.Split::divide(Extension::remove($randomPageVariable), "/", -1).'";
                     src:url("'.$randomPageVariableBaseUrl.'")
                     format("truetype")}
                     '.( $ie === true ? '<![endif]-->' : NULL ).'

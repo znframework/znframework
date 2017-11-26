@@ -18,7 +18,7 @@ class SeparatorExtends
     // @var string
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $key = "+-?||?-+" ;
+    protected static $key = "+-?||?-+" ;
 
     //--------------------------------------------------------------------------------------------------------
     // Separator
@@ -27,7 +27,7 @@ class SeparatorExtends
     // @var string
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $separator = "|?-++-?|";
+    protected static $separator = "|?-++-?|";
 
     //--------------------------------------------------------------------------------------------------------
     // Protected Security
@@ -36,8 +36,8 @@ class SeparatorExtends
     // @param string  $data
     //
     //--------------------------------------------------------------------------------------------------------
-    protected function _security($data)
+    protected static function _security($data)
     {
-        return str_replace([$this->key, $this->separator], '', $data);
+        return str_replace([self::$key, self::$separator], '', $data);
     }
 }

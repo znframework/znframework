@@ -18,7 +18,7 @@ class Script
     // @var array
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $scriptTagChars =
+    protected static $scriptTagChars =
     [
         '/\<script(.*?)\>/i'  => '&#60;script$1&#62;',
         '/\<\/script\>/i'     => '&#60;/script&#62;'
@@ -31,7 +31,7 @@ class Script
     // @var array
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $scriptTagCharsDecode =
+    protected static $scriptTagCharsDecode =
     [
         '/\&\#60\;script(.*?)\&\#62\;/i' => '<script$1>',
         '/\&\#60\;\/script\&\#62\;/i'    => '</script>'
@@ -44,9 +44,9 @@ class Script
     // @param string $str
     //
     //--------------------------------------------------------------------------------------------------------
-    public function encode(String $str) : String
+    public static function encode(String $str) : String
     {
-        return preg_replace(array_keys($this->scriptTagChars), array_values($this->scriptTagChars), $str);
+        return preg_replace(array_keys(self::$scriptTagChars), array_values(self::$scriptTagChars), $str);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -56,8 +56,8 @@ class Script
     // @param string $str
     //
     //--------------------------------------------------------------------------------------------------------
-    public function decode(String $str) : String
+    public static function decode(String $str) : String
     {
-        return preg_replace(array_keys($this->scriptTagCharsDecode), array_values($this->scriptTagCharsDecode), $str);
+        return preg_replace(array_keys(self::$scriptTagCharsDecode), array_values(self::$scriptTagCharsDecode), $str);
     }
 }

@@ -1,6 +1,5 @@
 <?php namespace ZN\FileSystem\File;
 
-use File;
 use ZN\FileSystem\Exception\FileNotFoundException;
 use ZN\FileSystem\FileSystemFactory;
 use ZN\FileSystem\InternalUpload;
@@ -23,11 +22,11 @@ class Transfer
     // @param array $set
     //
     //--------------------------------------------------------------------------------------------------------
-    public function settings(Array $set = []) : InternalUpload
+    public static function settings(Array $set = []) : InternalUpload
     {
         FileSystemFactory::class('InternalUpload')->settings($set);
 
-        return $this;
+        return new self;
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -37,7 +36,7 @@ class Transfer
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public  function upload(String $fileName = 'upload', String $rootDir = UPLOADS_DIR) : Bool
+    public static function upload(String $fileName = 'upload', String $rootDir = UPLOADS_DIR) : Bool
     {
         return FileSystemFactory::class('InternalUpload')->start($fileName, $rootDir);
     }
@@ -49,14 +48,14 @@ class Transfer
     // @param string $file
     //
     //--------------------------------------------------------------------------------------------------------
-    public function download(String $file)
+    public static function download(String $file)
     {
-        if( ! File::available($file) )
+        if( ! Info::available($file) )
         {
             throw new FileNotFoundException($file);
         }
 
-        $fileEx   = explode("/", $file);
+        $fileEx   = explode('/', $file);
         $fileName = $fileEx[count($fileEx) - 1];
         $filePath = trim($file, $fileName);
 

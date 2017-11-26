@@ -20,7 +20,7 @@ class Substitution
     // @param string $reshuffle
     //
     //--------------------------------------------------------------------------------------------------------
-    public function reshuffle(String $str, String $shuffle, String $reshuffle) : String
+    public static function reshuffle(String $str, String $shuffle, String $reshuffle) : String
     {
         $shuffleEx = explode($shuffle, $str);
 
@@ -43,7 +43,7 @@ class Substitution
     // @param array  $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function placement(String $str, String $delimiter, Array $array) : String
+    public static function placement(String $str, String $delimiter, Array $array) : String
     {
         if( ! empty($delimiter) )
         {
@@ -79,7 +79,7 @@ class Substitution
     // @param bool   $case = true
     //
     //--------------------------------------------------------------------------------------------------------
-    public function replace(String $string, $oldChar, $newChar = NULL, Bool $case = true) : String
+    public static function replace(String $string, $oldChar, $newChar = NULL, Bool $case = true) : String
     {
         if( $case === true )
         {

@@ -19,7 +19,7 @@ class MultipleKey
     // @param string $keySplit:|
     //
     //--------------------------------------------------------------------------------------------------------
-    public function use(Array $array, String $keySplit = '|') : Array
+    public static function use(Array $array, String $keySplit = '|') : Array
     {
         $newArray = [];
 

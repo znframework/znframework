@@ -1,6 +1,8 @@
 <?php namespace ZN\Helpers\Converter;
 
 use Cart, Strings;
+use ZN\DataTypes\Strings\Split;
+use ZN\DataTypes\Strings\Substitution;
 
 class Numeric
 {
@@ -22,7 +24,7 @@ class Numeric
     // @param bool  $unit
     //
     //--------------------------------------------------------------------------------------------------------
-    public function byte(Float $bytes, Int $precision = 1, Bool $unit = true) : String
+    public static function byte(Float $bytes, Int $precision = 1, Bool $unit = true) : String
     {
         $byte   = 1024;
         $kb     = 1024 * $byte;
@@ -108,7 +110,7 @@ class Numeric
     // @param string $type
     //
     //--------------------------------------------------------------------------------------------------------
-    public function money(Int $money = 0, String $type = NULL, Bool $float = true) : String
+    public static function money(Int $money = 0, String $type = NULL, Bool $float = true) : String
     {
         $moneyFormat = '';
         $money       = round($money, 2);
@@ -164,9 +166,9 @@ class Numeric
     // @param string $money
     //
     //--------------------------------------------------------------------------------------------------------
-    public function moneyToNumber($money) : Float
+    public static function moneyToNumber($money) : Float
     {
-        return Strings::replace(Strings::divide($money, ','), '.', NULL);
+        return Substitution::replace(Split::divide($money, ','), '.', NULL);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -178,7 +180,7 @@ class Numeric
     // @param string $output
     //
     //--------------------------------------------------------------------------------------------------------
-    public function time(Int $count, String $type = 'second', String $output = 'day') : Float
+    public static function time(Int $count, String $type = 'second', String $output = 'day') : Float
     {
         if( $output === "second" ) $out = 1;
         if( $output === "minute" ) $out = 60;

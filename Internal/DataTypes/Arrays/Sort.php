@@ -1,6 +1,6 @@
 <?php namespace ZN\DataTypes\Arrays;
 
-use Converter;
+use ZN\Helpers\Converter\VariableTypes;
 
 class Sort
 {
@@ -21,7 +21,7 @@ class Sort
     // @param bool    $preserveKeys
     //
     //--------------------------------------------------------------------------------------------------------
-    public function reverse(Array $array, Bool $preserveKeys = false) : Array
+    public static function reverse(Array $array, Bool $preserveKeys = false) : Array
     {
         return array_reverse($array, $preserveKeys);
     }
@@ -35,9 +35,9 @@ class Sort
     // @param string $flags:regular
     //
     //--------------------------------------------------------------------------------------------------------
-    public function order(Array $array, String $type = NULL, String $flags = 'regular') : Array
+    public static function order(Array $array, String $type = NULL, String $flags = 'regular') : Array
     {
-        $flags = Converter::toConstant($flags, 'SORT_');
+        $flags = VariableTypes::toConstant($flags, 'SORT_');
 
         switch($type)
         {
@@ -66,9 +66,9 @@ class Sort
     // @param string $flags:regular
     //
     //--------------------------------------------------------------------------------------------------------
-    public function normal(Array $array, String $flag = 'regular') : Array
+    public static function normal(Array $array, String $flag = 'regular') : Array
     {
-        return $this->order($array, 'sort', $flag);
+        return self::order($array, 'sort', $flag);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -79,9 +79,9 @@ class Sort
     // @param string $flags:regular
     //
     //--------------------------------------------------------------------------------------------------------
-    public function descending(Array $array, String $flag = 'regular') : Array
+    public static function descending(Array $array, String $flag = 'regular') : Array
     {
-        return $this->order($array, 'desc', $flag);
+        return self::order($array, 'desc', $flag);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -92,9 +92,9 @@ class Sort
     // @param string $flags:regular
     //
     //--------------------------------------------------------------------------------------------------------
-    public function ascending(Array $array, String $flag = 'regular') : Array
+    public static function ascending(Array $array, String $flag = 'regular') : Array
     {
-        return $this->order($array, 'asc', $flag);
+        return self::order($array, 'asc', $flag);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -105,9 +105,9 @@ class Sort
     // @param string $flags:regular
     //
     //--------------------------------------------------------------------------------------------------------
-    public function ascendingKey(Array $array, String $flag = 'regular') : Array
+    public static function ascendingKey(Array $array, String $flag = 'regular') : Array
     {
-        return $this->order($array, 'asckey', $flag);
+        return self::order($array, 'asckey', $flag);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -118,9 +118,9 @@ class Sort
     // @param string $flags:regular
     //
     //--------------------------------------------------------------------------------------------------------
-    public function descendingKey(Array $array, String $flag = 'regular') : Array
+    public static function descendingKey(Array $array, String $flag = 'regular') : Array
     {
-        return $this->order($array, 'desckey', $flag);
+        return self::order($array, 'desckey', $flag);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -131,9 +131,9 @@ class Sort
     // @param string $flags:regular
     //
     //--------------------------------------------------------------------------------------------------------
-    public function userAssoc(Array $array, String $flag = 'regular') : Array
+    public static function userAssoc(Array $array, String $flag = 'regular') : Array
     {
-        return $this->order($array, 'userassoc', $flag);
+        return self::order($array, 'userassoc', $flag);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -144,9 +144,9 @@ class Sort
     // @param string $flags:regular
     //
     //--------------------------------------------------------------------------------------------------------
-    public function userKey(Array $array, String $flag = 'regular') : Array
+    public static function userKey(Array $array, String $flag = 'regular') : Array
     {
-        return $this->order($array, 'userkey', $flag);
+        return self::order($array, 'userkey', $flag);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -157,9 +157,9 @@ class Sort
     // @param string $flags:regular
     //
     //--------------------------------------------------------------------------------------------------------
-    public function user(Array $array, String $flag = 'regular') : Array
+    public static function user(Array $array, String $flag = 'regular') : Array
     {
-        return $this->order($array, 'user', $flag);
+        return self::order($array, 'user', $flag);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -169,9 +169,9 @@ class Sort
     // @param array  $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function insensitive(Array $array) : Array
+    public static function insensitive(Array $array) : Array
     {
-        return $this->order($array, 'natcasesort');
+        return self::order($array, 'natcasesort');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -181,9 +181,9 @@ class Sort
     // @param array  $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function natural(Array $array) : Array
+    public static function natural(Array $array) : Array
     {
-        return $this->order($array, 'natsort');
+        return self::order($array, 'natsort');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -193,8 +193,8 @@ class Sort
     // @param array  $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function shuffle(Array $array) : Array
+    public static function shuffle(Array $array) : Array
     {
-        return $this->order($array, 'random');
+        return self::order($array, 'random');
     }
 }

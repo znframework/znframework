@@ -1,6 +1,10 @@
 <?php namespace ZN\IndividualStructures;
 
-use Arrays, Strings, Support, Chars, Filters;
+use Strings, Support, Chars, Filters;
+use ZN\DataTypes\Strings\Split;
+use ZN\DataTypes\Arrays\Exists;
+use ZN\DataTypes\Arrays\Casing;
+use ZN\DataTypes\Arrays\AddElement;
 
 class InternalIS implements InternalISInterface
 {
@@ -31,13 +35,13 @@ class InternalIS implements InternalISInterface
         }
 
         // 5.3.2[edited]
-        if( Arrays::valueExists($this->dataTypes, $method) )
+        if( Exists::value($this->dataTypes, $method) )
         {
             return Filters::$method($parameters[0]);
         }
 
-        $methods = Strings::splitUpperCase($realMethod = $method);
-        $method  = implode('_', Arrays::lowerCase($methods));
+        $methods = Split::upperCase($realMethod = $method);
+        $method  = implode('_', Casing::lower($methods));
         $method  = 'is_' . $method;
 
         if( ! function_exists($method) )
@@ -59,7 +63,7 @@ class InternalIS implements InternalISInterface
     //--------------------------------------------------------------------------------------------------
     public function timeZone(String $timezone) : Bool
     {
-        return Arrays::valueExists(timezone_identifiers_list(), $timezone);
+        return Exists::value(timezone_identifiers_list(), $timezone);
     }
 
     //--------------------------------------------------------------------------------------------------
@@ -171,7 +175,7 @@ class InternalIS implements InternalISInterface
     //--------------------------------------------------------------------------------------------------
     public function hash(String $type) : Bool
     {
-        $hashAlgos = Arrays::addLast(hash_algos(), ['super', 'golden']);
+        $hashAlgos = AddElement::last(hash_algos(), ['super', 'golden']);
 
         return in_array($type, $hashAlgos);
     }

@@ -21,7 +21,7 @@ class Section
     // @param bool    $preserveKey
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do(Array $array, Int $start = 0, Int $length = NULL, Bool $preserveKeys = false) : Array
+    public static function do(Array $array, Int $start = 0, Int $length = NULL, Bool $preserveKeys = false) : Array
     {
         return array_slice($array, $start, $length, $preserveKeys);
     }
@@ -36,7 +36,7 @@ class Section
     // @param mixed   $newElement
     //
     //--------------------------------------------------------------------------------------------------------
-    public function resection(Array $array, Int $start = 0, Int $length = NULL, $newElement = NULL) : Array
+    public static function resection(Array $array, Int $start = 0, Int $length = NULL, $newElement = NULL) : Array
     {
         array_splice($array, $start, $length, $newElement);
 

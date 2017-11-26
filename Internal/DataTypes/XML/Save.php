@@ -1,6 +1,6 @@
 <?php namespace ZN\DataTypes\XML;
 
-use File;
+use ZN\FileSystem\File\Content;
 
 class Save
 {
@@ -11,7 +11,7 @@ class Save
     // @var string
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $extension = '.xml';
+    protected static $extension = '.xml';
 
     //--------------------------------------------------------------------------------------------------------
     // Save
@@ -21,10 +21,10 @@ class Save
     // @param string $data
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do(String $file, String $data) : Bool
+    public static function do(String $file, String $data) : Bool
     {
-        $file = suffix($file, $this->extension);
+        $file = suffix($file, self::$extension);
 
-        return File::write($file, $data);
+        return Content::write($file, $data);
     }
 }

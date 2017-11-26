@@ -1,6 +1,6 @@
 <?php namespace ZN\Classes;
 
-use Converter;
+use ZN\Helpers\Converter\VariableTypes;
 
 class Autoloader
 {
@@ -343,7 +343,7 @@ class Autoloader
 
         $i = 0;
 
-        $type = Converter::toConstant($type, 'T_');
+        $type = VariableTypes::toConstant($type, 'T_');
 
         foreach( $tokens as $token )
         {

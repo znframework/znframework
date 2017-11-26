@@ -19,7 +19,7 @@ class Combine
     // @param array $values
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do(Array $keys, Array $values) : Array
+    public static function do(Array $keys, Array $values) : Array
     {
         return array_combine($keys, $values);
     }

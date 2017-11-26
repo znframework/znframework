@@ -19,7 +19,7 @@ class ArrayToXLS
     // @param string $file
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do(Array $data, String $file = 'excel.xls')
+    public static function do(Array $data, String $file = 'excel.xls')
     {
         $file = suffix($file, '.xls');
 
@@ -27,12 +27,6 @@ class ArrayToXLS
         header("Content-Type: application/vnd.ms-excel;");
         header("Pragma: no-cache");
         header("Expires: 0");
-
-        if( ! empty($this->rows) )
-        {
-            $data = $this->rows;
-            $this->rows = NULL;
-        }
 
         $output = fopen("php://output", 'w');
 

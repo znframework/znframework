@@ -1,5 +1,8 @@
 <?php namespace ZN\IndividualStructures\Compress\Drivers;
 
+use Support;
+use ZN\FileSystem\File\Content;
+
 class LZFDriver extends Abstracts\CompressDriverMappingAbstract
 {
     //--------------------------------------------------------------------------------------------------------
@@ -20,7 +23,7 @@ class LZFDriver extends Abstracts\CompressDriverMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
-        \Support::func('lzf_compress', 'LZF');  
+        Support::func('lzf_compress', 'LZF');  
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -32,7 +35,7 @@ class LZFDriver extends Abstracts\CompressDriverMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function extract($source, $target, $password)
     {
-        \Support::func('lzf_extract', 'LZF Driver Extract');   
+        Support::func('lzf_extract', 'LZF Driver Extract');   
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -47,7 +50,7 @@ class LZFDriver extends Abstracts\CompressDriverMappingAbstract
     {
         $data = $this->do($data);
 
-        return \File::write($file, $data);
+        return Content::write($file, $data);
     }
     
     //--------------------------------------------------------------------------------------------------------
@@ -59,7 +62,7 @@ class LZFDriver extends Abstracts\CompressDriverMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function read($file)
     {
-        $content = \File::read($file);
+        $content = Content::read($file);
 
         return $this->undo($content);
     }

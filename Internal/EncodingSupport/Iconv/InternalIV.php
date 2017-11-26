@@ -1,7 +1,8 @@
 <?php namespace ZN\EncodingSupport;
 
-use Arrays, CallController, IS;
+use CallController, IS;
 use ZN\EncodingSupport\Iconv\InvalidArgumentException;
+use ZN\DataTypes\Arrays\GetElement;
 
 class InternalIV extends CallController implements InternalIVInterface
 {
@@ -36,7 +37,7 @@ class InternalIV extends CallController implements InternalIVInterface
     //--------------------------------------------------------------------------------------------------------
     public function convert(String $string, String $fromEncoding, String $toEncoding) : String
     {
-        $toEncodingFirst = Arrays::getFirst(explode('//', $toEncoding));
+        $toEncodingFirst = GetElement::first(explode('//', $toEncoding));
 
         if( ! IS::charset($fromEncoding) || ! IS::charset($toEncodingFirst) )
         {

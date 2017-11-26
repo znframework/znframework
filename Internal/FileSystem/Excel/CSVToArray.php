@@ -20,7 +20,7 @@ class CSVToArray
     // @param string $file
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do(String $file) : Array
+    public static function do(String $file) : Array
     {
         $file = suffix($file, '.csv');
 

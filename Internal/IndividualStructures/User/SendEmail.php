@@ -1,6 +1,7 @@
 <?php namespace ZN\IndividualStructures\User;
 
-use DB, Email, Arrays, IS;
+use DB, Email, IS;
+use ZN\DataTypes\Arrays\Chunk;
 
 class SendEmail extends UserExtends
 {
@@ -50,7 +51,7 @@ class SendEmail extends UserExtends
         }
 
         $result    = DB::get($table)->result();              
-		$users     = Arrays::apportion($result, $count);
+		$users     = Chunk::do($result, $count);
 		$sendCount = count($users);
 
 		$from = $sender['mail'];

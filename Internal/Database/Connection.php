@@ -1,7 +1,9 @@
 <?php namespace ZN\Database;
 
-use Support, Arrays, Config, Autoloader, Logger;
+use Support, Config, Autoloader, Logger;
 use ZN\Database\Exception\InvalidArgumentException;
+use ZN\DataTypes\Arrays\RemoveElement;
+use ZN\DataTypes\Arrays\GetElement;
 
 class Connection implements ConnectionInterface
 {
@@ -293,7 +295,7 @@ class Connection implements ConnectionInterface
     //--------------------------------------------------------------------------------------------------------
     public function func(...$args)
     {
-        $array = Arrays::removeFirst($args);
+        $array = RemoveElement::first($args);
         $math  = $this->_math(isset($args[0]) ? Autoloader::upper($args[0]) : false, $array);
 
         if( $math->return === true )
@@ -491,19 +493,19 @@ class Connection implements ConnectionInterface
     protected function _math($type, $args)
     {
         $type    = Autoloader::upper($type);
-        $getLast = Arrays::getLast($args);
+        $getLast = GetElement::last($args);
         $asparam = ' ';
 
         if( $getLast === true )
         {
-            $args   = Arrays::removeLast($args);
+            $args   = RemoveElement::last($args);
             $return = true;
-            $as     = Arrays::getLast($args);
+            $as     = GetElement::last($args);
 
             if( stripos(trim($as), 'as') === 0 )
             {
                 $asparam .= $as;
-                $args   = Arrays::removeLast($args);
+                $args   = RemoveElement::last($args);
             }
         }
         else
@@ -514,7 +516,7 @@ class Connection implements ConnectionInterface
         if( stripos(trim($getLast), 'as') === 0 )
         {
             $asparam .= $getLast;
-            $args     = Arrays::removeLast($args);
+            $args     = RemoveElement::last($args);
         }
 
         $args = $type.'('.rtrim(implode(',', $args), ',').')'.$asparam;

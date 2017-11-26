@@ -1,6 +1,12 @@
 <?php namespace ZN\IndividualStructures;
 
-use Support, CLController, DriverAbility, Buffer, Converter, Import;
+use Support, CLController, DriverAbility;
+use ZN\Helpers\Converter\Unicode;
+use ZN\Helpers\Converter\Numeric;
+use ZN\IndividualStructures\Buffer\Callback;
+use ZN\IndividualStructures\Import\Properties;
+use ZN\IndividualStructures\Import\Something;
+use ZN\IndividualStructures\Import\View;
 
 class InternalCache extends CLController implements InternalCacheInterface
 {
@@ -58,7 +64,7 @@ class InternalCache extends CLController implements InternalCacheInterface
     //--------------------------------------------------------------------------------------------------------
     public function data(Array $data = NULL)
     {
-        Import::data($data);
+        Properties::data($data);
 
         return $this;
     }
@@ -108,7 +114,7 @@ class InternalCache extends CLController implements InternalCacheInterface
 
         if( ! $select = $this->select($name, $compress) )
         {
-            $output = Buffer::callback($function);
+            $output = Callback::do($function);
 
             $this->insert($name, $output, $time, 'gz');
 
@@ -147,21 +153,21 @@ class InternalCache extends CLController implements InternalCacheInterface
     //--------------------------------------------------------------------------------------------------------
     public function file(String $file, $time = 60, String $compress = 'gz', $type = 'something') : String
     {
-        $name = Converter::slug($file);
+        $name = Unicode::slug($file);
 
         $this->_refresh($name);
 
         if( ! $select = $this->select($name, $compress) )
         {
-            Import::usable();
+            Properties::usable();
 
             if( $type === 'shomething' )
             {
-                $output = Import::something($file);
+                $output = Something::use($file);
             }
             else
             {
-                $output = Import::view($file);
+                $output = View::use($file);
             }
 
             $this->insert($name, $output, $time, 'gz');
@@ -203,7 +209,7 @@ class InternalCache extends CLController implements InternalCacheInterface
     {
         $timeEx = explode(' ', $time);
 
-        $time = Converter::time($timeEx[0], $timeEx[1] ?? 'second', 'second');
+        $time = Numeric::time($timeEx[0], $timeEx[1] ?? 'second', 'second');
 
         return $this->driver->insert($key, $var, $time, $compressed);
     }

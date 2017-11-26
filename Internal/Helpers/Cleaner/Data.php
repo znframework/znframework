@@ -21,7 +21,7 @@ class Data
     // @param mixed $cleanWord
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do($searchData, $cleanWord)
+    public static function do($searchData, $cleanWord)
     {
         if( length($cleanWord) > length($searchData) )
         {

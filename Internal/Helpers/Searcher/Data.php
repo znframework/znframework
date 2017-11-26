@@ -20,7 +20,7 @@ class Data
     // @param string $output: boolean, position, string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do($searchData, $searchWord, String $output = 'boolean')
+    public static function do($searchData, $searchWord, String $output = 'boolean')
     {
         if( ! is_array($searchData) )
         {

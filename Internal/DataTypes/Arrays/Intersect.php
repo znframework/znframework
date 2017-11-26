@@ -18,7 +18,7 @@ class Intersect
     // @param ...args
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do(...$args) : Array
+    public static function do(...$args) : Array
     {
         return array_intersect(...$args);
     }
@@ -30,7 +30,7 @@ class Intersect
     // @param ...args
     //
     //--------------------------------------------------------------------------------------------------------
-    public function key(...$args) : Array
+    public static function key(...$args) : Array
     {
         return array_intersect_key(...$args);
     }

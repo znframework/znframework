@@ -51,7 +51,10 @@ $extensions = JC::extensions($extensions, ['jquery', 'datatables'], $autoloadExt
 //--------------------------------------------------------------------------------------------------------
 if( empty($serverSide) )
 {
-    $columns = Arrays::keys(Arrays::getFirst($result));
+    $columns = ZN\DataTypes\Arrays\Element::keys
+    (
+        ZN\DataTypes\Arrays\GetElement::first($result)
+    );
 }
 else
 {
@@ -104,7 +107,7 @@ if( ! empty($extensions) )
         <?php foreach( $result as $key => $row ): ?>
         <tr>
             <?php foreach( $columns as $column ): ?>
-            <td><?php echo Limiter::word($row[$column] ?? '', $length) ?></td>
+            <td><?php echo ZN\Helpers\Limiter\Word::do($row[$column] ?? '', $length) ?></td>
             <?php endforeach; ?>
             <?php if( is_callable($process) ): ?>
             <td><?php echo $process((object) $row, new Html); ?></td>
@@ -132,6 +135,6 @@ if( ! empty($extensions) )
 //--------------------------------------------------------------------------------------------------------
 $(document).ready(function()
 {
-    $('#<?php echo $id ?>').DataTable(<?php echo ! empty($properties) ? Json::encode($properties) : NULL?>);
+    $('#<?php echo $id ?>').DataTable(<?php echo ! empty($properties) ? ZN\DataTypes\Json\Encode::do($properties) : NULL?>);
 });
 </script>

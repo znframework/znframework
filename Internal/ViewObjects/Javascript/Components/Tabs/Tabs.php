@@ -1,6 +1,7 @@
 <?php namespace ZN\ViewObjects\Javascript\Components;
 
-use Html, Buffer;
+use Html;
+use ZN\IndividualStructures\Buffer\Callback as BufferCallback;
 
 class Tabs extends ComponentsExtends
 {
@@ -25,7 +26,7 @@ class Tabs extends ComponentsExtends
     //--------------------------------------------------------------------------------------------------------
     public function tab(String $menu, Callable $content)
     {
-        $content = Buffer::function($content, [new Html]);
+        $content = BufferCallback::do($content, [new Html]);
 
         $this->tabs[$menu] = $content;
 

@@ -1,7 +1,5 @@
 <?php namespace ZN\DataTypes\Arrays;
 
-Use Arrays;
-
 class Exists
 {
     //--------------------------------------------------------------------------------------------------------
@@ -22,7 +20,7 @@ class Exists
     // @param bool  $strict
     //
     //--------------------------------------------------------------------------------------------------------
-    public function value(Array $array, $element, Bool $strict = false) : Bool
+    public static function value(Array $array, $element, Bool $strict = false) : Bool
     {
         return in_array($element, $array, $strict);
     }
@@ -36,9 +34,9 @@ class Exists
     // @param bool  $insenstive
     //
     //--------------------------------------------------------------------------------------------------------
-    public function valueInsensitive(Array $array, $element, Bool $strict = false) : Bool
+    public static function valueInsensitive(Array $array, $element, Bool $strict = false) : Bool
     {
-        return $this->value(Arrays::map('strtolower', $array), strtolower($element), $strict);
+        return self::value(Map::do('strtolower', $array), strtolower($element), $strict);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -49,7 +47,7 @@ class Exists
     // @param mixed $key
     //
     //--------------------------------------------------------------------------------------------------------
-    public function key(Array $array, $key) : Bool
+    public static function key(Array $array, $key) : Bool
     {
         return array_key_exists($key, $array);
     }
@@ -62,8 +60,8 @@ class Exists
     // @param mixed $key
     //
     //--------------------------------------------------------------------------------------------------------
-    public function keyInsensitive(Array $array, $key) : Bool
+    public static function keyInsensitive(Array $array, $key) : Bool
     {
-        return $this->key(Arrays::lowerKeys($array), strtolower($key));
+        return self::key(Casing::lowerKeys($array), strtolower($key));
     }
 }

@@ -19,7 +19,7 @@ class RandomPassword extends EncodeExtends
     // @param string $chars = 'alnum', options: numeric, string/alpha, special, all, alnum
     //
     //--------------------------------------------------------------------------------------------------------
-    public function create(Int $count = 6, String $chars = 'alnum') : String
+    public static function create(Int $count = 6, String $chars = 'alnum') : String
     {
         $password = '';
         $alpha    = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOQPRSTUVWXYZ';

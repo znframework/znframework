@@ -18,7 +18,7 @@ class Calculate
     // @param array   $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function product(Array $array) : Float
+    public static function product(Array $array) : Float
     {
         return array_product($array);
     }
@@ -30,7 +30,7 @@ class Calculate
     // @param array   $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function sum(Array $array) : Float
+    public static function sum(Array $array) : Float
     {
         return array_sum($array);
     }

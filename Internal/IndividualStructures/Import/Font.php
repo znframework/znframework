@@ -1,6 +1,7 @@
 <?php namespace ZN\IndividualStructures\Import;
 
-use Config, Import, URL, File;
+use Config, URL;
+use ZN\FileSystem\File\Extension;
 
 class Font extends BootstrapExtends
 {
@@ -20,11 +21,11 @@ class Font extends BootstrapExtends
     // @param variadic $fonts
     //
     //--------------------------------------------------------------------------------------------------------
-    public function use(...$fonts)
+    public static function use(...$fonts)
     {
         $eol       = EOL;
         $str       = "<style type='text/css'>".$eol;
-        $args      = $this->_parameters($fonts, 'fonts');
+        $args      = self::_parameters($fonts, 'fonts');
         $lastParam = $args->lastParam;
         $arguments = $args->arguments;
         $links     = $args->cdnLinks;
@@ -37,7 +38,7 @@ class Font extends BootstrapExtends
                 $font = '';
             }
 
-            $f = $this->_fontName($font);
+            $f = self::_fontName($font);
 
             $fontFile = FONTS_DIR . $font;
 
@@ -50,24 +51,24 @@ class Font extends BootstrapExtends
 
             if( is_file(suffix($fontFile, '.svg')) )
             {
-                $str .= $this->_face($f, $baseUrl, 'svg');
+                $str .= self::_face($f, $baseUrl, 'svg');
             }
 
             if( is_file(suffix($fontFile, '.woff')) )
             {
-                $str .= $this->_face($f, $baseUrl, 'woff');
+                $str .= self::_face($f, $baseUrl, 'woff');
             }
 
             // OTF IE VE CHROME DESTEKLEMIYOR
             if( is_file(suffix($fontFile, '.otf')) )
             {
-                $str .= $this->_face($f, $baseUrl, 'otf');
+                $str .= self::_face($f, $baseUrl, 'otf');
             }
 
             // TTF IE DESTEKLEMIYOR
             if( is_file(suffix($fontFile, '.ttf')) )
             {
-                $str .= $this->_face($f, $baseUrl, 'ttf');
+                $str .= self::_face($f, $baseUrl, 'ttf');
             }
 
             // CND ENTEGRASYON
@@ -75,7 +76,7 @@ class Font extends BootstrapExtends
 
             if( ! empty($cndFont) )
             {
-                $str .= $this->_face($this->_fontName($cndFont), $cndFont);
+                $str .= self::_face(self::_fontName($cndFont), $cndFont);
             }
 
             // FARKLI FONTLAR
@@ -87,7 +88,7 @@ class Font extends BootstrapExtends
                 {
                     if( is_file($fontFile.prefix($of, '.')) )
                     {
-                        $str .= $this->_face($f, $baseUrl . prefix($of, '.'));
+                        $str .= self::_face($f, $baseUrl . prefix($of, '.'));
                     }
                 }
             }
@@ -96,7 +97,7 @@ class Font extends BootstrapExtends
             if( is_file(suffix($fontFile, '.eot')) )
             {
                 $str .= '<!--[if IE]>';
-                $str .= $this->_face($f, $baseUrl, 'eot');
+                $str .= self::_face($f, $baseUrl, 'eot');
                 $str .= '<![endif]-->';
                 $str .= $eol;
             }
@@ -128,7 +129,7 @@ class Font extends BootstrapExtends
     // @param string $font
     //
     //--------------------------------------------------------------------------------------------------------
-    protected function _fontName($font)
+    protected static function _fontName($font)
     {
         $divide = explode('/', $font);
 
@@ -155,7 +156,7 @@ class Font extends BootstrapExtends
     // @param string $extension
     //
     //--------------------------------------------------------------------------------------------------------
-    protected function _face($f, $baseUrl, $extension = NULL)
+    protected static function _face($f, $baseUrl, $extension = NULL)
     {
         $base = $baseUrl;
 
@@ -164,6 +165,6 @@ class Font extends BootstrapExtends
             $base = suffix($baseUrl, '.' . $extension);
         }
 
-        return '@font-face{font-family:"' . File::removeExtension($f) . '"; src:url("' . $base . '") format("truetype")}' . EOL;
+        return '@font-face{font-family:"' . Extension::remove($f) . '"; src:url("' . $base . '") format("truetype")}' . EOL;
     }
 }

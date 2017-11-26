@@ -1,7 +1,5 @@
 <?php namespace ZN\DataTypes\Arrays;
 
-use Arrays;
-
 class GetElement
 {
     //--------------------------------------------------------------------------------------------------------
@@ -22,7 +20,7 @@ class GetElement
     // @param bool    $preserveKey
     //
     //--------------------------------------------------------------------------------------------------------
-    public function last(Array $array, Int $count = 1, Bool $preserveKey = false)
+    public static function last(Array $array, Int $count = 1, Bool $preserveKey = false)
     {
         if( $count <= 1 )
         {
@@ -30,7 +28,7 @@ class GetElement
         }
         else
         {
-            return Arrays::section($array, -$count, NULL, $preserveKey);
+            return Section::do($array, -$count, NULL, $preserveKey);
         }
 
         return $array;
@@ -45,7 +43,7 @@ class GetElement
     // @param bool    $preserveKey
     //
     //--------------------------------------------------------------------------------------------------------
-    public function first(Array $array, Int $count = 1, Bool $preserveKey = false)
+    public static function first(Array $array, Int $count = 1, Bool $preserveKey = false)
     {
         if( $count <= 1 )
         {
@@ -53,7 +51,7 @@ class GetElement
         }
         else
         {
-            return Arrays::section($array, 0, $count, $preserveKey);
+            return Section::do($array, 0, $count, $preserveKey);
         }
 
         return $array;

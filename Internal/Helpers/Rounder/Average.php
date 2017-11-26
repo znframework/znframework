@@ -19,7 +19,7 @@ class Average
     // @param int    $count
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do(Float $number, Int $count = 0) : Float
+    public static function do(Float $number, Int $count = 0) : Float
     {
         return round($number, $count);
     }

@@ -1,7 +1,11 @@
 <?php namespace ZN\Services\Response;
 
-use Session, Json, CLController, Encode, IS;
+use Session, Json, CLController, IS;
 use ZN\Services\Response\SessionCookie\Exception\SetcookieException;
+use ZN\CryptoGraphy\Encode\Type;
+use ZN\DataTypes\Json\Encode;
+use ZN\DataTypes\Json\Decode;
+use ZN\DataTypes\Json\ErrorInfo;
 
 class InternalCookie extends CLController implements InternalCookieInterface, SessionCookieCommonInterface
 {
@@ -174,7 +178,7 @@ class InternalCookie extends CLController implements InternalCookieInterface, Se
             {
                 if( IS::hash($this->encode['name']) )
                 {
-                    $name = Encode::type($name, $this->encode['name']);
+                    $name = Type::create($name, $this->encode['name']);
                 }
             }
 
@@ -182,7 +186,7 @@ class InternalCookie extends CLController implements InternalCookieInterface, Se
             {
                 if( IS::hash($this->encode['value']) )
                 {
-                    $value = Encode::type($value, $this->encode['value']);
+                    $value = Type::create($value, $this->encode['value']);
                 }
             }
         }
@@ -207,14 +211,14 @@ class InternalCookie extends CLController implements InternalCookieInterface, Se
             {
                 if( IS::hash($encode) )
                 {
-                    $name = Encode::type($name, $encode);
+                    $name = Type::create($name, $encode);
                 }
             }
         }
 
         if( ! is_scalar($value) )
         {
-            $value = Json::encode($value);
+            $value = Encode::do($value);
         }
 
         if( setcookie($name, $value, time() + $this->time, $this->path, $this->domain, $this->secure, $this->httpOnly) )
@@ -248,7 +252,7 @@ class InternalCookie extends CLController implements InternalCookieInterface, Se
         {
             if( IS::hash($this->encode['name']) )
             {
-                $name = Encode::type($name, $this->encode['name']);
+                $name = Type::create($name, $this->encode['name']);
                 $this->encode = [];
             }
         }
@@ -264,7 +268,7 @@ class InternalCookie extends CLController implements InternalCookieInterface, Se
             {
                 if( IS::hash($encode) )
                 {
-                    $name = Encode::type($name, $encode);
+                    $name = Type::create($name, $encode);
                 }
             }
         }
@@ -276,9 +280,9 @@ class InternalCookie extends CLController implements InternalCookieInterface, Se
 
         if( isset($_COOKIE[$name]) )
         {
-            return ! Json::check($_COOKIE[$name])
+            return ! ErrorInfo::check($_COOKIE[$name])
                    ? $_COOKIE[$name]
-                   : Json::decodeArray($_COOKIE[$name]);
+                   : Decode::array($_COOKIE[$name]);
         }
         else
         {
@@ -330,7 +334,7 @@ class InternalCookie extends CLController implements InternalCookieInterface, Se
         {
             if( IS::hash($this->encode['name']) )
             {
-                $name = Encode::type($name, $this->encode['name']);
+                $name = Type::create($name, $this->encode['name']);
                 $this->encode = [];
             }
         }
@@ -346,7 +350,7 @@ class InternalCookie extends CLController implements InternalCookieInterface, Se
             {
                 if( IS::hash($encode) )
                 {
-                    $name = Encode::type($name, $encode);
+                    $name = Type::create($name, $encode);
                 }
             }
         }

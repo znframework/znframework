@@ -1,6 +1,8 @@
 <?php namespace ZN\Requirements;
 
-use CallController, Arrays, Classes, stdClass;
+use CallController, Classes, stdClass;
+use ZN\DataTypes\Arrays\RemoveElement;
+use ZN\DataTypes\Arrays\AddElement;
 
 class InternalDebug extends CallController implements InternalDebugInterface
 {
@@ -34,7 +36,7 @@ class InternalDebug extends CallController implements InternalDebugInterface
     {
         $debug = debug_backtrace(2);
 
-        $this->debug = Arrays::removeFirst($debug, 3);
+        $this->debug = RemoveElement::first($debug, 3);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -80,8 +82,8 @@ class InternalDebug extends CallController implements InternalDebugInterface
     //--------------------------------------------------------------------------------------------------------
     public function output($type = 'array')
     {
-        $debug = Arrays::removeFirst($this->debug, 2);
-        $debug = Arrays::addFirst($debug, [(array) $this->current()]);
+        $debug = RemoveElement::first($this->debug, 2);
+        $debug = AddElement::first($debug, [(array) $this->current()]);
 
         if( is_numeric($type) )
         {

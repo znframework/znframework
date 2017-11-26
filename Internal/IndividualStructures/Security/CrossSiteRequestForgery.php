@@ -20,7 +20,7 @@ class CrossSiteRequestForgery extends SecurityExtends
     // @param string $uri     = NULL
     //
     //--------------------------------------------------------------------------------------------------------
-    public function token(String $uri = NULL, String $type = 'post')
+    public static function token(String $uri = NULL, String $type = 'post')
     {
         if( Method::$type() )
         {
@@ -40,8 +40,8 @@ class CrossSiteRequestForgery extends SecurityExtends
     // @param string $uri     = NULL
     //
     //--------------------------------------------------------------------------------------------------------
-    public function get(String $uri = NULL)
+    public static function get(String $uri = NULL)
     {
-        $this->token($uri, 'get');
+        self::token($uri, 'get');
     }
 }

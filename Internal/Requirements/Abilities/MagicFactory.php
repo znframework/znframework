@@ -1,4 +1,8 @@
-<?php trait MagicFactoryAbility
+<?php 
+
+use ZN\DataTypes\Strings\Split;
+
+trait MagicFactoryAbility
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -45,8 +49,8 @@
                 $isThis = 'this';
             }
 
-            $namespace = str_ireplace(Strings::divide($calledClass, '\\', -1), NULL, $calledClass);
-
+            $namespace = str_ireplace(Split::divide($calledClass, '\\', -1), NULL, $calledClass);
+            
             $return = uselib($namespace . $class)->$method(...$parameters);
 
             if( $isThis === 'this' )

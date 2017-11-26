@@ -18,7 +18,7 @@ class Injection extends SecurityExtends
     // @var array
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $nailChars =
+    protected static $nailChars =
     [
         "'" => "&#39;",
         '"' => "&#34;"
@@ -31,7 +31,7 @@ class Injection extends SecurityExtends
     // @param string $string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function encode(String $string) : String
+    public static function encode(String $string) : String
     {
         $secBadChars = Properties::$injectionBadChars;
 
@@ -60,7 +60,7 @@ class Injection extends SecurityExtends
     // @param string $string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function decode(String $string) : String
+    public static function decode(String $string) : String
     {
         return stripslashes(trim($string));
     }
@@ -72,9 +72,9 @@ class Injection extends SecurityExtends
     // @param string $str
     //
     //--------------------------------------------------------------------------------------------------------
-    public function nailEncode(String $str) : String
+    public static function nailEncode(String $str) : String
     {
-        $str = str_replace(array_keys($this->nailChars), array_values($this->nailChars), $str);
+        $str = str_replace(array_keys(self::$nailChars), array_values(self::$nailChars), $str);
 
         return $str;
     }
@@ -86,9 +86,9 @@ class Injection extends SecurityExtends
     // @param string $str
     //
     //--------------------------------------------------------------------------------------------------------
-    public function nailDecode(String $str) : String
+    public static function nailDecode(String $str) : String
     {
-        $str = str_replace(array_values($this->nailChars), array_keys($this->nailChars), $str);
+        $str = str_replace(array_values(self::$nailChars), array_keys(self::$nailChars), $str);
 
         return $str;
     }
@@ -100,7 +100,7 @@ class Injection extends SecurityExtends
     // @param string $data
     //
     //--------------------------------------------------------------------------------------------------------
-    public function escapeStringEncode(String $data) : String
+    public static function escapeStringEncode(String $data) : String
     {
         return addslashes($data);
     }
@@ -112,7 +112,7 @@ class Injection extends SecurityExtends
     // @param string $str
     //
     //--------------------------------------------------------------------------------------------------------
-    public function escapeStringDecode(String $data) : String
+    public static function escapeStringDecode(String $data) : String
     {
         return stripslashes($data);
     }

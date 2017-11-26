@@ -19,7 +19,7 @@ class Random
     // @param numeric $countRequest
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do(Array $array, Int $countRequest = 1)
+    public static function do(Array $array, Int $countRequest = 1)
     {
         return array_rand($array, $countRequest);
     }

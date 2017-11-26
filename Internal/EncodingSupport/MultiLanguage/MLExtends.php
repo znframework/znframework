@@ -1,6 +1,8 @@
 <?php namespace ZN\EncodingSupport\MultiLanguage;
 
-use CLController, Folder, Lang;
+use CLController, Lang;
+use ZN\FileSystem\Folder\Info;
+use ZN\FileSystem\Folder\Forge;
 
 class MLExtends extends CLController
 {
@@ -76,9 +78,9 @@ class MLExtends extends CLController
         $this->appdir = LANGUAGES_DIR . $mlDir;
         $this->externalAppdir = EXTERNAL_LANGUAGES_DIR . $mlDir;
 
-        if( ! Folder::exists($this->appdir) )
+        if( ! Info::exists($this->appdir) )
         {
-            Folder::create($this->appdir, 0755);
+            Forge::create($this->appdir, 0755);
         }
 
         $getLang = Lang::get();

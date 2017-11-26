@@ -1,6 +1,7 @@
 <?php namespace ZN\IndividualStructures\Import;
 
-use Folder, Import;
+use ZN\FileSystem\Folder\Info;
+use ZN\FileSystem\Folder\FileList;
 
 class Package
 {
@@ -22,7 +23,7 @@ class Package
     // @param bool   $getContents
     //
     //--------------------------------------------------------------------------------------------------------
-    public function use($packages, Bool $recursive = false, Bool $getContents = false, String $dir = NULL)
+    public static function use($packages, Bool $recursive = false, Bool $getContents = false, String $dir = NULL)
     {
         if( ! empty(Properties::$parameters['usable']) )
         {
@@ -38,7 +39,7 @@ class Package
 
         if( ! is_array($packages) )
         {
-            return $this->_package($dir.$packages, $recursive, $getContents);
+            return self::_package($dir.$packages, $recursive, $getContents);
         }
         else
         {
@@ -46,7 +47,7 @@ class Package
 
             if( ! empty($packages) ) foreach( $packages as $package )
             {
-                $return .= $this->_package($dir.$package, $recursive, true);
+                $return .= self::_package($dir.$package, $recursive, true);
             }
 
             if( $getContents === false )
@@ -69,9 +70,9 @@ class Package
     // @param bool   $getContents
     //
     //--------------------------------------------------------------------------------------------------------
-    public function resource($theme = 'Default', Bool $recursive = false, Bool $getContents = false)
+    public static function resource($theme = 'Default', Bool $recursive = false, Bool $getContents = false)
     {
-        return $this->use($theme, $recursive, $getContents, RESOURCES_DIR);
+        return self::use($theme, $recursive, $getContents, RESOURCES_DIR);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -83,9 +84,9 @@ class Package
     // @param bool   $getContents
     //
     //--------------------------------------------------------------------------------------------------------
-    public function theme($theme = 'Default', Bool $recursive = false, Bool $getContents = false)
+    public static function theme($theme = 'Default', Bool $recursive = false, Bool $getContents = false)
     {
-        return $this->use($theme, $recursive, $getContents, THEMES_DIR);
+        return self::use($theme, $recursive, $getContents, THEMES_DIR);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -97,9 +98,9 @@ class Package
     // @param bool   $getContents
     //
     //--------------------------------------------------------------------------------------------------------
-    public function plugin($plugin = 'Default', Bool $recursive = false, Bool $getContents = false)
+    public static function plugin($plugin = 'Default', Bool $recursive = false, Bool $getContents = false)
     {
-        return $this->use($plugin, $recursive, $getContents, PLUGINS_DIR);
+        return self::use($plugin, $recursive, $getContents, PLUGINS_DIR);
     }
 
 
@@ -113,7 +114,7 @@ class Package
     // @param bool   $getContents
     //
     //--------------------------------------------------------------------------------------------------------
-    protected function _package($packages, $recursive, $getContents)
+    protected static function _package($packages, $recursive, $getContents)
     {
         $eol    = EOL;
         $return = '';
@@ -124,9 +125,9 @@ class Package
             $packages = str_replace(RESOURCES_DIR, EXTERNAL_RESOURCES_DIR, $packages);
         }
 
-        if( Folder::exists($packages) )
+        if( Info::exists($packages) )
         {
-            $packageFiles = Folder::allFiles(suffix($packages), $recursive);
+            $packageFiles = FileList::allFiles(suffix($packages), $recursive);
 
             if( ! empty($packageFiles) )
             {
@@ -134,11 +135,11 @@ class Package
                 {
                     if( $getContents === true )
                     {
-                        $return .= Import::something($val, [], true);
+                        $return .= Something::use($val, [], true);
                     }
                     else
                     {
-                        Import::something($val);
+                        Something::use($val);
                     }
                 }
 
@@ -152,7 +153,7 @@ class Package
         elseif( is_file($packages) )
         {
             // Local Directory
-            return Import::something($packages, [], $getContents);
+            return Something::use($packages, [], $getContents);
         }
     }
 }

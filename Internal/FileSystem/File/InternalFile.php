@@ -15,7 +15,7 @@ class InternalFile extends \FactoryController
     [
         'methods' =>
         [
-            'settings'        => 'File\Transfer::settings:this',
+            'settings'        => 'File\Transfer::settings',
             'upload'          => 'File\Transfer::upload',
             'download'        => 'File\Transfer::download',
             'exists'          => 'File\Info::exists',
