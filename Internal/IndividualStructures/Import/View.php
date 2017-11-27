@@ -3,8 +3,8 @@
 use ZN\In;
 use View as Views, Arrays;
 use ZN\ViewObjects\TemplateWizard;
-use ZN\FileSystem\File\Extension;
-use ZN\IndividualStructures\Buffer\File as BufferFile;
+use ZN\FileSystem\File;
+use ZN\IndividualStructures\Buffer;
 
 class View
 {
@@ -79,7 +79,7 @@ class View
     //--------------------------------------------------------------------------------------------------------
     protected static function _page($randomPageVariable, $randomDataVariable, $randomObGetContentsVariable = false, $randomPageDir = VIEWS_DIR, $randomIsWizard = NULL)
     {
-        if( ! Extension::get($randomPageVariable) || stristr($randomPageVariable, self::$templateWizardExtension) )
+        if( ! File\Extension::get($randomPageVariable) || stristr($randomPageVariable, self::$templateWizardExtension) )
         {
             $randomPageVariable = suffix($randomPageVariable, '.php');
         }
@@ -93,7 +93,7 @@ class View
 
         if( is_file($randomPagePath) )
         {
-            $return = BufferFile::do($randomPagePath, $randomDataVariable);
+            $return = Buffer\File::do($randomPagePath, $randomDataVariable);
 
             if( $randomObGetContentsVariable === false )
             {

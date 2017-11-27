@@ -1,7 +1,7 @@
 <?php namespace ZN\Services\Remote;
 
 use CLController;
-use ZN\DataTypes\Arrays\Map;
+use ZN\DataTypes\Arrays;
 
 class RemoteCommon extends CLController implements RemoteCommonInterface
 {
@@ -87,7 +87,7 @@ class RemoteCommon extends CLController implements RemoteCommonInterface
         $file       = str_replace('\\', '\\\\', $datas['file']);
 
         $command    = 'import("'.$file.'");';
-        $command   .= 'uselib("'.$class.'")->'.$function.'('. implode(',', Map::do('Processor::addNail', $parameters)) .')';
+        $command   .= 'uselib("'.$class.'")->'.$function.'('. implode(',', Arrays\Map::do('Processor::addNail', $parameters)) .')';
 
         return $command;
     }

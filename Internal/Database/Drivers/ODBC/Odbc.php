@@ -1,7 +1,7 @@
 <?php namespace ZN\Database\Drivers;
 
 use ZN\Database\Abstracts\DriverConnectionMappingAbstract;
-use ZN\IndividualStructures\Security\Injection;
+use ZN\IndividualStructures\Security;
 use Errors, Support, stdClass;
 
 class ODBCDriver extends DriverConnectionMappingAbstract
@@ -304,7 +304,7 @@ class ODBCDriver extends DriverConnectionMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function realEscapeString($data = '')
     {
-        return Injection::escapeStringEncode($data);
+        return Security\Injection::escapeStringEncode($data);
     }
 
     //--------------------------------------------------------------------------------------------------------

@@ -2,7 +2,7 @@
 
 use Config, Errors;
 use ZN\FileSystem\Exception\FileNotFoundException;
-use ZN\FileSystem\Folder\FileList;
+use ZN\FileSystem\Folder;
 
 class Info
 {
@@ -300,7 +300,7 @@ class Info
         }
         else
         {
-            $folderFiles = FileList::files($file);
+            $folderFiles = Folder\FileList::files($file);
 
             if( $folderFiles )
             {
@@ -462,7 +462,7 @@ class Info
         }
         elseif( is_dir($file) )
         {
-            $files = FileList::allFiles($file, $recursive);
+            $files = Folder\FileList::allFiles($file, $recursive);
 
             $rowCount = 0;
 

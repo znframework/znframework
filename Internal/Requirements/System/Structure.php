@@ -1,8 +1,10 @@
 <?php namespace ZN\Core;
 
-use Errors, Restoration, ZN\Classes\Config;
-use ZN\DataTypes\Strings\Split;
-use ZN\DataTypes\Arrays\Element;
+use Errors, Restoration;
+use ZN\Classes\Config;
+use ZN\DataTypes\Strings;
+use ZN\DataTypes\Arrays;
+use ZN\In;
 
 class Structure
 {
@@ -98,7 +100,7 @@ class Structure
         //----------------------------------------------------------------------------------------------
         if( $requestUri === NULL )
         {
-            $requestUri = \ZN\In::requestURI();
+            $requestUri = In::requestURI();
         }
 
         //----------------------------------------------------------------------------------------------
@@ -132,7 +134,7 @@ class Structure
 
                     if( is_file($isF) )
                     {
-                        $page     = Split::divide($ifTrim, '/', -1);
+                        $page     = Strings\Split::divide($ifTrim, '/', -1);
                         $isFile   = $isF;
                         $segments = $nsegments;
 
@@ -177,7 +179,7 @@ class Structure
         //----------------------------------------------------------------------------------------------
         return
         [
-            'parameters'   => Element::values($parameters),
+            'parameters'   => Arrays\Element::values($parameters),
             'page'         => $page,
             'file'         => self::_realSeparator($isFile),
             'function'     => $function,

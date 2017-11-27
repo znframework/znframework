@@ -1,11 +1,8 @@
 <?php namespace ZN\EncodingSupport\MultiLanguage;
 
-use ZN\DataTypes\Json\Encode;
-use ZN\DataTypes\Json\Decode;
-use ZN\FileSystem\File\Content;
-use ZN\FileSystem\File\Info;
-use ZN\FileSystem\File\Forge;
-use ZN\FileSystem\Folder\FileList;
+use ZN\DataTypes\Json;
+use ZN\FileSystem\File;
+use ZN\FileSystem\Folder;
 
 class Delete extends MLExtends
 {
@@ -35,10 +32,9 @@ class Delete extends MLExtends
 
         $createFile = $this->_langFile($app);
 
-        // Dosya mevcutsa verileri al.
-        if( Info::exists($createFile) )
+        if( File\Info::exists($createFile) )
         {
-            $datas = Decode::array(Content::read($createFile));
+            $datas = Json\Decode::array(File\Content::read($createFile));
         }
 
         if( ! empty($datas) )
@@ -46,8 +42,6 @@ class Delete extends MLExtends
             $json = $datas;
         }
 
-        // Yine anahtar parametresinin ver türüne göre
-        // işlemleri gerçekleştirmesi sağlanıyor.
         if( ! is_array($key) )
         {
             unset($json[$key]);
@@ -60,8 +54,7 @@ class Delete extends MLExtends
             }
         }
 
-        // Dosyayı yeniden yaz.
-        return Content::write($createFile, Encode::do($json));
+        return File\Content::write($createFile, Json\Encode::do($json));
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -78,7 +71,7 @@ class Delete extends MLExtends
         {
             if( $app === NULL )
             {
-                $MLFiles = FileList::files($this->appdir, 'ml');
+                $MLFiles = Folder\FileList::files($this->appdir, 'ml');
             }
             elseif( is_array($app) )
             {
@@ -102,10 +95,10 @@ class Delete extends MLExtends
         else
         {
             $createFile = $this->_langFile($app);
-            // Dosya mevcutsa verileri al.
-            if( Info::exists($createFile) )
+      
+            if( File\Info::exists($createFile) )
             {
-                return Forge::delete($createFile);
+                return File\Forge::delete($createFile);
             }
 
             return false;

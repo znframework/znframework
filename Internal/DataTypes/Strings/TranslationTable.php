@@ -1,6 +1,6 @@
 <?php namespace ZN\DataTypes\Strings;
 
-use ZN\Helpers\Converter\VariableTypes;
+use ZN\Helpers\Converter;
 
 class TranslationTable
 {
@@ -23,6 +23,6 @@ class TranslationTable
     //--------------------------------------------------------------------------------------------------------
     public static function get(String $table = 'specialchars', String $quote = 'compat') : Array
     {
-        return get_html_translation_table(VariableTypes::toConstant($table, 'HTML_'), VariableTypes::toConstant($quote, 'ENT_'));
+        return get_html_translation_table(Converter\VariableTypes::toConstant($table, 'HTML_'), Converter\VariableTypes::toConstant($quote, 'ENT_'));
     }
 }

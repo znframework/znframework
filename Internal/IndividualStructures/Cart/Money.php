@@ -1,6 +1,6 @@
 <?php namespace ZN\IndividualStructures\Cart;
 
-use ZN\Helpers\Converter\Numeric;
+use ZN\Helpers\Converter;
 
 class Money
 {
@@ -23,7 +23,7 @@ class Money
     //--------------------------------------------------------------------------------------------------------
     public function format(Int $money, String $type = NULL) : String
     {
-        return Numeric::money($money, $type);
+        return Converter\Numeric::money($money, $type);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -35,6 +35,6 @@ class Money
     //--------------------------------------------------------------------------------------------------------
     public function number($money) : Float
     {
-        return Numeric::moneyToNumber($money);
+        return Converter\Numeric::moneyToNumber($money);
     }
 }

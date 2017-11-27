@@ -1,8 +1,8 @@
 <?php namespace ZN\FileSystem\Folder;
 
 use ZN\FileSystem\Exception\FolderNotFoundException;
-use ZN\FileSystem\File\Info as FileInfo;
-use ZN\FileSystem\Folder\FileList;
+use ZN\FileSystem\File;
+use ZN\FileSystem\Folder;
 
 class Info
 {
@@ -40,7 +40,7 @@ class Info
     //--------------------------------------------------------------------------------------------------------
     public static function exists(String $file) : Bool
     {
-        $file = FileInfo::rpath($file);
+        $file = File\Info::rpath($file);
 
         if( is_dir($file) )
         {
@@ -59,11 +59,11 @@ class Info
     //--------------------------------------------------------------------------------------------------------
     public static function fileInfo(String $dir, String $extension = NULL) : Array
     {
-        $dir = FileInfo::rpath($dir);
+        $dir = File\Info::rpath($dir);
 
         if( is_dir($dir) )
         {
-            $files = FileList::files($dir, $extension);
+            $files = Folder\FileList::files($dir, $extension);
 
             $dir = suffix($dir);
 
@@ -71,7 +71,7 @@ class Info
 
             foreach( $files as $file )
             {
-                $filesInfo[$file]['basename']   = FileInfo::pathInfo($dir.$file, 'basename');
+                $filesInfo[$file]['basename']   = File\Info::pathInfo($dir.$file, 'basename');
                 $filesInfo[$file]['size']       = filesize($dir.$file);
                 $filesInfo[$file]['date']       = filemtime($dir.$file);
                 $filesInfo[$file]['readable']   = is_readable($dir.$file);
@@ -84,7 +84,7 @@ class Info
         }
         elseif( is_file($dir) )
         {
-            return (array) FileInfo::get($dir);
+            return (array) File\Info::get($dir);
         }
         else
         {
@@ -104,7 +104,7 @@ class Info
     //--------------------------------------------------------------------------------------------------------
     public static function disk(String $dir, String $type = 'free') : Float
     {
-        $dir = FileInfo::rpath($dir);
+        $dir = File\Info::rpath($dir);
 
         if( ! is_dir($dir) )
         {

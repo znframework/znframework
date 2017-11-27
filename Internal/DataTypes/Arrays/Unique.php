@@ -1,6 +1,6 @@
 <?php namespace ZN\DataTypes\Arrays;
 
-use ZN\Helpers\Converter\VariableTypes;
+use ZN\Helpers\Converter;
 
 class Unique
 {
@@ -23,6 +23,6 @@ class Unique
     //--------------------------------------------------------------------------------------------------------
     public static function do(Array $array, String $flags = 'string') : Array
     {
-        return array_unique($array, VariableTypes::toConstant($flags, 'SORT_'));
+        return array_unique($array, Converter\VariableTypes::toConstant($flags, 'SORT_'));
     }
 }

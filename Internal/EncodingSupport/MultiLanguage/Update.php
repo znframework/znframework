@@ -23,6 +23,6 @@ class Update
     //--------------------------------------------------------------------------------------------------------
     public function do(String $app = NULL, $key, String $data = NULL) : Bool
     {
-        return Factory::class('Insert')->do($app, $key, $data);
+        return (new Insert)->do($app, $key, $data);
     }
 }

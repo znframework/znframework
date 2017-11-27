@@ -1,9 +1,7 @@
 <?php namespace ZN\EncodingSupport\MultiLanguage;
 
-use ZN\DataTypes\Json\Encode;
-use ZN\DataTypes\Json\Decode;
-use ZN\FileSystem\File\Content;
-use ZN\FileSystem\File\Info;
+use ZN\DataTypes\Json;
+use ZN\FileSystem\File;
 
 class Insert extends MLExtends
 {
@@ -32,12 +30,12 @@ class Insert extends MLExtends
 
         $createFile = $this->_langFile($app);
 
-        if( ! Info::exists($createFile) )
+        if( ! File\Info::exists($createFile) )
         {
-            Content::write($createFile, Encode::do([]));
+            File\Content::write($createFile, Json\Encode::do([]));
         }
 
-        $datas = Decode::array(Content::read($createFile));
+        $datas = Json\Decode::array(File\Content::read($createFile));
 
         if( ! empty($datas) )
         {
@@ -58,7 +56,7 @@ class Insert extends MLExtends
 
         if( $json !== $datas )
         {
-            return Content::write($createFile, Encode::do($json));
+            return File\Content::write($createFile, Json\Encode::do($json));
         }
         else
         {

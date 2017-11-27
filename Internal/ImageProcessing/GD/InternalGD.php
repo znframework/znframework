@@ -2,7 +2,7 @@
 
 use Image, Html, Config, RevolvingAbility, Mime, Collection;
 use ZN\EncodingSupport\ImageProcessing\GD\Exception\InvalidArgumentException;
-use ZN\Helpers\Converter\VariableTypes;
+use ZN\Helpers\Converter;
 
 class InternalGD implements InternalGDInterface
 {
@@ -200,7 +200,7 @@ class InternalGD implements InternalGDInterface
     //--------------------------------------------------------------------------------------------------------
     public function extension(String $type = 'jpeg', Bool $dote = true) : String
     {
-        return image_type_to_extension(VariableTypes::toConstant($type, 'IMAGETYPE_'), $dote);
+        return image_type_to_extension(Converter\VariableTypes::toConstant($type, 'IMAGETYPE_'), $dote);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -212,7 +212,7 @@ class InternalGD implements InternalGDInterface
     //--------------------------------------------------------------------------------------------------------
     public function mime(String $type = 'jpeg') : String
     {
-        return image_type_to_mime_type(VariableTypes::toConstant($type, 'IMAGETYPE_'));
+        return image_type_to_mime_type(Converter\VariableTypes::toConstant($type, 'IMAGETYPE_'));
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -352,7 +352,7 @@ class InternalGD implements InternalGDInterface
             (
                 $this->canvas, $x, $y, $width, $height, $start, $end,
                 $this->allocate($color),
-                VariableTypes::toConstant($style, 'IMG_ARC_')
+                Converter\VariableTypes::toConstant($style, 'IMG_ARC_')
             );
         }
         
@@ -495,7 +495,7 @@ class InternalGD implements InternalGDInterface
                              ->deleteElement(NULL)
                              ->get();
         
-        imagefilter($this->canvas, VariableTypes::toConstant($filter, 'IMG_FILTER_'), ...$filters);
+        imagefilter($this->canvas, Converter\VariableTypes::toConstant($filter, 'IMG_FILTER_'), ...$filters);
 
         return $this;
     }
@@ -509,7 +509,7 @@ class InternalGD implements InternalGDInterface
     //--------------------------------------------------------------------------------------------------------
     public function flip(String $type = 'both') : InternalGD
     {
-        imageflip($this->canvas, VariableTypes::toConstant($type, 'IMG_FLIP_'));
+        imageflip($this->canvas, Converter\VariableTypes::toConstant($type, 'IMG_FLIP_'));
 
         return $this;
     }
@@ -905,7 +905,7 @@ class InternalGD implements InternalGDInterface
     {
         $this->canvas = imagecropauto
         (
-            $this->canvas, VariableTypes::toConstant($mode, 'IMG_CROP_'), 
+            $this->canvas, Converter\VariableTypes::toConstant($mode, 'IMG_CROP_'), 
             $this->threshold ?? $threshold, 
             $this->color ?? $color
         );
@@ -1014,7 +1014,7 @@ class InternalGD implements InternalGDInterface
     //--------------------------------------------------------------------------------------------------------
     public function scale(Int $width, Int $height = -1, String $mode = 'bilinear_fixed') : InternalGD
     {
-        $this->canvas = imagescale($this->canvas, $width, $height, VariableTypes::toConstant($mode, 'IMG_'));
+        $this->canvas = imagescale($this->canvas, $width, $height, Converter\VariableTypes::toConstant($mode, 'IMG_'));
 
         return $this;
     }
@@ -1028,7 +1028,7 @@ class InternalGD implements InternalGDInterface
     //--------------------------------------------------------------------------------------------------------
     public function interpolation(String $method = 'bilinear_fixed') : InternalGD
     {
-        imagesetinterpolation($this->canvas, VariableTypes::toConstant($method, 'IMG_'));
+        imagesetinterpolation($this->canvas, Converter\VariableTypes::toConstant($method, 'IMG_'));
 
         return $this;
     }
@@ -1124,7 +1124,7 @@ class InternalGD implements InternalGDInterface
     //--------------------------------------------------------------------------------------------------------
     public function layerEffect(String $effect = 'normal') : InternalGD
     {
-        imagelayereffect($this->canvas, VariableTypes::toConstant($effect, 'IMG_EFFECT_'));
+        imagelayereffect($this->canvas, Converter\VariableTypes::toConstant($effect, 'IMG_EFFECT_'));
 
         return $this;
     }

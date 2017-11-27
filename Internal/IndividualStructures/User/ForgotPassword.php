@@ -1,9 +1,8 @@
 <?php namespace ZN\IndividualStructures\User;
 
-use DB, Email, URL, IS;
-use ZN\CryptoGraphy\Encode\Type;
-use ZN\CryptoGraphy\Encode\RandomPassword;
-use ZN\IndividualStructures\Import\Template;
+use DB, Email, URL, IS, Lang;
+use ZN\CryptoGraphy\Encode;
+use ZN\IndividualStructures\Import;
 
 class ForgotPassword extends UserExtends
 {
@@ -68,8 +67,8 @@ class ForgotPassword extends UserExtends
             }
 
             $encodeType     = INDIVIDUALSTRUCTURES_USER_CONFIG['encode'];
-            $newPassword    = RandomPassword::create(10);
-            $encodePassword = ! empty($encodeType) ? Type::create($newPassword, $encodeType) : $newPassword;
+            $newPassword    = Encode\RandomPassword::create(10);
+            $encodePassword = ! empty($encodeType) ? Encode\Type::create($newPassword, $encodeType) : $newPassword;
 
             $templateData = array
             (
@@ -78,11 +77,11 @@ class ForgotPassword extends UserExtends
                 'returnLinkPath' => $returnLinkPath
             );
 
-            $message = Template::use('UserEmail/ForgotPassword', $templateData, true);
+            $message = Import\Template::use('UserEmail/ForgotPassword', $templateData, true);
 
             Email::sender($senderInfo['mail'], $senderInfo['name'])
                  ->receiver($email, $email)
-                 ->subject(\Lang::select('IndividualStructures', 'user:newYourPassword'))
+                 ->subject(Lang::select('IndividualStructures', 'user:newYourPassword'))
                  ->content($message);
 
             if( Email::send() )
@@ -98,19 +97,19 @@ class ForgotPassword extends UserExtends
 
                 if( DB::update($tableName, [$passwordColumn => $encodePassword]) )
                 {
-                    return Properties::$success = \Lang::select('IndividualStructures', 'user:forgotPasswordSuccess');
+                    return Properties::$success = Lang::select('IndividualStructures', 'user:forgotPasswordSuccess');
                 }
 
-                return ! Properties::$error = \Lang::select('Database', 'updateError');
+                return ! Properties::$error = Lang::select('Database', 'updateError');
             }
             else
             {
-                return ! Properties::$error = \Lang::select('IndividualStructures', 'user:emailError');
+                return ! Properties::$error = Lang::select('IndividualStructures', 'user:emailError');
             }
         }
         else
         {
-            return ! Properties::$error = \Lang::select('IndividualStructures', 'user:forgotPasswordError');
+            return ! Properties::$error = Lang::select('IndividualStructures', 'user:forgotPasswordError');
         }
     }
 }

@@ -3,8 +3,8 @@
 use Config;
 use ZN\Helpers\Converter\Exception\InvalidArgumentException;
 use ZN\Helpers\Converter\Exception\LogicException;
-use ZN\DataTypes\Arrays\MultipleKey;
-use ZN\FileSystem\File\Extension;
+use ZN\DataTypes\Arrays;
+use ZN\FileSystem\File;
 
 class Unicode
 {
@@ -176,7 +176,7 @@ class Unicode
     {
         $accent = array_merge(Config::get('Expressions', 'accentChars'), self::$accentChars);
 
-        $accent = MultipleKey::use($accent);
+        $accent = Arrays\MultipleKey::use($accent);
 
         return str_replace(array_keys($accent), array_values($accent), $str);
     }
@@ -205,8 +205,8 @@ class Unicode
     {
         if( $protectExtension === true )
         {
-            $ext = Extension::get($str, true);
-            $str = Extension::remove($str);
+            $ext = File\Extension::get($str, true);
+            $str = File\Extension::remove($str);
         }
 
         $str = self::accent(trim($str));

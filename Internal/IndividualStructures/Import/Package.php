@@ -1,7 +1,6 @@
 <?php namespace ZN\IndividualStructures\Import;
 
-use ZN\FileSystem\Folder\Info;
-use ZN\FileSystem\Folder\FileList;
+use ZN\FileSystem\Folder;
 
 class Package
 {
@@ -125,9 +124,9 @@ class Package
             $packages = str_replace(RESOURCES_DIR, EXTERNAL_RESOURCES_DIR, $packages);
         }
 
-        if( Info::exists($packages) )
+        if( Folder\Info::exists($packages) )
         {
-            $packageFiles = FileList::allFiles(suffix($packages), $recursive);
+            $packageFiles = Folder\FileList::allFiles(suffix($packages), $recursive);
 
             if( ! empty($packageFiles) )
             {

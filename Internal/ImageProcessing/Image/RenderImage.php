@@ -3,9 +3,8 @@
 use URL, Mime;
 use ZN\EncodingSupport\ImageProcessing\Image\Exception\ImageNotFoundException;
 use ZN\EncodingSupport\ImageProcessing\Image\Exception\InvalidImageFileException;
-use ZN\FileSystem\File\Extension;
-use ZN\FileSystem\Folder\Info;
-use ZN\FileSystem\Folder\Forge;
+use ZN\FileSystem\File;
+use ZN\FileSystem\Folder;
 
 class RenderImage
 {
@@ -117,12 +116,12 @@ class RenderImage
 
         $this->newPath($filePath);
 
-        if( ! Info::exists($this->thumbPath) )
+        if( ! Folder\Info::exists($this->thumbPath) )
         {
-            Forge::create($this->thumbPath);
+            Folder\Forge::create($this->thumbPath);
         }
 
-        $newFile = Extension::remove($this->file).$prefix.Extension::get($this->file, true);
+        $newFile = File\Extension::remove($this->file).$prefix.File\Extension::get($this->file, true);
 
         if( file_exists($this->thumbPath.$newFile) )
         {
@@ -138,7 +137,7 @@ class RenderImage
             $rWidth = $currentWidth; $rHeight = $currentHeight;
         }
 
-        if( Extension::get($filePath) === 'png' )
+        if( File\Extension::get($filePath) === 'png' )
         {
             imagealphablending($nFile, false);
             imagesavealpha($nFile, true);
@@ -180,7 +179,7 @@ class RenderImage
     //--------------------------------------------------------------------------------------------------------
     protected function fromFileType($paths)
     {
-        switch( Extension::get($this->file) )
+        switch( File\Extension::get($this->file) )
         {
             case 'jpg' :
             case 'jpeg': return imagecreatefromjpeg($paths);
@@ -222,7 +221,7 @@ class RenderImage
     //--------------------------------------------------------------------------------------------------------
     protected function createFileType($files, $paths, $quality = 0)
     {
-        switch( Extension::get($this->file) )
+        switch( File\Extension::get($this->file) )
         {
             case 'jpg' :
             case 'jpeg': return imagejpeg($files, $paths, $quality ?: 80);

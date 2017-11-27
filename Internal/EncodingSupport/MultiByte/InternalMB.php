@@ -2,9 +2,8 @@
 
 use CallController, IS;
 use ZN\EncodingSupport\MultiByte\Exception\InvalidArgumentException;
-use ZN\DataTypes\Strings\Search;
-use ZN\DataTypes\Strings\Section;
-use ZN\Helpers\Converter\VariableTypes;
+use ZN\DataTypes\Strings;
+use ZN\Helpers\Converter;
 
 class InternalMB extends CallController implements InternalMBInterface
 {
@@ -43,7 +42,7 @@ class InternalMB extends CallController implements InternalMBInterface
     //--------------------------------------------------------------------------------------------------------
     public function search(String $str, String $needle, String $type = 'string', Bool $case = true) : String
     {
-        return Search::use($str, $needle, $type, $case);
+        return Strings\Search::use($str, $needle, $type, $case);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -63,7 +62,7 @@ class InternalMB extends CallController implements InternalMBInterface
             throw new InvalidArgumentException('Error', 'charsetParameter', '3.($encoding)');
         }
 
-        return Section::use($str, $starting, $count, $encoding);
+        return Strings\Section::use($str, $starting, $count, $encoding);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -104,7 +103,7 @@ class InternalMB extends CallController implements InternalMBInterface
     //--------------------------------------------------------------------------------------------------------
     public function casing(String $string, String $flag = 'upper', String $encoding = 'UTF-8') : String
     {
-        return mb_convert_case($string, VariableTypes::toConstant($flag, 'MB_CASE_'), $encoding);
+        return mb_convert_case($string, Converter\VariableTypes::toConstant($flag, 'MB_CASE_'), $encoding);
     }
 
     //--------------------------------------------------------------------------------------------------------

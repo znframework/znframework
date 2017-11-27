@@ -1,9 +1,9 @@
 <?php namespace ZN\Requirements\System;
 
-use Config, URI, ZN\In, IS, User;
-use ZN\DataTypes\Arrays\Merge;
-use ZN\DataTypes\Arrays\Exists;
-use ZN\FileSystem\Folder\Forge;
+use Config, URI, IS, User;
+use ZN\In;
+use ZN\DataTypes\Arrays;
+use ZN\FileSystem\Folder;
 
 class Restoration
 {
@@ -40,13 +40,13 @@ class Restoration
 
             if( $folders !== 'standart' )
             {
-                $array = Merge::do($array, $folders);
+                $array = Arrays\Merge::do($array, $folders);
             }
     
             foreach( $array as $folder )
             {
                 $path   = $project . DS . $folder;
-                $return = Forge::copy(PROJECTS_DIR . $path, PROJECTS_DIR . $restoreFix . $path);
+                $return = Folder\Forge::copy(PROJECTS_DIR . $path, PROJECTS_DIR . $restoreFix . $path);
             }
 
             return $return;
@@ -64,11 +64,11 @@ class Restoration
     public static function end(String $project, String $type = NULL)
     {
         $project = prefix($project, self::$restoreFix);
-        $return  = Forge::copy($restoreFolder = PROJECTS_DIR . $project, PROJECTS_DIR . ltrim($project, self::$restoreFix));
+        $return  = Folder\Forge::copy($restoreFolder = PROJECTS_DIR . $project, PROJECTS_DIR . ltrim($project, self::$restoreFix));
 
         if( $type === 'delete' )
         {
-            return Forge::delete($restoreFolder);
+            return Folder\Forge::delete($restoreFolder);
         }
 
         return $return;
@@ -96,7 +96,7 @@ class Restoration
     //--------------------------------------------------------------------------------------------------------
     public static function routeURI($machinesIP, String $uri)
     {
-        if( ! Exists::value((array) $machinesIP, User::ip()) && In::requestURI() !== $uri )
+        if( ! Arrays\Exists::value((array) $machinesIP, User::ip()) && In::requestURI() !== $uri )
         {
             redirect($uri);
         }

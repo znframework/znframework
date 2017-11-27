@@ -1,9 +1,8 @@
 <?php namespace ZN\ViewObjects\View;
 
 use Classes, Json;
-use ZN\DataTypes\Strings\Split;
-use ZN\DataTypes\Arrays\Exists;
-use ZN\DataTypes\Arrays\Casing;
+use ZN\DataTypes\Strings;
+use ZN\DataTypes\Arrays;
 
 trait ViewCommonTrait
 {
@@ -75,40 +74,40 @@ trait ViewCommonTrait
         {
             $multiElement = $this->elements['multiElement'];
 
-            if( Exists::key($multiElement, $method) )
+            if( Arrays\Exists::key($multiElement, $method) )
             {
                 $realMethod = $multiElement[$method];
 
                 return $this->_multiElement($realMethod, ...$parameters);
             }
-            elseif( Exists::value($multiElement, $method) )
+            elseif( Arrays\Exists::value($multiElement, $method) )
             {
                 return $this->_multiElement($realMethod, ...$parameters);
             }
-            elseif( Exists::value($this->elements['singleElement'], $method) )
+            elseif( Arrays\Exists::value($this->elements['singleElement'], $method) )
             {
                 return $this->_singleElement($realMethod, ...$parameters);
             }
-            elseif( Exists::value($this->elements['mediaContent'], $method) )
+            elseif( Arrays\Exists::value($this->elements['mediaContent'], $method) )
             {
                 return $this->_mediaContent($parameters[0], $parameters[1] ?? NULL, $parameters[2] ?? [], $realMethod);
             }
-            elseif( Exists::value($this->elements['media'], $method) )
+            elseif( Arrays\Exists::value($this->elements['media'], $method) )
             {
                 return $this->_media($parameters[0], $parameters[1] ?? [], $realMethod);
             }
-            elseif( Exists::value($this->elements['contentAttribute'], $method) )
+            elseif( Arrays\Exists::value($this->elements['contentAttribute'], $method) )
             {
                 return $this->_contentAttribute($parameters[0], $parameters[1] ?? [], $realMethod);
             }
-            elseif( Exists::value($this->elements['content'], $method) )
+            elseif( Arrays\Exists::value($this->elements['content'], $method) )
             {
                 return $this->_content($parameters[0], $realMethod);
             }
         }
         elseif( $className === 'Form' )
         {
-            if( Exists::value($this->elements['input'], $method) )
+            if( Arrays\Exists::value($this->elements['input'], $method) )
             {
                 return $this->_input($parameters[0], $parameters[1] ?? NULL, $parameters[2] ?? [], $realMethod);
             }
@@ -142,8 +141,8 @@ trait ViewCommonTrait
         if( ! ctype_lower($realMethod) )
         {
             $newMethod = NULL;
-            $split     = Split::upperCase($realMethod);
-            $method    = implode('-', Casing::lower($split));
+            $split     = Strings\Split::upperCase($realMethod);
+            $method    = implode('-', Arrays\Casing::lower($split));
         }
         //----------------------------------------------------------------------------------------------------
 

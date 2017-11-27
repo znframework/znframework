@@ -1,9 +1,7 @@
 <?php namespace ZN\Helpers\Converter;
 
 use Html;
-use ZN\IndividualStructures\Security\Script as SecurityScript;
-use ZN\IndividualStructures\Security\Html as SecurityHtml;
-use ZN\IndividualStructures\Security\PHP as SecurityPHP;
+use ZN\IndividualStructures\Security;
 
 class Text
 {
@@ -89,7 +87,7 @@ class Text
         $string = highlight_string($str, true);
         // ----------------------------------------------------------------------------------------------
 
-        $string = SecurityScript::encode(SecurityPHP::encode(SecurityHtml::decode($string)));
+        $string = Security\Script::encode(Security\PHP::encode(Security\Html::decode($string)));
 
         $tagArray = $tags === true
                   ? ['<div style="'.$background.'">&#60;&#63;php', '&#63;&#62;</div>']

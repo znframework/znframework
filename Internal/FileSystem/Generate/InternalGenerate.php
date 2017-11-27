@@ -1,20 +1,11 @@
 <?php namespace ZN\FileSystem;
 
-use CallController, DB, DBTool, DBForge, Arrays, Config, Post, Validation, Errors;
-use ZN\DataTypes\Strings\Split;
-use ZN\DataTypes\Arrays\Exists;
-use ZN\DataTypes\Arrays\AddElement;
-use ZN\DataTypes\Arrays\Element;
-use ZN\DataTypes\Arrays\RemoveElement;
-use ZN\DataTypes\Arrays\Transform;
-use ZN\DataTypes\Arrays\Merge;
-use ZN\DataTypes\Json\Encode;
-use ZN\FileSystem\File\Info;
-use ZN\FileSystem\File\Forge;
-use ZN\FileSystem\File\Extension;
-use ZN\FileSystem\File\Content;
-use ZN\FileSystem\Folder\Forge as FolderForge;
-use ZN\FileSystem\Folder\FileList;
+use CallController, DB, DBTool, DBForge, Config, Post, Validation, Errors;
+use ZN\DataTypes\Strings;
+use ZN\DataTypes\Arrays;
+use ZN\DataTypes\Json;
+use ZN\FileSystem\File;
+use ZN\FileSystem\Folder;
 
 class InternalGenerate extends CallController implements InternalGenerateInterface
 {
@@ -40,7 +31,7 @@ class InternalGenerate extends CallController implements InternalGenerateInterfa
             $source = EXTERNAL_FILES_DIR . 'DefaultProject.zip';
             $target = PROJECTS_DIR . Post::project();
 
-            Forge::zipExtract($source, $target);
+            File\Forge::zipExtract($source, $target);
 
             return true;
         }
@@ -103,7 +94,7 @@ class InternalGenerate extends CallController implements InternalGenerateInterfa
             $database = ucfirst($database);
             $filePath = $visionPath.$database;
 
-            FolderForge::create(MODELS_DIR.$filePath);
+            Folder\Forge::create(MODELS_DIR.$filePath);
 
             foreach( $tables as $table )
             {
@@ -141,7 +132,7 @@ class InternalGenerate extends CallController implements InternalGenerateInterfa
 
         if( $database === '*' )
         {
-            FolderForge::delete($path);
+            Folder\Forge::delete($path);
         }
         else
         {
@@ -149,7 +140,7 @@ class InternalGenerate extends CallController implements InternalGenerateInterfa
 
             if( $tables === NULL )
             {
-                FolderForge::delete($path.$database);
+                Folder\Forge::delete($path.$database);
             }
             else
             {
@@ -157,7 +148,7 @@ class InternalGenerate extends CallController implements InternalGenerateInterfa
 
                 foreach( $tables as $table )
                 {
-                    Forge::delete
+                    File\Forge::delete
                     (
                         $path.$database.DS.INTERNAL_ACCESS.
                         ( strtolower($database) === strtolower($defaultDB) ? NULL : $database ).
@@ -252,9 +243,9 @@ class InternalGenerate extends CallController implements InternalGenerateInterfa
 
         $file = $this->_path($name, $type);
 
-        if( Info::exists($file) )
+        if( File\Info::exists($file) )
         {
-            return Forge::delete($file);
+            return File\Forge::delete($file);
         }
 
         return false;
@@ -313,7 +304,7 @@ class InternalGenerate extends CallController implements InternalGenerateInterfa
     {
         if( empty($this->settings['application']) )
         {
-            $this->settings['application'] = Split::divide(rtrim(PROJECT_DIR, DS), DS, -1);
+            $this->settings['application'] = Strings\Split::divide(rtrim(PROJECT_DIR, DS), DS, -1);
         }
 
         return PROJECTS_DIR.$this->settings['application'].$this->_type($type).suffix($name, '.php');
@@ -508,9 +499,9 @@ class InternalGenerate extends CallController implements InternalGenerateInterfa
 
         $file = $this->_path($filePath, $type);
 
-        if( ! Info::exists($file) )
+        if( ! File\Info::exists($file) )
         {
-            if( Content::write($file, $controller) )
+            if( File\Content::write($file, $controller) )
             {
                 return true;
             }
@@ -611,7 +602,7 @@ class InternalGenerate extends CallController implements InternalGenerateInterfa
     {
         $activesPath  = DATABASES_DIR . 'Actives'  . DS;
         $archivesPath = DATABASES_DIR . 'Archives' . DS;
-        $folders      = FileList::files($activesPath, 'dir');
+        $folders      = Folder\FileList::files($activesPath, 'dir');
 
         if( empty($folders) )
         {
@@ -638,7 +629,7 @@ class InternalGenerate extends CallController implements InternalGenerateInterfa
 
             $databasePath = $activesPath . $database . DS;
 
-            $tables = FileList::files($databasePath, 'php');
+            $tables = Folder\FileList::files($databasePath, 'php');
 
             if( ! empty($tables) )
             {
@@ -649,11 +640,11 @@ class InternalGenerate extends CallController implements InternalGenerateInterfa
                 {
                     $tableData = import($databasePath . $table);
                     $file      = $table;
-                    $table     = Extension::remove($table);
+                    $table     = File\Extension::remove($table);
 
-                    if( ! Exists::key($tableData, 'id') )
+                    if( ! Arrays\Exists::key($tableData, 'id') )
                     {
-                        $tableData = AddElement::first($tableData,
+                        $tableData = Arrays\AddElement::first($tableData,
                         [
                             'id' => [DB::int(11), DB::notNull(), DB::autoIncrement(), DB::primaryKey()]
                         ]);
@@ -661,13 +652,13 @@ class InternalGenerate extends CallController implements InternalGenerateInterfa
 
                     $tableColumns    = $db->get($table)->columns();
                     $pregGrepArray   = preg_grep('/_000/', $tableColumns);
-                    $currentTableKey = strtolower(Element::value($pregGrepArray));
-                    $currentColumns  = RemoveElement::element($tableColumns, $pregGrepArray);
-                    $tableKey        = strtolower($table.'_000' . md5(Encode::do($tableData)));
+                    $currentTableKey = strtolower(Arrays\Element::value($pregGrepArray));
+                    $currentColumns  = Arrays\RemoveElement::element($tableColumns, $pregGrepArray);
+                    $tableKey        = strtolower($table.'_000' . md5(Json\Encode::do($tableData)));
 
                     if( ! empty($currentColumns) )
                     {
-                        $columnsMerge = Merge::do(Transform::flip($currentColumns), $tableData);
+                        $columnsMerge = Arrays\Merge::do(Arrays\Transform::flip($currentColumns), $tableData);
 
                         foreach( $columnsMerge as $key => $val )
                         {
@@ -676,7 +667,7 @@ class InternalGenerate extends CallController implements InternalGenerateInterfa
                                 $dbForge->dropColumn($table, $key);
                                 $status = true;
                             }
-                            elseif( Exists::value($currentColumns, $key) )
+                            elseif( Arrays\Exists::value($currentColumns, $key) )
                             {
                                 if( $currentTableKey !== $tableKey )
                                 {
@@ -700,10 +691,10 @@ class InternalGenerate extends CallController implements InternalGenerateInterfa
                             $tableName     = $database . DS . $table;
                             $dbArchivePath = $archivesPath . $database . DS;
                             $writePath     = $archivesPath . $tableName . '_' . time() . '.php';
-                            $writeContent  = Content::read($activesPath . $tableName . '.php');
+                            $writeContent  = File\Content::read($activesPath . $tableName . '.php');
 
-                            FolderForge::create($dbArchivePath);
-                            Content::write($writePath, $writeContent);
+                            Folder\Forge::create($dbArchivePath);
+                            File\Content::write($writePath, $writeContent);
 
                             $dbForge->renameColumn($table, [$currentTableKey.' '.$tableKey => $tableKeyColumnValues]);
                         }
@@ -730,7 +721,7 @@ class InternalGenerate extends CallController implements InternalGenerateInterfa
     {
         $archivesPath = DATABASES_DIR . 'Archives' . DS;
 
-        $folders = FileList::files($archivesPath, 'dir');
+        $folders = Folder\FileList::files($archivesPath, 'dir');
 
         if( empty($folders) )
         {
@@ -741,9 +732,9 @@ class InternalGenerate extends CallController implements InternalGenerateInterfa
         {
             $databasePath = $archivesPath . $database . DS;
 
-            $tables   = FileList::files($databasePath, 'php');
+            $tables   = Folder\FileList::files($databasePath, 'php');
             $pregGrep = preg_grep("/\_[0-9]*\.php/", $tables);
-            $tables   = RemoveElement::element($tables, $pregGrep);
+            $tables   = Arrays\RemoveElement::element($tables, $pregGrep);
 
             if( ! empty($tables) )
             {
@@ -751,7 +742,7 @@ class InternalGenerate extends CallController implements InternalGenerateInterfa
 
                 foreach( $tables as $table )
                 {
-                    $dbForge->dropTable(Extension::remove($table));
+                    $dbForge->dropTable(File\Extension::remove($table));
                 }
             }
 

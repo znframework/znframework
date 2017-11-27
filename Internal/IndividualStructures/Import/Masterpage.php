@@ -1,8 +1,7 @@
 <?php namespace ZN\IndividualStructures\Import;
 
 use Config, HTML, URL;
-use ZN\DataTypes\Arrays\RemoveElement;
-use ZN\DataTypes\Arrays\Merge;
+use ZN\DataTypes\Arrays;
 
 class Masterpage
 {
@@ -366,7 +365,7 @@ class Masterpage
     //--------------------------------------------------------------------------------------------------------
     protected function _theme($masterPageSet, $head, $type = 'theme')
     {
-        $theme = RemoveElement::element(Merge::do((array) ($masterPageSet[$type]['name'] ?? []), (array) ($head[$type]['name'] ?? [])), '');
+        $theme = Arrays\RemoveElement::element(Arrays\Merge::do((array) ($masterPageSet[$type]['name'] ?? []), (array) ($head[$type]['name'] ?? [])), '');
 
         if( ! empty($theme) )
         {   

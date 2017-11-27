@@ -1,7 +1,7 @@
 <?php namespace ZN\Requirements\Controllers;
 
 use Errors;
-use ZN\DataTypes\Strings\Split;
+use ZN\DataTypes\Strings;
 
 class CallController extends BaseController
 {
@@ -27,7 +27,7 @@ class CallController extends BaseController
         (
             'Error',
             'undefinedFunction',
-            Split::divide(str_ireplace(INTERNAL_ACCESS, '', get_called_class()), '\\', -1)."::$method()"
+            Strings\Split::divide(str_ireplace(INTERNAL_ACCESS, '', get_called_class()), '\\', -1)."::$method()"
         ));
     }
 }

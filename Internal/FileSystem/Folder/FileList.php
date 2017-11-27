@@ -1,7 +1,6 @@
 <?php namespace ZN\FileSystem\Folder;
 
-use ZN\FileSystem\File\Info;
-use ZN\FileSystem\File\Extension;
+use ZN\FileSystem\File;
 use ZN\FileSystem\Exception\FolderNotFoundException;
 
 class FileList
@@ -27,7 +26,7 @@ class FileList
     //--------------------------------------------------------------------------------------------------------
     public static function files(String $path, $extension = NULL, Bool $pathType = false) : Array
     {
-        $path = Info::rpath($path);
+        $path = File\Info::rpath($path);
 
         if( ! is_dir($path) )
         {
@@ -65,7 +64,7 @@ class FileList
             $pattern = '*';
         }
 
-        $pattern = Info::rpath($pattern);
+        $pattern = File\Info::rpath($pattern);
 
         if( $allFiles === true )
         {
@@ -137,7 +136,7 @@ class FileList
             {
                 if( ! empty($extension) && $extension !== 'dir' )
                 {
-                    if( Extension::get($file) === $extension )
+                    if( File\Extension::get($file) === $extension )
                     {
                         $files[] = $prefixPath.$file;
                     }

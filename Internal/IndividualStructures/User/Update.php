@@ -1,7 +1,7 @@
 <?php namespace ZN\IndividualStructures\User;
 
 use DB;
-use ZN\CryptoGraphy\Encode\Type;
+use ZN\CryptoGraphy\Encode;
 
 class Update extends UserExtends
 {
@@ -63,7 +63,7 @@ class Update extends UserExtends
     //--------------------------------------------------------------------------------------------------------
     public function do(String $old = NULL, String $new = NULL, String $newAgain = NULL, Array $data = []) : Bool
     {
-        if( Factory::class('Login')->is() )
+        if( (new Login)->is() )
         {
             $old      = Properties::$parameters['oldPassword']   ?? $old;
             $new      = Properties::$parameters['newPassword']   ?? $new;
@@ -86,9 +86,9 @@ class Update extends UserExtends
             $tn         = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['table'];
             $encodeType = INDIVIDUALSTRUCTURES_USER_CONFIG['encode'];
 
-            $oldPassword      = ! empty($encodeType) ? Type::create($old, $encodeType)      : $old;
-            $newPassword      = ! empty($encodeType) ? Type::create($new, $encodeType)      : $new;
-            $newPasswordAgain = ! empty($encodeType) ? Type::create($newAgain, $encodeType) : $newAgain;
+            $oldPassword      = ! empty($encodeType) ? Encode\Type::create($old, $encodeType)      : $old;
+            $newPassword      = ! empty($encodeType) ? Encode\Type::create($new, $encodeType)      : $new;
+            $newPasswordAgain = ! empty($encodeType) ? Encode\Type::create($newAgain, $encodeType) : $newAgain;
 
             if( ! empty($joinTables) )
             {
@@ -96,7 +96,7 @@ class Update extends UserExtends
                 $data     = $data[$tn] ?? [$tn];
             }
 
-            $getUserData = Factory::class('Data')->get($tn);
+            $getUserData = (new Data)->get($tn);
             $username    = $getUserData->$uc;
             $password    = $getUserData->$pc;
 

@@ -1,8 +1,7 @@
 <?php namespace ZN\ViewObjects\View;
 
 use URL, IS, DB, Session, Validation;
-use ZN\DataTypes\Json\Decode;
-use ZN\DataTypes\Json\ErrorInfo;
+use ZN\DataTypes\Json;
 
 trait FormElementsTrait
 {
@@ -356,9 +355,9 @@ trait FormElementsTrait
             // For checkbox
             if( $type === 'checkbox' )
             {
-                if( ErrorInfo::check($rowval) )
+                if( Json\ErrorInfo::check($rowval) )
                 {
-                    $rowval = Decode::array($rowval);
+                    $rowval = Json\Decode::array($rowval);
 
                     if( in_array($value, $rowval) )
                     {

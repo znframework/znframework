@@ -1,6 +1,6 @@
 <?php namespace ZN\IndividualStructures\Security;
 
-use ZN\Helpers\Converter\VariableTypes;
+use ZN\Helpers\Converter;
 
 class HTML
 {
@@ -24,7 +24,7 @@ class HTML
     //--------------------------------------------------------------------------------------------------------
     public static function encode(String $string, String $type = 'quotes', String $encoding = 'utf-8') : String
     {
-        return htmlspecialchars(trim($string), VariableTypes::toConstant($type, 'ENT_'), $encoding);
+        return htmlspecialchars(trim($string), Converter\VariableTypes::toConstant($type, 'ENT_'), $encoding);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -37,7 +37,7 @@ class HTML
     //--------------------------------------------------------------------------------------------------------
     public static function decode(String $string, String $type = 'quotes') : String
     {
-        return htmlspecialchars_decode(trim($string), VariableTypes::toConstant($type, 'ENT_'));
+        return htmlspecialchars_decode(trim($string), Converter\VariableTypes::toConstant($type, 'ENT_'));
     }
 
     //--------------------------------------------------------------------------------------------------------

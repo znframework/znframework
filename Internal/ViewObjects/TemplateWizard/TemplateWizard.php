@@ -1,8 +1,8 @@
 <?php namespace ZN\ViewObjects;
 
 use Errors, Exceptions, CallController, Config;
-use ZN\FileSystem\File\Forge;
-use ZN\IndividualStructures\Buffer\Callback as BufferCallback;
+use ZN\FileSystem\File;
+use ZN\IndividualStructures\Buffer;
 
 class TemplateWizard extends CallController
 {
@@ -24,7 +24,7 @@ class TemplateWizard extends CallController
     //--------------------------------------------------------------------------------------------------------
 	public static function isolation(String $data = '')
 	{
-		Forge::replace($data, ['<?php', '<?', '?>'], ['{[', '{[', ']}']);
+		File\Forge::replace($data, ['<?php', '<?', '?>'], ['{[', '{[', ']}']);
 	}
 
     //--------------------------------------------------------------------------------------------------------
@@ -51,7 +51,7 @@ class TemplateWizard extends CallController
             self::_html()
         );
 
-        return BufferCallback::code(self::replace($pattern, $string), $data);
+        return Buffer\Callback::code(self::replace($pattern, $string), $data);
     }
 
     //--------------------------------------------------------------------------------------------------------

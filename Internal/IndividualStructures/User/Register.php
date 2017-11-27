@@ -1,8 +1,8 @@
 <?php namespace ZN\IndividualStructures\User;
 
 use DB, Email, URI, URL, IS, Lang;
-use ZN\CryptoGraphy\Encode\Type;
-use ZN\IndividualStructures\Import\Template;
+use ZN\CryptoGraphy\Encode;
+use ZN\IndividualStructures\Import;
 
 class Register extends UserExtends
 {
@@ -67,7 +67,7 @@ class Register extends UserExtends
         $loginUsername   = $data[$usernameColumn];
         $loginPassword   = $data[$passwordColumn];
         $encodeType      = INDIVIDUALSTRUCTURES_USER_CONFIG['encode'];
-        $encodePassword  = ! empty($encodeType) ? Type::create($loginPassword, $encodeType) : $loginPassword;
+        $encodePassword  = ! empty($encodeType) ? Encode\Type::create($loginPassword, $encodeType) : $loginPassword;
 
         $usernameControl = DB::where($usernameColumn, $loginUsername)
                              ->get($tableName)
@@ -115,7 +115,7 @@ class Register extends UserExtends
             {
                 if( $autoLogin === true )
                 {
-                    Factory::class('Login')->do($loginUsername, $loginPassword);
+                    (new Login)->do($loginUsername, $loginPassword);
                 }
                 elseif( is_string($autoLogin) )
                 {
@@ -209,7 +209,7 @@ class Register extends UserExtends
             'pass' => $pass
         ];
 
-        $message = Template::use('UserEmail/Activation', $templateData, true);
+        $message = Import\Template::use('UserEmail/Activation', $templateData, true);
 
         $user = $email ?? $user;
 

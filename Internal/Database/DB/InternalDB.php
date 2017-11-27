@@ -1,15 +1,9 @@
 <?php namespace ZN\Database;
 
-use URI, Pagination, Classes, Method, Config, Cache, IS, Coalesce, Strings, Excel;
-use ZN\DataTypes\Strings\Split;
-use ZN\DataTypes\Arrays\Force;
-use ZN\DataTypes\Arrays\Exists;
-use ZN\DataTypes\Arrays\Transform;
-use ZN\DataTypes\Arrays\Intersect;
-use ZN\DataTypes\Arrays\RemoveElement;
-use ZN\DataTypes\Arrays\GetElement;
-use ZN\DataTypes\Arrays\Combine;
-use ZN\DataTypes\Json\Encode;
+use URI, Pagination, Classes, Method, Config, Cache, IS, Coalesce, Excel;
+use ZN\DataTypes\Strings;
+use ZN\DataTypes\Arrays;
+use ZN\DataTypes\Json;
 
 class InternalDB extends Connection implements InternalDBInterface
 {
@@ -417,7 +411,7 @@ class InternalDB extends Connection implements InternalDBInterface
     public function __call($method, $parameters)
     {
         $method = strtolower($originMethodName = $method);
-        $split  = Split::upperCase($originMethodName);
+        $split  = Strings\Split::upperCase($originMethodName);
         $crud   = $split[1] ?? NULL;
 
         if( in_array($method, $this->functionElements) )
@@ -1613,7 +1607,7 @@ class InternalDB extends Connection implements InternalDBInterface
     {
         $this->_csv($file);
         
-        Force::values($file, function($data) use($table)
+        Arrays\Force::values($file, function($data) use($table)
         {
             $this->duplicateCheck()->insert(prefix($table, 'ignore:'), $data);
         });
@@ -2236,15 +2230,15 @@ class InternalDB extends Connection implements InternalDBInterface
             $method  = $tableEx[0];
             $table   = $tableEx[1];
 
-            if( Exists::value($methods, $method) )
+            if( Arrays\Exists::value($methods, $method) )
             {
                 if( $method !== 'ignore' )
                 {
                     $data = Method::$method();
                 }
 
-                $columns = Transform::flip($this->_query('SELECT * FROM ' . $table)->columns());
-                $data    = Intersect::key($data, $columns);
+                $columns = Arrays\Transform::flip($this->_query('SELECT * FROM ' . $table)->columns());
+                $data    = Arrays\Intersect::key($data, $columns);
             }
         }
     }
@@ -2261,9 +2255,9 @@ class InternalDB extends Connection implements InternalDBInterface
         $csv       = Excel::CSVToArray($data);
         $csvColumn = $csv[0];
         $csvDatas  = Remove::first($csv);
-        $data      = Force::values($csvDatas, function($d) use($csvColumn)
+        $data      = Arrays\Force::values($csvDatas, function($d) use($csvColumn)
         {
-            return Combine::do($csvColumn, $d);
+            return Arrays\Combine::do($csvColumn, $d);
         });
     }
 
@@ -2341,7 +2335,7 @@ class InternalDB extends Connection implements InternalDBInterface
         $keys   = ['between', 'in'];
         $column = trim($column);
 
-        if( in_array(strtolower(Split::divide($column, ' ', -1)), $keys) || $this->_exp($column) )
+        if( in_array(strtolower(Strings\Split::divide($column, ' ', -1)), $keys) || $this->_exp($column) )
         {
             return $value;
         }
@@ -2450,11 +2444,11 @@ class InternalDB extends Connection implements InternalDBInterface
 
         if( isset($conditions[0][0]) && is_array($conditions[0][0]) )
         {
-            $con         = GetElement::last($conditions);
+            $con         = Arrays\GetElement::last($conditions);
             $conditions  = $conditions[0];
         }
 
-        $getLast = GetElement::last($conditions);
+        $getLast = Arrays\GetElement::last($conditions);
 
         if( is_string($con) )
         {
@@ -2465,7 +2459,7 @@ class InternalDB extends Connection implements InternalDBInterface
             if( is_string($getLast) )
             {
                 $conjunction = $getLast;
-                $conditions  = RemoveElement::last($conditions);
+                $conditions  = Arrays\RemoveElement::last($conditions);
             }
             else
             {
@@ -2734,7 +2728,7 @@ class InternalDB extends Connection implements InternalDBInterface
     //--------------------------------------------------------------------------------------------------------
     protected function _cacheQuery()
     {
-        return md5(Encode::do($this->config) . $this->stringQuery());
+        return md5(Json\Encode::do($this->config) . $this->stringQuery());
     }
 
     //--------------------------------------------------------------------------------------------------------

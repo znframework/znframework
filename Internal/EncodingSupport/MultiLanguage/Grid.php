@@ -86,14 +86,14 @@ class Grid extends MLExtends
             // ADD LANGUAGE
             if( Method::post('ML_ADD_ALL_LANGUAGE_SUBMIT') )
             {
-                Factory::class('Insert')->do(Method::post('ML_ADD_LANGUAGE'), 'example', 'Example');
+                (new Insert)->do(Method::post('ML_ADD_LANGUAGE'), 'example', 'Example');
             }
 
             // ALL DELETE
             if( Method::post('ML_ALL_DELETE_SUBMIT') )
             {
                 $allDelete = Method::post('ML_ALL_DELETE_HIDDEN');
-                Factory::class('Delete')->all($allDelete);
+                (new Delete)->all($allDelete);
             }
 
             // ADD
@@ -109,7 +109,7 @@ class Grid extends MLExtends
 
                 if( ! empty($languages) ) foreach( $languages as $key => $lang )
                 {
-                    Factory::class('Insert')->do($lang, $addKeyword, $addWords[$key]);
+                    (new Insert)->do($lang, $addKeyword, $addWords[$key]);
                 }
             }
 
@@ -118,7 +118,7 @@ class Grid extends MLExtends
             {
                 if( ! empty($languages) ) foreach( $languages as $key => $lang )
                 {
-                    Factory::class('Update')->do($lang, $keyword, $words[$key]);
+                    (new Update)->do($lang, $keyword, $words[$key]);
                 }
             }
 
@@ -127,7 +127,7 @@ class Grid extends MLExtends
             {
                 if( ! empty($languages) ) foreach( $languages as $key => $lang )
                 {
-                    Factory::class('Delete')->do($lang, $keyword);
+                    (new Delete)->do($lang, $keyword);
                 }
             }
         }
@@ -145,7 +145,7 @@ class Grid extends MLExtends
 
         $confirmBox = ' onsubmit="return confirm(\''.$confirmMessage.'\');"';
 
-        $data = Factory::class('Select')->all($app);
+        $data = (new Select)->all($app);
 
         $languageCount = count($data);
 

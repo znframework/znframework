@@ -1,7 +1,5 @@
 <?php namespace ZN\DataTypes\Arrays;
 
-use ZN\DataTypes\Arrays\Exception\InvalidArgumentException;
-
 class Each
 {
     //--------------------------------------------------------------------------------------------------------

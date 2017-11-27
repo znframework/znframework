@@ -2,10 +2,7 @@
 
 use Validation, DB, URI;
 use ZN\ViewObjects\View\Exception\InvalidArgumentException;
-use ZN\DataTypes\Arrays\RemoveElement;
-use ZN\DataTypes\Arrays\Sort;
-use ZN\DataTypes\Arrays\Excluding;
-use ZN\DataTypes\Arrays\Including;
+use ZN\DataTypes\Arrays;
 
 class InternalForm
 {
@@ -228,8 +225,7 @@ class InternalForm
         {
             $key     = key($options);
             $current = current($options);
-
-            $options = RemoveElement::first($options);
+            $options = Arrays\RemoveElement::first($options);
 
             if( ! empty($this->settings['table']) )
             {
@@ -267,17 +263,17 @@ class InternalForm
 
         if( isset($this->settings['exclude']) )
         {
-            $options = Excluding::use($options, $this->settings['exclude']);
+            $options = Arrays\Excluding::use($options, $this->settings['exclude']);
         }
 
         if( isset($this->settings['include']) )
         {
-            $options = Including::use($options, $this->settings['include']);
+            $options = Arrays\Including::use($options, $this->settings['include']);
         }
 
         if( isset($this->settings['order']['type']) )
         {
-            $options = Sort::order($options, $this->settings['order']['type'], $this->settings['order']['flags']);
+            $options = Arrays\Sort::order($options, $this->settings['order']['type'], $this->settings['order']['flags']);
         }
 
         if( isset($this->settings['selectedKey']) )

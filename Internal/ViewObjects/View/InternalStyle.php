@@ -1,7 +1,7 @@
 <?php namespace ZN\ViewObjects\View;
 
 use CallController;
-use ZN\IndividualStructures\Import\Style;
+use ZN\IndividualStructures\Import;
 
 class InternalStyle extends CallController implements InternalStyleInterface
 {
@@ -46,7 +46,7 @@ class InternalStyle extends CallController implements InternalStyleInterface
     //--------------------------------------------------------------------------------------------------------
     public function library(...$libraries)
     {
-        Style::use(...$libraries);
+        Import\Style::use(...$libraries);
 
         return $this;
     }

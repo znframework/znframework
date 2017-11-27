@@ -1,7 +1,7 @@
 <?php namespace ZN\IndividualStructures\Compress\Drivers;
 
 use Support;
-use ZN\FileSystem\File\Content;
+use ZN\FileSystem\File;
 
 class ZlibDriver extends Abstracts\CompressDriverMappingAbstract
 {
@@ -50,7 +50,7 @@ class ZlibDriver extends Abstracts\CompressDriverMappingAbstract
     {
         $data = $this->do($data);
 
-        return Content::write($file, $data);
+        return File\Content::write($file, $data);
     }
     
     //--------------------------------------------------------------------------------------------------------
@@ -62,7 +62,7 @@ class ZlibDriver extends Abstracts\CompressDriverMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function read($file)
     {
-        $content = Content::read($file);
+        $content = File\Content::read($file);
 
         return $this->undo($content);
     }

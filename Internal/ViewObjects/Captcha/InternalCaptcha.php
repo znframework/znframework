@@ -1,13 +1,11 @@
 <?php namespace ZN\ViewObjects;
 
-use Config, Session, Cookie, CLController, Encode, Folder, URL;
-use ZN\DataTypes\Arrays\GetElement;
-use ZN\CryptoGraphy\Encode\RandomPassword;
-use ZN\FileSystem\File\Info;
-use ZN\FileSystem\File\Forge;
-use ZN\FileSystem\Folder\Info as FolderInfo;
-use ZN\FileSystem\Folder\Forge as FolderForge;
-use ZN\FileSystem\Folder\FileList;
+use Config, Session, Cookie, CLController, URL;
+use ZN\DataTypes\Arrays;
+use ZN\CryptoGraphy\Encode;
+use ZN\FileSystem\File;
+use ZN\FileSystem\Folder;
+use ZN\ImageProcessing;
 
 class InternalCaptcha extends CLController implements InternalCaptchaInterface
 {
@@ -313,9 +311,9 @@ class InternalCaptcha extends CLController implements InternalCaptchaInterface
 
         if( $sessionCaptchaCode = Session::select($systemCaptchaCodeData) )
         {
-            if( ! FolderInfo::exists($this->path) )
+            if( ! Folder\Info::exists($this->path) )
             {
-                FolderForge::create($this->path);
+                Folder\Forge::create($this->path);
             }
 
             $sizeWidthC       = $set['size']['width']       ?? 100;
@@ -486,13 +484,13 @@ class InternalCaptcha extends CLController implements InternalCaptchaInterface
     //--------------------------------------------------------------------------------------------------------
     protected function _clean()
     {
-        $files   = FileList::files($this->path, 'png');
-        $match   = GetElement::first(preg_grep('/captcha\-([a-z]|[0-9])+\.png/i', $files));
+        $files   = Folder\FileList::files($this->path, 'png');
+        $match   = Arrays\GetElement::first(preg_grep('/captcha\-([a-z]|[0-9])+\.png/i', $files));
         $captcha = $this->path . $match;
 
-        if( Info::exists($captcha) )
+        if( File\Info::exists($captcha) )
         {
-            Forge::delete($captcha);
+            File\Forge::delete($captcha);
         }
     }
 
@@ -505,7 +503,7 @@ class InternalCaptcha extends CLController implements InternalCaptchaInterface
     //--------------------------------------------------------------------------------------------------------
     protected function _name()
     {
-        return 'captcha-' . RandomPassword::create(16) . '.png';
+        return 'captcha-' . Encode\RandomPassword::create(16) . '.png';
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -517,7 +515,7 @@ class InternalCaptcha extends CLController implements InternalCaptchaInterface
     //--------------------------------------------------------------------------------------------------------
     protected function _convertColor($color)
     {
-        if( $convert = (\ZN\ImageProcessing\Properties::$colors[$color] ?? NULL) )
+        if( $convert = (ImageProcessing\Properties::$colors[$color] ?? NULL) )
         {
             return $convert;
         }

@@ -1,7 +1,6 @@
 <?php namespace ZN\FileSystem\Folder;
 
-use ZN\FileSystem\File\Info;
-use ZN\FileSystem\File\Forge as FileForge;
+use ZN\FileSystem\File;
 use ZN\FileSystem\Exception\FolderNotFoundException;
 
 class Forge
@@ -24,7 +23,7 @@ class Forge
     //--------------------------------------------------------------------------------------------------------
     public static function create(String $file, Int $permission = 0755, Bool $recursive = true) : Bool
     {
-        $file = Info::rpath($file);
+        $file = File\Info::rpath($file);
 
         if( is_dir($file) )
         {
@@ -43,7 +42,7 @@ class Forge
     //--------------------------------------------------------------------------------------------------------
     public static function rename(String $oldName, String $newName) : Bool
     {
-        $oldName = Info::rpath($oldName);
+        $oldName = File\Info::rpath($oldName);
 
         if( ! file_exists($oldName) )
         {
@@ -62,7 +61,7 @@ class Forge
     //--------------------------------------------------------------------------------------------------------
     public static function deleteEmpty(String $folder) : Bool
     {
-        $folder = Info::rpath($folder);
+        $folder = File\Info::rpath($folder);
 
         if( ! is_dir($folder) )
         {
@@ -81,9 +80,7 @@ class Forge
     //--------------------------------------------------------------------------------------------------------
     public static function delete(String $name) : Bool
     {
-        $name = Info::rpath($name);
-
-        $fileListClass = Factory::class('FileList');
+        $name = File\Info::rpath($name);
 
         if( is_file($name) )
         {
@@ -91,15 +88,15 @@ class Forge
         }
         else
         {
-            if( ! $fileListClass->files($name) )
+            if( ! FileList::files($name) )
             {
                 return self::deleteEmpty($name);
             }
             else
             {
-                for( $i = 0; $i < count($fileListClass->files($name)); $i++ )
+                for( $i = 0; $i < count(FileList::files($name)); $i++ )
                 {
-                    foreach( $fileListClass->files($name) as $val )
+                    foreach( FileList::files($name) as $val )
                     {
                         self::delete($name."/".$val);
                     }
@@ -120,9 +117,8 @@ class Forge
     //--------------------------------------------------------------------------------------------------------
     public static function copy(String $source, String $target) : Bool
     {
-        $source = Info::rpath($source);
-        $target = Info::rpath($target);
-        $fileListClass = Factory::class('FileList');
+        $source = File\Info::rpath($source);
+        $target = File\Info::rpath($target);
 
         if( ! file_exists($source) )
         {
@@ -131,11 +127,11 @@ class Forge
 
         if( is_dir($source) )
         {
-            if( ! $fileListClass->files($source) )
+            if( ! FileList::files($source) )
             {
                 $emptyFilePath = suffix($source, DS) . 'empty';
 
-                FileForge::create($emptyFilePath);
+                File\Forge::create($emptyFilePath);
 
                 return copy($emptyFilePath, $target);
             }
@@ -146,7 +142,7 @@ class Forge
                     self::create($target);
                 }
 
-                if( is_array($fileListClass->files($source)) ) foreach( $fileListClass->files($source) as $val )
+                if( is_array(FileList::files($source)) ) foreach( FileList::files($source) as $val )
                 {
                     $sourceDir = $source."/".$val;
                     $targetDir = $target."/".$val;
@@ -177,7 +173,7 @@ class Forge
     //--------------------------------------------------------------------------------------------------------
     public static function change(String $name) : Bool
     {
-        $name = Info::rpath($name);
+        $name = File\Info::rpath($name);
 
         if( ! is_dir($name) )
         {
@@ -196,6 +192,6 @@ class Forge
     //--------------------------------------------------------------------------------------------------------
     public static function permission(String $name, Int $permission = 0755) : Bool
     {
-        return FileForge::permission($name, $permission);
+        return File\Forge::permission($name, $permission);
     }
 }

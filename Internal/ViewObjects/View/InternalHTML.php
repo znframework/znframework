@@ -2,7 +2,7 @@
 
 use URL, IS, Coalesce;
 use ZN\ViewObjects\View\HTML\Exception\InvalidArgumentException;
-use ZN\IndividualStructures\Buffer\Callback as BufferCallback;
+use ZN\IndividualStructures\Buffer;
 
 class InternalHTML
 {
@@ -76,7 +76,7 @@ class InternalHTML
     //--------------------------------------------------------------------------------------------------------
     public function ul(Callable $list, Array $attributes = []) : String
     {
-        return $this->_multiElement(__FUNCTION__, BufferCallback::do($list, [new $this]), $attributes);
+        return $this->_multiElement(__FUNCTION__, Buffer\Callback::do($list, [new $this]), $attributes);
     }
 
     //--------------------------------------------------------------------------------------------------------

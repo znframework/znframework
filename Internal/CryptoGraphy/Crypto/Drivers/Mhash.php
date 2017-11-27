@@ -1,7 +1,7 @@
 <?php namespace ZN\CryptoGraphy\Drivers;
 
 use ZN\CryptoGraphy\CryptoMapping;
-use ZN\Helpers\Converter\VariableTypes;
+use ZN\Helpers\Converter;
 
 class MhashDriver extends CryptoMapping
 {
@@ -26,7 +26,7 @@ class MhashDriver extends CryptoMapping
 	{
 		$cipher = $settings['cipher'] ?? 'sha256';
 	 	$key    = $settings['key']    ?? PROJECT_CONFIG['key'];
-		$cipher = VariableTypes::toConstant($cipher, 'MHASH_');
+		$cipher = Converter\VariableTypes::toConstant($cipher, 'MHASH_');
 
 		return base64_encode(trim(mhash($cipher, $data, $key)));
 	}

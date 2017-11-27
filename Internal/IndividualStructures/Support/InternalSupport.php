@@ -1,7 +1,7 @@
 <?php namespace ZN\IndividualStructures;
 
 use CallController, Classes, Errors;
-use ZN\DataTypes\Strings\Split;
+use ZN\DataTypes\Strings;
 
 class InternalSupport extends CallController implements InternalSupportInterface
 {
@@ -156,7 +156,7 @@ class InternalSupport extends CallController implements InternalSupportInterface
         (
             'Error',
             'undefinedFunction',
-            Split::divide(str_ireplace(INTERNAL_ACCESS, '', Classes::onlyName($class)), '\\', -1)."::$method()"
+            Strings\Split::divide(str_ireplace(INTERNAL_ACCESS, '', Classes::onlyName($class)), '\\', -1)."::$method()"
         ));
     }
 }

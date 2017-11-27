@@ -1,7 +1,7 @@
 <?php namespace ZN\DataTypes;
 
 use CallController, Cookie, Session, Server, Autoloader;
-use ZN\Helpers\Converter\VariableTypes;
+use ZN\Helpers\Converter;
 
 class InternalFilters extends CallController implements InternalFiltersInterface
 {
@@ -240,7 +240,7 @@ class InternalFilters extends CallController implements InternalFiltersInterface
     //--------------------------------------------------------------------------------------------------------
     protected function _inputConstant($const)
     {
-        return VariableTypes::toConstant($const, 'INPUT_');
+        return Converter\VariableTypes::toConstant($const, 'INPUT_');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -248,7 +248,7 @@ class InternalFilters extends CallController implements InternalFiltersInterface
     //--------------------------------------------------------------------------------------------------------
     protected function _filterConstant($const)
     {
-        return VariableTypes::toConstant($const, 'FILTER_');
+        return Converter\VariableTypes::toConstant($const, 'FILTER_');
     }
 
     //--------------------------------------------------------------------------------------------------------

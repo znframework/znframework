@@ -1,8 +1,8 @@
 <?php namespace ZN\Services\Request;
 
 use ZN\In;
-use ZN\FileSystem\File\Info;
-use ZN\Helpers\Converter\VariableTypes;
+use ZN\FileSystem\File;
+use ZN\Helpers\Converter;
 use CallController, Lang, Http;
 
 class InternalURL extends CallController implements InternalURLInterface
@@ -117,7 +117,7 @@ class InternalURL extends CallController implements InternalURLInterface
     //--------------------------------------------------------------------------------------------------------
     public function base(String $uri = NULL, Int $index = 0) : String
     {
-        return $this->host(In::baseDir($index) . Info::absolutePath($uri));
+        return $this->host(In::baseDir($index) . File\Info::absolutePath($uri));
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -284,7 +284,7 @@ class InternalURL extends CallController implements InternalURLInterface
     //--------------------------------------------------------------------------------------------------------
     public function parse(String $url, $component = 1)
     {
-        return parse_url($url, VariableTypes::toConstant($component, 'PHP_URL_'));
+        return parse_url($url, Converter\VariableTypes::toConstant($component, 'PHP_URL_'));
     }
 
     //--------------------------------------------------------------------------------------------------------

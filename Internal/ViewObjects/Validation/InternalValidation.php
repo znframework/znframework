@@ -2,15 +2,9 @@
 
 use Validator, Config, Session, Method, CallController, Lang, Post, Captcha;
 use ZN\ViewObjects\View\Validation\Exception\InvalidArgumentException;
-use ZN\DataTypes\Arrays\Unidimensional;
-use ZN\CryptoGraphy\Encode\SuperAlgorithm;
-use ZN\IndividualStructures\Security\NastyCode;
-use ZN\IndividualStructures\Security\CrossSiteScripting;
-use ZN\IndividualStructures\Security\Html;
-use ZN\IndividualStructures\Security\Injection;
-use ZN\IndividualStructures\Security\Script;
-use ZN\IndividualStructures\Security\PHP;
-use ZN\IndividualStructures\Security\Properties as SecurityProperties;
+use ZN\DataTypes\Arrays;
+use ZN\CryptoGraphy\Encode;
+use ZN\IndividualStructures\Security;
 
 class InternalValidation extends CallController implements InternalValidationInterface
 {
@@ -133,15 +127,15 @@ class InternalValidation extends CallController implements InternalValidationInt
 
         if( in_array('nc', $config) )
         {
-            $secnc = SecurityProperties::$ncEncode;
-            $edit  = NastyCode::encode($edit, $secnc['badChars'], $secnc['changeBadChars']);
+            $secnc = Security\Properties::$ncEncode;
+            $edit  = Security\NastyCode::encode($edit, $secnc['badChars'], $secnc['changeBadChars']);
         }
 
-        if( in_array('html',      $config) ) $edit = Html::encode($edit);
-        if( in_array('xss',       $config) ) $edit = CrossSiteScripting::encode($edit);
-        if( in_array('injection', $config) ) $edit = Injection::encode($edit);
-        if( in_array('script',    $config) ) $edit = Script::encode($edit);
-        if( in_array('php',       $config) ) $edit = PHP::encode($edit);
+        if( in_array('html',      $config) ) $edit = Security\Html::encode($edit);
+        if( in_array('xss',       $config) ) $edit = Security\CrossSiteScripting::encode($edit);
+        if( in_array('injection', $config) ) $edit = Security\Injection::encode($edit);
+        if( in_array('script',    $config) ) $edit = Security\Script::encode($edit);
+        if( in_array('php',       $config) ) $edit = Security\PHP::encode($edit);
 
         $this->nval[$name] = $edit;
 
@@ -207,7 +201,7 @@ class InternalValidation extends CallController implements InternalValidationInt
                 
                 unset($rule['value']);
 
-                $rule = Unidimensional::do($rule);
+                $rule = Arrays\Unidimensional::do($rule);
          
                 $this->rules($name, $rule, $value, $method);
             } 
@@ -394,7 +388,7 @@ class InternalValidation extends CallController implements InternalValidationInt
             $pm = '';
             $pm = $this->config['oldPassword'];
 
-            if( SuperAlgorithm::create($this->edit) != $pm )
+            if( Encode\SuperAlgorithm::create($this->edit) != $pm )
             {
                 $this->_messages('oldPasswordMatch', $this->name, $this->viewName);
             }

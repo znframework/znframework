@@ -2,9 +2,9 @@
 
 use Config, URL;
 use ZN\IndividualStructures\Import\Exception\InvalidArgumentException;
-use ZN\DataTypes\Strings\Split;
-use ZN\FileSystem\File\Extension;
-use ZN\IndividualStructures\Buffer\File as BufferFile;
+use ZN\DataTypes\Strings;
+use ZN\FileSystem\File;
+use ZN\IndividualStructures\Buffer;
 
 class Something
 {
@@ -42,7 +42,7 @@ class Something
 
         $eol = EOL;
 
-        $randomPageVariableExtension = Extension::get($randomPageVariable);
+        $randomPageVariableExtension = File\Extension::get($randomPageVariable);
         $randomPageVariableBaseUrl   = URL::base($randomPageVariable);
 
         $return = '';
@@ -74,7 +74,7 @@ class Something
 
             if( is_file($randomPageVariable) )
             {
-                $return = BufferFile::do($randomPageVariable, $randomDataVariable);
+                $return = Buffer\File::do($randomPageVariable, $randomDataVariable);
 
                 if( $randomObGetContentsVariable === false )
                 {
@@ -110,7 +110,7 @@ class Something
     {
         return '<style type="text/css">
                     '.( $ie === true ? '<!--[if IE]>' : NULL ).'
-                    @font-face{font-family:"'.Split::divide(Extension::remove($randomPageVariable), "/", -1).'";
+                    @font-face{font-family:"'.Strings\Split::divide(File\Extension::remove($randomPageVariable), "/", -1).'";
                     src:url("'.$randomPageVariableBaseUrl.'")
                     format("truetype")}
                     '.( $ie === true ? '<![endif]-->' : NULL ).'

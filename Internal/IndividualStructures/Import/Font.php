@@ -1,7 +1,7 @@
 <?php namespace ZN\IndividualStructures\Import;
 
 use Config, URL;
-use ZN\FileSystem\File\Extension;
+use ZN\FileSystem\File;
 
 class Font extends BootstrapExtends
 {
@@ -165,6 +165,6 @@ class Font extends BootstrapExtends
             $base = suffix($baseUrl, '.' . $extension);
         }
 
-        return '@font-face{font-family:"' . Extension::remove($f) . '"; src:url("' . $base . '") format("truetype")}' . EOL;
+        return '@font-face{font-family:"' . File\Extension::remove($f) . '"; src:url("' . $base . '") format("truetype")}' . EOL;
     }
 }

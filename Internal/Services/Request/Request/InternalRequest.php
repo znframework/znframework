@@ -1,7 +1,7 @@
 <?php namespace ZN\Services\Request;
 
 use Method;
-use ZN\DataTypes\Strings\Casing;
+use ZN\DataTypes\Strings;
 
 class InternalRequest implements InternalRequestInterface
 {
@@ -53,7 +53,7 @@ class InternalRequest implements InternalRequestInterface
     //--------------------------------------------------------------------------------------------------------
     public function method(String $casing = 'upper') : String
     {
-        return Casing::use(server('requestMethod'), $casing);
+        return Strings\Casing::use(server('requestMethod'), $casing);
     }
 
     //--------------------------------------------------------------------------------------------------------

@@ -1,8 +1,8 @@
 <?php namespace ZN\Services\Remote;
 
-use Support, CallController, IS, URL, Strings;
+use Support, CallController, IS, URL;
 use ZN\Services\Remote\CURL\Exception\InvalidArgumentException;
-use ZN\Helpers\Converter\VariableTypes;
+use ZN\Helpers\Converter;
 
 class InternalCURL extends CallController implements InternalCURLInterface
 {
@@ -55,7 +55,7 @@ class InternalCURL extends CallController implements InternalCURLInterface
     //--------------------------------------------------------------------------------------------------------
     public function __call($method, $parameters)
     {
-        $option = VariableTypes::toConstant($method, 'CURLOPT_');
+        $option = Converter\VariableTypes::toConstant($method, 'CURLOPT_');
 
         $this->options[$option] = $parameters[0] ?? NULL;
 
@@ -160,7 +160,7 @@ class InternalCURL extends CallController implements InternalCURLInterface
             return curl_getinfo($this->init);
         }
 
-        return curl_getinfo($this->init, VariableTypes::toConstant($opt, 'CURLINFO_'));
+        return curl_getinfo($this->init, Converter\VariableTypes::toConstant($opt, 'CURLINFO_'));
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -208,7 +208,7 @@ class InternalCURL extends CallController implements InternalCURLInterface
     {
         if( ! empty($this->init) )
         {
-            return curl_pause($this->init, VariableTypes::toConstant($bitmask, 'CURLPAUSE_'));
+            return curl_pause($this->init, Converter\VariableTypes::toConstant($bitmask, 'CURLPAUSE_'));
         }
 
         return false;
@@ -243,7 +243,7 @@ class InternalCURL extends CallController implements InternalCURLInterface
     //--------------------------------------------------------------------------------------------------------
     public function option(String $options, $value) : InternalCURL
     {
-        $this->options[VariableTypes::toConstant($options, 'CURLOPT_')] = $value;
+        $this->options[Converter\VariableTypes::toConstant($options, 'CURLOPT_')] = $value;
 
         return $this;
     }

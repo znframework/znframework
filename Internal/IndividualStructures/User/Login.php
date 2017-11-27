@@ -1,7 +1,7 @@
 <?php namespace ZN\IndividualStructures\User;
 
 use DB, Method, Session, Cookie;
-use ZN\CryptoGraphy\Encode\Type;
+use ZN\CryptoGraphy\Encode;
 
 class Login extends UserExtends
 {
@@ -76,7 +76,7 @@ class Login extends UserExtends
         $username   = $un;
         $encodeType = INDIVIDUALSTRUCTURES_USER_CONFIG['encode'];
 
-        $password   = ! empty($encodeType) ? Type::create($pw, $encodeType) : $pw;
+        $password   = ! empty($encodeType) ? Encode\Type::create($pw, $encodeType) : $pw;
 
         // ------------------------------------------------------------------------------
         // Settings
@@ -168,11 +168,11 @@ class Login extends UserExtends
         $tableName   = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['table'];
         $username    = $getColumns['username'];
         $password    = $getColumns['password'];
-        $getUserData = Factory::class('Data')->get($tableName);
+        $getUserData = (new Data)->get($tableName);
 
         if( ! empty($getColumns['banned']) && ! empty($getUserData->{$getColumns['banned']}) )
         {
-            Factory::class('Logout')->do();
+             (new Logout)->do();
         }
 
         $cUsername  = Cookie::select($username);

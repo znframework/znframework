@@ -2,7 +2,7 @@
 
 use CallController, IS;
 use ZN\EncodingSupport\Iconv\InvalidArgumentException;
-use ZN\DataTypes\Arrays\GetElement;
+use ZN\DataTypes\Arrays;
 
 class InternalIV extends CallController implements InternalIVInterface
 {
@@ -37,7 +37,7 @@ class InternalIV extends CallController implements InternalIVInterface
     //--------------------------------------------------------------------------------------------------------
     public function convert(String $string, String $fromEncoding, String $toEncoding) : String
     {
-        $toEncodingFirst = GetElement::first(explode('//', $toEncoding));
+        $toEncodingFirst = Arrays\GetElement::first(explode('//', $toEncoding));
 
         if( ! IS::charset($fromEncoding) || ! IS::charset($toEncodingFirst) )
         {

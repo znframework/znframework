@@ -2,7 +2,7 @@
 
 use Config, CallController, ReflectionClass;
 use ZN\DataTypes\Classes\Exception\InvalidArgumentException;
-use ZN\DataTypes\Strings\Split;
+use ZN\DataTypes\Strings;
 
 class InternalClasses extends CallController implements InternalClassesInterface
 {
@@ -172,7 +172,7 @@ class InternalClasses extends CallController implements InternalClassesInterface
     //--------------------------------------------------------------------------------------------------------
     public function onlyName(String $class) : String
     {
-        return Split::divide(str_replace(INTERNAL_ACCESS, '', $class), '\\', -1);
+        return Strings\Split::divide(str_replace(INTERNAL_ACCESS, '', $class), '\\', -1);
     }
 
     //--------------------------------------------------------------------------------------------------------

@@ -1,7 +1,7 @@
 <?php namespace ZN\DataTypes;
 
 use Config;
-use ZN\DataTypes\Arrays\MultipleKey;
+use ZN\DataTypes\Arrays;
 
 class InternalRegex implements InternalRegexInterface
 {
@@ -127,8 +127,8 @@ class InternalRegex implements InternalRegexInterface
     public function classic2special(String $pattern, String $delimiter = '/') : String
     {
         $specialChars = $this->specialChars;
-        $regexChars   = MultipleKey::use($this->regexChars);
-        $settingChars = MultipleKey::use($this->settingChars);
+        $regexChars   = Arrays\MultipleKey::use($this->regexChars);
+        $settingChars = Arrays\MultipleKey::use($this->settingChars);
         $pattern      = str_ireplace(array_values($regexChars  ), array_keys($regexChars  ), $pattern);
         $pattern      = str_ireplace(array_values($specialChars), array_keys($specialChars), $pattern);
 
@@ -249,8 +249,8 @@ class InternalRegex implements InternalRegexInterface
 
         $pattern = str_ireplace(array_keys($specialChars), array_values($specialChars), $pattern);
 
-        $regexChars   = MultipleKey::use($this->regexChars);
-        $settingChars = MultipleKey::use($this->settingChars);
+        $regexChars   = Arrays\MultipleKey::use($this->regexChars);
+        $settingChars = Arrays\MultipleKey::use($this->settingChars);
 
         $pattern = str_ireplace(array_keys($regexChars), array_values($regexChars), $pattern);
 

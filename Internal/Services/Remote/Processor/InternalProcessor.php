@@ -1,7 +1,7 @@
 <?php namespace ZN\Services\Remote;
 
 use SSH;
-use ZN\IndividualStructures\Buffer\Callback as BufferCallback;
+use ZN\IndividualStructures\Buffer;
 
 class InternalProcessor extends RemoteCommon implements InternalProcessorInterface
 {
@@ -102,7 +102,7 @@ class InternalProcessor extends RemoteCommon implements InternalProcessorInterfa
             break;
 
             case 'system':
-                $return       = BufferCallback::do(function() use($command) {system($command, $this->return);});
+                $return       = Buffer\Callback::do(function() use($command) {system($command, $this->return);});
                 $this->output = $this->_split($return);
             break;
 

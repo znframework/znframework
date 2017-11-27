@@ -1,6 +1,6 @@
 <?php namespace ZN\DataTypes\Arrays;
 
-use ZN\Helpers\Converter\VariableTypes;
+use ZN\Helpers\Converter;
 
 class Sort
 {
@@ -37,7 +37,7 @@ class Sort
     //--------------------------------------------------------------------------------------------------------
     public static function order(Array $array, String $type = NULL, String $flags = 'regular') : Array
     {
-        $flags = VariableTypes::toConstant($flags, 'SORT_');
+        $flags = Converter\VariableTypes::toConstant($flags, 'SORT_');
 
         switch($type)
         {

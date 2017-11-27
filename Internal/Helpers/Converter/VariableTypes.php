@@ -1,7 +1,7 @@
 <?php namespace ZN\Helpers\Converter;
 
-use stdClass;
-use ZN\DataTypes\Strings\Split;
+use stdClass, Autoloader;
+use ZN\DataTypes\Strings;
 
 class VariableTypes
 {
@@ -164,9 +164,9 @@ class VariableTypes
     //--------------------------------------------------------------------------------------------------------
     public static function toConstant(String $var, String $prefix = NULL, String $suffix = NULL)
     {
-        $var = implode('_', Split::upperCase($var));
+        $var = implode('_', Strings\Split::upperCase($var));
         
-        $variable = \Autoloader::upper($prefix . $var . $suffix);
+        $variable = Autoloader::upper($prefix . $var . $suffix);
 
         if( defined($variable) )
         {

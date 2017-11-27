@@ -3,10 +3,8 @@
 use ZipArchive;
 use ZN\FileSystem\Exception\FileNotFoundException;
 use ZN\FileSystem\Exception\FileAllreadyException;
-use ZN\FileSystem\FileSystemFactory;
 use ZN\FileSystem\InternalGenerate;
-use ZN\FileSystem\Folder\Forge as FolderForge;
-use ZN\FileSystem\Folder\FileList;
+use ZN\FileSystem\Folder;
 
 class Forge
 {
@@ -28,7 +26,7 @@ class Forge
     //--------------------------------------------------------------------------------------------------------
     public static function generate() : InternalGenerate
     {
-        return FileSystemFactory::class('InternalGenerate');
+        return new InternalGenerate;
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -163,7 +161,7 @@ class Forge
 
         if( ! is_dir($pathDirName = Info::pathInfo($path, 'dirname')) )
         {
-            FolderForge::create($pathDirName);
+            Folder\Forge::create($pathDirName);
         }
 
         if( $zip->open($zipPath, ZipArchive::CREATE) !== true )
@@ -188,7 +186,7 @@ class Forge
 
             if( is_dir($file) )
             {
-                $allFiles = FileList::allFiles($file, true);
+                $allFiles = Folder\FileList::allFiles($file, true);
 
                 foreach( $allFiles as $f )
                 {

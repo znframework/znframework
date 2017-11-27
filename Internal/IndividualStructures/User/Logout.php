@@ -20,7 +20,7 @@ class Logout extends UserExtends
         $username    = $getColumns['username'];
         $password    = $getColumns['password'];
         $active      = $getColumns['active'];
-        $getUserData = Factory::class('Data')->get($tableName)->$username ?? NULL;
+        $getUserData = (new Data)->get($tableName)->$username ?? NULL;
 
         if( $getUserData !== NULL )
         {

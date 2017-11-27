@@ -1,6 +1,6 @@
 <?php namespace ZN\FileSystem\FTP;
 
-use ZN\FileSystem\File\Extension;
+use ZN\FileSystem\File;
 
 class Info extends Connection
 {
@@ -31,7 +31,7 @@ class Info extends Connection
             {
                 if( ! empty($extension) && $extension !== 'dir' )
                 {
-                    if( Extension::get($file) === $extension )
+                    if( File\Extension::get($file) === $extension )
                     {
                         $files[] = $file;
                     }
@@ -40,7 +40,7 @@ class Info extends Connection
                 {
                     if( $extension === 'dir' )
                     {
-                        $extens = Extension::get($file);
+                        $extens = File\Extension::get($file);
 
                         if( empty($extens) )
                         {
@@ -78,7 +78,7 @@ class Info extends Connection
     {
         $size = 0;
 
-        $extension = Extension::get($path);
+        $extension = File\Extension::get($path);
 
         if( ! empty($extension) )
         {

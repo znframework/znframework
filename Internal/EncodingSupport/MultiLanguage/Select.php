@@ -1,9 +1,8 @@
 <?php namespace ZN\EncodingSupport\MultiLanguage;
 
-use ZN\DataTypes\Json\Decode;
-use ZN\FileSystem\File\Content;
-use ZN\FileSystem\File\Info;
-use ZN\FileSystem\Folder\FileList;
+use ZN\DataTypes\Json;
+use ZN\FileSystem\File;
+use ZN\FileSystem\Folder;
 
 class Select extends MLExtends
 {
@@ -27,18 +26,18 @@ class Select extends MLExtends
     //--------------------------------------------------------------------------------------------------------
     public function do(String $key = NULL, $convert = NULL)
     {
-        if( Info::exists($this->lang) )
+        if( File\Info::exists($this->lang) )
         {
-            $read   = Content::read($this->lang);
+            $read   = File\Content::read($this->lang);
         }
 
-        if( Info::exists($this->externalLang) )
+        if( File\Info::exists($this->externalLang) )
         {
-            $eread  = Content::read($this->externalLang);
+            $eread  = File\Content::read($this->externalLang);
         }
 
-        $read   = Decode::array($read  ?? '');
-        $eread  = Decode::array($eread ?? '');
+        $read   = Json\Decode::array($read  ?? '');
+        $eread  = Json\Decode::array($eread ?? '');
         $array  = array_merge($eread, $read);
 
         if( $key === NULL )
@@ -77,7 +76,7 @@ class Select extends MLExtends
         {
             if( $app === NULL )
             {
-                $MLFiles = FileList::files($this->appdir, 'ml');
+                $MLFiles = Folder\FileList::files($this->appdir, 'ml');
             }
             elseif( is_array($app) )
             {
@@ -102,9 +101,9 @@ class Select extends MLExtends
         {
             $createFile = $this->_langFile($app);
 
-            $read = Content::read($createFile);
+            $read = File\Content::read($createFile);
 
-            return Decode::array($read);
+            return Json\Decode::array($read);
         }
     }
 }

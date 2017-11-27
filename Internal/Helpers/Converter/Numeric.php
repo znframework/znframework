@@ -1,8 +1,7 @@
 <?php namespace ZN\Helpers\Converter;
 
-use Cart, Strings;
-use ZN\DataTypes\Strings\Split;
-use ZN\DataTypes\Strings\Substitution;
+use Cart;
+use ZN\DataTypes\Strings;
 
 class Numeric
 {
@@ -168,7 +167,7 @@ class Numeric
     //--------------------------------------------------------------------------------------------------------
     public static function moneyToNumber($money) : Float
     {
-        return Substitution::replace(Split::divide($money, ','), '.', NULL);
+        return Strings\Substitution::replace(Strings\Split::divide($money, ','), '.', NULL);
     }
 
     //--------------------------------------------------------------------------------------------------------

@@ -2,11 +2,8 @@
 
 use ZN\IndividualStructures\Abstracts\CacheDriverMappingAbstract;
 use Support, Compress;
-use ZN\FileSystem\File\Content;
-use ZN\FileSystem\File\Forge;
-use ZN\FileSystem\File\Info;
-use ZN\FileSystem\Folder\Forge as FolderForge;
-use ZN\FileSystem\Folder\Info as FolderInfo;
+use ZN\FileSystem\File;
+use ZN\FileSystem\Folder;
 
 class FileDriver extends CacheDriverMappingAbstract
 {
@@ -41,7 +38,7 @@ class FileDriver extends CacheDriverMappingAbstract
 
         if( ! is_dir($this->path) )
         {
-            FolderForge::create($this->path, 0755);
+            Folder\Forge::create($this->path, 0755);
         }
 
         Support::writable($this->path);
@@ -98,9 +95,9 @@ class FileDriver extends CacheDriverMappingAbstract
             'data'  => $var
         ];
 
-        if( Content::write($this->path.$key, serialize($datas)) )
+        if( File\Content::write($this->path.$key, serialize($datas)) )
         {
-            Forge::permission($this->path.$key, 0640);
+            File\Forge::permission($this->path.$key, 0640);
 
             return true;
         }
@@ -118,7 +115,7 @@ class FileDriver extends CacheDriverMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function delete($key)
     {
-        return Forge::delete($this->path.$key);
+        return File\Forge::delete($this->path.$key);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -189,7 +186,7 @@ class FileDriver extends CacheDriverMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function clean()
     {
-        return FolderForge::delete($this->path);
+        return Folder\Forge::delete($this->path);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -202,7 +199,7 @@ class FileDriver extends CacheDriverMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function info($type = NULL)
     {
-        $info = FolderInfo::fileInfo($this->path);
+        $info = Folder\Info::fileInfo($this->path);
 
         if( $type === NULL )
         {
@@ -231,7 +228,7 @@ class FileDriver extends CacheDriverMappingAbstract
             return [];
         }
 
-        $data = unserialize(Content::read($this->path.$key));
+        $data = unserialize(File\Content::read($this->path.$key));
 
         if( is_array($data) )
         {
@@ -261,16 +258,16 @@ class FileDriver extends CacheDriverMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     protected function _select($key)
     {
-        if( ! Info::available($this->path.$key) )
+        if( ! File\Info::available($this->path.$key) )
         {
             return false;
         }
 
-        $data = unserialize(Content::read($this->path.$key));
+        $data = unserialize(File\Content::read($this->path.$key));
 
         if( $data['ttl'] > 0 && time() > $data['time'] + $data['ttl'] )
         {
-            Forge::delete($this->path.$key);
+            File\Forge::delete($this->path.$key);
 
             return false;
         }

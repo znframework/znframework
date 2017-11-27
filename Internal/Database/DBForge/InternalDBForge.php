@@ -1,7 +1,7 @@
 <?php namespace ZN\Database;
 
-use Strings, Support;
-use ZN\DataTypes\Strings\Split;
+use Support;
+use ZN\DataTypes\Strings;
 
 class InternalDBForge extends Connection implements InternalDBForgeInterface
 {
@@ -42,7 +42,7 @@ class InternalDBForge extends Connection implements InternalDBForgeInterface
     //--------------------------------------------------------------------------------------------------------
     public function __call($method, $parameters)
     {
-        $split  = Split::upperCase($originMethodName = $method);
+        $split  = Strings\Split::upperCase($originMethodName = $method);
         $table  = $split[0];
         $method = $split[1] ?? NULL;
 

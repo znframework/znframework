@@ -1,7 +1,7 @@
 <?php namespace ZN\ViewObjects\View\HTML\Helpers;
 
 use ZN\ViewObjects\View\Abstracts\HTMLHelpersAbstract;
-use ZN\DataTypes\Arrays\GetElement;
+use ZN\DataTypes\Arrays;
 use IS;
 
 class Lists extends HTMLHelpersAbstract
@@ -63,7 +63,7 @@ class Lists extends HTMLHelpersAbstract
                     $value = NULL;
                 }
 
-                $end = prefix(GetElement::first(explode(' ', $k)));
+                $end = prefix(Arrays\GetElement::first(explode(' ', $k)));
 
                 if( ! is_array($v) )
                 {

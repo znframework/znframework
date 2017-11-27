@@ -2,7 +2,7 @@
 
 use Config;
 use ZN\DateTime\Carbon\Carbon;
-use ZN\DataTypes\Arrays\MultipleKey;
+use ZN\DataTypes\Arrays;
 
 class DateTimeCommon extends Carbon
 {
@@ -164,7 +164,7 @@ class DateTimeCommon extends Carbon
 
         $chars  = Properties::${$config};
 
-        $chars  = MultipleKey::use($chars);
+        $chars  = Arrays\MultipleKey::use($chars);
 
         return str_ireplace(array_keys($chars), array_values($chars), $change);
     }

@@ -1,9 +1,8 @@
 <?php namespace ZN\Helpers;
 
-use Config, Folder, Date, User;
-use ZN\FileSystem\File\Info;
-use ZN\FileSystem\File\Forge;
-use ZN\FileSystem\Folder\Forge as FolderForge;
+use Config, Date, User;
+use ZN\FileSystem\File;
+use ZN\FileSystem\Folder;
 
 class InternalLogger implements InternalLoggerInterface
 {
@@ -165,7 +164,7 @@ class InternalLogger implements InternalLoggerInterface
 
         if( ! is_dir($logDir) )
         {
-            FolderForge::create($logDir, 0755);
+            Folder\Forge::create($logDir, 0755);
         }
 
         if( is_file($logDir.suffix($destination, $extension)) )
@@ -175,13 +174,13 @@ class InternalLogger implements InternalLoggerInterface
                 $time = Config::get('Project', 'log')['fileTime'];
             }
 
-            $createDate = Info::createDate($logDir.suffix($destination, $extension), 'd.m.Y');
+            $createDate = File\Info::createDate($logDir.suffix($destination, $extension), 'd.m.Y');
             $endDate    = strtotime("$time", strtotime($createDate));
             $endDate    = date('Y.m.d', $endDate);
 
             if( date('Y.m.d')  >  $endDate )
             {
-                Forge::delete($logDir.suffix($destination, $extension));
+                File\Forge::delete($logDir.suffix($destination, $extension));
             }
         }
 

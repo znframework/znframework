@@ -1,7 +1,7 @@
 <?php namespace ZN\IndividualStructures\Import;
 
 use Config;
-use ZN\DataTypes\Arrays\RemoveElement;
+use ZN\DataTypes\Arrays;
 
 class BootstrapExtends
 {
@@ -39,7 +39,7 @@ class BootstrapExtends
 
         if( $lastParam === true )
         {
-            $arguments = RemoveElement::last($arguments);
+            $arguments = Arrays\RemoveElement::last($arguments);
         }
 
         return (object)

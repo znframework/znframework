@@ -1,6 +1,6 @@
 <?php namespace ZN\DataTypes\Json;
 
-use ZN\Helpers\Converter\VariableTypes;
+use ZN\Helpers\Converter;
 
 class Encode
 {
@@ -23,6 +23,6 @@ class Encode
     //--------------------------------------------------------------------------------------------------------
     public static function do($data, String $type = 'unescaped_unicode') : String
     {
-        return json_encode($data, VariableTypes::toConstant($type, 'JSON_'));
+        return json_encode($data, Converter\VariableTypes::toConstant($type, 'JSON_'));
     }
 }

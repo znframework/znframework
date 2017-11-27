@@ -1,8 +1,8 @@
 <?php namespace ZN\ErrorHandling;
 
 use Exception, Config, Lang, Logger;
-use ZN\DataTypes\Strings\Split;
-use ZN\IndividualStructures\Import\Template;
+use ZN\DataTypes\Strings;
+use ZN\IndividualStructures\Import;
 
 class InternalExceptions extends Exception implements InternalExceptionsInterface
 {
@@ -177,7 +177,7 @@ class InternalExceptions extends Exception implements InternalExceptionsInterfac
             }
         }
 
-        $message = Template::use('ExceptionTable', $exceptionData, true);
+        $message = Import\Template::use('ExceptionTable', $exceptionData, true);
 
         return preg_replace('/\[(.*?)\]/', '<span style="color:#990000;">$1</span>', $message);
     }
@@ -191,7 +191,7 @@ class InternalExceptions extends Exception implements InternalExceptionsInterfac
     //--------------------------------------------------------------------------------------------------------
     protected function _cleanClassName($class)
     {
-        return str_ireplace(INTERNAL_ACCESS, '', Split::divide($class, '\\', -1));
+        return str_ireplace(INTERNAL_ACCESS, '', Strings\Split::divide($class, '\\', -1));
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -301,7 +301,7 @@ class InternalExceptions extends Exception implements InternalExceptionsInterfac
         $argument = ! empty($match[1]) ? $match[1] : NULL;
         $class    = ! empty($match[2]) ? $match[2] : NULL;
         $method   = ! empty($match[3]) ? $match[3] : NULL;
-        $type     = ! empty($match[4]) ? strtolower(Split::divide($match[4], '\\', -1)) : NULL;
+        $type     = ! empty($match[4]) ? strtolower(Strings\Split::divide($match[4], '\\', -1)) : NULL;
         $data     = ! empty($match[5]) ? strtolower($match[5]) : NULL;
 
         if( empty($match) )

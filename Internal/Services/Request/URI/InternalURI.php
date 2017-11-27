@@ -1,9 +1,10 @@
 <?php namespace ZN\Services\Request;
 
-use ZN\In, Lang, URL, Config, IS;
-use ZN\DataTypes\Strings\Split;
-use ZN\DataTypes\Arrays\RemoveElement;
-use ZN\IndividualStructures\Security\Html;
+use Lang, URL, Config, IS;
+use ZN\In;
+use ZN\DataTypes\Strings;
+use ZN\DataTypes\Arrays;
+use ZN\IndividualStructures\Security;
 
 class InternalURI implements InternalURIInterface
 {
@@ -342,7 +343,7 @@ class InternalURI implements InternalURIInterface
     //--------------------------------------------------------------------------------------------------------
     public function segmentArray() : Array
     {
-        $segmentEx = RemoveElement::element(explode('/', $this->_cleanPath()), '');
+        $segmentEx = Arrays\RemoveElement::element(explode('/', $this->_cleanPath()), '');
 
         return $segmentEx;
     }
@@ -480,7 +481,7 @@ class InternalURI implements InternalURIInterface
 
             if( $currentLang = Lang::current() )
             {
-                $isLang = Split::divide($currentUri, '/');
+                $isLang = Strings\Split::divide($currentUri, '/');
 
                 if( strlen($isLang) === 2 )
                 {
@@ -547,7 +548,7 @@ class InternalURI implements InternalURIInterface
         }
         else
         {
-            return Split::divide($str, '/', -1);
+            return Strings\Split::divide($str, '/', -1);
         }
     }
 
@@ -559,7 +560,7 @@ class InternalURI implements InternalURIInterface
     //--------------------------------------------------------------------------------------------------------
     protected function _cleanPath()
     {
-        $pathInfo = Html::encode($this->active());
+        $pathInfo = Security\Html::encode($this->active());
 
         return $pathInfo;
     }
