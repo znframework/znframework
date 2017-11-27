@@ -2,7 +2,6 @@
 
 use Config, URI, IS, User;
 use ZN\In;
-use ZN\DataTypes\Arrays;
 use ZN\FileSystem\Folder;
 
 class Restoration
@@ -40,7 +39,7 @@ class Restoration
 
             if( $folders !== 'standart' )
             {
-                $array = Arrays\Merge::do($array, $folders);
+                $array = array_merge($array, $folders);
             }
     
             foreach( $array as $folder )
@@ -96,7 +95,7 @@ class Restoration
     //--------------------------------------------------------------------------------------------------------
     public static function routeURI($machinesIP, String $uri)
     {
-        if( ! Arrays\Exists::value((array) $machinesIP, User::ip()) && In::requestURI() !== $uri )
+        if( ! in_array(User::ip(), (array) $machinesIP) && In::requestURI() !== $uri )
         {
             redirect($uri);
         }

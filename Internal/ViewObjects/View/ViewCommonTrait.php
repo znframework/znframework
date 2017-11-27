@@ -74,40 +74,40 @@ trait ViewCommonTrait
         {
             $multiElement = $this->elements['multiElement'];
 
-            if( Arrays\Exists::key($multiElement, $method) )
+            if( array_key_exists($method, $multiElement) )
             {
                 $realMethod = $multiElement[$method];
 
                 return $this->_multiElement($realMethod, ...$parameters);
             }
-            elseif( Arrays\Exists::value($multiElement, $method) )
+            elseif( in_array($method, $multiElement) )
             {
                 return $this->_multiElement($realMethod, ...$parameters);
             }
-            elseif( Arrays\Exists::value($this->elements['singleElement'], $method) )
+            elseif( in_array($method, $this->elements['singleElement']) )
             {
                 return $this->_singleElement($realMethod, ...$parameters);
             }
-            elseif( Arrays\Exists::value($this->elements['mediaContent'], $method) )
+            elseif( in_array($method, $this->elements['mediaContent']) )
             {
                 return $this->_mediaContent($parameters[0], $parameters[1] ?? NULL, $parameters[2] ?? [], $realMethod);
             }
-            elseif( Arrays\Exists::value($this->elements['media'], $method) )
+            elseif( in_array($method, $this->elements['media']) )
             {
                 return $this->_media($parameters[0], $parameters[1] ?? [], $realMethod);
             }
-            elseif( Arrays\Exists::value($this->elements['contentAttribute'], $method) )
+            elseif( in_array($method, $this->elements['contentAttribute']) )
             {
                 return $this->_contentAttribute($parameters[0], $parameters[1] ?? [], $realMethod);
             }
-            elseif( Arrays\Exists::value($this->elements['content'], $method) )
+            elseif( in_array($method, $this->elements['content']) )
             {
                 return $this->_content($parameters[0], $realMethod);
             }
         }
         elseif( $className === 'Form' )
         {
-            if( Arrays\Exists::value($this->elements['input'], $method) )
+            if( in_array($method, $this->elements['input']) )
             {
                 return $this->_input($parameters[0], $parameters[1] ?? NULL, $parameters[2] ?? [], $realMethod);
             }

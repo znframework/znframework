@@ -53,7 +53,7 @@ class Casing
     //--------------------------------------------------------------------------------------------------------
     public static function lowerKeys(Array $array) : Array
     {
-        return self::use($array, 'lower', 'key');
+        return array_change_key_case($array);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -77,7 +77,7 @@ class Casing
     //--------------------------------------------------------------------------------------------------------
     public static function upperKeys(Array $array) : Array
     {
-        return self::use($array, 'upper', 'key');
+        return array_change_key_case($array, CASE_UPPER);
     }
 
     //--------------------------------------------------------------------------------------------------------

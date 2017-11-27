@@ -1,7 +1,6 @@
 <?php namespace Project\Controllers;
 
 use Collection, Import;
-use ZN\DataTypes\Arrays;
 
 trait ViewTrait
 {
@@ -79,13 +78,13 @@ trait ViewTrait
         {
             $ex = explode(':', $parameters[0]);
 
-            if( Arrays\Exists::value(self::$usableMethods, $met = $ex[0]) )
+            if( in_array($met = $ex[0], self::$usableMethods) )
             {
                 $pr = Collection::data($parameters)->removeFirst()->addLast(true)->get();
 
                 if( strstr('page|view|something', $met) && ! is_array($pr[0]) )
                 {
-                    $pr = Arrays\AddElement::first($pr, NULL);
+                    array_unshift($pr, NULL);
                 }
 
                 self::$data[$method] = $value = Import::$met($ex[1] ?? NULL, ...$pr);

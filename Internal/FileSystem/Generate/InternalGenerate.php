@@ -642,23 +642,23 @@ class InternalGenerate extends CallController implements InternalGenerateInterfa
                     $file      = $table;
                     $table     = File\Extension::remove($table);
 
-                    if( ! Arrays\Exists::key($tableData, 'id') )
+                    if( ! array_key_exists('id', $tableData) )
                     {
-                        $tableData = Arrays\AddElement::first($tableData,
-                        [
+                        $tableData = array_merge
+                        ([
                             'id' => [DB::int(11), DB::notNull(), DB::autoIncrement(), DB::primaryKey()]
-                        ]);
+                        ], $tableData);                        
                     }
 
                     $tableColumns    = $db->get($table)->columns();
                     $pregGrepArray   = preg_grep('/_000/', $tableColumns);
-                    $currentTableKey = strtolower(Arrays\Element::value($pregGrepArray));
+                    $currentTableKey = strtolower(current($pregGrepArray));
                     $currentColumns  = Arrays\RemoveElement::element($tableColumns, $pregGrepArray);
                     $tableKey        = strtolower($table.'_000' . md5(Json\Encode::do($tableData)));
 
                     if( ! empty($currentColumns) )
                     {
-                        $columnsMerge = Arrays\Merge::do(Arrays\Transform::flip($currentColumns), $tableData);
+                        $columnsMerge = array_merge(array_flip($currentColumns), $tableData);
 
                         foreach( $columnsMerge as $key => $val )
                         {
@@ -667,7 +667,7 @@ class InternalGenerate extends CallController implements InternalGenerateInterfa
                                 $dbForge->dropColumn($table, $key);
                                 $status = true;
                             }
-                            elseif( Arrays\Exists::value($currentColumns, $key) )
+                            elseif( in_array($key, $currentColumns) )
                             {
                                 if( $currentTableKey !== $tableKey )
                                 {

@@ -46,7 +46,7 @@ class InternalReflect
     {
         $lower = strtolower($method);
 
-        if( Arrays\Exists::value($this->classes, $lower) )
+        if( in_array($lower, $this->classes) )
         {
             return $this->call($parameters, $method);
         }

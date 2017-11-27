@@ -1607,10 +1607,10 @@ class InternalDB extends Connection implements InternalDBInterface
     {
         $this->_csv($file);
         
-        Arrays\Force::values($file, function($data) use($table)
+        array_map(function($data) use($table)
         {
             $this->duplicateCheck()->insert(prefix($table, 'ignore:'), $data);
-        });
+        }, $file);
         
         return true;
     }
@@ -2230,15 +2230,15 @@ class InternalDB extends Connection implements InternalDBInterface
             $method  = $tableEx[0];
             $table   = $tableEx[1];
 
-            if( Arrays\Exists::value($methods, $method) )
+            if( in_array($method, $methods) )
             {
                 if( $method !== 'ignore' )
                 {
                     $data = Method::$method();
                 }
 
-                $columns = Arrays\Transform::flip($this->_query('SELECT * FROM ' . $table)->columns());
-                $data    = Arrays\Intersect::key($data, $columns);
+                $columns = array_flip($this->_query('SELECT * FROM ' . $table)->columns());
+                $data    = array_intersect_key($data, $columns);
             }
         }
     }
@@ -2254,11 +2254,14 @@ class InternalDB extends Connection implements InternalDBInterface
     {
         $csv       = Excel::CSVToArray($data);
         $csvColumn = $csv[0];
-        $csvDatas  = Remove::first($csv);
-        $data      = Arrays\Force::values($csvDatas, function($d) use($csvColumn)
+
+        array_shift($csv);
+
+        $csvDatas  = $csv;
+        $data      = array_map(function($d) use($csvColumn)
         {
-            return Arrays\Combine::do($csvColumn, $d);
-        });
+            return array_combine($csvColumn, $d);
+        }, $csvDatas);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -2459,7 +2462,7 @@ class InternalDB extends Connection implements InternalDBInterface
             if( is_string($getLast) )
             {
                 $conjunction = $getLast;
-                $conditions  = Arrays\RemoveElement::last($conditions);
+                array_pop($conditions);
             }
             else
             {

@@ -25,7 +25,7 @@ class Extension
     {
         $dote = $dote === true ? '.' : '';
 
-        return $dote . strtolower(Info::pathInfo($file, "extension"));
+        return $dote . strtolower(pathinfo($file, PATHINFO_EXTENSION));
     }
 
     //--------------------------------------------------------------------------------------------------

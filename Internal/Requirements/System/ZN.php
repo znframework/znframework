@@ -2,7 +2,6 @@
 
 use Restful, Separator, Strings, Lang, URI, Route;
 use ZN\Core\Kernel, Cache, Config, User;
-use ZN\DataTypes\Arrays;
 use ZN\FileSystem\File;
 use ZN\FileSystem\Folder;
 use ZN\Helpers\Converter;
@@ -95,7 +94,7 @@ class ZN
     //--------------------------------------------------------------------------------------------------
     public static function upgradeFiles()
     {
-        return Arrays\Element::keys(self::_restful());
+        return array_keys(self::_restful());
     }
 
     //--------------------------------------------------------------------------------------------------
@@ -114,9 +113,9 @@ class ZN
         if
         (
             ($projectConfig['status'] ?? NULL) === true                                                                    &&
-            ( ! Arrays\Exists::value(($projectConfig['machinesIP'] ?? []), User::ip()) )                                    &&
-            ( empty($projectConfig['include']) || Arrays\Exists::value(($projectConfig['include'] ?? []), CURRENT_CFPATH) ) &&
-            ( empty($projectConfig['exclude']) || ! Arrays\Exists::value(($projectConfig['exclude'] ?? []), CURRENT_CFPATH) )
+            ( ! in_array(User::ip(), ($projectConfig['machinesIP'] ?? [])) )                                    &&
+            ( empty($projectConfig['include']) || in_array(CURRENT_CFPATH, ($projectConfig['include'] ?? [])) ) &&
+            ( empty($projectConfig['exclude']) || ! in_array(CURRENT_CFPATH, ($projectConfig['exclude'] ?? [])) )
         )
         {
             $converterName = Converter\Unicode::slug(URI::active());

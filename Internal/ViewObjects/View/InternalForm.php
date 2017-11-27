@@ -225,7 +225,8 @@ class InternalForm
         {
             $key     = key($options);
             $current = current($options);
-            $options = Arrays\RemoveElement::first($options);
+            
+            array_shift($options);
 
             if( ! empty($this->settings['table']) )
             {

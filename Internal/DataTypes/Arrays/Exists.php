@@ -36,7 +36,7 @@ class Exists
     //--------------------------------------------------------------------------------------------------------
     public static function valueInsensitive(Array $array, $element, Bool $strict = false) : Bool
     {
-        return self::value(Map::do('strtolower', $array), strtolower($element), $strict);
+        return self::value(array_map('strtolower', $array), strtolower($element), $strict);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -62,6 +62,6 @@ class Exists
     //--------------------------------------------------------------------------------------------------------
     public static function keyInsensitive(Array $array, $key) : Bool
     {
-        return self::key(Casing::lowerKeys($array), strtolower($key));
+        return self::key(array_change_key_case($array), strtolower($key));
     }
 }

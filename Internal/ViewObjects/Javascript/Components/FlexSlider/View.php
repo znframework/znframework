@@ -40,8 +40,8 @@ if( ! empty($extensions) )
             else:
                 echo Html::anchor
                 (
-                    ZN\DataTypes\Arrays\Element::key($image), 
-                    Html::image($path . ZN\DataTypes\Arrays\Element::value($image))
+                    key($image), 
+                    Html::image($path . current($image))
                 );
             endif;
             ?>

@@ -82,7 +82,7 @@ class InternalDebug extends CallController implements InternalDebugInterface
     public function output($type = 'array')
     {
         $debug = Arrays\RemoveElement::first($this->debug, 2);
-        $debug = Arrays\AddElement::first($debug, [(array) $this->current()]);
+        $debug = array_merge([(array) $this->current()], $debug);
 
         if( is_numeric($type) )
         {

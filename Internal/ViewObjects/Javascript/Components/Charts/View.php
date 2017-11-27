@@ -43,6 +43,6 @@ if( ! empty($extensions) )
 <?php $properties['element'] = $id ?>
 $(function()
 {
-    Morris.<?php echo ZN\DataTypes\Strings\Casing::title($type) ?>(<?php echo ZN\DataTypes\Json\Encode::do($properties)?>);
+    Morris.<?php echo mb_convert_case($type, MB_CASE_TITLE, 'utf-8') ?>(<?php echo json_encode($properties)?>);
 });
 </script>

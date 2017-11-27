@@ -87,7 +87,7 @@ class RemoteCommon extends CLController implements RemoteCommonInterface
         $file       = str_replace('\\', '\\\\', $datas['file']);
 
         $command    = 'import("'.$file.'");';
-        $command   .= 'uselib("'.$class.'")->'.$function.'('. implode(',', Arrays\Map::do('Processor::addNail', $parameters)) .')';
+        $command   .= 'uselib("'.$class.'")->'.$function.'('. implode(',', array_map('Processor::addNail', $parameters)) .')';
 
         return $command;
     }

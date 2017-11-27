@@ -2,7 +2,6 @@
 
 use DB, DBTool, DBForge, GeneralException;
 use ZN\DataTypes\Strings;
-use ZN\DataTypes\Arrays;
 
 class RelevanceModel extends \BaseController
 {
@@ -100,15 +99,15 @@ class RelevanceModel extends \BaseController
 
         $split = Strings\Split::upperCase($method);
         
-        if( Arrays\Exists::value($this->resultMethods, strtolower($lowerMethod)) )
+        if( in_array($lowerMethod, $this->resultMethods) )
         {
             return $this->_resultMethods($method, $parameters);
         }
-        elseif( Arrays\Exists::value($this->manipulationMethods, strtolower($lowerMethod)) )
+        elseif( in_array($lowerMethod, $this->manipulationMethods) )
         {
             return $this->_manipulationMethods($method, $parameters);
         }
-        elseif( Arrays\Exists::value($this->toolMethods, strtolower($lowerMethod)) )
+        elseif( in_array($lowerMethod, $this->toolMethods) )
         {
             return $this->_toolMethods($method, $parameters);
         }
@@ -371,10 +370,10 @@ class RelevanceModel extends \BaseController
     {
         $columns = DB::get($table)->columns();
 
-        $select  = Arrays\Force::values($columns, function($data) use($table)
+        $select  = array_map(function($data) use($table)
         {
             return prefix($data, $table . '.' . $data . ' as ' . $table . '_');
-        });
+        }, $columns);
 
         return implode(', ', $select);
     }

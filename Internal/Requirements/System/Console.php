@@ -58,12 +58,12 @@ class Console
 
         $realCommands = implode(' ', Arrays\RemoveElement::first($commands, 3));
 
-        $commands = Arrays\RemoveElement::first($commands);
+        array_shift($commands);
 
         if( ($commands[0] ?? NULL) !== 'project-name' )
         {
-            $commands = Arrays\AddElement::first($commands, DEFAULT_PROJECT);
-            $commands = Arrays\AddElement::first($commands, 'project-name');
+            array_unshift($commands, DEFAULT_PROJECT);
+            array_unshift($commands, 'project-name');
         }
 
         self::$project = $commands[1] ?? DEFAULT_PROJECT;
@@ -77,7 +77,7 @@ class Console
 
         $parameters = Arrays\RemoveElement::first($commands, 4);
 
-        self::$parameters = Arrays\Force::values($parameters, function($data)
+        self::$parameters = array_map(function($data)
         {
             $return = $data;
 
@@ -87,7 +87,7 @@ class Console
             }
 
             return $return;
-        });
+        }, $parameters);
 
         switch( $command )
         {
@@ -357,7 +357,9 @@ class Console
 
         if( $funcparamEx[1] ?? NULL )
         {
-            $parameters = Arrays\RemoveElement::first($funcparamEx);
+            array_shift($funcparamEx);
+
+            $parameters = $funcparamEx;
         }
 
         if( strtolower($classEx[0]) === 'external' )

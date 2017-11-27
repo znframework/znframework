@@ -51,7 +51,7 @@ $extensions = JC::extensions($extensions, ['jquery', 'datatables'], $autoloadExt
 //--------------------------------------------------------------------------------------------------------
 if( empty($serverSide) )
 {
-    $columns = ZN\DataTypes\Arrays\Element::keys
+    $columns = array_keys
     (
         ZN\DataTypes\Arrays\GetElement::first($result)
     );

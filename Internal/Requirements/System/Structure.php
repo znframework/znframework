@@ -3,7 +3,6 @@
 use Errors, Restoration;
 use ZN\Classes\Config;
 use ZN\DataTypes\Strings;
-use ZN\DataTypes\Arrays;
 use ZN\In;
 
 class Structure
@@ -179,7 +178,7 @@ class Structure
         //----------------------------------------------------------------------------------------------
         return
         [
-            'parameters'   => Arrays\Element::values($parameters),
+            'parameters'   => array_values($parameters),
             'page'         => $page,
             'file'         => self::_realSeparator($isFile),
             'function'     => $function,

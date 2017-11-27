@@ -365,7 +365,7 @@ class Masterpage
     //--------------------------------------------------------------------------------------------------------
     protected function _theme($masterPageSet, $head, $type = 'theme')
     {
-        $theme = Arrays\RemoveElement::element(Arrays\Merge::do((array) ($masterPageSet[$type]['name'] ?? []), (array) ($head[$type]['name'] ?? [])), '');
+        $theme = Arrays\RemoveElement::element(array_merge((array) ($masterPageSet[$type]['name'] ?? []), (array) ($head[$type]['name'] ?? [])), '');
 
         if( ! empty($theme) )
         {   

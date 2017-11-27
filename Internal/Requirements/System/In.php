@@ -3,7 +3,6 @@
 use Config, Exceptions, Errors, GeneralException, Regex, Route;
 use View, Masterpage, Http, Lang, URI, URL, IS, Logger;
 use ZN\DataTypes\Strings;
-use ZN\DataTypes\Arrays;
 use ZN\FileSystem\File;
 use ZN\FileSystem\Folder;
 use ZN\IndividualStructures\Import;
@@ -86,7 +85,7 @@ class In
 
         if( $requestMethods = $invalidRequest[$type] )
         {
-            $requestMethods = Arrays\Casing::lowerKeys($requestMethods);
+            $requestMethods = array_change_key_case($requestMethods);
 
             if( ! empty($requestMethod = $requestMethods[CURRENT_CFURI] ?? NULL) )
             {

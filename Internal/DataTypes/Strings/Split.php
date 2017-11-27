@@ -66,21 +66,12 @@ class Split
             return $arrayEx;
         }
 
-        if( $index < 0 )
+        switch( true )
         {
-            $ind = (count($arrayEx) + ($index));
-        }
-        elseif( $index === 'last' )
-        {
-            $ind = (count($arrayEx) - 1);
-        }
-        elseif( $index === 'first' )
-        {
-            $ind = 0;
-        }
-        else
-        {
-            $ind = $index;
+            case $index < 0        : $ind = (count($arrayEx) + ($index)); break;
+            case $index === 'last' : $ind = (count($arrayEx) - 1);        break;
+            case $index === 'first': $ind = 0;                            break;
+            default                : $ind = $index;
         }
 
         return $arrayEx[$ind] ?? false;

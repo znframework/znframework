@@ -39,7 +39,7 @@ class BootstrapExtends
 
         if( $lastParam === true )
         {
-            $arguments = Arrays\RemoveElement::last($arguments);
+            array_pop($arguments);
         }
 
         return (object)

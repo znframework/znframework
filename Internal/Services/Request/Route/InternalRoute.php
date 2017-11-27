@@ -533,7 +533,9 @@ class InternalRoute extends CLController implements InternalRouteInterface
         $lowerPath = strtolower($path);
 
         $filters = $this->filters;
-        $filters = Arrays\AddElement::last($filters, 'redirect');
+
+        array_push($filters, 'redirect');
+
         $filters = Arrays\RemoveElement::element($filters, 'usable');
 
         $this->_filter($filters, $lowerPath);
@@ -642,7 +644,7 @@ class InternalRoute extends CLController implements InternalRouteInterface
         // Database Routing
         $route = preg_replace_callback('/\[(\w+|\.)\:(\w+|\.)(\s*\,\s*((json|serial|separator))(\:(.*?))*)*\]/i', function($match) use (&$count, &$return, $routeSegment)
         {
-            $count   = Arrays\Search::do($routeSegment, $match[0]);
+            $count   = array_search($match[0], $routeSegment);
             $decoder = $match[4] ?? NULL;
             $value   = $val = URI::segment($count + 1);
             $column  = $match[2];
@@ -665,9 +667,9 @@ class InternalRoute extends CLController implements InternalRouteInterface
                 $return    = $rows->$row ?? NULL;
 
                 // Current Lang Manipulation
-                if( $return !== $value && Arrays\Exists::value($rowsArray, $val) )
+                if( $return !== $value && in_array($val, $rowsArray) )
                 {
-                    $arrayTransform = Arrays\Transform::flip($rowsArray);
+                    $arrayTransform = array_flip($rowsArray);
 
                     $newRow = $arrayTransform[$val];
                     $return = $rows->$newRow;
@@ -708,7 +710,7 @@ class InternalRoute extends CLController implements InternalRouteInterface
     //--------------------------------------------------------------------------------------------------------
     public function run(String $functionName, Callable $functionRun = NULL, Bool $usable = true)
     {
-        if( Arrays\Exists::value(['construct', 'destruct'], $functionName) )
+        if( in_array($functionName, ['construct', 'destruct']) )
         {
             call_user_func_array($functionRun, CURRENT_CPARAMETERS);
         }

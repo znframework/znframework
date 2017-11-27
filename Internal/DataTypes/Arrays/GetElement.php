@@ -28,7 +28,7 @@ class GetElement
         }
         else
         {
-            return Section::do($array, -$count, NULL, $preserveKey);
+            return array_slice($array, -$count, NULL, $preserveKey);
         }
 
         return $array;
@@ -51,7 +51,7 @@ class GetElement
         }
         else
         {
-            return Section::do($array, 0, $count, $preserveKey);
+            return array_slice($array, 0, $count, $preserveKey);
         }
 
         return $array;

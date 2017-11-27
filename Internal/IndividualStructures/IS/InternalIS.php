@@ -33,7 +33,7 @@ class InternalIS implements InternalISInterface
         }
 
         // 5.3.2[edited]
-        if( Arrays\Exists::value($this->dataTypes, $method) )
+        if( in_array($method, $this->dataTypes) )
         {
             return Filters::$method($parameters[0]);
         }
@@ -61,7 +61,7 @@ class InternalIS implements InternalISInterface
     //--------------------------------------------------------------------------------------------------
     public function timeZone(String $timezone) : Bool
     {
-        return Arrays\Exists::value(timezone_identifiers_list(), $timezone);
+        return in_array($timezone, timezone_identifiers_list());
     }
 
     //--------------------------------------------------------------------------------------------------
@@ -173,7 +173,7 @@ class InternalIS implements InternalISInterface
     //--------------------------------------------------------------------------------------------------
     public function hash(String $type) : Bool
     {
-        $hashAlgos = Arrays\AddElement::last(hash_algos(), ['super', 'golden']);
+        $hashAlgos = array_merge(hash_algos(), ['super', 'golden']);
 
         return in_array($type, $hashAlgos);
     }

@@ -214,7 +214,7 @@ class InternalHTTP extends CLController implements InternalHTTPInterface
     //--------------------------------------------------------------------------------------------------------
     public function isRequestMethod(...$methods) : Bool
     {
-        if( ! Arrays\Exists::value($methods, strtolower(server('requestMethod'))) )
+        if( ! in_array(strtolower(server('requestMethod')), $methods) )
         {
             return false;
         }

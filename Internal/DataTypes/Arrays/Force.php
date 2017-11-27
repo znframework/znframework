@@ -21,7 +21,7 @@ class Force
     //--------------------------------------------------------------------------------------------------------
     public static function values(Array $array, Callable $callable) : Array
     {
-        return Map::do($callable, $array);
+        return array_map($callable, $array);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -34,9 +34,9 @@ class Force
     //--------------------------------------------------------------------------------------------------------
     public static function keys(Array $array, Callable $callable) : Array
     {
-        $keys = Map::do($callable, Element::keys($array));
+        $keys = array_map($callable, array_keys($array));
 
-        return Combine::do($keys, Element::values($array));
+        return array_combine($keys, array_values($array));
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -49,9 +49,9 @@ class Force
     //--------------------------------------------------------------------------------------------------------
     public static function do(Array $array, Callable $callable) : Array
     {
-        $values = Element::values(Map::do($callable, $array));
-        $keys   = Element::values(Map::do($callable, Element::keys($array)));
+        $values = array_values(array_map($callable, $array));
+        $keys   = array_values(array_map($callable, array_keys($array)));
 
-        return Combine::do($keys, $values);
+        return array_combine($keys, $values);
     }
 }

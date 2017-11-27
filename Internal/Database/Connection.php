@@ -294,7 +294,10 @@ class Connection implements ConnectionInterface
     //--------------------------------------------------------------------------------------------------------
     public function func(...$args)
     {
-        $array = Arrays\RemoveElement::first($args);
+        $array = $args;
+
+        array_shift($array);
+
         $math  = $this->_math(isset($args[0]) ? Autoloader::upper($args[0]) : false, $array);
 
         if( $math->return === true )
@@ -497,14 +500,15 @@ class Connection implements ConnectionInterface
 
         if( $getLast === true )
         {
-            $args   = Arrays\RemoveElement::last($args);
+            array_pop($args);
+
             $return = true;
             $as     = Arrays\GetElement::last($args);
 
             if( stripos(trim($as), 'as') === 0 )
             {
                 $asparam .= $as;
-                $args   = Arrays\RemoveElement::last($args);
+                array_pop($args);
             }
         }
         else
@@ -515,16 +519,16 @@ class Connection implements ConnectionInterface
         if( stripos(trim($getLast), 'as') === 0 )
         {
             $asparam .= $getLast;
-            $args     = Arrays\RemoveElement::last($args);
+            array_pop($args);
         }
 
         $args = $type.'('.rtrim(implode(',', $args), ',').')'.$asparam;
 
-        return (object) array
-        (
+        return (object) 
+        [
             'args'   => $args,
             'return' => $return
-        );
+        ];
     }
 
     //--------------------------------------------------------------------------------------------------------

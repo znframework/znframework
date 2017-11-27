@@ -614,7 +614,7 @@ class InternalDBGrid extends Abstracts\GridAbstract
     //--------------------------------------------------------------------------------------------------------
     protected function _hideButton($output, $button)
     {
-        if( Arrays\Exists::value($this->hide, $button) )
+        if( in_array($button, $this->hide) )
         {
             return NULL;
         }
@@ -717,7 +717,7 @@ class InternalDBGrid extends Abstracts\GridAbstract
                 $combine = $value;
             }
 
-            $value       = Arrays\Casing::lowerKeys($combine);
+            $value       = array_change_key_case($combine);
             $hiddenValue = $value[strtolower($this->processColumn)] ?? NULL;
             $hiddenId    = Form::hidden('id', $hiddenValue);
      
@@ -861,7 +861,7 @@ class InternalDBGrid extends Abstracts\GridAbstract
     protected function _editTable($columns, $tbl, $row, $columnData)
     {
         $table  = '<table'.Html::attributes(VIEWOBJECTS_DATAGRID_CONFIG['attributes']['editTables']).'>';
-        $table .= '<tr><td width="100">'.Strings\Casing::upper($tbl).'</td></tr>';
+        $table .= '<tr><td width="100">'.mb_convert_case($tbl, MB_CASE_UPPER, 'utf-8').'</td></tr>';
 
         $processColumn = strtolower($this->processColumn);
         $columnDatas   =
@@ -894,7 +894,7 @@ class InternalDBGrid extends Abstracts\GridAbstract
                     $type = 'text';
                 }
 
-                $table .= '<tr><td>'.Strings\Casing::title($column).'</td><td>';
+                $table .= '<tr><td>'.mb_convert_case($column, MB_CASE_TITLE, 'utf-8').'</td><td>';
 
                 $inputName = $tbl.':'.$column;
 
@@ -934,18 +934,25 @@ class InternalDBGrid extends Abstracts\GridAbstract
 
         if( ! empty($this->joins) )
         {
-            $select = Arrays\AddElement::first($this->select, $this->table.'.'.$this->processColumn.' as ID');
+            array_unshit($select, $this->table.'.'.$this->processColumn.' as ID');
         }
 
         DB::select(...$select);
     }
 
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Origin Columns
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
     protected function _origincolumns()
     {
-        return Arrays\Force::values($this->select, function($data)
+        return array_map(function($data)
         {
             return explode(' ', $data)[0] ?? $data;
-        });
+        }, $this->select);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -1157,13 +1164,13 @@ class InternalDBGrid extends Abstracts\GridAbstract
                 $this->joinColumns[] = $joinColumn;
                 $this->joinColumns[] = $currentColumn;
 
-                $this->joins = Arrays\AddElement::last($this->joins, [$joinTableColumn, $currentTableColumn]);
+                $this->joins = array_merge($this->joins, [$joinTableColumn, $currentTableColumn]);
 
                 $this->joinTables[$joinTable]    = $joinColumn;
                 $this->joinTables[$currentTable] = $currentColumn;
             }
 
-            $this->joins = Arrays\Sort::order(array_unique($this->joins));
+            $this->joins = sort(array_unique($this->joins));
         }
     }
 

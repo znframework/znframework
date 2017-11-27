@@ -167,7 +167,7 @@ class Numeric
     //--------------------------------------------------------------------------------------------------------
     public static function moneyToNumber($money) : Float
     {
-        return Strings\Substitution::replace(Strings\Split::divide($money, ','), '.', NULL);
+        return str_replace('.', NULL, Strings\Split::divide($money, ','));
     }
 
     //--------------------------------------------------------------------------------------------------------

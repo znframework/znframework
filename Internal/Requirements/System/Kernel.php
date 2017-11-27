@@ -3,7 +3,6 @@
 use Route, Throwable, Exceptions, Config, Errors;
 use Generate, Restoration, URL, Lang, IS;
 use View, Masterpage, ZN\In, Logger, Http;
-use ZN\DataTypes\Arrays;
 use ZN\FileSystem\File;
 use ZN\FileSystem\Folder;
 use ZN\IndividualStructures\Import;
@@ -151,8 +150,9 @@ class Kernel
             {
                 if( ! is_callable([$page, $function]) )
                 {
-                    $parameters = Arrays\AddElement::first($parameters, $function);
-                    $function   = $openFunction;
+                    array_unshift($parameters, $function);
+                    
+                    $function = $openFunction;
                 }
 
                 if( is_callable([$page, $function]) )
