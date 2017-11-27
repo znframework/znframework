@@ -135,6 +135,6 @@ if( ! empty($extensions) )
 //--------------------------------------------------------------------------------------------------------
 $(document).ready(function()
 {
-    $('#<?php echo $id ?>').DataTable(<?php echo ! empty($properties) ? ZN\DataTypes\Json\Encode::do($properties) : NULL?>);
+    $('#<?php echo $id ?>').DataTable(<?php echo ! empty($properties) ? json_encode($properties) : NULL?>);
 });
 </script>

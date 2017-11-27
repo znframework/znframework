@@ -76,7 +76,7 @@ class ZN
                 }
 
                 Folder\Forge::create($dirname);
-                File\Content::write($file, $content);
+                file_put_contents($file, $content);
             }
 
             return true;

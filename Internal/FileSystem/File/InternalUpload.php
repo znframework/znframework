@@ -271,9 +271,9 @@ class InternalUpload extends CallController implements InternalUploadInterface
         $fileName = $this->settings['source'] ?? $fileName;
         $rootDir  = $this->settings['target'] ?? $rootDir;
 
-        if( ! Folder\Info::exists($rootDir) ) 
+        if( ! is_dir($rootDir) ) 
         {
-            Folder\Forge::create($rootDir);
+            mkdir($rootDir);
         }
 
         $extensions = $this->_separator('extensions');

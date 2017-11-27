@@ -51,5 +51,5 @@ if( ! empty($extensions) )
 ?>
 
 <script>
-    tinymce.init(<?php echo ! empty($properties) ? ZN\DataTypes\Json\Encode::do($properties) : NULL?>);
+    tinymce.init(<?php echo ! empty($properties) ? json_encode($properties) : NULL?>);
 </script>

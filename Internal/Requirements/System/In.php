@@ -722,9 +722,9 @@ class In
 
         $htaccessTxt = '.htaccess';
 
-        if( File\Info::exists($htaccessTxt) )
+        if( is_file($htaccessTxt) )
         {
-            $getContents = trim(File\Content::read($htaccessTxt));
+            $getContents = trim(file_get_contents($htaccessTxt));
         }
         else
         {
@@ -739,7 +739,7 @@ class In
             return false;
         }
 
-        if( ! File\Content::write($htaccessTxt, trim($htaccess)) )
+        if( ! file_put_contents($htaccessTxt, trim($htaccess)) )
         {
             throw new GeneralException('Error', 'fileNotWrite', $htaccessTxt);
         }
@@ -800,9 +800,9 @@ class In
 
         $robotTxt = 'robots.txt';
 
-        if( File\Info::exists($robotTxt) )
+        if( is_file($robotTxt) )
         {
-            $getContents = File\Content::read($robotTxt);
+            $getContents = file_get_contents($robotTxt);
         }
         else
         {
@@ -814,7 +814,7 @@ class In
             return false;
         }
 
-        if( ! File\Content::write($robotTxt, trim($robots)) )
+        if( ! file_put_contents($robotTxt, trim($robots)) )
         {
             throw new GeneralException('Error', 'fileNotWrite', $robotTxt);
         }

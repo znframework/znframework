@@ -116,9 +116,9 @@ class RenderImage
 
         $this->newPath($filePath);
 
-        if( ! Folder\Info::exists($this->thumbPath) )
+        if( ! is_dir($this->thumbPath) )
         {
-            Folder\Forge::create($this->thumbPath);
+            mkdir($this->thumbPath);
         }
 
         $newFile = File\Extension::remove($this->file).$prefix.File\Extension::get($this->file, true);

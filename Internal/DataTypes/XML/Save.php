@@ -1,7 +1,5 @@
 <?php namespace ZN\DataTypes\XML;
 
-use ZN\FileSystem\File;
-
 class Save
 {
     //--------------------------------------------------------------------------------------------------------
@@ -25,6 +23,6 @@ class Save
     {
         $file = suffix($file, self::$extension);
 
-        return File\Content::write($file, $data);
+        return file_put_contents($file, $data);
     }
 }

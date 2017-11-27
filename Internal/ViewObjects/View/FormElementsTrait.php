@@ -357,7 +357,7 @@ trait FormElementsTrait
             {
                 if( Json\ErrorInfo::check($rowval) )
                 {
-                    $rowval = Json\Decode::array($rowval);
+                    $rowval = json_decode($rowval, true);
 
                     if( in_array($value, $rowval) )
                     {

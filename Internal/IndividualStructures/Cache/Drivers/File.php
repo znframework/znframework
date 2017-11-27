@@ -38,7 +38,7 @@ class FileDriver extends CacheDriverMappingAbstract
 
         if( ! is_dir($this->path) )
         {
-            Folder\Forge::create($this->path, 0755);
+            mkdir($this->path, 0755);
         }
 
         Support::writable($this->path);
@@ -95,9 +95,9 @@ class FileDriver extends CacheDriverMappingAbstract
             'data'  => $var
         ];
 
-        if( File\Content::write($this->path.$key, serialize($datas)) )
+        if( file_put_contents($this->path.$key, serialize($datas)) )
         {
-            File\Forge::permission($this->path.$key, 0640);
+            chmod($this->path.$key, 0640);
 
             return true;
         }
@@ -115,7 +115,7 @@ class FileDriver extends CacheDriverMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function delete($key)
     {
-        return File\Forge::delete($this->path.$key);
+        return unlink($this->path.$key);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -228,7 +228,7 @@ class FileDriver extends CacheDriverMappingAbstract
             return [];
         }
 
-        $data = unserialize(File\Content::read($this->path.$key));
+        $data = unserialize(file_get_contents($this->path.$key));
 
         if( is_array($data) )
         {
@@ -258,16 +258,16 @@ class FileDriver extends CacheDriverMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     protected function _select($key)
     {
-        if( ! File\Info::available($this->path.$key) )
+        if( ! file_exists($this->path.$key) )
         {
             return false;
         }
 
-        $data = unserialize(File\Content::read($this->path.$key));
+        $data = unserialize(file_get_contents($this->path.$key));
 
         if( $data['ttl'] > 0 && time() > $data['time'] + $data['ttl'] )
         {
-            File\Forge::delete($this->path.$key);
+            unlink($this->path.$key);
 
             return false;
         }

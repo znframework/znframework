@@ -74,6 +74,6 @@ $(document).ready(function(){
 
 $(function()
 {
-    $.validate(<?php echo ! empty($properties) ? ZN\DataTypes\Json\Encode::do($properties) : NULL?>);
+    $.validate(<?php echo ! empty($properties) ? json_encode($properties) : NULL?>);
 });
 </script>

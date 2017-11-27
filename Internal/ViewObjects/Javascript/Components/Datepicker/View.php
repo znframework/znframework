@@ -45,6 +45,6 @@ if( ! empty($extensions) )
 <script>
 $(function()
 {
-    $('#<?php echo $id ?>').datepicker(<?php echo ! empty($properties) ? ZN\DataTypes\Json\Encode::do($properties) : NULL?>);
+    $('#<?php echo $id ?>').datepicker(<?php echo ! empty($properties) ? json_encode($properties) : NULL?>);
 });
 </script>

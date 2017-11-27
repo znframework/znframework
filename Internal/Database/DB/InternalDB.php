@@ -1,9 +1,9 @@
 <?php namespace ZN\Database;
 
-use URI, Pagination, Classes, Method, Config, Cache, IS, Coalesce, Excel;
+use URI, Pagination, Classes, Method, Config, Cache, IS, Coalesce;
 use ZN\DataTypes\Strings;
 use ZN\DataTypes\Arrays;
-use ZN\DataTypes\Json;
+use ZN\FileSystem\Excel;
 
 class InternalDB extends Connection implements InternalDBInterface
 {
@@ -2252,7 +2252,7 @@ class InternalDB extends Connection implements InternalDBInterface
     //--------------------------------------------------------------------------------------------------------
     protected function _csv(&$data)
     {
-        $csv       = Excel::CSVToArray($data);
+        $csv       = Excel\CSVToArray::do($data);
         $csvColumn = $csv[0];
 
         array_shift($csv);
@@ -2731,7 +2731,7 @@ class InternalDB extends Connection implements InternalDBInterface
     //--------------------------------------------------------------------------------------------------------
     protected function _cacheQuery()
     {
-        return md5(Json\Encode::do($this->config) . $this->stringQuery());
+        return md5(json_encode($this->config) . $this->stringQuery());
     }
 
     //--------------------------------------------------------------------------------------------------------

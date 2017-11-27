@@ -77,9 +77,9 @@ class MLExtends extends CLController
         $this->appdir = LANGUAGES_DIR . $mlDir;
         $this->externalAppdir = EXTERNAL_LANGUAGES_DIR . $mlDir;
 
-        if( ! Folder\Info::exists($this->appdir) )
+        if( ! is_dir($this->appdir) )
         {
-            Folder\Forge::create($this->appdir, 0755);
+            mkdir($this->appdir, 0755);
         }
 
         $getLang = Lang::get();

@@ -84,7 +84,7 @@ class InternalMigration extends \CallController implements InternalMigrationInte
 
         if( ! is_dir($this->path) )
         {
-            Folder\Forge::create($this->path, 0755);
+            mkdir($this->path, 0755);
         }
 
         $this->tbl = defined('static::table')
@@ -250,9 +250,9 @@ class InternalMigration extends \CallController implements InternalMigrationInte
         {
             $dir  = $this->path.$name.$this->versionDir;
 
-            if( ! Folder\Info::exists($dir) )
+            if( ! is_dir($dir) )
             {
-                Folder\Forge::create($dir);
+                mkdir($dir);
             }
 
             $file = $dir.suffix($version, '.php');
@@ -263,7 +263,7 @@ class InternalMigration extends \CallController implements InternalMigrationInte
             $file = $this->path.suffix($name, '.php');
         }
 
-        if( ! File\Info::exists($file) )
+        if( ! is_file($file) )
         {
             $eol  = EOL;
             $str  = '<?php'.$eol;
@@ -291,7 +291,7 @@ class InternalMigration extends \CallController implements InternalMigrationInte
             $str .= "\t".'}'.$eol;
             $str .= '}';
 
-            return File\Content::write($file, $str);
+            return file_put_contents($file, $str);
         }
         else
         {
@@ -324,7 +324,7 @@ class InternalMigration extends \CallController implements InternalMigrationInte
             $file = $this->path.suffix($name, '.php');
         }
 
-        return File\Forge::delete($file);
+        return unlink($file);
     }
 
     //--------------------------------------------------------------------------------------------------------

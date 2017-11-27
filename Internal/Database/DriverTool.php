@@ -2,7 +2,6 @@
 
 use Lang, stdClass;
 use ZN\FileSystem\Exception\IOException;
-use ZN\FileSystem\File;
 use ZN\FileSystem\Folder;
 
 class DriverTool extends DriverExtends
@@ -261,12 +260,12 @@ class DriverTool extends DriverExtends
             $fileName = 'db-backup-'.time().'-'.(md5(implode(',',$tables))).'.sql';
         }
 
-        if( ! Folder\Info::exists($path) )
+        if( ! is_dir($path) )
         {
-            Folder\Forge::create($path);
+            mkdir($path);
         }
 
-        if( ! File\Content::write(suffix($path).$fileName, $return) )
+        if( ! file_put_contents(suffix($path).$fileName, $return) )
         {
             throw new IOException('Error', 'fileNotWrite', $path.$fileName);
         }
@@ -285,7 +284,7 @@ class DriverTool extends DriverExtends
     {
         if( is_file($file) )
         {   
-            return $this->differentConnection->multiQuery(File\Content::read($file));
+            return $this->differentConnection->multiQuery(file_get_contents($file));
         }
 
         return false;

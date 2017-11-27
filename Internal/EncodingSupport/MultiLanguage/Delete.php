@@ -1,6 +1,5 @@
 <?php namespace ZN\EncodingSupport\MultiLanguage;
 
-use ZN\DataTypes\Json;
 use ZN\FileSystem\File;
 use ZN\FileSystem\Folder;
 
@@ -32,9 +31,9 @@ class Delete extends MLExtends
 
         $createFile = $this->_langFile($app);
 
-        if( File\Info::exists($createFile) )
+        if( is_file($createFile) )
         {
-            $datas = Json\Decode::array(File\Content::read($createFile));
+            $datas = json_decode(file_get_contents($createFile), true);
         }
 
         if( ! empty($datas) )
@@ -54,7 +53,7 @@ class Delete extends MLExtends
             }
         }
 
-        return File\Content::write($createFile, Json\Encode::do($json));
+        return file_put_contents($createFile, json_encode($json, JSON_UNESCAPED_UNICODE));
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -96,9 +95,9 @@ class Delete extends MLExtends
         {
             $createFile = $this->_langFile($app);
       
-            if( File\Info::exists($createFile) )
+            if( is_file($createFile) )
             {
-                return File\Forge::delete($createFile);
+                return unlink($createFile);
             }
 
             return false;

@@ -26,18 +26,18 @@ class Select extends MLExtends
     //--------------------------------------------------------------------------------------------------------
     public function do(String $key = NULL, $convert = NULL)
     {
-        if( File\Info::exists($this->lang) )
+        if( is_file($this->lang) )
         {
-            $read   = File\Content::read($this->lang);
+            $read   = file_get_contents($this->lang);
         }
 
-        if( File\Info::exists($this->externalLang) )
+        if( is_file($this->externalLang) )
         {
-            $eread  = File\Content::read($this->externalLang);
+            $eread  = file_get_contents($this->externalLang);
         }
 
-        $read   = Json\Decode::array($read  ?? '');
-        $eread  = Json\Decode::array($eread ?? '');
+        $read   = json_decode($read  ?? '', true);
+        $eread  = json_decode($eread ?? '', true);
         $array  = array_merge($eread, $read);
 
         if( $key === NULL )
@@ -101,9 +101,9 @@ class Select extends MLExtends
         {
             $createFile = $this->_langFile($app);
 
-            $read = File\Content::read($createFile);
+            $read = file_get_contents($createFile);
 
-            return Json\Decode::array($read);
+            return json_decode($read, true);
         }
     }
 }

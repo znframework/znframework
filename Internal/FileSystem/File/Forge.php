@@ -2,7 +2,6 @@
 
 use ZipArchive;
 use ZN\FileSystem\Exception\FileNotFoundException;
-use ZN\FileSystem\Exception\FileAllreadyException;
 use ZN\FileSystem\InternalGenerate;
 use ZN\FileSystem\Folder;
 
@@ -45,7 +44,7 @@ class Forge
             return touch($name);
         }
 
-        throw new FileAllreadyException($name);
+        return false;
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -161,7 +160,7 @@ class Forge
 
         if( ! is_dir($pathDirName = Info::pathInfo($path, 'dirname')) )
         {
-            Folder\Forge::create($pathDirName);
+            mkdir($pathDirName);
         }
 
         if( $zip->open($zipPath, ZipArchive::CREATE) !== true )

@@ -216,7 +216,7 @@ class InternalCookie extends CLController implements InternalCookieInterface, Se
 
         if( ! is_scalar($value) )
         {
-            $value = Json\Encode::do($value);
+            $value = json_encode($value);
         }
 
         if( setcookie($name, $value, time() + $this->time, $this->path, $this->domain, $this->secure, $this->httpOnly) )
@@ -280,7 +280,7 @@ class InternalCookie extends CLController implements InternalCookieInterface, Se
         {
             return ! Json\ErrorInfo::check($_COOKIE[$name])
                    ? $_COOKIE[$name]
-                   : Json\Decode::array($_COOKIE[$name]);
+                   : json_decode($_COOKIE[$name], true);
         }
         else
         {

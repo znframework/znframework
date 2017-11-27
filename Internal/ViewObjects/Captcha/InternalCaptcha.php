@@ -311,9 +311,9 @@ class InternalCaptcha extends CLController implements InternalCaptchaInterface
 
         if( $sessionCaptchaCode = Session::select($systemCaptchaCodeData) )
         {
-            if( ! Folder\Info::exists($this->path) )
+            if( ! is_dir($this->path) )
             {
-                Folder\Forge::create($this->path);
+                mkdir($this->path);
             }
 
             $sizeWidthC       = $set['size']['width']       ?? 100;
@@ -488,9 +488,9 @@ class InternalCaptcha extends CLController implements InternalCaptchaInterface
         $match   = Arrays\GetElement::first(preg_grep('/captcha\-([a-z]|[0-9])+\.png/i', $files));
         $captcha = $this->path . $match;
 
-        if( File\Info::exists($captcha) )
+        if( is_file($captcha) )
         {
-            File\Forge::delete($captcha);
+            unlink($captcha);
         }
     }
 

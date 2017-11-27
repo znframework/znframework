@@ -3,7 +3,6 @@
 use CallController, DB, DBTool, DBForge, Config, Post, Validation, Errors;
 use ZN\DataTypes\Strings;
 use ZN\DataTypes\Arrays;
-use ZN\DataTypes\Json;
 use ZN\FileSystem\File;
 use ZN\FileSystem\Folder;
 
@@ -148,7 +147,7 @@ class InternalGenerate extends CallController implements InternalGenerateInterfa
 
                 foreach( $tables as $table )
                 {
-                    File\Forge::delete
+                    unlink
                     (
                         $path.$database.DS.INTERNAL_ACCESS.
                         ( strtolower($database) === strtolower($defaultDB) ? NULL : $database ).
@@ -243,9 +242,9 @@ class InternalGenerate extends CallController implements InternalGenerateInterfa
 
         $file = $this->_path($name, $type);
 
-        if( File\Info::exists($file) )
+        if( is_file($file) )
         {
-            return File\Forge::delete($file);
+            return unlink($file);
         }
 
         return false;
@@ -499,9 +498,9 @@ class InternalGenerate extends CallController implements InternalGenerateInterfa
 
         $file = $this->_path($filePath, $type);
 
-        if( ! File\Info::exists($file) )
+        if( ! is_file($file) )
         {
-            if( File\Content::write($file, $controller) )
+            if( file_put_contents($file, $controller) )
             {
                 return true;
             }
@@ -654,7 +653,7 @@ class InternalGenerate extends CallController implements InternalGenerateInterfa
                     $pregGrepArray   = preg_grep('/_000/', $tableColumns);
                     $currentTableKey = strtolower(current($pregGrepArray));
                     $currentColumns  = Arrays\RemoveElement::element($tableColumns, $pregGrepArray);
-                    $tableKey        = strtolower($table.'_000' . md5(Json\Encode::do($tableData)));
+                    $tableKey        = strtolower($table.'_000' . md5(json_encode($tableData)));
 
                     if( ! empty($currentColumns) )
                     {
@@ -691,10 +690,10 @@ class InternalGenerate extends CallController implements InternalGenerateInterfa
                             $tableName     = $database . DS . $table;
                             $dbArchivePath = $archivesPath . $database . DS;
                             $writePath     = $archivesPath . $tableName . '_' . time() . '.php';
-                            $writeContent  = File\Content::read($activesPath . $tableName . '.php');
+                            $writeContent  = file_get_contents($activesPath . $tableName . '.php');
 
                             Folder\Forge::create($dbArchivePath);
-                            File\Content::write($writePath, $writeContent);
+                            file_put_contents($writePath, $writeContent);
 
                             $dbForge->renameColumn($table, [$currentTableKey.' '.$tableKey => $tableKeyColumnValues]);
                         }

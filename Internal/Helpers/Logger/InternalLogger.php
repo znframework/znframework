@@ -164,7 +164,7 @@ class InternalLogger implements InternalLoggerInterface
 
         if( ! is_dir($logDir) )
         {
-            Folder\Forge::create($logDir, 0755);
+            mkdir($logDir, 0755);
         }
 
         if( is_file($logDir.suffix($destination, $extension)) )
@@ -180,7 +180,7 @@ class InternalLogger implements InternalLoggerInterface
 
             if( date('Y.m.d')  >  $endDate )
             {
-                File\Forge::delete($logDir.suffix($destination, $extension));
+                unlink($logDir.suffix($destination, $extension));
             }
         }
 

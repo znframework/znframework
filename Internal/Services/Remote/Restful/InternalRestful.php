@@ -290,7 +290,7 @@ class InternalRestful implements InternalRestfulInterface
 
         if( Json\ErrorInfo::check($response) )
         {
-            return Json\Decode::object($response);
+            return json_decode($response);
         }
         elseif( XML\Check::check($response) )
         {

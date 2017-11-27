@@ -6,7 +6,6 @@ use ZN\ViewObjects\Grids\Exception\DatabaseErrorException;
 use ZN\ViewObjects\Grids\Exception\NoSearchException;
 use ZN\DataTypes\Strings;
 use ZN\DataTypes\Arrays;
-use ZN\DataTypes\Json;
 use ZN\Helpers\Limiter;
 
 class InternalDBGrid extends Abstracts\GridAbstract
@@ -1113,7 +1112,7 @@ class InternalDBGrid extends Abstracts\GridAbstract
     //--------------------------------------------------------------------------------------------------------
     protected function _decode($data)
     {
-        return Json\Decode::array(str_replace("'", '"', $_POST[$data]));
+        return json_decode(str_replace("'", '"', $_POST[$data]), true);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -1125,7 +1124,7 @@ class InternalDBGrid extends Abstracts\GridAbstract
     //--------------------------------------------------------------------------------------------------------
     protected function _encode($data)
     {
-        return str_replace('"', "'", Json\Encode::do($data));
+        return str_replace('"', "'", json_encode($data, JSON_UNESCAPED_UNICODE));
     }
 
     //--------------------------------------------------------------------------------------------------------

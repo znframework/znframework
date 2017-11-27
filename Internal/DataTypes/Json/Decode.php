@@ -37,7 +37,7 @@ class Decode
     //--------------------------------------------------------------------------------------------------------
     public static function object(String $data, Int $length = 512)
     {
-        return self::do($data, false, $length);
+        return json_decode($data, false, $length);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -50,6 +50,6 @@ class Decode
     //--------------------------------------------------------------------------------------------------------
     public static function array(String $data, Int $length = 512) : Array
     {
-        return (array) self::do($data, true, $length);
+        return (array) json_decode($data, true, $length);
     }
 }

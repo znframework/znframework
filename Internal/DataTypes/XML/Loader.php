@@ -1,7 +1,6 @@
 <?php namespace ZN\DataTypes\XML;
 
 use ZN\DataTypes\XML\Exception\FileNotFoundException;
-use ZN\FileSystem\File;
 
 class Loader
 {
@@ -17,9 +16,9 @@ class Loader
     {
         $file = suffix($file, '.xml');
 
-        if( File\Info::exists($file) )
+        if( is_file($file) )
         {
-            return File\Content::read($file);
+            return file_get_contents($file);
         }
         else
         {

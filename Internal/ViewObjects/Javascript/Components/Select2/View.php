@@ -60,6 +60,6 @@ if( ! empty($extensions) )
 <script>
 $(function()
 {
-    $('#<?php echo $id ?>').select2(<?php echo ! empty($properties) ? ZN\DataTypes\Json\Encode::do($properties) : NULL?>);
+    $('#<?php echo $id ?>').select2(<?php echo ! empty($properties) ? json_encode($properties) : NULL?>);
 });
 </script>

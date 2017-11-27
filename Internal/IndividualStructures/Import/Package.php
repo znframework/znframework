@@ -124,7 +124,7 @@ class Package
             $packages = str_replace(RESOURCES_DIR, EXTERNAL_RESOURCES_DIR, $packages);
         }
 
-        if( Folder\Info::exists($packages) )
+        if( is_dir($packages) )
         {
             $packageFiles = Folder\FileList::allFiles(suffix($packages), $recursive);
 

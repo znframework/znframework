@@ -1,6 +1,5 @@
 <?php namespace ZN\DataTypes\XML;
 
-use ZN\DataTypes\Json;
 use stdClass;
 
 class Parser
@@ -95,7 +94,7 @@ class Parser
     //--------------------------------------------------------------------------------------------------------
     public static function json(String $data) : String
     {
-        return Json\Encode::do(self::do($data, 'array'));
+        return json_encode(self::do($data, 'array'));
     }
 
     //--------------------------------------------------------------------------------------------------------
