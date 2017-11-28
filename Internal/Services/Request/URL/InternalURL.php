@@ -1,7 +1,6 @@
 <?php namespace ZN\Services\Request;
 
 use ZN\In;
-use ZN\FileSystem\File;
 use ZN\Helpers\Converter;
 use CallController, Lang, Http;
 
@@ -117,7 +116,7 @@ class InternalURL extends CallController implements InternalURLInterface
     //--------------------------------------------------------------------------------------------------------
     public function base(String $uri = NULL, Int $index = 0) : String
     {
-        return $this->host(In::baseDir($index) . File\Info::absolutePath($uri));
+        return $this->host(BASE_DIR . $uri);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -133,7 +132,7 @@ class InternalURL extends CallController implements InternalURLInterface
     {
         return $this->host
         (
-               In::baseDir($index).
+               BASE_DIR.
                INDEX_STATUS.
                In::getCurrentProject().
                suffix(Lang::current()).
@@ -186,7 +185,7 @@ class InternalURL extends CallController implements InternalURLInterface
     //--------------------------------------------------------------------------------------------------------
     public function host(String $uri = NULL) : String
     {
-        return SSL_STATUS . host() . ($uri === '' ? '/' : prefix(In::cleanInjection($uri)));
+        return HOST_URL . In::cleanInjection($uri);
     }
 
     //--------------------------------------------------------------------------------------------------------

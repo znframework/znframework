@@ -1,9 +1,9 @@
 <?php namespace ZN\IndividualStructures;
 
-use Support, CLController, DriverAbility;
+use Support, DriverAbility;
 use ZN\IndividualStructures\Compress\Exception\InvalidArgumentException;
 
-class InternalCompress extends CLController implements InternalCompressInterface
+class InternalCompress implements InternalCompressInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -23,11 +23,11 @@ class InternalCompress extends CLController implements InternalCompressInterface
     // @const string
     //
     //--------------------------------------------------------------------------------------------------------
-    const config = 'IndividualStructures:compress';
     const driver =
     [
         'options'   => ['bz', 'gz', 'lzf', 'rar', 'zip', 'zlib'],
-        'namespace' => 'ZN\IndividualStructures\Compress\Drivers'
+        'namespace' => 'ZN\IndividualStructures\Compress\Drivers',
+        'config'    => 'IndividualStructures:compress'
     ];
 
     //--------------------------------------------------------------------------------------------------------

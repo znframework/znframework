@@ -1,13 +1,13 @@
 <?php namespace ZN\ViewObjects;
 
-use Config, Session, Cookie, CLController, URL;
+use Config, Session, Cookie, URL;
 use ZN\DataTypes\Arrays;
 use ZN\CryptoGraphy\Encode;
 use ZN\FileSystem\File;
 use ZN\FileSystem\Folder;
 use ZN\ImageProcessing;
 
-class InternalCaptcha extends CLController implements InternalCaptchaInterface
+class InternalCaptcha implements InternalCaptchaInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -17,8 +17,6 @@ class InternalCaptcha extends CLController implements InternalCaptchaInterface
     // Copyright  : (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
-
-    const config = 'ViewObjects:captcha';
 
     //--------------------------------------------------------------------------------------------------------
     // Sets
@@ -294,7 +292,7 @@ class InternalCaptcha extends CLController implements InternalCaptchaInterface
     //--------------------------------------------------------------------------------------------------------
     public function create(Bool $img = false, Array $configs = []) : String
     {
-        $configs = array_merge(VIEWOBJECTS_CAPTCHA_CONFIG, $this->sets, $configs);
+        $configs = array_merge(Config::viewObjects('captcha'), $this->sets, $configs);
 
         if( ! empty($configs) )
         {

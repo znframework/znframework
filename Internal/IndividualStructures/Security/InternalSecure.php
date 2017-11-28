@@ -2,7 +2,7 @@
 
 use SerializationAbility;
 
-class InternalSecure implements InternalSecureInterface
+class InternalSecure
 {
     //--------------------------------------------------------------------------------------------------------
     //

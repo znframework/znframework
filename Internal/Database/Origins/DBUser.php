@@ -1,6 +1,8 @@
 <?php namespace ZN\Database;
 
-interface InternalDBUserInterface
+use Coalesce;
+
+class DBUser extends Connection
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -12,13 +14,38 @@ interface InternalDBUserInterface
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
+    // User
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var object
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected $user;
+
+    //--------------------------------------------------------------------------------------------------------
+    // Database Manipulation Methods Başlangıç
+    //--------------------------------------------------------------------------------------------------------
+
+    public function __construct($settings = [])
+    {
+        parent::__construct($settings);
+
+        $this->user = $this->_drvlib('User', $settings);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
     // name()
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string $name: USER()
     //
     //--------------------------------------------------------------------------------------------------------
-    public function name(String $name) : InternalDBUser;
+    public function name(String $name) : DBUser
+    {
+        $this->user->name($name);
+
+        return $this;
+    }
 
     //--------------------------------------------------------------------------------------------------------
     // host()
@@ -27,7 +54,12 @@ interface InternalDBUserInterface
     // @param string $host: localhost
     //
     //--------------------------------------------------------------------------------------------------------
-    public function host(String $host) : InternalDBUser;
+    public function host(String $host) : DBUser
+    {
+        $this->user->host($host);
+
+        return $this;
+    }
 
     //--------------------------------------------------------------------------------------------------------
     // password()
@@ -36,7 +68,12 @@ interface InternalDBUserInterface
     // @param string $authString: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function password(String $authString) : InternalDBUser;
+    public function password(String $authString) : DBUser
+    {
+        $this->user->password($authString);
+
+        return $this;
+    }
 
     //--------------------------------------------------------------------------------------------------------
     // identifiedBy()
@@ -45,7 +82,12 @@ interface InternalDBUserInterface
     // @param string $authString: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function identifiedBy(String $authString) : InternalDBUser;
+    public function identifiedBy(String $authString) : DBUser
+    {
+        $this->user->identifiedBy($authString);
+
+        return $this;
+    }
 
     //--------------------------------------------------------------------------------------------------------
     // identifiedByPassword()
@@ -54,7 +96,12 @@ interface InternalDBUserInterface
     // @param string $hashString: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function identifiedByPassword(String $hashString) : InternalDBUser;
+    public function identifiedByPassword(String $hashString) : DBUser
+    {
+        $this->user->identifiedByPassword($hashString);
+
+        return $this;
+    }
 
     //--------------------------------------------------------------------------------------------------------
     // identifiedWith()
@@ -65,7 +112,12 @@ interface InternalDBUserInterface
     // @param string $authString: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function identifiedWith(String $authPlugin, String $type, String $authString) : InternalDBUser;
+    public function identifiedWith(String $authPlugin, String $type, String $authString) : DBUser
+    {
+        $this->user->identifiedWith($authPlugin, $type, $authString);
+
+        return $this;
+    }
 
     //--------------------------------------------------------------------------------------------------------
     // identifiedWithBy()
@@ -75,7 +127,12 @@ interface InternalDBUserInterface
     // @param string $authString: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function identifiedWithBy(String $authPlugin, String $authString) : InternalDBUser;
+    public function identifiedWithBy(String $authPlugin, String $authString) : DBUser
+    {
+        $this->user->identifiedWithBy($authPlugin, $authString);
+
+        return $this;
+    }
 
     //--------------------------------------------------------------------------------------------------------
     // identifiedWithAs()
@@ -85,7 +142,12 @@ interface InternalDBUserInterface
     // @param string $hashString: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function identifiedWithAs(String $hashPlugin, String $hashString) : InternalDBUser;
+    public function identifiedWithAs(String $hashPlugin, String $hashString) : DBUser
+    {
+        $this->user->identifiedWithAs($hashPlugin, $hashString);
+
+        return $this;
+    }
 
     //--------------------------------------------------------------------------------------------------------
     // required()
@@ -94,7 +156,12 @@ interface InternalDBUserInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function required() : InternalDBUser;
+    public function required() : DBUser
+    {
+        $this->user->required();
+
+        return $this;
+    }
 
     //--------------------------------------------------------------------------------------------------------
     // with()
@@ -103,7 +170,12 @@ interface InternalDBUserInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function with() : InternalDBUser;
+    public function with() : DBUser
+    {
+        $this->user->with();
+
+        return $this;
+    }
 
     //--------------------------------------------------------------------------------------------------------
     // option()
@@ -113,7 +185,12 @@ interface InternalDBUserInterface
     // @param string $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function option(String $name, String $value) : InternalDBUser;
+    public function option(String $name, String $value) : DBUser
+    {
+        $this->user->option($name, $value);
+
+        return $this;
+    }
 
     //--------------------------------------------------------------------------------------------------------
     // encode()
@@ -124,7 +201,12 @@ interface InternalDBUserInterface
     // @param string $condition: and, or
     //
     //--------------------------------------------------------------------------------------------------------
-    public function encode(String $type, String $string, String $condition) : InternalDBUser;
+    public function encode(String $type, String $string, String $condition = NULL) : DBUser
+    {
+        $this->user->encode($type, $string, $condition);
+
+        return $this;
+    }
 
     //--------------------------------------------------------------------------------------------------------
     // resource()
@@ -137,7 +219,12 @@ interface InternalDBUserInterface
     // @param string $count   : 0
     //
     //--------------------------------------------------------------------------------------------------------
-    public function resource(String $resource, $count) : InternalDBUser;
+    public function resource(String $resource, $count = 0) : DBUser
+    {
+        $this->user->resource($resource, $count);
+
+        return $this;
+    }
 
     //--------------------------------------------------------------------------------------------------------
     // passwordExpire()
@@ -147,7 +234,12 @@ interface InternalDBUserInterface
     // @param numeric $n   : 0
     //
     //--------------------------------------------------------------------------------------------------------
-    public function passwordExpire(String $type, $n) : InternalDBUser;
+    public function passwordExpire(String $type = NULL, $n = 0) : DBUser
+    {
+        $this->user->passwordExpire($type, $n);
+
+        return $this;
+    }
 
     //--------------------------------------------------------------------------------------------------------
     // lock()
@@ -156,7 +248,12 @@ interface InternalDBUserInterface
     // @param string  $type: lock, unlock
     //
     //--------------------------------------------------------------------------------------------------------
-    public function lock(String $type = 'lock') : InternalDBUser;
+    public function lock(String $type = 'lock') : DBUser
+    {
+        $this->user->lock($type);
+
+        return $this;
+    }
 
     //--------------------------------------------------------------------------------------------------------
     // unlock()
@@ -165,7 +262,12 @@ interface InternalDBUserInterface
     // @param string  $type: unlock, lock
     //
     //--------------------------------------------------------------------------------------------------------
-    public function unlock(String $type = 'unlock') : InternalDBUser;
+    public function unlock(String $type = 'unlock') : DBUser
+    {
+        $this->user->unlock($type);
+
+        return $this;
+    }
 
     //--------------------------------------------------------------------------------------------------------
     // type()
@@ -174,7 +276,12 @@ interface InternalDBUserInterface
     // @param string  $type: TABLE, FUNCTION, PROCEDURE
     //
     //--------------------------------------------------------------------------------------------------------
-    public function type(String $type = 'TABLE') : InternalDBUser;
+    public function type(String $type = 'TABLE') : DBUser
+    {
+        $this->user->type($type);
+
+        return $this;
+    }
 
     //--------------------------------------------------------------------------------------------------------
     // select()
@@ -183,7 +290,12 @@ interface InternalDBUserInterface
     // @param string  $select: *.*
     //
     //--------------------------------------------------------------------------------------------------------
-    public function select(String $select = '*.*') : InternalDBUser;
+    public function select(String $select = '*.*') : DBUser
+    {
+        $this->user->select($select);
+
+        return $this;
+    }
 
     //--------------------------------------------------------------------------------------------------------
     // grantOption()
@@ -192,7 +304,12 @@ interface InternalDBUserInterface
     // @param void()
     //
     //--------------------------------------------------------------------------------------------------------
-    public function grantOption() : InternalDBUser;
+    public function grantOption() : DBUser
+    {
+        $this->user->grantOption();
+
+        return $this;
+    }
 
     //--------------------------------------------------------------------------------------------------------
     // alter()
@@ -201,16 +318,30 @@ interface InternalDBUserInterface
     // @param string  $name: USER()
     //
     //--------------------------------------------------------------------------------------------------------
-    public function alter(String $name);
+    public function alter(String $name = NULL)
+    {
+        Coalesce::null($name, 'USER()');
+
+        $query = $this->user->alter($name);
+
+        return $this->_runQuery($query);
+    }
 
     //--------------------------------------------------------------------------------------------------------
     // create()
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $name: USER()
+    // @param string  $name: USER()
     //
     //--------------------------------------------------------------------------------------------------------
-    public function create(String $name);
+    public function create(String $name = NULL)
+    {
+        Coalesce::null($name, 'USER()');
+
+        $query = $this->user->create($name);
+
+        return $this->_runQuery($query);
+    }
 
     //--------------------------------------------------------------------------------------------------------
     // drop()
@@ -219,7 +350,14 @@ interface InternalDBUserInterface
     // @param string  $name: USER()
     //
     //--------------------------------------------------------------------------------------------------------
-    public function drop(String $name);
+    public function drop(String $name = NULL)
+    {
+        Coalesce::null($name, 'USER()');
+
+        $query = $this->user->drop($name);
+
+        return $this->_runQuery($query);
+    }
 
     //--------------------------------------------------------------------------------------------------------
     // grant()
@@ -230,7 +368,12 @@ interface InternalDBUserInterface
     // @param string  $select: *.*
     //
     //--------------------------------------------------------------------------------------------------------
-    public function grant(String $name = 'ALL', String $type = NULL, String $select = '*.*');
+    public function grant(String $name = 'ALL', String $type = NULL, String $select = '*.*')
+    {
+        $query = $this->user->grant($name, $type, $select);
+
+        return $this->_runQuery($query);
+    }
 
     //--------------------------------------------------------------------------------------------------------
     // revoke()
@@ -241,7 +384,12 @@ interface InternalDBUserInterface
     // @param string  $select: *.*
     //
     //--------------------------------------------------------------------------------------------------------
-    public function revoke(String $name = 'ALL', String $type = NULL, String $select = '*.*');
+    public function revoke(String $name = 'ALL', String $type = NULL, String $select = '*.*')
+    {
+        $query = $this->user->revoke($name, $type, $select);
+
+        return $this->_runQuery($query);
+    }
 
     //--------------------------------------------------------------------------------------------------------
     // rename()
@@ -251,7 +399,12 @@ interface InternalDBUserInterface
     // @param string  $newName: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function rename(String $oldName, String $newName);
+    public function rename(String $oldName, String $newName)
+    {
+        $query = $this->user->rename($oldName, $newName);
+
+        return $this->_runQuery($query);
+    }
 
     //--------------------------------------------------------------------------------------------------------
     // setPassword()
@@ -261,5 +414,10 @@ interface InternalDBUserInterface
     // @param string  $pass: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function setPassword(String $user, String $pass);
+    public function setPassword(String $user = NULL, String $pass = NULL)
+    {
+        $query = $this->user->setPassword($user, $pass);
+
+        return $this->_runQuery($query);
+    }
 }

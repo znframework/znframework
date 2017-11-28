@@ -434,7 +434,7 @@ class InternalURI implements InternalURIInterface
     {
         $currentPagePath = str_replace(Lang::get().'/', '', server('currentPath'));
 
-        if( isset($currentPagePath[0]) && $currentPagePath[0] === '/' )
+        if( ($currentPagePath[0] ?? NULL) === '/' )
         {
             $currentPagePath = substr($currentPagePath, 1, strlen($currentPagePath) - 1);
         }
@@ -469,11 +469,11 @@ class InternalURI implements InternalURIInterface
     {
         // 5.3.22[edited]
         $requestUri = suffix(server('requestUri'));
-
-        $currentUri = BASE_DIR !== '/'
-                    ? str_replace(BASE_DIR, '', $requestUri)
-                    : substr($requestUri, 1);
-
+       
+        $currentUri = ! empty(BASE_DIR)
+                      ? str_replace(prefix(BASE_DIR, '/'), '', $requestUri)
+                      : substr($requestUri, 1);
+        
         if( $fullPath === false )
         {
             $currentUri = In::cleanURIPrefix($currentUri, INDEX_STATUS);
@@ -505,24 +505,7 @@ class InternalURI implements InternalURIInterface
     //--------------------------------------------------------------------------------------------------------
     public function base(String $uri = NULL, Int $index = 0) : String
     {
-        $newBaseDir = substr(BASE_DIR, 1);
-
-        if( BASE_DIR !== '/' )
-        {
-            if( $index < 0 )
-            {
-                $baseDir    = substr(BASE_DIR, 1, -1);
-                $baseDir    = explode('/', $baseDir);
-                $newBaseDir = '';
-
-                for( $i = 0; $i < count($baseDir) + $index; $i++ )
-                {
-                    $newBaseDir .= suffix($baseDir[$i]);
-                }
-            }
-        }
-
-        return In::cleanInjection($newBaseDir . $uri);
+        return In::cleanInjection(BASE_DIR . $uri);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -539,7 +522,7 @@ class InternalURI implements InternalURIInterface
         {
             return false;
         }
-
+        
         $str = str_replace(URL::site(), '', $_SERVER['HTTP_REFERER']);
 
         if( $isPath === true )

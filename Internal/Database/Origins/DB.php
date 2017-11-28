@@ -5,7 +5,7 @@ use ZN\DataTypes\Strings;
 use ZN\DataTypes\Arrays;
 use ZN\FileSystem\Excel;
 
-class InternalDB extends Connection implements InternalDBInterface
+class DB extends Connection
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -17,388 +17,86 @@ class InternalDB extends Connection implements InternalDBInterface
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
-    // Variable Types
+    // Statements
     //--------------------------------------------------------------------------------------------------------
     //
-    // int()
-    // varchar()
-    // ...
+    // @var Array
     //
     //--------------------------------------------------------------------------------------------------------
-    use DB\Traits\VariableTypesTrait;
+    protected $vartypeElements =
+    [
+        'int'     , 'smallint', 'tinyint'   , 'mediumint', 'bigint',
+        'decimal' , 'double'  , 'float'     ,
+        'char'    , 'varchar' , 
+        'tinytext', 'text'    , 'mediumtext', 'longtext' ,
+        'date'    , 'time'    , 'timestamp' , 'datetime' ,
+        
+        'integer' => 'int'
+    ];
 
     //--------------------------------------------------------------------------------------------------------
     // Statements
     //--------------------------------------------------------------------------------------------------------
     //
-    // autoIncrement()
-    // notNull()
-    // ...
+    // @var Array
     //
     //--------------------------------------------------------------------------------------------------------
-    use DB\Traits\StatementsTrait;
+    protected $statementElements =
+    [
+        'autoincrement', 'primarykey', 'foreignkey', 'unique',
+        'null'         , 'notnull'   ,
+        'exists'       , 'notexists' ,
+        'constraint'
+    ];
 
     //--------------------------------------------------------------------------------------------------------
     // Functions
     //--------------------------------------------------------------------------------------------------------
     //
-    // abs()
-    // mod()
-    // ...
+    // @var Array
     //
     //--------------------------------------------------------------------------------------------------------
-    use DB\Traits\FunctionsTrait;
+    protected $functionElements =
+    [
+        'ifnull' , 'nullif'      , 'abs'      , 'mod'      , 'asin'     ,
+        'acos'   , 'atan'        , 'atan2'    , 'ceil'     , 'ceiling'  ,
+        'cos'    , 'cot'         , 'crc32'    , 'degrees'  , 'exp'      ,
+        'floor'  , 'ln'          , 'log10'    , 'log2'     , 'log'      ,
+        'pi'     , 'pow'         , 'power'    , 'radians'  , 'rand'     ,
+        'round'  , 'sign'        , 'sin'      , 'sqrt'     , 'tan'      ,
+        'ascii'  , 'field'       , 'format'   , 'lower'    , 'upper'    ,
+        'length' , 'ltrim'       , 'substring', 'ord'      , 'position' ,
+        'quote'  , 'repeat'      , 'rtrim'    , 'soundex'  , 'space'    ,
+        'substr' , 'trim'        , 'ucase'    , 'lcase'    , 'benchmark',
+        'charset', 'coercibility', 'user'     , 'collation', 'database' ,
+        'schema' , 'avg'         , 'min'      , 'max'      , 'count'    ,
+        'sum'    , 'variance'    ,
+        'ifelse'         => 'IF'             ,
+        'charlength'     => 'CHAR_LENGTH'    ,
+        'substringindex' => 'SUBSTRING_INDEX',
+        'connectionid'   => 'CONNECTION_ID'  ,
+        'currentuser'    => 'CURRENT_USER'   ,
+        'lastinsertid'   => 'LAST_INSERT_ID' ,
+        'systemuser'     => 'SYSTEM_USER'    ,
+        'sessionuser'    => 'SESSION_USER'   ,
+        'rowcount'       => 'ROW_COUNT'      ,
+        'versioninfo'    => 'VERSION'
+    ];
 
     //--------------------------------------------------------------------------------------------------------
-    // Select
+    // Scalar Variables
     //--------------------------------------------------------------------------------------------------------
     //
     // @var string
     //
     //--------------------------------------------------------------------------------------------------------
-    private $select;
-
-    //--------------------------------------------------------------------------------------------------------
-    // where
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var array
-    //
-    //--------------------------------------------------------------------------------------------------------
-    private $where;
-
-    //--------------------------------------------------------------------------------------------------------
-    // All
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var string
-    //
-    //--------------------------------------------------------------------------------------------------------
-    private $all;
-
-    //--------------------------------------------------------------------------------------------------------
-    // Distinct
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var string
-    //
-    //--------------------------------------------------------------------------------------------------------
-    private $distinct;
-
-    //--------------------------------------------------------------------------------------------------------
-    // Max Statement Time
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var string
-    //
-    //--------------------------------------------------------------------------------------------------------
-    private $maxStatementTime;
-
-    //--------------------------------------------------------------------------------------------------------
-    // Distinct Row
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var string
-    //
-    //--------------------------------------------------------------------------------------------------------
-    private $distinctRow;
-
-    //--------------------------------------------------------------------------------------------------------
-    // High Priority
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var string
-    //
-    //--------------------------------------------------------------------------------------------------------
-    private $highPriority;
-
-    //--------------------------------------------------------------------------------------------------------
-    // Low Priority
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var string
-    //
-    //--------------------------------------------------------------------------------------------------------
-    private $lowPriority;
-
-    //--------------------------------------------------------------------------------------------------------
-    // Delayed
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var string
-    //
-    //--------------------------------------------------------------------------------------------------------
-    private $delayed;
-
-    //--------------------------------------------------------------------------------------------------------
-    // Procedure
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var string
-    //
-    //--------------------------------------------------------------------------------------------------------
-    private $procedure;
-
-    //--------------------------------------------------------------------------------------------------------
-    // Out File
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var string
-    //
-    //--------------------------------------------------------------------------------------------------------
-    private $outFile;
-
-    //--------------------------------------------------------------------------------------------------------
-    // Dump File
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var string
-    //
-    //--------------------------------------------------------------------------------------------------------
-    private $dumpFile;
-
-    //--------------------------------------------------------------------------------------------------------
-    // Character Set
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var string
-    //
-    //--------------------------------------------------------------------------------------------------------
-    private $characterSet;
-
-    //--------------------------------------------------------------------------------------------------------
-    // Into
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var string
-    //
-    //--------------------------------------------------------------------------------------------------------
-    private $into;
-
-    //--------------------------------------------------------------------------------------------------------
-    // For Update
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var string
-    //
-    //--------------------------------------------------------------------------------------------------------
-    private $forUpdate;
-
-    //--------------------------------------------------------------------------------------------------------
-    // Lock In Share Mode
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var string
-    //
-    //--------------------------------------------------------------------------------------------------------
-    private $lockInShareMode;
-
-    //--------------------------------------------------------------------------------------------------------
-    // Quick
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var string
-    //
-    //--------------------------------------------------------------------------------------------------------
-    private $quick;
-
-    //--------------------------------------------------------------------------------------------------------
-    // Ignore
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var string
-    //
-    //--------------------------------------------------------------------------------------------------------
-    private $ignore;
-
-    //--------------------------------------------------------------------------------------------------------
-    // Partition
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var string
-    //
-    //--------------------------------------------------------------------------------------------------------
-    private $partition;
-
-    //--------------------------------------------------------------------------------------------------------
-    // Straight Join
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var string
-    //
-    //--------------------------------------------------------------------------------------------------------
-    private $straightJoin;
-
-    //--------------------------------------------------------------------------------------------------------
-    // Small Result
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var string
-    //
-    //--------------------------------------------------------------------------------------------------------
-    private $smallResult;
-
-    //--------------------------------------------------------------------------------------------------------
-    // Big Result
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var string
-    //
-    //--------------------------------------------------------------------------------------------------------
-    private $bigResult;
-
-    //--------------------------------------------------------------------------------------------------------
-    // Buffer Result
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var string
-    //
-    //--------------------------------------------------------------------------------------------------------
-    private $bufferResult;
-
-    //--------------------------------------------------------------------------------------------------------
-    // Cache
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var string
-    //
-    //--------------------------------------------------------------------------------------------------------
-    private $cache;
-
-    //--------------------------------------------------------------------------------------------------------
-    // No Cache
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var string
-    //
-    //--------------------------------------------------------------------------------------------------------
-    private $noCache;
-
-    //--------------------------------------------------------------------------------------------------------
-    // Calc Found Rows
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var string
-    //
-    //--------------------------------------------------------------------------------------------------------
-    private $calcFoundRows;
-
-    //--------------------------------------------------------------------------------------------------------
-    // Group By
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var string
-    //
-    //--------------------------------------------------------------------------------------------------------
-    private $groupBy;
-
-    //--------------------------------------------------------------------------------------------------------
-    // Having
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var array
-    //
-    //--------------------------------------------------------------------------------------------------------
-    private $having;
-
-    //--------------------------------------------------------------------------------------------------------
-    // Order By
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var string
-    //
-    //--------------------------------------------------------------------------------------------------------
-    private $orderBy;
-
-    //--------------------------------------------------------------------------------------------------------
-    // Limit
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var int
-    //
-    //--------------------------------------------------------------------------------------------------------
-    private $limit;
-
-    //--------------------------------------------------------------------------------------------------------
-    // Joing
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var string
-    //
-    //--------------------------------------------------------------------------------------------------------
-    private $join;
-
-    //--------------------------------------------------------------------------------------------------------
-    // Trans Start
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var string
-    //
-    //--------------------------------------------------------------------------------------------------------
-    private $transStart;
-
-    //--------------------------------------------------------------------------------------------------------
-    // Trans Error
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var string
-    //
-    //--------------------------------------------------------------------------------------------------------
-    private $transError;
-
-    //--------------------------------------------------------------------------------------------------------
-    // Duplicate Check
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var string
-    //
-    //--------------------------------------------------------------------------------------------------------
-    private $duplicateCheck;
-
-    //--------------------------------------------------------------------------------------------------------
-    // Duplicate Check Update
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var string
-    //
-    //--------------------------------------------------------------------------------------------------------
-    private $duplicateCheckUpdate;
-
-    //--------------------------------------------------------------------------------------------------------
-    // Join Type
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var string
-    //
-    //--------------------------------------------------------------------------------------------------------
-    private $joinType;
-
-    //--------------------------------------------------------------------------------------------------------
-    // Join Table
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var string
-    //
-    //--------------------------------------------------------------------------------------------------------
-    private $joinTable;
-
-    //--------------------------------------------------------------------------------------------------------
-    // Union Query
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var string
-    //
-    //--------------------------------------------------------------------------------------------------------
-    private $unionQuery = NULL;
-
-    //--------------------------------------------------------------------------------------------------------
-    // Caching
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var array
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public $caching = [];
+    private $select     , $where     , $distinct         , $highPriority, $lowPriority  ;
+    private $delayed    , $procedure , $outFile          , $characterSet, $into         ;
+    private $forUpdate  , $quick     , $ignore           , $partition   , $straightJoin ;
+    private $smallResult, $bigResult , $bufferResult     , $cache       , $calcFoundRows;
+    private $groupBy    , $having    , $orderBy          , $limit       , $join         ;
+    private $transStart , $transError, $duplicateCheck   , $duplicateCheckUpdate        ;
+    private $joinType   , $joinTable , $unionQuery = NULL, $caching = [];
 
     //--------------------------------------------------------------------------------------------------------
     // Magic Call
@@ -541,7 +239,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param string ...$condition
     //
     //--------------------------------------------------------------------------------------------------------
-    public function select(...$condition) : InternalDB
+    public function select(...$condition) : DB
     {
         if( empty($condition[0]) )
         {
@@ -564,7 +262,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param string $logical
     //
     //--------------------------------------------------------------------------------------------------------
-    public function where($column, String $value = '', String $logical = NULL) : InternalDB
+    public function where($column, String $value = '', String $logical = NULL) : DB
     {
         $this->_wh($column, $value, $logical, __FUNCTION__);
 
@@ -578,7 +276,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param array ...$args
     //
     //--------------------------------------------------------------------------------------------------------
-    public function whereGroup(...$args) : InternalDB
+    public function whereGroup(...$args) : DB
     {
         $this->where .= $this->_whereHavingGroup($args);
 
@@ -592,7 +290,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param array ...$args
     //
     //--------------------------------------------------------------------------------------------------------
-    public function havingGroup(...$args) : InternalDB
+    public function havingGroup(...$args) : DB
     {
         $this->having .= $this->_whereHavingGroup($args);
 
@@ -608,7 +306,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param string $logical
     //
     //--------------------------------------------------------------------------------------------------------
-    public function having($column, String $value = '', String $logical = NULL) : InternalDB
+    public function having($column, String $value = '', String $logical = NULL) : DB
     {
         $this->_wh($column, $value, $logical, __FUNCTION__);
 
@@ -623,7 +321,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param string $driver
     //
     //--------------------------------------------------------------------------------------------------------
-    public function caching($time, String $driver = NULL) : InternalDB
+    public function caching($time, String $driver = NULL) : DB
     {
         $this->caching['time']   = $time;
         $this->caching['driver'] = $driver ?? $this->config['cacheDriver'] ?? 'file';
@@ -652,7 +350,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param string $type
     //
     //--------------------------------------------------------------------------------------------------------
-    public function join(String $table, String $condition, String $type = NULL) : InternalDB
+    public function join(String $table, String $condition, String $type = NULL) : DB
     {
         $tableEx = explode('.', $table);
 
@@ -686,7 +384,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param string $otherColumn
     //
     //--------------------------------------------------------------------------------------------------------
-    public function innerJoin(String $table, String $otherColumn, String $operator = '=') : InternalDB
+    public function innerJoin(String $table, String $otherColumn, String $operator = '=') : DB
     {
         $this->_join($table, $otherColumn, $operator, 'INNER');
 
@@ -702,7 +400,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param string $otherColumn
     //
     //--------------------------------------------------------------------------------------------------------
-    public function outerJoin(String $table, String $otherColumn, String $operator = '=') : InternalDB
+    public function outerJoin(String $table, String $otherColumn, String $operator = '=') : DB
     {
         $this->_join($table, $otherColumn, $operator, 'FULL OUTER');
 
@@ -718,7 +416,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param string $otherColumn
     //
     //--------------------------------------------------------------------------------------------------------
-    public function leftJoin(String $table, String $otherColumn, String $operator = '=') : InternalDB
+    public function leftJoin(String $table, String $otherColumn, String $operator = '=') : DB
     {
         $this->_join($table, $otherColumn, $operator, 'LEFT');
 
@@ -734,7 +432,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param string $otherColumn
     //
     //--------------------------------------------------------------------------------------------------------
-    public function rightJoin(String $table, String $otherColumn, String $operator = '=') : InternalDB
+    public function rightJoin(String $table, String $otherColumn, String $operator = '=') : DB
     {
         $this->_join($table, $otherColumn, $operator, 'RIGHT');
 
@@ -748,7 +446,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param string ...$args
     //
     //--------------------------------------------------------------------------------------------------------
-    public function groupBy(...$args) : InternalDB
+    public function groupBy(...$args) : DB
     {
         $this->groupBy .= implode(',', $args).', ';
 
@@ -763,7 +461,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param string $type
     //
     //--------------------------------------------------------------------------------------------------------
-    public function orderBy($condition, String $type = NULL) : InternalDB
+    public function orderBy($condition, String $type = NULL) : DB
     {
         if( is_string($condition) )
         {
@@ -788,7 +486,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param int $limit
     //
     //--------------------------------------------------------------------------------------------------------
-    public function limit($start = NULL, Int $limit = 0) : InternalDB
+    public function limit($start = NULL, Int $limit = 0) : DB
     {
         Coalesce::null($start, (int) URI::segment(-1));
 
@@ -812,71 +510,28 @@ class InternalDB extends Connection implements InternalDBInterface
     public function get(String $table = NULL, String $return = 'object')
     {
         $this->tableName = $table = $this->_p($table, 'table');
+     
+        $finalQuery =     'SELECT '         . 
+                          $this->distinct   . $this->highPriority . $this->straightJoin . 
+                          $this->smallResult. $this->bigResult    . $this->bufferResult . 
+                          $this->cache      . $this->calcFoundRows. $this->_select()    .
+                          ' FROM '          . 
+                          $table.' '        . $this->partition    . $this->join         . 
+                          $this->_where()   . $this->_groupBy()   . $this->_having()    . 
+                          $this->_orderBy() . $this->limit        . $this->procedure    . 
+                          $this->outFile    . $this->characterSet . $this->into         .
+                          $this->forUpdate;
 
-        if( ! empty($this->selectFunctions) )
-        {
-            $selectFunctions = rtrim(implode(',', $this->selectFunctions), ',');
-
-            if( empty($this->select) )
-            {
-                $this->select = $selectFunctions;
-            }
-            else
-            {
-                $this->select .= ','.$selectFunctions;
-            }
-        }
-
-        if( empty($this->select) )
-        {
-            $this->select = ' * ';
-        }
-
-        // First Query
-        $finalQuery =     'SELECT '.
-                          $this->all.
-                          $this->distinct.
-                          $this->distinctRow.
-                          $this->highPriority.
-                          $this->maxStatementTime.
-                          $this->straightJoin.
-                          $this->smallResult.
-                          $this->bigResult.
-                          $this->bufferResult.
-                          $this->cache.
-                          $this->noCache.
-                          $this->calcFoundRows.
-                          $this->select.
-                          ' FROM '.
-                          $table.' '.
-                          $this->join.
-                          $this->_where().
-                          $this->_groupBy().
-                          $this->_having().
-                          $this->_orderBy().
-                          $this->limit.
-                          $this->procedure.
-                          $this->outFile.
-                          $this->characterSet.
-                          $this->dumpFile.
-                          $this->into.
-                          $this->forUpdate.
-                          $this->lockInShareMode;
-
-        // Union Query
         if( $this->unionQuery !== NULL )
         {
-            $finalQuery = $this->unionQuery . ' ' . $finalQuery;
+            $finalQuery       = $this->unionQuery . ' ' . $finalQuery;
             $this->unionQuery = NULL;
         }
 
-        // Clear Query
         $this->_resetSelectQuery();
-
-        // Query Security
+        
         $secureFinalQuery = $this->_querySecurity($finalQuery);
 
-        // String Query
         if( $this->string === true || $return === 'string' )
         {
             $this->string = NULL;
@@ -896,7 +551,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param string $otherColumn
     //
     //--------------------------------------------------------------------------------------------------------
-    public function duplicateCheck(...$args) : InternalDB
+    public function duplicateCheck(...$args) : DB
     {
         $this->duplicateCheck = $args;
 
@@ -917,7 +572,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param string $otherColumn
     //
     //--------------------------------------------------------------------------------------------------------
-    public function duplicateCheckUpdate(...$args) : InternalDB
+    public function duplicateCheckUpdate(...$args) : DB
     {
         $this->duplicateCheck(...$args);
 
@@ -1015,9 +670,9 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function all() : InternalDB
+    public function all() : DB
     {
-        $this->all = ' ALL ';
+        $this->dictinct = ' ALL ';
         return $this;
     }
 
@@ -1028,22 +683,9 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function distinct() : InternalDB
+    public function distinct() : DB
     {
         $this->distinct = ' DISTINCT ';
-        return $this;
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Max Statement Time
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function maxStatementTime(String $time) : InternalDB
-    {
-        $this->maxStatementTime = ' MAX_STATEMENT_TIME '.$time.' ';
         return $this;
     }
 
@@ -1054,9 +696,9 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function distinctRow() : InternalDB
+    public function distinctRow() : DB
     {
-        $this->distinctRow = ' DISTINCTROW ';
+        $this->distinct = ' DISTINCTROW ';
         return $this;
     }
 
@@ -1067,7 +709,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function straightJoin() : InternalDB
+    public function straightJoin() : DB
     {
         $this->straightJoin = ' STRAIGHT_JOIN ';
         return $this;
@@ -1080,7 +722,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function highPriority() : InternalDB
+    public function highPriority() : DB
     {
         $this->highPriority = ' HIGH_PRIORITY ';
         return $this;
@@ -1093,7 +735,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function lowPriority() : InternalDB
+    public function lowPriority() : DB
     {
         $this->lowPriority = ' LOW_PRIORITY ';
         return $this;
@@ -1106,7 +748,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function quick() : InternalDB
+    public function quick() : DB
     {
         $this->quick = ' QUICK ';
         return $this;
@@ -1119,7 +761,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function delayed() : InternalDB
+    public function delayed() : DB
     {
         $this->delayed = ' DELAYED ';
         return $this;
@@ -1132,7 +774,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function ignore() : InternalDB
+    public function ignore() : DB
     {
         $this->ignore = ' IGNORE ';
         return $this;
@@ -1145,7 +787,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param string ...$args
     //
     //--------------------------------------------------------------------------------------------------------
-    public function partition(...$args) : InternalDB
+    public function partition(...$args) : DB
     {
         $this->partition = $this->_math(__FUNCTION__, $args)->args;
         return $this;
@@ -1158,7 +800,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param string ...$args
     //
     //--------------------------------------------------------------------------------------------------------
-    public function procedure(...$args) : InternalDB
+    public function procedure(...$args) : DB
     {
         $this->procedure = $this->_math(__FUNCTION__, $args)->args;
         return $this;
@@ -1171,7 +813,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param string ...$args
     //
     //--------------------------------------------------------------------------------------------------------
-    public function outFile(String $file) : InternalDB
+    public function outFile(String $file) : DB
     {
         $this->outFile = 'INTO OUTFILE '."'".$file."'".' ';
         return $this;
@@ -1184,9 +826,10 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param string $file
     //
     //--------------------------------------------------------------------------------------------------------
-    public function dumpFile(String $file) : InternalDB
+    public function dumpFile(String $file) : DB
     {
-        $this->dumpFile = 'INTO DUMPFILE '."'".$file."'".' ';
+        $this->into = 'INTO DUMPFILE '."'".$file."'".' ';
+
         return $this;
     }
 
@@ -1272,7 +915,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param string $varname2
     //
     //--------------------------------------------------------------------------------------------------------
-    public function into(String $varname1, String $varname2 = NULL) : InternalDB
+    public function into(String $varname1, String $varname2 = NULL) : DB
     {
         $this->into = 'INTO '.$varname1.' ';
 
@@ -1291,7 +934,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function forUpdate() : InternalDB
+    public function forUpdate() : DB
     {
         $this->forUpdate = ' FOR UPDATE ';
 
@@ -1305,9 +948,9 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function lockInShareMode() : InternalDB
+    public function lockInShareMode() : DB
     {
-        $this->lockInShareMode = ' LOCK IN SHARE MODE ';
+        $this->forUpdate = ' LOCK IN SHARE MODE ';
 
         return $this;
     }
@@ -1319,7 +962,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function smallResult() : InternalDB
+    public function smallResult() : DB
     {
         $this->smallResult = ' SQL_SMALL_RESULT ';
 
@@ -1333,7 +976,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function bigResult() : InternalDB
+    public function bigResult() : DB
     {
         $this->bigResult = ' SQL_BIG_RESULT ';
 
@@ -1347,7 +990,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function bufferResult() : InternalDB
+    public function bufferResult() : DB
     {
         $this->bufferResult = ' SQL_BUFFER_RESULT ';
 
@@ -1361,7 +1004,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function cache() : InternalDB
+    public function cache() : DB
     {
         $this->cache = ' SQL_CACHE ';
 
@@ -1375,9 +1018,9 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function noCache() : InternalDB
+    public function noCache() : DB
     {
-        $this->noCache = ' SQL_NO_CACHE ';
+        $this->cache = ' SQL_NO_CACHE ';
 
         return $this;
     }
@@ -1389,7 +1032,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function calcFoundRows() : InternalDB
+    public function calcFoundRows() : DB
     {
         $this->calcFoundRows = ' SQL_CALC_FOUND_ROWS ';
 
@@ -1403,7 +1046,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param string $table
     //
     //--------------------------------------------------------------------------------------------------------
-    public function union(String $table = NULL, $name = 'UNION') : InternalDB
+    public function union(String $table = NULL, $name = 'UNION') : DB
     {
         $this->unionQuery .= $this->get($table, 'string') . $name;
 
@@ -1417,7 +1060,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param string $table
     //
     //--------------------------------------------------------------------------------------------------------
-    public function unionAll(String $table = NULL) : InternalDB
+    public function unionAll(String $table = NULL) : DB
     {
         $this->union($table, 'UNION ALL');
 
@@ -1462,7 +1105,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param array  $secure
     //
     //--------------------------------------------------------------------------------------------------------
-    public function basicQuery(String $query, Array $secure = []) : InternalDB
+    public function basicQuery(String $query, Array $secure = []) : DB
     {
         $this->_query($query, $this->_p($secure, 'secure'));
 
@@ -1477,7 +1120,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param array  $secure
     //
     //--------------------------------------------------------------------------------------------------------
-    public function transQuery(String $query, Array $secure = []) : InternalDB
+    public function transQuery(String $query, Array $secure = []) : DB
     {
         $this->_query($query, $this->_p($secure, 'secure'));
 
@@ -1504,7 +1147,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function transStart() : InternalDB
+    public function transStart() : DB
     {
         $this->transStart = $this->db->transStart();
 
@@ -1556,7 +1199,7 @@ class InternalDB extends Connection implements InternalDBInterface
     // @param string $table
     //
     //--------------------------------------------------------------------------------------------------------
-    public function status(String $table = NULL) : InternalDB
+    public function status(String $table = NULL) : DB
     {
         $table = presuffix($this->_p($table), "'");
 
@@ -1702,7 +1345,7 @@ class InternalDB extends Connection implements InternalDBInterface
                         ' INTO '.
                         $this->_p($table).
                         $this->partition.
-                       ' ('.substr($data, 0, -1).') VALUES ('.substr($values, 0, -1).')';
+                        $this->_values($data, $values);
 
         $this->_resetInsertQuery();
 
@@ -2185,6 +1828,293 @@ class InternalDB extends Connection implements InternalDBInterface
     public function simpleDelete(String $table, String $column, String $value)
     {
         return $this->where($column, $value)->delete($table);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Switch Case
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $switch
+    // @param array  $conditions
+    // @param bool   $return
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function switchCase(String $switch, Array $conditions = [], Bool $return = false)
+    {
+        $case  = ' CASE '.$switch;
+
+        $alias = NULL;
+
+        if( isset($conditions['as']) )
+        {
+            $alias = ' as '.$conditions['as'].' ';
+
+            unset($conditions['as']);
+        }
+
+        if( is_array($conditions) ) foreach( $conditions as $key => $val )
+        {
+            if( strtolower($key) === 'default' || strtolower($key) === 'else' )
+            {
+                $key = ' ELSE ';
+            }
+            else
+            {
+                $key = ' WHEN '.$key.' THEN ';
+            }
+
+            $case .= $key.$val;
+        }
+
+        $case .= ' END '.$alias;
+
+        if( $return === true )
+        {
+            return $case;
+        }
+        else
+        {
+            $this->selectFunctions[] = $case;
+
+            return $this;
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Vartype
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $type
+    // @param int    $len
+    // @param bool   $output
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function vartype(String $type, Int $len = NULL, Bool $output = true) : String
+    {
+        return $this->db->variableTypes($type, $len, $output);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Property
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param mixed  $type
+    // @param string $col
+    // @param bool   $output
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function property($type, String $col = NULL, Bool $output = true) : String
+    {
+        if( is_array($type) )
+        {
+            $state = '';
+
+            foreach( $type as $key => $val )
+            {
+                if( ! is_numeric($key) )
+                {
+                    $state .= $this->db->statements($key, $val);
+                }
+                else
+                {
+                    $state .= $this->db->statements($val);
+                }
+            }
+
+            return $state;
+        }
+        else
+        {
+            return $this->db->statements($type, $col, $output);
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Default Value
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $default
+    // @param bool   $type
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function defaultValue(String $default = NULL, Bool $type = false) : String
+    {
+        if( ! is_numeric($default) )
+        {
+            $default = presuffix($default, '"');
+        }
+
+        return $this->db->statements('default', $default, $type);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Like
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param variadic $args
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function like(String $value, String $type = 'starting') : String
+    {
+        $operator = $this->db->operator(__FUNCTION__);
+
+        if( $type === "inside" )
+        {
+            $value = $operator.$value.$operator;
+        }
+
+        // İle Başlayan
+        if( $type === "starting" )
+        {
+            $value = $value.$operator;
+        }
+
+        // İle Biten
+        if( $type === "ending" )
+        {
+            $value = $operator.$value;
+        }
+
+        return $value;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Between
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $value1
+    // @param string $value2
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function between(String $value1, String $value2) : String
+    {
+        return $this->_excapeStringAddNail($value1, true).' AND '.$this->_excapeStringAddNail($value2, true);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // In
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string ...$value
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function notIn(String ...$value) : String
+    {
+        return $this->_in('in', ...$value);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // In
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string ...$value
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function in(String ...$value) : String
+    {
+        return $this->_in(__FUNCTION__, ...$value);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // In Table
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string ...$value
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function inTable(String ...$value) : String
+    {
+        return $this->_in(__FUNCTION__, ...$value);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // In Query
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string ...$value
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function inQuery(String ...$value) : String
+    {
+        return $this->_in(__FUNCTION__, ...$value);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected In
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string ...$value
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _in($type = 'in', ...$value)
+    {
+        $query = '(';
+        $type  = strtolower($type);
+
+        foreach( $value as $val )
+        {
+            if( $type === 'in' )
+            {
+                $query .= $this->_excapeStringAddNail($val, true);
+            }
+            elseif( $type === 'intable' )
+            {
+                $query .= $this->getString($val);
+            }
+            else
+            {
+                $query .= $val;
+            }
+
+            $query .= ',';
+        }
+
+        return rtrim($query, ',') . ')';
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Select
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _select()
+    {
+        if( ! empty($this->selectFunctions) )
+        {
+            $selectFunctions = rtrim(implode(',', $this->selectFunctions), ',');
+
+            if( empty($this->select) )
+            {
+                $this->select = $selectFunctions;
+            }
+            else
+            {
+                $this->select .= ',' . $selectFunctions;
+            }
+        }
+
+        if( empty($this->select) )
+        {
+            $this->select = ' * ';
+        }
+
+        return $this->select;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Values
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param  mixed $table
+    // @param  mixed $set
+    // @return mixed
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _values($data, $values)
+    {
+        return ' ('.rtrim($data, ',').') VALUES ('.rtrim($values, ',').')';
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -2743,16 +2673,13 @@ class InternalDB extends Connection implements InternalDBInterface
     //--------------------------------------------------------------------------------------------------------
     protected function _resetSelectQuery()
     {
-        $this->all             = NULL;
         $this->distinct        = NULL;
-        $this->distinctRow     = NULL;
         $this->highPriority    = NULL;
         $this->straightJoin    = NULL;
         $this->smallResult     = NULL;
         $this->bigResult       = NULL;
         $this->bufferResult    = NULL;
         $this->cache           = NULL;
-        $this->noCache         = NULL;
         $this->calcFoundRows   = NULL;
         $this->select          = NULL;
         $this->from            = NULL;
@@ -2767,12 +2694,9 @@ class InternalDB extends Connection implements InternalDBInterface
         $this->table           = NULL;
         $this->procedure       = NULL;
         $this->outFile         = NULL;
-        $this->dumpFile        = NULL;
         $this->characterSet    = NULL;
         $this->into            = NULL;
         $this->forUpdate       = NULL;
-        $this->lockInShareMode = NULL;
-        $this->maxStatementTime= NULL;
     }
 
     //--------------------------------------------------------------------------------------------------------

@@ -1,6 +1,6 @@
 <?php namespace ZN\IndividualStructures\Security;
 
-class Injection extends SecurityExtends
+class Injection
 {
     //--------------------------------------------------------------------------------------------------------
     //

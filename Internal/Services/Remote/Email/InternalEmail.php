@@ -1,12 +1,12 @@
 <?php namespace ZN\Services\Remote;
 
-use Support, Config, CLController, DriverAbility, InformationAbility, IS;
+use Support, Config, DriverAbility, InformationAbility, IS;
 use Lang, Mime, Method, DB;
 use ZN\DataTypes\Strings;
 use ZN\IndividualStructures\Import;
 use ZN\IndividualStructures\Security;
 
-class InternalEmail extends CLController implements InternalEmailInterface
+class InternalEmail implements InternalEmailInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -26,12 +26,12 @@ class InternalEmail extends CLController implements InternalEmailInterface
     // @const string/
     //
     //--------------------------------------------------------------------------------------------------------
-    const config = 'Services:email';
     const driver =
     [
         'options'   => ['imap', 'mail', 'pipe', 'send', 'smtp'],
         'namespace' => 'ZN\Services\Remote\Email\Drivers',
-        'construct' => 'settings'
+        'construct' => 'settings',
+        'config'    => 'Services:email'
     ];
 
     //--------------------------------------------------------------------------------------------------------
@@ -347,7 +347,7 @@ class InternalEmail extends CLController implements InternalEmailInterface
     //--------------------------------------------------------------------------------------------------------
     public function settings(Array $settings = NULL) : InternalEmail
     {
-        $config        = SERVICES_EMAIL_CONFIG;
+        $config        = Config::services('email');
         $smtpConfig    = $config['smtp'];
         $generalConfig = $config['general'];
 

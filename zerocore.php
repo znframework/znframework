@@ -29,9 +29,9 @@ define('PROJECT_COMMANDS_NAMESPACE'  , 'Project\Commands\\'                     
 define('EXTERNAL_COMMANDS_NAMESPACE' , 'External\Commands\\'                                      );
 define('DIRECTORY_INDEX'             , 'zeroneed.php'                                             );
 define('INTERNAL_ACCESS'             , 'Internal'                                                 );
-define('BASE_DIR'                    , explode(DIRECTORY_INDEX, $_SERVER['SCRIPT_NAME'])[0] ?? '/');
-define('PROJECTS_DIR'                , REAL_BASE_DIR.'Projects'.DS                                );
-define('EXTERNAL_DIR'                , REAL_BASE_DIR.(PROJECT_TYPE === 'SE' ? '' : 'External'.DS) );
+define('BASE_DIR'                    , ltrim(explode(DIRECTORY_INDEX, $_SERVER['SCRIPT_NAME'])[0], '/'));
+define('PROJECTS_DIR'                , 'Projects'.DS                                );
+define('EXTERNAL_DIR'                , (PROJECT_TYPE === 'SE' ? '' : 'External'.DS) );
 define('SETTINGS_DIR'                , (PROJECT_TYPE === 'SE' ? 'Config' : 'Settings').DS         );
 //--------------------------------------------------------------------------------------------------
 
@@ -159,24 +159,24 @@ define('INDEX_STATUS', ! Config::get('Htaccess', 'uri')['directoryIndex']
 // Useful current constants.
 //
 //--------------------------------------------------------------------------------------------------
-define('BASE_URL'     , URL::base()             );
-define('SITE_URL'     , URL::site()             );
-define('CURRENT_URL'  , URL::current()          );
-define('PREV_URL'     , URL::prev()             );
-define('HOST_URL'     , URL::host()             );
-define('BASE_PATH'    , URI::base()             );
-define('CURRENT_PATH' , URI::current()          );
-define('PREV_PATH'    , URI::prev()             );
-define('HOST'         , host()                  );
-define('HOST_NAME'    , HOST                    );
-define('FILES_URL'    , URL::base(FILES_DIR)    );
-define('FONTS_URL'    , URL::base(FONTS_DIR)    );
-define('PLUGINS_URL'  , URL::base(PLUGINS_DIR)  );
-define('SCRIPTS_URL'  , URL::base(SCRIPTS_DIR)  );
-define('STYLES_URL'   , URL::base(STYLES_DIR)   );
-define('THEMES_URL'   , URL::base(THEMES_DIR)   );
-define('UPLOADS_URL'  , URL::base(UPLOADS_DIR)  );
-define('RESOURCES_URL', URL::base(RESOURCES_DIR));
+define('HOST'         , host()                                                 );
+define('HOST_NAME'    , HOST                                                   );
+define('HOST_URL'     , SSL_STATUS . HOST . '/'                                );
+define('BASE_URL'     , HOST_URL . BASE_DIR                                    );
+define('SITE_URL'     , URL::site()                                            );
+define('CURRENT_URL'  , rtrim(HOST_URL, '/') . $_SERVER['REQUEST_URI'] ?? NULL );
+define('PREV_URL'     , $_SERVER['HTTP_REFERER'] ?? NULL                       );
+define('BASE_PATH'    , BASE_DIR                                               );
+define('CURRENT_PATH' , URI::current()                                         );
+define('PREV_PATH'    , str_replace(SITE_URL, NULL, PREV_URL)                  );
+define('FILES_URL'    , BASE_URL . FILES_DIR                                   );
+define('FONTS_URL'    , BASE_URL . FONTS_DIR                                   );
+define('PLUGINS_URL'  , BASE_URL . PLUGINS_DIR                                 );
+define('SCRIPTS_URL'  , BASE_URL . SCRIPTS_DIR                                 );
+define('STYLES_URL'   , BASE_URL . STYLES_DIR                                  );
+define('THEMES_URL'   , BASE_URL . THEMES_DIR                                  );
+define('UPLOADS_URL'  , BASE_URL . UPLOADS_DIR                                 );
+define('RESOURCES_URL', BASE_URL . RESOURCES_DIR                               );
 //--------------------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------------------
@@ -649,8 +649,6 @@ function import(String $file)
     if( ! defined($constant) )
     {
         define($constant, true);
-
-        $file = prefix($file, REAL_BASE_DIR);
 
         if( is_file($file) )
         {

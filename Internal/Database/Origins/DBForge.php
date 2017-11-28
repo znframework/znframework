@@ -3,7 +3,7 @@
 use Support;
 use ZN\DataTypes\Strings;
 
-class InternalDBForge extends Connection implements InternalDBForgeInterface
+class DBForge extends Connection
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -80,7 +80,7 @@ class InternalDBForge extends Connection implements InternalDBForgeInterface
     // @param mixed $extras
     //
     //--------------------------------------------------------------------------------------------------------
-    public function extras($extras) : InternalDBForge
+    public function extras($extras) : DBForge
     {
         $this->extras = $extras;
 

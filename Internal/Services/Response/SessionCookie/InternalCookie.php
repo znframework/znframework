@@ -1,11 +1,11 @@
 <?php namespace ZN\Services\Response;
 
-use Session, CLController, IS;
+use Session, IS, Config;
 use ZN\Services\Response\SessionCookie\Exception\SetcookieException;
 use ZN\CryptoGraphy\Encode;
 use ZN\DataTypes\Json;
 
-class InternalCookie extends CLController implements InternalCookieInterface, SessionCookieCommonInterface
+class InternalCookie implements InternalCookieInterface, SessionCookieCommonInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -15,8 +15,6 @@ class InternalCookie extends CLController implements InternalCookieInterface, Se
     // Copyright  : (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
-
-    const config = 'Services:cookie';
 
     //--------------------------------------------------------------------------------------------------------
     // Time
@@ -75,7 +73,7 @@ class InternalCookie extends CLController implements InternalCookieInterface, Se
     {
         Session::start();
 
-        parent::__construct();
+        $this->config = Config::services('cookie');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -189,7 +187,7 @@ class InternalCookie extends CLController implements InternalCookieInterface, Se
             }
         }
 
-        $cookieConfig = SERVICES_COOKIE_CONFIG;
+        $cookieConfig = $this->config;
 
         if( empty($this->time) )        $this->time     = $cookieConfig['time'];
         if( empty($this->path) )        $this->path     = $cookieConfig['path'];
@@ -256,7 +254,7 @@ class InternalCookie extends CLController implements InternalCookieInterface, Se
         }
         else
         {
-            $encode = SERVICES_COOKIE_CONFIG['encode'];
+            $encode = $this->config['encode'];
 
             if( $encode === true )
             {
@@ -316,7 +314,7 @@ class InternalCookie extends CLController implements InternalCookieInterface, Se
     //--------------------------------------------------------------------------------------------------------
     public function delete(String $name, String $path = NULL) : Bool
     {
-        $cookieConfig = SERVICES_COOKIE_CONFIG;
+        $cookieConfig = $this->config;
 
         if( ! empty($path) )
         {
@@ -375,7 +373,7 @@ class InternalCookie extends CLController implements InternalCookieInterface, Se
     //--------------------------------------------------------------------------------------------------------
     public function deleteAll() : Bool
     {
-        $path = SERVICES_COOKIE_CONFIG['path'];
+        $path = $this->config['path'];
 
         if( ! empty($_COOKIE) ) foreach( $_COOKIE as $key => $val )
         {

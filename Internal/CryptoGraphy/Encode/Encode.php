@@ -1,6 +1,6 @@
-<?php namespace ZN\Database;
+<?php namespace ZN\CryptoGraphy;
 
-class DBTriggerUnitTest extends \UnitTestController
+class Encode extends \FactoryController
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -11,18 +11,15 @@ class DBTriggerUnitTest extends \UnitTestController
     //
     //--------------------------------------------------------------------------------------------------------
 
-    const unit =
+    const factory =
     [
-        'class'   => 'DBTrigger',
         'methods' =>
         [
-            'user'          => ['p1'],
-            'when'          => ['p1'],
-            'event'         => ['p1'],
-            'order'         => ['p1', 'p2'],
-            'body'          => ['p1', 'p2', 'pn'],
-            'createTrigger' => ['p1'],
-            'dropTrigger'   => ['p1']
+            'create' => 'Encode\RandomPassword::create',
+            'golden' => 'Encode\GoldenAlgorithm::create',
+            'super'  => 'Encode\SuperAlgorithm::create',
+            'type'   => 'Encode\Type::create',
+            'data'   => 'Encode\Type::create'
         ]
     ];
 }

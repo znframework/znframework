@@ -1,8 +1,8 @@
 <?php namespace ZN\IndividualStructures\Cart;
 
-use CLController, DriverAbility;
+use DriverAbility;
 
-class CartExtends extends CLController
+class CartExtends
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -22,9 +22,9 @@ class CartExtends extends CLController
     // @const string
     //
     //--------------------------------------------------------------------------------------------------------
-    const config = 'IndividualStructures:cart';
     const driver =
     [
-        'options' => ['session', 'cookie']
+        'options' => ['session', 'cookie'],
+        'config'  => 'IndividualStructures:cart'
     ];
 }

@@ -38,7 +38,7 @@ class Select extends MLExtends
 
         $read   = json_decode($read  ?? '', true);
         $eread  = json_decode($eread ?? '', true);
-        $array  = array_merge($eread, $read);
+        $array  = array_merge((array) $eread, (array) $read);
 
         if( $key === NULL )
         {

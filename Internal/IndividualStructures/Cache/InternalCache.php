@@ -1,11 +1,11 @@
 <?php namespace ZN\IndividualStructures;
 
-use Support, CLController, DriverAbility;
+use Support, DriverAbility;
 use ZN\Helpers\Converter;
 use ZN\IndividualStructures\Buffer;
 use ZN\IndividualStructures\Import;
 
-class InternalCache extends CLController implements InternalCacheInterface
+class InternalCache implements InternalCacheInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -25,11 +25,11 @@ class InternalCache extends CLController implements InternalCacheInterface
     // @const string
     //
     //--------------------------------------------------------------------------------------------------------
-    const config = 'IndividualStructures:cache';
     const driver =
     [
         'options'   => ['file', 'apc', 'apcu', 'memcache', 'redis', 'wincache', 'opcache'],
-        'namespace' => 'ZN\IndividualStructures\Cache\Drivers'
+        'namespace' => 'ZN\IndividualStructures\Cache\Drivers',
+        'config'    => 'IndividualStructures:cache'
     ];
 
     protected $codeCount = 0;

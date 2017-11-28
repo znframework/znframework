@@ -4,7 +4,7 @@ use Support, Config, Autoloader, Logger;
 use ZN\Database\Exception\InvalidArgumentException;
 use ZN\DataTypes\Arrays;
 
-class Connection implements ConnectionInterface
+class Connection
 {
     //--------------------------------------------------------------------------------------------------------
     //

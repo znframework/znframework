@@ -54,8 +54,10 @@ trait DriverAbility
             throw new UndefinedConstException('[const driver] is required to use the [Driver Ability]!');
         }
 
-        // 5.3.42[edited]
-        Coalesce::null($driver, $this->config['driver'] ?? static::driver['options'][0]);
+        // 5.3.42|5.4.5[edited]
+        $driver = $this->config['driver'] ?? 
+                  (isset(static::driver['config']) ? Config::get(...explode(':', static::driver['config']))['driver'] : NULL) ?: 
+                  static::driver['options'][0];
 
         $this->selectedDriverName = $driver;
 

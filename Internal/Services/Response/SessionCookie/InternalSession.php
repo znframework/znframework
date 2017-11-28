@@ -1,9 +1,9 @@
 <?php namespace ZN\Services\Response;
 
-use Config, CLController, IS;
+use Config, IS;
 use ZN\CryptoGraphy\Encode;
 
-class InternalSession extends CLController implements InternalSessionInterface, SessionCookieCommonInterface
+class InternalSession implements InternalSessionInterface, SessionCookieCommonInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -13,8 +13,6 @@ class InternalSession extends CLController implements InternalSessionInterface, 
     // Telif Hakkı: Copyright ConfigController(c) 2012-2016, zntr.net
     //
     //--------------------------------------------------------------------------------------------------------
-
-    const config = 'Services:session';
 
     //--------------------------------------------------------------------------------------------------------
     // Session Cookie Common
@@ -35,9 +33,9 @@ class InternalSession extends CLController implements InternalSessionInterface, 
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
-        parent::__construct();
-
         Config::iniSet(Config::get('Htaccess', 'session')['settings']);
+
+        $this->config = Config::services('session');
 
         $this->start();
     }
@@ -71,7 +69,7 @@ class InternalSession extends CLController implements InternalSessionInterface, 
             }
         }
 
-        $sessionConfig = SERVICES_SESSION_CONFIG;
+        $sessionConfig = $this->config;
 
         if( ! isset($this->encode['name']))
         {
@@ -128,7 +126,7 @@ class InternalSession extends CLController implements InternalSessionInterface, 
         }
         else
         {
-            $encode = SERVICES_SESSION_CONFIG['encode'];
+            $encode = $this->config['encode'];
 
             if( $encode === true )
             {
@@ -182,7 +180,7 @@ class InternalSession extends CLController implements InternalSessionInterface, 
     //--------------------------------------------------------------------------------------------------------
     public function delete(String $name) : Bool
     {
-        $sessionConfig = SERVICES_SESSION_CONFIG;
+        $sessionConfig = $this->config;
 
         if( isset($this->encode['name']) )
         {

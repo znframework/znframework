@@ -28,10 +28,7 @@ class Kernel
 
         $appcon = Config::get('Project');
 
-        if( empty($appcon) )
-        {
-            trace('["Container"] Not Found! Check the [\'containers\'] setting in the [Settings/Projects.php] file.');
-        }
+        if( empty($appcon) ) trace('["Container"] Not Found! Check the [\'containers\'] setting in the [Settings/Projects.php] file.');
 
         define('PROJECT_MODE', strtolower($appcon['mode']));
 
@@ -50,10 +47,7 @@ class Kernel
         
         headers(Config::get('Project', 'headers'));
 
-        if( IS::timeZone($timezone = Config::get('DateTime', 'timeZone')) )
-        {
-            date_default_timezone_set($timezone);
-        }
+        if( IS::timeZone($timezone = Config::get('DateTime', 'timeZone')) ) date_default_timezone_set($timezone);
         
         //--------------------------------------------------------------------------------------------------
         // Middle Top Layer
@@ -61,25 +55,14 @@ class Kernel
         layer('MiddleTop');
         //--------------------------------------------------------------------------------------------------
 
-        if( $iniSet = $htaccessConfig['ini']['settings'] )
-        {
-            Config::iniSet($iniSet);
-        }
-        
-        if( PROJECT_MODE !== 'publication' )
-        {
-            set_error_handler('Exceptions::table');
-      
-            In::createHtaccessFile();
-            In::createRobotsFile();
-        }
+        if( $iniSet = $htaccessConfig['ini']['settings'] ) Config::iniSet($iniSet);
+        if( PROJECT_MODE !== 'publication' ) set_error_handler('Exceptions::table');
+        if( Config::htaccess('createFile') === true ) In::createHtaccessFile();
+        if( Config::robots  ('createFile') === true ) In::createRobotsFile();
 
         $generateConfig = Config::get('FileSystem', 'generate');
 
-        if( $generateConfig['databases'] === true )
-        {
-            Generate::databases();
-        }
+        if( $generateConfig['databases'] === true ) Generate::databases();
 
         if( $grandVision = $generateConfig['grandVision'] )
         {
@@ -99,14 +82,10 @@ class Kernel
             }
         }
 
-        self::_composer();
-
-        self::_starting();
-
-        if( PROJECT_MODE === 'restoration' )
-        {
-            Restoration::mode();
-        }
+        if( $composer = Config::get('Autoloader', 'composer') ) self::_composer($composer);
+        if( ($starting = Config::get('Starting'))['autoload']['status'] === true ) self::_starting($starting);
+        if( ! empty($starting['handload']) ) Import\Handload::use(...$starting['handload']);
+        if( PROJECT_MODE === 'restoration' ) Restoration::mode();
 
         In::invalidRequest('disallowMethods', true);
         In::invalidRequest('allowMethods', false);
@@ -206,10 +185,7 @@ class Kernel
     //--------------------------------------------------------------------------------------------------
     public static function viewPathFinder($function, &$viewPath, &$wizardPath)
     {
-        if( ! $viewNameType = Config::get('ViewObjects', 'viewNameType') )
-        {
-            $viewNameType = 'file';
-        }
+        $viewNameType = Config::get('ViewObjects', 'viewNameType') ?: 'file';
 
         if( $viewNameType === 'file' )
         {
@@ -317,43 +293,33 @@ class Kernel
     // @param void
     //
     //--------------------------------------------------------------------------------------------------
-    protected static function _starting()
+    protected static function _starting($starting)
     {   
-        $starting = Config::get('Starting');
+        $startingAutoload       = Folder\FileList::allFiles(AUTOLOAD_DIR, $starting['autoload']['recursive']);
+        $commonStartingAutoload = Folder\FileList::allFiles(EXTERNAL_AUTOLOAD_DIR, $starting['autoload']['recursive']);
 
-        if( $starting['autoload']['status'] === true )
+        if( ! empty($startingAutoload) ) foreach( $startingAutoload as $file )
         {
-            $startingAutoload       = Folder\FileList::allFiles(AUTOLOAD_DIR, $starting['autoload']['recursive']);
-            $commonStartingAutoload = Folder\FileList::allFiles(EXTERNAL_AUTOLOAD_DIR, $starting['autoload']['recursive']);
-
-            if( ! empty($startingAutoload) ) foreach( $startingAutoload as $file )
+            if( File\Extension::get($file) === 'php' )
             {
-                if( File\Extension::get($file) === 'php' )
+                if( is_file($file) )
                 {
-                    if( is_file($file) )
-                    {
-                        import($file);
-                    }
-                }
-            }
-
-            if( ! empty($commonStartingAutoload) ) foreach( $commonStartingAutoload as $file )
-            {
-                if( File\Extension::get($file) === 'php' )
-                {
-                    $commonIsSameExistsFile = str_ireplace(EXTERNAL_AUTOLOAD_DIR, AUTOLOAD_DIR, $file);
-
-                    if( ! is_file($commonIsSameExistsFile) && is_file($file) )
-                    {
-                        import($file);
-                    }
+                    import($file);
                 }
             }
         }
 
-        if( ! empty($starting['handload']) )
+        if( ! empty($commonStartingAutoload) ) foreach( $commonStartingAutoload as $file )
         {
-            Import\Handload::use(...$starting['handload']);
+            if( File\Extension::get($file) === 'php' )
+            {
+                $commonIsSameExistsFile = str_ireplace(EXTERNAL_AUTOLOAD_DIR, AUTOLOAD_DIR, $file);
+
+                if( ! is_file($commonIsSameExistsFile) && is_file($file) )
+                {
+                    import($file);
+                }
+            }
         }
     }
 
@@ -364,37 +330,34 @@ class Kernel
     // @param void
     //
     //--------------------------------------------------------------------------------------------------
-    protected static function _composer()
+    protected static function _composer($composer)
     {
-        if( $composer = Config::get('Autoloader', 'composer') )
+        $path = 'vendor/autoload.php';
+
+        if( $composer === true )
         {
-            $path = 'vendor/autoload.php';
-
-            if( $composer === true )
+            if( file_exists($path) )
             {
-                if( file_exists($path) )
-                {
-                    import($path);
-                }
-                else
-                {
-                    Logger::report('Error', Lang::select('Error', 'fileNotFound', $path) ,'AutoloadComposer');
-
-                    throw new GeneralException('Error', 'fileNotFound', $path);
-                }
-            }
-            elseif( is_file($composer) )
-            {
-                import($composer);
+                import($path);
             }
             else
             {
-                $path = suffix($composer) . $path;
-
                 Logger::report('Error', Lang::select('Error', 'fileNotFound', $path) ,'AutoloadComposer');
 
                 throw new GeneralException('Error', 'fileNotFound', $path);
             }
+        }
+        elseif( is_file($composer) )
+        {
+            import($composer);
+        }
+        else
+        {
+            $path = suffix($composer) . $path;
+
+            Logger::report('Error', Lang::select('Error', 'fileNotFound', $path) ,'AutoloadComposer');
+
+            throw new GeneralException('Error', 'fileNotFound', $path);
         }
     }
 

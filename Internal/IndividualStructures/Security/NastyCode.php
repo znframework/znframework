@@ -2,7 +2,7 @@
 
 use Regex;
 
-class NastyCode extends SecurityExtends
+class NastyCode
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -24,7 +24,6 @@ class NastyCode extends SecurityExtends
     //--------------------------------------------------------------------------------------------------------
     public static function encode(String $string, $badWords = NULL, $changeChar = '[badchars]') : String
     {
-        // 2. Parametre boş ise varsayılan olarak Config/Security.php dosya ayarlarını kullan.
         if( empty($badWords) )
         {
             $secnc      = Properties::$ncEncode;

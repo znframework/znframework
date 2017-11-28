@@ -1,10 +1,10 @@
 <?php namespace ZN\Services\Response;
 
-use Config, Method, CLController, Lang;
+use Method, Lang;
 use ZN\Services\Response\HTTP\Exception\InvalidArgumentException;
 use ZN\DataTypes\Arrays;
 
-class InternalHTTP extends CLController implements InternalHTTPInterface
+class InternalHTTP implements InternalHTTPInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -14,8 +14,6 @@ class InternalHTTP extends CLController implements InternalHTTPInterface
     // Copyright  : (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
-
-    const config = ['Services:route'];
 
     //--------------------------------------------------------------------------------------------------------
     // Settings

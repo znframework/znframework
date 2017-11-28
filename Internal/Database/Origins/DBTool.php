@@ -1,6 +1,6 @@
 <?php namespace ZN\Database;
 
-class InternalDBTool extends Connection implements InternalDBToolInterface
+class DBTool extends Connection
 {
     //--------------------------------------------------------------------------------------------------------
     //

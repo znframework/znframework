@@ -1,8 +1,8 @@
 <?php namespace ZN\ViewObjects;
 
-use URI, URL, CLController;
+use URI, URL, Config;
 
-class InternalPagination extends CLController implements InternalPaginationInterface, InternalPaginationPropertiesInterface
+class InternalPagination implements InternalPaginationInterface, InternalPaginationPropertiesInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -12,8 +12,6 @@ class InternalPagination extends CLController implements InternalPaginationInter
     // Copyright  : (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
-
-    const config = 'ViewObjects:pagination';
 
     //--------------------------------------------------------------------------------------------------------
     // Pagination Properties
@@ -41,6 +39,11 @@ class InternalPagination extends CLController implements InternalPaginationInter
     //
     //--------------------------------------------------------------------------------------------------------
     protected $lc, $ls;
+
+    public function __construct()
+    {
+        $this->config = Config::viewObjects('pagination');
+    }
 
     //--------------------------------------------------------------------------------------------------------
     // Protected URI Get Control
@@ -82,7 +85,7 @@ class InternalPagination extends CLController implements InternalPaginationInter
     //--------------------------------------------------------------------------------------------------------
     public function settings(Array $config = []) : InternalPagination
     {
-        $configs = VIEWOBJECTS_PAGINATION_CONFIG;
+        $configs = $this->config;
 
         // ---------------------------------------------------------------------------------------
         // Sayfalama Ayarlarını İçeren Değişkenler
@@ -127,7 +130,7 @@ class InternalPagination extends CLController implements InternalPaginationInter
     //--------------------------------------------------------------------------------------------------------
     public function create($start = NULL, Array $settings = []) : String
     {
-        $settings = array_merge(VIEWOBJECTS_PAGINATION_CONFIG, $this->settings, $settings);
+        $settings = array_merge($this->config, $this->settings, $settings);
 
         if( ! empty($settings) )
         {

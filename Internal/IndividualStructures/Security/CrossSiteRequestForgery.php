@@ -2,7 +2,7 @@
 
 use Session, Method, Encode, Crypto;
 
-class CrossSiteRequestForgery extends SecurityExtends
+class CrossSiteRequestForgery
 {
     //--------------------------------------------------------------------------------------------------------
     //

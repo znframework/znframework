@@ -1,6 +1,8 @@
 <?php namespace ZN\CryptoGraphy;
 
-interface InternalCryptoInterface
+use CLController, DriverAbility, Support;
+
+class Crypto implements CryptoInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -11,6 +13,23 @@ interface InternalCryptoInterface
     //
     //--------------------------------------------------------------------------------------------------------
 
+    use DriverAbility;
+
+    //--------------------------------------------------------------------------------------------------------
+    // Consts
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @const string
+    //
+    //--------------------------------------------------------------------------------------------------------
+
+    const driver =
+    [
+        'options'   => ['hash', 'mhash', 'phash', 'openssl', 'mcrypt'],
+        'namespace' => 'ZN\CryptoGraphy\Drivers',
+        'config'    => 'CryptoGraphy:crypto'
+    ];
+
     //--------------------------------------------------------------------------------------------------------
     // Encrypt
     //--------------------------------------------------------------------------------------------------------
@@ -19,7 +38,10 @@ interface InternalCryptoInterface
     // @param array  $settings
     //
     //--------------------------------------------------------------------------------------------------------
-    public function encrypt(String $data,  Array $settings = []) : String;
+    public function encrypt(String $data,  Array $settings = []) : String
+    {
+        return $this->driver->encrypt($data, $settings);
+    }
 
     //--------------------------------------------------------------------------------------------------------
     // Decrypt
@@ -29,7 +51,10 @@ interface InternalCryptoInterface
     // @param array  $settings
     //
     //--------------------------------------------------------------------------------------------------------
-    public function decrypt(String $data, Array $settings = []) : String;
+    public function decrypt(String $data, Array $settings = []) : String
+    {
+        return $this->driver->decrypt($data, $settings);
+    }
 
     //--------------------------------------------------------------------------------------------------------
     // Keygen
@@ -38,5 +63,8 @@ interface InternalCryptoInterface
     // @param numeric $length
     //
     //--------------------------------------------------------------------------------------------------------
-    public function keygen(Int $length = 8) : String;
+    public function keygen(Int $length = 8) : String
+    {
+        return $this->driver->keygen($length);
+    }
 }
