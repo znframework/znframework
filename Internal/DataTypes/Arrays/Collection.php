@@ -1,6 +1,6 @@
 <?php namespace ZN\DataTypes;
 
-use SerialableAbility;
+use SerializationAbility;
 
 class InternalCollection
 {
@@ -13,9 +13,9 @@ class InternalCollection
     //
     //--------------------------------------------------------------------------------------------------------
     
-    use SerialableAbility;
+    use SerializationAbility;
 
-    const serialable = 
+    const serialization = 
     [
         'class' => 'Arrays',
         'start' => 'data',

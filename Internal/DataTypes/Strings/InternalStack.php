@@ -1,6 +1,6 @@
 <?php namespace ZN\DataTypes;
 
-use SerialableAbility;
+use SerializationAbility;
 
 class InternalStack
 {
@@ -13,9 +13,9 @@ class InternalStack
     //
     //--------------------------------------------------------------------------------------------------------
 
-    use SerialableAbility;
+    use SerializationAbility;
     
-    const serialable = 
+    const serialization = 
     [
         'class' => 'Strings',
         'start' => 'data',

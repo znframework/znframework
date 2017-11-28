@@ -1,7 +1,7 @@
-<?php trait SerialableAbility
+<?php trait SerializationAbility
 {
     //--------------------------------------------------------------------------------------------------------
-    // Serialable -> 5.4.5
+    // Serialization -> 5.4.5
     //--------------------------------------------------------------------------------------------------------
     //
     // Author     : Ozan UYKUN <ozanbote@gmail.com>
@@ -22,14 +22,14 @@
     public function __call($method, $parameters)
     {
         $lower   = strtolower($method);
-        $class   = self::serialable['class'];
-        $process = (self::serialable['process'] ?? 'serial') === 'serial' ? 'data' : 'return'; 
+        $class   = self::serialization['class'];
+        $process = (self::serialization['process'] ?? 'serial') === 'serial' ? 'data' : 'return'; 
 
-        if( $lower === self::serialable['start'] )
+        if( $lower === self::serialization['start'] )
         {
             $this->data = $parameters[0];
         }
-        elseif( $lower === self::serialable['end'] )
+        elseif( $lower === self::serialization['end'] )
         {
             return $this->$process;
         }

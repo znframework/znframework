@@ -1,6 +1,6 @@
 <?php namespace ZN\IndividualStructures;
 
-use SerialableAbility;
+use SerializationAbility;
 
 class InternalSecure implements InternalSecureInterface
 {
@@ -13,9 +13,9 @@ class InternalSecure implements InternalSecureInterface
     //
     //--------------------------------------------------------------------------------------------------------
 
-    use SerialableAbility;
+    use SerializationAbility;
     
-    const serialable = 
+    const serialization = 
     [
         'class' => 'Security',
         'start' => 'data',
