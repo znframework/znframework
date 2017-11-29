@@ -48,6 +48,9 @@ class Strings extends FactoryController
             'apportion'        => 'Strings\Split::apportion',
             'divide'           => 'Strings\Split::divide',
             'translationtable' => 'Strings\TranslationTable::get',
+            'removeelement'    => 'Strings\Element::remove',
+            'removefirst'      => 'Strings\Element::removeFirst',
+            'removelast'       => 'Strings\Element::removeLast',
         ]
     ];
 }

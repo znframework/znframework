@@ -3,7 +3,7 @@
 use Classes;
 use ZN\DataTypes\Arrays;
 
-class InternalReflect
+class Reflect
 {
     //--------------------------------------------------------------------------------------------------------
     // Reflect -> 5.4.5

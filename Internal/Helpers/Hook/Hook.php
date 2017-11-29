@@ -1,11 +1,11 @@
-<?php namespace ZN\DataTypes;
+<?php namespace ZN\Helpers;
 
-use FabricationAbility;
+use Config;
 
-class Iterate
+class Hook
 {
     //--------------------------------------------------------------------------------------------------------
-    // Reflect -> 5.4.5
+    // Hook -> 5.3.6
     //--------------------------------------------------------------------------------------------------------
     //
     // Author     : Ozan UYKUN <ozanbote@gmail.com>
@@ -13,12 +13,12 @@ class Iterate
     // License    : The MIT License
     // Copyright  : (c) 2012-2016, znframework.com
     //
-    //-------------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------------
 
-    use FabricationAbility;
+    public function __call($method, $parameters)
+    {
+        $hook = Config::hooks();
 
-    const fabrication = 
-    [
-        'suffix' => 'Iterator'
-    ];
+        return $hook[$method](...$parameters) ?? false;
+    }
 }

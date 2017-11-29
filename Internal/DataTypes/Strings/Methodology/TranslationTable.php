@@ -23,6 +23,10 @@ class TranslationTable
     //--------------------------------------------------------------------------------------------------------
     public static function get(String $table = 'specialchars', String $quote = 'compat') : Array
     {
-        return get_html_translation_table(Converter\VariableTypes::toConstant($table, 'HTML_'), Converter\VariableTypes::toConstant($quote, 'ENT_'));
+        return get_html_translation_table
+        (
+            Converter\VariableTypes::toConstant($table, 'HTML_'),
+            Converter\VariableTypes::toConstant($quote, 'ENT_' )
+        );
     }
 }

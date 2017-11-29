@@ -1,11 +1,9 @@
-<?php namespace ZN\FileSystem\Document;
+<?php namespace ZN\DataTypes\Strings;
 
-use ZN\FileSystem\Exception\FileNotFoundException;
-
-class Document implements DocumentInterface
+class Element
 {
     //--------------------------------------------------------------------------------------------------------
-    // Document -> 5.4.5[added]
+    // Element -> 5.4.5
     //--------------------------------------------------------------------------------------------------------
     //
     // Author     : Ozan UYKUN <ozanbote@gmail.com>
@@ -16,52 +14,57 @@ class Document implements DocumentInterface
     //--------------------------------------------------------------------------------------------------------
     
     //--------------------------------------------------------------------------------------------------------
-    // Magic Call
+    // Remove First
     //--------------------------------------------------------------------------------------------------------
-    // 
-    // @param string $method
-    // @param array  $parameters
+    //
+    // @param string $str
+    // @param string $separator = '/'
+    // @param int    $index     = 0
     //
     //--------------------------------------------------------------------------------------------------------
-    public function __call($method, $parameters)
+    public static function removeFirst(String $str, String $separator = '/', Int $index = 0) : String
     {
-        if( substr($this->target, -1) === '/' )
-        {
-            $type = 'Folder';
-        }
-        else
-        {
-            $type = 'File';
-        }
-
-        $this->apply = $type::$method($this->target, ...$parameters);
-
-        return $this;
+        return self::remove($str, $separator, abs($index));
     }
- 
-    //--------------------------------------------------------------------------------------------------------
-    // Target
-    //--------------------------------------------------------------------------------------------------------
-    // 
-    // @param string $target
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function target(String $target) : InternalDocument
-    {
-        $this->target = $target;
-        
-        return $this;
-    }   
 
     //--------------------------------------------------------------------------------------------------------
-    // Apply
+    // Remove First
     //--------------------------------------------------------------------------------------------------------
-    // 
-    // @param void
+    //
+    // @param string $str
+    // @param string $separator = '/'
+    // @param int    $index     = 0
     //
     //--------------------------------------------------------------------------------------------------------
-    public function apply()
+    public static function removeLast(String $str, String $separator = '/', Int $index = 0) : String
     {
-        return $this->apply ?? false;
+        return self::remove($str, $separator, -abs($index));
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Remove Section -> 5.4.5
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $str
+    // @param string $separator = '/'
+    // @param int    $index     = 0
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public static function remove(String $str, String $separator = '/', Int $index = 0) : String
+    {
+        $strEx = explode($separator, $str);
+
+        if( ($countStr = count($strEx)) === 1 ) return $str;
+
+        $count = abs($index);
+
+        if( $countStr < $count ) $count = $countStr;
+   
+        if( $count > 0 ) for( $start = 1; $start <= $count; $start++ )
+        {
+           ($index < 0 ? 'array_pop' : 'array_shift')($strEx);
+        }
+
+        return implode($separator, $strEx);
     }
 }

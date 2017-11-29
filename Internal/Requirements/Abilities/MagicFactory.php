@@ -1,7 +1,5 @@
 <?php 
 
-use ZN\DataTypes\Strings;
-
 trait MagicFactoryAbility
 {
     //--------------------------------------------------------------------------------------------------------
@@ -57,7 +55,17 @@ trait MagicFactoryAbility
                 $isThis = 'this';
             }
 
-            $namespace = str_ireplace(Strings\Split::divide($calledClass, '\\', -1), NULL, $calledClass);
+            $separator = '\\';
+            $namespace = NULL;
+
+            if( strstr($calledClass, $separator) )
+            {
+                $namespace = explode($separator, $calledClass);
+                
+                array_pop($namespace);
+    
+                $namespace = implode($separator, $namespace) . $separator;
+            }
             
             $return = uselib($namespace . $class)->$method(...$parameters);
 

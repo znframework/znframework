@@ -774,6 +774,7 @@ class InternalRoute extends CLController implements InternalRouteInterface
         if( ! $routeShow404 = Config::get('Services', 'route')['show404'] )
         {
             Logger::report('Error', Lang::select('Error', $lang, $function), $report);
+            
             die(Errors::message('Error', $lang, $function));
         }
         else
