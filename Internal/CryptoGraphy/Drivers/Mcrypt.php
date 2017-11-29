@@ -120,8 +120,8 @@ class McryptDriver extends CryptoMapping
         $mode   = $settings['mode']   ?? 'cbc';
         $iv     = $settings['vector'] ?? $this->vectorSize($mode, $cipher);
 
-        $cipher = Converter\VariableTypes::toConstant($cipher, 'MCRYPT_');
-        $mode   = Converter\VariableTypes::toConstant($mode, 'MCRYPT_MODE_');
+        $cipher = Converter::toConstant($cipher, 'MCRYPT_');
+        $mode   = Converter::toConstant($mode, 'MCRYPT_MODE_');
 
         return (object)
         [

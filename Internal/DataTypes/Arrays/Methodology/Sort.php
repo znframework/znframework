@@ -37,7 +37,7 @@ class Sort
     //--------------------------------------------------------------------------------------------------------
     public static function order(Array $array, String $type = NULL, String $flags = 'regular') : Array
     {
-        $flags = Converter\VariableTypes::toConstant($flags, 'SORT_');
+        $flags = Converter::toConstant($flags, 'SORT_');
 
         switch($type)
         {

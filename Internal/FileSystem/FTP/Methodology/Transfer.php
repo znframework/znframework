@@ -26,7 +26,7 @@ class Transfer extends Connection
     //--------------------------------------------------------------------------------------------------------
     public function upload(String $localPath, String $remotePath, String $type = 'ascii') : Bool
     {
-        if( ftp_put($this->connect, $remotePath, $localPath, Converter\VariableTypes::toConstant($type, 'FTP_')) )
+        if( ftp_put($this->connect, $remotePath, $localPath, Converter::toConstant($type, 'FTP_')) )
         {
             return true;
         }
@@ -47,7 +47,7 @@ class Transfer extends Connection
     //--------------------------------------------------------------------------------------------------------
     public function download(String $remotePath, String $localPath, String $type = 'ascii') : Bool
     {
-        if( ftp_get($this->connect, $localPath, $remotePath, Converter\VariableTypes::toConstant($type, 'FTP_')) )
+        if( ftp_get($this->connect, $localPath, $remotePath, Converter::toConstant($type, 'FTP_')) )
         {
             return true;
         }

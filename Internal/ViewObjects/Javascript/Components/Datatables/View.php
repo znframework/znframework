@@ -107,7 +107,7 @@ if( ! empty($extensions) )
         <?php foreach( $result as $key => $row ): ?>
         <tr>
             <?php foreach( $columns as $column ): ?>
-            <td><?php echo ZN\Helpers\Limiter\Word::do($row[$column] ?? '', $length) ?></td>
+            <td><?php echo ZN\Helpers\Limiter::word($row[$column] ?? '', $length) ?></td>
             <?php endforeach; ?>
             <?php if( is_callable($process) ): ?>
             <td><?php echo $process((object) $row, new Html); ?></td>

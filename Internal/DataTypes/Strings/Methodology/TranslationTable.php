@@ -25,8 +25,8 @@ class TranslationTable
     {
         return get_html_translation_table
         (
-            Converter\VariableTypes::toConstant($table, 'HTML_'),
-            Converter\VariableTypes::toConstant($quote, 'ENT_' )
+            Converter::toConstant($table, 'HTML_'),
+            Converter::toConstant($quote, 'ENT_' )
         );
     }
 }

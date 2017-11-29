@@ -240,7 +240,7 @@ class Filters extends CallController implements FiltersInterface
     //--------------------------------------------------------------------------------------------------------
     protected function _inputConstant($const)
     {
-        return Converter\VariableTypes::toConstant($const, 'INPUT_');
+        return Converter::toConstant($const, 'INPUT_');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -248,7 +248,7 @@ class Filters extends CallController implements FiltersInterface
     //--------------------------------------------------------------------------------------------------------
     protected function _filterConstant($const)
     {
-        return Converter\VariableTypes::toConstant($const, 'FILTER_');
+        return Converter::toConstant($const, 'FILTER_');
     }
 
     //--------------------------------------------------------------------------------------------------------

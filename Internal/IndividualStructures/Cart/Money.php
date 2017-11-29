@@ -23,7 +23,7 @@ class Money
     //--------------------------------------------------------------------------------------------------------
     public function format(Int $money, String $type = NULL) : String
     {
-        return Converter\Numeric::money($money, $type);
+        return Converter::money($money, $type);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -35,6 +35,6 @@ class Money
     //--------------------------------------------------------------------------------------------------------
     public function number($money) : Float
     {
-        return Converter\Numeric::moneyToNumber($money);
+        return Converter::moneyToNumber($money);
     }
 }

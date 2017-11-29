@@ -55,7 +55,7 @@ class InternalCURL extends CallController implements InternalCURLInterface
     //--------------------------------------------------------------------------------------------------------
     public function __call($method, $parameters)
     {
-        $option = Converter\VariableTypes::toConstant($method, 'CURLOPT_');
+        $option = Converter::toConstant($method, 'CURLOPT_');
 
         $this->options[$option] = $parameters[0] ?? NULL;
 
@@ -160,7 +160,7 @@ class InternalCURL extends CallController implements InternalCURLInterface
             return curl_getinfo($this->init);
         }
 
-        return curl_getinfo($this->init, Converter\VariableTypes::toConstant($opt, 'CURLINFO_'));
+        return curl_getinfo($this->init, Converter::toConstant($opt, 'CURLINFO_'));
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -208,7 +208,7 @@ class InternalCURL extends CallController implements InternalCURLInterface
     {
         if( ! empty($this->init) )
         {
-            return curl_pause($this->init, Converter\VariableTypes::toConstant($bitmask, 'CURLPAUSE_'));
+            return curl_pause($this->init, Converter::toConstant($bitmask, 'CURLPAUSE_'));
         }
 
         return false;
@@ -243,7 +243,7 @@ class InternalCURL extends CallController implements InternalCURLInterface
     //--------------------------------------------------------------------------------------------------------
     public function option(String $options, $value) : InternalCURL
     {
-        $this->options[Converter\VariableTypes::toConstant($options, 'CURLOPT_')] = $value;
+        $this->options[Converter::toConstant($options, 'CURLOPT_')] = $value;
 
         return $this;
     }

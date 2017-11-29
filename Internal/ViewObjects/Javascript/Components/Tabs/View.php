@@ -34,7 +34,7 @@ $i = 1;
 ?>
 <ul class="nav nav-<?php echo $type; ?>s">
     <?php foreach( $tabs as $key => $val ): ?>
-    <li<?php echo $i === 1 ? ' class="active"' : NULL; $i++?>><a data-toggle="<?php echo $type; ?>" href="#<?php echo ZN\Helpers\Converter\Unicode::slug($key);?>"><?php echo $key;?></a></li>
+    <li<?php echo $i === 1 ? ' class="active"' : NULL; $i++?>><a data-toggle="<?php echo $type; ?>" href="#<?php echo ZN\Helpers\Converter::slug($key);?>"><?php echo $key;?></a></li>
     <?php endforeach; ?>
 </ul>
 
@@ -42,7 +42,7 @@ $i = 1;
 
 <div class="tab-content">
     <?php foreach( $tabs as $key => $val ): ?>
-    <div id="<?php echo ZN\Helpers\Converter\Unicode::slug($key);?>" class="tab-pane fade<?php echo $i === 1 ? ' in active' : NULL; $i++?>">
+    <div id="<?php echo ZN\Helpers\Converter::slug($key);?>" class="tab-pane fade<?php echo $i === 1 ? ' in active' : NULL; $i++?>">
         <?php echo $val ?>
     </div>
     <?php endforeach; ?>

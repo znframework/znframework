@@ -150,7 +150,7 @@ class InternalCache implements InternalCacheInterface
     //--------------------------------------------------------------------------------------------------------
     public function file(String $file, $time = 60, String $compress = 'gz', $type = 'something') : String
     {
-        $name = Converter\Unicode::slug($file);
+        $name = Converter::slug($file);
 
         $this->_refresh($name);
 
@@ -206,7 +206,7 @@ class InternalCache implements InternalCacheInterface
     {
         $timeEx = explode(' ', $time);
 
-        $time = Converter\Numeric::time($timeEx[0], $timeEx[1] ?? 'second', 'second');
+        $time = Converter::time($timeEx[0], $timeEx[1] ?? 'second', 'second');
 
         return $this->driver->insert($key, $var, $time, $compressed);
     }

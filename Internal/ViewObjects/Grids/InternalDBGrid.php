@@ -735,7 +735,7 @@ class InternalDBGrid extends Abstracts\GridAbstract
                             return (string) $output(new Html, $data, (object) $combine) ?: $data;   
                         }
 
-                        return Limiter\Word::do((string) $data, 20);            
+                        return Limiter::word((string) $data, 20);            
                     })).
                     '</td>'.$this->_hideButton('<td align="right">'. 
                     Form::action(CURRENT_CFPATH . URI::manipulation(['column' => $hiddenValue, 'process' => 'edit', 'order', 'type', 'page'], 'left'))

@@ -23,6 +23,6 @@ class Unique
     //--------------------------------------------------------------------------------------------------------
     public static function do(Array $array, String $flags = 'string') : Array
     {
-        return array_unique($array, Converter\VariableTypes::toConstant($flags, 'SORT_'));
+        return array_unique($array, Converter::toConstant($flags, 'SORT_'));
     }
 }

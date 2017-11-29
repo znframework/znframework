@@ -103,7 +103,7 @@ class MB extends CallController implements MBInterface
     //--------------------------------------------------------------------------------------------------------
     public function casing(String $string, String $flag = 'upper', String $encoding = 'UTF-8') : String
     {
-        return mb_convert_case($string, Converter\VariableTypes::toConstant($flag, 'MB_CASE_'), $encoding);
+        return mb_convert_case($string, Converter::toConstant($flag, 'MB_CASE_'), $encoding);
     }
 
     //--------------------------------------------------------------------------------------------------------

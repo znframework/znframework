@@ -1,8 +1,9 @@
-<?php namespace ZN\Helpers\Searcher;
+<?php namespace ZN\Helpers;
 
-use DB, stdClass;
+use stdClass;
+use ZN\Database\DB;
 
-class Database
+class Searcher extends \FactoryController
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -50,6 +51,41 @@ class Database
     protected $filter = [];
 
     //--------------------------------------------------------------------------------------------------------
+    // Do
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param mixed  $searchData
+    // @param mixed  $searchWord
+    // @param string $output: boolean, position, string
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public static function data($searchData, $searchWord, String $output = 'boolean')
+    {
+        if( ! is_array($searchData) )
+        {   
+            switch( $output )
+            {
+                case 'string'  : return strstr($searchData, $searchWord);
+                case 'position': return strpos($searchData, $searchWord);
+                case 'boolean' : return strpos($searchData, $searchWord) > -1 ? true : false;
+                default        : return false;
+            }
+        }
+        else
+        {
+            $result = array_search($searchWord, $searchData);
+
+            switch( $output )
+            {
+                case 'string'  : return $result ? $searchWord : false;
+                case 'position': return $result ?: -1;
+                case 'boolean' : return (bool) $result;
+                default        : return false;
+            }
+        }
+    }
+    
+    //--------------------------------------------------------------------------------------------------------
     // Filter
     //--------------------------------------------------------------------------------------------------------
     //
@@ -57,7 +93,7 @@ class Database
     // @param string $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function filter(String $column, $value) : Database
+    public function filter(String $column, $value)
     {
         $this->_filter($column, $value, 'and');
 
@@ -72,7 +108,7 @@ class Database
     // @param string $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function orFilter(String $column, $value) : Database
+    public function orFilter(String $column, $value)
     {
         $this->_filter($column, $value, 'or');
 
@@ -86,7 +122,7 @@ class Database
     // @param string $word
     //
     //--------------------------------------------------------------------------------------------------------
-    public function word(String $word) : Database
+    public function word(String $word)
     {
         $this->word = $word;
 
@@ -100,7 +136,7 @@ class Database
     // @param string $type
     //
     //--------------------------------------------------------------------------------------------------------
-    public function type(String $type) : Database
+    public function type(String $type)
     {
         $this->type = $type;
 
@@ -116,7 +152,7 @@ class Database
     // @param string $type: auto, inside, equal, starting, ending
     //
     //--------------------------------------------------------------------------------------------------------
-    public function do(Array $conditions, String $word = NULL, String $type = 'auto') : stdClass
+    public function database(Array $conditions, String $word = NULL, String $type = 'auto') : stdClass
     {
         if( ! empty($this->type) )
         {
@@ -131,6 +167,7 @@ class Database
         $word     = addslashes($word);
         $operator = ' like ';
         $str      = $word;
+        $db       = new DB;
 
         if( $type === 'equal')
         {
@@ -144,21 +181,21 @@ class Database
             }
             else
             {
-                $str = DB::like($word, 'inside');
+                $str = $db->like($word, 'inside');
             }
         }
         else
         {
-            $str = DB::like($word, $type);
+            $str = $db->like($word, $type);
         }
 
         foreach( $conditions as $key => $values )
         {
-            DB::distinct();
+            $db->distinct();
 
             foreach( $values as $keys )
             {
-                DB::where($keys.$operator, $str, 'or');
+                $db->where($keys.$operator, $str, 'or');
 
                 if( ! empty($this->filter) )
                 {
@@ -168,18 +205,18 @@ class Database
 
                         if( $exval[2] === 'and' )
                         {
-                            DB::where($exval[0], $exval[1], 'and');
+                            $db->where($exval[0], $exval[1], 'and');
                         }
 
                         if( $exval[2] === 'or' )
                         {
-                            DB::where($exval[0], $exval[1], 'or');
+                            $db->where($exval[0], $exval[1], 'or');
                         }
                     }
                 }
             }
 
-            $this->result[$key] = DB::get($key)->result();
+            $this->result[$key] = $db->get($key)->result();
         }
 
         $result = $this->result;

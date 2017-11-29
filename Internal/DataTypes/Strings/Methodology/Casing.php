@@ -24,7 +24,7 @@ class Casing
     //--------------------------------------------------------------------------------------------------------
     public static function use(String $str, String $type = 'lower', String $encoding = 'utf-8') : String
     {
-        return mb_convert_case($str, Converter\VariableTypes::toConstant($type, 'MB_CASE_'), $encoding);
+        return mb_convert_case($str, Converter::toConstant($type, 'MB_CASE_'), $encoding);
     }
 
     //--------------------------------------------------------------------------------------------------------

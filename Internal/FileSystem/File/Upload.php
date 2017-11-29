@@ -463,7 +463,7 @@ class Upload extends CallController implements UploadInterface
         if( ($this->settings['convertName'] ?? NULL) === true )
         {
             // 5.4.3[edited] 
-            $nm = Converter\Unicode::slug($nm, true);
+            $nm = Converter::slug($nm, true);
         }
 
         if( $this->settings['encode'] ?? NULL )

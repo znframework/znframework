@@ -1,8 +1,8 @@
-<?php namespace ZN\Helpers\Rounder;
+<?php namespace ZN\Helpers;
 
 use ZN\Helpers\Exception\LogicException;
 
-class Down
+class Cleaner
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -17,30 +17,35 @@ class Down
     // Do
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $number
-    // @param int    $count
+    // @param mixed $searchData
+    // @param mixed $cleanWord
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function do(Float $number, Int $count = 0) : Float
+    public static function data($searchData, $cleanWord)
     {
-        if( $count === 0 )
+        if( length($cleanWord) > length($searchData) )
         {
-            return floor($number);
+            throw new LogicException('[Cleaner::data()] -> 3.($cleanWord) parameter not be longer than 2.($searchData) parameter!');
         }
 
-        $numbers = explode(".", $number);
-
-        $edit = 0;
-
-        if( ! empty($numbers[1]) )
+        if( ! is_array($searchData) )
         {
-            $edit = substr($numbers[1], 0, $count);
-
-            return (float) $numbers[0].".".$edit;
+            $result = str_replace($cleanWord, '', $searchData);
         }
         else
         {
-            throw new LogicException('[Rounder::down()] -> Decimal values can not be specified for the integer! Check 2.($count) parameter!');
+            if( ! is_array($cleanWord) )
+            {
+                $cleanWordArray[] = $cleanWord;
+            }
+            else
+            {
+                $cleanWordArray = $cleanWord;
+            }
+
+            $result = array_diff($searchData, $cleanWordArray);
         }
+
+        return $result;
     }
 }

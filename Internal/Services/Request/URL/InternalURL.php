@@ -283,7 +283,7 @@ class InternalURL extends CallController implements InternalURLInterface
     //--------------------------------------------------------------------------------------------------------
     public function parse(String $url, $component = 1)
     {
-        return parse_url($url, Converter\VariableTypes::toConstant($component, 'PHP_URL_'));
+        return parse_url($url, Converter::toConstant($component, 'PHP_URL_'));
     }
 
     //--------------------------------------------------------------------------------------------------------

@@ -25,6 +25,6 @@ class Pad
     //--------------------------------------------------------------------------------------------------------
     public static function use(String $string, Int $count = 1, String $chars = ' ', String $type = 'right') : String
     {
-        return str_pad($string, $count, $chars, Converter\VariableTypes::toConstant($type, 'STR_PAD_'));
+        return str_pad($string, $count, $chars, Converter::toConstant($type, 'STR_PAD_'));
     }
 }
