@@ -2,7 +2,7 @@
 
 use FactoryController;
 
-class InternalStrings extends FactoryController
+class Strings extends FactoryController
 {
     //--------------------------------------------------------------------------------------------------------
     //

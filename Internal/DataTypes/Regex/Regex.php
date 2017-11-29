@@ -3,7 +3,7 @@
 use Config;
 use ZN\DataTypes\Arrays;
 
-class InternalRegex implements InternalRegexInterface
+class Regex implements RegexInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

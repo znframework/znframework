@@ -3,7 +3,7 @@
 use CallController, Cookie, Session, Server, Autoloader;
 use ZN\Helpers\Converter;
 
-class InternalFilters extends CallController implements InternalFiltersInterface
+class Filters extends CallController implements FiltersInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

@@ -1,6 +1,10 @@
 <?php namespace ZN\DataTypes;
 
-interface InternalFiltersInterface
+use Config, CallController, ReflectionClass;
+use ZN\DataTypes\Classes\Exception\InvalidArgumentException;
+use ZN\DataTypes\Strings;
+
+class Classes extends CallController implements ClassesInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -12,164 +16,210 @@ interface InternalFiltersInterface
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
-    // Get Var
+    // Reflection -> 5.4.5[added]
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $varName
+    // @param string $className
     //
     //--------------------------------------------------------------------------------------------------------
-    public function get(String $varName) : Bool;
+    public function reflection(String $className) : ReflectionClass
+    {
+        return new ReflectionClass($this->_class($className));
+    }
 
     //--------------------------------------------------------------------------------------------------------
-    // Post Var
+    // Is Relation
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $varName
+    // @param string $className
+    // @param object $object
     //
     //--------------------------------------------------------------------------------------------------------
-    public function post(String $varName) : Bool;
+    public function isRelation(String $className, $object) : Bool
+    {
+        if( ! is_object($object) )
+        {
+            throw new InvalidArgumentException('Error', 'objectParameter', '2.($object)');
+        }
+
+        return is_a($object, $this->_class($className));
+    }
 
     //--------------------------------------------------------------------------------------------------------
-    // Cookie Var
+    // Is Parent
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $varName
+    // @param string $className
+    // @param object $object
     //
     //--------------------------------------------------------------------------------------------------------
-    public function cookie(String $varName) : Bool;
+    public function isParent(String $className, $object) : Bool
+    {
+        return is_subclass_of($object, $this->_class($className));
+    }
 
     //--------------------------------------------------------------------------------------------------------
-    // Session -> 5.3.1
+    // Method Exists
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $varName
+    // @param string $className
+    // @param object $method
     //
     //--------------------------------------------------------------------------------------------------------
-    public function session(String $varName) : Bool;
+    public function methodExists(String $className, String $method) : Bool
+    {
+        return method_exists(uselib($this->_class($className)), $method);
+    }
 
     //--------------------------------------------------------------------------------------------------------
-    // Env Var
+    // Property Exists
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $varName
+    // @param string $className
+    // @param object $property
     //
     //--------------------------------------------------------------------------------------------------------
-    public function env(String $varName) : Bool;
+    public function propertyExists(String $className, String $property) : Bool
+    {
+        return  property_exists(uselib($this->_class($className)), $property);
+    }
 
     //--------------------------------------------------------------------------------------------------------
-    // Server Var
+    // Methods
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $varName
+    // @param string $className
     //
     //--------------------------------------------------------------------------------------------------------
-    public function server(String $varName) : Bool;
-
-    //--------------------------------------------------------------------------------------------------------
-    // ID
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $filterName
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function id(String $filterName) : Int;
-
-    //--------------------------------------------------------------------------------------------------------
-    // Get List
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function list() : Array;
-
-    //--------------------------------------------------------------------------------------------------------
-    // Input Array
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $type
-    // @param mixed  $definition
-    // @param bool   $addEmpty
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function inputArray(String $type = 'post', $definition = NULL, Bool $addEmpty = true);
-
-    //--------------------------------------------------------------------------------------------------------
-    // Var Array
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array  $data
-    // @param mixed  $definition
-    // @param bool   $addEmpty
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function varArray(Array $data, $definition = NULL, Bool $addEmpty = true);
-
-    //--------------------------------------------------------------------------------------------------------
-    // Input
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $var
-    // @param string $type
-    // @param string $filter
-    // @param mixed  $options
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function input(String $var, String $type = 'post', String $filter = 'default' , $options = NULL);
+    public function methods(String $className)
+    {
+        return get_class_methods($this->_class($className));
+    }
 
     //--------------------------------------------------------------------------------------------------------
     // Vars
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param mixed  $var
-    // @param string $filter
-    // @param mixed  $options
+    // @param string $className
     //
     //--------------------------------------------------------------------------------------------------------
-    public function var($var, String $filter = 'default', $options = NULL);
+    public function vars(String $className)
+    {
+        return get_class_vars($this->_class($className));
+    }
 
     //--------------------------------------------------------------------------------------------------------
-    // Sanitize
+    // Name
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $const;
+    // @param object $var
     //
     //--------------------------------------------------------------------------------------------------------
-    public function sanitize(String $const);
+    public function name($var) : String
+    {
+        if( ! is_object($var) )
+        {
+            throw new InvalidArgumentException('Error', 'objectParameter', '1.($var)');
+        }
+
+        return get_class($var);
+    }
 
     //--------------------------------------------------------------------------------------------------------
-    // Validate
+    // Declared
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $const;
+    // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function validate(String $const);
+    public function declared() : Array
+    {
+        return get_declared_classes();
+    }
 
     //--------------------------------------------------------------------------------------------------------
-    // Force
+    // Declared Interfaces
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $const;
+    // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function force(String $const);
+    public function declaredInterfaces() : Array
+    {
+        return get_declared_interfaces();
+    }
 
     //--------------------------------------------------------------------------------------------------------
-    // Flag
+    // Declared Traits
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $const;
+    // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function flag(String $const);
+    public function declaredTraits() : Array
+    {
+        return get_declared_traits();
+    }
 
     //--------------------------------------------------------------------------------------------------------
-    // Require
+    // Only Name
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $const;
+    // @param string $class
+    //
+    // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function require(String $const);
+    public function onlyName(String $class) : String
+    {
+        return Strings\Split::divide(str_replace(INTERNAL_ACCESS, '', $class), '\\', -1);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Public Class -> 5.4.5[added]
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $className
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function class(String $className) : String
+    {
+        return $this->_class($className);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Class
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $name
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _class($name)
+    {
+        global $classMap;
+
+        Config::get('ClassMap');
+
+        $lowerName           = strtolower($name);
+        $lowerInternalAccess = strtolower(INTERNAL_ACCESS);
+        $flipClassMap        = array_flip($classMap['namespaces']);
+        $lowerClass          = $lowerInternalAccess.$lowerName;
+
+        if( ! empty($flipClassMap[$lowerName]) )
+        {
+            return $flipClassMap[$lowerName];
+        }
+        elseif( ! empty($flipClassMap[$lowerClass]) )
+        {
+            return $flipClassMap[$lowerClass];
+        }
+        elseif( ! empty($classMap['classes'][$lowerClass]) )
+        {
+            return $classMap['classes'][$lowerClass];
+        }
+        else
+        {
+            return $name;
+        }
+    }
 }

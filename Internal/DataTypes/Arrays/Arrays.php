@@ -1,6 +1,6 @@
 <?php namespace ZN\DataTypes;
 
-class InternalArrays extends \FactoryController
+class Arrays extends \FactoryController
 {
     //--------------------------------------------------------------------------------------------------------
     //

@@ -1,8 +1,8 @@
 <?php namespace ZN\DataTypes;
 
-use CallController;
+use stdClass;
 
-class InternalSerial extends CallController implements InternalSerialInterface
+interface SerialInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -20,10 +20,7 @@ class InternalSerial extends CallController implements InternalSerialInterface
     // @param mixed $data
     //
     //--------------------------------------------------------------------------------------------------------
-    public function encode($data) : String
-    {
-        return serialize($data);
-    }
+    public function encode($data) : String;
 
     //--------------------------------------------------------------------------------------------------------
     // Decode
@@ -33,17 +30,7 @@ class InternalSerial extends CallController implements InternalSerialInterface
     // @param bool   $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function decode(String $data, Bool $array = false)
-    {
-        if( $array === false )
-        {
-            return (object) unserialize($data);
-        }
-        else
-        {
-            return (array) unserialize($data);
-        }
-    }
+    public function decode(String $data, Bool $array = false);
 
     //--------------------------------------------------------------------------------------------------------
     // Decode Object
@@ -52,10 +39,7 @@ class InternalSerial extends CallController implements InternalSerialInterface
     // @param string $data
     //
     //--------------------------------------------------------------------------------------------------------
-    public function decodeObject(String $data) : \stdClass
-    {
-        return $this->decode($data, false);
-    }
+    public function decodeObject(String $data) : stdClass;
 
     //--------------------------------------------------------------------------------------------------------
     // Decode Array
@@ -64,8 +48,5 @@ class InternalSerial extends CallController implements InternalSerialInterface
     // @param string $data
     //
     //--------------------------------------------------------------------------------------------------------
-    public function decodeArray(String $data) : Array
-    {
-        return $this->decode($data, true);
-    }
+    public function decodeArray(String $data) : Array;
 }

@@ -1,6 +1,8 @@
 <?php namespace ZN\DataTypes;
 
-interface InternalSerialInterface
+use CallController, stdClass;
+
+class Serial extends CallController implements SerialInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -18,7 +20,10 @@ interface InternalSerialInterface
     // @param mixed $data
     //
     //--------------------------------------------------------------------------------------------------------
-    public function encode($data) : String;
+    public function encode($data) : String
+    {
+        return serialize($data);
+    }
 
     //--------------------------------------------------------------------------------------------------------
     // Decode
@@ -28,7 +33,17 @@ interface InternalSerialInterface
     // @param bool   $array
     //
     //--------------------------------------------------------------------------------------------------------
-    public function decode(String $data, Bool $array = false);
+    public function decode(String $data, Bool $array = false)
+    {
+        if( $array === false )
+        {
+            return (object) unserialize($data);
+        }
+        else
+        {
+            return (array) unserialize($data);
+        }
+    }
 
     //--------------------------------------------------------------------------------------------------------
     // Decode Object
@@ -37,7 +52,10 @@ interface InternalSerialInterface
     // @param string $data
     //
     //--------------------------------------------------------------------------------------------------------
-    public function decodeObject(String $data) : \stdClass;
+    public function decodeObject(String $data) : stdClass
+    {
+        return $this->decode($data, false);
+    }
 
     //--------------------------------------------------------------------------------------------------------
     // Decode Array
@@ -46,5 +64,8 @@ interface InternalSerialInterface
     // @param string $data
     //
     //--------------------------------------------------------------------------------------------------------
-    public function decodeArray(String $data) : Array;
+    public function decodeArray(String $data) : Array
+    {
+        return $this->decode($data, true);
+    }
 }

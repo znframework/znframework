@@ -2,7 +2,7 @@
 
 use SerializationAbility;
 
-class InternalCollection
+class Collection
 {
     //--------------------------------------------------------------------------------------------------------
     //

@@ -1,6 +1,6 @@
 <?php namespace ZN\DataTypes;
 
-class InternalXML extends \FactoryController
+class XML extends \FactoryController
 {
     //--------------------------------------------------------------------------------------------------------
     //

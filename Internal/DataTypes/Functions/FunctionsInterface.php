@@ -1,6 +1,6 @@
 <?php namespace ZN\DataTypes;
 
-interface InternalFunctionsInterface
+interface FunctionsInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

@@ -1,6 +1,6 @@
 <?php namespace ZN\DataTypes;
 
-class InternalJson extends \FactoryController
+class Json extends \FactoryController
 {
     //--------------------------------------------------------------------------------------------------------
     //

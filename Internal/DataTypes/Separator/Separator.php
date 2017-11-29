@@ -1,6 +1,6 @@
 <?php namespace ZN\DataTypes;
 
-class InternalSeparator extends \FactoryController
+class Separator extends \FactoryController
 {
     //--------------------------------------------------------------------------------------------------------
     //

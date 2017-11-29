@@ -1,9 +1,6 @@
 <?php namespace ZN\DataTypes;
 
-use CallController;
-use ZN\DataTypes\Functions\Exception\InvalidArgumentException;
-
-class InternalFunctions extends CallController implements InternalFunctionsInterface
+interface RegexInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -15,100 +12,98 @@ class InternalFunctions extends CallController implements InternalFunctionsInter
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
-    // Call Array
+    // Special 2 Classic -> 4.3.2
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param callable $callback
-    // @param array    $params
+    // @param string $pattern
+    // @param string $ex
+    // @param string $delimiter
     //
     //--------------------------------------------------------------------------------------------------------
-    public function callArray(Callable $callback, Array $params = [])
-    {
-        return call_user_func_array($callback, $params);
-    }
+    public function special2classic(String $pattern, String $ex = NULL, String $delimiter = '/') : String;
 
     //--------------------------------------------------------------------------------------------------------
-    // Call
+    // Classic 2 Special -> 4.3.2
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param variadic $args
+    // @param string $pattern
+    // @param string $ex
+    // @param string $delimiter
     //
     //--------------------------------------------------------------------------------------------------------
-    public function call(...$args)
-    {
-        return call_user_func(...$args);
-    }
+    public function classic2special(String $pattern, String $delimiter = '/') : String;
 
     //--------------------------------------------------------------------------------------------------------
-    // Static Call Array
+    // Match
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param callable $callback
-    // @param array    $params
+    // @param string $pattern
+    // @param string $str
+    // @param string $ex
+    // @param string $delimiter
     //
     //--------------------------------------------------------------------------------------------------------
-    public function staticCallArray(Callable $callback, Array $params = [])
-    {
-        return forward_static_call_array($callback, $params);
-    }
+    public function match(String $pattern, String $str, String $ex = NULL, String $delimiter = '/') : Array;
 
     //--------------------------------------------------------------------------------------------------------
-    // Static Call
+    // Match All
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param variadic $args
+    // @param string $pattern
+    // @param string $str
+    // @param string $ex
+    // @param string $delimiter
     //
     //--------------------------------------------------------------------------------------------------------
-    public function staticCall(...$args)
-    {
-        return forward_static_call(...$args);
-    }
+    public function matchAll(String $pattern, String $str, String $ex = NULL, String $delimiter = '/') : Array;
 
     //--------------------------------------------------------------------------------------------------------
-    // Shutdown
+    // Replace
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param variadic $args
+    // @param string $pattern
+    // @param string $rep
+    // @param string $str
+    // @param string $ex
+    // @param string $delimiter
     //
     //--------------------------------------------------------------------------------------------------------
-    public function shutdown(...$args)
-    {
-        return register_shutdown_function(...$args);
-    }
+    public function replace(String $pattern, String $rep, String $str, String $ex = NULL, String $delimiter = '/');
 
     //--------------------------------------------------------------------------------------------------------
-    // Tick
+    // Group
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param variadic $args
+    // @param string $str
     //
     //--------------------------------------------------------------------------------------------------------
-    public function tick(...$args)
-    {
-        return register_tick_function(...$args);
-    }
+    public function group(String $str) : String;
 
     //--------------------------------------------------------------------------------------------------------
-    // Untick
+    // Recount
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param variadic $args
+    // @param string $str
     //
     //--------------------------------------------------------------------------------------------------------
-    public function untick(...$args)
-    {
-        return unregister_tick_function(...$args);
-    }
+    public function recount(String $str) : String;
 
     //--------------------------------------------------------------------------------------------------------
-    // Defined
+    // To
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param void
+    // @param string $str
     //
     //--------------------------------------------------------------------------------------------------------
-    public function defined() : Array
-    {
-        return get_defined_functions();
-    }
+    public function to(String $str) : String;
+
+    //--------------------------------------------------------------------------------------------------------
+    // Quote
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $data
+    // @param string $delimiter
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function quote(String $data, String $delimiter = NULL) : String;
 }
