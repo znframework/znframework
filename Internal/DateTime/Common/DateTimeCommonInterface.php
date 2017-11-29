@@ -1,6 +1,6 @@
 <?php namespace ZN\DateTime;
 
-interface InternalDateTimeCommonInterface
+interface DateTimeCommonInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

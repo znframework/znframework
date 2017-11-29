@@ -1,6 +1,6 @@
 <?php namespace ZN\EncodingSupport;
 
-interface InternalMBInterface
+interface MBInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

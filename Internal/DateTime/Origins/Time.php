@@ -1,17 +1,15 @@
 <?php namespace ZN\DateTime;
 
-class InternalDate extends DateTimeCommon implements InternalDateTimeCommonInterface
+class Time extends DateTimeCommon implements DateTimeCommonInterface
 {
     //--------------------------------------------------------------------------------------------------------
-    // DATE CLASS
-    //--------------------------------------------------------------------------------------------------
     //
     // Author     : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
     // Site       : www.znframework.com
     // License    : The MIT License
     // Copyright  : Copyright (c) 2012-2016, ZN Framework
     //
-    //--------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
     // Current
@@ -23,7 +21,7 @@ class InternalDate extends DateTimeCommon implements InternalDateTimeCommonInter
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function current(String $clock = 'd.m.o') : String
+    public function current(String $clock = '%H:%M:%S') : String
     {
         return $this->_datetime($clock);
     }
@@ -39,7 +37,7 @@ class InternalDate extends DateTimeCommon implements InternalDateTimeCommonInter
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function convert(String $date, String $format = 'd-m-Y H:i:s') : String
+    public function convert(String $date, String $format = '%d-%B-%Y %A, %H:%M:%S') : String
     {
         return $this->_datetime($format, strtotime($date));
     }
@@ -56,6 +54,8 @@ class InternalDate extends DateTimeCommon implements InternalDateTimeCommonInter
     //--------------------------------------------------------------------------------------------------------
     public function standart() : String
     {
-        return $this->_datetime("d.F.o l, H:i:s");
+        // Çıktıda iconv() yöntemi ile TR karakter sorunları düzeltiliyor.
+        // Config/DateTime.php dosyasından bu ayarları değiştirmeniz mümkün.
+        return strftime("%d %B %Y %A, %H:%M:%S");
     }
 }

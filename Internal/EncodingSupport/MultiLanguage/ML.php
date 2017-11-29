@@ -2,7 +2,7 @@
 
 use Lang;
 
-class InternalML extends \FactoryController
+class ML extends \FactoryController
 {
     //--------------------------------------------------------------------------------------------------------
     //

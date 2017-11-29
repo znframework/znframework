@@ -5,7 +5,7 @@ use ZN\EncodingSupport\MultiByte\Exception\InvalidArgumentException;
 use ZN\DataTypes\Strings;
 use ZN\Helpers\Converter;
 
-class InternalMB extends CallController implements InternalMBInterface
+class MB extends CallController implements MBInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

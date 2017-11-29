@@ -2,7 +2,7 @@
 
 use ZN\DateTime\Carbon\CarbonInterval;
 
-class InternalDateTimeInterval extends CarbonInterval
+class DateTimeInterval extends CarbonInterval
 {
     //--------------------------------------------------------------------------------------------------------
     // DATE INTERVAL
