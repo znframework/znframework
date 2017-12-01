@@ -82,7 +82,7 @@ class Autoloader
         }
 
         $classInfo = self::getClassFileInfo($class);
-        $file      = self::_originPath(REAL_BASE_DIR . ($path = $classInfo['path']));
+        $file      = ($path = $classInfo['path']);
         
         if( is_file($file) )
         {
@@ -101,7 +101,7 @@ class Autoloader
         else
         {
             // 5.4.2[added]
-            if( PROJECT_TYPE === 'EIP' && strpos($path, 'Projects' . DS . CURRENT_PROJECT) !== 0 )
+            if( PROJECT_TYPE === 'EIP' && strpos($path, 'Projects/' . CURRENT_PROJECT) !== 0 )
             {
                 self::restart();
             }
@@ -374,8 +374,8 @@ class Autoloader
     {
         static $classes;
 
-        $directory           = suffix($directory, DS);
-        $baseDirectory       = suffix($baseDirectory, DS);
+        $directory           = suffix($directory);
+        $baseDirectory       = suffix($baseDirectory);
         $configClassMap      = self::_config();
         $configAutoloader    = Config::get('Autoloader');
         $directoryPermission = $configAutoloader['directoryPermission'];
@@ -387,13 +387,13 @@ class Autoloader
             $configClassMap['classes'] ?? []
         );
 
-        $staticAccessDirectory = RESOURCES_DIR . 'Statics' . DS;
+        $staticAccessDirectory = RESOURCES_DIR . 'Statics/';
 
         $eol = EOL;
 
         if( ! empty($files) ) foreach( $files as $val )
         {
-            $v = self::_relativePath($val);
+            $v = $val;
 
             if( is_file($val) )
             {
@@ -428,9 +428,9 @@ class Autoloader
 
                         $newPath = str_ireplace($baseDirectory, '', $v);
 
-                        $pathEx = explode(DS, $newPath);
+                        $pathEx = explode('/', $newPath);
                         array_pop($pathEx);
-                        $newDir = implode(DS, $pathEx);
+                        $newDir = implode('/', $pathEx);
                         $dir    = $staticAccessDirectory;
                         $newDir = $dir.$newDir;
 
@@ -444,8 +444,8 @@ class Autoloader
                             mkdir($newDir, $directoryPermission, true);
                         }
 
-                        $rpath = $path     = suffix($newDir, DS).$classInfo['class'].'.php';
-                        $path              = self::_relativePath($path);
+                        $rpath = $path     = suffix($newDir).$classInfo['class'].'.php';
+                    
                         $constants         = self::_findConstants($val);
                         $classContent      = self::_classFileContent($newClassName, $constants);
                         $fileContentLength = is_file($rpath) ? strlen(file_get_contents($rpath)) : 0;
@@ -558,7 +558,7 @@ class Autoloader
 
         $classInfo = self::getClassFileInfo($class);
 
-        $file = self::_originPath(REAL_BASE_DIR.$classInfo['path']);
+        $file = $classInfo['path'];
 
         if( is_file($file) )
         {
@@ -575,32 +575,6 @@ class Autoloader
 
             trace($message);
         }
-    }
-
-    //--------------------------------------------------------------------------------------------------
-    // Protected Directory Separator
-    //--------------------------------------------------------------------------------------------------
-    //
-    // @param  string $string
-    // @return string
-    //
-    //--------------------------------------------------------------------------------------------------
-    protected static function _relativePath($string)
-    {
-        return str_replace(REAL_BASE_DIR, NULL, self::_originPath($string));
-    }
-
-    //--------------------------------------------------------------------------------------------------
-    // Protected Origin Path
-    //--------------------------------------------------------------------------------------------------
-    //
-    // @param  string $string
-    // @return string
-    //
-    //--------------------------------------------------------------------------------------------------
-    protected static function _originPath($string)
-    {
-        return str_replace(['/', '\\'], DS, $string);
     }
 
     //--------------------------------------------------------------------------------------------------
