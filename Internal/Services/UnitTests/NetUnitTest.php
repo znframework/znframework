@@ -1,4 +1,4 @@
-<?php namespace ZN\Services\Response;
+<?php namespace ZN\Services;
 
 class NetUnitTest extends \UnitTestController
 {

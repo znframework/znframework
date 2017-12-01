@@ -1,7 +1,9 @@
 <?php namespace ZN\Database\Drivers;
 
 use ZN\Database\Abstracts\DriverConnectionMappingAbstract;
-use Support, Errors, stdClass;
+use ZN\IndividualStructures\Support;
+use ZN\ErrorHandling\Errors;
+use stdClass;
 
 class PostgresDriver extends DriverConnectionMappingAbstract
 {

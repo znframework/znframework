@@ -1,6 +1,6 @@
 <?php namespace ZN\IndividualStructures\Compress\Drivers;
 
-use Support;
+use ZN\IndividualStructures\Support;
 use ZN\FileSystem\File;
 use ZN\IndividualStructures\Abstracts\CompressDriverMappingAbstract;
 

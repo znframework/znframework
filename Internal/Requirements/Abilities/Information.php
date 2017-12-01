@@ -1,4 +1,8 @@
-<?php trait InformationAbility
+<?php 
+
+use ZN\IndividualStructures\Lang;
+
+trait InformationAbility
 {
     //--------------------------------------------------------------------------------------------------------
     // Error

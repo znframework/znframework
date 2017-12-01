@@ -1,6 +1,7 @@
 <?php namespace ZN\DataTypes;
 
-use Classes, Support;
+use Classes;
+use ZN\IndividualStructures\Support;
 
 class Chars
 {

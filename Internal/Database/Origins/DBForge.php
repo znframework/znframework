@@ -1,6 +1,6 @@
 <?php namespace ZN\Database;
 
-use Support;
+use ZN\IndividualStructures\Support;
 use ZN\DataTypes\Strings;
 
 class DBForge extends Connection

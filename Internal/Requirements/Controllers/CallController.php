@@ -1,6 +1,6 @@
 <?php namespace ZN\Requirements\Controllers;
 
-use Errors;
+use ZN\ErrorHandling\Errors;
 use ZN\DataTypes\Strings;
 
 class CallController extends BaseController

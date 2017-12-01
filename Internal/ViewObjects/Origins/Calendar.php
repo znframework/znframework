@@ -1,6 +1,10 @@
 <?php namespace ZN\ViewObjects;
 
-use Config, URI, URL, CLController, Lang, IS;
+use Config, CLController;
+use ZN\Services\URL;
+use ZN\Services\URI;
+use ZN\IndividualStructures\IS;
+use ZN\IndividualStructures\Lang;
 
 class Calendar extends CLController implements CalendarInterface
 {

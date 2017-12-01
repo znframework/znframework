@@ -1,7 +1,9 @@
 <?php namespace ZN\Database\Drivers;
 
 use ZN\Database\Abstracts\DriverConnectionMappingAbstract;
-use Support, Errors, Exception, SQLite3, stdClass;
+use ZN\IndividualStructures\Support;
+use ZN\ErrorHandling\Errors;
+use Exception, SQLite3, stdClass;
 
 class SQLiteDriver extends DriverConnectionMappingAbstract
 {

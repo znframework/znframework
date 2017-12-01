@@ -1,4 +1,9 @@
-<?php trait ExclusionAbility
+<?php 
+
+use ZN\IndividualStructures\Lang;
+use ZN\ErrorHandling\Exceptions;
+
+trait ExclusionAbility
 {
     //--------------------------------------------------------------------------------------------------------
     //

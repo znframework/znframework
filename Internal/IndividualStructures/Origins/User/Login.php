@@ -1,7 +1,9 @@
 <?php namespace ZN\IndividualStructures\User;
 
-use DB, Method, Session, Cookie;
+use DB, Session, Cookie;
+use ZN\Services\Method;
 use ZN\CryptoGraphy\Encode;
+use ZN\IndividualStructures\Lang;
 
 class Login extends UserExtends
 {
@@ -99,7 +101,7 @@ class Login extends UserExtends
 
         if( ! isset($r->$passwordColumn) )
         {
-            return ! Properties::$error = \Lang::select('IndividualStructures', 'user:loginError');
+            return ! Properties::$error = Lang::select('IndividualStructures', 'user:loginError');
         }
 
         $passwordControl   = $r->$passwordColumn;
@@ -121,12 +123,12 @@ class Login extends UserExtends
         {
             if( ! empty($bannedColumn) && ! empty($bannedControl) )
             {
-                return ! Properties::$error = \Lang::select('IndividualStructures', 'user:bannedError');
+                return ! Properties::$error = Lang::select('IndividualStructures', 'user:bannedError');
             }
 
             if( ! empty($activationColumn) && empty($activationControl) )
             {
-                return ! Properties::$error = \Lang::select('IndividualStructures', 'user:activationError');
+                return ! Properties::$error = Lang::select('IndividualStructures', 'user:activationError');
             }
 
             Session::insert($usernameColumn, $username);
@@ -146,11 +148,11 @@ class Login extends UserExtends
                 DB::where($usernameColumn, $username)->update($tableName, [$activeColumn  => 1]);
             }
 
-            return Properties::$success = \Lang::select('IndividualStructures', 'user:loginSuccess');
+            return Properties::$success = Lang::select('IndividualStructures', 'user:loginSuccess');
         }
         else
         {
-            return ! Properties::$error = \Lang::select('IndividualStructures', 'user:loginError');
+            return ! Properties::$error = Lang::select('IndividualStructures', 'user:loginError');
         }
     }
 

@@ -127,8 +127,8 @@ class Regex implements RegexInterface
     public function classic2special(String $pattern, String $delimiter = '/') : String
     {
         $specialChars = $this->specialChars;
-        $regexChars   = Arrays\MultipleKey::use($this->regexChars);
-        $settingChars = Arrays\MultipleKey::use($this->settingChars);
+        $regexChars   = Arrays::multikey($this->regexChars);
+        $settingChars = Arrays::multikey($this->settingChars);
         $pattern      = str_ireplace(array_values($regexChars  ), array_keys($regexChars  ), $pattern);
         $pattern      = str_ireplace(array_values($specialChars), array_keys($specialChars), $pattern);
 
@@ -249,8 +249,8 @@ class Regex implements RegexInterface
 
         $pattern = str_ireplace(array_keys($specialChars), array_values($specialChars), $pattern);
 
-        $regexChars   = Arrays\MultipleKey::use($this->regexChars);
-        $settingChars = Arrays\MultipleKey::use($this->settingChars);
+        $regexChars   = Arrays::multikey($this->regexChars);
+        $settingChars = Arrays::multikey($this->settingChars);
 
         $pattern = str_ireplace(array_keys($regexChars), array_values($regexChars), $pattern);
 

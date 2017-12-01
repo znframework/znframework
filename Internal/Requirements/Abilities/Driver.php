@@ -1,5 +1,6 @@
 <?php
 
+use ZN\IndividualStructures\Support;
 use ZN\Requirements\Abilities\Exception\UndefinedConstException;
 
 trait DriverAbility

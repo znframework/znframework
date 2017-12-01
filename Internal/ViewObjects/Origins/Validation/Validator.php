@@ -1,6 +1,7 @@
 <?php namespace ZN\ViewObjects;
 
-use CallController, IS;
+use CallController;
+use ZN\IndividualStructures\IS;
 
 class Validator extends CallController implements ValidatorInterface
 {

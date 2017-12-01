@@ -1,7 +1,8 @@
 <?php namespace ZN\EncodingSupport\MultiLanguage;
 
-use CLController, Lang;
+use CLController;
 use ZN\FileSystem\Folder;
+use ZN\IndividualStructures\Lang;
 
 class MLExtends extends CLController
 {

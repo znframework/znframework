@@ -164,7 +164,7 @@ define('HOST_NAME'    , HOST                                                   )
 define('HOST_URL'     , SSL_STATUS . HOST . '/'                                );
 define('BASE_URL'     , HOST_URL . BASE_DIR                                    );
 define('SITE_URL'     , URL::site()                                            );
-define('CURRENT_URL'  , rtrim(HOST_URL, '/') . $_SERVER['REQUEST_URI'] ?? NULL );
+define('CURRENT_URL'  , rtrim(HOST_URL, '/') . ($_SERVER['REQUEST_URI'] ?? NULL));
 define('PREV_URL'     , $_SERVER['HTTP_REFERER'] ?? NULL                       );
 define('BASE_PATH'    , BASE_DIR                                               );
 define('CURRENT_PATH' , URI::current()                                         );
@@ -598,12 +598,12 @@ function uselib(String $class, Array $parameters = [])
     if( ! class_exists($class) )
     {
         $classInfo = Autoloader::getClassFileInfo($class);
-
+    
         $class = $classInfo['namespace'];
 
         if( ! class_exists($class) )
         {
-            die(Errors::message('Error', 'classError', $class));
+            die(ZN\ErrorHandling\Errors::message('Error', 'classError', $class));
         }
     }
 

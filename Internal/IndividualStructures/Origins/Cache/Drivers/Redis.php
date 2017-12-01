@@ -1,5 +1,7 @@
 <?php namespace ZN\IndividualStructures\Cache\Drivers;
 
+use ZN\ErrorHandling\Errors;
+use ZN\IndividualStructures\Support;
 use ZN\IndividualStructures\Abstracts\CacheDriverMappingAbstract;
 
 class RedisDriver extends CacheDriverMappingAbstract
@@ -40,7 +42,7 @@ class RedisDriver extends CacheDriverMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
-        \Support::extension('redis');
+        Support::extension('redis');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -73,19 +75,19 @@ class RedisDriver extends CacheDriverMappingAbstract
 
             if ( empty($success) )
             {
-                die(\Errors::message('IndividualStructures', 'cache:connectionRefused', 'Connection'));
+                die(Errors::message('IndividualStructures', 'cache:connectionRefused', 'Connection'));
             }
         }
         catch( RedisException $e )
         {
-            die(\Errors::message('IndividualStructures', 'cache:connectionRefused', $e->getMessage()));
+            die(Errors::message('IndividualStructures', 'cache:connectionRefused', $e->getMessage()));
         }
 
         if( isset($config['password']) )
         {
             if ( ! $this->redis->auth($config['password']))
             {
-                die(\Errors::message('IndividualStructures', 'cache:authenticationFailed'));
+                die(Errors::message('IndividualStructures', 'cache:authenticationFailed'));
             }
         }
 

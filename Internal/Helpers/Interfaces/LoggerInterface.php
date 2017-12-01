@@ -21,7 +21,7 @@ interface LoggerInterface
     // @return bool
     //
     //--------------------------------------------------------------------------------------------------
-    public function notice(String $message, String $time = NULL);
+    public static function notice(String $message, String $time = NULL);
 
     //--------------------------------------------------------------------------------------------------
     // emergency()
@@ -33,7 +33,7 @@ interface LoggerInterface
     // @return bool
     //
     //--------------------------------------------------------------------------------------------------
-    public function emergency(String $message, String $time = NULL);
+    public static function emergency(String $message, String $time = NULL);
 
     //--------------------------------------------------------------------------------------------------
     // alert()
@@ -45,7 +45,7 @@ interface LoggerInterface
     // @return bool
     //
     //--------------------------------------------------------------------------------------------------
-    public function alert(String $message, String $time = NULL);
+    public static function alert(String $message, String $time = NULL);
 
     //--------------------------------------------------------------------------------------------------
     // error()
@@ -57,7 +57,7 @@ interface LoggerInterface
     // @return bool
     //
     //--------------------------------------------------------------------------------------------------
-    public function error(String $message, String $time = NULL);
+    public static function error(String $message, String $time = NULL);
 
     //--------------------------------------------------------------------------------------------------
     // warning()
@@ -69,7 +69,7 @@ interface LoggerInterface
     // @return bool
     //
     //--------------------------------------------------------------------------------------------------
-    public function warning(String $message, String $time = NULL);
+    public static function warning(String $message, String $time = NULL);
 
     //--------------------------------------------------------------------------------------------------
     // critical()
@@ -81,7 +81,7 @@ interface LoggerInterface
     // @return bool
     //
     //--------------------------------------------------------------------------------------------------
-    public function critical(String $message, String $time = NULL);
+    public static function critical(String $message, String $time = NULL);
 
     //--------------------------------------------------------------------------------------------------
     // info()
@@ -93,7 +93,7 @@ interface LoggerInterface
     // @return bool
     //
     //--------------------------------------------------------------------------------------------------
-    public function info(String $message, String $time = NULL);
+    public static function info(String $message, String $time = NULL);
 
     //--------------------------------------------------------------------------------------------------
     // debug()
@@ -105,7 +105,7 @@ interface LoggerInterface
     // @return bool
     //
     //--------------------------------------------------------------------------------------------------
-    public function debug(String $message, String $time = NULL);
+    public static function debug(String $message, String $time = NULL);
 
     //--------------------------------------------------------------------------------------------------
     // report()
@@ -119,5 +119,5 @@ interface LoggerInterface
     // @return bool
     //
     //--------------------------------------------------------------------------------------------------
-    function report(String $subject, String $message, String $destination = NULL, String $time = NULL) : Bool;
+    public static function report(String $subject, String $message, String $destination = NULL, String $time = NULL) : Bool;
 }

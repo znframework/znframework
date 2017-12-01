@@ -1,10 +1,12 @@
 <?php namespace Project\Controllers;
 
-use Restful, Separator, Strings, Lang, URI, Route;
+use Restful, Separator, Strings, Route;
 use ZN\Core\Kernel, Cache, Config, User;
+use ZN\Services\URI;
 use ZN\FileSystem\File;
 use ZN\FileSystem\Folder;
 use ZN\Helpers\Converter;
+use ZN\IndividualStructures\Lang;
 use ZN\IndividualStructures\Buffer;
 
 class ZN

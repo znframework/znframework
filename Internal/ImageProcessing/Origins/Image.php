@@ -1,6 +1,7 @@
 <?php namespace ZN\ImageProcessing;
 
-use URL, Mime, stdClass;
+use Mime, stdClass;
+use ZN\Services\URL;
 use ZN\FileSystem\File;
 use ZN\FileSystem\Folder;
 use ZN\ImageProcessing\Exception\ImageNotFoundException;

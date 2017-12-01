@@ -1,6 +1,8 @@
 <?php namespace ZN\DataTypes;
 
-class Arrays extends \FactoryController
+use FactoryController;
+
+class Arrays extends FactoryController
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -11,6 +13,13 @@ class Arrays extends \FactoryController
     //
     //--------------------------------------------------------------------------------------------------------
 
+    //--------------------------------------------------------------------------------------------------------
+    // Factory Constant
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var array
+    //
+    //--------------------------------------------------------------------------------------------------------
     const factory =
     [
         'methods' =>
@@ -56,48 +65,203 @@ class Arrays extends \FactoryController
             'force'                 => 'Arrays\Force::do',
             'forcevalues'           => 'Arrays\Force::values',
             'forcekeys'             => 'Arrays\Force::keys',
-            'multikey'              => 'Arrays\MultipleKey::use',
             'keyval'                => 'Arrays\Element::use',
-            'key'                   => 'Arrays\Element::key',
-            'value'                 => 'Arrays\Element::value',
-            'keys'                  => 'Arrays\Element::keys',
-            'values'                => 'Arrays\Element::values',
+            'element'               => 'Arrays\Element::use',
             'unidimensional'        => 'Arrays\Unidimensional::do',
-            'flatten'               => 'Arrays\Unidimensional::do',
-            'objectdata'            => 'Arrays\Convert::objectData',
-            'toJson'                => 'Arrays\Convert::json',
-            'flip'                  => 'Arrays\Transform::flip',
-            'transform'             => 'Arrays\Transform::flip',
-            'length'                => 'Arrays\Length::get',
-            'countsamevalues'       => 'Arrays\Length::sameValues',
-            'lengthsamevalues'      => 'Arrays\Length::sameValues',
-            'valueexists'           => 'Arrays\Exists::value',
-            'valueexistsinsensitive'=> 'Arrays\Exists::valueInsensitive',
-            'keyexists'             => 'Arrays\Exists::key',
-            'keyexistsinsensitive'  => 'Arrays\Exists::keyInsensitive',
-            'apportion'             => 'Arrays\Chunk::do',
-            'chunk'                 => 'Arrays\Chunk::do',
-            'combine'               => 'Arrays\Combine::do',
-            'map'                   => 'Arrays\Map::do',
-            'implementcallback'     => 'Arrays\Map::do',
-            'merge'                 => 'Arrays\Merge::do',
-            'recursivemerge'        => 'Arrays\Merge::recursive',
-            'intersect'             => 'Arrays\Intersect::do',
-            'intersectkey'          => 'Arrays\Intersect::key',
-            'product'               => 'Arrays\Calculate::product',
-            'sum'                   => 'Arrays\Calculate::sum',
-            'random'                => 'Arrays\Random::do',
-            'rand'                  => 'Arrays\Random::do',
-            'search'                => 'Arrays\Search::do',
-            'section'               => 'Arrays\Section::do',
-            'slice'                 => 'Arrays\Section::do',
-            'resection'             => 'Arrays\Section::resection',
-            'splice'                => 'Arrays\Section::resection',
-            'deleterecurrent'       => 'Arrays\Unique::do',
-            'unique'                => 'Arrays\Unique::do',
-            'series'                => 'Arrays\Series::do',
-            'range'                 => 'Arrays\Series::do',
-            'column'                => 'Arrays\Column::do',
+            'flatten'               => 'Arrays\Unidimensional::do'
         ]
     ];
+
+    //--------------------------------------------------------------------------------------------------------
+    // Methods
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var array
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected $methods = 
+    [
+        'standart' => 
+        [
+            'merge', 
+            'recursivemerge' => 'merge_recursive',
+            'flip', 
+            'transform' => 'flip', 
+            'unique',
+            'deleterecurrent' => 'unique',
+            'range' => ':',
+            'series' => ':range',
+            'slice',
+            'section' => 'slice',
+            'splice',
+            'resection' => 'splice',
+            'reverse',
+            'rand',
+            'random' => 'rand',
+            'map',
+            'implementcallback' => 'map',
+            'count' => ':',
+            'length' => ':count',
+            'column',
+            'product',
+            'sum',
+            'intersect',
+            'intersectkey' => 'intersect_key',
+            'combine',
+            'chunk',
+            'apportion' => 'chunk',
+            'key' => ':',
+            'current' => ':',
+            'value'   => ':current',
+            'values',
+            'keys'
+        ]
+    ];
+
+    //--------------------------------------------------------------------------------------------------------
+    // Magic Call
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $method
+    // @param array  $parameters
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function __call($method, $parameters)
+    {   
+        $lower  = strtolower($method);
+      
+        $select = in_array($lower, $this->methods['standart']) 
+                ? $lower 
+                : (($standart = ($this->methods['standart'][$lower] ?? NULL)) ? $standart : NULL);            
+                    
+        if( $select !== NULL )
+        {
+            if( $select[0] === ':' )
+            {
+                $call = ltrim($select, ':') ?: $lower;
+            }
+            else
+            {
+                $call = 'array_' . $select;
+            }
+            
+            return $call(...$parameters);
+        }
+        
+        return parent::__call($method, $parameters);       
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Multikey
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param array  $array
+    // @param string $keySplit:|
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public static function multikey(Array $array, String $keySplit = '|') : Array
+    {
+        $newArray = [];
+
+        foreach( $array as $k => $v )
+        {
+            $keys = explode($keySplit, $k);
+
+            foreach( $keys as $val )
+            {
+                $newArray[$val] = $v;
+            }
+        }
+
+        return $newArray;
+    }
+
+
+    //--------------------------------------------------------------------------------------------------------
+    // Value Exists
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param array $array
+    // @param mixed $element
+    // @param bool  $strict
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public static function valueExists(Array $array, $element, Bool $strict = false) : Bool
+    {
+        return in_array($element, $array, $strict);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Value Exists Insensitive
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param array $array
+    // @param mixed $element
+    // @param bool  $insenstive
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public static function valueExistsInsensitive(Array $array, $element, Bool $strict = false) : Bool
+    {
+        return self::valueExists(array_map('strtolower', $array), strtolower($element), $strict);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Key Exists
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param array $array
+    // @param mixed $key
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public static function keyExists(Array $array, $key) : Bool
+    {
+        return array_key_exists($key, $array);
+    }
+
+     //--------------------------------------------------------------------------------------------------------
+    // Key Exists Insensitive
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param array $array
+    // @param mixed $key
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public static function keyEsistsInsensitive(Array $array, $key) : Bool
+    {
+        return self::keyExists(array_change_key_case($array), strtolower($key));
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Search
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param array $array
+    // @param mixed $element
+    // @param bool  $strict
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public static function search(Array $array, $element, Bool $strict = false)
+    {
+        return array_search($element, $array, $strict);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Count Same Values
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param array $array
+    // @param mixed $key
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public static function countSameValues(Array $array, String $key = NULL)
+    {
+        $return = array_count_values($array);
+
+        if( ! empty($key) )
+        {
+            return $return[$key] ?? false;
+        }
+
+        return $return;
+    }
 }

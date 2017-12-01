@@ -1,6 +1,7 @@
 <?php namespace ZN\IndividualStructures;
 
-use CLController, URL, IS;
+use CLController;
+use ZN\Services\URL;
 use ZN\IndividualStructures\Exception\InvalidArgumentException;
 use ZN\DataTypes\Arrays;
 

@@ -1,6 +1,7 @@
 <?php namespace ZN\Database;
 
-use Lang, stdClass;
+use stdClass;
+use ZN\IndividualStructures\Lang;
 use ZN\FileSystem\Exception\IOException;
 use ZN\FileSystem\Folder;
 

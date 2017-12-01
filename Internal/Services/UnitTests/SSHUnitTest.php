@@ -1,4 +1,4 @@
-<?php namespace ZN\Services\Remote;
+<?php namespace ZN\Services;
 
 class SSHUnitTest extends \UnitTestController
 {

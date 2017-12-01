@@ -1,6 +1,6 @@
 <?php namespace ZN\EncodingSupport;
 
-use Lang;
+use ZN\IndividualStructures\Lang;
 
 class ML extends \FactoryController
 {

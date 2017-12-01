@@ -1,6 +1,6 @@
 <?php namespace ZN\IndividualStructures;
 
-use ZN\In, Config, Session, IS;
+use ZN\In, Config, Session;
 
 class Lang implements LangInterface
 {
@@ -13,7 +13,7 @@ class Lang implements LangInterface
     //
     //--------------------------------------------------------------------------------------------------------
 
-    protected $shortCodes =
+    protected static $shortCodes =
     [
         'ad' => 'Catalan',
         'ae' => 'Arabic',
@@ -275,14 +275,14 @@ class Lang implements LangInterface
     // @return Mixed
     //
     //--------------------------------------------------------------------------------------------------
-    public function shortCodes(String $code = NULL)
+    public static function shortCodes(String $code = NULL)
     {
         if( $code === NULL )
         {
-            return $this->shortCodes;
+            return self::$shortCodes;
         }
 
-        return $this->shortCodes[$code] ?? 'English';
+        return self::$shortCodes[$code] ?? 'English';
     }
 
     //--------------------------------------------------------------------------------------------------
@@ -294,7 +294,7 @@ class Lang implements LangInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------
-    public function current() : String
+    public static function current() : String
     {
         if( ! Config::get('Services','uri')['lang'] )
         {
@@ -302,7 +302,7 @@ class Lang implements LangInterface
         }
         else
         {
-            return $this->get();
+            return self::get();
         }
     }
 
@@ -317,11 +317,11 @@ class Lang implements LangInterface
     // @return mixed
     //
     //--------------------------------------------------------------------------------------------------
-    public function select(String $file = NULL, String $str = NULL, $changed = NULL)
+    public static function select(String $file = NULL, String $str = NULL, $changed = NULL)
     {
         global $lang;
 
-        $file          = ( $this->shortCodes[$this->get()] ?? 'English').'/'.suffix($file, '.php');
+        $file          = ( self::$shortCodes[self::get()] ?? 'English').'/'.suffix($file, '.php');
         $langDir       = LANGUAGES_DIR.$file;
         $sysLangDir    = INTERNAL_LANGUAGES_DIR.$file;
         $commonLangDir = EXTERNAL_LANGUAGES_DIR.$file;
@@ -393,7 +393,7 @@ class Lang implements LangInterface
     // @return bool
     //
     //--------------------------------------------------------------------------------------------------
-    public function set(String $l = NULL) : Bool
+    public static function set(String $l = NULL) : Bool
     {
         if( empty($l) )
         {
@@ -413,7 +413,7 @@ class Lang implements LangInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------
-    public function get() : String
+    public static function get() : String
     {
         $systemLanguageData        = In::defaultProjectKey('SystemLanguageData');
         $defaultSystemLanguageData = In::defaultProjectKey('DefaultSystemLanguageData');

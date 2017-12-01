@@ -1,6 +1,6 @@
 <?php namespace ZN\IndividualStructures\Import;
 
-use Config, URL;
+use ZN\Services\URL;
 use ZN\FileSystem\File;
 
 class Font extends BootstrapExtends

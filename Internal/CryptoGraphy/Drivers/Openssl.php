@@ -1,7 +1,7 @@
 <?php namespace ZN\CryptoGraphy\Drivers;
 
 use ZN\CryptoGraphy\CryptoMapping;
-use Support;
+use ZN\IndividualStructures\Support;
 use ZN\DataTypes\Arrays;
 
 class OpensslDriver extends CryptoMapping
@@ -84,7 +84,7 @@ class OpensslDriver extends CryptoMapping
 			'aes-128' 	=> 16,
 		];
 
-		$ciphers = Arrays\MultipleKey::use($ciphers);
+		$ciphers = Arrays::multikey($ciphers);
 
 		return mb_substr(hash('md5', PROJECT_CONFIG['key']), 0, $ciphers[$cipher] ?? 16);
 	}
@@ -104,7 +104,7 @@ class OpensslDriver extends CryptoMapping
 			'ecb'   => 0
 		];
 
-		$modes = Arrays\MultipleKey::use($modes);
+		$modes = Arrays::multikey($modes);
 		$mode  = $modes[$mode] ?? 16;
 
 		if( ! empty($cipher) )

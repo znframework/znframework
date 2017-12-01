@@ -1,9 +1,10 @@
 <?php namespace ZN\IndividualStructures;
 
-use CallController, Classes, Errors;
+use Classes;
 use ZN\DataTypes\Strings;
+use ZN\ErrorHandling\Errors;
 
-class Support extends CallController implements SupportInterface
+class Support implements SupportInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -24,7 +25,7 @@ class Support extends CallController implements SupportInterface
     // @param string $error
     //
     //--------------------------------------------------------------------------------------------------------
-    protected function _loaded($name, $value, $func, $error)
+    protected static function _loaded($name, $value, $func, $error)
     {
         if( empty($value) )
         {
@@ -54,9 +55,9 @@ class Support extends CallController implements SupportInterface
     // @param  string  $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function function(String $name, String $value = NULL)
+    public static function function(String $name, String $value = NULL)
     {
-        return $this->callback($name, $value);
+        return self::callback($name, $value);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -67,9 +68,9 @@ class Support extends CallController implements SupportInterface
     // @param  string  $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function func(String $name, String $value = NULL)
+    public static function func(String $name, String $value = NULL)
     {
-        return $this->_loaded($name, $value, 'function_exists', 'undefinedFunctionExtension');
+        return self::_loaded($name, $value, 'function_exists', 'undefinedFunctionExtension');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -80,9 +81,9 @@ class Support extends CallController implements SupportInterface
     // @param  string  $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function callback(String $name, String $value = NULL)
+    public static function callback(String $name, String $value = NULL)
     {
-        return $this->_loaded($name, $value, 'function_exists', 'undefinedFunction');
+        return self::_loaded($name, $value, 'function_exists', 'undefinedFunction');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -93,9 +94,9 @@ class Support extends CallController implements SupportInterface
     // @param  string  $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function extension(String $name, String $value = NULL)
+    public static function extension(String $name, String $value = NULL)
     {
-        return $this->_loaded($name, $value, 'extension_loaded', 'undefinedFunctionExtension');
+        return self::_loaded($name, $value, 'extension_loaded', 'undefinedFunctionExtension');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -106,9 +107,9 @@ class Support extends CallController implements SupportInterface
     // @param  string  $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function library(String $name, String $value = NULL)
+    public static function library(String $name, String $value = NULL)
     {
-        return $this->_loaded($name, $value, 'class_exists', 'classError');
+        return self::_loaded($name, $value, 'class_exists', 'classError');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -119,9 +120,9 @@ class Support extends CallController implements SupportInterface
     // @param  string  $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function writable(String $name, String $value = NULL)
+    public static function writable(String $name, String $value = NULL)
     {
-        return $this->_loaded($name, $value, 'is_writable', 'fileNotWrite');
+        return self::_loaded($name, $value, 'is_writable', 'fileNotWrite');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -132,7 +133,7 @@ class Support extends CallController implements SupportInterface
     // @param  string  $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function driver(Array $drivers, String $driver = NULL)
+    public static function driver(Array $drivers, String $driver = NULL)
     {
         if( ! in_array(strtolower($driver), $drivers) )
         {
@@ -150,7 +151,7 @@ class Support extends CallController implements SupportInterface
     // @param  string  $method
     //
     //--------------------------------------------------------------------------------------------------------
-    public function classMethod(String $class, String $method)
+    public static function classMethod(String $class, String $method)
     {
         die(Errors::message
         (

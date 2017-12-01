@@ -1,6 +1,7 @@
 <?php namespace ZN\ViewObjects;
 
-use Config, Session, Cookie, URL;
+use Config, Session, Cookie;
+use ZN\Services\URL;
 use ZN\DataTypes\Arrays;
 use ZN\CryptoGraphy\Encode;
 use ZN\FileSystem\File;

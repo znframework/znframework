@@ -1,7 +1,9 @@
 <?php namespace ZN\Database\Drivers;
 
 use ZN\Database\Abstracts\DriverConnectionMappingAbstract;
-use Errors, stdClass, Support, PDO, PDOException;
+use ZN\IndividualStructures\Support;
+use ZN\ErrorHandling\Errors;
+use stdClass, PDO, PDOException;
 
 class PDODriver extends DriverConnectionMappingAbstract
 {

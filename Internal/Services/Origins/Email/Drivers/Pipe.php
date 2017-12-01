@@ -1,6 +1,7 @@
 <?php namespace ZN\Services\Email\Drivers;
 
-use Support;
+use ZN\IndividualStructures\Lang;
+use ZN\IndividualStructures\Support;
 use ZN\Services\Abstracts\EmailMappingAbstract;
 use ZN\Services\Exception\FailureSendEmailException;
 use ZN\Services\Exception\IOException;
@@ -57,8 +58,8 @@ class PipeDriver extends EmailMappingAbstract
 
         if( $status !== 0 )
         {
-            $exceptionMessage  = \Lang::select('Services', 'email:noSocket').' ';
-            $exceptionMessage .= \Lang::select('Services', 'email:exitStatus', $status);
+            $exceptionMessage  = Lang::select('Services', 'email:noSocket').' ';
+            $exceptionMessage .= Lang::select('Services', 'email:exitStatus', $status);
 
             throw new IOException($exceptionMessage);
         }

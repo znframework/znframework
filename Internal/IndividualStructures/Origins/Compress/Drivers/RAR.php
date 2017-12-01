@@ -1,5 +1,6 @@
 <?php namespace ZN\IndividualStructures\Compress\Drivers;
 
+use ZN\IndividualStructures\Support;
 use ZN\IndividualStructures\Exception\InvalidArgumentException;
 use ZN\IndividualStructures\Abstracts\CompressDriverMappingAbstract;
 
@@ -23,7 +24,7 @@ class RarDriver extends CompressDriverMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
-        \Support::func('rar_open', 'RAR');
+        Support::func('rar_open', 'RAR');
     }
 
     //--------------------------------------------------------------------------------------------------------

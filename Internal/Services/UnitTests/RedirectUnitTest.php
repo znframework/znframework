@@ -1,4 +1,4 @@
-<?php namespace ZN\Services\Request;
+<?php namespace ZN\Services;
 
 class RedirectUnitTest extends \UnitTestController
 {

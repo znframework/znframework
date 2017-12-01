@@ -39,10 +39,10 @@ function <?php echo $function; ?>()
         <?php endif;?>
     };
 
-    xhttp.open('<?php echo $method; ?>', '<?php echo URL::site($url) ?>', <?php echo $async?>);
+    xhttp.open('<?php echo $method; ?>', '<?php echo ZN\Services\URL::site($url) ?>', <?php echo $async?>);
     <?php if( isset($data) ): ?>
         xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     <?php endif; ?>
-    xhttp.send(<?php echo isset($data) ? '\''.URL::buildQuery($data).'\'' : NULL;?>);
+    xhttp.send(<?php echo isset($data) ? '\''.ZN\Services\URL::buildQuery($data).'\'' : NULL;?>);
 }
 </script>

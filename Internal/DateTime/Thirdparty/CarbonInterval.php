@@ -16,7 +16,7 @@ use InvalidArgumentException;
 use Symfony\Component\Translation\Loader\ArrayLoader;
 use Symfony\Component\Translation\Translator;
 use Symfony\Component\Translation\TranslatorInterface;
-use Lang;
+use ZN\IndividualStructures\Lang;
 
 /**
  * A simple API extension for DateInterval.

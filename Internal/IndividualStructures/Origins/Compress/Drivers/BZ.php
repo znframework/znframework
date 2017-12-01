@@ -1,5 +1,6 @@
 <?php namespace ZN\IndividualStructures\Compress\Drivers;
 
+use ZN\IndividualStructures\Support;
 use ZN\IndividualStructures\Exception\FileNotFoundException;
 use ZN\IndividualStructures\Abstracts\CompressDriverMappingAbstract;
 
@@ -23,7 +24,7 @@ class BZDriver extends CompressDriverMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
-        \Support::func('bzopen', 'BZ');
+        Support::func('bzopen', 'BZ');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -35,7 +36,7 @@ class BZDriver extends CompressDriverMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function extract($source, $target, $password)
     {
-        \Support::func('bzextract', 'BZ Driver Extract');
+        Support::func('bzextract', 'BZ Driver Extract');
     }
 
     //--------------------------------------------------------------------------------------------------------

@@ -1,7 +1,9 @@
 <?php namespace ZN\Database;
 
-use Support, Config, Autoloader, Logger;
+use Config, Autoloader;
+use ZN\Helpers\Logger;
 use ZN\Database\Exception\InvalidArgumentException;
+use ZN\IndividualStructures\Support;
 use ZN\DataTypes\Arrays;
 
 class Connection

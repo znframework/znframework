@@ -1,5 +1,6 @@
 <?php namespace ZN\IndividualStructures\Cache\Drivers;
 
+use ZN\IndividualStructures\Support;
 use ZN\IndividualStructures\Abstracts\CacheDriverMappingAbstract;
 
 class OpcacheDriver extends CacheDriverMappingAbstract
@@ -40,7 +41,7 @@ class OpcacheDriver extends CacheDriverMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
-        \Support::function('opcache_compile_file');
+        Support::function('opcache_compile_file');
     }
 
     //--------------------------------------------------------------------------------------------------------

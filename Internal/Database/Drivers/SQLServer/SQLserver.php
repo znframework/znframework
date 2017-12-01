@@ -2,7 +2,9 @@
 
 use ZN\Database\Abstracts\DriverConnectionMappingAbstract;
 use ZN\IndividualStructures\Security;
-use Support, Errors, stdClass;
+use ZN\IndividualStructures\Support;
+use ZN\ErrorHandling\Errors;
+use stdClass;
 
 class SQLServerDriver extends DriverConnectionMappingAbstract
 {

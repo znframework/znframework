@@ -1,6 +1,7 @@
 <?php namespace ZN\IndividualStructures\Import;
 
-use Config, HTML, URL;
+use Config, HTML;
+use ZN\Services\URL;
 use ZN\DataTypes\Arrays;
 
 class Masterpage

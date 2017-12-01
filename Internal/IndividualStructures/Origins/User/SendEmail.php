@@ -1,6 +1,7 @@
 <?php namespace ZN\IndividualStructures\User;
 
-use DB, Email, IS;
+use DB, Email;
+use ZN\IndividualStructures\IS;
 
 class SendEmail extends UserExtends
 {

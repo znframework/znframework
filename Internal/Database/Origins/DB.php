@@ -1,6 +1,8 @@
 <?php namespace ZN\Database;
 
-use URI, Pagination, Classes, Method, Config, Cache, IS, Coalesce;
+use Pagination, Classes, Config, Cache, Coalesce;
+use ZN\Services\URI;
+use ZN\Services\Method;
 use ZN\DataTypes\Strings;
 use ZN\DataTypes\Arrays;
 use ZN\FileSystem\Excel;
@@ -2335,7 +2337,7 @@ class DB extends Connection
     //--------------------------------------------------------------------------------------------------------
     protected function _wh($column, $value, $logical, $type = 'where')
     {   
-        if( IS::array($column) )
+        if( is_array($column) )
         {
             $columns = func_get_args();
 

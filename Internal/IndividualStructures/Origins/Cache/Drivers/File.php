@@ -1,7 +1,8 @@
 <?php namespace ZN\IndividualStructures\Cache\Drivers;
 
 use ZN\IndividualStructures\Abstracts\CacheDriverMappingAbstract;
-use Support, Compress;
+use ZN\IndividualStructures\Support;
+use Compress;
 use ZN\FileSystem\File;
 use ZN\FileSystem\Folder;
 

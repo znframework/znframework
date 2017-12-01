@@ -1,12 +1,16 @@
 <?php namespace ZN\Core;
 
-use Route, Throwable, Exceptions, Config, Errors;
-use Generate, Restoration, URL, Lang, IS;
-use View, Masterpage, ZN\In, Logger, Http;
+use Route, Throwable, Config, Generate, Restoration, URL, View, Masterpage, Http;
+use ZN\In;
+use ZN\Helpers\Logger;
 use ZN\FileSystem\File;
 use ZN\FileSystem\Folder;
+use ZN\IndividualStructures\IS;
+use ZN\IndividualStructures\Lang;
 use ZN\IndividualStructures\Import;
 use GeneralException;
+use ZN\ErrorHandling\Errors;
+use ZN\ErrorHandling\Exceptions;
 
 class Kernel
 {
@@ -56,7 +60,7 @@ class Kernel
         //--------------------------------------------------------------------------------------------------
 
         if( $iniSet = $htaccessConfig['ini']['settings'] ) Config::iniSet($iniSet);
-        if( PROJECT_MODE !== 'publication' ) set_error_handler('Exceptions::table');
+        if( PROJECT_MODE !== 'publication' ) set_error_handler('ZN\ErrorHandling\Exceptions::table');
         if( Config::htaccess('createFile') === true ) In::createHtaccessFile();
         if( Config::robots  ('createFile') === true ) In::createRobotsFile();
 

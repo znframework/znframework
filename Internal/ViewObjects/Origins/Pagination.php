@@ -1,6 +1,8 @@
 <?php namespace ZN\ViewObjects;
 
-use URI, URL, Config;
+use Config;
+use ZN\Services\URL;
+use ZN\Services\URI;
 
 class Pagination implements PaginationInterface
 {

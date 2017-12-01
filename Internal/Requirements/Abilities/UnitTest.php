@@ -37,10 +37,10 @@
             }
         }
 
-        ZNUnitTest::class($class)
-                  ->methods($methods)
-                  ->start();
+        Tester::class($class)
+              ->methods($methods)
+              ->start();
 
-        return ZNUnitTest::result();
+        return Tester::result();
     }
 }

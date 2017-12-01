@@ -32,7 +32,7 @@ $start = $match[3] ?? NULL;
 
 if( $type === 'ajax' )
 {
-    $start = Method::post('start');
+    $start = ZN\Services\Method::post('start');
 }
 
 $limit = $match[1] ?? Config::get('ViewObjects', 'pagination')['limit'];
@@ -64,7 +64,7 @@ $index = md5($index);
             }
             else
             {
-                $anchor = URL::site(Pagination::getURI($s));
+                $anchor = ZN\Services\URL::site(Pagination::getURI($s));
             }
 
             echo Html::anchor($anchor, $i);

@@ -2,7 +2,7 @@
 
 use ZN\ViewObjects\Abstracts\HTMLHelpersAbstract;
 use ZN\DataTypes\Arrays;
-use IS;
+use ZN\IndividualStructures\IS;
 
 class Lists extends HTMLHelpersAbstract
 {

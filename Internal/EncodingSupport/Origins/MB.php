@@ -1,6 +1,7 @@
 <?php namespace ZN\EncodingSupport;
 
-use CallController, IS;
+use CallController;
+use ZN\IndividualStructures\IS;
 use ZN\EncodingSupport\Exception\InvalidArgumentException;
 use ZN\DataTypes\Strings;
 use ZN\Helpers\Converter;

@@ -19,7 +19,7 @@ interface SupportInterface
     // @param  string  $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function function(String $name, String $value = NULL);
+    public static function function(String $name, String $value = NULL);
 
     //--------------------------------------------------------------------------------------------------------
     // Func
@@ -29,7 +29,7 @@ interface SupportInterface
     // @param  string  $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function func(String $name, String $value);
+    public static function func(String $name, String $value);
 
     //--------------------------------------------------------------------------------------------------------
     // Callback
@@ -39,7 +39,7 @@ interface SupportInterface
     // @param  string  $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function callback(String $name, String $value = NULL);
+    public static function callback(String $name, String $value = NULL);
 
     //--------------------------------------------------------------------------------------------------------
     // Extension
@@ -49,7 +49,7 @@ interface SupportInterface
     // @param  string  $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function extension(String $name, String $value);
+    public static function extension(String $name, String $value);
 
     //--------------------------------------------------------------------------------------------------------
     // Library
@@ -59,7 +59,7 @@ interface SupportInterface
     // @param  string  $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function library(String $name, String $value);
+    public static function library(String $name, String $value);
 
     //--------------------------------------------------------------------------------------------------------
     // Writable
@@ -69,7 +69,7 @@ interface SupportInterface
     // @param  string  $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function writable(String $name, String $value = NULL);
+    public static function writable(String $name, String $value = NULL);
 
     //--------------------------------------------------------------------------------------------------------
     // Driver
@@ -79,7 +79,7 @@ interface SupportInterface
     // @param  string  $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function driver(Array $drivers, String $driver = NULL);
+    public static function driver(Array $drivers, String $driver = NULL);
 
     //--------------------------------------------------------------------------------------------------------
     // Class Method
@@ -89,5 +89,5 @@ interface SupportInterface
     // @param  string  $method
     //
     //--------------------------------------------------------------------------------------------------------
-    public function classMethod(String $class, String $method);
+    public static function classMethod(String $class, String $method);
 }

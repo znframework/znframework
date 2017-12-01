@@ -73,7 +73,7 @@ class McryptDriver extends CryptoMapping
             'cast_256|gost|loki97|rijndael_256'             => 32
         ];
 
-        $ciphers = Arrays\MultipleKey::use($ciphers);
+        $ciphers = Arrays::multikey($ciphers);
 
         return mb_substr(hash('md5', PROJECT_CONFIG['key']), 0, $ciphers[$cipher] ?? 8);
     }
@@ -93,7 +93,7 @@ class McryptDriver extends CryptoMapping
             'rijndael_256'                                              => 32,
         ];
 
-        $modes = Arrays\MultipleKey::use($modes);
+        $modes = Arrays::multikey($modes);
         $mode  = $modes[$mode] ?? 8;
 
         if( ! empty($cipher) )

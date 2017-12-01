@@ -1,8 +1,10 @@
 <?php namespace ZN\Requirements\Models;
 
-use BaseController, DB, DBTool, DBForge, GeneralException, Config, Support, Lang;
+use BaseController, DB, DBTool, DBForge, GeneralException, Config;
 use ZN\DataTypes\Strings;
 use ZN\DataTypes\Arrays;
+use ZN\IndividualStructures\Lang;
+use ZN\IndividualStructures\Support;
 
 class GrandModel extends BaseController
 {
@@ -194,7 +196,7 @@ class GrandModel extends BaseController
     //--------------------------------------------------------------------------------------------------------
     public function __destruct()
     {
-        if( ! Arrays\Exists::valueInsensitive($this->tables, ($table = $this->prefix . $this->grandTable)) && $this->status !== 'create' )
+        if( ! Arrays::valueExistsInsensitive($this->tables, ($table = $this->prefix . $this->grandTable)) && $this->status !== 'create' )
         {
             try
             {

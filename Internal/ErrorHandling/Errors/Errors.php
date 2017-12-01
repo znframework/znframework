@@ -1,6 +1,6 @@
 <?php namespace ZN\ErrorHandling;
 
-use Lang;
+use ZN\IndividualStructures\Lang;
 
 class Errors
 {
@@ -160,5 +160,3 @@ class Errors
         return restore_error_handler();
     }
 }
-
-class_alias('ZN\ErrorHandling\Errors', 'Errors');

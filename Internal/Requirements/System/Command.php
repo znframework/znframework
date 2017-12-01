@@ -1,5 +1,7 @@
 <?php namespace Project\Commands;
 
+use GeneralException;
+
 class Command extends \BaseController
 {
     //--------------------------------------------------------------------------------------------------------
@@ -15,7 +17,7 @@ class Command extends \BaseController
     {
         if( server('documentRoot') )
         {
-            throw new \GeneralException
+            throw new GeneralException
             (
                 'Commands',
                 'canNotCommandClass'

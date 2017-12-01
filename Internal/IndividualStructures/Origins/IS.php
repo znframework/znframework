@@ -1,6 +1,6 @@
 <?php namespace ZN\IndividualStructures;
 
-use Support, Chars, Filters;
+use Chars, Filters;
 use ZN\DataTypes\Strings;
 use ZN\DataTypes\Arrays;
 
@@ -15,7 +15,7 @@ class IS implements ISInterface
     //
     //--------------------------------------------------------------------------------------------------
 
-    protected $dataTypes = ['cookie', 'session', 'get', 'post', 'env', 'server'];
+    protected static $dataTypes = ['cookie', 'session', 'get', 'post', 'env', 'server'];
 
     //--------------------------------------------------------------------------------------------------
     // Magig Call -> 5.3.11 - 5.3.2[edited]
@@ -25,7 +25,7 @@ class IS implements ISInterface
     // @param array  $parameters
     //
     //--------------------------------------------------------------------------------------------------
-    public function __call($method, $parameters)
+    public static function __callStatic($method, $parameters)
     {
         if( function_exists($ctype = 'ctype_' . $method) )
         {
@@ -33,7 +33,7 @@ class IS implements ISInterface
         }
 
         // 5.3.2[edited]
-        if( in_array($method, $this->dataTypes) )
+        if( in_array($method, self::$dataTypes) )
         {
             return Filters::$method($parameters[0]);
         }
@@ -59,7 +59,7 @@ class IS implements ISInterface
     // @return bool
     //
     //--------------------------------------------------------------------------------------------------
-    public function timeZone(String $timezone) : Bool
+    public static function timeZone(String $timezone) : Bool
     {
         return in_array($timezone, timezone_identifiers_list());
     }
@@ -73,7 +73,7 @@ class IS implements ISInterface
     // Dönen Değerler: Geçerli sürümse true değilse false değerleri döner.
     //
     //--------------------------------------------------------------------------------------------------
-    public function phpVersion(String $version = '5.2.4')
+    public static function phpVersion(String $version = '5.2.4')
     {
         return (bool) version_compare(PHP_VERSION, $version, '>=');
     }
@@ -87,7 +87,7 @@ class IS implements ISInterface
     // @return Bool
     //
     //--------------------------------------------------------------------------------------------------
-    public function import(String $path) : Bool
+    public static function import(String $path) : Bool
     {
         return in_array( realpath(suffix($path, '.php')), get_required_files() );
     }
@@ -101,7 +101,7 @@ class IS implements ISInterface
     // @return Bool
     //
     //--------------------------------------------------------------------------------------------------
-    public function url(String $url) : Bool
+    public static function url(String $url) : Bool
     {
         return preg_match('#^(\w+:)?//#i', $url);
     }
@@ -115,7 +115,7 @@ class IS implements ISInterface
     // @return Bool
     //
     //--------------------------------------------------------------------------------------------------
-    public function email(String $email) : Bool
+    public static function email(String $email) : Bool
     {
         return preg_match("/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix", $email);
     }
@@ -129,7 +129,7 @@ class IS implements ISInterface
     // @return Bool
     //
     //--------------------------------------------------------------------------------------------------
-    public function char($str) : Bool
+    public static function char($str) : Bool
     {
         return is_scalar($str);
     }
@@ -143,7 +143,7 @@ class IS implements ISInterface
     // @return Bool
     //
     //--------------------------------------------------------------------------------------------------
-    public function realNumeric($num = 0) : Bool
+    public static function realNumeric($num = 0) : Bool
     {
         return ! is_string($num) && is_numeric($num);
     }
@@ -157,7 +157,7 @@ class IS implements ISInterface
     // @return Bool
     //
     //--------------------------------------------------------------------------------------------------
-    public function declaredClass(String $class) : Bool
+    public static function declaredClass(String $class) : Bool
     {
         return in_array(strtolower($class), array_map('strtolower', get_declared_classes()));
     }
@@ -171,7 +171,7 @@ class IS implements ISInterface
     // @return Bool
     //
     //--------------------------------------------------------------------------------------------------
-    public function hash(String $type) : Bool
+    public static function hash(String $type) : Bool
     {
         $hashAlgos = array_merge(hash_algos(), ['super', 'golden']);
 
@@ -187,7 +187,7 @@ class IS implements ISInterface
     // @return Bool
     //
     //--------------------------------------------------------------------------------------------------
-    public function charset(String $charset) : Bool
+    public static function charset(String $charset) : Bool
     {
         return array_search(strtolower($charset), array_map('strtolower', mb_list_encodings()), true);
     }
@@ -201,7 +201,7 @@ class IS implements ISInterface
     // @return Bool
     //
     //--------------------------------------------------------------------------------------------------
-    public function array($array) : Bool
+    public static function array($array) : Bool
     {
         return ! empty($array) && is_array($array);
     }

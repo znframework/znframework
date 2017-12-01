@@ -1,9 +1,11 @@
 <?php namespace ZN\ViewObjects;
 
-use Config, Session, Method, CallController, Lang, Post, Captcha;
+use Config, Session, CallController, Post, Captcha;
+use ZN\Services\Method;
 use ZN\ViewObjects\InvalidArgumentException;
 use ZN\DataTypes\Arrays;
 use ZN\CryptoGraphy\Encode;
+use ZN\IndividualStructures\Lang;
 use ZN\IndividualStructures\Security;
 
 class Validation extends CallController implements ValidationInterface

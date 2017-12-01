@@ -1,7 +1,9 @@
 <?php namespace ZN\Database\Drivers;
 
 use ZN\Database\Abstracts\DriverConnectionMappingAbstract;
-use Errors, Support, stdClass;
+use ZN\IndividualStructures\Support;
+use ZN\ErrorHandling\Errors;
+use stdClass;
 
 class MySQLiDriver extends DriverConnectionMappingAbstract
 {

@@ -2,7 +2,9 @@
 
 use ZN\Database\Abstracts\DriverConnectionMappingAbstract;
 use ZN\IndividualStructures\Security;
-use Errors, Support, stdClass;
+use ZN\IndividualStructures\Support;
+use ZN\ErrorHandling\Errors;
+use stdClass;
 
 class ODBCDriver extends DriverConnectionMappingAbstract
 {

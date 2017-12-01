@@ -1,5 +1,6 @@
 <?php namespace ZN\Services\Email\Drivers;
 
+use ZN\IndividualStructures\Support;
 use ZN\Services\Abstracts\EmailMappingAbstract;
 
 class SendDriver extends EmailMappingAbstract
@@ -22,7 +23,7 @@ class SendDriver extends EmailMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
-        \Support::func('mb_send_mail');
+        Support::func('mb_send_mail');
     }
     
     //--------------------------------------------------------------------------------------------------------

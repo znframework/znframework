@@ -1,5 +1,6 @@
 <?php namespace ZN\IndividualStructures\Cache\Drivers;
 
+use ZN\IndividualStructures\Support;
 use ZN\IndividualStructures\Abstracts\CacheDriverMappingAbstract;
 
 class WincacheDriver extends CacheDriverMappingAbstract
@@ -22,7 +23,7 @@ class WincacheDriver extends CacheDriverMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
-        \Support::extension('wincache');
+        Support::extension('wincache');
     }
 
     //--------------------------------------------------------------------------------------------------------

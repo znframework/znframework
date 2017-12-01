@@ -1,6 +1,7 @@
 <?php namespace ZN\IndividualStructures\Security;
 
-use Session, Method, Encode, Crypto;
+use Session;
+use ZN\Services\Method;
 
 class CrossSiteRequestForgery
 {

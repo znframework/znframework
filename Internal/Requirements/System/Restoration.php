@@ -1,8 +1,10 @@
 <?php namespace ZN\Requirements\System;
 
-use Config, URI, IS, User;
+use Config, User;
 use ZN\In;
+use ZN\Services\URI;
 use ZN\FileSystem\Folder;
+use ZN\IndividualStructures\IS;
 
 class Restoration
 {

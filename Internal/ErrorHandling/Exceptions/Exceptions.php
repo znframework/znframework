@@ -1,7 +1,9 @@
 <?php namespace ZN\ErrorHandling;
 
-use Exception, Config, Lang, Logger;
+use Exception, Config;
+use ZN\Helpers\Logger;
 use ZN\DataTypes\Strings;
+use ZN\IndividualStructures\Lang;
 use ZN\IndividualStructures\Import;
 
 class Exceptions extends Exception
@@ -355,5 +357,3 @@ class Exceptions extends Exception
         return (object) $exceptionData;
     }
 }
-
-class_alias('ZN\ErrorHandling\Exceptions', 'Exceptions');

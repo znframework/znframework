@@ -1,6 +1,8 @@
 <?php namespace ZN\FileSystem;
 
-use Config, CallController, IS, Mime, Lang;
+use Config, CallController, Mime;
+use ZN\IndividualStructures\IS;
+use ZN\IndividualStructures\Lang;
 use ZN\DataTypes\Arrays;
 use ZN\CryptoGraphy\Encode;
 use ZN\FileSystem\File;

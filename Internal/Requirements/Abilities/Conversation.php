@@ -1,4 +1,8 @@
-<?php trait ConversationAbility
+<?php 
+
+use ZN\IndividualStructures\Lang;
+
+trait ConversationAbility
 {
     //--------------------------------------------------------------------------------------------------------
     // Lang

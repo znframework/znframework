@@ -1,10 +1,11 @@
 <?php namespace ZN\FileSystem;
 
-use CallController, DB, DBTool, DBForge, Config, Post, Validation, Errors;
+use CallController, DB, DBTool, DBForge, Config, Post, Validation;
 use ZN\DataTypes\Strings;
 use ZN\DataTypes\Arrays;
 use ZN\FileSystem\File;
 use ZN\FileSystem\Folder;
+use ZN\ErrorHandling\Errors;
 
 class Generate extends CallController implements GenerateInterface
 {

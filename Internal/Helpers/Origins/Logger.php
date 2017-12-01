@@ -25,9 +25,9 @@ class Logger implements LoggerInterface
     // @return bool
     //
     //--------------------------------------------------------------------------------------------------
-    public function notice(String $message, String $time = NULL)
+    public static function notice(String $message, String $time = NULL)
 	{
-		return $this->report(__FUNCTION__, $message, NULL, $time);
+		return self::report(__FUNCTION__, $message, NULL, $time);
 	}
 
     //--------------------------------------------------------------------------------------------------
@@ -40,9 +40,9 @@ class Logger implements LoggerInterface
     // @return bool
     //
     //--------------------------------------------------------------------------------------------------
-    public function emergency(String $message, String $time = NULL)
+    public static function emergency(String $message, String $time = NULL)
 	{
-		return $this->report(__FUNCTION__, $message, NULL, $time);
+		return self::report(__FUNCTION__, $message, NULL, $time);
 	}
 
     //--------------------------------------------------------------------------------------------------
@@ -55,9 +55,9 @@ class Logger implements LoggerInterface
     // @return bool
     //
     //--------------------------------------------------------------------------------------------------
-    public function alert(String $message, String $time = NULL)
+    public static function alert(String $message, String $time = NULL)
 	{
-		return $this->report(__FUNCTION__, $message, NULL, $time);
+		return self::report(__FUNCTION__, $message, NULL, $time);
 	}
 
     //--------------------------------------------------------------------------------------------------
@@ -70,9 +70,9 @@ class Logger implements LoggerInterface
     // @return bool
     //
     //--------------------------------------------------------------------------------------------------
-    public function error(String $message, String $time = NULL)
+    public static function error(String $message, String $time = NULL)
 	{
-		return $this->report(__FUNCTION__, $message, NULL, $time);
+		return self::report(__FUNCTION__, $message, NULL, $time);
 	}
 
     //--------------------------------------------------------------------------------------------------
@@ -85,9 +85,9 @@ class Logger implements LoggerInterface
     // @return bool
     //
     //--------------------------------------------------------------------------------------------------
-    public function warning(String $message, String $time = NULL)
+    public static function warning(String $message, String $time = NULL)
 	{
-		return $this->report(__FUNCTION__, $message, NULL, $time);
+		return self::report(__FUNCTION__, $message, NULL, $time);
 	}
 
     //--------------------------------------------------------------------------------------------------
@@ -100,9 +100,9 @@ class Logger implements LoggerInterface
     // @return bool
     //
     //--------------------------------------------------------------------------------------------------
-    public function critical(String $message, String $time = NULL)
+    public static function critical(String $message, String $time = NULL)
 	{
-		return $this->report(__FUNCTION__, $message, NULL, $time);
+		return self::report(__FUNCTION__, $message, NULL, $time);
 	}
 
     //--------------------------------------------------------------------------------------------------
@@ -115,9 +115,9 @@ class Logger implements LoggerInterface
     // @return bool
     //
     //--------------------------------------------------------------------------------------------------
-    public function info(String $message, String $time = NULL)
+    public static function info(String $message, String $time = NULL)
 	{
-		return 	$this->report(__FUNCTION__, $message, NULL, $time);
+		return 	self::report(__FUNCTION__, $message, NULL, $time);
 	}
 
     //--------------------------------------------------------------------------------------------------
@@ -130,9 +130,9 @@ class Logger implements LoggerInterface
     // @return bool
     //
     //--------------------------------------------------------------------------------------------------
-    public function debug(String $message, String $time = NULL)
+    public static function debug(String $message, String $time = NULL)
 	{
-		return $this->report(__FUNCTION__, $message, NULL, $time);
+		return self::report(__FUNCTION__, $message, NULL, $time);
 	}
 
     //--------------------------------------------------------------------------------------------------
@@ -147,7 +147,7 @@ class Logger implements LoggerInterface
     // @return bool
     //
     //--------------------------------------------------------------------------------------------------
-    function report(String $subject, String $message, String $destination = NULL, String $time = NULL) : Bool
+    public static function report(String $subject, String $message, String $destination = NULL, String $time = NULL) : Bool
     {
         if( ! Config::get('Project', 'log')['createFile'] )
         {

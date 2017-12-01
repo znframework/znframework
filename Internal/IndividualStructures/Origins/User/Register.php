@@ -1,7 +1,11 @@
 <?php namespace ZN\IndividualStructures\User;
 
-use DB, Email, URI, URL, IS, Lang;
+use DB, Email;
+use ZN\Services\URL;
+use ZN\Services\URI;
 use ZN\CryptoGraphy\Encode;
+use ZN\IndividualStructures\IS;
+use ZN\IndividualStructures\Lang;
 use ZN\IndividualStructures\Import;
 
 class Register extends UserExtends

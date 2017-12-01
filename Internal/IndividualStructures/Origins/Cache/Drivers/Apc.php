@@ -1,5 +1,6 @@
 <?php namespace ZN\IndividualStructures\Cache\Drivers;
 
+use ZN\IndividualStructures\Support;
 use ZN\IndividualStructures\Abstracts\CacheDriverMappingAbstract;
 
 class ApcDriver extends CacheDriverMappingAbstract
@@ -23,7 +24,7 @@ class ApcDriver extends CacheDriverMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
-        \Support::extension('apc');
+        Support::extension('apc');
     }
 
     //--------------------------------------------------------------------------------------------------------

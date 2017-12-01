@@ -1,6 +1,7 @@
 <?php namespace ZN\IndividualStructures\Import;
 
-use URL, IS;
+use ZN\IndividualStructures\IS;
+use ZN\Services\URL;
 
 class Style extends BootstrapExtends
 {

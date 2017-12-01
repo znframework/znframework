@@ -1,9 +1,14 @@
 <?php namespace ZN;
 
-use Config, Exceptions, Errors, GeneralException, Regex, Route;
-use View, Masterpage, Http, Lang, URI, URL, IS, Logger;
+use Config, GeneralException, Regex, Route, View, Masterpage, Http;
+use ZN\Services\URL;
+use ZN\Services\URI;
+use ZN\Helpers\Logger;
 use ZN\DataTypes\Strings;
 use ZN\FileSystem\Folder;
+use ZN\ErrorHandling\Errors;
+use ZN\IndividualStructures\IS;
+use ZN\IndividualStructures\Lang;
 use ZN\IndividualStructures\Import;
 
 class In

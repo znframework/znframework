@@ -20,7 +20,7 @@ interface ISInterface
     // @return bool
     //
     //--------------------------------------------------------------------------------------------------
-    public function timeZone(String $timezone) : Bool;
+    public static function timeZone(String $timezone) : Bool;
 
     //--------------------------------------------------------------------------------------------------
     // isPhpVersion()
@@ -31,7 +31,7 @@ interface ISInterface
     // Dönen Değerler: Geçerli sürümse true değilse false değerleri döner.
     //
     //--------------------------------------------------------------------------------------------------
-    public function phpVersion(String $version = '5.2.4');
+    public static function phpVersion(String $version = '5.2.4');
 
     //--------------------------------------------------------------------------------------------------
     // isImport()
@@ -42,7 +42,7 @@ interface ISInterface
     // @return Bool
     //
     //--------------------------------------------------------------------------------------------------
-    public function import(String $path) : Bool;
+    public static function import(String $path) : Bool;
 
     //--------------------------------------------------------------------------------------------------
     // isUrl()
@@ -53,7 +53,7 @@ interface ISInterface
     // @return Bool
     //
     //--------------------------------------------------------------------------------------------------
-    public function url(String $url) : Bool;
+    public static function url(String $url) : Bool;
 
     //--------------------------------------------------------------------------------------------------
     // isEmail()
@@ -64,7 +64,7 @@ interface ISInterface
     // @return Bool
     //
     //--------------------------------------------------------------------------------------------------
-    public function email(String $email) : Bool;
+    public static function email(String $email) : Bool;
 
     //--------------------------------------------------------------------------------------------------
     // isChar()
@@ -75,7 +75,7 @@ interface ISInterface
     // @return Bool
     //
     //--------------------------------------------------------------------------------------------------
-    public function char($str) : Bool;
+    public static function char($str) : Bool;
 
     //--------------------------------------------------------------------------------------------------
     // isRealNumeric()
@@ -86,7 +86,7 @@ interface ISInterface
     // @return Bool
     //
     //--------------------------------------------------------------------------------------------------
-    public function realNumeric($num = 0) : Bool;
+    public static function realNumeric($num = 0) : Bool;
 
     //--------------------------------------------------------------------------------------------------
     // isDeclaredClass()
@@ -97,7 +97,7 @@ interface ISInterface
     // @return Bool
     //
     //--------------------------------------------------------------------------------------------------
-    public function declaredClass(String $class) : Bool;
+    public static function declaredClass(String $class) : Bool;
 
     //--------------------------------------------------------------------------------------------------
     // isHash()
@@ -108,7 +108,7 @@ interface ISInterface
     // @return Bool
     //
     //--------------------------------------------------------------------------------------------------
-    public function hash(String $type) : Bool;
+    public static function hash(String $type) : Bool;
 
     //--------------------------------------------------------------------------------------------------
     // isCharset()
@@ -119,7 +119,7 @@ interface ISInterface
     // @return Bool
     //
     //--------------------------------------------------------------------------------------------------
-    public function charset(String $charset) : Bool;
+    public static function charset(String $charset) : Bool;
 
     //--------------------------------------------------------------------------------------------------
     // isArray
@@ -130,5 +130,5 @@ interface ISInterface
     // @return Bool
     //
     //--------------------------------------------------------------------------------------------------
-    public function array($array) : Bool;
+    public static function array($array) : Bool;
 }

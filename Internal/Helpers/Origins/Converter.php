@@ -456,7 +456,7 @@ class Converter
     {
         $accent = array_merge(Config::get('Expressions', 'accentChars'), self::$accentChars);
 
-        $accent = Arrays\MultipleKey::use($accent);
+        $accent = Arrays::multikey($accent);
 
         return str_replace(array_keys($accent), array_values($accent), $str);
     }

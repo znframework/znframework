@@ -1,11 +1,13 @@
 <?php namespace ZN\Requirements\System;
 
-use Crontab, IS, Logger, Config;
-use Generate, Cache, ZN, Restoration;
+use Crontab, Config, Generate, Cache, ZN;
+use ZN\Helpers\Logger;
 use ZN\Core\Structure;
 use ZN\DataTypes\Arrays;
 use ZN\DataTypes\Json;
 use ZN\FileSystem\Folder;
+use ZN\IndividualStructures\IS;
+use ZN\IndividualStructures\Lang;
 
 class Console
 {
@@ -283,8 +285,8 @@ class Console
         echo '| RESULT                                                                                                |' . EOL;
         echo '+-------------------------------------------------------------------------------------------------------+' . EOL;
 
-        $success = \Lang::select('Success', 'success');
-        $error   = \Lang::select('Error', 'error');
+        $success = Lang::select('Success', 'success');
+        $error   = Lang::select('Error', 'error');
         $nodata  = 'No Data';
 
         if( $result === true || $result === NULL )

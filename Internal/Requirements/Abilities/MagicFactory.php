@@ -1,5 +1,7 @@
 <?php 
 
+use ZN\IndividualStructures\Support;
+
 trait MagicFactoryAbility
 {
     //--------------------------------------------------------------------------------------------------------

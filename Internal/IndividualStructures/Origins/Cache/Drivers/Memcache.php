@@ -1,5 +1,8 @@
 <?php namespace ZN\IndividualStructures\Cache\Drivers;
 
+use Config;
+use ZN\ErrorHandling\Errors;
+use ZN\IndividualStructures\Support;
 use ZN\IndividualStructures\Abstracts\CacheDriverMappingAbstract;
 
 class MemcacheDriver extends CacheDriverMappingAbstract
@@ -22,7 +25,7 @@ class MemcacheDriver extends CacheDriverMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
-        \Support::func('memcache_add_server', 'Memcache');
+        Support::func('memcache_add_server', 'Memcache');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -34,7 +37,7 @@ class MemcacheDriver extends CacheDriverMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function connect(Array $settings = NULL)
     {
-        $config = \Config::get('IndividualStructures', 'cache')['driverSettings'];
+        $config = Config::get('IndividualStructures', 'cache')['driverSettings'];
 
         $config = ! empty($settings)
                   ? $settings
@@ -44,7 +47,7 @@ class MemcacheDriver extends CacheDriverMappingAbstract
 
         if( empty($connect) )
         {
-            die(\Errors::message('IndividualStructures', 'cache:unsupported', 'Memcache'));
+            die(Errors::message('IndividualStructures', 'cache:unsupported', 'Memcache'));
         }
 
         return true;

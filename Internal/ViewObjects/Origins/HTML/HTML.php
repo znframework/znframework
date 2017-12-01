@@ -1,8 +1,10 @@
 <?php namespace ZN\ViewObjects;
 
-use URL, IS, Coalesce;
+use Coalesce;
+use ZN\Services\URL;
 use ZN\ViewObjects\Exception\InvalidArgumentException;
 use ZN\IndividualStructures\Buffer;
+use ZN\IndividualStructures\IS;
 
 class HTML
 {

@@ -164,7 +164,7 @@ class DateTimeCommon extends Carbon
 
         $chars  = Properties::${$config};
 
-        $chars  = Arrays\MultipleKey::use($chars);
+        $chars  = Arrays::multikey($chars);
 
         return str_ireplace(array_keys($chars), array_values($chars), $change);
     }

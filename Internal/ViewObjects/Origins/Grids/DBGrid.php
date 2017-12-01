@@ -1,13 +1,16 @@
 <?php namespace ZN\ViewObjects\Grids;
 
-use DB, URI, Method, Html, Form, Sheet, Style, IS;
+use DB, Html, Form, Sheet, Style;
 use ZN\ViewObjects\Exception\NoTableException;
 use ZN\ViewObjects\Exception\DatabaseErrorException;
 use ZN\ViewObjects\Exception\NoSearchException;
 use ZN\ViewObjects\Abstracts\GridAbstract;
+use ZN\IndividualStructures\IS;
 use ZN\DataTypes\Strings;
 use ZN\DataTypes\Arrays;
 use ZN\Helpers\Limiter;
+use ZN\Services\URI;
+use ZN\Services\Method;
 
 class DBGrid extends GridAbstract
 {

@@ -20,7 +20,7 @@ interface LangInterface
     // @return Mixed
     //
     //--------------------------------------------------------------------------------------------------
-    public function shortCodes(String $code = NULL);
+    public static function shortCodes(String $code = NULL);
 
     //--------------------------------------------------------------------------------------------------
     // currentLang()
@@ -31,7 +31,7 @@ interface LangInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------
-    public function current() : String;
+    public static function current() : String;
 
     //--------------------------------------------------------------------------------------------------
     // select()
@@ -44,7 +44,7 @@ interface LangInterface
     // @return mixed
     //
     //--------------------------------------------------------------------------------------------------
-    public function select(String $file = NULL, String $str = NULL, $changed = NULL);
+    public static function select(String $file = NULL, String $str = NULL, $changed = NULL);
 
     //--------------------------------------------------------------------------------------------------
     // setLang()
@@ -55,7 +55,7 @@ interface LangInterface
     // @return bool
     //
     //--------------------------------------------------------------------------------------------------
-    public function set(String $l = NULL) : Bool;
+    public static function set(String $l = NULL) : Bool;
 
     //--------------------------------------------------------------------------------------------------
     // getLang()
@@ -66,5 +66,5 @@ interface LangInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------
-    public function get() : String;
+    public static function get() : String;
 }

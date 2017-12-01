@@ -1,6 +1,7 @@
 <?php namespace ZN\IndividualStructures\Permission;
 
-use Method, Config;
+use Config;
+use ZN\Services\Method;
 
 class PermissionExtends
 {

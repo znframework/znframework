@@ -1,7 +1,10 @@
 <?php namespace ZN\IndividualStructures\User;
 
-use DB, Email, URL, IS, Lang;
+use DB, Email;
+use ZN\Services\URL;
 use ZN\CryptoGraphy\Encode;
+use ZN\IndividualStructures\IS;
+use ZN\IndividualStructures\Lang;
 use ZN\IndividualStructures\Import;
 
 class ForgotPassword extends UserExtends

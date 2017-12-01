@@ -57,9 +57,8 @@ class ArraysUnitTest extends \UnitTestController
             'value'            => [['p1' => 'p2']],
             'keys'             => [['p1' => 'p2']],
             'values'           => [['p1' => 'p2']],
-            'objectData'       => [['p1' => 'p2']],
             'length'           => [['p1' => 'p2']],
-            'apportion'        => [['p1' => 'p2']],
+            'apportion'        => [['p1' => 'p2'], 1],
             'combine'          => [['p1', 'p2'], ['p1', 'p2']],
             'countSameValues'  => [['p1' => 'p2']],
             'flip'             => [['p1' => 'p2']],
@@ -75,11 +74,11 @@ class ArraysUnitTest extends \UnitTestController
             'values'           => [['p1' => 'p2']],
             'valueExists'      => [['p1' => 'p2'], 'p2'],
             'keyExists'        => [['p1' => 'p2'], 'p1'],
-            'section'          => [['p1' => 'p2']],
-            'resection'        => [['p1' => 'p2']],
+            'section'          => [['p1' => 'p2'], 0],
+            'resection'        => [['p1' => 'p2'], 0],
             'deleteRecurrent'  => [['p1' => 'p2']],
             'series'           => [1, 5, 1],
-            'column'           => [['p1' => 'p2']]
+            'column'           => [['p1' => 'p2'], 1]
         ]
     ];
 }

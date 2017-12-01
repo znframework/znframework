@@ -1,6 +1,7 @@
 <?php namespace ZN\CryptoGraphy\Drivers;
 
-use ZN\CryptoGraphy\CryptoMapping, Errors;
+use ZN\CryptoGraphy\CryptoMapping;
+use ZN\ErrorHandling\Errors;
 
 class PhashDriver extends CryptoMapping
 {

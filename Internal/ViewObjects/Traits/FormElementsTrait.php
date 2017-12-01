@@ -1,7 +1,9 @@
 <?php namespace ZN\ViewObjects;
 
-use URL, IS, DB, Session, Validation;
+use DB, Session, Validation;
+use ZN\Services\URL;
 use ZN\DataTypes\Json;
+use ZN\IndividualStructures\IS;
 
 trait FormElementsTrait
 {

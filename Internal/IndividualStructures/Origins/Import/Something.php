@@ -1,6 +1,7 @@
 <?php namespace ZN\IndividualStructures\Import;
 
-use Config, URL;
+use Config;
+use ZN\Services\URL;
 use ZN\IndividualStructures\Exception\InvalidArgumentException;
 use ZN\DataTypes\Strings;
 use ZN\FileSystem\File;
