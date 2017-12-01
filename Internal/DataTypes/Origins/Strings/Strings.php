@@ -1,6 +1,8 @@
 <?php namespace ZN\DataTypes;
 
+use FunctionalizationAbility;
 use FactoryController;
+use ZN\Helpers\Converter;
 
 class Strings extends FactoryController
 {
@@ -13,6 +15,15 @@ class Strings extends FactoryController
     //
     //--------------------------------------------------------------------------------------------------------
 
+    use FunctionalizationAbility;
+
+    //--------------------------------------------------------------------------------------------------------
+    // Const Factory
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var array
+    //
+    //--------------------------------------------------------------------------------------------------------
     const factory =
     [
         'methods' =>
@@ -32,25 +43,74 @@ class Strings extends FactoryController
             'reshuffle'        => 'Strings\Substitution::reshuffle',
             'placement'        => 'Strings\Substitution::placement',
             'replace'          => 'Strings\Substitution::replace',
-            'toarray'          => 'Strings\Transform::array',
-            'toascii'          => 'Strings\Transform::ascii',
-            'tochar'           => 'Strings\Transform::char',
-            'toarray'          => 'Strings\Transform::array',
-            'split'            => 'Strings\Transform::split',
             'addslashes'       => 'Strings\Security::addSlashes',
             'removeslashes'    => 'Strings\Security::removeSlashes',
             'section'          => 'Strings\Section::use',
-            'length'           => 'Strings\Length::get',
-            'recurrentcount'   => 'Strings\Length::recurrentCount',
-            'repeat'           => 'Strings\Repeat::do',
-            'pad'              => 'Strings\Pad::use',
             'splituppercase'   => 'Strings\Split::upperCase',
             'apportion'        => 'Strings\Split::apportion',
             'divide'           => 'Strings\Split::divide',
-            'translationtable' => 'Strings\TranslationTable::get',
             'removeelement'    => 'Strings\Element::remove',
             'removefirst'      => 'Strings\Element::removeFirst',
             'removelast'       => 'Strings\Element::removeLast',
         ]
     ];
+
+    //--------------------------------------------------------------------------------------------------------
+    // Functionalization
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @var array
+    //
+    //--------------------------------------------------------------------------------------------------------
+    const functionalization = 
+    [
+        'repeat' => 'str_repeat',
+        'length' => 'mb_strlen'
+    ];
+
+    //--------------------------------------------------------------------------------------------------------
+    // To Array
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $string
+    // @param string $split
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public static function toArray(String $string, String $split = ' ')
+    {
+        if( empty($split) )
+        {
+            return str_split($string, 1);
+        }
+
+        return explode($split, $string);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Pad
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $str
+    // @param numeric $count
+    // @param string  $chars
+    // @param string  $type
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public static function pad(String $string, Int $count = 1, String $chars = ' ', String $type = 'right') : String
+    {
+        return str_pad($string, $count, $chars, Converter::toConstant($type, 'STR_PAD_'));
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Recurrent Count
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $str
+    // @param string $char
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public static function recurrentCount(String $str, String $char) : Int
+    {
+        return count(explode($char, $str)) - 1;
+    }
 }

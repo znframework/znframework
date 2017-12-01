@@ -1,6 +1,7 @@
 <?php namespace ZN\DataTypes;
 
 use FactoryController;
+use FunctionalizationAbility;
 
 class Arrays extends FactoryController
 {
@@ -12,6 +13,8 @@ class Arrays extends FactoryController
     // Copyright  : (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
+
+    use FunctionalizationAbility;
 
     //--------------------------------------------------------------------------------------------------------
     // Factory Constant
@@ -73,83 +76,47 @@ class Arrays extends FactoryController
     ];
 
     //--------------------------------------------------------------------------------------------------------
-    // Methods
+    // Functionalization
     //--------------------------------------------------------------------------------------------------------
     //
     // @var array
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $methods = 
+    const functionalization = 
     [
-        'standart' => 
-        [
-            'merge', 
-            'recursivemerge' => 'merge_recursive',
-            'flip', 
-            'transform' => 'flip', 
-            'unique',
-            'deleterecurrent' => 'unique',
-            'range' => ':',
-            'series' => ':range',
-            'slice',
-            'section' => 'slice',
-            'splice',
-            'resection' => 'splice',
-            'reverse',
-            'rand',
-            'random' => 'rand',
-            'map',
-            'implementcallback' => 'map',
-            'count' => ':',
-            'length' => ':count',
-            'column',
-            'product',
-            'sum',
-            'intersect',
-            'intersectkey' => 'intersect_key',
-            'combine',
-            'chunk',
-            'apportion' => 'chunk',
-            'key' => ':',
-            'current' => ':',
-            'value'   => ':current',
-            'values',
-            'keys'
-        ]
+        'merge'             => 'array_merge',
+        'recursivemerge'    => 'array_merge_recursive',
+        'flip'              => 'array_flip',
+        'transform'         => 'array_flip',
+        'unique'            => 'array_unique',
+        'deleterecurrent'   => 'array_unique',
+        'range'             => 'range',
+        'series'            => 'range',
+        'slice'             => 'array_slice',
+        'section'           => 'array_slice',
+        'splice'            => 'array_splice',
+        'resection'         => 'array_splice',
+        'reverse'           => 'array_reverse',
+        'rand'              => 'array_rand',
+        'random'            => 'array_rand',
+        'map'               => 'array_map',
+        'implementcallback' => 'array_map',
+        'count'             => 'count',
+        'length'            => 'count',
+        'column'            => 'array_column',
+        'product'           => 'array_product',
+        'sum'               => 'array_sum',
+        'intersect'         => 'array_intersect',
+        'intersectkey'      => 'array_intersect_key',
+        'combine'           => 'array_combine',
+        'chunk'             => 'array_chunk',
+        'apportion'         => 'array_chunk',
+        'key'               => 'key',
+        'current'           => 'current',
+        'value'             => 'current',
+        'values'            => 'array_values',
+        'keys'              => 'array_keys'
     ];
-
-    //--------------------------------------------------------------------------------------------------------
-    // Magic Call
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $method
-    // @param array  $parameters
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function __call($method, $parameters)
-    {   
-        $lower  = strtolower($method);
-      
-        $select = in_array($lower, $this->methods['standart']) 
-                ? $lower 
-                : (($standart = ($this->methods['standart'][$lower] ?? NULL)) ? $standart : NULL);            
-                    
-        if( $select !== NULL )
-        {
-            if( $select[0] === ':' )
-            {
-                $call = ltrim($select, ':') ?: $lower;
-            }
-            else
-            {
-                $call = 'array_' . $select;
-            }
-            
-            return $call(...$parameters);
-        }
-        
-        return parent::__call($method, $parameters);       
-    }
 
     //--------------------------------------------------------------------------------------------------------
     // Multikey

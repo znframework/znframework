@@ -34,7 +34,6 @@ class StringsUnitTest extends \UnitTestController
             'toArray'           => ['p1 p2 p3'],
             'toAscii'           => ['A'],
             'toChar'            => [95],
-            'encode'            => ['p1'],
             'addSlashes'        => ['p1"p2'],
             'removeSlashes'     => ['p1\"p2'],
             'section'           => ['p1 p2 p3'],
