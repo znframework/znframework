@@ -1,4 +1,4 @@
-<?php namespace ZN\ViewObjects\View;
+<?php namespace ZN\ViewObjects;
 
 class ValidateUnitTest extends \UnitTestController
 {
@@ -14,6 +14,14 @@ class ValidateUnitTest extends \UnitTestController
     const unit =
     [
         'class'   => 'Validate',
-        'methods' => []
+        'methods' => 
+        [
+            'data'          => ['Example Data'],
+            'numeric'       => [],
+            'maxchar'       => [10],
+            'minchar'       => [4],
+            'get'           => [],
+            'status'        => []
+        ]
     ];
 }

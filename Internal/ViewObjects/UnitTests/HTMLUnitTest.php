@@ -1,4 +1,4 @@
-<?php namespace ZN\ViewObjects\View;
+<?php namespace ZN\ViewObjects;
 
 class HTMLUnitTest extends \UnitTestController
 {
@@ -14,6 +14,16 @@ class HTMLUnitTest extends \UnitTestController
     const unit =
     [
         'class'   => 'HTML',
-        'methods' => []
+        'methods' => 
+        [
+            'property'          => ['Example Property Value'],
+            'exampleProperty'   => ['Other Example Property Value'],
+            'image'             => ['example.jpg', 100, 200],
+            #'ul'                => [function($ul){echo $ul->li(1);}, ['id' => '#id']]
+            'form'              => [],
+            'table'             => [],
+            'list'              => [],
+            'anchor'            => ['http://www.znframework.com', 'ZN Framework', ['id' => '#id']]
+        ]
     ];
 }

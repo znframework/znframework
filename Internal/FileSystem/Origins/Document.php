@@ -46,7 +46,7 @@ class Document implements DocumentInterface
     // @param string $target
     //
     //--------------------------------------------------------------------------------------------------------
-    public function target(String $target) : InternalDocument
+    public function target(String $target) : Document
     {
         $this->target = $target;
         

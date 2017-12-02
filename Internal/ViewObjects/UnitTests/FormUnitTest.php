@@ -1,4 +1,4 @@
-<?php namespace ZN\ViewObjects\View;
+<?php namespace ZN\ViewObjects;
 
 class FormUnitTest extends \UnitTestController
 {

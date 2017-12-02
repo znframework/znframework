@@ -14,6 +14,16 @@ class CalendarUnitTest extends \UnitTestController
     const unit =
     [
         'class'   => 'Calendar',
-        'methods' => []
+        'methods' => 
+        [
+            'url'           => ['p1'],
+            'nameType'      => ['p1', 'p2'],
+            'css'           => [['p1']],
+            'style'         => [['p1']],
+            'type'          => ['p1'],
+            'linkNames'     => ['p1', 'p2'],
+            'settings'      => [['p1']],
+            'create'        => [NULL, NULL]
+        ]
     ];
 }

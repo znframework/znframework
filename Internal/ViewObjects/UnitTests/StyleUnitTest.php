@@ -1,4 +1,4 @@
-<?php namespace ZN\ViewObjects\View;
+<?php namespace ZN\ViewObjects;
 
 class StyleUnitTest extends \UnitTestController
 {
@@ -14,6 +14,12 @@ class StyleUnitTest extends \UnitTestController
     const unit =
     [
         'class'   => 'Style',
-        'methods' => []
+        'methods' => 
+        [
+            'type'              => ['text/plain'],
+            'library'           => ['jquery', 'angular'],
+            'open'              => [],
+            'close'             => [] 
+        ]
     ];
 }

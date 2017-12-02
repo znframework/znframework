@@ -2,7 +2,7 @@
 
 use Config, Session, CallController, Post, Captcha;
 use ZN\Services\Method;
-use ZN\ViewObjects\InvalidArgumentException;
+use ZN\ViewObjects\Exception\InvalidArgumentException;
 use ZN\DataTypes\Arrays;
 use ZN\CryptoGraphy\Encode;
 use ZN\IndividualStructures\Lang;

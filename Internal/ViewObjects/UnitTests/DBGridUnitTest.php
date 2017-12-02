@@ -1,4 +1,4 @@
-<?php namespace ZN\ViewObjects\Grids;
+<?php namespace ZN\ViewObjects;
 
 class DBGridUnitTest extends \UnitTestController
 {
@@ -14,6 +14,23 @@ class DBGridUnitTest extends \UnitTestController
     const unit =
     [
         'class'   => 'DBGrid',
-        'methods' => []
+        'methods' => 
+        [
+            'add'               => ['ADD'],
+            'processColumn'     => ['id'],
+            'limit'             => [5],
+            #'inputs'            => [[]],
+            #'outputs'           => [[]],
+            'columns'           => ['id', 'name'],
+            #'joins'             => [[]],
+            #'orderBy'           => ['id', 'desc'],
+            #'groupBy'           => [],
+            #'where'             => [],
+            #'whereGroup'        => [],
+            #'table'             => ['example'],
+            #'hide'              => ['addButton'],
+            #'exclude'           => ['name'],
+            'create'            => ['example']
+        ]
     ];
 }

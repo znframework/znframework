@@ -1,7 +1,5 @@
 <?php namespace ZN\ViewObjects;
 
-use Validator;
-
 class Validate implements ValidateInterface
 {
     //--------------------------------------------------------------------------------------------------------

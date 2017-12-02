@@ -3,5 +3,5 @@ class MLGrid
 {
     use StaticAbility;
 
-    const target = 'ZN\ViewObjects\Grids\MLGrid';
+    const target = 'ZN\ViewObjects\MLGrid';
 }

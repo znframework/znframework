@@ -14,6 +14,10 @@ class TemplateWizardUnitTest extends \UnitTestController
     const unit =
     [
         'class'   => 'TemplateWizard',
-        'methods' => []
+        'methods' => 
+        [
+            'isolation'         => ['Example Data'],
+            'data'              => ['{{$data}}', ['data' => 10]]
+        ]
     ];
 }

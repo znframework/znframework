@@ -1,4 +1,4 @@
-<?php namespace ZN\ViewObjects\Grids;
+<?php namespace ZN\ViewObjects;
 
 class MLGridUnitTest extends \UnitTestController
 {
@@ -14,6 +14,11 @@ class MLGridUnitTest extends \UnitTestController
     const unit =
     [
         'class'   => 'MLGrid',
-        'methods' => []
+        'methods' => 
+        [
+            'url'           => ['home/main'],
+            'limit'         => [10],
+            'create'        => [NULL]
+        ]
     ];
 }

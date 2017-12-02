@@ -3,5 +3,5 @@ class DBGrid
 {
     use StaticAbility;
 
-    const target = 'ZN\ViewObjects\Grids\DBGrid';
+    const target = 'ZN\ViewObjects\DBGrid';
 }

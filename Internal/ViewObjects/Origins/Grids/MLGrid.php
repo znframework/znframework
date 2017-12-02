@@ -1,4 +1,4 @@
-<?php namespace ZN\ViewObjects\Grids;
+<?php namespace ZN\ViewObjects;
 
 use ML;
 use ZN\ViewObjects\Abstracts\GridAbstract;

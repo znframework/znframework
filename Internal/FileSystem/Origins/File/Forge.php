@@ -2,7 +2,7 @@
 
 use ZipArchive;
 use ZN\FileSystem\Exception\FileNotFoundException;
-use ZN\FileSystem\InternalGenerate;
+use ZN\FileSystem\Generate;
 use ZN\FileSystem\Folder;
 
 class Forge
@@ -23,9 +23,9 @@ class Forge
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function generate() : InternalGenerate
+    public static function generate() : Generate
     {
-        return new InternalGenerate;
+        return new Generate;
     }
 
     //--------------------------------------------------------------------------------------------------------

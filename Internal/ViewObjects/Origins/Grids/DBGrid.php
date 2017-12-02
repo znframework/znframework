@@ -1,4 +1,4 @@
-<?php namespace ZN\ViewObjects\Grids;
+<?php namespace ZN\ViewObjects;
 
 use DB, Html, Form, Sheet, Style;
 use ZN\ViewObjects\Exception\NoTableException;

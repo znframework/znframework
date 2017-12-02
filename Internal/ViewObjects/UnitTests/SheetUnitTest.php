@@ -1,4 +1,4 @@
-<?php namespace ZN\ViewObjects\View;
+<?php namespace ZN\ViewObjects;
 
 class SheetUnitTest extends \UnitTestController
 {
@@ -14,6 +14,12 @@ class SheetUnitTest extends \UnitTestController
     const unit =
     [
         'class'   => 'Sheet',
-        'methods' => []
+        'methods' => 
+        [
+            'selector'          => ['#color'],
+            'attr'              => [['color' => 'red']],
+            #'complete'         => [],
+            'create'            => []
+        ]
     ];
 }

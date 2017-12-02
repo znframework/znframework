@@ -1,4 +1,4 @@
-<?php namespace ZN\ViewObjects\View;
+<?php namespace ZN\ViewObjects;
 
 class ValidatorUnitTest extends \UnitTestController
 {
@@ -14,6 +14,20 @@ class ValidatorUnitTest extends \UnitTestController
     const unit =
     [
         'class'   => 'Validator',
-        'methods' => []
+        'methods' => 
+        [
+            'between'           => [4, 4, 8],
+            'betweenBoth'       => [4, 4, 8],
+            'phone'             => ['123', '***'],
+            'numeric'           => [10],
+            'alnum'             => ['abc123'],
+            'alpha'             => ['abc'],
+            'identity'          => ['12312312312'],
+            'email'             => ['example@example.com'],
+            'url'               => ['http://www.znframework.com'],
+            'specialChar'       => ['½$'],
+            'maxchar'           => ['data', 5],
+            'minchar'           => ['data', 2]
+        ]
     ];
 }
