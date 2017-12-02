@@ -25,7 +25,7 @@ class Crypto implements CryptoInterface
 
     const driver =
     [
-        'options'   => ['hash', 'mhash', 'phash', 'openssl', 'mcrypt'],
+        'options'   => ['openssl', 'mhash', 'phash', 'hash', 'mcrypt'],
         'namespace' => 'ZN\CryptoGraphy\Drivers',
         'config'    => 'CryptoGraphy:crypto'
     ];

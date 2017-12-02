@@ -19,7 +19,7 @@ class Server implements ServerInterface
     // @param array  $parameters
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function __callStatic($method, $parameters)
+    public function __call($method, $parameters)
     {
         if( $method === 'all' )
         {

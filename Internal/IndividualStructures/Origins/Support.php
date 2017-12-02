@@ -1,6 +1,7 @@
 <?php namespace ZN\IndividualStructures;
 
 use Classes;
+use GeneralException;
 use ZN\DataTypes\Strings;
 use ZN\ErrorHandling\Errors;
 
@@ -36,11 +37,11 @@ class Support implements SupportInterface
         {
             if( is_string($error) )
             {
-                die(Errors::message('Error', $error, $value));
+                throw new GeneralException('Error', $error, $value);
             }
             else
             {
-                die(Errors::message(key($error), current($error), $value));
+                throw new GeneralException(key($error), current($error), $value);
             }
         }
 
@@ -137,7 +138,7 @@ class Support implements SupportInterface
     {
         if( ! in_array(strtolower($driver), $drivers) )
         {
-            die(Errors::message('Error', 'driverError', $driver));
+            throw new GeneralException('Error', 'driverError', $driver);
         }
 
         return true;
@@ -153,11 +154,11 @@ class Support implements SupportInterface
     //--------------------------------------------------------------------------------------------------------
     public static function classMethod(String $class, String $method)
     {
-        die(Errors::message
+        throw new GeneralException
         (
             'Error',
             'undefinedFunction',
             Strings\Split::divide(str_ireplace(INTERNAL_ACCESS, '', Classes::onlyName($class)), '\\', -1)."::$method()"
-        ));
+        );
     }
 }

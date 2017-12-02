@@ -56,10 +56,11 @@ trait DriverAbility
         }
 
         // 5.3.42|5.4.5[edited]
-        $driver = $this->config['driver'] ?? 
+        $driver = $driver                 ??
+                  $this->config['driver'] ?? 
                   (isset(static::driver['config']) ? Config::get(...explode(':', static::driver['config']))['driver'] : NULL) ?: 
                   static::driver['options'][0];
-
+        
         $this->selectedDriverName = $driver;
 
         Support::driver(static::driver['options'], $driver);

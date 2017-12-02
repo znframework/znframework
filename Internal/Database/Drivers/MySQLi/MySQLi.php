@@ -4,6 +4,8 @@ use ZN\Database\Abstracts\DriverConnectionMappingAbstract;
 use ZN\IndividualStructures\Support;
 use ZN\ErrorHandling\Errors;
 use stdClass;
+use ZN\Database\Exception\ConnectionErrorException;
+
 
 class MySQLiDriver extends DriverConnectionMappingAbstract
 {
@@ -146,7 +148,7 @@ class MySQLiDriver extends DriverConnectionMappingAbstract
 
         if( empty($this->connect) )
         {
-            die(Errors::message('Database', 'connectError'));
+            throw new ConnectionErrorException('Database', 'connectError');
         }
 
         if( ! empty($this->config['charset']  ) ) $this->query("SET NAMES '".$this->config['charset']."'");  
@@ -228,7 +230,7 @@ class MySQLiDriver extends DriverConnectionMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function transRollback()
     {
-        if ( mysqli_rollback($this->connect) )
+        if( mysqli_rollback($this->connect) )
         {
             mysqli_autocommit($this->connect, true);
 
@@ -245,7 +247,7 @@ class MySQLiDriver extends DriverConnectionMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function transCommit()
     {
-        if ( mysqli_commit($this->connect) )
+        if( mysqli_commit($this->connect) )
         {
             mysqli_autocommit($this->connect, true);
 

@@ -27,7 +27,7 @@ class URI implements URIInterface
     // @param array  $parameters
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function __callStatic($method, $parameters)
+    public function __call($method, $parameters)
     {
         if( preg_match('/^(e|s)[0-9]+$/', $method) )
         {

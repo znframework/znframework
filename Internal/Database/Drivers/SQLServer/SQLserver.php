@@ -5,6 +5,7 @@ use ZN\IndividualStructures\Security;
 use ZN\IndividualStructures\Support;
 use ZN\ErrorHandling\Errors;
 use stdClass;
+use ZN\Database\Exception\ConnectionErrorException;
 
 class SQLServerDriver extends DriverConnectionMappingAbstract
 {
@@ -126,7 +127,7 @@ class SQLServerDriver extends DriverConnectionMappingAbstract
 
         if( empty($this->connect) )
         {
-            die(Errors::message('Database', 'connectError'));
+            throw new ConnectionErrorException('Database', 'connectError');
         }
     }
 

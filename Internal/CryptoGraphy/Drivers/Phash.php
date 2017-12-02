@@ -2,6 +2,8 @@
 
 use ZN\CryptoGraphy\CryptoMapping;
 use ZN\ErrorHandling\Errors;
+use ZN\IndividualStructures\IS;
+use ZN\CryptoGraphy\Exception\InvalidVersionException;
 
 class PhashDriver extends CryptoMapping
 {
@@ -23,9 +25,9 @@ class PhashDriver extends CryptoMapping
 	//--------------------------------------------------------------------------------------------------------
 	public function __construct()
 	{
-		if( ! isPhpVersion('5.5.0') )
+		if( ! IS::phpVersion('5.5') )
 		{
-			die(Errors::message('Error', 'invalidVersion', ['%' => 'password_', '#' => '5.5.0']));
+			throw new InvalidVersionException('Error', 'invalidVersion', ['%' => '[password_*]', '#' => '[5.5]']);
 		}
 
         parent::__construct();

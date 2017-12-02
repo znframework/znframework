@@ -3,6 +3,7 @@
 use Config;
 use ZN\ErrorHandling\Errors;
 use ZN\IndividualStructures\Support;
+use ZN\IndividualStructures\Exception\UnsupportedDriverException;
 use ZN\IndividualStructures\Abstracts\CacheDriverMappingAbstract;
 
 class MemcacheDriver extends CacheDriverMappingAbstract
@@ -47,7 +48,7 @@ class MemcacheDriver extends CacheDriverMappingAbstract
 
         if( empty($connect) )
         {
-            die(Errors::message('IndividualStructures', 'cache:unsupported', 'Memcache'));
+            throw new UnsupportedDriverException('IndividualStructures', 'cache:unsupported', 'Memcache');
         }
 
         return true;

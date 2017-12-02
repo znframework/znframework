@@ -25,7 +25,7 @@ class IS implements ISInterface
     // @param array  $parameters
     //
     //--------------------------------------------------------------------------------------------------
-    public static function __callStatic($method, $parameters)
+    public function __call($method, $parameters)
     {
         if( function_exists($ctype = 'ctype_' . $method) )
         {

@@ -5,6 +5,7 @@ use ZN\IndividualStructures\Security;
 use ZN\IndividualStructures\Support;
 use ZN\ErrorHandling\Errors;
 use stdClass;
+use ZN\Database\Exception\ConnectionErrorException;
 
 class OracleDriver extends DriverConnectionMappingAbstract
 {
@@ -144,7 +145,7 @@ class OracleDriver extends DriverConnectionMappingAbstract
 
         if( empty($this->connect) )
         {
-            die(Errors::message('Database', 'connectError'));
+            throw new ConnectionErrorException('Database', 'connectError');
         }
     }
 

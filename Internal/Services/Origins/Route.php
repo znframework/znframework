@@ -1,5 +1,6 @@
 <?php namespace ZN\Services;
 
+use GeneralException;
 use ZN\Core\Structure;
 use ZN\Core\Kernel;
 use ZN\In;
@@ -777,7 +778,7 @@ class Route extends CLController implements RouteInterface
         {
             Logger::report('Error', Lang::select('Error', $lang, $function), $report);
             
-            die(Errors::message('Error', $lang, $function));
+            throw new GeneralException('Error', $lang, $function);
         }
         else
         {

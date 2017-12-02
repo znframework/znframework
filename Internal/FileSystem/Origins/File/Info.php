@@ -2,6 +2,7 @@
 
 use Config;
 use ZN\FileSystem\Exception\FileNotFoundException;
+use ZN\FileSystem\Exception\UndefinedFunctionException;
 use ZN\FileSystem\Folder;
 use ZN\ErrorHandling\Errors;
 
@@ -74,7 +75,7 @@ class Info
 
         if( ! function_exists($validType) || $validType === NULL )
         {
-            die(Errors::message('Error', 'undefinedFunction', Classes::onlyName(get_called_class()).'::'.$type.'()'));
+            throw new UndefinedFunctionException('Error', 'undefinedFunction', Classes::onlyName(get_called_class()).'::'.$type.'()');
         }
 
         if( $validType($file) )

@@ -4,6 +4,7 @@ use ZN\Database\Abstracts\DriverConnectionMappingAbstract;
 use ZN\IndividualStructures\Support;
 use ZN\ErrorHandling\Errors;
 use Exception, SQLite3, stdClass;
+use ZN\Database\Exception\ConnectionErrorException;
 
 class SQLiteDriver extends DriverConnectionMappingAbstract
 {
@@ -109,7 +110,7 @@ class SQLiteDriver extends DriverConnectionMappingAbstract
         }
         catch(Exception $e)
         {
-            die(Errors::message('Database', 'connectError'));
+            throw new ConnectionErrorException('Database', 'connectError');
         }
     }
 

@@ -418,7 +418,7 @@ class In
             {
                 Logger::report('Error', Lang::select('Error', 'callUserFuncArrayError', $controllerFunc), 'SystemCallUserFuncArrayError');
 
-                die(Errors::message('Error', 'callUserFuncArrayError', $controllerFunc));
+                throw new GeneralException('Error', 'callUserFuncArrayError', $controllerFunc);
             }
 
             $exclude = $controllerClass . '::exclude';

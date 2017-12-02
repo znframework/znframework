@@ -3,6 +3,8 @@
 use ZN\CryptoGraphy\CryptoMapping;
 use ZN\Helpers\Converter;
 use ZN\DataTypes\Arrays;
+use ZN\IndividualStructures\IS;
+use ZN\CryptoGraphy\Exception\UnsupportedExtensionException;
 
 class McryptDriver extends CryptoMapping
 {
@@ -14,6 +16,23 @@ class McryptDriver extends CryptoMapping
     // Copyright  : (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
+
+    //--------------------------------------------------------------------------------------------------------
+	// Construct
+	//--------------------------------------------------------------------------------------------------------
+	//
+	// @param void
+	//
+	//--------------------------------------------------------------------------------------------------------
+	public function __construct()
+	{
+        if( IS::phpVersion('7.2') )
+        {
+            throw new UnsupportedExtensionException('mcrypt_* extensions is unsupported since [PHP 7.2]!');
+        }
+
+		parent::__construct();
+	}
 
     //--------------------------------------------------------------------------------------------------------
     // Encrypt

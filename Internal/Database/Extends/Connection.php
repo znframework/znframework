@@ -441,7 +441,7 @@ class Connection
     //--------------------------------------------------------------------------------------------------------
     protected function _querySecurity($query)
     {
-        if( isset($this->secure) )
+        if( ! empty($this->secure) )
         {
             $secure = $this->secure;
 

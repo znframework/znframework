@@ -1083,7 +1083,7 @@ class DB extends Connection
 
         $this->caching = [];
 
-        return (new self($this->config))->_query($query, $this->_p($secure, 'secure'), ['caching' => $caching]);
+        return (new self($this->config))->_query($query, $secure, ['caching' => $caching]);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -1096,7 +1096,9 @@ class DB extends Connection
     //--------------------------------------------------------------------------------------------------------
     public function execQuery(String $query, Array $secure = []) : Bool
     {
-        return $this->db->exec($this->_querySecurity($query), $this->_p($secure, 'secure'));
+        $this->secure = $this->secure ?: $secure;
+
+        return $this->db->exec($this->_querySecurity($query), $this->secure);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -1109,7 +1111,7 @@ class DB extends Connection
     //--------------------------------------------------------------------------------------------------------
     public function basicQuery(String $query, Array $secure = []) : DB
     {
-        $this->_query($query, $this->_p($secure, 'secure'));
+        $this->_query($query, $secure);
 
         return $this;
     }
@@ -1124,7 +1126,7 @@ class DB extends Connection
     //--------------------------------------------------------------------------------------------------------
     public function transQuery(String $query, Array $secure = []) : DB
     {
-        $this->_query($query, $this->_p($secure, 'secure'));
+        $this->_query($query, $secure);
 
         return $this;
     }
@@ -1139,7 +1141,9 @@ class DB extends Connection
     //--------------------------------------------------------------------------------------------------------
     public function multiQuery(String $query, Array $secure = []) : Bool
     {
-        return $this->db->multiQuery($this->_querySecurity($query), $this->_p($secure, 'secure'));
+        $this->secure = $this->secure ?: $secure;
+
+        return $this->db->multiQuery($this->_querySecurity($query), $this->secure);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -2613,7 +2617,7 @@ class DB extends Connection
             $data .= $key.'='.$value.',';
         }
 
-        $set = ' SET '.substr($data,0,-1);
+        $set = ' SET '.substr($data, 0, -1);
 
         $updateQuery = 'UPDATE '.$this->prefix.$table.$set.$where.$this->where;
 
@@ -2638,7 +2642,9 @@ class DB extends Connection
 
         if( empty($this->caching) || ! Cache::select($this->_cacheQuery()) )
         {
-            $this->db->query($this->_querySecurity($query), $this->_p($secure, 'secure'));
+            $this->secure = $this->secure ?: $secure;
+
+            $this->db->query($this->_querySecurity($query), $secure);
 
             if( ! empty($this->transStart) )
             {
