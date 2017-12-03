@@ -1,6 +1,5 @@
 <?php namespace ZN\ViewObjects;
 
-use Coalesce;
 use ZN\Services\URL;
 use ZN\ViewObjects\Exception\InvalidArgumentException;
 use ZN\IndividualStructures\Buffer;
@@ -203,9 +202,7 @@ class HTML
 
         $attributes['href'] = $url;
 
-        Coalesce::null($value, $url);
-
-        return $this->_multiElement('a', $value, $attributes);
+        return $this->_multiElement('a', $value ?? $url, $attributes);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -224,11 +221,9 @@ class HTML
             throw new InvalidArgumentException('Error', 'emailParameter', '1.($mail)');
         }
 
-        $attributes['href'] = 'mailto:'.$mail;
+        $attributes['href'] = 'mailto:' . $mail;
 
-        Coalesce::null($value, $mail);
-
-        return $this->_multiElement('a', $value, $attributes);
+        return $this->_multiElement('a', $value ?? $mail, $attributes);
     }
 
     //--------------------------------------------------------------------------------------------------------

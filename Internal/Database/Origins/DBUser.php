@@ -1,7 +1,5 @@
 <?php namespace ZN\Database;
 
-use Coalesce;
-
 class DBUser extends Connection
 {
     //--------------------------------------------------------------------------------------------------------
@@ -320,9 +318,7 @@ class DBUser extends Connection
     //--------------------------------------------------------------------------------------------------------
     public function alter(String $name = NULL)
     {
-        Coalesce::null($name, 'USER()');
-
-        $query = $this->user->alter($name);
+        $query = $this->user->alter($name ?? 'USER()');
 
         return $this->_runQuery($query);
     }
@@ -336,9 +332,7 @@ class DBUser extends Connection
     //--------------------------------------------------------------------------------------------------------
     public function create(String $name = NULL)
     {
-        Coalesce::null($name, 'USER()');
-
-        $query = $this->user->create($name);
+        $query = $this->user->create($name ?? 'USER()');
 
         return $this->_runQuery($query);
     }
@@ -352,9 +346,7 @@ class DBUser extends Connection
     //--------------------------------------------------------------------------------------------------------
     public function drop(String $name = NULL)
     {
-        Coalesce::null($name, 'USER()');
-
-        $query = $this->user->drop($name);
+        $query = $this->user->drop($name ?? 'USER()');
 
         return $this->_runQuery($query);
     }

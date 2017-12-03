@@ -1,6 +1,6 @@
 <?php namespace ZN\CryptoGraphy;
 
-use CLController, DriverAbility, Support;
+use DriverAbility;
 
 class Crypto implements CryptoInterface
 {

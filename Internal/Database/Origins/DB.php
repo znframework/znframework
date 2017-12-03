@@ -1,6 +1,6 @@
 <?php namespace ZN\Database;
 
-use Pagination, Classes, Config, Cache, Coalesce;
+use Pagination, Config, Cache;
 use ZN\Services\URI;
 use ZN\Services\Method;
 use ZN\DataTypes\Strings;
@@ -490,9 +490,7 @@ class DB extends Connection
     //--------------------------------------------------------------------------------------------------------
     public function limit($start = NULL, Int $limit = 0) : DB
     {
-        Coalesce::null($start, (int) URI::segment(-1));
-
-        $start = (int) $start;
+        $start = (int) ($start ?? URI::segment(-1));
 
         $this->limit = ' LIMIT '. ( ! empty($limit) ? $limit . ' OFFSET '.$start.' ' : $start );
 
