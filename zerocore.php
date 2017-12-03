@@ -603,7 +603,7 @@ function uselib(String $class, Array $parameters = [])
 
         if( ! class_exists($class) )
         {
-            die(ZN\ErrorHandling\Errors::message('Error', 'classError', $class));
+            throw new GeneralException('Error', 'classError', $class);
         }
     }
 

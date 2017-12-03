@@ -10,7 +10,7 @@ $table .= 'font-size:14px;';
 
 $color =  'color:#900;';
 
-$lang  = Lang::select('IndividualStructures'); 
+$lang  = ZN\IndividualStructures\Lang::select('IndividualStructures'); 
 ?>
 
 <div style="<?php echo $style; ?>">

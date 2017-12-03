@@ -1,7 +1,7 @@
 <pre>
-    <?php echo Lang::select('IndividualStructures', 'user:username').": ".$usernameColumn; ?>
+    <?php echo ZN\IndividualStructures\Lang::select('IndividualStructures', 'user:username').": ".$usernameColumn; ?>
 
-    <?php echo Lang::select('IndividualStructures', 'user:password').": ".$newPassword; ?>
+    <?php echo ZN\IndividualStructures\Lang::select('IndividualStructures', 'user:password').": ".$newPassword; ?>
 
-    <a href="<?php echo $returnLinkPath; ?>"><?php echo Lang::select('IndividualStructures', 'user:learnNewPassword'); ?></a>
+    <a href="<?php echo $returnLinkPath; ?>"><?php echo ZN\IndividualStructures\Lang::select('IndividualStructures', 'user:learnNewPassword'); ?></a>
 </pre>

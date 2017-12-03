@@ -10,7 +10,7 @@ $table .= 'text-align:left;';
 $table .= 'font-size:14px;';
 
 $color =  'color:#000;';
-$lang  = Lang::select('Templates');
+$lang  = ZN\IndividualStructures\Lang::select('Templates');
 ?>
 
 
