@@ -201,8 +201,8 @@ class Form
             // 5.4.2[added]
             $this->_validate($this->settings['attr']['name'], $this->settings['attr']['name']);
             
-            // 5.4.2[added]
-            $value = $this->_getrow('textarea', $value, $this->settings['attr']);
+            // 5.4.2[added]|5.4.5[edited]
+            $value = $this->_getrow('textarea', $value, $this->settings['attr']) ?: $value;
         }
 
         return '<textarea'.$this->attributes($_attributes).'>'.$value.'</textarea>'.EOL;
@@ -305,8 +305,8 @@ class Form
             // 5.4.2[added]
             $this->_validate($_attributes['name'], $_attributes['name']);
             
-            // 5.4.2[added]
-            $selected = $this->_getrow('select', $selected, $_attributes);
+            // 5.4.2[added]|5.4.5[edited]
+            $selected = $this->_getrow('select', $selected, $_attributes) ?: $selected;
         }
 
         $selectbox = '<select'.$this->attributes($_attributes).'>';
@@ -317,7 +317,7 @@ class Form
             {
                 if( in_array($key, $selected) )
                 {
-                    $select = 'selected="selected"';
+                    $select = ' selected="selected"';
                 }
                 else
                 {
@@ -328,7 +328,7 @@ class Form
             {
                 if( $selected == $key )
                 {
-                    $select = 'selected="selected"';
+                    $select = ' selected="selected"';
                 }
                 else
                 {
@@ -336,7 +336,7 @@ class Form
                 }
             }
 
-            $selectbox .= '<option value="'.$key.'" '.$select.'>'.$value.'</option>'.EOL;
+            $selectbox .= '<option value="'.$key.'"'.$select.'>'.$value.'</option>'.EOL;
         }
 
         $selectbox .= '</select>'.EOL;
