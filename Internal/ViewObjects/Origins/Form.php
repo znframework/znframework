@@ -26,7 +26,6 @@ class Form
         ]
     ];
 
-
     //--------------------------------------------------------------------------------------------------------
     // $settings
     //--------------------------------------------------------------------------------------------------------
@@ -72,11 +71,8 @@ class Form
     //--------------------------------------------------------------------------------------------------------
     public function open(String $name = NULL, Array $_attributes = []) : String
     {
-        if( isset($this->settings['attr']['name']) )
-        {
-            $name = $this->settings['attr']['name'];
-        }
-
+        $name = $this->settings['attr']['name'] ?? $name;
+  
         $_attributes['name'] = $name;
 
         if( isset($_attributes['enctype']) )
@@ -88,12 +84,7 @@ class Form
                 $_attributes['enctype'] = $this->enctypes[$enctype];
             }
         }
-
-        if( ! isset($_attributes['method']) )
-        {
-            $_attributes['method'] = 'post';
-        }
-
+       
         if( isset($this->settings['where']) )
         {
             $this->settings['getrow'] = DB::get($name)->row();
@@ -103,13 +94,13 @@ class Form
         {
             $this->settings['getrow'] = DB::query($query)->row();
         }
-
-        $this->method = $method = $_attributes['method'];
-
+        
+        $this->method = ($_attributes['method'] = $_attributes['method'] ?? $this->settings['attr']['method'] ?? 'post');
+        
         $return  = '<form'.$this->attributes($_attributes).'>'.EOL;
 
         // 5.4.2[added]
-        $return .= $this->_process($name, $method);
+        $return .= $this->_process($name, $this->method);
 
         if( isset($this->settings['token']) )
         {
@@ -189,10 +180,7 @@ class Form
             $this->settings['attr']['name'] = $name;
         }
 
-        if( isset($this->settings['attr']['value']) )
-        {
-            $value = $this->settings['attr']['value'];
-        }
+        $value = $this->settings['attr']['value'] ?? $value;
 
         if( ! empty($this->settings['attr']['name']) )
         {
@@ -257,10 +245,7 @@ class Form
             }
         }
 
-        if( isset($this->settings['option']) )
-        {
-            $options = $this->settings['option'];
-        }
+        $options = $this->settings['option'] ?? $options;
 
         if( isset($this->settings['exclude']) )
         {
@@ -277,10 +262,7 @@ class Form
             $options = Arrays\Sort::order($options, $this->settings['order']['type'], $this->settings['order']['flags']);
         }
 
-        if( isset($this->settings['selectedKey']) )
-        {
-            $selected = $this->settings['selectedKey'];
-        }
+        $selected = $this->settings['selectedKey'] ?? $selected;
 
         if( isset($this->settings['selectedValue']) )
         {
@@ -363,7 +345,7 @@ class Form
 
     //--------------------------------------------------------------------------------------------------------
     // Hidden
-    //--------------------------------------------------------------------------------------------------------
+    //----------------------------------------------------------------------------------- ---------------------
     //
     // @param string $name
     // @param string $value
@@ -371,25 +353,14 @@ class Form
     //--------------------------------------------------------------------------------------------------------
     public function hidden(String $name = NULL, String $value = NULL) : String
     {
-        if( isset($this->settings['attr']['name']) )
-        {
-            $name = $this->settings['attr']['name'];
-        }
-
-        if( isset($this->settings['attr']['value']) )
-        {
-            $value = $this->settings['attr']['value'];
-        }
+        $name  = $this->settings['attr']['name' ] ?? $name ;
+        $value = $this->settings['attr']['value'] ?? $value;
 
         $this->settings['attr'] = [];
 
         $hiddens = NULL;
+        $value   = ! empty($value) ? 'value="'.$value.'"' : '';
 
-        $value = ( ! empty($value) )
-                 ? 'value="'.$value.'"'
-                 : "";
-
-        // 1. parametre dizi ise
         if( is_array($name) ) foreach( $name as $key => $val )
         {
             $hiddens .= '<input type="hidden" name="'.$key.'" id="'.$key.'" value="'.$val.'">'.EOL;
@@ -418,10 +389,7 @@ class Form
             $multiple = true;
         }
 
-        if( ! empty($this->settings['attr']['name']) )
-        {
-            $name = $this->settings['attr']['name'];
-        }
+        $name = $this->settings['attr']['name'] ?? $name;
 
         if( $multiple === true )
         {
