@@ -19,7 +19,7 @@
         //
         // Genel Kullanım: Veri şifrelemede kullanılan şifreleme sürücüleri.                          
         //
-        // @drivers: mcyrpt, openssl, hash, phash, mhash
+        // @drivers: mcrypt, openssl, hash, phash, mhash
         //                                                                                                                      
         //----------------------------------------------------------------------------------------------
         'driver' => 'openssl'
