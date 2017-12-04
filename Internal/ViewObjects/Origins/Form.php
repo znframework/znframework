@@ -189,8 +189,8 @@ class Form
             // 5.4.2[added]
             $this->_validate($this->settings['attr']['name'], $this->settings['attr']['name']);
             
-            // 5.4.2[added]|5.4.5[edited]
-            $value = $this->_getrow('textarea', $value, $this->settings['attr']) ?: $value;
+            // 5.4.2[added]|5.4.5|5.4.6[edited]
+            $value = $this->_getrow('textarea', $value, $this->settings['attr']);
         }
 
         return '<textarea'.$this->attributes($_attributes).'>'.$value.'</textarea>'.EOL;
@@ -287,8 +287,8 @@ class Form
             // 5.4.2[added]
             $this->_validate($_attributes['name'], $_attributes['name']);
             
-            // 5.4.2[added]|5.4.5[edited]
-            $selected = $this->_getrow('select', $selected, $_attributes) ?: $selected;
+            // 5.4.2[added]|5.4.5|5.4.6[edited]
+            $selected = $this->_getrow('select', $selected, $_attributes);
         }
 
         $selectbox = '<select'.$this->attributes($_attributes).'>';

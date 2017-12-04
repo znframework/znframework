@@ -1,10 +1,10 @@
 <?php namespace ZN\ViewObjects;
 
-use Errors, Exceptions, CallController, Config;
+use Config;
 use ZN\FileSystem\File;
 use ZN\IndividualStructures\Buffer;
 
-class TemplateWizard extends CallController
+class TemplateWizard
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -28,7 +28,7 @@ class TemplateWizard extends CallController
 	}
 
     //--------------------------------------------------------------------------------------------------------
-    // Data -> 5.3.15[edited]
+    // Data -> 5.3.15|5.4.6[edited]
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string $string
@@ -37,6 +37,8 @@ class TemplateWizard extends CallController
     //--------------------------------------------------------------------------------------------------------
     public static function data(String $string, Array $data = []) : String
     {
+        self::_textControl($string); // 5.4.6[added]
+
         $pattern = array_merge
         (
             self::_symbolsHeader(),
@@ -52,6 +54,36 @@ class TemplateWizard extends CallController
         );
 
         return Buffer\Callback::code(self::replace($pattern, $string), $data);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Text Control -> 5.4.6[added]
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param void
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected static function _textControl(&$string)
+    {
+        if( self::config()['html'] ?? true )
+        {
+            preg_match_all('/\<(style|script)(.*?)*\>(.*?)\<\/(style|script)\>/si', $string, $standart);
+            preg_match_all('/\#(style|script)(.*?)*\s(.*?)\s\##(style|script)/si', $string, $wizard);
+
+            $patterns = array_merge((array) $standart[3], (array) $wizard[3]);
+            
+            if( ! empty($patterns) ) 
+            {
+                $changes = [];
+    
+                foreach( $patterns as $pattern )
+                {
+                    $changes[] = str_replace(['/#', '#'], ['#', '/#'], $pattern);
+                }
+    
+                $string = str_replace($patterns, $changes, $string);
+            }
+        } 
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -245,19 +277,18 @@ class TemplateWizard extends CallController
     protected static function _html()
     {
         $array             = [];
-        $htmlTagClose      = "</$1>";
-        $htmlAttributesTag = '\#(!*\w+)\s*(\[(.*?)\])*';
+        $htmlAttributesTag = '(^|\s)\#(!*\w+)\s*(\[(.*?)\])*';
 
         if( self::config()['html'] ?? true )
         {
             $array =
             [
                 '/\/#/'                                         => '+[symbol??dies]+',
-                '/\s+\#\#(\w+)/'                                => $htmlTagClose,
-                '/'.$htmlAttributesTag.'\:/'                    => '<$1 $3>',
-                '/'.$htmlAttributesTag.'\s+/'                   => '<$1 $3>',
-                '/'.$htmlAttributesTag.'\s*\(\s*(.*?)\s*\)\:/s' => '<$1 $3>$4'.$htmlTagClose,
-                '/'.$htmlAttributesTag.'\s*/'                   => '<$1 $3>',
+                '/\s+\#\#(\w+)/'                                => '</$1>',
+                '/'.$htmlAttributesTag.'\:/'                    => '<$2 $4>',
+                '/'.$htmlAttributesTag.'\s+/'                   => '<$2 $4>',
+                '/'.$htmlAttributesTag.'\s*\(\s*(.*?)\s*\)\:/s' => '<$2 $4>$5</$2>',
+                '/'.$htmlAttributesTag.'\s*/'                   => '<$2 $4>',
                 '/\<(\w+)\s+\>/'                                => '<$1>',
                 '/\+\[symbol\?\?dies\]\+/'                      => '#'
             ];
