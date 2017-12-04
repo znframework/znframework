@@ -50,8 +50,6 @@ class Captcha implements CaptchaInterface
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
-        parent::__construct();
-
         $this->_clean();
     }
 

@@ -418,22 +418,18 @@ class Autoloader
 
                     $useStaticAccess = self::lower(INTERNAL_ACCESS);
 
-                    if
-                    (
-                        strpos($class, $useStaticAccess) === 0  &&
-                        ! preg_match('/(Interface|Trait)$/i', $class)
-                    )
+                    if( strpos($class, $useStaticAccess) === 0  && ! preg_match('/(Interface|Trait)$/i', $class) )
                     {
                         $newClassName = str_ireplace(INTERNAL_ACCESS, '', $classInfo['class']);
 
-                        $newPath = str_ireplace($baseDirectory, '', $v);
+                        $pathEx = explode('/', $v);
 
-                        $pathEx = explode('/', $newPath);
                         array_pop($pathEx);
+
                         $newDir = implode('/', $pathEx);
                         $dir    = $staticAccessDirectory;
                         $newDir = $dir.$newDir;
-
+                     
                         if( ! is_dir($dir) )
                         {
                             mkdir($dir, $directoryPermission, true);

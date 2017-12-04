@@ -14,6 +14,10 @@ class CaptchaUnitTest extends \UnitTestController
     const unit =
     [
         'class'   => 'Captcha',
-        'methods' => []
+        'methods' => 
+        [
+            'create'        => [true],
+            'getCode'       => []
+        ]
     ];
 }
