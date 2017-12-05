@@ -13,7 +13,7 @@
 //--------------------------------------------------------------------------------------------------
 // VERSION INFO CONSTANTS
 //--------------------------------------------------------------------------------------------------
-define('ZN_VERSION'          , '5.4.52');
+define('ZN_VERSION'          , '5.4.53');
 define('REQUIRED_PHP_VERSION', '7.0.0');
 //--------------------------------------------------------------------------------------------------
 
@@ -1238,7 +1238,7 @@ function internalProjectContainerDir($path = NULL) : String
 function internalIsWritable(String $path)
 {
     if( is_file($path) && ! is_writable($path) )
-    {
+    {   
         trace
         (
             'Please check the [file permissions]. Click the 

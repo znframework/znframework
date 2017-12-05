@@ -14,6 +14,17 @@ class URLUnitTest extends \UnitTestController
     const unit =
     [
         'class'   => 'URL',
-        'methods' => []
+        'methods' => 
+        [
+            'base'           => [],
+            'base:2'         => ['test'],
+            'site'           => [],
+            'site:2'         => ['test'],
+            'sites'          => [],
+            'current'        => [],
+            'current:2'      => ['test'],
+            'host'           => [],
+            'host:2'         => ['test']
+        ]
     ];
 }

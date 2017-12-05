@@ -96,7 +96,7 @@ class URL implements URLInterface
     //--------------------------------------------------------------------------------------------------------
     public static function host(String $uri = NULL) : String
     {
-        return HOST_URL . In::cleanInjection($uri);
+        return HOST_URL . In::cleanInjection(ltrim($uri, '/'));
     }
 
     //--------------------------------------------------------------------------------------------------------
