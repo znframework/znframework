@@ -291,7 +291,7 @@ class Kernel
     }
 
     //--------------------------------------------------------------------------------------------------
-    // Protected Static Starting Autoload -> 5.4.5
+    // Protected Static Starting Autoload -> 5.4.5|5.4.52[edited]
     //--------------------------------------------------------------------------------------------------
     //
     // @param void
@@ -299,27 +299,19 @@ class Kernel
     //--------------------------------------------------------------------------------------------------
     protected static function _starting($starting)
     {   
-        $startingAutoload       = Folder\FileList::allFiles(AUTOLOAD_DIR, $starting['autoload']['recursive']);
-        $commonStartingAutoload = Folder\FileList::allFiles(EXTERNAL_AUTOLOAD_DIR, $starting['autoload']['recursive']);
+        $autoloadRecursive = $starting['autoload']['recursive'];
+
+        $startingAutoload  = array_merge
+        (
+            Folder\FileList::allFiles(AUTOLOAD_DIR         , $autoloadRecursive), 
+            Folder\FileList::allFiles(EXTERNAL_AUTOLOAD_DIR, $autoloadRecursive)
+        );
 
         if( ! empty($startingAutoload) ) foreach( $startingAutoload as $file )
         {
             if( File\Extension::get($file) === 'php' )
             {
                 if( is_file($file) )
-                {
-                    import($file);
-                }
-            }
-        }
-
-        if( ! empty($commonStartingAutoload) ) foreach( $commonStartingAutoload as $file )
-        {
-            if( File\Extension::get($file) === 'php' )
-            {
-                $commonIsSameExistsFile = str_ireplace(EXTERNAL_AUTOLOAD_DIR, AUTOLOAD_DIR, $file);
-
-                if( ! is_file($commonIsSameExistsFile) && is_file($file) )
                 {
                     import($file);
                 }
