@@ -2,7 +2,6 @@
 
 use ZN\In;
 use ZN\Helpers\Converter;
-use Http;
 use ZN\IndividualStructures\Lang;
 
 class URL implements URLInterface
@@ -63,7 +62,7 @@ class URL implements URLInterface
     //--------------------------------------------------------------------------------------------------
     public static function sites(String $uri = NULL, Int $index = 0) : String
     {
-        return str_replace(SSL_STATUS, Http::fix(true), self::site($uri, $index));
+        return str_replace(SSL_STATUS, \Http::fix(true), self::site($uri, $index));
     }
 
     //--------------------------------------------------------------------------------------------------------

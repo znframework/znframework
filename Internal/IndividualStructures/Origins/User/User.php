@@ -31,6 +31,7 @@ class User extends \FactoryController
             'islogin'            => 'User\Login::is',
             'logout'             => 'User\Logout::do',
             'forgotpassword'     => 'User\ForgotPassword::do',
+            'verification'       => 'User\ForgotPassword::verification:this',
             'email'              => 'User\ForgotPassword::email:this',
             'data'               => 'User\Data::get',
             'activecount'        => 'User\Data::activeCount',

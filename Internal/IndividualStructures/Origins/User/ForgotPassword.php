@@ -25,6 +25,21 @@ class ForgotPassword extends UserExtends
     }
 
     //--------------------------------------------------------------------------------------------------------
+    // Verification -> 5.4.6
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param  string $verification
+    // @return this
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function verification(String $verification) : ForgotPassword
+    {
+        Properties::$parameters['verification'] = $verification;
+
+        return $this;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
     // Forgot Password
     //--------------------------------------------------------------------------------------------------------
     //
@@ -35,20 +50,22 @@ class ForgotPassword extends UserExtends
     //--------------------------------------------------------------------------------------------------------
     public function do(String $email = NULL, String $returnLinkPath = NULL) : Bool
     {
-        $email            = Properties::$parameters['email']      ?? $email;
-        $returnLinkPath   = Properties::$parameters['returnLink'] ?? $returnLinkPath;
+        $email            = Properties::$parameters['email']        ?? $email;
+        $verification     = Properties::$parameters['verification'] ?? NULL;
+        $returnLinkPath   = Properties::$parameters['returnLink']   ?? $returnLinkPath;
 
         Properties::$parameters = [];
 
         // ------------------------------------------------------------------------------
         // Settings
         // ------------------------------------------------------------------------------
-        $tableName      = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['table'];
-        $senderInfo     = INDIVIDUALSTRUCTURES_USER_CONFIG['emailSenderInfo'];
-        $getColumns     = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['columns'];
-        $usernameColumn = $getColumns['username'];
-        $passwordColumn = $getColumns['password'];
-        $emailColumn    = $getColumns['email'];
+        $tableName          = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['table'];
+        $senderInfo         = INDIVIDUALSTRUCTURES_USER_CONFIG['emailSenderInfo'];
+        $getColumns         = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['columns'];
+        $usernameColumn     = $getColumns['username']     ?? NULL;
+        $passwordColumn     = $getColumns['password']     ?? NULL;
+        $emailColumn        = $getColumns['email']        ?? NULL;
+        $verificationColumn = $getColumns['verification'] ?? NULL;
         // ------------------------------------------------------------------------------
 
         if( ! empty($emailColumn) )
@@ -64,6 +81,14 @@ class ForgotPassword extends UserExtends
 
         if( isset($row->$usernameColumn) )
         {
+            if( ! empty($verificationColumn) )
+            {
+                if( $verification !== $row->$verificationColumn )
+                {
+                    return ! Properties::$error = Lang::select('IndividualStructures', 'user:verificationOrEmailError');
+                }
+            }
+            
             if( ! IS::url($returnLinkPath) )
             {
                 $returnLinkPath = URL::site($returnLinkPath);
@@ -91,11 +116,11 @@ class ForgotPassword extends UserExtends
             {
                 if( ! empty($emailColumn) )
                 {
-                    DB::where($emailColumn, $email);
+                    DB::where($emailColumn, $email, 'and');
                 }
                 else
                 {
-                    DB::where($usernameColumn, $email);
+                    DB::where($usernameColumn, $email, 'and');
                 }
 
                 if( DB::update($tableName, [$passwordColumn => $encodePassword]) )

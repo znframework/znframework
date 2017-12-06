@@ -1,6 +1,5 @@
 <?php namespace ZN\Services;
 
-use SSH;
 use ZN\IndividualStructures\Buffer;
 
 class Processor extends RemoteCommon implements ProcessorInterface
@@ -107,7 +106,7 @@ class Processor extends RemoteCommon implements ProcessorInterface
             break;
 
             case 'ssh':
-                SSH::run($command);
+                \SSH::run($command);
                 $this->output = $this->_split($return = SSH::output());
                 $this->return = 0;
             break;

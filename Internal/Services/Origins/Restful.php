@@ -1,6 +1,5 @@
 <?php namespace ZN\Services;
 
-use CURL, Http, Redirect, Route;
 use ZN\DataTypes\Json;
 use ZN\DataTypes\XML;
 
@@ -88,9 +87,9 @@ class Restful implements RestfulInterface
     //--------------------------------------------------------------------------------------------------------
     public function httpStatus(Int $code = NULL) : Restful
     {
-        $code = $code ?? Redirect::status();
+        $code = $code ?? \Redirect::status();
 
-        header('HTTP/1.1 ' . $code . ' ' . Http::code($code));
+        header('HTTP/1.1 ' . $code . ' ' . \Http::code($code));
 
         return $this;
     }
@@ -158,7 +157,7 @@ class Restful implements RestfulInterface
     //--------------------------------------------------------------------------------------------------------
     public function get(String $url = NULL)
     {
-        $response = CURL::init($this->url ?? $url)
+        $response = \CURL::init($this->url ?? $url)
                         ->option('returntransfer', true)
                         ->option('ssl_verifypeer', $this->sslVerifyPeer)
                         ->exec();
@@ -176,7 +175,7 @@ class Restful implements RestfulInterface
     //--------------------------------------------------------------------------------------------------------
     public function post(String $url = NULL, Array $data = [])
     {
-        $response = CURL::init($this->url ?? $url)
+        $response = \CURL::init($this->url ?? $url)
                         ->option('returntransfer', true)
                         ->option('post', true)
                         ->option('ssl_verifypeer', $this->sslVerifyPeer)
@@ -221,9 +220,9 @@ class Restful implements RestfulInterface
     //--------------------------------------------------------------------------------------------------------
     public function return(Callable $callback)
     {
-        if( ! Http::isCurl() )
+        if( ! \Http::isCurl() )
         {
-            Route::redirectInvalidRequest();
+            \Route::redirectInvalidRequest();
         }
 
         return $callback();
@@ -240,7 +239,7 @@ class Restful implements RestfulInterface
     //--------------------------------------------------------------------------------------------------------
     protected function _customRequest($url, $data, $type)
     {
-        $response = CURL::init($this->url ?? $url)
+        $response = \CURL::init($this->url ?? $url)
                         ->option('returntransfer', true)
                         ->option('customrequest', \Autoloader::upper($type))
                         ->option('ssl_verifypeer', $this->sslVerifyPeer)
@@ -259,18 +258,18 @@ class Restful implements RestfulInterface
     //--------------------------------------------------------------------------------------------------------
     protected function _info()
     {
-        $this->info['gethttpcode']          = CURL::info('http_code');
-        $this->info['getfiletime']          = CURL::info('filetime');
-        $this->info['gettotaltime']         = CURL::info('total_time');
-        $this->info['getpretransfertime']   = CURL::info('pretransfer_time');
-        $this->info['getstarttransfertime'] = CURL::info('starttransfer_time');
-        $this->info['getredirecttime']      = CURL::info('redirect_time');
-        $this->info['getuploadsize']        = CURL::info('size_upload');
-        $this->info['getdownloadsize']      = CURL::info('size_download');
-        $this->info['getrequestsize']       = CURL::info('request_size');
-        $this->info['getdownloadspeed']     = CURL::info('speed_download');
-        $this->info['getuploadspeed']       = CURL::info('speed_upload');
-        $this->info['all']                  = CURL::info(NULL);
+        $this->info['gethttpcode']          = \CURL::info('http_code');
+        $this->info['getfiletime']          = \CURL::info('filetime');
+        $this->info['gettotaltime']         = \CURL::info('total_time');
+        $this->info['getpretransfertime']   = \CURL::info('pretransfer_time');
+        $this->info['getstarttransfertime'] = \CURL::info('starttransfer_time');
+        $this->info['getredirecttime']      = \CURL::info('redirect_time');
+        $this->info['getuploadsize']        = \CURL::info('size_upload');
+        $this->info['getdownloadsize']      = \CURL::info('size_download');
+        $this->info['getrequestsize']       = \CURL::info('request_size');
+        $this->info['getdownloadspeed']     = \CURL::info('speed_download');
+        $this->info['getuploadspeed']       = \CURL::info('speed_upload');
+        $this->info['all']                  = \CURL::info(NULL);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -284,7 +283,7 @@ class Restful implements RestfulInterface
     {
         $this->_info();
 
-        CURL::close();
+        \CURL::close();
 
         $this->_default();
 

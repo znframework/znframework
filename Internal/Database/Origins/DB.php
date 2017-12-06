@@ -498,6 +498,20 @@ class DB extends Connection
     }
 
     //--------------------------------------------------------------------------------------------------------
+    // Basic
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $set
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function basic() : DB
+    {
+        $this->retunQueryType = 'basicQuery';
+
+        return $this;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
     // Get
     //--------------------------------------------------------------------------------------------------------
     //
@@ -528,6 +542,8 @@ class DB extends Connection
             $this->unionQuery = NULL;
         }
 
+        $returnQuery = $this->retunQueryType ?? 'query';
+
         $this->_resetSelectQuery();
         
         $secureFinalQuery = $this->_querySecurity($finalQuery);
@@ -539,7 +555,7 @@ class DB extends Connection
             return $secureFinalQuery;
         }
 
-        return $this->query($secureFinalQuery, $this->secure);
+        return $this->$returnQuery($secureFinalQuery, $this->secure);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -2703,6 +2719,7 @@ class DB extends Connection
         $this->characterSet    = NULL;
         $this->into            = NULL;
         $this->forUpdate       = NULL;
+        $this->retunQueryType  = NULL;
     }
 
     //--------------------------------------------------------------------------------------------------------

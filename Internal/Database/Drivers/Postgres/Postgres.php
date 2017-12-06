@@ -441,7 +441,9 @@ class PostgresDriver extends DriverConnectionMappingAbstract
     {
         if( is_resource($this->connect) )
         {
-            @pg_close($this->connect);
+            // pg_close($this->connect);
+
+            return true;
         }
         else
         {

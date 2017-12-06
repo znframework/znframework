@@ -1,6 +1,6 @@
 <?php namespace ZN\Services;
 
-use CallController, Session;
+use CallController;
 use ZN\IndividualStructures\IS;
 
 class Redirect extends CallController implements RedirectInterface
@@ -93,7 +93,7 @@ class Redirect extends CallController implements RedirectInterface
         {
             foreach( $data as $k => $v )
             {
-                Session::insert($this->fix . $k, $v);
+                \Session::insert($this->fix . $k, $v);
             }
         }
 
@@ -121,7 +121,7 @@ class Redirect extends CallController implements RedirectInterface
     //--------------------------------------------------------------------------------------------------
     public function selectData(String $k)
     {
-        if( $data = Session::select($this->fix . $k) )
+        if( $data = \Session::select($this->fix . $k) )
         {
             return $data;
         }
@@ -144,11 +144,11 @@ class Redirect extends CallController implements RedirectInterface
     {
         if( is_array($data) ) foreach( $data as $v )
         {
-            Session::delete($this->fix . $v);
+            \Session::delete($this->fix . $v);
         }
         else
         {
-            return Session::delete($this->fix . $data);
+            return \Session::delete($this->fix . $data);
         }
 
         return true;

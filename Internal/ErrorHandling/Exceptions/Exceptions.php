@@ -6,7 +6,7 @@ use ZN\DataTypes\Strings;
 use ZN\IndividualStructures\Lang;
 use ZN\IndividualStructures\Import;
 
-class Exceptions extends Exception
+class Exceptions extends Exception implements ExceptionsInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

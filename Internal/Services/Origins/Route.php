@@ -9,7 +9,7 @@ use ZN\DataTypes\Arrays;
 use ZN\ErrorHandling\Errors;
 use ZN\IndividualStructures\Lang;
 use ZN\IndividualStructures\Security;
-use Config, CLController, Http, Import, Regex, Restoration, IS, Masterpage, DB;
+use Config, CLController, Import, Regex, Restoration, IS, Masterpage, DB;
 
 class Route extends CLController implements RouteInterface
 {
@@ -836,7 +836,7 @@ class Route extends CLController implements RouteInterface
         {
             if( $type = ($this->ajaxs[CURRENT_CFURI]['ajax'] ?? NULL) )
             {
-                if( Http::isAjax() !== true )
+                if( \Http::isAjax() !== true )
                 {
                     $this->_redirect();
                 }
@@ -857,7 +857,7 @@ class Route extends CLController implements RouteInterface
         {
             if( $type = ($this->curls[CURRENT_CFURI]['curl'] ?? NULL) )
             {
-                if( Http::isCurl() === true )
+                if( \Http::isCurl() === true )
                 {
                     $this->_redirect();
                 }
@@ -878,7 +878,7 @@ class Route extends CLController implements RouteInterface
         {
             if( $type = ($this->restfuls[CURRENT_CFURI]['restful'] ?? NULL) )
             {
-                if( Http::isCurl() !== true )
+                if( \Http::isCurl() !== true )
                 {
                     $this->_redirect();
                 }
@@ -975,7 +975,7 @@ class Route extends CLController implements RouteInterface
         {
             if( $method = ($this->methods[CURRENT_CFURI]['method'] ?? NULL) )
             {
-                if( Http::isRequestMethod(...$method) === false )
+                if( \Http::isRequestMethod(...$method) === false )
                 {
                     $this->_redirect();
                 }
