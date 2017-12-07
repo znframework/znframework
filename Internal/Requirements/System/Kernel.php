@@ -23,9 +23,7 @@ class Kernel
     //--------------------------------------------------------------------------------------------------
 
     public static function start()
-    {
-        set_error_handler('ZN\ErrorHandling\Exceptions::table');
-        
+    {  
         if( $autoloaderAliases = \Config::get('Autoloader')['aliases'] ) foreach( $autoloaderAliases as $alias => $origin )
         {
             class_alias($origin, $alias);
@@ -38,6 +36,8 @@ class Kernel
         define('PROJECT_MODE', strtolower($appcon['mode']));
 
         In::projectMode(PROJECT_MODE, $appcon['errorReporting']);
+
+        if( PROJECT_MODE !== 'publication' ) set_error_handler('ZN\ErrorHandling\Exceptions::table');
 
         $htaccessConfig = \Config::get('Htaccess');
 
@@ -270,7 +270,7 @@ class Kernel
             Logger::report('GeneralError', $message, 'GeneralError');
         }
 
-        restore_error_handler();
+        if( PROJECT_MODE !== 'publication' ) restore_error_handler();
 
         ob_end_flush();
     }

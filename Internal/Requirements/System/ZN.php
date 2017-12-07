@@ -152,7 +152,10 @@ class ZN
             }
             catch( \GeneralException $e )
             {
-                Exceptions::table($e->getCode(), $e->getMessage(), $e->getFile(), $e->getLine(), $e->getTrace());
+                if( PROJECT_MODE !== 'publication' ) 
+                {
+                    Exceptions::table($e->getCode(), $e->getMessage(), $e->getFile(), $e->getLine(), $e->getTrace());
+                }   
             }
         } 
     }
