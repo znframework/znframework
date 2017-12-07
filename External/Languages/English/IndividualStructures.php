@@ -62,7 +62,7 @@ return
 	'user:oldPasswordError'         => 'You have entered the wrong password!',
 	'user:passwordNotMatchError'    => 'Passwords do not match!',
 	'user:updateProcessSuccess'     => 'The update process is successful.',
-	'user:forgotPasswordError'      => "You are not registered in the system!",
+	'user:forgotPasswordError'      => "You are not registered on the system or your username is incorrect!",
 	'user:forgotPasswordSuccess'    => "Your password has been sent to your email.",
 	'user:newYourPassword'          => "Sent New Password.",
 	'user:emailError'               => "Don't send your mail!",
@@ -75,5 +75,7 @@ return
 	'user:activationError'          => "You can not log in to complete the activation process.",
 	'user:activationEmail'          => "For the completion of your registration, please click on the activation link sent to your e-mail address.",
 	'user:activationCompleteError'  => "The activation process could not be completed!",
-	'user:activationComplete'       => "The activation process is completed with success."
+	'user:activationComplete'       => "The activation process is completed with success.",
+	'user:verificationEmail'        => 'Verification Email',
+	'user:verificationOrEmailError' => 'Verification code or email information is wrong!'
 ];

@@ -33,7 +33,7 @@ interface ExceptionsInterface
     // @param array $trace
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function table(String $no = NULL, String $msg = NULL, String $file = NULL, String $line = NULL, Array $trace = NULL);
+    public static function table($no = NULL, String $msg = NULL, String $file = NULL, String $line = NULL, Array $trace = NULL);
 
     //--------------------------------------------------------------------------------------------------------
     // Restore

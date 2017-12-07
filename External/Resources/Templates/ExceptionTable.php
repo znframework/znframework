@@ -11,11 +11,16 @@ $table .= 'font-size:14px;';
 
 $color =  'color:#000;';
 $lang  = ZN\IndividualStructures\Lang::select('Templates');
-?>
 
+unset($trace['params']);
+?>
 
 <div style="<?php echo $style; ?>">
 <table style="<?php echo $table; ?>">
+    <?php if( ! empty($type) ): ?>
+    <tr><td  style="<?php echo $color; ?>"><?php echo $lang['type']; ?> : </td><td><span><?php echo $type; ?></span></td></tr>
+    <?php endif ?>
+
     <?php if( ! empty($message) ): ?>
     <tr><td  style="<?php echo $color; ?>"><?php echo $lang['message']; ?> : </td><td><span><?php echo $message; ?></span></td></tr>
     <?php endif ?>
@@ -26,6 +31,10 @@ $lang  = ZN\IndividualStructures\Lang::select('Templates');
 
     <?php if( ! empty($line) ): ?>
     <tr><td style="<?php echo $color; ?>"><?php echo $lang['line']; ?> : </td><td><span><?php echo $line; ?></span></td></tr>
+    <?php endif ?>
+
+    <?php if( ! empty($trace) ): ?>
+    <tr><td valign="top" style="<?php echo $color; ?>"><?php echo $lang['trace']; ?> : </td><td><span><?php output($trace); ?></span></td></tr>
     <?php endif ?>
 </table>
 </div>

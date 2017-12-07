@@ -15,19 +15,23 @@ trait ExclusionAbility
     //--------------------------------------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------------------------------------
-    // Construct
+    // Construct -> 5.4.6[edited]
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $file
+    // @param mixed  $file
     // @param string $message
     // @param mixed  $changed
     //
     //--------------------------------------------------------------------------------------------------------
-    public function __construct(String $file, String $message = NULL, $changed = NULL)
+    public function __construct($file, String $message = NULL, $changed = NULL)
     {
         if( $data = Lang::select($file, $message, $changed) )
         {
             $message = $data;
+        }
+        elseif( is_object($file) )
+        {
+            $message = $file->getMessage();
         }
         else
         {

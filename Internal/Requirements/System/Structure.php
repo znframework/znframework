@@ -1,6 +1,5 @@
 <?php namespace ZN\Core;
 
-use Errors, Restoration;
 use ZN\Classes\Config;
 use ZN\DataTypes\Strings;
 use ZN\In;
@@ -180,23 +179,11 @@ class Structure
         [
             'parameters'   => array_values($parameters),
             'page'         => $page,
-            'file'         => self::_realSeparator($isFile),
+            'file'         => $isFile,
             'function'     => $function,
             'namespace'    => $namespace,
             'openFunction' => $openFunction,
-            'subdir'       => self::_realSeparator($ifTrim ?? NULL)
+            'subdir'       => $ifTrim ?? NULL
         ];
-    }
-
-    //--------------------------------------------------------------------------------------------------
-    // Protected Real Separator
-    //--------------------------------------------------------------------------------------------------
-    //
-    // @param string $data = NULL
-    //
-    //--------------------------------------------------------------------------------------------------
-    protected static function _realSeparator($data = NULL)
-    {
-        return str_replace(['/', '\\'], DS, $data);
     }
 }

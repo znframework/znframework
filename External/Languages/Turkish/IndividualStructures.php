@@ -61,7 +61,7 @@
     'user:oldPasswordError'         => 'Şifrenizi yanlış girdiniz!',
     'user:passwordNotMatchError'    => 'Şifreler uyumlu değil!',
     'user:updateProcessSuccess'     => 'Güncelleme işlemi başarılı.',
-    'user:forgotPasswordError'      => 'Sistemde kayıtlı değilsiniz.',
+    'user:forgotPasswordError'      => 'Sistemde kayıtlı değilsiniz ya da kullanıcı adınız yanlış!',
     'user:forgotPasswordSuccess'    => 'Şifreniz e-postanıza gönderilmiştir.',
     'user:newYourPassword'          => 'Gönderilen Yeni Şifreniz.',
     'user:emailError'               => 'E-posta gönderilemedi!',
@@ -74,5 +74,7 @@
     'user:activationError'          => 'Aktivasyon işlemini tamamlamadan giriş yapamazsınız.',
     'user:activationEmail'          => 'Kaydınızın tamamlanması için lütfen e-posta adresinize gönderilen aktivasyon linkine tıklayınız.',
     'user:activationCompleteError'  => 'Aktivasyon işlemi tamamlanamadı!',
-    'user:activationComplete'       => 'Aktivasyon işlemi başarı ile tamamlandı.'
+    'user:activationComplete'       => 'Aktivasyon işlemi başarı ile tamamlandı.',
+    'user:verificationEmail'        => 'Doğrulama E-postası',
+    'user:verificationOrEmailError' => 'Doğrulama kodu veya Eposta bilgisi yanlış!'
 ];

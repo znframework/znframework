@@ -1,6 +1,5 @@
 <?php namespace ZN\Requirements\System;
 
-use Config, User;
 use ZN\In;
 use ZN\Services\URI;
 use ZN\FileSystem\Folder;
@@ -97,7 +96,7 @@ class Restoration
     //--------------------------------------------------------------------------------------------------------
     public static function routeURI($machinesIP, String $uri)
     {
-        if( ! in_array(User::ip(), (array) $machinesIP) && In::requestURI() !== $uri )
+        if( ! in_array(\User::ip(), (array) $machinesIP) && In::requestURI() !== $uri )
         {
             redirect($uri);
         }
@@ -112,12 +111,12 @@ class Restoration
     //--------------------------------------------------------------------------------------------------------
     public static function isMachinesIP($manipulation = NULL)
     {
-        $projects      = Config::get('Project');
+        $projects      = \Config::get('Project');
         $restorationIP = $projects['restoration']['machinesIP'];
 
         if( PROJECT_MODE === 'restoration' || $manipulation !== NULL)
         {
-            $ipv4 = User::ip();
+            $ipv4 = \User::ip();
 
             if( is_array($restorationIP) )
             {
@@ -155,7 +154,7 @@ class Restoration
         {
             $restorable = true;
 
-            Config::set('Project', 'restoration', ['machinesIP' => $settings['machinesIP']]);
+            \Config::set('Project', 'restoration', ['machinesIP' => $settings['machinesIP']]);
         }
 
         if( self::isMachinesIP($settings) === true )
@@ -166,7 +165,7 @@ class Restoration
         error_reporting(0);
 
         $currentPath          = $restorable === true ? strtolower(CURRENT_CFUNCTION) : strtolower(URI::active());
-        $projects             = Config::get('Project');
+        $projects             = \Config::get('Project');
         $restoration          = $projects['restoration'];
         $restorationPages     = $restorable === true && ! isset($settings['functions'])
                               ? ['main']

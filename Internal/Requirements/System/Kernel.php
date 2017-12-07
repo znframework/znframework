@@ -1,6 +1,5 @@
 <?php namespace ZN\Core;
 
-use Route, Throwable, Config, Generate, Restoration, URL, View, Masterpage, Http;
 use ZN\In;
 use ZN\Helpers\Logger;
 use ZN\FileSystem\File;
@@ -25,12 +24,14 @@ class Kernel
 
     public static function start()
     {
-        if( $autoloaderAliases = Config::get('Autoloader')['aliases'] ) foreach( $autoloaderAliases as $alias => $origin )
+        set_error_handler('ZN\ErrorHandling\Exceptions::table');
+        
+        if( $autoloaderAliases = \Config::get('Autoloader')['aliases'] ) foreach( $autoloaderAliases as $alias => $origin )
         {
             class_alias($origin, $alias);
         }
 
-        $appcon = Config::get('Project');
+        $appcon = \Config::get('Project');
 
         if( empty($appcon) ) trace('["Container"] Not Found! Check the [\'containers\'] setting in the [Settings/Projects.php] file.');
 
@@ -38,7 +39,7 @@ class Kernel
 
         In::projectMode(PROJECT_MODE, $appcon['errorReporting']);
 
-        $htaccessConfig = Config::get('Htaccess');
+        $htaccessConfig = \Config::get('Htaccess');
 
         if( $htaccessConfig['cache']['obGzhandler'] && substr_count(server('acceptEncoding'), 'gzip') )
         {
@@ -49,9 +50,9 @@ class Kernel
             ob_start();
         }
         
-        headers(Config::get('Project', 'headers'));
+        headers(\Config::get('Project', 'headers'));
 
-        if( IS::timeZone($timezone = Config::get('DateTime', 'timeZone')) ) date_default_timezone_set($timezone);
+        if( IS::timeZone($timezone = \Config::get('DateTime', 'timeZone')) ) date_default_timezone_set($timezone);
         
         //--------------------------------------------------------------------------------------------------
         // Middle Top Layer
@@ -59,20 +60,19 @@ class Kernel
         layer('MiddleTop');
         //--------------------------------------------------------------------------------------------------
 
-        if( $iniSet = $htaccessConfig['ini']['settings'] ) Config::iniSet($iniSet);
-        if( PROJECT_MODE !== 'publication' ) set_error_handler('ZN\ErrorHandling\Exceptions::table');
-        if( Config::htaccess('createFile') === true ) In::createHtaccessFile();
-        if( Config::robots  ('createFile') === true ) In::createRobotsFile();
+        if( $iniSet = $htaccessConfig['ini']['settings'] ) \Config::iniSet($iniSet);
+        if( \Config::htaccess('createFile') === true ) In::createHtaccessFile();
+        if( \Config::robots  ('createFile') === true ) In::createRobotsFile();
 
-        $generateConfig = Config::get('FileSystem', 'generate');
+        $generateConfig = \Config::get('FileSystem', 'generate');
 
-        if( $generateConfig['databases'] === true ) Generate::databases();
+        if( $generateConfig['databases'] === true ) \Generate::databases();
 
         if( $grandVision = $generateConfig['grandVision'] )
         {
             $databases = is_array($grandVision) ? $grandVision : NULL;
 
-            Generate::grandVision($databases);
+            \Generate::grandVision($databases);
         }
 
         if( Lang::current() )
@@ -86,10 +86,10 @@ class Kernel
             }
         }
 
-        if( $composer = Config::get('Autoloader', 'composer') ) self::_composer($composer);
-        if( ($starting = Config::get('Starting'))['autoload']['status'] === true ) self::_starting($starting);
+        if( $composer = \Config::get('Autoloader', 'composer') ) self::_composer($composer);
+        if( ($starting = \Config::get('Starting'))['autoload']['status'] === true ) self::_starting($starting);
         if( ! empty($starting['handload']) ) Import\Handload::use(...$starting['handload']);
-        if( PROJECT_MODE === 'restoration' ) Restoration::mode();
+        if( PROJECT_MODE === 'restoration' ) \Restoration::mode();
 
         In::invalidRequest('disallowMethods', true);
         In::invalidRequest('allowMethods', false);
@@ -139,34 +139,24 @@ class Kernel
                 }
 
                 if( is_callable([$page, $function]) )
-                {
-                    try
-                    {
-                        self::viewPathFinder($function, $viewPath, $wizardPath);
+                {     
+                    self::viewPathFinder($function, $viewPath, $wizardPath);
 
-                        $pageClass = uselib($page);
+                    $pageClass = uselib($page);
 
-                        $pageClass->$function(...$parameters);
+                    $pageClass->$function(...$parameters);
 
-                        self::viewAutoload($wizardPath, $viewPath, (array) $pageClass->view, (array) $pageClass->masterpage);
-                    }
-                    catch( Throwable $e )
-                    {
-                        if( PROJECT_MODE !== 'publication' )
-                        {
-                            Exceptions::table($e->getCode(), $e->getMessage(), $e->getFile(), $e->getLine(), $e->getTrace());
-                        }
-                    }
+                    self::viewAutoload($wizardPath, $viewPath, (array) $pageClass->view, (array) $pageClass->masterpage);          
                 }
                 else
                 {
-                    Route::redirectShow404($function);
+                    \Route::redirectShow404($function);
                 }
             }
         }
         else
         {
-            Route::redirectShow404(CURRENT_CONTROLLER, 'notFoundController', 'SystemNotFoundControllerError');
+            \Route::redirectShow404(CURRENT_CONTROLLER, 'notFoundController', 'SystemNotFoundControllerError');
         }
 
         //----------------------------------------------------------------------------------------------
@@ -189,7 +179,7 @@ class Kernel
     //--------------------------------------------------------------------------------------------------
     public static function viewPathFinder($function, &$viewPath, &$wizardPath)
     {
-        $viewNameType = Config::get('ViewObjects', 'viewNameType') ?: 'file';
+        $viewNameType = \Config::get('ViewObjects', 'viewNameType') ?: 'file';
 
         if( $viewNameType === 'file' )
         {
@@ -218,7 +208,7 @@ class Kernel
     public static function viewAutoload($wizardPath, $viewPath, $data, $pageClassMasterpage)
     {
         // 5.3.62[added]|5.3.77[edited]
-        if( Config::get('ViewObjects', 'ajaxCodeContinue') === false && Http::isAjax() )
+        if( \Config::get('ViewObjects', 'ajaxCodeContinue') === false && \Http::isAjax() )
         {
             return;
         }
@@ -241,7 +231,7 @@ class Kernel
             $inData = [];
         }
 
-        $data = array_merge((array) $pageClassMasterpage, $inData, Masterpage::$data);
+        $data = array_merge((array) $pageClassMasterpage, $inData, \Masterpage::$data);
 
         if( ($data['masterpage'] ?? NULL) === true || ! empty($data) )
         {
@@ -270,22 +260,17 @@ class Kernel
         layer('BottomTop');
         //----------------------------------------------------------------------------------------------
 
-        if( PROJECT_MODE !== 'publication' )
+        if( \Config::get('Project', 'log')['createFile'] === true && $errorLast = Errors::last() )
         {
-            restore_error_handler();
-        }
-        else
-        {
-            if(  Config::get('Project', 'log')['createFile'] === true && $errorLast = Errors::last() )
-            {
-                $lang    = Lang::select('Templates');
-                $message = $lang['line']   .':'.$errorLast['line'].', '.
-                           $lang['file']   .':'.$errorLast['file'].', '.
-                           $lang['message'].':'.$errorLast['message'];
+            $lang    = Lang::select('Templates');
+            $message = $lang['line']   .':'.$errorLast['line'].', '.
+                       $lang['file']   .':'.$errorLast['file'].', '.
+                       $lang['message'].':'.$errorLast['message'];
 
-                Logger::report('GeneralError', $message, 'GeneralError');
-            }
+            Logger::report('GeneralError', $message, 'GeneralError');
         }
+
+        restore_error_handler();
 
         ob_end_flush();
     }

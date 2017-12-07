@@ -2,8 +2,6 @@
 
 use ZN\Database\Abstracts\DriverConnectionMappingAbstract;
 use ZN\IndividualStructures\Support;
-use ZN\ErrorHandling\Errors;
-use stdClass, PDO, PDOException;
 use ZN\Database\Exception\ConnectionErrorException;
 
 class PDODriver extends DriverConnectionMappingAbstract
@@ -113,16 +111,16 @@ class PDODriver extends DriverConnectionMappingAbstract
 
         try
         {
-            $this->connect = new PDO
+            $this->connect = new \PDO
             (
                 $this->config['dsn'] ?: $this->_dsn($this->config), 
                 $this->config['user'], 
                 $this->config['password']
             );
         }
-        catch( PDOException $e )
+        catch( \PDOException $e )
         {
-            throw new ConnectionErrorException('Database', 'connectError');
+            throw new ConnectionErrorException($e);
         }
         
         if( ! empty($this->config['charset']  ) ) $this->connect->exec("SET NAMES '".$this->config['charset']."'");
@@ -252,7 +250,7 @@ class PDODriver extends DriverConnectionMappingAbstract
             $field     = $this->query->getColumnMeta($i);
             $fieldName = $field['name'];
 
-            $columns[$fieldName]             = new stdClass();
+            $columns[$fieldName]             = new \stdClass();
             $columns[$fieldName]->name       = $fieldName;
             $columns[$fieldName]->type       = $field['native_type'];
             $columns[$fieldName]->maxLength  = ($field['len'] > 0) ? $field['len'] : NULL;
@@ -386,7 +384,7 @@ class PDODriver extends DriverConnectionMappingAbstract
     {
         if( ! empty($this->query) )
         {
-            return $this->query->fetch(PDO::FETCH_BOTH);
+            return $this->query->fetch(\PDO::FETCH_BOTH);
         }
         else
         {
@@ -405,7 +403,7 @@ class PDODriver extends DriverConnectionMappingAbstract
     {
         if( ! empty($this->query) )
         {
-            return $this->query->fetch(PDO::FETCH_ASSOC);
+            return $this->query->fetch(\PDO::FETCH_ASSOC);
         }
         else
         {
@@ -477,7 +475,7 @@ class PDODriver extends DriverConnectionMappingAbstract
     {
         if( ! empty($this->connect) )
         {
-            return $this->connect->getAttribute(PDO::ATTR_SERVER_VERSION);
+            return $this->connect->getAttribute(\PDO::ATTR_SERVER_VERSION);
         }
         else
         {

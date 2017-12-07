@@ -1,6 +1,5 @@
 <?php namespace ZN\Requirements\System;
 
-use Crontab, Config, Generate, Cache, ZN;
 use ZN\Helpers\Logger;
 use ZN\Core\Structure;
 use ZN\DataTypes\Arrays;
@@ -98,13 +97,13 @@ class Console
             case 'run-model'            :
             case 'run-class'            : self::_runClass();                                            break;
             case 'run-cron'             : self::_runCron();                                             break;
-            case 'cron-list'            : echo Crontab::list();                                         break;
+            case 'cron-list'            : echo \Crontab::list();                                         break;
             case 'remove-cron'          : self::_removeCron();                                          break;
             case 'run-command'          : self::_runClass(PROJECT_COMMANDS_NAMESPACE);                  break;
             case 'run-external-command' : self::_runClass(EXTERNAL_COMMANDS_NAMESPACE);                 break;
             case 'run-function'         : self::_runFunction();                                         break;
-            case 'upgrade'              : self::_result(ZN::upgrade());                                 break;
-            case 'upgrade-files'        : self::_result(ZN::upgradeFiles());                            break;
+            case 'upgrade'              : self::_result(\ZN::upgrade());                                 break;
+            case 'upgrade-files'        : self::_result(\ZN::upgradeFiles());                            break;
             case 'start-restoration'    : 
             self::_result(Restoration::start
             (
@@ -113,36 +112,36 @@ class Console
             ));                                                                                         break;
             case 'end-restoration'      : self::_result(Restoration::end(self::$command));              break;
             case 'end-restoration-delete': self::_result(Restoration::endDelete(self::$command));       break;
-            case 'create-project'       : self::_result(Generate::project(self::$command));             break;
+            case 'create-project'       : self::_result(\Generate::project(self::$command));             break;
             case 'delete-project'       : self::_result(Folder\Forge::delete(PROJECTS_DIR . self::$command)); break;
-            case 'create-controller'    : self::_result(Generate::controller(self::$command,
+            case 'create-controller'    : self::_result(\Generate::controller(self::$command,
             [
                 'extends'   => 'Controller',
                 'namespace' => 'Project\Controllers',
                 'functions' => ['main']
             ]));                                                                                        break;
-            case 'create-grand-model'   : self::_result(Generate::model(self::$command,
+            case 'create-grand-model'   : self::_result(\Generate::model(self::$command,
             [
                 'extends'   => 'GrandModel'
             ]));
-            case 'create-grand-vision'  : self::_result(Generate::grandVision
+            case 'create-grand-vision'  : self::_result(\Generate::grandVision
             (
-                self::$command ?: Config::get('Database', 'database')['database'])
+                self::$command ?: \Config::get('Database', 'database')['database'])
             );                                                                                          break;
-            case 'delete-grand-vision'  : self::_result(Generate::deleteVision
+            case 'delete-grand-vision'  : self::_result(\Generate::deleteVision
             (
-                self::$command ?: Config::get('Database', 'database')['database'])
+                self::$command ?: \Config::get('Database', 'database')['database'])
             );                                                                                          break;
-            case 'create-model'         : self::_result(Generate::model(self::$command,
+            case 'create-model'         : self::_result(\Generate::model(self::$command,
             [
                 'extends'   => 'Model'
             ]));                                                                                        break;
-            case 'delete-controller'    : self::_result(Generate::delete(self::$command));              break;
-            case 'delete-model'         : self::_result(Generate::delete(self::$command, 'model'));     break;
-            case 'clean-cache'          : self::_result(Cache::clean());                                break;
+            case 'delete-controller'    : self::_result(\Generate::delete(self::$command));              break;
+            case 'delete-model'         : self::_result(\Generate::delete(self::$command, 'model'));     break;
+            case 'clean-cache'          : self::_result(\Cache::clean());                                break;
 
             // 5.3.5[added]
-            case 'generate-databases'   : self::_result(Generate::databases());                         break;
+            case 'generate-databases'   : self::_result(\Generate::databases());                         break;
             case 'command-list'         : self::_commandList();                                         break;
             default                     :
 
@@ -243,20 +242,20 @@ class Console
         {
             $func = $parameters[$index]  ?? NULL;
             $prm  = $parameters[$rindex] ?? NULL;
-            Crontab::$func($prm);
+            \Crontab::$func($prm);
         }
 
         if( IS::url(self::$command) )
         {
-            echo Crontab::wget(self::$command);
+            echo \Crontab::wget(self::$command);
         }
         elseif( strstr(self::$command, '/') )
         {
-            echo Crontab::controller(self::$command);
+            echo \Crontab::controller(self::$command);
         }
         else
         {
-            echo Crontab::command(self::$command);
+            echo \Crontab::command(self::$command);
         }
     }
 
@@ -269,7 +268,7 @@ class Console
     //--------------------------------------------------------------------------------------------------------
     protected static function _removeCron()
     {
-        echo Crontab::remove(self::$parameters[0] ?? NULL);
+        echo \Crontab::remove(self::$parameters[0] ?? NULL);
     }
 
     //--------------------------------------------------------------------------------------------------------

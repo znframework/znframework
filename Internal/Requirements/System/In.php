@@ -1,6 +1,5 @@
 <?php namespace ZN;
 
-use Config, GeneralException, Regex, Route, View, Masterpage, Http;
 use ZN\Services\URL;
 use ZN\Services\URI;
 use ZN\Helpers\Logger;
@@ -85,7 +84,7 @@ class In
     //--------------------------------------------------------------------------------------------------
     public static function invalidRequest(String $type, Bool $bool)
     {
-        $invalidRequest = Config::get('Services', 'route')['requestMethods'];
+        $invalidRequest = \Config::get('Services', 'route')['requestMethods'];
 
         if( $requestMethods = $invalidRequest[$type] )
         {
@@ -93,9 +92,9 @@ class In
 
             if( ! empty($requestMethod = $requestMethods[CURRENT_CFURI] ?? NULL) )
             {
-                if( Http::isRequestMethod(...(array) $requestMethod) === $bool )
+                if( \Http::isRequestMethod(...(array) $requestMethod) === $bool )
                 {
-                    Route::redirectInvalidRequest();
+                    \Route::redirectInvalidRequest();
                 }
             }
         }
@@ -215,7 +214,7 @@ class In
                 import($file);
             }
 
-            Route::all();
+            \Route::all();
         }
     }
 
@@ -232,7 +231,7 @@ class In
     {
         self::routeAll();
 
-        $config = Config::get('Services', 'route');
+        $config = \Config::get('Services', 'route');
 
         if( $config['openController'] )
         {
@@ -275,7 +274,7 @@ class In
             }
             else
             {
-                $requestUri = Regex::replace($key, $val, $requestUri, 'xi');
+                $requestUri = \Regex::replace($key, $val, $requestUri, 'xi');
             }
         }
 
@@ -293,7 +292,7 @@ class In
     //--------------------------------------------------------------------------------------------------
     public static function cleanInjection(String $string = NULL) : String
     {
-        $urlInjectionChangeChars = Config::get('Security', 'urlChangeChars');
+        $urlInjectionChangeChars = \Config::get('Security', 'urlChangeChars');
 
         return str_ireplace(array_keys($urlInjectionChangeChars), array_values($urlInjectionChangeChars), $string);
     }
@@ -307,7 +306,7 @@ class In
     //--------------------------------------------------------------------------------------------------
     public static function benchmarkReport($start, $finish)
     {
-        if( Config::get('Project', 'benchmark') === true )
+        if( \Config::get('Project', 'benchmark') === true )
         {
             //----------------------------------------------------------------------------------------------
             // System Elapsed Time Calculating
@@ -365,7 +364,7 @@ class In
     //--------------------------------------------------------------------------------------------------
     public static function startingConfig($config)
     {
-        if( $destruct = Config::get('Starting', $config) )
+        if( $destruct = \Config::get('Starting', $config) )
         {
             if( is_string($destruct) )
             {
@@ -418,7 +417,7 @@ class In
             {
                 Logger::report('Error', Lang::select('Error', 'callUserFuncArrayError', $controllerFunc), 'SystemCallUserFuncArrayError');
 
-                throw new GeneralException('Error', 'callUserFuncArrayError', $controllerFunc);
+                throw new \GeneralException('Error', 'callUserFuncArrayError', $controllerFunc);
             }
 
             $exclude = $controllerClass . '::exclude';
@@ -446,8 +445,8 @@ class In
 
             $return = $startingControllerClass->$controllerFunc(...$param);
 
-            self::$view[]       = array_merge((array) $startingControllerClass->view, View::$data);
-            self::$masterpage[] = array_merge((array) $startingControllerClass->masterpage, Masterpage::$data);
+            self::$view[]       = array_merge((array) $startingControllerClass->view, \View::$data);
+            self::$masterpage[] = array_merge((array) $startingControllerClass->masterpage, \Masterpage::$data);
         }
         else
         {
@@ -465,7 +464,7 @@ class In
     public static function createHtaccessFile()
     {
         // Cache.php ayar dosyasından ayarlar çekiliyor.
-        $htaccessSettings = Config::get('Htaccess');
+        $htaccessSettings = \Config::get('Htaccess');
 
         $config = $htaccessSettings['cache'];
         $eol    = EOL;
@@ -712,7 +711,7 @@ class In
 
         if( ! file_put_contents($htaccessTxt, trim($htaccess)) )
         {
-            throw new GeneralException('Error', 'fileNotWrite', $htaccessTxt);
+            throw new \GeneralException('Error', 'fileNotWrite', $htaccessTxt);
         }
     }
 
@@ -725,7 +724,7 @@ class In
     //--------------------------------------------------------------------------------------------------
     public static function createRobotsFile()
     {
-        $rules  = Config::get('Robots', 'rules');
+        $rules  = \Config::get('Robots', 'rules');
         $robots = '';
 
         if( IS::array($rules) ) foreach( $rules as $key => $val )
@@ -787,7 +786,7 @@ class In
 
         if( ! file_put_contents($robotTxt, trim($robots)) )
         {
-            throw new GeneralException('Error', 'fileNotWrite', $robotTxt);
+            throw new \GeneralException('Error', 'fileNotWrite', $robotTxt);
         }
     }
 }

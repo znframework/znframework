@@ -1,13 +1,15 @@
 <?php namespace Project\Controllers;
 
-use Restful, Separator, Strings, Route;
-use ZN\Core\Kernel, Cache, Config, User;
+use ZN\Core\Kernel;
 use ZN\Services\URI;
 use ZN\FileSystem\File;
 use ZN\FileSystem\Folder;
 use ZN\Helpers\Converter;
+use ZN\DataTypes\Separator;
 use ZN\IndividualStructures\Lang;
 use ZN\IndividualStructures\Buffer;
+use ZN\ErrorHandling\Exceptions;
+
 
 class ZN
 {
@@ -108,14 +110,14 @@ class ZN
     //--------------------------------------------------------------------------------------------------
     public static function run()
     {
-        Route::filter();
+        \Route::filter();
 
-        $projectConfig = Config::get('Project', 'cache');
+        $projectConfig = \Config::get('Project', 'cache');
 
         if
         (
             ($projectConfig['status'] ?? NULL) === true                                                                    &&
-            ( ! in_array(User::ip(), ($projectConfig['machinesIP'] ?? [])) )                                    &&
+            ( ! in_array(\User::ip(), ($projectConfig['machinesIP'] ?? [])) )                                    &&
             ( empty($projectConfig['include']) || in_array(CURRENT_CFPATH, ($projectConfig['include'] ?? [])) ) &&
             ( empty($projectConfig['exclude']) || ! in_array(CURRENT_CFPATH, ($projectConfig['exclude'] ?? [])) )
         )
@@ -124,16 +126,16 @@ class ZN
 
             $cacheName = ($projectConfig['prefix'] ?? Lang::get()) . '-' . $converterName;
 
-            Cache::driver($projectConfig['driver']);
+            \Cache::driver($projectConfig['driver']);
 
-            if( ! $select = Cache::select($cacheName, $projectConfig['compress']) )
+            if( ! $select = \Cache::select($cacheName, $projectConfig['compress']) )
             {
                 $kernel = Buffer\Callback::do(function()
                 {
                     Kernel::run();
                 });
 
-                Cache::insert($cacheName, $kernel, $projectConfig['time'], $projectConfig['compress']);
+                \Cache::insert($cacheName, $kernel, $projectConfig['time'], $projectConfig['compress']);
 
                 echo $kernel;
             }
@@ -144,8 +146,15 @@ class ZN
         }
         else
         {
-            Kernel::run();
-        }
+            try 
+            { 
+                Kernel::run();  
+            }
+            catch( \GeneralException $e )
+            {
+                Exceptions::table($e->getCode(), $e->getMessage(), $e->getFile(), $e->getLine(), $e->getTrace());
+            }
+        } 
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -170,9 +179,9 @@ class ZN
     //--------------------------------------------------------------------------------------------------
     protected static function _restful()
     {
-        $return = Restful::post('https://api.znframework.com/statistics/upgrade', ['version' => ZN_VERSION]);
+        $return = \Restful::post('https://api.znframework.com/statistics/upgrade', ['version' => ZN_VERSION]);
 
-        return Separator::decodeArray($return);
+        return Separator\Decode::array($return);
     }
 
     //--------------------------------------------------------------------------------------------------

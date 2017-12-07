@@ -1,12 +1,11 @@
 <?php namespace ZN\ErrorHandling;
 
-use Exception, Config;
 use ZN\Helpers\Logger;
 use ZN\DataTypes\Strings;
 use ZN\IndividualStructures\Lang;
 use ZN\IndividualStructures\Import;
 
-class Exceptions extends Exception implements ExceptionsInterface
+class Exceptions extends \Exception implements ExceptionsInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -16,6 +15,26 @@ class Exceptions extends Exception implements ExceptionsInterface
     // Copyright  : (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
+
+    public static $errorCodes = 
+    [
+        0       => 'ERROR',
+        2       => 'WARNING ',
+        4       => 'PARSE',
+        8       => 'NOTICE',
+        16      => 'CORE_ERROR',
+        32      => 'CORE_WARNING',
+        64      => 'COMPILE_ERROR',
+        128     => 'COMPILE_WARNING',
+        256     => 'USER_ERROR',
+        512     => 'USER_WARNING',
+        1024    => 'USER_NOTICE',
+        2048    => 'STRICT',
+        4096    => 'RECOVERABLE_ERROR',
+        8192    => 'DEPRECATED',
+        16384   => 'USER_DEPRECATED',
+        32767   => 'ALL'
+    ];
 
     //--------------------------------------------------------------------------------------------------------
     // To String
@@ -51,18 +70,28 @@ class Exceptions extends Exception implements ExceptionsInterface
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Table
+    // Table -> 5.4.6[edited]
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $msg
+    // @param mixed  $msg
     // @param string $file
     // @param string $line
     // @param string $no
     // @param array $trace
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function table(String $no = NULL, String $msg = NULL, String $file = NULL, String $line = NULL, Array $trace = NULL)
+    public static function table($no = NULL, String $msg = NULL, String $file = NULL, String $line = NULL, Array $trace = NULL)
     {
+        if( is_object($no) )
+        {
+            $msg   = $no->getMessage();
+            $file  = $no->getFile();
+            $line  = $no->getLine();
+            $trace = $no->getTrace(); 
+            
+            $no    = NULL;
+        }
+
         $lang    = Lang::select('Templates');
         $message = $lang['line'].':'.$line.', '.$lang['file'].':'.$file.', '.$lang['message'].':'.$msg;
 
@@ -72,7 +101,7 @@ class Exceptions extends Exception implements ExceptionsInterface
 
         // Error Type: TypeHint -> exit
 
-        if( in_array($no, Config::get('Project', 'exitErrors')) )
+        if( in_array($no, \Config::get('Project', 'exitErrors')) )
         {
             exit($table);
         }
@@ -131,7 +160,7 @@ class Exceptions extends Exception implements ExceptionsInterface
     //--------------------------------------------------------------------------------------------------------
     private static function _template($msg, $file, $line, $no, $trace)
     {
-        $projects = Config::get('Project');
+        $projects = \Config::get('Project');
 
         if( ! $projects['errorReporting'] )
         {
@@ -147,12 +176,14 @@ class Exceptions extends Exception implements ExceptionsInterface
         {
             return false;
         }
-
+        
         $exceptionData =
         [
+            'type'    => '['.self::$errorCodes[$no ?? 0].']',
             'message' => $msg,
             'file'    => $file,
-            'line'    => '['.$line.']'
+            'line'    => '['.$line.']',
+            'trace'   => $trace
         ];
 
         if( $passed = self::_argumentPassed($msg, $file, $line, $trace) )
@@ -162,7 +193,7 @@ class Exceptions extends Exception implements ExceptionsInterface
                 return false;
             }
 
-            if( Config::get('Project', 'invalidParameterErrorType') === 'external' )
+            if( \Config::get('Project', 'invalidParameterErrorType') === 'external' )
             {
                 $exceptionData = $passed;
             }
