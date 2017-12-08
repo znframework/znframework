@@ -1,6 +1,6 @@
 <?php namespace Project\Controllers;
 
-class Starter extends Controller
+class Initialize extends Controller
 {
     public function main(String $params = NULL)
     {
