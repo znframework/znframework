@@ -231,7 +231,7 @@
         //----------------------------------------------------------------------------------------------
         'encode' => 'super',
 
-        //----------------------------------------------------------------------------------------------
+         //----------------------------------------------------------------------------------------------
         // Matching
         //----------------------------------------------------------------------------------------------
         //
@@ -241,16 +241,19 @@
         // table: Eşleştirme yapılacak tablo adı.
         //
         // columns: Eşleştirme yapılacak sütunlar.
-        //     username  : Kullanıcı adı bilgisini tutan sütun adı.
-        //     password  : Kullanıcı şifresini tutan sütun adı.
-        //     email     : Kullanıcı adı bilgisi e-posta adresi içermiyorsa e-posta
-        //                 sütunu olarak kullanılır. bu nedenle kullanımı görecelidir.
-        //     active    :   Kullanıcıların aktif olup olmadığı bilgisini tutan sütun adı.
-        //                 0 ve 1 değeri alacak şekilde veri türü seçilmelidir.
-        //     banned    : Kullanıcıların banlı olup olmadığı bilgisini tutan sütun adı.
-        //                 0 ve 1 değeri alacak şekilde veri türü seçilmelidir.
-        //     otherLogin: Kullanıcı girişini username sütunu dışında başka sütunlardan
-        //                 da yapılabilmesini sağlamak için bu ayara diğer sütunlar eklenebilir
+        //     username     : Kullanıcı adı bilgisini tutan sütun adı.
+        //     password     : Kullanıcı şifresini tutan sütun adı.
+        //     email        : Kullanıcı adı bilgisi e-posta adresi içermiyorsa e-posta
+        //                    sütunu olarak kullanılır. bu nedenle kullanımı görecelidir.
+        //     active       : Kullanıcıların aktif olup olmadığı bilgisini tutan sütun adı.
+        //                    0 ve 1 değeri alacak şekilde veri türü seçilmelidir.
+        //     banned       : Kullanıcıların banlı olup olmadığı bilgisini tutan sütun adı.
+        //                    0 ve 1 değeri alacak şekilde veri türü seçilmelidir.
+        //     activation   : Üyelik aşamasında doğrulama yapılıp yapılmadığı bilgisini tutan kolon adı.
+        //     verification : Doğrulama e-postası yanında güvenlik için sorulan 2. sorunun hangi kolon adı kullanılacağı.
+        //                    Yani hangi kolondaki değerin 2. karşılaştırma için kullanılacağıdır.
+        //     otherLogin   : Kullanıcı girişini username sütunu dışında başka sütunlardan
+        //                    da yapılabilmesini sağlamak için bu ayara diğer sütunlar eklenebilir
         //
         //----------------------------------------------------------------------------------------------
         'matching' =>
@@ -259,13 +262,14 @@
 
             'columns' =>
             [
-                'username'   => '', // Required
-                'password'   => '', // Required
-                'email'      => '', // Relative
-                'active'     => '', // Relative
-                'banned'     => '', // Relative
-                'activation' => '', // Relative
-                'otherLogin' => []  // Relative
+                'username'     => '', // Required
+                'password'     => '', // Required
+                'email'        => '', // Relative
+                'active'       => '', // Relative
+                'banned'       => '', // Relative
+                'activation'   => '', // Relative
+                'verification' => '', // Rleative
+                'otherLogin'   => []  // Relative
             ]
         ],
 
