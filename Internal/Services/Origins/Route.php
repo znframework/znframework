@@ -644,48 +644,53 @@ class Route extends CLController implements RouteInterface
         $routeSegment = explode('/', $route);
 
         // Database Routing
-        $route = preg_replace_callback('/\[(\w+|\.)\:(\w+|\.)(\s*\,\s*((json|serial|separator))(\:(.*?))*)*\]/i', function($match) use (&$count, &$return, $routeSegment)
-        {
-            $count   = array_search($match[0], $routeSegment);
-            $decoder = $match[4] ?? NULL;
-            $value   = $val = URI::segment($count + 1);
-            $column  = $match[2];
-
-            // Json, Serial or Separator
-            if( $decoder !== NULL )
+        $route = preg_replace_callback
+        (
+            '/\[(\w+|\.)\:(\w+|\.)(\s*\,\s*((json|serial|separator))(\:(.*?))*)*\]/i', 
+            function($match) use (&$count, &$return, $routeSegment)
             {
-                $column = $match[2] . ' like';
-                $value  = DB::like($value, 'inside');
-            }
+                $count   = array_search($match[0], $routeSegment);
+                $decoder = $match[4] ?? NULL;
+                $value   = $val = URI::segment($count + 1);
+                $column  = $match[2];
 
-            $return = DB::select($match[2])->where($column, $value)->get($match[1])->value();
-
-            // Json, Serial or Separator
-            if( $decoder !== NULL )
-            {
-                $row       = $match[6] ?? Lang::get();
-                $rows      = $decoder::decode($return);
-                $rowsArray = $decoder::decodeArray($return);
-                $return    = $rows->$row ?? NULL;
-
-                // Current Lang Manipulation
-                if( $return !== $value && in_array($val, $rowsArray) )
+                // Json, Serial or Separator
+                if( $decoder !== NULL )
                 {
-                    $arrayTransform = array_flip($rowsArray);
+                    $column = $match[2] . ' like';
+                    $value  = DB::like($value, 'inside');
+                }
 
-                    $newRow = $arrayTransform[$val];
-                    $return = $rows->$newRow;
+                $return = DB::select($match[2])->where($column, $value)->get($match[1])->value();
 
-                    if( Lang::shortCodes($newRow) )
+                // Json, Serial or Separator
+                if( $decoder !== NULL )
+                {
+                    $row       = $match[6] ?? Lang::get();
+                    $rows      = $decoder::decode($return);
+                    $rowsArray = $decoder::decodeArray($return);
+                    $return    = $rows->$row ?? NULL;
+
+                    // Current Lang Manipulation
+                    if( $return !== $value && in_array($val, $rowsArray) )
                     {
-                        Lang::set($newRow);
+                        $arrayTransform = array_flip($rowsArray);
+
+                        $newRow = $arrayTransform[$val];
+                        $return = $rows->$newRow;
+
+                        if( Lang::shortCodes($newRow) )
+                        {
+                            Lang::set($newRow);
+                        }
                     }
                 }
-            }
 
-            return $return;
+                return $return;
 
-        }, $route);
+            }, 
+            $route
+        );
 
         if( empty($return) )
         {

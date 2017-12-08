@@ -95,6 +95,11 @@ class View
         {
             $return = Buffer\File::do($randomPagePath, $randomDataVariable);
 
+            if( \Theme::$active !== NULL )
+            {
+                TemplateWizard::themeIntegration(\Theme::$active, $return);
+            }
+
             if( $randomObGetContentsVariable === false )
             {
                 echo $return; return;

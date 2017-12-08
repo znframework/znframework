@@ -2466,14 +2466,14 @@ class DB extends Connection
     {
         if( ! empty($str) )
         {
-            $str = strtolower(trim($str));
+            $str = strtolower($orgstr = trim($str));
 
             switch( substr($str, -3) )
             {
                 case 'and' :
                 case 'xor' :
                 case 'not' :
-                return substr($str, 0, -3);
+                return substr($orgstr, 0, -3);
             }
 
             switch( substr($str, -2) )
@@ -2481,13 +2481,13 @@ class DB extends Connection
                 case 'or' :
                 case '||' :
                 case '&&' :
-                return substr($str, 0, -2);
+                return substr($orgstr, 0, -2);
             }
 
             switch( substr($str, -1) )
             {
                 case '!' :
-                return substr($str, 0, -1);
+                return substr($orgstr, 0, -1);
             }
         }
 
