@@ -1,6 +1,8 @@
 <?php namespace ZN\IndividualStructures\Buffer;
 
 use ZN\IndividualStructures\Buffer\Exception\InvalidArgumentException;
+use ZN\ErrorHandling\Exceptions;
+use ZN\ErrorHandling\Errors;
 
 class Callback
 {
@@ -30,10 +32,17 @@ class Callback
 
         ob_start();
 
-        eval('?>' . $randomBufferClassCallbackCode);
+        try 
+        { 
+            eval('?>' . $randomBufferClassCallbackCode);
+        }
+        catch( \Throwable $e )
+        {
+            Exceptions::table($e->getCode(), $e->getMessage(), $e->getFile(), $e->getLine());
+        }
 
         $randomBufferClassCallbackContents = ob_get_contents();
-
+        
         ob_end_clean();
 
         return $randomBufferClassCallbackContents;
