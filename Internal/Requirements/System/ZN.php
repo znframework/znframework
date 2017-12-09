@@ -116,8 +116,8 @@ class ZN
 
         if
         (
-            ($projectConfig['status'] ?? NULL) === true                                                                    &&
-            ( ! in_array(\User::ip(), ($projectConfig['machinesIP'] ?? [])) )                                    &&
+            ($projectConfig['status'] ?? NULL) === true                                                         &&
+            ( ! in_array(\User::ip(), ($projectConfig['machinesIP'] ?? [])) )                                   &&
             ( empty($projectConfig['include']) || in_array(CURRENT_CFPATH, ($projectConfig['include'] ?? [])) ) &&
             ( empty($projectConfig['exclude']) || ! in_array(CURRENT_CFPATH, ($projectConfig['exclude'] ?? [])) )
         )
@@ -150,7 +150,7 @@ class ZN
             { 
                 Kernel::run();  
             }
-            catch( \GeneralException $e )
+            catch( \Throwable $e )
             {
                 if( PROJECT_MODE !== 'publication' ) 
                 {

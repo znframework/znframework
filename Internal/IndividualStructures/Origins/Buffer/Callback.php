@@ -32,15 +32,8 @@ class Callback
 
         ob_start();
 
-        try 
-        { 
-            eval('?>' . $randomBufferClassCallbackCode);
-        }
-        catch( \Throwable $e )
-        {
-            Exceptions::table($e->getCode(), $e->getMessage(), $e->getFile(), $e->getLine());
-        }
-
+        eval('?>' . $randomBufferClassCallbackCode);
+       
         $randomBufferClassCallbackContents = ob_get_contents();
         
         ob_end_clean();
