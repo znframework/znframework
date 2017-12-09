@@ -53,7 +53,7 @@ class Socialite extends CLController
         // Default Callback Value: Current URL
         if( ! isset($parameters['callback']) )
         {
-            $parameters['callback'] = URL::current();
+            $parameters['callback'] = rtrim(URL::current(), '/');
         }
         else
         {

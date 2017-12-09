@@ -24,7 +24,7 @@ class TemplateWizard
     //--------------------------------------------------------------------------------------------------------
     public static function themeIntegration(String $themeName, String &$data)
     {
-        $data = preg_replace_callback('/<(link|img|script|div)\s(.*?)(href|src)\=\"(.*?)\"(.*?)\>/', function($selector) use ($themeName)
+        $data = preg_replace_callback('/<(link|img|script|div)\s(.*?)(href|src)\=\"(.*?)\"(.*?)\>/i', function($selector) use ($themeName)
         {
             $orig = $selector[0];
             $path = $selector[4];

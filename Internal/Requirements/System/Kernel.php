@@ -189,7 +189,7 @@ class Kernel
         else
         {
             $viewFunction = $function === CURRENT_COPEN_PAGE ? CURRENT_COPEN_PAGE : $function;
-            $viewDir      = self::_view(DS . $viewFunction);
+            $viewDir      = self::_view('/' . $viewFunction);
         }
 
         $viewPath   = $viewDir . '.php';
@@ -212,7 +212,7 @@ class Kernel
         {
             return;
         }
-
+        
         if( is_file($wizardPath) && ! IS::import($viewPath) && ! IS::import($wizardPath) )
         {
             $usableView = self::_load($wizardPath, $data);
@@ -232,7 +232,7 @@ class Kernel
         }
 
         $data = array_merge((array) $pageClassMasterpage, $inData, \Masterpage::$data);
-
+        
         if( ($data['masterpage'] ?? NULL) === true || ! empty($data) )
         {
             (new Import\Masterpage)->headData($data)->bodyContent($usableView ?? '')->use($data);
@@ -359,7 +359,7 @@ class Kernel
             $view = $subdir;
         }
 
-        return PAGES_DIR . $view . $fix;
+        return PAGES_DIR . suffix(\Theme::$active) . $view . $fix;
     }
 
     //--------------------------------------------------------------------------------------------------
