@@ -520,7 +520,7 @@ class Autoloader
     }
 
     //--------------------------------------------------------------------------------------------------
-    // Private Config
+    // Private Config -> 5.4.61[edited]
     //--------------------------------------------------------------------------------------------------
     //
     // @param void
@@ -531,8 +531,16 @@ class Autoloader
         if( is_file(self::$path) )
         {
             global $classMap;
-
-            require_once self::$path;
+            
+            // 5.4.61[added]
+            try
+            {
+                require_once self::$path;
+            }
+            catch( \Throwable $e )
+            {
+                self::restart();
+            }
 
             return $classMap;
         }

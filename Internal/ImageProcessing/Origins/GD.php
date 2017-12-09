@@ -1347,7 +1347,7 @@ class GD implements GDInterface
 
         if( ! empty($this->save) )
         {
-            $save = suffix($this->save, '.'.$type);
+            $save = suffix($this->save, '.'.($type === 'jpeg' ? 'jpg' : $type));
             $this->result['path'] = $save;
         }
         else

@@ -68,19 +68,11 @@ class Image implements ImageInterface
         {
             if( $width <= $x )
             {
-                $o = $x / $width;
-
-                $x = $width;
-
-                $y = $y / $o;
+                $o = $x / $width; $x = $width; $y = $y / $o;
             }
             else
             {
-                $o = $width / $x;
-
-                $x = $width;
-
-                $y = $y * $o;
+                $o = $width / $x; $x = $width; $y = $y * $o;
             }
         }
 
@@ -88,19 +80,11 @@ class Image implements ImageInterface
         {
             if( $height <= $y )
             {
-                $o = $y / $height;
-
-                $y = $height;
-
-                $x = $x / $o;
+                $o = $y / $height; $y = $height; $x = $x / $o;
             }
             else
             {
-                $o = $height / $y;
-
-                $y = $height;
-
-                $x = $x * $o;
+                $o = $height / $y; $y = $height; $x = $x * $o;
             }
         }
 
@@ -167,15 +151,8 @@ class Image implements ImageInterface
 
         $rWidth = $width; $rHeight = $height;
 
-        if( ! empty($rewidth) )
-        {
-            $width = $rewidth;
-        }
-
-        if( ! empty($reheight) )
-        {
-            $height = $reheight;
-        }
+        if( ! empty($rewidth ) ) $width  = $rewidth;
+        if( ! empty($reheight) ) $height = $reheight;
 
         $prefix = "-".$x."x".$y."px-".$width."x".$height."size";
 
@@ -194,7 +171,6 @@ class Image implements ImageInterface
         }
 
         $rFile   = $this->fromFileType($filePath);
-
         $nFile   = imagecreatetruecolor($width, $height);
 
         if( ! empty($set['prowidth']) || ! empty($set['proheight']) )
