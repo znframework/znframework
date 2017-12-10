@@ -433,6 +433,7 @@ class Autoloader
                         if( ! is_dir($dir) )
                         {
                             mkdir($dir, $directoryPermission, true);
+                            file_put_contents($dir . '.htaccess', 'Deny from all');
                         }
 
                         if( ! is_dir($newDir) )
