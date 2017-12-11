@@ -206,7 +206,7 @@ class TemplateWizard
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Protected Functions
+    // Protected Functions -> 5.4.7[edited]
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string $htmlRegexChar
@@ -221,7 +221,7 @@ class TemplateWizard
             $array =
             [
                 '/@@(\w+.*?\))\:/s' => '<?php echo $1 ?>', // Function
-                '/@(\w+.*?\))\:/s'  => '<?php echo $1 ?>'  // Function
+                '/@(\w+.*?\))\:/s'  => '<?php if( is_scalar($1) ) echo $1; ?>'  // Function
             ];
         }
 

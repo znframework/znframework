@@ -360,11 +360,14 @@ class HTML
     //--------------------------------------------------------------------------------------------------------
     public function multiAttr(String $str, Array $array = []) : String
     {
+        $perm  = $this->settings['attr']['perm'] ?? NULL;
+
         if( is_array($array) )
         {
-            $open = '';
+            $open  = '';
             $close = '';
-            $att = '';
+            $att   = '';
+           
 
             foreach( $array as $k => $v )
             {
@@ -392,10 +395,10 @@ class HTML
         }
         else
         {
-            return $str;
+            return $this->_perm($perm, $str);
         }
 
-        return $open.$str.$close;
+        return $this->_perm($perm, $open.$str.$close);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -432,9 +435,9 @@ class HTML
     {
         $type = strtolower($type);
 
-        $str = "<$type>$html</$type>";
+        $perm = $this->settings['attr']['perm'] ?? NULL;
 
-        return $str;
+        return $this->_perm($perm, "<$type>$html</$type>");
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -447,9 +450,13 @@ class HTML
             $content = '';
         }
 
-        $type = strtolower($type);
+        $type   = strtolower($type);
 
-        return '<'.$type.$this->attributes($_attributes).'>'.$content."</$type>".EOL;
+        $perm   = $this->settings['attr']['perm'] ?? NULL;
+        
+        $return = '<'.$type.$this->attributes($_attributes).'>'.$content."</$type>".EOL;
+
+        return $this->_perm($perm, $return);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -463,7 +470,9 @@ class HTML
     //--------------------------------------------------------------------------------------------------------
     protected function _media($src, $_attributes, $type)
     {
-        return '<'.strtolower($type).'src="'.$src.'"'.$this->attributes($_attributes).'>'.EOL;
+        $perm = $this->settings['attr']['perm'] ?? NULL;
+
+        return $this->_perm($perm, '<'.strtolower($type).'src="'.$src.'"'.$this->attributes($_attributes).'>'.EOL);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -480,7 +489,9 @@ class HTML
     {
         $type = strtolower($type);
 
-        return '<'.$type.'src="'.$src.'"'.$this->attributes($_attributes).'>'.$content."</$type>".EOL;
+        $perm = $this->settings['attr']['perm'] ?? NULL;
+
+        return $this->_perm($perm, '<'.$type.'src="'.$src.'"'.$this->attributes($_attributes).'>'.$content."</$type>".EOL);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -496,7 +507,9 @@ class HTML
     {
         $element = strtolower($element);
 
-        return '<'.$element.$this->attributes($attributes).'>'.$str.'</'.$element.'>';
+        $perm    = $this->settings['attr']['perm'] ?? NULL;
+
+        return $this->_perm($perm, '<'.$element.$this->attributes($attributes).'>'.$str.'</'.$element.'>');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -509,7 +522,9 @@ class HTML
     //--------------------------------------------------------------------------------------------------------
     protected function _singleElement($element, $attributes = [])
     {
-        return '<'.strtolower($element).$this->attributes($attributes).'>';
+        $perm = $this->settings['attr']['perm'] ?? NULL;
+
+        return $this->_perm($perm, '<'.strtolower($element).$this->attributes($attributes).'>');
     }
 
     //--------------------------------------------------------------------------------------------------------

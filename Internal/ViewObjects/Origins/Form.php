@@ -193,7 +193,11 @@ class Form
             $value = $this->_getrow('textarea', $value, $this->settings['attr']);
         }
 
-        return '<textarea'.$this->attributes($_attributes).'>'.$value.'</textarea>'.EOL;
+        $perm   = $this->settings['attr']['perm'] ?? NULL;
+
+        $return = '<textarea'.$this->attributes($_attributes).'>'.$value.'</textarea>'.EOL;
+
+        return $this->_perm($perm, $return);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -291,6 +295,8 @@ class Form
             $selected = $this->_getrow('select', $selected, $_attributes);
         }
 
+        $perm      = $this->settings['attr']['perm'] ?? NULL;
+
         $selectbox = '<select'.$this->attributes($_attributes).'>';
 
         if( is_array($options) ) foreach( $options as $key => $value )
@@ -325,7 +331,7 @@ class Form
 
         $this->_unsetselect();
 
-        return $selectbox;
+        return $this->_perm($perm, $selectbox);
     }
 
     //--------------------------------------------------------------------------------------------------------

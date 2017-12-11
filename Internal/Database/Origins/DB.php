@@ -235,7 +235,7 @@ class DB extends Connection
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Select
+    // Select -> 5.4.7[edited]
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string ...$condition
@@ -248,7 +248,11 @@ class DB extends Connection
             $condition[0] = '*';
         }
 
-        $condition = rtrim(implode(',', $condition), ',');
+        $condition = rtrim(implode(',', array_map(function($value)
+        { 
+            return $this->_tablePrefixColumnControl($value); 
+            
+        }, $condition)), ',');
 
         $this->select = ' '.$condition.' ';
 
@@ -2340,7 +2344,7 @@ class DB extends Connection
 
         $column = $this->_equalControl($column);
 
-        return ' '.$column.' '.$value.' '.$logical.' ';
+        return ' '.$this->_tablePrefixColumnControl($column).' '.$value.' '.$logical.' ';
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -2531,32 +2535,32 @@ class DB extends Connection
     //--------------------------------------------------------------------------------------------------------
     protected function _join($tableAndColumn = '', $otherColumn = '', $operator = '=', $type = 'INNER')
     {
-        $tableAndColumn = explode('.', $tableAndColumn);
-        $db             = '';
-
-        switch( count($tableAndColumn) )
-        {
-            case 2 :
-                $table  = isset($tableAndColumn[0]) ? $this->prefix.$tableAndColumn[0] : '';
-                $column = isset($tableAndColumn[1]) ? $tableAndColumn[1]               : '';
-            break;
-
-            case 3 :
-                $db     = isset($tableAndColumn[0]) ? $tableAndColumn[0] . '.'         : '';
-                $table  = isset($tableAndColumn[1]) ? $this->prefix.$tableAndColumn[1] : '';
-                $column = isset($tableAndColumn[2]) ? $tableAndColumn[2]               : '';
-            break;
-
-            default:
-                $table  = $tableAndColumn[0];
-                $column = $otherColumn;
-        }
-
-
-
-        $condition = $db.$table.'.'.$column.' '.$operator.' '.$this->prefix.$otherColumn.' ';
-
+        $condition = $this->_tablePrefixColumnControl($tableAndColumn, $table).' '.
+                     $operator.' '.
+                     $this->_tablePrefixColumnControl($otherColumn).' ';
+        
         $this->join($table, $condition, $type);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Table Prefix Column Control
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param  string $column
+    // @return string &$table = NULL
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _tablePrefixColumnControl($column, &$table = NULL)
+    {
+        $column = explode('.', $column);
+
+        switch( count($column) )
+        {
+            case 2 : return $this->prefix.($table = $column[0]).'.'.$column[1];
+            case 3 : return $column[0].'.'.$this->prefix.($table = $column[1]).'.'.$column[2];
+            case 1 : 
+            default: return $table = $column[0];
+        }
     }
 
     //--------------------------------------------------------------------------------------------------------

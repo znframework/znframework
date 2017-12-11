@@ -3,6 +3,7 @@
 use Classes, Json;
 use ZN\DataTypes\Strings;
 use ZN\DataTypes\Arrays;
+use ZN\IndividualStructures\Permission;
 
 trait ViewCommonTrait
 {
@@ -244,7 +245,29 @@ trait ViewCommonTrait
             $this->_getrow($type, $value, $attributes);
         }
 
-        return '<input type="'.$type.'"'.$this->attributes($attributes).'>'.EOL;
+        $perm   = $this->settings['attr']['perm'] ?? NULL;
+        
+        $return = '<input type="'.$type.'"'.$this->attributes($attributes).'>'.EOL;
+
+        return $this->_perm($perm, $return);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // protected _perm() -> 5.4.5
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $perm
+    // @param array  $return
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _perm($perm, $return)
+    {
+        if( $perm !== NULL )
+        {
+            return Permission\Process::use($perm, $return);
+        }
+
+        return $return;
     }
 
     //--------------------------------------------------------------------------------------------------------
