@@ -122,7 +122,7 @@ class PostgresDriver extends DriverConnectionMappingAbstract
 
         if( empty($this->connect) )
         {
-            throw new ConnectionErrorException('Database', 'connectError');
+            throw new ConnectionErrorException();
         }
 
         if( ! empty($this->config['charset']) )

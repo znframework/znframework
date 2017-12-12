@@ -28,7 +28,7 @@ class McryptDriver extends CryptoMapping
 	{
         if( IS::phpVersion('7.2') )
         {
-            throw new UnsupportedExtensionException('mcrypt_* extensions is unsupported since [PHP 7.2]!');
+            throw new UnsupportedExtensionException();
         }
 
 		parent::__construct();

@@ -48,7 +48,7 @@ class PipeDriver extends EmailMappingAbstract
 
         if( empty($open) )
         {
-            throw new FailureSendEmailException('Services', 'email:sendFailureSendmail');
+            throw new FailureSendEmailException();
         }
 
         @fputs($open, $headers);

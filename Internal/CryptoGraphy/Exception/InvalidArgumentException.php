@@ -1,6 +1,6 @@
 <?php namespace ZN\CryptoGraphy\Exception;
 
-class InvalidArgumentException extends \InvalidArgumentException
+class InvalidArgumentException extends \GeneralException
 {
-    use \ExclusionAbility;
+    
 }

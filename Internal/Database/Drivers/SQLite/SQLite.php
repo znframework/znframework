@@ -110,7 +110,7 @@ class SQLiteDriver extends DriverConnectionMappingAbstract
         }
         catch(Exception $e)
         {
-            throw new ConnectionErrorException('Database', 'connectError');
+            throw new ConnectionErrorException();
         }
     }
 

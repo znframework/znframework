@@ -1,6 +1,6 @@
 <?php namespace ZN\Database\Exception;
 
-class InvalidArgumentException extends \InvalidArgumentException
+class InvalidArgumentException extends \GeneralException
 {
-    use \ExclusionAbility;
+    
 }

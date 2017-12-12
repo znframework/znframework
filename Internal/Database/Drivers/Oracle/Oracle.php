@@ -145,7 +145,7 @@ class OracleDriver extends DriverConnectionMappingAbstract
 
         if( empty($this->connect) )
         {
-            throw new ConnectionErrorException('Database', 'connectError');
+            throw new ConnectionErrorException();
         }
     }
 

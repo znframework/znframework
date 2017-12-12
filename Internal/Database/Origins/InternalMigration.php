@@ -1,7 +1,6 @@
 <?php namespace ZN\Database;
 
 use DB, DBForge, Config, Date;
-use ZN\Database\Exception\DatabaseErrorException;
 use ZN\FileSystem\File;
 use ZN\FileSystem\Folder;
 

@@ -23,21 +23,37 @@ trait ExclusionAbility
     // @param mixed  $changed
     //
     //--------------------------------------------------------------------------------------------------------
-    public function __construct($file, String $message = NULL, $changed = NULL)
+    public function __construct($file = NULL, $message = NULL, $changed = NULL)
     {
-        if( $data = Lang::select($file, $message, $changed) )
+        if( defined('static::lang') && $file === NULL )
         {
-            $message = $data;
-        }
-        elseif( is_object($file) )
-        {
-            $message = $file->getMessage();
+            $file = static::lang[Lang::get()] ?? 'No Exception Lang';
+
+            $message = static::lang['placement'] ?? $message;
+
+            if( is_array($message) )
+            {
+                $file = str_replace(array_keys($message), array_values($message), $file);
+            }
+            
+            $message = $file;
         }
         else
         {
-            $message = $file;
+            if( $data = Lang::select($file, $message, $changed) )
+            {
+                $message = $data;
+            }
+            elseif( is_object($file) )
+            {
+                $message = $file->getMessage();
+            }
+            else
+            {
+                $message = $file;
+            }    
         }
-
+       
         parent::__construct($message);
     }
 

@@ -27,7 +27,7 @@ class PhashDriver extends CryptoMapping
 	{
 		if( ! IS::phpVersion('5.5') )
 		{
-			throw new InvalidVersionException('Error', 'invalidVersion', ['%' => '[password_*]', '#' => '[5.5]']);
+			throw new InvalidVersionException();
 		}
 
         parent::__construct();

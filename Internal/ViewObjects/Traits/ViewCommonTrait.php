@@ -4,6 +4,7 @@ use Classes, Json;
 use ZN\DataTypes\Strings;
 use ZN\DataTypes\Arrays;
 use ZN\IndividualStructures\Permission;
+use ZN\ViewObjects\Exception\PermissionRoleIdException;
 
 trait ViewCommonTrait
 {
@@ -153,7 +154,7 @@ trait ViewCommonTrait
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Attributes
+    // Attributes -> 5.4.7[edited]
     //--------------------------------------------------------------------------------------------------------
     //
     // @param array $attributes
@@ -161,6 +162,8 @@ trait ViewCommonTrait
     //--------------------------------------------------------------------------------------------------------
     public function attributes(Array $attributes) : String
     {
+        unset($this->settings['attr']['perm']);
+
         $attribute = '';
 
         if( ! empty($this->settings['attr']) )
@@ -264,6 +267,11 @@ trait ViewCommonTrait
     {
         if( $perm !== NULL )
         {
+            if( Permission\PermissionExtends::$roleId === NULL )
+            {
+                throw new PermissionRoleIdException();
+            }
+
             return Permission\Process::use($perm, $return);
         }
 
