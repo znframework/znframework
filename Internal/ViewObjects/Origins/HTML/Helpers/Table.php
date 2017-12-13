@@ -1,7 +1,6 @@
 <?php namespace ZN\ViewObjects\HTML\Helpers;
 
 use ZN\ViewObjects\Abstracts\HTMLHelpersAbstract;
-use Html;
 
 class Table extends HTMLHelpersAbstract
 {
@@ -144,7 +143,7 @@ class Table extends HTMLHelpersAbstract
     //--------------------------------------------------------------------------------------------------------
     public function create(...$elements) : String
     {
-        $table  = '<table'.Html::attributes($this->attr).'>';
+        $table  = '<table'.\Html::attributes($this->attr).'>';
         $table .= $this->_content(...$elements);
         $table .= '</table>';
 
@@ -184,7 +183,7 @@ class Table extends HTMLHelpersAbstract
 
                 if(is_array($v))
                 {
-                    $attr = Html::attributes($v);
+                    $attr = \Html::attributes($v);
                     $val  = $k;
                 }
 

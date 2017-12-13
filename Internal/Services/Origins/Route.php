@@ -1,17 +1,16 @@
 <?php namespace ZN\Services;
 
+use ZN\In;
 use ZN\Core\Structure;
 use ZN\Core\Kernel;
-use ZN\In;
 use ZN\Helpers\Logger;
 use ZN\DataTypes\Strings;
 use ZN\DataTypes\Arrays;
 use ZN\ErrorHandling\Errors;
 use ZN\IndividualStructures\Lang;
 use ZN\IndividualStructures\Security;
-use Config, CLController, Import, Regex, Restoration, IS, Masterpage, DB;
 
-class Route extends CLController implements RouteInterface
+class Route extends \CLController implements RouteInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -323,7 +322,7 @@ class Route extends CLController implements RouteInterface
             $this->change('404');
         }
 
-        Config::set('Services', 'route', ['show404' => $this->route]);
+        \Config::set('Services', 'route', ['show404' => $this->route]);
 
         $this->uri($controllerAndMethod);
     }
@@ -527,9 +526,11 @@ class Route extends CLController implements RouteInterface
     {
         $path = rtrim($path, '/');
 
+        $routeConfig = \Config::get('Services', 'route');
+
         if( ! strstr($path, '/') )
         {
-            $path = suffix($path) . Config::get('Services', 'route')['openFunction'];
+            $path = suffix($path) . $routeConfig['openFunction'];
         }
 
         $lowerPath = strtolower($path);
@@ -547,11 +548,11 @@ class Route extends CLController implements RouteInterface
             return false;
         }
 
-        $configPatternType = Config::get('Services', 'route')['patternType'];
+        $configPatternType = $routeConfig['patternType'];
 
         if( $configPatternType === 'classic' )
         {
-            $routeString = Regex::special2classic($this->route);
+            $routeString = \Regex::special2classic($this->route);
         }
         elseif( $configPatternType === 'special' )
         {
@@ -583,9 +584,9 @@ class Route extends CLController implements RouteInterface
     {
         if( ! empty($this->routes) )
         {
-            $config = Config::get('Services', 'route');
+            $config = \Config::get('Services', 'route');
 
-            Config::set('Services', 'route',
+            \Config::set('Services', 'route',
             [
                 'changeUri' => array_merge($this->routes['changeUri'], $config['changeUri'])
             ]);
@@ -658,10 +659,10 @@ class Route extends CLController implements RouteInterface
                 if( $decoder !== NULL )
                 {
                     $column = $match[2] . ' like';
-                    $value  = DB::like($value, 'inside');
+                    $value  = \DB::like($value, 'inside');
                 }
 
-                $return = DB::select($match[2])->where($column, $value)->get($match[1])->value();
+                $return = \DB::select($match[2])->where($column, $value)->get($match[1])->value();
 
                 // Json, Serial or Separator
                 if( $decoder !== NULL )
@@ -754,7 +755,7 @@ class Route extends CLController implements RouteInterface
     //--------------------------------------------------------------------------------------------------------
     public function redirectInvalidRequest()
     {
-        $invalidRequest = Config::get('Services', 'route')['requestMethods'];
+        $invalidRequest = \Config::get('Services', 'route')['requestMethods'];
 
         if( empty($invalidRequest['page']) )
         {
@@ -778,7 +779,7 @@ class Route extends CLController implements RouteInterface
     //--------------------------------------------------------------------------------------------------------
     public function redirectShow404(String $function, String $lang = 'callUserFuncArrayError', String $report = 'SystemCallUserFuncArrayError')
     {
-        if( ! $routeShow404 = Config::get('Services', 'route')['show404'] )
+        if( ! $routeShow404 = \Config::get('Services', 'route')['show404'] )
         {
             Logger::report('Error', Lang::select('Error', $lang, $function), $report);
             
@@ -821,7 +822,7 @@ class Route extends CLController implements RouteInterface
         {
             if( $type = ($this->csrfs[CURRENT_CFURI]['csrf'] ?? NULL) )
             {
-                $redirect = $this->redirects[CURRENT_CFURI]['redirect'] ?? Config::get('Services', 'route')['requestMethods']['page'];
+                $redirect = $this->redirects[CURRENT_CFURI]['redirect'] ?? \Config::get('Services', 'route')['requestMethods']['page'];
 
                 Security\CrossSiteRequestForgery::token($redirect, $type);
             }
@@ -926,7 +927,7 @@ class Route extends CLController implements RouteInterface
                           ? $this->redirects[CURRENT_CFURI]['redirect'] ?? PROJECT_RESTORATION_CONFIG['routePage']
                           : $restore['uri'];
 
-                Restoration::routeURI($restore['ips'], $routeURI);
+                \Restoration::routeURI($restore['ips'], $routeURI);
             }
         }
     }
@@ -944,7 +945,7 @@ class Route extends CLController implements RouteInterface
         {
             if( $cache = ($this->caches[CURRENT_CFURI]['cache'] ?? NULL) )
             {
-                Config::set('Project', 'cache', $cache);
+                \Config::set('Project', 'cache', $cache);
             }
         }
     }
@@ -962,7 +963,7 @@ class Route extends CLController implements RouteInterface
         {
             if( $nocache = ($this->nocaches[CURRENT_CFURI]['nocache'] ?? NULL) )
             {
-                Config::set('Project', 'cache', $nocache);
+                \Config::set('Project', 'cache', $nocache);
             }
         }
     }

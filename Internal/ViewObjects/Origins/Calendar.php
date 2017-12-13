@@ -1,12 +1,11 @@
 <?php namespace ZN\ViewObjects;
 
-use Config, CLController;
 use ZN\Services\URL;
 use ZN\Services\URI;
 use ZN\IndividualStructures\IS;
 use ZN\IndividualStructures\Lang;
 
-class Calendar extends CLController implements CalendarInterface
+class Calendar implements CalendarInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -255,7 +254,7 @@ class Calendar extends CLController implements CalendarInterface
     //--------------------------------------------------------------------------------------------------------
     public function settings(Array $settings) : Calendar
     {
-        Config::set('ViewObjects', 'calendar', $settings);
+        \Config::set('ViewObjects', 'calendar', $settings);
 
         return $this;
     }

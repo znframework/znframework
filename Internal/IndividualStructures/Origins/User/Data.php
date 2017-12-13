@@ -1,7 +1,5 @@
 <?php namespace ZN\IndividualStructures\User;
 
-use Session, Cookie, DB;
-
 class Data extends UserExtends
 {
     //--------------------------------------------------------------------------------------------------------
@@ -17,8 +15,8 @@ class Data extends UserExtends
         $usernameColumn  = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['columns']['username'];
         $passwordColumn  = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['columns']['password'];
 
-        $sessionUserName = Session::select($usernameColumn) ? Session::select($usernameColumn) : Cookie::select($usernameColumn);
-        $sessionPassword = Session::select($passwordColumn) ? Session::select($passwordColumn) : Cookie::select($passwordColumn);
+        $sessionUserName = \Session::select($usernameColumn) ? \Session::select($usernameColumn) : \Cookie::select($usernameColumn);
+        $sessionPassword = \Session::select($passwordColumn) ? \Session::select($passwordColumn) : \Cookie::select($passwordColumn);
 
         if( ! empty($sessionUserName) )
         {
@@ -29,7 +27,7 @@ class Data extends UserExtends
 
             $this->_multiUsernameColumns($sessionUserName);
 
-            $r[$tbl] = DB::where($usernameColumn, $sessionUserName, 'and')
+            $r[$tbl] = \DB::where($usernameColumn, $sessionUserName, 'and')
                          ->where($passwordColumn, $sessionPassword)
                          ->get($tableName)
                          ->row();
@@ -38,7 +36,7 @@ class Data extends UserExtends
             {
                 $this->_multiUsernameColumns($sessionUserName);
 
-                $joinCol = DB::where($usernameColumn, $sessionUserName, 'and')
+                $joinCol = \DB::where($usernameColumn, $sessionUserName, 'and')
                              ->where($passwordColumn, $sessionPassword)
                              ->get($tableName)
                              ->row()
@@ -46,7 +44,7 @@ class Data extends UserExtends
 
                 foreach( $joinTables as $table => $joinColumn )
                 {
-                    $r[$table] = DB::where($joinColumn, $joinCol)
+                    $r[$table] = \DB::where($joinColumn, $joinCol)
                                    ->get($table)
                                    ->row();
                 }
@@ -87,7 +85,7 @@ class Data extends UserExtends
         $column    = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['columns'][$type];
         $tableName = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['table'];
 
-        return DB::where($column, 1)->get($tableName)->totalRows();
+        return \DB::where($column, 1)->get($tableName)->totalRows();
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -115,6 +113,6 @@ class Data extends UserExtends
     {
         $tableName = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['table'];
 
-        return DB::get($tableName)->totalRows();
+        return \DB::get($tableName)->totalRows();
     }
 }

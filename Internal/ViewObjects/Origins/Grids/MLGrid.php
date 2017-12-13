@@ -1,6 +1,5 @@
 <?php namespace ZN\ViewObjects;
 
-use ML;
 use ZN\ViewObjects\Abstracts\GridAbstract;
 
 class MLGrid extends GridAbstract
@@ -23,7 +22,7 @@ class MLGrid extends GridAbstract
     //--------------------------------------------------------------------------------------------------------
     public function url(String $url) : MLGrid
     {
-        ML::url($url);
+        \ML::url($url);
 
         return $this;
     }
@@ -37,7 +36,7 @@ class MLGrid extends GridAbstract
     //--------------------------------------------------------------------------------------------------------
     public function limit(Int $limit) : MLGrid
     {
-        ML::limit($limit);
+        \ML::limit($limit);
 
         return $this;
     }
@@ -53,6 +52,6 @@ class MLGrid extends GridAbstract
     //--------------------------------------------------------------------------------------------------------
     public function create($app = NULL) : String
     {
-        return ML::table($app);
+        return \ML::table($app);
     }
 }

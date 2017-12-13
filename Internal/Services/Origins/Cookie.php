@@ -1,6 +1,5 @@
 <?php namespace ZN\Services;
 
-use Config;
 use ZN\Services\Exception\SetcookieException;
 use ZN\IndividualStructures\IS;
 use ZN\CryptoGraphy\Encode;
@@ -74,7 +73,7 @@ class Cookie implements CookieInterface, SessionCookieCommonInterface
     {
         \Session::start();
 
-        $this->config = Config::services('cookie');
+        $this->config = \Config::services('cookie');
     }
 
     //--------------------------------------------------------------------------------------------------------

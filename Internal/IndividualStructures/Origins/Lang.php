@@ -1,6 +1,6 @@
 <?php namespace ZN\IndividualStructures;
 
-use ZN\In, Config, Session;
+use ZN\In;
 
 class Lang implements LangInterface
 {
@@ -296,7 +296,7 @@ class Lang implements LangInterface
     //--------------------------------------------------------------------------------------------------
     public static function current() : String
     {
-        if( ! Config::get('Services','uri')['lang'] )
+        if( ! \Config::get('Services','uri')['lang'] )
         {
             return false;
         }
@@ -397,10 +397,10 @@ class Lang implements LangInterface
     {
         if( empty($l) )
         {
-            $l = Config::get('Language', 'default');
+            $l = \Config::get('Language', 'default');
         }
 
-        return Session::insert(In::defaultProjectKey('SystemLanguageData'), $l);
+        return \Session::insert(In::defaultProjectKey('SystemLanguageData'), $l);
     }
 
 
@@ -418,32 +418,32 @@ class Lang implements LangInterface
         $systemLanguageData        = In::defaultProjectKey('SystemLanguageData');
         $defaultSystemLanguageData = In::defaultProjectKey('DefaultSystemLanguageData');
 
-        $default = Config::get('Language', 'default');
+        $default = \Config::get('Language', 'default');
 
-        if( ! Session::select($defaultSystemLanguageData) )
+        if( ! \Session::select($defaultSystemLanguageData) )
         {
-            Session::insert($defaultSystemLanguageData, $default);
+            \Session::insert($defaultSystemLanguageData, $default);
         }
         else
         {
-            if( Session::select($defaultSystemLanguageData) !== $default )
+            if( \Session::select($defaultSystemLanguageData) !== $default )
             {
-                Session::insert($defaultSystemLanguageData, $default);
-                Session::insert($systemLanguageData, $default);
+                \Session::insert($defaultSystemLanguageData, $default);
+                \Session::insert($systemLanguageData, $default);
 
                 return $default;
             }
         }
 
-        if( Session::select($systemLanguageData) === false )
+        if( \Session::select($systemLanguageData) === false )
         {
-            Session::insert($systemLanguageData, $default);
+            \Session::insert($systemLanguageData, $default);
 
             return $default;
         }
         else
         {
-            return Session::select($systemLanguageData);
+            return \Session::select($systemLanguageData);
         }
     }
 }

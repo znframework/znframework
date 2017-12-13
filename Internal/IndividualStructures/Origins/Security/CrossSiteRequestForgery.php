@@ -1,6 +1,5 @@
 <?php namespace ZN\IndividualStructures\Security;
 
-use Session;
 use ZN\Services\Method;
 
 class CrossSiteRequestForgery
@@ -27,7 +26,7 @@ class CrossSiteRequestForgery
         {
             $token = Method::$type('token');
 
-            if( $token === false || $token !== Session::select('token') )
+            if( $token === false || $token !== \Session::select('token') )
             {
                 redirect($uri);
             }

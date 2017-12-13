@@ -1,12 +1,11 @@
 <?php namespace ZN\EncodingSupport;
 
-use CallController;
 use ZN\IndividualStructures\IS;
 use ZN\EncodingSupport\Exception\InvalidArgumentException;
 use ZN\DataTypes\Strings;
 use ZN\Helpers\Converter;
 
-class MB extends CallController implements MBInterface
+class MB implements MBInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

@@ -1,6 +1,5 @@
 <?php namespace ZN\FileSystem\File;
 
-use ZipArchive;
 use ZN\FileSystem\Exception\FileNotFoundException;
 use ZN\FileSystem\Generate;
 use ZN\FileSystem\Folder;
@@ -124,7 +123,7 @@ class Forge
             $target = Extension::remove($source);
         }
 
-        $zip = new ZipArchive;
+        $zip = new \ZipArchive;
 
         if( $zip->open($source) === true )
         {
@@ -150,7 +149,7 @@ class Forge
     public static function createZip(String $path, Array $data) : Bool
     {
         $path    = Info::rpath($path);
-        $zip     = new ZipArchive();
+        $zip     = new \ZipArchive();
         $zipPath = suffix($path, ".zip");
 
         if( file_exists($zipPath) )
@@ -163,7 +162,7 @@ class Forge
             mkdir($pathDirName);
         }
 
-        if( $zip->open($zipPath, ZipArchive::CREATE) !== true )
+        if( $zip->open($zipPath, \ZipArchive::CREATE) !== true )
         {
             return false;
         }

@@ -1,7 +1,5 @@
 <?php namespace ZN\Services;
 
-use Support, Config, DriverAbility, InformationAbility;
-use Mime, DB;
 use ZN\DataTypes\Strings;
 use ZN\IndividualStructures\IS;
 use ZN\IndividualStructures\Lang;
@@ -19,7 +17,7 @@ class Email implements EmailInterface
     //
     //--------------------------------------------------------------------------------------------------------
 
-    use DriverAbility, InformationAbility;
+    use \DriverAbility, \InformationAbility;
 
     //--------------------------------------------------------------------------------------------------------
     // Consts
@@ -349,7 +347,7 @@ class Email implements EmailInterface
     //--------------------------------------------------------------------------------------------------------
     public function settings(Array $settings = NULL) : Email
     {
-        $config        = Config::services('email');
+        $config        = \Config::services('email');
         $smtpConfig    = $config['smtp'];
         $generalConfig = $config['general'];
 
@@ -778,7 +776,7 @@ class Email implements EmailInterface
             
             if( empty($this->error) )
             {
-                $content = DB::select($column)->where($whereColumn, $whereValue)->get($table)->value();
+                $content = \DB::select($column)->where($whereColumn, $whereValue)->get($table)->value();
                 
                 $this->message($this->templateMatch($content, $data));
             }
@@ -850,7 +848,7 @@ class Email implements EmailInterface
     {
         if( $mime !== NULL )
         {
-            if( $mimes = Mime::$mime() )
+            if( $mimes = \Mime::$mime() )
             {
                 if( is_array($mimes) )
                 {

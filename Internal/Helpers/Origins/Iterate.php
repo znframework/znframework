@@ -1,7 +1,5 @@
 <?php namespace ZN\DataTypes;
 
-use FabricationAbility;
-
 class Iterate
 {
     //--------------------------------------------------------------------------------------------------------
@@ -15,7 +13,7 @@ class Iterate
     //
     //-------------------------------------------------------------------------------------------------------
 
-    use FabricationAbility;
+    use \FabricationAbility;
 
     const fabrication = 
     [

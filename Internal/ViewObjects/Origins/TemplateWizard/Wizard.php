@@ -1,7 +1,5 @@
 <?php namespace ZN\ViewObjects;
 
-use Import, stdClass;
-
 class Wizard
 {
     //--------------------------------------------------------------------------------------------------------
@@ -36,7 +34,7 @@ class Wizard
     {   
         $submethod = $parameters[0];
 
-        $submethod($data = new stdClass);
+        $submethod($data = new \stdClass);
 
         preg_match('/\[(\$\w+)\]/', print_r(debug_backtrace()[0]['args'][1][0], true), $match);
   
@@ -47,6 +45,6 @@ class Wizard
             $function = 'template';
         }
 
-        return Import::$function($method, (array) $data, $parameters[1] ?? false);
+        return \Import::$function($method, (array) $data, $parameters[1] ?? false);
     }
 }

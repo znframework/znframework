@@ -1,12 +1,11 @@
 <?php namespace ZN\Services;
 
-use CallController;
 use ZN\Services\Exception\InvalidArgumentException;
 use ZN\IndividualStructures\Support;
 use ZN\IndividualStructures\IS;
 use ZN\Helpers\Converter;
 
-class CURL extends CallController implements CURLInterface
+class CURL implements CURLInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

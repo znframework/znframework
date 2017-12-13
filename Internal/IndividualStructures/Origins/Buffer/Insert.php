@@ -1,7 +1,5 @@
 <?php namespace ZN\IndividualStructures\Buffer;
 
-use Session;
-
 class Insert
 {
     //--------------------------------------------------------------------------------------------------------
@@ -29,15 +27,15 @@ class Insert
 
         if( is_callable($data) )
         {
-            return Session::insert($systemObData, Callback::do($data, (array) $params));
+            return \Session::insert($systemObData, Callback::do($data, (array) $params));
         }
         elseif( is_file($data) )
         {
-            return Session::insert($systemObData, File::do($data));
+            return \Session::insert($systemObData, File::do($data));
         }
         else
         {
-            return Session::insert($systemObData, $data);
+            return \Session::insert($systemObData, $data);
         }
     }
 }

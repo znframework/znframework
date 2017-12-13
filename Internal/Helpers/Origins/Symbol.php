@@ -1,7 +1,5 @@
 <?php namespace ZN\Helpers;
 
-use Config;
-
 class Symbol
 {
     //--------------------------------------------------------------------------------------------------------
@@ -36,7 +34,7 @@ class Symbol
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
-        $this->symbols = array_merge(Config::get('Expressions', 'symbols'), $this->symbols);
+        $this->symbols = array_merge(\Config::get('Expressions', 'symbols'), $this->symbols);
     }
 
     //--------------------------------------------------------------------------------------------------------

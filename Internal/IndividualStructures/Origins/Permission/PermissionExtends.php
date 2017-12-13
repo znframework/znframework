@@ -1,6 +1,5 @@
 <?php namespace ZN\IndividualStructures\Permission;
 
-use Config;
 use ZN\Services\Method;
 
 class PermissionExtends
@@ -71,7 +70,7 @@ class PermissionExtends
     //--------------------------------------------------------------------------------------------------------
     protected static function common($roleId = 6, $process, $object, $function)
     {
-        self::$permission = Config::get('IndividualStructures', 'permission')[$function];
+        self::$permission = \Config::get('IndividualStructures', 'permission')[$function];
 
         if( isset(self::$permission[$roleId]) )
         {

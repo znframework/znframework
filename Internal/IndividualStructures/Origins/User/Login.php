@@ -1,6 +1,5 @@
 <?php namespace ZN\IndividualStructures\User;
 
-use DB, Session, Cookie;
 use ZN\Services\Method;
 use ZN\CryptoGraphy\Encode;
 use ZN\IndividualStructures\Lang;
@@ -95,7 +94,7 @@ class Login extends UserExtends
 
         $this->_multiUsernameColumns($username);
 
-        $r = DB::where($usernameColumn, $username)
+        $r = \DB::where($usernameColumn, $username)
                ->get($tableName)
                ->row();
 
@@ -131,21 +130,21 @@ class Login extends UserExtends
                 return ! Properties::$error = Lang::select('IndividualStructures', 'user:activationError');
             }
 
-            Session::insert($usernameColumn, $username);
-            Session::insert($passwordColumn, $password);
+            \Session::insert($usernameColumn, $username);
+            \Session::insert($passwordColumn, $password);
 
             if( Method::post($rememberMe) || ! empty($rememberMe) )
             {
-                if( Cookie::select($usernameColumn) !== $username )
+                if( \Cookie::select($usernameColumn) !== $username )
                 {
-                    Cookie::insert($usernameColumn, $username);
-                    Cookie::insert($passwordColumn, $password);
+                    \Cookie::insert($usernameColumn, $username);
+                    \Cookie::insert($passwordColumn, $password);
                 }
             }
 
             if( ! empty($activeColumn) )
             {
-                DB::where($usernameColumn, $username)->update($tableName, [$activeColumn  => 1]);
+                \DB::where($usernameColumn, $username)->update($tableName, [$activeColumn  => 1]);
             }
 
             return Properties::$success = Lang::select('IndividualStructures', 'user:loginSuccess');
@@ -177,13 +176,13 @@ class Login extends UserExtends
              (new Logout)->do();
         }
 
-        $cUsername  = Cookie::select($username);
-        $cPassword  = Cookie::select($password);
+        $cUsername  = \Cookie::select($username);
+        $cPassword  = \Cookie::select($password);
         $result     = NULL;
 
         if( ! empty($cUsername) && ! empty($cPassword) )
         {
-            $result = DB::where($username, $cUsername, 'and')
+            $result = \DB::where($username, $cUsername, 'and')
                         ->where($password, $cPassword)
                         ->get($tableName)
                         ->totalRows();
@@ -195,8 +194,8 @@ class Login extends UserExtends
         }
         elseif( ! empty($result) )
         {
-            Session::insert($username, $cUsername);
-            Session::insert($password, $cPassword);
+            \Session::insert($username, $cUsername);
+            \Session::insert($password, $cPassword);
 
             $isLogin = true;
         }

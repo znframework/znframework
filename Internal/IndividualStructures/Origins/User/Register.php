@@ -1,6 +1,5 @@
 <?php namespace ZN\IndividualStructures\User;
 
-use DB, Email;
 use ZN\Services\URL;
 use ZN\Services\URI;
 use ZN\CryptoGraphy\Encode;
@@ -73,7 +72,7 @@ class Register extends UserExtends
         $encodeType      = INDIVIDUALSTRUCTURES_USER_CONFIG['encode'];
         $encodePassword  = ! empty($encodeType) ? Encode\Type::create($loginPassword, $encodeType) : $loginPassword;
 
-        $usernameControl = DB::where($usernameColumn, $loginUsername)
+        $usernameControl = \DB::where($usernameColumn, $loginUsername)
                              ->get($tableName)
                              ->totalRows();
 
@@ -83,20 +82,20 @@ class Register extends UserExtends
         {
             $data[$passwordColumn] = $encodePassword;
 
-            if( ! DB::insert($tableName , $data) )
+            if( ! \DB::insert($tableName , $data) )
             {
                 return ! Properties::$error = Lang::select('IndividualStructures', 'user:registerUnknownError');
             }
 
             if( ! empty($joinTables) )
             {
-                $joinCol = DB::where($usernameColumn, $loginUsername)->get($tableName)->row()->$joinColumn;
+                $joinCol = \DB::where($usernameColumn, $loginUsername)->get($tableName)->row()->$joinColumn;
 
                 foreach( $joinTables as $table => $joinColumn )
                 {
                     $joinData[$table][$joinTables[$table]] = $joinCol;
 
-                    DB::insert($table, $joinData[$table]);
+                    \DB::insert($table, $joinData[$table]);
                 }
             }
 
@@ -161,14 +160,14 @@ class Register extends UserExtends
 
         if( ! empty($user) && ! empty($pass) )
         {
-            $row = DB::where($usernameColumn, $user, 'and')
+            $row = \DB::where($usernameColumn, $user, 'and')
                      ->where($passwordColumn, $pass)
                      ->get($tableName)
                      ->row();
 
             if( ! empty($row) )
             {
-                DB::where($usernameColumn, $user)
+                \DB::where($usernameColumn, $user)
                   ->update($tableName, [$activationColumn => '1']);
 
                 return Properties::$success = Lang::select('IndividualStructures', 'user:activationComplete');
@@ -217,12 +216,12 @@ class Register extends UserExtends
 
         $user = $email ?? $user;
 
-        Email::sender($senderInfo['mail'], $senderInfo['name'])
+        \Email::sender($senderInfo['mail'], $senderInfo['name'])
              ->receiver($user, $user)
              ->subject(Lang::select('IndividualStructures', 'user:activationProcess'))
              ->content($message);
 
-        if( Email::send() )
+        if( \Email::send() )
         {
             return Properties::$success = Lang::select('IndividualStructures', 'user:activationEmail');
         }

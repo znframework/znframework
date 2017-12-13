@@ -1,6 +1,5 @@
 <?php namespace ZN\FileSystem\File;
 
-use Config;
 use ZN\FileSystem\Exception\FileNotFoundException;
 use ZN\FileSystem\Exception\UndefinedFunctionException;
 use ZN\FileSystem\Folder;
@@ -145,7 +144,7 @@ class Info
     //--------------------------------------------------------------------------------------------------------
     public static function rpath(String $file = NULL) : String
     {
-        $config = Config::get('FileSystem', 'file', self::$access);
+        $config = \Config::get('FileSystem', 'file', self::$access);
 
         self::$access = NULL;
 

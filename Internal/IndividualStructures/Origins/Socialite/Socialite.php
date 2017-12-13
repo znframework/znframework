@@ -1,11 +1,10 @@
 <?php namespace ZN\IndividualStructures;
 
-use CLController;
 use ZN\Services\URL;
 use ZN\IndividualStructures\Exception\InvalidArgumentException;
 use ZN\DataTypes\Arrays;
 
-class Socialite extends CLController
+class Socialite extends \CLController
 {
     //--------------------------------------------------------------------------------------------------------
     //

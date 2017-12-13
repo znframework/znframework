@@ -1,6 +1,5 @@
 <?php namespace ZN\Services;
 
-use CLController, Config;
 use ZN\FileSystem\Exception\FileNotFoundException;
 use ZN\FileSystem\Exception\FileRemoteUploadException;
 use ZN\FileSystem\Exception\FileRemoteDownloadException;
@@ -10,7 +9,7 @@ use ZN\FileSystem\Exception\FolderAllreadyException;
 use ZN\Services\InvalidArgumentException;
 use ZN\IndividualStructures\Support;
 
-class SSH extends CLController implements SSHInterface
+class SSH implements SSHInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -20,8 +19,6 @@ class SSH extends CLController implements SSHInterface
     // Telif Hakkı: Copyright ConfigController(c) 2012-2016, zntr.net
     //
     //--------------------------------------------------------------------------------------------------------
-
-    const config = 'Services:ssh';
 
     //--------------------------------------------------------------------------------------------------------
     // Protected $connect
@@ -74,11 +71,11 @@ class SSH extends CLController implements SSHInterface
 
         if( ! empty($config) )
         {
-            $config = Config::get('Services', 'ssh', $config);
+            $config = \Config::get('Services', 'ssh', $config);
         }
         else
         {
-            $config = SERVICES_SSH_CONFIG;
+            $config = \Config::get('Services', 'ssh');
         }
 
         $this->_connect($config);

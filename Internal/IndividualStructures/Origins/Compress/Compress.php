@@ -1,6 +1,5 @@
 <?php namespace ZN\IndividualStructures;
 
-use Support, DriverAbility;
 use ZN\IndividualStructures\Exception\InvalidArgumentException;
 
 class Compress implements CompressInterface
@@ -14,7 +13,7 @@ class Compress implements CompressInterface
     //
     //--------------------------------------------------------------------------------------------------------
 
-    use DriverAbility;
+    use \DriverAbility;
 
     //--------------------------------------------------------------------------------------------------------
     // Consts

@@ -1,6 +1,5 @@
 <?php namespace ZN\IndividualStructures\User;
 
-use DB, Email;
 use ZN\IndividualStructures\IS;
 
 class SendEmail extends UserExtends
@@ -17,7 +16,7 @@ class SendEmail extends UserExtends
     //--------------------------------------------------------------------------------------------------------
     public function attachment(String $file, String $disposition = NULL, String $newName = NULL, $mime = NULL)
     {
-        Email::attachment($file, $disposition, $newName, $mime);
+        \Email::attachment($file, $disposition, $newName, $mime);
 
         return $this;
     }
@@ -39,7 +38,7 @@ class SendEmail extends UserExtends
 
         if( ! empty($columns['banned']) )
         {
-        	DB::where($columns['banned'], 0);
+        	\DB::where($columns['banned'], 0);
         }
 
         $usernamecol = $columns['username'];
@@ -50,14 +49,14 @@ class SendEmail extends UserExtends
             return false;
         }
 
-        $result    = DB::get($table)->result();              
+        $result    = \DB::get($table)->result();              
 		$users     = array_chunk($result, $count);
 		$sendCount = count($users);
 
 		$from = $sender['mail'];
 		$name = $sender['name'];
 
-        Email::sender($from, $name);
+        \Email::sender($from, $name);
 
 		for( $i = 0; $i < $sendCount; $i++ )
 		{
@@ -71,11 +70,11 @@ class SendEmail extends UserExtends
 
                 if( IS::email($email) )
                 {
-                    Email::bcc($email, $username);
+                    \Email::bcc($email, $username);
                 }
 			}
 
-		   	Email::send($subject, $body);
+		   	\Email::send($subject, $body);
 		}
 	}
 }

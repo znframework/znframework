@@ -1,7 +1,5 @@
 <?php namespace ZN\Helpers;
 
-use Config;
-
 class Hook
 {
     //--------------------------------------------------------------------------------------------------------
@@ -17,7 +15,7 @@ class Hook
 
     public function __call($method, $parameters)
     {
-        $hook = Config::hooks();
+        $hook = \Config::hooks();
 
         return $hook[$method](...$parameters) ?? false;
     }

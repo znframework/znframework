@@ -1,6 +1,5 @@
 <?php namespace ZN\ViewObjects;
 
-use DB, Html, Form, Sheet, Style;
 use ZN\ViewObjects\Exception\NoTableException;
 use ZN\ViewObjects\Exception\DatabaseErrorException;
 use ZN\ViewObjects\Exception\NoSearchException;
@@ -201,7 +200,7 @@ class DBGrid extends GridAbstract
     {
         $this->limit = $limit;
 
-        DB::limit((int) URI::get('page'), $limit);
+        \DB::limit((int) URI::get('page'), $limit);
 
         return $this;
     }
@@ -298,7 +297,7 @@ class DBGrid extends GridAbstract
     //--------------------------------------------------------------------------------------------------------
     public function orderBy($orderBy, String $type = NULL) : DBGrid
     {
-        DB::orderBy($orderBy, $type);
+        \DB::orderBy($orderBy, $type);
 
         return $this;
     }
@@ -314,7 +313,7 @@ class DBGrid extends GridAbstract
     //--------------------------------------------------------------------------------------------------------
     public function groupBy(...$args) : DBGrid
     {
-        DB::groupBy(...$args);
+        \DB::groupBy(...$args);
 
         return $this;
     }
@@ -332,7 +331,7 @@ class DBGrid extends GridAbstract
     //--------------------------------------------------------------------------------------------------------
     public function where($column, String $value = NULL, String $logical = NULL) : DBGrid
     {
-        DB::where($column, $value, $logical);
+        \DB::where($column, $value, $logical);
 
         return $this;
     }
@@ -348,7 +347,7 @@ class DBGrid extends GridAbstract
     //--------------------------------------------------------------------------------------------------------
     public function whereGroup(...$args) : DBGrid
     {
-        DB::whereGroup(...$args);
+        \DB::whereGroup(...$args);
 
         return $this;
     }
@@ -484,12 +483,12 @@ class DBGrid extends GridAbstract
         // int    $countColumns
         //
         //----------------------------------------------------------------------------------------------------
-        $get          = DB::get($this->table);
+        $get          = \DB::get($this->table);
         $columns      = array_unique($get->columns());
         $result       = $get->resultArray();
         $countColumns = count($columns);
 
-        if( $error = DB::error() )
+        if( $error = \DB::error() )
         {
             throw new DatabaseErrorException($error);
         }
@@ -570,7 +569,7 @@ class DBGrid extends GridAbstract
         // Genel görünümün oluşturulduğu bölüm.
         //
         //----------------------------------------------------------------------------------------------------
-        $table .= '<table id="DBGRID_TABLE"'.Html::attributes(VIEWOBJECTS_DATAGRID_CONFIG['attributes']['table']).'>'.EOL;
+        $table .= '<table id="DBGRID_TABLE"'.\Html::attributes(VIEWOBJECTS_DATAGRID_CONFIG['attributes']['table']).'>'.EOL;
         $table .= $this->_thead($columns, $countColumns);
         $table .= $this->_tbody($result, $countColumns, $joinsData, $columns);
         $table .= $this->_pagination($pagination, $countColumns);
@@ -599,10 +598,10 @@ class DBGrid extends GridAbstract
 
             foreach( $styleElement as $selector => $attr )
             {
-                $attributes .= Sheet::selector($selector)->attr($attr)->create();
+                $attributes .= \Sheet::selector($selector)->attr($attr)->create();
             }
 
-            return Style::open().$attributes.Style::close();
+            return \Style::open().$attributes.\Style::close();
         }
 
         return NULL;
@@ -636,27 +635,27 @@ class DBGrid extends GridAbstract
     protected function _thead($columns, $countColumns)
     {
         $table  = '<thead>'.EOL;
-        $table .= '<tr'.Html::attributes(VIEWOBJECTS_DATAGRID_CONFIG['attributes']['columns']).'>';
+        $table .= '<tr'.\Html::attributes(VIEWOBJECTS_DATAGRID_CONFIG['attributes']['columns']).'>';
         $table .= '<td colspan="2">';
             
         if( ! empty($this->search) || ! empty($this->select) )
         {
-            $table .= $this->_hideButton(Form::open('addForm').
-            Form::placeholder(VIEWOBJECTS_DATAGRID_CONFIG['placeHolders']['search'])
+            $table .= $this->_hideButton(\Form::open('addForm').
+            \Form::placeholder(VIEWOBJECTS_DATAGRID_CONFIG['placeHolders']['search'])
                 ->id('datagridSearch')
                 ->attr(VIEWOBJECTS_DATAGRID_CONFIG['attributes']['search'])
                 ->text('search').
-            Form::close(), 'search');
+            \Form::close(), 'search');
         }
         
         $table .= '</td><td colspan="'.($countColumns - 1).'">'.$this->add.'</td><td align="right" colspan="2">';
         
-        $table .= $this->_hideButton(Form::action(CURRENT_CFPATH . URI::manipulation(['process' => 'add', 'order', 'type', 'page'], 'left'))
+        $table .= $this->_hideButton(\Form::action(CURRENT_CFPATH . URI::manipulation(['process' => 'add', 'order', 'type', 'page'], 'left'))
                       ->open('addForm').
-                  Form::attr(VIEWOBJECTS_DATAGRID_CONFIG['attributes']['add'])
+                  \Form::attr(VIEWOBJECTS_DATAGRID_CONFIG['attributes']['add'])
                       ->submit('addButton', VIEWOBJECTS_DATAGRID_CONFIG['buttonNames']['add']).
-                  Form::close(), 'addButton');
-        $table .= '</tr><tr'.Html::attributes(VIEWOBJECTS_DATAGRID_CONFIG['attributes']['columns']).'>';
+                  \Form::close(), 'addButton');
+        $table .= '</tr><tr'.\Html::attributes(VIEWOBJECTS_DATAGRID_CONFIG['attributes']['columns']).'>';
         $table .= '<td width="20">#</td>';
 
         //----------------------------------------------------------------------------------------------------
@@ -668,16 +667,16 @@ class DBGrid extends GridAbstract
         //----------------------------------------------------------------------------------------------------
         if( IS::array($columns) ) foreach( $columns as $column )
         {
-            $table .= '<td>'.Html::anchor
+            $table .= '<td>'.\Html::anchor
             (
                 CURRENT_CFPATH . URI::manipulation(['column', 'process', 'order' => $column, 'type' => (URI::get('type') === 'asc' ? 'desc' : 'asc'), 'page'], 'left'),
-                Html::strong($column), VIEWOBJECTS_DATAGRID_CONFIG['attributes']['columns']
+                \Html::strong($column), VIEWOBJECTS_DATAGRID_CONFIG['attributes']['columns']
             ).'</td>';
         }
 
         $table .= '<td align="right" colspan="2"><span'.
-                  Html::attributes(VIEWOBJECTS_DATAGRID_CONFIG['attributes']['columns']).'>'.
-                  Html::strong(VIEWOBJECTS_DBGRID_LANG['processLabel']).'</span></td>';
+                  \Html::attributes(VIEWOBJECTS_DATAGRID_CONFIG['attributes']['columns']).'>'.
+                  \Html::strong(VIEWOBJECTS_DBGRID_LANG['processLabel']).'</span></td>';
         $table .= '</tr>'.EOL;
         $table .= '</thead>'.EOL;
 
@@ -722,11 +721,11 @@ class DBGrid extends GridAbstract
 
             $value       = array_change_key_case($combine);
             $hiddenValue = $value[strtolower($this->processColumn)] ?? NULL;
-            $hiddenId    = Form::hidden('id', $hiddenValue);
+            $hiddenId    = \Form::hidden('id', $hiddenValue);
      
             if( ! empty( $this->joins ) )
             {
-                $hiddenJoins = Form::hidden('joinsId', $this->_encode($joinsData));
+                $hiddenJoins = \Form::hidden('joinsId', $this->_encode($joinsData));
             }
 
             $table .= '<tr><td>'.($key + 1).'</td><td>'.
@@ -742,22 +741,22 @@ class DBGrid extends GridAbstract
                         return Limiter::word((string) $data, 20);            
                     })).
                     '</td>'.$this->_hideButton('<td align="right">'. 
-                    Form::action(CURRENT_CFPATH . URI::manipulation(['column' => $hiddenValue, 'process' => 'edit', 'order', 'type', 'page'], 'left'))
+                    \Form::action(CURRENT_CFPATH . URI::manipulation(['column' => $hiddenValue, 'process' => 'edit', 'order', 'type', 'page'], 'left'))
                         ->open('editButtonForm').
                     $hiddenId.
                     $hiddenJoins.
-                    Form::attr(VIEWOBJECTS_DATAGRID_CONFIG['attributes']['edit'])
+                    \Form::attr(VIEWOBJECTS_DATAGRID_CONFIG['attributes']['edit'])
                         ->submit('editButton', VIEWOBJECTS_DATAGRID_CONFIG['buttonNames']['edit']).
-                    Form::close().
+                    \Form::close().
                     '</td>', 'editButton').
                     $this->_hideButton('<td width="60" align="right">'.
-                    Form::onsubmit($this->confirm)
+                    \Form::onsubmit($this->confirm)
                         ->open('addButtonForm').
                     $hiddenId.
                     $hiddenJoins.
-                    Form::attr(VIEWOBJECTS_DATAGRID_CONFIG['attributes']['delete'])
+                    \Form::attr(VIEWOBJECTS_DATAGRID_CONFIG['attributes']['delete'])
                         ->submit('deleteButton', VIEWOBJECTS_DATAGRID_CONFIG['buttonNames']['delete']).
-                    Form::close().
+                    \Form::close().
 
                     '</td>', 'deleteButton').'</tr>'.
                     EOL;
@@ -795,9 +794,9 @@ class DBGrid extends GridAbstract
     //--------------------------------------------------------------------------------------------------------
     protected function _addEditTable($joinsData)
     {
-        $table  = Form::open('saveForm');
+        $table  = \Form::open('saveForm');
 
-        $table .= '<table type="DBGRID_ADD_EDIT_TABLE"'.Html::attributes(VIEWOBJECTS_DATAGRID_CONFIG['attributes']['table']).'>'.EOL;
+        $table .= '<table type="DBGRID_ADD_EDIT_TABLE"'.\Html::attributes(VIEWOBJECTS_DATAGRID_CONFIG['attributes']['table']).'>'.EOL;
         $table .= '<tr>';
 
         $newGetRow = NULL;
@@ -808,10 +807,10 @@ class DBGrid extends GridAbstract
             {
                 if( URI::get('process') === 'edit' )
                 {
-                    DB::where($this->joinTables[$join['table']], URI::get('column'));
+                    \DB::where($this->joinTables[$join['table']], URI::get('column'));
                 }
 
-                $newGet = DB::get($join['table']);
+                $newGet = \DB::get($join['table']);
 
                 if( URI::get('process') === 'edit' )
                 {
@@ -825,10 +824,10 @@ class DBGrid extends GridAbstract
         {
             if( URI::get('process') === 'edit' )
             {
-                DB::where($this->processColumn, URI::get('column'));
+                \DB::where($this->processColumn, URI::get('column'));
             }
 
-            $newGet = DB::get($this->table);
+            $newGet = \DB::get($this->table);
 
             if( URI::get('process') === 'edit' )
             {
@@ -839,15 +838,15 @@ class DBGrid extends GridAbstract
         }
 
         $table .= '<tr><td colspan="'.count($joinsData).'">'.
-        $this->_hideButton(Form::attr(VIEWOBJECTS_DATAGRID_CONFIG['attributes']['save'])->submit('saveButton', VIEWOBJECTS_DATAGRID_CONFIG['buttonNames']['save']), 'saveButton').
-        $this->_hideButton(Html::style('text-decoration:none')->anchor
+        $this->_hideButton(\Form::attr(VIEWOBJECTS_DATAGRID_CONFIG['attributes']['save'])->submit('saveButton', VIEWOBJECTS_DATAGRID_CONFIG['buttonNames']['save']), 'saveButton').
+        $this->_hideButton(\Html::style('text-decoration:none')->anchor
                        (
                             CURRENT_CFPATH . URI::manipulation(['order', 'type', 'page'], 'left'),
-                            Form::attr(VIEWOBJECTS_DATAGRID_CONFIG['attributes']['save'])->button('closeButton', VIEWOBJECTS_DATAGRID_CONFIG['buttonNames']['close'] ?? 'Close')
+                            \Form::attr(VIEWOBJECTS_DATAGRID_CONFIG['attributes']['save'])->button('closeButton', VIEWOBJECTS_DATAGRID_CONFIG['buttonNames']['close'] ?? 'Close')
                        ), 'closeButton').
                       '</td></tr>';
         $table .= '</tr></table>';
-        $table .= Form::close();
+        $table .= \Form::close();
 
         return $table;
     }
@@ -863,7 +862,7 @@ class DBGrid extends GridAbstract
     //--------------------------------------------------------------------------------------------------------
     protected function _editTable($columns, $tbl, $row, $columnData)
     {
-        $table  = '<table'.Html::attributes(VIEWOBJECTS_DATAGRID_CONFIG['attributes']['editTables']).'>';
+        $table  = '<table'.\Html::attributes(VIEWOBJECTS_DATAGRID_CONFIG['attributes']['editTables']).'>';
         $table .= '<tr><td width="100">'.mb_convert_case($tbl, MB_CASE_UPPER, 'utf-8').'</td></tr>';
 
         $processColumn = strtolower($this->processColumn);
@@ -904,15 +903,15 @@ class DBGrid extends GridAbstract
                 // 5.4.0[added]
                 if( ! $input = ($this->inputs[$column] ?? NULL) )
                 {
-                    $table .= Form::placeholder($column)
+                    $table .= \Form::placeholder($column)
                                   ->attr(VIEWOBJECTS_DATAGRID_CONFIG['attributes']['inputs'][$type])
                                   ->$type($inputName, $row->$column ?? NULL);
                 }
                 else
                 {
-                    Form::placeholder($column)->attr(VIEWOBJECTS_DATAGRID_CONFIG['attributes']['inputs'][$type]);
+                    \Form::placeholder($column)->attr(VIEWOBJECTS_DATAGRID_CONFIG['attributes']['inputs'][$type]);
 
-                    $table .= $input(new Form, $inputName, $row->$column ?? NULL);
+                    $table .= $input(new \Form, $inputName, $row->$column ?? NULL);
                 }
 
                 $table .= '</td></tr>';
@@ -940,7 +939,7 @@ class DBGrid extends GridAbstract
             array_unshit($select, $this->table.'.'.$this->processColumn.' as ID');
         }
 
-        DB::select(...$select);
+        \DB::select(...$select);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -976,10 +975,10 @@ class DBGrid extends GridAbstract
         {
             foreach( $this->search as $column )
             {
-                $whereGroup[] = [$column.' like ', DB::like($search, 'inside'), 'or'];
+                $whereGroup[] = [$column.' like ', \DB::like($search, 'inside'), 'or'];
             }
 
-            DB::whereGroup($whereGroup);
+            \DB::whereGroup($whereGroup);
         }
         else
         {
@@ -1000,12 +999,12 @@ class DBGrid extends GridAbstract
         {
             foreach( $this->_decode('joinsId') as $join )
             {
-                DB::where($join['column'], Method::post('id'))->delete($join['table']);
+                \DB::where($join['column'], Method::post('id'))->delete($join['table']);
             }
         }
         else
         {
-            DB::where($this->processColumn, Method::post('id'))->delete($this->table);
+            \DB::where($this->processColumn, Method::post('id'))->delete($this->table);
         }
 
        redirect(CURRENT_URL);
@@ -1047,18 +1046,18 @@ class DBGrid extends GridAbstract
     {
         if( URI::get('process') === 'add' )
         {
-            DB::insert($this->table, $newSaveData[$this->table]);
+            \DB::insert($this->table, $newSaveData[$this->table]);
 
             if( ! empty($this->joins) )
             {
-                $insertId = DB::insertID();
+                $insertId = \DB::insertID();
 
                 unset($newSaveData[$this->table]);
 
                 foreach( $newSaveData as $t => $d )
                 {
                     $d[$this->joinTables[$t]] = $insertId;
-                    DB::insert($t, $d);
+                    \DB::insert($t, $d);
                 }
             }
         }
@@ -1075,7 +1074,7 @@ class DBGrid extends GridAbstract
     {
         if( URI::get('process') === 'edit' )
         {
-            DB::where($this->processColumn, URI::get('column'))->update($this->table, $newSaveData[$this->table]);
+            \DB::where($this->processColumn, URI::get('column'))->update($this->table, $newSaveData[$this->table]);
 
             if( ! empty($this->joins) )
             {
@@ -1083,7 +1082,7 @@ class DBGrid extends GridAbstract
 
                 foreach( $newSaveData as $t => $d )
                 {
-                    DB::where($this->joinTables[$t], URI::get('column'))->update($t, $d);
+                    \DB::where($this->joinTables[$t], URI::get('column'))->update($t, $d);
                 }
             }
         }
@@ -1154,7 +1153,7 @@ class DBGrid extends GridAbstract
                 $currentTableColumn = $join[1] ?? NULL;
                 $joinType           = isset($join[2]) ? $join[2].'Join' : 'leftJoin';
 
-                DB::$joinType($joinTableColumn, $currentTableColumn);
+                \DB::$joinType($joinTableColumn, $currentTableColumn);
 
                 $joinTableColumnEx    = explode('.', $joinTableColumn);
                 $currentTableColumnEx = explode('.', $currentTableColumn);

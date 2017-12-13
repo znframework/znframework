@@ -1,9 +1,9 @@
 <?php namespace ZN\DataTypes;
 
-use CallController, Cookie, Session, Server, Autoloader;
+use Cookie, Session, Server, Autoloader;
 use ZN\Helpers\Converter;
 
-class Filters extends CallController implements FiltersInterface
+class Filters implements FiltersInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

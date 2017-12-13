@@ -1,6 +1,5 @@
 <?php namespace ZN\IndividualStructures\User;
 
-use DB, Email;
 use ZN\Services\URL;
 use ZN\CryptoGraphy\Encode;
 use ZN\IndividualStructures\IS;
@@ -70,14 +69,14 @@ class ForgotPassword extends UserExtends
 
         if( ! empty($emailColumn) )
         {
-            DB::where($emailColumn, $email);
+            \DB::where($emailColumn, $email);
         }
         else
         {
-            DB::where($usernameColumn, $email);
+            \DB::where($usernameColumn, $email);
         }
 
-        $row = DB::get($tableName)->row();
+        $row = \DB::get($tableName)->row();
 
         if( isset($row->$usernameColumn) )
         {
@@ -107,23 +106,23 @@ class ForgotPassword extends UserExtends
 
             $message = Import\Template::use('UserEmail/ForgotPassword', $templateData, true);
 
-            Email::sender($senderInfo['mail'], $senderInfo['name'])
+            \Email::sender($senderInfo['mail'], $senderInfo['name'])
                  ->receiver($email, $email)
                  ->subject(Lang::select('IndividualStructures', 'user:newYourPassword'))
                  ->content($message);
 
-            if( Email::send() )
+            if( \Email::send() )
             {
                 if( ! empty($emailColumn) )
                 {
-                    DB::where($emailColumn, $email, 'and');
+                    \DB::where($emailColumn, $email, 'and');
                 }
                 else
                 {
-                    DB::where($usernameColumn, $email, 'and');
+                    \DB::where($usernameColumn, $email, 'and');
                 }
 
-                if( DB::update($tableName, [$passwordColumn => $encodePassword]) )
+                if( \DB::update($tableName, [$passwordColumn => $encodePassword]) )
                 {
                     return Properties::$success = Lang::select('IndividualStructures', 'user:forgotPasswordSuccess');
                 }

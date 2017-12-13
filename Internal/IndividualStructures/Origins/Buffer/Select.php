@@ -1,7 +1,5 @@
 <?php namespace ZN\IndividualStructures\Buffer;
 
-use Session;
-
 class Select
 {
     //--------------------------------------------------------------------------------------------------------
@@ -23,6 +21,6 @@ class Select
     //--------------------------------------------------------------------------------------------------------
     public static function do(String $name)
     {
-        return Session::select(md5('OB_DATAS_'.$name));
+        return \Session::select(md5('OB_DATAS_'.$name));
     }
 }

@@ -1,6 +1,5 @@
 <?php namespace ZN\Helpers;
 
-use stdClass;
 use ZN\Database\DB;
 
 class Searcher extends \FactoryController
@@ -152,7 +151,7 @@ class Searcher extends \FactoryController
     // @param string $type: auto, inside, equal, starting, ending
     //
     //--------------------------------------------------------------------------------------------------------
-    public function database(Array $conditions, String $word = NULL, String $type = 'auto') : stdClass
+    public function database(Array $conditions, String $word = NULL, String $type = 'auto') : \stdClass
     {
         if( ! empty($this->type) )
         {

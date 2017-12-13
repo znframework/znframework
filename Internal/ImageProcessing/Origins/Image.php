@@ -1,6 +1,5 @@
 <?php namespace ZN\ImageProcessing;
 
-use Mime, stdClass;
 use ZN\Services\URL;
 use ZN\FileSystem\File;
 use ZN\FileSystem\Folder;
@@ -54,7 +53,7 @@ class Image implements ImageInterface
     // @param int    $height
     //
     //--------------------------------------------------------------------------------------------------------
-    public function getProsize(String $path, Int $width = 0, Int $height = 0) : stdClass
+    public function getProsize(String $path, Int $width = 0, Int $height = 0) : \stdClass
     {
         if( ! is_file($path) )
         {
@@ -241,7 +240,7 @@ class Image implements ImageInterface
     {
         $mimes = ['image/jpg', 'image/jpeg', 'image/png', 'image/gif'];
 
-        if( in_array(Mime::type($file), $mimes) )
+        if( in_array(\Mime::type($file), $mimes) )
         {
             return true;
         }

@@ -1,7 +1,5 @@
 <?php namespace ZN\IndividualStructures\Security;
 
-use Regex;
-
 class NastyCode
 {
     //--------------------------------------------------------------------------------------------------------
@@ -33,7 +31,7 @@ class NastyCode
 
         if( ! is_array($badWords) )
         {
-            return $string = Regex::replace($badWords, $changeChar, $string, 'xi');
+            return $string = \Regex::replace($badWords, $changeChar, $string, 'xi');
         }
 
         $ch = '';
@@ -54,7 +52,7 @@ class NastyCode
                 }
             }
 
-            $string = Regex::replace($value, $ch, $string, 'xi');
+            $string = \Regex::replace($value, $ch, $string, 'xi');
         }
 
         return $string;

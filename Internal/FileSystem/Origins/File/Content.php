@@ -1,7 +1,5 @@
 <?php namespace ZN\FileSystem\File;
 
-use stdClass;
-
 class Content
 {
     //--------------------------------------------------------------------------------------------------------
@@ -33,7 +31,7 @@ class Content
     // @param string $data
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function find(String $file, String $data) : stdClass
+    public static function find(String $file, String $data) : \stdClass
     {
         $contents = self::read($file);
         $index    = strpos($contents, $data);

@@ -1,6 +1,5 @@
 <?php namespace ZN\Helpers;
 
-use Classes, stdClass;
 use ZN\DataTypes\Arrays;
 
 class Debugger
@@ -46,7 +45,7 @@ class Debugger
     // @return stdClass
     //
     //--------------------------------------------------------------------------------------------------------
-    public function current() : stdClass
+    public function current() : \stdClass
     {
         return $this->_layer($this->debug, 0, 1);
     }
@@ -59,7 +58,7 @@ class Debugger
     // @return stdClass
     //
     //--------------------------------------------------------------------------------------------------------
-    public function next() : stdClass
+    public function next() : \stdClass
     {
         $internal = $this->_layer($this->output(), 2, 3);
 
@@ -120,7 +119,7 @@ class Debugger
         $type           = str_replace('->', '::', $type);
         $classSuffix    = $type.$function.'()';
         $method         = $class.$classSuffix;
-        $internalMethod = Classes::onlyName((string) $class).$classSuffix;
+        $internalMethod = \Classes::onlyName((string) $class).$classSuffix;
 
         return (object)
         [

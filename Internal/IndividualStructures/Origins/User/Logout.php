@@ -1,7 +1,5 @@
 <?php namespace ZN\IndividualStructures\User;
 
-use DB, Session, Cookie;
-
 class Logout extends UserExtends
 {
     //--------------------------------------------------------------------------------------------------------
@@ -26,13 +24,13 @@ class Logout extends UserExtends
         {
             if( ! empty($active) )
             {
-                DB::where($username, $getUserData)
+                \DB::where($username, $getUserData)
                   ->update($tableName, [$active => 0]);
             }
 
-            Cookie::delete($username);
-            Cookie::delete($password );
-            Session::delete($username);
+            \Cookie::delete($username);
+            \Cookie::delete($password );
+            \Session::delete($username);
 
             redirect((string) $redirectUrl, $time);
         }

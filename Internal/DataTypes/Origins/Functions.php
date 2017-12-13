@@ -1,9 +1,8 @@
 <?php namespace ZN\DataTypes;
 
-use CallController;
 use ZN\DataTypes\Exception\InvalidArgumentException;
 
-class Functions extends CallController implements FunctionsInterface
+class Functions implements FunctionsInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

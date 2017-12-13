@@ -1,8 +1,6 @@
 <?php namespace ZN\FileSystem;
 
-use FactoryController;
-
-class File extends FactoryController
+class File extends \FactoryController
 {
     //--------------------------------------------------------------------------------------------------------
     //

@@ -1,6 +1,5 @@
 <?php namespace ZN\Services;
 
-use Config;
 use ZN\CryptoGraphy\Encode;
 use ZN\IndividualStructures\IS;
 
@@ -34,9 +33,9 @@ class Session implements SessionInterface, SessionCookieCommonInterface
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
-        Config::iniSet(Config::get('Htaccess', 'session')['settings']);
+        \Config::iniSet(\Config::get('Htaccess', 'session')['settings']);
 
-        $this->config = Config::services('session');
+        $this->config = \Config::services('session');
 
         $this->start();
     }

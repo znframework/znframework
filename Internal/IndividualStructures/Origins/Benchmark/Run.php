@@ -1,6 +1,5 @@
 <?php namespace ZN\IndividualStructures\Benchmark;
 
-use Benchmark, stdClass;
 use ZN\IndividualStructures\Benchmark\Exception\InvalidArgumentException;
 
 class Run
@@ -24,9 +23,9 @@ class Run
     //--------------------------------------------------------------------------------------------------------
     public function test(Callable $test) : Run
     {
-        Benchmark::start('run');
+        \Benchmark::start('run');
         $test();
-        Benchmark::end('run');
+        \Benchmark::end('run');
 
         return $this;
     }
@@ -39,14 +38,14 @@ class Run
     // @return stdClass
     //
     //--------------------------------------------------------------------------------------------------------
-    public function result() : stdClass
+    public function result() : \stdClass
     {
         return (object)
         [
-            'elapsedTime'      => Benchmark::elapsedTime('run'),
-            'calculatedMemory' => Benchmark::calculatedMemory('run'),
-            'usedFileCount'    => Benchmark::usedFileCount('run'),
-            'usedFiles'        => Benchmark::usedFiles('run')
+            'elapsedTime'      => \Benchmark::elapsedTime('run'),
+            'calculatedMemory' => \Benchmark::calculatedMemory('run'),
+            'usedFileCount'    => \Benchmark::usedFileCount('run'),
+            'usedFiles'        => \Benchmark::usedFiles('run')
         ];
     }
 }

@@ -1,6 +1,5 @@
 <?php namespace ZN\IndividualStructures;
 
-use Classes;
 use ZN\DataTypes\Arrays;
 
 class Reflect
@@ -68,7 +67,7 @@ class Reflect
 
         if( $type === 'class' )
         {
-            $parameters[0] = Classes::class($parameters[0]);            
+            $parameters[0] = \Classes::class($parameters[0]);            
         }
 
         return (new $class(...$parameters));

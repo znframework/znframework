@@ -1,6 +1,5 @@
 <?php namespace ZN\Helpers;
 
-use Config, Date, User;
 use ZN\FileSystem\File;
 use ZN\FileSystem\Folder;
 
@@ -149,7 +148,7 @@ class Logger implements LoggerInterface
     //--------------------------------------------------------------------------------------------------
     public static function report(String $subject, String $message, String $destination = NULL, String $time = NULL) : Bool
     {
-        if( ! Config::get('Project', 'log')['createFile'] )
+        if( ! \Config::get('Project', 'log')['createFile'] )
         {
             return false;
         }
@@ -171,7 +170,7 @@ class Logger implements LoggerInterface
         {
             if( empty($time) )
             {
-                $time = Config::get('Project', 'log')['fileTime'];
+                $time = \Config::get('Project', 'log')['fileTime'];
             }
 
             $createDate = File\Info::createDate($logDir.suffix($destination, $extension), 'd.m.Y');
@@ -184,9 +183,9 @@ class Logger implements LoggerInterface
             }
         }
 
-        $message = 'IP: ' . User::ip().
+        $message = 'IP: ' . \User::ip().
                    ' | Subject: ' . $subject.
-                   ' | Date: '.Date::set('{dayNumber0}.{monthNumber0}.{year} {H024}:{minute}:{second}').
+                   ' | Date: '.\Date::set('{dayNumber0}.{monthNumber0}.{year} {H024}:{minute}:{second}').
                    ' | Message: ' . $message . EOL;
 
         return error_log($message, 3, $logDir.suffix($destination, $extension));

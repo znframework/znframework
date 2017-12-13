@@ -1,6 +1,5 @@
 <?php namespace ZN\Services;
 
-use Config;
 use ZN\In;
 use ZN\DataTypes\Strings;
 use ZN\DataTypes\Arrays;
@@ -494,7 +493,7 @@ class URI implements URIInterface
             }
         }
 
-        return ! empty($currentUri) ? $currentUri : Config::get('Services', 'route')['openController'];
+        return ! empty($currentUri) ? $currentUri : \Config::get('Services', 'route')['openController'];
     }
 
     //--------------------------------------------------------------------------------------------------------

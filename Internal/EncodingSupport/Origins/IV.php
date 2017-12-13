@@ -1,11 +1,10 @@
 <?php namespace ZN\EncodingSupport;
 
-use CallController;
 use ZN\IndividualStructures\IS;
 use ZN\EncodingSupport\InvalidArgumentException;
 use ZN\DataTypes\Arrays;
 
-class IV extends CallController implements IVInterface
+class IV implements IVInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

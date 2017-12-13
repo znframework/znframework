@@ -1,6 +1,5 @@
 <?php namespace ZN\ViewObjects;
 
-use Config, Session, CallController, Post, Captcha;
 use ZN\Services\Method;
 use ZN\ViewObjects\Exception\InvalidArgumentException;
 use ZN\DataTypes\Arrays;
@@ -8,7 +7,7 @@ use ZN\CryptoGraphy\Encode;
 use ZN\IndividualStructures\Lang;
 use ZN\IndividualStructures\Security;
 
-class Validation extends CallController implements ValidationInterface
+class Validation implements ValidationInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -183,19 +182,19 @@ class Validation extends CallController implements ValidationInterface
     //--------------------------------------------------------------------------------------------------------
     public function check(String $submit = NULL) : Bool
     {
-        $method = Session::FormValidationMethod() ?: 'post';
+        $method = \Session::FormValidationMethod() ?: 'post';
 
         if( $submit !== NULL && ! $method::$submit() ) 
         {
             return false;
         }
         
-        $rules = Session::FormValidationRules();
+        $rules = \Session::FormValidationRules();
 
         if( is_array($rules) )
         {
-            Session::delete('FormValidationRules');
-            Session::delete('FormValidationMethod');
+            \Session::delete('FormValidationRules');
+            \Session::delete('FormValidationMethod');
 
             foreach( $rules as $name => $rule )
             {
@@ -408,7 +407,7 @@ class Validation extends CallController implements ValidationInterface
     {
         if( in_array('captcha', $this->config) )
         {
-            if( $this->edit !== Captcha::getCode() )
+            if( $this->edit !== \Captcha::getCode() )
             {
                 $this->_messages('captchaCode', $this->name, $this->viewName);
             }

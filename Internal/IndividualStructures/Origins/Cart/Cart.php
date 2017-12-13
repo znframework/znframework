@@ -1,8 +1,6 @@
 <?php namespace ZN\IndividualStructures;
 
-use FactoryController;
-
-class Cart extends FactoryController
+class Cart extends \FactoryController
 {
     //--------------------------------------------------------------------------------------------------------
     //

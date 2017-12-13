@@ -1,8 +1,6 @@
 <?php namespace ZN\ViewObjects;
 
-use CallController;
-
-class Sheet extends CallController
+class Sheet
 {
     //--------------------------------------------------------------------------------------------------------
     //

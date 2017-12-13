@@ -1,10 +1,10 @@
 <?php namespace ZN\DataTypes;
 
-use Config, CallController, ReflectionClass;
+use Config, ReflectionClass;
 use ZN\DataTypes\Exception\InvalidArgumentException;
 use ZN\DataTypes\Strings;
 
-class Classes extends CallController implements ClassesInterface
+class Classes implements ClassesInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

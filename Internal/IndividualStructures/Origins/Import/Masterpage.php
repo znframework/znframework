@@ -1,6 +1,5 @@
 <?php namespace ZN\IndividualStructures\Import;
 
-use Config, HTML;
 use ZN\Services\URL;
 use ZN\DataTypes\Arrays;
 
@@ -38,7 +37,7 @@ class Masterpage
     //--------------------------------------------------------------------------------------------------------
     public function body(String $body) : Masterpage
     {
-        Config::set('Masterpage', 'bodyPage', $body);
+        \Config::set('Masterpage', 'bodyPage', $body);
 
         return $this;
     }
@@ -52,7 +51,7 @@ class Masterpage
     //--------------------------------------------------------------------------------------------------------
     public function head($head) : Masterpage
     {
-        Config::set('Masterpage', 'headPage', $head);
+        \Config::set('Masterpage', 'headPage', $head);
 
         return $this;
     }
@@ -66,7 +65,7 @@ class Masterpage
     //--------------------------------------------------------------------------------------------------------
     public function title(String $title) : Masterpage
     {
-        Config::set('Masterpage', 'title', $title);
+        \Config::set('Masterpage', 'title', $title);
 
         return $this;
     }
@@ -80,7 +79,7 @@ class Masterpage
     //--------------------------------------------------------------------------------------------------------
     public function meta(Array $meta) : Masterpage
     {
-        Config::set('Masterpage', 'meta', $meta);
+        \Config::set('Masterpage', 'meta', $meta);
 
         return $this;
     }
@@ -94,7 +93,7 @@ class Masterpage
     //--------------------------------------------------------------------------------------------------------
     public function attributes(Array $attributes) : Masterpage
     {
-        Config::set('Masterpage', 'attributes', $attributes);
+        \Config::set('Masterpage', 'attributes', $attributes);
 
         return $this;
     }
@@ -108,7 +107,7 @@ class Masterpage
     //--------------------------------------------------------------------------------------------------------
     public function content(Array $content) : Masterpage
     {
-        Config::set('Masterpage', 'content', $content);
+        \Config::set('Masterpage', 'content', $content);
 
         return $this;
     }
@@ -144,14 +143,14 @@ class Masterpage
 
         Properties::$parameters = [];
 
-        $masterPageSet  = Config::get('Masterpage');
-        $doctypes       = array_merge(Config::expressions('doctypes'), Properties::$doctype);
+        $masterPageSet  = \Config::get('Masterpage');
+        $doctypes       = array_merge(\Config::expressions('doctypes'), Properties::$doctype);
         $docType        = $head['docType'] ?? $masterPageSet["docType"];
         $header         = ($doctypes[$docType] ?? '<!DOCTYPE html>') . EOL;
-        $htmlAttributes = Html::attributes($head['attributes']['html'] ?? $masterPageSet['attributes']['html']);
+        $htmlAttributes = \Html::attributes($head['attributes']['html'] ?? $masterPageSet['attributes']['html']);
 
         $header .= '<html xmlns="http://www.w3.org/1999/xhtml"'.$htmlAttributes.'>'.EOL;
-        $header .= '<head'.Html::attributes($head['attributes']['head'] ?? $masterPageSet['attributes']['head']).'>'.EOL;
+        $header .= '<head'.\Html::attributes($head['attributes']['head'] ?? $masterPageSet['attributes']['head']).'>'.EOL;
         $header .= $this->_contentCharset($head['content']['charset'] ?? $masterPageSet['content']['charset']);
         $header .= $this->_contentLanguage($head['content']['language'] ?? $masterPageSet['content']['language']);
         $header .= $this->_title($head['title'] ?? $masterPageSet["title"]);
@@ -165,7 +164,7 @@ class Masterpage
         $header .= $this->_data($masterPageSet['data'], $head['data'] ?? NULL);
         $header .= $this->_setpage($head['headPage'] ?? $masterPageSet['headPage']);
         $header .= '</head>'.EOL;
-        $header .= '<body'.Html::attributes($head['attributes']['body'] ?? $masterPageSet['attributes']['body']).
+        $header .= '<body'.\Html::attributes($head['attributes']['body'] ?? $masterPageSet['attributes']['body']).
                    $this->_bgImage($head['backgroundImage'] ?? $masterPageSet["backgroundImage"]).'>'.EOL;
 
         echo $header;

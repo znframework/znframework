@@ -1,8 +1,8 @@
 <?php namespace ZN\DataTypes;
 
-use CallController, stdClass;
+use stdClass;
 
-class Serial extends CallController implements SerialInterface
+class Serial implements SerialInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

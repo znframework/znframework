@@ -1,6 +1,5 @@
 <?php namespace ZN\FileSystem;
 
-use Config, CallController, Mime;
 use ZN\IndividualStructures\IS;
 use ZN\IndividualStructures\Lang;
 use ZN\DataTypes\Arrays;
@@ -9,7 +8,7 @@ use ZN\FileSystem\File;
 use ZN\FileSystem\Folder;
 use ZN\Helpers\Converter;
 
-class Upload extends CallController implements UploadInterface
+class Upload implements UploadInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -101,7 +100,7 @@ class Upload extends CallController implements UploadInterface
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
-        Config::iniSet(Config::get('Htaccess', 'upload')['settings']);
+        \Config::iniSet(\Config::get('Htaccess', 'upload')['settings']);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -498,7 +497,7 @@ class Upload extends CallController implements UploadInterface
         {
             return $this->extensionControl = Lang::select('FileSystem', 'upload:extensionError');
         }
-        elseif( ! empty($mimes) && ! in_array(Mime::type($nm), $mimes) )
+        elseif( ! empty($mimes) && ! in_array(\Mime::type($nm), $mimes) )
         {
             return $this->extensionControl = Lang::select('FileSystem', 'upload:mimeError');
         }

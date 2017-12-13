@@ -1,7 +1,7 @@
 <?php namespace ZN\IndividualStructures\Import;
 
 use ZN\In;
-use View as Views, Arrays;
+use View as Views;
 use ZN\ViewObjects\TemplateWizard;
 use ZN\FileSystem\File;
 use ZN\IndividualStructures\Buffer;

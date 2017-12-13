@@ -1,6 +1,5 @@
 <?php namespace ZN\IndividualStructures;
 
-use Support, DriverAbility;
 use ZN\Helpers\Converter;
 use ZN\IndividualStructures\Buffer;
 use ZN\IndividualStructures\Import;
@@ -16,7 +15,7 @@ class Cache implements CacheInterface
     //
     //--------------------------------------------------------------------------------------------------------
 
-    use DriverAbility;
+    use \DriverAbility;
 
     //--------------------------------------------------------------------------------------------------------
     // Consts

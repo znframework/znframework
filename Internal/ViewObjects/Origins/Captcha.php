@@ -1,6 +1,5 @@
 <?php namespace ZN\ViewObjects;
 
-use Config, Session, Cookie;
 use ZN\Services\URL;
 use ZN\DataTypes\Arrays;
 use ZN\CryptoGraphy\Encode;
@@ -291,22 +290,22 @@ class Captcha implements CaptchaInterface
     //--------------------------------------------------------------------------------------------------------
     public function create(Bool $img = false, Array $configs = []) : String
     {
-        $configs = array_merge(Config::viewObjects('captcha'), $this->sets, $configs);
+        $configs = array_merge(\Config::viewObjects('captcha'), $this->sets, $configs);
 
         if( ! empty($configs) )
         {
-            Config::set('ViewObjects', 'captcha', $configs);
+            \Config::set('ViewObjects', 'captcha', $configs);
         }
 
-        $set = Config::get('ViewObjects', 'captcha');
+        $set = \Config::get('ViewObjects', 'captcha');
 
         $systemCaptchaCodeData = md5('SystemCaptchaCodeData');
 
         $textLengthC = $set['text']['length'];
 
-        Session::insert($systemCaptchaCodeData, substr(md5(rand(0, 999999999)), -($textLengthC)));
+        \Session::insert($systemCaptchaCodeData, substr(md5(rand(0, 999999999)), -($textLengthC)));
 
-        if( $sessionCaptchaCode = Session::select($systemCaptchaCodeData) )
+        if( $sessionCaptchaCode = \Session::select($systemCaptchaCodeData) )
         {
             if( ! is_dir($this->path) )
             {
@@ -469,7 +468,7 @@ class Captcha implements CaptchaInterface
     //--------------------------------------------------------------------------------------------------------
     public function getCode() : String
     {
-        return Session::select(md5('SystemCaptchaCodeData'));
+        return \Session::select(md5('SystemCaptchaCodeData'));
     }
 
     //--------------------------------------------------------------------------------------------------------

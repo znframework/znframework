@@ -1,6 +1,5 @@
 <?php namespace ZN\IndividualStructures\Import;
 
-use Config;
 use ZN\Services\URL;
 use ZN\IndividualStructures\Exception\InvalidArgumentException;
 use ZN\DataTypes\Strings;
@@ -61,7 +60,7 @@ class Something
         {
             $return = Style::tag($randomPageVariableBaseUrl);
         }
-        elseif( stristr('svg|woff|otf|ttf|'.implode('|', Config::expressions('differentFontExtensions')), $randomPageVariableExtension) )
+        elseif( stristr('svg|woff|otf|ttf|'.implode('|', \Config::expressions('differentFontExtensions')), $randomPageVariableExtension) )
         {
             $return = self::_style($randomPageVariable, $randomPageVariableBaseUrl);
         }

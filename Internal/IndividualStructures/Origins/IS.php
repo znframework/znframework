@@ -1,6 +1,5 @@
 <?php namespace ZN\IndividualStructures;
 
-use Chars, Filters;
 use ZN\DataTypes\Strings;
 use ZN\DataTypes\Arrays;
 
@@ -35,7 +34,7 @@ class IS implements ISInterface
         // 5.3.2[edited]
         if( in_array($method, self::$dataTypes) )
         {
-            return Filters::$method($parameters[0]);
+            return \Filters::$method($parameters[0]);
         }
 
         $methods = Strings\Split::upperCase($realMethod = $method);

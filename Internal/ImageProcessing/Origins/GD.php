@@ -1,6 +1,5 @@
 <?php namespace ZN\ImageProcessing;
 
-use Image, Html, Config, RevolvingAbility, Mime, Collection;
 use ZN\ImageProcessing\Exception\InvalidArgumentException;
 use ZN\Helpers\Converter;
 
@@ -15,7 +14,7 @@ class GD implements GDInterface
     //
     //--------------------------------------------------------------------------------------------------------
 
-    use RevolvingAbility;
+    use \RevolvingAbility;
 
     //--------------------------------------------------------------------------------------------------------
     // Canvas
@@ -66,7 +65,7 @@ class GD implements GDInterface
     //--------------------------------------------------------------------------------------------------------
     public function thumb(String $filePath, Array $settings = []) : String
     {
-        return Image::thumb($filePath, $settings);
+        return \Image::thumb($filePath, $settings);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -82,9 +81,9 @@ class GD implements GDInterface
     //--------------------------------------------------------------------------------------------------------
     public function canvas($width, $height = NULL, $rgb = 'transparent', $real = false, $p1 = 0) : GD
     {   
-        if( Mime::type($width, 0) === 'image' )
+        if( \Mime::type($width, 0) === 'image' )
         {
-            $this->type   = Mime::type($width, 1);
+            $this->type   = \Mime::type($width, 1);
             
             $height = NULL; $rgb = NULL; $real = NULL; $p1 = NULL;
 
@@ -135,7 +134,7 @@ class GD implements GDInterface
     //--------------------------------------------------------------------------------------------------------
     public function createFrom(String $source, Array $settings = [])
     {
-        $type = Mime::type($source, 1);
+        $type = \Mime::type($source, 1);
 
         switch( $type )
         {
@@ -166,7 +165,7 @@ class GD implements GDInterface
     //--------------------------------------------------------------------------------------------------------
     public function size(String $fileName) : \stdClass
     {
-        if( Mime::type($fileName, 0) === 'image' )
+        if( \Mime::type($fileName, 0) === 'image' )
         {
             $data = getimagesize($fileName);
         }
@@ -490,7 +489,7 @@ class GD implements GDInterface
     //--------------------------------------------------------------------------------------------------------
     public function filter(String $filter, Int $arg1 = NULL, Int $arg2 = NULL, Int $arg3 = NULL, Int $arg4 = NULL) : GD
     {
-        $filters = Collection::data(func_get_args())
+        $filters = \Collection::data(func_get_args())
                              ->removeFirst()
                              ->deleteElement(NULL)
                              ->get();
@@ -1248,7 +1247,7 @@ class GD implements GDInterface
             return 'No Result!';
         }
 
-        return Html::image($this->result['path']);
+        return \Html::image($this->result['path']);
     }
 
     //--------------------------------------------------------------------------------------------------------

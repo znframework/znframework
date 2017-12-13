@@ -1,9 +1,8 @@
 <?php namespace ZN\Services;
 
-use CallController;
 use ZN\IndividualStructures\IS;
 
-class Redirect extends CallController implements RedirectInterface
+class Redirect implements RedirectInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

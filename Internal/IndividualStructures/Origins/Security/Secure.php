@@ -1,7 +1,5 @@
 <?php namespace ZN\IndividualStructures;
 
-use SerializationAbility;
-
 class Secure
 {
     //--------------------------------------------------------------------------------------------------------
@@ -13,7 +11,7 @@ class Secure
     //
     //--------------------------------------------------------------------------------------------------------
 
-    use SerializationAbility;
+    use \SerializationAbility;
     
     const serialization = 
     [

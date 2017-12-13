@@ -1,6 +1,5 @@
 <?php namespace ZN\IndividualStructures\Cache\Drivers;
 
-use Config;
 use ZN\ErrorHandling\Errors;
 use ZN\IndividualStructures\Support;
 use ZN\IndividualStructures\Exception\UnsupportedDriverException;
@@ -38,7 +37,7 @@ class MemcacheDriver extends CacheDriverMappingAbstract
     //--------------------------------------------------------------------------------------------------------
     public function connect(Array $settings = NULL)
     {
-        $config = Config::get('IndividualStructures', 'cache')['driverSettings'];
+        $config = \Config::get('IndividualStructures', 'cache')['driverSettings'];
 
         $config = ! empty($settings)
                   ? $settings

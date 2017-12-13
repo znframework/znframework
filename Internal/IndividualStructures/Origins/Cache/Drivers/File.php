@@ -2,7 +2,6 @@
 
 use ZN\IndividualStructures\Abstracts\CacheDriverMappingAbstract;
 use ZN\IndividualStructures\Support;
-use Compress;
 use ZN\FileSystem\File;
 use ZN\FileSystem\Folder;
 
@@ -62,7 +61,7 @@ class FileDriver extends CacheDriverMappingAbstract
         {
             if( $compressed !== false )
             {
-                $data['data'] = Compress::driver($compressed)->undo($data['data']);
+                $data['data'] = \Compress::driver($compressed)->undo($data['data']);
             }
 
             return $data['data'];
@@ -86,7 +85,7 @@ class FileDriver extends CacheDriverMappingAbstract
     {
         if( $compressed !== false )
         {
-            $var = Compress::driver($compressed)->do($var);
+            $var = \Compress::driver($compressed)->do($var);
         }
 
         $datas =

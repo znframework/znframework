@@ -1,9 +1,8 @@
 <?php namespace ZN\ViewObjects;
 
-use CallController;
 use ZN\IndividualStructures\Import;
 
-class Style extends CallController implements StyleInterface
+class Style implements StyleInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //

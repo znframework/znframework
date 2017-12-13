@@ -34,7 +34,7 @@ trait FactoryAbility
             $namespace   = str_ireplace(Strings\Split::divide($calledClass, '\\', -1), NULL, $calledClass);
         }
 
-        $class = $namespace.$class;
+        $class = $namespace . $class;
 
         return uselib($class);
     }

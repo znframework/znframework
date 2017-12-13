@@ -1,6 +1,5 @@
 <?php namespace ZN\ViewObjects;
 
-use Config;
 use ZN\FileSystem\File;
 use ZN\IndividualStructures\Buffer;
 
@@ -136,7 +135,7 @@ class TemplateWizard
     //--------------------------------------------------------------------------------------------------------
     protected static function config()
     {
-        return Config::get('ViewObjects', 'wizard');
+        return \Config::get('ViewObjects', 'wizard');
     }
 
     //--------------------------------------------------------------------------------------------------------

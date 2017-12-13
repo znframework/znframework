@@ -1,8 +1,6 @@
 <?php namespace ZN\ViewObjects;
 
-use Config, CallController;
-
-class CDN extends CallController implements CDNInterface
+class CDN implements CDNInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -23,7 +21,7 @@ class CDN extends CallController implements CDNInterface
     //--------------------------------------------------------------------------------------------------------
     public static function get(String $configName, String $name) : String
     {
-        $config = Config::get('CDNLinks');
+        $config = \Config::get('CDNLinks');
 
         $configData = ! empty($config[$configName]) ? $config[$configName] : '';
 

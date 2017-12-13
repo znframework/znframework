@@ -1,8 +1,6 @@
 <?php namespace ZN\ImageProcessing;
 
-use Image, CallController;
-
-class Thumb extends CallController implements ThumbInterface
+class Thumb implements ThumbInterface
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -129,7 +127,7 @@ class Thumb extends CallController implements ThumbInterface
             $path = $this->sets['filePath'];
         }
 
-        return Image::thumb($path, $this->sets);
+        return \Image::thumb($path, $this->sets);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -147,6 +145,6 @@ class Thumb extends CallController implements ThumbInterface
             return false;
         }
 
-        return Image::getProsize($this->sets['filePath'], $width, $height);
+        return \Image::getProsize($this->sets['filePath'], $width, $height);
     }
 }

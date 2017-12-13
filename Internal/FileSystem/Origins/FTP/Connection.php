@@ -1,9 +1,8 @@
 <?php namespace ZN\FileSystem\FTP;
 
-use CLController, Config;
 use ZN\FileSystem\Exception\IOException;
 
-class Connection extends CLController
+class Connection extends \CLController
 {
     //--------------------------------------------------------------------------------------------------------
     //
@@ -47,7 +46,7 @@ class Connection extends CLController
 
         if( ! empty($config) )
         {
-            $config = Config::get('FileSystem', 'ftp', $config);
+            $config = \Config::get('FileSystem', 'ftp', $config);
         }
         else
         {
