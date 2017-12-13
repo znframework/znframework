@@ -2,16 +2,38 @@
 # Nginx Configuration
 #----------------------------------------------------------------------------------------------------
 
-index zeroneed.php;
-
-error_page 403 /zeroneed.php;
-
-location /
+server 
 {
-    if (!-e $request_filename)
-    {
-        rewrite ^(.*)$ /zeroneed.php?/$1;
-    }
+	listen 80 default_server;
+	listen [::]:80 default_server;
+
+	root /var/www/html;
+
+	index zeroneed.php;
+
+	error_page 403 /zeroneed.php;
+
+	location / 
+	{
+		try_files $uri /zeroneed.php?$args;
+		proxy_pass http://127.0.0.1:80;
+	}
+
+	location ~ \.php$ 
+	{
+		include snippets/fastcgi-php.conf;
+		fastcgi_pass unix:/var/run/php/php7.0-fpm.sock;
+	}
+
+	location ~ \.css 
+	{
+	    add_header  Content-Type    text/css;
+	}
+
+	location ~ \.js 
+	{
+	    add_header  Content-Type    application/x-javascript;
+	}
 }
 
 #----------------------------------------------------------------------------------------------------
