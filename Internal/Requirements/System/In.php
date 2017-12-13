@@ -621,7 +621,7 @@ class In
             $htaccess .= $tab."RewriteBase /".$eol;
             $htaccess .= $tab."RewriteCond %{REQUEST_FILENAME} !-f".$eol;
             $htaccess .= $tab."RewriteCond %{REQUEST_FILENAME} !-d".$eol;
-            $htaccess .= $tab.'RewriteRule ^(.*)$  '.$_SERVER['SCRIPT_NAME'].$indexSuffix.'/$1 ['.$flag.']'.$eol;
+            $htaccess .= $tab.'RewriteRule ^(.*)$  '.($_SERVER['SCRIPT_NAME'] ?? NULL).$indexSuffix.'/$1 ['.$flag.']'.$eol;
             $htaccess .= "</IfModule>".$eol.$eol;
         }
         //-----------------------URI ZERONEED PHP----------------------------------------------------

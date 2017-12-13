@@ -50,29 +50,32 @@ class Style extends BootstrapExtends
                 $style = '';
             }
 
-            $styleFile = STYLES_DIR.suffix($style,".css");
-
-            if( ! is_file($styleFile) )
+            if( IS::url($style) )
             {
-                $styleFile = EXTERNAL_STYLES_DIR.suffix($style, ".css");
+                $str .= self::tag($style);
             }
-
-            if( ! in_array($styleFix . $style, Properties::$isImport) )
+            else
             {
-                if( is_file($styleFile) )
+                $styleFile = STYLES_DIR . ($suffix = suffix($style, '.css'));
+                
+                if( ! is_file($styleFile) )
                 {
-                    $str .= self::tag(URL::base($styleFile));
+                    $styleFile = EXTERNAL_STYLES_DIR . $suffix;
                 }
-                elseif( IS::url($style) )
+    
+                if( ! in_array($styleFix . $style, Properties::$isImport) )
                 {
-                    $str .= self::tag($style);
+                    if( is_file($styleFile) )
+                    {
+                        $str .= self::tag(URL::base($styleFile));
+                    }
+                    elseif( $lowerLinkName = ($links[strtolower($style)] ?? NULL) )
+                    {
+                        $str .= self::tag($lowerLinkName);
+                    }
+    
+                    Properties::$isImport[] = $styleFix . $style;
                 }
-                elseif( $lowerLinkName = ($links[strtolower($style)] ?? NULL) )
-                {
-                    $str .= self::tag($lowerLinkName);
-                }
-
-                Properties::$isImport[] = $styleFix . $style;
             }
         }
 

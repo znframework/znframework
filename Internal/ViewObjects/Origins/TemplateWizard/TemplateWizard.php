@@ -156,7 +156,7 @@ class TemplateWizard
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Protected Keywords -> 5.4.4[edited]
+    // Protected Keywords -> 5.4.4|5.4.7[edited]
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string $htmlRegexChar
@@ -172,7 +172,9 @@ class TemplateWizard
             [
                 '/@endforelse:/'                                         => '<?php endif; ?>',                                       
                 '/@forelse\s*\((\s*(.*?)\s+as\s+(.*?))\)\:/s'            => '<?php if( ! empty($2) ): foreach($1): ?>',
-                '/@empty\:/'                                             => '<?php endforeach; else: ?>',           
+                '/@empty\:/'                                             => '<?php endforeach; else: ?>',     
+                '/@loop\s*\((.*?)\)\:/s'                                 => '<?php foreach($1 as $key => $value): ?>',    
+                '/@endloop:/'                                            => '<?php endforeach; ?>',         
                 '/@(endif|endforeach|endfor|endwhile|break|continue)\:/' => '<?php $1 ?>',
                 '/@(elseif|if|else|foreach|for|while)\s*(.*?)\:/s'       => '<?php $1$2: ?>'
             ];

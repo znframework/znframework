@@ -42,44 +42,19 @@ class Font extends BootstrapExtends
 
             $fontFile = FONTS_DIR . $font;
 
-            if( ! is_file($fontFile) && is_dir($fontFile) )
-            {
-                $fontFile = EXTERNAL_FONTS_DIR.$font;
-            }
-
+            if( ! is_file($fontFile) && is_dir($fontFile) ) $fontFile = EXTERNAL_FONTS_DIR . $font;
+        
             $baseUrl  = URL::base($fontFile);
 
-            if( is_file(suffix($fontFile, '.svg')) )
-            {
-                $str .= self::_face($f, $baseUrl, 'svg');
-            }
+            if( is_file(suffix($fontFile, '.svg')) )  $str .= self::_face($f, $baseUrl, 'svg');
+            if( is_file(suffix($fontFile, '.woff')) ) $str .= self::_face($f, $baseUrl, 'woff');
+            if( is_file(suffix($fontFile, '.otf')) )  $str .= self::_face($f, $baseUrl, 'otf');
+            if( is_file(suffix($fontFile, '.ttf')) )  $str .= self::_face($f, $baseUrl, 'ttf');
 
-            if( is_file(suffix($fontFile, '.woff')) )
-            {
-                $str .= self::_face($f, $baseUrl, 'woff');
-            }
-
-            // OTF IE VE CHROME DESTEKLEMIYOR
-            if( is_file(suffix($fontFile, '.otf')) )
-            {
-                $str .= self::_face($f, $baseUrl, 'otf');
-            }
-
-            // TTF IE DESTEKLEMIYOR
-            if( is_file(suffix($fontFile, '.ttf')) )
-            {
-                $str .= self::_face($f, $baseUrl, 'ttf');
-            }
-
-            // CND ENTEGRASYON
             $cndFont = isset($links[strtolower($font)]) ? $links[strtolower($font)] : NULL;
 
-            if( ! empty($cndFont) )
-            {
-                $str .= self::_face(self::_fontName($cndFont), $cndFont);
-            }
-
-            // FARKLI FONTLAR
+            if( ! empty($cndFont) ) $str .= self::_face(self::_fontName($cndFont), $cndFont);
+        
             $differentSet = Config::expressions('differentFontExtensions');
 
             if( ! empty($differentSet) )

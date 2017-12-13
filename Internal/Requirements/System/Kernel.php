@@ -7,7 +7,6 @@ use ZN\FileSystem\Folder;
 use ZN\IndividualStructures\IS;
 use ZN\IndividualStructures\Lang;
 use ZN\IndividualStructures\Import;
-use GeneralException;
 use ZN\ErrorHandling\Errors;
 use ZN\ErrorHandling\Exceptions;
 
@@ -325,7 +324,7 @@ class Kernel
             {
                 Logger::report('Error', Lang::select('Error', 'fileNotFound', $path) ,'AutoloadComposer');
 
-                throw new GeneralException('Error', 'fileNotFound', $path);
+                throw new \GeneralException('Error', 'fileNotFound', $path);
             }
         }
         elseif( is_file($composer) )
@@ -338,7 +337,7 @@ class Kernel
 
             Logger::report('Error', Lang::select('Error', 'fileNotFound', $path) ,'AutoloadComposer');
 
-            throw new GeneralException('Error', 'fileNotFound', $path);
+            throw new \GeneralException('Error', 'fileNotFound', $path);
         }
     }
 

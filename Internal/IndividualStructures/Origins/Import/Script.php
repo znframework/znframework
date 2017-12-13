@@ -50,29 +50,32 @@ class Script extends BootstrapExtends
                 $script = '';
             }
 
-            $scriptFile = SCRIPTS_DIR.suffix($script, ".js");
-
-            if( ! is_file($scriptFile) )
+            if( IS::url($script) )
             {
-                $scriptFile = EXTERNAL_SCRIPTS_DIR.suffix($script, ".js");
+                $str .= self::tag($script);
             }
-
-            if( ! in_array($scriptFix . $script, Properties::$isImport) )
+            else
             {
-                if( is_file($scriptFile) )
+                $scriptFile = SCRIPTS_DIR . ($suffix = suffix($script, '.js'));
+
+                if( ! is_file($scriptFile) )
                 {
-                    $str .= self::tag(URL::base($scriptFile));
-                }
-                elseif( IS::url($script) )
-                {
-                    $str .= self::tag($script);
-                }
-                elseif( $lowerLinkName = ($links[strtolower($script)] ?? NULL) )
-                {
-                    $str .= self::tag($lowerLinkName);
+                    $scriptFile = EXTERNAL_SCRIPTS_DIR . $suffix;
                 }
 
-                Properties::$isImport[] = $scriptFix . $script;
+                if( ! in_array($scriptFix . $script, Properties::$isImport) )
+                {
+                    if( is_file($scriptFile) )
+                    {
+                        $str .= self::tag(URL::base($scriptFile));
+                    }
+                    elseif( $lowerLinkName = ($links[strtolower($script)] ?? NULL) )
+                    {
+                        $str .= self::tag($lowerLinkName);
+                    }
+
+                    Properties::$isImport[] = $scriptFix . $script;
+                }
             }
         }
 
