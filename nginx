@@ -34,6 +34,11 @@ server
 	{
 	    add_header  Content-Type    application/x-javascript;
 	}
+
+	location ~ \.(gif|png|jpg|psd)
+	{
+	    add_header  Content-Type    text/image;
+	}
 }
 
 #----------------------------------------------------------------------------------------------------
