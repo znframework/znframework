@@ -195,11 +195,12 @@ class TemplateWizard
 
         if( self::config()['printable'] ?? true )
         {
-            $array =
+            $constant = '@(\w+(\[(\'|\")*.*?(\'|\")*\])*)\:/s';
+            $array    =
             [
-                '/@\$(\w+.*?)\:/s'                           => '<?php echo $$1 ?>', // Variable
-                '/@@(\w+(\_|\[(\'|\")*.*?(\'|\")*\])*)\:/s'  => '<?php echo $1 ?>',  // Constant
-                '/@(\w+(\_|\[(\'|\")*.*?(\'|\")*\])*)\:/s'   => '<?php echo $1 ?>'   // Constant
+                '/@\$(\w+.*?)\:/s'  => '<?php echo $$1 ?>', // Variable
+                '/@' . $constant    => '<?php echo $1 ?>',  // Constant
+                '/'  . $constant    => '<?php echo $1 ?>'   // Constant
             ];
         }
 
@@ -219,10 +220,11 @@ class TemplateWizard
 
         if( self::config()['functions'] ?? true )
         {
-            $array =
+            $function = '@(\w+.*?(\)|\}|\]|\-\>\w+))\:/s';
+            $array    =
             [
-                '/@@(\w+.*?\))\:/s' => '<?php echo $1 ?>', // Function
-                '/@(\w+.*?\))\:/s'  => '<?php if( is_scalar($1) ) echo $1; ?>'  // Function
+                '/@' . $function => '<?php echo $1 ?>', // Function
+                '/'  . $function => '<?php if( is_scalar($1) ) echo $1; ?>'  // Function
             ];
         }
 
