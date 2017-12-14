@@ -195,12 +195,25 @@ class TemplateWizard
 
         if( self::config()['printable'] ?? true )
         {
-            $constant = '@(\w+(\[(\'|\")*.*?(\'|\")*\])*)\:/s';
+            $suffix   = '\:/s';
+            $coalesce = '\?';
+            $constant = '@((\w+)(\[(\'|\")*.*?(\'|\")*\])*)';
+            $variable = '/@\$(\w+.*?)';
+            
+            $outputVariableCoalesce = '<?php echo $$1 ?? NULL ?>';
+            $outputVariable         = '<?php echo $$1 ?>';
+
+            $outputCosntantCoalesce = '<?php echo defined("$2") ? ($1 ?? NULL) : NULL ?>';
+            $outputCosntant         = '<?php echo $1 ?>';
+            
             $array    =
             [
-                '/@\$(\w+.*?)\:/s'  => '<?php echo $$1 ?>', // Variable
-                '/@' . $constant    => '<?php echo $1 ?>',  // Constant
-                '/'  . $constant    => '<?php echo $1 ?>'   // Constant
+                $variable . $coalesce . $suffix         => $outputVariableCoalesce, // Variable
+                $variable        . $suffix              => $outputVariable,         // Variable
+                '/@' . $constant . $coalesce . $suffix  => $outputCosntantCoalesce, // Constant
+                '/@' . $constant . $suffix              => $outputCosntant,         // Constant
+                '/'  . $constant . $coalesce . $suffix  => $outputCosntantCoalesce, // Constant
+                '/'  . $constant . $suffix              => $outputCosntant          // Constant
             ];
         }
 
