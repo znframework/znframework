@@ -1,3 +1,8 @@
+[![Latest Stable Version](https://poser.pugx.org/znframework/multi-edition/v/stable)](https://packagist.org/packages/znframework/multi-edition)
+[![Total Downloads](https://poser.pugx.org/znframework/multi-edition/downloads)](https://packagist.org/packages/znframework/multi-edition)
+[![Latest Unstable Version](https://poser.pugx.org/znframework/multi-edition/v/unstable)](https://packagist.org/packages/znframework/multi-edition)
+[![License](https://poser.pugx.org/znframework/multi-edition/license)](https://packagist.org/packages/znframework/multi-edition)
+
 # ZN Framework - PHP Web Framework
 [Download](https://www.znframework.com/download) - 
 [Upgrade](https://www.znframework.com/upgrade) - 
