@@ -239,7 +239,7 @@ trait ViewCommonTrait
 
         if( ! empty($attributes['name']) )
         {
-            $this->_postback($attributes['name'], $attributes['value']);
+            $this->_postback($attributes['name'], $attributes['value'], $type);
 
             // 5.4.2[added]
             $this->_validate($attributes['name'], $attributes['name']);

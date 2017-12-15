@@ -19,7 +19,7 @@ class Exceptions extends \Exception implements ExceptionsInterface
     public static $errorCodes = 
     [
         0       => 'ERROR',
-        2       => 'WARNING ',
+        2       => 'WARNING',
         4       => 'PARSE',
         8       => 'NOTICE',
         16      => 'CORE_ERROR',
@@ -101,7 +101,9 @@ class Exceptions extends \Exception implements ExceptionsInterface
 
         // Error Type: TypeHint -> exit
 
-        if( in_array($no, \Config::get('Project', 'exitErrors')) )
+        $projectError = \Config::get('Project');
+
+        if( in_array($no, $projectError['exitErrors']) || in_array(self::$errorCodes[$no], $projectError['exitErrors']) )
         {
             exit($table);
         }
@@ -167,7 +169,7 @@ class Exceptions extends \Exception implements ExceptionsInterface
             return false;
         }
 
-        if( in_array($no, $projects['escapeErrors']) )
+        if( in_array($no, $projects['escapeErrors']) || in_array(self::$errorCodes[$no], $projects['escapeErrors']) )
         {
             return false;
         }

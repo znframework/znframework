@@ -295,15 +295,25 @@ trait FormElementsTrait
     // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
-    protected function _postback($name, &$default)
+    protected function _postback($name, &$default, $type = NULL)
     {
         if( isset($this->postback['bool']) && $this->postback['bool'] === true )
         {
-            $method   = ! empty($this->method) ? $this->method : $this->postback['type'];
+            $method = ! empty($this->method) ? $this->method : $this->postback['type'];
     
             $this->postback = [];
 
-            $default = Validation::postBack($name, $method);
+            if( $type === 'checkbox' || $type === 'radio' )
+            {
+                if( $method::$name() === $default )
+                {
+                    $this->checked();
+                }    
+            }
+            else
+            {
+                $default = Validation::postBack($name, $method);
+            }   
         }
     }
 

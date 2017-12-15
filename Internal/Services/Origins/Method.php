@@ -116,7 +116,7 @@ class Method implements MethodInterface
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Protected Method
+    // Protected Method -> 5.4.7[edited]
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string $name
@@ -132,8 +132,8 @@ class Method implements MethodInterface
             return $input;
         }
 
-        // @value parametresi boş değilse
-        if( ! empty($value) )
+        // @value parametresi boş değilse 5.4.7[edited]
+        if( $value !== NULL )
         {
             switch( $type )
             {
