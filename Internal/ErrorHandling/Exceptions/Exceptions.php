@@ -103,7 +103,7 @@ class Exceptions extends \Exception implements ExceptionsInterface
 
         $projectError = \Config::get('Project');
 
-        if( in_array($no, $projectError['exitErrors']) || in_array(self::$errorCodes[$no], $projectError['exitErrors']) )
+        if( in_array($no, $projectError['exitErrors']) || in_array(self::$errorCodes[$no] ?? NULL, $projectError['exitErrors']) )
         {
             exit($table);
         }
@@ -169,7 +169,7 @@ class Exceptions extends \Exception implements ExceptionsInterface
             return false;
         }
 
-        if( in_array($no, $projects['escapeErrors']) || in_array(self::$errorCodes[$no], $projects['escapeErrors']) )
+        if( in_array($no, $projects['escapeErrors']) || in_array(self::$errorCodes[$no] ?? NULL, $projects['escapeErrors']) )
         {
             return false;
         }
@@ -372,7 +372,7 @@ class Exceptions extends \Exception implements ExceptionsInterface
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Protected Template Wizard
+    // Protected Template Wizard -> 5.4.71[edited]
     //--------------------------------------------------------------------------------------------------------
     //
     // @param void
@@ -380,12 +380,10 @@ class Exceptions extends \Exception implements ExceptionsInterface
     //--------------------------------------------------------------------------------------------------------
     protected static function _templateWizard()
     {
-        $requiredFiles = implode('[+++]', get_required_files());
+        $trace = debug_backtrace()[6]['args'] ?? [NULL];
 
-        preg_match('/\w+\.wizard\.php/', $requiredFiles, $match);
-
-        $exceptionData['file']    = VIEWS_DIR.($match[0] ?? strtolower(CURRENT_CFUNCTION).'.wizard.php');
-        $exceptionData['message'] = Lang::select('Error', 'templateWizard');
+        $exceptionData['file']    = VIEWS_DIR.($trace[0] ?? strtolower(CURRENT_CFUNCTION).'.wizard') . '.php';
+        $exceptionData['message'] = $trace[0] ?? Lang::select('Error', 'templateWizard');
 
         return (object) $exceptionData;
     }
