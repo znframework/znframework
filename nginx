@@ -25,19 +25,9 @@ server
 		fastcgi_pass unix:/var/run/php/php7.0-fpm.sock;
 	}
 
-	location ~ \.css 
+	location ~ "\.[a-zA-Z0-9]{3,4}$"
 	{
-	    add_header  Content-Type    text/css;
-	}
-
-	location ~ \.js 
-	{
-	    add_header  Content-Type    application/x-javascript;
-	}
-
-	location ~ \.(gif|png|jpg|psd)
-	{
-	    add_header  Content-Type    text/image;
+	    
 	}
 }
 
