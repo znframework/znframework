@@ -39,6 +39,6 @@ class Extension
     //--------------------------------------------------------------------------------------------------
     public static function remove(String $file) : String
     {
-        return preg_replace('/\\.[^.\\s]{3,4}$/', '', $file);
+        return preg_replace('/\\.[^.\\s]{2,4}$/', '', $file);
     }
 }

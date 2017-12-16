@@ -32,7 +32,7 @@ class Debugger
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
-        $debug = debug_backtrace(2);
+        $debug = debug_backtrace();
 
         $this->debug = Arrays\RemoveElement::first($debug, 3);
     }
@@ -51,23 +51,16 @@ class Debugger
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Internal
+    // Parent -> 5.4.75
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param  void
+    // @param  int $index = 1;
     // @return stdClass
     //
     //--------------------------------------------------------------------------------------------------------
-    public function next() : \stdClass
+    public function parent(Int $index = 1) : \stdClass
     {
-        $internal = $this->_layer($this->output(), 2, 3);
-
-        if( $internal->class === NULL )
-        {
-            return $this->_layer($this->debug, 1, 1);
-        }
-
-        return $internal;
+        return $this->_layer($this->debug, $index, $index + 1);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -115,6 +108,7 @@ class Debugger
         $line           = $debug[$layer1]['line']     ?? NULL;
         $function       = $debug[$layer2]['function'] ?? NULL;
         $class          = $debug[$layer2]['class']    ?? NULL;
+        $args           = $debug[$layer2]['args']     ?? NULL;
         $type           = $debug[$layer1]['type']     ?? NULL;
         $type           = str_replace('->', '::', $type);
         $classSuffix    = $type.$function.'()';
@@ -125,6 +119,7 @@ class Debugger
         [
             'file'           => $file,
             'line'           => $line,
+            'args'           => $args,
             'function'       => $function,
             'class'          => $class,
             'type'           => $type,
