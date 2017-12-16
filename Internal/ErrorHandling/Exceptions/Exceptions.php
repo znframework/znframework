@@ -59,7 +59,7 @@ class Exceptions extends \Exception implements ExceptionsInterface
     //--------------------------------------------------------------------------------------------------------
     public static function throws(String $message = NULL, String $key = NULL, $send = NULL)
     {
-        $debug = self::_throwFinder(debug_backtrace(2));
+        $debug = self::_throwFinder(debug_backtrace(2), 0, 2);
 
         if( $lang = Lang::select($message, $key, $send) )
         {
@@ -89,7 +89,7 @@ class Exceptions extends \Exception implements ExceptionsInterface
             $line  = $no->getLine();
             $trace = $no->getTrace(); 
             
-            $no    = NULL;
+            $no    = 'NULL';
         }
 
         $lang    = Lang::select('Templates');
@@ -103,7 +103,7 @@ class Exceptions extends \Exception implements ExceptionsInterface
 
         $projectError = \Config::get('Project');
 
-        if( in_array($no, $projectError['exitErrors']) || in_array(self::$errorCodes[$no] ?? NULL, $projectError['exitErrors']) )
+        if( in_array($no, $projectError['exitErrors'], true) || in_array(self::$errorCodes[$no] ?? NULL, $projectError['exitErrors'], true) )
         {
             exit($table);
         }
@@ -169,7 +169,7 @@ class Exceptions extends \Exception implements ExceptionsInterface
             return false;
         }
 
-        if( in_array($no, $projects['escapeErrors']) || in_array(self::$errorCodes[$no] ?? NULL, $projects['escapeErrors']) )
+        if( in_array($no, $projects['escapeErrors'], true) || in_array(self::$errorCodes[$no] ?? NULL, $projects['escapeErrors'], true) )
         {
             return false;
         }
@@ -181,7 +181,7 @@ class Exceptions extends \Exception implements ExceptionsInterface
         
         $exceptionData =
         [
-            'type'    => '['.self::$errorCodes[$no ?? 0].']',
+            'type'    => '['.(self::$errorCodes[$no] ?? 'ERROR').']',
             'message' => $msg,
             'file'    => $file,
             'line'    => '['.$line.']',

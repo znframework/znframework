@@ -22,7 +22,7 @@ class Errors
     // @param mixed  $ex
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function message(String $langFile, String $errorMsg, $ex = NULL) : String
+    public static function message(String $langFile, String $errorMsg = NULL, $ex = NULL) : String
     {
         $style  = 'border:solid 1px #E1E4E5;';
         $style .= 'background:#FEFEFE;';
@@ -53,7 +53,7 @@ class Errors
 
         $str  = "<div style=\"$style\">";
 
-        if( ! empty($errorMsg) )
+        if( $errorMsg !== NULL )
         {
             $str .= Lang::select($langFile, $errorMsg, $ex);
         }
