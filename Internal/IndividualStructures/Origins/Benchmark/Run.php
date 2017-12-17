@@ -1,7 +1,5 @@
 <?php namespace ZN\IndividualStructures\Benchmark;
 
-use ZN\IndividualStructures\Benchmark\Exception\InvalidArgumentException;
-
 class Run
 {
     //--------------------------------------------------------------------------------------------------------

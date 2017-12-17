@@ -1,6 +1,6 @@
 <?php namespace ZN\IndividualStructures\Buffer;
 
-use ZN\IndividualStructures\Buffer\Exception\InvalidArgumentException;
+use ZN\IndividualStructures\Exception\InvalidArgumentException;
 
 class File
 {

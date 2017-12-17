@@ -1,6 +1,5 @@
 <?php namespace ZN\IndividualStructures\Buffer;
 
-use ZN\IndividualStructures\Buffer\Exception\InvalidArgumentException;
 use ZN\ErrorHandling\Exceptions;
 use ZN\ErrorHandling\Errors;
 
