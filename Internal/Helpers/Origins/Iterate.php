@@ -1,4 +1,4 @@
-<?php namespace ZN\DataTypes;
+<?php namespace ZN\Helpers;
 
 class Iterate
 {

@@ -1,4 +1,4 @@
-<?php namespace ZN\IndividualStructures;
+<?php namespace ZN\Helpers;
 
 use ZN\DataTypes\Arrays;
 
@@ -51,6 +51,36 @@ class Reflect
         }
 
         return $this->call($parameters)->$method();
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Annotation
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $class
+    // @param string $function
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function annotation(String $class, String $function = NULL) : \stdClass
+    {
+        if( strstr($class, '::') )
+        {
+            $method = explode('::', $class);
+
+            $class    = $method[0];
+            $function = $method[1];
+        }
+
+        $class = $this->class($class);
+
+        if( $function !== NULL )
+        {
+            $class = $class->getMethod($function);
+        }
+        
+        preg_match_all('/@(\w+)\s+(.*?)\s+\*/s', $class->getDocComment(), $match);
+
+        return (object) array_combine($match[1] ?? [], $match[2] ?? []);
     }
 
     //--------------------------------------------------------------------------------------------------------
