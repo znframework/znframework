@@ -1237,7 +1237,7 @@ function internalProjectContainerDir($path = NULL) : String
 //--------------------------------------------------------------------------------------------------
 function internalIsWritable(String $path)
 {
-    if( is_file($path) && ! is_writable($path) )
+    if( is_file($path) && ! is_writable($path) && IS::software() === 'apache' )
     {   
         trace
         (

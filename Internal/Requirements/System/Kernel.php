@@ -60,7 +60,11 @@ class Kernel
         //--------------------------------------------------------------------------------------------------
 
         if( $iniSet = $htaccessConfig['ini']['settings'] ) \Config::iniSet($iniSet);
-        if( \Config::htaccess('createFile') === true ) In::createHtaccessFile();
+
+        if( \Config::htaccess('createFile') === true ) 
+            if( IS::software() === 'apache' )
+                In::createHtaccessFile();
+                
         if( \Config::robots  ('createFile') === true ) In::createRobotsFile();
 
         $generateConfig = \Config::get('FileSystem', 'generate');
