@@ -6,6 +6,7 @@ class Home extends Controller
     {
         // Simplicity is our choice, how about yours ?
         
-        View::pageTitle('ZN5 ORIGINAL')->pageSubtitle('Community Edition');
+        View::pageTitle('ZN FRAMEWORK')
+            ->pageSubtitle('"Simplicity is the ultimate sophistication" - Da Vinci');
     }
 }
