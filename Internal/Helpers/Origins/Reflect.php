@@ -1,6 +1,8 @@
 <?php namespace ZN\Helpers;
 
 use ZN\DataTypes\Arrays;
+use ZN\DataTypes\Json;
+use ZN\IndividualStructures\Buffer;
 
 class Reflect
 {
@@ -52,9 +54,9 @@ class Reflect
 
         return $this->call($parameters)->$method();
     }
-
+    
     //--------------------------------------------------------------------------------------------------------
-    // Annotation
+    // Annotation -> 5.4.8
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string $class
@@ -71,16 +73,41 @@ class Reflect
             $function = $method[1];
         }
 
-        $class = $this->class($class);
-
-        if( $function !== NULL )
+        if( $function[0] === '$' )
         {
-            $class = $class->getMethod($function);
+            $class = $this->property($class, ltrim($function, '$'));
         }
-        
-        preg_match_all('/@(\w+)\s+(.*?)\s+\*/s', $class->getDocComment(), $match);
+        else
+        {
+            $class = $this->class($class);
 
-        return (object) array_combine($match[1] ?? [], $match[2] ?? []);
+            if( $function !== NULL )
+            {
+                $class = $class->getMethod($function);
+            }
+        } 
+        
+        preg_match_all('/@(\w+.*?)\s+(.*?)\s+\*/s', $class->getDocComment(), $match);
+
+        $keys   = $match[1] ?? [];
+        $values = $match[2] ?? [];
+    
+        $values = array_map(function($data)
+        {
+            if( Json\ErrorInfo::check($data) )
+            {
+                return Json\Decode::object($data);
+            }
+            elseif( $data[0] === ':' )
+            {
+                return eval('?><?php return ' . ltrim(suffix($data, ';'), ':'));
+            }
+
+            return $data;
+
+        }, $values);
+
+        return (object) array_combine($keys, $values);
     }
 
     //--------------------------------------------------------------------------------------------------------
