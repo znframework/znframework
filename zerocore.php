@@ -1251,7 +1251,7 @@ function internalIsWritable(String $path)
 }
 
 //--------------------------------------------------------------------------------------------------
-// Internal Current Project -> 5.4.7[edited]
+// Internal Current Project -> 5.4.7|5.4.8[edited]
 //--------------------------------------------------------------------------------------------------
 //
 // @param void
@@ -1289,7 +1289,7 @@ function internalCurrentProject()
 		}
         // ------------------------------------------------------------------------
         
-        $internalDir = ( ! empty($currentPath) ? explode('/', ltrim($currentPath, '/'))[0] : '' );
+        $internalDir = ( ! empty($currentPath) ? explode('/', ltrim($currentPath, BASE_DIR ?: '/'))[0] : '' );
     }
 
     if( is_array($projectDir) )
