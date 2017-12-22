@@ -73,7 +73,7 @@ class MLExtends extends CLController
     {
         parent::__construct();
 
-        $mlDir = 'ML' . DS;
+        $mlDir = 'ML/';
 
         $this->appdir = LANGUAGES_DIR . $mlDir;
         $this->externalAppdir = EXTERNAL_LANGUAGES_DIR . $mlDir;

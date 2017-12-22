@@ -181,10 +181,10 @@ class Exceptions extends \Exception implements ExceptionsInterface
         
         $exceptionData =
         [
-            'type'    => '['.(self::$errorCodes[$no] ?? 'ERROR').']',
+            'type'    => self::$errorCodes[$no] ?? 'ERROR',
             'message' => $msg,
             'file'    => $file,
-            'line'    => '['.$line.']',
+            'line'    => $line,
             'trace'   => $trace
         ];
 
@@ -200,11 +200,11 @@ class Exceptions extends \Exception implements ExceptionsInterface
                 $exceptionData = $passed;
             }
         }
-
-        if( stristr($file, 'Buffer' . DS . 'Callback.php') )
+        
+        if( stristr($exceptionData['file'] ?? $file, 'Buffer/Callback.php') )
         {
-            $templateWizardData        = self::_templateWizard();
-            $exceptionData['file']     = $templateWizardData->file;
+            $templateWizardData    = self::_templateWizard();
+            $exceptionData['file'] = $templateWizardData->file;
 
             if( empty($exceptionData['message']) )
             {
@@ -265,7 +265,8 @@ class Exceptions extends \Exception implements ExceptionsInterface
             'class'    => self::_cleanClassName($traceInfo['class']),
             'function' => $traceInfo['function'],
             'file'     => $traceInfo['file'],
-            'line'     => $traceInfo['line']
+            'line'     => $traceInfo['line'],
+            'trace'    => $trace
         ];
     }
 
@@ -293,7 +294,8 @@ class Exceptions extends \Exception implements ExceptionsInterface
             'class'    => self::_cleanClassName($classInfo['class']),
             'function' => $classInfo['function'],
             'file'     => $fileInfo['file'],
-            'line'     => $fileInfo['line']
+            'line'     => $fileInfo['line'],
+            'trace'    => $trace
         ];
     }
 
@@ -362,7 +364,8 @@ class Exceptions extends \Exception implements ExceptionsInterface
             [
                 'message' => Lang::select('Error', 'typeHint', ['&' => $langMessage1, '%' => $langMessage2]),
                 'file'    => $traceInfo['file'],
-                'line'    => '['.$traceInfo['line'].']',
+                'line'    => $traceInfo['line'],
+                'trace'   => $trace
             ];
 
             return $exceptionData;
@@ -372,7 +375,7 @@ class Exceptions extends \Exception implements ExceptionsInterface
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Protected Template Wizard -> 5.4.71[edited]
+    // Protected Template Wizard -> 5.4.71|5.4.8[edited]
     //--------------------------------------------------------------------------------------------------------
     //
     // @param void
@@ -380,10 +383,22 @@ class Exceptions extends \Exception implements ExceptionsInterface
     //--------------------------------------------------------------------------------------------------------
     protected static function _templateWizard()
     {
-        $trace = debug_backtrace()[6]['args'] ?? [NULL];
+        $trace = debug_backtrace()[6]['args']    ?? [NULL];
+        $args  = debug_backtrace()[1]['args'][4] ?? [];
 
-        $exceptionData['file']    = VIEWS_DIR.($trace[0] ?? strtolower(CURRENT_CFUNCTION).'.wizard') . '.php';
-        $exceptionData['message'] = $trace[0] ?? Lang::select('Error', 'templateWizard');
+        foreach( $args as $key => $value )
+        {
+            if( preg_match('/Views\/.*?\.\wizard\.php/', $find = ($value['args'][0] ?? NULL)) )
+            {
+                $file = $find;
+            }
+        }
+
+        $file    = $file ?? VIEWS_DIR.($trace[0] ?? strtolower(CURRENT_CFUNCTION).'.wizard') . '.php';
+        $message = $trace[0] ?? Lang::select('Error', 'templateWizard');
+
+        $exceptionData['file']    = $file;
+        $exceptionData['message'] = $message;
 
         return (object) $exceptionData;
     }

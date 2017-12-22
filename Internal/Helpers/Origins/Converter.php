@@ -346,7 +346,7 @@ class Converter
     //--------------------------------------------------------------------------------------------------------
     public static function highLight(String $str, Array $settings = []) : String
     {
-        $phpFamily      = ! empty( $settings['php:family'] )    ? 'font-family:'.$settings['php:family'] : 'font-family:Consolas';
+        $phpFamily      = ! empty( $settings['php:family'] )    ? 'font-family:'.$settings['php:family'] : 'font-family:Consolas, monospace';
         $phpSize        = ! empty( $settings['php:size'] )      ? 'font-size:'.$settings['php:size'] : 'font-size:12px';
         $phpStyle       = ! empty( $settings['php:style'] )     ? $settings['php:style'] : '';
         $htmlFamily     = ! empty( $settings['html:family'] )   ? 'font-family:'.$settings['html:family'] : '';

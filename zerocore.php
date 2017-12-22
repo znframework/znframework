@@ -13,7 +13,7 @@
 //--------------------------------------------------------------------------------------------------
 // VERSION INFO CONSTANTS
 //--------------------------------------------------------------------------------------------------
-define('ZN_VERSION'          , '5.4.75');
+define('ZN_VERSION'          , '5.4.78');
 define('REQUIRED_PHP_VERSION', '7.0.0');
 //--------------------------------------------------------------------------------------------------
 
@@ -29,10 +29,13 @@ define('PROJECT_COMMANDS_NAMESPACE'  , 'Project\Commands\\'                     
 define('EXTERNAL_COMMANDS_NAMESPACE' , 'External\Commands\\'                                      );
 define('DIRECTORY_INDEX'             , 'zeroneed.php'                                             );
 define('INTERNAL_ACCESS'             , 'Internal'                                                 );
-define('BASE_DIR'                    , ltrim(explode(DIRECTORY_INDEX, $_SERVER['SCRIPT_NAME'])[0], '/'));
-define('PROJECTS_DIR'                , 'Projects/'                                );
-define('EXTERNAL_DIR'                , (PROJECT_TYPE === 'SE' ? '' : 'External/') );
-define('SETTINGS_DIR'                , (PROJECT_TYPE === 'SE' ? 'Config' : 'Settings').'/'         );
+define('BASE_DIR'                    , ltrim(explode
+(
+    DIRECTORY_INDEX, $_SERVER['SCRIPT_NAME'])[0], '/')
+);
+define('PROJECTS_DIR'                , 'Projects/'                                                );
+define('EXTERNAL_DIR'                , (PROJECT_TYPE === 'SE' ? '' : 'External/')                 );
+define('SETTINGS_DIR'                , (PROJECT_TYPE === 'SE' ? 'Config' : 'Settings').'/'        );
 //--------------------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------------------
