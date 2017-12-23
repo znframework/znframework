@@ -1,26 +1,18 @@
 <?php return
 [
-    //--------------------------------------------------------------------------------------------------
-    // Content Delivery Network
-    //--------------------------------------------------------------------------------------------------
-    //
-    // Author     : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
-    // Site       : www.znframework.com
-    // License    : The MIT License
-    // Copyright  : Copyright (c) 2012-2016, ZN Framework
-    //
-    //--------------------------------------------------------------------------------------------------
+    /*
+    |--------------------------------------------------------------------------
+    | Scripts
+    |--------------------------------------------------------------------------
+    |
+    | CDN Javascript links.
+    |
+    | It can be used with the Import::script() method.
+    |
+    | Example: Import::script('jquery', 'react');
+    |
+    */
 
-    //----------------------------------------------------------------------------------------------
-    // Script
-    //----------------------------------------------------------------------------------------------
-    //
-    // Genel Kullanım: Script URL bilgilerini tutmak için oluşturulmuştur.
-    // Bu linkleri güncelleyerek dışardan script dosyaları çağırabilirsiniz.
-    // Bu stilleri import ederken anahtar ifadeler kullanılarak dahil etme işlemi yapılır.
-    // Örnek Kullanım: Import::script('style');
-    //
-    //----------------------------------------------------------------------------------------------
     'scripts' =>
     [
         'jquery'                     => 'https://code.jquery.com/jquery-latest.js',
@@ -57,16 +49,19 @@
         'tinymce'                    => 'https://cloud.tinymce.com/stable/tinymce.min.js'
     ],
 
-    //----------------------------------------------------------------------------------------------
-    // Style
-    //----------------------------------------------------------------------------------------------
-    //
-    // Genel Kullanım: Style URL bilgilerini tutmak için oluşturulmuştur.
-    // Bu linkleri güncelleyerek dışardan style dosyaları çağırabilirsiniz.
-    // Bu stilleri import ederken anahtar ifadeler kullanılarak dahil etme işlemi yapılır.
-    // Örnek Kullanım: Import::style('style');
-    //
-    //----------------------------------------------------------------------------------------------
+    /*
+    |--------------------------------------------------------------------------
+    | Styles
+    |--------------------------------------------------------------------------
+    |
+    | CDN CSS links.
+    |
+    | It can be used with the Import::style() method.
+    |
+    | Example: Import::style('bootstrap', 'awesome');
+    |
+    */
+
     'styles' =>
     [
         'bootstrap'               => 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css',
@@ -91,47 +86,48 @@
         'dropzone'                => 'https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.2.0/min/dropzone.min.css'
     ],
 
-    //----------------------------------------------------------------------------------------------
-    // Font
-    //----------------------------------------------------------------------------------------------
-    //
-    // Harici sunuculardan çağırmayı düşündüğünüz fontların anahtar ismi ve url bilgisini eklemek
-    // için.
-    // Import::font('anahtar') ile direk import ettirebilirsiniz.
-    //
-    //----------------------------------------------------------------------------------------------
-    'fonts' =>
-    [
-        // 'font1' => 'http://xx.xx.xxx/image/font1.ttf'
-    ],
+    /*
+    |--------------------------------------------------------------------------
+    | Fonts
+    |--------------------------------------------------------------------------
+    |
+    | CDN Font links.
+    |
+    | It can be used with the CDN::font() method.
+    |
+    | Example: CDN::font('robotic');
+    |
+    */
 
-    //----------------------------------------------------------------------------------------------
-    // Image
-    //----------------------------------------------------------------------------------------------
-    //
-    // Harici sunuculardan çağırmayı düşündüğünüz resimlerin anahtar ismi ve url bilgisini eklemek
-    // için.
-    // CND::image('anahtar') ile anahtarın değerini döndürebilirsiniz.
-    // Html::image(CND::image('image1'));
-    //
-    //----------------------------------------------------------------------------------------------
-    'images' =>
-    [
-        // 'image1' => 'http://xx.xx.xxx/image/image1.jpg'
-    ],
+    'fonts' => [],
 
-    //----------------------------------------------------------------------------------------------
-    // File
-    //----------------------------------------------------------------------------------------------
-    //
-    // Harici sunuculardan çağırmayı düşündüğünüz dosyaların anahtar ismi ve url bilgisini eklemek
-    // için.
-    // CND::file('anahtar') ile anahtarın değerini döndürebilirsiniz.
-    // File::contents(CND::file('anahtar'));
-    //
-    //----------------------------------------------------------------------------------------------
-    'files' =>
-    [
-        // 'file1' => 'http://xx.xx.xxx/files/file1.txt'
-    ]
+    /*
+    |--------------------------------------------------------------------------
+    | Images
+    |--------------------------------------------------------------------------
+    |
+    | CDN Image links.
+    |
+    | It can be used with the CDN::image() method.
+    |
+    | Example: CDN::image('wallpaper');
+    |
+    */
+
+    'images' => [],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Files
+    |--------------------------------------------------------------------------
+    |
+    | CDN Files links.
+    |
+    | It can be used with the CDN::file() method.
+    |
+    | Example: CDN::file('note');
+    |
+    */
+
+    'files' => []
 ];

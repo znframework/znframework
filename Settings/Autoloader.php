@@ -1,47 +1,41 @@
 <?php return
 [
-    //--------------------------------------------------------------------------------------------------
-    // Autoloader
-    //--------------------------------------------------------------------------------------------------
-    //
-    // Author     : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
-    // Site       : www.znframework.com
-    // License    : The MIT License
-    // Copyright  : Copyright (c) 2012-2016, ZN Framework
-    //
-    //--------------------------------------------------------------------------------------------------
-    
-    //--------------------------------------------------------------------------------------------------
-    // Autoloader Directory Scanning
-    //--------------------------------------------------------------------------------------------------
-    //
-    // Genel Kullanım: Çağrılan bir sınıf bulunamadığında tarama yapıp classMap yapısının
-    // yeniden oluşturulmasını sağlamak içindir. Bu ayar true olarak kalırsa yeni
-    // oluşturduğunuz sınıfların kullanıma hazır hale gelmesi için belirtilen dizinleri
-    // arar kullandığınız sınıf bulunrsa classmap yeniden oluşturularak sınıfınız çalışması
-    // sağlanır. False olarak ayarlanırsa böyle bir tarama yapmaz.
-    //
-    //--------------------------------------------------------------------------------------------------
+    /*
+    |--------------------------------------------------------------------------
+    | Directory Scanning
+    |--------------------------------------------------------------------------
+    |
+    | Determines whether class scans should be performed after the class 
+    | definition. If this setting is set to true, the newly created classes 
+    | search the specified directories for readiness. 
+    | 
+    | It is recommended to be true.
+    |
+    */
+
     'directoryScanning' => true,
 
-    //--------------------------------------------------------------------------------------------------
-    // Autoloader Directory Permission
-    //--------------------------------------------------------------------------------------------------
-    //
-    // Genel Kullanım: Dosyalar otomatik yükleme ile oluşturulurken oluşturulduğu dizine ait yetki
-    // derecesi ayarlanır.
-    //
-    //--------------------------------------------------------------------------------------------------
+    /*
+    |--------------------------------------------------------------------------
+    | Directory Permission
+    |--------------------------------------------------------------------------
+    |
+    | With auto loader, the permissions of the folders where 
+    | the classes are created are set.
+    |
+    */
+
     'directoryPermission' => 0755,
 
-    //--------------------------------------------------------------------------------------------------
-    // Autoloader Class Map
-    //--------------------------------------------------------------------------------------------------
-    //
-    // Genel Kullanım: Sınıf yolları oluşturulacak dizinler belirtiliyor.
-    // Dizi içerisinde dizin bilgileri yer alır.
-    //
-    //--------------------------------------------------------------------------------------------------
+    /*
+    |--------------------------------------------------------------------------
+    | Class Map
+    |--------------------------------------------------------------------------
+    |
+    | Which directories will be scanned for auto loader.
+    |
+    */
+
     'classMap' =>
     [
         INTERNAL_DIR,
@@ -53,26 +47,29 @@
         EXTERNAL_COMMANDS_DIR
     ],
 
-    //--------------------------------------------------------------------------------------------------
-    // Autoloader Aliases
-    //--------------------------------------------------------------------------------------------------
-    //
-    // Genel Kullanım: Sınıflara takma isimler vermek için kullanılır.
-    //
-    // Example: ['aliasName' => 'originName', ...]
-    //
-    //--------------------------------------------------------------------------------------------------
+    /*
+    |--------------------------------------------------------------------------
+    | Aliases
+    |--------------------------------------------------------------------------
+    |
+    | Used to give alias to classes.
+    |
+    */
+
     'aliases' => [],
 
-    //--------------------------------------------------------------------------------------------------
-    // Composer
-    //--------------------------------------------------------------------------------------------------
-    //
-    // Genel Kullanım: Composer autoload dosyasının dahil edilip edilmeyeceğine karar verir.
-    // Parametre: True, false veya yol değeri alır. True, vendor/autoload.php dosyasının
-    // dahil edilmesi anlamına gelir. Parametre olarak yol değeri belirtilebilir.
-    // Example: 'example/vendor/autoload.php' / true / false
-    //
-    //--------------------------------------------------------------------------------------------------
-    'composer' => false
+    /*
+    |--------------------------------------------------------------------------
+    | Composer
+    |--------------------------------------------------------------------------
+    |
+    | Set whether the Composer auto loader can be used or not.
+    |
+    | Option1: true[vendor/autoload.php]
+    | Option2: false
+    | Option3: vendor autoload path
+    |
+    */
+
+    'composer' => true
 ];

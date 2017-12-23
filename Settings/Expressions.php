@@ -1,105 +1,87 @@
 <?php return
 [
-    //--------------------------------------------------------------------------------------------------
-    // Expressions -> 5.3.1
-    //--------------------------------------------------------------------------------------------------
-    //
-    // Author     : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
-    // Site       : www.znframework.com
-    // License    : The MIT License
-    // Copyright  : Copyright (c) 2012-2016, ZN Framework
-    //
-    //--------------------------------------------------------------------------------------------------
+    /*
+    |--------------------------------------------------------------------------
+    | Regex
+    |--------------------------------------------------------------------------
+    |
+    | You can specify your custom regular expressions that 
+    | you want to use for the route.
+    |
+    */
 
-    //--------------------------------------------------------------------------------------------------
-    // Regular Expression
-    //--------------------------------------------------------------------------------------------------
-    //
-    // Rota için kullanmak istediğiniz özel düzenli ifadelerinizi belirtebilirsiniz. Bu ifadeleri
-    // Routes/ dizini içindeki dosyalarda Rota değşimi yaparken kullanabilirsiniz. Kendinize özel
-    // kullanımlar oluşturmanız içindir.
-    //
-    // {anahtar} => Düzenli İfade
-    //
-    //--------------------------------------------------------------------------------------------------
     'regex' =>
     [
         '{id}' => '[0-9]+'
     ],
 
-    //--------------------------------------------------------------------------------------------------
-    // Symbols -> 5.3.11[edit]
-    //--------------------------------------------------------------------------------------------------
-    //
-    // Symbol kütüphanesi ile kullanılabilir ifadeler oluşturmanız içindir. Genellikle bir çok
-    // özel ifadenin kodu unutulduğu için bu kullanımlarınızı buradan tanımlayarak işleri kolay Hale
-    // getirebilirsiniz.
-    //
-    // 'euro' => '&#8364;'
-    //
-    // Yukarıdaki gibi tanımlamadan sonra Symbol::euro() şeklinde kullanabilirsiniz.
-    //
-    //--------------------------------------------------------------------------------------------------
+    /*
+    |--------------------------------------------------------------------------
+    | Symbols
+    |--------------------------------------------------------------------------
+    |
+    | You can create usable expressions with the Symbol library.
+    |
+    | Example: Symbol::sum()
+    |
+    */
+
     'symbols' =>
     [
         'sum'   => '&#8721;', // ∑
         'empty' => '&#8709;'  // ∅
     ],
 
-    //--------------------------------------------------------------------------------------------------
-    // Mimes Types -> 5.4.1[added]
-    //--------------------------------------------------------------------------------------------------
-    //
-    // Mime kütüphanesine ön tanımlı mime listesinde yer alan ifadeler dışında yeni türler tanımlamak
-    // için kulanabilirsiniz..
-    //
-    // 'png' => 'image/png'
-    //
-    // Yukarıdaki gibi tanımlamadan sonra Mime::png() şeklinde kullanabilirsiniz.
-    //
-    //--------------------------------------------------------------------------------------------------
-    'mimeTypes' =>[],
+    /*
+    |--------------------------------------------------------------------------
+    | Mimem Types
+    |--------------------------------------------------------------------------
+    |
+    | You can create new types of mime that are available with Mime library.
+    |
+    | Example: Mime::xlsxx()
+    |
+    */
 
-    //--------------------------------------------------------------------------------------------------
-    // Accent Chars -> 5.3.11[edit]
-    //--------------------------------------------------------------------------------------------------
-    //
-    // Converter::accent() yöntemi ile süzülmesini istediğiniz sistemde öngörülmemiş karakterleri
-    // belirtebilirsiniz.
-    //
-    // Aksanlı İfade => Karşılığı
-    //
-    // Aşağıdaki kullanımlar örnek amaçlı verilmiştir.
-    //
-    //--------------------------------------------------------------------------------------------------
+    'mimeTypes' => [],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Accent Chars
+    |--------------------------------------------------------------------------
+    |
+    | You can specify the characters you want to be converted with the 
+    | Converter::accent() method.
+    |
+    */
+
     'accentChars' =>
     [
         'œ' => 'oe',
         'ü' => 'u'
     ],
 
-    //----------------------------------------------------------------------------------------------
-    // Different Font Extensions -> 5.3.11
-    //----------------------------------------------------------------------------------------------
-    //
-    // Genel Kullanım: SVG, WOFF, EOT, OTF, TTF uzantılı fontlar dışında başka bir uzantılı
-    // font kullanacaksınız aşağıdaki diziye eklemeniz gerekmektedir. Uzantı başında (.) nokta
-    // karakteri kullanmanıza gerek yoktur.
-    //
-    // ['ufo', fon]
-    //
-    //----------------------------------------------------------------------------------------------
+    /*
+    |--------------------------------------------------------------------------
+    | Different Font Extensions
+    |--------------------------------------------------------------------------
+    |
+    | Default fonts SVG, WOFF, EOT, OTF, TTF. You can also specify types that 
+    | can be called with the Import::font() method.
+    |
+    */
+    
     'differentFontExtensions' => [],
 
-    //----------------------------------------------------------------------------------------------
-    // Document Types -> 5.3.11
-    //----------------------------------------------------------------------------------------------
-    //
-    // Dahili doküman türü dışında kendinizde döküman türü ekleyebilirsiniz. Bu tanımlamaları
-    // Masterpage ile birlikte kullanabilirsiniz. Aşağıda basit bir örnek verilmiştir.
-    //
-    // 'html5' => '<!DOCTYPE html>'
-    //
-    //----------------------------------------------------------------------------------------------
+    /*
+    |--------------------------------------------------------------------------
+    | Document Types
+    |--------------------------------------------------------------------------
+    |
+    | Apart from the built-in document type, you can add the document type 
+    | yourself. You can use these definitions with Masterpage.
+    |
+    */
+
     'doctypes' => []
 ];
