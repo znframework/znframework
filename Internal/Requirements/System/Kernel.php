@@ -67,17 +67,6 @@ class Kernel
                 
         if( \Config::robots  ('createFile') === true ) In::createRobotsFile();
 
-        $generateConfig = \Config::get('FileSystem', 'generate');
-
-        if( $generateConfig['databases'] === true ) \Generate::databases();
-
-        if( $grandVision = $generateConfig['grandVision'] )
-        {
-            $databases = is_array($grandVision) ? $grandVision : NULL;
-
-            \Generate::grandVision($databases);
-        }
-
         if( Lang::current() )
         {
             $langFix = str_ireplace([suffix((string) illustrate('_CURRENT_PROJECT'))], '', server('currentPath'));
@@ -320,15 +309,13 @@ class Kernel
 
         if( $composer === true )
         {
-            if( file_exists($path) )
+            if( is_file($path) )
             {
                 import($path);
             }
             else
             {
-                Logger::report('Error', Lang::select('Error', 'fileNotFound', $path) ,'AutoloadComposer');
-
-                throw new \GeneralException('Error', 'fileNotFound', $path);
+                return false;
             }
         }
         elseif( is_file($composer) )

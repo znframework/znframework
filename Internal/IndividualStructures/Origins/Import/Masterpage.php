@@ -161,7 +161,6 @@ class Masterpage
         $header .= $this->_browserIcon($head['browserIcon'] ?? $masterPageSet["browserIcon"]);
         $header .= $this->_theme($masterPageSet, $head);
         $header .= $this->_theme($masterPageSet, $head, 'plugin');
-        $header .= $this->_data($masterPageSet['data'], $head['data'] ?? NULL);
         $header .= $this->_setpage($head['headPage'] ?? $masterPageSet['headPage']);
         $header .= '</head>'.EOL;
         $header .= '<body'.\Html::attributes($head['attributes']['body'] ?? $masterPageSet['attributes']['body']).
@@ -315,40 +314,6 @@ class Masterpage
                     {
                         $header .= "<meta $httpOrName=\"$name\" content=\"$val\">".EOL;
                     }
-                }
-            }
-        }
-
-        return $header;
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Data
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @params
-    //
-    //--------------------------------------------------------------------------------------------------------
-    protected function _data($datas, $headData)
-    {
-        if( $headData !== NULL )
-        {
-            $datas = array_merge($datas, $headData);
-        }
-
-        $header = NULL;
-
-        if( ! empty($datas) )
-        {
-            if( ! is_array($datas) )
-            {
-                $header .= $datas.EOL;
-            }
-            else
-            {
-                foreach( $datas as $v )
-                {
-                    $header .= $v.EOL;
                 }
             }
         }

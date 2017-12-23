@@ -1,113 +1,63 @@
 <?php return
 [
-    //--------------------------------------------------------------------------------------------------
-    // Individual Structures
-    //--------------------------------------------------------------------------------------------------
-    //
-    // Author     : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
-    // Site       : www.znframework.com
-    // License    : The MIT License
-    // Copyright  : Copyright (c) 2012-2016, ZN Framework
-    //
-    //--------------------------------------------------------------------------------------------------
+    /*
+    |--------------------------------------------------------------------------
+    | Socialite
+    |--------------------------------------------------------------------------
+    |
+    | Used to create provider configurations for the Socialite library.
+    |
+    | 'github' => 
+    | [
+    |     'id'     => 'your-app-id',
+    |     'secret' => 'your-app-secret'
+    | ],
+    |
+    | ...
+    |
+    */
 
-    //--------------------------------------------------------------------------------------------------
-    // Socialite -> 5.0.0
-    //--------------------------------------------------------------------------------------------------
-    //
-    // Genel Kullanım: Sıkıştırma kütüphanesine ait sürücü ayarını içerir.
-    //
-    //--------------------------------------------------------------------------------------------------
-    'socialite' =>
-    [
-        //----------------------------------------------------------------------------------------------
-        // Providers
-        //----------------------------------------------------------------------------------------------
-        //
-        // 'github' =>
-        // [
-        //      'id'       => 'your-app-id',
-        //      'secret'   => 'your-app-secret'
-        // ],
-        //
-        // ...
-        //
-        // See here for detailed usage
-        //
-        // https://hybridauth.github.io/documentation.html
-        //
-        //----------------------------------------------------------------------------------------------
-    ],
+    'socialite' => [],
 
-    //--------------------------------------------------------------------------------------------------
-    // Compress
-    //--------------------------------------------------------------------------------------------------
-    //
-    // Genel Kullanım: Sıkıştırma kütüphanesine ait sürücü ayarını içerir.
-    //
-    //--------------------------------------------------------------------------------------------------
+    /*
+    |--------------------------------------------------------------------------
+    | Compress
+    |--------------------------------------------------------------------------
+    |
+    | Includes the driver configuration for the Compress library.
+    |
+    | Drivers: gz, bz, lzf, rar, zip, zlib
+    |
+    */
+  
     'compress' =>
     [
-        //----------------------------------------------------------------------------------------------
-        // Driver
-        //----------------------------------------------------------------------------------------------
-        //
-        // Options: bz, gz, lzf, zip, zlib, rar.
-        //
-        //----------------------------------------------------------------------------------------------
         'driver' => 'gz'
     ],
 
-    //--------------------------------------------------------------------------------------------------
-    // Cache
-    //--------------------------------------------------------------------------------------------------
-    //
-    // Genel Kullanım: Ön bellekleme kütüphanesine ait ayarları içerir.
-    //
-    //--------------------------------------------------------------------------------------------------
+    /*
+    |--------------------------------------------------------------------------
+    | Cache
+    |--------------------------------------------------------------------------
+    |
+    | Includes configurations for the Cache library.
+    |
+    | drivers       : apc, memcache, wincache, file, redis
+    | driverSettings: Configurations by driver
+    |
+    */
+   
     'cache' =>
     [
-        //----------------------------------------------------------------------------------------------
-        // Driver
-        //----------------------------------------------------------------------------------------------
-        //
-        // Options: apc, memcache, wincache, file, redis
-        //
-        //----------------------------------------------------------------------------------------------
-        'driver' => 'file',
-
-        //----------------------------------------------------------------------------------------------
-        // Driver Settings
-        //----------------------------------------------------------------------------------------------
-        //
-        // Genel Kullanım: Ön bellekleme sürücüleri için bağlantı ayarlarını yapmak için kullanılır
-        // Parametre: Sürücüler.
-        // Drivers: apc, memcache, wincache
-        //
-        //----------------------------------------------------------------------------------------------
+        'driver'         => 'file',
         'driverSettings' =>
         [
-            //------------------------------------------------------------------------------------------
-            // Memcache Connection Settings
-            //------------------------------------------------------------------------------------------
-            //
-            // Memcache sürücüsü için gerekli olan bağlantı ayarları yer alır.
-            //
-            //------------------------------------------------------------------------------------------
             'memcache' =>
             [
                 'host'   => '127.0.0.1',
                 'port'   => '11211',
                 'weight' => '1',
             ],
-
-            //------------------------------------------------------------------------------------------
-            // Redis Connection Settings
-            //------------------------------------------------------------------------------------------
-            //
-            // Redis sürücüsü için gerekli olan bağlantı ayarları yer alır.
-            //
-            //------------------------------------------------------------------------------------------
             'redis' =>
             [
                 'password'   => NULL,
@@ -119,191 +69,96 @@
         ]
     ],
 
-    //--------------------------------------------------------------------------------------------------
-    // Cart
-    //--------------------------------------------------------------------------------------------------
-    //
-    // Genel Kullanım: Sepet kütüphanesine ait ayarları içerir.
-    //
-    //--------------------------------------------------------------------------------------------------
+    /*
+    |--------------------------------------------------------------------------
+    | Cart
+    |--------------------------------------------------------------------------
+    |
+    | Includes the driver configuration for the Cart library.
+    |
+    | Drivers: session, cookie
+    |
+    */
+
     'cart' =>
     [
-        //----------------------------------------------------------------------------------------------
-        // Driver
-        //----------------------------------------------------------------------------------------------
-        //
-        // Verinin hangi yöntemle tutulacağını belirleyebilirsiniz.
-        //
-        // Options: session, cookie
-        //
-        //----------------------------------------------------------------------------------------------
         'driver' => 'session'
     ],
 
-    //--------------------------------------------------------------------------------------------------
-    // Permission
-    //--------------------------------------------------------------------------------------------------
-    //
-    // Genel Kullanım: Yetki kütüphanesine ait ayarları içerir.
-    //
-    //--------------------------------------------------------------------------------------------------
+    /*
+    |--------------------------------------------------------------------------
+    | Permission
+    |--------------------------------------------------------------------------
+    |
+    | Includes configurations for the Permission library.
+    | 
+    | method : It is used to set which id value will use which method of sending.
+    | page   : It is used to set which id value will use which page.
+    | process: It is used to set which id value will use which object.
+    |
+    | Example Usage
+    |
+    | [
+    |     '1' => 'any',
+    |     '2' => ['noperm'  => ['delete', 'update']],
+    |     '3' => ['perm'    => ['delete', 'update']],
+    |     '4' => ['noperm'  => ['delete', 'update', 'add']],
+    |     '5' => 'all'
+    | ]
+    |
+    */
+
     'permission' =>
     [
-        //----------------------------------------------------------------------------------------------
-        // Method -> 5.3.9
-        //----------------------------------------------------------------------------------------------
-        //
-        // Method kütüphanesinden gelen verilere göre yetki oluşturmak için kullanılır.
-        //
-        //----------------------------------------------------------------------------------------------
-        'method' =>
-        [
-            //'1' => 'any',
-            //'2' => 'any',
-            //'3' => ['noperm'  => ['delete', 'update']],
-            //'4' => ['perm'    => ['delete', 'update']],
-            //'5' => ['noperm'  => ['delete', 'update', 'add']],
-            //'6' => 'all'
-        ],
-        
-        //----------------------------------------------------------------------------------------------
-        // Page
-        //----------------------------------------------------------------------------------------------
-        //
-        // Genel Kullanım: İzin verilen sayfaları belirlemek için "perm->|s1|s2" şeklinde kullanın.
-        // İzin vermek istemediğiniz sayfaları belirlemek için "noperm->|s1|s2" şeklinde kullanın.
-        // Hiç bir sayfaya izin vermemek için any parametresini kullanın.
-        // Her sayfaya izin vermek için all parametresiniz kullanın
-        // Tek bir sayfaya izin vermek istediğinide normal olarak yazın.
-        // Tek bir sayfaya izin vermek istemediğinizde ise başına "!" işareti koyarak yazın.
-        //
-        //----------------------------------------------------------------------------------------------
-        'page' =>
-        [
-            //'1' => 'any',
-            //'2' => 'any',
-            //'3' => ['noperm'  => ['sayfa1', 'sayfa2']],
-            //'4' => ['perm'    => ['sayfa3', 'sayfa4']],
-            //'5' => ['noperm'  => ['sayfa5', 'sayfa6']],
-            //'6' => 'all'
-        ],
-
-        //----------------------------------------------------------------------------------------------
-        // Process
-        //----------------------------------------------------------------------------------------------
-        //
-        // Genel Kullanım: İzin verilen nesneleri belirlemek için "perm->|s1|s2" şeklinde kullanın.
-        // İzin vermek istemediğiniz nesneleri belirlemek için "noperm->|s1|s2" şeklinde kullanın.
-        // Hiç bir nesneye izin vermemek için any parametresini kullanın.
-        // Her nesneye izin vermek için all parametresiniz kullanın
-        // Tek bir nesneye izin vermek istediğinide normal olarak yazın.
-        // Tek bir nesneye izin vermek istemediğinizde ise başına "!" işareti koyarak yazın.
-        //
-        //----------------------------------------------------------------------------------------------
-        'process' =>
-        [
-            //'1' => 'any',
-            //'2' => 'any',
-            //'3' => ['noperm'  => ['yetki1', 'yetki2']],
-            //'4' => ['noperm'  => ['yetki3', 'yetki4']],
-            //'5' => ['noperm'  => ['yetki5', 'yetki6']],
-            //'6' => 'all'
-        ]
+        'method'  => [],
+        'page'    => [],
+        'process' => []
     ],
 
-    //--------------------------------------------------------------------------------------------------
-    // USER
-    //--------------------------------------------------------------------------------------------------
-    //
-    // Genel Kullanım: Kullanıcı sıfına ait ayarları içerir.
-    //
-    //--------------------------------------------------------------------------------------------------
+    /*
+    |--------------------------------------------------------------------------
+    | User
+    |--------------------------------------------------------------------------
+    |
+    | Includes configurations for the User library.
+    |
+    | encode: When the user is registered in, the algorithm to encrypt the 
+    | password is set.
+    |
+    | matching: It specifies which tables and columns the User class will use.
+    |
+    | joining: This setting is used if the users table consists of joined 
+    | tables.
+    |
+    | emailSenderInfo: This is to specify the sender name and email 
+    | information of the e-mail to be sent during the activation process or 
+    | password forgotten operations.
+    |
+    */
+
     'user' =>
     [
-        //----------------------------------------------------------------------------------------------
-        // Encode
-        //----------------------------------------------------------------------------------------------
-        //
-        // Kullanıcı kaydı yapılırken şifrenin hangi algoritma ile şifreleneceği ayarlanır. md5, sha1
-        // geçerli hash algoritmalarından biri tercih edilir. Şifrenin, kodlanmasını istemiyorsanız.
-        // boş bırakmanız yeterlidir.
-        //
-        //----------------------------------------------------------------------------------------------
-        'encode' => 'super',
-
-         //----------------------------------------------------------------------------------------------
-        // Matching
-        //----------------------------------------------------------------------------------------------
-        //
-        // Veritabanında yer alan tablo ile ilgili sütunları eşleştirmek için kullanılır. Tablo ismini
-        // table bölümüne diğer sütunlardan mevcut olanlarıda ilgili anahtarlarla eşleştirmelisiniz.
-        //
-        // table: Eşleştirme yapılacak tablo adı.
-        //
-        // columns: Eşleştirme yapılacak sütunlar.
-        //     username     : Kullanıcı adı bilgisini tutan sütun adı.
-        //     password     : Kullanıcı şifresini tutan sütun adı.
-        //     email        : Kullanıcı adı bilgisi e-posta adresi içermiyorsa e-posta
-        //                    sütunu olarak kullanılır. bu nedenle kullanımı görecelidir.
-        //     active       : Kullanıcıların aktif olup olmadığı bilgisini tutan sütun adı.
-        //                    0 ve 1 değeri alacak şekilde veri türü seçilmelidir.
-        //     banned       : Kullanıcıların banlı olup olmadığı bilgisini tutan sütun adı.
-        //                    0 ve 1 değeri alacak şekilde veri türü seçilmelidir.
-        //     activation   : Üyelik aşamasında doğrulama yapılıp yapılmadığı bilgisini tutan kolon adı.
-        //     verification : Doğrulama e-postası yanında güvenlik için sorulan 2. sorunun hangi kolon adı kullanılacağı.
-        //                    Yani hangi kolondaki değerin 2. karşılaştırma için kullanılacağıdır.
-        //     otherLogin   : Kullanıcı girişini username sütunu dışında başka sütunlardan
-        //                    da yapılabilmesini sağlamak için bu ayara diğer sütunlar eklenebilir
-        //
-        //----------------------------------------------------------------------------------------------
+        'encode'   => 'super',
         'matching' =>
         [
             'table'   => '',
-
             'columns' =>
             [
-                'username'     => '', // Required
-                'password'     => '', // Required
-                'email'        => '', // Relative
-                'active'       => '', // Relative
-                'banned'       => '', // Relative
-                'activation'   => '', // Relative
-                'verification' => '', // Rleative
-                'otherLogin'   => []  // Relative
+                'username'     => '', # Required
+                'password'     => '', # Required
+                'email'        => '', # Relative
+                'active'       => '', # Relative
+                'banned'       => '', # Relative
+                'activation'   => '', # Relative
+                'verification' => '', # Rleative
+                'otherLogin'   => []  # Relative
             ]
         ],
-
-        //----------------------------------------------------------------------------------------------
-        // Joining
-        //----------------------------------------------------------------------------------------------
-        //
-        // Kullanıcılar tablonuz birleştirilmiş tablolardan oluşuyorsa bu bölüm kullanılır.
-        //
-        // column: Yukarıda belirtilen tabloya ait birleştirme için kullanılacak sütun bilgisidir.
-        //         Genellik id sütunu değer olarak verilir.
-        //
-        // tables: Birleştirme yapılacak diğer tablo ve sütun bilgileri. table => column formatında
-        //         kullanılır.
-        //
-        //----------------------------------------------------------------------------------------------
         'joining' =>
         [
             'column' => '',
             'tables' => []
         ],
-
-        //----------------------------------------------------------------------------------------------
-        // Email Sender Info
-        //----------------------------------------------------------------------------------------------
-        //
-        // Aktivasyon işlemleri veya şifremini unuttum işlemleri esnasından
-        // gönderilecek e-posta'ya ait gönderen ismi ve e-posta bilgilerini belirtmek içindir.
-        // Genellikle site adı ve e-posta adresi tercih edilir.
-        //
-        // name: Gönderici adı.
-        // mail: Gönderici e-posta adresi.
-        //
-        //----------------------------------------------------------------------------------------------
         'emailSenderInfo' =>
         [
             'name' => '',

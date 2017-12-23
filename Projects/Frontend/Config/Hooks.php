@@ -1,17 +1,16 @@
 <?php return
 [
-    //--------------------------------------------------------------------------------------------------
-    // Hooks
-    //--------------------------------------------------------------------------------------------------
-    //
-    // Bu dosyaya ekleyeceğiniz fonksiyonlarınızı Hook sınıfı ile kullanabilirsiniz. Anahtar ismi olarak
-    // kullanılan ifadeler Hook sınıfında yöntem adı olarak kullanılır.
-    //
-    // Example
-    //
-    // Hook::project('example');
-    //
-    //--------------------------------------------------------------------------------------------------
+    /*
+    |--------------------------------------------------------------------------
+    | Hooks
+    |--------------------------------------------------------------------------
+    |
+    | You can use the Hook class to add functions to this file.
+    | Expressions used as key are used as method name in the Hook class.
+    |
+    | Example: Hook::project('example'); // example
+    |
+    */
    
     'project' => function(String $name)
     {
