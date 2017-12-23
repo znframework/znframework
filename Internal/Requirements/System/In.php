@@ -304,14 +304,14 @@ class In
     // @param void
     //
     //--------------------------------------------------------------------------------------------------
-    public static function benchmarkReport($start, $finish)
+    public static function benchmarkReport()
     {
         if( \Config::get('Project', 'benchmark') === true )
         {
             //----------------------------------------------------------------------------------------------
             // System Elapsed Time Calculating
             //----------------------------------------------------------------------------------------------
-            $elapsedTime    = round($finish - $start, 4);
+            $elapsedTime    = round(FINISH_BENCHMARK - START_BENCHMARK, 4);
             //----------------------------------------------------------------------------------------------
 
             //----------------------------------------------------------------------------------------------
@@ -611,19 +611,24 @@ class In
         $htaccess .= $modGzip.$modExpires.$modHeaders.$headersIniSet.$htaccessSettingsStr;
 
         //-----------------------URI ZERONEED PHP----------------------------------------------------
-        if( ! $htaccessSettings['uri']['directoryIndex'] )
+        
+        if( ! server('pathInfo') )
         {
-            $indexSuffix = $htaccessSettings['uri']['indexSuffix'];
-            $flag        = ! empty($indexSuffix) ? 'QSA' : 'L';
-
-            $htaccess .= "<IfModule mod_rewrite.c>".$eol;
-            $htaccess .= $tab."RewriteEngine On".$eol;
-            $htaccess .= $tab."RewriteBase /".$eol;
-            $htaccess .= $tab."RewriteCond %{REQUEST_FILENAME} !-f".$eol;
-            $htaccess .= $tab."RewriteCond %{REQUEST_FILENAME} !-d".$eol;
-            $htaccess .= $tab.'RewriteRule ^(.*)$  '.($_SERVER['SCRIPT_NAME'] ?? NULL).$indexSuffix.'/$1 ['.$flag.']'.$eol;
-            $htaccess .= "</IfModule>".$eol.$eol;
+            $indexSuffix = '?';  $flag = 'QSA';
         }
+        else
+        {
+            $indexSuffix = NULL; $flag = 'L';
+        }
+
+        $htaccess .= "<IfModule mod_rewrite.c>".$eol;
+        $htaccess .= $tab."RewriteEngine On".$eol;
+        $htaccess .= $tab."RewriteBase /".$eol;
+        $htaccess .= $tab."RewriteCond %{REQUEST_FILENAME} !-f".$eol;
+        $htaccess .= $tab."RewriteCond %{REQUEST_FILENAME} !-d".$eol;
+        $htaccess .= $tab.'RewriteRule ^(.*)$  '.($_SERVER['SCRIPT_NAME'] ?? NULL).$indexSuffix.'/$1 ['.$flag.']'.$eol;
+        $htaccess .= "</IfModule>".$eol.$eol;
+        
         //-----------------------URI ZERONEED PHP----------------------------------------------------
 
         //-----------------------ERROR REQUEST----------------------------------------------------

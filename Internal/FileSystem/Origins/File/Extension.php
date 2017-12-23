@@ -16,16 +16,16 @@ class Extension
     //--------------------------------------------------------------------------------------------------
     //
     // @param string $file
-    // @param bool   $dote = false
+    // @param bool   $dot = false
     //
     // @return string
     //
     //--------------------------------------------------------------------------------------------------
-    public static function get(String $file, Bool $dote = false) : String
+    public static function get(String $file, Bool $dot = false) : String
     {
-        $dote = $dote === true ? '.' : '';
+        $dot = $dot === true ? '.' : '';
 
-        return $dote . strtolower(pathinfo($file, PATHINFO_EXTENSION));
+        return $dot . strtolower(pathinfo($file, PATHINFO_EXTENSION));
     }
 
     //--------------------------------------------------------------------------------------------------

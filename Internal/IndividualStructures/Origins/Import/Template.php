@@ -24,11 +24,7 @@ class Template
     //--------------------------------------------------------------------------------------------------------
     public static function use(String $page, Array $data = NULL, Bool $obGetContents = false)
     {
-        if( $return = View::use($page, $data, $obGetContents, INTERNAL_TEMPLATES_DIR) )
-        {
-            return $return;
-        }
-        elseif( $return = View::use($page, $data, $obGetContents, TEMPLATES_DIR) )
+        if( $return = View::use($page, $data, $obGetContents, TEMPLATES_DIR) )
         {
             return $return;
         }

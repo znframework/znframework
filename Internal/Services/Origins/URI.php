@@ -477,7 +477,6 @@ class URI implements URIInterface
         
         if( $fullPath === false )
         {
-            $currentUri = In::cleanURIPrefix($currentUri, INDEX_STATUS);
             $currentUri = In::cleanURIPrefix($currentUri, In::getCurrentProject());
 
             if( $currentLang = Lang::current() )

@@ -274,7 +274,7 @@ class Info
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Size
+    // Size -> 5.4.8[edited]
     //--------------------------------------------------------------------------------------------------------
     //
     // @param string $file
@@ -292,10 +292,9 @@ class Info
         }
 
         $size      = 0;
-        $extension = Extension::get($file);
         $fileSize  = filesize($file);
 
-        if( ! empty($extension) )
+        if( is_file($file) )
         {
             $size += $fileSize;
         }

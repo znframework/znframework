@@ -43,7 +43,6 @@ class URL implements URLInterface
         return self::host
         (
                BASE_DIR.
-               INDEX_STATUS.
                In::getCurrentProject().
                suffix(Lang::current()).
                $uri

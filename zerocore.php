@@ -1,46 +1,146 @@
 <?php
-//--------------------------------------------------------------------------------------------------
-// Kernel
-//--------------------------------------------------------------------------------------------------
-//
-// Author     : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
-// Site       : www.znframework.com
-// License    : The MIT License
-// Copyright  : Copyright (c) 2012-2016, ZN Framework
-//
-//--------------------------------------------------------------------------------------------------
+/**
+ * ZN PHP Web Framework
+ * 
+ * "Simplicity is the ultimate sophistication." ~ Da Vinci
+ * 
+ * @package ZN
+ * @license MIT [http://opensource.org/licenses/MIT]
+ * @author  Ozan UYKUN [ozan@znframework.com]
+ * @since   2011
+ */
 
-//--------------------------------------------------------------------------------------------------
-// VERSION INFO CONSTANTS
-//--------------------------------------------------------------------------------------------------
-define('ZN_VERSION'          , '5.4.78');
+ /*
+|--------------------------------------------------------------------------
+| Project Type
+|--------------------------------------------------------------------------
+|
+| It shows you which framework you are using.
+| SE for single edition, EIP for multi edition.
+|
+*/
+
+define('PROJECT_TYPE', 'EIP');
+
+/*
+|--------------------------------------------------------------------------
+| Version Information Constants
+|--------------------------------------------------------------------------
+|
+| Contains the version information required for the Framework.
+|
+*/
+
+define('ZN_VERSION', '5.4.78');
 define('REQUIRED_PHP_VERSION', '7.0.0');
-//--------------------------------------------------------------------------------------------------
 
-//--------------------------------------------------------------------------------------------------
-// REQUIREMENT CONSTANTS
-//--------------------------------------------------------------------------------------------------
-define('PROJECT_TYPE'                , 'EIP'                                                      );
-define('DS'                          , DIRECTORY_SEPARATOR                                        );
-define('REAL_BASE_DIR'               , realpath(__DIR__) . DS                                     );
-define('INTERNAL_DIR'                , (PROJECT_TYPE === 'SE' ? 'Libraries' : 'Internal') . '/'   );
-define('PROJECT_CONTROLLER_NAMESPACE', 'Project\Controllers\\'                                    );
-define('PROJECT_COMMANDS_NAMESPACE'  , 'Project\Commands\\'                                       );
-define('EXTERNAL_COMMANDS_NAMESPACE' , 'External\Commands\\'                                      );
-define('DIRECTORY_INDEX'             , 'zeroneed.php'                                             );
-define('INTERNAL_ACCESS'             , 'Internal'                                                 );
-define('BASE_DIR'                    , ltrim(explode
+/*
+|--------------------------------------------------------------------------
+| System Path Constants
+|--------------------------------------------------------------------------
+|
+| Constants that hold the values required for the system.
+|
+*/
+
+define('DS', DIRECTORY_SEPARATOR);
+define('REAL_BASE_DIR', realpath(__DIR__) . DS);
+
+/*
+|--------------------------------------------------------------------------
+| System Basic Constants
+|--------------------------------------------------------------------------
+|
+| Keeps information about the system's boot page and its base directory.
+|
+*/
+
+define('DIRECTORY_INDEX', 'zeroneed.php');
+define('BASE_DIR', ltrim(explode
 (
     DIRECTORY_INDEX, $_SERVER['SCRIPT_NAME'])[0], '/')
 );
-define('PROJECTS_DIR'                , 'Projects/'                                                );
-define('EXTERNAL_DIR'                , (PROJECT_TYPE === 'SE' ? '' : 'External/')                 );
-define('SETTINGS_DIR'                , (PROJECT_TYPE === 'SE' ? 'Config' : 'Settings').'/'        );
-//--------------------------------------------------------------------------------------------------
 
-//--------------------------------------------------------------------------------------------------
-// SPACE CHAR CONSTANTS
-//--------------------------------------------------------------------------------------------------
+/*
+|--------------------------------------------------------------------------
+| Namespace Constants
+|--------------------------------------------------------------------------
+|
+| It keeps the default namespace information used by the system.
+|
+*/
+
+define('PROJECT_CONTROLLER_NAMESPACE', 'Project\Controllers\\');
+define('PROJECT_COMMANDS_NAMESPACE', 'Project\Commands\\');
+define('EXTERNAL_COMMANDS_NAMESPACE', 'External\Commands\\');
+define('INTERNAL_ACCESS', 'Internal');
+
+/*
+|--------------------------------------------------------------------------
+| System Path Constants
+|--------------------------------------------------------------------------
+|
+| It keeps the names of the system's base directories.
+|
+*/
+
+define('INTERNAL_DIR', 
+(
+    PROJECT_TYPE === 'SE' ? 'Libraries' : 'Internal') . '/'
+);
+define('PROJECTS_DIR', 'Projects/');
+define('EXTERNAL_DIR', (PROJECT_TYPE === 'SE' ? '' : 'External/'));
+define('SETTINGS_DIR', (PROJECT_TYPE === 'SE' ? 'Config' : 'Settings').'/');
+
+/*
+|--------------------------------------------------------------------------
+| Project Config Constant
+|--------------------------------------------------------------------------
+|
+| It maintains settings related to the entire project. 
+| The Settings / Projects.php configuration file is used.
+|
+*/
+
+define('PROJECTS_CONFIG', import
+((
+    is_file(PROJECTS_DIR . 'Projects.php') 
+    ? PROJECTS_DIR 
+    : SETTINGS_DIR) . 'Projects.php'
+));
+
+/*
+|--------------------------------------------------------------------------
+| Default Project Constant
+|--------------------------------------------------------------------------
+|
+| Preserves the name of the working default project.
+|
+*/
+
+define('DEFAULT_PROJECT', PROJECTS_CONFIG['directory']['default']);
+
+/*
+|--------------------------------------------------------------------------
+| Config Directory Constants
+|--------------------------------------------------------------------------
+|
+| It keeps track of the internal and external configuration directories.
+|
+*/
+
+define('EXTERNAL_CONFIG_DIR', EXTERNAL_DIR . 'Config/');
+define('INTERNAL_CONFIG_DIR', INTERNAL_DIR . 'Config/');
+
+/*
+|--------------------------------------------------------------------------
+| Space Char Constants
+|--------------------------------------------------------------------------
+|
+| Commonly used space characters are converted to constants.
+|
+*/
+
 define('EOL' , PHP_EOL);
 define('CRLF', "\r\n" );
 define('CR'  , "\r"   );
@@ -48,179 +148,197 @@ define('LF'  , "\n"   );
 define('HT'  , "\t"   );
 define('TAB' , "\t"   );
 define('FF'  , "\f"   );
-//--------------------------------------------------------------------------------------------------
 
-//--------------------------------------------------------------------------------------------------
-// REQUIREMENT CONSTANTS
-//--------------------------------------------------------------------------------------------------
-define('PROJECTS_CONFIG'    , import
-(
-    (is_file(PROJECTS_DIR . 'Projects.php') ? PROJECTS_DIR : SETTINGS_DIR) . 'Projects.php'
-));
-define('DEFAULT_PROJECT'    , PROJECTS_CONFIG['directory']['default']);
-define('EXTERNAL_CONFIG_DIR', EXTERNAL_DIR . 'Config/'               );
-define('INTERNAL_CONFIG_DIR', INTERNAL_DIR . 'Config/'               );
-//--------------------------------------------------------------------------------------------------
+/*
+|--------------------------------------------------------------------------
+| Run Current Project
+|--------------------------------------------------------------------------
+|
+| It processes the currently running project directory. 
+| Only for multi edition. 
+| This function is not compiled for single edition.
+|
+*/
 
-//--------------------------------------------------------------------------------------------------
-// Current Project
-//--------------------------------------------------------------------------------------------------
-//
-// @param void
-//
-//--------------------------------------------------------------------------------------------------
 internalCurrentProject();
 
-//--------------------------------------------------------------------------------------------------
-// DIRECTORY CONSTANTS
-//--------------------------------------------------------------------------------------------------
-//
-// Almost every directory in the ZN Framework has constants. For this reason, these constants
-// vary according to the project name. It can be quite useful for you.
-//
-//--------------------------------------------------------------------------------------------------
-define('ROUTES_DIR'            , internalProjectContainerDir('Routes')                 );
-define('EXTERNAL_ROUTES_DIR'   , EXTERNAL_DIR.'Routes/'                                );
-define('DATABASES_DIR'         , internalProjectContainerDir('Databases')              );
-define('CONFIG_DIR'            , internalProjectContainerDir('Config')                 );
-define('STORAGE_DIR'           , internalProjectContainerDir('Storage')                );
-define('COMMANDS_DIR'          , internalProjectContainerDir('Commands')               );
-define('EXTERNAL_COMMANDS_DIR' , EXTERNAL_DIR.'Commands/'                              );
-define('RESOURCES_DIR'         , internalProjectContainerDir($resources = 'Resources') );
-define('EXTERNAL_RESOURCES_DIR', EXTERNAL_DIR.'Resources/'                             );
-define('STARTING_DIR'          , internalProjectContainerDir($starting = 'Starting')   );
-define('EXTERNAL_STARTING_DIR' , EXTERNAL_DIR.'Starting/'                              );
-define('AUTOLOAD_DIR'          , internalProjectContainerDir($starting.'/Autoload')    );
-define('EXTERNAL_AUTOLOAD_DIR' , EXTERNAL_STARTING_DIR.'Autoload/'                     );
-define('HANDLOAD_DIR'          , internalProjectContainerDir($starting.'/Handload')    );
-define('LAYERS_DIR'            , internalProjectContainerDir($starting.'/Layers')      );
-define('EXTERNAL_HANDLOAD_DIR' , EXTERNAL_STARTING_DIR.'Handload/'                     );
-define('EXTERNAL_LAYERS_DIR'   , EXTERNAL_STARTING_DIR.'Layers/'                       );
-define('INTERNAL_LANGUAGES_DIR', INTERNAL_DIR.'Languages/'                             );
-define('LANGUAGES_DIR'         , internalProjectContainerDir('Languages')              );
-define('EXTERNAL_LANGUAGES_DIR', EXTERNAL_DIR.'Languages/'                             );
-define('INTERNAL_LIBRARIES_DIR', INTERNAL_DIR.'Libraries/'                             );
-define('REQUIREMENTS_DIR'      , INTERNAL_DIR.'Requirements/System/'                   );
-define('LIBRARIES_DIR'         , internalProjectContainerDir('Libraries')              );
-define('EXTERNAL_LIBRARIES_DIR', EXTERNAL_DIR.'Libraries/'                             );
-define('CONTROLLERS_DIR'       , PROJECT_DIR.'Controllers/'                            );
-define('MODELS_DIR'            , internalProjectContainerDir('Models')                 );
-define('EXTERNAL_MODELS_DIR'   , EXTERNAL_DIR.'Models/'                                );
-define('VIEWS_DIR'             , PROJECT_DIR.'Views/'                                  );
-define('PAGES_DIR'             , VIEWS_DIR                                             );
-define('PROCESSOR_DIR'         , internalProjectContainerDir($resources.'/Processor')  );
-define('EXTERNAL_PROCESSOR_DIR', EXTERNAL_RESOURCES_DIR.'Processor/'                   );
-define('FILES_DIR'             , internalProjectContainerDir($resources.'/Files')      );
-define('EXTERNAL_FILES_DIR'    , EXTERNAL_RESOURCES_DIR.'Files/'                       );
-define('FONTS_DIR'             , internalProjectContainerDir($resources.'/Fonts')      );
-define('EXTERNAL_FONTS_DIR'    , EXTERNAL_RESOURCES_DIR.'Fonts/'                       );
-define('SCRIPTS_DIR'           , internalProjectContainerDir($resources.'/Scripts')    );
-define('EXTERNAL_SCRIPTS_DIR'  , EXTERNAL_RESOURCES_DIR.'Scripts/'                     );
-define('STYLES_DIR'            , internalProjectContainerDir($resources.'/Styles')     );
-define('EXTERNAL_STYLES_DIR'   , EXTERNAL_RESOURCES_DIR.'Styles/'                      );
-define('TEMPLATES_DIR'         , internalProjectContainerDir($resources.'/Templates')  );
-define('EXTERNAL_TEMPLATES_DIR', EXTERNAL_RESOURCES_DIR.'Templates/'                   );
-define('THEMES_DIR'            , internalProjectContainerDir($resources.'/Themes')     );
-define('EXTERNAL_THEMES_DIR'   , EXTERNAL_RESOURCES_DIR.'Themes/'                      );
-define('PLUGINS_DIR'           , internalProjectContainerDir($resources.'/Plugins')    );
-define('EXTERNAL_PLUGINS_DIR'  , EXTERNAL_RESOURCES_DIR.'Plugins/'                     );
-define('UPLOADS_DIR'           , internalProjectContainerDir($resources.'/Uploads')    );
-define('EXTERNAL_UPLOADS_DIR'  , EXTERNAL_RESOURCES_DIR.'Uploads/'                     );
-define('INTERNAL_TEMPLATES_DIR', INTERNAL_DIR.'Templates/'                             );
-//--------------------------------------------------------------------------------------------------
+/*
+|--------------------------------------------------------------------------
+| Project Directory Constants
+|--------------------------------------------------------------------------
+|
+| Each of the project indexes is converted to constant.
+|
+*/
 
-//--------------------------------------------------------------------------------------------------
-// Top Layer
-//--------------------------------------------------------------------------------------------------
+define('REQUIREMENTS_DIR', INTERNAL_DIR.'Requirements/System/');
+define('CONTROLLERS_DIR' , PROJECT_DIR.'Controllers/');
+define('VIEWS_DIR'       , PROJECT_DIR.'Views/');
+define('PAGES_DIR'       , VIEWS_DIR);
+
+/*
+|--------------------------------------------------------------------------
+| Active Project Directory Constants
+|--------------------------------------------------------------------------
+|
+| Almost every directory in the ZN Framework has constants. 
+| For this reason, these constants vary according to the project name. 
+| It can be quite useful for you.
+|
+*/
+
+define('CONTAINER_DIRS', 
+[
+    'ROUTES_DIR'    => 'Routes'   , 'DATABASES_DIR' => 'Databases'          ,
+    'CONFIG_DIR'    => 'Config'   , 'STORAGE_DIR'   => 'Storage'            ,
+    'COMMANDS_DIR'  => 'Commands' , 'LANGUAGES_DIR' => 'Languages'          ,
+    'LIBRARIES_DIR' => 'Libraries', 'MODELS_DIR'    => 'Models'             ,
+    'STARTING_DIR'  => 'Starting' , 'AUTOLOAD_DIR'  => 'Starting/Autoload'  ,
+                                    'HANDLOAD_DIR'  => 'Starting/Handload'  ,
+                                    'LAYERS_DIR'    => 'Starting/Layers'    ,
+    'RESOURCES_DIR' => 'Resources', 'PROCESSOR_DIR' => 'Resources/Processor',
+                                    'FILES_DIR'     => 'Resources/Files'    ,
+                                    'FONTS_DIR'     => 'Resources/Fonts'    ,
+                                    'SCRIPTS_DIR'   => 'Resources/Scripts'  ,
+                                    'STYLES_DIR'    => 'Resources/Styles'   ,
+                                    'TEMPLATES_DIR' => 'Resources/Templates',
+                                    'THEMES_DIR'    => 'Resources/Themes'   ,
+                                    'PLUGINS_DIR'   => 'Resources/Plugins'  ,
+                                    'UPLOADS_DIR'   => 'Resources/Uploads'
+]);
+
+foreach( CONTAINER_DIRS as $key => $value )
+{
+    if( PROJECT_TYPE === 'EIP' ) // For EIP edition
+    {
+        define($key, internalProjectContainerDir($value));
+        define('EXTERNAL_' . $key, 'External/' . $value);
+    }
+    else // For SE edition
+    {
+        define($key, $value);
+    }
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Top Layer
+|--------------------------------------------------------------------------
+|
+| The code to be written to this layer runs before the system files are 
+| loaded. For this reason, you can not use ZN libraries.
+|
+*/
+
 layer('Top');
-//--------------------------------------------------------------------------------------------------
 
-//--------------------------------------------------------------------------------------------------
-// Import Autoloader Library
-//--------------------------------------------------------------------------------------------------
+/*
+|--------------------------------------------------------------------------
+| Autoloader
+|--------------------------------------------------------------------------
+|
+| ZN Framework uses its own autoloader system, unlike other 
+| implementations. In this system, the libraries are written to 
+| Config/ClassMap.php file. Subsequent calls are made from this file.
+|
+*/
+
 import(REQUIREMENTS_DIR . 'Autoloader.php');
-//--------------------------------------------------------------------------------------------------
 
-//--------------------------------------------------------------------------------------------------
-// STATUS CONSTANTS
-//--------------------------------------------------------------------------------------------------
-//
-// Status Constants
-//
-//--------------------------------------------------------------------------------------------------
-define('SSL_STATUS'  , ! Config::get('Services','uri')['ssl'] ? 'http://' : 'https://');
-define('INDEX_STATUS', ! Config::get('Htaccess', 'uri')['directoryIndex']
-                       ? ''
-                       : suffix(DIRECTORY_INDEX)
-);
-//--------------------------------------------------------------------------------------------------
+/*
+|--------------------------------------------------------------------------
+| SSL Status Constants
+|--------------------------------------------------------------------------
+|
+| If the value of ssl is on on the server, the links generated by the 
+| URL library are output as https.
+|
+*/
 
-//--------------------------------------------------------------------------------------------------
-// URL CONSTANTS
-//--------------------------------------------------------------------------------------------------
-//
-// Useful current constants.
-//
-//--------------------------------------------------------------------------------------------------
-define('HOST'         , host()                                                 );
-define('HOST_NAME'    , HOST                                                   );
-define('HOST_URL'     , SSL_STATUS . HOST . '/'                                );
-define('BASE_URL'     , HOST_URL . BASE_DIR                                    );
-define('SITE_URL'     , URL::site()                                            );
-define('CURRENT_URL'  , rtrim(HOST_URL, '/') . ($_SERVER['REQUEST_URI'] ?? NULL));
-define('PREV_URL'     , $_SERVER['HTTP_REFERER'] ?? NULL                       );
-define('BASE_PATH'    , BASE_DIR                                               );
-define('CURRENT_PATH' , URI::current()                                         );
-define('PREV_PATH'    , str_replace(SITE_URL, NULL, PREV_URL)                  );
-define('FILES_URL'    , BASE_URL . FILES_DIR                                   );
-define('FONTS_URL'    , BASE_URL . FONTS_DIR                                   );
-define('PLUGINS_URL'  , BASE_URL . PLUGINS_DIR                                 );
-define('SCRIPTS_URL'  , BASE_URL . SCRIPTS_DIR                                 );
-define('STYLES_URL'   , BASE_URL . STYLES_DIR                                  );
-define('THEMES_URL'   , BASE_URL . THEMES_DIR                                  );
-define('UPLOADS_URL'  , BASE_URL . UPLOADS_DIR                                 );
-define('RESOURCES_URL', BASE_URL . RESOURCES_DIR                               );
-//--------------------------------------------------------------------------------------------------
+define('SSL_STATUS', (server('https') === 'on' ? 'https' : 'http') . '://');
 
-//--------------------------------------------------------------------------------------------------
-// Top Bottom Layer
-//--------------------------------------------------------------------------------------------------
+/*
+|--------------------------------------------------------------------------
+| URL & Path Constants
+|--------------------------------------------------------------------------
+|
+| It keeps the path information to be used for various purposes.
+|
+*/
+
+define('HOST', host());
+define('HOST_NAME', HOST);
+define('HOST_URL', SSL_STATUS . HOST . '/');
+define('BASE_URL', HOST_URL . BASE_DIR);
+define('SITE_URL', URL::site());
+define('CURRENT_URL', rtrim(HOST_URL, '/') . ($_SERVER['REQUEST_URI'] ?? NULL));
+define('PREV_URL', $_SERVER['HTTP_REFERER'] ?? NULL);
+define('BASE_PATH', BASE_DIR);
+define('CURRENT_PATH', URI::current());
+define('PREV_PATH', str_replace(SITE_URL, NULL, PREV_URL));
+define('FILES_URL', BASE_URL . FILES_DIR);
+define('FONTS_URL', BASE_URL . FONTS_DIR);
+define('PLUGINS_URL', BASE_URL . PLUGINS_DIR);
+define('SCRIPTS_URL', BASE_URL . SCRIPTS_DIR);
+define('STYLES_URL', BASE_URL . STYLES_DIR);
+define('THEMES_URL', BASE_URL . THEMES_DIR);
+define('UPLOADS_URL', BASE_URL . UPLOADS_DIR);
+define('RESOURCES_URL', BASE_URL . RESOURCES_DIR);
+
+/*
+|--------------------------------------------------------------------------
+| Top Bottom Layer
+|--------------------------------------------------------------------------
+|
+| You can use system constants and libraries in this layer since the code 
+| to write to this layer is used immediately after the auto loader. 
+| All Config files can be configured on this layer since this layer runs 
+| immediately after the auto installer.
+|
+*/
+
 layer('TopBottom');
-//--------------------------------------------------------------------------------------------------
 
-//--------------------------------------------------------------------------------------------------
-// Structure Data
-//--------------------------------------------------------------------------------------------------
-//
-// Current Controller Constants
-//
-//--------------------------------------------------------------------------------------------------
-define('STRUCTURE_DATA'     , ZN\Core\Structure::data()                );
-define('CURRENT_COPEN_PAGE' , STRUCTURE_DATA['openFunction']           );
-define('CURRENT_CPARAMETERS', STRUCTURE_DATA['parameters']             );
-define('CURRENT_CFILE'      , STRUCTURE_DATA['file']                   );
-define('CURRENT_CFUNCTION'  , STRUCTURE_DATA['function']               );
-define('CURRENT_CPAGE'      , ($page = STRUCTURE_DATA['page']) . '.php');
-define('CURRENT_CONTROLLER' , $page                                    );
-define('CURRENT_CNAMESPACE' , $namespace = STRUCTURE_DATA['namespace'] );
-define('CURRENT_CCLASS'     , $namespace . CURRENT_CONTROLLER          );
-define('CURRENT_CFPATH'     , str_replace
+
+/*
+|--------------------------------------------------------------------------
+| Strucutre Constants
+|--------------------------------------------------------------------------
+|
+| Provides data about the current working url.
+|
+*/
+
+define('STRUCTURE_DATA', ZN\Core\Structure::data());
+define('CURRENT_COPEN_PAGE', STRUCTURE_DATA['openFunction']);
+define('CURRENT_CPARAMETERS', STRUCTURE_DATA['parameters']);
+define('CURRENT_CFILE', STRUCTURE_DATA['file']);
+define('CURRENT_CFUNCTION', STRUCTURE_DATA['function']);
+define('CURRENT_CPAGE', ($page = STRUCTURE_DATA['page']) . '.php');
+define('CURRENT_CONTROLLER', $page);
+define('CURRENT_CNAMESPACE', $namespace = STRUCTURE_DATA['namespace'] );
+define('CURRENT_CCLASS', $namespace . CURRENT_CONTROLLER);
+define('CURRENT_CFPATH', str_replace
 (
     CONTROLLERS_DIR, '', CURRENT_CONTROLLER) . '/' . CURRENT_CFUNCTION
 );
-define('CURRENT_CFURI'      , strtolower(CURRENT_CFPATH)               );
-define('CURRENT_CFURL'      , SITE_URL . CURRENT_CFPATH                );
-//--------------------------------------------------------------------------------------------------
+define('CURRENT_CFURI', strtolower(CURRENT_CFPATH));
+define('CURRENT_CFURL', SITE_URL . CURRENT_CFPATH);
 
-//--------------------------------------------------------------------------------------------------
-// Illustrate
-//--------------------------------------------------------------------------------------------------
-//
-// @param string $const
-// @param  mixed $value
-// @return mixed
-//
-//--------------------------------------------------------------------------------------------------
+
+/**
+ * illustrate
+ * 
+ * Returns the constant value. If the constant is undefined, 
+ * it defines the constant according to 
+ * the specified value and returns the value.
+ * 
+ * @param string $const
+ * @param mixed  $value = ''
+
+ * @return mixed
+ */
 function illustrate(String $const, $value = '')
 {
     if( ! defined($const) )
@@ -238,15 +356,16 @@ function illustrate(String $const, $value = '')
     return constant($const);
 }
 
-//--------------------------------------------------------------------------------------------------
-// CSRFInput
-//--------------------------------------------------------------------------------------------------
-//
-// @param string data
-//
-// @return int
-//
-//--------------------------------------------------------------------------------------------------
+/**
+ * CSRFInput
+ * 
+ * Generates a 32-character random key. And it transfers it to the form hidden object.
+ * 
+ * @param void
+ * 
+ * @return string
+ * 
+ */
 function CSRFInput()
 {
     Session::insert('token', ZN\CryptoGraphy\Encode\RandomPassword::create(32));
@@ -254,36 +373,31 @@ function CSRFInput()
     return Form::hidden('token', Session::select('token'));
 }
 
-//--------------------------------------------------------------------------------------------------
-// Length
-//--------------------------------------------------------------------------------------------------
-//
-// @param string data
-//
-// @return int
-//
-//--------------------------------------------------------------------------------------------------
+/**
+ * length
+ * 
+ * It calculates the character length of the object, array and computable values.
+ * 
+ * @param mixed $data
+ * 
+ * @return int
+ */
 function length($data) : Int
 {
-    return ! is_scalar($data)
-           ? count((array) $data)
-           : strlen($data);
+    return ! is_scalar($data) ? count((array) $data) : strlen($data);
 }
 
-//--------------------------------------------------------------------------------------------------
-// headers()
-//--------------------------------------------------------------------------------------------------
-//
-// @param mixed $header
-//
-//--------------------------------------------------------------------------------------------------
+/**
+ * headers
+ * 
+ * Send HTTP headers in singular or plural structure.
+ * 
+ * @param mixed $header
+ * 
+ * @return void
+ */
 function headers($header)
 {
-    if( empty($header) )
-    {
-        return false;
-    }
-
     if( ! is_array($header) )
     {
          header($header);
@@ -297,305 +411,299 @@ function headers($header)
     }
 }
 
-//--------------------------------------------------------------------------------------------------
-// currentUri()
-//--------------------------------------------------------------------------------------------------
-//
-// @param bool $fullPath = false
-//
-// @return string
-//
-//--------------------------------------------------------------------------------------------------
+/**
+ * currentUri
+ * 
+ * It will return the active URI information.
+ * 
+ * @param bool $fullPath = false
+ * 
+ * @return string
+ * 
+ */
 function currentUri(Bool $fullPath = false) : String
 {
     return URI::active($fullPath);
 }
 
-//--------------------------------------------------------------------------------------------------
-// getLang()
-//--------------------------------------------------------------------------------------------------
-//
-// @param void
-//
-// @return string
-//
-//--------------------------------------------------------------------------------------------------
+/**
+ * getLang
+ * 
+ * The system returns the current language value.
+ * Note: Use Lang::get() instead of this function. It can be removed in future releases.
+ * 
+ * @param void
+ * 
+ * @return string
+ * 
+ */
 function getLang() : String
 {
     return Lang::get();
 }
 
-//--------------------------------------------------------------------------------------------------
-// setLang()
-//--------------------------------------------------------------------------------------------------
-//
-// @param string $l
-//
-// @return bool
-//
-//--------------------------------------------------------------------------------------------------
+/**
+ * setLang
+ * 
+ * The system changes the current language value.
+ * Note: Use Lang::set() instead of this function. It can be removed in future releases.
+ * 
+ * @param string $l = NULL
+ * 
+ * @return bool
+ * 
+ */
 function setLang(String $l = NULL) : Bool
 {
     return Lang::set($l);
 }
 
-//--------------------------------------------------------------------------------------------------
-// lang()
-//--------------------------------------------------------------------------------------------------
-//
-// @param string $file
-// @param string $str
-// @param mixed  $changed
-//
-// @return mixed
-//
-//--------------------------------------------------------------------------------------------------
+/**
+ * lang
+ * 
+ * It uses the language files in the Languages/ directory.
+ * Note: Use Lang::select() instead of this function. It can be removed in future releases.
+ * 
+ * @param string $file    = NULL
+ * @param string $str     = NULL
+ * @param mixed  $changed = NULL
+ */
 function lang(String $file = NULL, String $str = NULL, $changed = NULL)
 {
     return Lang::select($file, $str, $changed);
 }
 
-//--------------------------------------------------------------------------------------------------
-// currentLang()
-//--------------------------------------------------------------------------------------------------
-//
-// @param void
-//
-// @return string
-//
-//--------------------------------------------------------------------------------------------------
+/**
+ * currentLang
+ * 
+ * Usage is like Lang::get(). The only difference is that the use of URL 
+ * language must be clear in order for this method to produce output.
+ * Note: Use Lang::current() instead of this function. It can be removed in future releases.
+ * 
+ * @param void
+ * 
+ * @return string
+ * 
+ */
 function currentLang() : String
 {
     return Lang::current();
 }
 
-//--------------------------------------------------------------------------------------------------
-// currentUrl()
-//--------------------------------------------------------------------------------------------------
-//
-// @param string $fix
-//
-// @return string
-//
-//--------------------------------------------------------------------------------------------------
+/**
+ * currentUrl
+ * 
+ * Returns the active URL information.
+ * Note: Use URL::current() instead of this function. It can be removed in future releases.
+ * 
+ * @param string $fix = NULL
+ * 
+ * @return string
+ * 
+ */
 function currentUrl(String $fix = NULL) : String
 {
     return URL::current($fix);
 }
 
-//--------------------------------------------------------------------------------------------------
-// siteUrl()
-//--------------------------------------------------------------------------------------------------
-//
-// @param string $uri
-// @param int    $index
-//
-// @return string
-//
-//--------------------------------------------------------------------------------------------------
+/**
+ * siteUrl
+ * 
+ * Returns the system's URL information. 
+ * In particular, this function is used to link the [href] property of the [a] tag.
+ * Note: Use URL::site() instead of this function. It can be removed in future releases.
+ * 
+ */
 function siteUrl(String $uri = NULL, Int $index = 0) : String
 {
     return URL::site($uri, $index);
 }
 
-//--------------------------------------------------------------------------------------------------
-// siteUrls() - v.4.2.6
-//--------------------------------------------------------------------------------------------------
-//
-// @param string $uri
-// @param int    $index
-//
-// @return string
-//
-//--------------------------------------------------------------------------------------------------
-function siteUrls(String $uri = NULL, Int $index = 0) : String
+/**
+ * siteUrls
+ * 
+ * Returns the system's URL information. However, the http value is output as https.
+ * In particular, this function is used to link the [href] property of the [a] tag.
+ * Note: Use URL::sites() instead of this function. It can be removed in future releases.
+ * 
+ * @param string $uri = NULL
+ * 
+ * @return string
+ * 
+ */
+function siteUrls(String $uri = NULL) : String
 {
-    return URL::sites($uri, $index);
+    return URL::sites($uri);
 }
 
-//--------------------------------------------------------------------------------------------------
-// baseUrl()
-//--------------------------------------------------------------------------------------------------
-//
-// @param string $uri
-// @param int    $index
-//
-// @return string
-//
-//--------------------------------------------------------------------------------------------------
-function baseUrl(String $uri = NULL, Int $index = 0) : String
+/**
+ * baseUrl
+ * 
+ * Returns the root URL of the system.
+ * Note: Use URL::base() instead of this function. It can be removed in future releases.
+ * 
+ * @param string $uri = NULL
+ * 
+ * @return string
+ */
+function baseUrl(String $uri = NULL) : String
 {
-    return URL::base($uri, $index);
+    return URL::base($uri);
 }
 
-//--------------------------------------------------------------------------------------------------
-// prevUrl()
-//--------------------------------------------------------------------------------------------------
-//
-// @param void
-//
-// @return string
-//
-//--------------------------------------------------------------------------------------------------
+/**
+ * prevUrl
+ * 
+ * Returns the previous URL information from the active URL.
+ * Note: Use URL::prev() instead of this function. It can be removed in future releases.
+ * 
+ * @param void
+ * 
+ * @return string
+ */
 function prevUrl() : String
 {
     return URL::prev();
 }
 
-//--------------------------------------------------------------------------------------------------
-// hostUrl()
-//--------------------------------------------------------------------------------------------------
-//
-// @param string $uri
-//
-// @return string
-//
-//--------------------------------------------------------------------------------------------------
+/**
+ * hostUrl
+ * 
+ * Returns the system host information.
+ * Note: Use URL::host() instead of this function. It can be removed in future releases.
+ * 
+ * @param string $uri = NULL
+ * 
+ * @return string
+ * 
+ */
 function hostUrl(String $uri = NULL) : String
 {
     return URL::host($uri);
 }
 
-//--------------------------------------------------------------------------------------------------
-// currentPath()
-//--------------------------------------------------------------------------------------------------
-//
-// @param bool $isPath
-//
-// @return string
-//
-//--------------------------------------------------------------------------------------------------
+/**
+ * currentPath
+ * 
+ * Returns the active URI information.
+ * Note: Use URI::current() instead of this function. It can be removed in future releases.
+ * 
+ * @param bool $isPath = true
+ * 
+ * @return string
+ * 
+ */
 function currentPath(Bool $isPath = true) : String
 {
     return URI::current($isPath);
 }
 
-//--------------------------------------------------------------------------------------------------
-// basePath()
-//--------------------------------------------------------------------------------------------------
-//
-// @param string $uri
-// @param int    $index
-//
-// @return string
-//
-//--------------------------------------------------------------------------------------------------
-function basePath(String $uri = NULL, Int $index = 0) : String
+/**
+ * basePath
+ * 
+ * Returns the base URI information of the system.
+ * Note: Use URI::base() instead of this function. It can be removed in future releases.
+ * 
+ * 
+ * @param string $uri = NULL
+ * 
+ * @return string
+ */
+function basePath(String $uri = NULL) : String
 {
-    return URI::base($uri, $index);
+    return URI::base($uri);
 }
 
-//--------------------------------------------------------------------------------------------------
-// prevPath()
-//--------------------------------------------------------------------------------------------------
-//
-// @param bool $isPath
-//
-// @return string
-//
-//--------------------------------------------------------------------------------------------------
+/**
+ * prevPath
+ * 
+ * Returns the previous URL information from the active URL.
+ * Note: Use URI::prev() instead of this function. It can be removed in future releases.
+ * 
+ * @param bool $isPath = true
+ * 
+ * @return string
+ */
 function prevPath(Bool $isPath = true) : String
 {
     return URI::prev($isPath);
 }
 
-//--------------------------------------------------------------------------------------------------
-// redirect()
-//--------------------------------------------------------------------------------------------------
-//
-// @param string $url
-// @param int    $time
-// @param array  $data
-// @param bool   $exit
-//
-//--------------------------------------------------------------------------------------------------
+/**
+ * redirect
+ * 
+ * Routes to the specified URI or URL.
+ * 
+ * @param string $url  = NULL
+ * @param int    $time = 0
+ * @param array  $data = NULL
+ * @param bool   $exit = true
+ * 
+ * @return void
+ */
 function redirect(String $url = NULL, Int $time = 0, Array $data = NULL, Bool $exit = true)
 {
     Redirect::location($url, $time, $data, $exit);
 }
 
-//--------------------------------------------------------------------------------------------------
-// redirectData()
-//--------------------------------------------------------------------------------------------------
-//
-// @param string $k
-//
-// @return mixed
-//
-//--------------------------------------------------------------------------------------------------
+/**
+ * redirectData
+ * 
+ * Sends data to the redirected URL address.
+ * 
+ * @param string $key
+ * 
+ * @return mixed
+ */
 function redirectData(String $k)
 {
     return Redirect::selectData($k);
 }
 
-//--------------------------------------------------------------------------------------------------
-// redirectDeleteData()
-//--------------------------------------------------------------------------------------------------
-//
-// @param mixed $data
-//
-// @return bool
-//
-//--------------------------------------------------------------------------------------------------
+/**
+ * redirectDeleteData
+ * 
+ * Used to delete the data sent to the redirection. 
+ * Deletion can be done on array or string type.
+ * 
+ * @param mixed $data
+ * 
+ * @return bool
+ * 
+ */
 function redirectDeleteData($data) : Bool
 {
     return Redirect::deleteData($data);
 }
 
-//--------------------------------------------------------------------------------------------------
-// internalDefaultProjectKey()
-//--------------------------------------------------------------------------------------------------
-//
-// @param void
-//
-// @return string
-//
-//--------------------------------------------------------------------------------------------------
+/**
+ * internalDefaultProjectKey
+ * 
+ * By default, it generates the project key. 
+ * If you want to identify the key yourself. 
+ * Use the following configuration file.
+ * 
+ * File: Config/Project.php - key:your keys
+ * 
+ * @param void
+ * 
+ * @return string
+ */
 function internalDefaultProjectKey()
 {
     return ZN\In::defaultProjectKey();
 }
 
-//--------------------------------------------------------------------------------------------------
-// library()
-//--------------------------------------------------------------------------------------------------
-//
-// @param string $class
-// @param string $function
-// @param mixed  $parameters
-//
-// @return callable
-//
-//--------------------------------------------------------------------------------------------------
-function library(String $class, String $function, $parameters = [])
-{
-    $var = uselib($class);
-
-    if( ! is_array($parameters) )
-    {
-        $parameters = [$parameters];
-    }
-
-    if( is_callable([$var, $function]) )
-    {
-        return call_user_func_array([$var, $function], $parameters);
-    }
-    else
-    {
-        return false;
-    }
-}
-
-//--------------------------------------------------------------------------------------------------
-// uselib()
-//--------------------------------------------------------------------------------------------------
-//
-// @param string $class
-// @param array  $parameters
-//
-// @return class
-//
-//--------------------------------------------------------------------------------------------------
+/**
+ * uselib
+ * 
+ * The single inherited library makes the call.
+ * 
+ * @param string $class
+ * @param array  $parameters = []
+ * 
+ * @return mixed
+ */
 function uselib(String $class, Array $parameters = [])
 {
     if( ! class_exists($class) )
@@ -623,13 +731,16 @@ function uselib(String $class, Array $parameters = [])
     return ZN::$use->$class;
 }
 
-//--------------------------------------------------------------------------------------------------
-// Layer -> 5.3.6[added]
-//--------------------------------------------------------------------------------------------------
-//
-// @param string $layer
-//
-//--------------------------------------------------------------------------------------------------
+/**
+ * layer
+ * 
+ * Loads the layer files.
+ * 
+ * @param string $layer
+ * 
+ * @return void
+ * 
+ */
 function layer(String $layer)
 {
     $path = $layer . '.php';
@@ -638,13 +749,15 @@ function layer(String $layer)
     import(EXTERNAL_LAYERS_DIR . $path);
 }
 
-//--------------------------------------------------------------------------------------------------
-// Import
-//--------------------------------------------------------------------------------------------------
-//
-// Require Once
-//
-//--------------------------------------------------------------------------------------------------
+/**
+ * import
+ * 
+ * Include files once. Performance is better than require_once function.
+ * 
+ * @param string $file
+ * 
+ * @return mixed
+ */
 function import(String $file)
 {
     $constant = 'ImportFilePrefix' . $file;
@@ -662,14 +775,15 @@ function import(String $file)
     }
 }
 
-//--------------------------------------------------------------------------------------------------
-// trace()
-//--------------------------------------------------------------------------------------------------
-//
-// İşlev: Sistem kullanıyor.
-// Dönen Değerler: Sistem kullanıyor.
-//
-//--------------------------------------------------------------------------------------------------
+/**
+ * trace
+ * 
+ * Produces formatted output that terminates the operation.
+ * 
+ * @param string $message
+ * 
+ * @return void
+ */
 function trace(String $message)
 {
     $style  = 'border:solid 1px #E1E4E5;';
@@ -690,231 +804,86 @@ function trace(String $message)
     exit($str);
 }
 
-//--------------------------------------------------------------------------------------------------
-// isPhpVersion()
-//--------------------------------------------------------------------------------------------------
-//
-// İşlev: Parametrenin geçerli php sürümü olup olmadığını kontrol eder.
-// Parametreler: $version => Geçerliliği kontrol edilecek veri.
-// Dönen Değerler: Geçerli sürümse true değilse false değerleri döner.
-//
-//--------------------------------------------------------------------------------------------------
-function isPhpVersion(String $version = '5.2.4')
+/**
+ * isPhpVersion
+ * 
+ * Checks whether the parameter is a valid php version.
+ * 
+ * @param string $version = '5.2.4'
+ * 
+ * @return bool
+ */
+function isPhpVersion(String $version = '5.2.4') : Bool
 {
     return IS::phpVersion($version);
 }
 
-//--------------------------------------------------------------------------------------------------
-// absoluteRelativePath()
-//--------------------------------------------------------------------------------------------------
-//
-// Gerçek yolu yalın yola çevirir.
-//
-//--------------------------------------------------------------------------------------------------
-function absoluteRelativePath(String $path = NULL)
-{
-    return ZN\FileSystem\File\Info::absolutePath($path);
-}
-
-//--------------------------------------------------------------------------------------------------
-// isUrl()
-//--------------------------------------------------------------------------------------------------
-//
-// @param string $url
-//
-// @return Bool
-//
-//--------------------------------------------------------------------------------------------------
-function isUrl(String $url) : Bool
-{
-    return IS::url($url);
-}
-
-//--------------------------------------------------------------------------------------------------
-// isEmail()
-//--------------------------------------------------------------------------------------------------
-//
-// @param string $email
-//
-// @return Bool
-//
-//--------------------------------------------------------------------------------------------------
-function isEmail(String $email) : Bool
-{
-    return IS::email($email);
-}
-
-//--------------------------------------------------------------------------------------------------
-// isChar()
-//--------------------------------------------------------------------------------------------------
-//
-// @param mixed $str
-//
-// @return Bool
-//
-//--------------------------------------------------------------------------------------------------
-function isChar($str) : Bool
-{
-    return IS::char($str);
-}
-
-//--------------------------------------------------------------------------------------------------
-// isHash()
-//--------------------------------------------------------------------------------------------------
-//
-// @param string $type
-//
-// @return Bool
-//
-//--------------------------------------------------------------------------------------------------
-function isHash(String $type) : Bool
-{
-    return IS::hash($type);
-}
-
-//--------------------------------------------------------------------------------------------------
-// isCharset()
-//--------------------------------------------------------------------------------------------------
-//
-// @param string $charset
-//
-// @return Bool
-//
-//--------------------------------------------------------------------------------------------------
-function isCharset(String $charset) : Bool
-{
-    return IS::charset($charset);
-}
-
-//--------------------------------------------------------------------------------------------------
-// isArray
-//--------------------------------------------------------------------------------------------------
-//
-// @param mixed $array
-//
-// @return Bool
-//
-//--------------------------------------------------------------------------------------------------
-function isArray($array) : Bool
-{
-    return IS::array($array);
-}
-
-//--------------------------------------------------------------------------------------------------
-// Null Coalesce
-//--------------------------------------------------------------------------------------------------
-//
-// @param var   &$var
-// @param mixed $value
-//
-// @return void
-//
-//--------------------------------------------------------------------------------------------------
-function nullCoalesce( & $var, $value)
-{
-    Coalesce::null($var, $value);
-}
-
-//--------------------------------------------------------------------------------------------------
-// False Coalesce
-//--------------------------------------------------------------------------------------------------
-//
-// @param var   &$var
-// @param mixed $value
-//
-// @return void
-//
-//--------------------------------------------------------------------------------------------------
-function falseCoalesce( & $var, $value)
-{
-    Coalesce::false($var, $value);
-}
-
-//--------------------------------------------------------------------------------------------------
-// Empty Coalesce
-//--------------------------------------------------------------------------------------------------
-//
-// @param var   &$var
-// @param mixed $value
-//
-// @return void
-//
-//--------------------------------------------------------------------------------------------------
-function emptyCoalesce( & $var, $value)
-{
-    Coalesce::empty($var, $value);
-}
-
-//--------------------------------------------------------------------------------------------------
-// output()
-//--------------------------------------------------------------------------------------------------
-//
-// @param mixed $data
-// @param array $settings = []
-// @param bool  $content  = false
-//
-// @return void
-//
-//--------------------------------------------------------------------------------------------------
+/**
+ * output
+ * 
+ * Produces formatted output.
+ * 
+ * @param mixed $data
+ * @param array $settings = NULL
+ * @param bool  $content  = false
+ * 
+ * @return mixed
+ */
 function output($data, Array $settings = NULL, Bool $content = false)
 {
     return Output::display($data, $settings, $content);
 }
 
-//--------------------------------------------------------------------------------------------------
-// write()
-//--------------------------------------------------------------------------------------------------
-//
-// @param string $data
-// @param array  $vars = []
-//
-// @return void
-//
-//--------------------------------------------------------------------------------------------------
+/**
+ * write
+ * 
+ * Produces the output. Data can be sent to the output.
+ * 
+ * @param mixed $data = NULL
+ * @param array $vars = NULL
+ * 
+ * @param void
+ */
 function write($data = NULL, Array $vars = NULL)
 {
     Output::write($data, $vars);
 }
 
-//--------------------------------------------------------------------------------------------------
-// writeLine()
-//--------------------------------------------------------------------------------------------------
-//
-// @param string $data
-// @param array  $vars    = []
-// @param int    $brCount = 1
-//
-// @return void
-//
-//--------------------------------------------------------------------------------------------------
+/**
+ * writeLine
+ * 
+ * Produces the output and passes to the next line. 
+ * Especially useful with cycling.
+ * Data can be sent to the output.
+ */
 function writeLine($data = NULL, Array $vars = NULL, Int $brCount = 1)
 {
     Output::writeLine($data, $vars, $brCount);
 }
 
-//--------------------------------------------------------------------------------------------------
-// ipv4()
-//--------------------------------------------------------------------------------------------------
-//
-// @param void
-//
-// @return string
-//
-//--------------------------------------------------------------------------------------------------
+/**
+ * ipv4
+ * 
+ * Returns the user's ip information.
+ * 
+ * @param void
+ * 
+ * @return string
+ */
 function ipv4() : String
 {
     return User::ip();
 }
 
-//--------------------------------------------------------------------------------------------------
-// server()
-//--------------------------------------------------------------------------------------------------
-//
-// @param string $type = ''
-//
-// @return mixed
-//
-//--------------------------------------------------------------------------------------------------
+/**
+ * server
+ * 
+ * The compiled version of the $_SERVER global variable.
+ * 
+ * @param string $type
+ * 
+ * @return mixed
+ */
 function server(String $type = NULL)
 {
     $server =
@@ -989,59 +958,44 @@ function server(String $type = NULL)
     return str_replace('&amp;', '&', $return) ?: false;
 }
 
-//--------------------------------------------------------------------------------------------------
-// pathInfos()
-//--------------------------------------------------------------------------------------------------
-//
-// @param string $file
-// @param string $info = 'basename'
-//
-// @return string
-//
-//--------------------------------------------------------------------------------------------------
-function pathInfos(String $file, String $info = 'basename') : String
+/**
+ * extension
+ * 
+ * Returns extension information of files.
+ * 
+ * @param string $file
+ * @param bool   $dot
+ * 
+ * @return string
+ */
+function extension(String $file, Bool $dot = false) : String
 {
-    return ZN\FileSystem\File\Info::pathInfo($file, $info);
+    return ZN\FileSystem\File\Extension::get($file, $dot);
 }
 
-//--------------------------------------------------------------------------------------------------
-// extension()
-//--------------------------------------------------------------------------------------------------
-//
-// @param string $file
-// @param bool   $dote = false
-//
-// @return string
-//
-//--------------------------------------------------------------------------------------------------
-function extension(String $file, Bool $dote = false) : String
-{
-    return ZN\FileSystem\File\Extension::get($file, $dote);
-}
-
-//--------------------------------------------------------------------------------------------------
-// removeExtension()
-//--------------------------------------------------------------------------------------------------
-//
-// @param string $file
-//
-// @return string
-//
-//--------------------------------------------------------------------------------------------------
+/**
+ * removeExtension
+ * 
+ * Removes path extension information.
+ * 
+ * @param string $file
+ * 
+ * @return string
+ */
 function removeExtension(String $file) : String
 {
     return ZN\FileSystem\File\Extension::remove($file);
 }
 
-//--------------------------------------------------------------------------------------------------
-// host()
-//--------------------------------------------------------------------------------------------------
-//
-// @param void
-//
-// @return string
-//
-//--------------------------------------------------------------------------------------------------
+/**
+ * host
+ * 
+ * Returns the system host information.
+ * 
+ * @param void
+ * 
+ * @return string
+ */
 function host() : String
 {
     if( isset($_SERVER['HTTP_X_FORWARDED_HOST']) )
@@ -1061,75 +1015,31 @@ function host() : String
     return trim($host);
 }
 
-//--------------------------------------------------------------------------------------------------
-// hostName()
-//--------------------------------------------------------------------------------------------------
-//
-// @param void
-//
-// @return string
-//
-//--------------------------------------------------------------------------------------------------
-function hostName() : String
-{
-    return host();
-}
-
-//--------------------------------------------------------------------------------------------------
-// charsetList()
-//--------------------------------------------------------------------------------------------------
-//
-// @param void
-//
-// @return array
-//
-//--------------------------------------------------------------------------------------------------
-function charsetList() : Array
-{
-    return mb_list_encodings();
-}
-
-//--------------------------------------------------------------------------------------------------
-// compare()
-//--------------------------------------------------------------------------------------------------
-//
-// @param string $p1
-// @param string $p2
-// @param string $p3
-//
-// @return Bool
-//
-//--------------------------------------------------------------------------------------------------
-function compare(String $p1, String $operator, String $p2) : Bool
-{
-    return version_compare($p1, $p2, $operator);
-}
-
-//--------------------------------------------------------------------------------------------------
-// suffix()
-//--------------------------------------------------------------------------------------------------
-//
-// @param string $string
-// @param string $fix = '/'
-//
-// @return string
-//
-//--------------------------------------------------------------------------------------------------
+/**
+ * suffix 
+ * 
+ * It is used to append a suffix to any string.
+ * 
+ * @param string = NULL
+ * @param string = $fix = '/'
+ * 
+ * @return string
+ */
 function suffix(String $string = NULL, String $fix = '/') : String
 {
     return prefix($string, $fix, __FUNCTION__);
 }
 
-//--------------------------------------------------------------------------------------------------
-// prefix()
-//--------------------------------------------------------------------------------------------------
-//
-// @param string $string
-// @param string $fix = '/'
-//
-// @return string
-//
-//--------------------------------------------------------------------------------------------------
+/**
+ * prefix 
+ * 
+ * It is used to append a prefix to any string.
+ * 
+ * @param string = NULL
+ * @param string = $fix = '/'
+ * 
+ * @return string
+ */
 function prefix(String $string = NULL, String $fix = '/', $type = __FUNCTION__) : String
 {
     $stringFix = $type === 'prefix' ? $fix . $string : $string . $fix;
@@ -1156,30 +1066,31 @@ function prefix(String $string = NULL, String $fix = '/', $type = __FUNCTION__) 
     return $string;
 }
 
-//--------------------------------------------------------------------------------------------------
-// presuffix()
-//--------------------------------------------------------------------------------------------------
-//
-// @param string $string
-// @param string $fix = '/'
-//
-// @return string
-//
-//--------------------------------------------------------------------------------------------------
+/**
+ * prefix 
+ * 
+ * Used to append both suffixes and prefixes to any string.
+ * 
+ * @param string = NULL
+ * @param string = $fix = '/'
+ * 
+ * @return string
+ */
 function presuffix(String $string = NULL, String $fix = '/') : String
 {
     return suffix(prefix(empty($string) ? $fix . $string . $fix : $string, $fix), $fix);
 }
 
-//--------------------------------------------------------------------------------------------------
-// internalProjectContainerDir)
-//--------------------------------------------------------------------------------------------------
-//
-// @param void
-//
-// @param string
-//
-//--------------------------------------------------------------------------------------------------
+/**
+ * internalProjectContainerDir
+ * 
+ * Returns the project directory name according to the project in the system.
+ * Only for multi edition.
+ * 
+ * @param string $path = NULL
+ * 
+ * @return string
+ */
 function internalProjectContainerDir($path = NULL) : String
 {
     $path = suffix($path);
@@ -1231,35 +1142,15 @@ function internalProjectContainerDir($path = NULL) : String
     return $containerProjectDir;
 }
 
-//--------------------------------------------------------------------------------------------------
-// Internal Is Writable
-//--------------------------------------------------------------------------------------------------
-//
-// @param string $path
-//
-//--------------------------------------------------------------------------------------------------
-function internalIsWritable(String $path)
-{
-    if( is_file($path) && ! is_writable($path) && IS::software() === 'apache' )
-    {   
-        trace
-        (
-            'Please check the [file permissions]. Click the 
-                <a target="_blank" style="text-decoration:none" href="https://docs.znframework.com/getting-started/installation-instructions#sh42">
-                    [documentation]
-                </a> 
-            to see how to configure file permissions.'
-        );
-    }
-}
-
-//--------------------------------------------------------------------------------------------------
-// Internal Current Project -> 5.4.7|5.4.8[edited]
-//--------------------------------------------------------------------------------------------------
-//
-// @param void
-//
-//--------------------------------------------------------------------------------------------------
+/**
+ * internalCurrentProject
+ * 
+ * It arranges some values according to the project which is valid in the system.
+ * 
+ * @param void
+ * 
+ * @return mixed
+ */
 function internalCurrentProject()
 {
     internalIsWritable('.htaccess');
@@ -1316,5 +1207,29 @@ function internalCurrentProject()
     if( ! is_dir(PROJECT_DIR) )
     {
         trace('["'.$projectDir.'"] Project Directory Not Found!');
+    }
+}
+
+/**
+ * internalIsWritable
+ * 
+ * Controls whether file permission is required in the operating system where the system is installed.
+ * 
+ * @param string $path
+ * 
+ * @return void
+ */
+function internalIsWritable(String $path)
+{
+    if( is_file($path) && ! is_writable($path) && IS::software() === 'apache' )
+    {   
+        trace
+        (
+            'Please check the [file permissions]. Click the 
+                <a target="_blank" style="text-decoration:none" href="https://docs.znframework.com/getting-started/installation-instructions#sh42">
+                    [documentation]
+                </a> 
+            to see how to configure file permissions.'
+        );
     }
 }

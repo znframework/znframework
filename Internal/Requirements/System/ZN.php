@@ -10,7 +10,6 @@ use ZN\IndividualStructures\Lang;
 use ZN\IndividualStructures\Buffer;
 use ZN\ErrorHandling\Exceptions;
 
-
 class ZN
 {
     //--------------------------------------------------------------------------------------------------
@@ -66,7 +65,7 @@ class ZN
         {
             foreach( $return as $file => $content )
             {
-                $dirname = pathInfos($file, 'dirname');
+                $dirname = File\Info::pathInfo($file, 'dirname');
 
                 if( PROJECT_TYPE === 'SE' )
                 {

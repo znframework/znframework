@@ -79,9 +79,11 @@ class Reflect
         }
         else
         {
-            $class = $this->class($class);
-
-            if( $function !== NULL )
+            if( $function === NULL )
+            {
+                $class = $this->class($class);
+            }
+            else
             {
                 $class = $class->getMethod($function);
             }
