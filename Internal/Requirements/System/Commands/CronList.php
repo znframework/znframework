@@ -1,4 +1,4 @@
-<?php namespace Project\Commands;
+<?php namespace ZN\Requirements\System\Commands;
 /**
  * ZN PHP Web Framework
  * 
@@ -9,9 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use GeneralException;
+use Crontab;
 
-class Command extends \BaseController
+class CronList
 {
     /**
      * Magic constructor
@@ -21,14 +21,7 @@ class Command extends \BaseController
      * @return void
      */
     public function __construct()
-    {
-        if( server('documentRoot') )
-        {
-            throw new GeneralException
-            (
-                'Commands',
-                'canNotCommandClass'
-            );
-        }
+    {   
+        echo Crontab::list();
     }
 }

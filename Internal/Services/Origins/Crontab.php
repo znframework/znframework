@@ -120,7 +120,9 @@ class Crontab extends RemoteCommon implements CrontabInterface, CrontabIntervalI
         if( PROJECT_TYPE === 'EIP' )
         {
             $this->crontabCommands = EXTERNAL_DIR . $this->fileName;
-            $this->user            = _CURRENT_PROJECT;
+            $this->user            = defined('_CURRENT_PROJECT') 
+                                   ? _CURRENT_PROJECT
+                                   : CURRENT_PROJECT;
             
             $this->_project($this->dzerocore = $this->zerocore);
         }

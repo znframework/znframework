@@ -1,56 +1,38 @@
 <?php namespace ZN\Classes;
+/**
+ * ZN PHP Web Framework
+ * 
+ * "Simplicity is the ultimate sophistication." ~ Da Vinci
+ * 
+ * @package ZN
+ * @license MIT [http://opensource.org/licenses/MIT]
+ * @author  Ozan UYKUN [ozan@znframework.com]
+ */
 
 class Config
 {
-    //--------------------------------------------------------------------------------------------------
-    //
-    // Author     : Ozan UYKUN <ozanbote@gmail.com>
-    // Site       : www.znframework.com
-    // License    : The MIT License
-    // Copyright  : (c) 2012-2016, znframework.com
-    //
-    //--------------------------------------------------------------------------------------------------
-
-    //--------------------------------------------------------------------------------------------------
-    // Config Priority
-    //--------------------------------------------------------------------------------------------------
-    //
-    // Primary  : Internal Config
-    // Secondary: Projects Config
-    // Tertiary : External Config
-    //
-    //--------------------------------------------------------------------------------------------------
-
-    //--------------------------------------------------------------------------------------------------
-    // $setConfigs
-    //--------------------------------------------------------------------------------------------------
-    //
-    // Set edilen ayarları tutacak dizi değişken
-    //
-    // @var array
-    //
-    //--------------------------------------------------------------------------------------------------
+    /**
+     * Set configs
+     * 
+     * @var array
+     */
     private static $setConfigs = [];
 
-    //--------------------------------------------------------------------------------------------------
-    // $config
-    //--------------------------------------------------------------------------------------------------
-    //
-    // Ayarları tutacak dizi değişken
-    //
-    // @var array
-    //
-    //--------------------------------------------------------------------------------------------------
+    /**
+     * Get config
+     * 
+     * @var array
+     */
     private static $config = [];
 
-    //--------------------------------------------------------------------------------------------------
-    // __callStatic()
-    //--------------------------------------------------------------------------------------------------
-    //
-    // @param string $method
-    // @param array  $parameters;
-    //
-    //--------------------------------------------------------------------------------------------------
+    /**
+     * Magic call static
+     * 
+     * @param string $method
+     * @param array  $parameters
+     * 
+     * @return mixed
+     */
     public static function __callStatic($method, $parameters)
     {
         $method = ucfirst($method);
@@ -63,44 +45,36 @@ class Config
         return self::get($method, ...$parameters);
     }
 
-    //--------------------------------------------------------------------------------------------------
-    // _config()
-    //--------------------------------------------------------------------------------------------------
-    //
-    // @param  string $file
-    // @return void
-    //
-    //--------------------------------------------------------------------------------------------------
+    /**
+     * private merge configs
+     * 
+     * @param string $file
+     * 
+     * @return void
+     */
     private static function _config($file)
     {
         if( empty(self::$config[$file]) )
         {
             $path = suffix($file, '.php');
 
-            $externalPath = EXTERNAL_CONFIG_DIR . $path;
-            $settingsPath = SETTINGS_DIR        . $path;
-            $projectPath  = CONFIG_DIR          . $path;
-            $internalPath = INTERNAL_CONFIG_DIR . $path;
-
             self::$config[$file] = array_merge
             (
-                (array) import($externalPath),
-                (array) import($projectPath ),
-                (array) import($settingsPath),
-                (array) import($internalPath)
+                (array) import(SETTINGS_DIR . $path),
+                (array) import(CONFIG_DIR   . $path)   
             );
         }
     }
 
-    //--------------------------------------------------------------------------------------------------
-    // get()
-    //--------------------------------------------------------------------------------------------------
-    //
-    // @param  string $file
-    // @param  string $configs
-    // @return array
-    //
-    //--------------------------------------------------------------------------------------------------
+    /**
+     * Get config
+     * 
+     * @param string $file
+     * @param string $configs  = NULL
+     * @param mixed  $settings = NULL
+     * 
+     * @return mixed
+     */
     public static function get(String $file, String $configs = NULL, $settings = NULL )
     {
         self::_config($file);
@@ -133,15 +107,15 @@ class Config
         return self::$config[$file][$configs] ?? false;
     }
 
-    //--------------------------------------------------------------------------------------------------
-    // set()
-    //--------------------------------------------------------------------------------------------------
-    //
-    // @param  string $file
-    // @param  string $configs
-    // @return array
-    //
-    //--------------------------------------------------------------------------------------------------
+    /**
+     * Set config
+     * 
+     * @param string $file
+     * @param mixed  $configs
+     * @param mixed  $set = NULL
+     * 
+     * @return mixed
+     */
     public static function set(String $file, $configs, $set = NULL)
     {
         if( empty($configs) )
@@ -164,15 +138,14 @@ class Config
         return self::$setConfigs;
     }
 
-    //--------------------------------------------------------------------------------------------------
-    // iniSet()
-    //--------------------------------------------------------------------------------------------------
-    //
-    // @param  mixed  $key
-    // @param  string $val
-    // @return void
-    //
-    //--------------------------------------------------------------------------------------------------
+    /**
+     * Ini set
+     * 
+     * @param mixed $key
+     * @param mixed $val = NULL
+     * 
+     * @return mixed
+     */
     public static function iniSet($key, $val = NULL)
     {
         if( empty($key) )
@@ -204,14 +177,13 @@ class Config
         }
     }
 
-    //--------------------------------------------------------------------------------------------------
-    // iniGet()
-    //--------------------------------------------------------------------------------------------------
-    //
-    // @param  mixed  $key
-    // @return mixed
-    //
-    //--------------------------------------------------------------------------------------------------
+    /**
+     * Ini get
+     * 
+     * @param mixed $key
+     * 
+     * @return mixed
+     */
     public static function iniGet($key)
     {
         if( ! is_array($key) )
@@ -231,16 +203,15 @@ class Config
         }
     }
 
-    //--------------------------------------------------------------------------------------------------
-    // iniGetAll()
-    //--------------------------------------------------------------------------------------------------
-    //
-    // @param  string $key
-    // @param  bool   $details
-    // @return array
-    //
-    //--------------------------------------------------------------------------------------------------
-    public static function iniGetAll(String $extension = NULL, Bool $details = true)
+    /**
+     * Ini get all
+     * 
+     * @param string $extension = NULL
+     * @param bool   $details   = true
+     * 
+     * @return array
+     */
+    public static function iniGetAll(String $extension = NULL, Bool $details = true) : Array
     {
         if( empty($extension) )
         {
@@ -252,18 +223,18 @@ class Config
         }
     }
 
-    //--------------------------------------------------------------------------------------------------
-    // iniRestore()
-    //--------------------------------------------------------------------------------------------------
-    //
-    // @param  string $str
-    // @return bool
-    //
-    //--------------------------------------------------------------------------------------------------
+    /**
+     * Ini restore
+     * 
+     * @param string $str
+     * 
+     * @return void
+     */
     public static function iniRestore(String $str)
     {
-        return ini_restore($str);
+        ini_restore($str);
     }
 }
 
+# Alias Config
 class_alias('ZN\Classes\Config', 'Config');

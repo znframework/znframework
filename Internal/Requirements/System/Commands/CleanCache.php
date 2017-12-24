@@ -1,4 +1,4 @@
-<?php namespace Project\Commands;
+<?php namespace ZN\Requirements\System\Commands;
 /**
  * ZN PHP Web Framework
  * 
@@ -9,26 +9,19 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use GeneralException;
+use Cache;
 
-class Command extends \BaseController
+class CleanCache
 {
     /**
      * Magic constructor
      * 
-     * @param void
+     * @param 
      * 
      * @return void
      */
     public function __construct()
-    {
-        if( server('documentRoot') )
-        {
-            throw new GeneralException
-            (
-                'Commands',
-                'canNotCommandClass'
-            );
-        }
+    {   
+        new Result(Cache::clean());
     }
 }

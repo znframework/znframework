@@ -1,4 +1,4 @@
-<?php namespace Project\Commands;
+<?php namespace ZN\Requirements\System\Commands;
 /**
  * ZN PHP Web Framework
  * 
@@ -9,26 +9,20 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use GeneralException;
+use ZN;
 
-class Command extends \BaseController
+class UpgradeFiles
 {
     /**
      * Magic constructor
      * 
-     * @param void
+     * @param string $method
+     * @param string $parameters
      * 
      * @return void
      */
     public function __construct()
-    {
-        if( server('documentRoot') )
-        {
-            throw new GeneralException
-            (
-                'Commands',
-                'canNotCommandClass'
-            );
-        }
+    {   
+        new Result(ZN::upgradeFiles());
     }
 }
