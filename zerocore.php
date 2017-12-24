@@ -30,7 +30,7 @@ define('PROJECT_TYPE', 'EIP');
 |
 */
 
-define('ZN_VERSION', '5.4.78');
+define('ZN_VERSION', '5.4.8');
 define('REQUIRED_PHP_VERSION', '7.0.0');
 
 /*
@@ -211,7 +211,7 @@ foreach( CONTAINER_DIRS as $key => $value )
     if( PROJECT_TYPE === 'EIP' ) // For EIP edition
     {
         define($key, internalProjectContainerDir($value));
-        define('EXTERNAL_' . $key, 'External/' . $value);
+        define('EXTERNAL_' . $key, 'External/' . $value . '/');
     }
     else // For SE edition
     {
