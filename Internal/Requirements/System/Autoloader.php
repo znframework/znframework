@@ -1,79 +1,70 @@
 <?php namespace ZN\Classes;
+/**
+ * ZN PHP Web Framework
+ * 
+ * "Simplicity is the ultimate sophistication." ~ Da Vinci
+ * 
+ * @package ZN
+ * @license MIT [http://opensource.org/licenses/MIT]
+ * @author  Ozan UYKUN [ozan@znframework.com]
+ */
 
 use ZN\Helpers\Converter;
 
 class Autoloader
 {
-    //--------------------------------------------------------------------------------------------------
-    //
-    // Author     : Ozan UYKUN <ozanbote@gmail.com>
-    // Site       : www.znframework.com
-    // License    : The MIT License
-    // Copyright  : (c) 2012-2016, znframework.com
-    //
-    //--------------------------------------------------------------------------------------------------
-
-    //--------------------------------------------------------------------------------------------------
-    // Protected Static Classes
-    //--------------------------------------------------------------------------------------------------
-    //
-    // @var array
-    //
-    //--------------------------------------------------------------------------------------------------
+    /**
+     * Keep classes
+     * 
+     * @var array
+     */
     protected static $classes;
 
-    //--------------------------------------------------------------------------------------------------
-    // Protected Static Namespaces
-    //--------------------------------------------------------------------------------------------------
-    //
-    // @var array
-    //
-    //--------------------------------------------------------------------------------------------------
+    /**
+     * Keep namespaces
+     * 
+     * @var array
+     */
     protected static $namespaces;
 
-    //--------------------------------------------------------------------------------------------------
-    // Protected Static Path
-    //--------------------------------------------------------------------------------------------------
-    //
-    // @var string
-    //
-    //--------------------------------------------------------------------------------------------------
+    /**
+     * Keep classmap path
+     * 
+     * @var string
+     */
     protected static $path = CONFIG_DIR . 'ClassMap.php';
 
-    //--------------------------------------------------------------------------------------------------
-    // Lower
-    //--------------------------------------------------------------------------------------------------
-    //
-    // @param  string $string
-    // @return string
-    //
-    //--------------------------------------------------------------------------------------------------
+    /**
+     * This is for cases where the encoding type is not utf-8.
+     * 
+     * @param string $string = NULL
+     * 
+     * @return string
+     */
     public static function lower(String $string = NULL) : String
     {
         return str_replace('I', 'i', strtolower($string));
     }
 
-    //--------------------------------------------------------------------------------------------------
-    // Lower
-    //--------------------------------------------------------------------------------------------------
-    //
-    // @param  string $string
-    // @return string
-    //
-    //--------------------------------------------------------------------------------------------------
+    /**
+     * This is for cases where the encoding type is not utf-8.
+     * 
+     * @param string $string = NULL
+     * 
+     * @return string
+     */
     public static function upper(String $string = NULL) : String
     {
         return str_replace('i', 'I', strtoupper($string));
     }
 
-    //--------------------------------------------------------------------------------------------------
-    // Run
-    //--------------------------------------------------------------------------------------------------
-    //
-    // @param  autoloader $class
-    // @return void
-    //
-    //--------------------------------------------------------------------------------------------------
+    /**
+     * Starts the class load process.
+     * 
+     * @param string $class
+     * 
+     * @return void
+     */
     public static function run(String $class)
     {
         if( ! is_file(self::$path) )
@@ -110,16 +101,13 @@ class Autoloader
         }
     }
 
-    //--------------------------------------------------------------------------------------------------
-    // Restart
-    //--------------------------------------------------------------------------------------------------
-    //
-    // ClassMap'i yeniden oluşturmak için kullanılır.
-    //
-    // @param  void
-    // @return bool
-    //
-    //--------------------------------------------------------------------------------------------------
+    /**
+     * Restarts the class mapping process.
+     * 
+     * @param void
+     * 
+     * @return void
+     */
     public static function restart()
     {
         if( is_file(self::$path) )
@@ -130,20 +118,18 @@ class Autoloader
         return self::createClassMap();
     }
 
-    //--------------------------------------------------------------------------------------------------
-    // Create Class Map
-    //--------------------------------------------------------------------------------------------------
-    //
-    // Config/Autoloader.php dosyasında belirtilen dizinlere ait sınıfların.
-    // yol bilgisi oluşturulur. Böylece bir sınıf dahil edilmeden kullanılabilir.
-    //
-    // @param  void
-    // @return void
-    //
-    //--------------------------------------------------------------------------------------------------
+    /**
+     * Starts the class mapping process.
+     * 
+     * @param void
+     * 
+     * @return void
+     */
     public static function createClassMap()
     {
         clearstatcache();
+
+        import(REQUIREMENTS_DIR . 'Config.php');
 
         $configAutoloader = Config::get('Autoloader');
         $configClassMap   = self::_config();
@@ -171,9 +157,9 @@ class Autoloader
         if( ! is_file(self::$path) )
         {
             $classMapPage  = '<?php'.$eol;
-            $classMapPage .= '//--------------------------------------------------------------------------------------------------'.$eol;
+            $classMapPage .= '//----------------------------------------------------------------------'.$eol;
             $classMapPage .= '// This file automatically created and updated'.$eol;
-            $classMapPage .= '//--------------------------------------------------------------------------------------------------'.$eol;
+            $classMapPage .= '//----------------------------------------------------------------------'.$eol;
         }
         else
         {
@@ -211,16 +197,13 @@ class Autoloader
         file_put_contents(self::$path, $classMapPage, FILE_APPEND);
     }
 
-    //--------------------------------------------------------------------------------------------------
-    // Get Class File Info
-    //--------------------------------------------------------------------------------------------------
-    //
-    // Çağrılan sınıfın sınıf, yol ve namespace bilgilerini almak için oluşturulmuştur.
-    //
-    // @param  string $class
-    // @return array
-    //
-    //--------------------------------------------------------------------------------------------------
+    /**
+     * The invoked class holds the class, path, and namespace information.
+     * 
+     * @param string $class
+     * 
+     * @return array
+     */
     public static function getClassFileInfo(String $class) : Array
     {
         $classCaseLower = self::lower($class);
@@ -254,16 +237,13 @@ class Autoloader
         ];
     }
 
-    //--------------------------------------------------------------------------------------------------
-    // Token Class File Info
-    //--------------------------------------------------------------------------------------------------
-    //
-    // Yolu belirtilen sınıfın sınıf ve namespace bilgilerini almak için oluşturulmuştur.
-    //
-    // @param  string $fileName
-    // @return array
-    //
-    //--------------------------------------------------------------------------------------------------
+    /**
+     * The path holds the class and namespace information of the specified class.
+     * 
+     * @param string $fileName
+     * 
+     * @return array
+     */
     public static function tokenClassFileInfo(String $fileName) : Array
     {
         $classInfo = [];
@@ -321,16 +301,14 @@ class Autoloader
         return $classInfo;
     }
 
-    //--------------------------------------------------------------------------------------------------
-    // Token File Info
-    //--------------------------------------------------------------------------------------------------
-    //
-    // Yolu belirtilen fonksiyon bilgilerini almak için oluşturulmuştur.
-    //
-    // @param  string $fileName
-    // @return array
-    //
-    //--------------------------------------------------------------------------------------------------
+    /**
+     * The location captures information from the specified file.
+     * 
+     * @param string $fileName
+     * @param int    $type = T_FUNCTION
+     * 
+     * @return mixed
+     */
     public static function tokenFileInfo(String $fileName, Int $type = T_FUNCTION)
     {
         if( ! is_file($fileName) )
@@ -358,18 +336,14 @@ class Autoloader
         return $info;
     }
 
-    //--------------------------------------------------------------------------------------------------
-    // Protected Search Class Map
-    //--------------------------------------------------------------------------------------------------
-    //
-    // Yolu belirtilen Config/Autoloader.php dosyasında belirtilen dizinlere ait sınıfların.
-    // yol bilgisi oluşturulur. createClassMap() yöntemi için oluşturulmuştur.
-    //
-    // @param  string $directory
-    // @param  string $baseDirectory
-    // @return void
-    //
-    //--------------------------------------------------------------------------------------------------
+    /**
+     * Search the invoked class in the classmap.
+     * 
+     * @param string $directory
+     * @param string $baseDirectory = NULL
+     * 
+     * @return mixed
+     */
     protected static function searchClassMap($directory, $baseDirectory = NULL)
     {
         static $classes;
@@ -465,13 +439,13 @@ class Autoloader
         return $classes;
     }
 
-    //--------------------------------------------------------------------------------------------------
-    // Protected Find Constants
-    //--------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------
+    /**
+     * It finds constants in the class.
+     * 
+     * @param string $v
+     * 
+     * @return string
+     */
     protected static function _findConstants($v)
     {
         $getFileContent = file_get_contents($v);
@@ -494,19 +468,20 @@ class Autoloader
         return $constants;
     }
 
-    //--------------------------------------------------------------------------------------------------
-    // Protected Class File Content
-    //--------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------
+    /**
+     * Creates internal class content.
+     * 
+     * @param string $newClassName
+     * @param string $constants
+     * 
+     * @return string
+     */
     protected static function _classFileContent($newClassName, $constants)
     {
         $classContent  = '<?php'.EOL;
-        $classContent .= '//--------------------------------------------------------------------------------------------------'.EOL;
+        $classContent .= '//-------------------------------------------------------------------------'.EOL;
         $classContent .= '// This file automatically created and updated'.EOL;
-        $classContent .= '//--------------------------------------------------------------------------------------------------'.EOL.EOL;
+        $classContent .= '//-------------------------------------------------------------------------'.EOL.EOL;
         $classContent .= 'class '.$newClassName.' extends StaticAccess'.EOL;
         $classContent .= '{'.EOL;
         $classContent .= $constants;
@@ -515,18 +490,18 @@ class Autoloader
         $classContent .= HT.HT.'return __CLASS__;'.EOL;
         $classContent .= HT.'}'.EOL;
         $classContent .= '}'.EOL.EOL;
-        $classContent .= '//--------------------------------------------------------------------------------------------------';
+        $classContent .= '//-------------------------------------------------------------------------';
 
         return $classContent;
     }
 
-    //--------------------------------------------------------------------------------------------------
-    // Private Config -> 5.4.61[edited]
-    //--------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------
+    /**
+     * Get config
+     * 
+     * @param void
+     * 
+     * @return mixed
+     */
     private static function _config()
     {
         if( is_file(self::$path) )
@@ -549,14 +524,13 @@ class Autoloader
         return false;
     }
 
-    //--------------------------------------------------------------------------------------------------
-    // Protected Static Try Again Create Class Map
-    //--------------------------------------------------------------------------------------------------
-    //
-    // @param  string $class
-    // @return void
-    //
-    //--------------------------------------------------------------------------------------------------
+    /**
+     * It attempts to construct the class map.
+     * 
+     * @param string $class
+     * 
+     * @return void
+     */
     protected static function tryAgainCreateClassMap($class)
     {
         self::createClassMap();
@@ -571,43 +545,29 @@ class Autoloader
         }
     }
 
-    //--------------------------------------------------------------------------------------------------
-    // Protected Clean Nail
-    //--------------------------------------------------------------------------------------------------
-    //
-    // @param  string $string
-    // @return string
-    //
-    //--------------------------------------------------------------------------------------------------
+    /**
+     * Clean nail
+     * 
+     * @param string
+     * 
+     * @return string
+     */
     protected static function _cleanNail($string)
     {
         return str_replace(["'", '"'], NULL, $string);
     }
 }
 
-//------------------------------------------------------------------------------------------------------
-// Class Alias
-//------------------------------------------------------------------------------------------------------
-//
-// ZN\Autoloader\Autoloader -> Autoloader
-//
-//------------------------------------------------------------------------------------------------------
+# Alias Autoloader
 class_alias('ZN\Classes\Autoloader', 'Autoloader');
 
-//------------------------------------------------------------------------------------------------------
-// Import Config Class
-//------------------------------------------------------------------------------------------------------
-//
-// Config library required for the Autoloader library.
-//
-//------------------------------------------------------------------------------------------------------
-import(REQUIREMENTS_DIR . 'Config.php');
+/*
+|--------------------------------------------------------------------------
+| Autoload Register
+|--------------------------------------------------------------------------
+|
+| Enables class loading by automatically activating the object call.
+|
+*/
 
-//------------------------------------------------------------------------------------------------------
-// Autoload Register
-//------------------------------------------------------------------------------------------------------
-//
-// Nesne çağrımında otomatik devreye girerek sınıfın yüklenmesini sağlar.
-//
-//------------------------------------------------------------------------------------------------------
 spl_autoload_register('Autoloader::run');

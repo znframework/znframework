@@ -208,17 +208,16 @@ define('CONTAINER_DIRS',
 
 foreach( CONTAINER_DIRS as $key => $value )
 {
-    if( PROJECT_TYPE === 'EIP' ) // For EIP edition
+    if( PROJECT_TYPE === 'EIP' ) # For EIP edition
     {
         define($key, internalProjectContainerDir($value));
         define('EXTERNAL_' . $key, 'External/' . $value . '/');
     }
-    else // For SE edition
+    else # For SE edition
     {
         define($key, $value);
     }
 }
-
 
 /*
 |--------------------------------------------------------------------------
@@ -299,7 +298,6 @@ define('RESOURCES_URL', BASE_URL . RESOURCES_DIR);
 
 layer('TopBottom');
 
-
 /*
 |--------------------------------------------------------------------------
 | Strucutre Constants
@@ -325,7 +323,6 @@ define('CURRENT_CFPATH', str_replace
 define('CURRENT_CFURI', strtolower(CURRENT_CFPATH));
 define('CURRENT_CFURL', SITE_URL . CURRENT_CFPATH);
 
-
 /**
  * illustrate
  * 
@@ -335,7 +332,7 @@ define('CURRENT_CFURL', SITE_URL . CURRENT_CFPATH);
  * 
  * @param string $const
  * @param mixed  $value = ''
-
+ *
  * @return mixed
  */
 function illustrate(String $const, $value = '')
@@ -1092,21 +1089,16 @@ function presuffix(String $string = NULL, String $fix = '/') : String
  */
 function internalProjectContainerDir($path = NULL) : String
 {
-    $path = suffix($path);
-
-    if( PROJECT_TYPE === 'SE' )
-    {
-        return $path;
-    }
+    $path .= '/';
 
     $containers          = PROJECTS_CONFIG['containers'];
-    $containerProjectDir = prefix($path, PROJECT_DIR);
+    $containerProjectDir = PROJECT_DIR . $path;
 
     if( ! empty($containers) && defined('_CURRENT_PROJECT') )
     {
         $restoreFix = 'Restore';
 
-        // 5.3.8[added]
+        # 5.3.8[added]
         if( strpos(_CURRENT_PROJECT, $restoreFix) === 0 && is_dir(PROJECTS_DIR . ($restoredir = ltrim(_CURRENT_PROJECT, $restoreFix))) )
         {
             $condir = $restoredir;
@@ -1126,13 +1118,14 @@ function internalProjectContainerDir($path = NULL) : String
                : $containerProjectDir;
     }
 
-    // 5.3.33[edited]
+    # 5.3.33[edited]
     if( is_dir($containerProjectDir) )
     {
         return $containerProjectDir;
     }
 
-    // 5.1.5 -> The enclosures can be the opening controller
+    # 5.1.5[added]
+    # The enclosures can be the opening controller
     if( $container = ($containers[CURRENT_PROJECT] ?? NULL) )
     {
         $containerProjectDir = str_replace(CURRENT_PROJECT, $container, $containerProjectDir);
@@ -1173,14 +1166,12 @@ function internalCurrentProject()
     {
         $currentPath = server('currentPath');
 
-        // 5.0.3 -> Updated -------------------------------------------------------
-        //
-        // QUERY_STRING & REQUEST URI Empty Control
+        # 5.0.3[edited]
+        # QUERY_STRING & REQUEST URI Empty Control
 		if( empty($currentPath) && ($requestUri = server('requestUri')) !== '/' )
 		{
 			$currentPath = $requestUri;
 		}
-        // ------------------------------------------------------------------------
         
         $internalDir = ( ! empty($currentPath) ? explode('/', ltrim($currentPath, BASE_DIR ?: '/'))[0] : '' );
     }

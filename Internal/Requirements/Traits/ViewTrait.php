@@ -1,47 +1,44 @@
 <?php namespace Project\Controllers;
+/**
+ * ZN PHP Web Framework
+ * 
+ * "Simplicity is the ultimate sophistication." ~ Da Vinci
+ * 
+ * @package ZN
+ * @license MIT [http://opensource.org/licenses/MIT]
+ * @author  Ozan UYKUN [ozan@znframework.com]
+ */
 
-use Collection, Import;
+use Collection;
+use Import;
 
 trait ViewTrait
 {
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Author     : Ozan UYKUN <ozanbote@gmail.com>
-    // Site       : www.znframework.com
-    // License    : The MIT License
-    // Copyright  : (c) 2012-2016, znframework.com
-    //
-    //--------------------------------------------------------------------------------------------------------
-
-    //--------------------------------------------------------------------------------------------------------
-    // Static $data
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var array
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Keep data
+     * 
+     * @var array
+     */
     public static $data = [];
 
-    //--------------------------------------------------------------------------------------------------------
-    // Static $data
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var array
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Usable methods
+     * 
+     * @var array
+     */
     public static $usableMethods =
     [
         'view', 'script', 'style', 'font', 'template', 'page', 'something', 'theme', 'resource', 'plugin'
     ];
 
-    //--------------------------------------------------------------------------------------------------------
-    // Magic Call Static
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $method
-    // @param array  $parameters
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Magic call static
+     * 
+     * @param string $method
+     * @param array  $parameters
+     * 
+     * @return self
+     */
     public static function __callStatic($method, $parameters)
     {
         self::call($method, $parameters);
@@ -49,14 +46,14 @@ trait ViewTrait
         return new self;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Magic Call
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $method
-    // @param array  $parameters
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Magic call
+     * 
+     * @param string $method
+     * @param array  $parameters
+     * 
+     * @return $this
+     */
     public function __call($method, $parameters)
     {
         self::call($method, $parameters);
@@ -64,14 +61,14 @@ trait ViewTrait
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Call
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $method
-    // @param array  $parameters
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Get method & parameters
+     * 
+     * @param string $method
+     * @param array  $parameters
+     * 
+     * @return void
+     */
     protected static function call($method, $parameters)
     {
         if( is_scalar($parameters[0]) )

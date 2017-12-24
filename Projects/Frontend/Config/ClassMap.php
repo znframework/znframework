@@ -1,7 +1,7 @@
 <?php
-//--------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------
 // This file automatically created and updated
-//--------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------
 $classMap['classes']['zn\cryptography\drivers\hashdriver'] = 'Internal/CryptoGraphy/Drivers/Hash.php';
 $classMap['classes']['zn\cryptography\drivers\mcryptdriver'] = 'Internal/CryptoGraphy/Drivers/Mcrypt.php';
 $classMap['classes']['zn\cryptography\drivers\mhashdriver'] = 'Internal/CryptoGraphy/Drivers/Mhash.php';
@@ -1356,9 +1356,3 @@ $classMap['namespaces']['zn\viewobjects\validateunittest'] = 'validateunittest';
 $classMap['namespaces']['zn\viewobjects\validationunittest'] = 'validationunittest';
 $classMap['namespaces']['zn\viewobjects\validatorunittest'] = 'validatorunittest';
 $classMap['namespaces']['project\commands\example'] = 'example';
-$classMap['classes']['zn\helpers\iterate'] = 'Internal/Helpers/Origins/Iterate.php';
-$classMap['classes']['zn\helpers\reflect'] = 'Internal/Helpers/Origins/Reflect.php';
-$classMap['classes']['zn\viewobjects\exception\permissionroleidexception'] = 'Internal/ViewObjects/Exception/PermissionRoleIdException.php';
-$classMap['namespaces']['zn\helpers\iterate'] = 'iterate';
-$classMap['namespaces']['zn\helpers\reflect'] = 'reflect';
-$classMap['namespaces']['zn\viewobjects\exception\permissionroleidexception'] = 'permissionroleidexception';

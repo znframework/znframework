@@ -1,23 +1,24 @@
 <?php namespace ZN\Requirements\Models;
+/**
+ * ZN PHP Web Framework
+ * 
+ * "Simplicity is the ultimate sophistication." ~ Da Vinci
+ * 
+ * @package ZN
+ * @license MIT [http://opensource.org/licenses/MIT]
+ * @author  Ozan UYKUN [ozan@znframework.com]
+ */
 
 class Model
 {
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Author     : Ozan UYKUN <ozanbote@gmail.com>
-    // Site       : www.znframework.com
-    // License    : The MIT License
-    // Copyright  : (c) 2012-2016, znframework.com
-    //
-    //--------------------------------------------------------------------------------------------------------
-    
-    //--------------------------------------------------------------------------------------------------------
-    // Get 
-    //--------------------------------------------------------------------------------------------------------
-    // 
-    // @param string $class
-    //
-    //--------------------------------------------------------------------------------------------------------  
+
+    /**
+     * Magic get
+     * 
+     * @param string $class
+     * 
+     * @return mixec
+     */
     public function __get($class)
     {
         if( ! isset($this->$class) )
@@ -27,4 +28,5 @@ class Model
     }
 }
 
+# Alias Model
 class_alias('ZN\Requirements\Models\Model', 'Model');

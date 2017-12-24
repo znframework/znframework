@@ -1,74 +1,67 @@
 <?php namespace ZN\Requirements\Models;
+/**
+ * ZN PHP Web Framework
+ * 
+ * "Simplicity is the ultimate sophistication." ~ Da Vinci
+ * 
+ * @package ZN
+ * @license MIT [http://opensource.org/licenses/MIT]
+ * @author  Ozan UYKUN [ozan@znframework.com]
+ */
 
-use DB, DBTool, DBForge, GeneralException;
+use DB;
+use DBTool;
+use DBForge;
+use GeneralException;
 use ZN\DataTypes\Strings;
 
 class RelevanceModel extends \BaseController
 {
-    //--------------------------------------------------------------------------------------------------------
-    // Relevance Model -> 5.3.5
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Author     : Ozan UYKUN <ozanbote@gmail.com>
-    // Site       : www.znframework.com
-    // License    : The MIT License
-    // Copyright  : (c) 2012-2016, znframework.com
-    //
-    //--------------------------------------------------------------------------------------------------------
-    
-    //--------------------------------------------------------------------------------------------------------
-    // Relevance 
-    //--------------------------------------------------------------------------------------------------------
-    // 
-    // @var object
-    //
-    //--------------------------------------------------------------------------------------------------------  
+    /**
+     * protected relevance
+     * 
+     * @var object
+     */
     protected $relevance;
     
-    //--------------------------------------------------------------------------------------------------------
-    // Result Methods 
-    //--------------------------------------------------------------------------------------------------------
-    // 
-    // @var array
-    //
-    //--------------------------------------------------------------------------------------------------------  
+    /**
+     * Result Methods
+     * 
+     * @var array
+     */
     protected $resultMethods = 
     [
         'result', 'resultarray', 'row', 'columns', 'columndata', 'totalrows', 'totalcolumns', 'value',
         'stringquery', 'pagination'
     ];
 
-    //--------------------------------------------------------------------------------------------------------
-    // Manipulation Methods 
-    //--------------------------------------------------------------------------------------------------------
-    // 
-    // @var array
-    //
-    //--------------------------------------------------------------------------------------------------------  
+    /**
+     * Manipulation Methods
+     * 
+     * @var array 
+     */ 
     protected $manipulationMethods = 
     [
         'update', 'delete'
     ];
 
-    //--------------------------------------------------------------------------------------------------------
-    // Tool Methods 
-    //--------------------------------------------------------------------------------------------------------
-    // 
-    // @var array
-    //
-    //--------------------------------------------------------------------------------------------------------  
+    /**
+     * Tool Methods
+     * 
+     * @var array
+     */
     protected $toolMethods = 
     [
         'status', 'optimize', 'repair', 'backup'
     ];
 
-    //--------------------------------------------------------------------------------------------------------
-    // Magic Construct 
-    //--------------------------------------------------------------------------------------------------------
-    // 
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------  
+    /**
+     * Magic Construct
+     * 
+     * @param void
+     * 
+     * @return void
+     */
     public function __construct()
     {
         if( ! defined('static::relevance') )
@@ -85,14 +78,14 @@ class RelevanceModel extends \BaseController
         $this->_selectColumnsPrefix();
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Magic Call 
-    //--------------------------------------------------------------------------------------------------------
-    // 
-    // @param string $method
-    // @param array  $parameters
-    //
-    //--------------------------------------------------------------------------------------------------------  
+    /**
+     * Magic call
+     * 
+     * @param string $method
+     * @param array  $parameters
+     * 
+     * @return mixed
+     */
     public function __call($method, $parameters)
     {
         $lowerMethod = strtolower($method);
@@ -131,15 +124,16 @@ class RelevanceModel extends \BaseController
         }    
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected DB Table Column
-    //--------------------------------------------------------------------------------------------------------
-    // 
-    // @param string $database
-    // @param string $table
-    // @param string $column
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * protected build syntax
+     * 
+     * @param string $database
+     * @param string $table
+     * @param string $column
+     * @param string $param
+     * 
+     * @return string
+     */
     protected function _dbtablecolumn($database, $table, $column, $param)
     {
         if( $database !== NULL )
@@ -150,15 +144,16 @@ class RelevanceModel extends \BaseController
         return $table . '.' . $column . $param;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Row
-    //--------------------------------------------------------------------------------------------------------
-    // 
-    // @param string $table
-    // @param string $colunm
-    // @param array  $parameters
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * protected get row
+     * 
+     * @param string $table
+     * @param string $column
+     * @param array  $parameters
+     * @param string $database
+     * 
+     * @return object
+     */
     protected function _row($table, $column, $parameters, $database)
     {
         $this->relevance();
@@ -172,15 +167,16 @@ class RelevanceModel extends \BaseController
         ->row();
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Update
-    //--------------------------------------------------------------------------------------------------------
-    // 
-    // @param string $table
-    // @param string $colunm
-    // @param array  $parameters
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * protected update
+     * 
+     * @param string $table
+     * @param string $column
+     * @param array  $parameters
+     * @param string $database
+     * 
+     * @return bool
+     */
     protected function _update($table, $column, $parameters, $database)
     {
         $this->relevance();
@@ -193,15 +189,16 @@ class RelevanceModel extends \BaseController
         ->update($this->_tableName(), $parameters[0]);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Delete
-    //--------------------------------------------------------------------------------------------------------
-    // 
-    // @param string $table
-    // @param string $colunm
-    // @param array  $parameters
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * protected delete
+     * 
+     * @param string $table
+     * @param string $column
+     * @param array  $parameters
+     * @param string $database
+     * 
+     * @return bool
+     */
     protected function _delete($table, $column, $parameters, $database)
     {
         $this->relevance();
@@ -214,13 +211,14 @@ class RelevanceModel extends \BaseController
         ->delete($this->_tableName());
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Tool Methods
-    //--------------------------------------------------------------------------------------------------------
-    // 
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * protected tool methods
+     * 
+     * @param string $method
+     * @param array  $parameters
+     * 
+     * @return mixed
+     */
     protected function _toolMethods($method, $parameters)
     {
         if( $method !== 'backup' )
@@ -231,13 +229,13 @@ class RelevanceModel extends \BaseController
         return DBTool::$method($this->_tables(), ...$parameters);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Drop
-    //--------------------------------------------------------------------------------------------------------
-    // 
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Drop tables
+     * 
+     * @param void
+     * 
+     * @return bool
+     */
     public function drop($type = 'dropTable')
     {
         $tables = $this->_tables();
@@ -250,39 +248,39 @@ class RelevanceModel extends \BaseController
         return true;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Drop
-    //--------------------------------------------------------------------------------------------------------
-    // 
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+    * Truncate tables
+    * 
+    * @param void
+    * 
+    * @return bool
+    */
     public function truncate()
     {
         return $this->drop(__FUNCTION__);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Pagination -> 5.4.02[added]
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $url     : empty
-    // @param array  $settings: empty
-    // @param bool   $output  : true
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Get pagination
+     * 
+     * @param string $url      = NULL
+     * @param array  $settings = []
+     * @param bool   $output   = true
+     * 
+     * @param mixed
+     */
     public function pagination(String $url = NULL, Array $settings = [], Bool $output = true)
     {
         return $this->get->pagination($url, $settings, $output);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Tables
-    //--------------------------------------------------------------------------------------------------------
-    // 
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------  
+    /**
+     * protected get tables
+     * 
+     * @param void
+     * 
+     * @return array
+     */
     protected function _tables()
     {
         $tables = [];
@@ -302,14 +300,14 @@ class RelevanceModel extends \BaseController
         return array_unique($tables);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Result Methods
-    //--------------------------------------------------------------------------------------------------------
-    // 
-    // @param string $method
-    // @param array  $parameters
-    //
-    //--------------------------------------------------------------------------------------------------------  
+    /**
+     * protected result methods
+     * 
+     * @param string $method
+     * @param array  $parameters
+     * 
+     * @return mixed
+     */
     protected function _resultMethods($method, $parameters)
     {
         $this->relevance();
@@ -319,14 +317,14 @@ class RelevanceModel extends \BaseController
         return  $this->get->$method(...$parameters);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Manipulation Methods
-    //--------------------------------------------------------------------------------------------------------
-    // 
-    // @param string $method
-    // @param array  $parameters
-    //
-    //--------------------------------------------------------------------------------------------------------  
+    /**
+     * protected manipulation methods
+     * 
+     * @param string $method
+     * @param array  $parameters
+     * 
+     * @return mixed
+     */
     protected function _manipulationMethods($method, $parameters)
     {
         $this->relevance();
@@ -334,13 +332,15 @@ class RelevanceModel extends \BaseController
         return DB::$method($this->_tableName(), ...$parameters);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Relevance
-    //--------------------------------------------------------------------------------------------------------
-    // 
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------  
+    /**
+     * protected relevance 
+     * 
+     * Stores table joins.
+     * 
+     * @param void
+     * 
+     * @return void
+     */ 
     protected function relevance()
     {
         $result = [];
@@ -359,13 +359,13 @@ class RelevanceModel extends \BaseController
         }
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Select
-    //--------------------------------------------------------------------------------------------------------
-    // 
-    // @param string $table
-    //
-    //-------------------------------------------------------------------------------------------------------- 
+    /**
+     * protected select
+     * 
+     * @param string $table
+     * 
+     * @return string
+     */
     protected function _select($table)
     {
         $columns = DB::get($table)->columns();
@@ -378,13 +378,13 @@ class RelevanceModel extends \BaseController
         return implode(', ', $select);
     }
 
-     //--------------------------------------------------------------------------------------------------------
-    // Protected Select Columns Prefix
-    //--------------------------------------------------------------------------------------------------------
-    // 
-    // @param void
-    //
-    //-------------------------------------------------------------------------------------------------------- 
+    /**
+     * protected select columns prefix
+     * 
+     * @param void
+     * 
+     * @return void
+     */
     protected function _selectColumnsPrefix()
     {
         $select = NULL;
@@ -397,26 +397,26 @@ class RelevanceModel extends \BaseController
         DB::select(rtrim($select, ', '));
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Table Name
-    //--------------------------------------------------------------------------------------------------------
-    // 
-    // @param void
-    //
-    //-------------------------------------------------------------------------------------------------------- 
+    /**
+     * protected get table name
+     * 
+     * @param void
+     * 
+     * @return string
+     */
     protected function _tableName()
     {
         return $this->_texplode($this->_current(), 0);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Texplode
-    //--------------------------------------------------------------------------------------------------------
-    // 
-    // @param string $value
-    // @param int    $index
-    //
-    //--------------------------------------------------------------------------------------------------------  
+    /**
+     * protected texplode
+     * 
+     * @param string $value
+     * @param int    $index = 0
+     * 
+     * @return string
+     */
     protected function _texplode($value, $index = 0)
     {
         $ex = explode('.', Strings\Split::divide($value, ':', $index));
@@ -424,17 +424,18 @@ class RelevanceModel extends \BaseController
         return count($ex) === 3 ? $ex[0].$ex[1] : $ex[0];
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Current
-    //--------------------------------------------------------------------------------------------------------
-    // 
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------  
+    /**
+     * protected current
+     * 
+     * @param void
+     * 
+     * @return string
+     */
     protected function _current()
     {
         return ! is_numeric($key = key($this->relevance)) ? $key : current($this->relevance);;
     }
 }
 
+# Alias RelevanceModel
 class_alias('ZN\Requirements\Models\RelevanceModel', 'RelevanceModel');
