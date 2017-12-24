@@ -1,24 +1,15 @@
 <?php
 return 
 [
-	//----------------------------------------------------------------------------------------------------
-	// Individual Structrues
-	//----------------------------------------------------------------------------------------------------
-	//
-	// Author     : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
-	// Site       : www.znframework.com
-	// License    : The MIT License
-	// Copyright  : Copyright (c) 2012-2016, ZN Framework
-	//
-	//----------------------------------------------------------------------------------------------------
-
-	//----------------------------------------------------------------------------------------------------
-	// Benchmark
-	//----------------------------------------------------------------------------------------------------
-	//
-	// Benchmark Lang Words
-	//
-	//----------------------------------------------------------------------------------------------------
+	/*
+    |--------------------------------------------------------------------------
+    | Benchmark
+    |--------------------------------------------------------------------------
+    |
+    | The language of the Benchmark library.
+    |
+	*/
+	
 	'benchmark:elapsedTime'         => 'System Load Time',
 	'benchmark:memoryUsage'         => 'Memory Usage',
 	'benchmark:maxMemoryUsage'      => 'Maximum Memory Usage',
@@ -30,27 +21,31 @@ return
 	'benchmark:second'              => 'Seconds',
 	'benchmark:byte'                => 'Bytes',
 	'benchmark:countFile'           => 'Count Load Files',
+	
+	/*
+    |--------------------------------------------------------------------------
+    | Cache
+    |--------------------------------------------------------------------------
+    |
+    | The language of the Cache library.
+    |
+	*/
 
-	//----------------------------------------------------------------------------------------------------
-	// Cache
-	//----------------------------------------------------------------------------------------------------
-	//
-	// Cache Lang Words
-	//
-	//----------------------------------------------------------------------------------------------------
-	'cache:driverError'           => '`%` driver not found!',
-	'cache:unsupported'           => '`%` PHP extension must be loaded to use Wincache Cache!',
-	'cache:invalidDriver'         => '`%` driver is invalid!',
-	'cache:connectionRefused'     => 'Connection refused! Error:`%`',
-	'cache:authenticationFailed'  => 'Authentication failed!',
+	'cache:driverError'             => '`%` driver not found!',
+	'cache:unsupported'             => '`%` PHP extension must be loaded to use Wincache Cache!',
+	'cache:invalidDriver'           => '`%` driver is invalid!',
+	'cache:connectionRefused'       => 'Connection refused! Error:`%`',
+	'cache:authenticationFailed'    => 'Authentication failed!',
 
-	//-----------------------------------------------------------------------------------------------------
-	// User
-	//-----------------------------------------------------------------------------------------------------
-	//
-	// User Lang Words
-	//
-	//-----------------------------------------------------------------------------------------------------
+	/*
+    |--------------------------------------------------------------------------
+    | User
+    |--------------------------------------------------------------------------
+    |
+    | The language of the User library.
+    |
+	*/
+
 	'user:registerSuccess'          => 'Your registration was completed successfully.',
 	'user:registerError'            => 'You have already registered with the system for the transaction could not be performed!',
 	'user:registerEmailError'       => 'Your process because the system could not be performed previously registered e-mail!',

@@ -1,50 +1,43 @@
 <?php
+/**
+ * ZN PHP Web Framework
+ * 
+ * "Simplicity is the ultimate sophistication." ~ Da Vinci
+ * 
+ * @package ZN
+ * @license MIT [http://opensource.org/licenses/MIT]
+ * @author  Ozan UYKUN [ozan@znframework.com]
+ */
 
 use ZN\IndividualStructures\Support;
 use ZN\Requirements\Abilities\Exception\UndefinedConstException;
 
 trait DriverAbility
 {
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Author     : Ozan UYKUN <ozanbote@gmail.com>
-    // Site       : www.znframework.com
-    // License    : The MIT License
-    // Copyright  : (c) 2012-2016, znframework.com
-    //
-    //--------------------------------------------------------------------------------------------------------
-
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Crypto
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Sürücü bilgisi
-    //
-    // @var  string
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * protected driver
+     * 
+     * @var string
+     */
     protected $driver;
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Selected Driver Name
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var string
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * protected driver name
+     * 
+     * @var string
+     */
     protected $selectedDriverName;
 
-    //--------------------------------------------------------------------------------------------------------
-    // Construct -> 5.3.42[edited]
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  string $driver
-    // @return bool
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * magic constructor
+     * 
+     * @param string $driver = NULL
+     * 
+     * @return void
+     */
     public function __construct(String $driver = NULL)
     {
-        // 5.3.42[added]
+        # 5.3.42[added]
         if( method_exists(get_parent_class(), '__construct'))
         {
             parent::__construct();
@@ -55,7 +48,7 @@ trait DriverAbility
             throw new UndefinedConstException('[const driver] is required to use the [Driver Ability]!');
         }
 
-        // 5.3.42|5.4.5[edited]
+        # 5.3.42|5.4.5[edited]
         $driver = $driver                 ??
                   $this->config['driver'] ?? 
                   (isset(static::driver['config']) ? Config::get(...explode(':', static::driver['config']))['driver'] : NULL) ?: 
@@ -82,14 +75,13 @@ trait DriverAbility
         }
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Driver
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  string $driver
-    // @return object
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Select driver
+     * 
+     * @param string $driver
+     * 
+     * @return self
+     */
     public function driver(String $driver) : self
     {
         return new self($driver);

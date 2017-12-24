@@ -1,13 +1,12 @@
 <?php
-//--------------------------------------------------------------------------------------------------
-// Middle Bottom
-//--------------------------------------------------------------------------------------------------
-//
-// Sistemin orta katmanının bir altında çalıştırılmak istenen kodlar yazılır.
-// Çekirdek çalıştırılmasından sonra devreye girer..
-//
-// Konum
-//
-// Çekirdek çalıştırılmasından sonra, Çekirdek bitişinden önce
-// 
-//--------------------------------------------------------------------------------------------------
+/*
+|--------------------------------------------------------------------------
+| Middle Bottom
+|--------------------------------------------------------------------------
+|
+| The codes that are required to run under the middle layer of the system
+| are written.
+|
+| Location: After the kernel is run, before the kernel
+|
+*/

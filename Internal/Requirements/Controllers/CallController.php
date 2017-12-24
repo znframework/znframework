@@ -1,4 +1,13 @@
 <?php namespace ZN\Requirements\Controllers;
+/**
+ * ZN PHP Web Framework
+ * 
+ * "Simplicity is the ultimate sophistication." ~ Da Vinci
+ * 
+ * @package ZN
+ * @license MIT [http://opensource.org/licenses/MIT]
+ * @author  Ozan UYKUN [ozan@znframework.com]
+ */
 
 use ZN\ErrorHandling\Errors;
 use ZN\DataTypes\Strings;
@@ -6,22 +15,14 @@ use GeneralException;
 
 class CallController extends BaseController
 {
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Author     : Ozan UYKUN <ozanbote@gmail.com>
-    // Site       : www.znframework.com
-    // License    : The MIT License
-    // Copyright  : (c) 2012-2016, znframework.com
-    //
-    //--------------------------------------------------------------------------------------------------------
-
-    //--------------------------------------------------------------------------------------------------------
-    // Call
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Magic Call
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Magic call
+     * 
+     * @param string $method
+     * @param array  $param
+     * 
+     * @return void
+     */
     public function __call($method, $param)
     {
         throw new GeneralException
@@ -33,4 +34,5 @@ class CallController extends BaseController
     }
 }
 
+# Alias CallController
 class_alias('ZN\Requirements\Controllers\CallController', 'CallController');

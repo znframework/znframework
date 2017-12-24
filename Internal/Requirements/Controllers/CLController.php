@@ -1,35 +1,25 @@
 <?php namespace ZN\Requirements\Controllers;
-
-use ConfigurableAbility;
-use ConversationAbility;
+/**
+ * ZN PHP Web Framework
+ * 
+ * "Simplicity is the ultimate sophistication." ~ Da Vinci
+ * 
+ * @package ZN
+ * @license MIT [http://opensource.org/licenses/MIT]
+ * @author  Ozan UYKUN [ozan@znframework.com]
+ */
 
 class CLController extends BaseController
 {
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Author     : Ozan UYKUN <ozanbote@gmail.com>
-    // Site       : www.znframework.com
-    // License    : The MIT License
-    // Copyright  : (c) 2012-2016, znframework.com
-    //
-    //--------------------------------------------------------------------------------------------------------
+    use \ConfigurableAbility, \ConversationAbility;
 
-    //--------------------------------------------------------------------------------------------------------
-    // Usage
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Abilities
-    //
-    //--------------------------------------------------------------------------------------------------------
-    use ConfigurableAbility, ConversationAbility;
-
-    //--------------------------------------------------------------------------------------------------------
-    // Magic Construct
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Magic constructor
+     * 
+     * @param void
+     * 
+     * @return void
+     */
     public function __construct()
     {
         $this->configurable();
@@ -37,4 +27,5 @@ class CLController extends BaseController
     }
 }
 
+# Alias CLController
 class_alias('ZN\Requirements\Controllers\CLController', 'CLController');

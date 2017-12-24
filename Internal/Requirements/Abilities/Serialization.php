@@ -1,24 +1,24 @@
-<?php trait SerializationAbility
-{
-    //--------------------------------------------------------------------------------------------------------
-    // Serialization -> 5.4.5
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Author     : Ozan UYKUN <ozanbote@gmail.com>
-    // Site       : www.znframework.com
-    // License    : The MIT License
-    // Copyright  : (c) 2012-2016, znframework.com
-    //
-    //-------------------------------------------------------------------------------------------------------
+<?php 
+/**
+ * ZN PHP Web Framework
+ * 
+ * "Simplicity is the ultimate sophistication." ~ Da Vinci
+ * 
+ * @package ZN
+ * @license MIT [http://opensource.org/licenses/MIT]
+ * @author  Ozan UYKUN [ozan@znframework.com]
+ */
 
-    //--------------------------------------------------------------------------------------------------------
-    // Magic Call
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $method
-    // @param array  $parameters
-    //
-    //---------------------------------------------------------------------------------------------------------
+trait SerializationAbility
+{
+    /**
+     * Magic call
+     * 
+     * @param string $method
+     * @param array  $parameters
+     * 
+     * @return mixed
+     */
     public function __call($method, $parameters)
     {
         $lower   = strtolower($method);

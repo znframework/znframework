@@ -30,13 +30,19 @@ class Kernel
 
         $appcon = \Config::get('Project');
 
-        if( empty($appcon) ) trace('["Container"] Not Found! Check the [\'containers\'] setting in the [Settings/Projects.php] file.');
+        if( empty($appcon) ) 
+        {
+            trace('["Container"] Not Found! Check the [\'containers\'] setting in the [Settings/Projects.php] file.');
+        }
 
         define('PROJECT_MODE', strtolower($appcon['mode']));
 
         In::projectMode(PROJECT_MODE, $appcon['errorReporting']);
 
-        if( PROJECT_MODE !== 'publication' ) set_error_handler('ZN\ErrorHandling\Exceptions::table');
+        if( PROJECT_MODE !== 'publication' ) 
+        {
+            set_error_handler('ZN\ErrorHandling\Exceptions::table');
+        }
 
         $htaccessConfig = \Config::get('Htaccess');
 
@@ -61,11 +67,16 @@ class Kernel
 
         if( $iniSet = $htaccessConfig['ini']['settings'] ) \Config::iniSet($iniSet);
 
-        if( \Config::htaccess('createFile') === true ) 
-            if( IS::software() === 'apache' )
-                In::createHtaccessFile();
+        if( \Config::htaccess('createFile') === true )
+        {
+            if( IS::software() === 'apache' ) In::createHtaccessFile();
+        }
+            
                 
-        if( \Config::robots  ('createFile') === true ) In::createRobotsFile();
+        if( \Config::robots  ('createFile') === true )
+        {
+            In::createRobotsFile();
+        }   
 
         if( Lang::current() )
         {
@@ -78,11 +89,21 @@ class Kernel
             }
         }
 
-        if( $composer = \Config::get('Autoloader', 'composer') ) self::_composer($composer);
-        if( ($starting = \Config::get('Starting'))['autoload']['status'] === true ) self::_starting($starting);
-        if( ! empty($starting['handload']) ) Import\Handload::use(...$starting['handload']);
-        if( PROJECT_MODE === 'restoration' ) \Restoration::mode();
-
+        if( $composer = \Config::get('Autoloader', 'composer') ) 
+        {
+            self::_composer($composer);
+        }
+        
+        if( ($starting = \Config::get('Starting'))['autoload']['status'] === true ) 
+        {
+            self::_starting($starting);
+        }
+        
+        if( PROJECT_MODE === 'restoration' ) 
+        {
+            \Restoration::mode();
+        }
+        
         In::invalidRequest('disallowMethods', true);
         In::invalidRequest('allowMethods', false);
         In::startingConfig('controller');

@@ -1,28 +1,28 @@
 <?php 
+/**
+ * ZN PHP Web Framework
+ * 
+ * "Simplicity is the ultimate sophistication." ~ Da Vinci
+ * 
+ * @package ZN
+ * @license MIT [http://opensource.org/licenses/MIT]
+ * @author  Ozan UYKUN [ozan@znframework.com]
+ */
 
 use ZN\IndividualStructures\Lang;
 use ZN\ErrorHandling\Exceptions;
 
 trait ExclusionAbility
 {
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Author     : Ozan UYKUN <ozanbote@gmail.com>
-    // Site       : www.znframework.com
-    // License    : The MIT License
-    // Copyright  : (c) 2012-2016, znframework.com
-    //
-    //--------------------------------------------------------------------------------------------------------
-
-    //--------------------------------------------------------------------------------------------------------
-    // Construct -> 5.4.6[edited]
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param mixed  $file
-    // @param string $message
-    // @param mixed  $changed
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Magic constructor
+     * 
+     * @param string $file    = NULL
+     * @param string $message = NULL
+     * @param mixed  $changed = NULL
+     * 
+     * @return void
+     */
     public function __construct($file = NULL, $message = NULL, $changed = NULL)
     {
         if( defined('static::lang') && $file === NULL )
@@ -57,15 +57,13 @@ trait ExclusionAbility
         parent::__construct($message);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Continue
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $msg
-    // @param string $file
-    // @param string $line
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Code continue
+     * 
+     * @param void
+     * 
+     * @return void
+     */
     public function continue()
     {
         echo Exceptions::continue($this->getMessage(), $this->getFile(), $this->getLine());

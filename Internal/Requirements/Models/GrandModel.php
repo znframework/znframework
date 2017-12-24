@@ -1,118 +1,99 @@
 <?php namespace ZN\Requirements\Models;
+/**
+ * ZN PHP Web Framework
+ * 
+ * "Simplicity is the ultimate sophistication." ~ Da Vinci
+ * 
+ * @package ZN
+ * @license MIT [http://opensource.org/licenses/MIT]
+ * @author  Ozan UYKUN [ozan@znframework.com]
+ */
 
-use BaseController, DB, DBTool, DBForge, GeneralException, Config;
 use ZN\DataTypes\Strings;
 use ZN\DataTypes\Arrays;
 use ZN\IndividualStructures\Lang;
 use ZN\IndividualStructures\Support;
 
-class GrandModel extends BaseController
+class GrandModel extends \BaseController
 {
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Author     : Ozan UYKUN <ozanbote@gmail.com>
-    // Site       : www.znframework.com
-    // License    : The MIT License
-    // Copyright  : (c) 2012-2016, znframework.com
-    //
-    //--------------------------------------------------------------------------------------------------------
-
-    //--------------------------------------------------------------------------------------------------------
-    // Variable Grand Table
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var string: empty
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Table name
+     * 
+     * @var string
+     */
     protected $grandTable = '';
 
-    //--------------------------------------------------------------------------------------------------------
-    // Variable Connect
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var resource
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Keep connection
+     * 
+     * @var resource
+     */
     protected $connect;
 
-    //--------------------------------------------------------------------------------------------------------
-    // Variable Connect Tool
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var resource
-    //
-    //--------------------------------------------------------------------------------------------------------
+   /**
+     * Keep connection for DBTool library
+     * 
+     * @var resource
+     */
     protected $connectTool;
 
-    //--------------------------------------------------------------------------------------------------------
-    // Variable Connect Forge
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var resource
-    //
-    //--------------------------------------------------------------------------------------------------------
+     /**
+     * Keep connection for DBForge library
+     * 
+     * @var resource
+     */
     protected $connectForge;
 
-    //--------------------------------------------------------------------------------------------------------
-    // Variable Tables
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var array
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Get list tables
+     * 
+     * @var array
+     */
     protected $tables;
 
-    //--------------------------------------------------------------------------------------------------------
-    // Variable Status
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var string
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Process status
+     * 
+     * @var string
+     */
     protected $status;
 
-    //--------------------------------------------------------------------------------------------------------
-    // Variable Get
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var get object
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Get query result
+     * 
+     * @var object
+     */
     protected $get;
 
-    //--------------------------------------------------------------------------------------------------------
-    // Variable Options
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var array
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Keep options
+     * 
+     * @var array
+     */
     protected $options = [];
 
-     //--------------------------------------------------------------------------------------------------------
-    // Variable Prefix
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var string
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Table prefix
+     * 
+     * @var string
+     */
     protected $prefix;
 
-    //--------------------------------------------------------------------------------------------------------
-    // Constructor
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Magic constructor
+     * 
+     * @param void
+     * 
+     * @return void
+     */
     public function __construct()
     {
         $staticConnection    = defined('static::connection') ? static::connection : NULL;
-        $this->connect       = DB::differentConnection($staticConnection);
-        $this->connectTool   = DBTool::differentConnection($staticConnection);
-        $this->connectForge  = DBForge::differentConnection($staticConnection);
+        $this->connect       = \DB::differentConnection($staticConnection);
+        $this->connectTool   = \DBTool::differentConnection($staticConnection);
+        $this->connectForge  = \DBForge::differentConnection($staticConnection);
         $this->tables        = $this->connectTool->listTables();
-        $this->prefix        = $staticConnection['prefix'] ?? Config::database('database')['prefix'];
+        $this->prefix        = $staticConnection['prefix'] ?? \Config::database('database')['prefix'];
 
         if( defined('static::table') )
         {
@@ -126,14 +107,14 @@ class GrandModel extends BaseController
         $this->grandTable = strtolower($grandTable);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Magic Call -> 5.3.7[edited]
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $method
-    // @param array  $parameters
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Magic call
+     * 
+     * @param string $method
+     * @param array  $parameters
+     * 
+     * @param mixed
+     */
     public function __call($method, $parameters)
     {
         if( $return = $this->_callColumn($method, $parameters, 'row') )
@@ -187,22 +168,22 @@ class GrandModel extends BaseController
         Support::classMethod(get_called_class(), $method);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Destructor
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Magic destruct
+     * 
+     * @param void
+     * 
+     * @return void
+     */
     public function __destruct()
     {
         if( ! Arrays::valueExistsInsensitive($this->tables, ($table = $this->prefix . $this->grandTable)) && $this->status !== 'create' )
         {
             try
             {
-                throw new GeneralException(Lang::select('Database', 'tableNotExistsError', 'Grand: '.$table));
+                throw new \GeneralException(Lang::select('Database', 'tableNotExistsError', 'Grand: '.$table));
             }
-            catch( GeneralException $e )
+            catch( \GeneralException $e )
             {
                 $e->continue();
             }
@@ -211,13 +192,13 @@ class GrandModel extends BaseController
         $this->status = NULL;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Insert
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array $data: empty
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Data insert
+     * 
+     * @param mixed $data = NULL
+     * 
+     * @return bool
+     */
     public function insert($data = NULL) : Bool
     {
         $this->_postGet($table, $data);
@@ -225,50 +206,50 @@ class GrandModel extends BaseController
         return $this->connect->insert($table, $data);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Insert CSV -> 5.3.9
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $file
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Insert csv
+     * 
+     * @param string $file
+     * 
+     * @return bool
+     */
     public function insertCSV(String $file) : Bool
     {
         return $this->connect->insertCSV($this->grandTable, $file);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Insert ID
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /** 
+     * Last insert id
+     * 
+     * @param void
+     * 
+     * @return int
+     */
     public function insertID() : Int
     {
         return $this->connect->insertID();
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Is Exists
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $column
-    // @param string $value
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Is exists value into table
+     * 
+     * @param string $column
+     * @param string $value
+     * 
+     * @return bool
+     */
     public function isExists(String $column, String $value) : Bool
     {
         return $this->connect->isExists($this->grandTable, $column, $value);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Select
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param mixed $select: empty
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Set select columns
+     * 
+     * @param string ...$select
+     * 
+     * @return $this
+     */
     public function select(...$select)
     {
         $this->connect->select(...$select);
@@ -276,13 +257,15 @@ class GrandModel extends BaseController
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Update
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array $data: empty
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Update data
+     * 
+     * @param mixed  $data   = NULL
+     * @param string $column = NULL
+     * @param string $value  = NULL
+     * 
+     * @return bool
+     */
     public function update($data = NULL, String $column = NULL, String $value = NULL) : Bool
     {
         $this->_postGet($table, $data);
@@ -295,14 +278,14 @@ class GrandModel extends BaseController
         return $this->connect->update($table, $data);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Delete
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $column: empty
-    // @param string $value : empty
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Delete data
+     * 
+     * @param string $column = NULL
+     * @param string $value  = NULL
+     * 
+     * @return bool
+     */
     public function delete(String $column = NULL, String $value = NULL) : Bool
     {
         if( $column !== NULL )
@@ -313,125 +296,123 @@ class GrandModel extends BaseController
         return $this->connect->delete($this->grandTable);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Get
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * protected db get
+     * 
+     * @param void
+     * 
+     * @return object
+     */
     protected function _get()
     {
         return $this->get = $this->connect->get($this->grandTable);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Columns
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Get columns
+     * 
+     * @param void
+     * 
+     * @return array
+     */
     public function columns() : Array
     {
         return $this->_get()->columns();
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Total Columns
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Get total columns
+     * 
+     * @param void
+     * 
+     * @return int
+     */
     public function totalColumns() : Int
     {
         return $this->_get()->totalColumns();
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Row
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param mixed $printable: false
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Get row
+     * 
+     * @param mixed $printable = false - options[bool|index]
+     * 
+     * @return object
+     */
     public function row($printable = false)
     {
         return $this->_get()->row($printable);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Result
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $type: object
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Get result 
+     * 
+     * @param string $type = 'object' - options[object|array|json]
+     */
     public function result(String $type = 'object')
     {
         return $this->_get()->result($type);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Increment
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param mixed $columns  : empty
-    // @param int   $increment: 1
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Increment columns value
+     * 
+     * @param mixed $columns
+     * @param int   $increment = 1
+     * 
+     * @return bool
+     */
     public function increment($columns, Int $increment = 1) : Bool
     {
         return $this->connect->increment($this->grandTable, $columns, $increment);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Decrement
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param mixed $columns  : empty
-    // @param int   $decrement: 1
-    //
-    //--------------------------------------------------------------------------------------------------------
+     /**
+     * Decrement columns value
+     * 
+     * @param mixed $columns
+     * @param int   $decrement = 1
+     * 
+     * @return bool
+     */
     public function decrement($columns, Int $decrement = 1) : Bool
     {
         return $this->connect->decrement($this->grandTable, $columns, $decrement);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Status
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $type: row
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Status table
+     * 
+     * @param string $type = 'row' - options[row|result]
+     * 
+     * @return mixed
+     */
     public function status(String $type = 'row')
     {
         return $this->connect->status($this->grandTable)->$type();
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Total Rows
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param bool $status: false
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Get total rows
+     * 
+     * @param bool $status = false
+     * 
+     * @return int
+     */
     public function totalRows(Bool $status = false) : Int
     {
         return $this->_get()->totalRows($status);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Where
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $column : empty
-    // @param string $value  : empty
-    // @param string $logical: empty
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Set where
+     * 
+     * @param mixed  $column
+     * @param string $value   = NULL
+     * @param string $logical = NULL
+     * 
+     * @return $this
+     */
     public function where($column, String $value = NULL, String $logical = NULL)
     {
         $this->connect->where($column, $value, $logical);
@@ -439,15 +420,15 @@ class GrandModel extends BaseController
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Having
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $column : empty
-    // @param string $value  : empty
-    // @param string $logical: empty
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Set having
+     * 
+     * @param mixed  $column
+     * @param string $value   = NULL
+     * @param string $logical = NULL
+     * 
+     * @return $this
+     */
     public function having($column, String $value = NULL, String $logical = NULL)
     {
         $this->connect->having($column, $value, $logical);
@@ -455,13 +436,13 @@ class GrandModel extends BaseController
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Where Group
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array ...$args
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Where group
+     * 
+     * @param mixed ...$args
+     * 
+     * @return $this
+     */
     public function whereGroup(...$args)
     {
         $this->connect->whereGroup(...$args);
@@ -469,13 +450,13 @@ class GrandModel extends BaseController
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Having Group
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array ...$args
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Where having
+     * 
+     * @param mixed ...$args
+     * 
+     * @return $this
+     */
     public function havingGroup(...$args)
     {
         $this->connect->havingGroup(...$args);
@@ -483,15 +464,15 @@ class GrandModel extends BaseController
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Inner Join
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $table      : empty
-    // @param string $otherColumn: empty
-    // @param string $operator   : empty
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Inner join
+     * 
+     * @param string $tableColumn
+     * @param string $otherTableColumn
+     * @param string $operator = '='
+     * 
+     * @return $this
+     */
     public function innerJoin(String $table, String $otherColumn, String $operator = '=')
     {
         $this->connect->innerJoin($table, $otherColumn, $operator);
@@ -499,15 +480,15 @@ class GrandModel extends BaseController
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Outer Join
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $table      : empty
-    // @param string $otherColumn: empty
-    // @param string $operator   : empty
-    //
-    //--------------------------------------------------------------------------------------------------------
+     /**
+     * Outer join
+     * 
+     * @param string $tableColumn
+     * @param string $otherTableColumn
+     * @param string $operator = '='
+     * 
+     * @return $this
+     */
     public function outerJoin(String $table, String $otherColumn, String $operator = '=')
     {
         $this->connect->outerJoin($table, $otherColumn, $operator);
@@ -515,15 +496,15 @@ class GrandModel extends BaseController
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Left Join
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $table      : empty
-    // @param string $otherColumn: empty
-    // @param string $operator   : empty
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Left join
+     * 
+     * @param string $tableColumn
+     * @param string $otherTableColumn
+     * @param string $operator = '='
+     * 
+     * @return $this
+     */
     public function leftJoin(String $table, String $otherColumn, String $operator = '=')
     {
         $this->connect->leftJoin($table, $otherColumn, $operator);
@@ -531,15 +512,15 @@ class GrandModel extends BaseController
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Right Join
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $table      : empty
-    // @param string $otherColumn: empty
-    // @param string $operator   : empty
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Right join
+     * 
+     * @param string $tableColumn
+     * @param string $otherTableColumn
+     * @param string $operator = '='
+     * 
+     * @return $this
+     */
     public function rightJoin(String $table, String $otherColumn, String $operator = '=')
     {
         $this->connect->rightJoin($table, $otherColumn, $operator);
@@ -547,15 +528,15 @@ class GrandModel extends BaseController
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Join
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $table    : empty
-    // @param string $condition: empty
-    // @param string $type     : empty
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Join
+     * 
+     * @param string $table
+     * @param string $condition
+     * @param string $type = NULL
+     * 
+     * @return $this
+     */
     public function join(String $table, String $condition, String $type = NULL)
     {
         $this->connect->join($table, $condition, $type);
@@ -563,13 +544,13 @@ class GrandModel extends BaseController
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Duplicate Check
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string ...$args
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Duplicate check 
+     * 
+     * @param string ...$columns
+     * 
+     * @return $this
+     */
     public function duplicateCheck(...$args)
     {
         $this->connect->duplicateCheck(...$args);
@@ -577,13 +558,13 @@ class GrandModel extends BaseController
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Duplicate Check Update
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string ...$args
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Duplicate check update
+     * 
+     * @param string ...$columns
+     * 
+     * @return $this
+     */
     public function duplicateCheckUpdate(...$args)
     {
         $this->connect->duplicateCheckUpdate(...$args);
@@ -591,14 +572,14 @@ class GrandModel extends BaseController
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Order By
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $condition: empty
-    // @param string $type     : empty
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Set order by
+     * 
+     * @param mixed  $condition
+     * @param string $type = NULL
+     * 
+     * @return $this
+     */
     public function orderBy($condition, String $type = NULL)
     {
         $this->connect->orderBy($condition, $type);
@@ -606,13 +587,13 @@ class GrandModel extends BaseController
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Group By
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string ...$args
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Set group by
+     * 
+     * @param string ...$args
+     * 
+     * @return $this
+     */
     public function groupBy(...$args)
     {
         $this->connect->groupBy(...$args);
@@ -620,14 +601,14 @@ class GrandModel extends BaseController
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Limit
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param mixed $start: 0
-    // @param int   $limit: 0
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Set limit
+     * 
+     * @param int $start = 0
+     * @param int $limit = 0
+     * 
+     * @return $this
+     */
     public function limit($start = 0, Int $limit = 0)
     {
         $this->connect->limit($start, $limit);
@@ -635,15 +616,15 @@ class GrandModel extends BaseController
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Pagination
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $url     : empty
-    // @param array  $settings: empty
-    // @param bool   $output  : true
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Get pagination
+     * 
+     * @param string $url      = NULL
+     * @param array  $settings = []
+     * @param bool   $output   = true
+     * 
+     * @return mixed
+     */
     public function pagination(String $url = NULL, Array $settings = [], Bool $output = true)
     {
         if( ! empty($this->get) )
@@ -658,14 +639,14 @@ class GrandModel extends BaseController
         return $get->pagination($url, $settings, $output);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Create
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param mixed  $data : empty
-    // @param string $extra: empty
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Create table
+     * 
+     * @param mixed $data
+     * @param mxeid $extra = NULL
+     * 
+     * @return bool
+     */
     public function create($data = NULL, $extra = NULL) : Bool
     {
         $this->status = 'create';
@@ -681,134 +662,134 @@ class GrandModel extends BaseController
         return $this->connectForge->createTable($this->grandTable, $data, $extra);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Drop
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Drop table
+     * 
+     * @param void
+     * 
+     * @return bool
+     */
     public function drop() : Bool
     {
         return $this->connectForge->dropTable($this->grandTable);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Truncate
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Truncate table
+     * 
+     * @param void
+     * 
+     * @return bool
+     */
     public function truncate() : Bool
     {
         return $this->connectForge->truncate($this->grandTable);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Rename
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $newName: empty
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Rename table
+     * 
+     * @param string $newName
+     * 
+     * @return bool
+     */
     public function rename(String $newName) : Bool
     {
         return $this->connectForge->renameTable($this->grandTable, $newName);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Add Column
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array $column: empty
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Add column
+     * 
+     * @param array $column
+     * 
+     * @return bool
+     */
     public function addColumn(Array $column) : Bool
     {
         return $this->connectForge->addColumn($this->grandTable, $column);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Drop Column
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array $column: empty
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Drop column
+     * 
+     * @param array $column
+     * 
+     * @return bool
+     */
     public function dropColumn($column) : Bool
     {
         return $this->connectForge->dropColumn($this->grandTable, $column);
     }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Modify Column
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array $column: empty
-    //
-    //--------------------------------------------------------------------------------------------------------
+ 
+    /**
+     * Modify column
+     * 
+     * @param array $column
+     * 
+     * @return bool
+     */
     public function modifyColumn(Array $column) : Bool
     {
         return $this->connectForge->modifyColumn($this->grandTable, $column);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Rename Column
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array $column: empty
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Rename column
+     * 
+     * @param array $column
+     * 
+     * @return bool
+     */
     public function renameColumn(Array $column) : Bool
     {
         return $this->connectForge->renameColumn($this->grandTable, $column);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Optimize
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+     /**
+     * Optimize table
+     * 
+     * @param void
+     * 
+     * @return string
+     */
     public function optimize() : String
     {
         return $this->connectTool->optimizeTables($this->grandTable);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Repair
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Repair table
+     * 
+     * @param void
+     * 
+     * @return string
+     */
     public function repair() : String
     {
         return $this->connectTool->repairTables($this->grandTable);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Backup
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $fileName: empty
-    // @param string $path    : const STORAGE_DIR
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Backup table
+     * 
+     * @param string $fileName = NULL
+     * @param string $path     = STORAGE_DIR
+     * 
+     * @return string
+     */
     public function backup(String $fileName = NULL, String $path = STORAGE_DIR) : String
     {
         return $this->connectTool->backup($this->grandTable, $fileName, $path);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Error
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Get error
+     * 
+     * @param void
+     * 
+     * @return mixed
+     */
     public function error()
     {
         if( $error = $this->connectForge->error() )
@@ -829,13 +810,13 @@ class GrandModel extends BaseController
         }
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Error
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Get string query
+     * 
+     * @param void
+     * 
+     * @return mixed
+     */
     public function stringQuery()
     {
         if( $string = $this->connectForge->stringQuery() )
@@ -856,13 +837,14 @@ class GrandModel extends BaseController
         }
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Post Get
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string &$table, &$data
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * protected 
+     * 
+     * @param string &$table
+     * @param array  &$data
+     * 
+     * @return void
+     */
     protected function _postGet(&$table, &$data)
     {
         $table = $this->grandTable;
@@ -878,15 +860,15 @@ class GrandModel extends BaseController
         $this->options = [];
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Call Column -> 5.3.7[edited]
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $method
-    // @param array  $params
-    // @param string $type
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * protected call column
+     * 
+     * @param string $method
+     * @param array  $params
+     * @param string $type
+     * 
+     * @return mixed
+     */
     protected function _callColumn($method, $params, $type)
     {
         if( stristr($method, $type) )
@@ -919,4 +901,5 @@ class GrandModel extends BaseController
     }
 }
 
+# Alias GrandModel
 class_alias('ZN\Requirements\Models\GrandModel', 'GrandModel');

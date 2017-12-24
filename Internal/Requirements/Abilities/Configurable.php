@@ -1,21 +1,31 @@
-<?php trait ConfigurableAbility
+<?php 
+/**
+ * ZN PHP Web Framework
+ * 
+ * "Simplicity is the ultimate sophistication." ~ Da Vinci
+ * 
+ * @package ZN
+ * @license MIT [http://opensource.org/licenses/MIT]
+ * @author  Ozan UYKUN [ozan@znframework.com]
+ */
+
+trait ConfigurableAbility
 {
-    //--------------------------------------------------------------------------------------------------------
-    // Config
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var array
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Keeps the settings.
+     * 
+     * @var array
+     */
     protected $config = [];
 
-    //--------------------------------------------------------------------------------------------------------
-    // Construct
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var array
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Creates config constants.
+     * 
+     * @param void
+     * 
+     * @return mixed
+     * 
+     */
     public function configurable()
     {
         if( ! defined('static::config') )
@@ -38,39 +48,13 @@
         }
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Single Config
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
-    protected function _singleConfig($configs, $type = NULL)
-    {
-        $configEx = $this->_configEx($configs);
-        $name     = $configEx->name;
-        $key      = $configEx->key;
-        $const    = $configEx->const;
-
-        if( $type === 'multiple' )
-        {
-            $this->config = array_merge((array) $this->config, (array) Config::get($name , $key));
-        }
-        else
-        {
-            $this->config = Config::get($name , $key);
-        }
-
-        Illustrate($const, $this->config);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Config
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  array  $settings: empty
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Sets the config.
+     * 
+     * @param array $settings
+     * 
+     * @return $this
+     */
     public function config(Array $settings)
     {
         $configEx = $this->_configEx();
@@ -82,13 +66,13 @@
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Config Ex
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * protected
+     * 
+     * @param array $config
+     * 
+     * @return object
+     */
     protected function _configEx($config)
     {
         $configEx = explode(':', $config);
@@ -111,5 +95,32 @@
             'key'   => $key,
             'const' => Autoloader::upper($const)
         ];
+    }
+
+    /**
+     * protected
+     * 
+     * @param mixed $configs
+     * @param mixed $type = NULL
+     * 
+     * @return void
+     */
+    protected function _singleConfig($configs, $type = NULL)
+    {
+        $configEx = $this->_configEx($configs);
+        $name     = $configEx->name;
+        $key      = $configEx->key;
+        $const    = $configEx->const;
+
+        if( $type === 'multiple' )
+        {
+            $this->config = array_merge((array) $this->config, (array) Config::get($name , $key));
+        }
+        else
+        {
+            $this->config = Config::get($name , $key);
+        }
+
+        Illustrate($const, $this->config);
     }
 }

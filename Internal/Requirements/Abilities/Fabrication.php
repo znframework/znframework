@@ -1,37 +1,37 @@
-<?php trait FabricationAbility
-{
-    //--------------------------------------------------------------------------------------------------------
-    // Fabrication -> 5.4.5
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Author     : Ozan UYKUN <ozanbote@gmail.com>
-    // Site       : www.znframework.com
-    // License    : The MIT License
-    // Copyright  : (c) 2012-2016, znframework.com
-    //
-    //-------------------------------------------------------------------------------------------------------
+<?php 
+/**
+ * ZN PHP Web Framework
+ * 
+ * "Simplicity is the ultimate sophistication." ~ Da Vinci
+ * 
+ * @package ZN
+ * @license MIT [http://opensource.org/licenses/MIT]
+ * @author  Ozan UYKUN [ozan@znframework.com]
+ */
 
-    //--------------------------------------------------------------------------------------------------------
-    // Magic Call
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $method
-    // @param array  $parameters
-    //
-    //---------------------------------------------------------------------------------------------------------
+trait FabricationAbility
+{
+    /**
+     * Magic call
+     * 
+     * @param string $method
+     * @param array  $parameters
+     * 
+     * @return mixed
+     */
     public function __call($method, $parameters)
     {
         return $this->call($parameters, $method);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Call
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array  $parameters
-    // @PARAM string $type 
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * protected call
+     * 
+     * @param array  $parameters
+     * @param string $type = NULL
+     * 
+     * @return mixed
+     */
     protected function call($parameters, $type = NULL)
     {
         $class = (self::fabrication['prefix'] ?? NULL) . $type . (self::fabrication['suffix'] ?? NULL);

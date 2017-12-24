@@ -1,23 +1,31 @@
-<?php trait RevolvingAbility
-{
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Author     : Ozan UYKUN <ozanbote@gmail.com>
-    // Site       : www.znframework.com
-    // License    : The MIT License
-    // Copyright  : (c) 2012-2016, znframework.com
-    //
-    //--------------------------------------------------------------------------------------------------------
+<?php 
+/**
+ * ZN PHP Web Framework
+ * 
+ * "Simplicity is the ultimate sophistication." ~ Da Vinci
+ * 
+ * @package ZN
+ * @license MIT [http://opensource.org/licenses/MIT]
+ * @author  Ozan UYKUN [ozan@znframework.com]
+ */
 
+trait RevolvingAbility
+{
+    /**
+     * Get revolving values
+     * 
+     * @var array
+     */
     protected $revolvings;
 
-    //--------------------------------------------------------------------------------------------------------
-    // Call
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Magic Call
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Magic call
+     * 
+     * @param string $method
+     * @param array  $param
+     * 
+     * @return $this
+     */
     public function __call($method, $param)
     {   
         $this->$method = (count($param ?? NULL) > 1) ? $param : ($param[0] ?? NULL);
@@ -27,25 +35,26 @@
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Call Static -> 5.3.4
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Magic Call
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Magic call static
+     * 
+     * @param string $method
+     * @param array  $param
+     * 
+     * @return self
+     */
     public static function __callStatic($method, $param)
     {
         return (new self)->__call($method, $param);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Default Variables
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Default variables
+     * 
+     * @param string $type = 'all'
+     * 
+     * @return void
+     */
     protected function defaultVariables($type = 'all')
     {
         $vars = $type === 'all' 
@@ -58,13 +67,13 @@
         }
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Default Revolving Variables
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Default revolving variables
+     * 
+     * @param void
+     * 
+     * @return void
+     */
     protected function defaultRevolvingVariables()
     {
         $this->defaultRevolvings('revolving');

@@ -7,10 +7,9 @@
  * @package ZN
  * @license MIT [http://opensource.org/licenses/MIT]
  * @author  Ozan UYKUN [ozan@znframework.com]
- * @since   2011
  */
 
- /*
+/*
 |--------------------------------------------------------------------------
 | Project Type
 |--------------------------------------------------------------------------

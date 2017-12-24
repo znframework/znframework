@@ -14,7 +14,7 @@ class Crontab extends RemoteCommon implements CrontabInterface, CrontabIntervalI
     // Copyright  : (c) 2012-2016, znframework.com
     //
     //--------------------------------------------------------------------------------------------------------
-    const config = ['Services:crontab', 'Services:processor'];
+    const config = ['Services:processor'];
 
     //--------------------------------------------------------------------------------------------------------
     // Crontab Interval
@@ -130,7 +130,6 @@ class Crontab extends RemoteCommon implements CrontabInterface, CrontabIntervalI
         }
 
         $this->path       = SERVICES_PROCESSOR_CONFIG['path'];
-        $this->debug      = SERVICES_CRONTAB_CONFIG['debug'];
         $this->crontabDir = File\Info::originpath(STORAGE_DIR.'Crontab'.DS);
     }
 

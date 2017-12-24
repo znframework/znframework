@@ -1,13 +1,12 @@
 <?php
-//--------------------------------------------------------------------------------------------------
-// Bottom Top
-//--------------------------------------------------------------------------------------------------
-//
-// Sistemin en alt katmanının bir üstünde çalıştırılmak istenen kodlar yazılır.
-// Çekirdek bişinin başında devreye girer..
-//
-// Konum
-//
-// Çekirdek çalışmasından sonra, Çekirdek bitişinden önce
-// 
-//--------------------------------------------------------------------------------------------------
+/*
+|--------------------------------------------------------------------------
+| Bottom Top
+|--------------------------------------------------------------------------
+|
+| The codes that are required to be run on top of the lowest layer of the 
+| system are written.
+|
+| Location: After the kernel run, before the end of the kernel
+|
+*/

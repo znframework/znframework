@@ -1,25 +1,32 @@
 <?php 
+/**
+ * ZN PHP Web Framework
+ * 
+ * "Simplicity is the ultimate sophistication." ~ Da Vinci
+ * 
+ * @package ZN
+ * @license MIT [http://opensource.org/licenses/MIT]
+ * @author  Ozan UYKUN [ozan@znframework.com]
+ */
 
 use ZN\IndividualStructures\Lang;
 
 trait ConversationAbility
 {
-    //--------------------------------------------------------------------------------------------------------
-    // Lang
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var array
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * protected lang
+     * 
+     * @var array
+     */
     protected $lang = [];
 
-    //--------------------------------------------------------------------------------------------------------
-    // Construct
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var array
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Provides access to language data with constant.
+     * 
+     * @param void
+     * 
+     * @return void
+     */
     public function conversation()
     {
         if( ! defined('static::lang') )
@@ -44,13 +51,14 @@ trait ConversationAbility
         }
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Single Lang
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * protected
+     * 
+     * @param mixed $languages
+     * @param mixed $type = NULL
+     * 
+     * @return void
+     */
     protected function _singleLang($languages, $type = NULL)
     {
         $langEx = $this->_langEx($languages);
@@ -80,13 +88,13 @@ trait ConversationAbility
         Illustrate($const, $this->lang);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Config Ex
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * protected
+     * 
+     * @param mixed $lang
+     * 
+     * @return object
+     */
     protected function _langEx($lang)
     {
         $configEx = explode(':', $lang);

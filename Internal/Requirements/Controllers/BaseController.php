@@ -1,26 +1,25 @@
 <?php namespace ZN\Requirements\Controllers;
+/**
+ * ZN PHP Web Framework
+ * 
+ * "Simplicity is the ultimate sophistication." ~ Da Vinci
+ * 
+ * @package ZN
+ * @license MIT [http://opensource.org/licenses/MIT]
+ * @author  Ozan UYKUN [ozan@znframework.com]
+ */
 
 use Autoloader;
 
 class BaseController
 {
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Author     : Ozan UYKUN <ozanbote@gmail.com>
-    // Site       : www.znframework.com
-    // License    : The MIT License
-    // Copyright  : (c) 2012-2016, znframework.com
-    //
-    //--------------------------------------------------------------------------------------------------------
-
-    //--------------------------------------------------------------------------------------------------------
-    // Get
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  string $class
-    // @return class
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Magic get
+     * 
+     * @param string $class
+     * 
+     * @return mixed
+     */
     public function __get($class)
     {
         if( ! isset($this->$class) )
@@ -29,14 +28,13 @@ class BaseController
         }
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Reload
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  void
-    // @return this
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Reload ClassMap
+     * 
+     * @param void
+     * 
+     * @return $this
+     */
     public function reload()
     {
         Autoloader::restart();
@@ -45,4 +43,5 @@ class BaseController
     }
 }
 
+# Alias BaseController 
 class_alias('ZN\Requirements\Controllers\BaseController', 'BaseController');
