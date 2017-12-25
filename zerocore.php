@@ -30,7 +30,7 @@ define('PROJECT_TYPE', 'EIP');
 |
 */
 
-define('ZN_VERSION', '5.4.8');
+define('ZN_VERSION', '5.4.82');
 define('REQUIRED_PHP_VERSION', '7.0.0');
 
 /*
@@ -121,18 +121,6 @@ define('DEFAULT_PROJECT', PROJECTS_CONFIG['directory']['default']);
 
 /*
 |--------------------------------------------------------------------------
-| Config Directory Constants
-|--------------------------------------------------------------------------
-|
-| It keeps track of the internal and external configuration directories.
-|
-*/
-
-define('EXTERNAL_CONFIG_DIR', EXTERNAL_DIR . 'Config/');
-define('INTERNAL_CONFIG_DIR', INTERNAL_DIR . 'Config/');
-
-/*
-|--------------------------------------------------------------------------
 | Space Char Constants
 |--------------------------------------------------------------------------
 |
@@ -208,10 +196,12 @@ define('CONTAINER_DIRS',
 
 foreach( CONTAINER_DIRS as $key => $value )
 {
+    $value .= '/';
+
     if( PROJECT_TYPE === 'EIP' ) # For EIP edition
     {
         define($key, internalProjectContainerDir($value));
-        define('EXTERNAL_' . $key, 'External/' . $value . '/');
+        define('EXTERNAL_' . $key, 'External/' . $value);
     }
     else # For SE edition
     {
@@ -1089,8 +1079,6 @@ function presuffix(String $string = NULL, String $fix = '/') : String
  */
 function internalProjectContainerDir($path = NULL) : String
 {
-    $path .= '/';
-
     $containers          = PROJECTS_CONFIG['containers'];
     $containerProjectDir = PROJECT_DIR . $path;
 
