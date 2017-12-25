@@ -1,11 +1,15 @@
 <?php namespace ZN\Database;
 
-use Pagination, Config, Cache;
+use Cache;
+use Config;
+use Pagination;
 use ZN\Services\URI;
 use ZN\Services\Method;
-use ZN\DataTypes\Strings;
-use ZN\DataTypes\Arrays;
 use ZN\FileSystem\Excel;
+use ZN\DataTypes\Arrays;
+use ZN\DataTypes\Strings;
+use ZN\Database\Exception\UnconditionalDeleteException;
+use ZN\Database\Exception\UnconditionalUpdateException;
 
 class DB extends Connection
 {
@@ -1387,6 +1391,11 @@ class DB extends Connection
     //--------------------------------------------------------------------------------------------------------
     public function update(String $table = NULL, Array $set = [])
     {
+        if( empty($this->where) )
+        {
+            throw new UnconditionalUpdateException();
+        }
+
         $this->_ignoreData($table, $set);
 
         $set  = $this->_p($set, 'column');
@@ -1434,6 +1443,11 @@ class DB extends Connection
     //--------------------------------------------------------------------------------------------------------
     public function delete(String $table = NULL)
     {
+        if( empty($this->where) )
+        {
+            throw new UnconditionalDeleteException();
+        }
+
         $deleteQuery = 'DELETE '.
                        $this->lowPriority.
                        $this->quick.

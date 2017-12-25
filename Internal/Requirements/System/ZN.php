@@ -1,4 +1,13 @@
 <?php namespace Project\Controllers;
+/**
+ * ZN PHP Web Framework
+ * 
+ * "Simplicity is the ultimate sophistication." ~ Da Vinci
+ * 
+ * @package ZN
+ * @license MIT [http://opensource.org/licenses/MIT]
+ * @author  Ozan UYKUN [ozan@znframework.com]
+ */
 
 use ZN\Core\Kernel;
 use ZN\Services\URI;
@@ -12,51 +21,34 @@ use ZN\ErrorHandling\Exceptions;
 
 class ZN
 {
-    //--------------------------------------------------------------------------------------------------
-    //
-    // Author     : Ozan UYKUN <ozanbote@gmail.com>
-    // Site       : www.znframework.com
-    // License    : The MIT License
-    // Copyright  : (c) 2012-2016, znframework.com
-    //
-    //--------------------------------------------------------------------------------------------------
-
-    //--------------------------------------------------------------------------------------------------
-    // Küresel Use Kullanımı
-    //--------------------------------------------------------------------------------------------------
-    //
-    // $this ile erişilemeyen yerlerde zn::$use ile erişim sağlanılabilmesi için oluşturulmuştur.
-    //
-    // @var object
-    //
-    //--------------------------------------------------------------------------------------------------
+    /**
+     * Use library
+     * 
+     * @var mixed
+     */
     public static $use;
 
-    //--------------------------------------------------------------------------------------------------
-    // Constant Version
-    //--------------------------------------------------------------------------------------------------
-    //
-    // return string
-    //
-    //--------------------------------------------------------------------------------------------------
+    /**
+     * Get ZN version
+     * 
+     * @var string
+     */
     const VERSION = ZN_VERSION;
 
-    //--------------------------------------------------------------------------------------------------
-    // Constant Required PHP Version
-    //--------------------------------------------------------------------------------------------------
-    //
-    // return string
-    //
-    //--------------------------------------------------------------------------------------------------
+    /**
+     * Get required php version
+     * 
+     * @var string
+     */
     const REQUIRED_PHP_VERSION = REQUIRED_PHP_VERSION;
 
-    //--------------------------------------------------------------------------------------------------
-    // Protected Static Upgrade
-    //--------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------
+    /**
+     * Upgrade system
+     * 
+     * @param void
+     * 
+     * @return bool
+     */
     public static function upgrade()
     {
         $return = self::_restful();
@@ -88,25 +80,25 @@ class ZN
         return false;
     }
 
-    //--------------------------------------------------------------------------------------------------
-    // Upgrade Files
-    //--------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------
+    /**
+     * Get upgrade files
+     * 
+     * @param void
+     * 
+     * @return array
+     */
     public static function upgradeFiles()
     {
         return array_keys(self::_restful());
     }
 
-    //--------------------------------------------------------------------------------------------------
-    // ZN Run
-    //--------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------
+    /**
+     * Run ZN
+     * 
+     * @param void
+     * 
+     * @return void
+     */
     public static function run()
     {
         \Route::filter();
@@ -159,26 +151,26 @@ class ZN
         } 
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Magic Call Static
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $class
-    // @param array  $parameters
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Magic call static
+     * 
+     * @param string $class
+     * @param array  $parameters
+     * 
+     * @return mixed
+     */
     public static function __callStatic($class, $parameters)
     {
         return uselib($class, $parameters);
     }
 
-    //--------------------------------------------------------------------------------------------------
-    // Protected Static Restful
-    //--------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------
+    /**
+     * protected restful
+     * 
+     * @param void
+     * 
+     * @return array
+     */
     protected static function _restful()
     {
         $return = \Restful::post('https://api.znframework.com/statistics/upgrade', ['version' => ZN_VERSION]);
@@ -186,17 +178,18 @@ class ZN
         return Separator\Decode::array($return);
     }
 
-    //--------------------------------------------------------------------------------------------------
-    // Protected Static Spath
-    //--------------------------------------------------------------------------------------------------
-    //
-    // @param string $path
-    //
-    //--------------------------------------------------------------------------------------------------
+    /**
+     * protected spath
+     * 
+     * @param string $path
+     * 
+     * @return string
+     */
     protected static function _spath($path)
     {
         return str_replace(['Internal/', 'External/', 'Settings/'], ['Libraries/', NULL, 'Config/'], $path);
     }
 }
 
+# Alias ZN
 class_alias('Project\Controllers\ZN', 'ZN');

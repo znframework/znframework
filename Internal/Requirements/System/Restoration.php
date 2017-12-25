@@ -1,4 +1,13 @@
 <?php namespace ZN\Requirements\System;
+/**
+ * ZN PHP Web Framework
+ * 
+ * "Simplicity is the ultimate sophistication." ~ Da Vinci
+ * 
+ * @package ZN
+ * @license MIT [http://opensource.org/licenses/MIT]
+ * @author  Ozan UYKUN [ozan@znframework.com]
+ */
 
 use ZN\In;
 use ZN\Services\URI;
@@ -7,25 +16,21 @@ use ZN\IndividualStructures\IS;
 
 class Restoration
 {
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Author     : Ozan UYKUN <ozanbote@gmail.com>
-    // Site       : www.znframework.com
-    // License    : The MIT License
-    // Copyright  : (c) 2012-2016, znframework.com
-    //
-    //--------------------------------------------------------------------------------------------------------
-    
+    /**
+     * Restore fix
+     * 
+     * @var string
+     */
     protected static $restoreFix = 'Restore';
 
-    //--------------------------------------------------------------------------------------------------------
-    // create -> 5.3.8[added]
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $project
-    // @param mixed  $folders = 'standart' - options: standart, full or array
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Start restoration
+     * 
+     * @param string $project
+     * @param mixed  $folders - options[standart|full|array]
+     * 
+     * @return bool
+     */
     public static function start(String $project, $folders = 'standart')
     {
         $restoreFix = self::$restoreFix;
@@ -53,14 +58,14 @@ class Restoration
         }
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // end -> 5.3.8[added]
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $project
-    // @param string $type = NULL - options: NULL or 'delete'
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * End restoration
+     * 
+     * @param string $project
+     * @param string $type = NULL - options[NULL|delete]
+     * 
+     * @return bool
+     */
     public static function end(String $project, String $type = NULL)
     {
         $project = prefix($project, self::$restoreFix);
@@ -74,26 +79,26 @@ class Restoration
         return $return;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // endDelete -> 5.3.8[added]
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $project
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * End & delete restoration
+     * 
+     * @param string $project
+     * 
+     * @return bool
+     */
     public static function endDelete(String $project)
     {
         return self::end($project, 'delete');
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // routeURI
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param mixed  $machinesIP
-    // @param string $uri
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Redirect request according to route.
+     * 
+     * @param mixed  $machinesIP
+     * @param string $uri
+     * 
+     * @return void
+     */
     public static function routeURI($machinesIP, String $uri)
     {
         if( ! in_array(\User::ip(), (array) $machinesIP) && In::requestURI() !== $uri )
@@ -102,13 +107,13 @@ class Restoration
         }
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Is Machines IP
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Do control machines ip
+     * 
+     * @param mixed $manipulation = NULL
+     * 
+     * @return boold
+     */
     public static function isMachinesIP($manipulation = NULL)
     {
         $projects      = \Config::get('Project');
@@ -139,13 +144,13 @@ class Restoration
         return $result;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Mode
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Restoration mode
+     * 
+     * @param mixed $settings = NULL
+     * 
+     * @return void
+     */
     public static function mode($settings = NULL)
     {
         $restorable = NULL;
@@ -204,4 +209,5 @@ class Restoration
     }
 }
 
+# Alias Restoration
 class_alias('ZN\Requirements\System\Restoration', 'Restoration');
