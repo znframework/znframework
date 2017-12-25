@@ -1,24 +1,24 @@
 <?php namespace ZN\CryptoGraphy\Encode;
+/**
+ * ZN PHP Web Framework
+ * 
+ * "Simplicity is the ultimate sophistication." ~ Da Vinci
+ * 
+ * @package ZN
+ * @license MIT [http://opensource.org/licenses/MIT]
+ * @author  Ozan UYKUN [ozan@znframework.com]
+ */
 
 class RandomPassword extends EncodeExtends
 {
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Author     : Ozan UYKUN <ozanbote@gmail.com>
-    // Site       : www.znframework.com
-    // License    : The MIT License
-    // Copyright  : (c) 2012-2016, znframework.com
-    //
-    //--------------------------------------------------------------------------------------------------------
-
-    //--------------------------------------------------------------------------------------------------------
-    // Create -> 5.3.35[edited]
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param int    $count = 6
-    // @param string $chars = 'alnum', options: numeric, string/alpha, special, all, alnum
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Generates random encrypted data.
+     * 
+     * @param int    $count = 0
+     * @param string $chars = 'alnum' - options[alnum|numeric|string|alpha|special|all]
+     * 
+     * @return string
+     */
     public static function create(Int $count = 6, String $chars = 'alnum') : String
     {
         $password = '';

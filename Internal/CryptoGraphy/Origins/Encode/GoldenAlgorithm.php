@@ -1,26 +1,26 @@
 <?php namespace ZN\CryptoGraphy\Encode;
+/**
+ * ZN PHP Web Framework
+ * 
+ * "Simplicity is the ultimate sophistication." ~ Da Vinci
+ * 
+ * @package ZN
+ * @license MIT [http://opensource.org/licenses/MIT]
+ * @author  Ozan UYKUN [ozan@znframework.com]
+ */
 
 use ZN\IndividualStructures\IS;
 
 class GoldenAlgorithm extends EncodeExtends
 {
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Author     : Ozan UYKUN <ozanbote@gmail.com>
-    // Site       : www.znframework.com
-    // License    : The MIT License
-    // Copyright  : (c) 2012-2016, znframework.com
-    //
-    //--------------------------------------------------------------------------------------------------------
-
-    //--------------------------------------------------------------------------------------------------------
-    // Golden
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $data
-    // @param string $additional
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Generates encrypted data.
+     * 
+     * @param string $data
+     * @param string $additional = 'default'
+     * 
+     * @return string
+     */
     public static function create(String $data, String $additional = 'default') : String
     {
         $algo = CRYPTOGRAPHY_ENCODE_CONFIG['type'];

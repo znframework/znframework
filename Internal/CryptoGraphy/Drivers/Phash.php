@@ -1,4 +1,13 @@
 <?php namespace ZN\CryptoGraphy\Drivers;
+/**
+ * ZN PHP Web Framework
+ * 
+ * "Simplicity is the ultimate sophistication." ~ Da Vinci
+ * 
+ * @package ZN
+ * @license MIT [http://opensource.org/licenses/MIT]
+ * @author  Ozan UYKUN [ozan@znframework.com]
+ */
 
 use ZN\CryptoGraphy\CryptoMapping;
 use ZN\ErrorHandling\Errors;
@@ -7,22 +16,13 @@ use ZN\CryptoGraphy\Exception\InvalidVersionException;
 
 class PhashDriver extends CryptoMapping
 {
-	//--------------------------------------------------------------------------------------------------------
-    //
-    // Author     : Ozan UYKUN <ozanbote@gmail.com>
-    // Site       : www.znframework.com
-    // License    : The MIT License
-    // Copyright  : (c) 2012-2016, znframework.com
-    //
-    //--------------------------------------------------------------------------------------------------------
-
-	//--------------------------------------------------------------------------------------------------------
-	// Construct
-	//--------------------------------------------------------------------------------------------------------
-	//
-	// @param void
-	//
-	//--------------------------------------------------------------------------------------------------------
+	/**
+     * Magic constructor
+     * 
+     * @param void
+     * 
+     * @return void
+     */
 	public function __construct()
 	{
 		if( ! IS::phpVersion('5.5') )
@@ -33,13 +33,13 @@ class PhashDriver extends CryptoMapping
         parent::__construct();
 	}
 
-	//--------------------------------------------------------------------------------------------------------
-	// Keygen
-	//--------------------------------------------------------------------------------------------------------
-	//
-	// @param numeric $length
-	//
-	//--------------------------------------------------------------------------------------------------------
+	/**
+     * Generates a random password.
+     * 
+     * @param int $length
+     * 
+     * @return string
+     */
 	public function keygen($length)
 	{
 		return mb_substr(password_hash(PROJECT_CONFIG['key'], PASSWORD_BCRYPT), -$length);

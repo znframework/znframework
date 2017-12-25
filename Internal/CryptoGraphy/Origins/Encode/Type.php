@@ -1,4 +1,13 @@
 <?php namespace ZN\CryptoGraphy\Encode;
+/**
+ * ZN PHP Web Framework
+ * 
+ * "Simplicity is the ultimate sophistication." ~ Da Vinci
+ * 
+ * @package ZN
+ * @license MIT [http://opensource.org/licenses/MIT]
+ * @author  Ozan UYKUN [ozan@znframework.com]
+ */
 
 use Encode;
 use ZN\IndividualStructures\IS;
@@ -6,23 +15,15 @@ use ZN\CryptoGraphy\Exception\InvalidArgumentException;
 
 class Type extends EncodeExtends
 {
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Author     : Ozan UYKUN <ozanbote@gmail.com>
-    // Site       : www.znframework.com
-    // License    : The MIT License
-    // Copyright  : (c) 2012-2016, znframework.com
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * The specified algorithm encrypts the data according to the type.
+     * 
+     * @param string $data
+     * @param string $type = 'md5'
+     * 
+     * @return string
+     */
 
-    //--------------------------------------------------------------------------------------------------------
-    // Type
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $data
-    // @param string $type
-    //
-    //--------------------------------------------------------------------------------------------------------
     public static function create(String $data, String $type = 'md5') : String
     {
         $algos = ['golden', 'super'];

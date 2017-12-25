@@ -1,4 +1,13 @@
 <?php namespace ZN\CryptoGraphy\Drivers;
+/**
+ * ZN PHP Web Framework
+ * 
+ * "Simplicity is the ultimate sophistication." ~ Da Vinci
+ * 
+ * @package ZN
+ * @license MIT [http://opensource.org/licenses/MIT]
+ * @author  Ozan UYKUN [ozan@znframework.com]
+ */
 
 use ZN\CryptoGraphy\CryptoMapping;
 use ZN\Helpers\Converter;
@@ -8,22 +17,13 @@ use ZN\CryptoGraphy\Exception\UnsupportedExtensionException;
 
 class McryptDriver extends CryptoMapping
 {
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Author     : Ozan UYKUN <ozanbote@gmail.com>
-    // Site       : www.znframework.com
-    // License    : The MIT License
-    // Copyright  : (c) 2012-2016, znframework.com
-    //
-    //--------------------------------------------------------------------------------------------------------
-
-    //--------------------------------------------------------------------------------------------------------
-	// Construct
-	//--------------------------------------------------------------------------------------------------------
-	//
-	// @param void
-	//
-	//--------------------------------------------------------------------------------------------------------
+    /**
+     * Magic constructor
+     * 
+     * @param void
+     * 
+     * @return void
+     */
 	public function __construct()
 	{
         if( IS::phpVersion('7.2') )
@@ -34,14 +34,14 @@ class McryptDriver extends CryptoMapping
 		parent::__construct();
 	}
 
-    //--------------------------------------------------------------------------------------------------------
-    // Encrypt
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $data
-    // @param array  $settings
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * It encrypts the data.
+     * 
+     * @param string $data
+     * @param array  $settings
+     * 
+     * @return string
+     */
     public function encrypt($data, $settings)
     {
         $set    = $this->_settings($settings);
@@ -50,14 +50,14 @@ class McryptDriver extends CryptoMapping
         return base64_encode($encode);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Decrypt
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $data
-    // @param array  $settings
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * It decrypts the data.
+     * 
+     * @param string $data
+     * @param array  $settings
+     * 
+     * @return string
+     */
     public function decrypt($data, $settings)
     {
         $set    = $this->_settings($settings);
@@ -66,21 +66,25 @@ class McryptDriver extends CryptoMapping
         return trim(mcrypt_decrypt($set->cipher, $set->key, trim($data), $set->mode, $set->iv));
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Keygen
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param numeric $length
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Generates a random password.
+     * 
+     * @param int $length
+     * 
+     * @return string
+     */
     public function keygen($length)
     {
         return mcrypt_create_iv($length, MCRYPT_DEV_URANDOM);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * private keysize
+     * 
+     * @param string $cipher
+     * 
+     * @return string
+     */
     private function keySize($cipher)
     {
         $cipher  = strtolower($cipher);
@@ -97,9 +101,14 @@ class McryptDriver extends CryptoMapping
         return mb_substr(hash('md5', PROJECT_CONFIG['key']), 0, $ciphers[$cipher] ?? 8);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * protected vector size
+     * 
+     * @param string $mode
+     * @param string $cipher
+     * 
+     * @return string
+     */
     protected function vectorSize($mode, $cipher)
     {
         $mode   = strtolower($mode);
@@ -123,13 +132,13 @@ class McryptDriver extends CryptoMapping
         return mb_substr(hash('sha1', PROJECT_CONFIG['key']), 0, $mode);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Settings
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array settings
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * protected settings
+     * 
+     * @param array $settings
+     * 
+     * @return object
+     */
     protected function _settings($settings)
     {
         $cipher = $settings['cipher'] ?? 'des';
