@@ -582,6 +582,7 @@ class Autoloader
         define('SETTINGS_DIR', (PROJECT_TYPE === 'SE' ? 'Config' : 'Settings').'/');
         define('PROJECTS_CONFIG', import((is_file(PROJECTS_DIR . 'Projects.php') ? PROJECTS_DIR : SETTINGS_DIR) . 'Projects.php'));
         define('DEFAULT_PROJECT', PROJECTS_CONFIG['directory']['default']);
+        define('SSL_STATUS', (server('https') === 'on' ? 'https' : 'http') . '://');
         define('EOL', PHP_EOL);
         define('CRLF', "\r\n" );
         define('CR', "\r");
@@ -590,15 +591,7 @@ class Autoloader
         define('TAB', "\t");
         define('FF', "\f");
        
-        self::defineCurrentProject();
-
-        define('CONTROLLERS_DIR' , PROJECT_DIR.'Controllers/');
-        define('VIEWS_DIR', PROJECT_DIR.'Views/');
-        define('PAGES_DIR', VIEWS_DIR);
-
         self::defineContainerDirectoryConstants();
-
-        define('SSL_STATUS', (server('https') === 'on' ? 'https' : 'http') . '://');
     }
 
     /**
@@ -610,6 +603,11 @@ class Autoloader
      */
     protected static function defineContainerDirectoryConstants()
     {
+        self::defineCurrentProject();
+        
+        define('CONTROLLERS_DIR' , PROJECT_DIR.'Controllers/');
+        define('VIEWS_DIR', PROJECT_DIR.'Views/');
+        define('PAGES_DIR', VIEWS_DIR); 
         define('CONTAINER_DIRS', 
         [
             'ROUTES_DIR'    => 'Routes'   , 'DATABASES_DIR' => 'Databases'          ,
