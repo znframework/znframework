@@ -9,6 +9,8 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
+require REQUIREMENTS_DIR . 'Functions.php';
+
 use ZN\Helpers\Converter;
 
 class Autoloader
@@ -192,7 +194,7 @@ class Autoloader
             }
         }
 
-        internalIsWritable(self::$path);
+        self::isWritable(self::$path);
 
         file_put_contents(self::$path, $classMapPage, FILE_APPEND);
     }
@@ -556,18 +558,251 @@ class Autoloader
     {
         return str_replace(["'", '"'], NULL, $string);
     }
+
+    /**
+     * Defines required constants
+     * 
+     * @param string $version
+     * 
+     * @return void
+     */
+    public function defines(String $version)
+    {
+        define('ZN_VERSION', $version);
+        define('REQUIRED_PHP_VERSION', '7.0.0');
+        define('DS', DIRECTORY_SEPARATOR);
+        define('DIRECTORY_INDEX', 'zeroneed.php');
+        define('BASE_DIR', ltrim(explode(DIRECTORY_INDEX, $_SERVER['SCRIPT_NAME'])[0], '/'));
+        define('PROJECT_CONTROLLER_NAMESPACE', 'Project\Controllers\\');
+        define('PROJECT_COMMANDS_NAMESPACE', 'Project\Commands\\');
+        define('EXTERNAL_COMMANDS_NAMESPACE', 'External\Commands\\');
+        define('INTERNAL_ACCESS', 'Internal');
+        define('PROJECTS_DIR', 'Projects/');
+        define('EXTERNAL_DIR', (PROJECT_TYPE === 'SE' ? '' : 'External/'));
+        define('SETTINGS_DIR', (PROJECT_TYPE === 'SE' ? 'Config' : 'Settings').'/');
+        define('PROJECTS_CONFIG', import((is_file(PROJECTS_DIR . 'Projects.php') ? PROJECTS_DIR : SETTINGS_DIR) . 'Projects.php'));
+        define('DEFAULT_PROJECT', PROJECTS_CONFIG['directory']['default']);
+        define('EOL', PHP_EOL);
+        define('CRLF', "\r\n" );
+        define('CR', "\r");
+        define('LF', "\n");
+        define('HT', "\t");
+        define('TAB', "\t");
+        define('FF', "\f");
+       
+        self::defineCurrentProject();
+
+        define('CONTROLLERS_DIR' , PROJECT_DIR.'Controllers/');
+        define('VIEWS_DIR', PROJECT_DIR.'Views/');
+        define('PAGES_DIR', VIEWS_DIR);
+
+        self::defineContainerDirectoryConstants();
+
+        define('SSL_STATUS', (server('https') === 'on' ? 'https' : 'http') . '://');
+    }
+
+    /**
+     * Defines container directory constants
+     * 
+     * @param void
+     * 
+     * @return void
+     */
+    protected static function defineContainerDirectoryConstants()
+    {
+        define('CONTAINER_DIRS', 
+        [
+            'ROUTES_DIR'    => 'Routes'   , 'DATABASES_DIR' => 'Databases'          ,
+            'CONFIG_DIR'    => 'Config'   , 'STORAGE_DIR'   => 'Storage'            ,
+            'COMMANDS_DIR'  => 'Commands' , 'LANGUAGES_DIR' => 'Languages'          ,
+            'LIBRARIES_DIR' => 'Libraries', 'MODELS_DIR'    => 'Models'             ,
+            'STARTING_DIR'  => 'Starting' , 'AUTOLOAD_DIR'  => 'Starting/Autoload'  ,
+                                            'HANDLOAD_DIR'  => 'Starting/Handload'  ,
+                                            'LAYERS_DIR'    => 'Starting/Layers'    ,
+            'RESOURCES_DIR' => 'Resources', 'PROCESSOR_DIR' => 'Resources/Processor',
+                                            'FILES_DIR'     => 'Resources/Files'    ,
+                                            'FONTS_DIR'     => 'Resources/Fonts'    ,
+                                            'SCRIPTS_DIR'   => 'Resources/Scripts'  ,
+                                            'STYLES_DIR'    => 'Resources/Styles'   ,
+                                            'TEMPLATES_DIR' => 'Resources/Templates',
+                                            'THEMES_DIR'    => 'Resources/Themes'   ,
+                                            'PLUGINS_DIR'   => 'Resources/Plugins'  ,
+                                            'UPLOADS_DIR'   => 'Resources/Uploads'
+        ]);
+
+        foreach( CONTAINER_DIRS as $key => $value )
+        {
+            $value .= '/';
+
+            if( PROJECT_TYPE === 'EIP' ) # For EIP edition
+            {
+                define($key, self::getProjectContainerDir($value));
+                define('EXTERNAL_' . $key, 'External/' . $value);
+            }
+            else # For SE edition
+            {
+                define($key, $value);
+            }
+        }
+    }
+
+    /**
+     * Get project container directory
+     * 
+     * Returns the project directory name according to the project in the system.
+     * Only for multi edition.
+     * 
+     * @param string $path = NULL
+     * 
+     * @return string
+     */
+    protected static function getProjectContainerDir($path = NULL) : String
+    {
+        $containers          = PROJECTS_CONFIG['containers'];
+        $containerProjectDir = PROJECT_DIR . $path;
+
+        if( ! empty($containers) && defined('_CURRENT_PROJECT') )
+        {
+            $restoreFix = 'Restore';
+
+            # 5.3.8[added]
+            if( strpos(_CURRENT_PROJECT, $restoreFix) === 0 && is_dir(PROJECTS_DIR . ($restoredir = ltrim(_CURRENT_PROJECT, $restoreFix))) )
+            {
+                $condir = $restoredir;
+
+                if( $containers[$condir] ?? NULL )
+                {
+                    $condir = $containers[$condir];
+                }
+            }
+            else
+            {
+                $condir = $containers[_CURRENT_PROJECT] ?? NULL;
+            }  
+            
+            return ! empty($condir) && ! file_exists($containerProjectDir)
+                    ? PROJECTS_DIR . suffix($condir) . $path
+                    : $containerProjectDir;
+        }
+
+        # 5.3.33[edited]
+        if( is_dir($containerProjectDir) )
+        {
+            return $containerProjectDir;
+        }
+
+        # 5.1.5[added]
+        # The enclosures can be the opening controller
+        if( $container = ($containers[CURRENT_PROJECT] ?? NULL) )
+        {
+            $containerProjectDir = str_replace(CURRENT_PROJECT, $container, $containerProjectDir);
+        }
+
+        return $containerProjectDir;
+    }
+
+    /**
+     * Define current project
+     * 
+     * It arranges some values according to the project which is valid in the system.
+     * 
+     * @param void
+     * 
+     * @return mixed
+     */
+    protected static function defineCurrentProject()
+    {
+        self::isWritable('.htaccess');
+
+        if( PROJECT_TYPE === 'SE' )
+        {
+            define('CURRENT_PROJECT', NULL);
+            define('PROJECT_DIR'    , NULL);
+
+            return false;
+        }
+
+        $projectConfig = PROJECTS_CONFIG['directory']['others'];
+        $projectDir    = $projectConfig;
+
+        if( defined('CONSOLE_PROJECT_NAME') )
+        {
+            $internalDir = CONSOLE_PROJECT_NAME;
+        }
+        else
+        {
+            $currentPath = server('currentPath');
+
+            # 5.0.3[edited]
+            # QUERY_STRING & REQUEST URI Empty Control
+            if( empty($currentPath) && ($requestUri = server('requestUri')) !== '/' )
+            {
+                $currentPath = $requestUri;
+            }
+            
+            $internalDir = ( ! empty($currentPath) ? explode('/', ltrim($currentPath, BASE_DIR ?: '/'))[0] : '' );
+        }
+
+        if( is_array($projectDir) )
+        {
+            $internalDir = $projectDir[$internalDir] ?? $internalDir;
+            $projectDir  = $projectDir[host()] ?? DEFAULT_PROJECT;
+        }
+
+        if( ! empty($internalDir) && is_dir(PROJECTS_DIR . $internalDir) )
+        {
+            define('_CURRENT_PROJECT', $internalDir);
+
+            $flip              = array_flip($projectConfig);
+            $projectDir        = _CURRENT_PROJECT;
+            $currentProjectDir = $flip[$projectDir] ?? $projectDir;
+        }
+
+        define('CURRENT_PROJECT', $currentProjectDir ?? $projectDir);
+        define('PROJECT_DIR', suffix(PROJECTS_DIR . $projectDir));
+
+        if( ! is_dir(PROJECT_DIR) )
+        {
+            trace('["'.$projectDir.'"] Project Directory Not Found!');
+        }
+    }
+
+    /**
+    * Is writable
+    * 
+    * Controls whether file permission is required in the operating system where the system is installed.
+    * 
+    * @param string $path
+    * 
+    * @return void
+    */
+    protected static function isWritable(String $path)
+    {
+        if( is_file($path) && ! is_writable($path) && \IS::software() === 'apache' )
+        {   
+            trace
+            (
+                'Please check the [file permissions]. Click the 
+                    <a target="_blank" style="text-decoration:none" href="https://docs.znframework.com/getting-started/installation-instructions#sh42">
+                        [documentation]
+                    </a> 
+                to see how to configure file permissions.'
+            );
+        }
+    }
+
+    /**
+     * spl autoload register
+     * 
+     * @param void
+     * 
+     * @return void
+     */
+    public function register()
+    {
+        spl_autoload_register('Autoloader::run');
+    }
 }
 
 # Alias Autoloader
 class_alias('ZN\Classes\Autoloader', 'Autoloader');
-
-/*
-|--------------------------------------------------------------------------
-| Autoload Register
-|--------------------------------------------------------------------------
-|
-| Enables class loading by automatically activating the object call.
-|
-*/
-
-spl_autoload_register('Autoloader::run');

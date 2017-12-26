@@ -68,7 +68,7 @@ class Crontab extends RemoteCommon implements CrontabInterface, CrontabIntervalI
     // @var string
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $zerocore = 'require_once "' . REAL_BASE_DIR . 'zerocore.php"; ';
+    protected $zerocore = 'define("CONSOLE_ENABLED", true); require_once "' . REAL_BASE_DIR . 'zeroneed.php"; ';
 
      //--------------------------------------------------------------------------------------------------------
     // dZerocore

@@ -2,6 +2,17 @@
 <?php
 /*
 |--------------------------------------------------------------------------
+| Console Usage
+|--------------------------------------------------------------------------
+|
+| It keeps track of whether processes are running through the console.
+|
+*/
+
+define('CONSOLE_ENABLED', true);
+
+/*
+|--------------------------------------------------------------------------
 | Project Name
 |--------------------------------------------------------------------------
 |
@@ -16,14 +27,14 @@ if( ($argv[1] ?? NULL) === 'project-name' )
 
 /*
 |--------------------------------------------------------------------------
-| Require zerocore.php
+| Require zeroneed.php
 |--------------------------------------------------------------------------
 |
 | The file containing the system and basic structures is included.
 |
 */
 
-require_once __DIR__ . DIRECTORY_SEPARATOR . 'zerocore.php';
+require_once __DIR__ . '/zeroneed.php';
 
 /*
 |--------------------------------------------------------------------------

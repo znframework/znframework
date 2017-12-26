@@ -23,6 +23,54 @@ define('START_BENCHMARK', microtime(true));
 
 /*
 |--------------------------------------------------------------------------
+| Project Type
+|--------------------------------------------------------------------------
+|
+| It shows you which framework you are using.
+| SE for single edition, EIP for multi edition.
+|
+*/
+
+define('PROJECT_TYPE', 'EIP');
+
+/*
+|--------------------------------------------------------------------------
+| Internal Directory
+|--------------------------------------------------------------------------
+|
+| The system directory is determined according to ZN project type.
+|
+*/
+
+define('INTERNAL_DIR', 
+(
+    PROJECT_TYPE === 'SE' ? 'Libraries' : 'Internal') . '/'
+);
+
+/*
+|--------------------------------------------------------------------------
+| Requirements Directory
+|--------------------------------------------------------------------------
+|
+| It keeps path of the files needed for the system.
+|
+*/
+
+define('REQUIREMENTS_DIR', INTERNAL_DIR.'Requirements/System/');
+
+/*
+|--------------------------------------------------------------------------
+| Real Base Directory Path
+|--------------------------------------------------------------------------
+|
+| The system gives the knowledge of the actual root directory.
+|
+*/
+
+define('REAL_BASE_DIR', __DIR__ . '/');
+
+/*
+|--------------------------------------------------------------------------
 | Working Directory
 |--------------------------------------------------------------------------
 |
@@ -30,7 +78,7 @@ define('START_BENCHMARK', microtime(true));
 |
 */
 
-chdir(realpath(__DIR__) . DIRECTORY_SEPARATOR);
+chdir(REAL_BASE_DIR);
 
 /*
 |--------------------------------------------------------------------------
@@ -41,7 +89,21 @@ chdir(realpath(__DIR__) . DIRECTORY_SEPARATOR);
 |
 */
 
-require_once 'zerocore.php';
+require_once REAL_BASE_DIR . 'zerocore.php';
+
+/*
+|--------------------------------------------------------------------------
+| Console Usage
+|--------------------------------------------------------------------------
+|
+| If the operation is executed via console, the code flow is not continue.
+|
+*/
+
+if( defined('CONSOLE_ENABLED') )
+{
+    return false;
+}
 
 /*
 |--------------------------------------------------------------------------
