@@ -1,114 +1,88 @@
 <?php namespace ZN\ViewObjects;
+/**
+ * ZN PHP Web Framework
+ * 
+ * "Simplicity is the ultimate sophistication." ~ Da Vinci
+ * 
+ * @package ZN
+ * @license MIT [http://opensource.org/licenses/MIT]
+ * @author  Ozan UYKUN [ozan@znframework.com]
+ */
 
 interface CalendarInterface
 {
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Author     : Ozan UYKUN <ozanbote@gmail.com>
-    // Site       : www.znframework.com
-    // License    : The MIT License
-    // Copyright  : (c) 2012-2016, znframework.com
-    //
-    //--------------------------------------------------------------------------------------------------------
-
-    //--------------------------------------------------------------------------------------------------------
-    // Url
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Takvimin bağlantı kurucağı url adresi.
-    //
-    // @param  string $url
-    // @return this
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Specifies the URL to use.
+     * 
+     * @param string $url
+     * 
+     * @return Calendar
+     */
     public function url(String $url) : Calendar;
 
-    //--------------------------------------------------------------------------------------------------------
-    // Name Type
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Ay ve günler için normal isimlerini mi yoksa kısaltılmış isimlerin mi
-    // kullanılacağını belirlemek için kullanılır.
-    //
-    // @param  string $day
-    // @param  string $month
-    // @return this
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Specifies the name to be displayed.
+     * 
+     * @param string $day   - options[long|short]
+     * @param string $month - options[long|short]
+     * 
+     * @return Calendar
+     */
     public function nameType(String $day, String $month) : Calendar;
 
-    //--------------------------------------------------------------------------------------------------------
-    // Css
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Takvime css sınıfları uygulamak için kullanılır.
-    //
-    // @param  array $css
-    // @return this
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Specifies the css values.
+     * 
+     * @param array $css
+     * 
+     * @return Calendar
+     */
     public function css(Array $css) : Calendar;
 
-    //--------------------------------------------------------------------------------------------------------
-    // Style
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Takvime stiller uygulamak için kullanılır.
-    //
-    // @param  array $style
-    // @return this
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Specifies the style values.
+     * 
+     * @param array $style
+     * 
+     * @return Calendar
+     */
     public function style(Array $style) : Calendar;
 
-    //--------------------------------------------------------------------------------------------------------
-    // Type
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Takvimin kullanım türünü belirlemek içindir.
-    //
-    // @param  string $type
-    // @return this
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Specifies the type of calendar.
+     * 
+     * @param string $type - options[classic|ajax]
+     * 
+     * @return Calendar
+     */
     public function type(String $type) : Calendar;
 
-    //--------------------------------------------------------------------------------------------------------
-    // Link Names
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Takvimde yer alan iler ve geri butonu linklerinin isimlerini
-    // değiştirmek için kulanılır.
-    //
-    // @param  string $prev
-    // @param  string $next
-    // @return this
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Change button names.
+     * 
+     * @param string $prev
+     * @param string $next
+     * 
+     * @return Calendar
+     */
     public function linkNames(String $prev, String $next) : Calendar;
 
-    //--------------------------------------------------------------------------------------------------------
-    // Settings
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Takvim ayalarını yapılandırmak için kullanılır.
-    //
-    // @param  array $settings
-    // @return object
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Configures all settings.
+     * 
+     * @param array $settings
+     * 
+     * @return Calendar
+     */
     public function settings(Array $settings) : Calendar;
 
-    //--------------------------------------------------------------------------------------------------------
-    // Create
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Takvimin oluşturulması için kullanılan son yöntemdir.
-    //
-    // @param  numeric $year
-    // @param  numeric $month
-    // @return string
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Complete the calendar creation process.
+     * 
+     * @param int $year  = NULL
+     * @param int $month = NULL
+     * 
+     * @return string
+     */
     public function create(Int $year = NULL, Int $month = NULL) : String;
 }

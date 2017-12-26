@@ -1,164 +1,136 @@
 <?php namespace ZN\ViewObjects;
+/**
+ * ZN PHP Web Framework
+ * 
+ * "Simplicity is the ultimate sophistication." ~ Da Vinci
+ * 
+ * @package ZN
+ * @license MIT [http://opensource.org/licenses/MIT]
+ * @author  Ozan UYKUN [ozan@znframework.com]
+ */
 
 use ZN\Services\URL;
 use ZN\Services\URI;
 
 class Pagination implements PaginationInterface
 {
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Author     : Ozan UYKUN <ozanbote@gmail.com>
-    // Site       : www.znframework.com
-    // License    : The MIT License
-    // Copyright  : (c) 2012-2016, znframework.com
-    //
-    //--------------------------------------------------------------------------------------------------------
-
-    //--------------------------------------------------------------------------------------------------------
-    // Settings
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var array
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Keep settings
+     * 
+     * @var array
+     */
     protected $settings = [];
 
-    //--------------------------------------------------------------------------------------------------------
-    // Lc
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var string
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Keep style & css.
+     * 
+     * @var string
+     */
     protected $lc, $ls;
 
-    //--------------------------------------------------------------------------------------------------------
-    // Total Rows
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var int
-    //
-    //--------------------------------------------------------------------------------------------------------
-    protected $totalRows    = 50;
+    /**
+     * Default total rows
+     * 
+     * @var int
+     */
+    protected $totalRows = 50;
     
-    //--------------------------------------------------------------------------------------------------------
-    // Start
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var int
-    //
-    //--------------------------------------------------------------------------------------------------------
-    protected $start        = 0;
+    /**
+     * Default start value
+     * 
+     * @var int
+     */
+    protected $start = 0;
 
-    //--------------------------------------------------------------------------------------------------------
-    // Type
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var string
-    //
-    //--------------------------------------------------------------------------------------------------------
-    protected $type         = 'classic';
+    /**
+     * Default pagination type
+     * 
+     * @var string
+     */
+    protected $type = 'classic';
 
-    //--------------------------------------------------------------------------------------------------------
-    // Limit
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var int
-    //
-    //--------------------------------------------------------------------------------------------------------
-    protected $limit        = 10;
+    /**
+     * Default limit value
+     * 
+     * @var int
+     */
+    protected $limit = 10;
 
-    //--------------------------------------------------------------------------------------------------------
-    // Count Links
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var int
-    //
-    //--------------------------------------------------------------------------------------------------------
-    protected $countLinks   = 10;
+    /**
+     * Default count links
+     * 
+     * @var int
+     */
+    protected $countLinks = 10;
 
-    //--------------------------------------------------------------------------------------------------------
-    // Class
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var array
-    //
-    //--------------------------------------------------------------------------------------------------------
-    protected $class        = [];
+    /**
+     * Keep class value
+     * 
+     * @var array
+     */
+    protected $class = [];
 
-    //--------------------------------------------------------------------------------------------------------
-    // Style
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var array
-    //
-    //--------------------------------------------------------------------------------------------------------
-    protected $style        = [];
+    /**
+     * Keep style value
+     * 
+     * @var array
+     */
+    protected $style = [];
 
-    //--------------------------------------------------------------------------------------------------------
-    // Prev Tag
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var string
-    //
-    //--------------------------------------------------------------------------------------------------------
-    protected $prevTag      = '[prev]';
+    /**
+     * Default prev tag name
+     * 
+     * @var string
+     */
+    protected $prevTag = '[prev]';
 
-    //--------------------------------------------------------------------------------------------------------
-    // Next Tag
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var string
-    //
-    //--------------------------------------------------------------------------------------------------------
-    protected $nextTag      = '[next]';
+     /**
+     * Default next tag name
+     * 
+     * @var string
+     */
+    protected $nextTag = '[next]';
 
-    //--------------------------------------------------------------------------------------------------------
-    // First Tag
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var string
-    //
-    //--------------------------------------------------------------------------------------------------------
-    protected $firstTag     = '[first]';
+     /**
+     * Default first tag name
+     * 
+     * @var string
+     */
+    protected $firstTag = '[first]';
 
-    //--------------------------------------------------------------------------------------------------------
-    // Last Tag
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var string
-    //
-    //--------------------------------------------------------------------------------------------------------
-    protected $lastTag      = '[last]';
+     /**
+     * Default last tag name
+     * 
+     * @var string
+     */
+    protected $lastTag = '[last]';
 
-    //--------------------------------------------------------------------------------------------------------
-    // URL
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var string
-    //
-    //--------------------------------------------------------------------------------------------------------
-    protected $url          = CURRENT_CFPATH;
+     /**
+     * Default url
+     * 
+     * @var string
+     */
+    protected $url = CURRENT_CFPATH;
 
-    //--------------------------------------------------------------------------------------------------------
-    // Magic Construct
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Magic constructor
+     * 
+     * @param void
+     * 
+     * @return void
+     */
     public function __construct()
     {
         $this->config = \Config::viewObjects('pagination');
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // URL
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $url
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Specifies the URL.
+     * 
+     * @param string $url
+     * 
+     * @return Pagination
+     */
     public function url(String $url) : Pagination
     {
         $this->settings['url'] = $url;
@@ -166,13 +138,13 @@ class Pagination implements PaginationInterface
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Start
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param int $start
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Sets the paging initial value.
+     * 
+     * @param mixed $start
+     * 
+     * @return Pagination
+     */
     public function start($start) : Pagination
     {
         $this->settings['start'] = $start;
@@ -180,13 +152,13 @@ class Pagination implements PaginationInterface
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Limit
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param int $limit
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Sets the amount of data to be displayed at one time.
+     * 
+     * @param int $limit
+     * 
+     * @return Pagination
+     */
     public function limit(Int $limit) : Pagination
     {
         $this->settings['limit'] = $limit;
@@ -194,13 +166,13 @@ class Pagination implements PaginationInterface
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Type
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $type: ajax, classic
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Pagination usage type.
+     * If you select Ajax, ajax needs to be written. 
+     * Several data are defined for this.
+     * 
+     * @param string $type - options[ajax|classic]
+     */
     public function type(String $type) : Pagination
     {
         $this->settings['type'] = $type;
@@ -208,13 +180,13 @@ class Pagination implements PaginationInterface
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Total Rows
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param int $totalRows
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Sets the total number of records.
+     * 
+     * @param int $totalRows
+     * 
+     * @return Pagination
+     */
     public function totalRows(Int $totalRows) : Pagination
     {
         $this->settings['totalRows'] = $totalRows;
@@ -222,13 +194,13 @@ class Pagination implements PaginationInterface
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Count Links
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param int $countLinks
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Sets the number of page links to be displayed at one time.
+     * 
+     * @param int $countLinks
+     * 
+     * @return Pagination
+     */
     public function countLinks(Int $countLinks) : Pagination
     {
         $this->settings['countLinks'] = $countLinks;
@@ -236,16 +208,16 @@ class Pagination implements PaginationInterface
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Link Names
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $prev
-    // @param string $next
-    // @param string $first
-    // @param string $last
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Change the names of links.
+     * 
+     * @param string $prev
+     * @param string $next
+     * @param string $first
+     * @param string $last
+     * 
+     * @return Pagination
+     */
     public function linkNames(String $prev, String $next, String $first, String $last) : Pagination
     {
         $this->settings['prevName']  = $prev;
@@ -256,13 +228,13 @@ class Pagination implements PaginationInterface
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Css
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array $css
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Sets paging's css values.
+     * 
+     * @param array $css
+     * 
+     * @return Pagination
+     */
     public function css(Array $css) : Pagination
     {
         $this->settings['class'] = $css;
@@ -270,13 +242,13 @@ class Pagination implements PaginationInterface
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Style
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array $css
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Sets paging's style values.
+     * 
+     * @param array $style
+     * 
+     * @return Pagination
+     */
     public function style(Array $style) : Pagination
     {
         $this->settings['style'] = $style;
@@ -284,13 +256,13 @@ class Pagination implements PaginationInterface
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected URI Get Control
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var string
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * protected uri get control
+     * 
+     * @param string $page
+     * 
+     * @return string
+     */
     protected function _uriGetControl($page)
     {
         if( strstr($this->url, '?') )
@@ -303,32 +275,29 @@ class Pagination implements PaginationInterface
         return suffix($this->url) . $page;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // get URI
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array $config
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Returns the current URL for paging.
+     * 
+     * @param string $page = NULL
+     * 
+     * @return string
+     */
     public function getURI(String $page = NULL) : String
     {
         return $this->_uriGetControl($page);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Settings
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array $config
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Configures all settings of the page.
+     * 
+     * @param array $cofig = []
+     * 
+     * @return Pagination
+     */
     public function settings(Array $config = []) : Pagination
     {
         $configs = $this->config;
 
-        // ---------------------------------------------------------------------------------------
-        // Sayfalama Ayarlarını İçeren Değişkenler
-        // ---------------------------------------------------------------------------------------
         if( isset($config['totalRows']) )   $this->totalRows    = $config['totalRows'];
         if( isset($config['start']) )       $this->start        = $config['start'];
         if( isset($config['limit']) )       $this->limit        = $config['limit'];
@@ -354,19 +323,18 @@ class Pagination implements PaginationInterface
         {
             $this->url = CURRENT_CFURL;
         }
-        // ---------------------------------------------------------------------------------------
 
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Create
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param mixed $start
-    // @param array $settings
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Creates the pagination.
+     * 
+     * @param mixed $start
+     * @param array $settings = []
+     * 
+     * @return string
+     */
     public function create($start = NULL, Array $settings = []) : String
     {
         $settings = array_merge($this->config, $this->settings, $settings);
@@ -402,7 +370,7 @@ class Pagination implements PaginationInterface
 
         if( $this->countLinks > $perPage )
         {
-            // LINKS -------------------------------------------------------------------
+            # Links 
             for( $i = 1; $i <= $perPage; $i++ )
             {
                 $page = ($i - 1) * $this->limit;
@@ -420,9 +388,9 @@ class Pagination implements PaginationInterface
 
                 $links .= $this->_link($page, $currentLink, $i);
             }
-            // LINKS -------------------------------------------------------------------
+            # Links
 
-            // PREV TAG ---------------------------------------------------------------
+            # Prev tag
             if( $startPage != 0 )
             {
                 $classPrev  = $this->_class('prev');
@@ -436,9 +404,9 @@ class Pagination implements PaginationInterface
             {
                 $first = '';
             }
-            // PREV TAG ---------------------------------------------------------------
+            # Prev tag
 
-            // NEXT TAG ---------------------------------------------------------------
+            # Next tag
             if( $startPage != $page )
             {
                 $classNext = $this->_class('next');
@@ -452,7 +420,7 @@ class Pagination implements PaginationInterface
             {
                 $last = '';
             }
-            // NEXT TAG ---------------------------------------------------------------
+            # Next tag
 
             if( $this->totalRows > $this->limit )
             {
@@ -478,36 +446,28 @@ class Pagination implements PaginationInterface
             $nextTagStyle     = $this->_style('next');
             $currentLinkStyle = $this->_style('current');
             $prevTagStyle     = $this->_style('prev');
-            // -------------------------------------------------------------------------
-
-            // -------------------------------------------------------------------------
-            // LAST TAG
-            // -------------------------------------------------------------------------
+        
+            # Last tag
             $mod       = ( $this->totalRows % $this->limit );
             $outNumber = ( $mod == 0 ? $this->limit : 0 );
 
             $pageRowNumber     = ($this->totalRows - ($this->totalRows % $this->limit) ) - $outNumber;
             $lastTagStyleClass = $lastTagClass . $lastTagStyle;
             $lastTag           = $this->_link($pageRowNumber, $lastTagStyleClass, $this->lastTag);
-            // -------------------------------------------------------------------------
+            # Last tag
 
-            // -------------------------------------------------------------------------
-            // FIRST TAG
-            // -------------------------------------------------------------------------
+            # First tag
             $firstTagStyleClass = $firstTagClass.$firstTagStyle;
-
             $firstTag = $this->_link(0, $firstTagStyleClass, $this->firstTag);
-            // -------------------------------------------------------------------------
+            # First tag
 
             if( $startPage > 0 )
             {
-                // -------------------------------------------------------------------------
-                // PREV TAG
-                // -------------------------------------------------------------------------
+                # Prev tag
                 $pageRowNumber     = $startPage    - $this->limit;
                 $prevTagStyleClass = $prevTagClass . $prevTagStyle;
                 $first             = $this->_link($pageRowNumber, $prevTagStyleClass, $this->prevTag);
-                // -------------------------------------------------------------------------
+                # Prev tag
             }
             else
             {
@@ -525,13 +485,11 @@ class Pagination implements PaginationInterface
 
             if( $startPage < $this->totalRows - $this->limit )
             {
-                // -------------------------------------------------------------------------
-                // NEXT TAG
-                // -------------------------------------------------------------------------
+                # Next tag
                 $pageRowNumber     = $startPage    + $this->limit;
                 $nextTagStyleClass = $nextTagClass . $nextTagStyle;
                 $last              = $this->_link($pageRowNumber, $nextTagStyleClass, $this->nextTag);
-                // -------------------------------------------------------------------------
+                # Next tag
             }
             else
             {
@@ -570,7 +528,6 @@ class Pagination implements PaginationInterface
                 }
 
                 $links .= $this->_link($page, $currentLink, $i);
-                // -------------------------------------------------------------------------
             }
 
             if( $this->totalRows > $this->limit )
@@ -584,17 +541,28 @@ class Pagination implements PaginationInterface
         }
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Proctected
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * protected link
+     * 
+     * @param string $var
+     * @param string $fix
+     * @param string $val
+     * 
+     * @return string
+     */
     protected function _link($var, $fix, $val)
     {
         return '<a href="'.$this->_uriGetControl($var).'"'.$this->_ajax($var).$fix.'>'.$val.'</a>';
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Proctected
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * protected style link
+     * 
+     * @param string $var
+     * @param string $type = 'style'
+     * 
+     * @return string
+     */
     protected function _styleLink($var, $type = 'style')
     {
         $l = ( ! empty($this->{$type}[$var]) ) ? $this->{$type}[$var].' ' : '';
@@ -604,33 +572,52 @@ class Pagination implements PaginationInterface
         return ! empty($l) ? ' '.$type.'="'.trim($l).'"' : '';
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Proctected
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * protected class  link
+     * 
+     * @param string $var
+     * 
+     * @return string
+     */
     protected function _classLink($var)
     {
         return $this->_styleLink($var, 'class');
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Proctected
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * protected class
+     * 
+     * @param string $var
+     * @param string $type = 'class'
+     * 
+     * @return string
+     */
     protected function _class($var, $type = 'class')
     {
-        return ( $status = trim(( $type === 'class' ? $this->lc : $this->ls) . $this->{$type}[$var]) ) ? ' '.$type.'="'.$status.'" ' : '';
+        return ( $status = trim(( $type === 'class' ? $this->lc : $this->ls) . $this->{$type}[$var]) ) 
+               ? ' '.$type.'="'.$status.'" ' 
+               : '';
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Proctected
-    //--------------------------------------------------------------------------------------------------------
+   /**
+     * protected style
+     * 
+     * @param string $var
+     * 
+     * @return string
+     */
     protected function _style($var)
     {
         return $this->_class($var, 'style');
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Proctected
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * protected ajax
+     * 
+     * @param string $value
+     * 
+     * @return mixed
+     */
     protected function _ajax($value)
     {
         if( $this->type === 'ajax' )

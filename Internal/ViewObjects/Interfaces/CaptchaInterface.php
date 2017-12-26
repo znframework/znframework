@@ -1,183 +1,143 @@
 <?php namespace ZN\ViewObjects;
+/**
+ * ZN PHP Web Framework
+ * 
+ * "Simplicity is the ultimate sophistication." ~ Da Vinci
+ * 
+ * @package ZN
+ * @license MIT [http://opensource.org/licenses/MIT]
+ * @author  Ozan UYKUN [ozan@znframework.com]
+ */
 
 interface CaptchaInterface
 {
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Author     : Ozan UYKUN <ozanbote@gmail.com>
-    // Site       : www.znframework.com
-    // License    : The MIT License
-    // Copyright  : (c) 2012-2016, znframework.com
-    //
-    //--------------------------------------------------------------------------------------------------------
-
-    //--------------------------------------------------------------------------------------------------------
-    // Size
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Güvenlik kodu nesnesinin genişlikk ve yükseklik değeri belirtilir.
-    //
-    // @param  numeric $width
-    // @param  numeric $height
-    // @return this
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Adjust the size of the captcha.
+     * 
+     * @param int $width
+     * @param int $height
+     * 
+     * @return Captcha
+     */
     public function size(Int $width, Int $height) : Captcha;
 
-    //--------------------------------------------------------------------------------------------------------
-    // Length
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Güvenlik kodu nesnesinin kaç karakterden olacağı belirtilir.
-    //
-    // @param  numeric $param
-    // @return this
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Sets the character width.
+     * 
+     * @param int $param
+     * 
+     * @return Captcha
+     */
     public function length(Int $param) : Captcha;
 
-    //--------------------------------------------------------------------------------------------------------
-    // Angle
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  numeric $param
-    // @return this
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Sets the character angle.
+     * 
+     * @param int $param
+     * 
+     * @return Captcha
+     */
     public function angle(Float $param) : Captcha;
 
-    //--------------------------------------------------------------------------------------------------------
-    // TTF
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  array $fonts
-    // @return this
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Add ttf fonts.
+     * 
+     * @param array $fonts
+     * 
+     * @return Captcha
+     */
     public function ttf(Array $fonts) : Captcha;
 
-    //--------------------------------------------------------------------------------------------------------
-    // Border Color
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Güvenlik kodu nesnesinin çerçevesinin olup olmayacağı olacaksa da hangi.
-    // hangi renkte olacağı belirtilir.
-    //
-    // @param  string  $color
-    // @return this
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Sets the border color.
+     * 
+     * @param string $color = NULL
+     * 
+     * @return Captcha
+     */
     public function borderColor(String $color = NULL) : Captcha;
 
-    //--------------------------------------------------------------------------------------------------------
-    // Bg Color
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Güvenlik kodu arkaplan rengini ayarlamak için kullanılır.
-    //
-    // @param  string $color
-    // @return this
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Sets the background color.
+     * 
+     * @param string $color = NULL
+     * 
+     * @return Captcha
+     */
     public function bgColor(String $color) : Captcha;
 
-    //--------------------------------------------------------------------------------------------------------
-    // Background Color
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Güvenlik kodu arkaplan resimleri ayarlamak için kullanılır.
-    //
-    // @param  mixed $image
-    // @return this
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Add background pictures.
+     * 
+     * @param array $image
+     * 
+     * @return Captcha
+     */
     public function bgImage(Array $image) : Captcha;
 
-    //--------------------------------------------------------------------------------------------------------
-    // Text Size
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Güvenlik kodu metninin boyutunu ayarlamak içindir.
-    //
-    // @param  numeric $size
-    // @return this
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Sets the text size.
+     * 
+     * @param int $size
+     * 
+     * @return Captcha
+     */
     public function textSize(Int $size) : Captcha;
 
-    //--------------------------------------------------------------------------------------------------------
-    // Text Coordinate
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Güvenlik kodu metninin boyutunu ayarlamak içindir.
-    //
-    // @param  numeric $x
-    // @param  numeric $y
-    // @return this
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Sets the text coordiante.
+     * 
+     * @param int $x
+     * @param int $y
+     * 
+     * @return Captcha
+     */
     public function textCoordinate(Int $x, Int $y) : Captcha;
 
-    //--------------------------------------------------------------------------------------------------------
-    // Text Color
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Güvenlik kodu metninin rengini ayarlamak için kullanılır.
-    //
-    // @param  string $color
-    // @return this
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Sets the text color.
+     * 
+     * @param string $color
+     * 
+     * @return Captcha
+     */
     public function textColor(String $color) : Captcha;
 
-    //--------------------------------------------------------------------------------------------------------
-    // Grid Color
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Güvenlik kodu nesnesinin ızgarasının olup olmayacağı olacaksa da hangi.
-    // hangi renkte olacağı belirtilir.
-    //
-    // @param  string  $color
-    // @return this
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Sets the grid color.
+     * 
+     * @param string $color
+     * 
+     * @return Captcha
+     */
     public function gridColor(String $color = NULL) : Captcha;
 
-    //--------------------------------------------------------------------------------------------------------
-    // Grid Space
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Güvenlik kodu ızgara boşluklarını ayarlamak için kullanılır.
-    //
-    // @param  numeric $x
-    // @param  numeric $y
-    // @return this
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Sets the grid space.
+     * 
+     * @param int $x = 0
+     * @param int $y = 0
+     * 
+     * @return Captcha
+     */
     public function gridSpace(Int $x = 0, Int $y = 0) : Captcha;
 
-    //--------------------------------------------------------------------------------------------------------
-    // Create
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Güvenlik kodu ızgara boşluklarını ayarlamak için kullanılır.
-    //
-    // @param  boolean $img
-    // @param  array   $configs
-    // @return midex
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Completes the captcha creation process.
+     * 
+     * @param bool  $img     = false
+     * @param array $configs = []
+     * 
+     * @return string
+     */
     public function create(Bool $img = false, Array $configs = []) : String;
 
-    //--------------------------------------------------------------------------------------------------------
-    // Get Code
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Daha önce oluşturulan güvenlik uygulamasının kod bilgini verir.
-    //
-    // @param  void
-    // @return string
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Returns the current captcha code.
+     * 
+     * @param void
+     * 
+     * @return string
+     */
     public function getCode() : String;
 }

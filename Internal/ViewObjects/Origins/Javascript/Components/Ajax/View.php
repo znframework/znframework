@@ -1,11 +1,13 @@
 <?php
-//--------------------------------------------------------------------------------------------------------
-// Ajax -> 5.4.2
-//--------------------------------------------------------------------------------------------------------
-//
-//  Standart Ajax
-//
-//--------------------------------------------------------------------------------------------------------
+/**
+ * ZN PHP Web Framework
+ * 
+ * "Simplicity is the ultimate sophistication." ~ Da Vinci
+ * 
+ * @package ZN
+ * @license MIT [http://opensource.org/licenses/MIT]
+ * @author  Ozan UYKUN [ozan@znframework.com]
+ */
 
 $method   = strtoupper($properties['method'] ?? 'post');
 $url      = $properties['url']               ?? NULL;
