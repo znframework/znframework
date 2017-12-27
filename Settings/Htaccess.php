@@ -19,14 +19,11 @@
     |
     | Predefined HTTP header submissions are defined in the system.
     |
-    | status: If this value is true, the changes are processed in 
-    |         the .htaccess file.
-    |
     */
 
     'headers' =>
     [
-        'status' => false,
+        'Header set Connection keep-alive'
     ],
 
     /*
@@ -43,7 +40,7 @@
 
     'ini' =>
     [
-        'status' => false,
+        'status' => true,
     ],
 
     /*
@@ -82,15 +79,15 @@
 
     'cache' =>
     [
-        'obGzhandler' => false,
+        'obGzhandler' => true,
         'modGzip'     =>
         [
-            'status'                => false,
+            'status'                => true,
             'includedFileExtension' => 'html?|txt|css|js|php|pl'
         ],
         'modExpires' =>
         [
-            'status'       => false,
+            'status'       => true,
             'defaultTime'  => 1, # 1 second
             'fileTypeTime' =>
             [
@@ -106,7 +103,7 @@
         ],
         'modHeaders' =>
         [
-            'status'                  => false,
+            'status'                  => true,
             'fileExtensionTimeAccess' =>
             [
                 'ico|pdf|flv|jpg|jpeg|png|gif|swf' => ['time' => 2592000, 'access' => 'public'],

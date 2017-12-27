@@ -75,7 +75,7 @@ class Kernel
         layer('MiddleTop');
         
         # Enables defined ini configurations.
-        if( $iniset = \Config::ini() )
+        if( $iniset = \Config::get('Ini') )
         {
             \Config::iniset($iniset);
         } 

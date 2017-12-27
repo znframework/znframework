@@ -127,7 +127,7 @@ class Htaccess
 
             $htaccess .= '<ifModule mod_headers.c>' . EOL;
             $htaccess .= rtrim($fmatch, EOL) . EOL;
-            $htaccess .= '</ifModule>' . EOL;
+            $htaccess .= '</ifModule>' . EOL . EOL;
         }
     }
 
@@ -141,23 +141,18 @@ class Htaccess
      */
     protected static function headers(&$htaccess, $config)
     {
-        $status = $config['headers']['status'];
-        
-        if( $status === true )
+        $settings  = $config['headers'];
+        $htaccess .= "<ifModule mod_expires.c>".EOL;
+
+        foreach( $settings as $val )
         {
-            $settings  = Config::headers();
-            $htaccess .= "<ifModule mod_expires.c>".EOL;
-
-            foreach( $settings as $val )
+            if( ! empty($val) )
             {
-                if( ! empty($val) )
-                {
-                    $htaccess .= HT."$val".EOL;
-                }       
-            }
-
-            $htaccess .= "</ifModule>".EOL.EOL;
+                $htaccess .= HT."$val".EOL;
+            }       
         }
+
+        $htaccess .= "</ifModule>".EOL.EOL;
     }
 
     /**
