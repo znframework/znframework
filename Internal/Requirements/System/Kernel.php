@@ -53,10 +53,10 @@ class Kernel
             set_error_handler('ZN\ErrorHandling\Exceptions::table');
         }
 
-        $htaccessConfig = \Config::get('Htaccess');
-
         # Enables the ob_gzhandler method if it is turned on.
-        if( $htaccessConfig['cache']['obGzhandler'] && substr_count(server('acceptEncoding'), 'gzip') )
+        $htaccess = \Config::get('Htaccess');
+
+        if( $htaccess['cache']['obGzhandler'] && substr_count(server('acceptEncoding'), 'gzip') )
         {
             ob_start('ob_gzhandler');
         }
@@ -75,21 +75,21 @@ class Kernel
         layer('MiddleTop');
         
         # Enables defined ini configurations.
-        if( $iniSet = $htaccessConfig['ini']['settings'] )
+        if( $iniset = \Config::ini() )
         {
-            \Config::iniSet($iniSet);
+            \Config::iniset($iniset);
         } 
 
         # The software apache and htaccess allow 
         # the .htaccess file to be rearranged according to the changes 
         # if the file is open for writing.
-        if( \Config::htaccess('createFile') === true )
+        if( $htaccess['createFile'] === true )
         {
-            if( IS::software() === 'apache' ) In::createHtaccessFile();
+            Htaccess::create($htaccess);
         }      
         
         # Enables processing of changes to the robots.txt file if it is open.
-        if( \Config::robots  ('createFile') === true )
+        if( \Config::robots ('createFile') === true )
         {
             In::createRobotsFile();
         }   
@@ -390,7 +390,17 @@ class Kernel
             $view = $subdir;
         }
 
-        return PAGES_DIR . suffix(\Theme::$active) . $view . $fix;
+        $view .= $fix;
+
+        if( ($active = \Theme::$active) !== NULL )
+        {
+            if( is_dir(PAGES_DIR . $active) )
+            {
+                $view = suffix($active) . $view;
+            }
+        }
+
+        return PAGES_DIR . $view;
     }
 
     /**

@@ -566,9 +566,10 @@ class Autoloader
      * 
      * @return void
      */
-    public function defines(String $version)
+    public function defines(String $version, String $dedicate = NULL)
     {
         define('ZN_VERSION', $version);
+        define('ZN_DEDICATE', $dedicate);
         define('REQUIRED_PHP_VERSION', '7.0.0');
         define('DS', DIRECTORY_SEPARATOR);
         define('DIRECTORY_INDEX', 'zeroneed.php');
