@@ -149,7 +149,7 @@ class Masterpage
         $header         = ($doctypes[$docType] ?? '<!DOCTYPE html>') . EOL;
         $htmlAttributes = \Html::attributes($head['attributes']['html'] ?? $masterPageSet['attributes']['html']);
 
-        $header .= '<html xmlns="http://www.w3.org/1999/xhtml"'.$htmlAttributes.'>'.EOL;
+        $header .= '<html'.$htmlAttributes.'>'.EOL;
         $header .= '<head'.\Html::attributes($head['attributes']['head'] ?? $masterPageSet['attributes']['head']).'>'.EOL;
         $header .= $this->_contentCharset($head['content']['charset'] ?? $masterPageSet['content']['charset']);
         $header .= $this->_contentLanguage($head['content']['language'] ?? $masterPageSet['content']['language']);

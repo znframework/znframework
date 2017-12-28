@@ -18,85 +18,69 @@ use ZN\IndividualStructures\Security;
 
 class Validation implements ValidationInterface
 {
-    //--------------------------------------------------------------------------------------------------------
-    // Options
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var array
-    //
-    //--------------------------------------------------------------------------------------------------------
+    use ValidationPropertiesTrait;
+
+    /**
+     * Keeps options.
+     * 
+     * @var array
+     */
     protected $options   = ['post', 'get', 'request', 'data'];
 
-    //--------------------------------------------------------------------------------------------------------
-    // Errors
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var array
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Keeps errors
+     * 
+     * @var array
+     */
     protected $errors   = [];
 
-    //--------------------------------------------------------------------------------------------------------
-    // Error
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var array
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Keeps error
+     * 
+     * @var array
+     */
     protected $error    = [];
 
-    //--------------------------------------------------------------------------------------------------------
-    // Nval
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var array
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Keeps nval
+     * 
+     * @var array
+     */
     protected $nval     = [];
 
-    //--------------------------------------------------------------------------------------------------------
-    // Messages
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var array
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Keeps messages
+     * 
+     * @var array
+     */
     protected $messages = [];
 
-    //--------------------------------------------------------------------------------------------------------
-    // Index
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var int
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Keeps index
+     * 
+     * @var int
+     */
     protected $index = 0;
 
+    /**
+     * @var string
+     */
     protected $config;
     protected $name;
     protected $viewName;
     protected $edit;
     protected $method;
 
-    //--------------------------------------------------------------------------------------------------------
-    // Validation Properties Trait
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @methdos
-    //
-    //--------------------------------------------------------------------------------------------------------
-    use ValidationPropertiesTrait;
-
-    //--------------------------------------------------------------------------------------------------------
-    // Rules
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $name
-    // @param array  $config
-    // @param string $viewName
-    // @param string $met
-    //
-    //--------------------------------------------------------------------------------------------------------
+   /**
+     * Defines rules for control of the grant.
+     * 
+     * @param string $name
+     * @param array  $config   = []
+     * @param string $viewName = ''
+     * @param string $met      = 'post' - options[post|get]
+     * 
+     * @return void
+     */
     public function rules(String $name, Array $config = [], $viewName = '', String $met = 'post')
     {
         if( ! in_array($met, $this->options) )
@@ -173,13 +157,13 @@ class Validation implements ValidationInterface
         $this->_defaultVariables();
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Check -> 5.4.2
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $submit = NULL;
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * It checks the data.
+     * 
+     * @param string $submit = NULL
+     * 
+     * @return bool
+     */
     public function check(String $submit = NULL) : Bool
     {
         $method = \Session::FormValidationMethod() ?: 'post';
@@ -211,13 +195,13 @@ class Validation implements ValidationInterface
         return ! (Bool) $this->error('string');
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Nval
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $name
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * It keeps the last value of the passed data from the filter.
+     * 
+     * @param string $name
+     * 
+     * @return string
+     */
     public function nval(String $name)
     {
         if( isset($this->nval[$name]) )
@@ -230,13 +214,11 @@ class Validation implements ValidationInterface
         }
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Error
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $name
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Get error
+     * 
+     * @param string $name = 'array' - options[array|string]
+     */
     public function error(String $name = 'array')
     {
         if( $name === "string" || $name === "array" || $name === "echo" )
@@ -283,14 +265,12 @@ class Validation implements ValidationInterface
         }
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Error
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $name
-    // @param string $met
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Get input post back.
+     * 
+     * @param string $name
+     * @param string $met = 'post' - options[post|get]
+     */
     public function postBack(String $name, String $met = 'post')
     {
         $method = $this->_methodType($name, $met);
@@ -303,13 +283,13 @@ class Validation implements ValidationInterface
         return $method;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Pattern
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * protected pattern
+     * 
+     * @param void
+     * 
+     * @return void
+     */
     protected function _pattern()
     {
         if( isset($this->config['pattern']) )
@@ -321,13 +301,13 @@ class Validation implements ValidationInterface
         }
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Minmax
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $type = 'minchar'
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * protected minmax
+     * 
+     * @param string $type = 'minchar'
+     * 
+     * @return void
+     */
     protected function _minmax($type = 'minchar')
     {
         if( isset($this->config[$type]) )
@@ -339,13 +319,13 @@ class Validation implements ValidationInterface
         }
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Between
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $type = 'between'
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * protected between
+     * 
+     * @param string $type = 'between'
+     * 
+     * @return void
+     */
     protected function _between($type = 'between')
     {
         if( $between = ($this->config[$type] ?? NULL) )
@@ -357,13 +337,13 @@ class Validation implements ValidationInterface
         }
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Old Password
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * protected phone
+     * 
+     * @param void
+     * 
+     * @return void
+     */
     protected function _phone()
     {
         if( isset($config['phone']) )
@@ -375,13 +355,13 @@ class Validation implements ValidationInterface
         }
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Old Password
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * protected old password
+     * 
+     * @param void
+     * 
+     * @return void
+     */
     protected function _oldPassword()
     {
         if( isset($config['oldPassword']) )
@@ -396,13 +376,13 @@ class Validation implements ValidationInterface
         }
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Captcha
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * protected captcha
+     * 
+     * @param void
+     * 
+     * @return void
+     */
     protected function _captcha()
     {
         if( in_array('captcha', $this->config) )
@@ -414,13 +394,13 @@ class Validation implements ValidationInterface
         }
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Required
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * protected required
+     * 
+     * @param void
+     * 
+     * @return void
+     */
     protected function _required()
     {
         if( in_array('required', $this->config) )
@@ -432,13 +412,13 @@ class Validation implements ValidationInterface
         }
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Single Type
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param mixed  $type
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * protected single type
+     * 
+     * @param mixed $type
+     * 
+     * @return void
+     */
     protected function _singleType($type)
     {
         $typeName = $typeMsg = $type;
@@ -460,17 +440,13 @@ class Validation implements ValidationInterface
         }
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Single In Array
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array  $config
-    // @param string $edit
-    // @param string $name
-    // @param mixed  $viewName
-    // @param mixed  $type
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * protected single in array
+     * 
+     * @param mixed $type
+     * 
+     * @return void
+     */
     protected function _singleInArray($type)
     {
         $typeName = $typeMsg = $type;
@@ -490,15 +466,15 @@ class Validation implements ValidationInterface
         }
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Messages
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $type
-    // @param string $name
-    // @param string $viewName
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * protected messages
+     * 
+     * @param string $type
+     * @param string $name
+     * @param string $viewName
+     * 
+     * @return void
+     */
     protected function _messages($type, $name, $viewName)
     {
         $message = Lang::select('ViewObjects', 'validation:'.$type, $viewName);
@@ -507,13 +483,13 @@ class Validation implements ValidationInterface
         $this->error[$name]           = $message;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Default Variables
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Default variables
+     * 
+     * @param void
+     * 
+     * @return void
+     */
     protected function _defaultVariables()
     {
         $this->messages = [];
@@ -525,14 +501,14 @@ class Validation implements ValidationInterface
         $this->method   = NULL;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Method Type
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $name
-    // @param string $met
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * protected method type
+     * 
+     * @param string $name 
+     * @param string $met
+     * 
+     * @return mixed
+     */
     protected function _methodType($name, $met)
     {
         if( $met === "data" )
@@ -543,15 +519,15 @@ class Validation implements ValidationInterface
         return Method::$met($name);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Method Nval
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $name
-    // @param string $val
-    // @param string $met
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * protected method new value
+     * 
+     * @param string $name 
+     * @param string $val
+     * @param string $met
+     * 
+     * @return mixed
+     */
     protected function _methodNval($name, $val, $met)
     {
         if( $met === "data" )
@@ -562,15 +538,16 @@ class Validation implements ValidationInterface
         return Method::$met($name, $val);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Multiple Rules
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $name
-    // @param string $val
-    // @param string $met
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * protected multiple rules
+     * 
+     * @param string $name 
+     * @param array  $config   = []
+     * @param string $viewName = ''
+     * @param string $set      = 'post' - options[post|get]
+     * 
+     * @return void
+     */
     protected function _multipleRules(String $name, Array $config = [], $viewName = '', String $met = 'post')
     {
         $postNames = [];

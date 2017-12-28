@@ -14,55 +14,60 @@ use ZN\IndividualStructures\Buffer;
 
 class TemplateWizard
 {
-    //--------------------------------------------------------------------------------------------------------
-    // Theme Integration -> 5.4.6
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $string
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Theme integration.
+     * 
+     * @param string $themeName
+     * @param string &$data
+     * 
+     * @return void
+     */
     public static function themeIntegration(String $themeName, String &$data)
     {
-        $data = preg_replace_callback('/<(link|img|script|div)\s(.*?)(href|src)\=\"(.*?)\"(.*?)\>/i', function($selector) use ($themeName)
-        {
-            $orig = $selector[0];
-            $path = $selector[4];
-
-            if( ! \IS::url($path) && ! is_file($path) )
+        $data = preg_replace_callback
+        (
+            '/<(link|img|script|div)\s(.*?)(href|src)\=\"(.*?)\"(.*?)\>/i', 
+            function($selector) use ($themeName)
             {
-                $suffix = suffix($themeName) . $path;
+                $orig = $selector[0];
+                $path = $selector[4];
 
-                if( is_file(THEMES_DIR . $suffix) )
+                if( ! \IS::url($path) && ! is_file($path) )
                 {
-                    return str_replace($path, THEMES_URL . $suffix, $orig);
-                }
-            }     
+                    $suffix = suffix($themeName) . $path;
 
-            return $selector[0];
-            
-        }, $data);
+                    if( is_file(THEMES_DIR . $suffix) )
+                    {
+                        return str_replace($path, THEMES_URL . $suffix, $orig);
+                    }
+                }     
+
+                return $selector[0];
+                
+            }, $data
+        );
     }
 
-	//--------------------------------------------------------------------------------------------------------
-    // Isolation -> 5.3.15
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $string
-    //
-    //--------------------------------------------------------------------------------------------------------
+	/**
+     * PHP tag isolation
+     * 
+     * @param string $data = ''
+     * 
+     * @return void
+     */
 	public static function isolation(String $data = '')
 	{
 		File\Forge::replace($data, ['<?php', '<?', '?>'], ['{[', '{[', ']}']);
 	}
 
-    //--------------------------------------------------------------------------------------------------------
-    // Data -> 5.3.15|5.4.6[edited]
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $string
-    // @param array  $data
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Get data.
+     * 
+     * @param string $string
+     * @param array  $data = []
+     * 
+     * @return string
+     */
     public static function data(String $string, Array $data = []) : String
     {
         self::_textControl($string); // 5.4.6[added]
@@ -84,13 +89,13 @@ class TemplateWizard
         return Buffer\Callback::code(self::replace($pattern, $string), $data);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Text Control -> 5.4.6[added]
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * protected text control.
+     * 
+     * @param string &$string
+     * 
+     * @return void
+     */
     protected static function _textControl(&$string)
     {
         if( self::config()['html'] ?? true )
@@ -114,37 +119,38 @@ class TemplateWizard
         } 
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Replace
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * protected replace.
+     * 
+     * @param array  $pattern
+     * @param string $string
+     * 
+     * @return string
+     */
     protected static function replace($pattern, $string)
     {
         return preg_replace(array_keys($pattern), array_values($pattern), $string);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Config
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * protected config.
+     * 
+     * @para void
+     * 
+     * @return array
+     */
     protected static function config()
     {
         return \Config::get('ViewObjects', 'wizard');
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Required
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $htmlRegexChar
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * protected required
+     * 
+     * @param void
+     * 
+     * @return array
+     */
     protected static function _required()
     {
         return
@@ -154,13 +160,13 @@ class TemplateWizard
         ];
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Keywords -> 5.4.4|5.4.7[edited]
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $htmlRegexChar
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * protected keywords
+     * 
+     * @param void
+     * 
+     * @return array
+     */
     protected static function _keywords()
     {
         $array = [];
@@ -182,13 +188,13 @@ class TemplateWizard
         return $array;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Printable
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $htmlRegexChar
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * protected printable
+     * 
+     * @param void
+     * 
+     * @return array
+     */
     protected static function _printable()
     {
         $array = [];
@@ -220,13 +226,13 @@ class TemplateWizard
         return $array;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Functions -> 5.4.7[edited]
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $htmlRegexChar
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * protected functions
+     * 
+     * @param void
+     * 
+     * @return array
+     */
     protected static function _functions()
     {
         $array = [];
@@ -244,13 +250,13 @@ class TemplateWizard
         return $array;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Comments
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $htmlRegexChar
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * protected comments
+     * 
+     * @param void
+     * 
+     * @return array
+     */
     protected static function _comments()
     {
         $array = [];
@@ -267,13 +273,13 @@ class TemplateWizard
         return $array;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected JS Data -> 5.2.75
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $htmlRegexChar
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * protected javascript data
+     * 
+     * @param void
+     * 
+     * @return array
+     */
     protected static function _jsdata()
     {
         $array = [];
@@ -289,13 +295,13 @@ class TemplateWizard
         return $array;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Tags -> 5.3.36[edited]
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $htmlRegexChar
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * protected tags
+     * 
+     * @param void
+     * 
+     * @return array
+     */
     protected static function _tags()
     {
         $array = [];
@@ -313,13 +319,13 @@ class TemplateWizard
         return $array;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Html
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $htmlRegexChar
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * protected html
+     * 
+     * @param void
+     * 
+     * @return array
+     */
     protected static function _html()
     {
         $array             = [];
@@ -343,13 +349,13 @@ class TemplateWizard
         return $array;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Symbols Header
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $htmlRegexChar
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * protected symbols header
+     * 
+     * @param void
+     * 
+     * @return array
+     */
     protected static function _symbolsHeader()
     {
         return
@@ -360,13 +366,13 @@ class TemplateWizard
         ];
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Symbols Footer
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $htmlRegexChar
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * protected symbols footer
+     * 
+     * @param void
+     * 
+     * @return array
+     */
     protected static function _symbolsFooter()
     {
         return

@@ -18,51 +18,40 @@ use ZN\ImageProcessing;
 
 class Captcha implements CaptchaInterface
 {
-    //--------------------------------------------------------------------------------------------------------
-    // Sets
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Güvenlik kodu nesnesine ait ayarlar
-    //
-    // @var  array
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Keeps settings.
+     * 
+     * @var array
+     */
     protected $sets = [];
 
-    //--------------------------------------------------------------------------------------------------------
-    // Sets
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Güvenlik kodu nesnesine ait yol bilgisi
-    //
-    // @var  string
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Get path.
+     * 
+     * @var string
+     */
     protected $path = FILES_DIR;
 
-    //--------------------------------------------------------------------------------------------------------
-    // Constructor
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Magic constructor
+     * 
+     * @param void
+     * 
+     * @return void
+     */
     public function __construct()
     {
         $this->_clean();
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Size
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Güvenlik kodu nesnesinin genişlikk ve yükseklik değeri belirtilir.
-    //
-    // @param  numeric $width
-    // @param  numeric $height
-    // @return this
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Adjust the size of the captcha.
+     * 
+     * @param int $width
+     * @param int $height
+     * 
+     * @return Captcha
+     */
     public function size(Int $width, Int $height) : Captcha
     {
         $this->sets['size']['width']  = $width;
@@ -71,16 +60,13 @@ class Captcha implements CaptchaInterface
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Length
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Güvenlik kodu nesnesinin kaç karakterden olacağı belirtilir.
-    //
-    // @param  numeric $param
-    // @return this
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Sets the character width.
+     * 
+     * @param int $param
+     * 
+     * @return Captcha
+     */
     public function length(Int $param) : Captcha
     {
         $this->sets['text']['length'] = $param;
@@ -88,14 +74,13 @@ class Captcha implements CaptchaInterface
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Angle
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  numeric $param
-    // @return this
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Sets the character angle.
+     * 
+     * @param int $param
+     * 
+     * @return Captcha
+     */
     public function angle(Float $param) : Captcha
     {
         $this->sets['text']['angle'] = $param;
@@ -103,14 +88,13 @@ class Captcha implements CaptchaInterface
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // TTF
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  array $fonts
-    // @return this
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Add ttf fonts.
+     * 
+     * @param array $fonts
+     * 
+     * @return Captcha
+     */
     public function ttf(Array $fonts) : Captcha
     {
         $this->sets['text']['ttf'] = $fonts;
@@ -118,17 +102,13 @@ class Captcha implements CaptchaInterface
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Border Color
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Güvenlik kodu nesnesinin çerçevesinin olup olmayacağı olacaksa da hangi.
-    // hangi renkte olacağı belirtilir.
-    //
-    // @param  string  $color
-    // @return this
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Sets the border color.
+     * 
+     * @param string $color = NULL
+     * 
+     * @return Captcha
+     */
     public function borderColor(String $color = NULL) : Captcha
     {
         $this->sets['border']['status'] = true;
@@ -141,16 +121,13 @@ class Captcha implements CaptchaInterface
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Bg Color
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Güvenlik kodu arkaplan rengini ayarlamak için kullanılır.
-    //
-    // @param  string $color
-    // @return this
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Sets the background color.
+     * 
+     * @param string $color = NULL
+     * 
+     * @return Captcha
+     */
     public function bgColor(String $color) : Captcha
     {
         $this->sets['background']['color'] = $this->_convertColor($color);
@@ -158,16 +135,13 @@ class Captcha implements CaptchaInterface
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Background Color
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Güvenlik kodu arkaplan resimleri ayarlamak için kullanılır.
-    //
-    // @param  mixed $image
-    // @return this
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Add background pictures.
+     * 
+     * @param array $image
+     * 
+     * @return Captcha
+     */
     public function bgImage(Array $image) : Captcha
     {
         $this->sets['background']['image'] = $image;
@@ -175,16 +149,13 @@ class Captcha implements CaptchaInterface
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Text Size
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Güvenlik kodu metninin boyutunu ayarlamak içindir.
-    //
-    // @param  numeric $size
-    // @return this
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Sets the text size.
+     * 
+     * @param int $size
+     * 
+     * @return Captcha
+     */
     public function textSize(Int $size) : Captcha
     {
         $this->sets['text']['size'] = $size;
@@ -192,17 +163,14 @@ class Captcha implements CaptchaInterface
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Text Coordinate
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Güvenlik kodu metninin boyutunu ayarlamak içindir.
-    //
-    // @param  numeric $x
-    // @param  numeric $y
-    // @return this
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Sets the text coordiante.
+     * 
+     * @param int $x
+     * @param int $y
+     * 
+     * @return Captcha
+     */
     public function textCoordinate(Int $x = 0, Int $y = 0) : Captcha
     {
         $this->sets['text']['x'] = $x;
@@ -211,16 +179,13 @@ class Captcha implements CaptchaInterface
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Text Color
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Güvenlik kodu metninin rengini ayarlamak için kullanılır.
-    //
-    // @param  string $color
-    // @return this
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Sets the text color.
+     * 
+     * @param string $color
+     * 
+     * @return Captcha
+     */
     public function textColor(String $color) : Captcha
     {
         $this->sets['text']['color'] = $this->_convertColor($color);
@@ -228,17 +193,13 @@ class Captcha implements CaptchaInterface
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Grid Color
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Güvenlik kodu nesnesinin ızgarasının olup olmayacağı olacaksa da hangi.
-    // hangi renkte olacağı belirtilir.
-    //
-    // @param  string  $color
-    // @return this
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Sets the grid color.
+     * 
+     * @param string $color
+     * 
+     * @return Captcha
+     */
     public function gridColor(String $color = NULL) : Captcha
     {
         $this->sets['grid']['status'] = true;
@@ -251,17 +212,14 @@ class Captcha implements CaptchaInterface
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Grid Space
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Güvenlik kodu ızgara boşluklarını ayarlamak için kullanılır.
-    //
-    // @param  numeric $x
-    // @param  numeric $y
-    // @return this
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Sets the grid space.
+     * 
+     * @param int $x = 0
+     * @param int $y = 0
+     * 
+     * @return Captcha
+     */
     public function gridSpace(Int $x = 0, Int $y = 0) : Captcha
     {
         if( ! empty($x) )
@@ -277,17 +235,14 @@ class Captcha implements CaptchaInterface
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Create
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Güvenlik kodu ızgara boşluklarını ayarlamak için kullanılır.
-    //
-    // @param  boolean $img
-    // @param  array   $configs
-    // @return midex
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Completes the captcha creation process.
+     * 
+     * @param bool  $img     = false
+     * @param array $configs = []
+     * 
+     * @return string
+     */
     public function create(Bool $img = false, Array $configs = []) : String
     {
         $configs = array_merge(\Config::viewObjects('captcha'), $this->sets, $configs);
@@ -329,28 +284,16 @@ class Captcha implements CaptchaInterface
             $gridColorC       = $set['grid']['color']       ?? '240|240|240';
             $backgroundImageC = $set['background']['image'] ?? [];
 
-            // 0-255 arasında değer alacak renk kodları için
-            // 0|20|155 gibi bir kullanım için aşağıda
-            // explode ile ayırma işlemleri yapılmaktadır.
-
-            // SET FONT COLOR
             $setFontColor   = explode('|', $textColorC);
-
-            // SET BG COLOR
             $setBgColor     = explode('|', $backgroundColorC);
-
-            // SET BORDER COLOR
             $setBorderColor = explode('|', $bordercolorC);
-
-            // SET GRID COLOR
             $setGridColor   = explode('|', $gridColorC);
-
 
             $file       = imagecreatetruecolor($sizeWidthC, $sizeHeightC);
             $fontColor  = imagecolorallocate($file, $setFontColor[0], $setFontColor[1], $setFontColor[2]);
             $color      = imagecolorallocate($file, $setBgColor[0], $setBgColor[1], $setBgColor[2]);
 
-            // ARKAPLAN RESMI--------------------------------------------------------------------------------------
+            # Background Image
             if( ! empty($backgroundImageC) )
             {
                 if( is_array($backgroundImageC) )
@@ -374,10 +317,8 @@ class Captcha implements CaptchaInterface
             }
             else
             {
-                // Arkaplan olarak resim belirtilmemiş ise arkaplan rengini ayarlar.
                 imagefill($file, 0, 0, $color);
             }
-            //--------------------------------------------------------------------------------------------------------------------------
 
             if( ! empty($textTTFC) )
             {
@@ -395,7 +336,7 @@ class Captcha implements CaptchaInterface
                 imagestring($file, $textSizeC, $textXC, $textYC, $sessionCaptchaCode, $fontColor);
             }
 
-            // GRID --------------------------------------------------------------------------------------
+            # Grid
             if( $gridStatusC === true )
             {
                 $gridIntervalX  = $sizeWidthC / $gridSpaceXC;
@@ -419,9 +360,8 @@ class Captcha implements CaptchaInterface
                 }
 
             }
-            // ---------------------------------------------------------------------------------------------
 
-            // BORDER --------------------------------------------------------------------------------------
+            # Border
             if( $borderStatusC === true )
             {
                 $borderColor = imagecolorallocate($file, $setBorderColor[0], $setBorderColor[1], $setBorderColor[2]);
@@ -431,7 +371,6 @@ class Captcha implements CaptchaInterface
                 imageline($file, 0, $sizeHeightC - 1, $sizeWidthC, $sizeHeightC - 1, $borderColor); // ALT
                 imageline($file, 0, 0, 0, $sizeHeightC - 1, $borderColor); // SOL
             }
-            // ---------------------------------------------------------------------------------------------
 
             $captchaPathEncode = md5('captchaPathEncode');
 
@@ -456,28 +395,25 @@ class Captcha implements CaptchaInterface
         }
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Get Code
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Daha önce oluşturulan güvenlik uygulamasının kod bilgini verir.
-    //
-    // @param  void
-    // @return string
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Returns the current captcha code.
+     * 
+     * @param void
+     * 
+     * @return string
+     */
     public function getCode() : String
     {
         return \Session::select(md5('SystemCaptchaCodeData'));
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected fuction Clean
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * protected clean captcha
+     * 
+     * @param void
+     * 
+     * @return void
+     */
     protected function _clean()
     {
         $files   = Folder\FileList::files($this->path, 'png');
@@ -490,25 +426,25 @@ class Captcha implements CaptchaInterface
         }
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected fuction Name
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * protected captcha name
+     * 
+     * @param void
+     * 
+     * @return string
+     */
     protected function _name()
     {
         return 'captcha-' . Encode\RandomPassword::create(16) . '.png';
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Color
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * protected conver color
+     * 
+     * @param string $color
+     * 
+     * @return string
+     */
     protected function _convertColor($color)
     {
         if( $convert = (ImageProcessing\Properties::$colors[$color] ?? NULL) )

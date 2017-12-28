@@ -21,6 +21,42 @@ interface ValidationInterface
     public function check(String $submit = NULL) : Bool;
 
     /**
+     * Defines rules for control of the grant.
+     * 
+     * @param string $name
+     * @param array  $config   = []
+     * @param string $viewName = ''
+     * @param string $met      = 'post' - options[post|get]
+     * 
+     * @return void
+     */
+    public function rules(String $name, Array $config = [], $viewName = '', String $met = 'post');
+
+    /**
+     * It keeps the last value of the passed data from the filter.
+     * 
+     * @param string $name
+     * 
+     * @return string
+     */
+    public function nval(String $name);
+
+    /**
+     * Get error
+     * 
+     * @param string $name = 'array' - options[array|string]
+     */
+    public function error(String $name = 'array');
+
+    /**
+     * Get input post back.
+     * 
+     * @param string $name
+     * @param string $met = 'post' - options[post|get]
+     */
+    public function postBack(String $name, String $met = 'post');
+
+    /**
      * Checks whether the grant is between the specified values.
      * 
      * @param float $min = NULL
@@ -184,40 +220,4 @@ interface ValidationInterface
      * @return Validation
      */
     public function captcha() : Validation;
-
-    /**
-     * Defines rules for control of the grant.
-     * 
-     * @param string $name
-     * @param array  $config   = []
-     * @param string $viewName = ''
-     * @param string $met      = 'post' - options[post|get]
-     * 
-     * @return void
-     */
-    public function rules(String $name, Array $config = [], $viewName = '', String $met = 'post');
-
-    /**
-     * It keeps the last value of the passed data from the filter.
-     * 
-     * @param string $name
-     * 
-     * @return string
-     */
-    public function nval(String $name);
-
-    /**
-     * Get error
-     * 
-     * @param string $name = 'array' - options[array|string]
-     */
-    public function error(String $name = 'array');
-
-    /**
-     * Get input post back.
-     * 
-     * @param string $name
-     * @param string $met = 'post' - options[post|get]
-     */
-    public function postBack(String $name, String $met = 'post');
 }

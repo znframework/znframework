@@ -14,6 +14,13 @@ use ZN\DataTypes\Arrays;
 
 class Form
 {
+    use ViewCommonTrait;
+
+    /**
+     * Keeps form input objects.
+     * 
+     * @var array
+     */
     protected $elements =
     [
         'input' =>
@@ -25,49 +32,34 @@ class Form
         ]
     ];
 
-    //--------------------------------------------------------------------------------------------------------
-    // $settings
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Ayarları tutmak için
-    //
-    // @var array
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Keeps validation rules.
+     * 
+     * @var array
+     */
     protected $validate = [];
 
-    //--------------------------------------------------------------------------------------------------------
-    // $method
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var string
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Keeps method type.
+     * 
+     * @var string
+     */
     protected $method;
 
-    //--------------------------------------------------------------------------------------------------------
-    // Common
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // attributes()
-    // _input()
-    //
-    //--------------------------------------------------------------------------------------------------------
-    use ViewCommonTrait;
-
-    //--------------------------------------------------------------------------------------------------------
-    // Open
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $name
-    // @param array  $attributes
-    //
-    // Usable 3 Parameter For Enctype
-    // 1. multipart     => multipart/form-data
-    // 2. application   => application/x-www-form-urlencoded
-    // 3. text          => text/plain
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Open form tag.
+     * 
+     * @param string $name        = NULL
+     * @param array  $_attributes = []
+     * 
+     * Available Enctype Options
+     * 
+     * 1. multipart   => multipart/form-data
+     * 2. application => application/x-www-form-urlencoded
+     * 3. text        => text/plain
+     * 
+     * @return string
+     */
     public function open(String $name = NULL, Array $_attributes = []) : String
     {
         $name = $this->settings['attr']['name'] ?? $name;
@@ -98,7 +90,7 @@ class Form
         
         $return  = '<form'.$this->attributes($_attributes).'>'.EOL;
 
-        // 5.4.2[added]
+        # 5.4.2[added]
         $return .= $this->_process($name, $this->method);
 
         if( isset($this->settings['token']) )
@@ -111,37 +103,37 @@ class Form
         return $return;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Validate Error Message
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Validate error message.
+     * 
+     * @param void
+     * 
+     * @return string
+     */
     public function validateErrorMessage()
     {
         return \Validation::error('string');
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Validate Error Array
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Validate error array.
+     * 
+     * @param void
+     * 
+     * @return array
+     */
     public function validateErrorArray()
     {
         return \Validation::error('array');
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Open
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Closes form object.
+     * 
+     * @param void
+     * 
+     * @return string
+     */
     public function close() : String
     {
         unset($this->settings['getrow']);
@@ -149,29 +141,29 @@ class Form
         return '</form>'.EOL;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Date Time Local
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $name
-    // @param string $value
-    // @param array  $attributes
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * datetime-local form object.
+     * 
+     * @param string $name        = NULL
+     * @param string $value       = NULL
+     * @param array  $_attributes = []
+     * 
+     * @return string
+     */
     public function datetimeLocal(String $name = NULL, String $value = NULL, Array $_attributes = []) : String
     {
         return $this->_input($name, $value, $_attributes, 'datetime-local');
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Textarea
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $name
-    // @param string $value
-    // @param array  $attributes
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * textarea form object.
+     * 
+     * @param string $name        = NULL
+     * @param string $value       = NULL
+     * @param array  $_attributes = []
+     * 
+     * @return string
+     */
     public function textarea(String $name = NULL, String $value = NULL, Array $_attributes = []) : String
     {
         if( ! isset($this->settings['attr']['name']) && ! empty($name) )
@@ -199,17 +191,17 @@ class Form
         return $this->_perm($perm, $return);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Select
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $name
-    // @param array  $options
-    // @param scalar $selected
-    // @param array  $attributes
-    // @param bool   $multiple
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * select form object.
+     * 
+     * @param string $name        = NULL
+     * @param string $optios      = []
+     * @param mixed  $selected    = NULL
+     * @param array  $_attributes = []
+     * @param bool   $multiple    = false
+     * 
+     * @return string
+     */
     public function select(String $name = NULL, Array $options = [], $selected = NULL, Array $_attributes = [], Bool $multiple = false) : String
     {
         if( ! empty($this->settings['table']) || ! empty($this->settings['query']) )
@@ -287,10 +279,10 @@ class Form
         {
             $this->_postback($_attributes['name'], $selected);
 
-            // 5.4.2[added]
+            # 5.4.2[added]
             $this->_validate($_attributes['name'], $_attributes['name']);
             
-            // 5.4.2[added]|5.4.5|5.4.6[edited]
+            # 5.4.2[added]|5.4.5|5.4.6[edited]
             $selected = $this->_getrow('select', $selected, $_attributes);
         }
 
@@ -333,29 +325,29 @@ class Form
         return $this->_perm($perm, $selectbox);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Multi Select
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $name
-    // @param array  $options
-    // @param scalar $selected
-    // @param array  $attributes
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * select type multiselect form object.
+     * 
+     * @param string $name        = NULL
+     * @param string $optios      = []
+     * @param mixed  $selected    = NULL
+     * @param array  $_attributes = []
+     * 
+     * @return string
+     */
     public function multiselect(String $name = NULL, Array $options = [], $selected = NULL, Array $_attributes = []) : String
     {
         return $this->select($name, $options, $selected, $_attributes, true);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Hidden
-    //----------------------------------------------------------------------------------- ---------------------
-    //
-    // @param string $name
-    // @param string $value
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * hidden form object.
+     * 
+     * @param string $name        = NULL
+     * @param string $value       = NULL
+     * 
+     * @return string
+     */
     public function hidden(String $name = NULL, String $value = NULL) : String
     {
         $name  = $this->settings['attr']['name' ] ?? $name ;
@@ -378,15 +370,15 @@ class Form
         return $hiddens;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // File
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $name
-    // @param bool   $multiple
-    // @param array  $attributes
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * file form object.
+     * 
+     * @param string $name        = NULL
+     * @param string $value       = NULL
+     * @param array  $_attributes = []
+     * 
+     * @return string
+     */
     public function file(String $name = NULL, Bool $multiple = false, Array $_attributes = []) : String
     {
         if( ! empty($this->settings['attr']['multiple']) )
@@ -405,13 +397,14 @@ class Form
         return $this->_input($name, '', $_attributes, 'file');
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Process
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * protected process
+     * 
+     * @param string $name
+     * @param string $method
+     * 
+     * @return mixed
+     */
     protected function _process($name, $method)
     {
         if( $process = ($this->settings['process'] ?? NULL) )
@@ -446,13 +439,13 @@ class Form
         }
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Unset Select Data
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * protected unset select variables
+     * 
+     * @param void
+     * 
+     * @return void
+     */
     protected function _unsetselect()
     {
         unset($this->settings['table']);
@@ -465,13 +458,13 @@ class Form
         unset($this->settings['selectedValue']);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Unset Select Data
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * protected unset open variables
+     * 
+     * @param void
+     * 
+     * @return void
+     */
     protected function _unsetopen()
     {
         unset($this->settings['where']);

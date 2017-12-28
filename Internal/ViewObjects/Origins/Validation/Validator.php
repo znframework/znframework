@@ -13,29 +13,29 @@ use ZN\IndividualStructures\IS;
 
 class Validator implements ValidatorInterface
 {
-    //--------------------------------------------------------------------------------------------------------
-    // Between -> 5.3.5
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param float $value
-    // @param float $min
-    // @param float $max
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Checks whether the grant is between the specified values.
+     * 
+     * @param float $value
+     * @param float $min 
+     * @param float $max
+     * 
+     * @return bool
+     */
     public static function between(Float $value, Float $min, Float $max) : Bool
     {
         return self::betweenBoth($value, $min, $max, 'noboth');
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Between Both -> 5.3.5
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param float $value
-    // @param float $min
-    // @param float $max
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Checks whether the grant is between the specified values.
+     * 
+     * @param float $value
+     * @param float $min 
+     * @param float $max
+     * 
+     * @return bool
+     */
     public static function betweenBoth(Float $value, Float $min, Float $max, $type = 'both') : Bool
     {
         if( $min > $max )
@@ -53,14 +53,14 @@ class Validator implements ValidatorInterface
         return $value > $min && $value < $max;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Phone
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $data
-    // @param string $pattern = NULL
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Checks whether the donation has phone information.
+     * 
+     * @param string $data
+     * @param string $desing = NULL
+     * 
+     * @return bool
+     */
     public static function phone(String $data, String $pattern = NULL) : Bool
     {
         if( $pattern !== NULL)
@@ -76,49 +76,49 @@ class Validator implements ValidatorInterface
         return (bool) preg_match($phoneData, $data);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Numeric
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $data
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * The data should be numeric.
+     * 
+     * @param mixed $data
+     * 
+     * @return bool
+     */
     public static function numeric($data) : Bool
     {
         return is_numeric($data);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Alnum
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $data
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Checks whether the verb is alphabetic.
+     * 
+     * @param string $data
+     * 
+     * @return bool
+     */
     public static function alnum(String $data) : Bool
     {
         return (bool) preg_match('/^\w+$/', $data);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Alpha
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $data
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Controls whether the verb is alphanumeric.
+     * 
+     * @param string $data
+     * 
+     * @return bool
+     */
     public static function alpha(String $data) : Bool
     {
         return ctype_alpha($data);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Identity
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param int $no
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * The citizenship identification number checks.
+     * 
+     * @param string $no 
+     * 
+     * @return bool
+     */
     public static function identity($no) : Bool
     {
         if( ! is_numeric($no) || strlen($no) !== 11  )
@@ -153,63 +153,63 @@ class Validator implements ValidatorInterface
         }
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Email
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $no
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Checks whether the email is an e-mail.
+     * 
+     * @param string $data
+     * 
+     * @return bool
+     */
     public static function email(String $data) : Bool
     {
         return IS::email($data);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // URL
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $data
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Checks whether the data is url.
+     * 
+     * @param string $data
+     * 
+     * @return bool
+     */
     public static function url(String $data) : Bool
     {
         return IS::url($data);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Special Char
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $data
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Checks whether the data is special char.
+     * 
+     * @param string $data
+     * 
+     * @return bool
+     */
     public static function specialChar(String $data) : Bool
     {
         return (bool) preg_match('/[\W]+/', $data);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Maxchar
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $data
-    // @param int    $char
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Makes the maximum character limit.
+     * 
+     * @param string $data
+     * @param int    $char
+     * 
+     * @return bool
+     */
     public static function maxchar(String $data, Int $char) : Bool
     {
         return ( strlen($data) <= $char );
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Minchar
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $data
-    // @param int    $char
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Makes the minimum character limit.
+     * 
+     * @param string $data
+     * @param int    $char
+     * 
+     * @return bool
+     */
     public static function minchar(String $data, Int $char) : Bool
     {
         return ( strlen($data) >= $char );
