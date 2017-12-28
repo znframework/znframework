@@ -15,53 +15,54 @@ use ZN\IndividualStructures\IS;
 class Htaccess
 {
     /**
+     * Keep htaccess config
+     * 
+     * @var array
+     */
+    protected static $config;
+
+    /**
      * Cache Settings
      * 
      * @param string &$htaccess
-     * @param array  $config
      * 
      * @return void
      */
-    protected static function cache(&$htaccess, $config)
+    protected static function cache(&$htaccess)
     {
-        $config = $config['cache'];
-
         # GZIP
         # If mod_gzip = true is set, it adds the following codes.
         # GZIP starts caching.
-        self::modGzip($htaccess, $config);
+        self::modGzip($htaccess);
 
         # Expires
         # If mod_expires = true is set, it adds the following codes.
         # Crawler cache is initialized.
-        self::modExpires($htaccess, $config);
+        self::modExpires($htaccess);
 
         # Headers
         # If mod_headers = true is set, it adds the following codes.
         # Caching with header is started.
-        self::modHeaders($htaccess, $config);
+        self::modHeaders($htaccess);
     }
 
     /**
      * Gzip status
      * 
      * @param string &$htaccess
-     * @param array  $config
      * 
      * @return void
      */
-    protected static function modGzip(&$htaccess, $config)
+    protected static function modGzip(&$htaccess)
     {
-        $status = $config['modGzip']['status'];
+        $modGzip = self::$config['cache']['modGzip'];
         
-        if( $status === true )
+        if( $modGzip['status'] === true )
         {
-            $includedFileExtension = $config['modGzip']['includedFileExtension'];
-
             $htaccess .= '<ifModule mod_gzip.c>' . EOL;
             $htaccess .= HT.'mod_gzip_on Yes' . EOL;
             $htaccess .= HT.'mod_gzip_dechunk Yes' . EOL;
-            $htaccess .= HT.'mod_gzip_item_include file .('.$includedFileExtension.')$' . EOL;
+            $htaccess .= HT.'mod_gzip_item_include file .('.$modGzip['includedFileExtension'].')$' . EOL;
             $htaccess .= HT.'mod_gzip_item_include handler ^cgi-script$' . EOL;
             $htaccess .= HT.'mod_gzip_item_include mime ^text/.*' . EOL;
             $htaccess .= HT.'mod_gzip_item_include mime ^application/x-javascript.*' . EOL;
@@ -75,18 +76,17 @@ class Htaccess
      * Expires status
      * 
      * @param string &$htaccess
-     * @param array  $config
      * 
      * @return void
      */
-    protected static function modExpires(&$htaccess, $config)
+    protected static function modExpires(&$htaccess)
     {
-        $status = $config['modExpires']['status'];
+        $modExpires = self::$config['cache']['modExpires'];
 
-        if( $status === true )
+        if( $modExpires['status'] === true )
         {
             $exp = NULL;
-            $settings = $config['modExpires']['fileTypeTime'];
+            $settings = $modExpires['fileTypeTime'];
 
             foreach( $settings as $type => $value )
             {
@@ -95,7 +95,7 @@ class Htaccess
 
             $htaccess .= '<ifModule mod_expires.c>' . EOL;
             $htaccess .= HT.'ExpiresActive On' . EOL;
-            $htaccess .= HT.'ExpiresDefault "access plus '.$config['modExpires']['defaultTime'].' seconds"' . EOL;
+            $htaccess .= HT.'ExpiresDefault "access plus '.$modExpires['defaultTime'].' seconds"' . EOL;
             $htaccess .= rtrim($exp, EOL) . EOL;
             $htaccess .= '</ifModule>' . EOL . EOL;
         }
@@ -105,18 +105,17 @@ class Htaccess
      * Headers status
      * 
      * @param string &$htaccess
-     * @param array  $config
      * 
      * @return void
      */
-    protected static function modHeaders(&$htaccess, $config)
+    protected static function modHeaders(&$htaccess)
     {
-        $status = $config['modHeaders']['status'];
+        $modHeaders = self::$config['cache']['modHeaders'];
         
-        if( $status === true )
+        if( $modHeaders['status'] === true )
         {
             $fmatch = NULL;
-            $fileExtensionTimeAccess = $config['modHeaders']['fileExtensionTimeAccess'];
+            $fileExtensionTimeAccess = $modHeaders['fileExtensionTimeAccess'];
 
             foreach( $fileExtensionTimeAccess as $type => $value )
             {
@@ -135,13 +134,12 @@ class Htaccess
      * Initial Headers status
      * 
      * @param string &$htaccess
-     * @param array  $config
      * 
      * @return void
      */
-    protected static function headers(&$htaccess, $config)
+    protected static function headers(&$htaccess)
     {
-        $settings  = $config['headers'];
+        $settings  = self::$config['headers'];
         $htaccess .= "<ifModule mod_expires.c>".EOL;
 
         foreach( $settings as $val )
@@ -159,13 +157,12 @@ class Htaccess
      * Settings
      * 
      * @param string &$htaccess
-     * @param array  $config
      * 
      * @return void
      */
-    protected static function settings(&$htaccess, $config)
+    protected static function settings(&$htaccess)
     {
-        $settings = $config['settings'];
+        $settings = self::$config['settings'];
 
         if( ! empty($settings) )
         {
@@ -238,13 +235,12 @@ class Htaccess
      * Initial Settings
      * 
      * @param string &$htaccess
-     * @param array  $config
      * 
      * @return void
      */
-    protected static function ini(&$htaccess, $config)
+    protected static function ini(&$htaccess)
     {
-        $status = $config['ini']['status'];
+        $status = self::$config['ini']['status'];
         
         if( $status === false )
         {
@@ -277,7 +273,7 @@ class Htaccess
     /**
      * Creates htaccess file.
      * 
-     * @param void
+     * @param array $config = NULL
      * 
      * @return void
      */
@@ -288,26 +284,26 @@ class Htaccess
             return false;
         }
         
-        $config = $config ?? Config::get('Htaccess');
+        self::$config = $config ?? Config::get('Htaccess');
 
         $htaccess  = '#----------------------------------------------------------------------'.EOL;
         $htaccess .= '# This file automatically created and updated'.EOL;
         $htaccess .= '#----------------------------------------------------------------------'.EOL.EOL;
 
         # Initial Cache
-        self::cache($htaccess, $config);
+        self::cache($htaccess);
       
         # Initial Headers
-        self::headers($htaccess, $config);
+        self::headers($htaccess);
         
         # Settings
-        self::settings($htaccess, $config);
+        self::settings($htaccess);
      
         # Base Content
         self::baseContent($htaccess);
 
         # Initial Settings
-        self::ini($htaccess, $config);
+        self::ini($htaccess);
 
         $file = '.htaccess';
 
