@@ -1,23 +1,53 @@
 <?php
-$style  = 'position:absolute;bottom:10px;right:10px;';
-$style .= 'border:solid 1px #E1E4E5;';
-$style .= 'background:#FFF;';
-$style .= 'padding:10px;';
-$table  = 'font-family:Calibri, Ebrima, Century Gothic, Consolas, Courier New, Courier, monospace, Tahoma, Arial;';
-$table .= 'color:#666;';
-$table .= 'text-align:left;';
-$table .= 'font-size:14px;';
-
-$color =  'color:#900;';
 
 $lang  = ZN\IndividualStructures\Lang::select('IndividualStructures'); 
-?>
 
-<div style="<?php echo $style; ?>">
-    <table width="100%" style="<?php echo $table; ?>">
-        <tr><td width="160"><?php echo $lang['benchmark:elapsedTime']; ?></td><td>: <b><?php echo $elapsedTime." ".$lang['benchmark:second']; ?></b></td></tr>
-        <tr><td><?php echo $lang['benchmark:memoryUsage']; ?></td><td>: <b><?php echo $memoryUsage." ".$lang['benchmark:byte']; ?></b></td></tr>
-        <tr><td><?php echo $lang['benchmark:maxMemoryUsage']; ?></td><td>: <b><?php echo $maxMemoryUsage." ".$lang['benchmark:byte']; ?></b></td></tr>
-        <tr><td><?php echo $lang['benchmark:countFile']; ?></td><td>: <b><?php echo count(get_required_files()); ?></b></td></tr>
-    </table>
+Import::style('bootstrap', 'awesome', 'external-template-style'); Import::script('jquery', 'bootstrap');
+Import::template('ExternalTemplateStyles');
+?>
+<style>
+.table-bordered>tbody>tr>td 
+{
+    border: 1px solid #222;
+}
+</style>
+
+<div class="col-lg-12" style="z-index:1000000; margin-top:15px">
+    <div class="panel panel-default panel-top-header">
+
+        <div class="panel-heading" style="background:#222; border:none;">
+            <h3 class="panel-title panel-text h-panel-header">
+            <i class="fa fa-clock-o fa-fw"></i> 
+            <?php echo '<span class="text-color">BENCHMARK</span>' ?>
+            <?php echo $message ?? NULL; ?></h3>
+        </div>
+        <a href="#openBenchmark<?php echo $key?>" class="list-group-item panel-header" data-toggle="collapse">
+            <span><i class="fa fa-angle-down fa-fw panel-text"></i>&nbsp;&nbsp;&nbsp;&nbsp; Benchmark Result</span>
+        </a>
+        <div class="panel-body collapse in" id="openBenchmark" style="margin-bottom:-17px;">
+            <div class="list-group panel-text">
+                <table class="table table-bordered">
+                    <tr><td width="20%"><?php echo $lang['benchmark:elapsedTime']; ?></td><td><?php echo $elapsedTime." ".$lang['benchmark:second']; ?></td></tr>
+                    <tr><td><?php echo $lang['benchmark:memoryUsage']; ?></td><td><?php echo $memoryUsage." ".$lang['benchmark:byte']; ?></td></tr>
+                    <tr><td><?php echo $lang['benchmark:maxMemoryUsage']; ?></td><td><?php echo $maxMemoryUsage." ".$lang['benchmark:byte']; ?></td></tr>
+                    <tr><td><?php echo $lang['benchmark:countFile']; ?></td><td><?php echo count(get_required_files()); ?></td></tr>
+                </table>
+            </div>
+        </div>
+
+        <a href="#openServerData<?php echo $key?>" class="list-group-item panel-header" data-toggle="collapse">
+            <span><i class="fa fa-angle-down fa-fw panel-text"></i>&nbsp;&nbsp;&nbsp;&nbsp; Server Request Data</span>
+        </a>
+        <div class="panel-body collapse" id="openServerData" style="margin-bottom:-17px;">
+            <div class="list-group panel-text">
+                <table class="table table-bordered">
+                    <?php foreach( $_SERVER as $key => $value ): ?>
+                    <tr><td width="20%" class=><?php echo $key ?></td><td><?php echo $value ?></td></tr>
+                    <?php endforeach; ?>
+                
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
+
