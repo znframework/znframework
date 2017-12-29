@@ -1,5 +1,6 @@
 <?php namespace ZN\IndividualStructures\Import;
 
+use Project\Controllers\Theme;
 use ZN\FileSystem\Folder;
 
 class Package
@@ -38,7 +39,7 @@ class Package
 
         if( ! is_array($packages) )
         {
-            return self::_package($dir.$packages, $recursive, $getContents);
+            return self::_package($dir . $packages, $recursive, $getContents);
         }
         else
         {
@@ -46,7 +47,7 @@ class Package
 
             if( ! empty($packages) ) foreach( $packages as $package )
             {
-                $return .= self::_package($dir.$package, $recursive, true);
+                $return .= self::_package($dir . $package, $recursive, true);
             }
 
             if( $getContents === false )
@@ -85,7 +86,16 @@ class Package
     //--------------------------------------------------------------------------------------------------------
     public static function theme($theme = 'Default', Bool $recursive = false, Bool $getContents = false)
     {
-        return self::use($theme, $recursive, $getContents, THEMES_DIR);
+        if( Theme::$active !== NULL && is_array($theme) )
+        {
+            $dir = THEMES_DIR . Theme::$active;
+        }
+        else
+        {
+            $dir = THEMES_DIR;
+        }
+
+        return self::use($theme, $recursive, $getContents, $dir);
     }
 
     //--------------------------------------------------------------------------------------------------------

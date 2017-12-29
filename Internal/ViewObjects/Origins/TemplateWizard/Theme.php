@@ -26,7 +26,7 @@ class Theme
      */
     public static function active(String $active = 'Default')
     {
-        self::$active = $active;
+        self::$active = suffix($active);
     }
 }
 

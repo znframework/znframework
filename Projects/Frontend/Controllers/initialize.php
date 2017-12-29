@@ -4,8 +4,8 @@ class Initialize extends Controller
 {
     public function main(String $params = NULL)
     {
-        // Simplicity is our choice, how about yours ?
-
+        Theme::active('Default');
+        
         Masterpage::title(ucfirst(CURRENT_CONTROLLER))
                   ->headPage('sections/head')
                   ->bodyPage('sections/body');

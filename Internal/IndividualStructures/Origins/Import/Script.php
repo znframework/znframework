@@ -1,5 +1,6 @@
 <?php namespace ZN\IndividualStructures\Import;
 
+use Project\Controllers\Theme;
 use ZN\IndividualStructures\IS;
 use ZN\Services\URL;
 
@@ -56,11 +57,22 @@ class Script extends BootstrapExtends
             }
             else
             {
-                $scriptFile = SCRIPTS_DIR . ($suffix = suffix($script, '.js'));
+                if( ! is_dir(SCRIPTS_DIR) )
+                {
+                    $projectFontDirectory  = THEMES_DIR . Theme::$active;
+                    $externalFontDirectory = EXTERNAL_THEMES_DIR . Theme::$active;
+                }
+                else
+                {
+                    $projectFontDirectory  = SCRIPTS_DIR;
+                    $externalFontDirectory = EXTERNAL_SCRIPTS_DIR;
+                }
+                
+                $scriptFile = $projectFontDirectory . ($suffix = suffix($script, '.js'));
 
                 if( ! is_file($scriptFile) )
                 {
-                    $scriptFile = EXTERNAL_SCRIPTS_DIR . $suffix;
+                    $scriptFile = $externalFontDirectory . $suffix;
                 }
 
                 if( ! in_array($scriptFix . $script, Properties::$isImport) )

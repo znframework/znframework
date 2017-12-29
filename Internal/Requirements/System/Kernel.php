@@ -396,7 +396,7 @@ class Kernel
         {
             if( is_dir(PAGES_DIR . $active) )
             {
-                $view = suffix($active) . $view;
+                $view = $active . $view;
             }
         }
 

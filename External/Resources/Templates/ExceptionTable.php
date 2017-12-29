@@ -38,6 +38,17 @@ code{
     margin-bottom: 15px;
     font-size: 14px;
 }
+.error-block
+{
+    position:absolute; 
+    margin-top:-19px; 
+    margin-left:-10px;
+    margin-right:-100px;
+    width:96.37%; 
+    height:20px; 
+    background:white; 
+    opacity:.1
+}
 </style>
 
     <div class="col-lg-12" style="margin-top:15px">
@@ -56,7 +67,7 @@ code{
                     displayExceptionTable($file, $line, NULL, $lang);
                 
                     foreach( $trace as $key => $debug )
-                        if( $debug['file'] !== $file )
+                        if( $debug['file'] !== $file && ! empty($debug['file']) )
                             displayExceptionTable($debug['file'], $debug['line'], $key, $lang);
                     ?>
                 </div>
@@ -86,7 +97,8 @@ function displayExceptionTable($file, $line, $key, $lang)
     $content = file($file);
     $newdata = '<?php' . EOL;
     $intline = $line;
-    
+    $errorBlock = '<div class="error-block col-lg-12"></div>';
+
     for( $i = (($startLine = ($intline - 10)) < 0 ? 0 : $startLine); $i < ($intcount = $intline + 10); $i++ )
     {
         if( ! isset($content[$i]) )
@@ -95,22 +107,24 @@ function displayExceptionTable($file, $line, $key, $lang)
         }
 
         $index = $i + 1;
-    
+        $line  = $content[$i];
+
         if( $index == $intline )
         {
-            $problem = ' ⬤';
+            $problem = ' {!}';
+            
         }
         else
         {
-            $problem = '   ';
+            $problem = ' ';
         }
         
         $newdata .= $index.'.' . $problem .
         str_repeat(' ', strlen($intcount) - strlen($i + 1)) . 
-        (str_replace($key !== NULL ? EOL : NULL, NULL, $content[$i]) ?? NULL);
+        (str_replace($key !== NULL ? EOL : NULL, NULL, $line) ?? NULL);
     }
 
-    echo str_replace('<div style="">&#60;&#63;php<br />', NULL, Converter::highlight($newdata, 
+    echo str_replace(['<div style="">&#60;&#63;php<br />', '{!}'], [NULL, $errorBlock], Converter::highlight($newdata, 
     [
         'default:color' => '#ccc',
         'keyword:color' => '#00BFFF',

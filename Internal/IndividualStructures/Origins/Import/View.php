@@ -88,7 +88,7 @@ class View
         
         if( ($active = \Theme::$active) !== NULL )
         {
-            $activeRandomPagePath = $randomPageDir . suffix($active) . $randomPageVariable;
+            $activeRandomPagePath = $randomPageDir . $active . $randomPageVariable;
 
             if( is_file($activeRandomPagePath) )
             {

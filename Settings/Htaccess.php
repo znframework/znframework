@@ -99,7 +99,6 @@
                 'text/javascript'          => 216000,   # 2.5 days
                 'application/x-javascript' => 216000    # 2.5 days
             ],
-            
         ],
         'modHeaders' =>
         [
@@ -107,10 +106,10 @@
             'fileExtensionTimeAccess' =>
             [
                 'ico|pdf|flv|jpg|jpeg|png|gif|swf' => ['time' => 2592000, 'access' => 'public'],
-                'css'                              => ['time' => 604800,  'access' => 'public'],
-                'js'                               => ['time' => 216000,  'access' => 'private'],
-                'xml|txt'                          => ['time' => 216000,  'access' => 'public, must-revalidate'],
-                'html|htm|php'                     => ['time' => 1,       'access' => 'private, must-revalidate']
+                'css'                              => ['time' => 604800 , 'access' => 'public'],
+                'js'                               => ['time' => 216000 , 'access' => 'private'],
+                'xml|txt'                          => ['time' => 216000 , 'access' => 'public, must-revalidate'],
+                'html|htm|php'                     => ['time' => 1      , 'access' => 'private, must-revalidate']
             ]
         ]
     ]

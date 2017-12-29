@@ -1,5 +1,6 @@
 <?php namespace ZN\IndividualStructures\Import;
 
+use Project\Controllers\Theme;
 use ZN\Services\URL;
 use ZN\FileSystem\File;
 
@@ -40,16 +41,27 @@ class Font extends BootstrapExtends
 
             $f = self::_fontName($font);
 
-            $fontFile = FONTS_DIR . $font;
+            if( ! is_dir(FONTS_DIR) )
+            {
+                $projectFontDirectory  = THEMES_DIR . Theme::$active;
+                $externalFontDirectory = EXTERNAL_THEMES_DIR . Theme::$active;
+            }
+            else
+            {
+                $projectFontDirectory  = FONTS_DIR;
+                $externalFontDirectory = EXTERNAL_FONTS_DIR;
+            }
 
-            if( ! is_file($fontFile) && is_dir($fontFile) ) $fontFile = EXTERNAL_FONTS_DIR . $font;
+            $fontFile = $projectFontDirectory . $font;
+
+            if( ! is_file($fontFile) && is_dir($fontFile) ) $fontFile = $externalFontDirectory . $font;
         
             $baseUrl  = URL::base($fontFile);
 
-            if( is_file(suffix($fontFile, '.svg')) )  $str .= self::_face($f, $baseUrl, 'svg');
-            if( is_file(suffix($fontFile, '.woff')) ) $str .= self::_face($f, $baseUrl, 'woff');
-            if( is_file(suffix($fontFile, '.otf')) )  $str .= self::_face($f, $baseUrl, 'otf');
-            if( is_file(suffix($fontFile, '.ttf')) )  $str .= self::_face($f, $baseUrl, 'ttf');
+            if( is_file(suffix($fontFile, '.svg')) ) $str .= self::_face($f, $baseUrl, 'svg');
+            if( is_file(suffix($fontFile, '.woff'))) $str .= self::_face($f, $baseUrl, 'woff');
+            if( is_file(suffix($fontFile, '.otf')) ) $str .= self::_face($f, $baseUrl, 'otf');
+            if( is_file(suffix($fontFile, '.ttf')) ) $str .= self::_face($f, $baseUrl, 'ttf');
 
             $cndFont = isset($links[strtolower($font)]) ? $links[strtolower($font)] : NULL;
 

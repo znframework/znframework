@@ -74,14 +74,12 @@
     |
     */
 
-    'style'  => [], 
-    'script' => [],
-    'font'   => [], 
     'theme'  =>
     [
-        'name'      => '',
+        'name'      => [],
         'recursive' => false
     ],
+    
     'plugin' =>
     [
         'name'      => '',

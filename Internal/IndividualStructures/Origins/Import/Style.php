@@ -1,5 +1,6 @@
 <?php namespace ZN\IndividualStructures\Import;
 
+use Project\Controllers\Theme;
 use ZN\IndividualStructures\IS;
 use ZN\Services\URL;
 
@@ -56,11 +57,22 @@ class Style extends BootstrapExtends
             }
             else
             {
-                $styleFile = STYLES_DIR . ($suffix = suffix($style, '.css'));
+                if( ! is_dir(STYLES_DIR) )
+                {
+                    $projectFontDirectory  = THEMES_DIR . Theme::$active;
+                    $externalFontDirectory = EXTERNAL_THEMES_DIR . Theme::$active;
+                }
+                else
+                {
+                    $projectFontDirectory  = STYLES_DIR;
+                    $externalFontDirectory = EXTERNAL_STYLES_DIR;
+                }
+
+                $styleFile = $projectFontDirectory . ($suffix = suffix($style, '.css'));
                 
                 if( ! is_file($styleFile) )
                 {
-                    $styleFile = EXTERNAL_STYLES_DIR . $suffix;
+                    $styleFile = $externalFontDirectory . $suffix;
                 }
     
                 if( ! in_array($styleFix . $style, Properties::$isImport) )
