@@ -633,10 +633,11 @@ class Autoloader
         {
             $value .= '/';
 
+            define('EXTERNAL_' . $key, EXTERNAL_DIR . $value);
+
             if( PROJECT_TYPE === 'EIP' ) # For EIP edition
             {
                 define($key, self::getProjectContainerDir($value));
-                define('EXTERNAL_' . $key, 'External/' . $value);
             }
             else # For SE edition
             {
