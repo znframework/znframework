@@ -1,79 +1,99 @@
 <?php namespace ZN\Helpers;
+/**
+ * ZN PHP Web Framework
+ * 
+ * "Simplicity is the ultimate sophistication." ~ Da Vinci
+ * 
+ * @package ZN
+ * @license MIT [http://opensource.org/licenses/MIT]
+ * @author  Ozan UYKUN [ozan@znframework.com]
+ */
 
+use ZN\IndividualStructures\Import;
 use ZN\IndividualStructures\Benchmark;
+use ZN\FileSystem\Folder;
 
 class Tester
 {
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Author     : Ozan UYKUN <ozanbote@gmail.com>
-    // Site       : www.znframework.com
-    // License    : The MIT License
-    // Copyright  : (c) 2012-2016, znframework.com
-    //
-    //--------------------------------------------------------------------------------------------------------
-
-    //--------------------------------------------------------------------------------------------------------
-    // Class
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var string
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Keeps class name
+     * 
+     * @var string
+     */
     protected $class;
 
-    //--------------------------------------------------------------------------------------------------------
-    // Methods
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var array
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Keeps methods
+     * 
+     * @var array
+     */
     protected $methods;
 
-    //--------------------------------------------------------------------------------------------------------
-    // Result
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var string
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Get result
+     * 
+     * @var string
+     */
     protected $result;
 
-    //--------------------------------------------------------------------------------------------------------
-    // Total Elased Time
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var numeric
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Total elapsed time
+     * 
+     * @var float
+     */
     protected $totalElasedTime;
 
-    //--------------------------------------------------------------------------------------------------------
-    // Total Memory Usage
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var numeric
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Total memory usage
+     * 
+     * @var float
+     */
     protected $totalMemoryUsage;
 
-    //--------------------------------------------------------------------------------------------------------
-    // Total File Count
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var numeric
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Total file count
+     * 
+     * @var int
+     */
     protected $totalFileCount;
 
-    //--------------------------------------------------------------------------------------------------------
-    // Class
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $class
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Get arguments
+     * 
+     * @var array
+     */
+    protected $arguments;
+
+    /**
+     * Run all unit tests
+     * 
+     * @param void
+     * 
+     * @return void
+     */
+    public function allUnitTestResult()
+    {
+        $files = Folder\FileList::allFiles('Internal/', true);
+
+        $files = preg_grep('/UnitTests(.*?)/', $files);
+
+        foreach( $files as $file )
+        {
+            $class = rtrim(str_replace(['UnitTests/', '/'], [NULL, '\\'], explode('Internal/', $file)[1]), '.php');
+
+            $class = '\ZN\\' . $class;
+
+            echo $class::result();
+        }
+    }
+
+    /**
+     * Defines class name.
+     * 
+     * @param string $class
+     * 
+     * @return Tester
+     */
     public function class(String $class) : Tester
     {
         $this->class = $class;
@@ -81,33 +101,35 @@ class Tester
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Methods
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array $methods
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Defines class methods.
+     * 
+     * @param array $methods
+     * 
+     * @return Tester
+     */
     public function methods(Array $methods) : Tester
     {
+        $this->arguments = debug_backtrace(0)[0]['args'][0];
+
         $this->methods = $methods;
 
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Start
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Start unit test
+     * 
+     * @param void
+     * 
+     * @return void
+     */
     public function start()
     {
         $this->result = NULL;
 
         $index = 0;
-
+        
         foreach( $this->methods as $method => $parameters )
         {
             $method = explode(':', $method)[0];
@@ -125,26 +147,28 @@ class Tester
         $this->_startDefaultVariables();
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Result
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Show result
+     * 
+     * @param void
+     * 
+     * @return string
+     */
     public function result()
     {
-        return '<pre>'.$this->result.'</pre>';
+        return Import\Template::use('UnitTests/Output', ['input' => $this->result]);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Output
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $class
-    // @param string $method
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Output
+     * 
+     * @param string $class
+     * @param string $method
+     * @param string $returnType
+     * @param string $returnValue
+     * 
+     * @return void
+     */
     protected function _output($class, $method, $returnType, $returnValue)
     {
         $elapsedTime      = Benchmark\ElapsedTime::calculate($method);
@@ -156,45 +180,61 @@ class Tester
         $this->totalMemoryUsage += $calculatedMemory;
         $this->totalFileCount   += $usedFileCount;
 
-        $this->result .= '---------------------------------------------------<br>';
-        $this->result .= $class.'::'.$method.'<br>';
-        $this->result .= '---------------------------------------------------<br>';
-        $this->result .= 'Syntax Check : OK<br>';
-        $this->result .= 'Return Type  : '.$returnType.'<br>';
-        $this->result .= 'Return Value : '.( is_scalar($returnValue) ? $returnValue : $returnType).'<br>';
-        $this->result .= 'Elapsed Time : '.$elapsedTime.' SECONDS<br>';
-        $this->result .= '---------------------------------------------------<br><br>';
+        $param = $this->arguments[$method];
+
+        $param = array_map(function($data)
+        {
+            if( ! is_scalar($data) )
+            {
+                return gettype($data);
+            }
+            elseif( is_string($data) )
+            {
+                return "'" . $data . "'";
+            }
+
+            return $data;
+        }, $param);
+
+        $this->result .= Import\Template::use('UnitTests/ResultTable', 
+        [
+            'class'       => $class,
+            'method'      => $method . '(' . implode(', ', $param) . ')',
+            'returnType'  => $returnType,
+            'returnValue' => is_scalar($returnValue) ? $returnValue : $returnType,
+            'elapsedTime' => $elapsedTime,
+            'index'       => $class . $method
+        ], true);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Output Bottom
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * protected output table bottom
+     * 
+     * @param int $index
+     * 
+     * @return void
+     */
     protected function _outputBottom($index)
     {
-        $this->result .= '---------------------------------------------------<br>';
-        $this->result .= 'TOTAL<br>';
-        $this->result .= '---------------------------------------------------<br>';
-        $this->result .= 'Syntax Check : OK<br>';
-        $this->result .= 'Elapsed Time : '.$this->totalElasedTime.' SECONDS<br>';
-        $this->result .= 'Memory Usage : '.$this->totalMemoryUsage.' BYTES<br>';
-        $this->result .= 'Total Files  : '.$this->totalFileCount.'<br>';
-        $this->result .= 'Total Methods: '.$index.'<br>';
-        $this->result .= '---------------------------------------------------';
+        $this->result .= Import\Template::use('UnitTests/TotalTable', 
+        [
+
+            'elapsedTime'    => $this->totalElasedTime,
+            'memoryUsage'    => $this->totalMemoryUsage,
+            'totalFileCount' => $this->totalFileCount,
+            'index'          => $index
+        ], true);
 
         $this->_defaultVariables();
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Default Variables
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Default variables
+     * 
+     * @param void
+     * 
+     * @return void
+     */
     protected function _defaultVariables()
     {
         $this->totalElasedTime  = NULL;
@@ -202,13 +242,13 @@ class Tester
         $this->totalFileCount   = NULL;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Start Default Variables
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Default start variables
+     * 
+     * @param void
+     * 
+     * @return void
+     */
     protected function _startDefaultVariables()
     {
         $this->class   = NULL;

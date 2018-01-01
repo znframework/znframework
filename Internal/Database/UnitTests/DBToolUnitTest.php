@@ -18,10 +18,10 @@ class DBToolUnitTest extends \UnitTestController
         [
             'listDatabases'    => [],
             'listTables'       => [],
-            'statusTables'     => ['*'],
-            'optimizeTables'   => ['*'],
-            'repairTables'     => ['*'],
-            'backup'           => []
+            #'statusTables'     => ['*'],
+            #'optimizeTables'   => ['*'],
+            #'repairTables'     => ['*'],
+            #'backup'           => []
         ]
     ];
 }

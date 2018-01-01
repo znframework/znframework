@@ -16,12 +16,12 @@ class DBGridUnitTest extends \UnitTestController
         'class'   => 'DBGrid',
         'methods' => 
         [
-            'add'               => ['ADD'],
-            'processColumn'     => ['id'],
-            'limit'             => [5],
+            #'add'               => ['ADD'],
+            #'processColumn'     => ['id'],
+            #'limit'             => [5],
             #'inputs'            => [[]],
             #'outputs'           => [[]],
-            'columns'           => ['id', 'name'],
+            #'columns'           => ['id', 'name'],
             #'joins'             => [[]],
             #'orderBy'           => ['id', 'desc'],
             #'groupBy'           => [],
@@ -30,7 +30,7 @@ class DBGridUnitTest extends \UnitTestController
             #'table'             => ['example'],
             #'hide'              => ['addButton'],
             #'exclude'           => ['name'],
-            'create'            => ['example']
+            #'create'            => ['example']
         ]
     ];
 }

@@ -9,12 +9,13 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
+use CLController;
 use ZN\Services\URL;
 use ZN\Services\URI;
 use ZN\IndividualStructures\IS;
 use ZN\IndividualStructures\Lang;
 
-class Calendar implements CalendarInterface
+class Calendar extends CLController implements CalendarInterface
 {
     const config = 'ViewObjects:calendar';
 

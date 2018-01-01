@@ -59,15 +59,15 @@ class DateTimeCommon extends Carbon
     // Tarihleri karşılaştırmak için kullanılır.
     //
     // @param  string clock
-    // @return string
+    // @return bool
     //
     //--------------------------------------------------------------------------------------------------------
-    public function compare(String $value1, String $condition, String $value2) : String
+    public function compare(String $value1, String $condition, String $value2) : Bool
     {
         $value1 = $this->toNumeric($value1);
         $value2 = $this->toNumeric($value2);
-
-        return compare($value1, $condition, $value2);
+        
+        return version_compare($value1, $value2, $condition);
     }
 
     //--------------------------------------------------------------------------------------------------------

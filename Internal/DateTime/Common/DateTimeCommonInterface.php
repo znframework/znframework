@@ -54,10 +54,10 @@ interface DateTimeCommonInterface
     // Tarihleri karşılaştırmak için kullanılır.
     //
     // @param  string clock
-    // @return string
+    // @return bool
     //
     //--------------------------------------------------------------------------------------------------------
-    public function compare(String $value1, String $condition, String $value2) : String;
+    public function compare(String $value1, String $condition, String $value2) : Bool;
 
     //--------------------------------------------------------------------------------------------------------
     // Calculate

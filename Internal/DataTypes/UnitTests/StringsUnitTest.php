@@ -32,8 +32,6 @@ class StringsUnitTest extends \UnitTestController
             'replace'           => ['p1 p2 p3', 'p2', 'p4'],
             'replace:2'         => ['p1 p2 p3', ['p2'], ['p4']],
             'toArray'           => ['p1 p2 p3'],
-            'toAscii'           => ['A'],
-            'toChar'            => [95],
             'addSlashes'        => ['p1"p2'],
             'removeSlashes'     => ['p1\"p2'],
             'section'           => ['p1 p2 p3'],
@@ -42,8 +40,7 @@ class StringsUnitTest extends \UnitTestController
             'repeat'            => ['p1', 5],
             'pad'               => ['p1 p2 p3'],
             'apportion'         => ['p1 p2 p3', 2],
-            'divide'            => ['p1|p2'],
-            'translationTable'  => []
+            'divide'            => ['p1|p2']
         ]
     ];
 }
