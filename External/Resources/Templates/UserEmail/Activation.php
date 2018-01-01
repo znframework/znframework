@@ -2,7 +2,7 @@
 
 <table class="table table-bordered">
     <tr>
-        <th><?php echo ZN\IndividualStructures\Lang::select('IndividualStructures', 'user:activation')?></th>
+        <th><?php echo ZN\IndividualStructures\Lang::select('IndividualStructures', 'user:activationProcess')?></th>
     </tr>
 
     <tr>
