@@ -1,4 +1,13 @@
 <?php namespace ZN\Services\Email\Drivers;
+/**
+ * ZN PHP Web Framework
+ * 
+ * "Simplicity is the ultimate sophistication." ~ Da Vinci
+ * 
+ * @package ZN
+ * @license MIT [http://opensource.org/licenses/MIT]
+ * @author  Ozan UYKUN [ozan@znframework.com]
+ */
 
 use ZN\Services\Abstracts\EmailMappingAbstract;
 use ZN\Services\Exception\SMTPConnectException;
@@ -10,15 +19,6 @@ use ZN\Services\Exception\SMTPAuthException;
 
 class SMTPDriver extends EmailMappingAbstract
 {
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Author     : Ozan UYKUN <ozanbote@gmail.com>
-    // Site       : www.znframework.com
-    // License    : The MIT License
-    // Copyright  : (c) 2012-2016, znframework.com
-    //
-    //--------------------------------------------------------------------------------------------------------
-
     //--------------------------------------------------------------------------------------------------------
     // LF
     //--------------------------------------------------------------------------------------------------------

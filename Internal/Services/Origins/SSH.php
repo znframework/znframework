@@ -1,4 +1,13 @@
 <?php namespace ZN\Services;
+/**
+ * ZN PHP Web Framework
+ * 
+ * "Simplicity is the ultimate sophistication." ~ Da Vinci
+ * 
+ * @package ZN
+ * @license MIT [http://opensource.org/licenses/MIT]
+ * @author  Ozan UYKUN [ozan@znframework.com]
+ */
 
 use ZN\FileSystem\Exception\FileNotFoundException;
 use ZN\FileSystem\Exception\FileRemoteUploadException;
@@ -11,15 +20,6 @@ use ZN\IndividualStructures\Support;
 
 class SSH implements SSHInterface
 {
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Yazar      : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
-    // Site       : www.zntr.net
-    // Lisans     : The MIT License
-    // Telif Hakkı: Copyright ConfigController(c) 2012-2016, zntr.net
-    //
-    //--------------------------------------------------------------------------------------------------------
-
     //--------------------------------------------------------------------------------------------------------
     // Protected $connect
     //--------------------------------------------------------------------------------------------------------

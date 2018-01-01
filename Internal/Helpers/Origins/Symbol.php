@@ -1,18 +1,16 @@
 <?php namespace ZN\Helpers;
+/**
+ * ZN PHP Web Framework
+ * 
+ * "Simplicity is the ultimate sophistication." ~ Da Vinci
+ * 
+ * @package ZN
+ * @license MIT [http://opensource.org/licenses/MIT]
+ * @author  Ozan UYKUN [ozan@znframework.com]
+ */
 
 class Symbol
 {
-    //--------------------------------------------------------------------------------------------------------
-    // Symbos -> 5.2.0
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Author     : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
-    // Site       : www.znframework.com
-    // License    : The MIT License
-    // Copyright  : Copyright (c) 2012-2016, ZN Framework
-    //
-    //--------------------------------------------------------------------------------------------------------
-
     //--------------------------------------------------------------------------------------------------------
     // Magic Call
     //--------------------------------------------------------------------------------------------------------

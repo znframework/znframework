@@ -1,4 +1,13 @@
 <?php namespace ZN\IndividualStructures\Import;
+/**
+ * ZN PHP Web Framework
+ * 
+ * "Simplicity is the ultimate sophistication." ~ Da Vinci
+ * 
+ * @package ZN
+ * @license MIT [http://opensource.org/licenses/MIT]
+ * @author  Ozan UYKUN [ozan@znframework.com]
+ */
 
 use Project\Controllers\Theme;
 use ZN\IndividualStructures\IS;
@@ -6,15 +15,6 @@ use ZN\Services\URL;
 
 class Script extends BootstrapExtends
 {
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Author     : Ozan UYKUN <ozanbote@gmail.com>
-    // Site       : www.znframework.com
-    // License    : The MIT License
-    // Copyright  : (c) 2012-2016, znframework.com
-    //
-    //--------------------------------------------------------------------------------------------------------
-
     //--------------------------------------------------------------------------------------------------------
     // static tag() -> 5.3.2
     //--------------------------------------------------------------------------------------------------------

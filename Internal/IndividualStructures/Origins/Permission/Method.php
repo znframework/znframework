@@ -1,18 +1,16 @@
 <?php namespace ZN\IndividualStructures\Permission;
+/**
+ * ZN PHP Web Framework
+ * 
+ * "Simplicity is the ultimate sophistication." ~ Da Vinci
+ * 
+ * @package ZN
+ * @license MIT [http://opensource.org/licenses/MIT]
+ * @author  Ozan UYKUN [ozan@znframework.com]
+ */
 
 class Method extends PermissionExtends
 {
-    //--------------------------------------------------------------------------------------------------------
-    // Method Class -> 5.3.9
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Author     : Ozan UYKUN <ozanbote@gmail.com>
-    // Site       : www.znframework.com
-    // License    : The MIT License
-    // Copyright  : (c) 2012-2016, znframework.com
-    //
-    //--------------------------------------------------------------------------------------------------------
-
     //--------------------------------------------------------------------------------------------------------
     // post()
     //--------------------------------------------------------------------------------------------------------

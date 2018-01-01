@@ -1,4 +1,13 @@
 <?php namespace ZN\EncodingSupport;
+/**
+ * ZN PHP Web Framework
+ * 
+ * "Simplicity is the ultimate sophistication." ~ Da Vinci
+ * 
+ * @package ZN
+ * @license MIT [http://opensource.org/licenses/MIT]
+ * @author  Ozan UYKUN [ozan@znframework.com]
+ */
 
 use ZN\IndividualStructures\IS;
 use ZN\EncodingSupport\InvalidArgumentException;
@@ -6,15 +15,6 @@ use ZN\DataTypes\Arrays;
 
 class IV implements IVInterface
 {
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Author     : Ozan UYKUN <ozanbote@gmail.com>
-    // Site       : www.znframework.com
-    // License    : The MIT License
-    // Copyright  : (c) 2012-2016, znframework.com
-    //
-    //--------------------------------------------------------------------------------------------------------
-
     protected $mimeErrors = ['strict' => ICONV_MIME_DECODE_STRICT, 'continue' => ICONV_MIME_DECODE_CONTINUE_ON_ERROR];
 
     //--------------------------------------------------------------------------------------------------------
