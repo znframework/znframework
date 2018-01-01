@@ -70,6 +70,7 @@
     'user:activationEmail'          => 'Kaydınızın tamamlanması için lütfen e-posta adresinize gönderilen aktivasyon linkine tıklayınız.',
     'user:activationCompleteError'  => 'Aktivasyon işlemi tamamlanamadı!',
     'user:activationComplete'       => 'Aktivasyon işlemi başarı ile tamamlandı.',
+    'user:resendActivationError'    => 'Belirtilen e-posta adresinin etkinleştirilmesi zaten yapılmış olduğundan aktivasyon kodu e-postası gönderilemedi!',
     'user:verificationEmail'        => 'Doğrulama E-postası',
     'user:verificationOrEmailError' => 'Doğrulama kodu veya Eposta bilgisi yanlış!'
 ];

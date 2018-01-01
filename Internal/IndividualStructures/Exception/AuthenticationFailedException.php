@@ -2,5 +2,5 @@
 
 class AuthenticationFailedException extends \GeneralException
 {
-    use \ExclusionAbility;
+    
 }

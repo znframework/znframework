@@ -71,6 +71,7 @@ return
 	'user:activationEmail'          => "For the completion of your registration, please click on the activation link sent to your e-mail address.",
 	'user:activationCompleteError'  => "The activation process could not be completed!",
 	'user:activationComplete'       => "The activation process is completed with success.",
+	'user:resendActivationError'    => 'Activation code e-mail could not be sent if the specified e-mail address has already been activated!',
 	'user:verificationEmail'        => 'Verification Email',
 	'user:verificationOrEmailError' => 'Verification code or email information is wrong!'
 ];

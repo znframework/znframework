@@ -2,5 +2,5 @@
 
 class ConnectionRefusedException extends \GeneralException
 {
-    use \ExclusionAbility;
+    
 }

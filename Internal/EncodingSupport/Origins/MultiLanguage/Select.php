@@ -1,4 +1,14 @@
 <?php namespace ZN\EncodingSupport\MultiLanguage;
+/**
+ * ZN PHP Web Framework
+ * 
+ * "Simplicity is the ultimate sophistication." ~ Da Vinci
+ * 
+ * @package ZN
+ * @license MIT [http://opensource.org/licenses/MIT]
+ * @author  Ozan UYKUN [ozan@znframework.com]
+ * @since   2011
+ */
 
 use ZN\DataTypes\Json;
 use ZN\FileSystem\File;
@@ -6,57 +16,57 @@ use ZN\FileSystem\Folder;
 
 class Select extends MLExtends
 {
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Author     : Ozan UYKUN <ozanbote@gmail.com>
-    // Site       : www.znframework.com
-    // License    : The MIT License
-    // Copyright  : (c) 2012-2016, znframework.com
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Get select lang.
+     * 
+     * @var string
+     */
+    protected $select = NULL;
 
-    //--------------------------------------------------------------------------------------------------------
-    // Select
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Dil dosyasın yer alan istenilen kelimeye erişmek için kullanılır.
-    // @param mixed $key
-    // @return string
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Select word.
+     * 
+     * @param string $key     = NULL
+     * @param mixed  $convert = NULL
+     */
     public function do(String $key = NULL, $convert = NULL)
     {
-        if( is_file($this->lang) )
+        if( $this->select === NULL )
         {
-            $read   = file_get_contents($this->lang);
+            if( is_file($this->lang) )
+            {
+                $read   = file_get_contents($this->lang);
+            }
+
+            if( is_file($this->externalLang) )
+            {
+                $eread  = file_get_contents($this->externalLang);
+            }
+
+            $read          = json_decode($read  ?? '', true);
+            $eread         = json_decode($eread ?? '', true);
+            $this->select  = array_merge((array) $eread, (array) $read);
         }
-
-        if( is_file($this->externalLang) )
-        {
-            $eread  = file_get_contents($this->externalLang);
-        }
-
-        $read   = json_decode($read  ?? '', true);
-        $eread  = json_decode($eread ?? '', true);
-        $array  = array_merge((array) $eread, (array) $read);
-
+        
         if( $key === NULL )
         {
-            return $array;
+            return $this->select;
         }
 
-        $return = '';
-
-        if( isset($array[$key]) )
+        if( isset($this->select[$key]) )
         {
             if( is_array($convert) )
             {
-                $return = str_replace(array_keys($convert), array_values($convert), $array[$key]);
+                $return = str_replace(array_keys($convert), array_values($convert), $this->select[$key]);
             }
             else
             {
-                $return = str_replace('%', $convert, $array[$key]);
+                $return = str_replace('%', $convert, $this->select[$key]);
             }
+        }
+        else
+        {
+            $return = $key;
         }
 
         return $return;

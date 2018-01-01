@@ -1,4 +1,13 @@
 <?php namespace ZN\IndividualStructures\User;
+/**
+ * ZN PHP Web Framework
+ * 
+ * "Simplicity is the ultimate sophistication." ~ Da Vinci
+ * 
+ * @package ZN
+ * @license MIT [http://opensource.org/licenses/MIT]
+ * @author  Ozan UYKUN [ozan@znframework.com]
+ */
 
 use ZN\Services\URL;
 use ZN\Services\URI;
@@ -6,17 +15,17 @@ use ZN\CryptoGraphy\Encode;
 use ZN\IndividualStructures\IS;
 use ZN\IndividualStructures\Lang;
 use ZN\IndividualStructures\Import;
+use ZN\IndividualStructures\Exception\ActivationColumnException;
 
 class Register extends UserExtends
 {
-    //--------------------------------------------------------------------------------------------------------
-    // Auto Login
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  mixed $autoLogin
-    // @return this
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Auto login.
+     * 
+     * @param mixed $autoLogin = true
+     * 
+     * @return Register
+     */
     public function autoLogin($autoLogin = true) : Register
     {
         Properties::$parameters['autoLogin'] = $autoLogin;
@@ -24,16 +33,15 @@ class Register extends UserExtends
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Register
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  array       $data
-    // @param  bool/string $autoLogin
-    // @param  string      $activationReturnLink
-    // @return bool
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Do register.
+     * 
+     * @param array  $data                 = NULL
+     * @param mixed  $autoLogin            = false
+     * @param string $activationReturnLink = ''
+     * 
+     * @return Bool
+     */
     public function do(Array $data = NULL, $autoLogin = false, String $activationReturnLink = '') : Bool
     {
         $data                   = Properties::$parameters['column']     ?? $data;
@@ -41,9 +49,7 @@ class Register extends UserExtends
         $activationReturnLink   = Properties::$parameters['returnLink'] ?? $activationReturnLink;
         Properties::$parameters = [];
 
-        // ------------------------------------------------------------------------------
-        // Settings
-        // ------------------------------------------------------------------------------
+        # Settings
         $getColumns         = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['columns'];
         $getJoining         = INDIVIDUALSTRUCTURES_USER_CONFIG['joining'];
         $tableName          = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['table'];
@@ -54,7 +60,6 @@ class Register extends UserExtends
         $emailColumn        = $getColumns['email'];
         $activeColumn       = $getColumns['active'];
         $activationColumn   = $getColumns['activation'];
-        // ------------------------------------------------------------------------------
 
         if( ! empty($joinTables) )
         {
@@ -76,8 +81,6 @@ class Register extends UserExtends
                              ->get($tableName)
                              ->totalRows();
 
-        // Daha önce böyle bir kullanıcı
-        // yoksa kullanıcı kaydetme işlemini başlat.
         if( empty($usernameControl) )
         {
             $data[$passwordColumn] = $encodePassword;
@@ -134,29 +137,25 @@ class Register extends UserExtends
         }
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Activation Complete
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Activation complete.
+     * 
+     * @param void
+     * 
+     * @return bool
+     */
     public function activationComplete() : Bool
     {
-        // ------------------------------------------------------------------------------
-        // Settings
-        // ------------------------------------------------------------------------------
+        # Settings
         $getColumns         = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['columns'];
         $tableName          = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['table'];
         $usernameColumn     = $getColumns['username'];
         $passwordColumn     = $getColumns['password'];
         $activationColumn   = $getColumns['activation'];
-        // ------------------------------------------------------------------------------
 
-        // Aktivasyon dönüş linkinde yer alan segmentler -------------------------------
+        # Return link values.
         $user = URI::get('user');
         $pass = URI::get('pass');
-        // ------------------------------------------------------------------------------
 
         if( ! empty($user) && ! empty($pass) )
         {
@@ -183,17 +182,49 @@ class Register extends UserExtends
         }
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Activation
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  string $user
-    // @param  string $pass
-    // @param  string $activationReturnLink
-    // @param  string $email
-    // @return bool
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Resend activation e-mail.
+     * 
+     * @param string $username
+     * @param string $returnLink
+     * @param string $email = NULL
+     * 
+     * @return bool
+     */
+    public function resendActivationEmail(String $username, String $returnLink, String $email = NULL) : Bool
+    {
+        # Settings
+        $getColumns = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['columns'];
+        $tableName  = INDIVIDUALSTRUCTURES_USER_CONFIG['matching']['table'];
+
+        if( empty($getColumns['activation']) )
+        {
+            throw new ActivationColumnException();
+        }
+
+        $data = \DB::where($getColumns['username'], $email ?? $username, 'and')
+                   ->where($getColumns['activation'], '0')
+                   ->get($tableName)
+                   ->row();
+        
+        if( empty($data) )
+        {
+            return ! Properties::$error = Lang::select('IndividualStructures', 'user:resendActivationError');
+        }
+        
+        return $this->_activation($username, $data->{$getColumns['password']}, $returnLink, $email);
+    }
+
+    /**
+     * protected activation
+     * 
+     * @param string $user
+     * @param string $pass 
+     * @param string $activationReturnLink
+     * @param string $email
+     * 
+     * @return bool
+     */
     protected function _activation($user, $pass, $activationReturnLink, $email)
     {
         $url = suffix($activationReturnLink);
