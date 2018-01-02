@@ -41,6 +41,6 @@ class ML extends \FactoryController
     //--------------------------------------------------------------------------------------------------------
     public function lang(String $lang = 'tr') : Bool
     {
-        Lang::set($lang);
+        return Lang::set($lang);
     }
 }
