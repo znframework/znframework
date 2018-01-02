@@ -60,7 +60,6 @@
         'dsn'         => '',
         'server'      => '',
         'port'        => '',
-        'port'        => '',
         'cacheDriver' => 'file',
         'queryLog'    => false,
         'pconnect'    => false,
