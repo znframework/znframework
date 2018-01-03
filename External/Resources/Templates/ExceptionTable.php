@@ -1,8 +1,6 @@
 <?php
 Import::style('bootstrap', 'awesome', 'external-template-style'); Import::script('jquery', 'bootstrap');
 
-$lang  = ZN\IndividualStructures\Lang::select('Templates');
-
 unset($trace['params']);
 
 Import::template('ExternalTemplateStyles');
@@ -21,11 +19,11 @@ Import::template('ExternalTemplateStyles');
         <div class="panel-body" style="margin-bottom:-17px;">
             <div class="list-group">
                 <?php
-                displayExceptionTable($file, $line, NULL, $lang);
+                displayExceptionTable($file, $line, NULL);
             
                 foreach( $trace as $key => $debug )
                     if( $debug['file'] !== $file && ! empty($debug['file']) )
-                        displayExceptionTable($debug['file'], $debug['line'], $key, $lang);
+                        displayExceptionTable($debug['file'], $debug['line'], $key);
                 ?>
             </div>
         </div>
@@ -39,7 +37,7 @@ if( isset($trace) ) foreach( $trace as $key => $bug )
     $bug['message'] = $bug['file'];
 }
 
-function displayExceptionTable($file, $line, $key, $lang)
+function displayExceptionTable($file, $line, $key)
 {
     ?>
     <a href="#openExceptionMessage<?php echo $key?>" class="list-group-item panel-header" data-toggle="collapse">

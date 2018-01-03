@@ -763,7 +763,7 @@ class Email implements EmailInterface
 
             if( $column === NULL )
             {
-                $this->error[] = Lang::select('Email', 'email:templateColumnError', '1.($table)');
+                $this->error[] = Lang::select('Services', 'email:templateColumnError', '1.($table)');
             }
         
             $whereColumn = $columnEx[0];
@@ -771,7 +771,7 @@ class Email implements EmailInterface
             
             if( $whereValue === NULL )
             {
-                $this->error[] = Lang::select('Email', 'email:templateValueError', '2.($column)');
+                $this->error[] = Lang::select('Services', 'email:templateValueError', '2.($column)');
             }
             
             if( empty($this->error) )

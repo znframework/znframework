@@ -11,7 +11,6 @@
 
 use Config, ReflectionClass;
 use ZN\DataTypes\Exception\InvalidArgumentException;
-use ZN\DataTypes\Strings;
 
 class Classes implements ClassesInterface
 {

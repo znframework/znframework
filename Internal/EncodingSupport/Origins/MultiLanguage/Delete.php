@@ -85,7 +85,7 @@ class Delete extends MLExtends
 
             if( ! empty($MLFiles) ) foreach( $MLFiles as $file )
             {
-                $removeExtension = str_replace('.ml', '', $file);
+                $removeExtension = str_replace($this->extension, '', $file);
                 $this->all($removeExtension);
             }
 

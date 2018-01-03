@@ -14,6 +14,19 @@ use ZN\IndividualStructures\Support;
 trait MagicFactoryAbility
 {
     /**
+     * Magic call static
+     * 
+     * @param string $method
+     * @param array  $parameters
+     * 
+     * @return mixed
+     */
+    public static function __callStatic($method, $parameters)
+    {
+        return self::call($method, $parameters);
+    }
+
+    /**
      * Magic call
      * 
      * @param string $method
@@ -23,13 +36,26 @@ trait MagicFactoryAbility
      */
     public function __call($method, $parameters)
     {
+        return $this->call($method, $parameters);
+    }
+
+    /**
+     * Magic call
+     * 
+     * @param string $method
+     * @param array  $parameters
+     * 
+     * @return mixed
+     */
+    public function call($method, $parameters)
+    {
         if( ! defined('static::factory') )
         {
             return false;
         }
 
         $originMethodName = $method;
-        $method           = Autoloader::lower($method);
+        $method           = strtolower($method);
         $calledClass      = get_called_class();
 
         if( ! isset(static::factory['methods'][$method]) )

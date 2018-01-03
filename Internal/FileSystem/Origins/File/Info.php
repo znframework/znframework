@@ -12,7 +12,6 @@
 use ZN\FileSystem\Exception\FileNotFoundException;
 use ZN\FileSystem\Exception\UndefinedFunctionException;
 use ZN\FileSystem\Folder;
-use ZN\ErrorHandling\Errors;
 
 class Info
 {

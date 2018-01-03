@@ -101,7 +101,7 @@ class Select extends MLExtends
 
             if( ! empty($MLFiles) ) foreach( $MLFiles as $file )
             {
-                $removeExtension = str_replace('.ml', '', $file);
+                $removeExtension = str_replace($this->extension, '', $file);
                 $allMLFiles[$removeExtension] = $this->all($removeExtension);
             }
 
