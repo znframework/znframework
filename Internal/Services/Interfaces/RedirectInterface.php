@@ -11,6 +11,16 @@
 
 interface RedirectInterface
 {
+    /**
+     * Page refresh.
+     * 
+     * @param string $url  = NULL
+     * @param int    $time = 0
+     * @param array  $data = NULL
+     * @param bool   $exit = false
+     */
+    public function refresh(String $url = NULL, Int $time = 0, Array $data = NULL, Bool $exit = false);
+
     //--------------------------------------------------------------------------------------------------
     // redirect() -> 5.1.0
     //--------------------------------------------------------------------------------------------------

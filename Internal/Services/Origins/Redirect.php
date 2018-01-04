@@ -71,6 +71,19 @@ class Redirect implements RedirectInterface
         return server('redirectQueryString');
     }
 
+    /**
+     * Page refresh.
+     * 
+     * @param string $url  = NULL
+     * @param int    $time = 0
+     * @param array  $data = NULL
+     * @param bool   $exit = false
+     */
+    public function refresh(String $url = NULL, Int $time = 0, Array $data = NULL, Bool $exit = false)
+    {
+        $this->location($url, $time, $data, $exit, __FUNCTION__);
+    }
+
     //--------------------------------------------------------------------------------------------------
     // redirect() -> 5.1.0
     //--------------------------------------------------------------------------------------------------
@@ -81,7 +94,7 @@ class Redirect implements RedirectInterface
     // @param bool   $exit
     //
     //--------------------------------------------------------------------------------------------------
-    public function location(String $url = NULL, Int $time = 0, Array $data = NULL, Bool $exit = true)
+    public function location(String $url = NULL, Int $time = 0, Array $data = NULL, Bool $exit = true, $type = 'location')
     {
         if( ! IS::url((string) $url) )
         {
@@ -95,13 +108,20 @@ class Redirect implements RedirectInterface
                 \Session::insert($this->fix . $k, $v);
             }
         }
-
-        if( $time > 0 )
+        
+        if( $type === 'location' )
         {
-            sleep($time);
+            if( $time > 0 )
+            {
+                sleep($time);
+            }
+    
+            header('Location: ' . $url, true);   
         }
-
-        header('Location: ' . $url, true);
+        else
+        {
+            header('Refresh:'.$time.'; url='.$url);
+        }
 
         if( $exit === true )
         {

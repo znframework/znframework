@@ -9,7 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-class Limiter extends \FactoryController
+class Limiter
 {
     //--------------------------------------------------------------------------------------------------------
     // Word

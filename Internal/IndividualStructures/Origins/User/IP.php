@@ -22,7 +22,7 @@ class IP
     // @return string
     //
     //--------------------------------------------------------------------------------------------------
-    public function v4() : String
+    public static function v4() : String
     {
         $localIP = '127.0.0.1';
 

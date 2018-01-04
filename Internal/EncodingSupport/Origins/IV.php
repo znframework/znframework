@@ -10,7 +10,7 @@
  */
 
 use ZN\IndividualStructures\IS;
-use ZN\EncodingSupport\InvalidArgumentException;
+use ZN\EncodingSupport\Exception\InvalidArgumentException;
 use ZN\DataTypes\Arrays;
 
 class IV implements IVInterface
