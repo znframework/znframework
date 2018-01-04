@@ -27,12 +27,12 @@ class ElapsedTime
 
         if( ! isset(Properties::$tests[$restart]) )
         {
-            throw new BenchmarkException('[Benchmark::elapsedTime(\''.$result.'\')] -> Parameter is not a valid test start!');
+            throw new \GeneralException('[Benchmark::elapsedTime(\''.$result.'\')] -> Parameter is not a valid test start!');
         }
 
         if( ! isset(Properties::$tests[$resend]) )
         {
-            throw new BenchmarkException('[Benchmark::elapsedTime(\''.$result.'\')] -> Parameter is not a valid test end!');
+            throw new \GeneralException('[Benchmark::elapsedTime(\''.$result.'\')] -> Parameter is not a valid test end!');
         }
 
         return round(((float) Properties::$tests[$resend] - (float) Properties::$tests[$restart]), $decimal);

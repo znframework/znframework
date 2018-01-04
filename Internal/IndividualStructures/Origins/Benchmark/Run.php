@@ -21,9 +21,9 @@ class Run
     //--------------------------------------------------------------------------------------------------------
     public function test(Callable $test) : Run
     {
-        \Benchmark::start('run');
+        Testing::start('run');
         $test();
-        \Benchmark::end('run');
+        Testing::end('run');
 
         return $this;
     }
@@ -40,10 +40,10 @@ class Run
     {
         return (object)
         [
-            'elapsedTime'      => \Benchmark::elapsedTime('run'),
-            'calculatedMemory' => \Benchmark::calculatedMemory('run'),
-            'usedFileCount'    => \Benchmark::usedFileCount('run'),
-            'usedFiles'        => \Benchmark::usedFiles('run')
+            'elapsedTime'      => ElapsedTime::calculate('run'),
+            'calculatedMemory' => MemoryUsage::calculate('run'),
+            'usedFileCount'    => FileUsage::count('run'),
+            'usedFiles'        => FileUsage::list('run')
         ];
     }
 }

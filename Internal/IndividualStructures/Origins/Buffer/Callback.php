@@ -9,9 +9,6 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\ErrorHandling\Exceptions;
-use ZN\ErrorHandling\Errors;
-
 class Callback
 {
     //--------------------------------------------------------------------------------------------------------
