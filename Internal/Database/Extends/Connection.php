@@ -9,7 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use Config, Autoloader;
+use Config;
 use ZN\Helpers\Logger;
 use ZN\Database\Exception\InvalidArgumentException;
 use ZN\IndividualStructures\Support;
@@ -300,7 +300,7 @@ class Connection
 
         array_shift($array);
 
-        $math  = $this->_math(isset($args[0]) ? Autoloader::upper($args[0]) : false, $array);
+        $math  = $this->_math(isset($args[0]) ? strtoupper($args[0]) : false, $array);
 
         if( $math->return === true )
         {
@@ -496,7 +496,7 @@ class Connection
     //--------------------------------------------------------------------------------------------------------
     protected function _math($type, $args)
     {
-        $type    = Autoloader::upper($type);
+        $type    = strtoupper($type);
         $getLast = Arrays\GetElement::last($args);
         $asparam = ' ';
 

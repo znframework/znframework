@@ -375,7 +375,7 @@ class DB extends Connection
             break;
         }
 
-        $type = \Autoloader::upper($type);
+        $type = strtoupper($type);
 
         $this->joinType  = $type;
         $this->joinTable = $table;
@@ -2465,7 +2465,7 @@ class DB extends Connection
         {
             $this->$type = $this->_whereHavingConjuctionClean($this->$type) ?: $this->$type;
 
-            $return = ' '.\Autoloader::upper($type).' '.$this->$type;
+            $return = ' '.strtoupper($type).' '.$this->$type;
 
             $this->$type = NULL;
 

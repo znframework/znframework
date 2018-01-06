@@ -555,7 +555,7 @@ class Converter
     {
         $var = implode('_', Strings\Split::upperCase($var));
         
-        $variable = \Autoloader::upper($prefix . $var . $suffix);
+        $variable = strtoupper($prefix . $var . $suffix);
 
         if( defined($variable) )
         {

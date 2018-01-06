@@ -9,8 +9,6 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use CallController;
-
 abstract class HTMLHelpersAbstract
 {
     /**

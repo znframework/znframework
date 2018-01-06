@@ -175,7 +175,7 @@ class Grid extends MLExtends
 
         foreach( $data as $lang => $values )
         {
-            $upperLang = \Autoloader::upper($lang);
+            $upperLang = strtoupper($lang);
 
             $table .= '<form name="ML_TOP_FORM_'.$upperLang.'" method="post"'.$confirmBox.'>';
             $table .= '<td><strong>'.$upperLang.Form::hidden('ML_ALL_DELETE_HIDDEN', $lang).Form::attr($attributes['delete'])->submit('ML_ALL_DELETE_SUBMIT', $buttonNames['delete']).'</strong></td>';
@@ -246,7 +246,7 @@ class Grid extends MLExtends
         foreach( $words as $key => $val )
         {
             $table .= '<tr>';
-            $table .= '<form name="ML_'.\Autoloader::upper($key).'_FORM" method="post"'.$confirmBox.'>';
+            $table .= '<form name="ML_'.strtoupper($key).'_FORM" method="post"'.$confirmBox.'>';
             $table .= '<th>'.$index++.'</th>';
             $table .= '<td>'.Form::hidden('ML_UPDATE_KEYWORD_HIDDEN', $key).$key.'</td>';
 

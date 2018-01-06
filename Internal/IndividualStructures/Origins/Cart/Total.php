@@ -60,13 +60,8 @@ class Total extends CartExtends
 
         foreach( Properties::$items as $values )
         {
-            $quantity  = isset($values['quantity'])
-                       ? $values['quantity']
-                       : 1;
-
-            $price = isset($values['price'])
-                   ? $values['price']
-                   : 0;
+            $quantity = (int)   ($values['quantity'] ?? 1);
+            $price    = (float) ($values['price']    ?? 0);
 
             $total += $price * $quantity;
         }

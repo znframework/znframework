@@ -115,7 +115,7 @@ trait ConversationAbility
         [
             'name'  => $name,
             'key'   => $key,
-            'const' => Autoloader::upper($const)
+            'const' => strtoupper($const)
         ];
     }
 }

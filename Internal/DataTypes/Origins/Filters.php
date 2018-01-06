@@ -9,7 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use Cookie, Session, Server, Autoloader;
+use Cookie, Session, Server;
 use ZN\Helpers\Converter;
 
 class Filters implements FiltersInterface
@@ -256,6 +256,6 @@ class Filters implements FiltersInterface
     //--------------------------------------------------------------------------------------------------------
     protected function _validate($const, $type)
     {
-        return constant('FILTER_'.Autoloader::upper($type).'_'.Autoloader::upper($const));
+        return constant('FILTER_'.strtoupper($type).'_'.strtoupper($const));
     }
 }

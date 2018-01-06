@@ -241,7 +241,7 @@ class Restful implements RestfulInterface
     {
         $response = \CURL::init($this->url ?? $url)
                         ->option('returntransfer', true)
-                        ->option('customrequest', \Autoloader::upper($type))
+                        ->option('customrequest', strtoupper($type))
                         ->option('ssl_verifypeer', $this->sslVerifyPeer)
                         ->option('postfields', $data)
                         ->exec();

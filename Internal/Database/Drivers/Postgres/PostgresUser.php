@@ -48,7 +48,7 @@ class PostgresUser extends DriverUser
     //--------------------------------------------------------------------------------------------------------
     public function option($option, $value)
     {
-        if( ! empty($this->postgreQuoteOptions[\Autoloader::upper($option)]) )
+        if( ! empty($this->postgreQuoteOptions[strtoupper($option)]) )
         {
             $value = presuffix($value, '\'');
         }

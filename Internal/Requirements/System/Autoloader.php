@@ -37,30 +37,6 @@ class Autoloader
     protected static $path = CONFIG_DIR . 'ClassMap.php';
 
     /**
-     * This is for cases where the encoding type is not utf-8.
-     * 
-     * @param string $string = NULL
-     * 
-     * @return string
-     */
-    public static function lower(String $string = NULL) : String
-    {
-        return str_replace('I', 'i', strtolower($string));
-    }
-
-    /**
-     * This is for cases where the encoding type is not utf-8.
-     * 
-     * @param string $string = NULL
-     * 
-     * @return string
-     */
-    public static function upper(String $string = NULL) : String
-    {
-        return str_replace('i', 'I', strtoupper($string));
-    }
-
-    /**
      * Starts the class load process.
      * 
      * @param string $class
@@ -208,7 +184,7 @@ class Autoloader
      */
     public static function getClassFileInfo(String $class) : Array
     {
-        $classCaseLower = self::lower($class);
+        $classCaseLower = strtolower($class);
         $classMap       = self::_config();
         $classes        = array_merge($classMap['classes']    ?? [], (array) self::$classes);
         $namespaces     = array_merge($classMap['namespaces'] ?? [], (array) self::$namespaces);
@@ -377,11 +353,11 @@ class Autoloader
 
                 if( isset($classInfo['class']) )
                 {
-                    $class = self::lower($classInfo['class']);
+                    $class = strtolower($classInfo['class']);
 
                     if( isset($classInfo['namespace']) )
                     {
-                        $className = self::lower($classInfo['namespace']).'\\'.$class;
+                        $className = strtolower($classInfo['namespace']).'\\'.$class;
 
                         $classes['namespaces'][self::_cleanNail($className)] = self::_cleanNail($class);
                     }
@@ -392,7 +368,7 @@ class Autoloader
 
                     $classes['classes'][self::_cleanNail($className)] = self::_cleanNail($v);
 
-                    $useStaticAccess = self::lower(INTERNAL_ACCESS);
+                    $useStaticAccess = strtolower(INTERNAL_ACCESS);
 
                     if( strpos($class, $useStaticAccess) === 0  && ! preg_match('/(Interface|Trait)$/i', $class) )
                     {
@@ -428,7 +404,7 @@ class Autoloader
                             file_put_contents($rpath, $classContent);
                         }
 
-                        $classes['classes'][self::lower($newClassName)] = $path;
+                        $classes['classes'][strtolower($newClassName)] = $path;
                     }
                 }
             }
@@ -798,7 +774,7 @@ class Autoloader
      * 
      * @return void
      */
-    public function register()
+    public static function register()
     {
         spl_autoload_register('Autoloader::run');
     }

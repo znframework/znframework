@@ -30,11 +30,13 @@ class Singleton
      */
     public static function class(String $class)
     {
-        if( ! isset(self::$singleton[$class]) ) 
+        $lower = strtolower($class);
+
+        if( ! isset(self::$singleton[$lower]) ) 
         {
-            self::$singleton[$class] = new $class;
+            self::$singleton[$lower] = new $class;
         }
 
-        return self::$singleton[$class];
+        return self::$singleton[$lower];
     }
 }
