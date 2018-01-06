@@ -9,7 +9,6 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use Classes;
 use ZN\DataTypes\Strings;
 use ZN\DataTypes\Arrays;
 
@@ -43,29 +42,28 @@ trait SessionCookieCommonTrait
     //--------------------------------------------------------------------------------------------------------
     public function __call($method, $parameters)
     {
-        $class = Classes::onlyName(__CLASS__);
         $split = Strings\Split::upperCase($method);
 
         if( Arrays\GetElement::last($split) === 'Delete' )
         {
             $method = 'delete';
 
-            return $class::delete($split[0]);
+            return $this->delete($split[0]);
         }
 
         if( $method === 'all' )
         {
             $method = 'selectAll';
 
-            return $class::$method();
+            return $this->$method();
         }
 
         if( $param = ($parameters[0] ?? NULL) )
         {
-            return $class::insert($method, $param);
+            return $this->insert($method, $param);
         }
 
-        return $class::select($method);
+        return $this->select($method);
     }
 
     //--------------------------------------------------------------------------------------------------------

@@ -149,7 +149,7 @@
         'nextName'      => '>>',
         'dayType'       => 'short',
         'monthType'     => 'long',
-        'type'          => 'classic', // classic, ajax
+        'type'          => 'classic', # classic, ajax
         'class'         =>
         [
             'table'     => '',

@@ -22,18 +22,18 @@
         [
             'labels' =>
             [
-                'title'     => $lang['ml:titleLabel'],
-                'confirm'   => $lang['ml:confirmLabel'],
-                'process'   => $lang['ml:processLabel'],
-                'keywords'  => $lang['ml:keywordsLabel'],
+                'title'    => $lang['ml:titleLabel'],
+                'confirm'  => $lang['ml:confirmLabel'],
+                'process'  => $lang['ml:processLabel'],
+                'keywords' => $lang['ml:keywordsLabel'],
             ],
             'buttonNames' =>
             [
-                'add'           => $lang['ml:addButton'],
-                'update'        => $lang['ml:updateButton'],
-                'delete'        => $lang['ml:deleteButton'],
-                'clear'         => $lang['ml:clearButton'],
-                'search'        => $lang['ml:searchButton']
+                'add'    => $lang['ml:addButton'],
+                'update' => $lang['ml:updateButton'],
+                'delete' => $lang['ml:deleteButton'],
+                'clear'  => $lang['ml:clearButton'],
+                'search' => $lang['ml:searchButton']
             ],
             'placeHolders' =>
             [
@@ -48,12 +48,12 @@
             ],
             'attributes'    =>
             [
-                'table'         => ['class' => 'table table-bordered table-hover table-striped'],
-                'add'           => ['style' => 'height:30px; color:#0085B2; background:none; border:solid 1px #ccc; cursor:pointer; border-radius:4px'],
-                'update'        => ['style' => 'height:30px; color:#0085B2; background:none; border:solid 1px #ccc; cursor:pointer; border-radius:4px'],
-                'delete'        => ['style' => 'height:30px; color:#0085B2; background:none; border:solid 1px #ccc; cursor:pointer; border-radius:4px'],
-                'clear'         => ['style' => 'height:30px; color:#0085B2; background:none; border:solid 1px #ccc; cursor:pointer; border-radius:4px'],
-                'textbox'       => ['style' => 'height:30px; color:#0085B2; border:solid 1px #ccc; text-indent:10px; border-radius:4px']
+                'table'   => ['class' => 'table table-bordered table-hover table-striped'],
+                'add'     => ['style' => 'height:30px; color:#0085B2; background:none; border:solid 1px #ccc; cursor:pointer; border-radius:4px'],
+                'update'  => ['style' => 'height:30px; color:#0085B2; background:none; border:solid 1px #ccc; cursor:pointer; border-radius:4px'],
+                'delete'  => ['style' => 'height:30px; color:#0085B2; background:none; border:solid 1px #ccc; cursor:pointer; border-radius:4px'],
+                'clear'   => ['style' => 'height:30px; color:#0085B2; background:none; border:solid 1px #ccc; cursor:pointer; border-radius:4px'],
+                'textbox' => ['style' => 'height:30px; color:#0085B2; border:solid 1px #ccc; text-indent:10px; border-radius:4px']
             ],
             'pagination' =>
             [

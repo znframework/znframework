@@ -18,7 +18,7 @@
 
     /*
     |--------------------------------------------------------------------------
-    | Cryto
+    | Encode
     |--------------------------------------------------------------------------
     |
     | Sets which encryption algorithm will use the Encode class methods by default.

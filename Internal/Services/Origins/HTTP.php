@@ -10,7 +10,7 @@
  */
 
 use ZN\IndividualStructures\Lang;
-use ZN\Services\InvalidArgumentException;
+use ZN\Services\Exception\InvalidArgumentException;
 use ZN\DataTypes\Arrays;
 
 class HTTP implements HTTPInterface
