@@ -13,7 +13,7 @@ use ZN\Services\Method;
 use ZN\ViewObjects\Exception\InvalidArgumentException;
 use ZN\DataTypes\Arrays;
 use ZN\Cryptography\Encode;
-use ZN\IndividualStructures\Lang;
+use ZN\Language\Lang;
 use ZN\IndividualStructures\Security;
 
 class Validation implements ValidationInterface

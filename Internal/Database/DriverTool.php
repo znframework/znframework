@@ -10,7 +10,7 @@
  */
 
 use stdClass;
-use ZN\IndividualStructures\Lang;
+use ZN\Language\Lang;
 use ZN\Filesystem\Exception\IOException;
 use ZN\Filesystem\Folder;
 

@@ -1,4 +1,4 @@
-<?php namespace ZN\IndividualStructures;
+<?php namespace ZN\Language;
 /**
  * ZN PHP Web Framework
  * 
@@ -9,11 +9,14 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\In;
-
-class Lang implements LangInterface
+class ShortCodes
 {
-    protected static $shortCodes =
+    /**
+     * Short Code List
+     * 
+     * @var array
+     */
+    protected static $list =
     [
         'ad' => 'Catalan',
         'ae' => 'Arabic',
@@ -250,195 +253,4 @@ class Lang implements LangInterface
         'zm' => 'English',
         'zw' => 'English'
     ];
-
-    //--------------------------------------------------------------------------------------------------
-    // __callStatic()
-    //--------------------------------------------------------------------------------------------------
-    //
-    // @param string $method
-    // @param array  $parameters;
-    //
-    //--------------------------------------------------------------------------------------------------
-    public function __call($method, $parameters)
-    {
-        $method = ucfirst($method);
-
-        return self::select($method, ...$parameters);
-    }
-
-    //--------------------------------------------------------------------------------------------------
-    // shortCodes
-    //--------------------------------------------------------------------------------------------------
-    //
-    // @param $code = NULL
-    //
-    // @return Mixed
-    //
-    //--------------------------------------------------------------------------------------------------
-    public static function shortCodes(String $code = NULL)
-    {
-        if( $code === NULL )
-        {
-            return self::$shortCodes;
-        }
-
-        return self::$shortCodes[$code] ?? 'English';
-    }
-
-    //--------------------------------------------------------------------------------------------------
-    // currentLang()
-    //--------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    // @return string
-    //
-    //--------------------------------------------------------------------------------------------------
-    public static function current() : String
-    {
-        if( ! \Config::get('Services','uri')['lang'] )
-        {
-            return false;
-        }
-        else
-        {
-            return self::get();
-        }
-    }
-
-    //--------------------------------------------------------------------------------------------------
-    // select()
-    //--------------------------------------------------------------------------------------------------
-    //
-    // @param string $file
-    // @param string $str
-    // @param mixed  $changed
-    //
-    // @return mixed
-    //
-    //--------------------------------------------------------------------------------------------------
-    public static function select(String $file = NULL, String $str = NULL, $changed = NULL)
-    {
-        global $lang;
-
-        $file          = ( self::$shortCodes[self::get()] ?? 'English').'/'.suffix($file, '.php');
-        $langDir       = LANGUAGES_DIR.$file;
-        $commonLangDir = EXTERNAL_LANGUAGES_DIR.$file;
-
-        if( is_file($langDir) && ! IS::import($langDir) )
-        {
-            $lang[$file] = import($langDir);
-        }
-        elseif( is_file($commonLangDir) && ! IS::import($commonLangDir) )
-        {
-            $lang[$file] = import($commonLangDir);
-        }
-
-        if( empty($str) && isset($lang[$file]) )
-        {
-            return $lang[$file];
-        }
-        elseif( ! empty($lang[$file][$str]) )
-        {
-            $langstr = $lang[$file][$str];
-        }
-        else
-        {
-            return false;
-        }
-
-        if( ! is_array($changed) )
-        {
-            if( strstr($langstr, "%") && ! empty($changed) )
-            {
-                return str_replace("%", $changed , $langstr);
-            }
-            else
-            {
-                return $langstr;
-            }
-        }
-        else
-        {
-            if( ! empty($changed) )
-            {
-                $values = [];
-
-                foreach( $changed as $key => $value )
-                {
-                    $keys[]   = $key;
-                    $values[] = $value;
-                }
-
-                return str_replace($keys, $values, $langstr);
-            }
-            else
-            {
-                return $langstr;
-            }
-        }
-    }
-
-    //--------------------------------------------------------------------------------------------------
-    // setLang()
-    //--------------------------------------------------------------------------------------------------
-    //
-    // @param string $l
-    //
-    // @return bool
-    //
-    //--------------------------------------------------------------------------------------------------
-    public static function set(String $l = NULL) : Bool
-    {
-        if( empty($l) )
-        {
-            $l = \Config::get('Language', 'default');
-        }
-
-        return \Session::insert(In::defaultProjectKey('SystemLanguageData'), $l);
-    }
-
-
-    //--------------------------------------------------------------------------------------------------
-    // getLang()
-    //--------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    // @return string
-    //
-    //--------------------------------------------------------------------------------------------------
-    public static function get() : String
-    {
-        $systemLanguageData        = In::defaultProjectKey('SystemLanguageData');
-        $defaultSystemLanguageData = In::defaultProjectKey('DefaultSystemLanguageData');
-
-        $default = \Config::get('Language', 'default');
-
-        if( ! \Session::select($defaultSystemLanguageData) )
-        {
-            \Session::insert($defaultSystemLanguageData, $default);
-        }
-        else
-        {
-            if( \Session::select($defaultSystemLanguageData) !== $default )
-            {
-                \Session::insert($defaultSystemLanguageData, $default);
-                \Session::insert($systemLanguageData, $default);
-
-                return $default;
-            }
-        }
-
-        if( \Session::select($systemLanguageData) === false )
-        {
-            \Session::insert($systemLanguageData, $default);
-
-            return $default;
-        }
-        else
-        {
-            return \Session::select($systemLanguageData);
-        }
-    }
 }

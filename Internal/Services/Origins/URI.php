@@ -13,7 +13,7 @@ use ZN\In;
 use ZN\DataTypes\Strings;
 use ZN\DataTypes\Arrays;
 use ZN\IndividualStructures\IS;
-use ZN\IndividualStructures\Lang;
+use ZN\Language\Lang;
 use ZN\IndividualStructures\Security;
 
 class URI implements URIInterface

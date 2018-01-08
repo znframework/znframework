@@ -11,7 +11,7 @@
 
 use ZN\In;
 use ZN\Helpers\Converter;
-use ZN\IndividualStructures\Lang;
+use ZN\Language\Lang;
 
 class URL implements URLInterface
 {

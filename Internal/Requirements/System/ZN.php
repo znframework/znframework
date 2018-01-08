@@ -15,7 +15,7 @@ use ZN\Filesystem\File;
 use ZN\Filesystem\Folder;
 use ZN\Helpers\Converter;
 use ZN\DataTypes\Separator;
-use ZN\IndividualStructures\Lang;
+use ZN\Language\Lang;
 use ZN\IndividualStructures\Buffer;
 use ZN\ErrorHandling\Exceptions;
 

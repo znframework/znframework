@@ -13,7 +13,7 @@ use CLController;
 use ZN\Services\URL;
 use ZN\Services\URI;
 use ZN\IndividualStructures\IS;
-use ZN\IndividualStructures\Lang;
+use ZN\Language\Lang;
 
 class Calendar extends CLController implements CalendarInterface
 {

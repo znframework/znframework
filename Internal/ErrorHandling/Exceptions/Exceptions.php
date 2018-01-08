@@ -11,7 +11,7 @@
 
 use ZN\Helpers\Logger;
 use ZN\DataTypes\Strings;
-use ZN\IndividualStructures\Lang;
+use ZN\Language\Lang;
 use ZN\IndividualStructures\Import;
 
 class Exceptions extends \Exception implements ExceptionsInterface

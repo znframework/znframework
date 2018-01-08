@@ -11,7 +11,7 @@
 
 use ZN\Services\Method;
 use ZN\Cryptography\Encode;
-use ZN\IndividualStructures\Lang;
+use ZN\Language\Lang;
 
 class Login extends UserExtends
 {

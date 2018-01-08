@@ -9,7 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\IndividualStructures\Lang;
+use ZN\Language\Lang;
 use ZN\Services\Exception\InvalidArgumentException;
 use ZN\DataTypes\Arrays;
 

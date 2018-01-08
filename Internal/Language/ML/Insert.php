@@ -1,4 +1,4 @@
-<?php namespace ZN\EncodingSupport\MultiLanguage;
+<?php namespace ZN\Language\ML;
 /**
  * ZN PHP Web Framework
  * 
@@ -13,16 +13,15 @@ use ZN\Filesystem\File;
 
 class Insert extends MLExtends
 {
-    //--------------------------------------------------------------------------------------------------------
-    // Insert
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Dil dosyasına kelime eklemek için kullanılır.
-    // @param string $app
-    // @param mixed  $key
-    // @param string $data
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Insert language key
+     * 
+     * @param string $app  = NULL
+     * @param mixed  $key
+     * @param string $data = NULL
+     * 
+     * @return bool
+     */
     public function do(String $app, $key, String $data = NULL) : Bool
     {
         $datas = [];

@@ -11,7 +11,7 @@
 
 use ZN\DataTypes\Strings;
 use ZN\DataTypes\Arrays;
-use ZN\IndividualStructures\Lang;
+use ZN\Language\Lang;
 use ZN\IndividualStructures\Support;
 
 class GrandModel extends \BaseController

@@ -13,5 +13,5 @@ class ML
 {
     use StaticAbility;
 
-    const target = 'ZN\EncodingSupport\ML';
+    const target = 'ZN\Language\ML';
 }

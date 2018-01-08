@@ -1,4 +1,4 @@
-<?php namespace ZN\EncodingSupport\MultiLanguage;
+<?php namespace ZN\Language\ML;
 /**
  * ZN PHP Web Framework
  * 
@@ -134,7 +134,7 @@ class Grid extends MLExtends
             }
         }
 
-        $config = ENCODINGSUPPORT_ML_CONFIG['table'];
+        $config = $this->gridConfig;
 
         $attributes         = $config['attributes'];
         $pagcon             = $config['pagination'];
@@ -306,7 +306,7 @@ class Grid extends MLExtends
     //--------------------------------------------------------------------------------------------------------
     protected function _styleElement()
     {
-        $styleElementConfig = ENCODINGSUPPORT_ML_CONFIG['table']['styleElement'] ?? NULL;
+        $styleElementConfig = $this->gridConfig['styleElement'] ?? NULL;
 
         if( ! empty($styleElementConfig) )
         {

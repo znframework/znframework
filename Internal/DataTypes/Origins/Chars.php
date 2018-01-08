@@ -9,11 +9,15 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use Classes;
 use ZN\IndividualStructures\Support;
 
 class Chars
 {
+    /**
+     * Keeps methods
+     * 
+     * @var array
+     */
     protected $methods =
     [
         'isalnum'    => 'alnum',
@@ -29,14 +33,14 @@ class Chars
         'iscontrol'  => 'cntrl'
     ];
 
-    //--------------------------------------------------------------------------------------------------------
-    // Magic Call
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $method
-    // @param array  $parameters
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Magic call static 
+     * 
+     * @param string $method
+     * @param array  $parameters
+     * 
+     * @return bool
+     */
     public function __call($method, $parameters)
     {
         $method = strtolower($method);

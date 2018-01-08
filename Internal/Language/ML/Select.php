@@ -1,4 +1,4 @@
-<?php namespace ZN\EncodingSupport\MultiLanguage;
+<?php namespace ZN\Language\ML;
 /**
  * ZN PHP Web Framework
  * 
@@ -72,14 +72,13 @@ class Select extends MLExtends
         return $return;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Select All
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  mixed $app
-    // @return array
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Select all languages
+     * 
+     * @param mixed $app = NULL
+     * 
+     * @return array
+     */
     public function all($app = NULL) : Array
     {
         if( ! is_string($app) )

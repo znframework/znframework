@@ -14,7 +14,7 @@ use ZN\Helpers\Logger;
 use ZN\Filesystem\File;
 use ZN\Filesystem\Folder;
 use ZN\IndividualStructures\IS;
-use ZN\IndividualStructures\Lang;
+use ZN\Language\Lang;
 use ZN\IndividualStructures\Import;
 use ZN\ErrorHandling\Errors;
 use ZN\ErrorHandling\Exceptions;

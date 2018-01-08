@@ -9,7 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\IndividualStructures\Lang;
+use ZN\Language\Lang;
 use ZN\IndividualStructures\Support;
 use ZN\Services\Abstracts\EmailMappingAbstract;
 use ZN\Services\Exception\FailureSendEmailException;

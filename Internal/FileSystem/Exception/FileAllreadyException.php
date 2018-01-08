@@ -10,7 +10,7 @@
  */
 
 use GeneralException;
-use ZN\IndividualStructures\Lang;
+use ZN\Language\Lang;
 
 class FileAllreadyException extends GeneralException
 {

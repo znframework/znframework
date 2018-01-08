@@ -1,4 +1,4 @@
-<?php namespace ZN\EncodingSupport\MultiLanguage;
+<?php namespace ZN\Language\ML;
 /**
  * ZN PHP Web Framework
  * 
@@ -14,17 +14,14 @@ use ZN\Filesystem\Folder;
 
 class Delete extends MLExtends
 {
-    //--------------------------------------------------------------------------------------------------------
-    // Delete
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Silinecek dil dosyası.
-    // @param string $app
-    // @param mixed  $key
-    //
-    // @return bool
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Delete langauge key
+     * 
+     * @param string $app
+     * @param mixed  $key
+     * 
+     * @return bool
+     */
     public function do(String $app, $key) : Bool
     {
         $datas = [];
@@ -56,14 +53,13 @@ class Delete extends MLExtends
         return file_put_contents($createFile, json_encode($json, JSON_UNESCAPED_UNICODE));
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Delete All
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Silinecek dil dosyası.
-    // @param string $app
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Delete all langauges keys
+     * 
+     * @param string $app
+     * 
+     * @return bool
+     */
     public function all($app = NULL) : Bool
     {
         if( ! is_string($app) )

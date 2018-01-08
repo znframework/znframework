@@ -10,7 +10,7 @@
  */
 
 use ZN\IndividualStructures\IS;
-use ZN\IndividualStructures\Lang;
+use ZN\Language\Lang;
 use ZN\DataTypes\Arrays;
 use ZN\Cryptography\Encode;
 use ZN\Filesystem\File;

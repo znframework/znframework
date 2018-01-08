@@ -16,7 +16,7 @@ use ZN\DataTypes\Strings;
 use ZN\Filesystem\Folder;
 use ZN\ErrorHandling\Errors;
 use ZN\IndividualStructures\IS;
-use ZN\IndividualStructures\Lang;
+use ZN\Language\Lang;
 use ZN\IndividualStructures\Import;
 
 class In

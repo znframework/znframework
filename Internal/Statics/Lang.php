@@ -13,5 +13,5 @@ class Lang
 {
     use StaticAbility;
 
-    const target = 'ZN\IndividualStructures\Lang';
+    const target = 'ZN\Language\Lang';
 }

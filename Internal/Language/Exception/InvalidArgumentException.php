@@ -1,4 +1,4 @@
-<?php
+<?php namespace ZN\Language\Exception;
 /**
  * ZN PHP Web Framework
  * 
@@ -9,9 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-class MB
+class InvalidArgumentException extends \InvalidArgumentException
 {
-    use StaticAbility;
-
-    const target = 'ZN\EncodingSupport\MB';
+    use \ExclusionAbility;
 }

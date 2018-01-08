@@ -8,7 +8,7 @@
  * @license MIT [http://opensource.org/licenses/MIT]
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
-
+ini_set('display_errors', 1);
 /*
 |--------------------------------------------------------------------------
 | Autoloader

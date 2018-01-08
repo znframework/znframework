@@ -11,7 +11,7 @@
 
 use ZN\DataTypes\Strings;
 use ZN\IndividualStructures\IS;
-use ZN\IndividualStructures\Lang;
+use ZN\Language\Lang;
 use ZN\IndividualStructures\Import;
 use ZN\IndividualStructures\Security;
 

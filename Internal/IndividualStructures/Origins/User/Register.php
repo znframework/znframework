@@ -13,7 +13,7 @@ use ZN\Services\URL;
 use ZN\Services\URI;
 use ZN\Cryptography\Encode;
 use ZN\IndividualStructures\IS;
-use ZN\IndividualStructures\Lang;
+use ZN\Language\Lang;
 use ZN\IndividualStructures\Import;
 use ZN\IndividualStructures\Exception\ActivationColumnException;
 
