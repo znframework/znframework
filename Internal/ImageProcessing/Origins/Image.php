@@ -265,8 +265,13 @@ class Image implements ImageInterface
         {
             case 'jpg' :
             case 'jpeg': return imagejpeg($files, $paths, $quality ?: 80);
-            case 'png' : return imagepng ($files, $paths, $quality ?: 8 );
-            case 'gif' : return imagegif ($files, $paths                );
+            case 'png' : 
+                if( $quality > 10 )
+                {
+                    $quality = (int) ($quality / 10);
+                }
+                return imagepng($files, $paths, $quality ?: 8 );
+            case 'gif' : return imagegif($files, $paths);
             default    : return false;
         }
     }

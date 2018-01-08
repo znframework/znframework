@@ -16,7 +16,7 @@ use ZN\ErrorHandling\Errors;
 use stdClass;
 use ZN\Database\Exception\ConnectionErrorException;
 
-class SQLServerDriver extends DriverConnectionMappingAbstract
+class SQLServer extends DriverConnectionMappingAbstract
 {
     //--------------------------------------------------------------------------------------------------------
     // Operators

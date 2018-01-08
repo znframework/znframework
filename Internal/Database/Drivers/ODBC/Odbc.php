@@ -16,7 +16,7 @@ use ZN\ErrorHandling\Errors;
 use stdClass;
 use ZN\Database\Exception\ConnectionErrorException;
 
-class ODBCDriver extends DriverConnectionMappingAbstract
+class ODBC extends DriverConnectionMappingAbstract
 {
     //--------------------------------------------------------------------------------------------------------
     // Operators

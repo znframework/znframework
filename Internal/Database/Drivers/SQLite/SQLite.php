@@ -15,7 +15,7 @@ use ZN\ErrorHandling\Errors;
 use Exception, SQLite3, stdClass;
 use ZN\Database\Exception\ConnectionErrorException;
 
-class SQLiteDriver extends DriverConnectionMappingAbstract
+class SQLite extends DriverConnectionMappingAbstract
 {
     //--------------------------------------------------------------------------------------------------------
     // Operators

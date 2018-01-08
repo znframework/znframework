@@ -1,4 +1,4 @@
-<?php namespace ZN\Database\Drivers;
+<?php namespace ZN\Database;
 /**
  * ZN PHP Web Framework
  * 
@@ -9,517 +9,407 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\Database\Abstracts\DriverConnectionMappingAbstract;
-use ZN\IndividualStructures\Support;
-use ZN\ErrorHandling\Errors;
-use stdClass;
-use ZN\Database\Exception\ConnectionErrorException;
-
-
-class MySQLi extends DriverConnectionMappingAbstract
+class DBUser extends Connection
 {
     //--------------------------------------------------------------------------------------------------------
-    // Operators
+    // User
     //--------------------------------------------------------------------------------------------------------
     //
-    // @var array
+    // @var object
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $operators =
-    [
-        'like' => '%'
-    ];
+    protected $user;
 
     //--------------------------------------------------------------------------------------------------------
-    // Statements
+    // Database Manipulation Methods Başlangıç
     //--------------------------------------------------------------------------------------------------------
-    //
-    // @var array
-    //
-    //--------------------------------------------------------------------------------------------------------
-    protected $statements =
-    [
-        'autoincrement' => 'AUTO_INCREMENT',
-        'primarykey'    => 'PRIMARY KEY',
-        'foreignkey'    => 'FOREIGN KEY',
-        'unique'        => 'UNIQUE',
-        'null'          => 'NULL',
-        'notnull'       => 'NOT NULL',
-        'exists'        => 'EXISTS',
-        'notexists'     => 'NOT EXISTS',
-        'constraint'    => 'CONSTRAINT',
-        'default'       => 'DEFAULT'
-    ];
+
+    public function __construct($settings = [])
+    {
+        parent::__construct($settings);
+
+        $this->user = $this->_drvlib('User', $settings);
+    }
 
     //--------------------------------------------------------------------------------------------------------
-    // Variable Types
+    // name()
     //--------------------------------------------------------------------------------------------------------
     //
-    // @var array
+    // @param string $name: USER()
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $variableTypes =
-    [
-        'int'           => 'INT',
-        'smallint'      => 'SMALLINT',
-        'tinyint'       => 'TINYINT',
-        'mediumint'     => 'MEDIUMINT',
-        'bigint'        => 'BIGINT',
-        'decimal'       => 'DECIMAL',
-        'double'        => 'DOUBLE',
-        'float'         => 'FLOAT',
-        'char'          => 'CHAR',
-        'varchar'       => 'VARCHAR',
-        'tinytext'      => 'TINYTEXT',
-        'text'          => 'TEXT',
-        'mediumtext'    => 'MEDIUMTEXT',
-        'longtext'      => 'LONGTEXT',
-        'date'          => 'DATE',
-        'datetime'      => 'DATETIME',
-        'time'          => 'TIME',
-        'timestamp'     => 'TIMESTAMP'
-    ];
+    public function name(String $name) : DBUser
+    {
+        $this->user->name($name);
+
+        return $this;
+    }
 
     //--------------------------------------------------------------------------------------------------------
-    // Var Types
+    // host()
     //--------------------------------------------------------------------------------------------------------
     //
-    // @var array
+    // @param string $host: localhost
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $types = 
-    [
-        0   => 'DECIMAL',      
-        1   => 'TINY',
-        2   => 'SHORT',
-        3   => 'LONG',
-        4   => 'FLOAT',
-        5   => 'DOUBLE',
-        6   => 'NULL',
-        7   => 'TIMESTAMP',
-        8   => 'LONGLONG',
-        9   => 'INT24',
-        10  => 'DATE',
-        11  => 'TIME',
-        12  => 'DATETIME',
-        13  => 'YEAR',          
-        14  => 'NEWDATE',     
-        247 => 'ENUM',
-        248 => 'SET',
-        249 => 'TINY_BLOB',
-        250 => 'MEDIUM_BLOB',
-        251 => 'LONG_BLOG',
-        252 => 'BLOB',
-        253 => 'VAR_STRING',
-        254 => 'STRING',
-        255 => 'GEOMETRY'
-    ];
+    public function host(String $host) : DBUser
+    {
+        $this->user->host($host);
+
+        return $this;
+    }
 
     //--------------------------------------------------------------------------------------------------------
-    // Construct
+    // password()
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $authString: empty
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function password(String $authString) : DBUser
+    {
+        $this->user->password($authString);
+
+        return $this;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // identifiedBy()
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $authString: empty
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function identifiedBy(String $authString) : DBUser
+    {
+        $this->user->identifiedBy($authString);
+
+        return $this;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // identifiedByPassword()
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $hashString: empty
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function identifiedByPassword(String $hashString) : DBUser
+    {
+        $this->user->identifiedByPassword($hashString);
+
+        return $this;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // identifiedWith()
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $authPlugin: empty
+    // @param string $type      : empty
+    // @param string $authString: empty
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function identifiedWith(String $authPlugin, String $type, String $authString) : DBUser
+    {
+        $this->user->identifiedWith($authPlugin, $type, $authString);
+
+        return $this;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // identifiedWithBy()
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $authPlugin: empty
+    // @param string $authString: empty
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function identifiedWithBy(String $authPlugin, String $authString) : DBUser
+    {
+        $this->user->identifiedWithBy($authPlugin, $authString);
+
+        return $this;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // identifiedWithAs()
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $hashPlugin: empty
+    // @param string $hashString: empty
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function identifiedWithAs(String $hashPlugin, String $hashString) : DBUser
+    {
+        $this->user->identifiedWithAs($hashPlugin, $hashString);
+
+        return $this;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // required()
     //--------------------------------------------------------------------------------------------------------
     //
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function __construct()
+    public function required() : DBUser
     {
-        Support::func('mysqli_connect', 'MySQLi');
+        $this->user->required();
+
+        return $this;
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Connect
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array $config
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function connect($config = [])
-    {
-        $this->config  = $config;
-
-        $this->connect = mysqli_connect
-        (
-            $this->config['host'], 
-            $this->config['user'],
-            $this->config['password'], 
-            $this->config['database']
-        );
-
-        if( empty($this->connect) )
-        {
-            throw new ConnectionErrorException();
-        }
-
-        if( ! empty($this->config['charset']  ) ) $this->query("SET NAMES '".$this->config['charset']."'");  
-        if( ! empty($this->config['charset']  ) ) $this->query('SET CHARACTER SET '.$this->config['charset']);  
-        if( ! empty($this->config['collation']) ) $this->query('SET COLLATION_CONNECTION = "'.$this->config['collation'].'"');
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Exec
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $query
-    // @param array  $security
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function exec($query, $security = NULL)
-    {
-        if( empty($query) )
-        {
-            return false;
-        }
-
-        return mysqli_query($this->connect, $query);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Query
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $query
-    // @param array  $security
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function query($query, $security = NULL)
-    {
-        return $this->query = $this->exec($query, $security);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Multi Query
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $query
-    // @param array  $security
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function multiQuery($query, $security = NULL)
-    {
-        if( empty($query) )
-        {
-            return false;
-        }
-
-        return $this->query = mysqli_multi_query($this->connect, $query);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Trans Start
+    // with()
     //--------------------------------------------------------------------------------------------------------
     //
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function transStart()
+    public function with() : DBUser
     {
-        mysqli_autocommit($this->connect, false);
+        $this->user->with();
 
-        return ( phpversion() > 5.5 )
-               ? mysqli_begin_transaction($this->connect)
-               : $this->query('START TRANSACTION');
+        return $this;
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Trans Roll Back
+    // option()
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param void
+    // @param string $name
+    // @param string $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function transRollback()
+    public function option(String $name, String $value) : DBUser
     {
-        if( mysqli_rollback($this->connect) )
-        {
-            mysqli_autocommit($this->connect, true);
+        $this->user->option($name, $value);
 
-            return true;
-        }
+        return $this;
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Trans Commit
+    // encode()
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param void
+    // @param string $type     : SSL, X509, CIPHER value, ISSUER value, SUBJECT value
+    // @param string $string   : empty value
+    // @param string $condition: and, or
     //
     //--------------------------------------------------------------------------------------------------------
-    public function transCommit()
+    public function encode(String $type, String $string, String $condition = NULL) : DBUser
     {
-        if( mysqli_commit($this->connect) )
-        {
-            mysqli_autocommit($this->connect, true);
+        $this->user->encode($type, $string, $condition);
 
-            return true;
-        }
+        return $this;
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Insert ID
+    // resource()
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param void
+    // @param string $resource: query       => MAX_QUERIES_PER_HOUR
+    //                          update      => 'MAX_UPDATES_PER_HOUR
+    //                          connection  => 'MAX_CONNECTIONS_PER_HOUR
+    //                          user        => 'MAX_USER_CONNECTIONS
+    // @param string $count   : 0
     //
     //--------------------------------------------------------------------------------------------------------
-    public function insertID()
+    public function resource(String $resource, $count = 0) : DBUser
     {
-        if( ! empty($this->connect) )
-        {
-            return mysqli_insert_id($this->connect);
-        }
-        else
-        {
-            return false;
-        }
+        $this->user->resource($resource, $count);
+
+        return $this;
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Column Data
+    // passwordExpire()
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $column
+    // @param string  $type: empty, DEFAULT, NEVER, INTERVAL
+    // @param numeric $n   : 0
     //
     //--------------------------------------------------------------------------------------------------------
-    public function columnData($column)
+    public function passwordExpire(String $type = NULL, $n = 0) : DBUser
     {
-        if( empty($this->query) )
-        {
-            return false;
-        }
+        $this->user->passwordExpire($type, $n);
 
-        $columns   = [];
-        $fieldData = mysqli_fetch_fields($this->query);
-        $count     = count($fieldData);
-
-        for( $i = 0; $i < $count; $i++ )
-        {
-            $fieldName = $fieldData[$i]->name;
-
-            $columns[$fieldName]             = new stdClass();
-            $columns[$fieldName]->name       = $fieldName;
-            $columns[$fieldName]->type       = $this->types[$fieldData[$i]->type] ?? NULL;
-            $columns[$fieldName]->maxLength  = $fieldData[$i]->max_length;
-            $columns[$fieldName]->primaryKey = (int) ($fieldData[$i]->flags & 2);
-            $columns[$fieldName]->default    = $fieldData[$i]->def;
-        }
-
-        return $columns[$column] ?? $columns;
+        return $this;
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Num Rows
+    // lock()
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param void
+    // @param string  $type: lock, unlock
     //
     //--------------------------------------------------------------------------------------------------------
-    public function numRows()
+    public function lock(String $type = 'lock') : DBUser
     {
-        if( ! empty($this->query) )
-        {
-            return mysqli_num_rows($this->query);
-        }
-        else
-        {
-            return 0;
-        }
+        $this->user->lock($type);
+
+        return $this;
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Columns
+    // unlock()
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param void
+    // @param string  $type: unlock, lock
     //
     //--------------------------------------------------------------------------------------------------------
-    public function columns()
+    public function unlock(String $type = 'unlock') : DBUser
     {
-        if( empty($this->query) )
-        {
-            return [];
-        }
+        $this->user->unlock($type);
 
-        $columns   = [];
-        $fields    = mysqli_fetch_fields($this->query);
-        $numFields = $this->numFields();
-
-        for( $i = 0; $i < $numFields; $i++ )
-        {
-            $columns[] = $fields[$i]->name;
-        }
-
-        return $columns;
+        return $this;
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Num Fields
+    // type()
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param void
+    // @param string  $type: TABLE, FUNCTION, PROCEDURE
     //
     //--------------------------------------------------------------------------------------------------------
-    public function numFields()
+    public function type(String $type = 'TABLE') : DBUser
     {
-        if( ! empty($this->query) )
-        {
-            return mysqli_num_fields($this->query);
-        }
-        else
-        {
-            return 0;
-        }
+        $this->user->type($type);
+
+        return $this;
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Real Escape String
+    // select()
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $data
+    // @param string  $select: *.*
     //
     //--------------------------------------------------------------------------------------------------------
-    public function realEscapeString($data)
+    public function select(String $select = '*.*') : DBUser
     {
-        if( ! empty($this->connect) )
-        {
-            return mysqli_real_escape_string($this->connect, $data);
-        }
-        else
-        {
-            return false;
-        }
+        $this->user->select($select);
+
+        return $this;
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Error
+    // grantOption()
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param void
+    // @param void()
     //
     //--------------------------------------------------------------------------------------------------------
-    public function error()
+    public function grantOption() : DBUser
     {
-        if( ! empty($this->connect) )
-        {
-            return mysqli_error($this->connect);
-        }
-        else
-        {
-            return false;
-        }
+        $this->user->grantOption();
+
+        return $this;
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Fetch Array
+    // alter()
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param void
+    // @param string  $name: USER()
     //
     //--------------------------------------------------------------------------------------------------------
-    public function fetchArray()
+    public function alter(String $name = NULL)
     {
-        if( ! empty($this->query) )
-        {
-            return mysqli_fetch_array($this->query);
-        }
-        else
-        {
-            return [];
-        }
+        $query = $this->user->alter($name ?? 'USER()');
+
+        return $this->_runQuery($query);
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Fetch Assoc
+    // create()
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param void
+    // @param string  $name: USER()
     //
     //--------------------------------------------------------------------------------------------------------
-    public function fetchAssoc()
+    public function create(String $name = NULL)
     {
-        if( ! empty($this->query) )
-        {
-            return mysqli_fetch_assoc($this->query);
-        }
-        else
-        {
-            return [];
-        }
+        $query = $this->user->create($name ?? 'USER()');
+
+        return $this->_runQuery($query);
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Fetch Row
+    // drop()
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param void
+    // @param string  $name: USER()
     //
     //--------------------------------------------------------------------------------------------------------
-    public function fetchRow()
+    public function drop(String $name = NULL)
     {
-        if( ! empty($this->query) )
-        {
-            return mysqli_fetch_row($this->query);
-        }
-        else
-        {
-            return [];
-        }
+        $query = $this->user->drop($name ?? 'USER()');
+
+        return $this->_runQuery($query);
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Affected Rows
+    // grant()
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param void
+    // @param string  $name  : ALL
+    // @param string  $type  : *.*
+    // @param string  $select: *.*
     //
     //--------------------------------------------------------------------------------------------------------
-    public function affectedRows()
+    public function grant(String $name = 'ALL', String $type = NULL, String $select = '*.*')
     {
-        if( ! empty($this->connect) )
-        {
-            return mysqli_affected_rows($this->connect);
-        }
-        else
-        {
-            return 0;
-        }
+        $query = $this->user->grant($name, $type, $select);
+
+        return $this->_runQuery($query);
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Close
+    // revoke()
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param void
+    // @param string  $name  : ALL
+    // @param string  $type  : *.*
+    // @param string  $select: *.*
     //
     //--------------------------------------------------------------------------------------------------------
-    public function close()
+    public function revoke(String $name = 'ALL', String $type = NULL, String $select = '*.*')
     {
-        if( ! empty($this->connect) )
-        {
-            mysqli_close($this->connect);
-        }
-        else
-        {
-            return false;
-        }
+        $query = $this->user->revoke($name, $type, $select);
+
+        return $this->_runQuery($query);
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Version
+    // rename()
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param void
+    // @param string  $oldName: empty
+    // @param string  $newName: empty
     //
     //--------------------------------------------------------------------------------------------------------
-    public function version()
+    public function rename(String $oldName, String $newName)
     {
-        if( ! empty($this->connect) )
-        {
-            return mysqli_get_server_version($this->connect);
-        }
-        else
-        {
-            return false;
-        }
+        $query = $this->user->rename($oldName, $newName);
+
+        return $this->_runQuery($query);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // setPassword()
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string  $user: empty
+    // @param string  $pass: empty
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function setPassword(String $user = NULL, String $pass = NULL)
+    {
+        $query = $this->user->setPassword($user, $pass);
+
+        return $this->_runQuery($query);
     }
 }

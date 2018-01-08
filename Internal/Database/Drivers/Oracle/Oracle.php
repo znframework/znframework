@@ -16,7 +16,7 @@ use ZN\ErrorHandling\Errors;
 use stdClass;
 use ZN\Database\Exception\ConnectionErrorException;
 
-class OracleDriver extends DriverConnectionMappingAbstract
+class Oracle extends DriverConnectionMappingAbstract
 {
     //--------------------------------------------------------------------------------------------------------
     // Operators

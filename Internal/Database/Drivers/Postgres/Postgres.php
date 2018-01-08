@@ -15,7 +15,7 @@ use ZN\ErrorHandling\Errors;
 use stdClass;
 use ZN\Database\Exception\ConnectionErrorException;
 
-class PostgresDriver extends DriverConnectionMappingAbstract
+class Postgres extends DriverConnectionMappingAbstract
 {
     //--------------------------------------------------------------------------------------------------------
     // Operators
