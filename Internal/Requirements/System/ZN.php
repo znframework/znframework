@@ -11,8 +11,8 @@
 
 use ZN\Core\Kernel;
 use ZN\Services\URI;
-use ZN\FileSystem\File;
-use ZN\FileSystem\Folder;
+use ZN\Filesystem\File;
+use ZN\Filesystem\Folder;
 use ZN\Helpers\Converter;
 use ZN\DataTypes\Separator;
 use ZN\IndividualStructures\Lang;

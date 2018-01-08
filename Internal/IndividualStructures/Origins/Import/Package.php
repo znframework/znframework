@@ -10,7 +10,7 @@
  */
 
 use Project\Controllers\Theme;
-use ZN\FileSystem\Folder;
+use ZN\Filesystem\Folder;
 
 class Package
 {

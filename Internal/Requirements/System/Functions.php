@@ -50,7 +50,7 @@ function illustrate(String $const, $value = '')
  */
 function CSRFInput()
 {
-    Session::insert('token', ZN\CryptoGraphy\Encode\RandomPassword::create(32));
+    Session::insert('token', ZN\Cryptography\Encode\RandomPassword::create(32));
 
     return Form::hidden('token', Session::select('token'));
 }
@@ -638,7 +638,7 @@ function server(String $type = NULL)
  */
 function extension(String $file, Bool $dot = false) : String
 {
-    return ZN\FileSystem\File\Extension::get($file, $dot);
+    return ZN\Filesystem\File\Extension::get($file, $dot);
 }
 
 /**
@@ -652,7 +652,7 @@ function extension(String $file, Bool $dot = false) : String
  */
 function removeExtension(String $file) : String
 {
-    return ZN\FileSystem\File\Extension::remove($file);
+    return ZN\Filesystem\File\Extension::remove($file);
 }
 
 /**

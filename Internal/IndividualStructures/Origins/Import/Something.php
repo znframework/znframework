@@ -12,7 +12,7 @@
 use ZN\Services\URL;
 use ZN\IndividualStructures\Exception\InvalidArgumentException;
 use ZN\DataTypes\Strings;
-use ZN\FileSystem\File;
+use ZN\Filesystem\File;
 use ZN\IndividualStructures\Buffer;
 
 class Something

@@ -1,4 +1,4 @@
-<?php namespace ZN\FileSystem\FTP;
+<?php namespace ZN\Filesystem\FTP;
 /**
  * ZN PHP Web Framework
  * 
@@ -9,11 +9,11 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\FileSystem\Exception\IOException;
+use ZN\Filesystem\Exception\IOException;
 
 class Connection extends \CLController
 {
-    const config = 'FileSystem:ftp';
+    const config = 'Filesystem:ftp';
 
     //--------------------------------------------------------------------------------------------------------
     // Protected $connect
@@ -46,7 +46,7 @@ class Connection extends \CLController
 
         if( ! empty($config) )
         {
-            $config = \Config::get('FileSystem', 'ftp', $config);
+            $config = \Config::get('Filesystem', 'ftp', $config);
         }
         else
         {

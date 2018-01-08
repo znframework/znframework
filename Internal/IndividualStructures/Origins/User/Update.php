@@ -9,7 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\CryptoGraphy\Encode;
+use ZN\Cryptography\Encode;
 use ZN\IndividualStructures\Lang;
 
 class Update extends UserExtends

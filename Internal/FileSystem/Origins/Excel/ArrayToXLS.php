@@ -1,4 +1,4 @@
-<?php namespace ZN\FileSystem\Excel;
+<?php namespace ZN\Filesystem\Excel;
 /**
  * ZN PHP Web Framework
  * 

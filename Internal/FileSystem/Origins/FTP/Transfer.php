@@ -1,4 +1,4 @@
-<?php namespace ZN\FileSystem\FTP;
+<?php namespace ZN\Filesystem\FTP;
 /**
  * ZN PHP Web Framework
  * 
@@ -10,8 +10,8 @@
  */
 
 use ZN\Helpers\Converter;
-use ZN\FileSystem\Exception\FileRemoteUploadException;
-use ZN\FileSystem\Exception\FileRemoteDownloadException;
+use ZN\Filesystem\Exception\FileRemoteUploadException;
+use ZN\Filesystem\Exception\FileRemoteDownloadException;
 
 class Transfer extends Connection
 {

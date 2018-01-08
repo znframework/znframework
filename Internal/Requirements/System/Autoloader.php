@@ -1,4 +1,4 @@
-<?php namespace ZN\Classes;
+<?php namespace ZN;
 /**
  * ZN PHP Web Framework
  * 
@@ -781,4 +781,4 @@ class Autoloader
 }
 
 # Alias Autoloader
-class_alias('ZN\Classes\Autoloader', 'Autoloader');
+class_alias('ZN\Autoloader', 'Autoloader');

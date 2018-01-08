@@ -1,4 +1,4 @@
-<?php namespace ZN\Classes;
+<?php namespace ZN;
 /**
  * ZN PHP Web Framework
  * 
@@ -237,4 +237,4 @@ class Config
 }
 
 # Alias Config
-class_alias('ZN\Classes\Config', 'Config');
+class_alias('ZN\Config', 'Config');

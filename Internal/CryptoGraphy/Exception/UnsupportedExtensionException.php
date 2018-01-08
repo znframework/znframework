@@ -1,4 +1,4 @@
-<?php namespace ZN\CryptoGraphy\Exception;
+<?php namespace ZN\Cryptography\Exception;
 /**
  * ZN PHP Web Framework
  * 

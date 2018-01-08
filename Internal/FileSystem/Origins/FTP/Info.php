@@ -1,4 +1,4 @@
-<?php namespace ZN\FileSystem\FTP;
+<?php namespace ZN\Filesystem\FTP;
 /**
  * ZN PHP Web Framework
  * 
@@ -9,7 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\FileSystem\File;
+use ZN\Filesystem\File;
 
 class Info extends Connection
 {

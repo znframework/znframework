@@ -13,7 +13,7 @@ use ZN\Services\URL;
 use ZN\Services\URI;
 use ZN\Helpers\Logger;
 use ZN\DataTypes\Strings;
-use ZN\FileSystem\Folder;
+use ZN\Filesystem\Folder;
 use ZN\ErrorHandling\Errors;
 use ZN\IndividualStructures\IS;
 use ZN\IndividualStructures\Lang;

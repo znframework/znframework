@@ -1,4 +1,4 @@
-<?php namespace ZN\FileSystem;
+<?php namespace ZN\Filesystem;
 /**
  * ZN PHP Web Framework
  * 
@@ -11,8 +11,8 @@
 
 use ZN\DataTypes\Strings;
 use ZN\DataTypes\Arrays;
-use ZN\FileSystem\File;
-use ZN\FileSystem\Folder;
+use ZN\Filesystem\File;
+use ZN\Filesystem\Folder;
 use ZN\ErrorHandling\Errors;
 
 class Generate implements GenerateInterface

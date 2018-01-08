@@ -9,7 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\FileSystem\File;
+use ZN\Filesystem\File;
 use ZN\IndividualStructures\Buffer;
 
 class TemplateWizard

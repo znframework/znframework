@@ -11,8 +11,8 @@
 
 use ZN\IndividualStructures\Abstracts\CacheDriverMappingAbstract;
 use ZN\IndividualStructures\Support;
-use ZN\FileSystem\File;
-use ZN\FileSystem\Folder;
+use ZN\Filesystem\File;
+use ZN\Filesystem\Folder;
 
 class FileDriver extends CacheDriverMappingAbstract
 {

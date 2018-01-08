@@ -11,9 +11,9 @@
 
 use ZN\Services\URL;
 use ZN\DataTypes\Arrays;
-use ZN\CryptoGraphy\Encode;
-use ZN\FileSystem\File;
-use ZN\FileSystem\Folder;
+use ZN\Cryptography\Encode;
+use ZN\Filesystem\File;
+use ZN\Filesystem\Folder;
 use ZN\ImageProcessing;
 
 class Captcha implements CaptchaInterface

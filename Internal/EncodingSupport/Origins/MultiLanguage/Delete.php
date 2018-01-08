@@ -9,8 +9,8 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\FileSystem\File;
-use ZN\FileSystem\Folder;
+use ZN\Filesystem\File;
+use ZN\Filesystem\Folder;
 
 class Delete extends MLExtends
 {

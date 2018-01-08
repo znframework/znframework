@@ -10,7 +10,7 @@
  */
 
 use ZN\IndividualStructures\Support;
-use ZN\FileSystem\File;
+use ZN\Filesystem\File;
 use ZN\IndividualStructures\Abstracts\CompressDriverMappingAbstract;
 
 class ZipDriver extends CompressDriverMappingAbstract

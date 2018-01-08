@@ -22,7 +22,20 @@ class CartExtends
     //--------------------------------------------------------------------------------------------------------
     const driver =
     [
-        'options' => ['session', 'cookie'],
-        'config'  => 'IndividualStructures:cart'
+        'options'   => ['session', 'cookie'],
+        'config'    => 'IndividualStructures:cart',
+        'construct' => 'constructor'
     ];
+
+    /**
+     *  Constructor
+     * 
+     * @param void
+     * 
+     * @return void
+     */
+    public function constructor()
+    {
+        $this->key = md5('SystemCartData');
+    }
 }

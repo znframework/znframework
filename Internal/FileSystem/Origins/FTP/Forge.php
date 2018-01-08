@@ -1,4 +1,4 @@
-<?php namespace ZN\FileSystem\FTP;
+<?php namespace ZN\Filesystem\FTP;
 /**
  * ZN PHP Web Framework
  * 
@@ -9,11 +9,11 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\FileSystem\Exception\FolderAllreadyException;
-use ZN\FileSystem\Exception\FolderNotFoundException;
-use ZN\FileSystem\Exception\FolderChangeDirException;
-use ZN\FileSystem\Exception\FolderChangeNameException;
-use ZN\FileSystem\Exception\IOException;
+use ZN\Filesystem\Exception\FolderAllreadyException;
+use ZN\Filesystem\Exception\FolderNotFoundException;
+use ZN\Filesystem\Exception\FolderChangeDirException;
+use ZN\Filesystem\Exception\FolderChangeNameException;
+use ZN\Filesystem\Exception\IOException;
 
 class Forge extends Connection
 {

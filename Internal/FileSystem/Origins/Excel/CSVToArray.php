@@ -1,4 +1,4 @@
-<?php namespace ZN\FileSystem\Excel;
+<?php namespace ZN\Filesystem\Excel;
 /**
  * ZN PHP Web Framework
  * 
@@ -9,7 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\FileSystem\Exception\FileNotFoundException;
+use ZN\Filesystem\Exception\FileNotFoundException;
 
 class CSVToArray
 {

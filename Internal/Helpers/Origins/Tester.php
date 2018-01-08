@@ -11,7 +11,7 @@
 
 use ZN\IndividualStructures\Import;
 use ZN\IndividualStructures\Benchmark;
-use ZN\FileSystem\Folder;
+use ZN\Filesystem\Folder;
 
 class Tester
 {
@@ -203,7 +203,7 @@ class Tester
             'returnType'  => $returnType,
             'returnValue' => is_scalar($returnValue) ? $returnValue : $returnType,
             'elapsedTime' => $elapsedTime,
-            'index'       => $class . $method
+            'index'       => str_replace('\\', '-', $class) . '-' . $method
         ], true);
     }
 

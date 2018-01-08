@@ -1,4 +1,4 @@
-<?php namespace ZN\CryptoGraphy\Drivers;
+<?php namespace ZN\Cryptography\Drivers;
 /**
  * ZN PHP Web Framework
  * 
@@ -9,10 +9,10 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\CryptoGraphy\CryptoMapping;
+use ZN\Cryptography\CryptoMapping;
 use ZN\ErrorHandling\Errors;
 use ZN\IndividualStructures\IS;
-use ZN\CryptoGraphy\Exception\InvalidVersionException;
+use ZN\Cryptography\Exception\InvalidVersionException;
 
 class PhashDriver extends CryptoMapping
 {
@@ -42,6 +42,6 @@ class PhashDriver extends CryptoMapping
      */
 	public function keygen($length)
 	{
-		return mb_substr(password_hash(PROJECT_CONFIG['key'], PASSWORD_BCRYPT), -$length);
+		return mb_substr(password_hash($this->key, PASSWORD_BCRYPT), -$length);
 	}
 }

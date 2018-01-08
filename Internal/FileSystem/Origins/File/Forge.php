@@ -1,4 +1,4 @@
-<?php namespace ZN\FileSystem\File;
+<?php namespace ZN\Filesystem\File;
 /**
  * ZN PHP Web Framework
  * 
@@ -9,9 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\FileSystem\Exception\FileNotFoundException;
-use ZN\FileSystem\Generate;
-use ZN\FileSystem\Folder;
+use ZN\Filesystem\Exception\FileNotFoundException;
+use ZN\Filesystem\Generate;
+use ZN\Filesystem\Folder;
 
 class Forge
 {

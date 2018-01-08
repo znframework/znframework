@@ -1,4 +1,4 @@
-<?php namespace ZN\FileSystem\File;
+<?php namespace ZN\Filesystem\File;
 /**
  * ZN PHP Web Framework
  * 
@@ -9,9 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\FileSystem\Exception\FileNotFoundException;
-use ZN\FileSystem\Exception\UndefinedFunctionException;
-use ZN\FileSystem\Folder;
+use ZN\Filesystem\Exception\FileNotFoundException;
+use ZN\Filesystem\Exception\UndefinedFunctionException;
+use ZN\Filesystem\Folder;
 
 class Info
 {
@@ -143,7 +143,7 @@ class Info
     //--------------------------------------------------------------------------------------------------------
     public static function rpath(String $file = NULL) : String
     {
-        $config = \Config::get('FileSystem', 'file', self::$access);
+        $config = \Config::get('Filesystem', 'file', self::$access);
 
         self::$access = NULL;
 

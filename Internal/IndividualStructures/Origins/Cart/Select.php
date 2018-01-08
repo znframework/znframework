@@ -20,7 +20,7 @@ class Select extends CartExtends
     //--------------------------------------------------------------------------------------------------------
     public function items() : Array
     {
-        if( $sessionCart = $this->driver->select(md5('SystemCartData')) )
+        if( $sessionCart = $this->driver->select($this->key) )
         {
             return Properties::$items = $sessionCart;
         }
@@ -39,7 +39,7 @@ class Select extends CartExtends
     //--------------------------------------------------------------------------------------------------------
     public function item($code)
     {
-        Properties::$items = (array) $this->driver->select(md5('SystemCartData'));
+        Properties::$items = (array) $this->driver->select($this->key);
 
         if( empty(Properties::$items) )
         {

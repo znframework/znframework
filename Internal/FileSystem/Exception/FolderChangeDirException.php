@@ -1,4 +1,4 @@
-<?php namespace ZN\FileSystem\Exception;
+<?php namespace ZN\Filesystem\Exception;
 /**
  * ZN PHP Web Framework
  * 

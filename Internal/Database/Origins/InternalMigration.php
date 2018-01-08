@@ -10,8 +10,8 @@
  */
 
 use DB, DBForge, Config, Date;
-use ZN\FileSystem\File;
-use ZN\FileSystem\Folder;
+use ZN\Filesystem\File;
+use ZN\Filesystem\Folder;
 
 class InternalMigration extends \CallController implements MigrationInterface
 {

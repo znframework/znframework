@@ -14,7 +14,7 @@ use ZN\IndividualStructures\Security;
 use ZN\Helpers\Exception\InvalidArgumentException;
 use ZN\Helpers\Exception\LogicException;
 use ZN\DataTypes\Arrays;
-use ZN\FileSystem\File;
+use ZN\Filesystem\File;
 
 class Converter
 {

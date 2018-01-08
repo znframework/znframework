@@ -10,8 +10,8 @@
  */
 
 use ZN\Services\URL;
-use ZN\FileSystem\File;
-use ZN\FileSystem\Folder;
+use ZN\Filesystem\File;
+use ZN\Filesystem\Folder;
 use ZN\ImageProcessing\Exception\ImageNotFoundException;
 use ZN\ImageProcessing\Exception\InvalidImageFileException;
 

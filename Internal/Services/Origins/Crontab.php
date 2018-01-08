@@ -11,7 +11,7 @@
 
 use ZN\Services\Exception\InvalidTimeFormatException;
 use ZN\DataTypes\Arrays;
-use ZN\FileSystem\File;
+use ZN\Filesystem\File;
 
 class Crontab extends RemoteCommon implements CrontabInterface, CrontabIntervalInterface
 {

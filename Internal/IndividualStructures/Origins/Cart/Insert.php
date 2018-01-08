@@ -27,16 +27,16 @@ class Insert extends CartExtends
         }
 
         // Sepettin daha önce oluşturulup oluşturulmadığına göre işlemler gerçekleştiriliyor.
-        if( $sessionCart = $this->driver->select(md5('SystemCartData')) )
+        if( $sessionCart = $this->driver->select($this->key) )
         {
             Properties::$items = $sessionCart;
         }
 
         array_push(Properties::$items, $product);
 
-        $this->driver->insert(md5('SystemCartData'), Properties::$items);
+        $this->driver->insert($this->key, Properties::$items);
 
-        Properties::$items = $this->driver->select(md5('SystemCartData'));
+        Properties::$items = $this->driver->select($this->key);
 
         return true;
     }

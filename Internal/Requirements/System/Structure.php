@@ -1,4 +1,4 @@
-<?php namespace ZN\Core;
+<?php namespace ZN;
 /**
  * ZN PHP Web Framework
  * 
@@ -9,7 +9,6 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\Classes\Config;
 use ZN\DataTypes\Strings;
 use ZN\In;
 

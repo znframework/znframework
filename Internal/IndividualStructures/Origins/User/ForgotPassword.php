@@ -10,7 +10,7 @@
  */
 
 use ZN\Services\URL;
-use ZN\CryptoGraphy\Encode;
+use ZN\Cryptography\Encode;
 use ZN\IndividualStructures\IS;
 use ZN\IndividualStructures\Lang;
 use ZN\IndividualStructures\Import;

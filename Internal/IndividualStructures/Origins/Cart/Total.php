@@ -22,7 +22,7 @@ class Total extends CartExtends
     {
         $totalItems  = 0;
 
-        if( $sessionCart = $this->driver->select(md5('SystemCartData')) )
+        if( $sessionCart = $this->driver->select($this->key) )
         {
             Properties::$items = $sessionCart;
 
@@ -49,7 +49,7 @@ class Total extends CartExtends
     //--------------------------------------------------------------------------------------------------------
     public function prices() : Int
     {
-        Properties::$items = (array) $this->driver->select(md5('SystemCartData'));
+        Properties::$items = (array) $this->driver->select($this->key);
 
         if( empty(Properties::$items) )
         {

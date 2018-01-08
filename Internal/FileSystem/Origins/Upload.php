@@ -1,4 +1,4 @@
-<?php namespace ZN\FileSystem;
+<?php namespace ZN\Filesystem;
 /**
  * ZN PHP Web Framework
  * 
@@ -12,9 +12,9 @@
 use ZN\IndividualStructures\IS;
 use ZN\IndividualStructures\Lang;
 use ZN\DataTypes\Arrays;
-use ZN\CryptoGraphy\Encode;
-use ZN\FileSystem\File;
-use ZN\FileSystem\Folder;
+use ZN\Cryptography\Encode;
+use ZN\Filesystem\File;
+use ZN\Filesystem\Folder;
 use ZN\Helpers\Converter;
 
 class Upload implements UploadInterface
@@ -373,7 +373,7 @@ class Upload implements UploadInterface
 
         if( $errorNo === NULL )
         {
-            return Lang::select('FileSystem', 'upload:unknownError');
+            return Lang::select('Filesystem', 'upload:unknownError');
         }
 
         if( is_array($errorNo) )
@@ -392,7 +392,7 @@ class Upload implements UploadInterface
             $errorNo = $errno;
         }
 
-        $lang = Lang::select('FileSystem');
+        $lang = Lang::select('Filesystem');
 
         $this->errors =
         [
@@ -426,7 +426,7 @@ class Upload implements UploadInterface
         }
         else
         {
-            return Lang::select('FileSystem', 'upload:unknownError');
+            return Lang::select('Filesystem', 'upload:unknownError');
         }
     }
 
@@ -495,11 +495,11 @@ class Upload implements UploadInterface
 
         if( ! empty($extensions) && ! in_array(File\Extension::get($nm), $extensions) )
         {
-            return $this->extensionControl = Lang::select('FileSystem', 'upload:extensionError');
+            return $this->extensionControl = Lang::select('Filesystem', 'upload:extensionError');
         }
         elseif( ! empty($mimes) && ! in_array(\Mime::type($nm), $mimes) )
         {
-            return $this->extensionControl = Lang::select('FileSystem', 'upload:mimeError');
+            return $this->extensionControl = Lang::select('Filesystem', 'upload:mimeError');
         }
         elseif( ! empty($maxsize = ($this->settings['maxsize'] ?? NULL)) && $maxsize < filesize($src) )
         {

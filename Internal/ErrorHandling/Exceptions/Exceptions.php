@@ -212,9 +212,7 @@ class Exceptions extends \Exception implements ExceptionsInterface
             }
         }
 
-        $message = Import\Template::use('ExceptionTable', $exceptionData, true);
-
-        return preg_replace('/\[(.*?)\]/', '<span style="color:#00BFFF;">$1</span>', $message);
+        return Import\Template::use('ExceptionTable', $exceptionData, true);
     }
 
     //--------------------------------------------------------------------------------------------------------

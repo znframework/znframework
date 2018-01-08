@@ -1,4 +1,4 @@
-<?php namespace ZN\FileSystem\Folder;
+<?php namespace ZN\Filesystem\Folder;
 /**
  * ZN PHP Web Framework
  * 
@@ -9,9 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\FileSystem\Exception\FolderNotFoundException;
-use ZN\FileSystem\File;
-use ZN\FileSystem\Folder;
+use ZN\Filesystem\Exception\FolderNotFoundException;
+use ZN\Filesystem\File;
+use ZN\Filesystem\Folder;
 
 class Info
 {

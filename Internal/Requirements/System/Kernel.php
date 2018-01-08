@@ -11,8 +11,8 @@
 
 use ZN\In;
 use ZN\Helpers\Logger;
-use ZN\FileSystem\File;
-use ZN\FileSystem\Folder;
+use ZN\Filesystem\File;
+use ZN\Filesystem\Folder;
 use ZN\IndividualStructures\IS;
 use ZN\IndividualStructures\Lang;
 use ZN\IndividualStructures\Import;

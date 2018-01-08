@@ -1,4 +1,4 @@
-<?php namespace ZN\CryptoGraphy\Exception;
+<?php namespace ZN\Cryptography\Exception;
 /**
  * ZN PHP Web Framework
  * 
@@ -11,5 +11,9 @@
 
 class InvalidArgumentException extends \GeneralException
 {
-    
+    const lang = 
+    [
+        'en' => '`String $type` parameter should contain the hash algos(md5, sha1) data type!',
+        'tr' => '`String $type` parametresi şifreleme algoritmalarıdan(md5, sha1) birini içermelidir!'
+    ];
 }

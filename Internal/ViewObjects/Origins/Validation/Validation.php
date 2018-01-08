@@ -12,7 +12,7 @@
 use ZN\Services\Method;
 use ZN\ViewObjects\Exception\InvalidArgumentException;
 use ZN\DataTypes\Arrays;
-use ZN\CryptoGraphy\Encode;
+use ZN\Cryptography\Encode;
 use ZN\IndividualStructures\Lang;
 use ZN\IndividualStructures\Security;
 

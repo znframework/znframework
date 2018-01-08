@@ -20,7 +20,7 @@ class Delete extends CartExtends
     //--------------------------------------------------------------------------------------------------------
     public function item($code) : Bool
     {
-        Properties::$items = (array) $this->driver->select(md5('SystemCartData'));
+        Properties::$items = (array) $this->driver->select($this->key);
 
         if( empty(Properties::$items) )
         {
@@ -49,7 +49,7 @@ class Delete extends CartExtends
             $i++;
         }
 
-        return $this->driver->insert(md5('SystemCartData'), Properties::$items);
+        return $this->driver->insert($this->key, Properties::$items);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -61,6 +61,6 @@ class Delete extends CartExtends
     //--------------------------------------------------------------------------------------------------------
     public function items() : Bool
     {
-        return $this->driver->delete(md5('SystemCartData'));
+        return $this->driver->delete($this->key);
     }
 }

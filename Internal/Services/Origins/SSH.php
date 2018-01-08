@@ -9,12 +9,12 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\FileSystem\Exception\FileNotFoundException;
-use ZN\FileSystem\Exception\FileRemoteUploadException;
-use ZN\FileSystem\Exception\FileRemoteDownloadException;
-use ZN\FileSystem\Exception\FolderChangeNameException;
-use ZN\FileSystem\Exception\FolderNotFoundException;
-use ZN\FileSystem\Exception\FolderAllreadyException;
+use ZN\Filesystem\Exception\FileNotFoundException;
+use ZN\Filesystem\Exception\FileRemoteUploadException;
+use ZN\Filesystem\Exception\FileRemoteDownloadException;
+use ZN\Filesystem\Exception\FolderChangeNameException;
+use ZN\Filesystem\Exception\FolderNotFoundException;
+use ZN\Filesystem\Exception\FolderAllreadyException;
 use ZN\Services\InvalidArgumentException;
 use ZN\IndividualStructures\Support;
 

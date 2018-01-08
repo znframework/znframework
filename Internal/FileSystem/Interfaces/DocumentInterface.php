@@ -1,4 +1,4 @@
-<?php namespace ZN\FileSystem\Document;
+<?php namespace ZN\Filesystem\Document;
 /**
  * ZN PHP Web Framework
  * 

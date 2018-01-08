@@ -80,7 +80,7 @@ class RedisDriver extends CacheDriverMappingAbstract
                 throw new ConnectionRefusedException('IndividualStructures', 'cache:connectionRefused', 'Connection');
             }
         }
-        catch( RedisException $e )
+        catch( \RedisException $e )
         {
             throw new ConnectionRefusedException('IndividualStructures', 'cache:connectionRefused', $e->getMessage());
         }

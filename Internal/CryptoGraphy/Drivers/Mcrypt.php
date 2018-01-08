@@ -1,4 +1,4 @@
-<?php namespace ZN\CryptoGraphy\Drivers;
+<?php namespace ZN\Cryptography\Drivers;
 /**
  * ZN PHP Web Framework
  * 
@@ -9,11 +9,11 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\CryptoGraphy\CryptoMapping;
+use ZN\Cryptography\CryptoMapping;
 use ZN\Helpers\Converter;
 use ZN\DataTypes\Arrays;
 use ZN\IndividualStructures\IS;
-use ZN\CryptoGraphy\Exception\UnsupportedExtensionException;
+use ZN\Cryptography\Exception\UnsupportedExtensionException;
 
 class McryptDriver extends CryptoMapping
 {
@@ -28,7 +28,7 @@ class McryptDriver extends CryptoMapping
 	{
         if( IS::phpVersion('7.2') )
         {
-            throw new UnsupportedExtensionException();
+            throw new UnsupportedExtensionException;
         }
 
 		parent::__construct();
@@ -98,7 +98,7 @@ class McryptDriver extends CryptoMapping
 
         $ciphers = Arrays::multikey($ciphers);
 
-        return mb_substr(hash('md5', PROJECT_CONFIG['key']), 0, $ciphers[$cipher] ?? 8);
+        return mb_substr(hash('md5', $this->key), 0, $ciphers[$cipher] ?? 8);
     }
 
     /**
@@ -129,7 +129,7 @@ class McryptDriver extends CryptoMapping
             $mode = $modes[$cipher] ?? $mode;
         }
 
-        return mb_substr(hash('sha1', PROJECT_CONFIG['key']), 0, $mode);
+        return mb_substr(hash('sha1', $this->key), 0, $mode);
     }
 
     /**

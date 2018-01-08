@@ -90,4 +90,4 @@ layer('TopBottom');
 |
 */
 
-ZN\Core\Structure::defines();
+ZN\Structure::defines();
