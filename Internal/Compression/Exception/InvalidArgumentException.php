@@ -1,4 +1,4 @@
-<?php namespace ZN\IndividualStructures;
+<?php namespace ZN\Compression\Exception;
 /**
  * ZN PHP Web Framework
  * 
@@ -9,11 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-class CompressUnitTest extends \UnitTestController
+class InvalidArgumentException extends \InvalidArgumentException
 {
-    const unit =
-    [
-        'class'   => 'Compress',
-        'methods' => []
-    ];
+    use \ExclusionAbility;
 }
