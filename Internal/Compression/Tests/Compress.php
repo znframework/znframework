@@ -14,6 +14,13 @@ class Compress extends \UnitTestController
     const unit =
     [
         'class'   => 'Compress',
-        'methods' => []
+        'methods' => 
+        [
+            #'extract' => ['source/example.txt', 'target/'],
+            'write'    => ['example.txt', 'example value'],
+            'read'     => ['example.txt'],
+            'do'       => ['example-data'],
+             #'undo'   => ['compressdata']
+        ]
     ];
 }

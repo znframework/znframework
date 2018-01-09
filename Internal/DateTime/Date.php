@@ -1,4 +1,4 @@
-<?php namespace ZN\ViewObjects\Javascript\Components;
+<?php namespace ZN\DateTime;
 /**
  * ZN PHP Web Framework
  * 
@@ -9,57 +9,51 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use Html;
-use ZN\Buffering;
-
-class Tabs extends ComponentsExtends
+class Date extends DateTimeCommon implements DateTimeCommonInterface
 {
-    protected $tabs = [];
-
     //--------------------------------------------------------------------------------------------------------
-    // Tab
+    // Current
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string   $menu
-    // @param callable $content
+    // Aktif saat bilgisini verir.
+    //
+    // @param  string clock
+    // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function tab(String $menu, Callable $content)
+    public function current(String $clock = 'd.m.o') : String
     {
-        $content = Buffering\Callback::do($content, [new Html]);
-
-        $this->tabs[$menu] = $content;
-
-        return $this;
+        return $this->_datetime($clock);
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Pill
+    // Convert
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param callable $tab
+    // Tarih bilgisini dönüştürmek için kullanılır.
+    //
+    // @param  string $date
+    // @param  string $format
+    // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function pill(Callable $tab) : String
+    public function convert(String $date, String $format = 'd-m-Y H:i:s') : String
     {
-        return $this->generate($tab, 'pill');
+        return $this->_datetime($format, strtotime($date));
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Generate
+    // Standart
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param callable $tab
+    // Standart tarih ve saat bilgisi üretir.
+    //
+    // @param  void
+    // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function generate(Callable $tab, $type = 'tab') : String
+    public function standart() : String
     {
-        $tab($this);
-
-        return $this->prop
-        ([
-            'tabs' => $this->tabs,
-            'type' => $type
-        ]);
+        return $this->_datetime("d.F.o l, H:i:s");
     }
 }

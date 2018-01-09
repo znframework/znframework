@@ -10,7 +10,7 @@
  */
 
 use ZN\Helpers\Converter;
-use ZN\IndividualStructures\Buffer;
+use ZN\Buffering;
 use ZN\IndividualStructures\Import;
 
 class Cache implements CacheInterface
@@ -110,7 +110,7 @@ class Cache implements CacheInterface
 
         if( ! $select = $this->select($name, $compress) )
         {
-            $output = Buffer\Callback::do($function);
+            $output = Buffering\Callback::do($function);
 
             $this->insert($name, $output, $time, 'gz');
 

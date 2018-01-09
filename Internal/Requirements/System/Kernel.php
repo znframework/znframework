@@ -17,7 +17,6 @@ use ZN\IndividualStructures\IS;
 use ZN\Language\Lang;
 use ZN\IndividualStructures\Import;
 use ZN\ErrorHandling\Errors;
-use ZN\ErrorHandling\Exceptions;
 
 class Kernel
 {
@@ -50,7 +49,7 @@ class Kernel
 
         if( PROJECT_MODE !== 'publication' ) 
         {
-            set_error_handler('ZN\ErrorHandling\Exceptions::table');
+            Errors::handler();
         }
 
         # Enables the ob_gzhandler method if it is turned on.
@@ -304,7 +303,7 @@ class Kernel
             Logger::report('GeneralError', $message, 'GeneralError');
         }
 
-        if( PROJECT_MODE !== 'publication' ) restore_error_handler();
+        if( PROJECT_MODE !== 'publication' ) Errors::restore();
 
         ob_end_flush();
     }

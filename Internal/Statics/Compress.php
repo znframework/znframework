@@ -13,5 +13,5 @@ class Compress
 {
     use StaticAbility;
 
-    const target = 'ZN\IndividualStructures\Compress';
+    const target = 'ZN\Compression\Force';
 }

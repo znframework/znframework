@@ -1,4 +1,4 @@
-<?php
+<?php namespace ZN\IndividualStructures\Exception;
 /**
  * ZN PHP Web Framework
  * 
@@ -9,9 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-class Buffer
+class InvalidArgumentException extends \InvalidArgumentException
 {
-    use StaticAbility;
-
-    const target = 'ZN\Buffering\Process';
+    use \ExclusionAbility;
 }

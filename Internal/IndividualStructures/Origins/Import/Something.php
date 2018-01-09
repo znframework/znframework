@@ -13,7 +13,7 @@ use ZN\Services\URL;
 use ZN\IndividualStructures\Exception\InvalidArgumentException;
 use ZN\DataTypes\Strings;
 use ZN\Filesystem\File;
-use ZN\IndividualStructures\Buffer;
+use ZN\Buffering;
 
 class Something
 {
@@ -74,7 +74,7 @@ class Something
 
             if( is_file($randomPageVariable) )
             {
-                $return = Buffer\File::do($randomPageVariable, $randomDataVariable);
+                $return = Buffering\File::do($randomPageVariable, $randomDataVariable);
 
                 if( $randomObGetContentsVariable === false )
                 {

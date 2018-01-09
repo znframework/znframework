@@ -13,7 +13,7 @@ use ZN\In;
 use View as Views;
 use ZN\ViewObjects\TemplateWizard;
 use ZN\Filesystem\File;
-use ZN\IndividualStructures\Buffer;
+use ZN\Buffering;
 
 class View
 {
@@ -103,7 +103,7 @@ class View
         
         if( is_file($randomPagePath) )
         {
-            $return = Buffer\File::do($randomPagePath, $randomDataVariable);
+            $return = Buffering\File::do($randomPagePath, $randomDataVariable);
 
             if( $active !== NULL )
             {

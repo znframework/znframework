@@ -11,7 +11,7 @@
 
 use ZN\Services\URL;
 use ZN\ViewObjects\Exception\InvalidArgumentException;
-use ZN\IndividualStructures\Buffer;
+use ZN\Buffering;
 use ZN\IndividualStructures\IS;
 
 class HTML
@@ -77,7 +77,7 @@ class HTML
     //--------------------------------------------------------------------------------------------------------
     public function ul(Callable $list, Array $attributes = []) : String
     {
-        return $this->_multiElement(__FUNCTION__, Buffer\Callback::do($list, [new $this]), $attributes);
+        return $this->_multiElement(__FUNCTION__, Buffering\Callback::do($list, [new $this]), $attributes);
     }
 
     //--------------------------------------------------------------------------------------------------------

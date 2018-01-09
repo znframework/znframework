@@ -1,4 +1,4 @@
-<?php
+<?php namespace ZN\DateTime;
 /**
  * ZN PHP Web Framework
  * 
@@ -9,9 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-class Buffer
-{
-    use StaticAbility;
+use ZN\DateTime\Carbon\CarbonInterval;
 
-    const target = 'ZN\Buffering\Process';
+class DateTimeInterval extends CarbonInterval
+{
+
 }

@@ -10,7 +10,7 @@
  */
 
 use ZN\Filesystem\File;
-use ZN\IndividualStructures\Buffer;
+use ZN\Buffering;
 
 class TemplateWizard
 {
@@ -86,7 +86,7 @@ class TemplateWizard
             self::_html()
         );
 
-        return Buffer\Callback::code(self::replace($pattern, $string), $data);
+        return Buffering\Callback::code(self::replace($pattern, $string), $data);
     }
 
     /**

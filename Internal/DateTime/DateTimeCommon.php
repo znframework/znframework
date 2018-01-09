@@ -1,4 +1,4 @@
-<?php namespace ZN\Services;
+<?php namespace ZN\DateTime;
 /**
  * ZN PHP Web Framework
  * 
@@ -9,189 +9,210 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\Buffering;
+use Config;
+use ZN\DateTime\Carbon\Carbon;
+use ZN\DataTypes\Arrays;
 
-class Processor extends RemoteCommon implements ProcessorInterface
+class DateTimeCommon extends Carbon
 {
-    const config = 'Services:processor';
-
     //--------------------------------------------------------------------------------------------------------
-    // Output
+    // Confi
     //--------------------------------------------------------------------------------------------------------
     //
     // @var array
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $output;
+    protected $config;
 
     //--------------------------------------------------------------------------------------------------------
-    // Return
+    // Class Name
     //--------------------------------------------------------------------------------------------------------
     //
-    // @var int
+    // Sınıf uzantısı
+    //
+    // @var  string
     //
     //--------------------------------------------------------------------------------------------------------
-    protected $return;
-
-    //--------------------------------------------------------------------------------------------------------
-    // Driver
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var string
-    //
-    //--------------------------------------------------------------------------------------------------------
-    protected $driver;
+    protected $className = 'ZN\DateTime\Date';
 
     //--------------------------------------------------------------------------------------------------------
     // Construct
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param void
+    // @param  void
+    // @return bool
     //
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
         parent::__construct();
 
-        $config       = SERVICES_PROCESSOR_CONFIG;
-        $this->path   = $config['path'];
-        $this->driver = $config['driver'];
+        $this->config = Config::get('DateTime');
+
+        setlocale(LC_ALL, $this->config['setLocale']['charset'], $this->config['setLocale']['language']);
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Type -> 5.4.4[added]
+    // Compare
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param  void
+    // Tarihleri karşılaştırmak için kullanılır.
+    //
+    // @param  string clock
+    // @return bool
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function compare(String $value1, String $condition, String $value2) : Bool
+    {
+        $value1 = $this->toNumeric($value1);
+        $value2 = $this->toNumeric($value2);
+        
+        return version_compare($value1, $value2, $condition);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // To Numeric
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // Tarihi sayısal veriye çevirir.
+    //
+    // @param  string dateFormat
+    // @return numeric
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function toNumeric(String $dateFormat, Int $now = NULL) : Int
+    {
+        if( $now === NULL )
+        {
+            $now = time();
+        }
+
+        return strtotime($this->_datetime($dateFormat), $now);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // To Readble -> 5.3.5[added]
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // Veriyi okunabilir tarihe çevirir.
+    //
+    // @param  string dateFormat
+    // @return numeric
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function toReadable(Int $time, String $dateFormat = 'Y-m-d H:i:s') : String
+    {
+        return $this->_datetime($dateFormat, $time);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Calculate -> 5.3.5[edited]
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // Tarihler arasında hesaplama yapmak için kullanılır.
+    //
+    // @param  string input
+    // @param  string calculate
+    // @param  string output
+    // @return mixed
+    //
+    //--------------------------------------------------------------------------------------------------------
+    public function calculate(String $input, String $calculate, String $output = 'Y-m-d') : String
+    {
+        if( ! preg_match('/^[0-9]/', $input) )
+        {
+            $input = $this->_datetime($input);
+        }
+
+        // 5.3.5[added]
+        if( $this->_classname() === 'ZN\DateTime\Time' && $output === 'Y-m-d' )
+        {
+            $output = '{Hour}:{minute}:{second}';
+        }
+
+        $output = $this->_convert($output);
+
+        return $this->_datetime($output, strtotime($calculate, strtotime($input)));
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Set
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // Tarih ve saat ayarlamaları yapmak için kullanılır.
+    //
+    // @param  string exp
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function type() : String
+    public function set(String $exp) : String
     {
-        switch( $name = substr($sapi = php_sapi_name(), 0, 3) )
+        return $this->_datetime($exp);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Convert
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param  string $config
+    // @return string $change
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _convert($change)
+    {
+        $config = $this->_chartype();
+
+        $chars  = Properties::${$config};
+
+        $chars  = Arrays::multikey($chars);
+
+        return str_ireplace(array_keys($chars), array_values($chars), $change);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Class Name
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // Sınıf adını verir.
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _classname()
+    {
+        return $className = str_ireplace(INTERNAL_ACCESS, '', get_called_class());
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Date Time
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // Kütüphane türüne göre çevrim yapar.
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _datetime($format, $timestamp = NULL)
+    {
+        if( $timestamp === NULL )
         {
-            case 'cli' : 
-            case 'cgi' : return $name;
-
-            default    : return $sapi;
-        }
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Exec
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  string $command: empty
-    // @return string
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function exec($command)
-    {
-        switch( $this->driver )
-        {
-            case 'exec':
-                $return = exec($command, $this->output, $this->return);
-            break;
-
-            case 'shell_exec':
-            case 'shell'     :
-                $return       = shell_exec($command);
-                $this->output = $this->_split($return);
-                $this->return = 0;
-            break;
-
-            case 'system':
-                $return       = Buffering\Callback::do(function() use($command) {system($command, $this->return);});
-                $this->output = $this->_split($return);
-            break;
-
-            case 'ssh':
-                \SSH::run($command);
-                $this->output = $this->_split($return = SSH::output());
-                $this->return = 0;
-            break;
+            $timestamp = time();
         }
 
-        return $return ?? false;
+        $className = $this->_classname();
+
+        $func = $className === $this->className ? 'date' : 'strftime';
+
+        return $func($this->_convert($format), $timestamp);
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Driver
+    // Protected Char Type
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param void
+    // Sınıf türüne göre karaketer türünü verir.
     //
     //--------------------------------------------------------------------------------------------------------
-    public function driver(String $driver) : Processor
+    protected function _chartype()
     {
-        $this->driver = $driver;
+        $className = $this->_classname();
 
-        return $this;
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Output
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function output() : Array
-    {
-        return (array) $this->output;
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Return
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function return() : Int
-    {
-        return (int) $this->return;
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Split -> 5.3.6
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $string
-    //
-    //--------------------------------------------------------------------------------------------------------
-    protected function _split($string)
-    {
-        return explode("\n", rtrim($string, "\n"));
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Run
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
-    protected function _run($command)
-    {
-        $return = $this->exec($command);
-
-        $this->_defaultVariables();
-
-        return $return;
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Default Variables
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
-    protected function _defaultVariables()
-    {
-        $this->command = NULL;
-        $this->path    = NULL;
-        $this->driver  = NULL;
+        return $className === $this->className ? 'setDateFormatChars' : 'setTimeFormatChars';
     }
 }

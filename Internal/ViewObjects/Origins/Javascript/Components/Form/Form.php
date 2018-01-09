@@ -10,7 +10,7 @@
  */
 
 use Html, Form as Forms;
-use ZN\IndividualStructures\Buffer;
+use ZN\Buffering;
 
 class Form extends ComponentsExtends
 {
@@ -32,7 +32,7 @@ class Form extends ComponentsExtends
     {
         return $this->prop
         ([
-            'contents'  => Buffer\Callback::do($form, [$this]),
+            'contents'  => Buffering\Callback::do($form, [$this]),
             'form'      => $form,
             'action'    => $this->action    ?? NULL,
             'class'     => $this->class     ?? NULL,

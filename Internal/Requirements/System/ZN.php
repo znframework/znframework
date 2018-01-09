@@ -16,7 +16,7 @@ use ZN\Filesystem\Folder;
 use ZN\Helpers\Converter;
 use ZN\DataTypes\Separator;
 use ZN\Language\Lang;
-use ZN\IndividualStructures\Buffer;
+use ZN\Buffering;
 use ZN\ErrorHandling\Exceptions;
 
 class ZN
@@ -121,7 +121,7 @@ class ZN
 
             if( ! $select = \Cache::select($cacheName, $projectConfig['compress']) )
             {
-                $kernel = Buffer\Callback::do(function()
+                $kernel = Buffering\Callback::do(function()
                 {
                     Kernel::run();
                 });

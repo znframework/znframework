@@ -1,4 +1,4 @@
-<?php
+<?php 
 /**
  * ZN PHP Web Framework
  * 
@@ -9,9 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-class Buffer
+class GeneralException extends Exception implements GeneralExceptionInterface
 {
-    use StaticAbility;
-
-    const target = 'ZN\Buffering\Process';
+    use ExclusionAbility;
 }
