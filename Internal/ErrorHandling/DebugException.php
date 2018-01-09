@@ -1,4 +1,4 @@
-<?php 
+<?php namespace ZN\ErrorHandling;
 /**
  * ZN PHP Web Framework
  * 
@@ -39,3 +39,5 @@ class DebugException
         echo Exceptions::continue($message, $debug->file, $debug->line);
     }
 }
+
+class_alias('ZN\ErrorHandling\DebugException', 'DebugException');

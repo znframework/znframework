@@ -11,7 +11,7 @@
 
 use ZN\Helpers\Converter;
 use ZN\Buffering;
-use ZN\IndividualStructures\Import;
+use ZN\Inclusion\Import;
 
 class Cache implements CacheInterface
 {

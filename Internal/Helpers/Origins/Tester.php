@@ -9,7 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\IndividualStructures\Import;
+use ZN\Inclusion\Import;
 use ZN\IndividualStructures\Benchmark;
 use ZN\Filesystem\Folder;
 

@@ -11,7 +11,7 @@
 
 use RevolvingAbility, Classes;
 use ZN\DataTypes\Arrays;
-use ZN\IndividualStructures\Import;
+use ZN\Inclusion\Import;
 
 class ComponentsExtends
 {

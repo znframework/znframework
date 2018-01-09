@@ -1,4 +1,4 @@
-<?php 
+<?php namespace ZN\ErrorHandling;
 /**
  * ZN PHP Web Framework
  * 
@@ -9,7 +9,12 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
+use Exception;
+use ZN\Abilities\ExclusionAbility;
+
 class GeneralException extends Exception implements GeneralExceptionInterface
 {
     use ExclusionAbility;
 }
+
+class_alias('ZN\ErrorHandling\GeneralException', 'GeneralException');

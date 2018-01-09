@@ -1,4 +1,4 @@
-<?php 
+<?php namespace ZN\ErrorHandling;
 /**
  * ZN PHP Web Framework
  * 
@@ -8,6 +8,8 @@
  * @license MIT [http://opensource.org/licenses/MIT]
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
+
+use Throwable;
 
 interface GeneralExceptionInterface extends Throwable
 {

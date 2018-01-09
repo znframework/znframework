@@ -9,7 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\IndividualStructures\Import;
+use ZN\Inclusion\Import;
 
 class Style implements StyleInterface
 {

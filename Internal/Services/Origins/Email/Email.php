@@ -12,7 +12,7 @@
 use ZN\DataTypes\Strings;
 use ZN\IndividualStructures\IS;
 use ZN\Language\Lang;
-use ZN\IndividualStructures\Import;
+use ZN\Inclusion\Import;
 use ZN\IndividualStructures\Security;
 
 class Email implements EmailInterface

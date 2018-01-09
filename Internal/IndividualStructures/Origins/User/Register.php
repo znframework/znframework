@@ -14,7 +14,7 @@ use ZN\Services\URI;
 use ZN\Cryptography\Encode;
 use ZN\IndividualStructures\IS;
 use ZN\Language\Lang;
-use ZN\IndividualStructures\Import;
+use ZN\Inclusion\Import;
 use ZN\IndividualStructures\Exception\ActivationColumnException;
 
 class Register extends UserExtends

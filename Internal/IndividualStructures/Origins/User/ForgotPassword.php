@@ -13,7 +13,7 @@ use ZN\Services\URL;
 use ZN\Cryptography\Encode;
 use ZN\IndividualStructures\IS;
 use ZN\Language\Lang;
-use ZN\IndividualStructures\Import;
+use ZN\Inclusion\Import;
 
 class ForgotPassword extends UserExtends
 {

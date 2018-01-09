@@ -13,5 +13,5 @@ class Cart
 {
     use StaticAbility;
 
-    const target = 'ZN\IndividualStructures\Cart';
+    const target = 'ZN\Shopping\Cart';
 }
