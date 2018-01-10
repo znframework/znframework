@@ -14,7 +14,7 @@ use ZN\Services\URI;
 use ZN\Cryptography\Encode;
 use ZN\IndividualStructures\IS;
 use ZN\Language\Lang;
-use ZN\Inclusion\Import;
+use ZN\Inclusion;
 use ZN\IndividualStructures\Exception\ActivationColumnException;
 
 class Register extends UserExtends
@@ -243,7 +243,7 @@ class Register extends UserExtends
             'pass' => $pass
         ];
 
-        $message = Import\Template::use('UserEmail/Activation', $templateData, true);
+        $message = Inclusion\Template::use('UserEmail/Activation', $templateData, true);
 
         $user = $email ?? $user;
 

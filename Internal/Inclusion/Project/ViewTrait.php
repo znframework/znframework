@@ -1,4 +1,4 @@
-<?php namespace ZN;
+<?php namespace ZN\Inclusion\Project;
 /**
  * ZN PHP Web Framework
  * 

@@ -9,7 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\Inclusion\Import;
+use ZN\Inclusion;
 
 class Style implements StyleInterface
 {
@@ -43,7 +43,7 @@ class Style implements StyleInterface
      */
     public function library(...$libraries)
     {
-        Import\Style::use(...$libraries);
+        Inclusion\Style::use(...$libraries);
 
         return $this;
     }

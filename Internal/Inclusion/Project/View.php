@@ -1,4 +1,4 @@
-<?php namespace ZN;
+<?php namespace Project\Controllers;
 /**
  * ZN PHP Web Framework
  * 
@@ -9,7 +9,8 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\Inclusion\Import;
+use ZN\Inclusion;
+use ZN\Inclusion\Project\ViewTrait;
 
 class View
 {
@@ -25,9 +26,6 @@ class View
      */
     public static function get(String $file = NULL, $usable = false)
     {
-        return Import\View::use($file, [], $usable);
+        return Inclusion\View::use($file, [], $usable);
     }
 }
-
-# Alias View
-class_alias('ZN\View', 'Project\Controllers\View');

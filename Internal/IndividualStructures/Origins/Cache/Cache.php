@@ -11,7 +11,7 @@
 
 use ZN\Helpers\Converter;
 use ZN\Buffering;
-use ZN\Inclusion\Import;
+use ZN\Inclusion;
 
 class Cache implements CacheInterface
 {
@@ -60,7 +60,7 @@ class Cache implements CacheInterface
     //--------------------------------------------------------------------------------------------------------
     public function data(Array $data = NULL)
     {
-        Import\Properties::data($data);
+        Inclusion\Properties::data($data);
 
         return $this;
     }
@@ -155,15 +155,15 @@ class Cache implements CacheInterface
 
         if( ! $select = $this->select($name, $compress) )
         {
-            Import\Properties::usable();
+            Inclusion\Properties::usable();
 
             if( $type === 'shomething' )
             {
-                $output = Import\Something::use($file);
+                $output = Inclusion\Something::use($file);
             }
             else
             {
-                $output = Import\View::use($file);
+                $output = Inclusion\View::use($file);
             }
 
             $this->insert($name, $output, $time, 'gz');

@@ -1,4 +1,4 @@
-<?php namespace ZN;
+<?php namespace Project\Controllers;
 /**
  * ZN PHP Web Framework
  * 
@@ -9,10 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
+use ZN\Inclusion\Project\ViewTrait;
+
 class Masterpage
 {
     use ViewTrait;
 }
-
-# Alias Masterpage
-class_alias('ZN\Masterpage', 'Project\Controllers\Masterpage');

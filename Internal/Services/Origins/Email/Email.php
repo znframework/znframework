@@ -12,7 +12,7 @@
 use ZN\DataTypes\Strings;
 use ZN\IndividualStructures\IS;
 use ZN\Language\Lang;
-use ZN\Inclusion\Import;
+use ZN\Inclusion;
 use ZN\IndividualStructures\Security;
 
 class Email implements EmailInterface
@@ -749,7 +749,7 @@ class Email implements EmailInterface
     //--------------------------------------------------------------------------------------------------------
     public function template(String $table, $column, Array $data = []) : Email
     {
-        if( $content = Import\Template::use($table, (array) $column, true) )
+        if( $content = Inclusion\Template::use($table, (array) $column, true) )
         {
             $this->message($content);
         }

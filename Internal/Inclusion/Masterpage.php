@@ -351,7 +351,7 @@ class Masterpage
     {
         $header = '';
 
-        $class = 'ZN\Inclusion\Import\\' . $type;
+        $class = 'ZN\Inclusion\\' . $type;
 
         if( empty($masterPageSet[$type]) && empty($head[$type]) )
         {

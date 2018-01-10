@@ -17,7 +17,9 @@ use ZN\Filesystem\Folder;
 use ZN\ErrorHandling\Errors;
 use ZN\IndividualStructures\IS;
 use ZN\Language\Lang;
-use ZN\Inclusion\Import;
+use ZN\Inclusion;
+use Project\Controllers\View;
+use Project\Controllers\Masterpage;
 
 class In
 {
@@ -308,7 +310,7 @@ class In
                 'maxMemoryUsage' => $maxMemoryUsage
             ];
 
-            $benchResult = Import\Template::use('BenchmarkTable', $benchmarkData, true);
+            $benchResult = Inclusion\Template::use('BenchmarkTable', $benchmarkData, true);
             
             # Echo benchmark performance result table
             echo $benchResult;
@@ -412,8 +414,8 @@ class In
 
             $return = $startingControllerClass->$controllerFunc(...$param);
 
-            self::$view[]       = array_merge((array) $startingControllerClass->view, \View::$data);
-            self::$masterpage[] = array_merge((array) $startingControllerClass->masterpage, \Masterpage::$data);
+            self::$view[]       = array_merge((array) $startingControllerClass->view, View::$data);
+            self::$masterpage[] = array_merge((array) $startingControllerClass->masterpage, Masterpage::$data);
         }
         else
         {

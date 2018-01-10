@@ -9,8 +9,8 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\Inclusion\Import;
-use ZN\IndividualStructures\Benchmark;
+use ZN\Inclusion;
+use ZN\Comparison;
 use ZN\Filesystem\Folder;
 
 class Tester
@@ -134,9 +134,9 @@ class Tester
         {
             $method = explode(':', $method)[0];
 
-            Benchmark\Testing::start($method);
+            Comparison\Testing::start($method);
             $returnValue = uselib($this->class)->$method(...$parameters);
-            Benchmark\Testing::end($method);
+            Comparison\Testing::end($method);
 
             $this->_output($this->class, $method, gettype($returnValue), $returnValue);
 
@@ -156,7 +156,7 @@ class Tester
      */
     public function result()
     {
-        return Import\Template::use('UnitTests/Output', ['input' => $this->result]);
+        return Inclusion\Template::use('UnitTests/Output', ['input' => $this->result]);
     }
 
     /**
@@ -171,9 +171,9 @@ class Tester
      */
     protected function _output($class, $method, $returnType, $returnValue)
     {
-        $elapsedTime      = Benchmark\ElapsedTime::calculate($method);
-        $calculatedMemory = Benchmark\MemoryUsage::calculate($method);
-        $usedFileCount    = Benchmark\FileUsage::count($method);
+        $elapsedTime      = Comparison\ElapsedTime::calculate($method);
+        $calculatedMemory = Comparison\MemoryUsage::calculate($method);
+        $usedFileCount    = Comparison\FileUsage::count($method);
         $returnType       = ucfirst($returnType);
 
         $this->totalElasedTime  += $elapsedTime;
@@ -196,7 +196,7 @@ class Tester
             return $data;
         }, $param);
 
-        $this->result .= Import\Template::use('UnitTests/ResultTable', 
+        $this->result .= Inclusion\Template::use('UnitTests/ResultTable', 
         [
             'class'       => $class,
             'method'      => $method . '(' . implode(', ', $param) . ')',
@@ -216,7 +216,7 @@ class Tester
      */
     protected function _outputBottom($index)
     {
-        $this->result .= Import\Template::use('UnitTests/TotalTable', 
+        $this->result .= Inclusion\Template::use('UnitTests/TotalTable', 
         [
 
             'elapsedTime'    => $this->totalElasedTime,

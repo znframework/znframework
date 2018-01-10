@@ -13,7 +13,7 @@ use ZN\Services\URL;
 use ZN\Cryptography\Encode;
 use ZN\IndividualStructures\IS;
 use ZN\Language\Lang;
-use ZN\Inclusion\Import;
+use ZN\Inclusion;
 
 class ForgotPassword extends UserExtends
 {
@@ -113,7 +113,7 @@ class ForgotPassword extends UserExtends
                 'returnLinkPath' => $returnLinkPath
             );
 
-            $message = Import\Template::use('UserEmail/ForgotPassword', $templateData, true);
+            $message = Inclusion\Template::use('UserEmail/ForgotPassword', $templateData, true);
 
             \Email::sender($senderInfo['mail'], $senderInfo['name'])
                  ->receiver($email, $email)

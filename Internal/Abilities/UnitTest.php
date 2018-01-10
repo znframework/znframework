@@ -9,6 +9,8 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
+use ZN\Singleton;
+
 trait UnitTestAbility
 {
     /**
@@ -39,11 +41,13 @@ trait UnitTestAbility
             }
         }
 
-        Tester::class($class)
-              ->methods($methods)
-              ->start();
+        $tester = Singleton::class('ZN\Helpers\Tester');
 
-        return Tester::result();
+        $tester->class($class)
+               ->methods($methods)
+               ->start();
+
+        return $tester->result();
     }
 }
 

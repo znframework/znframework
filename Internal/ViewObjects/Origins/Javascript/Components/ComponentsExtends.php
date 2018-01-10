@@ -11,7 +11,7 @@
 
 use RevolvingAbility, Classes;
 use ZN\DataTypes\Arrays;
-use ZN\Inclusion\Import;
+use ZN\Inclusion;
 
 class ComponentsExtends
 {
@@ -21,7 +21,7 @@ class ComponentsExtends
 
     protected function load($path, $attr) : String
     {
-        return Import\View::use($path, $attr, true, realpath(__DIR__) . DS);
+        return Inclusion\View::use($path, $attr, true, realpath(__DIR__) . DS);
     }
 
     protected function prop($attr, $view = NULL)

@@ -15,8 +15,9 @@ use ZN\Filesystem\File;
 use ZN\Filesystem\Folder;
 use ZN\IndividualStructures\IS;
 use ZN\Language\Lang;
-use ZN\Inclusion\Import;
+use ZN\Inclusion;
 use ZN\ErrorHandling\Errors;
+use Project\Controllers\Masterpage;
 
 class Kernel
 {
@@ -270,7 +271,7 @@ class Kernel
         
         if( ($data['masterpage'] ?? NULL) === true || ! empty($data) )
         {
-            (new Import\Masterpage)->headData($data)->bodyContent($usableView ?? '')->use($data);
+            (new Inclusion\Masterpage)->headData($data)->bodyContent($usableView ?? '')->use($data);
         }
         elseif( ! empty($usableView) )
         {
@@ -412,6 +413,6 @@ class Kernel
      */
     protected static function _load($path, $data)
     {
-        return Import\View::use(str_replace(PAGES_DIR, NULL, $path), $data, true);
+        return Inclusion\View::use(str_replace(PAGES_DIR, NULL, $path), $data, true);
     }
 }

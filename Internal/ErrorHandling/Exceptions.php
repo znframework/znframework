@@ -12,7 +12,7 @@
 use ZN\Helpers\Logger;
 use ZN\DataTypes\Strings;
 use ZN\Language\Lang;
-use ZN\Inclusion\Import;
+use ZN\Inclusion;
 
 class Exceptions extends \Exception implements ExceptionsInterface
 {   
@@ -215,7 +215,7 @@ class Exceptions extends \Exception implements ExceptionsInterface
             }
         }
 
-        return Import\Template::use('ExceptionTable', $exceptionData, true);
+        return Inclusion\Template::use('ExceptionTable', $exceptionData, true);
     }
 
     /**

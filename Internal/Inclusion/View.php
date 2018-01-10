@@ -10,7 +10,7 @@
  */
 
 use ZN\In;
-use ZN\View as Views;
+use Project\Controllers\View as Views;
 use ZN\ViewObjects\TemplateWizard;
 use ZN\Filesystem\File;
 use ZN\Buffering;
