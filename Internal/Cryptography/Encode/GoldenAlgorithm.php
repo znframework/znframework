@@ -9,7 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\IndividualStructures\IS;
+use ZN\IS;
 
 class GoldenAlgorithm extends EncodeExtends
 {

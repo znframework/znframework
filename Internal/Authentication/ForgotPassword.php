@@ -11,7 +11,7 @@
 
 use ZN\Services\URL;
 use ZN\Cryptography\Encode;
-use ZN\IndividualStructures\IS;
+use ZN\IS;
 use ZN\Language\Lang;
 use ZN\Inclusion;
 use ZN\Singleton;

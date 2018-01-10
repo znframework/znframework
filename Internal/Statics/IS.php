@@ -13,5 +13,5 @@ class IS
 {
     use StaticAbility;
 
-    const target = 'ZN\IndividualStructures\IS';
+    const target = 'ZN\IS';
 }

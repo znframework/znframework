@@ -10,7 +10,7 @@
  * @since   2011
  */
 
-use ZN\DataTypes\Json;
+use ZN\Protection\Json;
 use ZN\Filesystem\File;
 use ZN\Filesystem\Folder;
 

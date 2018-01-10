@@ -1,4 +1,4 @@
-<?php namespace ZN\IndividualStructures\Exception;
+<?php
 /**
  * ZN PHP Web Framework
  * 
@@ -9,7 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-class InvalidArgumentException extends \InvalidArgumentException
+class Coalesce
 {
-    use \ExclusionAbility;
+    use StaticAbility;
+
+    const target = 'ZN\Coalesce';
 }

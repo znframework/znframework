@@ -12,7 +12,7 @@
 use ZN\DataTypes\Strings;
 use ZN\DataTypes\Arrays;
 use ZN\Language\Lang;
-use ZN\IndividualStructures\Support;
+use ZN\Support;
 
 class GrandModel extends \BaseController
 {

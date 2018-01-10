@@ -13,5 +13,5 @@ class Secure
 {
     use StaticAbility;
 
-    const target = 'ZN\IndividualStructures\Secure';
+    const target = 'ZN\Security\Secure';
 }

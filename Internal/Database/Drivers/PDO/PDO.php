@@ -10,7 +10,7 @@
  */
 
 use ZN\Database\Abstracts\DriverConnectionMappingAbstract;
-use ZN\IndividualStructures\Support;
+use ZN\Support;
 use ZN\Database\Exception\ConnectionErrorException;
 
 class PDO extends DriverConnectionMappingAbstract

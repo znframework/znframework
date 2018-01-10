@@ -10,7 +10,7 @@
  */
 
 use ZN\Cryptography\CryptoMapping;
-use ZN\IndividualStructures\Support;
+use ZN\Support;
 use ZN\DataTypes\Arrays;
 
 class OpensslDriver extends CryptoMapping

@@ -11,7 +11,7 @@
 
 use ZN\Cryptography\CryptoMapping;
 use ZN\ErrorHandling\Errors;
-use ZN\IndividualStructures\IS;
+use ZN\IS;
 use ZN\Cryptography\Exception\InvalidVersionException;
 
 class PhashDriver extends CryptoMapping

@@ -13,5 +13,5 @@ class Separator
 {
     use StaticAbility;
 
-    const target = 'ZN\DataTypes\Separator';
+    const target = 'ZN\Protection\Separator';
 }

@@ -13,7 +13,7 @@ use ZN\In;
 use ZN\Helpers\Logger;
 use ZN\Filesystem\File;
 use ZN\Filesystem\Folder;
-use ZN\IndividualStructures\IS;
+use ZN\IS;
 use ZN\Language\Lang;
 use ZN\Inclusion;
 use ZN\ErrorHandling\Errors;

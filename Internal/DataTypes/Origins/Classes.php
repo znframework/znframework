@@ -9,10 +9,11 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use Config, ReflectionClass;
+use ReflectionClass;
+use ZN\Config;
 use ZN\DataTypes\Exception\InvalidArgumentException;
 
-class Classes implements ClassesInterface
+class Classes #implements ClassesInterface
 {
     //--------------------------------------------------------------------------------------------------------
     // Reflection -> 5.4.5[added]
@@ -21,9 +22,9 @@ class Classes implements ClassesInterface
     // @param string $className
     //
     //--------------------------------------------------------------------------------------------------------
-    public function reflection(String $className) : ReflectionClass
+    public static function reflection(String $className) : ReflectionClass
     {
-        return new ReflectionClass($this->_class($className));
+        return new ReflectionClass(self::_class($className));
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -34,14 +35,14 @@ class Classes implements ClassesInterface
     // @param object $object
     //
     //--------------------------------------------------------------------------------------------------------
-    public function isRelation(String $className, $object) : Bool
+    public static function isRelation(String $className, $object) : Bool
     {
         if( ! is_object($object) )
         {
             throw new InvalidArgumentException('Error', 'objectParameter', '2.($object)');
         }
 
-        return is_a($object, $this->_class($className));
+        return is_a($object, self::_class($className));
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -52,9 +53,9 @@ class Classes implements ClassesInterface
     // @param object $object
     //
     //--------------------------------------------------------------------------------------------------------
-    public function isParent(String $className, $object) : Bool
+    public static function isParent(String $className, $object) : Bool
     {
-        return is_subclass_of($object, $this->_class($className));
+        return is_subclass_of($object, self::_class($className));
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -65,9 +66,9 @@ class Classes implements ClassesInterface
     // @param object $method
     //
     //--------------------------------------------------------------------------------------------------------
-    public function methodExists(String $className, String $method) : Bool
+    public static function methodExists(String $className, String $method) : Bool
     {
-        return method_exists(uselib($this->_class($className)), $method);
+        return method_exists(uselib(self::_class($className)), $method);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -78,9 +79,9 @@ class Classes implements ClassesInterface
     // @param object $property
     //
     //--------------------------------------------------------------------------------------------------------
-    public function propertyExists(String $className, String $property) : Bool
+    public static function propertyExists(String $className, String $property) : Bool
     {
-        return  property_exists(uselib($this->_class($className)), $property);
+        return  property_exists(uselib(self::_class($className)), $property);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -90,9 +91,9 @@ class Classes implements ClassesInterface
     // @param string $className
     //
     //--------------------------------------------------------------------------------------------------------
-    public function methods(String $className)
+    public static function methods(String $className)
     {
-        return get_class_methods($this->_class($className));
+        return get_class_methods(self::_class($className));
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -102,9 +103,9 @@ class Classes implements ClassesInterface
     // @param string $className
     //
     //--------------------------------------------------------------------------------------------------------
-    public function vars(String $className)
+    public static function vars(String $className)
     {
-        return get_class_vars($this->_class($className));
+        return get_class_vars(self::_class($className));
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -114,7 +115,7 @@ class Classes implements ClassesInterface
     // @param object $var
     //
     //--------------------------------------------------------------------------------------------------------
-    public function name($var) : String
+    public static function name($var) : String
     {
         if( ! is_object($var) )
         {
@@ -131,7 +132,7 @@ class Classes implements ClassesInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function declared() : Array
+    public static function declared() : Array
     {
         return get_declared_classes();
     }
@@ -143,7 +144,7 @@ class Classes implements ClassesInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function declaredInterfaces() : Array
+    public static function declaredInterfaces() : Array
     {
         return get_declared_interfaces();
     }
@@ -155,7 +156,7 @@ class Classes implements ClassesInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function declaredTraits() : Array
+    public static function declaredTraits() : Array
     {
         return get_declared_traits();
     }
@@ -169,7 +170,7 @@ class Classes implements ClassesInterface
     // @return string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function onlyName(String $class) : String
+    public static function onlyName(String $class) : String
     {
         return Strings\Split::divide(str_replace(INTERNAL_ACCESS, '', $class), '\\', -1);
     }
@@ -181,9 +182,9 @@ class Classes implements ClassesInterface
     // @param string $className
     //
     //--------------------------------------------------------------------------------------------------------
-    public function class(String $className) : String
+    public static function class(String $className) : String
     {
-        return $this->_class($className);
+        return self::_class($className);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -193,7 +194,7 @@ class Classes implements ClassesInterface
     // @param string $name
     //
     //--------------------------------------------------------------------------------------------------------
-    protected function _class($name)
+    protected static function _class($name)
     {
         global $classMap;
 

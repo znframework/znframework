@@ -12,7 +12,7 @@
 use ZN\Cryptography\CryptoMapping;
 use ZN\Helpers\Converter;
 use ZN\DataTypes\Arrays;
-use ZN\IndividualStructures\IS;
+use ZN\IS;
 use ZN\Cryptography\Exception\UnsupportedExtensionException;
 
 class McryptDriver extends CryptoMapping

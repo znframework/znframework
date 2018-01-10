@@ -12,7 +12,7 @@
 use ZN\In;
 use ZN\Services\URI;
 use ZN\Filesystem\Folder;
-use ZN\IndividualStructures\IS;
+use ZN\IS;
 
 class Restoration
 {

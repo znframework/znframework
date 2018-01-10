@@ -16,7 +16,7 @@ use ZN\Filesystem\Exception\FolderChangeNameException;
 use ZN\Filesystem\Exception\FolderNotFoundException;
 use ZN\Filesystem\Exception\FolderAllreadyException;
 use ZN\Services\InvalidArgumentException;
-use ZN\IndividualStructures\Support;
+use ZN\Support;
 
 class SSH implements SSHInterface
 {

@@ -9,7 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\DataTypes\Json;
+use ZN\Protection\Json;
 use ZN\DataTypes\XML;
 
 class Restful implements RestfulInterface

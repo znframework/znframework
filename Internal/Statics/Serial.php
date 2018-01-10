@@ -13,5 +13,5 @@ class Serial
 {
     use StaticAbility;
 
-    const target = 'ZN\DataTypes\Serial';
+    const target = 'ZN\Protection\Serial';
 }

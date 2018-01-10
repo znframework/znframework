@@ -2,8 +2,8 @@
 
 use DB, Session, Validation;
 use ZN\Services\URL;
-use ZN\DataTypes\Json;
-use ZN\IndividualStructures\IS;
+use ZN\Protection\Json;
+use ZN\IS;
 
 trait FormElementsTrait
 {

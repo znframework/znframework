@@ -12,7 +12,7 @@
 use Memcache;
 use ZN\Config;
 use ZN\ErrorHandling\Errors;
-use ZN\IndividualStructures\Support;
+use ZN\Support;
 use ZN\Storage\Exception\UnsupportedDriverException;
 use ZN\Storage\Abstracts\CacheDriverMappingAbstract;
 

@@ -10,7 +10,7 @@
  */
 
 use ZN\DataTypes\Strings;
-use ZN\IndividualStructures\IS;
+use ZN\IS;
 use ZN\Language\Lang;
 use ZN\Inclusion;
 use ZN\Security;

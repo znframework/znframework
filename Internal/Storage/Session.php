@@ -11,7 +11,7 @@
 
 use ZN\Config;
 use ZN\Cryptography\Encode;
-use ZN\IndividualStructures\IS;
+use ZN\IS;
 
 class Session implements SessionInterface, SessionCookieCommonInterface
 {

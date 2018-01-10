@@ -10,7 +10,7 @@
  */
 
 use Project\Controllers\Theme;
-use ZN\IndividualStructures\IS;
+use ZN\IS;
 use ZN\Services\URL;
 
 class Style extends BootstrapExtends

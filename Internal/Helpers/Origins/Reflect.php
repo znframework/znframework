@@ -10,7 +10,7 @@
  */
 
 use ZN\DataTypes\Arrays;
-use ZN\DataTypes\Json;
+use ZN\Protection\Json;
 
 class Reflect
 {

@@ -10,7 +10,7 @@
  */
 
 use Encode;
-use ZN\IndividualStructures\IS;
+use ZN\IS;
 use ZN\Cryptography\Exception\InvalidArgumentException;
 
 class Type extends EncodeExtends

@@ -13,5 +13,5 @@ class Output
 {
     use StaticAbility;
 
-    const target = 'ZN\IndividualStructures\Output';
+    const target = 'ZN\Output';
 }

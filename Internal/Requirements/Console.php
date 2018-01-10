@@ -11,7 +11,7 @@
 
 use ZN\Helpers\Logger;
 use ZN\DataTypes\Arrays;
-use ZN\DataTypes\Json;
+use ZN\Protection\Json;
 use ZN\Commands;
 
 class Console
@@ -124,6 +124,3 @@ class Console
         }
     }
 }
-
-# Alias Console
-class_alias('ZN\Requirements\System\Console', 'Console');

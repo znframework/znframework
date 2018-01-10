@@ -9,7 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\IndividualStructures\Support;
+use ZN\Support;
 use ZN\Compression\Exception\FileNotFoundException;
 use ZN\Compression\DriverMappingAbstract;
 

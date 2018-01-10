@@ -10,7 +10,7 @@
  */
 
 use ZN\Language\Lang;
-use ZN\IndividualStructures\Support;
+use ZN\Support;
 use ZN\Services\Abstracts\EmailMappingAbstract;
 use ZN\Services\Exception\FailureSendEmailException;
 use ZN\Services\Exception\IOException;

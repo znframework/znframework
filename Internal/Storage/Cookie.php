@@ -11,9 +11,9 @@
 
 use ZN\Config;
 use ZN\Storage\Exception\SetcookieException;
-use ZN\IndividualStructures\IS;
+use ZN\IS;
 use ZN\Cryptography\Encode;
-use ZN\DataTypes\Json;
+use ZN\Protection\Json;
 
 class Cookie implements CookieInterface, SessionCookieCommonInterface
 {

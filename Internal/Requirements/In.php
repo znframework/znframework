@@ -15,7 +15,7 @@ use ZN\Helpers\Logger;
 use ZN\DataTypes\Strings;
 use ZN\Filesystem\Folder;
 use ZN\ErrorHandling\Errors;
-use ZN\IndividualStructures\IS;
+use ZN\IS;
 use ZN\Language\Lang;
 use ZN\Inclusion;
 use Project\Controllers\View;

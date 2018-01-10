@@ -10,7 +10,7 @@
  */
 
 use ZN\Database\Abstracts\DriverConnectionMappingAbstract;
-use ZN\IndividualStructures\Support;
+use ZN\Support;
 use ZN\ErrorHandling\Errors;
 use Exception, SQLite3, stdClass;
 use ZN\Database\Exception\ConnectionErrorException;

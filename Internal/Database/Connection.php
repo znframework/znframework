@@ -12,7 +12,7 @@
 use ZN\Config;
 use ZN\Helpers\Logger;
 use ZN\Database\Exception\InvalidArgumentException;
-use ZN\IndividualStructures\Support;
+use ZN\Support;
 use ZN\DataTypes\Arrays;
 
 class Connection

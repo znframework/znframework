@@ -10,8 +10,8 @@
  */
 
 use ZN\Services\Exception\InvalidArgumentException;
-use ZN\IndividualStructures\Support;
-use ZN\IndividualStructures\IS;
+use ZN\Support;
+use ZN\IS;
 use ZN\Helpers\Converter;
 
 class CURL implements CURLInterface

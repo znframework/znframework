@@ -13,7 +13,7 @@ use Redis;
 use RedisException;
 use ZN\Config;
 use ZN\ErrorHandling\Errors;
-use ZN\IndividualStructures\Support;
+use ZN\Support;
 use ZN\Storage\Exception\ConnectionRefusedException;
 use ZN\Storage\Exception\AuthenticationFailedException;
 use ZN\Storage\Abstracts\CacheDriverMappingAbstract;

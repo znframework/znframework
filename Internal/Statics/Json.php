@@ -13,5 +13,5 @@ class Json
 {
     use StaticAbility;
 
-    const target = 'ZN\DataTypes\Json';
+    const target = 'ZN\Protection\Json';
 }

@@ -11,7 +11,7 @@
 
 use Crontab;
 use ZN\Structure;
-use ZN\IndividualStructures\IS;
+use ZN\IS;
 
 class Cron
 {

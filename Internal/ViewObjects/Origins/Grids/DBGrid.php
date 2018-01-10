@@ -13,7 +13,7 @@ use ZN\ViewObjects\Exception\NoTableException;
 use ZN\ViewObjects\Exception\DatabaseErrorException;
 use ZN\ViewObjects\Exception\NoSearchException;
 use ZN\ViewObjects\Abstracts\GridAbstract;
-use ZN\IndividualStructures\IS;
+use ZN\IS;
 use ZN\DataTypes\Strings;
 use ZN\DataTypes\Arrays;
 use ZN\Helpers\Limiter;

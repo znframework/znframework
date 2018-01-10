@@ -12,7 +12,7 @@
 use ZN\Services\URL;
 use ZN\ViewObjects\Exception\InvalidArgumentException;
 use ZN\Buffering;
-use ZN\IndividualStructures\IS;
+use ZN\IS;
 
 class HTML
 {

@@ -1,4 +1,4 @@
-<?php namespace ZN\IndividualStructures;
+<?php namespace ZN;
 /**
  * ZN PHP Web Framework
  * 
@@ -9,18 +9,16 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-class Output implements OutputInterface
+class Output
 {
-    //--------------------------------------------------------------------------------------------------
-    // write()
-    //--------------------------------------------------------------------------------------------------
-    //
-    // @param string $data
-    // @param array  $vars = []
-    //
-    // @return void
-    //
-    //--------------------------------------------------------------------------------------------------
+    /** 
+     * Write
+     * 
+     * @param mixed $data = NULL
+     * @param array $vars = NULL
+     * 
+     * @return void
+     */
     public function write($data = NULL, Array $vars = NULL)
     {
         if( ! is_scalar($data) )
@@ -43,41 +41,33 @@ class Output implements OutputInterface
         echo $data;
     }
 
-    //--------------------------------------------------------------------------------------------------
-    // writeLine()
-    //--------------------------------------------------------------------------------------------------
-    //
-    // @param string $data
-    // @param array  $vars    = []
-    // @param int    $brCount = 1
-    //
-    // @return void
-    //
-    //--------------------------------------------------------------------------------------------------
+    /** 
+     * Write Line
+     * 
+     * @param mixed $data    = NULL
+     * @param array $vars    = NULL
+     * @param int   $brCount = 1
+     * 
+     * @return void
+     */
     public function writeLine($data = NULL, Array $vars = NULL, Int $brCount = 1)
     {
         echo $this->write($data, $vars) . str_repeat('<br>', $brCount);
     }
 
-    //--------------------------------------------------------------------------------------------------
-    // display()
-    //--------------------------------------------------------------------------------------------------
-    //
-    // @param mixed $data
-    // @param array $settings = []
-    // @param bool  $content  = false
-    //
-    // @return void
-    //
-    //--------------------------------------------------------------------------------------------------
+    /** 
+     * Display
+     * 
+     * @param mixed $data    = NULL
+     * @param array $vars    = NULL
+     * @param bool  $content = false
+     * 
+     * @return void
+     */
     public function display($data, Array $settings = NULL, Bool $content = false)
     {
-        // ---------------------------------------------------------------------------------------------
-        // AYARLAR
-        // ---------------------------------------------------------------------------------------------
         $textType = $settings['textType'] ?? 'monospace, Tahoma, Arial';
         $textSize = $settings['textSize'] ?? '12px';
-        // ---------------------------------------------------------------------------------------------
 
         $globalStyle = ' style="font-family:'.$textType.'; font-size:'.$textSize .';"';
 
@@ -95,18 +85,16 @@ class Output implements OutputInterface
         }
     }
 
-    //--------------------------------------------------------------------------------------------------
-    // internalOutput()
-    //--------------------------------------------------------------------------------------------------
-    //
-    // @param mixed  $data
-    // @param string $tab      = ''
-    // @param int    $start    = 0
-    // @param array  $settings = []
-    //
-    // @return string
-    //
-    //--------------------------------------------------------------------------------------------------
+    /** 
+     * Protected Output
+     * 
+     * @param mixed  $data
+     * @param string $tab      = NULL
+     * @param int    $start    = 0
+     * @param array  $settings = []
+     * 
+     * @return void
+     */
     protected function _output($data, String $tab = NULL, Int $start = 0, Array $settings = []) : String
     {
         static $start;

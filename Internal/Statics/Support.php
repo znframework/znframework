@@ -13,5 +13,5 @@ class Support
 {
     use StaticAbility;
 
-    const target = 'ZN\IndividualStructures\Support';
+    const target = 'ZN\Support';
 }

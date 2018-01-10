@@ -10,7 +10,7 @@
  */
 
 use ZN\Singleton;
-use ZN\IndividualStructures\IS;
+use ZN\IS;
 
 class SendEmail extends UserExtends
 {

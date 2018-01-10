@@ -10,7 +10,7 @@
  */
 
 use ZN\Config;
-use ZN\IndividualStructures\IS;
+use ZN\IS;
 
 class SuperAlgorithm extends EncodeExtends
 {

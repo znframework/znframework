@@ -14,7 +14,7 @@ use ZN\Services\URI;
 use ZN\Filesystem\File;
 use ZN\Filesystem\Folder;
 use ZN\Helpers\Converter;
-use ZN\DataTypes\Separator;
+use ZN\Protection\Separator;
 use ZN\Language\Lang;
 use ZN\Buffering;
 use ZN\ErrorHandling\Exceptions;

@@ -9,7 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\IndividualStructures\Support;
+use ZN\Support;
 use ZN\Services\Abstracts\EmailMappingAbstract;
 
 class ImapDriver extends EmailMappingAbstract

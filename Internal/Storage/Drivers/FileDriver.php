@@ -11,7 +11,7 @@
 
 use ZN\Singleton;
 use ZN\Storage\Abstracts\CacheDriverMappingAbstract;
-use ZN\IndividualStructures\Support;
+use ZN\Support;
 use ZN\Filesystem\File;
 use ZN\Filesystem\Folder;
 

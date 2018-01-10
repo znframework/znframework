@@ -12,7 +12,7 @@
 use ZN\In;
 use ZN\Config;
 use ZN\Singleton;
-use ZN\IndividualStructures\IS;
+use ZN\IS;
 
 class Lang implements LangInterface
 {

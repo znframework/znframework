@@ -9,7 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\IndividualStructures\IS;
+use ZN\IS;
 use ZN\Language\Lang;
 use ZN\DataTypes\Arrays;
 use ZN\Cryptography\Encode;
