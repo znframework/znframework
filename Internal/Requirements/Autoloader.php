@@ -542,7 +542,7 @@ class Autoloader
      * 
      * @return void
      */
-    public function defines(String $version, String $dedicate = NULL)
+    public static function defines(String $version, String $dedicate = NULL)
     {
         define('ZN_VERSION', $version);
         define('ZN_DEDICATE', $dedicate);
