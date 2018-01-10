@@ -155,7 +155,7 @@ class Method implements MethodInterface
             }
             elseif( is_array($input[$name]) )
             {
-                return array_map('ZN\IndividualStructures\Security\Html::encode', $input[$name]);
+                return array_map('ZN\Security\Html::encode', $input[$name]);
             }
 
             return $input[$name];

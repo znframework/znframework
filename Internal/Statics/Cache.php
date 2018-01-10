@@ -13,5 +13,5 @@ class Cache
 {
     use StaticAbility;
 
-    const target = 'ZN\IndividualStructures\Cache';
+    const target = 'ZN\Storage\Cache';
 }

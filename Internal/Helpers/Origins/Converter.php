@@ -10,7 +10,7 @@
  */
 
 use ZN\DataTypes\Strings;
-use ZN\IndividualStructures\Security;
+use ZN\Security;
 use ZN\Helpers\Exception\InvalidArgumentException;
 use ZN\Helpers\Exception\LogicException;
 use ZN\DataTypes\Arrays;

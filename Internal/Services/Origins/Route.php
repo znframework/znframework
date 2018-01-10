@@ -15,7 +15,7 @@ use ZN\DataTypes\Strings;
 use ZN\DataTypes\Arrays;
 use ZN\ErrorHandling\Errors;
 use ZN\Language\Lang;
-use ZN\IndividualStructures\Security;
+use ZN\Security;
 
 class Route extends \CLController implements RouteInterface
 {

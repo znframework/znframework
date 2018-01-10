@@ -9,7 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-class Session extends \UnitTestController
+use ZN\Controllers\UnitTestController;
+
+class Session extends UnitTestController
 {
     /**
      * Unit test settings

@@ -14,7 +14,7 @@ use ZN\ViewObjects\Exception\InvalidArgumentException;
 use ZN\DataTypes\Arrays;
 use ZN\Cryptography\Encode;
 use ZN\Language\Lang;
-use ZN\IndividualStructures\Security;
+use ZN\Security;
 
 class Validation implements ValidationInterface
 {

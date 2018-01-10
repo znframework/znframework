@@ -9,6 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
+use ZN\Helpers\Converter;
 use ZN\Helpers\Logger;
 use ZN\DataTypes\Strings;
 use ZN\Language\Lang;
@@ -409,5 +410,76 @@ class Exceptions extends \Exception implements ExceptionsInterface
         $exceptionData['message'] = $message;
 
         return (object) $exceptionData;
+    }
+
+    /**
+     * Display exception table
+     * 
+     * @param string $file
+     * @param string $line
+     * @param string $key
+     * 
+     * @return void
+     */
+    public static function display($file, $line, $key)
+    {
+        ?>
+        <a href="#openExceptionMessage<?php echo $key?>" class="list-group-item panel-header" data-toggle="collapse">
+            <span><i class="fa fa-angle-down fa-fw panel-text"></i>&nbsp;&nbsp;&nbsp;&nbsp;
+            <?php echo $file ?? NULL; ?></span>
+        </a>
+        <div id="openExceptionMessage<?php echo $key?>" class="collapse<?php echo $key !== NULL ? '' : ' in'?>">
+        <pre style="background:#222; margin-top:-20px; border:0px">
+        <?php
+        $content = file($file);
+        $newdata = '<?php' . EOL;
+        $intline = $line;
+        $errorBlock = '<div class="error-block col-lg-12"></div>';
+
+        for( $i = (($startLine = ($intline - 10)) < 0 ? 0 : $startLine); $i < ($intcount = $intline + 10); $i++ )
+        {
+            if( ! isset($content[$i]) )
+            {
+                break;
+            }
+
+            $index = $i + 1;
+            $line  = $content[$i];
+
+            if( $index == $intline )
+            {
+                $problem = ' {!!!!}';
+                
+            }
+            else
+            {
+                $problem = ' ';
+            }
+            
+            $newdata .= $index.'.' . $problem .
+            str_repeat(' ', strlen($intcount) - strlen($i + 1)) . 
+            (str_replace(self::cleanEOL($file) ? EOL : NULL, NULL, $line) ?? NULL);
+        }
+
+        echo str_replace(['<div style="">&#60;&#63;php<br />', '{!!!!}'], [NULL, $errorBlock], Converter::highlight($newdata, 
+        [
+            'default:color' => '#ccc',
+            'keyword:color' => '#00BFFF',
+            'string:color'  => '#fff'
+        ]));
+        ?></pre></div><?php
+    }
+
+    /**
+     * Clean EOL
+     * 
+     * @param string $file
+     * 
+     * @return bool
+     */
+    protected static function cleanEOL(String $file) : Bool
+    {
+        return ! strstr($file, PROJECTS_DIR) && 
+               ! strstr($file, 'Functions.php');
     }
 }

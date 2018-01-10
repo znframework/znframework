@@ -9,31 +9,24 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
+use ZN\Config;
 use ZN\Cryptography\Encode;
 use ZN\IndividualStructures\IS;
 
 class Session implements SessionInterface, SessionCookieCommonInterface
 {
-    //--------------------------------------------------------------------------------------------------------
-    // Session Cookie Common
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // methods
-    //
-    //--------------------------------------------------------------------------------------------------------
     use SessionCookieCommonTrait;
 
-    //--------------------------------------------------------------------------------------------------------
-    // Construct
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  void
-    // @return bool
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Magic constructor
+     * 
+     * @param void
+     * 
+     * @return void
+     */
     public function __construct()
     {
-        $this->config = \Config::services('session');
+        $this->config = Config::get('Storage', 'session');
 
         $this->start();
     }

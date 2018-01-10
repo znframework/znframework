@@ -13,5 +13,5 @@ class Socialite
 {
     use StaticAbility;
 
-    const target = 'ZN\IndividualStructures\Socialite';
+    const target = 'ZN\Authentication\Socialite';
 }

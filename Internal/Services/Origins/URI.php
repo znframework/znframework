@@ -14,7 +14,7 @@ use ZN\DataTypes\Strings;
 use ZN\DataTypes\Arrays;
 use ZN\IndividualStructures\IS;
 use ZN\Language\Lang;
-use ZN\IndividualStructures\Security;
+use ZN\Security;
 
 class URI implements URIInterface
 {

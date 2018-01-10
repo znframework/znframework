@@ -10,7 +10,7 @@
  */
 
 use ZN\Database\Abstracts\DriverConnectionMappingAbstract;
-use ZN\IndividualStructures\Security;
+use ZN\Security;
 use ZN\IndividualStructures\Support;
 use ZN\ErrorHandling\Errors;
 use stdClass;

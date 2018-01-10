@@ -9,7 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-class Cookie extends \UnitTestController
+use ZN\Controllers\UnitTestController;
+
+class Cookie extends UnitTestController
 {
     /**
      * Unit test settings

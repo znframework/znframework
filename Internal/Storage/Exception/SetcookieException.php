@@ -9,7 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-class SetcookieException extends \GeneralException
+use ZN\ErrorHandling\GeneralException;
+
+class SetcookieException extends GeneralException
 {
     /**
      * Exception language settings
