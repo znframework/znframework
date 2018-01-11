@@ -1,4 +1,4 @@
-<?php namespace ZN\DataTypes\XML;
+<?php namespace ZN\XML;
 /**
  * ZN PHP Web Framework
  * 
@@ -13,14 +13,14 @@ use stdClass;
 
 class Parser
 {
-    //--------------------------------------------------------------------------------------------------------
-    // Parse
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $xml
-    // @param string $result
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Parses an XML document.
+     * 
+     * @param string $xml 
+     * @param string $result = 'object'
+     * 
+     * @return mixed
+     */
     public static function do(String $xml, String $result = 'object')
     {
         $parser   = xml_parser_create();
@@ -80,53 +80,49 @@ class Parser
         return $elements[0] ?? [];
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Parse Array
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  string $data
-    // @return array
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Parses an XML document.
+     * 
+     * @param string $xml 
+     * 
+     * @return array
+     */
     public static function array(String $data) : Array
     {
         return self::do($data, 'array');
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Parse Json
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  string $data
-    // @return array
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Parses an XML document.
+     * 
+     * @param string $xml 
+     * 
+     * @return string
+     */
     public static function json(String $data) : String
     {
         return json_encode(self::do($data, 'array'));
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Parse Object
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  string   $data
-    // @return object
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Parses an XML document.
+     * 
+     * @param string $xml 
+     * 
+     * @return object
+     */
     public static function object(String $data)
     {
         return self::do($data, 'object');
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Parse Simple -> 5.3.5[added]
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  string   $data
-    // @return mixed
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Simple XML Element
+     * 
+     * @param string $data
+     * 
+     * @return SimpleXMLElement
+     */
     public static function simple(String $data)
     {
         $data = preg_replace('/<xml(.*?)>/', '', $data);

@@ -11,7 +11,7 @@
 
 use stdClass;
 
-class Serial implements StoreInterface
+class Serial extends StoreAbstract implements StoreInterface
 {
     /**
      * Encode
@@ -69,41 +69,5 @@ class Serial implements StoreInterface
     public static function decodeArray(String $data) : Array
     {
         return self::decode($data, true);
-    }
-
-    /**
-     * Error
-     * 
-     * @param void
-     * 
-     * @return string
-     */
-    public static function error() : String
-    {
-        return false;
-    }
-    
-    /** 
-     * Error No
-     * 
-     * @param void
-     * 
-     * @return int
-     */
-    public static function errno() : Int
-    {
-        return 0;
-    }
-    
-    /** 
-     * Check
-     * 
-     * @param string $data
-     * 
-     * @return bool
-     */
-    public static function check(String $data) : Bool
-    {
-        return true;
     }
 }

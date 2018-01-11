@@ -19,7 +19,7 @@ abstract class StoreAbstract
      * 
      * @return string
      */
-    public function encode(...$data) : String {}
+    abstract public static function encode($data) : String;
 
     /**
      * Decode
@@ -30,7 +30,7 @@ abstract class StoreAbstract
      * 
      * @return mixed
      */
-    public function decode(...$data) {}
+    abstract public static function decode(String $data);
 
     /**
      * Decode Object
@@ -40,7 +40,7 @@ abstract class StoreAbstract
      * 
      * @return object
      */
-    public function decodeObject(...$data) {}
+    abstract public static function decodeObject(String $data);
 
    /**
      * Decode Array
@@ -50,7 +50,7 @@ abstract class StoreAbstract
      * 
      * @return array
      */
-    public function decodeArray(...$data) : Array {}
+    abstract public static function decodeArray(String $data) : Array;
 
     /**
      * Error
@@ -59,7 +59,10 @@ abstract class StoreAbstract
      * 
      * @return string
      */
-    public function error() : String {}
+    public static function error() : String
+    {
+        return false;
+    }
     
     /** 
      * Error No
@@ -68,7 +71,10 @@ abstract class StoreAbstract
      * 
      * @return int
      */
-    public function errno() : Int {}
+    public static function errno() : Int
+    {
+        return 0;
+    }
     
     /** 
      * Check
@@ -77,5 +83,8 @@ abstract class StoreAbstract
      * 
      * @return bool
      */
-    public function check(...$data) : Bool {}
+    public static function check(String $data) : Bool
+    {
+        return true;
+    }
 }

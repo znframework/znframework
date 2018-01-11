@@ -517,7 +517,7 @@ class Connection
      */
     protected function _run($settings = [])
     {
-        $this->driver = explode(':', $this->config['driver'])[0];
+        $this->driver = preg_replace('/(\w+)(\:\w+)*/', '$1', $this->config['driver']);
 
         return $this->_drvlib(NULL, $settings);
     }

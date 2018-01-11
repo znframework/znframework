@@ -13,5 +13,5 @@ class XML
 {
     use StaticAbility;
 
-    const target = 'ZN\DataTypes\XML';
+    const target = 'ZN\XML\Processor';
 }

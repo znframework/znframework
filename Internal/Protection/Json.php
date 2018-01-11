@@ -11,7 +11,7 @@
 
 use ZN\Helpers\Converter;
 
-class Json implements StoreInterface
+class Json extends StoreAbstract implements StoreInterface
 {
     /**
      * Encode

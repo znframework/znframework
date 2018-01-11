@@ -10,7 +10,7 @@
  */
 
 use ZN\Protection\Json;
-use ZN\DataTypes\XML;
+use ZN\XML;
 
 class Restful implements RestfulInterface
 {

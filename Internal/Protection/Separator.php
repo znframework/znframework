@@ -11,7 +11,7 @@
 
 use stdClass;
 
-class Separator implements StoreInterface
+class Separator extends StoreAbstract implements StoreInterface
 {
     /**
      * Keeps key
@@ -100,7 +100,7 @@ class Separator implements StoreInterface
     }
 
     /**
-     * Decode
+     * Decode Array
      * 
      * @param string $data
      * @param string $key       = NULL
@@ -111,42 +111,6 @@ class Separator implements StoreInterface
     public static function decodeArray(String $data, String $key = NULL, String $separator = NULL) : Array
     {
         return (array) self::decode($data, $key, $separator);
-    }
-
-    /**
-     * Error
-     * 
-     * @param void
-     * 
-     * @return string
-     */
-    public static function error() : String
-    {
-        return false;
-    }
-    
-    /** 
-     * Error No
-     * 
-     * @param void
-     * 
-     * @return int
-     */
-    public static function errno() : Int
-    {
-        return 0;
-    }
-    
-    /** 
-     * Check
-     * 
-     * @param string $data
-     * 
-     * @return bool
-     */
-    public static function check(String $data) : Bool
-    {
-        return true;
     }
 
     /**

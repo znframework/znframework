@@ -9,9 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-class Functions
+class Store
 {
     use StaticAbility;
 
-    const target = 'ZN\DataTypes\Functions';
+    const target = 'ZN\Protection\Store';
 }

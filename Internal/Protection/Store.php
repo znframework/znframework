@@ -9,8 +9,11 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-class Store extends StoreAbstract
+use ZN\Singleton;
+
+class Store
 {
+    protected static $drivers = ['json', 'separator', 'serial'];
     /**
      * Store Class
      * 
@@ -23,9 +26,28 @@ class Store extends StoreAbstract
      * 
      * @param StoreInterface $store
      */
-    public function __construct(StoreInterface $store)
+    public function __construct(StoreInterface $store = NULL)
     {
         $this->store = $store;
+    }
+
+    /**
+     * Get driver
+     * 
+     * @param string $class
+     * 
+     * @return ZN\Singleton
+     */
+    public static function driver(String $class)
+    {
+        if( ! in_array($class, self::$drivers) )
+        {
+            throw new UnsupportedDriverException(NULL, $driver);
+        }
+
+        $class = 'ZN\Protection\\' . ucfirst($class);
+
+        return Singleton::class($class);
     }
 
     /**

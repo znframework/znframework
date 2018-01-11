@@ -1,4 +1,4 @@
-<?php namespace ZN\DataTypes;
+<?php namespace ZN\XML\Tests;
 /**
  * ZN PHP Web Framework
  * 
@@ -9,7 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-class XMLUnitTest extends \UnitTestController
+use ZN\Controllers\UnitTestController;
+
+class XML extends UnitTestController
 {
     const unit =
     [

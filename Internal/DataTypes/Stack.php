@@ -9,11 +9,16 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-class RegexUnitTest extends \UnitTestController
+use ZN\Abilities\SerializationAbility;
+
+class Stack
 {
-    const unit =
+    use SerializationAbility;
+    
+    const serialization = 
     [
-        'class'   => 'Regex',
-        'methods' => []
+        'class' => 'Strings',
+        'start' => 'data',
+        'end'   => 'get'
     ];
 }

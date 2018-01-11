@@ -1,4 +1,4 @@
-<?php namespace ZN\DataTypes\Exception;
+<?php namespace ZN\XML\Exception;
 /**
  * ZN PHP Web Framework
  * 
@@ -13,5 +13,9 @@ use ZN\ErrorHandling\GeneralException;
 
 class FileNotFoundException extends GeneralException
 {
-
+    const lang = 
+    [
+        'en' => 'Error: `%` file was not found!',
+        'tr' => 'Hata: `%` dosyasi bulunamadi!'
+    ];
 }

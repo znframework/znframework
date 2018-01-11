@@ -9,20 +9,13 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use FactoryController;
-use FunctionalizationAbility;
+use ZN\Controllers\FactoryController;
+use ZN\Abilities\FunctionalizationAbility;
 
 class Arrays extends FactoryController
 {
     use FunctionalizationAbility;
 
-    //--------------------------------------------------------------------------------------------------------
-    // Factory Constant
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var array
-    //
-    //--------------------------------------------------------------------------------------------------------
     const factory =
     [
         'methods' =>

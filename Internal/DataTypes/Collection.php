@@ -9,11 +9,16 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-class FiltersUnitTest extends \UnitTestController
+use ZN\Abilities\SerializationAbility;
+
+class Collection
 {
-    const unit =
+    use SerializationAbility;
+
+    const serialization = 
     [
-        'class'   => 'Filters',
-        'methods' => []
+        'class' => 'Arrays',
+        'start' => 'data',
+        'end'   => 'get'
     ];
 }

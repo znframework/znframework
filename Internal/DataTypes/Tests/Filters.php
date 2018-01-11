@@ -9,11 +9,13 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-class FunctionsUnitTest extends \UnitTestController
+use ZN\Controllers\UnitTestController;
+
+class FiltersUnitTest extends UnitTestController
 {
     const unit =
     [
-        'class'   => 'Functions',
+        'class'   => 'Filters',
         'methods' => []
     ];
 }

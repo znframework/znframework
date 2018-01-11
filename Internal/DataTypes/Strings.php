@@ -9,21 +9,14 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use FunctionalizationAbility;
-use FactoryController;
+use ZN\Abilities\FunctionalizationAbility;
+use ZN\Controllers\FactoryController;
 use ZN\Helpers\Converter;
 
 class Strings extends FactoryController
 {
     use FunctionalizationAbility;
 
-    //--------------------------------------------------------------------------------------------------------
-    // Const Factory
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var array
-    //
-    //--------------------------------------------------------------------------------------------------------
     const factory =
     [
         'methods' =>

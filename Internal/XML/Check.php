@@ -1,4 +1,4 @@
-<?php namespace ZN\DataTypes\XML;
+<?php namespace ZN\XML;
 /**
  * ZN PHP Web Framework
  * 
@@ -11,13 +11,13 @@
 
 class Check
 {
-    //--------------------------------------------------------------------------------------------------------
-    // Check -> 4.3.5
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $file
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Controls whether an XML document is valid.
+     * 
+     * @param string $xml
+     * 
+     * @return bool
+     */
     public static function check(String $xml) : Bool
     {
         if( empty($xml) )

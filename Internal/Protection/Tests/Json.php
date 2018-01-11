@@ -1,4 +1,4 @@
-<?php namespace ZN\DataTypes;
+<?php namespace ZN\Protection\Tests;
 /**
  * ZN PHP Web Framework
  * 
@@ -9,7 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-class JsonUnitTest extends \UnitTestController
+use ZN\Controllers\UnitTestController;
+
+class Json extends UnitTestController
 {
     const unit =
     [

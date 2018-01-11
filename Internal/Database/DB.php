@@ -114,6 +114,7 @@ class DB extends Connection
         $split  = Strings\Split::upperCase($originMethodName);
         $crud   = $split[1] ?? NULL;
 
+        # Is Function Elements
         if( in_array($method, $this->functionElements) )
         {
             $functionMethod = $method;
@@ -123,6 +124,7 @@ class DB extends Connection
             $functionMethod = $this->functionElements[$method] ?? NULL;
         }
 
+        # Is Vartype Elements
         if( in_array($method, $this->vartypeElements) )
         {
             $vartypeMethod = $method;
@@ -132,6 +134,7 @@ class DB extends Connection
             $vartypeMethod  = $this->vartypeElements[$method]  ?? NULL;
         }
 
+        # Math Functions
         if( $functionMethod !== NULL )
         {
             $math = $this->_math($functionMethod, $parameters);
@@ -147,14 +150,17 @@ class DB extends Connection
                 return $this;
             }
         }
+        # Variable Types
         elseif( $vartypeMethod !== NULL )
         {
             return $this->db->variableTypes($vartypeMethod, ...$parameters);
         }
+        # Statements
         elseif( in_array($method, $this->statementElements) )
         {
             return $this->db->statements($method, ...$parameters);
         }
+        # Join
         elseif( ($split[1] ?? NULL) === 'Join')
         {
             $type    = $split[0] ?? 'left';
@@ -166,6 +172,7 @@ class DB extends Connection
 
             return $this->$met($column1, $column2, $parameters[0] ?? '=');
         }
+        # Order By - Group By
         elseif( $split[0] === 'order' || $split[0] === 'group')
         {
             $column = strtolower($split[2] ?? NULL);
@@ -174,6 +181,7 @@ class DB extends Connection
 
             return $this->$met($column, $type);
         }
+        # Where - Having
         elseif( $split[0] === 'where' || $split[0] === 'having' )
         {
             $met       = $split[0];
@@ -183,6 +191,7 @@ class DB extends Connection
 
             return $this->$met($column . $operator, $parameters[0], $condition);
         }
+        # Insert - Update - Delete
         elseif
         (
             $crud === 'Delete' ||
@@ -210,12 +219,14 @@ class DB extends Connection
         {
             $func = $split[1] ?? NULL;
 
+            # Row & Result
             if( $func === 'Row' || $func === 'Result' )
             {
                 $method = $split[0];
                 $result = strtolower($func);
             }
 
+            # Value
             if( $select = ($split[2] ?? NULL) )
             {
                 $result = 'value';
@@ -225,11 +236,13 @@ class DB extends Connection
 
             $return = $this->get($method);
 
+            # Return ->get()
             if( ! isset($result) )
             {
                 return $return;
             }
 
+            # Return ->row(0) || result('object')
             return $return->$result($parameters[0] ?? ($result === 'row' ? 0 : 'object'));
         }
     }
@@ -289,13 +302,13 @@ class DB extends Connection
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Having Group
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array ...$args
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /** 
+     * Having Group
+     * 
+     * @param array ...$args
+     * 
+     * @return DB
+     */
     public function havingGroup(...$args) : DB
     {
         $this->having .= $this->_whereHavingGroup($args);
@@ -303,15 +316,15 @@ class DB extends Connection
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Having
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param mixed  $column
-    // @param scalar $value
-    // @param string $logical
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Defines SQL HAVING 
+     * 
+     * @param mixed  $column
+     * @param string $value   = ''
+     * @param string $logical = NULL
+     * 
+     * @return DB
+     */
     public function having($column, String $value = '', String $logical = NULL) : DB
     {
         $this->_wh($column, $value, $logical, __FUNCTION__);
@@ -319,14 +332,14 @@ class DB extends Connection
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Caching -> 4.3.6
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param scalar $time
-    // @param string $driver
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Caching Query
+     * 
+     * @param string $time
+     * @param string $driver = NULL
+     * 
+     * @return DB
+     */
     public function caching($time, String $driver = NULL) : DB
     {
         $this->caching['time']   = $time;
@@ -335,27 +348,27 @@ class DB extends Connection
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Clean Caching -> 4.3.6
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Clean Cache
+     * 
+     * @param string $driver = 'file'
+     * 
+     * @return bool
+     */
     public function cleanCaching(String $driver = 'file') : Bool
     {
         return Cache::driver($this->caching['driver'] ?? $driver)->delete($this->_cacheQuery());
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Join
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $table
-    // @param string $condition
-    // @param string $type
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Join table
+     * 
+     * @param string $table
+     * @param string $condition
+     * @param string $type = NULL
+     * 
+     * @return DB
+     */
     public function join(String $table, String $condition, String $type = NULL) : DB
     {
         $tableEx = explode('.', $table);
@@ -381,15 +394,15 @@ class DB extends Connection
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Inner Join
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $table
-    // @param string $column
-    // @param string $otherColumn
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Inner Join
+     * 
+     * @param string $mainTableAndColumn
+     * @param string $otherTableAndColumn
+     * @param string $operator = '='
+     * 
+     * @return DB
+     */
     public function innerJoin(String $table, String $otherColumn, String $operator = '=') : DB
     {
         $this->_join($table, $otherColumn, $operator, 'INNER');
@@ -397,15 +410,15 @@ class DB extends Connection
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Outer Join
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $table
-    // @param string $column
-    // @param string $otherColumn
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Outer Join
+     * 
+     * @param string $mainTableAndColumn
+     * @param string $otherTableAndColumn
+     * @param string $operator = '='
+     * 
+     * @return DB
+     */
     public function outerJoin(String $table, String $otherColumn, String $operator = '=') : DB
     {
         $this->_join($table, $otherColumn, $operator, 'FULL OUTER');
@@ -413,15 +426,15 @@ class DB extends Connection
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Left Join
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $table
-    // @param string $column
-    // @param string $otherColumn
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Left Join
+     * 
+     * @param string $mainTableAndColumn
+     * @param string $otherTableAndColumn
+     * @param string $operator = '='
+     * 
+     * @return DB
+     */
     public function leftJoin(String $table, String $otherColumn, String $operator = '=') : DB
     {
         $this->_join($table, $otherColumn, $operator, 'LEFT');
@@ -429,15 +442,15 @@ class DB extends Connection
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Right Join
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $table
-    // @param string $column
-    // @param string $otherColumn
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Right Join
+     * 
+     * @param string $mainTableAndColumn
+     * @param string $otherTableAndColumn
+     * @param string $operator = '='
+     * 
+     * @return DB
+     */
     public function rightJoin(String $table, String $otherColumn, String $operator = '=') : DB
     {
         $this->_join($table, $otherColumn, $operator, 'RIGHT');
@@ -445,13 +458,13 @@ class DB extends Connection
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Group By
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string ...$args
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Group By
+     * 
+     * @param string ...$args
+     * 
+     * @return DB
+     */
     public function groupBy(...$args) : DB
     {
         $this->groupBy .= implode(',', $args).', ';
@@ -459,14 +472,14 @@ class DB extends Connection
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Order By
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param mixed  $condition
-    // @param string $type
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Order By
+     * 
+     * @param mixed  $condition
+     * @param string $type = NULL
+     * 
+     * @return DB
+     */
     public function orderBy($condition, String $type = NULL) : DB
     {
         if( is_string($condition) )
@@ -484,14 +497,14 @@ class DB extends Connection
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Limit
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param int $start
-    // @param int $limit
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Limit
+     * 
+     * @param int $start = NULL
+     * @param int $limit = 0
+     * 
+     * @return DB
+     */
     public function limit($start = NULL, Int $limit = 0) : DB
     {
         $start = (int) ($start ?? URI::segment(-1));
@@ -501,13 +514,11 @@ class DB extends Connection
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Basic
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $set
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Basic Query
+     * 
+     * @return DB
+     */
     public function basic() : DB
     {
         $this->retunQueryType = 'basicQuery';
@@ -515,16 +526,14 @@ class DB extends Connection
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Get
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Sorguyu tamamlamak için kullanılır.
-    //
-    // @param  string $table  -> Tablo adı.
-    // @return string $return -> Sorgunun dönüş türü. object, string
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Get Table
+     * 
+     * @param string $table  = NULL
+     * @param string $return = 'object' - Options['object'|'array'|'json']
+     * 
+     * @return mixed
+     */
     public function get(String $table = NULL, String $return = 'object')
     {
         $this->tableName = $table = $this->_p($table, 'table');
@@ -562,15 +571,13 @@ class DB extends Connection
         return $this->$returnQuery($secureFinalQuery, $this->secure);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Duplicate Check
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $table
-    // @param string $column
-    // @param string $otherColumn
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Duplicate Check
+     * 
+     * @param string ...$args
+     * 
+     * @return DB
+     */
     public function duplicateCheck(...$args) : DB
     {
         $this->duplicateCheck = $args;
@@ -583,15 +590,13 @@ class DB extends Connection
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Duplicate Check Update -> 4.4.7
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $table
-    // @param string $column
-    // @param string $otherColumn
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Duplicate Check Update
+     * 
+     * @param string ...$args
+     * 
+     * @return DB
+     */
     public function duplicateCheckUpdate(...$args) : DB
     {
         $this->duplicateCheck(...$args);
@@ -601,63 +606,51 @@ class DB extends Connection
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Escape String
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Tırnak işaretlerinin başına \ işareti ekler.
-    //
-    // @param  string $data
-    // @return string
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Real Escape String 
+     * 
+     * @param string $data
+     * 
+     * @return string
+     */
     public function escapeString(String $data) : String
     {
         return $this->db->realEscapeString($data);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Real Escape String
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Tırnak işaretlerinin başına \ işareti ekler.
-    //
-    // @param  string $data
-    // @return string
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Real Escape String 
+     * 
+     * @param string $data
+     * 
+     * @return string
+     */
     public function realEscapeString(String $data) : String
     {
         return $this->db->realEscapeString($data);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Get String
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Sorguyunun çalıştırılmadan metinsel çıktısını almak için kullanılır.
-    //
-    // @param  string $table -> Tablo adı.
-    // @return string
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Get String Query
+     * 
+     * @param string $table = NULL
+     * 
+     * @return string
+     */
     public function getString(String $table = NULL) : String
     {
         return $this->get($table, 'string');
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Alias
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Veriye takma ad vermek için kullanılır.
-    //
-    // @param  string $string   -> Metin.
-    // @param  string $alias    -> Takma ad.
-    // @param  bool   $brackets -> Parantezlerin olup olmayacağı.
-    // @return string
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Alias
+     * 
+     * @param string $string
+     * @param string $alias
+     * @param bool   $brackets = false
+     * 
+     * @return string
+     */
     public function alias(String $string, String $alias, Bool $brackets = false) : String
     {
         if( $brackets === true)
@@ -668,184 +661,163 @@ class DB extends Connection
         return $string.' AS '.$alias;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Brackets
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Verinin başına ve sonuna parantez eklemek için kullanılır.
-    //
-    // @param  string $string   -> Metin.
-    // @return string
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Brackets
+     * 
+     * @param string $string
+     * 
+     * @return string
+     */
     public function brackets(String $string) : String
     {
         return ' ( '.$string.' ) ';
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // All
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Defines SQL ALL
+     * 
+     * @return DB
+     */
     public function all() : DB
     {
         $this->dictinct = ' ALL ';
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Distinct
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Defines SQL DISTINCT
+     * 
+     * @return DB
+     */
     public function distinct() : DB
     {
         $this->distinct = ' DISTINCT ';
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Distinct Row
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Defines SQL DISTINCTROW
+     * 
+     * @return DB
+     */
     public function distinctRow() : DB
     {
         $this->distinct = ' DISTINCTROW ';
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Straight Join
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Defines SQL STRAIGHT_JOIN
+     * 
+     * @return DB
+     */
     public function straightJoin() : DB
     {
         $this->straightJoin = ' STRAIGHT_JOIN ';
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // High Priority
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Defines SQL HIGH_PRIORITY
+     * 
+     * @return DB
+     */
     public function highPriority() : DB
     {
         $this->highPriority = ' HIGH_PRIORITY ';
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Low Priority
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Defines SQL LOW_PRIORITY
+     * 
+     * @return DB
+     */
     public function lowPriority() : DB
     {
         $this->lowPriority = ' LOW_PRIORITY ';
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Quick
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Defines SQL QUICK
+     * 
+     * @return DB
+     */
     public function quick() : DB
     {
         $this->quick = ' QUICK ';
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Delayed
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Defines SQL DELAYED
+     * 
+     * @return DB
+     */
     public function delayed() : DB
     {
         $this->delayed = ' DELAYED ';
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Ignore
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Defines SQL IGNORE
+     * 
+     * @return DB
+     */
     public function ignore() : DB
     {
         $this->ignore = ' IGNORE ';
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Partition
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string ...$args
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Defines SQL PARTITION
+     * 
+     * @param string ...$args
+     * 
+     * @return DB
+     */
     public function partition(...$args) : DB
     {
         $this->partition = $this->_math(__FUNCTION__, $args)->args;
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Procedure
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string ...$args
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Defines SQL PROCEDURE
+     * 
+     * @param string ...$args
+     * 
+     * @return DB
+     */
     public function procedure(...$args) : DB
     {
         $this->procedure = $this->_math(__FUNCTION__, $args)->args;
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Out File
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string ...$args
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Defines SQL INTO OUTFILE
+     * 
+     * @param string $file
+     * 
+     * @return DB
+     */
     public function outFile(String $file) : DB
     {
         $this->outFile = 'INTO OUTFILE '."'".$file."'".' ';
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Dump File
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $file
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Defines SQL INTO DUMPFILE
+     * 
+     * @param string $file
+     * 
+     * @return DB
+     */
     public function dumpFile(String $file) : DB
     {
         $this->into = 'INTO DUMPFILE '."'".$file."'".' ';
@@ -853,14 +825,14 @@ class DB extends Connection
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Character Set
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $set
-    // @param bool   $return
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Defines SQL CHARACTER SET
+     * 
+     * @param string $set
+     * @param bool   $return = false
+     * 
+     * @return mixed
+     */
     public function characterSet(String $set, Bool $return = false)
     {
         $string = 'CHARACTER SET '.$set.' ';
@@ -876,13 +848,13 @@ class DB extends Connection
         }
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Character Set
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $set
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Character Set
+     * 
+     * @param string $set
+     * 
+     * @return string
+     */
     public function cset(String $set) : String
     {
         if( empty($set) )
@@ -893,13 +865,13 @@ class DB extends Connection
         return $this->characterSet($set, true);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Collate
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $set
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Defines SQL COLLATE
+     * 
+     * @param string $set
+     * 
+     * @return string
+     */
     public function collate(String $set = NULL) : String
     {
         if( empty($set) )
@@ -911,14 +883,14 @@ class DB extends Connection
     }
 
 
-    //--------------------------------------------------------------------------------------------------------
-    // Encoding
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $charset
-    // @param string $collate
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Sets encoding
+     * 
+     * @param string $charset = 'utf8'
+     * @param string $collate = 'utf8_general_ci'
+     * 
+     * @return string
+     */
     public function encoding(String $charset = 'utf8', String $collate = 'utf8_general_ci') : String
     {
         $encoding  = $this->cset($charset);
@@ -927,14 +899,14 @@ class DB extends Connection
         return $encoding;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Into
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $varname1
-    // @param string $varname2
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Defines SQL INTO
+     * 
+     * @param string $varname1
+     * @param string $varname2
+     * 
+     * @return DB
+     */
     public function into(String $varname1, String $varname2 = NULL) : DB
     {
         $this->into = 'INTO '.$varname1.' ';
@@ -947,13 +919,11 @@ class DB extends Connection
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // For Update
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Defines SQL FOR UPDATE
+     * 
+     * @return DB
+     */
     public function forUpdate() : DB
     {
         $this->forUpdate = ' FOR UPDATE ';
@@ -961,13 +931,11 @@ class DB extends Connection
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Lock In Share Mode
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Defines SQL LOCK IN SHARE MODE
+     * 
+     * @return DB
+     */
     public function lockInShareMode() : DB
     {
         $this->forUpdate = ' LOCK IN SHARE MODE ';
@@ -975,13 +943,11 @@ class DB extends Connection
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Small Result
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Defines SQL SQL_SMALL_RESULT
+     * 
+     * @return DB
+     */
     public function smallResult() : DB
     {
         $this->smallResult = ' SQL_SMALL_RESULT ';
@@ -989,13 +955,11 @@ class DB extends Connection
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Big Result
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Defines SQL SQL_BIG_RESULT
+     * 
+     * @return DB
+     */
     public function bigResult() : DB
     {
         $this->bigResult = ' SQL_BIG_RESULT ';
@@ -1003,13 +967,11 @@ class DB extends Connection
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Buffer Result
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Defines SQL SQL_BUFFER_RESULT
+     * 
+     * @return DB
+     */
     public function bufferResult() : DB
     {
         $this->bufferResult = ' SQL_BUFFER_RESULT ';
@@ -1017,13 +979,11 @@ class DB extends Connection
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Cache
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Defines SQL SQL_CACHE
+     * 
+     * @return DB
+     */
     public function cache() : DB
     {
         $this->cache = ' SQL_CACHE ';
@@ -1031,13 +991,11 @@ class DB extends Connection
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // No Cache
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Defines SQL SQL_NO_CACHE
+     * 
+     * @return DB
+     */
     public function noCache() : DB
     {
         $this->cache = ' SQL_NO_CACHE ';
@@ -1045,13 +1003,11 @@ class DB extends Connection
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Calc Found Rows
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Defines SQL SQL_CALC_FOUND_ROWS
+     * 
+     * @return DB
+     */
     public function calcFoundRows() : DB
     {
         $this->calcFoundRows = ' SQL_CALC_FOUND_ROWS ';
@@ -1059,13 +1015,13 @@ class DB extends Connection
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Union
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $table
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Defines SQL UNION
+     * 
+     * @param string $table = NULL
+     * 
+     * @return DB
+     */
     public function union(String $table = NULL, $name = 'UNION') : DB
     {
         $this->unionQuery .= $this->get($table, 'string') . $name;
@@ -1073,13 +1029,13 @@ class DB extends Connection
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Union All
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $table
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Defines SQL UNION ALL
+     * 
+     * @param string $table = NULL
+     * 
+     * @return DB
+     */
     public function unionAll(String $table = NULL) : DB
     {
         $this->union($table, 'UNION ALL');
@@ -1087,14 +1043,14 @@ class DB extends Connection
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Query
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $query
-    // @param array  $secure
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Basic Query
+     * 
+     * @param string $query
+     * @param array  $secure = []
+     * 
+     * @return DB
+     */
     public function query(String $query, Array $secure = [])
     {
         $caching = $this->caching;
@@ -1104,14 +1060,14 @@ class DB extends Connection
         return (new self($this->config))->_query($query, $secure, ['caching' => $caching]);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Exec Query
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $query
-    // @param array  $secure
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Exec Basic Query
+     * 
+     * @param string $query
+     * @param array  $secure = []
+     * 
+     * @return bool
+     */
     public function execQuery(String $query, Array $secure = []) : Bool
     {
         $this->secure = $this->secure ?: $secure;
@@ -1119,14 +1075,14 @@ class DB extends Connection
         return $this->db->exec($this->_querySecurity($query), $this->secure);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Basic Query
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $query
-    // @param array  $secure
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Basic Query
+     * 
+     * @param string $query
+     * @param array  $secure = []
+     * 
+     * @return DB
+     */
     public function basicQuery(String $query, Array $secure = []) : DB
     {
         $this->_query($query, $secure);
@@ -1134,14 +1090,14 @@ class DB extends Connection
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Trans Query
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $query
-    // @param array  $secure
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Trans Query
+     * 
+     * @param string $query
+     * @param array  $secure = []
+     * 
+     * @return DB
+     */
     public function transQuery(String $query, Array $secure = []) : DB
     {
         $this->_query($query, $secure);
@@ -1149,14 +1105,14 @@ class DB extends Connection
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Multi Query
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $query
-    // @param array  $secure
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Multi Query
+     * 
+     * @param string $query
+     * @param array  $secure = []
+     * 
+     * @return bool
+     */
     public function multiQuery(String $query, Array $secure = []) : Bool
     {
         $this->secure = $this->secure ?: $secure;
@@ -1164,13 +1120,11 @@ class DB extends Connection
         return $this->db->multiQuery($this->_querySecurity($query), $this->secure);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Trans Start
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Start transaction query
+     * 
+     * @return DB
+     */
     public function transStart() : DB
     {
         $this->transStart = $this->db->transStart();
@@ -1178,13 +1132,11 @@ class DB extends Connection
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Trans End
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * End transaction query
+     * 
+     * @return bool
+     */
     public function transEnd()
     {
         if( ! empty($this->transError) )
@@ -1204,25 +1156,23 @@ class DB extends Connection
         return $status;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Insert ID
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Get Insert ID
+     * 
+     * @return int
+     */
     public function insertID() : Int
     {
         return $this->db->insertId();
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Status
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $table
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Get table status
+     * 
+     * @param string $table = NULL
+     * 
+     * @return DB
+     */
     public function status(String $table = NULL) : DB
     {
         $table = presuffix($this->_p($table), "'");
@@ -1234,42 +1184,42 @@ class DB extends Connection
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Increment
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string  $table
-    // @param mixed   $columns
-    // @param numeric $increment
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Increment
+     * 
+     * @param string $table     = NULL
+     * @param mixed  $columns   = []
+     * @param int    $increment = 1
+     * 
+     * @return bool
+     */
     public function increment(String $table = NULL, $columns = [], Int $increment = 1) : Bool
     {
         return $this->_incdec($table, $columns, $increment, 'increment');
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Decrement
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string  $table
-    // @param mixed   $columns
-    // @param numeric $decrement
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Decrement
+     * 
+     * @param string $table     = NULL
+     * @param mixed  $columns   = []
+     * @param int    $decrement = 1
+     * 
+     * @return bool
+     */
     public function decrement(String $table = NULL, $columns = [], Int $decrement = 1) : Bool
     {
         return $this->_incdec($table, $columns, $decrement, 'decrement');
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Insert CSV -> 5.3.9
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  string $table
-    // @param  string $file
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Insert CSV
+     * 
+     * @param string $table
+     * @param string $file
+     * 
+     * @return bool
+     */
     public function insertCSV(String $table, String $file) : Bool
     {
         $this->_csv($file);
@@ -1282,15 +1232,14 @@ class DB extends Connection
         return true;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Insert
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  mixed $table
-    // @param  mixed $datas
-    // @return mixed
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Insert 
+     * 
+     * @param string $table = NULL
+     * @param array  $datas = []
+     * 
+     * @return bool
+     */
     public function insert(String $table = NULL, Array $datas = [])
     {
         $this->_ignoreData($table, $datas);
@@ -1376,15 +1325,14 @@ class DB extends Connection
         return $this->_runQuery($insertQuery);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Updated
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  mixed $table
-    // @param  mixed $set
-    // @return mixed
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Update 
+     * 
+     * @param string $table = NULL
+     * @param array  $set   = []
+     * 
+     * @return bool
+     */
     public function update(String $table = NULL, Array $set = [])
     {
         if( empty($this->where) )
@@ -1430,13 +1378,13 @@ class DB extends Connection
         return $this->_runQuery($updateQuery);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Delete
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param mixed $table
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Delete 
+     * 
+     * @param string $table = NULL
+     * 
+     * @return bool
+     */
     public function delete(String $table = NULL)
     {
         if( empty($this->where) )
@@ -1462,13 +1410,13 @@ class DB extends Connection
         return $this->_runQuery($deleteQuery);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Total Rows
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param bool $total
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Get total rows
+     * 
+     * @param bool $real = false
+     * 
+     * @return int
+     */
     public function totalRows(Bool $total = false) : Int
     {
         if( $total === true )
@@ -1479,37 +1427,33 @@ class DB extends Connection
         return $this->db->numRows();
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Total Columns
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Get total columns
+     * 
+     * @return int
+     */
     public function totalColumns() : Int
     {
         return $this->db->numFields();
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Columns
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Get columns
+     * 
+     * @return array
+     */
     public function columns() : Array
     {
         return $this->db->columns();
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Result
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $type: object, 'json', 'array'
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Get table result
+     * 
+     * @param string $type = 'objects' - Options[object|array|json]
+     * 
+     * @return mixed
+     */
     public function result(String $type = 'object')
     {
         $this->_resultCache($type);
@@ -1527,61 +1471,53 @@ class DB extends Connection
         return $this->results;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Result Json
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Get result json
+     * 
+     * @return string
+     */
     public function resultJson() : String
     {
         return $this->result('json');
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Result Array
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Get result array
+     * 
+     * @return array
+     */
     public function resultArray() : Array
     {
         return $this->result('array');
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Fetch Array
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Get fetch array
+     * 
+     * @return array
+     */
     public function fetchArray() : Array
     {
         return $this->db->fetchArray();
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Fetch Assoc
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Get fetch assoc
+     * 
+     * @return array
+     */
     public function fetchAssoc() : Array
     {
         return $this->db->fetchAssoc();
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Fetch
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $type: assoc, array, row
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Get fetch array
+     * 
+     * @param string $type = 'assoc' - Options[assoc|array|row]
+     * 
+     * @return array
+     */
     public function fetch(String $type = 'assoc') : Array
     {
         if( $type === 'assoc' )
@@ -1598,13 +1534,13 @@ class DB extends Connection
         }
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Fetch Row
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param boolean $printable
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Get fetch row
+     * 
+     * @param bool $printable = false
+     * 
+     * @return mixed
+     */
     public function fetchRow(Bool $printable = false)
     {
         $row = $this->db->fetchRow();
@@ -1619,13 +1555,13 @@ class DB extends Connection
         }
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Row
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param mixed $printable
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Get table row
+     * 
+     * @param mixed $printable = 0
+     * 
+     * @return mixed
+     */
     public function row($printable = 0)
     {
         $result = $this->resultArray();
@@ -1645,63 +1581,57 @@ class DB extends Connection
         }
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Value
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Get table column value
+     * 
+     * @return string
+     */
     public function value()
     {
         return $this->row(true);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Affected Rows
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Get affected rows
+     * 
+     * @return int
+     */
     public function affectedRows() : Int
     {
         return $this->db->affectedRows();
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Column Data
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $column
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Column Data
+     * 
+     * @param string $column = NULL
+     * 
+     * @return array
+     */
     public function columnData(String $column = NULL)
     {
         return $this->db->columnData($column);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Table Name
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Table Name
+     * 
+     * @return string
+     */
     public function tableName() : String
     {
         return $this->tableName;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Pagination
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $url
-    // @param array  $settigs
-    // @param bool   $output
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Pagination
+     * 
+     * @param string $url      = NULL
+     * @param array  $settings = []
+     * @param bool   $output   = true
+     * 
+     * @return string
+     */
     public function pagination(String $url = NULL, Array $settings = [], Bool $output = true)
     {
         $pagcon   = Config::get('ViewObjects', 'pagination');
@@ -1725,29 +1655,29 @@ class DB extends Connection
         return $return;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Is Exists
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $table
-    // @param string $column
-    // @param string $value
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Is Exists
+     * 
+     * @param string $table
+     * @param string $column
+     * @param string $value
+     * 
+     * @param bool
+     */
     public function isExists(String $table, String $column, String $value) : Bool
     {
         return (bool) $this->where($column, $value)->get($table)->totalRows();
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Simple Result
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $table
-    // @param string $column
-    // @param string $value
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Simple Result
+     * 
+     * @param string $table
+     * @param string $column = NULL
+     * @param string $value  = NULL
+     * 
+     * @return object
+     */
     public function simpleResult(String $table, String $column = NULL, String $value = NULL, $type = 'result')
     {
         if( $column !== NULL && $value !== NULL )
@@ -1758,121 +1688,121 @@ class DB extends Connection
         return $this->get($table)->$type();
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Simple Result Array
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $table
-    // @param string $column
-    // @param string $value
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Simple Result Array
+     * 
+     * @param string $table
+     * @param string $column = NULL
+     * @param string $value  = NULL
+     * 
+     * @return array
+     */
     public function simpleResultArray(String $table, String $column = NULL, String $value = NULL)
     {
         return $this->simpleResult($table, $column, $value, 'resultArray');
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Simple Row
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $table
-    // @param string $column
-    // @param string $value
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Simple Row
+     * 
+     * @param string $table
+     * @param string $column = NULL
+     * @param string $value  = NULLL
+     * 
+     * @return object
+     */
     public function simpleRow(String $table, String $column = NULL, String $value = NULL)
     {
         return $this->simpleResult($table, $column, $value, 'row');
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Simple Total Rows
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $table
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Simple Total Rows
+     * 
+     * @param string $table
+     * 
+     * @return int
+     */
     public function simpleTotalRows(String $table) : Int
     {
         return $this->simpleResult($table, NULL, NULL, 'totalRows');
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Simple Total Columns
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $table
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Simple Total Columns
+     * 
+     * @param string $table 
+     * 
+     * @return int
+     */
     public function simpleTotalColumns(String $table) : Int
     {
         return $this->simpleResult($table, NULL, NULL, 'totalColumns');
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Simple Columns
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $table
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Simple Columns
+     * 
+     * @param string $table
+     * 
+     * @return array
+     */
     public function simpleColumns(String $table) : Array
     {
         return $this->simpleResult($table, NULL, NULL, 'columns');
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Simple Column Data
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $table
-    // @param string $column
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Simple Column Data
+     * 
+     * @param string $table
+     * @param string $column
+     * 
+     * @return stdClass
+     */
     public function simpleColumnData(String $table, String $column = NULL) : \stdClass
     {
         return $this->get($table)->columnData($column);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Simple Update
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $table
-    // @param array  $data
-    // @param string $column
-    // @param string $value
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Simple Delete
+     * 
+     * @param string $table
+     * @param string $data
+     * @param string $column
+     * @param string $value
+     * 
+     * @return bool
+     */
     public function simpleUpdate(String $table, Array $data, String $column, String $value)
     {
         return $this->where($column, $value)->update($table, $data);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Simple Delete
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $table
-    // @param string $column
-    // @param string $value
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Simple Delete
+     * 
+     * @param string $table
+     * @param string $column
+     * @param string $value
+     * 
+     * @return bool
+     */
     public function simpleDelete(String $table, String $column, String $value)
     {
         return $this->where($column, $value)->delete($table);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Switch Case
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $switch
-    // @param array  $conditions
-    // @param bool   $return
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Switch Case
+     * 
+     * @param string $switch
+     * @param array  $conditions = []
+     * @param bool   $return     = false
+     * 
+     * @return mixed
+     */
     public function switchCase(String $switch, Array $conditions = [], Bool $return = false)
     {
         $case  = ' CASE '.$switch;
@@ -1914,29 +1844,29 @@ class DB extends Connection
         }
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Vartype
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $type
-    // @param int    $len
-    // @param bool   $output
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Vartype
+     * 
+     * @param mixed  $type
+     * @param string $len    = NULL
+     * @param bool   $output = true
+     * 
+     * @return string
+     */
     public function vartype(String $type, Int $len = NULL, Bool $output = true) : String
     {
         return $this->db->variableTypes($type, $len, $output);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Property
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param mixed  $type
-    // @param string $col
-    // @param bool   $output
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Property
+     * 
+     * @param mixed  $type
+     * @param string $col    = NULL
+     * @param bool   $output = true
+     * 
+     * @return string
+     */
     public function property($type, String $col = NULL, Bool $output = true) : String
     {
         if( is_array($type) )
@@ -1963,14 +1893,14 @@ class DB extends Connection
         }
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Default Value
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $default
-    // @param bool   $type
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Defines SQL DEFAULT
+     * 
+     * @param string $default = NULL
+     * @param string $bool    = false
+     * 
+     * @return string
+     */
     public function defaultValue(String $default = NULL, Bool $type = false) : String
     {
         if( ! is_numeric($default) )
@@ -1981,13 +1911,14 @@ class DB extends Connection
         return $this->db->statements('default', $default, $type);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Like
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param variadic $args
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Defines SQL LIKE Operators
+     * 
+     * @param string $value
+     * @param string $type = 'starting' - Options[starting|ending|inside]
+     * 
+     * @return string
+     */
     public function like(String $value, String $type = 'starting') : String
     {
         $operator = $this->db->operator(__FUNCTION__);
@@ -2012,74 +1943,75 @@ class DB extends Connection
         return $value;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Between
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $value1
-    // @param string $value2
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Defines SQL BETWEEN
+     * 
+     * @param string $value1
+     * @param string $value2
+     * 
+     * @return string
+     */
     public function between(String $value1, String $value2) : String
     {
         return $this->_escapeStringAddNail($value1, true).' AND '.$this->_escapeStringAddNail($value2, true);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // In
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string ...$value
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Defines SQL NOT IN
+     * 
+     * @param string ...$value 
+     * 
+     * @return string
+     */
     public function notIn(String ...$value) : String
     {
         return $this->_in('in', ...$value);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // In
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string ...$value
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Defines SQL IN
+     * 
+     * @param string ...$value 
+     * 
+     * @return string
+     */
     public function in(String ...$value) : String
     {
         return $this->_in(__FUNCTION__, ...$value);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // In Table
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string ...$value
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Protected IN Table
+     * 
+     * @param string ...$value 
+     * 
+     * @return string
+     */
     public function inTable(String ...$value) : String
     {
         return $this->_in(__FUNCTION__, ...$value);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // In Query
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string ...$value
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Protected IN Query
+     * 
+     * @param string ...$value 
+     * 
+     * @return string
+     */
     public function inQuery(String ...$value) : String
     {
         return $this->_in(__FUNCTION__, ...$value);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected In
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string ...$value
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Protected IN
+     * 
+     * @param string    $type = 'in'
+     * @param string ...$value 
+     * 
+     * @return string
+     */
     protected function _in($type = 'in', ...$value)
     {
         $query = '(';
@@ -2106,13 +2038,11 @@ class DB extends Connection
         return rtrim($query, ',') . ')';
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Select
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Protected Select
+     * 
+     * @return string
+     */
     protected function _select()
     {
         if( ! empty($this->selectFunctions) )
@@ -2137,28 +2067,24 @@ class DB extends Connection
         return $this->select;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Values
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  mixed $table
-    // @param  mixed $set
-    // @return mixed
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Protected Values
+     * 
+     * @param string $data
+     * @param string $values
+     * 
+     * @return string
+     */
     protected function _values($data, $values)
     {
         return ' ('.rtrim($data, ',').') VALUES ('.rtrim($values, ',').')';
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Result Cache
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string &$table
-    // @param array  $datas
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Protected Result Cache
+     * 
+     * @param string $type
+     */
     protected function _resultCache($type)
     {
         if( ! empty($this->caching) )
@@ -2176,14 +2102,12 @@ class DB extends Connection
         }
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Ignore Data
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string &$table
-    // @param array  $datas
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Protected Ignore Data
+     * 
+     * @param string & $table
+     * @param string & $data
+     */
     protected function _ignoreData(&$table, &$data)
     {
         $methods = ['ignore', 'post', 'get', 'request'];
@@ -2207,13 +2131,11 @@ class DB extends Connection
         }
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected CSV
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $data
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Protected CSV
+     * 
+     * @param string & $data
+     */
     protected function _csv(&$data)
     {
         $csv       = Excel\CSVToArray::do($data);
@@ -2228,25 +2150,25 @@ class DB extends Connection
         }, $csvDatas);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Clean Limit
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $data
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Protected Clean Limit
+     * 
+     * @param string $data
+     * 
+     * @return array
+     */
     protected function _cleanLimit($data)
     {
         return preg_replace('/limit\s+[0-9]+(\s*\OFFSET\s*[0-9]+)*/xi', '', $data);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Get Limit Values
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $data
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Protected Get Limit Values
+     * 
+     * @param string $data
+     * 
+     * @return array
+     */
     protected function _getLimitValues($data)
     {
         preg_match('/limit\s+([0-9]+)(\s*\OFFSET\s*([0-9]+))*/xi', $data, $match);
@@ -2254,13 +2176,13 @@ class DB extends Connection
         return $match;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Delete Join Tables
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $table
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Protected Delete Join Tables
+     * 
+     * @param string $table
+     * 
+     * @return string
+     */
     protected function _deleteJoinTables($table)
     {
         if( $this->join )
@@ -2289,14 +2211,14 @@ class DB extends Connection
         return NULL;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Where Key Control
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $column
-    // @param string $value
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Protected Where Key Control
+     * 
+     * @param string $column
+     * @param string $value
+     * 
+     * @return string
+     */
     protected function _whereKeyControl($column, $value)
     {
         $keys   = ['between', 'in'];
@@ -2310,13 +2232,13 @@ class DB extends Connection
         return $this->_escapeStringAddNail($value);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Equal Control
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $column
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Protected Equal Control
+     * 
+     * @param string $column
+     * 
+     * @return string
+     */
     protected function _equalControl($column)
     {
         $control = trim($column);
@@ -2334,15 +2256,15 @@ class DB extends Connection
         return $column;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Where Having
-    //--------------------------------------------------------------------------------------------------------
-     //
-    // @param string $column
-    // @param string $value
-    // @param string $logical
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Protected Where Having
+     * 
+     * @param mixed  $column
+     * @param string $value
+     * @param string $logical
+     * 
+     * @return string
+     */
     protected function _whereHaving($column, $value, $logical)
     {
         if( $value !== '' )
@@ -2357,16 +2279,16 @@ class DB extends Connection
         return ' '.$this->_tablePrefixColumnControl($column).' '.$value.' '.$logical.' ';
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Where Having
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $column
-    // @param string $value
-    // @param string $logical
-    // @param string $type 
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Protected Where
+     * 
+     * @param mixed  $column
+     * @param string $value
+     * @param string $logical
+     * @param string $type = 'where'
+     * 
+     * @return DB
+     */
     protected function _wh($column, $value, $logical, $type = 'where')
     {   
         if( is_array($column) )
@@ -2398,13 +2320,13 @@ class DB extends Connection
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Where Having Group
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array $conditions
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Protected Where Having Group
+     * 
+     * @param array $condition = []
+     * 
+     * @return string
+     */
     protected function _whereHavingGroup($conditions = [])
     {
         $con = [];
@@ -2448,13 +2370,13 @@ class DB extends Connection
         return ' ( '.$this->_whereHavingConjuctionClean($whereGroup).' ) '.$conjunction.' ';
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Where Having Conjuction Control
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $type
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Protected Where Having Conjuction Control
+     * 
+     * @param string $type
+     * 
+     * @return string
+     */
     protected function _whereHavingConjuctionControl($type)
     {
         if( ! empty($this->$type) )
@@ -2469,13 +2391,13 @@ class DB extends Connection
         }
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Where Having Conjuction Clean
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $str
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Protected Where Having Conjuction Clean
+     * 
+     * @param string $str
+     * 
+     * @return string
+     */
     protected function _whereHavingConjuctionClean($str)
     {
         if( ! empty($str) )
@@ -2508,41 +2430,36 @@ class DB extends Connection
         return $str;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Where
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Protected Where
+     * 
+     * @return string
+     */
     protected function _where()
     {
         return $this->_whereHavingConjuctionControl('where');
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Having
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Protected Having
+     * 
+     * @return string
+     */
     protected function _having()
     {
         return $this->_whereHavingConjuctionControl('having');
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Join
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $table
-    // @param string $column
-    // @param string $otherColumn
-    // @param string $operator
-    // @param string $type
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Protected Join
+     * 
+     * @param string $tableAndColumn = ''
+     * @param string $otherColumn    = ''
+     * @param string $operator       = '='
+     * @param string $type           = 'INNER'
+     * 
+     * @param object
+     */
     protected function _join($tableAndColumn = '', $otherColumn = '', $operator = '=', $type = 'INNER')
     {
         $condition = $this->_tablePrefixColumnControl($tableAndColumn, $table).' '.
@@ -2552,14 +2469,14 @@ class DB extends Connection
         $this->join($table, $condition, $type);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Table Prefix Column Control
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  string $column
-    // @return string &$table = NULL
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Protected Table Prefix Column Control
+     * 
+     * @param string $column
+     * @param string & $table = NULL
+     * 
+     * @return string
+     */
     protected function _tablePrefixColumnControl($column, &$table = NULL)
     {
         $column = explode('.', $column);
@@ -2573,14 +2490,11 @@ class DB extends Connection
         }
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Group By
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  void
-    // @return string
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Protected Group By
+     * 
+     * @return mixed
+     */
     protected function _groupBy()
     {
         if( ! empty($this->groupBy) )
@@ -2591,14 +2505,11 @@ class DB extends Connection
         return false;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Order By
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  void
-    // @return string
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Protected Order By
+     * 
+     * @return mixed
+     */
     protected function _orderBy()
     {
         if( ! empty($this->orderBy) )
@@ -2609,9 +2520,16 @@ class DB extends Connection
         return false;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Increment & Decrement
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Protected Increment & Decrement
+     * 
+     * @param string $table
+     * @param array  $columns
+     * @param int    $incdec
+     * @param string $type
+     * 
+     * @return bool
+     */
     protected function _incdec($table, $columns, $incdec, $type)
     {
         $newColumns = [];
@@ -2654,14 +2572,15 @@ class DB extends Connection
         return $this->db->query($updateQuery);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // _Query
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $query
-    // @param array  $secure
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Query
+     * 
+     * @param string $query
+     * @param array  $secure = []
+     * @param mixed  $data   = NULL
+     * 
+     * @return DB 
+     */
     public function _query(String $query, Array $secure = [], $data = NULL)
     {
         $this->stringQuery = $query;
@@ -2688,25 +2607,19 @@ class DB extends Connection
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Cache Query
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Protected Cache Query
+     * 
+     * @return string
+     */
     protected function _cacheQuery()
     {
         return md5(json_encode($this->config) . $this->stringQuery());
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Select Reset Query
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Protected Select Reset Query
+     */
     protected function _resetSelectQuery()
     {
         $this->distinct        = NULL;
@@ -2736,13 +2649,9 @@ class DB extends Connection
         $this->retunQueryType  = NULL;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Reset Insert Query
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Protected Reset Insert Query
+     */
     protected function _resetInsertQuery()
     {
         $this->column          = NULL;
@@ -2756,13 +2665,9 @@ class DB extends Connection
         $this->duplicateCheckUpdate = NULL;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Reset Update Query
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Protected Reset Update Query
+     */
     protected function _resetUpdateQuery()
     {
         $this->where           = NULL;
@@ -2775,13 +2680,9 @@ class DB extends Connection
         $this->column          = NULL;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Reset Delete Query
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Protected Reset Delete Query
+     */
     protected function _resetDeleteQuery()
     {
         $this->where           = NULL;
