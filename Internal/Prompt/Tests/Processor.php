@@ -1,4 +1,4 @@
-<?php namespace ZN\Services;
+<?php namespace ZN\Prompt\Tests;
 /**
  * ZN PHP Web Framework
  * 
@@ -9,11 +9,13 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-class HTTPUnitTest extends \UnitTestController
+use ZN\Controllers\UnitTestController;
+
+class Processor extends UnitTestController
 {
     const unit =
     [
-        'class'   => 'HTTP',
+        'class'   => 'Processor',
         'methods' => []
     ];
 }

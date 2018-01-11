@@ -1,4 +1,4 @@
-<?php namespace ZN\Services;
+<?php namespace ZN\Prompt\Tests;
 /**
  * ZN PHP Web Framework
  * 
@@ -9,11 +9,13 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-class NetUnitTest extends \UnitTestController
+use ZN\Controllers\UnitTestController;
+
+class Crontab extends UnitTestController
 {
     const unit =
     [
-        'class'   => 'Net',
+        'class'   => 'Crontab',
         'methods' => []
     ];
 }
