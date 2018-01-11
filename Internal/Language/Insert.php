@@ -1,4 +1,4 @@
-<?php namespace ZN\Language\ML;
+<?php namespace ZN\Language;
 /**
  * ZN PHP Web Framework
  * 

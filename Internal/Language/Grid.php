@@ -1,4 +1,4 @@
-<?php namespace ZN\Language\ML;
+<?php namespace ZN\Language;
 /**
  * ZN PHP Web Framework
  * 
@@ -9,7 +9,11 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use Html, Form, Pagination, Sheet, Style;
+use Html;
+use Form;
+use Sheet;
+use Style;
+use Pagination;
 use ZN\Services\URI;
 use ZN\Services\Method;
 

@@ -9,22 +9,24 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-class ML extends \FactoryController
+use ZN\Controllers\FactoryController;
+
+class ML extends FactoryController
 {
     const factory =
     [
         'methods' =>
         [
-            'select'       => 'ML\Select::do',
-            'selectall'    => 'ML\Select::all',
-            'insert'       => 'ML\Insert::do',
-            'update'       => 'ML\Update::do',
-            'delete'       => 'ML\Delete::do',
-            'deleteall'    => 'ML\Delete::all',
-            'grid'         => 'ML\Grid::create',
-            'table'        => 'ML\Grid::create',
-            'limit'        => 'ML\Grid::limit',
-            'url'          => 'ML\Grid::url'
+            'select'       => 'Select::do',
+            'selectall'    => 'Select::all',
+            'insert'       => 'Insert::do',
+            'update'       => 'Update::do',
+            'delete'       => 'Delete::do',
+            'deleteall'    => 'Delete::all',
+            'grid'         => 'Grid::create',
+            'table'        => 'Grid::create',
+            'limit'        => 'Grid::limit',
+            'url'          => 'Grid::url'
         ]
     ];
 

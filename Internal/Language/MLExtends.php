@@ -1,4 +1,4 @@
-<?php namespace ZN\Language\ML;
+<?php namespace ZN\Language;
 /**
  * ZN PHP Web Framework
  * 
@@ -10,7 +10,6 @@
  */
 
 use ZN\Config;
-use ZN\Language\Lang;
 use ZN\Filesystem\Folder;
 
 class MLExtends 
