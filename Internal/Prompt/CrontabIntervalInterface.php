@@ -1,4 +1,4 @@
-<?php namespace ZN\Services;
+<?php namespace ZN\Prompt;
 /**
  * ZN PHP Web Framework
  * 
@@ -9,176 +9,185 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-interface NetInterface
+interface CrontabIntervalInterface
 {
     //--------------------------------------------------------------------------------------------------------
-    // Check DNS
+    // Hourly
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $host
-    // @param string $type
+    // @param  string void
+    // @return object
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function checkDns(String $host, String $type = 'MX') : Bool;
+    public function hourly() : Crontab;
 
     //--------------------------------------------------------------------------------------------------------
-    // DNS Records
+    // Daily
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $host
-    // @param string $type
-    // @param bool   $raw
+    // @param  string void
+    // @return object
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function dnsRecords(String $host, String $type = 'any', Bool $raw = false) : \stdClass;
+    public function daily() : Crontab;
 
     //--------------------------------------------------------------------------------------------------------
-    // MX Records
+    // Midnight
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $host
+    // @param  string void
+    // @return object
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function mxRecords(String $host) : \stdClass;
+    public function midnight() : Crontab;
 
     //--------------------------------------------------------------------------------------------------------
-    // Socket
+    // Monthly
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $host
-    // @param int    $port
-    // @param int    $timeout
+    // @param  string void
+    // @return object
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function socket(String $host, Int $port = -1, Int $timeout = 60);
+    public function monthly() : Crontab;
 
     //--------------------------------------------------------------------------------------------------------
-    // Psocket
+    // Weekly
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $host
-    // @param int    $port
-    // @param int    $timeout
+    // @param  string void
+    // @return object
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function psocket(String $host, Int $port = -1, Int $timeout = 60);
+    public function weekly() : Crontab;
 
     //--------------------------------------------------------------------------------------------------------
-    // IP v4 To Host
+    // Yearly
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $ip
+    // @param  string void
+    // @return object
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function ipv4ToHost(String $ip) : String;
+    public function yearly() : Crontab;
 
     //--------------------------------------------------------------------------------------------------------
-    // Host To IP v4
+    // Annualy
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $host
+    // @param  string void
+    // @return object
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function hostToIpv4(String $host) : String;
+    public function annualy() : Crontab;
 
     //--------------------------------------------------------------------------------------------------------
-    // Host To IP v4 List
+    // Clock
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $host
+    // @param  string $clock: 24:59
+    // @return object
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function hostToIpv4List(String $host) : Array;
+    public function clock(String $clock) : Crontab;
 
     //--------------------------------------------------------------------------------------------------------
-    // Protocol Number
+    // Minute
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $name
+    // @param  string $minute: *
+    // @return object
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function protocolNumber(String $name) : Int;
+    public function minute(String $minute) : Crontab;
 
     //--------------------------------------------------------------------------------------------------------
-    // Protocol Name
+    // Per Minute
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param int $number
+    // @param  string $minute: *
+    // @return object
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function protocolName(Int $number) : String;
+    public function perMinute(String $minute = '*') : Crontab;
 
     //--------------------------------------------------------------------------------------------------------
-    // Service Port
+    // Hour
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $service
-    // @param string $protocol
+    // @param  string $hour: *
+    // @return object
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function servicePort(String $service, String $protocol) : Int;
+    public function hour(String $hour) : Crontab;
 
     //--------------------------------------------------------------------------------------------------------
-    // Service Name
+    // Per Hour
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param int    $port
-    // @param string $protocol
+    // @param  string $hour: *
+    // @return object
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function serviceName(Int $port, String $protocol) : String;
+    public function perHour(String $hour = '*') : Crontab;
 
     //--------------------------------------------------------------------------------------------------------
-    // Local
+    // Day Number
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param void
+    // @param  string $dayNumber: *
+    // @return object
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function local() : String;
+    public function dayNumber(String $dayNumber) : Crontab;
 
     //--------------------------------------------------------------------------------------------------------
-    // Rcode
+    // Month Number
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param int $code
+    // @param  string $monthNumber: *
+    // @return object
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function rcode(Int $code = NULL);
+    public function month(String $monthNumber) : Crontab;
 
     //--------------------------------------------------------------------------------------------------------
-    // Chr To Ip V4
+    // Per Month
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $chr
+    // @param  string $monthNumber: *
+    // @return object
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function chrToIpv4(String $chr) : String;
+    public function perMonth(String $month = '*') : Crontab;
 
     //--------------------------------------------------------------------------------------------------------
-    // Ip v4 To Chr
+    // Day
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $addr
+    // @param  string $day: *
+    // @return object
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function ipv4ToChr(String $addr) : String;
+    public function day(String $day) : Crontab;
 
     //--------------------------------------------------------------------------------------------------------
-    // Ip v4 To Number
+    // Per Day
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string $ip
+    // @param  string $day: *
+    // @return object
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function ipv4ToNumber(String $ip) : Int;
+    public function perDay(String $day = '*') : Crontab;
 
     //--------------------------------------------------------------------------------------------------------
-    // Number To IP v4
+    // Interval
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param int $numberAddress
+    // @param  string $interval: * * * * *
+    // @return object
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function numberToIpv4(Int $numberAddress) : String;
+    public function interval(String $interval) : Crontab;
 }

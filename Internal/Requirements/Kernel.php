@@ -18,6 +18,7 @@ use ZN\Language\Lang;
 use ZN\Inclusion;
 use ZN\ErrorHandling\Errors;
 use Project\Controllers\Masterpage;
+use Project\Controllers\Theme;
 
 class Kernel
 {
@@ -392,7 +393,7 @@ class Kernel
 
         $view .= $fix;
 
-        if( ($active = \Theme::$active) !== NULL )
+        if( ($active = Theme::$active) !== NULL )
         {
             if( is_dir(PAGES_DIR . $active) )
             {

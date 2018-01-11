@@ -9,8 +9,8 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use Collection;
 use Import;
+use Collection;
 
 trait ViewTrait
 {

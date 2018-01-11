@@ -13,5 +13,5 @@ class Processor
 {
     use StaticAbility;
 
-    const target = 'ZN\Services\Processor';
+    const target = 'ZN\Prompt\Processor';
 }

@@ -1,4 +1,4 @@
-<?php namespace ZN\Services;
+<?php namespace ZN\Prompt;
 /**
  * ZN PHP Web Framework
  * 
@@ -9,14 +9,13 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\Services\Exception\InvalidTimeFormatException;
+use ZN\Singleton;
+use ZN\Prompt\Exception\InvalidTimeFormatException;
 use ZN\DataTypes\Arrays;
 use ZN\Filesystem\File;
 
-class Crontab extends RemoteCommon implements CrontabInterface, CrontabIntervalInterface
+class Crontab extends PromptCommon implements CrontabInterface, CrontabIntervalInterface
 {
-    const config = ['Services:processor'];
-
     //--------------------------------------------------------------------------------------------------------
     // Crontab Interval
     //--------------------------------------------------------------------------------------------------------
@@ -118,6 +117,8 @@ class Crontab extends RemoteCommon implements CrontabInterface, CrontabIntervalI
     {
         parent::__construct();
 
+        $this->processor = Singleton::class('ZN\Prompt\Processor');
+
         if( PROJECT_TYPE === 'EIP' )
         {
             $this->crontabCommands = EXTERNAL_DIR . $this->fileName;
@@ -132,7 +133,7 @@ class Crontab extends RemoteCommon implements CrontabInterface, CrontabIntervalI
             $this->crontabCommands = FILES_DIR . $this->fileName;
         }
 
-        $this->path       = SERVICES_PROCESSOR_CONFIG['path'];
+        $this->path       = $this->getConfig['path'];
         $this->crontabDir = File\Info::originpath(STORAGE_DIR.'Crontab'.DS);
     }
 
@@ -252,7 +253,7 @@ class Crontab extends RemoteCommon implements CrontabInterface, CrontabIntervalI
     //--------------------------------------------------------------------------------------------------------
     public function driver(String $driver) : Crontab
     {
-        \Processor::driver($driver);
+        $this->processor->driver($driver);
         
         return $this;
     }
@@ -291,11 +292,11 @@ class Crontab extends RemoteCommon implements CrontabInterface, CrontabIntervalI
         {
             $jobs  = $this->listArray();
             $list  = '<pre>';
-            $list .= '[ID] CRON JOB' . \Html::br(2);
+            $list .= '[ID] CRON JOB<br><br>';
 
             foreach( $jobs as $key => $job )
             {
-                $list .= '[' . $key . ']: '. $job . \Html::br();
+                $list .= '[' . $key . ']: '. $job . '<br>';
             }
 
             $list .= '</pre>';
@@ -314,7 +315,7 @@ class Crontab extends RemoteCommon implements CrontabInterface, CrontabIntervalI
     //--------------------------------------------------------------------------------------------------------
     public function lastJob()
     {
-        return \Processor::exec('crontab -l');
+        return $this->processor->exec('crontab -l');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -327,7 +328,7 @@ class Crontab extends RemoteCommon implements CrontabInterface, CrontabIntervalI
     //--------------------------------------------------------------------------------------------------------
     public function remove($key = NULL)
     {
-        \Processor::exec('crontab -r');
+        $this->processor->exec('crontab -r');
 
         if( $key === NULL )
         {
@@ -341,7 +342,7 @@ class Crontab extends RemoteCommon implements CrontabInterface, CrontabIntervalI
 
             file_put_contents($this->crontabCommands, implode(EOL, $jobs) . EOL);
 
-            \Processor::exec('crontab ' . $this->crontabCommands);
+            $this->processor->exec('crontab ' . $this->crontabCommands);
         }
     }
 
@@ -424,7 +425,7 @@ class Crontab extends RemoteCommon implements CrontabInterface, CrontabIntervalI
         if( ! is_file($execFile) )
         {
             File\Forge::create($execFile);
-            \Processor::exec('chmod 0777 ' . $execFile);
+            $this->processor->exec('chmod 0777 ' . $execFile);
         }
 
         $content = file_get_contents($execFile);
@@ -435,7 +436,7 @@ class Crontab extends RemoteCommon implements CrontabInterface, CrontabIntervalI
             file_put_contents($execFile, $content);
         }
 
-        return \Processor::exec('crontab ' . $execFile);
+        return $this->processor->exec('crontab ' . $execFile);
     }
 
     //--------------------------------------------------------------------------------------------------------

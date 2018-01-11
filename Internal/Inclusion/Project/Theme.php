@@ -29,6 +29,3 @@ class Theme
         self::$active = suffix($active);
     }
 }
-
-# Alias Theme
-class_alias('Project\Controllers\Theme', 'Theme');

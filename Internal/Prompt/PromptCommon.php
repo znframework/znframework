@@ -1,4 +1,4 @@
-<?php namespace ZN\Services;
+<?php namespace ZN\Prompt;
 /**
  * ZN PHP Web Framework
  * 
@@ -9,53 +9,61 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-interface ProcessorInterface
+use ZN\Config;
+use ZN\Structure;
+use ZN\DataTypes\Arrays;
+
+class PromptCommon implements PromptCommonInterface
 {
     //--------------------------------------------------------------------------------------------------------
-    // Type -> 5.4.4[added]
+    // Path
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param  void
-    // @return string
+    // @var string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function type() : String;
+    protected $path;
 
     //--------------------------------------------------------------------------------------------------------
-    // Exec
+    // String Command
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param  string $command: empty
+    // @var string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function exec($command);
+    protected $stringCommand;
 
     //--------------------------------------------------------------------------------------------------------
-    // Driver
+    // Command
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param void
+    // @var string
     //
     //--------------------------------------------------------------------------------------------------------
-    public function driver(String $driver) : Processor;
+    protected $command;
+
+    /**
+     * Magic Constructor
+     */
+    public function __construct()
+    {
+        $this->getConfig = Config::get('Services', 'processor');
+    }
 
     //--------------------------------------------------------------------------------------------------------
-    // Output
+    // Path
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param void
+    // @param  string $path: empty
+    // @return object
     //
     //--------------------------------------------------------------------------------------------------------
-    public function output() : Array;
-
-    //--------------------------------------------------------------------------------------------------------
-    // Return
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function return() : Int;
+    public function path(String $path = NULL)
+    {
+        $this->path = $path;
+        
+        return $this;
+    }
 
     //--------------------------------------------------------------------------------------------------------
     // String Command
@@ -64,5 +72,46 @@ interface ProcessorInterface
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function stringCommand() : String;
+    public function stringCommand() : String
+    {
+        return (string) $this->stringCommand;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Controller
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $path
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _controller($path)
+    {
+        $datas = Structure::data($path);
+
+        $controller = $datas['page'];
+        $function   = $datas['function'] ?? 'main';
+        $namespace  = $datas['namespace'];
+        $parameters = $datas['parameters'];
+        $class      = $namespace . $controller;
+        $file       = str_replace('\\', '\\\\', $datas['file']);
+
+        $command    = 'import("'.$file.'");';
+        $command   .= 'uselib("'.$class.'")->'.$function.'('. implode(',', array_map('Processor::addNail', $parameters)) .')';
+
+        return $command;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // Protected Command
+    //--------------------------------------------------------------------------------------------------------
+    //
+    // @param string $path
+    //
+    //--------------------------------------------------------------------------------------------------------
+    protected function _commandFile($path)
+    {
+        $command = explode(':', $path);
+
+        return '(new \Project\Commands\\'.$command[0].'")->'.$command[1].'()';
+    }
 }

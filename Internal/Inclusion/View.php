@@ -11,6 +11,7 @@
 
 use ZN\In;
 use Project\Controllers\View as Views;
+use Project\Controllers\Theme;
 use ZN\ViewObjects\TemplateWizard;
 use ZN\Filesystem\File;
 use ZN\Buffering;
@@ -86,7 +87,7 @@ class View
 
         $randomPagePath = $randomPageDir . $randomPageVariable;
         
-        if( ($active = \Theme::$active) !== NULL )
+        if( ($active = Theme::$active) !== NULL )
         {
             $activeRandomPagePath = $randomPageDir . $active . $randomPageVariable;
 

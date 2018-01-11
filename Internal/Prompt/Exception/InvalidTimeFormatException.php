@@ -1,4 +1,4 @@
-<?php namespace ZN\Services\Exception;
+<?php namespace ZN\Prompt\Exception;
 /**
  * ZN PHP Web Framework
  * 
@@ -9,7 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use GeneralException;
+use ZN\ErrorHandling\GeneralException;
 
 class InvalidTimeFormatException extends GeneralException
 {

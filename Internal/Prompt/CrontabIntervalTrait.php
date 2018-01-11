@@ -1,4 +1,4 @@
-<?php namespace ZN\Services;
+<?php namespace ZN\Prompt;
 /**
  * ZN PHP Web Framework
  * 
@@ -9,7 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\Services\Exception\InvalidTimeFormatException;
+use ZN\Prompt\Exception\InvalidTimeFormatException;
 
 trait CrontabIntervalTrait
 {
