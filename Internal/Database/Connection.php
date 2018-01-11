@@ -389,22 +389,22 @@ class Connection
      */
     protected function _convertType(&$column = '', &$value = '')
     {
-        if( $this->_exp($column, 'int') )
+        $clearValue = $this->_clearNail($value);
+
+        if( $this->_exp($column, $type = 'int') )
         {
-            $value  = (int) $this->_clearNail($value);
-            $column = $this->_clearExp($column, 'int');
+            $value = (int) $clearValue;
+        }
+        elseif( $this->_exp($column, $type = 'float') )
+        {
+            $value = (float) $clearValue;
+        }
+        else
+        {
+            $type = 'exp';
         }
 
-        if( $this->_exp($column, 'float') )
-        {
-            $value  = (float) $this->_clearNail($value);
-            $column = $this->_clearExp($column, 'float');
-        }
-
-        if( $this->_exp($column, 'exp') )
-        {
-            $column = $this->_clearExp($column);
-        }
+        $column = $this->_clearExp($column, $type);
     }
 
     /**
@@ -530,11 +530,11 @@ class Connection
      * 
      * @return object
      */
-    protected function _drvlib($suffix = 'Driver', $settings = [])
+    protected function _drvlib($suffix = NULL, $settings = [])
     {
         Support::driver($this->drivers, $this->driver);
 
-        $class = 'ZN\Database\Drivers\\'.$this->driver.$suffix;
+        $class = 'ZN\Database\\'.$this->driver.'\\DB'.$suffix;
 
         return new $class($settings);
     }
