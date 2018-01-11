@@ -56,7 +56,7 @@ define('INTERNAL_DIR',
 |
 */
 
-define('REQUIREMENTS_DIR', INTERNAL_DIR.'Requirements/System/');
+define('REQUIREMENTS_DIR', INTERNAL_DIR.'Requirements/');
 
 /*
 |--------------------------------------------------------------------------

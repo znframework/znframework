@@ -31,7 +31,7 @@ class NastyCode
             $changeChar = $secnc['changeBadChars'];
         }
 
-        $regex = Singleton::class('ZN\DataTypes\Regex');
+        $regex = Singleton::class('ZN\Regex');
 
         if( ! is_array($badWords) )
         {

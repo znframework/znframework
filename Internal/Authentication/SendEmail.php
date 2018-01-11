@@ -25,7 +25,7 @@ class SendEmail extends UserExtends
     {
         parent::__construct();
 
-        $this->emailClass = Singleton::class('ZN\Services\Email');
+        $this->emailClass = Singleton::class('ZN\Email\Sender');
     }
     
     /**

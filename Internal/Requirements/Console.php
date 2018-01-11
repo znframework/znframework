@@ -73,7 +73,7 @@ class Console
         {
             $return = $data;
 
-            if( Json\ErrorInfo::check($return) )
+            if( Json::check($return) )
             {
                 $return = json_decode($return, true);
             }

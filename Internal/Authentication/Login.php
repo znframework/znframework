@@ -10,7 +10,7 @@
  */
 
 use ZN\Singleton;
-use ZN\Services\Method;
+use ZN\Request\Method;
 use ZN\Cryptography\Encode;
 use ZN\Language\Lang;
 

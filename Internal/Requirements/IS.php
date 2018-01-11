@@ -39,7 +39,7 @@ class IS
         # 5.3.2[edited]
         if( in_array($method, self::$dataTypes) )
         {
-            return Singleton::class('ZN\DataTypes\Filters')->$method($parameters[0]);
+            return Filters::$method($parameters[0]);
         }
 
         $methods = Strings\Split::upperCase($realMethod = $method);

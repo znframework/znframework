@@ -10,7 +10,7 @@
  */
 
 use ZN\Config;
-use ZN\Services\Method;
+use ZN\Request\Method;
 
 class PermissionExtends
 {

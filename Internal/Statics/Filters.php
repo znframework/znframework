@@ -13,5 +13,5 @@ class Filters
 {
     use StaticAbility;
 
-    const target = 'ZN\DataTypes\Filters';
+    const target = 'ZN\Filters';
 }

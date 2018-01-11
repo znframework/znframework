@@ -13,5 +13,5 @@ class Regex
 {
     use StaticAbility;
 
-    const target = 'ZN\DataTypes\Regex';
+    const target = 'ZN\Regex';
 }

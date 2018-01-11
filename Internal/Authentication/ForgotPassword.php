@@ -109,7 +109,7 @@ class ForgotPassword extends UserExtends
 
             $message = Inclusion\Template::use('UserEmail/ForgotPassword', $templateData, true);
 
-            $emailClass = Singleton::class('ZN\Services\Email');
+            $emailClass = Singleton::class('ZN\Email\Sender');
 
             $emailClass->sender($senderInfo['mail'], $senderInfo['name'])
                        ->receiver($email, $email)

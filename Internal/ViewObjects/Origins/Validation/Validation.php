@@ -9,7 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\Services\Method;
+use ZN\Request\Method;
 use ZN\ViewObjects\Exception\InvalidArgumentException;
 use ZN\DataTypes\Arrays;
 use ZN\Cryptography\Encode;

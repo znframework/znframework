@@ -9,9 +9,10 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use RevolvingAbility, Classes;
+use RevolvingAbility;
 use ZN\DataTypes\Arrays;
 use ZN\Inclusion;
+use ZN\Classes;
 
 class ComponentsExtends
 {

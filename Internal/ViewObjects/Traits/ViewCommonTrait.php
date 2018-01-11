@@ -1,6 +1,7 @@
 <?php namespace ZN\ViewObjects;
 
-use Classes, Json;
+use Json;
+use ZN\Classes;
 use ZN\DataTypes\Strings;
 use ZN\DataTypes\Arrays;
 use ZN\IndividualStructures\Permission;

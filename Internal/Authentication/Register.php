@@ -248,7 +248,7 @@ class Register extends UserExtends
 
         $user = $email ?? $user;
 
-        $emailclass = Singleton::class('ZN\Services\Email');
+        $emailclass = Singleton::class('ZN\Email\Sender');
 
         $emailclass->sender($senderInfo['mail'], $senderInfo['name'])
                    ->receiver($user, $user)

@@ -259,7 +259,7 @@ class Cookie implements CookieInterface, SessionCookieCommonInterface
 
         if( isset($_COOKIE[$name]) )
         {
-            return ! Json\ErrorInfo::check($_COOKIE[$name])
+            return ! Json::check($_COOKIE[$name])
                    ? $_COOKIE[$name]
                    : json_decode($_COOKIE[$name], true);
         }

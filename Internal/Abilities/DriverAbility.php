@@ -9,6 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
+use ZN\Config;
 use ZN\Support;
 use ZN\Abilities\Exception\UndefinedConstException;
 

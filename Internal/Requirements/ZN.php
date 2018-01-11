@@ -175,7 +175,7 @@ class ZN
     {
         $return = \Restful::post('https://api.znframework.com/statistics/upgrade', ['version' => ZN_VERSION]);
 
-        return Separator\Decode::array($return);
+        return Separator::decodeArray($return);
     }
 
     /**

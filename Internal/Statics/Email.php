@@ -13,5 +13,5 @@ class Email
 {
     use StaticAbility;
 
-    const target = 'ZN\Services\Email';
+    const target = 'ZN\Email\Sender';
 }

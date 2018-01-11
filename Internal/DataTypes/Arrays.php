@@ -9,8 +9,8 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\Controllers\FactoryController;
 use ZN\Abilities\FunctionalizationAbility;
+use ZN\Controllers\FactoryController;
 
 class Arrays extends FactoryController
 {

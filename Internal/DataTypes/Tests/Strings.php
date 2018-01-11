@@ -1,4 +1,4 @@
-<?php namespace ZN\DataTypes;
+<?php namespace ZN\DataTypes\Tests;
 /**
  * ZN PHP Web Framework
  * 
@@ -11,7 +11,7 @@
 
 use ZN\Controllers\UnitTestController;
 
-class StringsUnitTest extends UnitTestController
+class Strings extends UnitTestController
 {
     const unit =
     [

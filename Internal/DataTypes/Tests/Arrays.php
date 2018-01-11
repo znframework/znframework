@@ -1,4 +1,4 @@
-<?php namespace ZN\DataTypes;
+<?php namespace ZN\DataTypes\Tests;
 /**
  * ZN PHP Web Framework
  * 

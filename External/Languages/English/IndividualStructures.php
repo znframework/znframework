@@ -32,7 +32,7 @@ return
 	*/
 
 	'cache:driverError'             => '`%` driver not found!',
-	'cache:unsupported'             => '`%` PHP extension must be loaded to use Wincache Cache!',
+	'cache:unsupported'             => '`%` PHP extension must be loaded to use # Cache!',
 	'cache:invalidDriver'           => '`%` driver is invalid!',
 	'cache:connectionRefused'       => 'Connection refused! Error:`%`',
 	'cache:authenticationFailed'    => 'Authentication failed!',

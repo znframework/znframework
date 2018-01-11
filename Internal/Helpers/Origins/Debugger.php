@@ -9,6 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
+use ZN\Classes;
 use ZN\DataTypes\Arrays;
 
 class Debugger
@@ -113,7 +114,7 @@ class Debugger
         $type           = str_replace('->', '::', $type);
         $classSuffix    = $type.$function.'()';
         $method         = $class.$classSuffix;
-        $internalMethod = \Classes::onlyName((string) $class).$classSuffix;
+        $internalMethod = Classes::onlyName((string) $class).$classSuffix;
 
         return (object)
         [

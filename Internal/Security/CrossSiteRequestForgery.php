@@ -10,7 +10,7 @@
  */
 
 use ZN\Storage\Session;
-use ZN\Services\Method;
+use ZN\Request\Method;
 
 class CrossSiteRequestForgery
 {

@@ -367,7 +367,7 @@ trait FormElementsTrait
             // For checkbox
             if( $type === 'checkbox' )
             {
-                if( Json\ErrorInfo::check($rowval) )
+                if( Json::check($rowval) )
                 {
                     $rowval = json_decode($rowval, true);
 

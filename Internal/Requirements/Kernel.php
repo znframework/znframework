@@ -31,12 +31,12 @@ class Kernel
     public static function start()
     {  
         # If the use of alias is obvious, it will activate this operation.
-        if( $autoloaderAliases = \Config::get('Autoloader')['aliases'] ) foreach( $autoloaderAliases as $alias => $origin )
+        if( $autoloaderAliases = Config::get('Autoloader')['aliases'] ) foreach( $autoloaderAliases as $alias => $origin )
         {
             class_alias($origin, $alias);
         }
-
-        $appcon = \Config::get('Project');
+        
+        $appcon = Config::get('Project');
 
         if( empty($appcon) ) 
         {
@@ -54,7 +54,7 @@ class Kernel
         }
 
         # Enables the ob_gzhandler method if it is turned on.
-        $htaccess = \Config::get('Htaccess');
+        $htaccess = Config::get('Htaccess');
 
         if( $htaccess['cache']['obGzhandler'] && substr_count(server('acceptEncoding'), 'gzip') )
         {
@@ -66,18 +66,18 @@ class Kernel
         }
         
         # Sends defined header information.
-        headers(\Config::get('Project', 'headers'));
+        headers(Config::get('Project', 'headers'));
 
-        if( IS::timeZone($timezone = \Config::get('DateTime', 'timeZone')) ) date_default_timezone_set($timezone);
+        if( IS::timeZone($timezone = Config::get('DateTime', 'timeZone')) ) date_default_timezone_set($timezone);
         
         # The codes to be written to this layer will run just before the kernel comes into play. 
         # However, htaccess is enabled after Autoloder and Header configurations.
         layer('MiddleTop');
         
         # Enables defined ini configurations.
-        if( $iniset = \Config::get('Ini') )
+        if( $iniset = Config::get('Ini') )
         {
-            \Config::iniset($iniset);
+            Config::iniset($iniset);
         } 
 
         # The software apache and htaccess allow 
@@ -89,7 +89,7 @@ class Kernel
         }      
         
         # Enables processing of changes to the robots.txt file if it is open.
-        if( \Config::robots ('createFile') === true )
+        if( Config::robots ('createFile') === true )
         {
             In::createRobotsFile();
         }   
@@ -107,13 +107,13 @@ class Kernel
         }
 
         # Configures the use of Composer autoloader.
-        if( $composer = \Config::get('Autoloader', 'composer') ) 
+        if( $composer = Config::get('Autoloader', 'composer') ) 
         {
             self::_composer($composer);
         }
         
         # If the setting is active, it loads the startup files.
-        if( ($starting = \Config::get('Starting'))['autoload']['status'] === true ) 
+        if( ($starting = Config::get('Starting'))['autoload']['status'] === true ) 
         {
             self::_starting($starting);
         }
@@ -214,7 +214,7 @@ class Kernel
      */
     public static function viewPathFinder($function, &$viewPath, &$wizardPath)
     {
-        $viewNameType = \Config::get('ViewObjects', 'viewNameType') ?: 'file';
+        $viewNameType = Config::get('ViewObjects', 'viewNameType') ?: 'file';
 
         if( $viewNameType === 'file' )
         {
@@ -244,7 +244,7 @@ class Kernel
     public static function viewAutoload($wizardPath, $viewPath, $data, $pageClassMasterpage)
     {
         # 5.3.62[added]|5.3.77[edited]
-        if( \Config::get('ViewObjects', 'ajaxCodeContinue') === false && \Http::isAjax() )
+        if( Config::get('ViewObjects', 'ajaxCodeContinue') === false && \Http::isAjax() )
         {
             return;
         }
@@ -294,7 +294,7 @@ class Kernel
         # Code to try immediately after the core is placed on this layer.
         layer('BottomTop');
 
-        if( \Config::get('Project', 'log')['createFile'] === true && $errorLast = Errors::last() )
+        if( Config::get('Project', 'log')['createFile'] === true && $errorLast = Errors::last() )
         {
             $lang    = Lang::select('Templates');
             $message = $lang['line']   .':'.$errorLast['line'].', '.

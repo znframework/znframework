@@ -15,7 +15,7 @@ use Sheet;
 use Style;
 use Pagination;
 use ZN\Services\URI;
-use ZN\Services\Method;
+use ZN\Request\Method;
 
 class Grid extends MLExtends
 {

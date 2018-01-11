@@ -9,6 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
+use ZN\Classes;
 use ZN\DataTypes\Arrays;
 use ZN\Protection\Json;
 
@@ -93,9 +94,9 @@ class Reflect
     
         $values = array_map(function($data)
         {
-            if( Json\ErrorInfo::check($data) )
+            if( Json::check($data) )
             {
-                return Json\Decode::object($data);
+                return Json::decodeObject($data);
             }
             elseif( $data[0] === ':' )
             {
@@ -123,7 +124,7 @@ class Reflect
 
         if( $type === 'class' )
         {
-            $parameters[0] = \Classes::class($parameters[0]);            
+            $parameters[0] = Classes::class($parameters[0]);            
         }
 
         return (new $class(...$parameters));

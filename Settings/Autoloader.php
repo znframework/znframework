@@ -54,9 +54,18 @@
     |
     | Used to give alias to classes.
     |
+    | Alias Name => Real Name
+    |
     */
 
-    'aliases' => [],
+    'aliases' => 
+    [
+        # Request
+        'Http'      => 'ZN\Request\Http',
+        'Server'    => 'ZN\Request\Method',
+        'Request'   => 'ZN\Request\Request',
+        'Method'    => 'ZN\Request\Method'
+    ],
 
     /*
     |--------------------------------------------------------------------------

@@ -42,7 +42,7 @@ $start = $match[3] ?? NULL;
 
 if( $type === 'ajax' )
 {
-    $start = ZN\Services\Method::post('start');
+    $start = ZN\Request\Method::post('start');
 }
 
 $limit = $match[1] ?? Config::get('ViewObjects', 'pagination')['limit'];
