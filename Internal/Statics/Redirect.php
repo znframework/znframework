@@ -13,5 +13,5 @@ class Redirect
 {
     use StaticAbility;
 
-    const target = 'ZN\Services\Redirect';
+    const target = 'ZN\Response\Redirect';
 }

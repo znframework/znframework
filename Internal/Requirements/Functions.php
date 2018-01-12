@@ -638,7 +638,7 @@ function server(String $type = NULL)
  */
 function extension(String $file, Bool $dot = false) : String
 {
-    return ZN\Filesystem\File\Extension::get($file, $dot);
+    return ZN\Filesystem\Extension::get($file, $dot);
 }
 
 /**
@@ -652,7 +652,7 @@ function extension(String $file, Bool $dot = false) : String
  */
 function removeExtension(String $file) : String
 {
-    return ZN\Filesystem\File\Extension::remove($file);
+    return ZN\Filesystem\Extension::remove($file);
 }
 
 /**

@@ -10,8 +10,8 @@
  */
 
 use ZN\In;
-use ZN\Services\URI;
-use ZN\Filesystem\Folder;
+use ZN\Request\URI;
+use ZN\Filesystem;
 use ZN\IS;
 
 class Restoration
@@ -51,7 +51,7 @@ class Restoration
             foreach( $array as $folder )
             {
                 $path   = $project . DS . $folder;
-                $return = Folder\Forge::copy(PROJECTS_DIR . $path, PROJECTS_DIR . $restoreFix . $path);
+                $return = Filesystem\Forge::copy(PROJECTS_DIR . $path, PROJECTS_DIR . $restoreFix . $path);
             }
 
             return $return;
@@ -69,11 +69,11 @@ class Restoration
     public static function end(String $project, String $type = NULL)
     {
         $project = prefix($project, self::$restoreFix);
-        $return  = Folder\Forge::copy($restoreFolder = PROJECTS_DIR . $project, PROJECTS_DIR . ltrim($project, self::$restoreFix));
+        $return  = Filesystem\Forge::copy($restoreFolder = PROJECTS_DIR . $project, PROJECTS_DIR . ltrim($project, self::$restoreFix));
 
         if( $type === 'delete' )
         {
-            return Folder\Forge::delete($restoreFolder);
+            return Filesystem\Forge::deleteFolder($restoreFolder);
         }
 
         return $return;

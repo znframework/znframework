@@ -13,5 +13,5 @@ class Excel
 {
     use StaticAbility;
 
-    const target = 'ZN\Filesystem\Excel';
+    const target = 'ZN\Filesystem\Converter';
 }

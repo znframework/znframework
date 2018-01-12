@@ -10,13 +10,13 @@
  */
 
 use Cache;
-use Config;
 use Pagination;
-use ZN\Services\URI;
+use ZN\Config;
+use ZN\Request\URI;
 use ZN\Request\Method;
-use ZN\Filesystem\Excel;
 use ZN\DataTypes\Arrays;
 use ZN\DataTypes\Strings;
+use ZN\Filesystem\Converter;
 use ZN\Database\Exception\UnconditionalDeleteException;
 use ZN\Database\Exception\UnconditionalUpdateException;
 
@@ -2138,7 +2138,7 @@ class DB extends Connection
      */
     protected function _csv(&$data)
     {
-        $csv       = Excel\CSVToArray::do($data);
+        $csv       = Converter::CSVToArray($data);
         $csvColumn = $csv[0];
 
         array_shift($csv);

@@ -9,7 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\Services\URL;
+use ZN\Request\URL;
 use ZN\ViewObjects\Exception\InvalidArgumentException;
 use ZN\Buffering;
 use ZN\IS;

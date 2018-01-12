@@ -27,13 +27,16 @@ trait ExclusionAbility
     {
         if( defined('static::lang') && $file === NULL )
         {
-            $file = static::lang[Lang::get()] ?? 'No Exception Lang';
-
+            $file    = static::lang[Lang::get()] ?? 'No Exception Lang';
             $message = static::lang['placement'] ?? $message;
 
             if( is_array($message) )
             {
                 $file = str_replace(array_keys($message), array_values($message), $file);
+            }
+            else
+            {
+                $file = str_replace('%', $message, $file);
             }
             
             $message = $file;

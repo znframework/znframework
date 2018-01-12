@@ -13,5 +13,5 @@ class GD
 {
     use StaticAbility;
 
-    const target = 'ZN\ImageProcessing\GD';
+    const target = 'ZN\Image\GD';
 }

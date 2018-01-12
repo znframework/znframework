@@ -10,7 +10,7 @@
  */
 
 use ZN\Config;
-use ZN\Services\URL;
+use ZN\Request\URL;
 use ZN\Authentication\Exception\InvalidArgumentException;
 use ZN\DataTypes\Arrays;
 

@@ -10,8 +10,8 @@
  */
 
 use Project\Controllers\Theme;
-use ZN\Services\URL;
-use ZN\Filesystem\File;
+use ZN\Request\URL;
+use ZN\Filesystem;
 
 class Font extends BootstrapExtends
 {
@@ -152,6 +152,6 @@ class Font extends BootstrapExtends
             $base = suffix($baseUrl, '.' . $extension);
         }
 
-        return '@font-face{font-family:"' . File\Extension::remove($f) . '"; src:url("' . $base . '") format("truetype")}' . EOL;
+        return '@font-face{font-family:"' . Filesystem\Extension::remove($f) . '"; src:url("' . $base . '") format("truetype")}' . EOL;
     }
 }

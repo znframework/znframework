@@ -9,8 +9,8 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\Services\URL;
-use ZN\Services\URI;
+use ZN\Request\URL;
+use ZN\Request\URI;
 use ZN\Cryptography\Encode;
 use ZN\IS;
 use ZN\Language\Lang;

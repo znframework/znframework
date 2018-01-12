@@ -9,12 +9,11 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\Services\URL;
+use ZN\Request\URL;
 use ZN\DataTypes\Arrays;
 use ZN\Cryptography\Encode;
-use ZN\Filesystem\File;
-use ZN\Filesystem\Folder;
-use ZN\ImageProcessing;
+use ZN\Filesystem;
+use ZN\Image;
 
 class Captcha implements CaptchaInterface
 {
@@ -416,7 +415,7 @@ class Captcha implements CaptchaInterface
      */
     protected function _clean()
     {
-        $files   = Folder\FileList::files($this->path, 'png');
+        $files   = Filesystem\FileList::files($this->path, 'png');
         $match   = Arrays\GetElement::first(preg_grep('/captcha\-([a-z]|[0-9])+\.png/i', $files));
         $captcha = $this->path . $match;
 
@@ -447,7 +446,7 @@ class Captcha implements CaptchaInterface
      */
     protected function _convertColor($color)
     {
-        if( $convert = (ImageProcessing\Properties::$colors[$color] ?? NULL) )
+        if( $convert = (Image\Properties::$colors[$color] ?? NULL) )
         {
             return $convert;
         }

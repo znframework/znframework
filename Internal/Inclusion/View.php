@@ -13,7 +13,7 @@ use ZN\In;
 use Project\Controllers\View as Views;
 use Project\Controllers\Theme;
 use ZN\ViewObjects\TemplateWizard;
-use ZN\Filesystem\File;
+use ZN\Filesystem;
 use ZN\Buffering;
 
 class View
@@ -80,7 +80,7 @@ class View
     //--------------------------------------------------------------------------------------------------------
     protected static function _page($randomPageVariable, $randomDataVariable, $randomObGetContentsVariable = false, $randomPageDir = VIEWS_DIR, $randomIsWizard = NULL)
     {
-        if( ! File\Extension::get($randomPageVariable) || stristr($randomPageVariable, self::$templateWizardExtension) )
+        if( ! Filesystem\Extension::get($randomPageVariable) || stristr($randomPageVariable, self::$templateWizardExtension) )
         {
             $randomPageVariable = suffix($randomPageVariable, '.php');
         }

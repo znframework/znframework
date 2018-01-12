@@ -11,7 +11,7 @@
 
 use ZN\Inclusion;
 use ZN\Comparison;
-use ZN\Filesystem\Folder;
+use ZN\Filesystem;
 
 class Tester
 {
@@ -73,7 +73,7 @@ class Tester
      */
     public function allUnitTestResult()
     {
-        $files = Folder\FileList::allFiles('Internal/', true);
+        $files = Filesystem\FileList::allFiles('Internal/', true);
 
         $files = preg_grep('/UnitTests(.*?)/', $files);
 

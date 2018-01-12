@@ -11,8 +11,7 @@
 
 use ZN\In;
 use ZN\Helpers\Logger;
-use ZN\Filesystem\File;
-use ZN\Filesystem\Folder;
+use ZN\Filesystem;
 use ZN\IS;
 use ZN\Language\Lang;
 use ZN\Inclusion;
@@ -323,13 +322,13 @@ class Kernel
 
         $startingAutoload  = array_merge
         (
-            Folder\FileList::allFiles(AUTOLOAD_DIR         , $autoloadRecursive), 
-            Folder\FileList::allFiles(EXTERNAL_AUTOLOAD_DIR, $autoloadRecursive)
+            Filesystem\FileList::allFiles(AUTOLOAD_DIR         , $autoloadRecursive), 
+            Filesystem\FileList::allFiles(EXTERNAL_AUTOLOAD_DIR, $autoloadRecursive)
         );
 
         if( ! empty($startingAutoload) ) foreach( $startingAutoload as $file )
         {
-            if( File\Extension::get($file) === 'php' )
+            if( Filesystem\Extension::get($file) === 'php' )
             {
                 if( is_file($file) )
                 {

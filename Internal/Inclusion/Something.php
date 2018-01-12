@@ -9,10 +9,10 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\Services\URL;
+use ZN\Request\URL;
 use ZN\Inclusion\Exception\InvalidArgumentException;
 use ZN\DataTypes\Strings;
-use ZN\Filesystem\File;
+use ZN\Filesystem;
 use ZN\Buffering;
 
 class Something
@@ -42,7 +42,7 @@ class Something
 
         $eol = EOL;
 
-        $randomPageVariableExtension = File\Extension::get($randomPageVariable);
+        $randomPageVariableExtension = Filesystem\Extension::get($randomPageVariable);
         $randomPageVariableBaseUrl   = URL::base($randomPageVariable);
 
         $return = '';
@@ -110,7 +110,7 @@ class Something
     {
         return '<style type="text/css">
                     '.( $ie === true ? '<!--[if IE]>' : NULL ).'
-                    @font-face{font-family:"'.Strings\Split::divide(File\Extension::remove($randomPageVariable), "/", -1).'";
+                    @font-face{font-family:"'.Strings\Split::divide(Filesystem\Extension::remove($randomPageVariable), "/", -1).'";
                     src:url("'.$randomPageVariableBaseUrl.'")
                     format("truetype")}
                     '.( $ie === true ? '<![endif]-->' : NULL ).'

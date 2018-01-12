@@ -9,8 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\Filesystem\File;
-use ZN\Filesystem\Folder;
+use ZN\Filesystem;
 
 class Delete extends MLExtends
 {
@@ -66,7 +65,7 @@ class Delete extends MLExtends
         {
             if( $app === NULL )
             {
-                $MLFiles = Folder\FileList::files($this->appdir, 'ml');
+                $MLFiles = Filesystem\FileList::files($this->appdir, 'ml');
             }
             elseif( is_array($app) )
             {

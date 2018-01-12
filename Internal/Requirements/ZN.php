@@ -10,9 +10,8 @@
  */
 
 use ZN\Kernel;
-use ZN\Services\URI;
-use ZN\Filesystem\File;
-use ZN\Filesystem\Folder;
+use ZN\Request\URI;
+use ZN\Filesystem;
 use ZN\Helpers\Converter;
 use ZN\Protection\Separator;
 use ZN\Language\Lang;
@@ -57,7 +56,7 @@ class ZN
         {
             foreach( $return as $file => $content )
             {
-                $dirname = File\Info::pathInfo($file, 'dirname');
+                $dirname = Filesystem\Info::pathInfo($file, 'dirname');
 
                 if( PROJECT_TYPE === 'SE' )
                 {
@@ -70,7 +69,7 @@ class ZN
                     }
                 }
 
-                Folder\Forge::create($dirname);
+                Filesystem\Forge::createFolder($dirname);
                 file_put_contents($file, $content);
             }
 

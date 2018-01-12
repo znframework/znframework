@@ -10,11 +10,10 @@
  */
 
 use ZN\IS;
+use ZN\Config;
 use ZN\Language\Lang;
 use ZN\DataTypes\Arrays;
 use ZN\Cryptography\Encode;
-use ZN\Filesystem\File;
-use ZN\Filesystem\Folder;
 use ZN\Helpers\Converter;
 
 class Upload implements UploadInterface
@@ -100,7 +99,7 @@ class Upload implements UploadInterface
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
-        \Config::iniSet(\Config::get('Htaccess', 'upload')['settings']);
+        Config::iniSet(Config::get('Htaccess', 'upload')['settings']);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -493,7 +492,7 @@ class Upload implements UploadInterface
             $this->path       = $target;
         }
 
-        if( ! empty($extensions) && ! in_array(File\Extension::get($nm), $extensions) )
+        if( ! empty($extensions) && ! in_array(Filesystem\Extension::get($nm), $extensions) )
         {
             return $this->extensionControl = Lang::select('Filesystem', 'upload:extensionError');
         }

@@ -17,7 +17,7 @@ use ZN\IS;
 use ZN\DataTypes\Strings;
 use ZN\DataTypes\Arrays;
 use ZN\Helpers\Limiter;
-use ZN\Services\URI;
+use ZN\Request\URI;
 use ZN\Request\Method;
 
 class DBGrid extends GridAbstract

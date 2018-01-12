@@ -9,8 +9,8 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\Services\URL;
-use ZN\Services\URI;
+use ZN\Request\URL;
+use ZN\Request\URI;
 
 class Pagination implements PaginationInterface
 {

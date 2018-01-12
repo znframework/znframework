@@ -9,28 +9,87 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
+use ZN\Config;
+use ZN\Singleton;
+use ZN\Request\Post;
 use ZN\DataTypes\Strings;
 use ZN\DataTypes\Arrays;
-use ZN\Filesystem\File;
-use ZN\Filesystem\Folder;
 use ZN\ErrorHandling\Errors;
+use ZN\Filesystem\Exception\InvalidTypeException;
 
 class Generate implements GenerateInterface
 {
+    /**
+     * Keeps Settings
+     * 
+     * @var array
+     */
     protected $settings = [];
 
+    /**
+     * Generate Types
+     * 
+     * @var array
+     */
+    protected $types = 
+    [
+        'controller',
+        'library',
+        'command',
+        'model'
+    ];
+
+    /**
+     * Magic Call
+     * 
+     * @param string $method
+     * @param array  $parameters
+     * 
+     * @return mixed
+     */
+    public function __call($method, $parameters)
+    {  
+        if( in_array($method, $this->types) )
+        {
+            $name = $parameters[0];
+
+            return $this->_object($name, $method, $parameters[1] ?? []);
+        }   
+        
+        throw new InvalidTypeException(NULL, implode(', ', $this->types)); 
+    }
+
+    /**
+     * Magic Constructor
+     */
+    public function __construct()
+    {
+        $this->db    = Singleton::class('ZN\Database\DB');
+        $this->tool  = Singleton::class('ZN\Database\DBTool');
+        $this->forge = Singleton::class('ZN\Database\DBForge');    
+    }
+
+    /**
+     * Select project name
+     * 
+     * @param string $name
+     * 
+     * @return bool
+     */
     public function project($name)
     {
-        \Post::project($name);
+        Post::project($name);
 
-        \Validation::rules('project', ['alpha'], 'Project Name');
+        $validation = Singleton::class('ZN\ViewObjects\Validation');
 
-        if( ! $error = \Validation::error('string') )
+        $validation->rules('project', ['alpha'], 'Project Name');
+
+        if( ! $error = $validation->error('string') )
         {
             $source = EXTERNAL_FILES_DIR . 'DefaultProject.zip';
-            $target = PROJECTS_DIR . \Post::project();
+            $target = PROJECTS_DIR . Post::project();
 
-            File\Forge::zipExtract($source, $target);
+            Forge::zipExtract($source, $target);
 
             return true;
         }
@@ -38,28 +97,20 @@ class Generate implements GenerateInterface
         return false;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Database
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Process databases
+     */
     public function databases()
     {
         $this->_addDatabases();
         $this->_archivesDatabases();
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Grand Vision
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param mixed $database = NULL
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Grand Vision
+     * 
+     * @param mixed ...$database
+     */
     public function grandVision(...$database)
     {
         $databases = $database;
@@ -71,11 +122,11 @@ class Generate implements GenerateInterface
 
         if( empty($database) )
         {
-            $databases = \DBTool::listDatabases();
+            $databases = $this->tool->listDatabases();
         }
 
-        $visionPath = 'Visions' . DS;
-        $defaultDB  = \Config::get('Database', 'database')['database'];
+        $visionPath = 'Visions/';
+        $defaultDB  = Config::get('Database', 'database')['database'];
 
         foreach( $databases as $connection => $database )
         {
@@ -89,11 +140,11 @@ class Generate implements GenerateInterface
 
             $configs['database'] = $database;
 
-            $tables   = \DBTool::differentConnection(['database' => $database])->listTables();
+            $tables   = $this->tool->differentConnection(['database' => $database])->listTables();
             $database = ucfirst($database);
             $filePath = $visionPath.$database;
 
-            Folder\Forge::create(MODELS_DIR.$filePath);
+            Forge::createFolder(MODELS_DIR.$filePath);
 
             foreach( $tables as $table )
             {
@@ -115,23 +166,19 @@ class Generate implements GenerateInterface
         }
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Delete Vision
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $database = '*'
-    // @param array  $tables   = NULL
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Delete Vision
+     * 
+     * @param string $database = '*'
+     * @param array  $tables   = NULL
+     */
     public function deleteVision(String $database = '*', Array $tables = NULL)
     {
         $path = MODELS_DIR.'Visions/';
 
         if( $database === '*' )
         {
-            Folder\Forge::delete($path);
+            Forge::deleteFolder($path);
         }
         else
         {
@@ -139,17 +186,17 @@ class Generate implements GenerateInterface
 
             if( $tables === NULL )
             {
-                Folder\Forge::delete($path.$database);
+                Forge::deleteFolder($path.$database);
             }
             else
             {
-                $defaultDB = \Config::get('Database', 'database')['database'];
+                $defaultDB = Config::get('Database', 'database')['database'];
 
                 foreach( $tables as $table )
                 {
                     unlink
                     (
-                        $path.$database.DS.INTERNAL_ACCESS.
+                        $path.$database.'/'.INTERNAL_ACCESS.
                         ( strtolower($database) === strtolower($defaultDB) ? NULL : $database ).
                         ucfirst($table).'Vision.php'
                     );
@@ -158,13 +205,13 @@ class Generate implements GenerateInterface
         }
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Settings
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array $settings: empty
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Settings
+     * 
+     * @param array $settings
+     * 
+     * @return Generate
+     */
     public function settings(Array $settings) : Generate
     {
         $this->settings = $settings;
@@ -172,67 +219,15 @@ class Generate implements GenerateInterface
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Model
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $name    : empty
-    // @param array  $settings: empty
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function model(String $name, Array $settings = []) : Bool
-    {
-        return $this->_object($name, __FUNCTION__, $settings);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Controller
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $name: empty
-    // @param array  $settings: empty
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function controller(String $name, Array $settings = []) : Bool
-    {
-        return $this->_object($name, __FUNCTION__, $settings);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Command
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $name: empty
-    // @param array  $settings: empty
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function command(String $name, Array $settings = []) : Bool
-    {
-        return $this->_object($name, __FUNCTION__, $settings);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Library
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $name: empty
-    // @param array  $settings: empty
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function library(String $name, Array $settings = []) : Bool
-    {
-        return $this->_object($name, __FUNCTION__, $settings);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Delete
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $name: empty
-    // @param string $type: 'controller', 'model', 'library'
-    // @param string $app : empty
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Delete Structure
+     * 
+     * @param string $name
+     * @param string $type = 'controller'
+     * @param string $app  = NULL
+     * 
+     * @return bool
+     */
     public function delete(String $name, String $type = 'controller', String $app = NULL) : Bool
     {
         if( ! empty($app) )
@@ -250,15 +245,9 @@ class Generate implements GenerateInterface
         return false;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected String Array
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array $data
-    //
-    // @return string
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Protected String Array
+     */
     protected function _stringArray($data)
     {
         $str = EOL.HT.'['.EOL;
@@ -272,15 +261,9 @@ class Generate implements GenerateInterface
         return $str;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Object
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $name    : empty
-    // @param string $type    : empty
-    // @param array  $settings: empty
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Protected Object
+     */
     protected function _object($name, $type, $settings)
     {
         if( ! empty($settings) )
@@ -291,78 +274,42 @@ class Generate implements GenerateInterface
         return $this->_contentWrite($name, $type);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Path
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $name: empty
-    // @param string $type: empty
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Protected Path
+     */
     protected function _path($name, $type)
     {
         if( empty($this->settings['application']) )
         {
-            $this->settings['application'] = Strings\Split::divide(rtrim(PROJECT_DIR, DS), DS, -1);
+            $this->settings['application'] = Strings\Split::divide(rtrim(PROJECT_DIR, '/'), '/', -1);
         }
 
         return PROJECTS_DIR.$this->settings['application'].$this->_type($type).suffix($name, '.php');
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Content Write
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $name: empty
-    // @param string $type: empty
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Protected Content Write
+     */
     protected function _contentWrite($name, $type)
     {
         if( empty($name) )
         {
             $this->error = Errors::message('Error', 'emptyParameter', '1.(name)');
         }
+        
+        # Start Generate
+        $controller = "<?php".EOL;
 
-        $eol = EOL;
-        $ht  = HT;
-        $parameters = '';
+        # Object Data
+        $this->settings['object'] = $this->settings['object'] ?? 'class';
 
-        $controller  = "<?php".$eol;
+        # Namespace Data
+        $this->namespace($controller, $namespace);
 
-        // Object Data
-        if( empty( $this->settings['object']) )
-        {
-            $this->settings['object'] = 'class';
-        }
+        # Uses Data
+        $this->uses($controller);
 
-        // Namespace Data
-        $namespace = NULL;
-
-        if( ! empty($this->settings['namespace']) )
-        {
-            $namespace   = $this->settings['namespace'];
-            $controller .= "namespace ".$namespace.";".$eol.$eol;
-        }
-
-        // Use Data
-        if( ! empty($this->settings['use']) )
-        {
-            foreach( $this->settings['use'] as $key => $use )
-            {
-                if( is_numeric($key) )
-                {
-                    $controller .= "use {$use};".$eol;
-                }
-                else
-                {
-                    $controller .= "use {$key} as {$use};".$eol;
-                }
-            }
-
-            $controller .= $eol;
-        }
-
+        # Class Name
         if( ! empty($this->settings['name']) )
         {
             $name = $this->settings['name'];
@@ -370,69 +317,101 @@ class Generate implements GenerateInterface
 
         $controller .= $this->settings['object']." ".$name;
 
-        // Extends Data
-        if( ! empty($this->settings['extends']) )
+        # Extends Data
+        $this->extends($controller);
+
+        # Implements Data
+        $this->implements($controller);
+
+        # Start Body
+        $controller .= EOL . "{" . EOL;
+
+        # Traits Data
+        $this->traits($controller);
+
+        # Constants Data
+        $this->constants($controller);
+
+        # Vars Data
+        $this->vars($controller);
+
+        # Functions Data
+        $this->functions($controller);
+
+        # Finish Class
+        $controller = rtrim($controller, EOL) . EOL . "}";
+
+        # Alias Data
+        $this->alias($controller, $namespace);
+        
+        # File Write
+        return $this->write($name, $type, $controller);
+    }
+
+    /**
+     * Protected Write
+     * 
+     * @param string $name
+     * @param string $type
+     * @param string $controller
+     * 
+     * @return bool
+     */
+    protected function write($name, $type, $controller) : Bool
+    {
+        if( ! empty($this->settings['path']) )
         {
-            $controller .= " extends ".$this->settings['extends'];
+            $filePath = suffix($this->settings['path'], '/') . $name;
+        }
+        else
+        {
+            $filePath = $name;
         }
 
-        // Implements Data
-        if( ! empty($this->settings['implements']) )
-        {
-            $controller .= " implements ".( is_array($this->settings['implements'])
-                                            ? implode(', ', $this->settings['implements'])
-                                            : $this->settings['implements']
-                                          );
-        }
+        $file = $this->_path($filePath, $type);
 
-        $controller .= $eol."{".$eol;
+        output($this->settings);
 
-        // Traits Data
-        if( ! empty($this->settings['traits']) )
+        if( ! is_file($file) )
         {
-            if( is_array($this->settings['traits']) ) foreach( $this->settings['traits'] as $trait )
+            if( file_put_contents($file, $controller) )
             {
-                $controller .= $ht."use {$trait};".$eol;
+                return true;
             }
             else
             {
-                $controller .= $ht."use ".$this->settings['traits'].";".$eol;
+                return false;
             }
-
-            $controller .= $eol;
         }
-
-        // Constants Data
-        if( ! empty($this->settings['constants']) )
+        else
         {
-            foreach( $this->settings['constants'] as $key => $val )
-            {
-                $controller .= $ht."const {$key} = {$val};".$eol;
-            }
-
-            $controller .= $eol;
+            return false;
         }
+    }
 
-        // Vars Data
-        if( ! empty($this->settings['vars']) )
+    /**
+     * Protected Functions
+     * 
+     * @param string & $controller
+     * @param string   $namespace = NULL
+     */
+    protected function alias(String & $controller, String $namespace = NULL)
+    {
+        if( ! empty($this->settings['alias']) )
         {
-            $var = '';
-            foreach( $this->settings['vars'] as $isKey => $var )
-            {
-                if( ! is_numeric($isKey) )
-                {
-                    $value = $var;
-                    $var   = $isKey;
-                }
-
-                $vars = $this->_varType($var);
-                $controller .= $ht.$vars->priority.' $'.$vars->var.( ! empty($value) ? " = ".$value : '' ).";".$eol;
-            }
-
-            $controller .= $eol;
+            $controller .= EOL.EOL.'class_alias("'.suffix($namespace, '\\').$name.'", "'.$this->settings['alias'].'");';
         }
+    }
 
-        // Functions Data
+    /**
+     * Protected Functions
+     * 
+     * @param string & $controller
+     */
+    protected function functions(String & $controller)
+    {
+        $parameters = NULL;
+
         if( ! empty($this->settings['functions']) ) foreach( $this->settings['functions'] as $isKey => $function )
         {
             if( ! empty($function) )
@@ -472,56 +451,152 @@ class Generate implements GenerateInterface
 
                 $function = $this->_varType($function);
 
-                $controller .= $ht.$function->priority." function {$function->var}({$parameters})".$eol;
-                $controller .= $ht."{".$eol;
-                $controller .= $ht.$ht."// Your codes...".$eol;
-                $controller .= $ht."}".$eol.$eol;
+                $controller .= HT.$function->priority." function {$function->var}({$parameters})".EOL;
+                $controller .= HT."{".EOL;
+                $controller .= HT.HT."// Your codes...".EOL;
+                $controller .= HT."}".EOL.EOL;
             }
-        }
-
-        $controller  = rtrim($controller, $eol);
-        $controller .= $eol."}";
-
-        if( ! empty($this->settings['alias']) )
-        {
-            $controller .= $eol.$eol.'class_alias("'.suffix($namespace, '\\').$name.'", "'.$this->settings['alias'].'");';
-        }
-
-        if( ! empty($this->settings['path']) )
-        {
-            $filePath = suffix($this->settings['path'], DS).$name;
-        }
-        else
-        {
-            $filePath = $name;
-        }
-
-        $file = $this->_path($filePath, $type);
-
-        if( ! is_file($file) )
-        {
-            if( file_put_contents($file, $controller) )
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-        else
-        {
-            return false;
         }
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Var Type
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $var: empty
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Protected Uses
+     * 
+     * @param string & $controller
+     * @param string & $namespace = NULL
+     */
+    protected function namespace(String & $controller, String & $namespace = NULL)
+    {
+        if( ! empty($this->settings['namespace']) )
+        {
+            $namespace   = $this->settings['namespace'];
+            $controller .= "namespace ".$namespace.";".EOL.EOL;
+        }
+    }
+
+    /**
+     * Protected Uses
+     * 
+     * @param string & $controller
+     */
+    protected function uses(String & $controller)
+    {
+        if( ! empty($this->settings['use']) )
+        {
+            foreach( $this->settings['use'] as $key => $use )
+            {
+                if( is_numeric($key) )
+                {
+                    $controller .= "use {$use};".EOL;
+                }
+                else
+                {
+                    $controller .= "use {$key} as {$use};".EOL;
+                }
+            }
+
+            $controller .= EOL;
+        }
+    }
+
+    /**
+     * Protected Extends
+     * 
+     * @param string & $controller
+     */
+    protected function extends(String & $controller)
+    {
+        if( ! empty($this->settings['extends']) )
+        {
+            $controller .= " extends ".$this->settings['extends'];
+        }
+    }
+    
+    /**
+     * Protected Implements
+     * 
+     * @param string & $controller
+     */
+    protected function implements(String & $controller)
+    {
+        if( ! empty($this->settings['implements']) )
+        {
+            $controller .= " implements ".( is_array($this->settings['implements'])
+                                            ? implode(', ', $this->settings['implements'])
+                                            : $this->settings['implements']
+                                          );
+        }
+    }
+
+    /**
+     * Protected Traits
+     * 
+     * @param string & $controller
+     */
+    protected function traits(String & $controller)
+    {
+        if( ! empty($this->settings['traits']) )
+        {
+            if( is_array($this->settings['traits']) ) foreach( $this->settings['traits'] as $trait )
+            {
+                $controller .= HT."use {$trait};".EOL;
+            }
+            else
+            {
+                $controller .= HT."use ".$this->settings['traits'].";".EOL;
+            }
+
+            $controller .= EOL;
+        }
+    }
+
+    /**
+     * Protected Contants
+     * 
+     * @param string & $controller
+     */
+    protected function constants(String & $controller)
+    {
+        if( ! empty($this->settings['constants']) )
+        {
+            foreach( $this->settings['constants'] as $key => $val )
+            {
+                $controller .= HT."const {$key} = {$val};".EOL;
+            }
+
+            $controller .= EOL;
+        }
+    }
+
+    /**
+     * Protected Vars
+     * 
+     * @param string & $controller
+     */
+    protected function vars(String & $controller)
+    {
+        if( ! empty($this->settings['vars']) )
+        {
+            $var = '';
+            foreach( $this->settings['vars'] as $isKey => $var )
+            {
+                if( ! is_numeric($isKey) )
+                {
+                    $value = $var;
+                    $var   = $isKey;
+                }
+
+                $vars = $this->_varType($var);
+                $controller .= HT.$vars->priority.' $'.$vars->var.( ! empty($value) ? " = ".$value : '' ).";".EOL;
+            }
+
+            $controller .= EOL;
+        }
+    }
+
+    /**
+     * Protected Variable Type
+     */
     protected function _varType($var)
     {
         $static = NULL;
@@ -559,60 +634,41 @@ class Generate implements GenerateInterface
         ];
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Type
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $type: empty
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Protected type
+     */
     protected function _type($type)
     {
-        $return = '';
-
-        if( $type === 'model' )
+        switch( $type )
         {
-            $return = 'Models';
-        }
-        elseif( $type === 'controller' )
-        {
-            $return = 'Controllers';
-        }
-        elseif( $type === 'library' )
-        {
-            $return = 'Libraries';
-        }
-        elseif( $type === 'command' )
-        {
-            $return = 'Commands';
+            case 'model'     : $return = 'Models';      break;
+            case 'controller': $return = 'Controllers'; break;
+            case 'library'   : $return = 'Libraries';   break;
+            case 'command'   : $return = 'Commands';    break;
         }
 
-        return presuffix($return, DS);
+        return presuffix($return ?? NULL, '/');
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Add Database
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Protected Add Databases
+     */
     protected function _addDatabases()
     {
-        $activesPath  = DATABASES_DIR . 'Actives'  . DS;
-        $archivesPath = DATABASES_DIR . 'Archives' . DS;
-        $folders      = Folder\FileList::files($activesPath, 'dir');
+        $activesPath  = DATABASES_DIR . 'Actives/';
+        $archivesPath = DATABASES_DIR . 'Archives/';
+        $folders      = FileList::files($activesPath, 'dir');
 
         if( empty($folders) )
         {
             return false;
         }
 
-        $currentDriver = \Config::get('Database', 'database')['driver'];
+        $currentDriver = Config::get('Database', 'database')['driver'];
 
         if( stristr('pdo:mysql|mysqli', $currentDriver) )
         {
-            $encoding = \DB::encoding();
+            $encoding = $this->db->encoding();
         }
         else
         {
@@ -620,32 +676,32 @@ class Generate implements GenerateInterface
         }
 
         $status = false;
-        $tableKeyColumnValues = [\DB::varchar(1), \DB::null()];
+        $tableKeyColumnValues = [$this->db->varchar(1), $this->db->null()];
 
         foreach( $folders as $database )
         {
-            \DBForge::createDatabase($database, $encoding);
+            $this->forge->createDatabase($database, $encoding);
 
-            $databasePath = $activesPath . $database . DS;
+            $databasePath = $activesPath . $database . '/';
 
-            $tables = Folder\FileList::files($databasePath, 'php');
+            $tables = FileList::files($databasePath, 'php');
 
             if( ! empty($tables) )
             {
-                $dbForge = \DBForge::differentConnection(['database' => $database]);
-                $db      = \DB::differentConnection(['database' => $database]);
+                $dbForge = $this->forge->differentConnection(['database' => $database]);
+                $db      = $this->db->differentConnection(['database' => $database]);
 
                 foreach( $tables as $table )
                 {
                     $tableData = import($databasePath . $table);
                     $file      = $table;
-                    $table     = File\Extension::remove($table);
+                    $table     = Extension::remove($table);
 
                     if( ! array_key_exists('id', $tableData) )
                     {
                         $tableData = array_merge
                         ([
-                            'id' => [\DB::int(11), \DB::notNull(), \DB::autoIncrement(), \DB::primaryKey()]
+                            'id' => [$this->db->int(11), $this->db->notNull(), $this->db->autoIncrement(), $this->db->primaryKey()]
                         ], $tableData);                        
                     }
 
@@ -687,12 +743,13 @@ class Generate implements GenerateInterface
 
                         if( $status === true )
                         {
-                            $tableName     = $database . DS . $table;
-                            $dbArchivePath = $archivesPath . $database . DS;
+                            $tableName     = $database . '/' . $table;
+                            $dbArchivePath = $archivesPath . $database . '/';
                             $writePath     = $archivesPath . $tableName . '_' . time() . '.php';
                             $writeContent  = file_get_contents($activesPath . $tableName . '.php');
 
-                            Folder\Forge::create($dbArchivePath);
+                            Forge::createFolder($dbArchivePath);
+
                             file_put_contents($writePath, $writeContent);
 
                             $dbForge->renameColumn($table, [$currentTableKey.' '.$tableKey => $tableKeyColumnValues]);
@@ -709,18 +766,14 @@ class Generate implements GenerateInterface
         }
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Add Database
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Protected Archives Databases
+     */
     protected function _archivesDatabases()
     {
-        $archivesPath = DATABASES_DIR . 'Archives' . DS;
+        $archivesPath = DATABASES_DIR . 'Archives/';
 
-        $folders = Folder\FileList::files($archivesPath, 'dir');
+        $folders = FileList::files($archivesPath, 'dir');
 
         if( empty($folders) )
         {
@@ -729,27 +782,27 @@ class Generate implements GenerateInterface
 
         foreach( $folders as $database )
         {
-            $databasePath = $archivesPath . $database . DS;
+            $databasePath = $archivesPath . $database . '/';
 
-            $tables   = Folder\FileList::files($databasePath, 'php');
+            $tables   = FileList::files($databasePath, 'php');
             $pregGrep = preg_grep("/\_[0-9]*\.php/", $tables);
             $tables   = Arrays\RemoveElement::element($tables, $pregGrep);
 
             if( ! empty($tables) )
             {
-                $dbForge  = \DBForge::differentConnection(['database' => $database]);
+                $dbForge  = $this->forge->differentConnection(['database' => $database]);
 
                 foreach( $tables as $table )
                 {
-                    $dbForge->dropTable(File\Extension::remove($table));
+                    $dbForge->dropTable(Extension::remove($table));
                 }
             }
 
-            $tool = \DBTool::differentConnection(['database' => $database]);
+            $tool = $this->tool->differentConnection(['database' => $database]);
 
             if( empty($tool->listTables()) )
             {
-                \DBForge::dropDatabase($database);
+                $this->forge->dropDatabase($database);
             }
         }
     }

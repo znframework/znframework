@@ -12,7 +12,7 @@
 use ZN\Singleton;
 use ZN\Prompt\Exception\InvalidTimeFormatException;
 use ZN\DataTypes\Arrays;
-use ZN\Filesystem\File;
+use ZN\Filesystem;
 
 class Crontab extends PromptCommon implements CrontabInterface, CrontabIntervalInterface
 {
@@ -134,7 +134,7 @@ class Crontab extends PromptCommon implements CrontabInterface, CrontabIntervalI
         }
 
         $this->path       = $this->getConfig['path'];
-        $this->crontabDir = File\Info::originpath(STORAGE_DIR.'Crontab'.DS);
+        $this->crontabDir = Filesystem\Info::originpath(STORAGE_DIR.'Crontab'.DS);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -424,7 +424,7 @@ class Crontab extends PromptCommon implements CrontabInterface, CrontabIntervalI
 
         if( ! is_file($execFile) )
         {
-            File\Forge::create($execFile);
+            Filesystem\Forge::create($execFile);
             $this->processor->exec('chmod 0777 ' . $execFile);
         }
 

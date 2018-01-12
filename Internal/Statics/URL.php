@@ -13,5 +13,5 @@ class URL
 {
     use StaticAbility;
 
-    const target = 'ZN\Services\URL';
+    const target = 'ZN\Request\URL';
 }

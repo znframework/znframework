@@ -9,8 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\Filesystem\File;
-use ZN\Filesystem\Folder;
+use ZN\Filesystem;
 
 class Logger implements LoggerInterface
 {
@@ -173,7 +172,7 @@ class Logger implements LoggerInterface
                 $time = \Config::get('Project', 'log')['fileTime'];
             }
 
-            $createDate = File\Info::createDate($logDir.suffix($destination, $extension), 'd.m.Y');
+            $createDate = Filesystem\Info::createDate($logDir.suffix($destination, $extension), 'd.m.Y');
             $endDate    = strtotime("$time", strtotime($createDate));
             $endDate    = date('Y.m.d', $endDate);
 

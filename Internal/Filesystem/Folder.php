@@ -17,22 +17,22 @@ class Folder extends FactoryController
     [
         'methods' =>
         [
-            'exists'      => 'Folder\Info::exists',
-            'fileinfo'    => 'Folder\Info::fileInfo',
-            'basepath'    => 'Folder\Info::basePath',
-            'disk'        => 'Folder\Info::disk',
-            'totalspace'  => 'Folder\Info::totalSpace',
-            'freespace'   => 'Folder\Info::freeSpace',
-            'disk'        => 'Folder\Info::disk',
-            'create'      => 'Folder\Forge::create',
-            'rename'      => 'Folder\Forge::rename',
-            'deleteempty' => 'Folder\Forge::deleteEmpty',
-            'delete'      => 'Folder\Forge::delete',
-            'copy'        => 'Folder\Forge::copy',
-            'change'      => 'Folder\Forge::change',
-            'permission'  => 'Folder\Forge::permission',
-            'files'       => 'Folder\FileList::files',
-            'allfiles'    => 'Folder\FileList::allFiles'
+            'exists'      => 'Info::existsFolder',
+            'fileinfo'    => 'Info::fileInfo',
+            'basepath'    => 'Info::basePath',
+            'disk'        => 'Info::disk',
+            'totalspace'  => 'Info::totalSpace',
+            'freespace'   => 'Info::freeSpace',
+            'disk'        => 'Info::disk',
+            'create'      => 'Forge::createFolder',
+            'rename'      => 'Forge::renameFolder',
+            'deleteempty' => 'Forge::deleteEmptyFolder',
+            'delete'      => 'Forge::deleteFolder',
+            'copy'        => 'Forge::copy',
+            'change'      => 'Forge::changeFolder',
+            'permission'  => 'Forge::permission',
+            'files'       => 'FileList::files',
+            'allfiles'    => 'FileList::allFiles'
         ]
     ];
 }

@@ -74,7 +74,7 @@ $index = md5($index);
             }
             else
             {
-                $anchor = ZN\Services\URL::site(Pagination::getURI($s));
+                $anchor = ZN\Request\URL::site(Pagination::getURI($s));
             }
 
             echo Html::anchor($anchor, $i);

@@ -94,9 +94,14 @@ class PromptCommon implements PromptCommonInterface
         $parameters = $datas['parameters'];
         $class      = $namespace . $controller;
         $file       = str_replace('\\', '\\\\', $datas['file']);
+        $command    = 'import("'.$file.'"); uselib("'.$class.'")->'.$function.
+        '('. 
+            implode(',', array_map(function($data)
+            { 
+                return '"'.$data.'"';
 
-        $command    = 'import("'.$file.'");';
-        $command   .= 'uselib("'.$class.'")->'.$function.'('. implode(',', array_map('Processor::addNail', $parameters)) .')';
+            }, $parameters)).
+        ')';
 
         return $command;
     }

@@ -11,8 +11,7 @@
 
 use DB, DBForge, Date;
 use ZN\Config;
-use ZN\Filesystem\File;
-use ZN\Filesystem\Folder;
+use ZN\Filesystem;
 
 class Migration extends \CallController implements MigrationInterface
 {
@@ -266,7 +265,7 @@ class Migration extends \CallController implements MigrationInterface
 
             if( $ver === 'all' && is_dir($this->path.$name.$this->versionDir) )
             {
-                Folder\Forge::delete($this->path.$name.$this->versionDir);
+                Filesystem\Forge::deleteFolder($this->path.$name.$this->versionDir);
             }
         }
         else
@@ -288,7 +287,7 @@ class Migration extends \CallController implements MigrationInterface
     {
         if( is_dir($this->path) )
         {
-            return Folder\Forge::delete($this->path);
+            return Filesystem\Forge::deleteFolder($this->path);
         }
         else
         {

@@ -13,5 +13,5 @@ class Image
 {
     use StaticAbility;
 
-    const target = 'ZN\ImageProcessing\Image';
+    const target = 'ZN\Image\Image';
 }

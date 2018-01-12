@@ -105,7 +105,7 @@ class Processor extends PromptCommon implements ProcessorInterface
             break;
 
             case 'ssh':
-                $ssh = Singleton::class('ZN\Shell\SSH');
+                $ssh = Singleton::class('ZN\Remote\SSH');
                 $ssh->run($command);
                 $this->output = $this->_split($return = $ssh->output());
                 $this->return = 0;

@@ -12,6 +12,7 @@
 use ZN\Services\Exception\InvalidArgumentException;
 use ZN\Support;
 use ZN\IS;
+use ZN\Request\URL;
 use ZN\Helpers\Converter;
 
 class CURL implements CURLInterface

@@ -14,7 +14,7 @@ use ZN\Security;
 use ZN\Helpers\Exception\InvalidArgumentException;
 use ZN\Helpers\Exception\LogicException;
 use ZN\DataTypes\Arrays;
-use ZN\Filesystem\File;
+use ZN\Filesystem;
 
 class Converter
 {
@@ -483,8 +483,8 @@ class Converter
     {
         if( $protectExtension === true )
         {
-            $ext = File\Extension::get($str, true);
-            $str = File\Extension::remove($str);
+            $ext = Filesystem\Extension::get($str, true);
+            $str = Filesystem\Extension::remove($str);
         }
 
         $str = self::accent(trim($str));

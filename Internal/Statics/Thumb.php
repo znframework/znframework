@@ -13,5 +13,5 @@ class Thumb
 {
     use StaticAbility;
 
-    const target = 'ZN\ImageProcessing\Thumb';
+    const target = 'ZN\Image\Thumb';
 }

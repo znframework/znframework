@@ -12,8 +12,7 @@
 use ZN\Singleton;
 use ZN\Storage\Abstracts\CacheDriverMappingAbstract;
 use ZN\Support;
-use ZN\Filesystem\File;
-use ZN\Filesystem\Folder;
+use ZN\Filesystem;
 
 class FileDriver extends CacheDriverMappingAbstract
 {
@@ -179,7 +178,7 @@ class FileDriver extends CacheDriverMappingAbstract
      */
     public function clean()
     {
-        return Folder\Forge::delete($this->path);
+        return Filesystem\Forge::deleteFolder($this->path);
     }
 
     /**
@@ -191,7 +190,7 @@ class FileDriver extends CacheDriverMappingAbstract
      */
     public function info($type = NULL)
     {
-        $info = Folder\Info::fileInfo($this->path);
+        $info = Filesystem\Info::fileInfo($this->path);
 
         if( $type === NULL )
         {

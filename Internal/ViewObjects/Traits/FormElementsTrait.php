@@ -1,7 +1,7 @@
 <?php namespace ZN\ViewObjects;
 
 use DB, Session, Validation;
-use ZN\Services\URL;
+use ZN\Request\URL;
 use ZN\Protection\Json;
 use ZN\IS;
 

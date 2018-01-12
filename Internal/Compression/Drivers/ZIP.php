@@ -10,7 +10,7 @@
  */
 
 use ZN\Support;
-use ZN\Filesystem\File;
+use ZN\Filesystem;
 use ZN\Compression\DriverMappingAbstract;
 
 class ZipDriver extends DriverMappingAbstract
@@ -40,7 +40,7 @@ class ZipDriver extends DriverMappingAbstract
      */
     public function extract($source, $target, $password = NULL)
     {
-        return File\Forge::zipExtract($source, $target);
+        return Filesystem\Forge::zipExtract($source, $target);
     }
     
     /**

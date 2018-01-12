@@ -9,7 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\Services\URL;
+use ZN\Request\URL;
 use ZN\DataTypes\Arrays;
 
 class Masterpage

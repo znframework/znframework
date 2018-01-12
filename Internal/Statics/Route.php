@@ -13,5 +13,5 @@ class Route
 {
     use StaticAbility;
 
-    const target = 'ZN\Services\Route';
+    const target = 'ZN\Response\Route';
 }

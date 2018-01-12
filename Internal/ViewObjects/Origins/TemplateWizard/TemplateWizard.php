@@ -9,7 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\Filesystem\File;
+use ZN\Filesystem;
 use ZN\Buffering;
 
 class TemplateWizard
@@ -57,7 +57,7 @@ class TemplateWizard
      */
 	public static function isolation(String $data = '')
 	{
-		File\Forge::replace($data, ['<?php', '<?', '?>'], ['{[', '{[', ']}']);
+		Filesystem\Forge::replace($data, ['<?php', '<?', '?>'], ['{[', '{[', ']}']);
 	}
 
     /**

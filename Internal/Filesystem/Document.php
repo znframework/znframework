@@ -1,4 +1,4 @@
-<?php namespace ZN\Filesystem\Document;
+<?php namespace ZN\Filesystem;
 /**
  * ZN PHP Web Framework
  * 
@@ -9,9 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\Filesystem\Exception\FileNotFoundException;
-
-class Document implements DocumentInterface
+class Document
 {
     /**
      * Magic Call

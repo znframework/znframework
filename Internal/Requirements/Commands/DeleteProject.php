@@ -9,7 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\Filesystem\Folder;
+use ZN\Filesystem;
 
 class DeleteProject
 {
@@ -22,6 +22,6 @@ class DeleteProject
      */
     public function __construct($command)
     {   
-        new Result(Folder\Forge::delete(PROJECTS_DIR . $command));
+        new Result(Filesystem\Forge::deleteFolder(PROJECTS_DIR . $command));
     }
 }

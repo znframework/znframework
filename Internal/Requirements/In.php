@@ -9,11 +9,11 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\Services\URL;
-use ZN\Services\URI;
+use ZN\Request\URL;
+use ZN\Request\URI;
 use ZN\Helpers\Logger;
 use ZN\DataTypes\Strings;
-use ZN\Filesystem\Folder;
+use ZN\Filesystem;
 use ZN\ErrorHandling\Errors;
 use ZN\IS;
 use ZN\Language\Lang;
@@ -192,8 +192,8 @@ class In
      */
     protected static function routeAll()
     {
-        $externalRouteFiles = (array) Folder\FileList::allFiles(EXTERNAL_ROUTES_DIR);
-        $routeFiles         = (array) Folder\FileList::allFiles(ROUTES_DIR);
+        $externalRouteFiles = (array) Filesystem\FileList::allFiles(EXTERNAL_ROUTES_DIR);
+        $routeFiles         = (array) Filesystem\FileList::allFiles(ROUTES_DIR);
         $files              = array_merge($externalRouteFiles, $routeFiles);
 
         if( ! empty($files)  )
