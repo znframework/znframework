@@ -9,7 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-class InvalidImageFileException extends \GeneralException
+use ZN\ErrorHandling\GeneralException;
+
+class InvalidImageFileException extends GeneralException
 {
 
 }

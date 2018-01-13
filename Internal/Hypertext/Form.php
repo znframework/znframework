@@ -1,4 +1,4 @@
-<?php namespace ZN\ViewObjects;
+<?php namespace ZN\Hypertext;
 /**
  * ZN PHP Web Framework
  * 
@@ -9,7 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\ViewObjects\Exception\InvalidArgumentException;
+use ZN\Hypertext\Exception\InvalidArgumentException;
 use ZN\DataTypes\Arrays;
 
 class Form

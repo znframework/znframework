@@ -1,4 +1,4 @@
-<?php namespace ZN\ViewObjects;
+<?php namespace ZN\Hypertext;
 /**
  * ZN PHP Web Framework
  * 
@@ -8,6 +8,8 @@
  * @license MIT [http://opensource.org/licenses/MIT]
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
+
+use ZN\Singleton;
 
 class Sheet
 {
@@ -146,7 +148,9 @@ class Sheet
     {
         if( $this->tag === true )
         {
-            return \Style::open().$code.\Style::close();
+            $style = Singleton::class('ZN\Hypertext\Style');
+
+            return $style->open().$code.$style->close();
         }
 
         return $code;

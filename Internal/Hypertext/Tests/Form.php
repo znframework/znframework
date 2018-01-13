@@ -1,4 +1,4 @@
-<?php namespace ZN\Image;
+<?php namespace ZN\Hypertext\Tests;
 /**
  * ZN PHP Web Framework
  * 
@@ -9,11 +9,13 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-class ThumbUnitTest extends \UnitTestController
+use ZN\Controllers\UnitTestController;
+
+class Form extends UnitTestController
 {
     const unit =
     [
-        'class'   => 'Thumb',
+        'class'   => 'Form',
         'methods' => []
     ];
 }

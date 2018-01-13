@@ -1,4 +1,4 @@
-<?php namespace ZN\Image;
+<?php namespace ZN\Image\Tests;
 /**
  * ZN PHP Web Framework
  * 
@@ -9,11 +9,13 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-class ImageUnitTest extends \UnitTestController
+use ZN\Controllers\UnitTestController;
+
+class Thumb extends UnitTestController
 {
     const unit =
     [
-        'class'   => 'Image',
+        'class'   => 'Thumb',
         'methods' => []
     ];
 }

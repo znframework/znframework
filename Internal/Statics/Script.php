@@ -1,4 +1,4 @@
-<?php namespace ZN\Image\Exception;
+<?php
 /**
  * ZN PHP Web Framework
  * 
@@ -9,9 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\ErrorHandling\GeneralException;
-
-class InvalidArgumentException extends GeneralException
+class Script
 {
-   
+    use ZN\Abilities\StaticAbility;
+
+    const target = 'ZN\Hypertext\Script';
 }

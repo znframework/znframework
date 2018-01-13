@@ -1,4 +1,4 @@
-<?php namespace ZN\ViewObjects\Abstracts;
+<?php namespace ZN\Hypertext;
 /**
  * ZN PHP Web Framework
  * 
@@ -9,7 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-abstract class HTMLHelpersAbstract
+abstract class HtmlHelpersAbstract
 {
     /**
      * abstract create

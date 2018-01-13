@@ -1,4 +1,4 @@
-<?php namespace ZN\ViewObjects;
+<?php namespace ZN\Hypertext;
 /**
  * ZN PHP Web Framework
  * 
@@ -9,17 +9,8 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\Inclusion;
-
-class Style implements StyleInterface
+interface TextInterface
 {
-    /**
-     * type
-     * 
-     * @var string
-     */
-    protected $type = 'text/css';
-
     /**
      * Sets the [type] property of the [script] tag.
      * 
@@ -27,12 +18,7 @@ class Style implements StyleInterface
      * 
      * @return $this
      */
-    public function type(String $type)
-    {
-        $this->type = $type;
-
-        return $this;
-    }
+    public function type(String $type);
 
     /**
      * Imports script libraries.
@@ -41,26 +27,16 @@ class Style implements StyleInterface
      * 
      * @return $this
      */
-    public function library(...$libraries)
-    {
-        Inclusion\Style::use(...$libraries);
+    public function library(...$libraries);
 
-        return $this;
-    }
-
-     /**
+    /**
      * Opens the [script] tag.
      * 
      * @param void
      * 
      * @return string
      */
-    public function open() : String
-    {
-        $script = "<style type=\"$this->type\">".EOL;
-
-        return $script;
-    }
+    public function open() : String;
 
     /**
      * Closes the [/script] tag.
@@ -69,9 +45,5 @@ class Style implements StyleInterface
      * 
      * @return string
      */
-    public function close() : String
-    {
-        $script =  '</style>'.EOL;
-        return $script;
-    }
+    public function close() : String;
 }

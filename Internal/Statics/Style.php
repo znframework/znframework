@@ -13,5 +13,5 @@ class Style
 {
     use ZN\Abilities\StaticAbility;
 
-    const target = 'ZN\ViewObjects\Style';
+    const target = 'ZN\Hypertext\Style';
 }

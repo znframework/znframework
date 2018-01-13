@@ -13,5 +13,5 @@ class Form
 {
     use ZN\Abilities\StaticAbility;
 
-    const target = 'ZN\ViewObjects\Form';
+    const target = 'ZN\Hypertext\Form';
 }

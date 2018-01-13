@@ -1,4 +1,4 @@
-<?php namespace ZN\Image;
+<?php namespace ZN\Hypertext\Exception;
 /**
  * ZN PHP Web Framework
  * 
@@ -9,11 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-class GDUnitTest extends \UnitTestController
+use ZN\ErrorHandling\GeneralException;
+
+class InvalidArgumentException extends GeneralException
 {
-    const unit =
-    [
-        'class'   => 'GD',
-        'methods' => []
-    ];
+    
 }

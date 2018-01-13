@@ -1,4 +1,4 @@
-<?php namespace ZN\Image\Exception;
+<?php namespace ZN\Generator\Tests;
 /**
  * ZN PHP Web Framework
  * 
@@ -9,9 +9,13 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\ErrorHandling\GeneralException;
+use ZN\Controllers\UnitTestController;
 
-class InvalidArgumentException extends GeneralException
+class Generate extends UnitTestController
 {
-   
+    const unit =
+    [
+        'class'   => 'Generate',
+        'methods' => []
+    ];
 }

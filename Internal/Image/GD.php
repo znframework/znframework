@@ -9,12 +9,15 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\Image\Exception\InvalidArgumentException;
+use stdClass;
+use ZN\Singleton;
 use ZN\Helpers\Converter;
+use ZN\Abilities\RevolvingAbility;
+use ZN\Image\Exception\InvalidArgumentException;
 
 class GD implements GDInterface
 {
-    use \RevolvingAbility;
+    use RevolvingAbility;
 
     //--------------------------------------------------------------------------------------------------------
     // Canvas
@@ -43,6 +46,14 @@ class GD implements GDInterface
     //--------------------------------------------------------------------------------------------------------
     protected $result = [];
 
+    /**
+     * Magic Constructor
+     */
+    public function __construct()
+    {
+        $this->mime = Singleton::class('ZN\Helpers\Mime');
+    }
+
     //--------------------------------------------------------------------------------------------------------
     // Info
     //--------------------------------------------------------------------------------------------------------
@@ -53,19 +64,6 @@ class GD implements GDInterface
     public function info() : Array
     {
         return gd_info();
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Thumb
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $filePath
-    // @param array  $settings
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function thumb(String $filePath, Array $settings = []) : String
-    {
-        return \Image::thumb($filePath, $settings);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -81,9 +79,9 @@ class GD implements GDInterface
     //--------------------------------------------------------------------------------------------------------
     public function canvas($width, $height = NULL, $rgb = 'transparent', $real = false, $p1 = 0) : GD
     {   
-        if( \Mime::type($width, 0) === 'image' )
+        if( $this->mime->type($width, 0) === 'image' )
         {
-            $this->type   = \Mime::type($width, 1);
+            $this->type   = $this->mime->type($width, 1);
             
             $height = NULL; $rgb = NULL; $real = NULL; $p1 = NULL;
 
@@ -134,7 +132,7 @@ class GD implements GDInterface
     //--------------------------------------------------------------------------------------------------------
     public function createFrom(String $source, Array $settings = [])
     {
-        $type = \Mime::type($source, 1);
+        $type = $this->mime->type($source, 1);
 
         switch( $type )
         {
@@ -163,9 +161,9 @@ class GD implements GDInterface
     // @param string $fileName
     //
     //--------------------------------------------------------------------------------------------------------
-    public function size(String $fileName) : \stdClass
+    public function size(String $fileName) : stdClass
     {
-        if( \Mime::type($fileName, 0) === 'image' )
+        if( $this->mime->type($fileName, 0) === 'image' )
         {
             $data = getimagesize($fileName);
         }
@@ -489,10 +487,10 @@ class GD implements GDInterface
     //--------------------------------------------------------------------------------------------------------
     public function filter(String $filter, Int $arg1 = NULL, Int $arg2 = NULL, Int $arg3 = NULL, Int $arg4 = NULL) : GD
     {
-        $filters = \Collection::data(func_get_args())
-                             ->removeFirst()
-                             ->deleteElement(NULL)
-                             ->get();
+        $filters = Singleton::class('ZN\DataTypes\Collection')->data(func_get_args())
+                                                              ->removeFirst()
+                                                              ->deleteElement(NULL)
+                                                              ->get();
         
         imagefilter($this->canvas, Converter::toConstant($filter, 'IMG_FILTER_'), ...$filters);
 
@@ -1247,7 +1245,7 @@ class GD implements GDInterface
             return 'No Result!';
         }
 
-        return \Html::image($this->result['path']);
+        return Singleton::class('ZN\Hypertext\Html')->image($this->result['path']);
     }
 
     //--------------------------------------------------------------------------------------------------------

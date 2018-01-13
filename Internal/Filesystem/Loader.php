@@ -13,15 +13,14 @@ use ZN\Filesystem\Exception\FileNotFoundException;
 
 class Loader
 {
-    //--------------------------------------------------------------------------------------------------------
-    // Require
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $file
-    //
-    // @return array
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Require File
+     * 
+     * @param string $file
+     * @param string $type = 'require'
+     * 
+     * @return mixed
+     */
     public static function require(String $file, String $type = 'require')
     {
         $file = Info::rpath($file);
@@ -33,61 +32,44 @@ class Loader
 
         switch( $type )
         {
-            case 'require':
-                return require $file;
-            break;
-
-            case 'require_once':
-                return require_once $file;
-            break;
-
-            case 'include':
-                return include $file;
-            break;
-
-            case 'include_once':
-                return include_once $file;
-            break;
+            case 'require'     : return require      $file;
+            case 'require_once': return require_once $file;
+            case 'include'     : return include      $file;
+            case 'include_once': return include_once $file;
         }
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Require Once
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $file
-    //
-    // @return array
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Require Once
+     * 
+     * @param string $file
+     * 
+     * @return mixed
+     */
     public static function requireOnce(String $file)
     {
         return self::require($file, 'require_once');
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Include
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $file
-    //
-    // @return array
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Include
+     * 
+     * @param string $file
+     * 
+     * @return mixed
+     */
     public static function include(String $file)
     {
         return self::require($file, 'include');
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Include Once
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $file
-    //
-    // @return array
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Include Once
+     * 
+     * @param string $file
+     * 
+     * @return mixed
+     */
     public static function includeOnce(String $file)
     {
         return self::require($file, 'include_once');

@@ -1,4 +1,4 @@
-<?php namespace ZN\ViewObjects;
+<?php namespace ZN\Hypertext;
 
 use DB, Session, Validation;
 use ZN\Request\URL;

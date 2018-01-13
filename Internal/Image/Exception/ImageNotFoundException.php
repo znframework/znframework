@@ -9,7 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-class ImageNotFoundException extends \GeneralException
+use ZN\ErrorHandling\GeneralException;
+
+class ImageNotFoundException extends GeneralException
 {
 
 }

@@ -13,5 +13,5 @@ class Permission
 {
     use ZN\Abilities\StaticAbility;
 
-    const target = 'ZN\IndividualStructures\Permission';
+    const target = 'ZN\Authorization\Permission';
 }

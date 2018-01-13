@@ -9,9 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-class HTML
+class Html
 {
     use ZN\Abilities\StaticAbility;
 
-    const target = 'ZN\ViewObjects\HTML';
+    const target = 'ZN\Hypertext\Html';
 }

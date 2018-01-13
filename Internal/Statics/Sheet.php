@@ -13,5 +13,5 @@ class Sheet
 {
     use ZN\Abilities\StaticAbility;
 
-    const target = 'ZN\ViewObjects\Sheet';
+    const target = 'ZN\Hypertext\Sheet';
 }

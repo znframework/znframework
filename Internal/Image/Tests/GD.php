@@ -1,4 +1,4 @@
-<?php namespace ZN\Filesystem\Tests;
+<?php namespace ZN\Image\Tests;
 /**
  * ZN PHP Web Framework
  * 
@@ -11,11 +11,11 @@
 
 use ZN\Controllers\UnitTestController;
 
-class Generate extends UnitTestController
+class GD extends UnitTestController
 {
     const unit =
     [
-        'class'   => 'Generate',
+        'class'   => 'GD',
         'methods' => []
     ];
 }

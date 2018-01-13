@@ -9,6 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
+use stdClass;
 use ZN\Config;
 use ZN\Classes;
 use ZN\Filesystem\Exception\FileNotFoundException;
@@ -17,22 +18,18 @@ use ZN\Filesystem\Exception\FolderNotFoundException;
 
 class Info
 {
-    //--------------------------------------------------------------------------------------------------------
-    // Access
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var array
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Access Status
+     * 
+     * @var bool
+     */
     protected static $access = NULL;
 
-    //--------------------------------------------------------------------------------------------------------
-    // Methods
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var array
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Keeps is methods
+     * 
+     * @var array
+     */
     protected static $methods =
     [
         'executable' => 'is_executable',
@@ -42,60 +39,27 @@ class Info
         'uploaded'   => 'is_uploaded_file'
     ];
 
-    //--------------------------------------------------------------------------------------------------------
-    // Is Control Call
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $method
-    // @param array  $parameters
-    //
-    // @return bool
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Magic Call
+     * 
+     * @param string $method
+     * @param array  $parameters
+     * 
+     * @return bool
+     */
     public function __call($method, $parameters)
     {
         return self::_is($method, ...$parameters);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Is
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $type
-    // @param string $file
-    //
-    // @param bool
-    //
-    //--------------------------------------------------------------------------------------------------------
-    protected static function _is($type, $file)
-    {
-        $file = self::rpath($file);
-
-        $validType = self::$methods[$type] ?? NULL;
-
-        if( ! function_exists($validType) || $validType === NULL )
-        {
-            throw new UndefinedFunctionException('Error', 'undefinedFunction', Classes::onlyName(get_called_class()).'::'.$type.'()');
-        }
-
-        if( $validType($file) )
-        {
-            return true;
-        }
-
-        return false;
-    }
-
-    //--------------------------------------------------------------------------------------------------
-    // pathInfos()
-    //--------------------------------------------------------------------------------------------------
-    //
-    // @param string $file
-    // @param string $info = 'basename'
-    //
-    // @return string
-    //
-    //--------------------------------------------------------------------------------------------------
+    /**
+     * Path Info
+     * 
+     * @param string $file
+     * @param string $info = 'basename'
+     * 
+     * @return string
+     */
     public static function pathInfo(String $file, String $info = 'basename') : String
     {
         $pathInfo = pathinfo($file);
@@ -103,29 +67,24 @@ class Info
         return $pathInfo[$info] ?? false;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Required
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  void
-    // @return array
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Get required files
+     * 
+     * @return array
+     */
     public static function required() : Array
     {
         return get_required_files();
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Access
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param bool $realPath = true
-    // @param bool $parentDirectoryAccess = false
-    //
-    // @param FileSystemCommon
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Sets access status
+     * 
+     * @param bool $realPath              = true
+     * @param bool $parentDirectoryAccess = false
+     * 
+     * @return Info
+     */
     public function access($realPath = true, $parentDirectoryAccess = false) : Info
     {
         self::$access['realPath']              = $realPath;
@@ -134,15 +93,13 @@ class Info
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Rpath
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $file
-    //
-    // @param string
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Real Path
+     * 
+     * @param string $file = NULL
+     * 
+     * @return string
+     */
     public static function rpath(String $file = NULL) : String
     {
         $config = Config::get('Filesystem', 'file', self::$access);
@@ -162,15 +119,13 @@ class Info
         return $file;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Exists
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $file
-    //
-    // @param bool
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * File Exists
+     * 
+     * @param string $file
+     * 
+     * @return bool
+     */
     public static function exists(String $file) : Bool
     {
         $file = self::rpath($file);
@@ -183,57 +138,37 @@ class Info
         return false;
     }
 
-    //--------------------------------------------------------------------------------------------------
-    // Orgin Path
-    //--------------------------------------------------------------------------------------------------
-    //
-    // @param  string $string
-    //
-    // @return string
-    //
-    //--------------------------------------------------------------------------------------------------
+    /**
+     * Original Path
+     * 
+     * @param string $string
+     * 
+     * @return string
+     */
     public static function originpath(String $string) : String
     {
         return str_replace(['/', '\\'], DS, $string);
     }
 
-    //--------------------------------------------------------------------------------------------------
-    // Relative Path
-    //--------------------------------------------------------------------------------------------------
-    //
-    // @param  string $string
-    //
-    // @return string
-    //
-    //--------------------------------------------------------------------------------------------------
+    /**
+     * Realtive Path
+     * 
+     * @param string $string 
+     * 
+     * @return string
+     */
     public static function relativepath(String $string) : String
     {
         return str_replace(REAL_BASE_DIR, NULL, self::originpath($string));
     }
 
-    //--------------------------------------------------------------------------------------------------
-    // Absolute Path
-    //--------------------------------------------------------------------------------------------------
-    //
-    // @param  string $string
-    //
-    // @return string
-    //
-    //--------------------------------------------------------------------------------------------------
-    public static function absolutePath(String $string = NULL) : String
-    {
-        return str_replace([REAL_BASE_DIR, DS], [NULL, '/'], $string);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Available
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $file
-    //
-    // @param bool
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Available
+     * 
+     * @param string $file
+     * 
+     * @return bool
+     */
     public static function available(String $file) : Bool
     {
         $file = self::rpath($file);
@@ -246,14 +181,14 @@ class Info
         return false;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Info
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $file
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public static function get(String $file) : \stdClass
+    /**
+     * Get file info
+     * 
+     * @param string $file
+     * 
+     * @return object
+     */
+    public static function get(String $file) : stdClass
     {
         $file = self::rpath($file);
 
@@ -274,15 +209,15 @@ class Info
         ];
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Size -> 5.4.8[edited]
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $file
-    // @param string $type
-    // @param int    $decimal
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Get file size
+     * 
+     * @param string $file
+     * @param string $type    = 'b'
+     * @param int    $decimal = 2
+     * 
+     * @return float
+     */
     public static function size(String $file, String $type = 'b', Int $decimal = 2) : Float
     {
         $file = self::rpath($file);
@@ -340,14 +275,14 @@ class Info
         }
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Create Date
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $file
-    // @param string $type
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Get create date
+     * 
+     * @param string $file
+     * @param string $type = 'd.m.Y G:i:s'
+     * 
+     * @return string
+     */
     public static function createDate(String $file, String $type = 'd.m.Y G:i:s') : String
     {
         $file = self::rpath($file);
@@ -362,14 +297,14 @@ class Info
         return date($type, $date);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Change Date
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $file
-    // @param string $type
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Get change date
+     * 
+     * @param string $file
+     * @param string $type = 'd.m.Y G:i:s'
+     * 
+     * @return string
+     */
     public static function changeDate(String $file, String $type = 'd.m.Y G:i:s') : String
     {
         $file = self::rpath($file);
@@ -384,13 +319,13 @@ class Info
         return date($type, $date);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Owner
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $file
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Get file owner
+     * 
+     * @param string $file
+     * 
+     * @return array|int
+     */
     public static function owner(String $file)
     {
         $file = self::rpath($file);
@@ -412,13 +347,13 @@ class Info
         }
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Group
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $file
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Get file group
+     * 
+     * @param string $file
+     * 
+     * @return array|int
+     */
     public static function group(String $file)
     {
         $file = self::rpath($file);
@@ -440,14 +375,14 @@ class Info
         }
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // rowCount()
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  string $file
-    // @param  bool   $recursive
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Gets number of file row
+     * 
+     * @return string $file      = '/'
+     * @param bool    $recursive = true
+     * 
+     * @return int
+     */
     public static function rowCount(String $file = '/', Bool $recursive = true) : Int
     {
         $file = self::rpath($file);
@@ -483,29 +418,23 @@ class Info
         }
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // basePath()
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    // @return string
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Get base path
+     * 
+     * @return string
+     */
     public static function basePath() : String
     {
         return getcwd();
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Exists
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $file
-    //
-    // @param bool
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Exists Folder
+     * 
+     * @param string $file
+     * 
+     * @return bool
+     */
     public static function existsFolder(String $file) : Bool
     {
         $file = self::rpath($file);
@@ -518,13 +447,14 @@ class Info
         return false;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // fileInfo()
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Bir dosya veya dizine ait dosyalar ve dizinler hakkında çeşitli bilgiler almak için kullanılır.
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Used to get various information about a file or directory.
+     * 
+     * @param string $dir
+     * @param string $extension = NULL
+     * 
+     * @return array
+     */
     public static function fileInfo(String $dir, String $extension = NULL) : Array
     {
         $dir = self::rpath($dir);
@@ -560,16 +490,14 @@ class Info
         }
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // disk()
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $dir
-    // @param string $type = 'free'
-    //
-    // @return Float
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Get free disk space
+     * 
+     * @param string $dir 
+     * @param string $type = 'free'
+     * 
+     * @return float
+     */
     public static function disk(String $dir, String $type = 'free') : Float
     {
         $dir = self::rpath($dir);
@@ -589,31 +517,49 @@ class Info
         }
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // totalSpace()
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $dir
-    //
-    // @return Float
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Get total disk space
+     * 
+     * @param string $dir 
+     * 
+     * @return float
+     */
     public static function totalSpace(String $dir) : Float
     {
         return self::disk($dir, 'total');
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // freeSpace()
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $dir
-    //
-    // @return Float
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Get free disk space
+     * 
+     * @param string $dir 
+     * 
+     * @return float
+     */
     public static function freeSpace(String $dir) : Float
     {
         return self::disk($dir, 'free');
+    }
+
+    /**
+     * Protected IS
+     */
+    protected static function _is($type, $file)
+    {
+        $file = self::rpath($file);
+
+        $validType = self::$methods[$type] ?? NULL;
+
+        if( ! function_exists($validType) || $validType === NULL )
+        {
+            throw new UndefinedFunctionException('Error', 'undefinedFunction', Classes::onlyName(get_called_class()).'::'.$type.'()');
+        }
+
+        if( $validType($file) )
+        {
+            return true;
+        }
+
+        return false;
     }
 }

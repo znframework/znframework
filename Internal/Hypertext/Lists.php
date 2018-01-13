@@ -1,4 +1,4 @@
-<?php namespace ZN\ViewObjects\HTML\Helpers;
+<?php namespace ZN\Hypertext;
 /**
  * ZN PHP Web Framework
  * 
@@ -9,11 +9,11 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\ViewObjects\Abstracts\HTMLHelpersAbstract;
+use ZN\Hypertext\HtmlHelpersAbstract;
 use ZN\DataTypes\Arrays;
 use ZN\IS;
 
-class Lists extends HTMLHelpersAbstract
+class Lists extends HtmlHelpersAbstract
 {
     //--------------------------------------------------------------------------------------------------------
     // Create
