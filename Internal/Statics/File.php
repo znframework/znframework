@@ -11,7 +11,7 @@
 
 class File
 {
-    use StaticAbility;
+    use ZN\Abilities\StaticAbility;
 
     const target = 'ZN\Filesystem\File';
 }

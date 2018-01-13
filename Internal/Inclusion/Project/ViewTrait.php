@@ -9,8 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use Import;
-use Collection;
+use ZN\Singleton;
 
 trait ViewTrait
 {
@@ -77,14 +76,17 @@ trait ViewTrait
 
             if( in_array($met = $ex[0], self::$usableMethods) )
             {
-                $pr = Collection::data($parameters)->removeFirst()->addLast(true)->get();
+                $pr = Singleton::class('ZN\DataTypes\Collection')->data($parameters)
+                                                                 ->removeFirst()
+                                                                 ->addLast(true)
+                                                                 ->get();
 
                 if( strstr('page|view|something', $met) && ! is_array($pr[0]) )
                 {
                     array_unshift($pr, NULL);
                 }
 
-                self::$data[$method] = $value = Import::$met($ex[1] ?? NULL, ...$pr);
+                self::$data[$method] = $value = Singleton::class('ZN\Inclusion\Import')->$met($ex[1] ?? NULL, ...$pr);
             }
         }
 

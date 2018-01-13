@@ -11,7 +11,7 @@
 
 class DBTrigger
 {
-    use StaticAbility;
+    use ZN\Abilities\StaticAbility;
 
     const target = 'ZN\Database\DBTrigger';
 }

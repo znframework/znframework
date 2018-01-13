@@ -11,7 +11,7 @@
 
 class Coalesce
 {
-    use StaticAbility;
+    use ZN\Abilities\StaticAbility;
 
     const target = 'ZN\Coalesce';
 }

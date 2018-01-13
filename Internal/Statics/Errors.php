@@ -11,7 +11,7 @@
 
 class Errors
 {
-    use StaticAbility;
+    use ZN\Abilities\StaticAbility;
 
     const target = 'ZN\ErrorHandling\Errors';
 }

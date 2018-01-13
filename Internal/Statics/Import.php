@@ -11,7 +11,7 @@
 
 class Import
 {
-    use StaticAbility;
+    use ZN\Abilities\StaticAbility;
 
     const target = 'ZN\Inclusion\Import';
 }

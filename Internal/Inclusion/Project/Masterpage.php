@@ -1,4 +1,4 @@
-<?php namespace Project\Controllers;
+<?php namespace ZN\Inclusion\Project;
 /**
  * ZN PHP Web Framework
  * 
@@ -8,8 +8,6 @@
  * @license MIT [http://opensource.org/licenses/MIT]
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
-
-use ZN\Inclusion\Project\ViewTrait;
 
 class Masterpage
 {

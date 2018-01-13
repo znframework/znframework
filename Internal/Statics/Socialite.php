@@ -11,7 +11,7 @@
 
 class Socialite
 {
-    use StaticAbility;
+    use ZN\Abilities\StaticAbility;
 
     const target = 'ZN\Authentication\Socialite';
 }

@@ -11,7 +11,7 @@
 
 class DB
 {
-    use StaticAbility;
+    use ZN\Abilities\StaticAbility;
 
     const target = 'ZN\Database\DB';
 }

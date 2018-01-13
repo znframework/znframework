@@ -11,7 +11,7 @@
 
 class Processor
 {
-    use StaticAbility;
+    use ZN\Abilities\StaticAbility;
 
     const target = 'ZN\Prompt\Processor';
 }

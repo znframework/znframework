@@ -11,7 +11,7 @@
 
 class GD
 {
-    use StaticAbility;
+    use ZN\Abilities\StaticAbility;
 
     const target = 'ZN\Image\GD';
 }

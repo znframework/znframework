@@ -11,7 +11,7 @@
 
 class Separator
 {
-    use StaticAbility;
+    use ZN\Abilities\StaticAbility;
 
     const target = 'ZN\Protection\Separator';
 }

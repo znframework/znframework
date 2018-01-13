@@ -11,7 +11,7 @@
 
 class Exceptions
 {
-    use StaticAbility;
+    use ZN\Abilities\StaticAbility;
 
     const target = 'ZN\ErrorHandling\Exceptions';
 }

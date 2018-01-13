@@ -1,0 +1,13 @@
+#loadingDiv{
+  position:fixed;
+  top:0px;
+  right:0px;
+  width:100%;
+  height:100%;
+  background-image:url('ajax-loader.gif');
+  background-repeat:no-repeat;
+  background-position:center;
+  z-index:10000000;
+  opacity: 1;
+  filter: alpha(opacity=40); /* For IE8 and earlier */
+}

@@ -11,7 +11,7 @@
 
 class Tester
 {
-    use StaticAbility;
+    use ZN\Abilities\StaticAbility;
 
     const target = 'ZN\Helpers\Tester';
 }

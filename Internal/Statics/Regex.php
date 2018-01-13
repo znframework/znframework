@@ -11,7 +11,7 @@
 
 class Regex
 {
-    use StaticAbility;
+    use ZN\Abilities\StaticAbility;
 
     const target = 'ZN\Regex';
 }

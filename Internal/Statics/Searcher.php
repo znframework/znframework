@@ -11,7 +11,7 @@
 
 class Searcher
 {
-    use StaticAbility;
+    use ZN\Abilities\StaticAbility;
 
     const target = 'ZN\Helpers\Searcher';
 }

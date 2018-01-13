@@ -11,7 +11,7 @@
 
 class Cart
 {
-    use StaticAbility;
+    use ZN\Abilities\StaticAbility;
 
     const target = 'ZN\Shopping\Cart';
 }

@@ -11,7 +11,7 @@
 
 class Time
 {
-    use StaticAbility;
+    use ZN\Abilities\StaticAbility;
 
     const target = 'ZN\DateTime\Time';
 }

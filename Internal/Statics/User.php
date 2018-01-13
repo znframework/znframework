@@ -11,7 +11,7 @@
 
 class User
 {
-    use StaticAbility;
+    use ZN\Abilities\StaticAbility;
 
     const target = 'ZN\Authentication\User';
 }

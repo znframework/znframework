@@ -11,7 +11,7 @@
 
 class Store
 {
-    use StaticAbility;
+    use ZN\Abilities\StaticAbility;
 
     const target = 'ZN\Protection\Store';
 }

@@ -1,4 +1,4 @@
-<?php namespace Project\Controllers;
+<?php namespace ZN\Inclusion\Project;
 /**
  * ZN PHP Web Framework
  * 
@@ -10,7 +10,6 @@
  */
 
 use ZN\Inclusion;
-use ZN\Inclusion\Project\ViewTrait;
 
 class View
 {

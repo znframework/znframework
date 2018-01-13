@@ -11,7 +11,7 @@
 
 class Collection
 {
-    use StaticAbility;
+    use ZN\Abilities\StaticAbility;
 
     const target = 'ZN\DataTypes\Collection';
 }

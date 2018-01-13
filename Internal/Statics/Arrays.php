@@ -11,7 +11,7 @@
 
 class Arrays
 {
-    use StaticAbility;
+    use ZN\Abilities\StaticAbility;
 
     const target = 'ZN\DataTypes\Arrays';
 }

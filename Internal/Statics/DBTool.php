@@ -11,7 +11,7 @@
 
 class DBTool
 {
-    use StaticAbility;
+    use ZN\Abilities\StaticAbility;
 
     const target = 'ZN\Database\DBTool';
 }

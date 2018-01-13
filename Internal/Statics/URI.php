@@ -11,7 +11,7 @@
 
 class URI
 {
-    use StaticAbility;
+    use ZN\Abilities\StaticAbility;
 
     const target = 'ZN\Request\URI';
 }

@@ -11,7 +11,7 @@
 
 class Captcha
 {
-    use StaticAbility;
+    use ZN\Abilities\StaticAbility;
 
     const target = 'ZN\ViewObjects\Captcha';
 }

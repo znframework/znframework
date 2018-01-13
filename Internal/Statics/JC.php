@@ -11,7 +11,7 @@
 
 class JC
 {
-    use StaticAbility;
+    use ZN\Abilities\StaticAbility;
 
     const target = 'ZN\ViewObjects\JC';
 }

@@ -11,7 +11,7 @@
 
 class Sheet
 {
-    use StaticAbility;
+    use ZN\Abilities\StaticAbility;
 
     const target = 'ZN\ViewObjects\Sheet';
 }

@@ -11,7 +11,7 @@
 
 class Lang
 {
-    use StaticAbility;
+    use ZN\Abilities\StaticAbility;
 
     const target = 'ZN\Language\Lang';
 }

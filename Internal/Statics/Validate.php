@@ -11,7 +11,7 @@
 
 class Validate
 {
-    use StaticAbility;
+    use ZN\Abilities\StaticAbility;
 
     const target = 'ZN\ViewObjects\Validate';
 }

@@ -11,7 +11,7 @@
 
 class SSH
 {
-    use StaticAbility;
+    use ZN\Abilities\StaticAbility;
 
     const target = 'ZN\Remote\SSH';
 }

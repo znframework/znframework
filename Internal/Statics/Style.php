@@ -11,7 +11,7 @@
 
 class Style
 {
-    use StaticAbility;
+    use ZN\Abilities\StaticAbility;
 
     const target = 'ZN\ViewObjects\Style';
 }

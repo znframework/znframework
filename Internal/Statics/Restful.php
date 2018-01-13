@@ -11,7 +11,7 @@
 
 class Restful
 {
-    use StaticAbility;
+    use ZN\Abilities\StaticAbility;
 
     const target = 'ZN\Services\Restful';
 }

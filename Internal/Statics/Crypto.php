@@ -11,7 +11,7 @@
 
 class Crypto
 {
-    use StaticAbility;
+    use ZN\Abilities\StaticAbility;
 
     const target = 'ZN\Cryptography\Crypto';
 }

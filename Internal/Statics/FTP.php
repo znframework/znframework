@@ -11,7 +11,7 @@
 
 class Upload
 {
-    use StaticAbility;
+    use ZN\Abilities\StaticAbility;
 
     const target = 'ZN\Filesystem\Upload';
 }

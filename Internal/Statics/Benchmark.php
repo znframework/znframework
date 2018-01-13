@@ -11,7 +11,7 @@
 
 class Benchmark
 {
-    use StaticAbility;
+    use ZN\Abilities\StaticAbility;
 
     const target = 'ZN\Comparison\Benchmark';
 }
