@@ -13,5 +13,5 @@ class Captcha
 {
     use ZN\Abilities\StaticAbility;
 
-    const target = 'ZN\ViewObjects\Captcha';
+    const target = 'ZN\Captcha\Render';
 }

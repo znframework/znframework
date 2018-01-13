@@ -138,5 +138,5 @@ interface RenderInterface
      * 
      * @return string
      */
-    public static function getCode() : String;
+    public function getCode() : String;
 }

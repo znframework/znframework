@@ -391,7 +391,7 @@ class Data implements DataInterface
     {
         if( in_array('captcha', $this->config) )
         {
-            if( $this->edit !== Captcha\Render::getCode() )
+            if( $this->edit !== Singleton::class('ZN\Captcha\Render')->getCode() )
             {
                 $this->_messages('captchaCode', $this->name, $this->viewName);
             }
