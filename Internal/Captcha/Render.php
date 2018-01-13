@@ -15,6 +15,7 @@ use ZN\Cryptography\Encode;
 use ZN\Filesystem;
 use ZN\Image;
 use ZN\Singleton;
+use ZN\Config;
 
 class Render implements RenderInterface
 {
@@ -55,7 +56,7 @@ class Render implements RenderInterface
      * 
      * @return Captcha
      */
-    public function size(Int $width, Int $height) : Captcha
+    public function size(Int $width, Int $height) : Render
     {
         $this->sets['size']['width']  = $width;
         $this->sets['size']['height'] = $height;
@@ -70,7 +71,7 @@ class Render implements RenderInterface
      * 
      * @return Captcha
      */
-    public function length(Int $param) : Captcha
+    public function length(Int $param) : Render
     {
         $this->sets['text']['length'] = $param;
 
@@ -84,7 +85,7 @@ class Render implements RenderInterface
      * 
      * @return Captcha
      */
-    public function angle(Float $param) : Captcha
+    public function angle(Float $param) : Render
     {
         $this->sets['text']['angle'] = $param;
 
@@ -98,7 +99,7 @@ class Render implements RenderInterface
      * 
      * @return Captcha
      */
-    public function ttf(Array $fonts) : Captcha
+    public function ttf(Array $fonts) : Render
     {
         $this->sets['text']['ttf'] = $fonts;
 
@@ -112,7 +113,7 @@ class Render implements RenderInterface
      * 
      * @return Captcha
      */
-    public function borderColor(String $color = NULL) : Captcha
+    public function borderColor(String $color = NULL) : Render
     {
         $this->sets['border']['status'] = true;
 
@@ -131,7 +132,7 @@ class Render implements RenderInterface
      * 
      * @return Captcha
      */
-    public function bgColor(String $color) : Captcha
+    public function bgColor(String $color) : Render
     {
         $this->sets['background']['color'] = $this->convertColor($color);
 
@@ -145,7 +146,7 @@ class Render implements RenderInterface
      * 
      * @return Captcha
      */
-    public function bgImage(Array $image) : Captcha
+    public function bgImage(Array $image) : Render
     {
         $this->sets['background']['image'] = $image;
 
@@ -159,7 +160,7 @@ class Render implements RenderInterface
      * 
      * @return Captcha
      */
-    public function textSize(Int $size) : Captcha
+    public function textSize(Int $size) : Render
     {
         $this->sets['text']['size'] = $size;
 
@@ -174,7 +175,7 @@ class Render implements RenderInterface
      * 
      * @return Captcha
      */
-    public function textCoordinate(Int $x = 0, Int $y = 0) : Captcha
+    public function textCoordinate(Int $x = 0, Int $y = 0) : Render
     {
         $this->sets['text']['x'] = $x;
         $this->sets['text']['y'] = $y;
@@ -189,7 +190,7 @@ class Render implements RenderInterface
      * 
      * @return Captcha
      */
-    public function textColor(String $color) : Captcha
+    public function textColor(String $color) : Render
     {
         $this->sets['text']['color'] = $this->convertColor($color);
 
@@ -203,7 +204,7 @@ class Render implements RenderInterface
      * 
      * @return Captcha
      */
-    public function gridColor(String $color = NULL) : Captcha
+    public function gridColor(String $color = NULL) : Render
     {
         $this->sets['grid']['status'] = true;
 
@@ -223,7 +224,7 @@ class Render implements RenderInterface
      * 
      * @return Captcha
      */
-    public function gridSpace(Int $x = 0, Int $y = 0) : Captcha
+    public function gridSpace(Int $x = 0, Int $y = 0) : Render
     {
         if( ! empty($x) )
         {
@@ -255,6 +256,9 @@ class Render implements RenderInterface
             # Create Directory
             $this->directory();
 
+            # Create Color
+            $this->color($file);
+
             # Background Image
             $this->background($file);
 
@@ -282,6 +286,19 @@ class Render implements RenderInterface
     public function getCode() : String
     {
         return $this->session->select($this->key);
+    }
+
+    /**
+     * Protected Color
+     */
+    protected function color(& $file = NULL)
+    {
+        $sizeset = $this->sets['size'];
+
+        $this->sizeWidthC  = $sizeset['width']  ?? 100;
+        $this->sizeHeightC = $sizeset['height'] ?? 30;  
+
+        $file = imagecreatetruecolor($this->sizeWidthC, $this->sizeHeightC);
     }
 
     /**
@@ -338,14 +355,8 @@ class Render implements RenderInterface
     protected function border(& $file)
     {
         $borderset = $this->sets['border'];
-        $sizeset   = $this->sets['size'];
 
         $borderStatusC = $borderset['status'] ?? true;
-
-        $sizeWidthC  = $sizeset['width']  ?? 100;
-        $sizeHeightC = $sizeset['height'] ?? 30;   
-
-        $file = imagecreatetruecolor($sizeWidthC, $sizeHeightC);
 
         if( $borderStatusC === true )
         {
@@ -353,16 +364,16 @@ class Render implements RenderInterface
             $borderColor  = imagecolorallocate($file, ...explode('|', $bordercolorC));
 
             # Top
-            imageline($file, 0, 0, $sizeWidthC, 0, $borderColor); 
+            imageline($file, 0, 0, $this->sizeWidthC, 0, $borderColor); 
 
             # Right
-            imageline($file, $sizeWidthC - 1, 0, $sizeWidthC - 1, $sizeHeightC, $borderColor); 
+            imageline($file, $this->sizeWidthC - 1, 0, $this->sizeWidthC - 1, $this->sizeHeightC, $borderColor); 
 
             # Bottom
-            imageline($file, 0, $sizeHeightC - 1, $sizeWidthC, $sizeHeightC - 1, $borderColor); 
+            imageline($file, 0, $this->sizeHeightC - 1, $this->sizeWidthC, $this->sizeHeightC - 1, $borderColor); 
 
             # Left
-            imageline($file, 0, 0, 0, $sizeHeightC - 1, $borderColor); 
+            imageline($file, 0, 0, 0, $this->sizeHeightC - 1, $borderColor); 
         }
     }
 
@@ -380,28 +391,28 @@ class Render implements RenderInterface
             $gridSpaceYC = $gridset['spaceY'] ?? 4;
             $gridColorC  = $gridset['color']  ?? '240|240|240';
 
-            $gridIntervalX  = $sizeWidthC / $gridSpaceXC;
+            $gridIntervalX  = $this->sizeWidthC / $gridSpaceXC;
 
             if( ! isset($gridSpaceYC))
             {
-                $gridIntervalY  = (($sizeHeightC / $gridSpaceXC) * $gridIntervalX / 2);
+                $gridIntervalY  = (($this->sizeHeightC / $gridSpaceXC) * $gridIntervalX / 2);
 
             } 
             else 
             {
-                $gridIntervalY  = $sizeHeightC / $gridSpaceYC;
+                $gridIntervalY  = $this->sizeHeightC / $gridSpaceYC;
             }
 
             $gridColor  = imagecolorallocate($file, ...explode('|', $gridColorC));
 
-            for( $x = 0 ; $x <= $sizeWidthC ; $x += $gridIntervalX )
+            for( $x = 0 ; $x <= $this->sizeWidthC ; $x += $gridIntervalX )
             {
-                imageline($file, $x, 0, $x, $sizeHeightC - 1, $gridColor);
+                imageline($file, $x, 0, $x, $this->sizeHeightC - 1, $gridColor);
             }
 
-            for( $y = 0 ; $y <= $sizeWidthC ; $y += $gridIntervalY )
+            for( $y = 0 ; $y <= $this->sizeWidthC; $y += $gridIntervalY )
             {
-                imageline($file, 0, $y, $sizeWidthC, $y, $gridColor);
+                imageline($file, 0, $y, $this->sizeWidthC, $y, $gridColor);
             }
         }
     }
@@ -457,7 +468,6 @@ class Render implements RenderInterface
 
         $backgroundImageC = $bgset['image'] ?? [];
         
-
         if( ! empty($backgroundImageC) )
         {
             if( is_array($backgroundImageC) )

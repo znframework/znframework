@@ -64,7 +64,7 @@ interface DataInterface
      * 
      * @return Validation
      */
-    public function between(Float $min = NULL, Float $max = NULL) : Validation;
+    public function between(Float $min = NULL, Float $max = NULL) : Data;
 
     /**
      * Checks whether the grant is between the specified values.
@@ -74,7 +74,7 @@ interface DataInterface
      * 
      * @return Validation
      */
-    public function betweenBoth(Float $min = NULL, Float $max = NULL) : Validation;
+    public function betweenBoth(Float $min = NULL, Float $max = NULL) : Data;
 
     /**
      * Select method
@@ -83,7 +83,7 @@ interface DataInterface
      * 
      * @return Validation
      */
-    public function method(String $method) : Validation;
+    public function method(String $method) : Data;
 
     /**
      * Specifies a value.
@@ -92,7 +92,7 @@ interface DataInterface
      * 
      * @return Validation
      */
-    public function value(String $value) : Validation;
+    public function value(String $value) : Data;
 
     /**
      * Data can not be empty.
@@ -101,7 +101,7 @@ interface DataInterface
      * 
      * @return Validation
      */
-    public function required() : Validation;
+    public function required() : Data;
 
     /**
      * The data should be numeric.
@@ -110,7 +110,7 @@ interface DataInterface
      * 
      * @return Validation
      */
-    public function numeric() : Validation;
+    public function numeric() : Data;
 
     /**
      * Matches the data.
@@ -119,7 +119,7 @@ interface DataInterface
      * 
      * @return Validation
      */
-    public function match(String $match) : Validation;
+    public function match(String $match) : Data;
 
     /**
      * Matches the password.
@@ -128,7 +128,7 @@ interface DataInterface
      * 
      * @return Validation
      */
-    public function matchPassword(String $match) : Validation;
+    public function matchPassword(String $match) : Data;
 
     /**
      * Specifies the old password information.
@@ -137,7 +137,7 @@ interface DataInterface
      * 
      * @return Validation
      */
-    public function oldPassword(String $oldPassword) : Validation;
+    public function oldPassword(String $oldPassword) : Data;
 
     /**
      * The data can not be outside the specified values.
@@ -147,7 +147,7 @@ interface DataInterface
      * 
      * @return Validation
      */
-    public function compare(Int $min = NULL, Int $max = NULL) : Validation;
+    public function compare(Int $min = NULL, Int $max = NULL) : Data;
 
     /**
      * Specifies data control arguments.
@@ -160,7 +160,7 @@ interface DataInterface
      * 
      * @return Validation
      */
-    public function validate(...$args) : Validation;
+    public function validate(...$args) : Data;
 
     /**
      * Specifies data security arguments.
@@ -173,7 +173,7 @@ interface DataInterface
      * 
      * @return Validation
      */
-    public function secure(...$args) : Validation;
+    public function secure(...$args) : Data;
 
     /**
      * Specifies the data pattern to check.
@@ -183,7 +183,7 @@ interface DataInterface
      * 
      * @return Validation
      */
-    public function pattern(String $pattern, String $char = NULL) : Validation;
+    public function pattern(String $pattern, String $char = NULL) : Data;
 
     /**
      * Checks whether the donation has phone information.
@@ -192,7 +192,7 @@ interface DataInterface
      * 
      * @return Validation
      */
-    public function phone(String $design = NULL) : Validation;
+    public function phone(String $design = NULL) : Data;
 
     /**
      * Checks whether the verb is alphabetic.
@@ -201,7 +201,7 @@ interface DataInterface
      * 
      * @return Validation
      */
-    public function alpha() : Validation;
+    public function alpha() : Data;
 
     /**
      * Controls whether the verb is alphanumeric.
@@ -210,7 +210,7 @@ interface DataInterface
      * 
      * @return Validation
      */
-    public function alnum() : Validation;
+    public function alnum() : Data;
 
     /**
      * Checks whether the captcha is present.
@@ -219,5 +219,5 @@ interface DataInterface
      * 
      * @return Validation
      */
-    public function captcha() : Validation;
+    public function captcha() : Data;
 }

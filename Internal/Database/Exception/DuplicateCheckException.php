@@ -9,7 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use GeneralException;
+use ZN\ErrorHandling\GeneralException;
 
 class DuplicateCheckException extends GeneralException
 {

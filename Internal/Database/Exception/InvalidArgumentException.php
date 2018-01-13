@@ -9,7 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-class InvalidArgumentException extends \GeneralException
+use ZN\ErrorHandling\GeneralException;
+
+class InvalidArgumentException extends GeneralException
 {
     
 }

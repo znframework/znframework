@@ -27,7 +27,7 @@ trait RulesPropertiesTrait
     // @param string $method
     //
     //--------------------------------------------------------------------------------------------------------
-    public function method(String $method) : Validation
+    public function method(String $method) : Data
     {
         $this->settings['method'] = $method;
 
@@ -41,7 +41,7 @@ trait RulesPropertiesTrait
     // @param string $value
     //
     //--------------------------------------------------------------------------------------------------------
-    public function value(String $value) : Validation
+    public function value(String $value) : Data
     {
         $this->settings['value'] = $value;
 
@@ -55,7 +55,7 @@ trait RulesPropertiesTrait
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function required() : Validation
+    public function required() : Data
     {
         $this->settings['config'][] = 'required';
 
@@ -69,7 +69,7 @@ trait RulesPropertiesTrait
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function numeric() : Validation
+    public function numeric() : Data
     {
         $this->settings['config'][] = 'numeric';
 
@@ -83,7 +83,7 @@ trait RulesPropertiesTrait
     // @param string $match
     //
     //--------------------------------------------------------------------------------------------------------
-    public function match(String $match) : Validation
+    public function match(String $match) : Data
     {
         $this->settings['config']['match'] = $match;
 
@@ -97,7 +97,7 @@ trait RulesPropertiesTrait
     // @param string $match
     //
     //--------------------------------------------------------------------------------------------------------
-    public function matchPassword(String $match) : Validation
+    public function matchPassword(String $match) : Data
     {
         $this->settings['config']['matchPassword'] = $match;
 
@@ -111,7 +111,7 @@ trait RulesPropertiesTrait
     // @param string $oldPassword
     //
     //--------------------------------------------------------------------------------------------------------
-    public function oldPassword(String $oldPassword) : Validation
+    public function oldPassword(String $oldPassword) : Data
     {
         $this->settings['config']['oldPassword'] = $oldPassword;
 
@@ -126,7 +126,7 @@ trait RulesPropertiesTrait
     // @param numeric $max
     //
     //--------------------------------------------------------------------------------------------------------
-    public function compare(Int $min = NULL, Int $max = NULL) : Validation
+    public function compare(Int $min = NULL, Int $max = NULL) : Data
     {
         $this->settings['config']['minchar'] = $min;
         $this->settings['config']['maxchar'] = $max;
@@ -142,7 +142,7 @@ trait RulesPropertiesTrait
     // @param numeric $max
     //
     //--------------------------------------------------------------------------------------------------------
-    public function between(Float $min = NULL, Float $max = NULL) : Validation
+    public function between(Float $min = NULL, Float $max = NULL) : Data
     {
         $this->settings['config']['between'] = [$min, $max];
 
@@ -157,7 +157,7 @@ trait RulesPropertiesTrait
     // @param numeric $max
     //
     //--------------------------------------------------------------------------------------------------------
-    public function betweenBoth(Float $min = NULL, Float $max = NULL) : Validation
+    public function betweenBoth(Float $min = NULL, Float $max = NULL) : Data
     {
         $this->settings['config']['betweenBoth'] = [$min, $max];
 
@@ -171,7 +171,7 @@ trait RulesPropertiesTrait
     // @param args
     //
     //--------------------------------------------------------------------------------------------------------
-    public function validate(...$args) : Validation
+    public function validate(...$args) : Data
     {
         $this->settings['validate'] = $args;
 
@@ -185,7 +185,7 @@ trait RulesPropertiesTrait
     // @param args
     //
     //--------------------------------------------------------------------------------------------------------
-    public function secure(...$args) : Validation
+    public function secure(...$args) : Data
     {
         $this->settings['secure'] = $args;
 
@@ -200,7 +200,7 @@ trait RulesPropertiesTrait
     // @param string $char
     //
     //--------------------------------------------------------------------------------------------------------
-    public function pattern(String $pattern, String $char = NULL) : Validation
+    public function pattern(String $pattern, String $char = NULL) : Data
     {
         $this->settings['config']['pattern'] = presuffix($pattern).$char;
 
@@ -214,7 +214,7 @@ trait RulesPropertiesTrait
     // @param string $design
     //
     //--------------------------------------------------------------------------------------------------------
-    public function phone(String $design = NULL) : Validation
+    public function phone(String $design = NULL) : Data
     {
         if( empty($design) )
         {
@@ -235,7 +235,7 @@ trait RulesPropertiesTrait
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function alpha() : Validation
+    public function alpha() : Data
     {
         $this->settings['config'][] = 'alpha';
 
@@ -249,7 +249,7 @@ trait RulesPropertiesTrait
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function alnum() : Validation
+    public function alnum() : Data
     {
         $this->settings['config'][] = 'alnum';
 
@@ -263,7 +263,7 @@ trait RulesPropertiesTrait
     // @param void
     //
     //--------------------------------------------------------------------------------------------------------
-    public function captcha() : Validation
+    public function captcha() : Data
     {
         $this->settings['config'][] = 'captcha';
 

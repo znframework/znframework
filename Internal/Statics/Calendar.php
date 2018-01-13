@@ -13,5 +13,5 @@ class Calendar
 {
     use ZN\Abilities\StaticAbility;
 
-    const target = 'ZN\ViewObjects\Calendar';
+    const target = 'ZN\Calendar\Render';
 }

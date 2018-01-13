@@ -19,7 +19,7 @@ interface RenderInterface
      * 
      * @return Captcha
      */
-    public function size(Int $width, Int $height) : Captcha;
+    public function size(Int $width, Int $height) : Render;
 
     /**
      * Sets the character width.
@@ -28,7 +28,7 @@ interface RenderInterface
      * 
      * @return Captcha
      */
-    public function length(Int $param) : Captcha;
+    public function length(Int $param) : Render;
 
     /**
      * Sets the character angle.
@@ -37,7 +37,7 @@ interface RenderInterface
      * 
      * @return Captcha
      */
-    public function angle(Float $param) : Captcha;
+    public function angle(Float $param) : Render;
 
     /**
      * Add ttf fonts.
@@ -46,7 +46,7 @@ interface RenderInterface
      * 
      * @return Captcha
      */
-    public function ttf(Array $fonts) : Captcha;
+    public function ttf(Array $fonts) : Render;
 
     /**
      * Sets the border color.
@@ -55,7 +55,7 @@ interface RenderInterface
      * 
      * @return Captcha
      */
-    public function borderColor(String $color = NULL) : Captcha;
+    public function borderColor(String $color = NULL) : Render;
 
     /**
      * Sets the background color.
@@ -64,7 +64,7 @@ interface RenderInterface
      * 
      * @return Captcha
      */
-    public function bgColor(String $color) : Captcha;
+    public function bgColor(String $color) : Render;
 
     /**
      * Add background pictures.
@@ -73,7 +73,7 @@ interface RenderInterface
      * 
      * @return Captcha
      */
-    public function bgImage(Array $image) : Captcha;
+    public function bgImage(Array $image) : Render;
 
     /**
      * Sets the text size.
@@ -82,7 +82,7 @@ interface RenderInterface
      * 
      * @return Captcha
      */
-    public function textSize(Int $size) : Captcha;
+    public function textSize(Int $size) : Render;
 
     /**
      * Sets the text coordiante.
@@ -92,7 +92,7 @@ interface RenderInterface
      * 
      * @return Captcha
      */
-    public function textCoordinate(Int $x, Int $y) : Captcha;
+    public function textCoordinate(Int $x, Int $y) : Render;
 
     /**
      * Sets the text color.
@@ -101,7 +101,7 @@ interface RenderInterface
      * 
      * @return Captcha
      */
-    public function textColor(String $color) : Captcha;
+    public function textColor(String $color) : Render;
 
     /**
      * Sets the grid color.
@@ -110,7 +110,7 @@ interface RenderInterface
      * 
      * @return Captcha
      */
-    public function gridColor(String $color = NULL) : Captcha;
+    public function gridColor(String $color = NULL) : Render;
 
     /**
      * Sets the grid space.
@@ -120,7 +120,7 @@ interface RenderInterface
      * 
      * @return Captcha
      */
-    public function gridSpace(Int $x = 0, Int $y = 0) : Captcha;
+    public function gridSpace(Int $x = 0, Int $y = 0) : Render;
 
     /**
      * Completes the captcha creation process.

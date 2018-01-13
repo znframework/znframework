@@ -9,13 +9,18 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
+use ZN\Config;
 use ZN\Kernel;
-use ZN\Request\URI;
-use ZN\Filesystem;
-use ZN\Helpers\Converter;
-use ZN\Protection\Separator;
-use ZN\Language\Lang;
 use ZN\Buffering;
+use ZN\Filesystem;
+use ZN\Request\URI;
+use ZN\Storage\Cache;
+use ZN\Language\Lang;
+use ZN\Response\Route;
+use ZN\Services\Restful;
+use ZN\Helpers\Converter;
+use ZN\Authentication\IP;
+use ZN\Protection\Separator;
 use ZN\ErrorHandling\Exceptions;
 
 class ZN
@@ -100,14 +105,14 @@ class ZN
      */
     public static function run()
     {
-        \Route::filter();
+        (new Route)->filter();
 
-        $projectConfig = \Config::get('Project', 'cache');
+        $projectConfig = Config::get('Project', 'cache');
 
         if
         (
             ($projectConfig['status'] ?? NULL) === true                                                         &&
-            ( ! in_array(\User::ip(), ($projectConfig['machinesIP'] ?? [])) )                                   &&
+            ( ! in_array(IP::v4(), ($projectConfig['machinesIP'] ?? [])) )                                      &&
             ( empty($projectConfig['include']) || in_array(CURRENT_CFPATH, ($projectConfig['include'] ?? [])) ) &&
             ( empty($projectConfig['exclude']) || ! in_array(CURRENT_CFPATH, ($projectConfig['exclude'] ?? [])) )
         )
@@ -116,16 +121,18 @@ class ZN
 
             $cacheName = ($projectConfig['prefix'] ?? Lang::get()) . '-' . $converterName;
 
-            \Cache::driver($projectConfig['driver']);
+            $cache = new Cache;
 
-            if( ! $select = \Cache::select($cacheName, $projectConfig['compress']) )
+            $cache->driver($projectConfig['driver']);
+
+            if( ! $select = $cache->select($cacheName, $projectConfig['compress']) )
             {
                 $kernel = Buffering\Callback::do(function()
                 {
                     Kernel::run();
                 });
 
-                \Cache::insert($cacheName, $kernel, $projectConfig['time'], $projectConfig['compress']);
+                $cache->insert($cacheName, $kernel, $projectConfig['time'], $projectConfig['compress']);
 
                 echo $kernel;
             }
@@ -172,7 +179,7 @@ class ZN
      */
     protected static function _restful()
     {
-        $return = \Restful::post('https://api.znframework.com/statistics/upgrade', ['version' => ZN_VERSION]);
+        $return = (new Restful)->post('https://api.znframework.com/statistics/upgrade', ['version' => ZN_VERSION]);
 
         return Separator::decodeArray($return);
     }

@@ -13,5 +13,5 @@ class Pagination
 {
     use ZN\Abilities\StaticAbility;
 
-    const target = 'ZN\ViewObjects\Pagination';
+    const target = 'ZN\Pagination\Paginator';
 }
