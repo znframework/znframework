@@ -1,4 +1,4 @@
-<?php namespace ZN\Filesystem;
+<?php namespace ZN\Generator;
 /**
  * ZN PHP Web Framework
  * 
@@ -11,6 +11,15 @@
 
 interface GenerateInterface
 {
+    /**
+     * Select project name
+     * 
+     * @param string $name
+     * 
+     * @return bool
+     */
+    public function project(String $name) : Bool;
+
     /**
      * Process databases
      */

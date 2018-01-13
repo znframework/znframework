@@ -13,5 +13,5 @@ class Generate
 {
     use ZN\Abilities\StaticAbility;
 
-    const target = 'ZN\Filesystem\Generate';
+    const target = 'ZN\Generator\Generate';
 }

@@ -16,16 +16,6 @@ use ZN\Filesystem\Exception\FolderNotFoundException;
 class Forge
 {
     /**
-     * Generate Class
-     * 
-     * @return Generate
-     */
-    public static function generate() : Generate
-    {
-        return new Generate;
-    }
-
-    /**
      * Creates a file.
      * 
      * @param string $name
