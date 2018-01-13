@@ -1,6 +1,6 @@
-<?php namespace ZN\ViewObjects;
+<?php namespace ZN\Validation;
 
-trait ValidationPropertiesTrait
+trait RulesPropertiesTrait
 {
     //--------------------------------------------------------------------------------------------------------
     //

@@ -13,5 +13,5 @@ class Validator
 {
     use ZN\Abilities\StaticAbility;
 
-    const target = 'ZN\ViewObjects\Validator';
+    const target = 'ZN\Validation\Validator';
 }

@@ -51,7 +51,6 @@
     'validation:minchar'                => '% alanı en az # karakterden oluşmalıdır!',
     'validation:captchaCode'            => 'Güvenlik kodu hatalı!',
     'validation:pattern'                => '% verisi ile desen uyumsuz!',
-    'validation:invalidMethodParameter' => '% parametre [post, get, request veya data] seçeneklerinden birini içerebilir!',
     'validation:between'                => '% alanı [#] - [$] değerleri arasında olmalıdır!',
     'validation:betweenBoth'            => '% alanı [#] - [$] değerleri veya arasında olmalıdır!'
 ];

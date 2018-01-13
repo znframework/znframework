@@ -1,4 +1,4 @@
-<?php namespace ZN\ViewObjects;
+<?php namespace ZN\Captcha;
 /**
  * ZN PHP Web Framework
  * 
@@ -9,7 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-interface CaptchaInterface
+interface RenderInterface
 {
     /**
      * Adjust the size of the captcha.
@@ -125,12 +125,11 @@ interface CaptchaInterface
     /**
      * Completes the captcha creation process.
      * 
-     * @param bool  $img     = false
-     * @param array $configs = []
+     * @param bool $img = false
      * 
      * @return string
      */
-    public function create(Bool $img = false, Array $configs = []) : String;
+    public function create(Bool $img = false) : String;
 
     /**
      * Returns the current captcha code.

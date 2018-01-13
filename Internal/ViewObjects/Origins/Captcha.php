@@ -401,7 +401,7 @@ class Captcha implements CaptchaInterface
      * 
      * @return string
      */
-    public function getCode() : String
+    public static function getCode() : String
     {
         return \Session::select(md5('SystemCaptchaCodeData'));
     }

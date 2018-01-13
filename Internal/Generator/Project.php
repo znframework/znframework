@@ -26,7 +26,7 @@ class Project
     {
         Post::project($name);
 
-        $validation = Singleton::class('ZN\ViewObjects\Validation');
+        $validation = Singleton::class('ZN\Validation\Data');
 
         $validation->rules('project', ['alpha'], 'Project Name');
 

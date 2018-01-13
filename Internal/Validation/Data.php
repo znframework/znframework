@@ -1,4 +1,4 @@
-<?php namespace ZN\ViewObjects;
+<?php namespace ZN\Validation;
 /**
  * ZN PHP Web Framework
  * 
@@ -9,16 +9,18 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
+use ZN\Captcha;
+use ZN\Security;
+use ZN\Singleton;
+use ZN\Language\Lang;
 use ZN\Request\Method;
-use ZN\ViewObjects\Exception\InvalidArgumentException;
 use ZN\DataTypes\Arrays;
 use ZN\Cryptography\Encode;
-use ZN\Language\Lang;
-use ZN\Security;
+use ZN\Validation\Exception\InvalidArgumentException;
 
-class Validation implements ValidationInterface
+class Data implements DataInterface
 {
-    use ValidationPropertiesTrait;
+    use RulesPropertiesTrait;
 
     /**
      * Keeps options.
@@ -84,7 +86,7 @@ class Validation implements ValidationInterface
     public function rules(String $name, Array $config = [], $viewName = '', String $met = 'post')
     {
         if( ! in_array($met, $this->options) )
-            throw new InvalidArgumentException('ViewObjects', 'validation:invalidMethodParameter', '4. ');
+            throw new InvalidArgumentException(NULL, '4. ');
 
         if( is_array($this->_methodType($name, $met)) )
             return $this->_multipleRules($name, $config, $viewName, $met);
@@ -166,19 +168,21 @@ class Validation implements ValidationInterface
      */
     public function check(String $submit = NULL) : Bool
     {
-        $method = \Session::FormValidationMethod() ?: 'post';
+        $session = Singleton::class('ZN\Storage\Session');
+
+        $method = $session->FormValidationMethod() ?: 'post';
 
         if( $submit !== NULL && ! $method::$submit() ) 
         {
             return false;
         }
         
-        $rules = \Session::FormValidationRules();
+        $rules = $session->FormValidationRules();
 
         if( is_array($rules) )
         {
-            \Session::delete('FormValidationRules');
-            \Session::delete('FormValidationMethod');
+            $session->delete('FormValidationRules');
+            $session->delete('FormValidationMethod');
 
             foreach( $rules as $name => $rule )
             {
@@ -387,7 +391,7 @@ class Validation implements ValidationInterface
     {
         if( in_array('captcha', $this->config) )
         {
-            if( $this->edit !== \Captcha::getCode() )
+            if( $this->edit !== Captcha\Render::getCode() )
             {
                 $this->_messages('captchaCode', $this->name, $this->viewName);
             }

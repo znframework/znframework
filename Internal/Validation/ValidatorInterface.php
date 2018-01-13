@@ -1,4 +1,4 @@
-<?php namespace ZN\ViewObjects;
+<?php namespace ZN\Validation;
 /**
  * ZN PHP Web Framework
  * 
