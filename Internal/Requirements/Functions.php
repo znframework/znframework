@@ -390,13 +390,13 @@ function uselib(String $class, Array $parameters = [])
 {
     if( ! class_exists($class) )
     {
-        $classInfo = Autoloader::getClassFileInfo($class);
+        $classInfo = ZN\Autoloader::getClassFileInfo($class);
     
         $class = $classInfo['namespace'];
 
         if( ! class_exists($class) )
         {
-            throw new GeneralException('Error', 'classError', $class);
+            throw new ZN\ErrorHandling\GeneralException('Error', 'classError', $class);
         }
     }
 
