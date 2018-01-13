@@ -1,4 +1,4 @@
-<?php namespace ZN\Components\FlexSlider;
+<?php namespace ZN\JavascriptComponents\Datatables;
 /**
  * ZN PHP Web Framework
  * 
@@ -9,7 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\Components\ComponentsExtends;
+use ZN\JavascriptComponents\ComponentsExtends;
 
 class Build extends ComponentsExtends
 {
@@ -17,19 +17,25 @@ class Build extends ComponentsExtends
     // Generate
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string   $id   = 'datepicker'
-    // @param callable $flexsliders
+    // @param mixed    $result
+    // @param callable $datatable = NULL
     //
     //--------------------------------------------------------------------------------------------------------
-    public function generate(String $id = 'flexslider', Callable $flexsliders) : String
+    public function generate($result, Callable $datatable = NULL) : String
     {
-        $flexsliders($this);
+        if( $datatable !== NULL )
+        {
+            $datatable($this);
+        }
 
         return $this->prop
         ([
-            'id'     => $id,
-            'path'   => $this->path ? suffix($this->path) : NULL,
-            'images' => $this->images ?? NULL
+            'result'  => $result,
+            'width'   => $this->width   ?? '100%',
+            'id'      => $this->id      ?? 'datatable',
+            'class'   => $this->class   ?? 'table-striped table-bordered table-hover',
+            'process' => $this->process ?? NULL,
+            'length'  => $this->length  ?? 100
         ]);
     }
 }

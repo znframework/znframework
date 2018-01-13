@@ -1,6 +1,6 @@
 <?php namespace Project\Controllers;
 
-use ZN\Components\AceEditor;
+use ZN\JavascriptComponents\AceEditor;
 
 class Home extends Controller
 {

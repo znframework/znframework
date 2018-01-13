@@ -1,4 +1,4 @@
-<?php namespace ZN\Components\Select2;
+<?php namespace ZN\JavascriptComponents\FlexSlider;
 /**
  * ZN PHP Web Framework
  * 
@@ -9,7 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\Components\ComponentsExtends;
+use ZN\JavascriptComponents\ComponentsExtends;
 
 class Build extends ComponentsExtends
 {
@@ -17,24 +17,19 @@ class Build extends ComponentsExtends
     // Generate
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string   $id   = 'select2'
-    // @param callable $select2
+    // @param string   $id   = 'datepicker'
+    // @param callable $flexsliders
     //
     //--------------------------------------------------------------------------------------------------------
-    public function generate(String $id = 'select2', Callable $select2) : String
+    public function generate(String $id = 'flexslider', Callable $flexsliders) : String
     {
-        $select2($this);
+        $flexsliders($this);
 
         return $this->prop
         ([
-            'id'       => $id,
-            'multiple' => $this->multiple ?? NULL,
-            'table'    => $this->table    ?? NULL,
-            'query'    => $this->query    ?? NULL,
-            'class'    => $this->class    ?? NULL,
-            'name'     => $this->name     ?? $id,
-            'data'     => $this->data     ?? [],
-            'selected' => $this->selected ?? 0
+            'id'     => $id,
+            'path'   => $this->path ? suffix($this->path) : NULL,
+            'images' => $this->images ?? NULL
         ]);
     }
 }

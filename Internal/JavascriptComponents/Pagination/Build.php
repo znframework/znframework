@@ -1,4 +1,4 @@
-<?php namespace ZN\Components\Datatables;
+<?php namespace ZN\JavascriptComponents\Pagination;
 /**
  * ZN PHP Web Framework
  * 
@@ -9,33 +9,33 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\Components\ComponentsExtends;
+use Config;
+use ZN\JavascriptComponents\ComponentsExtends;
 
 class Build extends ComponentsExtends
 {
+    protected $index = 0;
+
     //--------------------------------------------------------------------------------------------------------
     // Generate
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param mixed    $result
-    // @param callable $datatable = NULL
+    // @param mixed    $get
+    // @param callable $paginations = NULL
     //
     //--------------------------------------------------------------------------------------------------------
-    public function generate($result, Callable $datatable = NULL) : String
+    public function generate($get, Callable $paginations = NULL) : String
     {
-        if( $datatable !== NULL )
+        if( $paginations !== NULL )
         {
-            $datatable($this);
+            $paginations($this);
         }
 
         return $this->prop
         ([
-            'result'  => $result,
-            'width'   => $this->width   ?? '100%',
-            'id'      => $this->id      ?? 'datatable',
-            'class'   => $this->class   ?? 'table-striped table-bordered table-hover',
-            'process' => $this->process ?? NULL,
-            'length'  => $this->length  ?? 100
+            'get'   => $get,
+            'index' => $this->index++,
+            'type'  => $this->type ?? Config::get('ViewObjects', 'pagination')['type']
         ]);
     }
 }

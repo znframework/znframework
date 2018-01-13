@@ -1,4 +1,4 @@
-<?php namespace ZN\Components\Pagination;
+<?php namespace ZN\JavascriptComponents\AceEditor;
 /**
  * ZN PHP Web Framework
  * 
@@ -9,33 +9,26 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use Config;
-use ZN\Components\ComponentsExtends;
+use ZN\JavascriptComponents\ComponentsExtends;
 
 class Build extends ComponentsExtends
 {
-    protected $index = 0;
-
     //--------------------------------------------------------------------------------------------------------
     // Generate
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param mixed    $get
-    // @param callable $paginations = NULL
+    // @param string   $id   = 'editor'
+    // @param callable $editors
     //
     //--------------------------------------------------------------------------------------------------------
-    public function generate($get, Callable $paginations = NULL) : String
+    public function generate(String $id = 'editor', Callable $editors) : String
     {
-        if( $paginations !== NULL )
-        {
-            $paginations($this);
-        }
+        $editors($this);
 
         return $this->prop
         ([
-            'get'   => $get,
-            'index' => $this->index++,
-            'type'  => $this->type ?? Config::get('ViewObjects', 'pagination')['type']
+            'id' => $id
         ]);
+
     }
 }

@@ -1,4 +1,4 @@
-<?php namespace ZN\Components\TinymceEditor;
+<?php namespace ZN\JavascriptComponents\TinymceEditor;
 /**
  * ZN PHP Web Framework
  * 
@@ -9,7 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\Components\ComponentsExtends;
+use ZN\JavascriptComponents\ComponentsExtends;
 
 class Build extends ComponentsExtends
 {

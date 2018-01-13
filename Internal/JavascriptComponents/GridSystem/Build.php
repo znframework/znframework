@@ -1,4 +1,4 @@
-<?php namespace ZN\Components\Tabs;
+<?php namespace ZN\JavascriptComponents\GridSystem;
 /**
  * ZN PHP Web Framework
  * 
@@ -9,58 +9,55 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use Html;
+use Html, Form;
 use ZN\Buffering;
-use ZN\Components\ComponentsExtends;
+use ZN\JavascriptComponents\ComponentsExtends;
 
 class Build extends ComponentsExtends
 {
-    protected $tabs = [];
-
     //--------------------------------------------------------------------------------------------------------
-    // Tab
+    // Row
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string   $menu
-    // @param callable $content
+    // @param callable $columns
+    // @param array    $attr = NULL
     //
     //--------------------------------------------------------------------------------------------------------
-    public function tab(String $menu, Callable $content)
+    public function row(Callable $columns, Array $attr = [])
     {
-        $content = Buffering\Callback::do($content, [new Html]);
+        $content = Buffering\Callback::do($columns, [$this]);
 
-        $this->tabs[$menu] = $content;
-
-        return $this;
+        echo Html::attr($attr)->class('row')->div($content);
     }
 
     //--------------------------------------------------------------------------------------------------------
-    // Pill
+    // Col
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param callable $tab
+    // @poram scalar   $size
+    // @param callable $code
+    // @param array    $attr = NULL
     //
     //--------------------------------------------------------------------------------------------------------
-    public function pill(Callable $tab) : String
+    public function col($size, Callable $code, Array $attr = [])
     {
-        return $this->generate($tab, 'pill');
+        $content = Buffering\Callback::do($code, [new Form, new Html]);
+
+        echo Html::attr($attr)->class('col-' . ( is_numeric($size) ? 'lg-' . $size : $size))->div($content);
     }
 
     //--------------------------------------------------------------------------------------------------------
     // Generate
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param callable $tab
+    // @param callable $grid
     //
     //--------------------------------------------------------------------------------------------------------
-    public function generate(Callable $tab, $type = 'tab') : String
+    public function generate(Callable $grid) : String
     {
-        $tab($this);
-
         return $this->prop
         ([
-            'tabs' => $this->tabs,
-            'type' => $type
+            'contents' => Buffering\Callback::do($grid, [$this])
         ]);
     }
 }

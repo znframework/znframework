@@ -1,4 +1,4 @@
-<?php namespace ZN\Components\Dropdown;
+<?php namespace ZN\JavascriptComponents\Dropdown;
 /**
  * ZN PHP Web Framework
  * 
@@ -10,7 +10,7 @@
  */
 
 use Html, Form;
-use ZN\Components\ComponentsExtends;
+use ZN\JavascriptComponents\ComponentsExtends;
 
 class Build extends ComponentsExtends
 {

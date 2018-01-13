@@ -1,4 +1,4 @@
-<?php namespace ZN\Components\AceEditor;
+<?php namespace ZN\JavascriptComponents\Datepicker;
 /**
  * ZN PHP Web Framework
  * 
@@ -9,7 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\Components\ComponentsExtends;
+use ZN\JavascriptComponents\ComponentsExtends;
 
 class Build extends ComponentsExtends
 {
@@ -17,18 +17,19 @@ class Build extends ComponentsExtends
     // Generate
     //--------------------------------------------------------------------------------------------------------
     //
-    // @param string   $id   = 'editor'
-    // @param callable $editors
+    // @param string   $id   = 'datepicker'
+    // @param callable $datapickers
     //
     //--------------------------------------------------------------------------------------------------------
-    public function generate(String $id = 'editor', Callable $editors) : String
+    public function generate(String $id = 'datepicker', Callable $datepickers) : String
     {
-        $editors($this);
+        $datepickers($this);
 
         return $this->prop
         ([
-            'id' => $id
+            'id'    => $id,
+            'class' => $this->class ?? NULL,
+            'name'  => $this->name  ?? NULL
         ]);
-
     }
 }

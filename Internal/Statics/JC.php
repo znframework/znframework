@@ -13,5 +13,5 @@ class JC
 {
     use ZN\Abilities\StaticAbility;
 
-    const target = 'ZN\Components\Builder';
+    const target = 'ZN\JavascriptComponents\Builder';
 }

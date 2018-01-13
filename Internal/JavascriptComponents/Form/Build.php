@@ -1,4 +1,4 @@
-<?php namespace ZN\Components\Form;
+<?php namespace ZN\JavascriptComponents\Form;
 /**
  * ZN PHP Web Framework
  * 
@@ -11,7 +11,7 @@
 
 use Html, Form as Forms;
 use ZN\Buffering;
-use ZN\Components\ComponentsExtends;
+use ZN\JavascriptComponents\ComponentsExtends;
 
 class Build extends ComponentsExtends
 {
