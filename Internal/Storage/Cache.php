@@ -12,7 +12,7 @@
 use ZN\Helpers\Converter;
 use ZN\Buffering;
 use ZN\Inclusion;
-use ZN\Abilities\DriverAbility;
+use ZN\DriverAbility;
 
 class Cache implements CacheInterface
 {

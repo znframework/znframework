@@ -9,7 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\Controllers\UnitTestController;
+use ZN\UnitTestController;
 
 class Serial extends UnitTestController
 {

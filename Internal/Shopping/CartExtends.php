@@ -9,7 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\Abilities\DriverAbility;
+use ZN\DriverAbility;
 
 class CartExtends
 {

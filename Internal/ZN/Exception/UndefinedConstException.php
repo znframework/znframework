@@ -1,4 +1,4 @@
-<?php namespace ZN\ErrorHandling;
+<?php namespace ZN\Exception;
 /**
  * ZN PHP Web Framework
  * 
@@ -9,9 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use Throwable;
+use Exception;
 
-interface GeneralExceptionInterface extends Throwable
+class UndefinedConstException extends Exception
 {
 
 }

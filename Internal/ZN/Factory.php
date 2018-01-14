@@ -1,4 +1,4 @@
-<?php namespace ZN\Abilities\Exception;
+<?php namespace ZN;
 /**
  * ZN PHP Web Framework
  * 
@@ -9,9 +9,12 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use GeneralException;
+use ZN\FactoryAbility;
 
-class UndefinedConstException extends GeneralException
+class Factory
 {
-
+    use FactoryAbility;
 }
+
+# Alias Factory
+class_alias('ZN\Factory', 'Factory');

@@ -9,7 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use DriverAbility;
+use ZN\DriverAbility;
 
 class Crypto implements CryptoInterface
 {

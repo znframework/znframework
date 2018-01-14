@@ -9,9 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\ErrorHandling\GeneralException;
+use ZN\Exception;
 
-class PermissionRoleIdException extends \GeneralException
+class PermissionRoleIdException extends \Exception
 {
     const lang = 
     [

@@ -1,4 +1,4 @@
-<?php namespace ZN\Controllers;
+<?php namespace ZN;
 /**
  * ZN PHP Web Framework
  * 
@@ -9,10 +9,12 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
+use ZN\UnitTestAbility;
+
 class UnitTestController
 {
-    use \UnitTestAbility;
+    use UnitTestAbility;
 }
 
 # Alias UnitTestController
-class_alias('ZN\Controllers\UnitTestController', 'UnitTestController');
+class_alias('ZN\UnitTestController', 'UnitTestController');

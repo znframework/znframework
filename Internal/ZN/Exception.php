@@ -9,10 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-class Factory
+class Exception extends \Exception implements ExceptionInterface
 {
-    use \FactoryAbility;
+    use ExclusionAbility;
 }
-
-# Alias Factory
-class_alias('ZN\Factory', 'Factory');

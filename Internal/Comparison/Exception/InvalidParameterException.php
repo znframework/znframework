@@ -9,9 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\ErrorHandling\GeneralException;
+use ZN\Exception;
 
-class InvalidParameterException extends GeneralException
+class InvalidParameterException extends Exception
 {
     const lang = 
     [

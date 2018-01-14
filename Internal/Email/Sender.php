@@ -16,8 +16,8 @@ use ZN\Singleton;
 use ZN\Inclusion;
 use ZN\Language\Lang;
 use ZN\DataTypes\Strings;
-use ZN\Abilities\DriverAbility;
-use ZN\Abilities\InformationAbility;
+use ZN\DriverAbility;
+use ZN\InformationAbility;
 
 class Sender implements SenderInterface
 {

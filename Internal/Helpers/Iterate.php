@@ -9,7 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\Abilities\FabricationAbility;
+use ZN\FabricationAbility;
 
 class Iterate
 {

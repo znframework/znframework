@@ -11,7 +11,7 @@
 
 class Route
 {
-    use ZN\Abilities\StaticAbility;
+    use ZN\StaticAbility;
 
     const target = 'ZN\Response\Route';
 }

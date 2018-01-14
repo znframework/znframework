@@ -1,4 +1,4 @@
-<?php namespace ZN\Abilities;
+<?php namespace ZN;
 /**
  * ZN PHP Web Framework
  * 
@@ -11,7 +11,7 @@
 
 use ZN\Config;
 use ZN\Support;
-use ZN\Abilities\Exception\UndefinedConstException;
+use ZN\Exception\UndefinedConstException;
 
 trait DriverAbility
 {
@@ -88,5 +88,3 @@ trait DriverAbility
         return new self($driver);
     }
 }
-
-class_alias('ZN\Abilities\DriverAbility', 'DriverAbility');

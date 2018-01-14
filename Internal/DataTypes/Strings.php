@@ -9,8 +9,8 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\Abilities\FunctionalizationAbility;
-use ZN\Controllers\FactoryController;
+use ZN\FunctionalizationAbility;
+use ZN\FactoryController;
 use ZN\Helpers\Converter;
 
 class Strings extends FactoryController

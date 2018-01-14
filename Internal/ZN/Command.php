@@ -9,8 +9,8 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\ErrorHandling\GeneralException;
-use ZN\Controllers\BaseController;
+use ZN\Exception;
+use ZN\BaseController;
 
 class Command extends BaseController
 {
@@ -25,7 +25,7 @@ class Command extends BaseController
     {
         if( server('documentRoot') )
         {
-            throw new GeneralException
+            throw new Exception
             (
                 'Commands',
                 'canNotCommandClass'

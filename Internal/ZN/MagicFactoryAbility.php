@@ -1,4 +1,4 @@
-<?php namespace ZN\Abilities;
+<?php namespace ZN;
 /**
  * ZN PHP Web Framework
  * 
@@ -106,5 +106,3 @@ trait MagicFactoryAbility
         }
     }
 }
-
-class_alias('ZN\Abilities\MagicFactoryAbility', 'MagicFactoryAbility');

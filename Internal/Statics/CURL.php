@@ -11,7 +11,7 @@
 
 class CURL
 {
-    use ZN\Abilities\StaticAbility;
+    use ZN\StaticAbility;
 
     const target = 'ZN\Services\CURL';
 }

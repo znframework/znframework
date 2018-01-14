@@ -9,9 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\ErrorHandling\GeneralException;
+use ZN\Exception;
 
-class FolderAllreadyException extends GeneralException
+class FolderAllreadyException extends Exception
 {
     const lang = 
     [

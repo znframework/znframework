@@ -9,9 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\ErrorHandling\GeneralException;
+use ZN\Exception;
 
-class UnconditionalDeleteException extends GeneralException
+class UnconditionalDeleteException extends Exception
 {
     const lang = 
     [

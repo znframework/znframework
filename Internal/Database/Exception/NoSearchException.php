@@ -9,9 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\ErrorHandling\GeneralException;
+use ZN\Exception;
 
-class NoSearchException extends GeneralException
+class NoSearchException extends Exception
 {
 
 }

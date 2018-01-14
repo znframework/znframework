@@ -67,7 +67,7 @@ define('INTERNAL_DIR',
 |
 */
 
-define('REQUIREMENTS_DIR', INTERNAL_DIR.'Requirements/');
+define('ZEROCORE', INTERNAL_DIR . 'ZN/');
 
 /*
 |--------------------------------------------------------------------------

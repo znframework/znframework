@@ -11,7 +11,7 @@
 
 class Style
 {
-    use ZN\Abilities\StaticAbility;
+    use ZN\StaticAbility;
 
     const target = 'ZN\Hypertext\Style';
 }

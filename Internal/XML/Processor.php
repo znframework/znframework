@@ -9,7 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\Controllers\FactoryController;
+use ZN\FactoryController;
 
 class Processor extends FactoryController
 {

@@ -9,9 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\ErrorHandling\GeneralException;
+use ZN\Exception;
 
-class ConnectionRefusedException extends GeneralException
+class ConnectionRefusedException extends Exception
 {
     const lang = 
     [

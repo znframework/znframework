@@ -9,11 +9,12 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
+use ZN\DriverAbility;
 use ZN\Compression\Exception\InvalidArgumentException;
 
 class Force implements ForceInterface
 {
-    use \DriverAbility;
+    use DriverAbility;
 
     /**
      * Driver

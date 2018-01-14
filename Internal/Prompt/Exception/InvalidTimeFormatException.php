@@ -9,9 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\ErrorHandling\GeneralException;
+use ZN\Exception;
 
-class InvalidTimeFormatException extends GeneralException
+class InvalidTimeFormatException extends Exception
 {
 
 }

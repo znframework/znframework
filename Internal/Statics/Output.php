@@ -11,7 +11,7 @@
 
 class Output
 {
-    use ZN\Abilities\StaticAbility;
+    use ZN\StaticAbility;
 
     const target = 'ZN\Output';
 }

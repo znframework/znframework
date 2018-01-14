@@ -325,7 +325,7 @@ class Htaccess
 
         if( ! file_put_contents($file, trim($htaccess)) )
         {
-            throw new \GeneralException('Error', 'fileNotWrite', $file);
+            throw new \Exception('Error', 'fileNotWrite', $file);
         }
     }
 }

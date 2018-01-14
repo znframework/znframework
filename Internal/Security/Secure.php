@@ -9,7 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-ZN\Abilities\SerializationAbility;
+ZN\SerializationAbility;
 
 class Secure
 {

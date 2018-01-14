@@ -11,7 +11,7 @@
 
 class Reflect
 {
-    use ZN\Abilities\StaticAbility;
+    use ZN\StaticAbility;
 
     const target = 'ZN\Helpers\Reflect';
 }

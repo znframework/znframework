@@ -9,7 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
+use ZN\ExclusionAbility;
+
 class SMTPConnectException extends IOException
 {
-    use \ExclusionAbility;
+    use ExclusionAbility;
 }

@@ -9,7 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-class UnsupportedExtensionException extends \GeneralException
+class UnsupportedExtensionException extends \Exception
 {
     const lang =
     [

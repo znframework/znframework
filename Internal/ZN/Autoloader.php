@@ -9,7 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-require REQUIREMENTS_DIR . 'Functions.php';
+require ZEROCORE . 'Functions.php';
 
 class Autoloader
 {
@@ -105,7 +105,7 @@ class Autoloader
     {
         clearstatcache();
 
-        import(REQUIREMENTS_DIR . 'Config.php');
+        import(ZEROCORE . 'Config.php');
 
         $configAutoloader = Config::get('Autoloader');
         $configClassMap   = self::_config();

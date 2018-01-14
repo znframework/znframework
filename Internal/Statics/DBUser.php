@@ -11,7 +11,7 @@
 
 class DBUser
 {
-    use ZN\Abilities\StaticAbility;
+    use ZN\StaticAbility;
 
     const target = 'ZN\Database\DBUser';
 }

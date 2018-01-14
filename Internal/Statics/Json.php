@@ -11,7 +11,7 @@
 
 class Json
 {
-    use ZN\Abilities\StaticAbility;
+    use ZN\StaticAbility;
 
     const target = 'ZN\Protection\Json';
 }

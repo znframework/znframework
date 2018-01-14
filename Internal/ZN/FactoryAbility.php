@@ -1,4 +1,4 @@
-<?php namespace ZN\Abilities;
+<?php namespace ZN;
 /**
  * ZN PHP Web Framework
  * 
@@ -39,5 +39,3 @@ trait FactoryAbility
         return uselib($class);
     }
 }
-
-class_alias('ZN\Abilities\FactoryAbility', 'FactoryAbility');

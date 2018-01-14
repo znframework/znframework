@@ -1,4 +1,4 @@
-<?php namespace ZN\Abilities;
+<?php namespace ZN;
 /**
  * ZN PHP Web Framework
  * 
@@ -37,5 +37,3 @@ trait SingletonAbility
         return self::$singleton;
     }
 }
-
-class_alias('ZN\Abilities\SingletonAbility', 'SingletonAbility');

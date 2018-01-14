@@ -11,7 +11,7 @@
 
 class Stack
 {
-    use ZN\Abilities\StaticAbility;
+    use ZN\StaticAbility;
 
     const target = 'ZN\DataTypes\Stack';
 }

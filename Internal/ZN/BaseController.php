@@ -1,4 +1,4 @@
-<?php namespace ZN\Controllers;
+<?php namespace ZN;
 /**
  * ZN PHP Web Framework
  * 
@@ -44,4 +44,4 @@ class BaseController
 }
 
 # Alias BaseController 
-class_alias('ZN\Controllers\BaseController', 'BaseController');
+class_alias('ZN\BaseController', 'BaseController');

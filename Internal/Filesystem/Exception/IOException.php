@@ -9,9 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use GeneralException;
+use Exception;
 
-class IOException extends GeneralException
+class IOException extends Exception
 {
 
 }

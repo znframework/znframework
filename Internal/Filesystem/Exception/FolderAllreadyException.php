@@ -9,10 +9,10 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use GeneralException;
+use Exception;
 use ZN\Language\Lang;
 
-class FolderAllreadyException extends GeneralException
+class FolderAllreadyException extends Exception
 {
     public function __construct($folder)
     {

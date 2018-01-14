@@ -11,7 +11,7 @@
 
 class Crontab
 {
-    use ZN\Abilities\StaticAbility;
+    use ZN\StaticAbility;
 
     const target = 'ZN\Prompt\Crontab';
 }

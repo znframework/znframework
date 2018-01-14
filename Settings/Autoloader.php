@@ -71,8 +71,8 @@
         'Project\Controllers\View'       => 'ZN\Inclusion\Project\View',
         'Project\Controllers\Theme'      => 'ZN\Inclusion\Project\Theme',
 
-        # ZN\Controllers
-        'Project\Controllers\Controller' => 'ZN\Controllers\Controller'
+        # ZN
+        'Project\Controllers\Controller' => 'ZN\Controller'
     ],
 
     /*

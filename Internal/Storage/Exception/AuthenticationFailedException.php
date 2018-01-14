@@ -9,9 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\ErrorHandling\GeneralException;
+use ZN\Exception;
 
-class AuthenticationFailedException extends GeneralException
+class AuthenticationFailedException extends Exception
 {
     const lang = 
     [

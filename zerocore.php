@@ -20,7 +20,7 @@
 |
 */
 
-require REQUIREMENTS_DIR . 'Autoloader.php';
+require ZEROCORE . 'Autoloader.php';
 
 /*
 |--------------------------------------------------------------------------

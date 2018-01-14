@@ -9,9 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use GeneralException;
+use Exception;
 
-class UndefinedFunctionException extends GeneralException
+class UndefinedFunctionException extends Exception
 {
 
 }

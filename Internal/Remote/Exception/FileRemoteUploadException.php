@@ -9,9 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\ErrorHandling\GeneralException;
+use ZN\Exception;
 
-class FileRemoteUploadException extends GeneralException
+class FileRemoteUploadException extends Exception
 {
     const lang = 
     [

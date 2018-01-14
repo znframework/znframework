@@ -1,4 +1,4 @@
-<?php namespace ZN\Controllers;
+<?php namespace ZN;
 /**
  * ZN PHP Web Framework
  * 
@@ -9,10 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-class FactoryController extends BaseController
-{
-    use \MagicFactoryAbility;
-}
+use Throwable;
 
-# Alias FactoryController
-class_alias('ZN\Controllers\FactoryController', 'FactoryController');
+interface ExceptionInterface extends Throwable
+{
+
+}

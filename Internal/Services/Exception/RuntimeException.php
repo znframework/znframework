@@ -9,7 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
+use ZN\ExclusionAbility;
+
 class RuntimeException extends \RuntimeException
 {
-    use \ExclusionAbility;
+    use ExclusionAbility;
 }

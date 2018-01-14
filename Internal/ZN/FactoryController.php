@@ -1,4 +1,4 @@
-<?php namespace ZN\Response\Tests;
+<?php namespace ZN;
 /**
  * ZN PHP Web Framework
  * 
@@ -9,13 +9,12 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\UnitTestController;
+use ZN\MagicFactoryAbility;
 
-class Redirect extends UnitTestController
+class FactoryController extends BaseController
 {
-    const unit =
-    [
-        'class'   => 'Redirect',
-        'methods' => []
-    ];
+    use MagicFactoryAbility;
 }
+
+# Alias FactoryController
+class_alias('ZN\FactoryController', 'FactoryController');

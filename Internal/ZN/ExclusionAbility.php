@@ -1,4 +1,4 @@
-<?php namespace ZN\Abilities;
+<?php namespace ZN;
 /**
  * ZN PHP Web Framework
  * 
@@ -72,5 +72,3 @@ trait ExclusionAbility
         echo Exceptions::continue($this->getMessage(), $this->getFile(), $this->getLine());
     }
 }
-
-class_alias('ZN\Abilities\ExclusionAbility', 'ExclusionAbility');

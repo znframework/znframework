@@ -11,7 +11,7 @@
 
 class Image
 {
-    use ZN\Abilities\StaticAbility;
+    use ZN\StaticAbility;
 
     const target = 'ZN\Image\Image';
 }

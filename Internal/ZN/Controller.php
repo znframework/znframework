@@ -1,4 +1,4 @@
-<?php namespace ZN\Controllers;
+<?php namespace ZN;
 /**
  * ZN PHP Web Framework
  * 

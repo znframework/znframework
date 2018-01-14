@@ -11,7 +11,7 @@
 
 use ZN\DataTypes\Strings;
 use ZN\ErrorHandling\Errors;
-use ZN\ErrorHandling\GeneralException;
+use ZN\Exception;
 
 class Support
 {
@@ -36,11 +36,11 @@ class Support
         {
             if( is_string($error) )
             {
-                throw new GeneralException('Error', $error, $value);
+                throw new Exception('Error', $error, $value);
             }
             else
             {
-                throw new GeneralException(key($error), current($error), $value);
+                throw new Exception(key($error), current($error), $value);
             }
         }
 
@@ -137,7 +137,7 @@ class Support
     {
         if( ! in_array(strtolower($driver), $drivers) )
         {
-            throw new GeneralException('Error', 'driverError', $driver);
+            throw new Exception('Error', 'driverError', $driver);
         }
 
         return true;
@@ -153,7 +153,7 @@ class Support
      */
     public static function classMethod(String $class, String $method)
     {
-        throw new GeneralException
+        throw new Exception
         (
             'Error',
             'undefinedFunction',

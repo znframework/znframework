@@ -11,7 +11,7 @@
 
 class MLGrid
 {
-    use ZN\Abilities\StaticAbility;
+    use ZN\StaticAbility;
 
     const target = 'ZN\ViewObjects\MLGrid';
 }

@@ -11,7 +11,7 @@
 
 class Serial
 {
-    use ZN\Abilities\StaticAbility;
+    use ZN\StaticAbility;
 
     const target = 'ZN\Protection\Serial';
 }

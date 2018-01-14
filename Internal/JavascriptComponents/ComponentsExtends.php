@@ -12,7 +12,7 @@
 use ZN\Inclusion;
 use ZN\DataTypes\Arrays;
 use ZN\DataTypes\Strings;
-use ZN\Abilities\RevolvingAbility;
+use ZN\RevolvingAbility;
 
 class ComponentsExtends
 {

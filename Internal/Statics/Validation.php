@@ -11,7 +11,7 @@
 
 class Validation
 {
-    use ZN\Abilities\StaticAbility;
+    use ZN\StaticAbility;
 
     const target = 'ZN\Validation\Data';
 }

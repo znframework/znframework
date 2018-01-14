@@ -11,7 +11,7 @@
 
 class Document
 {
-    use ZN\Abilities\StaticAbility;
+    use ZN\StaticAbility;
 
     const target = 'ZN\Filesystem\Document';
 }

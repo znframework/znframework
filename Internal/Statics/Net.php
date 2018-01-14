@@ -11,7 +11,7 @@
 
 class Net
 {
-    use ZN\Abilities\StaticAbility;
+    use ZN\StaticAbility;
 
     const target = 'ZN\Services\Net';
 }

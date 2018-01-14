@@ -11,7 +11,7 @@
 
 class Folder
 {
-    use ZN\Abilities\StaticAbility;
+    use ZN\StaticAbility;
 
     const target = 'ZN\Filesystem\Folder';
 }

@@ -9,7 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
+use ZN\ExclusionAbility;
+
 class SMTPAuthException extends \InvalidArgumentException
 {
-    use \ExclusionAbility;
+    use ExclusionAbility;
 }

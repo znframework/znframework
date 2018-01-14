@@ -9,9 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\ErrorHandling\GeneralException;
+use ZN\Exception;
 
-class DatabaseErrorException extends GeneralException
+class DatabaseErrorException extends Exception
 {
 
 }

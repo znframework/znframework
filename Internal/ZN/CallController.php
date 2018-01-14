@@ -1,4 +1,4 @@
-<?php namespace ZN\Controllers;
+<?php namespace ZN;
 /**
  * ZN PHP Web Framework
  * 
@@ -11,7 +11,7 @@
 
 use ZN\ErrorHandling\Errors;
 use ZN\DataTypes\Strings;
-use GeneralException;
+use Exception;
 
 class CallController extends BaseController
 {
@@ -25,7 +25,7 @@ class CallController extends BaseController
      */
     public function __call($method, $param)
     {
-        throw new GeneralException
+        throw new Exception
         (
             'Error',
             'undefinedFunction',
@@ -35,4 +35,4 @@ class CallController extends BaseController
 }
 
 # Alias CallController
-class_alias('ZN\Controllers\CallController', 'CallController');
+class_alias('ZN\CallController', 'CallController');

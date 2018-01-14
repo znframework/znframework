@@ -9,7 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-class InvalidArgumentException extends \GeneralException
+class InvalidArgumentException extends \Exception
 {
     const lang = 
     [

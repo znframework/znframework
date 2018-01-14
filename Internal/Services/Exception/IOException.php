@@ -9,7 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-class IOException extends \GeneralException
+class IOException extends \Exception
 {
 
 }

@@ -9,10 +9,10 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use GeneralException;
+use Exception;
 use ZN\Language\Lang;
 
-class FileRemoteUploadException extends GeneralException
+class FileRemoteUploadException extends Exception
 {
     public function __construct($file)
     {

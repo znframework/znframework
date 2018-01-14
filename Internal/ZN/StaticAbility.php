@@ -1,4 +1,4 @@
-<?php namespace ZN\Abilities;
+<?php namespace ZN;
 /**
  * ZN PHP Web Framework
  * 
@@ -50,5 +50,3 @@ trait StaticAbility
         return uselib(static::target)->$method(...$parameters);
     }
 }
-
-class_alias('ZN\Abilities\StaticAbility', 'StaticAbility');

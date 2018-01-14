@@ -1,4 +1,4 @@
-<?php namespace ZN\Abilities;
+<?php namespace ZN;
 /**
  * ZN PHP Web Framework
  * 
@@ -50,5 +50,3 @@ trait UnitTestAbility
         return $tester->result();
     }
 }
-
-class_alias('ZN\Abilities\UnitTestAbility', 'UnitTestAbility');

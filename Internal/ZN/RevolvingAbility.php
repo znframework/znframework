@@ -1,4 +1,4 @@
-<?php namespace ZN\Abilities;
+<?php namespace ZN;
 /**
  * ZN PHP Web Framework
  * 
@@ -79,5 +79,3 @@ trait RevolvingAbility
         $this->defaultRevolvings('revolving');
     }
 }
-
-class_alias('ZN\Abilities\RevolvingAbility', 'RevolvingAbility');

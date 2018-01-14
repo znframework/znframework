@@ -9,9 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\ErrorHandling\GeneralException;
+use ZN\Exception;
 
-class FolderChangeNameException extends GeneralException
+class FolderChangeNameException extends Exception
 {
     const lang = 
     [

@@ -1,4 +1,4 @@
-<?php namespace ZN\Abilities;
+<?php namespace ZN;
 /**
  * ZN PHP Web Framework
  * 
@@ -99,5 +99,3 @@ trait InformationAbility
         return $this->error();
     }
 }
-
-class_alias('ZN\Abilities\InformationAbility', 'InformationAbility');

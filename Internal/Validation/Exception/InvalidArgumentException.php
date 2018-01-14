@@ -9,9 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\ErrorHandling\GeneralException;
+use ZN\Exception;
 
-class InvalidArgumentException extends GeneralException
+class InvalidArgumentException extends Exception
 {
     const lang = 
     [

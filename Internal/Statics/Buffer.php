@@ -11,7 +11,7 @@
 
 class Buffer
 {
-    use ZN\Abilities\StaticAbility;
+    use ZN\StaticAbility;
 
     const target = 'ZN\Buffering\Process';
 }

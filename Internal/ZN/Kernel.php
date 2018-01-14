@@ -370,7 +370,7 @@ class Kernel
 
             Logger::report('Error', Lang::select('Error', 'fileNotFound', $path) ,'AutoloadComposer');
 
-            throw new \GeneralException('Error', 'fileNotFound', $path);
+            throw new \Exception('Error', 'fileNotFound', $path);
         }
     }
 

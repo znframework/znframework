@@ -9,7 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\Abilities\SerializationAbility;
+use ZN\SerializationAbility;
 
 class Collection
 {

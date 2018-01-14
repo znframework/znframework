@@ -1,4 +1,4 @@
-<?php namespace ZN\Abilities;
+<?php namespace ZN;
 /**
  * ZN PHP Web Framework
  * 
@@ -41,5 +41,3 @@ trait SerializationAbility
         return $this;
     }
 }
-
-class_alias('ZN\Abilities\SerializationAbility', 'SerializationAbility');

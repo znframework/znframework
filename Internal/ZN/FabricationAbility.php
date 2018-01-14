@@ -1,4 +1,4 @@
-<?php namespace ZN\Abilities;
+<?php namespace ZN;
 /**
  * ZN PHP Web Framework
  * 
@@ -39,5 +39,3 @@ trait FabricationAbility
         return (new $class(...$parameters));
     }
 }
-
-class_alias('ZN\Abilities\FabricationAbility', 'FabricationAbility');

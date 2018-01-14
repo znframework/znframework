@@ -9,7 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-class FileNotFoundException extends \GeneralException
+class FileNotFoundException extends \Exception
 {
 
 }

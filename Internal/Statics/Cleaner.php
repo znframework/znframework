@@ -11,7 +11,7 @@
 
 class Cleaner
 {
-    use ZN\Abilities\StaticAbility;
+    use ZN\StaticAbility;
 
     const target = 'ZN\Helpers\Cleaner';
 }

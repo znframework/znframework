@@ -11,7 +11,7 @@
 
 class Limiter
 {
-    use ZN\Abilities\StaticAbility;
+    use ZN\StaticAbility;
 
     const target = 'ZN\Helpers\Limiter';
 }

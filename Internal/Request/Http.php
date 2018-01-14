@@ -9,7 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\Abilities\SingletonAbility;
+use ZN\SingletonAbility;
 use ZN\Language\Lang;
 use ZN\Request\Exception\InvalidArgumentException;
 use ZN\DataTypes\Arrays;

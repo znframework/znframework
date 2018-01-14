@@ -386,7 +386,7 @@ class In
             {
                 Logger::report('Error', Lang::select('Error', 'callUserFuncArrayError', $controllerFunc), 'SystemCallUserFuncArrayError');
 
-                throw new \GeneralException('Error', 'callUserFuncArrayError', $controllerFunc);
+                throw new \Exception('Error', 'callUserFuncArrayError', $controllerFunc);
             }
 
             $exclude = $controllerClass . '::exclude';
@@ -494,7 +494,7 @@ class In
 
         if( ! file_put_contents($robotTxt, trim($robots)) )
         {
-            throw new \GeneralException('Error', 'fileNotWrite', $robotTxt);
+            throw new \Exception('Error', 'fileNotWrite', $robotTxt);
         }
     }
 }

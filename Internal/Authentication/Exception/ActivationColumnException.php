@@ -9,9 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\ErrorHandling\GeneralException;
+use ZN\Exception;
 
-class ActivationColumnException extends GeneralException
+class ActivationColumnException extends Exception
 {
     const lang = 
     [

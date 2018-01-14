@@ -11,7 +11,7 @@
 
 class Compress
 {
-    use ZN\Abilities\StaticAbility;
+    use ZN\StaticAbility;
 
     const target = 'ZN\Compression\Force';
 }

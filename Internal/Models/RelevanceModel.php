@@ -12,7 +12,7 @@
 use DB;
 use DBTool;
 use DBForge;
-use GeneralException;
+use Exception;
 use ZN\DataTypes\Strings;
 
 class RelevanceModel extends \BaseController
@@ -66,11 +66,11 @@ class RelevanceModel extends \BaseController
     {
         if( ! defined('static::relevance') )
         {
-            throw new GeneralException('relevance constant is not defined!');
+            throw new Exception('relevance constant is not defined!');
         }
         elseif( empty(static::relevance) )
         {
-            throw new GeneralException('at least 1 key is needed in [first_table.column:second_table.column] form for relevance constant!');
+            throw new Exception('at least 1 key is needed in [first_table.column:second_table.column] form for relevance constant!');
         }
 
         $this->relevance = static::relevance;

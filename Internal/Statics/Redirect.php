@@ -11,7 +11,7 @@
 
 class Redirect
 {
-    use ZN\Abilities\StaticAbility;
+    use ZN\StaticAbility;
 
     const target = 'ZN\Response\Redirect';
 }

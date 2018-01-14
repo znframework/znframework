@@ -11,7 +11,7 @@
 
 class XML
 {
-    use ZN\Abilities\StaticAbility;
+    use ZN\StaticAbility;
 
     const target = 'ZN\XML\Processor';
 }

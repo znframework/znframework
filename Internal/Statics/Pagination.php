@@ -11,7 +11,7 @@
 
 class Pagination
 {
-    use ZN\Abilities\StaticAbility;
+    use ZN\StaticAbility;
 
     const target = 'ZN\Pagination\Paginator';
 }

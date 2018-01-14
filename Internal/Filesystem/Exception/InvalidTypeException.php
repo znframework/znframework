@@ -9,9 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\ErrorHandling\GeneralException;
+use ZN\Exception;
 
-class InvalidTypeException extends GeneralException
+class InvalidTypeException extends Exception
 {
     const lang = 
     [
