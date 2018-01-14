@@ -10,7 +10,6 @@
  */
 
 use ZN\DataTypes\Strings;
-use ZN\In;
 use ZN\Request\URL;
 
 class Structure

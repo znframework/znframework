@@ -81,7 +81,11 @@
 
         # ZN\Database
         'GrandModel'     => 'ZN\Database\GrandModel',
-        'RelevanceModel' => 'ZN\Database\RelevanceModel'
+        'RelevanceModel' => 'ZN\Database\RelevanceModel',
+
+        # ZN\Command
+        'Project\Commands\Command'  => 'ZN\Command',
+        'External\Commands\Command' => 'ZN\ExternalCommand'
     ],
 
     /*

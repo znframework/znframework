@@ -10,7 +10,6 @@
  */
 
 use ZN\Request\Http;
-use ZN\Lang;
 use ZN\Helpers\Logger;
 use ZN\Response\Redirect;
 use ZN\ErrorHandling\Errors;

@@ -4,7 +4,7 @@ class Home extends Controller
 {
     public function main(String $params = NULL)
     {  
-        echo 'Hello World';
+        
     }
 
     public function show404()

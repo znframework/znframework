@@ -15,5 +15,3 @@ class ExternalCommand extends ProjectCommand
 {
     
 }
-
-class_alias('ZN\ExternalCommand', 'External\Commands\Command');

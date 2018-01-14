@@ -9,7 +9,6 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\Exception;
 use ZN\Controller\Base;
 
 class Command extends Base
@@ -33,5 +32,3 @@ class Command extends Base
         }
     }
 }
-
-class_alias('ZN\Command', 'Project\Commands\Command');

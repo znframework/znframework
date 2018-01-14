@@ -11,7 +11,6 @@
 
 use ZN\DataTypes\Strings;
 use ZN\ErrorHandling\Errors;
-use ZN\Exception;
 
 class Support
 {

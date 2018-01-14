@@ -10,7 +10,6 @@
  */
 
 use ReflectionClass;
-use ZN\Singleton;
 use ZN\DataTypes\Strings;
 
 class Classes

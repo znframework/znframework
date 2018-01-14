@@ -11,14 +11,10 @@
 
 use ZN\Request\URL;
 use ZN\Request\URI;
+use ZN\Request\Http;
 use ZN\Helpers\Logger;
 use ZN\DataTypes\Strings;
-use ZN\Filesystem;
 use ZN\ErrorHandling\Errors;
-use ZN\IS;
-use ZN\Lang;
-use ZN\Inclusion;
-use ZN\Singleton;
 use Project\Controllers\View;
 use Project\Controllers\Masterpage;
 
@@ -82,7 +78,7 @@ class In
      */
     public static function invalidRequest(String $type, Bool $bool)
     {
-        $invalidRequest = \Config::get('Services', 'route')['requestMethods'];
+        $invalidRequest = Config::get('Services', 'route')['requestMethods'];
 
         if( $requestMethods = $invalidRequest[$type] )
         {
@@ -90,9 +86,9 @@ class In
 
             if( ! empty($requestMethod = $requestMethods[CURRENT_CFURI] ?? NULL) )
             {
-                if( \Http::isRequestMethod(...(array) $requestMethod) === $bool )
+                if( Http::isRequestMethod(...(array) $requestMethod) === $bool )
                 {
-                    \Route::redirectInvalidRequest();
+                    Singleton::class('ZN\Response\Route')->redirectInvalidRequest();
                 }
             }
         }
@@ -193,8 +189,8 @@ class In
      */
     protected static function routeAll()
     {
-        $externalRouteFiles = (array) Filesystem\FileList::allFiles(EXTERNAL_ROUTES_DIR);
-        $routeFiles         = (array) Filesystem\FileList::allFiles(ROUTES_DIR);
+        $externalRouteFiles = (array) glob(EXTERNAL_ROUTES_DIR . ($fix = '*.php'));
+        $routeFiles         = (array) glob(ROUTES_DIR . $fix);
         $files              = array_merge($externalRouteFiles, $routeFiles);
 
         if( ! empty($files)  )
@@ -204,7 +200,7 @@ class In
                 import($file);
             }
 
-            \Route::all();
+            Singleton::class('ZN\Response\Route')->all();
         }
     }
 
@@ -219,7 +215,7 @@ class In
     {
         self::routeAll();
 
-        $config = \Config::get('Services', 'route');
+        $config = Config::get('Services', 'route');
 
         if( $config['openController'] )
         {
@@ -262,7 +258,7 @@ class In
             }
             else
             {
-                $requestUri = \Regex::replace($key, $val, $requestUri, 'xi');
+                $requestUri = Singleton::class('ZN\Regex')->replace($key, $val, $requestUri, 'xi');
             }
         }
 
@@ -278,7 +274,7 @@ class In
      */
     public static function cleanInjection(String $string = NULL) : String
     {
-        $urlInjectionChangeChars = \Config::get('Security', 'urlChangeChars');
+        $urlInjectionChangeChars = Config::get('Security', 'urlChangeChars');
 
         return str_ireplace(array_keys($urlInjectionChangeChars), array_values($urlInjectionChangeChars), $string);
     }
@@ -292,7 +288,7 @@ class In
      */
     public static function benchmarkReport()
     {
-        if( \Config::get('Project', 'benchmark') === true )
+        if( Config::get('Project', 'benchmark') === true )
         {
             # System elapsed time calculating
             $elapsedTime = round(FINISH_BENCHMARK - START_BENCHMARK, 4);
@@ -334,7 +330,7 @@ class In
      */
     public static function startingConfig($config)
     {
-        if( $destruct = \Config::get('Starting', $config) )
+        if( $destruct = Config::get('Starting', $config) )
         {
             if( is_string($destruct) )
             {
@@ -387,7 +383,7 @@ class In
             {
                 Logger::report('Error', Lang::select('Error', 'callUserFuncArrayError', $controllerFunc), 'SystemCallUserFuncArrayError');
 
-                throw new \Exception('Error', 'callUserFuncArrayError', $controllerFunc);
+                throw new Exception('Error', 'callUserFuncArrayError', $controllerFunc);
             }
 
             $exclude = $controllerClass . '::exclude';
@@ -433,7 +429,7 @@ class In
      */
     public static function createRobotsFile()
     {
-        $rules  = \Config::get('Robots', 'rules');
+        $rules  = Config::get('Robots', 'rules');
         $robots = '';
 
         if( IS::array($rules) ) foreach( $rules as $key => $val )
@@ -495,7 +491,7 @@ class In
 
         if( ! file_put_contents($robotTxt, trim($robots)) )
         {
-            throw new \Exception('Error', 'fileNotWrite', $robotTxt);
+            throw new Exception('Error', 'fileNotWrite', $robotTxt);
         }
     }
 }

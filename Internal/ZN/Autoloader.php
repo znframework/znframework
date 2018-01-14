@@ -43,6 +43,11 @@ class Autoloader
      */
     public static function run(String $class)
     {
+        if( self::standart($class) !== false )
+        {
+            return;
+        }
+        
         if( ! is_file(self::$path) )
         {
             self::createClassMap();
@@ -74,6 +79,36 @@ class Autoloader
             }
 
             self::tryAgainCreateClassMap($class);
+        }
+    }
+
+    /**
+     * Implementations of PSR-4
+     * 
+     * @param string $class
+     * 
+     * @return bool
+     */
+    public static function standart(String $class, String $prefix = NULL)
+    {
+        $len = strlen($prefix);
+
+        if( strncmp($prefix, $class, $len) !== 0 ) 
+        {
+            return false;
+        }
+
+        $class  = substr($class, $len);
+        $facade = strstr($class, '\\') ? NULL : 'Facades/';
+        $file   = INTERNAL_DIR . $facade . str_replace('\\', '/', $class) . '.php';
+
+        if( file_exists($file) ) 
+        {
+            import($file); return true;
+        }
+        else
+        {
+            return self::standart($class, 'ZN\\');
         }
     }
 

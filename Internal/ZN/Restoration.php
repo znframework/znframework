@@ -9,10 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\In;
 use ZN\Request\URI;
-use ZN\Filesystem;
-use ZN\IS;
 
 class Restoration
 {
