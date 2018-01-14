@@ -9,6 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
+use ZN\Singleton;
 use ZN\Inclusion;
 use ZN\Comparison;
 use ZN\Filesystem;
@@ -135,7 +136,7 @@ class Tester
             $method = explode(':', $method)[0];
 
             Comparison\Testing::start($method);
-            $returnValue = uselib($this->class)->$method(...$parameters);
+            $returnValue = Singleton::class($this->class)->$method(...$parameters);
             Comparison\Testing::end($method);
 
             $this->_output($this->class, $method, gettype($returnValue), $returnValue);

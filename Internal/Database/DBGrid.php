@@ -13,6 +13,7 @@ use ZN\IS;
 use ZN\Config;
 use ZN\Singleton;
 use ZN\Request\URI;
+use ZN\Request\URL;
 use ZN\Language\Lang;
 use ZN\Request\Method;
 use ZN\Helpers\Limiter;
@@ -988,7 +989,7 @@ class DBGrid
             $this->db->where($this->processColumn, Method::post('id'))->delete($this->table);
         }
 
-       redirect(CURRENT_URL);
+       redirect(URL::current());
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -1084,7 +1085,7 @@ class DBGrid
 
         $this->_processEdit($newSaveData);
 
-        redirect(CURRENT_URL);
+        redirect(URL::current());
     }
 
     //--------------------------------------------------------------------------------------------------------

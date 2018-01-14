@@ -10,6 +10,7 @@
  */
 
 use ZN\Structure;
+use ZN\Singleton;
 
 class Controller
 {
@@ -32,6 +33,6 @@ class Controller
 
         import($file);
 
-        new Result( uselib($class)->$function(...$parameters) );
+        new Result( Singleton::class($class)->$function(...$parameters) );
     }
 }

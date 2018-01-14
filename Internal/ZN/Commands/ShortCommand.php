@@ -9,6 +9,8 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
+use ZN\Singleton;
+
 class ShortCommand
 {
     /**
@@ -42,6 +44,6 @@ class ShortCommand
             $class = PROJECT_COMMANDS_NAMESPACE . $classEx[0];
         }
 
-        new Result( uselib($class)->$function(...$parameters) );
+        new Result( Singleton::class($class)->$function(...$parameters) );
     }
 }

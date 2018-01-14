@@ -94,7 +94,7 @@ class URL implements URLInterface
     //--------------------------------------------------------------------------------------------------------
     public static function host(String $uri = NULL) : String
     {
-        return HOST_URL . In::cleanInjection(ltrim($uri, '/'));
+        return SSL_STATUS . host() . '/' . In::cleanInjection(ltrim($uri, '/'));
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -243,34 +243,5 @@ class URL implements URLInterface
     public static function encode(String $str) : String
     {
         return urlencode($str);
-    }
-
-    /**
-     * URL short path descriptions.
-     * 
-     * @param void
-     * 
-     * @return void
-     */
-    public static function defines()
-    {
-        define('HOST', host());
-        define('HOST_NAME', HOST);
-        define('HOST_URL', SSL_STATUS . HOST . '/');
-        define('BASE_URL', HOST_URL . BASE_DIR);
-        define('SITE_URL', self::site());
-        define('CURRENT_URL', rtrim(HOST_URL, '/') . ($_SERVER['REQUEST_URI'] ?? NULL));
-        define('PREV_URL', $_SERVER['HTTP_REFERER'] ?? NULL);
-        define('BASE_PATH', BASE_DIR);
-        define('CURRENT_PATH', URI::current());
-        define('PREV_PATH', str_replace(SITE_URL, NULL, PREV_URL));
-        define('FILES_URL', BASE_URL . FILES_DIR);
-        define('FONTS_URL', BASE_URL . FONTS_DIR);
-        define('PLUGINS_URL', BASE_URL . PLUGINS_DIR);
-        define('SCRIPTS_URL', BASE_URL . SCRIPTS_DIR);
-        define('STYLES_URL', BASE_URL . STYLES_DIR);
-        define('THEMES_URL', BASE_URL . THEMES_DIR);
-        define('UPLOADS_URL', BASE_URL . UPLOADS_DIR);
-        define('RESOURCES_URL', BASE_URL . RESOURCES_DIR);
     }
 }

@@ -9,6 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
+use ZN\Singleton;
 use ZN\Autoloader;
 
 class Base
@@ -24,7 +25,7 @@ class Base
     {
         if( ! isset($this->$class) )
         {
-            return $this->$class = uselib($class);
+            return $this->$class = Singleton::class($class);
         }
     }
 

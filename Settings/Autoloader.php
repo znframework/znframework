@@ -61,7 +61,8 @@
     'aliases' => 
     [
         # ZN
-        'Project\Controllers\ZN' => 'ZN',
+        'ZN'                     => 'ZN\ZN',
+        'Project\Controllers\ZN' => 'ZN\ZN',
         
         # ZN\Request
         'Http'    => 'ZN\Request\Http',

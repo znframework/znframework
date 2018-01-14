@@ -18,6 +18,7 @@ use ZN\ErrorHandling\Errors;
 use ZN\IS;
 use ZN\Language\Lang;
 use ZN\Inclusion;
+use ZN\Singleton;
 use Project\Controllers\View;
 use Project\Controllers\Masterpage;
 
@@ -410,7 +411,7 @@ class In
                 }
             }
 
-            $startingControllerClass = uselib($controllerClass);
+            $startingControllerClass = Singleton::class($controllerClass);
 
             $return = $startingControllerClass->$controllerFunc(...$param);
 

@@ -10,6 +10,7 @@
  */
 
 use stdClass;
+use ZN\Singleton;
 
 class Parser
 {
@@ -127,6 +128,6 @@ class Parser
     {
         $data = preg_replace('/<xml(.*?)>/', '', $data);
 
-        return uselib('SimpleXMLElement', [$data]);
+        return Singleton::class('SimpleXMLElement', [$data]);
     }
 }

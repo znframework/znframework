@@ -9,6 +9,8 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
+use ZN\Singleton;
+
 trait Facade
 {
     /**
@@ -47,6 +49,6 @@ trait Facade
      */
     protected static function useClassName($method, $parameters)
     {
-        return uselib(static::target)->$method(...$parameters);
+        return Singleton::class(static::target)->$method(...$parameters);
     }
 }

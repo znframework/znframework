@@ -23,7 +23,7 @@ class Model
     {
         if( ! isset($this->$class) )
         {
-            return $this->$class = uselib($class);  
+            return $this->$class = Singleton::class($class);  
         }
     }
 }

@@ -10,6 +10,7 @@
  */
 
 use ZN\Support;
+use ZN\Singleton;
 
 trait MagicFactory
 {
@@ -95,7 +96,7 @@ trait MagicFactory
                 $namespace = implode($separator, $namespace) . $separator;
             }
             
-            $return = uselib($namespace . $class)->$method(...$parameters);
+            $return = Singleton::class($namespace . $class)->$method(...$parameters);
 
             if( $isThis === 'this' )
             {

@@ -9,6 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
+use ZN\Singleton;
 use ZN\DataTypes\Strings;
 
 trait Factory
@@ -36,6 +37,6 @@ trait Factory
 
         $class = $namespace . $class;
 
-        return uselib($class);
+        return Singleton::class($class);
     }
 }

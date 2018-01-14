@@ -11,6 +11,7 @@
 
 use ZN\DataTypes\Strings;
 use ZN\In;
+use ZN\Request\URL;
 
 class Structure
 {
@@ -115,6 +116,6 @@ class Structure
             CONTROLLERS_DIR, '', CURRENT_CONTROLLER) . '/' . CURRENT_CFUNCTION
         );
         define('CURRENT_CFURI', strtolower(CURRENT_CFPATH));
-        define('CURRENT_CFURL', SITE_URL . CURRENT_CFPATH);
+        define('CURRENT_CFURL', URL::site() . CURRENT_CFPATH);
     }
 }

@@ -1,4 +1,4 @@
-<?php
+<?php namespace ZN;
 /**
  * ZN PHP Web Framework
  * 
@@ -9,11 +9,6 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\Cache;
-use ZN\Config;
-use ZN\Kernel;
-use ZN\Buffering;
-use ZN\Filesystem;
 use ZN\Request\URI;
 use ZN\Language\Lang;
 use ZN\Response\Route;
@@ -167,7 +162,7 @@ class ZN
      */
     public static function __callStatic($class, $parameters)
     {
-        return uselib($class, $parameters);
+        return Singleton::class($class, $parameters);
     }
 
     /**

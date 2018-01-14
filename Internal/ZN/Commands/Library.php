@@ -9,6 +9,8 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
+use ZN\Singleton;
+
 class Library
 {
     /**
@@ -26,7 +28,7 @@ class Library
 
         $className = $namespace . $class;
 
-        new Result( uselib($className)->$method(...$parameters) );
+        new Result( Singleton::class($className)->$method(...$parameters) );
     }
 
     /**

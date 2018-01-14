@@ -9,7 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN;
+use ZN\ZN;
 
 class UpgradeFiles
 {

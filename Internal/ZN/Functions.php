@@ -377,43 +377,6 @@ function internalDefaultProjectKey()
 }
 
 /**
- * uselib
- * 
- * The single inherited library makes the call.
- * 
- * @param string $class
- * @param array  $parameters = []
- * 
- * @return mixed
- */
-function uselib(String $class, Array $parameters = [])
-{
-    if( ! class_exists($class) )
-    {
-        $classInfo = ZN\Autoloader::getClassFileInfo($class);
-    
-        $class = $classInfo['namespace'] ?: $class;
-
-        if( ! class_exists($class) )
-        {
-            throw new ZN\Exception('Error', 'classError', $class);
-        }
-    }
-
-    if( ! isset(ZN::$use->$class) )
-    {
-        if( ! is_object(ZN::$use) )
-        {
-            ZN::$use = new stdClass();
-        }
-
-        ZN::$use->$class = new $class(...$parameters);
-    }
-
-    return ZN::$use->$class;
-}
-
-/**
  * layer
  * 
  * Loads the layer files.

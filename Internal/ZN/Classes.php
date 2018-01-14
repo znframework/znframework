@@ -10,6 +10,7 @@
  */
 
 use ReflectionClass;
+use ZN\Singleton;
 use ZN\DataTypes\Strings;
 
 class Classes
@@ -67,7 +68,7 @@ class Classes
     //--------------------------------------------------------------------------------------------------------
     public static function methodExists(String $className, String $method) : Bool
     {
-        return method_exists(uselib(self::_class($className)), $method);
+        return method_exists(Singleton::class(self::_class($className)), $method);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -80,7 +81,7 @@ class Classes
     //--------------------------------------------------------------------------------------------------------
     public static function propertyExists(String $className, String $property) : Bool
     {
-        return  property_exists(uselib(self::_class($className)), $property);
+        return  property_exists(Singleton::class(self::_class($className)), $property);
     }
 
     //--------------------------------------------------------------------------------------------------------

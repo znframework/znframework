@@ -10,6 +10,7 @@
  */
 
 use ZN\Config;
+use ZN\Singleton;
 use ZN\Filesystem;
 
 class Migration implements MigrationInterface
@@ -315,12 +316,12 @@ class Migration implements MigrationInterface
 
         if( $version <= 0 )
         {
-            return uselib($name);
+            return Singleton::class($name);
         }
 
         $name .= $this->_version($version);
 
-        return uselib($name);
+        return Singleton::class($name);
     }
 
     /**

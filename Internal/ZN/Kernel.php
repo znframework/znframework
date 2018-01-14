@@ -15,6 +15,7 @@ use ZN\Filesystem;
 use ZN\IS;
 use ZN\Language\Lang;
 use ZN\Inclusion;
+use ZN\Singleton;
 use ZN\ErrorHandling\Errors;
 use Project\Controllers\Masterpage;
 use Project\Controllers\Theme;
@@ -177,7 +178,7 @@ class Kernel
                 {     
                     self::viewPathFinder($function, $viewPath, $wizardPath);
 
-                    $pageClass = uselib($page);
+                    $pageClass = Singleton::class($page);
 
                     $pageClass->$function(...$parameters);
 

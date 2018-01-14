@@ -11,6 +11,7 @@
 
 use ZN\Config;
 use ZN\Support;
+use ZN\Singleton;
 use ZN\Exception\UndefinedConstException;
 
 trait Driver
@@ -61,11 +62,11 @@ trait Driver
 
         if( ! isset(static::driver['namespace']) )
         {
-            $this->driver = uselib($driver);
+            $this->driver = Singleton::class($driver);
         }
         else
         {
-            $this->driver = uselib(suffix(static::driver['namespace'], '\\').$driver.'Driver');
+            $this->driver = Singleton::class(suffix(static::driver['namespace'], '\\').$driver.'Driver');
         }
 
         if( isset(static::driver['construct']) )

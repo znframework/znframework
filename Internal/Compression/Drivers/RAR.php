@@ -10,6 +10,7 @@
  */
 
 use ZN\Support;
+use ZN\Singleton;
 use ZN\Compression\Exception\InvalidArgumentException;
 use ZN\Compression\DriverMappingAbstract;
 
@@ -66,7 +67,7 @@ class RarDriver extends DriverMappingAbstract
      */
     public function write($file, $data)
     {
-        return uselib('GZDriver')->write($file, $data);
+        return Singleton::class('GZDriver')->write($file, $data);
     }
 
     /**
@@ -78,7 +79,7 @@ class RarDriver extends DriverMappingAbstract
      */
     public function read($file)
     {
-        return uselib('GZDriver')->read($file);
+        return Singleton::class('GZDriver')->read($file);
     }
 
     /**
@@ -90,7 +91,7 @@ class RarDriver extends DriverMappingAbstract
      */
     public function do($data)
     {
-        return uselib('GZDriver')->do($data);
+        return Singleton::class('GZDriver')->do($data);
     }
 
     /**
@@ -102,6 +103,6 @@ class RarDriver extends DriverMappingAbstract
      */
     public function undo($data)
     {
-        return uselib('GZDriver')->undo($data);
+        return Singleton::class('GZDriver')->undo($data);
     }
 }
