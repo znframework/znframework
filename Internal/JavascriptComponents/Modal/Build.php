@@ -13,14 +13,14 @@ use ZN\JavascriptComponents\ComponentsExtends;
 
 class Build extends ComponentsExtends
 {
-    //--------------------------------------------------------------------------------------------------------
-    // Generate
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string   $id   = 'myModal'
-    // @param callable $modalboxs
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Generate Modal Box
+     * 
+     * @param string   $id = 'myModal'
+     * @param callable $modalboxs
+     * 
+     * @return string
+     */
     public function generate(String $id = 'myModal', Callable $modalboxs) : String
     {
         $modalboxs($this);

@@ -9,20 +9,19 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use Html, Form;
+use ZN\Hypertext\Html;
+use ZN\Hypertext\Form;
 use ZN\Buffering;
 use ZN\JavascriptComponents\ComponentsExtends;
 
 class Build extends ComponentsExtends
 {
-    //--------------------------------------------------------------------------------------------------------
-    // Row
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param callable $columns
-    // @param array    $attr = NULL
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Creates row
+     * 
+     * @param callable $columns
+     * @param array    $attr = []
+     */
     public function row(Callable $columns, Array $attr = [])
     {
         $content = Buffering\Callback::do($columns, [$this]);
@@ -30,15 +29,13 @@ class Build extends ComponentsExtends
         echo Html::attr($attr)->class('row')->div($content);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Col
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @poram scalar   $size
-    // @param callable $code
-    // @param array    $attr = NULL
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Creates column
+     * 
+     * @param string|int $size
+     * @param callable   $code
+     * @param array      $attr = []
+     */
     public function col($size, Callable $code, Array $attr = [])
     {
         $content = Buffering\Callback::do($code, [new Form, new Html]);
@@ -46,13 +43,13 @@ class Build extends ComponentsExtends
         echo Html::attr($attr)->class('col-' . ( is_numeric($size) ? 'lg-' . $size : $size))->div($content);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Generate
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param callable $grid
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Generate Grid System
+     * 
+     * @param callable $grid
+     * 
+     * @return string
+     */
     public function generate(Callable $grid) : String
     {
         return $this->prop

@@ -9,65 +9,73 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-//--------------------------------------------------------------------------------------------------------
-// Autoloader Extension
-//--------------------------------------------------------------------------------------------------------
-//
-// @extension jquery
-// @extension bootstrap
-// @extension raphael
-// @extension morris
-//
-//--------------------------------------------------------------------------------------------------------
+/*
+|--------------------------------------------------------------------------
+| Autoloader Extension
+|--------------------------------------------------------------------------
+|
+| @extension jquery
+| @extension select2
+|
+*/
 
 $extensions = JC::extensions($extensions, ['jquery', 'select2'], $autoloadExtensions);
 
-//--------------------------------------------------------------------------------------------------------
-// Available Extensions
-//--------------------------------------------------------------------------------------------------------
-//
-// Internal/Config/ViewObjects
-// 'cdn' =>
-// [
-//     script => [],
-//     style  => []
-// ]
-//
-//--------------------------------------------------------------------------------------------------------
+/*
+|--------------------------------------------------------------------------
+| Available Extensions
+|--------------------------------------------------------------------------
+|
+| Import styles
+|
+*/
+
 if( ! empty($extensions) )
 {
     Import::style(...$extensions);
 }
 
-if( ! empty($multiple) )
-{
-    Form::multiple();
-}
+/*
+|--------------------------------------------------------------------------
+| Select2
+|--------------------------------------------------------------------------
+|
+| Select2 Structure
+|
+*/
 
-if( ! empty($table) )
-{
-    Form::table($table);
-}
-
-if( ! empty($query) )
-{
-    Form::query($query);
-}
-
-if( ! empty($class) )
-{
-    Form::class($class);
-}
+if( ! empty($multiple) ) Form::multiple();
+if( ! empty($table) )    Form::table($table);
+if( ! empty($query) )    Form::query($query);
+if( ! empty($class) )    Form::class($class);
 
 echo Form::id($id)->attr($attributes)->select($name, $data ?? [], $selected);
+
+/*
+|--------------------------------------------------------------------------
+| Available Extensions
+|--------------------------------------------------------------------------
+|
+| Import scripts
+|
+*/
 
 if( ! empty($extensions) )
 {
     Import::script(...$extensions);
 }
 ?>
-
 <script>
+
+/*
+|--------------------------------------------------------------------------
+| Select2 Initialize
+|--------------------------------------------------------------------------
+|
+| Init Select2 With $properties
+|
+*/
+
 $(function()
 {
     $('#<?php echo $id ?>').select2(<?php echo ! empty($properties) ? json_encode($properties) : NULL?>);

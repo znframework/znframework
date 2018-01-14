@@ -15,16 +15,21 @@ use ZN\JavascriptComponents\ComponentsExtends;
 
 class Build extends ComponentsExtends
 {
+    /**
+     * Keeps tabs
+     * 
+     * @var array
+     */
     protected $tabs = [];
 
-    //--------------------------------------------------------------------------------------------------------
-    // Tab
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string   $menu
-    // @param callable $content
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Tab
+     * 
+     * @param string   $menu
+     * @param callable $content
+     * 
+     * @return self
+     */
     public function tab(String $menu, Callable $content)
     {
         $content = Buffering\Callback::do($content, [new Html]);
@@ -34,25 +39,26 @@ class Build extends ComponentsExtends
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Pill
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param callable $tab
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Generate Pill
+     * 
+     * @param callable $tab
+     * 
+     * @return string
+     */
     public function pill(Callable $tab) : String
     {
         return $this->generate($tab, 'pill');
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Generate
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param callable $tab
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Generate Tabs
+     * 
+     * @param callable $tab
+     * @param string   $type = 'tab'
+     * 
+     * @return string
+     */
     public function generate(Callable $tab, $type = 'tab') : String
     {
         $tab($this);

@@ -11,8 +11,6 @@
 
 require REQUIREMENTS_DIR . 'Functions.php';
 
-use ZN\Helpers\Converter;
-
 class Autoloader
 {
     /**
@@ -298,8 +296,6 @@ class Autoloader
         $info   = [];
 
         $i = 0;
-
-        $type = Converter::toConstant($type, 'T_');
 
         foreach( $tokens as $token )
         {

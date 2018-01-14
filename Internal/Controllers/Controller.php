@@ -1,4 +1,4 @@
-<?php namespace Project\Controllers;
+<?php namespace ZN\Controllers;
 /**
  * ZN PHP Web Framework
  * 
@@ -8,6 +8,14 @@
  * @license MIT [http://opensource.org/licenses/MIT]
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
+
+
+use ZN;
+use ZN\Config;
+use ZN\Autoloader;
+use ZN\Restoration;
+use stdClass;
+
 
 class Controller
 {
@@ -49,15 +57,15 @@ class Controller
     {
         if( defined('static::restore') )
         {
-            \Restoration::mode(static::restore);
+            Restoration::mode(static::restore);
         }
 
-        $this->view       = new \stdClass;
-        $this->masterpage = new \stdClass;
+        $this->view       = new stdClass;
+        $this->masterpage = new stdClass;
 
         ZN::$use =& $this;
 
-        if( defined('static::extract') || \Config::starting('extractViewData') === true ) foreach( View::$data as $key => $val )
+        if( defined('static::extract') || Config::starting('extractViewData') === true ) foreach( View::$data as $key => $val )
         {
             ZN::$use->$key = $val;
         }
@@ -72,7 +80,7 @@ class Controller
     //--------------------------------------------------------------------------------------------------------
     public function restart()
     {
-        return \Autoloader::restart();
+        return Autoloader::restart();
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -90,5 +98,3 @@ class Controller
         }
     }
 }
-
-class_alias('Project\Controllers\Controller', 'Controller');

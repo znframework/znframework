@@ -9,21 +9,24 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use Config;
+use ZN\Config;
 use ZN\JavascriptComponents\ComponentsExtends;
 
 class Build extends ComponentsExtends
 {
+    /**
+     * @var int
+     */
     protected $index = 0;
 
-    //--------------------------------------------------------------------------------------------------------
-    // Generate
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param mixed    $get
-    // @param callable $paginations = NULL
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Generate Ajax Pagination
+     * 
+     * @param mixed    $get
+     * @param callable $paginations = NULL
+     * 
+     * @return string
+     */
     public function generate($get, Callable $paginations = NULL) : String
     {
         if( $paginations !== NULL )

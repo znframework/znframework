@@ -13,14 +13,14 @@ use ZN\JavascriptComponents\ComponentsExtends;
 
 class Build extends ComponentsExtends
 {
-    //--------------------------------------------------------------------------------------------------------
-    // Generate
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string  $type = 'area'
-    // @param calable $charts
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Generate Chart
+     * 
+     * @param string   $type = 'area'
+     * @param callable $charts
+     * 
+     * @return string
+     */
     public function generate(String $type = 'area', Callable $charts) : String
     {
         $charts($this);

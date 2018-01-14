@@ -9,26 +9,34 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use Html, Form as Forms;
+use ZN\Hypertext\Html;
+use ZN\Hypertext\Form;
 use ZN\Buffering;
 use ZN\JavascriptComponents\ComponentsExtends;
 
 class Build extends ComponentsExtends
 {
+    /**
+     * Design
+     * 
+     * @param callable $form
+     * 
+     * @return self
+     */
     public function design(Callable $form)
     {
-        echo $form(new Forms, new Html);
+        echo $form(new Form, new Html);
 
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Generate
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param callable $form
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Generate Form
+     * 
+     * @param callable $form
+     * 
+     * @return string
+     */
     public function generate(Callable $form) : String
     {
         return $this->prop

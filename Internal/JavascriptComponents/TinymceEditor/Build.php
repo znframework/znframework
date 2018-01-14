@@ -13,14 +13,14 @@ use ZN\JavascriptComponents\ComponentsExtends;
 
 class Build extends ComponentsExtends
 {
-    //--------------------------------------------------------------------------------------------------------
-    // Generate
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string   $id   = 'editor'
-    // @param callable $editors
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Generate Tinymce Editor
+     * 
+     * @param string   $id = 'editor'
+     * @param callable $editors
+     * 
+     * @return string
+     */
     public function generate(String $id = 'editor', Callable $editors) : String
     {
         $editors($this);

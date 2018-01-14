@@ -14,15 +14,18 @@ use ZN\JavascriptComponents\ComponentsExtends;
 
 class Build extends ComponentsExtends
 {
+    /**
+     * Keeps li
+     * 
+     * @var array
+     */
     protected $li = [];
 
-    //--------------------------------------------------------------------------------------------------------
-    // Divider
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Divider
+     * 
+     * @return self
+     */
     public function divider()
     {
         $this->li[] = '<li class="divider"></li>';
@@ -30,13 +33,13 @@ class Build extends ComponentsExtends
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // header
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $content
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Header
+     * 
+     * @param string $content = NULL
+     * 
+     * @return self
+     */
     public function header(String $content = NULL)
     {
         $this->li[] = '<li class="dropdown-header">' . $content . '</li>';
@@ -44,14 +47,15 @@ class Build extends ComponentsExtends
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // li
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param callable $columns
-    // @param array    $attr = NULL
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Li
+     * 
+     * @param string $content = NULL
+     * @param string $url     = NULL
+     * @param array  $attr    = NULL
+     * 
+     * @return self
+     */
     public function li(String $content = NULL, String $url = NULL, Array $attr = [])
     {
         if( strstr($url, CURRENT_CFURI) )
@@ -64,14 +68,14 @@ class Build extends ComponentsExtends
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Generate
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string   $value
-    // @param callable $dropdown
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Generate Dropdown
+     * 
+     * @param string   $value
+     * @param callable $dropdowns
+     * 
+     * @return string
+     */
     public function generate(String $value, Callable $dropdowns) : String
     {
         $dropdowns($this);

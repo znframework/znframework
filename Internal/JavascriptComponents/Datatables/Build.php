@@ -13,14 +13,14 @@ use ZN\JavascriptComponents\ComponentsExtends;
 
 class Build extends ComponentsExtends
 {
-    //--------------------------------------------------------------------------------------------------------
-    // Generate
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param mixed    $result
-    // @param callable $datatable = NULL
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Generate Datatables
+     * 
+     * @param mixed    $result
+     * @param callable $datatable = NULL
+     * 
+     * @return string
+     */
     public function generate($result, Callable $datatable = NULL) : String
     {
         if( $datatable !== NULL )

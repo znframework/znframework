@@ -35,6 +35,15 @@ class Builder extends FactoryController
         ]
     ];
 
+    /**
+     * Selects extensions
+     * 
+     * @param array $extensions
+     * @param array $parameters
+     * @param bool  $autoloadExtensions
+     * 
+     * @return array
+     */
     public function extensions($extensions, $parameters, $autoloadExtensions)
     {
         if( $autoloadExtensions === true )

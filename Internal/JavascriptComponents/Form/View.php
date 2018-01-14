@@ -9,61 +9,61 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-//--------------------------------------------------------------------------------------------------------
-// Autoloader Extension
-//--------------------------------------------------------------------------------------------------------
-//
-// @extension jquery
-// @extension bootstrap
-// @extension raphael
-// @extension morris
-//
-//--------------------------------------------------------------------------------------------------------
+/*
+|--------------------------------------------------------------------------
+| Autoloader Extension
+|--------------------------------------------------------------------------
+|
+| @extension jquery
+| @extension bootstrap
+| @extension jqueryValidator
+|
+*/
 
 $extensions = JC::extensions($extensions, ['jquery', 'bootstrap', 'jqueryValidator'], $autoloadExtensions);
 
-//--------------------------------------------------------------------------------------------------------
-// Available Extensions
-//--------------------------------------------------------------------------------------------------------
-//
-// Internal/Config/ViewObjects
-// 'cdn' =>
-// [
-//     script => [],
-//     style  => []
-// ]
-//
-//--------------------------------------------------------------------------------------------------------
+/*
+|--------------------------------------------------------------------------
+| Available Extensions
+|--------------------------------------------------------------------------
+|
+| Import styles
+|
+*/
+
 if( ! empty($extensions) )
 {
     Import::style(...$extensions);
 }
 
-if( ! empty($action) )
-{
-    Form::action($action);
-}
+/*
+|--------------------------------------------------------------------------
+| Form
+|--------------------------------------------------------------------------
+|
+| Form Structure
+|
+*/
 
-if( ! empty($method) )
-{
-    Form::method($method);
-}
-
-if( ! empty($multipart) )
-{
-    Form::multipart($multipart);
-}
-
-if( ! empty($class) )
-{
-    Form::class($class);
-}
+if( ! empty($action) )    Form::action($action);
+if( ! empty($method) )    Form::method($method);
+if( ! empty($multipart) ) Form::multipart($multipart);
+if( ! empty($class) )     Form::class($class);
 
 echo Form::attr($attributes)->open($name);
 
 echo $contents;
 
 echo Form::close();
+
+/*
+|--------------------------------------------------------------------------
+| Available Extensions
+|--------------------------------------------------------------------------
+|
+| Import scripts
+|
+*/
 
 if( ! empty($extensions) )
 {
@@ -72,6 +72,14 @@ if( ! empty($extensions) )
 ?>
 
 <script>
+/*
+|--------------------------------------------------------------------------
+| Form Initialize
+|--------------------------------------------------------------------------
+|
+| Init Form With $properties
+|
+*/
 
 <?php if( ! empty($messageInterval) ): ?>
 $(document).ready(function(){

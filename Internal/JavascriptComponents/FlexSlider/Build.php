@@ -13,14 +13,14 @@ use ZN\JavascriptComponents\ComponentsExtends;
 
 class Build extends ComponentsExtends
 {
-    //--------------------------------------------------------------------------------------------------------
-    // Generate
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string   $id   = 'datepicker'
-    // @param callable $flexsliders
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Generate Flex Slider
+     * 
+     * @param string   $id = 'flexslider'
+     * @param callable $flexsliders
+     * 
+     * @return string
+     */
     public function generate(String $id = 'flexslider', Callable $flexsliders) : String
     {
         $flexsliders($this);

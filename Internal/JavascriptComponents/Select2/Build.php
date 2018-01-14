@@ -13,14 +13,14 @@ use ZN\JavascriptComponents\ComponentsExtends;
 
 class Build extends ComponentsExtends
 {
-    //--------------------------------------------------------------------------------------------------------
-    // Generate
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string   $id   = 'select2'
-    // @param callable $select2
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Generate Select2
+     * 
+     * @param string   $id = 'seletc2'
+     * @param callable $select2
+     * 
+     * @return string
+     */
     public function generate(String $id = 'select2', Callable $select2) : String
     {
         $select2($this);
