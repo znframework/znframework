@@ -10,10 +10,9 @@
  */
 
 use Config;
-use ZN\DateTime\Carbon\Carbon;
 use ZN\DataTypes\Arrays;
 
-class DateTimeCommon extends Carbon
+class DateTimeCommon
 {
     //--------------------------------------------------------------------------------------------------------
     // Confi

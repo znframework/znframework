@@ -9,7 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-class DB extends \UnitTest
+use ZN\Controller\UnitTest;
+
+class DB extends UnitTest
 {
     const unit =
     [

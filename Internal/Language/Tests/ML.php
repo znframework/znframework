@@ -9,7 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-class ML extends \UnitTest
+use ZN\Controller\UnitTest;
+
+class ML extends UnitTest
 {
     const unit =
     [

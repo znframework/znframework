@@ -11,10 +11,10 @@
 
 use Memcache;
 use ZN\Config;
-use ZN\ErrorHandling\Errors;
 use ZN\Support;
-use ZN\Cache\Exception\UnsupportedDriverException;
+use ZN\ErrorHandling\Errors;
 use ZN\Cache\DriverMappingAbstract;
+use ZN\Cache\Exception\UnsupportedDriverException;
 
 class MemcacheDriver extends DriverMappingAbstract
 {

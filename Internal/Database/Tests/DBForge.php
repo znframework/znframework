@@ -9,7 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-class DBForge extends \UnitTest
+use ZN\Controller\UnitTest;
+
+class DBForge extends UnitTest
 {
     const unit =
     [

@@ -9,7 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-class Encode extends \UnitTest
+use ZN\Controller\UnitTest;
+
+class Encode extends UnitTest
 {
     const unit =
     [

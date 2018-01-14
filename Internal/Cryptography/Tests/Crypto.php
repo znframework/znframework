@@ -9,7 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-class Crypto extends \UnitTest
+use ZN\Controller\UnitTest;
+
+class Crypto extends UnitTest
 {
     const unit =
     [

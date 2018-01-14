@@ -9,7 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-class Buffer extends \UnitTest
+use ZN\Controller\UnitTest;
+
+class Buffer extends UnitTest
 {
     const unit =
     [

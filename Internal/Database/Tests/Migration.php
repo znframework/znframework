@@ -9,7 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-class Migration extends \UnitTest
+use ZN\Controller\UnitTest;
+
+class Migration extends UnitTest
 {
     const unit =
     [

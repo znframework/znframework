@@ -11,7 +11,7 @@
 
 use ZN\Controller\UnitTest;
 
-class Captcha extends \UnitTest
+class Captcha extends UnitTest
 {
     const unit =
     [

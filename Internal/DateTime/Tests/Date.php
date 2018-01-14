@@ -9,7 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-class Date extends \UnitTest
+use ZN\Controller\UnitTest;
+
+class Date extends UnitTest
 {
     const unit =
     [

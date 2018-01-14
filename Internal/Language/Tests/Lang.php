@@ -9,7 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-class Lang extends \UnitTest
+use ZN\Controller\UnitTest;
+
+class Lang extends UnitTest
 {
     const unit =
     [

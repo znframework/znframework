@@ -9,7 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-class DBUser extends \UnitTest
+use ZN\Controller\UnitTest;
+
+class DBUser extends UnitTest
 {
     const unit =
     [
