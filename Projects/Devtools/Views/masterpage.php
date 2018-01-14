@@ -21,7 +21,7 @@ else
 
 ?>
 
-<?php if( $success = redirectData('success') ):
+<?php if( $success = Redirect::deleteData('success') ):
 redirectDeleteData('success'); ?>
 <div class="row">
     <div class="col-lg-12">
@@ -62,7 +62,7 @@ function deleteProcess(link)
 {
     if( confirm('<?php echo LANG['areYouSure']; ?>') )
     {
-        window.location =  '<?php echo siteUrl(); ?>' + link;
+        window.location =  '<?php echo URL::site(); ?>' + link;
     }
 }
 </script>

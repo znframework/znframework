@@ -11,7 +11,7 @@
 //
 //------------------------------------------------------------------------------------------------------------
 
-use Restful, Import;
+use Restful, Import, Redirect;
 
 class Version extends Controller
 {
@@ -26,7 +26,7 @@ class Version extends Controller
     {
         if( ! $versions = Restful::post('https://api.znframework.com/statistics/versions') )
         {
-            redirect();
+            Redirect::location();
         }
 
         Import::handload('Functions');

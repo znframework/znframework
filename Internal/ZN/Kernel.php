@@ -70,7 +70,7 @@ class Kernel
         # Sends defined header information.
         headers(Config::get('Project', 'headers'));
 
-        if( IS::timeZone($timezone = Config::get('DateTime', 'timeZone')) ) date_default_timezone_set($timezone);
+        if( IS::timeZone($timezone = Config::get('DateTime', 'timezone')) ) date_default_timezone_set($timezone);
         
         # The codes to be written to this layer will run just before the kernel comes into play. 
         # However, htaccess is enabled after Autoloder and Header configurations.

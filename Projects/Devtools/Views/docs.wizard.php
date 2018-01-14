@@ -22,13 +22,13 @@
             <div class="panel-heading">
                 <h3 style="cursor:pointer" data-toggle="collapse" data-target="/#id{{$key}}" class="panel-title">
                     <i class="fa fa-book fa-fw"></i>
-                    @@Separator::decode($doc->title ?? $doc->meta_keyword)->{getLang()}:
+                    @@Separator::decode($doc->title ?? $doc->meta_keyword)->{Lang::get()}:
                     <span><i class="fa fa-angle-down fa-fw"></i></span>
                 </h3>
             </div>
             <div id="id{{$key}}" class="collapse panel-body">
                 <div class="list-group">
-                    @@specialWord(Separator::decode($doc->content)->{getLang()}):
+                    @@specialWord(Separator::decode($doc->content)->{Lang::get()}):
                 </div>
             </div>
         </div>

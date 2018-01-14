@@ -47,9 +47,9 @@ class DateTimeCommon extends Carbon
     {
         parent::__construct();
 
-        $this->config = Config::get('DateTime');
+        $this->config = Config::get('Project');
 
-        setlocale(LC_ALL, $this->config['setLocale']['charset'], $this->config['setLocale']['language']);
+        setlocale(LC_ALL, $this->config['locale']['charset'], $this->config['locale']['language']);
     }
 
     //--------------------------------------------------------------------------------------------------------

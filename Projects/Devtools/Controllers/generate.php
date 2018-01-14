@@ -11,7 +11,7 @@
 //
 //------------------------------------------------------------------------------------------------------------
 
-use Method, Arrays, Generate as Gen;
+use Method, Arrays, Generate as Gen, Redirect;
 use Validation, Folder, File, Config, Uri, Security, Http;
 
 class Generate extends Controller
@@ -86,7 +86,7 @@ class Generate extends Controller
                     'functions'   => $functions
                 ]);
 
-                redirect(currentUri(), 0, ['success' => LANG['success']]);
+                Redirect::location(URI::current(), 0, ['success' => LANG['success']]);
             }
             else
             {
@@ -131,7 +131,7 @@ class Generate extends Controller
                     'functions'   => $functions
                 ]);
 
-                redirect(currentUri(), 0, ['success' => LANG['success']]);
+                Redirect::location(URI::current(), 0, ['success' => LANG['success']]);
             }
             else
             {
@@ -160,7 +160,7 @@ class Generate extends Controller
     {
         if( IS_CONTAINER )
         {
-            redirect();
+            Redirect::location();
         }
 
         if( Method::post('generate') )
@@ -184,7 +184,7 @@ class Generate extends Controller
                     'functions'   => $functions
                 ]);
 
-                redirect(currentUri(), 0, ['success' => LANG['success']]);
+                Redirect::location(URI::current(), 0, ['success' => LANG['success']]);
             }
             else
             {
@@ -212,7 +212,7 @@ class Generate extends Controller
     {
         if( IS_CONTAINER )
         {
-            redirect();
+            Redirect::location();
         }
 
         $path = 'Routes';
@@ -234,7 +234,7 @@ class Generate extends Controller
                     File::create($routePath);
                 }
 
-                redirect(currentUri(), 0, ['success' => LANG['success']]);
+                Redirect::location(URI::current(), 0, ['success' => LANG['success']]);
             }
             else
             {
@@ -259,7 +259,7 @@ class Generate extends Controller
     {
         if( IS_CONTAINER )
         {
-            redirect();
+            Redirect::location();
         }
 
         $path = 'Config';
@@ -283,7 +283,7 @@ class Generate extends Controller
                     File::write($configPath, $configContent);
                 }
 
-                redirect(currentUri(), 0, ['success' => LANG['success']]);
+                Redirect::location(URI::current(), 0, ['success' => LANG['success']]);
             }
             else
             {
@@ -322,7 +322,7 @@ class Generate extends Controller
     {
         if( IS_CONTAINER )
         {
-            redirect();
+            Redirect::location();
         }
 
         if( Method::post('generate') )
@@ -350,7 +350,7 @@ class Generate extends Controller
 
                 $status = Gen::model(Method::post('model'), $data);
 
-                redirect(currentUri(), 0, ['success' => LANG['success']]);
+                Redirect::location(URI::current(), 0, ['success' => LANG['success']]);
             }
             else
             {
@@ -423,7 +423,7 @@ class Generate extends Controller
                     File::write($viewPath, $content);
                 }
 
-                redirect(currentUri(), 0, ['success' => LANG['success']]);
+                Redirect::location(URI::current(), 0, ['success' => LANG['success']]);
             }
             else
             {
@@ -474,7 +474,7 @@ class Generate extends Controller
                     File::write($viewPath, '<?php');
                 }
 
-                redirect(currentUri(), 0, ['success' => LANG['success']]);
+                Redirect::location(URI::current(), 0, ['success' => LANG['success']]);
             }
             else
             {
@@ -508,7 +508,7 @@ class Generate extends Controller
     {
         if( IS_CONTAINER )
         {
-            redirect();
+            Redirect::location();
         }
 
         if( Method::post('generate') )
@@ -521,7 +521,7 @@ class Generate extends Controller
 
                 \Migration::path($path)->create(Method::post('migration'), (int) Method::post('version'));
 
-                redirect(currentUri(), 0, ['success' => LANG['success']]);
+                Redirect::location(URI::current(), 0, ['success' => LANG['success']]);
             }
             else
             {
@@ -559,7 +559,7 @@ class Generate extends Controller
             File::delete($file);
         }
 
-        redirect((string) prevUrl(), 0, ['success' => LANG['success']]);
+        Redirect::location((string) URL::prev(), 0, ['success' => LANG['success']]);
     }
 
     //--------------------------------------------------------------------------------------------------------

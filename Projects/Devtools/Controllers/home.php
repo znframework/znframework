@@ -11,7 +11,7 @@
 //
 //------------------------------------------------------------------------------------------------------------
 
-use Restful, Method, Validation, File, Folder, Session, Cookie, Json, Uri, Security, Http;
+use Restful, Method, Validation, File, Folder, Session, Cookie, Json, Uri, Security, Http, Redirect, Lang, URL;
 
 class Home extends Controller
 {
@@ -34,22 +34,22 @@ class Home extends Controller
                 $target = PROJECTS_DIR . Method::post('project');
 
                 File::zipExtract($source, $target);
-
-                redirect(currentUri(), 0, ['success' => LANG['success']]);
+                
+                Redirect::location(URI::current(), 0, ['success' => LANG['success']]);
             }
             else
             {
                 $this->masterpage->error = $error;
             }
         }
-
+        
         if( ! $return = Session::select('return') )
         {
             $return = Restful::get('https://api.znframework.com/statistics');
 
             Session::insert('return', $return);
         }
-
+        
         $this->masterpage->page  = 'dashboard';
         $this->masterpage->pdata['return'] = $return;
     }
@@ -117,7 +117,7 @@ class Home extends Controller
             }
         }
 
-        redirect((string) prevUrl(), 0, ['success' => LANG['success']]);
+        Redirect::location((string) URL::prev(), 0, ['success' => LANG['success']]);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -136,7 +136,7 @@ class Home extends Controller
             Folder::delete($path);
         }
 
-        redirect((string) prevUrl(), 0, ['success' => LANG['success']]);
+        Redirect::location((string) URL::prev(), 0, ['success' => LANG['success']]);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -148,8 +148,9 @@ class Home extends Controller
     //--------------------------------------------------------------------------------------------------------
     public function lang($lang = NULL)
     {
-        setlang($lang);
-        redirect((string) prevUrl());
+        Lang::set($lang);
+
+        Redirect::location((string) URL::prev());
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -162,7 +163,7 @@ class Home extends Controller
     public function project($project = NULL)
     {
         Session::insert('project', $project);
-        redirect((string) prevUrl());
+        Redirect::location((string) URL::prev());
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -175,6 +176,6 @@ class Home extends Controller
     public function editorTheme($theme = NULL)
     {
         Cookie::insert('editorTheme', $theme);
-        redirect((string) prevUrl());
+        Redirect::location((string) URL::prev());
     }
 }

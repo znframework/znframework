@@ -45,11 +45,11 @@ class Connection
 
         if( ! empty($config) )
         {
-            $config = Config::get('Filesystem', 'ftp', $config);
+            $config = Config::get('Services', 'ftp', $config);
         }
         else
         {
-            $config = Config::get('Filesystem', 'ftp');
+            $config = Config::get('Services', 'ftp');
         }
 
         $this->_connect($config);

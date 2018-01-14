@@ -11,7 +11,7 @@
 //
 //------------------------------------------------------------------------------------------------------------
 
-use Restful, JC, Method, Http, Processor, File, Arrays, URI, Json, Folder, Config, Strings;
+use Restful, JC, Method, Http, Processor, File, Arrays, URI, Json, Folder, Config, Strings, Redirect;
 
 class Packages extends Controller
 {
@@ -85,7 +85,7 @@ class Packages extends Controller
 
         File::write($this->downloadFileName, Json::encode($newList) . EOL);
 
-        redirect('packages');
+        Redirect::location('packages');
     }
 
     //--------------------------------------------------------------------------------------------------------

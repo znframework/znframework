@@ -6,7 +6,7 @@
         <div style="float:left; margin-left:10px; margin-top:8px;">
         @@Html::image(FILES_DIR . 'ico.png'):
         </div>
-        <a class="navbar-brand" href="@@siteUrl():"><span style="color:/#2C5072">DEV</span> <span style="color:/#00BFFF">TOOLS</span></a>
+        <a class="navbar-brand" href="@@URL::site():"><span style="color:/#2C5072">DEV</span> <span style="color:/#00BFFF">TOOLS</span></a>
     </div>
     <!-- Top Menu Items -->
     <ul class="nav navbar-right top-nav">
@@ -24,7 +24,7 @@
                             }
                         ]}
 
-                        <a href="@@siteUrl('home/project/' . $key):"> @$project:</a>
+                        <a href="@@URL::site('home/project/' . $key):"> @$project:</a>
                     </li>
                     @endif:
                 @endforeach:
@@ -52,7 +52,7 @@
             <ul class="dropdown-menu">
                 @foreach( TOOLS as $key => $tool ):
                     <li>
-                        <a  href="@@siteUrl($tool):"> @@LANG[$key]:</a>
+                        <a  href="@@URL::site($tool):"> @@LANG[$key]:</a>
                     </li>
                 @endforeach:
             </ul>
@@ -64,7 +64,7 @@
                 @foreach( EDITOR_THEMES as $key => $theme ):
                     @if($theme !== SELECT_EDITOR_THEME):
                     <li style="width:200px">
-                        </i> <a href="@@siteUrl('home/editorTheme/' . $key):"> @$theme:</a>
+                        </i> <a href="@@URL::site('home/editorTheme/' . $key):"> @$theme:</a>
                     </li>
                     @endif:
                 @endforeach:
@@ -72,12 +72,12 @@
         </li>
 
         <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-flag"></i>  @$upperLang = strtoupper(getLang()): <b class="caret"></b></a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-flag"></i>  @$upperLang = strtoupper(Lang::get()): <b class="caret"></b></a>
             <ul class="dropdown-menu">
                 @foreach( LANGUAGES as $lang ):
                     @if($lang !== $upperLang):
                     <li>
-                        <a href="@@siteUrl('home/lang/' . strtolower($lang)):"> @$lang:</a>
+                        <a href="@@URL::site('home/lang/' . strtolower($lang)):"> @$lang:</a>
                     </li>
                     @endif:
                 @endforeach:
@@ -90,7 +90,7 @@
             <ul class="dropdown-menu">
 
                     <li>
-                        <a href="@@siteUrl('login/out'):"> Logout</a>
+                        <a href="@@URL::site('login/out'):"> Logout</a>
                     </li>
 
             </ul>
@@ -102,7 +102,7 @@
         <ul class="nav navbar-nav side-nav">
             @foreach( MENUS as $menu => $attr ):
             <li class="{{$attr['href'] === CURRENT_CFPATH ? 'active' : ''}}">
-                <a href="@@siteUrl($attr['href']):"{{isset($attr['target']) ? 'target="' . $attr['target'] . '"' : ''}}>
+                <a href="@@URL::site($attr['href']):"{{isset($attr['target']) ? 'target="' . $attr['target'] . '"' : ''}}>
                     <i class="fa fa-fw fa-@$attr['icon']:"></i>
                     {{LANG[$menu]}} {{isset($attr['badge']) ? '<span class="badge label-success">' . $attr['badge'] . '</span>' : NULL}}
                 </a>

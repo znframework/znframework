@@ -11,7 +11,7 @@
 //
 //------------------------------------------------------------------------------------------------------------
 
-use Folder, Arrays, Form, Config, Route, Validation, Session, Cookie, DB, Restful, ML;
+use Folder, Arrays, Form, Config, Route, Validation, Session, Cookie, DB, Restful, ML, User, Redirect;
 
 class Initialize extends Controller
 {
@@ -39,9 +39,9 @@ class Initialize extends Controller
 
         define('LASTEST_VERSION', $lastVersionData ?? ZN_VERSION);
 
-        if( strtolower(CURRENT_CONTROLLER) !== 'login' && ! Arrays::valueExists(DASHBOARD_CONFIG['ip'], ipv4()) && ! Session::select('isLogin') )
+        if( strtolower(CURRENT_CONTROLLER) !== 'login' && ! Arrays::valueExists(DASHBOARD_CONFIG['ip'], User::ip()) && ! Session::select('isLogin') )
         {
-            redirect('login');
+            Redirect::location('login');
         }
 
         define('LANG', ML::select());
@@ -128,7 +128,7 @@ class Initialize extends Controller
             'vibrant_ink'               => 'Vibrant Ink',
             'xcode'                     => 'Xcode'
         ]);
-
+           
         $databaseConfigPath = SELECT_PROJECT_DIR . 'Config' . DS . 'Database.php';
 
         if( IS_CONTAINER )

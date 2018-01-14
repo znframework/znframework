@@ -11,7 +11,8 @@
 //
 //------------------------------------------------------------------------------------------------------------
 
-use Method, Folder, File, Html, Arrays, Restful, Separator, Http, Session, DBTool, DB, Form, DBGrid, Security, Config, Json;
+use Method, Folder, File, Html, Arrays, Restful, Separator, Redirect, URI;
+use Http, Session, DBTool, DB, Form, DBGrid, Security, Config, Json;
 
 class System extends Controller
 {
@@ -292,7 +293,7 @@ class System extends Controller
                 Folder::copy($upgradeFolder, '/');
                 Folder::delete($upgradeFolder);
 
-                redirect(currentUri(), 0, ['success' => LANG['success']]);
+                Redirect::location(URI::current(), 0, ['success' => LANG['success']]);
             }
             else
             {
@@ -451,7 +452,7 @@ class System extends Controller
 
             Folder::copy(rtrim(SELECT_PROJECT_DIR, DS), $fullPath);
 
-            redirect(currentUri(), 0, ['success' => LANG['success']]);
+            Redirect::location(URI::current(), 0, ['success' => LANG['success']]);
         }
 
         $files = Folder::files($path, 'dir');

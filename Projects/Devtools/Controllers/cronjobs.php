@@ -11,7 +11,7 @@
 //
 //------------------------------------------------------------------------------------------------------------
 
-use Post, Crontab, Strings;
+use Post, Crontab, Strings, Redirect;
 
 class Cronjobs extends Controller
 {
@@ -131,6 +131,6 @@ class Cronjobs extends Controller
     {
         Crontab::remove($id);
 
-        redirect('cronjobs');
+        Redirect::location('cronjobs');
     }
 }

@@ -88,46 +88,6 @@
         'callbacks'     => []  
     ],
 
-    /*
-    |--------------------------------------------------------------------------
-    | Cookie
-    |--------------------------------------------------------------------------
-    |
-    | Contains settings related to cookies. 
-    | Configures the parameters of the setcookie function.
-    | 
-    | encode: The cookie keys are set to which algorithm to encrypt.
-    |
-    */
-
-    'cookie' =>
-    [
-        'encode'     => 'super',
-        'regenerate' => true,
-        'time'       => 604800,
-        'path'       => '/',
-        'domain'     => '',
-        'secure'     => false,
-        'httpOnly'   => true
-    ],
-
-    /*
-    |--------------------------------------------------------------------------
-    | Session
-    |--------------------------------------------------------------------------
-    |
-    | Contains settings related to session. 
-    | 
-    | encode: The cookie keys are set to which algorithm to encrypt.
-    |
-    */
-
-    'session' =>
-    [
-        'encode'     => 'super',
-        'regenerate' => true,
-    ],
-
    /*
     |--------------------------------------------------------------------------
     | Email
@@ -169,5 +129,24 @@
             'mimeVersion'   => '1.0',               # MIME Version
             'mailPath'      => '/usr/sbin/sendmail' # Default Mail Path
         ]
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | FTP
+    |--------------------------------------------------------------------------
+    |
+    | Includes FTP connection settings.
+    |
+    */
+
+    'ftp' =>
+    [
+        'host'       => '',  
+        'user'       => '',   
+        'password'   => '',   
+        'timeout'    => 90, 
+        'port'       => 21, 
+        'sslConnect' => false 
     ]
 ];

@@ -132,7 +132,7 @@ class Grid extends MLExtends
             }
         }
 
-        $config = Config::get('Language', 'grid');
+        $config = Config::get('ViewObjects', 'mlgrid');
 
         $attributes         = $config['attributes'];
         $pagcon             = $config['pagination'];

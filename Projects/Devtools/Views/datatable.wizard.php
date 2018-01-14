@@ -101,7 +101,7 @@ function createNewDatatable()
     {
         $.ajax
         ({
-            url/:"@@siteUrl('datatables/createNewDatatable'):",
+            url/:"@@URL::site('datatables/createNewDatatable'):",
         	data/:$('/#newDatatableForm').serialize(),
         	method/:"post",
             dataType/:"json",
@@ -129,7 +129,7 @@ function dropTable(table)
     {
         $.ajax
         ({
-            url/:"@@siteUrl('datatables/dropTable'):",
+            url/:"@@URL::site('datatables/dropTable'):",
         	data/:"table=" + table,
         	method/:"post",
             dataType:"json",
@@ -157,7 +157,7 @@ function dropColumn(table, column, id)
     {
         $.ajax
         ({
-            url/:"@@siteUrl('datatables/dropColumn'):",
+            url/:"@@URL::site('datatables/dropColumn'):",
         	data/:{"table":table, "column":column},
         	method/:"post",
 
@@ -176,7 +176,7 @@ function modifyColumn(table, column, id)
         var obj = '/#' + table + column;
         $.ajax
         ({
-            url/:"@@siteUrl('datatables/modifyColumn'):",
+            url/:"@@URL::site('datatables/modifyColumn'):",
         	data/:
             {
                 "table"/:table,
@@ -204,7 +204,7 @@ function deleteRow(table, column, value, id)
     {
         $.ajax
         ({
-            url/:"@@siteUrl('datatables/deleteRow'):",
+            url/:"@@URL::site('datatables/deleteRow'):",
         	data/:{"table":table, "column":column, "value":value},
         	method/:"post",
 
@@ -220,7 +220,7 @@ function updateRow(table, ids, id, uniqueKey)
 {
     $.ajax
     ({
-        url/:"@@siteUrl('datatables/updateRow'):",
+        url/:"@@URL::site('datatables/updateRow'):",
     	data/:$('/#' + table).serialize() + '&uniqueKey=' + uniqueKey + '&table=' + table + '&ids=' + ids,
     	method/:"post",
 
@@ -245,7 +245,7 @@ function updateRows(table, id, uniqueKey)
 {
     $.ajax
     ({
-        url/:"@@siteUrl('datatables/updateRows'):",
+        url/:"@@URL::site('datatables/updateRows'):",
     	data/:$('/#' + table).serialize() + '&table=' + table + '&uniqueKey=' + uniqueKey,
     	method/:"post",
 
@@ -269,7 +269,7 @@ function addRow(table, id)
 {
     $.ajax
     ({
-        url/:"@@siteUrl('datatables/addRow'):",
+        url/:"@@URL::site('datatables/addRow'):",
     	data/:$('#' + table).serialize() + '&table=' + table,
     	method/:"post",
 
@@ -302,7 +302,7 @@ function alterTable(type, id)
     
     $.ajax
     ({
-        url/:"@@siteUrl('datatables/alterTable'):",
+        url/:"@@URL::site('datatables/alterTable'):",
     	data/:'content=' + encodeURIComponent(content) + '&type=' + type,
     	method/:"post",
         dataType/:"json",
@@ -327,7 +327,7 @@ function paginationRow(table, start, id)
 {
     $.ajax
     ({
-        url/:"@@siteUrl('datatables/paginationRow'):",
+        url/:"@@URL::site('datatables/paginationRow'):",
     	data/:{"table":table, "start":start},
     	method/:"post",
 

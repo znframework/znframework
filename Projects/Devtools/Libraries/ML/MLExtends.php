@@ -1,5 +1,7 @@
 <?php namespace ML;
 
+use Lang;
+
 class MLExtends
 {
     //--------------------------------------------------------------------------------------------------------
@@ -56,7 +58,7 @@ class MLExtends
             mkdir($this->appdir, 0755);
         }
 
-        $this->lang = $this->appdir.getLang().$this->extension;
+        $this->lang = $this->appdir.Lang::get().$this->extension;
     }
 
     //--------------------------------------------------------------------------------------------------------

@@ -156,7 +156,7 @@ function getColumns(obj, id, type)
 
     $.ajax
     ({
-        url/:"@@siteUrl('system/gridGetColumnsAjax'):",
+        url/:"@@URL::site('system/gridGetColumnsAjax'):",
     	data/:'table=' + $(obj).val() + '&type=' + type,
     	method/:"post",
     	success/:function(data)
@@ -170,7 +170,7 @@ function submitPage(e)
 {
     $.ajax
     ({
-        url/:"@@siteUrl('system/grid'):",
+        url/:"@@URL::site('system/grid'):",
     	data/:$('/#gridForm').serialize() + '&joinsCollapse=' + encodeURIComponent($('/#joinsCollapse').html()),
         method/:"post",
     	success/:function(data)
@@ -184,7 +184,7 @@ function saveJoin()
 {
     $.ajax
     ({
-        url/:"@@siteUrl('system/gridSaveAjax'):",
+        url/:"@@URL::site('system/gridSaveAjax'):",
     	data/:'content=' + encodeURIComponent(document.documentElement.innerHTML) + '&saveName=' + $('/#saveName').val(),
         method/:"post",
     	success/:function(data)
@@ -198,7 +198,7 @@ function loadJoin()
 {
     $.ajax
     ({
-        url/:"@@siteUrl('system/gridLoadAjax'):",
+        url/:"@@URL::site('system/gridLoadAjax'):",
     	data/:'saves=' + $('/#saves').val(),
         method/:"post",
     	success/:function(data)
@@ -215,7 +215,7 @@ function deleteJoin()
 {
     $.ajax
     ({
-        url/:"@@siteUrl('system/gridDeleteAjax'):",
+        url/:"@@URL::site('system/gridDeleteAjax'):",
     	data/:'delete=' + $('/#saves').val(),
         method/:"post",
     	success/:function(data)

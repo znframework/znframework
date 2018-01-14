@@ -127,7 +127,7 @@ class DBGrid
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
-        $this->getConfig = Config::get('Database', 'grid');
+        $this->getConfig = Config::get('ViewObjects', 'dbgrid');
         $this->getLang   = Lang::select('Database');
         $this->confirm   = 'return confirm(\''.$this->getLang['areYouSure'].'\');';
 
@@ -989,7 +989,7 @@ class DBGrid
             $this->db->where($this->processColumn, Method::post('id'))->delete($this->table);
         }
 
-       redirect(URL::current());
+        Singleton::class('ZN\Response\Redirect')->location(URL::current());
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -1085,7 +1085,7 @@ class DBGrid
 
         $this->_processEdit($newSaveData);
 
-        redirect(URL::current());
+        Singleton::class('ZN\Response\Redirect')->location(URL::current());
     }
 
     //--------------------------------------------------------------------------------------------------------

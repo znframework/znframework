@@ -126,7 +126,7 @@ class Register extends UserExtends
                 }
                 elseif( is_string($autoLogin) )
                 {
-                    redirect($autoLogin);
+                    Singleton::class('ZN\Response\Redirect')->location($autoLogin);
                 }
             }
 

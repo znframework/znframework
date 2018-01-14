@@ -157,7 +157,7 @@ class Lang implements LangInterface
     {
         if( empty($l) )
         {
-            $l = Config::get('Language', 'default');
+            $l = Config::get('Project', 'language');
         }
 
         return Singleton::class('ZN\Storage\Session')->insert(In::defaultProjectKey('SystemLanguageData'), $l);
@@ -173,9 +173,9 @@ class Lang implements LangInterface
         $systemLanguageData        = In::defaultProjectKey('SystemLanguageData');
         $defaultSystemLanguageData = In::defaultProjectKey('DefaultSystemLanguageData');
 
-        $default = Config::get('Language', 'default');
+        $default = Config::get('Project', 'language');
         $session = Singleton::class('ZN\Storage\Session');
-
+        
         if( ! $session->select($defaultSystemLanguageData) )
         {
             $session->insert($defaultSystemLanguageData, $default);

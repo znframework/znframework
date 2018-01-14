@@ -122,7 +122,7 @@ function downloadPackage(obj)
 
     $.ajax
     ({
-        url: '{{siteUrl('packages/download')}}',
+        url: '{{URL::site('packages/download')}}',
         data: {'name': ids},
         type: 'post',
         success: function(data)

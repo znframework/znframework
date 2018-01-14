@@ -103,7 +103,7 @@ class Restoration
     {
         if( ! in_array(\User::ip(), (array) $machinesIP) && In::requestURI() !== $uri )
         {
-            redirect($uri);
+            Singleton::class('ZN\Response\Redirect')->location($uri);
         }
     }
 
@@ -178,13 +178,15 @@ class Restoration
         $restorationRoutePage = $settings['routePage'] ?? $restoration['routePage'];
         $routePage            = strtolower($restorationRoutePage);
 
+        $redirect = Singleton::class('ZN\Response\Redirect');
+
         if( IS::array($restorationPages) )
         {
             if( $restorationPages[0] === 'all' )
             {
                 if( $currentPath !== $routePage )
                 {
-                    redirect($restorationRoutePage);
+                    $redirect->location($restorationRoutePage);
                 }
             }
 
@@ -192,7 +194,7 @@ class Restoration
             {
                 if( strstr($currentPath, strtolower($k)) )
                 {
-                    redirect($rp);
+                    $redirect->location($rp);
                 }
                 else
                 {
@@ -200,7 +202,7 @@ class Restoration
                     {
                         if( $currentPath !== $routePage )
                         {
-                            redirect($restorationRoutePage);
+                            $redirect->location($restorationRoutePage);
                         }
                     }
                 }

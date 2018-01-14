@@ -1,110 +1,183 @@
 <?php return
 [
-    //--------------------------------------------------------------------------------------------------
-    // Project
-    //--------------------------------------------------------------------------------------------------
-    //
-    // Author     : Ozan UYKUN <ozanbote@windowslive.com> | <ozanbote@gmail.com>
-    // Site       : www.znframework.com
-    // License    : The MIT License
-    // Copyright  : Copyright (c) 2012-2016, ZN Framework
-    //
-    //--------------------------------------------------------------------------------------------------
+    /*
+    |--------------------------------------------------------------------------
+    | Project Language
+    |--------------------------------------------------------------------------
+    |
+    | It is used to change the system's error output or the language used in 
+    | language libraries.
+    |
+    */
 
-    //----------------------------------------------------------------------------------------------
-    // Key
-    //----------------------------------------------------------------------------------------------
-    // Genel Kullanım: Encode sınıfına ait super() yöntemi için oluşturulmuş şifrelemeye
-    // dahil edilecek ilave karakter ayarıdır. Böyle bir kullanımın oluşturulmasının temel
-    // amacı her projede yer alan kullanıcı şifrelerinin birbirlerinden farklı olmasını
-    // sağlayarak şifre güvenliğini sağlamaktır.
-    //----------------------------------------------------------------------------------------------
-    'key' => internalDefaultProjectKey(),
+    'language' => 'en',
 
-    //--------------------------------------------------------------------------------------------------
-    // Benchmarking Test
-    //--------------------------------------------------------------------------------------------------
-    //
-    // Bu ayarın true olarak ayarlanması durumunda ekranın sağ alt köşesinde sayfa açılış hızı
-    // gibi bir takım verilerin yer aldığı bir tablo görüntülenir.
-    //
-    //--------------------------------------------------------------------------------------------------
-    'benchmark' => false,
+    /*
+    |--------------------------------------------------------------------------
+    | Mode
+    |--------------------------------------------------------------------------
+    |
+    | The project mode. It is recommended to arrange the publication when the 
+    | project is posted.
+    | 
+    | Options: publication, restoration, development
+    |
+    */
 
-    //--------------------------------------------------------------------------------------------------
-    // Mode
-    //--------------------------------------------------------------------------------------------------
-    //
-    // Proje modu belirtilir. Kullanılabilir modlar: publication, restoration, development
-    //
-    //--------------------------------------------------------------------------------------------------
     'mode' => 'development',
 
-    //--------------------------------------------------------------------------------------------------
-    // Error Reporting
-    //--------------------------------------------------------------------------------------------------
-    //
-    // Mevcut hata durumu.
-    //
-    //--------------------------------------------------------------------------------------------------
+    /*
+    |--------------------------------------------------------------------------
+    | Key
+    |--------------------------------------------------------------------------
+    |
+    | Project specific encryption key. Affects the Encode::super() method.
+    |
+    */
+    
+    'key' => ZN\In::defaultProjectKey(),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Benchmark
+    |--------------------------------------------------------------------------
+    |
+    | A table with a set of data is displayed in the lower right corner of the 
+    | screen.
+    |
+    */
+
+    'benchmark' => false,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Cache
+    |--------------------------------------------------------------------------
+    |
+    | It is used to create a project-wide cache.
+    | 
+    | status: activates the caching process.
+    | time: Storage time in seconds.
+    | prefix: Adds a prefix to the cache name.
+    | driver: Cache driver.
+    | compress: Compress driver.
+    | exclude: exclude controller/method information.
+    | include: include controller/method information.
+    | machinesIp: IP addresses that will not be affected from caching.
+    |
+    */
+
+    'cache' =>
+    [
+        'status'     => false,
+        'time'       => 60,
+        'prefix'     => NULL,
+        'driver'     => 'file',
+        'compress'   => false,
+        'exclude'    => [],
+        'include'    => [],
+        'machinesIP' => [],
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Log
+    |--------------------------------------------------------------------------
+    |
+    | Includes settings related to log recording.
+    |
+    | createFile: Starts the logging process.
+    | fileTime: How long it will be stored is specified.
+    |
+    */
+
+    'log' =>
+    [
+        'createFile' => false,
+        'fileTime'   => '30 day'
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Header
+    |--------------------------------------------------------------------------
+    |
+    | HTTP headers to be sent.
+    |
+    */
+
+    'headers' =>
+    [
+        'content-type: text/html; charset=utf-8'
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Error Reporting
+    |--------------------------------------------------------------------------
+    |
+    | Includes error reporting settings.
+    |
+    */
+
     'errorReporting' => E_ALL,
 
-    //--------------------------------------------------------------------------------------------------
-    // Escape Errors
-    //--------------------------------------------------------------------------------------------------
-    //
-    // Hata gösterimi engellenecek hata numaraları belirtilir.
-    //
-    //--------------------------------------------------------------------------------------------------
+    /*
+    |--------------------------------------------------------------------------
+    | Escape Errors
+    |--------------------------------------------------------------------------
+    |
+    | Error numbers for which the error indication is to be prevented.
+    |
+    */
+
     'escapeErrors' => [],
 
-    //--------------------------------------------------------------------------------------------------
-    // Exit Errors
-    //--------------------------------------------------------------------------------------------------
-    //
-    // Hata seviyesine göre kod akışını durdurmak için hata numaraları belirtilir. Yani numara olarak
-    // belirtilen seviyede hata oluştması durumunda kod akışı hatadan sonra kesilir.
-    //
-    //--------------------------------------------------------------------------------------------------
+    /*
+    |--------------------------------------------------------------------------
+    | Exit Errors
+    |--------------------------------------------------------------------------
+    |
+    | It is specified which error numbers will stop the code stream.
+    |
+    */
+
     'exitErrors' => [0, 2],
 
-    //--------------------------------------------------------------------------------------------------
-    // Restoration
-    //--------------------------------------------------------------------------------------------------
-    //
-    // Restorasyon işlemlerini başlatmak için yukarıdaki Projects:mode ayarını 'Restoration' olarak
-    // ayarlamanı gerekmektedir. Bu ayarlamadan sonra aşağıdaki ayarları yapabilirsiniz.
-    //
-    //--------------------------------------------------------------------------------------------------
+    /*
+    |--------------------------------------------------------------------------
+    | Invalid Parameter Error Type
+    |--------------------------------------------------------------------------
+    |
+    | Invalid parameter error display type.
+    |
+    | Options: external, internal
+    |
+    */
+
+    'invalidParameterErrorType' => 'external',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Restoration
+    |--------------------------------------------------------------------------
+    |
+    | For maintenance, the mode setting must be set to restoration.
+    |
+    | machinesIP: The IP addresses to be unaffected by restoration are 
+    | specified.
+    |
+    | pages: It is specified on which pages the restoration will be done.
+    |
+    | routePage: If a request is made to the restored pages, it will be 
+    | indicated where it will be directed.
+    |
+    */
+
     'restoration' =>
     [
-        //----------------------------------------------------------------------------------------------
-        // Machines IP
-        //----------------------------------------------------------------------------------------------
-        //
-        // Uygulama üzerinde restore işlemlerinin yapıldığı makinelere ait ip adresleri belirtilir.
-        // Example: ['215.213.21.32', '10.131.18.21', ...]
-        //
-        //----------------------------------------------------------------------------------------------
         'machinesIP' => ['127.0.0.1'],
-
-        //----------------------------------------------------------------------------------------------
-        // Pages
-        //----------------------------------------------------------------------------------------------
-        // Çalışmayan, hata oluşmuş kullanıcıların karşılasması istenmeyen sayfalar belirtilir.
-        // Example: ['employee/profile', 'home/comments', ...]
-        //
-        //----------------------------------------------------------------------------------------------
-        'pages' => [],
-
-        //----------------------------------------------------------------------------------------------
-        // Route Page
-        //----------------------------------------------------------------------------------------------
-        // Restoration Pages ayarına belirtilmiş sayfalarından herhangi birine istek yapıldığında
-        // bu ayarın belirtildiği sayfaya yönlendirilir.
-        // Example: 'restoration/page'
-        //
-        //----------------------------------------------------------------------------------------------
-        'routePage' => ''
+        'pages'      => [],
+        'routePage'  => ''
     ]
 ];

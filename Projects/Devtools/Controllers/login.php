@@ -11,7 +11,7 @@
 //
 //------------------------------------------------------------------------------------------------------------
 
-use Method, Session;
+use Method, Session, Redirect;
 
 class Login extends Controller
 {
@@ -26,7 +26,7 @@ class Login extends Controller
     {
         if( Session::select('isLogin') )
         {
-            redirect('logout');
+            Redirect::location('logout');
         }
 
         $users = DASHBOARD_CONFIG['users'];
@@ -39,7 +39,7 @@ class Login extends Controller
                 Session::insert('username', Method::post('user'));
                 Session::insert('password', Method::post('password'));
 
-                redirect();
+                Redirect::location();
             }
         }
     }
@@ -50,6 +50,6 @@ class Login extends Controller
         Session::delete('username');
         Session::delete('password');
 
-        redirect('login');
+        Redirect::location('login');
     }
 }

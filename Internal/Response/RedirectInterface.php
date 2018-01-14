@@ -34,7 +34,7 @@ interface RedirectInterface
     public function location(String $url = NULL, Int $time = 0, Array $data = NULL, Bool $exit = true);
 
     //--------------------------------------------------------------------------------------------------
-    // redirectData() -> 5.1.0
+    // Redirect::deleteData() -> 5.1.0
     //--------------------------------------------------------------------------------------------------
     //
     // @param string $k

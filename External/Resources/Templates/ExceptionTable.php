@@ -27,6 +27,8 @@ unset($trace['params']);
                         ! empty($debug['file'])                  &&
                         ! strstr($debug['file'], 'zeroneed.php') &&
                         ! strstr($debug['file'], 'zerocore.php') &&
+                        ! strstr($debug['file'], 'Facade.php')   &&
+                        ! strstr($debug['file'], 'ZN.php')       &&
                         $debug['file'] !== $file                         
                     )
                         Exceptions::display($debug['file'], $debug['line'], $key);

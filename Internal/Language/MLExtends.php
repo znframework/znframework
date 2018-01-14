@@ -65,7 +65,7 @@ class MLExtends
      */
     public function __construct()
     {
-        $this->gridConfig = Config::get('Language', 'grid');
+        $this->gridConfig = Config::get('ViewObjects', 'mlgrid');
 
         $mlDir = 'ML/';
 

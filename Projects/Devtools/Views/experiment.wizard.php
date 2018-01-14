@@ -104,7 +104,7 @@ function alterTable(type, id)
     
     $.ajax
     ({
-        url/:"@@siteUrl('experiments/alterTable'):",
+        url/:"@@URL::site('experiments/alterTable'):",
     	data/:'content=' + encodeURIComponent(content) + '&type=' + type,
     	method/:"post",
     	success/:function(data)

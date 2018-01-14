@@ -129,5 +129,24 @@
             'mimeVersion'   => '1.0',               # MIME Version
             'mailPath'      => '/usr/sbin/sendmail' # Default Mail Path
         ]
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | FTP
+    |--------------------------------------------------------------------------
+    |
+    | Includes FTP connection settings.
+    |
+    */
+
+    'ftp' =>
+    [
+        'host'       => '',  
+        'user'       => '',   
+        'password'   => '',   
+        'timeout'    => 90, 
+        'port'       => 21, 
+        'sslConnect' => false 
     ]
 ];

@@ -231,7 +231,7 @@ class Carbon extends DateTime
     {
         if ($object === null) {
             // Don't return null... avoid Bug #52063 in PHP <5.3.6
-            return new DateTimeZone(date_default_timezone_get(Config::get('DateTime', 'timeZone')));
+            return new DateTimeZone(date_default_timezone_get(Config::get('DateTime', 'timezone')));
         }
 
         if ($object instanceof DateTimeZone) {
@@ -691,7 +691,7 @@ class Carbon extends DateTime
                 return $this->format('I') === '1';
 
             case $name === 'local':
-                return $this->getOffset() === $this->copy()->setTimezone(date_default_timezone_get(Config::get('DateTime', 'timeZone')))->getOffset();
+                return $this->getOffset() === $this->copy()->setTimezone(date_default_timezone_get(Config::get('DateTime', 'timezone')))->getOffset();
 
             case $name === 'utc':
                 return $this->getOffset() === 0;

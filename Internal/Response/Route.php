@@ -775,7 +775,7 @@ class Route implements RouteInterface
         }
         else
         {
-            redirect($invalidRequest['page']);
+            Singleton::class('ZN\Response\Redirect')->location($invalidRequest['page']);
         }
     }
 
@@ -798,7 +798,7 @@ class Route implements RouteInterface
         }
         else
         {
-            redirect($routeShow404);
+            Singleton::class('ZN\Response\Redirect')->location($routeShow404);
         }
     }
 
@@ -1034,7 +1034,7 @@ class Route implements RouteInterface
 
         if( $redirect = ($this->redirects[CURRENT_CFURI]['redirect'] ?? ($direct)) )
         {
-            redirect($redirect);
+            Singleton::class('ZN\Response\Redirect')->location($redirect);
         }
 
         $this->redirectInvalidRequest();

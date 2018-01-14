@@ -143,7 +143,7 @@
                 <div class="list-group">
 
                     @foreach( PROJECT_LIST as $project ):
-                    <a href="{{siteUrl('home/project/' . $project)}}" class="{{((Session::select('project') ? Session::select('project') : DEFAULT_PROJECT) === $project ) ? 'active ' : NULL}}list-group-item">
+                    <a href="{{URL::site('home/project/' . $project)}}" class="{{((Session::select('project') ? Session::select('project') : DEFAULT_PROJECT) === $project ) ? 'active ' : NULL}}list-group-item">
                         <i class="fa fa-fw fa-folder"></i> @$project:
                         @if( $project !== 'External' ):
                         <span class="pull-right"><i onclick="deleteProcess('home/delete/{{$project}}');" class="fa fa-trash-o fa-fw"></i></span>

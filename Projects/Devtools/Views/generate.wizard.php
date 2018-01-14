@@ -67,7 +67,7 @@ function renameProcess(oldname, newname)
     {
         $.ajax
         ({
-            'url'/:'@@siteUrl('generate/renameFile'):',
+            'url'/:'@@URL::site('generate/renameFile'):',
             'data'/:'old=' + oldname + '&new=' + $(newname).val() + '&current={{CURRENT_CFUNCTION}}',
             'type'/:'post',
             'success'/:function()
@@ -100,7 +100,7 @@ function saveProcess(link, key)
 
     $.ajax
     ({
-        'url'/:'@@siteUrl('generate/saveFile'):',
+        'url'/:'@@URL::site('generate/saveFile'):',
         'data'/:'link=' + link + '&content=' + encodeURIComponent(code),
         'type'/:'post',
         'success'/:function(data)

@@ -45,7 +45,7 @@ class Logout extends UserExtends
             $cookie ->delete($password);
             $session->delete($username);
 
-            redirect((string) $redirectUrl, $time);
+            Singleton::class('ZN\Response\Redirect')->location((string) $redirectUrl, $time);
         }
     }
 }
