@@ -9,7 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
+use ZN\Abilities\ExclusionAbility;
+
 class InvalidArgumentException extends \InvalidArgumentException
 {
-    use \ExclusionAbility;
+    use ExclusionAbility;
 }

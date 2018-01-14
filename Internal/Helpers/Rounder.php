@@ -11,7 +11,7 @@
 
 use ZN\Helpers\Exception\LogicException;
 
-class Rounder extends \FactoryController
+class Rounder
 {
     //--------------------------------------------------------------------------------------------------------
     // Do

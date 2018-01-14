@@ -9,7 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
+use ZN\Abilities\ExclusionAbility;
+
 class LogicException extends \LogicException
 {
-    use \ExclusionAbility;
+    use ExclusionAbility;
 }

@@ -1,4 +1,4 @@
-<?php namespace ZN\Helpers;
+<?php namespace ZN\Helpers\Tests;
 /**
  * ZN PHP Web Framework
  * 
@@ -9,12 +9,13 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-class Hook
-{
-    public function __call($method, $parameters)
-    {
-        $hook = \Config::hooks();
+use ZN\Controllers\UnitTestController;
 
-        return $hook[$method](...$parameters) ?? false;
-    }
+class Cleaner extends UnitTestController
+{
+    const unit =
+    [
+        'class'   => 'Cleaner',
+        'methods' => []
+    ];
 }

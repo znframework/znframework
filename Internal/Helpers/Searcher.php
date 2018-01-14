@@ -11,7 +11,7 @@
 
 use ZN\Database\DB;
 
-class Searcher extends \FactoryController
+class Searcher
 {
     //--------------------------------------------------------------------------------------------------------
     // Result

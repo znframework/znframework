@@ -1,4 +1,4 @@
-<?php namespace ZN\Helpers;
+<?php namespace ZN\Helpers\Tests;
 /**
  * ZN PHP Web Framework
  * 
@@ -9,12 +9,13 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-class Iterate
-{
-    use \FabricationAbility;
+use ZN\Controllers\UnitTestController;
 
-    const fabrication = 
+class Logger extends UnitTestController
+{
+    const unit =
     [
-        'suffix' => 'Iterator'
+        'class'   => 'Logger',
+        'methods' => []
     ];
 }

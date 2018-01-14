@@ -30,8 +30,7 @@ class Builder extends FactoryController
             'gridsystem'        => 'GridSystem\Build::generate',
             'dropdown'          => 'Dropdown\Build::generate',
             'tab'               => 'Tabs\Build::generate',
-            'pill'              => 'Tabs\Build::pill',
-            'ajax'              => 'Ajax\Build::generate'
+            'pill'              => 'Tabs\Build::pill'
         ]
     ];
 

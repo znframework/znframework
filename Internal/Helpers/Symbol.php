@@ -9,6 +9,8 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
+use ZN\Config;
+
 class Symbol
 {
     //--------------------------------------------------------------------------------------------------------
@@ -32,7 +34,7 @@ class Symbol
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
-        $this->symbols = array_merge(\Config::get('Expressions', 'symbols'), $this->symbols);
+        $this->symbols = array_merge(Config::get('Expressions', 'symbols'), $this->symbols);
     }
 
     //--------------------------------------------------------------------------------------------------------

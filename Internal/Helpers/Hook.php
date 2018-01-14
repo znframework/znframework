@@ -9,11 +9,14 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-class ConverterUnitTest extends \UnitTestController
+use ZN\Config;
+
+class Hook
 {
-    const unit =
-    [
-        'class'   => 'Converter',
-        'methods' => []
-    ];
+    public function __call($method, $parameters)
+    {
+        $hook = Config::hooks();
+
+        return $hook[$method](...$parameters) ?? false;
+    }
 }

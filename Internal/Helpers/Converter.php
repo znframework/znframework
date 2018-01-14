@@ -9,24 +9,18 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\DataTypes\Strings;
+use stdClass;
+use ZN\Config;
 use ZN\Security;
-use ZN\Helpers\Exception\InvalidArgumentException;
-use ZN\Helpers\Exception\LogicException;
-use ZN\DataTypes\Arrays;
+use ZN\Singleton;
 use ZN\Filesystem;
+use ZN\DataTypes\Arrays;
+use ZN\DataTypes\Strings;
+use ZN\Helpers\Exception\LogicException;
+use ZN\Helpers\Exception\InvalidArgumentException;
 
 class Converter
 {
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Author     : Ozan UYKUN <ozanbote@gmail.com>
-    // Site       : www.znframework.com
-    // License    : The MIT License
-    // Copyright  : (c) 2012-2016, znframework.com
-    //
-    //--------------------------------------------------------------------------------------------------------
-
     public static $accentChars =
     [
         'ä|æ|ǽ'                                                         => 'ae',
@@ -331,7 +325,7 @@ class Converter
         return preg_replace
         (
             '/(((https?|ftp)\:\/\/)(\w+\.)*(\w+)\.\w+\/*\S*)/xi',
-            '<a href="$1"'.\Html::attributes((array) $attributes).'>'.( $type === 'short' ? '$5' : '$1').'</a>',
+            '<a href="$1"'.Singleton::class('ZN\Hypertext\Html')->attributes((array) $attributes).'>'.( $type === 'short' ? '$5' : '$1').'</a>',
             $data
         );
     }
@@ -452,7 +446,7 @@ class Converter
     //--------------------------------------------------------------------------------------------------------
     public static function accent(String $str) : String
     {
-        $accent = array_merge(\Config::get('Expressions', 'accentChars'), self::$accentChars);
+        $accent = array_merge(Config::get('Expressions', 'accentChars'), self::$accentChars);
 
         $accent = Arrays::multikey($accent);
 
@@ -535,9 +529,9 @@ class Converter
     // @param var $var
     //
     //--------------------------------------------------------------------------------------------------------
-    public static function toObjectRecursive($var) : \stdClass
+    public static function toObjectRecursive($var) : stdClass
     {
-        $object = new \stdClass;
+        $object = new stdClass;
 
         return self::objectRecursive((array) $var, $object);
     }
@@ -586,13 +580,13 @@ class Converter
     // @return string
     //
     //--------------------------------------------------------------------------------------------------
-    protected static function objectRecursive(Array $array, \stdClass &$std) : \stdClass
+    protected static function objectRecursive(Array $array, stdClass &$std) : stdClass
     {
         foreach( $array as $key => $value )
         {
             if( is_array($value) )
             {
-                $std->$key = new \stdClass;
+                $std->$key = new stdClass;
 
                 self::objectRecursive($value, $std->$key);
             }

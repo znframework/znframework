@@ -9,11 +9,14 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-class LimiterUnitTest extends \UnitTestController
+use ZN\Abilities\FabricationAbility;
+
+class Iterate
 {
-    const unit =
+    use FabricationAbility;
+
+    const fabrication = 
     [
-        'class'   => 'Limiter',
-        'methods' => []
+        'suffix' => 'Iterator'
     ];
 }

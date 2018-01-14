@@ -1,4 +1,4 @@
-<?php namespace ZN\Helpers;
+<?php namespace ZN\Helpers\Tests;
 /**
  * ZN PHP Web Framework
  * 
@@ -9,11 +9,13 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-class CleanerUnitTest extends \UnitTestController
+use ZN\Controllers\UnitTestController;
+
+class Rounder extends UnitTestController
 {
     const unit =
     [
-        'class'   => 'Cleaner',
+        'class'   => 'Rounder',
         'methods' => []
     ];
 }

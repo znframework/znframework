@@ -9,7 +9,10 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
+use ZN\Config;
+use ZN\Singleton;
 use ZN\Filesystem;
+use ZN\Authentication\IP;
 
 class Logger implements LoggerInterface
 {
@@ -147,7 +150,7 @@ class Logger implements LoggerInterface
     //--------------------------------------------------------------------------------------------------
     public static function report(String $subject, String $message, String $destination = NULL, String $time = NULL) : Bool
     {
-        if( ! \Config::get('Project', 'log')['createFile'] )
+        if( ! Config::get('Project', 'log')['createFile'] )
         {
             return false;
         }
@@ -169,7 +172,7 @@ class Logger implements LoggerInterface
         {
             if( empty($time) )
             {
-                $time = \Config::get('Project', 'log')['fileTime'];
+                $time = Config::get('Project', 'log')['fileTime'];
             }
 
             $createDate = Filesystem\Info::createDate($logDir.suffix($destination, $extension), 'd.m.Y');
@@ -182,9 +185,9 @@ class Logger implements LoggerInterface
             }
         }
 
-        $message = 'IP: ' . \User::ip().
+        $message = 'IP: ' . IP::v4().
                    ' | Subject: ' . $subject.
-                   ' | Date: '.\Date::set('{dayNumber0}.{monthNumber0}.{year} {H024}:{minute}:{second}').
+                   ' | Date: '.Singleton::class('ZN\DateTime\Date')->set('{dayNumber0}.{monthNumber0}.{year} {H024}:{minute}:{second}').
                    ' | Message: ' . $message . EOL;
 
         return error_log($message, 3, $logDir.suffix($destination, $extension));

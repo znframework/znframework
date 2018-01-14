@@ -9,6 +9,8 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
+use ZN\Config;
+
 class Mime
 {
     //--------------------------------------------------------------------------------------------------------
@@ -32,7 +34,7 @@ class Mime
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
-        $this->mimeTypes = array_merge(\Config::get('Expressions', 'mimeTypes'), $this->mimeTypes);
+        $this->mimeTypes = array_merge(Config::get('Expressions', 'mimeTypes'), $this->mimeTypes);
     }
 
     //--------------------------------------------------------------------------------------------------------

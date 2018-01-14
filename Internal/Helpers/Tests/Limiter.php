@@ -1,4 +1,4 @@
-<?php namespace ZN\Helpers;
+<?php namespace ZN\Helpers\Tests;
 /**
  * ZN PHP Web Framework
  * 
@@ -9,11 +9,13 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-class SearcherUnitTest extends \UnitTestController
+use ZN\Controllers\UnitTestController;
+
+class Limiter extends UnitTestController
 {
     const unit =
     [
-        'class'   => 'Searcher',
+        'class'   => 'Limiter',
         'methods' => []
     ];
 }
