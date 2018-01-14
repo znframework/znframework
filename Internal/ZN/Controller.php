@@ -9,13 +9,8 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-
 use ZN;
-use ZN\Config;
-use ZN\Autoloader;
-use ZN\Restoration;
 use stdClass;
-
 
 class Controller
 {

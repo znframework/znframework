@@ -9,9 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\UnitTestController;
+use ZN\Controller\UnitTest;
 
-class FTP extends UnitTestController
+class FTP extends UnitTest
 {
     const unit =
     [

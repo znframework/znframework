@@ -9,7 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-class DBUser extends \UnitTestController
+class DBUser extends \UnitTest
 {
     const unit =
     [

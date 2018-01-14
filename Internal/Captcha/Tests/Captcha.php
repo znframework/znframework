@@ -9,9 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\UnitTestController;
+use ZN\Controller\UnitTest;
 
-class Captcha extends \UnitTestController
+class Captcha extends \UnitTest
 {
     const unit =
     [

@@ -11,5 +11,5 @@
 
 class Exception extends \Exception implements ExceptionInterface
 {
-    use ExclusionAbility;
+    use Exclusion;
 }

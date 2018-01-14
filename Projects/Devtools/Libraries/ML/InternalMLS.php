@@ -1,8 +1,9 @@
 <?php
 
 use Lang;
+use ZN\Controller\Factory;
 
-class InternalMLS extends FactoryController
+class InternalMLS extends Factory
 {
     //--------------------------------------------------------------------------------------------------------
     //

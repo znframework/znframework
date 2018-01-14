@@ -9,9 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\UnitTestController;
+use ZN\Controller\UnitTest;
 
-class Converter extends UnitTestController
+class Converter extends UnitTest
 {
     const unit =
     [

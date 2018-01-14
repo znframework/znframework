@@ -9,9 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\FactoryController;
+use ZN\Controller\Factory;
 
-class User extends FactoryController
+class User extends Factory
 {
     const factory =
     [

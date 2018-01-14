@@ -9,9 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\UnitTestController;
+use ZN\Controller\UnitTest;
 
-class Crontab extends UnitTestController
+class Crontab extends UnitTest
 {
     const unit =
     [

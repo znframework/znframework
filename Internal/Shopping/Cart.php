@@ -9,9 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\FactoryController;
+use ZN\Controller\Factory;
 
-class Cart extends FactoryController
+class Cart extends Factory
 {
     const factory =
     [

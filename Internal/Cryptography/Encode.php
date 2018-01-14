@@ -9,7 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-class Encode extends \FactoryController
+use ZN\Controller\Factory;
+
+class Encode extends Factory
 {
     const factory =
     [

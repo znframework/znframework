@@ -9,9 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\UnitTestController;
+use ZN\Controller\UnitTest;
 
-class SSH extends UnitTestController
+class SSH extends UnitTest
 {
     const unit =
     [

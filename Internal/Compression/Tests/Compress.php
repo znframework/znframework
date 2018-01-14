@@ -9,7 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-class Compress extends \UnitTestController
+class Compress extends \UnitTest
 {
     const unit =
     [

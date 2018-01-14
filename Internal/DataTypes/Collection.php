@@ -9,11 +9,11 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\SerializationAbility;
+use ZN\Ability\Serialization;
 
 class Collection
 {
-    use SerializationAbility;
+    use Serialization;
 
     const serialization = 
     [

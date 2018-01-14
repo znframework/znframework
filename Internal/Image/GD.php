@@ -12,12 +12,12 @@
 use stdClass;
 use ZN\Singleton;
 use ZN\Helpers\Converter;
-use ZN\RevolvingAbility;
+use ZN\Ability\Revolving;
 use ZN\Image\Exception\InvalidArgumentException;
 
 class GD implements GDInterface
 {
-    use RevolvingAbility;
+    use Revolving;
 
     //--------------------------------------------------------------------------------------------------------
     // Canvas

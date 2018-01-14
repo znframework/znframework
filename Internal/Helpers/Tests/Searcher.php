@@ -9,9 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\UnitTestController;
+use ZN\Controller\UnitTest;
 
-class Searcher extends UnitTestController
+class Searcher extends UnitTest
 {
     const unit =
     [

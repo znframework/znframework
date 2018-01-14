@@ -9,9 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\UnitTestController;
+use ZN\Controller\UnitTest;
 
-class Validate extends UnitTestController
+class Validate extends UnitTest
 {
     const unit =
     [

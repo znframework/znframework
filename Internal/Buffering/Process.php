@@ -9,7 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-class Process extends \FactoryController
+use ZN\Controller\Factory;
+
+class Process extends Factory
 {
     const factory =
     [

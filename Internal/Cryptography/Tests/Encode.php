@@ -9,7 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-class Encode extends \UnitTestController
+class Encode extends \UnitTest
 {
     const unit =
     [

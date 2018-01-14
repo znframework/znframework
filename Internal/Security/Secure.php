@@ -9,11 +9,11 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-ZN\SerializationAbility;
+ZN\Ability\Serialization;
 
 class Secure
 {
-    use SerializationAbility;
+    use Serialization;
     
     const serialization = 
     [

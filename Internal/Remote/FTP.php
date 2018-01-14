@@ -9,9 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\FactoryController;
+use ZN\Controller\Factory;
 
-class FTP extends FactoryController
+class FTP extends Factory
 {
     const factory =
     [

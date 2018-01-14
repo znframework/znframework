@@ -9,9 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\UnitTestController;
+use ZN\Controller\UnitTest;
 
-class Arrays extends UnitTestController
+class Arrays extends UnitTest
 {
     const unit =
     [

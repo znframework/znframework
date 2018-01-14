@@ -9,9 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\UnitTestController;
+use ZN\Controller\UnitTest;
 
-class CDN extends UnitTestController
+class CDN extends UnitTest
 {
     const unit =
     [

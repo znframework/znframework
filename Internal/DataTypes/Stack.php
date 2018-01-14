@@ -9,11 +9,11 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\SerializationAbility;
+use ZN\Ability\Serialization;
 
 class Stack
 {
-    use SerializationAbility;
+    use Serialization;
     
     const serialization = 
     [

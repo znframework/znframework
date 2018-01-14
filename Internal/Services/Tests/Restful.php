@@ -9,9 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\UnitTestController;
+use ZN\Controller\UnitTest;
 
-class Restful extends UnitTestController
+class Restful extends UnitTest
 {
     const unit =
     [

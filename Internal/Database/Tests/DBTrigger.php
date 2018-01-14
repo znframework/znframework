@@ -9,7 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-class DBTrigger extends \UnitTestController
+class DBTrigger extends \UnitTest
 {
     const unit =
     [

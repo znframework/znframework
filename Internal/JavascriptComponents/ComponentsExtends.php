@@ -12,11 +12,11 @@
 use ZN\Inclusion;
 use ZN\DataTypes\Arrays;
 use ZN\DataTypes\Strings;
-use ZN\RevolvingAbility;
+use ZN\Ability\Revolving;
 
 class ComponentsExtends
 {
-    use RevolvingAbility;
+    use Revolving;
 
     /**
      * @var string

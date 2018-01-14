@@ -9,9 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\UnitTestController;
+use ZN\Controller\UnitTest;
 
-class Thumb extends UnitTestController
+class Thumb extends UnitTest
 {
     const unit =
     [

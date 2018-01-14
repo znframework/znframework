@@ -9,9 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\UnitTestController;
+use ZN\Controller\UnitTest;
 
-class Strings extends UnitTestController
+class Strings extends UnitTest
 {
     const unit =
     [

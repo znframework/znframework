@@ -10,9 +10,9 @@
  */
 
 use ZN\Exception;
-use ZN\BaseController;
+use ZN\Controller\Base;
 
-class Command extends BaseController
+class Command extends Base
 {
     /**
      * Magic constructor

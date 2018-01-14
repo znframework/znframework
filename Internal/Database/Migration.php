@@ -9,11 +9,10 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use DB, DBForge, Date;
 use ZN\Config;
 use ZN\Filesystem;
 
-class Migration extends \CallController implements MigrationInterface
+class Migration implements MigrationInterface
 {
     /**
      * Migrations path Models/Migrations/
@@ -66,6 +65,9 @@ class Migration extends \CallController implements MigrationInterface
             mkdir($this->path, 0755);
         }
 
+        $this->db    = new DB;
+        $this->forge = new DBForge;
+
         $this->tbl = defined('static::table') ? static::table : false;
 
         $this->_create();
@@ -108,7 +110,7 @@ class Migration extends \CallController implements MigrationInterface
      */
     public function createTable(Array $data) : Bool
     {
-        DBForge::createTable($this->_tableName(), $data);
+        $this->forge->createTable($this->_tableName(), $data);
 
         return $this->_action(__FUNCTION__);
     }
@@ -122,7 +124,7 @@ class Migration extends \CallController implements MigrationInterface
      */
     public function dropTable() : Bool
     {
-        DBForge::dropTable($this->_tableName());
+        $this->forge->dropTable($this->_tableName());
 
         return $this->_action(__FUNCTION__);
     }
@@ -136,7 +138,7 @@ class Migration extends \CallController implements MigrationInterface
      */
     public function addColumn(Array $column) : Bool
     {
-        DBForge::addColumn($this->_tableName(), $column);
+        $this->forge->addColumn($this->_tableName(), $column);
 
         return $this->_action(__FUNCTION__);
     }
@@ -150,7 +152,7 @@ class Migration extends \CallController implements MigrationInterface
      */
     public function dropColumn($column) : Bool
     {
-        DBForge::dropColumn($this->_tableName(), $column);
+        $this->forge->dropColumn($this->_tableName(), $column);
 
         return $this->_action(__FUNCTION__);
     }
@@ -164,7 +166,7 @@ class Migration extends \CallController implements MigrationInterface
      */
     public function modifyColumn(Array $column) : Bool
     {
-        DBForge::modifyColumn($this->_tableName(), $column);
+        $this->forge->modifyColumn($this->_tableName(), $column);
 
         return $this->_action(__FUNCTION__);
     }
@@ -178,7 +180,7 @@ class Migration extends \CallController implements MigrationInterface
      */
     public function renameColumn(Array $column) : Bool
     {
-        DBForge::renameColumn($this->_tableName(), $column);
+        $this->forge->renameColumn($this->_tableName(), $column);
 
         return $this->_action(__FUNCTION__);
     }
@@ -192,7 +194,7 @@ class Migration extends \CallController implements MigrationInterface
      */
     public function truncate() : Bool
     {
-        DBForge::truncate($this->_tableName());
+        $this->forge->truncate($this->_tableName());
 
         return $this->_action(__FUNCTION__);
     }
@@ -338,14 +340,14 @@ class Migration extends \CallController implements MigrationInterface
         $table   = $this->_tableName();
         $version = $this->_getVersion();
 
-        if( ! DBForge::error() )
+        if( ! $this->forge->error() )
         {
-            return DB::insert($this->config['migration']['table'],
+            return $this->db->insert($this->config['migration']['table'],
             [
                 'name'    => $table,
                 'type'    => $type,
                 'version' => $version,
-                'date'    => Date::set('Ymdhis')
+                'date'    => date('Ymdhis')
             ]);
         }
 
@@ -363,12 +365,12 @@ class Migration extends \CallController implements MigrationInterface
     {
         $table   = $this->config['database']['prefix'] . $this->config['migration']['table'];
      
-        DBForge::createTable('IF NOT EXISTS '.$table, array
+        $this->forge->createTable('IF NOT EXISTS '.$table, array
         (
-            'name'    => [DB::varchar(512), DB::notNull()],
-            'type'    => [DB::varchar(256), DB::notNull()],
-            'version' => [DB::varchar(3),   DB::notNull()],
-            'date'    => [DB::varchar(15),  DB::notNull()]
+            'name'    => [$this->db->varchar(512), $this->db->notNull()],
+            'type'    => [$this->db->varchar(256), $this->db->notNull()],
+            'version' => [$this->db->varchar(3),   $this->db->notNull()],
+            'date'    => [$this->db->varchar(15),  $this->db->notNull()]
         ));
     }
 
@@ -472,7 +474,7 @@ class Migration extends \CallController implements MigrationInterface
         $str .= "\t".'public function up()'.$eol;
         $str .= "\t".'{'.$eol;
         $str .= "\t\t".'// Default Query'.$eol;
-        $str .= "\t\t".'return $this->createTable([\'id\' => [DB::int(11), DB::primaryKey(), DB::autoIncrement()]]);'.$eol;
+        $str .= "\t\t".'return $this->createTable([\'id\' => [$this->db->int(11), $this->db->primaryKey(), $this->db->autoIncrement()]]);'.$eol;
         $str .= "\t".'}'.$eol.$eol;
         $str .= "\t".'//--------------------------------------------------------------------------------------------------------'.$eol;
         $str .= "\t".'// Down'.$eol;

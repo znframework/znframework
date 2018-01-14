@@ -9,7 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-class Time extends \UnitTestController
+class Time extends \UnitTest
 {
     const unit =
     [

@@ -9,11 +9,11 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\DriverAbility;
+use ZN\Ability\Driver;
 
 class CartExtends
 {
-    use DriverAbility;
+    use Driver;
 
     /**
      * Driver

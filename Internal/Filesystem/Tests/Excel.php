@@ -9,9 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\UnitTestController;
+use ZN\Controller\UnitTest;
 
-class Excel extends UnitTestController
+class Excel extends UnitTest
 {
     const unit =
     [

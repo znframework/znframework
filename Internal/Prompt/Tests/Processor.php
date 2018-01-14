@@ -9,9 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\UnitTestController;
+use ZN\Controller\UnitTest;
 
-class Processor extends UnitTestController
+class Processor extends UnitTest
 {
     const unit =
     [

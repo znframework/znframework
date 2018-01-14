@@ -9,13 +9,13 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\FunctionalizationAbility;
-use ZN\FactoryController;
+use ZN\Controller\Factory;
 use ZN\Helpers\Converter;
+use ZN\Ability\Functionalization;
 
-class Strings extends FactoryController
+class Strings extends Factory
 {
-    use FunctionalizationAbility;
+    use Functionalization;
 
     const factory =
     [

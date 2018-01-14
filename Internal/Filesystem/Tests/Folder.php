@@ -9,9 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\UnitTestController;
+use ZN\Controller\UnitTest;
 
-class Folder extends UnitTestController
+class Folder extends UnitTest
 {
     const unit =
     [

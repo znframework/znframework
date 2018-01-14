@@ -1,4 +1,4 @@
-<?php $lang = lang('ViewObjects'); return
+<?php $lang = lang('Database'); return
 [
     //--------------------------------------------------------------------------------------------------
     // View Objects
@@ -289,14 +289,14 @@
         //----------------------------------------------------------------------------------------------
         'buttonNames' =>
         [
-            'add'           => $lang['dbgrid:addButton'],
-            'edit'          => $lang['dbgrid:editButton'],
-            'update'        => $lang['dbgrid:updateButton'],
-            'save'          => $lang['dbgrid:saveButton'],
-            'close'         => $lang['dbgrid:closeButton'],
-            'delete'        => $lang['dbgrid:deleteButton'],
-            'deleteSelected'=> $lang['dbgrid:deleteSelectedName'],
-            'deleteAll'     => $lang['dbgrid:deleteAllName']
+            'add'           => $lang['addButton'],
+            'edit'          => $lang['editButton'],
+            'update'        => $lang['updateButton'],
+            'save'          => $lang['saveButton'],
+            'close'         => $lang['closeButton'],
+            'delete'        => $lang['deleteButton'],
+            'deleteSelected'=> $lang['deleteSelectedName'],
+            'deleteAll'     => $lang['deleteAllName']
         ],
 
         //----------------------------------------------------------------------------------------------
@@ -309,8 +309,8 @@
         //----------------------------------------------------------------------------------------------
         'placeHolders' =>
         [
-            'search'    => $lang['dbgrid:searchHolder'],
-            'inputs'    => $lang['dbgrid:inputsHolder'],
+            'search'    => $lang['searchHolder'],
+            'inputs'    => $lang['inputsHolder'],
         ],
 
         //----------------------------------------------------------------------------------------------

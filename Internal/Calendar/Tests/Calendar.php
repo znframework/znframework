@@ -9,9 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\UnitTestController;
+use ZN\Controller\UnitTest;
 
-class Calendar extends UnitTestController
+class Calendar extends UnitTest
 {
     const unit =
     [

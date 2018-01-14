@@ -9,7 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-class Migration extends \UnitTestController
+class Migration extends \UnitTest
 {
     const unit =
     [

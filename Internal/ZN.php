@@ -9,12 +9,12 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
+use ZN\Cache;
 use ZN\Config;
 use ZN\Kernel;
 use ZN\Buffering;
 use ZN\Filesystem;
 use ZN\Request\URI;
-use ZN\Storage\Cache;
 use ZN\Language\Lang;
 use ZN\Response\Route;
 use ZN\Services\Restful;
@@ -121,7 +121,7 @@ class ZN
 
             $cacheName = ($projectConfig['prefix'] ?? Lang::get()) . '-' . $converterName;
 
-            $cache = new Cache;
+            $cache = new Cache\Processor;
 
             $cache->driver($projectConfig['driver']);
 
@@ -196,6 +196,3 @@ class ZN
         return str_replace(['Internal/', 'External/', 'Settings/'], ['Libraries/', NULL, 'Config/'], $path);
     }
 }
-
-# Alias ZN
-class_alias('ZN', 'Project\Controllers\ZN');

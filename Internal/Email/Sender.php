@@ -16,12 +16,12 @@ use ZN\Singleton;
 use ZN\Inclusion;
 use ZN\Language\Lang;
 use ZN\DataTypes\Strings;
-use ZN\DriverAbility;
-use ZN\InformationAbility;
+use ZN\Ability\Driver;
+use ZN\Ability\Information;
 
 class Sender implements SenderInterface
 {
-    use DriverAbility, InformationAbility;
+    use Driver, Information;
 
     //--------------------------------------------------------------------------------------------------------
     // Consts

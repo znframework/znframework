@@ -9,9 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\UnitTestController;
+use ZN\Controller\UnitTest;
 
-class CURL extends UnitTestController
+class CURL extends UnitTest
 {
     const unit =
     [

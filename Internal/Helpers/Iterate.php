@@ -9,11 +9,11 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\FabricationAbility;
+use ZN\Ability\Fabrication;
 
 class Iterate
 {
-    use FabricationAbility;
+    use Fabrication;
 
     const fabrication = 
     [

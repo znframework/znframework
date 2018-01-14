@@ -9,14 +9,14 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\SingletonAbility;
+use ZN\Ability\Singleton;
 use ZN\Language\Lang;
 use ZN\Request\Exception\InvalidArgumentException;
 use ZN\DataTypes\Arrays;
 
 class Http implements HttpInterface
 {
-    use SingletonAbility;
+    use Singleton;
 
     //--------------------------------------------------------------------------------------------------------
     // Settings

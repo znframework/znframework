@@ -9,12 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\FactoryAbility;
+use ZN\Ability\Factory as FactoryAbility;
 
 class Factory
 {
     use FactoryAbility;
 }
-
-# Alias Factory
-class_alias('ZN\Factory', 'Factory');

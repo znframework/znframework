@@ -9,9 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\UnitTestController;
+use ZN\Controller\UnitTest;
 
-class Cleaner extends UnitTestController
+class Cleaner extends UnitTest
 {
     const unit =
     [

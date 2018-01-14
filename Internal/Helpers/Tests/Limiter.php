@@ -9,9 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\UnitTestController;
+use ZN\Controller\UnitTest;
 
-class Limiter extends UnitTestController
+class Limiter extends UnitTest
 {
     const unit =
     [

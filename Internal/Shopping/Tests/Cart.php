@@ -9,9 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\UnitTestController;
+use ZN\Controller\UnitTest;
 
-class Cart extends UnitTestController
+class Cart extends UnitTest
 {
     const unit =
     [

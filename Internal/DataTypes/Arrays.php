@@ -9,12 +9,12 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\FunctionalizationAbility;
-use ZN\FactoryController;
+use ZN\Controller\Factory;
+use ZN\Ability\Functionalization;
 
-class Arrays extends FactoryController
+class Arrays extends Factory
 {
-    use FunctionalizationAbility;
+    use Functionalization;
 
     const factory =
     [

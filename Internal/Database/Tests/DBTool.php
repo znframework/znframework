@@ -9,7 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-class DBTool extends \UnitTestController
+class DBTool extends \UnitTest
 {
     const unit =
     [

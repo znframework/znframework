@@ -9,9 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\UnitTestController;
+use ZN\Controller\UnitTest;
 
-class Serial extends UnitTestController
+class Serial extends UnitTest
 {
     const unit =
     [

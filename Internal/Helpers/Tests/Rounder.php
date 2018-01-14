@@ -9,9 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\UnitTestController;
+use ZN\Controller\UnitTest;
 
-class Rounder extends UnitTestController
+class Rounder extends UnitTest
 {
     const unit =
     [

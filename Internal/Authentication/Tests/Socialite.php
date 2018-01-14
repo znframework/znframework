@@ -9,9 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\UnitTestController;
+use ZN\Controller\UnitTest;
 
-class Socialite extends UnitTestController
+class Socialite extends UnitTest
 {
     const unit =
     [

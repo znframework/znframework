@@ -60,6 +60,9 @@
 
     'aliases' => 
     [
+        # ZN
+        'Project\Controllers\ZN' => 'ZN',
+        
         # ZN\Request
         'Http'    => 'ZN\Request\Http',
         'Server'  => 'ZN\Request\Method',
@@ -71,8 +74,12 @@
         'Project\Controllers\View'       => 'ZN\Inclusion\Project\View',
         'Project\Controllers\Theme'      => 'ZN\Inclusion\Project\Theme',
 
-        # ZN
-        'Project\Controllers\Controller' => 'ZN\Controller'
+        # ZN\Controller
+        'Project\Controllers\Controller' => 'ZN\Controller',
+
+        # ZN\Database
+        'GrandModel'     => 'ZN\Database\GrandModel',
+        'RelevanceModel' => 'ZN\Database\RelevanceModel'
     ],
 
     /*
