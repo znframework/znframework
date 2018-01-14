@@ -24,12 +24,12 @@ unset($trace['params']);
                 foreach( $trace as $key => $debug )
                     if
                     ( 
-                        $debug['file'] !== $file                 && 
                         ! empty($debug['file'])                  &&
                         ! strstr($debug['file'], 'zeroneed.php') &&
-                        ! strstr($debug['file'], 'zerocore.php') 
+                        ! strstr($debug['file'], 'zerocore.php') &&
+                        $debug['file'] !== $file                         
                     )
-                    Exceptions::display($debug['file'], $debug['line'], $key);
+                        Exceptions::display($debug['file'], $debug['line'], $key);
                 ?>
             </div>
         </div>

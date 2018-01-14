@@ -9,6 +9,8 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
+use ZN\Ability\Exclusion;
+
 class Exception extends \Exception implements ExceptionInterface
 {
     use Exclusion;

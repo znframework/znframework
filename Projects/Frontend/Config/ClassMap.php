@@ -1373,5 +1373,3 @@ $classMap['namespaces']['zn\structure'] = 'structure';
 $classMap['namespaces']['zn\support'] = 'support';
 $classMap['namespaces']['zn\zn'] = 'zn';
 $classMap['namespaces']['project\commands\example'] = 'example';
-$classMap['classes']['zn\zn'] = 'Internal/ZN/ZN.php';
-$classMap['namespaces']['zn\zn'] = 'zn';

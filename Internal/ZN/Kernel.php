@@ -17,6 +17,7 @@ use ZN\Language\Lang;
 use ZN\Inclusion;
 use ZN\Singleton;
 use ZN\ErrorHandling\Errors;
+use ZN\ErrorHandling\Exceptions;
 use Project\Controllers\Masterpage;
 use Project\Controllers\Theme;
 
@@ -51,7 +52,7 @@ class Kernel
 
         if( PROJECT_MODE !== 'publication' ) 
         {
-            Errors::handler();
+            Exceptions::handler(); Errors::handler();
         }
 
         # Enables the ob_gzhandler method if it is turned on.
@@ -305,7 +306,10 @@ class Kernel
             Logger::report('GeneralError', $message, 'GeneralError');
         }
 
-        if( PROJECT_MODE !== 'publication' ) Errors::restore();
+        if( PROJECT_MODE !== 'publication' ) 
+        {
+            Exceptions::restore(); Errors::restore();
+        }
 
         ob_end_flush();
     }
