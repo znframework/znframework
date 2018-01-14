@@ -10,7 +10,7 @@
  */
 
 use ZN\Ability\Singleton;
-use ZN\Language\Lang;
+use ZN\Lang;
 use ZN\Request\Exception\InvalidArgumentException;
 use ZN\DataTypes\Arrays;
 

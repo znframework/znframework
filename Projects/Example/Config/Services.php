@@ -22,7 +22,7 @@
     [
         'openController' => 'home',
         'openFunction'   => 'main',
-        'show404'        => '',
+        'show404'        => 'home/show404',
         'requestMethods' =>
         [
             'page'            => '',

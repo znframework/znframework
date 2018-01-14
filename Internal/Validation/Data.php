@@ -12,7 +12,7 @@
 use ZN\Captcha;
 use ZN\Security;
 use ZN\Singleton;
-use ZN\Language\Lang;
+use ZN\Lang;
 use ZN\Request\Method;
 use ZN\DataTypes\Arrays;
 use ZN\Cryptography\Encode;

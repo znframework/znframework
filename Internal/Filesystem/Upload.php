@@ -11,7 +11,7 @@
 
 use ZN\IS;
 use ZN\Config;
-use ZN\Language\Lang;
+use ZN\Lang;
 use ZN\DataTypes\Arrays;
 use ZN\Cryptography\Encode;
 use ZN\Helpers\Converter;

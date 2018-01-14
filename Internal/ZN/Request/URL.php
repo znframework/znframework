@@ -10,7 +10,7 @@
  */
 
 use ZN\In;
-use ZN\Language\Lang;
+use ZN\Lang;
 use ZN\Helpers\Converter;
 
 class URL implements URLInterface

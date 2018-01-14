@@ -1,6 +1,6 @@
 <?php
 
-$lang  = ZN\Language\Lang::select('IndividualStructures'); 
+$lang  = ZN\Lang::select('IndividualStructures'); 
 
 Import::style('bootstrap', 'awesome', 'external-template-style'); Import::script('jquery', 'bootstrap');
 Import::template('ExternalTemplateStyles');

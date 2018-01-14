@@ -13,7 +13,7 @@ use ZN\Request\URL;
 use ZN\Request\URI;
 use ZN\Cryptography\Encode;
 use ZN\IS;
-use ZN\Language\Lang;
+use ZN\Lang;
 use ZN\Inclusion;
 use ZN\Singleton;
 use ZN\Authentication\Exception\ActivationColumnException;

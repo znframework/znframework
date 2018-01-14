@@ -10,7 +10,7 @@
  */
 
 use ZN\Request\URI;
-use ZN\Language\Lang;
+use ZN\Lang;
 use ZN\Response\Route;
 use ZN\Services\Restful;
 use ZN\Helpers\Converter;

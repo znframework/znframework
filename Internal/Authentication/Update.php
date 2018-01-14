@@ -10,7 +10,7 @@
  */
 
 use ZN\Cryptography\Encode;
-use ZN\Language\Lang;
+use ZN\Lang;
 
 class Update extends UserExtends
 {

@@ -16,7 +16,7 @@ use ZN\DataTypes\Strings;
 use ZN\Filesystem;
 use ZN\ErrorHandling\Errors;
 use ZN\IS;
-use ZN\Language\Lang;
+use ZN\Lang;
 use ZN\Inclusion;
 use ZN\Singleton;
 use Project\Controllers\View;

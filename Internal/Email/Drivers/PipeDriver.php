@@ -9,7 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\Language\Lang;
+use ZN\Lang;
 use ZN\Support;
 use ZN\Email\DriverMappingAbstract;
 use ZN\Email\Exception\FailureSendEmailException;

@@ -49,7 +49,7 @@ class MLExtends
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
-        $mlDir = 'Languages' . DS . 'ML' . DS;
+        $mlDir = 'Languages' . DS . 'ml' . DS;
 
         $this->appdir = SELECT_PROJECT_DIR . $mlDir;
 

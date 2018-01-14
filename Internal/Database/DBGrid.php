@@ -14,7 +14,7 @@ use ZN\Config;
 use ZN\Singleton;
 use ZN\Request\URI;
 use ZN\Request\URL;
-use ZN\Language\Lang;
+use ZN\Lang;
 use ZN\Request\Method;
 use ZN\Helpers\Limiter;
 use ZN\DataTypes\Arrays;

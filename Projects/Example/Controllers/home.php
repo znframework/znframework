@@ -4,8 +4,11 @@ class Home extends Controller
 {
     public function main(String $params = NULL)
     {  
-        #\lang::set('tr');
-        
-        echo \lang::get();
+        echo 'Hello World';
+    }
+
+    public function show404()
+    {
+        echo '404!';
     }
 }

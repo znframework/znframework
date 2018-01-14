@@ -12,7 +12,7 @@
 use ZN\Singleton;
 use ZN\Request\Method;
 use ZN\Cryptography\Encode;
-use ZN\Language\Lang;
+use ZN\Lang;
 
 class Login extends UserExtends
 {

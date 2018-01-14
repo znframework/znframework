@@ -10,7 +10,7 @@
  */
 
 use Exception;
-use ZN\Language\Lang;
+use ZN\Lang;
 
 class FolderChangeNameException extends Exception
 {

@@ -103,7 +103,7 @@ if( ! empty($extensions) )
             <th><?php echo $column ?></th>
             <?php endforeach; ?>
             <?php if( is_callable($process) ): ?>
-            <th><?php echo ZN\Language\Lang::select('ViewObjects', 'dbgrid:processLabel') ?></th>
+            <th><?php echo ZN\Lang::select('ViewObjects', 'dbgrid:processLabel') ?></th>
             <?php endif; ?>
         </tr>
     </thead>

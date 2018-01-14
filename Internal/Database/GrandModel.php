@@ -12,7 +12,7 @@
 use Exception;
 use ZN\Config;
 use ZN\Support;
-use ZN\Language\Lang;
+use ZN\Lang;
 use ZN\DataTypes\Arrays;
 use ZN\DataTypes\Strings;
 

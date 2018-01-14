@@ -13,7 +13,7 @@ use ZN\Request\URL;
 use ZN\Request\URI;
 use ZN\IS;
 use ZN\Config;
-use ZN\Language\Lang;
+use ZN\Lang;
 
 class Render implements RenderInterface
 {

@@ -9,6 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
+use ZN\Lang;
 use ZN\Config;
 use ZN\Filesystem\Folder;
 
@@ -43,6 +44,13 @@ class MLExtends
     protected $extension = '.ml';
 
     /**
+     * Keeps directory
+     * 
+     * @var string
+     */
+    protected $directory = 'ml/';
+
+    /**
      * Keeps language path
      * 
      * @var string 
@@ -67,7 +75,7 @@ class MLExtends
     {
         $this->gridConfig = Config::get('ViewObjects', 'mlgrid');
 
-        $mlDir = 'ML/';
+        $mlDir = $this->directory;
 
         $this->appdir         = LANGUAGES_DIR . $mlDir;
         $this->externalAppdir = EXTERNAL_LANGUAGES_DIR . $mlDir;

@@ -14,7 +14,7 @@ use ZN\Config;
 use ZN\Security;
 use ZN\Singleton;
 use ZN\Inclusion;
-use ZN\Language\Lang;
+use ZN\Lang;
 use ZN\DataTypes\Strings;
 use ZN\Ability\Driver;
 use ZN\Ability\Information;

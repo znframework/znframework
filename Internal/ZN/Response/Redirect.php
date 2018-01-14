@@ -40,9 +40,14 @@ class Redirect implements RedirectInterface
     /**
      * Magic Constructor
      */
-    public function __construct()
+    public function __construct(String $url = NULL, Int $time = 0, Array $data = NULL, Bool $exit = true)
     {
         $this->session = Singleton::class('ZN\Storage\Session');
+
+        if( $url !== NULL )
+        {
+            $this->location($url, $time, $data, $exit);
+        }
     }
 
     //--------------------------------------------------------------------------------------------------------

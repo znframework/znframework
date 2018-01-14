@@ -13,7 +13,7 @@ use ZN\In;
 use ZN\IS;
 use ZN\Config;
 use ZN\Security;
-use ZN\Language\Lang;
+use ZN\Lang;
 use ZN\DataTypes\Strings;
 use ZN\DataTypes\Arrays;
 

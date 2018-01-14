@@ -9,17 +9,14 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\In;
+use ZN\Request\Http;
+use ZN\Lang;
 use ZN\Helpers\Logger;
-use ZN\Filesystem;
-use ZN\IS;
-use ZN\Language\Lang;
-use ZN\Inclusion;
-use ZN\Singleton;
+use ZN\Response\Redirect;
 use ZN\ErrorHandling\Errors;
+use ZN\Inclusion\Project\Theme;
 use ZN\ErrorHandling\Exceptions;
 use Project\Controllers\Masterpage;
-use Project\Controllers\Theme;
 
 class Kernel
 {
@@ -143,6 +140,7 @@ class Kernel
      */
     public static function run()
     {
+        # The kernel is starting.
         self::start();
 
         # This layer works only after the initialization codes of the core have been switched on.
@@ -151,50 +149,34 @@ class Kernel
         layer('Middle');
         
         $parameters   = CURRENT_CPARAMETERS;
-        $page         = CURRENT_CONTROLLER;
         $function     = CURRENT_CFUNCTION;
         $openFunction = CURRENT_COPEN_PAGE;
-
-        if( is_file(CURRENT_CFILE) )
+        $page         = CURRENT_CNAMESPACE . CURRENT_CONTROLLER;
+         
+        # If an invalid parameter is entered, it will redirect to the opening method.
+        if( ! is_callable([$page, $function]) )
         {
-            import(CURRENT_CFILE);
+            array_unshift($parameters, $function);
+            
+            $function = $openFunction;
 
-            $view = $page;
-
-            if( ! class_exists($page, false) )
+            # If the request is invalid, it will be redirected.
+            if( ! is_callable([$page, $function]) )
             {
-                $page = CURRENT_CNAMESPACE . $page;
-            }
+                Logger::report('InvalidRequest', "Invalid request made to {$page}/{$function} page!");
 
-            if( class_exists($page, false) )
-            {
-                if( ! is_callable([$page, $function]) )
-                {
-                    array_unshift($parameters, $function);
-                    
-                    $function = $openFunction;
-                }
-
-                if( is_callable([$page, $function]) )
-                {     
-                    self::viewPathFinder($function, $viewPath, $wizardPath);
-
-                    $pageClass = Singleton::class($page);
-
-                    $pageClass->$function(...$parameters);
-
-                    self::viewAutoload($wizardPath, $viewPath, (array) $pageClass->view, (array) $pageClass->masterpage);          
-                }
-                else
-                {
-                    \Route::redirectShow404($function);
-                }
+                new Redirect(Config::get('Services', 'route')['show404']);
             }
         }
-        else
-        {
-            \Route::redirectShow404(CURRENT_CONTROLLER, 'notFoundController', 'SystemNotFoundControllerError');
-        }
+        
+        # The view path is being controlled so that the view can be loaded automatically.
+        self::viewPathFinder($function, $viewPath, $wizardPath);
+
+        # The controller is being called.
+        ($pageClass = Singleton::class($page))->$function(...$parameters);
+        
+        # The view is automatically loading.
+        self::viewAutoload($wizardPath, $viewPath, (array) $pageClass->view, (array) $pageClass->masterpage);          
 
         # This layer comes into play after your core works.
         # The codes in the other layer will run before this layer.
@@ -246,7 +228,7 @@ class Kernel
     public static function viewAutoload($wizardPath, $viewPath, $data, $pageClassMasterpage)
     {
         # 5.3.62[added]|5.3.77[edited]
-        if( Config::get('ViewObjects', 'ajaxCodeContinue') === false && \Http::isAjax() )
+        if( Config::get('ViewObjects', 'ajaxCodeContinue') === false && Http::isAjax() )
         {
             return;
         }
@@ -303,7 +285,7 @@ class Kernel
                        $lang['file']   .':'.$errorLast['file'].', '.
                        $lang['message'].':'.$errorLast['message'];
 
-            Logger::report('GeneralError', $message, 'GeneralError');
+            Logger::report('GeneralError', $message);
         }
 
         if( PROJECT_MODE !== 'publication' ) 
@@ -375,7 +357,7 @@ class Kernel
 
             Logger::report('Error', Lang::select('Error', 'fileNotFound', $path) ,'AutoloadComposer');
 
-            throw new \Exception('Error', 'fileNotFound', $path);
+            throw new Exception('Error', 'fileNotFound', $path);
         }
     }
 

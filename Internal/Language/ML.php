@@ -9,6 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
+use ZN\Lang;
 use ZN\Controller\Factory;
 
 class ML extends Factory
@@ -31,7 +32,7 @@ class ML extends Factory
     ];
 
     /**
-     * Set langauge
+     * Set language
      * 
      * @param string $lang = 'tr'
      * 

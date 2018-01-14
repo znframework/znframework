@@ -13,5 +13,5 @@ class Lang
 {
     use ZN\Ability\Facade;
 
-    const target = 'ZN\Language\Lang';
+    const target = 'ZN\Lang';
 }

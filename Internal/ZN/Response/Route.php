@@ -16,7 +16,7 @@ use ZN\Singleton;
 use ZN\Restoration;
 use ZN\Request\URI;
 use ZN\Request\Http;
-use ZN\Language\Lang;
+use ZN\Lang;
 use ZN\Helpers\Logger;
 use ZN\DataTypes\Arrays;
 use ZN\DataTypes\Strings;
@@ -794,7 +794,7 @@ class Route implements RouteInterface
         {
             Logger::report('Error', Lang::select('Error', $lang, $function), $report);
             
-            die(Errors::message('Error', $lang, $function));
+            exit(Errors::message('Error', $lang, $function));
         }
         else
         {

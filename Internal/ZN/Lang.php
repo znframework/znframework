@@ -1,4 +1,4 @@
-<?php namespace ZN\Language;
+<?php namespace ZN;
 /**
  * ZN PHP Web Framework
  * 
@@ -9,12 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\In;
-use ZN\Config;
-use ZN\Singleton;
-use ZN\IS;
-
-class Lang implements LangInterface
+ class Lang
 {
     /**
      * Keeps current language content
@@ -36,23 +31,6 @@ class Lang implements LangInterface
         $method = ucfirst($method);
 
         return self::select($method, ...$parameters);
-    }
-
-    /**
-     * Get short codes
-     * 
-     * @param string $code = NULL
-     * 
-     * @return mixed
-     */
-    public static function shortCodes(String $code = NULL)
-    {
-        if( $code === NULL )
-        {
-            return ShortCodes::$list;
-        }
-
-        return ShortCodes::$list[$code] ?? 'English';
     }
 
     /**
@@ -87,7 +65,7 @@ class Lang implements LangInterface
     {
         if( ! isset(self::$lang[$file]) )
         {   
-            $file          = ( ShortCodes::$list[self::get()] ?? 'English').'/'.suffix($file, '.php');
+            $file          = self::get().'/'.suffix($file, '.php');
             $langDir       = LANGUAGES_DIR.$file;
             $commonLangDir = EXTERNAL_LANGUAGES_DIR.$file;
 
