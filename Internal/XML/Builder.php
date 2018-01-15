@@ -9,7 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use Html;
+use ZN\Singleton;
 
 class Builder
 {
@@ -105,7 +105,7 @@ class Builder
             $content = $data['content'] ?? '';
             $child   = $data['child']   ?? '';
 
-            $output .= "$tab<$name".Html::attributes($attr).">";
+            $output .= "$tab<$name".Singleton::class('ZN\Hypertext\Html')->attributes($attr).">";
 
             if( ! empty($content) )
             {

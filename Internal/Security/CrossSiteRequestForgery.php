@@ -9,9 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\Singleton;
 use ZN\Storage\Session;
 use ZN\Request\Method;
+use ZN\Response\Redirect;
 
 class CrossSiteRequestForgery
 {
@@ -31,7 +31,7 @@ class CrossSiteRequestForgery
 
             if( $token === false || $token !== (new Session)->select('token') )
             {
-                Singleton::class('ZN\Response\Redirect')->location($uri);
+                new Redirect($uri);
             }
         }
     }

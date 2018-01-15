@@ -155,9 +155,9 @@ class Masterpage
         $header .= $this->_contentLanguage($head['content']['language'] ?? $masterPageSet['content']['language']);
         $header .= $this->_title($head['title'] ?? $masterPageSet["title"]);
         $header .= $this->_meta($masterPageSet['meta'], $head['meta'] ?? NULL);
-        $header .= $this->_links($masterPageSet, $head, 'font');
-        $header .= $this->_links($masterPageSet, $head, 'style');
-        $header .= $this->_links($masterPageSet, $head, 'script');
+        $header .= $this->_links($masterPageSet, $head, 'Font');
+        $header .= $this->_links($masterPageSet, $head, 'Style');
+        $header .= $this->_links($masterPageSet, $head, 'Script');
         $header .= $this->_browserIcon($head['browserIcon'] ?? $masterPageSet["browserIcon"]);
         $header .= $this->_theme($masterPageSet, $head);
         $header .= $this->_theme($masterPageSet, $head, 'plugin');

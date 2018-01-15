@@ -9,8 +9,8 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\DataTypes\Strings;
 use ZN\DataTypes\Arrays;
+use ZN\DataTypes\Strings;
 
 trait SessionCookieCommonTrait
 {

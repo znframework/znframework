@@ -1,4 +1,4 @@
-<?php namespace ZN;
+<?php
 /**
  * ZN PHP Web Framework
  * 
@@ -9,9 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\Ability\Factory as FactoryAbility;
-
-class Factory
+class Refresh
 {
-    use FactoryAbility;
+    use ZN\Ability\Facade;
+
+    const target = 'ZN\Response\Refresh';
 }

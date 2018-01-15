@@ -56,6 +56,39 @@ function CSRFInput()
 }
 
 /**
+ * output
+ * 
+ * Produces formatted output.
+ * 
+ * @param mixed $data
+ * @param array $settings = NULL
+ * @param bool  $content  = false
+ * 
+ * @return mixed
+ */
+function output($data, Array $settings = NULL, Bool $content = false)
+{
+    return ZN\Output::display($data, $settings, $content);
+}
+
+/**
+ * redirect
+ * 
+ * Routes to the specified URI or URL.
+ * 
+ * @param string $url  = NULL
+ * @param int    $time = 0
+ * @param array  $data = NULL
+ * @param bool   $exit = true
+ * 
+ * @return void
+ */
+function redirect(String $url = NULL, Int $time = 0, Array $data = NULL, Bool $exit = true)
+{
+    new Redirect($url, $time, $data, $exit);
+}
+
+/**
  * length
  * 
  * It calculates the character length of the object, array and computable values.

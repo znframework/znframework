@@ -15,22 +15,18 @@ use ZN\Request\URL;
 
 class Redirect implements RedirectInterface
 {
-    //--------------------------------------------------------------------------------------------------------
-    // Fix
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var string = 'redirect:'
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Prefix 
+     * 
+     * @var string
+     */
     protected $fix = 'redirect:';
 
-    //--------------------------------------------------------------------------------------------------------
-    // $redirect
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var array
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Redirect
+     * 
+     * @var array
+     */
     protected $redirect =
     [
         'time'   => 0,
@@ -39,48 +35,45 @@ class Redirect implements RedirectInterface
 
     /**
      * Magic Constructor
+     *
+     * @param string $url  = NULL
+     * @param int    $time = 0
+     * @param array  $data = NULL
+     * @param bool   $exit = true
      */
     public function __construct(String $url = NULL, Int $time = 0, Array $data = NULL, Bool $exit = true)
     {
-        $this->session = Singleton::class('ZN\Storage\Session');
-
         if( $url !== NULL )
         {
             $this->location($url, $time, $data, $exit);
         }
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Status -> 4.3.5
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Get redirect status
+     * 
+     * @return int
+     */
     public static function status() : Int
     {
         return server('redirectStatus');
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Url -> 4.3.5
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Get redirect url
+     * 
+     * @return string
+     */
     public static function url() : String
     {
         return server('redirectUrl');
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Query String -> 4.3.5
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Get redirect string query
+     * 
+     * @return string
+     */
     public static function queryString() : String
     {
         return server('redirectQueryString');
@@ -99,16 +92,14 @@ class Redirect implements RedirectInterface
         $this->location($url, $time, $data, $exit, __FUNCTION__);
     }
 
-    //--------------------------------------------------------------------------------------------------
-    // redirect() -> 5.1.0
-    //--------------------------------------------------------------------------------------------------
-    //
-    // @param string $url
-    // @param int    $time
-    // @param array  $data
-    // @param bool   $exit
-    //
-    //--------------------------------------------------------------------------------------------------
+    /**
+     * Location
+     *
+     * @param string $url  = NULL
+     * @param int    $time = 0
+     * @param array  $data = NULL
+     * @param bool   $exit = true
+     */
     public function location(String $url = NULL, Int $time = 0, Array $data = NULL, Bool $exit = true, $type = 'location')
     {
         if( ! IS::url((string) $url) )
@@ -120,7 +111,7 @@ class Redirect implements RedirectInterface
         {
             foreach( $data as $k => $v )
             {
-                $this->session->insert($this->fix . $k, $v);
+                $_SESSION[$this->fix . $k] = $v;
             }
         }
         
@@ -144,18 +135,16 @@ class Redirect implements RedirectInterface
         }
     }
 
-    //--------------------------------------------------------------------------------------------------
-    // Redirect::deleteData() -> 5.1.0
-    //--------------------------------------------------------------------------------------------------
-    //
-    // @param string $k
-    //
-    // @return mixed
-    //
-    //--------------------------------------------------------------------------------------------------
+    /**
+     * Select redirect data
+     * 
+     * @param string $k
+     * 
+     * @return false|mixed
+     */
     public function selectData(String $k)
     {
-        if( $data = $this->session->select($this->fix . $k) )
+        if( $data = ($_SESSION[$this->fix . $k] ?? NULL) )
         {
             return $data;
         }
@@ -165,36 +154,32 @@ class Redirect implements RedirectInterface
         }
     }
 
-    //--------------------------------------------------------------------------------------------------
-    // redirectDeleteData() -> 5.1.0
-    //--------------------------------------------------------------------------------------------------
-    //
-    // @param mixed $data
-    //
-    // @return bool
-    //
-    //--------------------------------------------------------------------------------------------------
+    /**
+     * Redirect delete data
+     * 
+     * @param mixed $data
+     * 
+     * @return true
+     */
     public function deleteData($data) : Bool
     {
         if( is_array($data) ) foreach( $data as $v )
         {
-            $this->session->delete($this->fix . $v);
+            unset($_SESSION[$this->fix . $k]);
         }
         else
         {
-            return $this->session->delete($this->fix . $data);
+            unset($_SESSION[$this->fix . $data]);
         }
 
         return true;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // action()
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var string $action
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Action URL
+     * 
+     * @param string $action = NULL
+     */
     public function action(String $action = NULL)
     {
         $time = $this->redirect['time'];
@@ -202,84 +187,90 @@ class Redirect implements RedirectInterface
 
         $this->redirect = [];
 
-        return $this->location($action, $time, $data);
+        if( strstr(get_called_class() , 'Refresh') )
+        {
+            $exit = false;
+            $type = 'refresh';
+        }
+        
+        $this->location($action, $time, $data, $exit ?? true, $type ?? 'location');
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // time()
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var numeric $time
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function time(Int $time = 0) : Redirect
+    /**
+     * Sets redirect time
+     * 
+     * @param int $time = 0
+     * 
+     * @return self
+     */
+    public function time(Int $time = 0)
     {
         $this->redirect['time'] = $time;
 
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // wait()
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var numeric $time
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function wait(Int $time = 0) : Redirect
+    /**
+     * Sets waiting time. same time() method
+     * 
+     * @param int $time = 0
+     * 
+     * @return self
+     */
+    public function wait(Int $time = 0)
     {
         $this->redirect['time'] = $time;
 
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // data()
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var array $data
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function data(Array $data) : Redirect
+    /**
+     * Sets redirect data
+     * 
+     * @param array $data
+     * 
+     * @return self
+     */
+    public function data(Array $data)
     {
         $this->redirect['data'] = $data;
 
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // insert()
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var array $data
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function insert(Array $data) : Redirect
+    /**
+     * Insert redirect data
+     * 
+     * @param array $data
+     * 
+     * @return self
+     */
+    public function insert(Array $data)
     {
         $this->redirect['data'] = $data;
 
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // select()
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var string $key
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Select redirect data
+     * 
+     * @param string $key
+     * 
+     * @return mixed
+     */
     public function select(String $key)
     {
         return $this->selectData($key);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // delete()
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var mixed $key
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Deletes redirect data
+     * 
+     * @param mixed $key
+     * 
+     * @return true
+     */
     public function delete($key) : Bool
     {
         return $this->deleteData($key);

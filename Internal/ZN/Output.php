@@ -19,7 +19,7 @@ class Output
      * 
      * @return void
      */
-    public function write($data = NULL, Array $vars = NULL)
+    public static function write($data = NULL, Array $vars = NULL)
     {
         if( ! is_scalar($data) )
         {
@@ -50,9 +50,9 @@ class Output
      * 
      * @return void
      */
-    public function writeLine($data = NULL, Array $vars = NULL, Int $brCount = 1)
+    public static function writeLine($data = NULL, Array $vars = NULL, Int $brCount = 1)
     {
-        echo $this->write($data, $vars) . str_repeat('<br>', $brCount);
+        echo self::write($data, $vars) . str_repeat('<br>', $brCount);
     }
 
     /** 
@@ -64,7 +64,7 @@ class Output
      * 
      * @return void
      */
-    public function display($data, Array $settings = NULL, Bool $content = false)
+    public static function display($data, Array $settings = NULL, Bool $content = false)
     {
         $textType = $settings['textType'] ?? 'monospace, Tahoma, Arial';
         $textSize = $settings['textSize'] ?? '12px';
@@ -72,7 +72,7 @@ class Output
         $globalStyle = ' style="font-family:'.$textType.'; font-size:'.$textSize .';"';
 
         $output  = "<span$globalStyle>";
-        $output .= $this->_output($data, '', 0, (array) $settings);
+        $output .= self::_output($data, '', 0, (array) $settings);
         $output .= "</span>";
 
         if( $content === false)
@@ -95,7 +95,7 @@ class Output
      * 
      * @return void
      */
-    protected function _output($data, String $tab = NULL, Int $start = 0, Array $settings = []) : String
+    protected static function _output($data, String $tab = NULL, Int $start = 0, Array $settings = []) : String
     {
         static $start;
 
@@ -159,7 +159,7 @@ class Output
                 }
                 else
                 {
-                    $output .= "$tab<span$keystyle>$k</span> => <span$typestyle>$vartype</span> $eof $tab( $eof ".$this->_output($v, $tab, (int) $start++)." $tab) ".$eof;
+                    $output .= "$tab<span$keystyle>$k</span> => <span$typestyle>$vartype</span> $eof $tab( $eof ".self::_output($v, $tab, (int) $start++)." $tab) ".$eof;
                     $start--;
                 }
             }

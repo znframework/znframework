@@ -31,8 +31,10 @@ class UserExtends
      */
     public function __construct()
     {
-        $this->getConfig = Config::get('Authentication', 'user');
-        $this->dbClass   = Singleton::class('ZN\Database\DB');
+        $this->getConfig    = Config::get('Authentication', 'user');
+        $this->dbClass      = Singleton::class('ZN\Database\DB');
+        $this->sessionClass = Singleton::class('ZN\Storage\Session');
+        $this->cookieClass  = Singleton::class('ZN\Storage\Cookie');
     }
 
     /**

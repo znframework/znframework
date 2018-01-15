@@ -15,7 +15,7 @@ use ZN\Response\Redirect;
 use ZN\ErrorHandling\Errors;
 use ZN\Inclusion\Project\Theme;
 use ZN\ErrorHandling\Exceptions;
-use Project\Controllers\Masterpage;
+use ZN\Inclusion\Project\Masterpage;
 
 class Kernel
 {
@@ -54,6 +54,7 @@ class Kernel
         # Enables the ob_gzhandler method if it is turned on.
         $htaccess = Config::get('Htaccess');
 
+        # OB process is starting.
         if( $htaccess['cache']['obGzhandler'] && substr_count(server('acceptEncoding'), 'gzip') )
         {
             ob_start('ob_gzhandler');
@@ -62,6 +63,9 @@ class Kernel
         {
             ob_start();
         }
+
+        # Session process is starting.
+        session_start();
         
         # Sends defined header information.
         headers(Config::get('Project', 'headers'));

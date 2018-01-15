@@ -80,36 +80,6 @@
 
     /*
     |--------------------------------------------------------------------------
-    | Cache
-    |--------------------------------------------------------------------------
-    |
-    | It is used to create a project-wide cache.
-    | 
-    | status: activates the caching process.
-    | time: Storage time in seconds.
-    | prefix: Adds a prefix to the cache name.
-    | driver: Cache driver.
-    | compress: Compress driver.
-    | exclude: exclude controller/method information.
-    | include: include controller/method information.
-    | machinesIp: IP addresses that will not be affected from caching.
-    |
-    */
-
-    'cache' =>
-    [
-        'status'     => false,
-        'time'       => 60,
-        'prefix'     => NULL,
-        'driver'     => 'file',
-        'compress'   => false,
-        'exclude'    => [],
-        'include'    => [],
-        'machinesIP' => [],
-    ],
-
-    /*
-    |--------------------------------------------------------------------------
     | Log
     |--------------------------------------------------------------------------
     |

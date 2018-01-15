@@ -9,6 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
+use ZN\Lang;
 use ZN\Kernel;
 use ZN\Config;
 use ZN\Security;
@@ -16,7 +17,6 @@ use ZN\Singleton;
 use ZN\Restoration;
 use ZN\Request\URI;
 use ZN\Request\Http;
-use ZN\Lang;
 use ZN\Helpers\Logger;
 use ZN\DataTypes\Arrays;
 use ZN\DataTypes\Strings;
@@ -775,7 +775,7 @@ class Route implements RouteInterface
         }
         else
         {
-            Singleton::class('ZN\Response\Redirect')->location($invalidRequest['page']);
+            new Redirect($invalidRequest['page']);
         }
     }
 
@@ -798,7 +798,7 @@ class Route implements RouteInterface
         }
         else
         {
-            Singleton::class('ZN\Response\Redirect')->location($routeShow404);
+            new Redirect($routeShow404);
         }
     }
 
@@ -1034,7 +1034,7 @@ class Route implements RouteInterface
 
         if( $redirect = ($this->redirects[CURRENT_CFURI]['redirect'] ?? ($direct)) )
         {
-            Singleton::class('ZN\Response\Redirect')->location($redirect);
+            new Redirect($redirect);
         }
 
         $this->redirectInvalidRequest();

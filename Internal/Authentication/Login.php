@@ -9,28 +9,12 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\Singleton;
+use ZN\Lang;
 use ZN\Request\Method;
 use ZN\Cryptography\Encode;
-use ZN\Lang;
 
 class Login extends UserExtends
 {
-    /**
-     * Magic constructor
-     * 
-     * @param void
-     * 
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-
-        $this->sessionClass = Singleton::class('ZN\Storage\Session');
-        $this->cookieClass  = Singleton::class('ZN\Storage\Cookie');
-    }
-
     /**
      * Username
      * 

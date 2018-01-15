@@ -9,34 +9,101 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
+use ZN\Support;
 use ZN\Singleton;
-use ZN\DataTypes\Strings;
 
 trait Factory
 {
     /**
-     * Get class
+     * Magic call static
      * 
-     * @param string $class
+     * @param string $method
+     * @param array  $parameters
      * 
-     * @return mixed 
+     * @return mixed
      */
-    public static function class(String $class)
+    public static function __callStatic($method, $parameters)
     {
-        $namespace = NULL;
+        return self::call($method, $parameters);
+    }
 
-        if( defined('static::namespace') )
+    /**
+     * Magic call
+     * 
+     * @param string $method
+     * @param array  $parameters
+     * 
+     * @return mixed
+     */
+    public function __call($method, $parameters)
+    {
+        return $this->call($method, $parameters);
+    }
+
+    /**
+     * Magic call
+     * 
+     * @param string $method
+     * @param array  $parameters
+     * 
+     * @return mixed
+     */
+    public function call($method, $parameters)
+    {
+        if( ! defined('static::factory') )
         {
-            $namespace = suffix(static::namespace, '\\');
+            return false;
+        }
+
+        $originMethodName = $method;
+        $method           = strtolower($method);
+        $calledClass      = get_called_class();
+
+        if( ! isset(static::factory['methods'][$method]) )
+        {
+            Support::classMethod($calledClass, $originMethodName);
+        }
+
+        $class   = static::factory['methods'][$method];
+        $factory = static::factory['class'] ?? NULL;
+
+        if( $factory !== NULL )
+        {
+            return $factory::class($class)->$method(...$parameters);
         }
         else
         {
-            $calledClass = get_called_class();
-            $namespace   = str_ireplace(Strings\Split::divide($calledClass, '\\', -1), NULL, $calledClass);
+            $classEx = explode('::', $class);
+            $class   = $classEx[0] ?? NULL;
+            $method  = $classEx[1] ?? NULL;
+            $isThis  = NULL;
+
+            if( stristr($method, ':this') )
+            {
+                $method = str_replace(':this', NULL, $method);
+                $isThis = 'this';
+            }
+
+            $separator = '\\';
+            $namespace = NULL;
+
+            if( strstr($calledClass, $separator) )
+            {
+                $namespace = explode($separator, $calledClass);
+                
+                array_pop($namespace);
+    
+                $namespace = implode($separator, $namespace) . $separator;
+            }
+            
+            $return = Singleton::class($namespace . $class)->$method(...$parameters);
+
+            if( $isThis === 'this' )
+            {
+                return $this;
+            }
+
+            return $return;
         }
-
-        $class = $namespace . $class;
-
-        return Singleton::class($class);
     }
 }

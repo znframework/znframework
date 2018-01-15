@@ -11,7 +11,7 @@
 
 use ZN\Helpers\Converter;
 
-class HTML
+class Html
 {
     /**
      * Encode HTML

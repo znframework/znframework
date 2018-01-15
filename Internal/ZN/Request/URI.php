@@ -11,11 +11,11 @@
 
 use ZN\In;
 use ZN\IS;
+use ZN\Lang;
 use ZN\Config;
 use ZN\Security;
-use ZN\Lang;
-use ZN\DataTypes\Strings;
 use ZN\DataTypes\Arrays;
+use ZN\DataTypes\Strings;
 
 class URI implements URIInterface
 {

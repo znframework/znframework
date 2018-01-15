@@ -15,8 +15,8 @@ use ZN\Request\Http;
 use ZN\Helpers\Logger;
 use ZN\DataTypes\Strings;
 use ZN\ErrorHandling\Errors;
-use Project\Controllers\View;
-use Project\Controllers\Masterpage;
+use ZN\Inclusion\Project\View;
+use ZN\Inclusion\Project\Masterpage;
 
 class In
 {

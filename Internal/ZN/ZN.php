@@ -10,7 +10,6 @@
  */
 
 use ZN\Request\URI;
-use ZN\Lang;
 use ZN\Response\Route;
 use ZN\Services\Restful;
 use ZN\Helpers\Converter;
@@ -102,54 +101,17 @@ class ZN
     {
         (new Route)->filter();
 
-        $projectConfig = Config::get('Project', 'cache');
-
-        if
-        (
-            ($projectConfig['status'] ?? NULL) === true                                                         &&
-            ( ! in_array(IP::v4(), ($projectConfig['machinesIP'] ?? [])) )                                      &&
-            ( empty($projectConfig['include']) || in_array(CURRENT_CFPATH, ($projectConfig['include'] ?? [])) ) &&
-            ( empty($projectConfig['exclude']) || ! in_array(CURRENT_CFPATH, ($projectConfig['exclude'] ?? [])) )
-        )
-        {
-            $converterName = Converter::slug(URI::active());
-
-            $cacheName = ($projectConfig['prefix'] ?? Lang::get()) . '-' . $converterName;
-
-            $cache = new Cache\Processor;
-
-            $cache->driver($projectConfig['driver']);
-
-            if( ! $select = $cache->select($cacheName, $projectConfig['compress']) )
-            {
-                $kernel = Buffering\Callback::do(function()
-                {
-                    Kernel::run();
-                });
-
-                $cache->insert($cacheName, $kernel, $projectConfig['time'], $projectConfig['compress']);
-
-                echo $kernel;
-            }
-            else
-            {
-                echo $select;
-            }
+        try 
+        { 
+            Kernel::run();  
         }
-        else
+        catch( Throwable $e )
         {
-            try 
-            { 
-                Kernel::run();  
-            }
-            catch( Throwable $e )
+            if( PROJECT_MODE !== 'publication' ) 
             {
-                if( PROJECT_MODE !== 'publication' ) 
-                {
-                    Exceptions::table($e->getCode(), $e->getMessage(), $e->getFile(), $e->getLine(), $e->getTrace());
-                }   
-            }
-        } 
+                Exceptions::table($e->getCode(), $e->getMessage(), $e->getFile(), $e->getLine(), $e->getTrace());
+            }   
+        }
     }
 
     /**

@@ -9,8 +9,6 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\Singleton;
-
 class Data extends UserExtends
 {
     /**
@@ -25,11 +23,8 @@ class Data extends UserExtends
         $usernameColumn  = $this->getConfig['matching']['columns']['username'];
         $passwordColumn  = $this->getConfig['matching']['columns']['password'];
 
-        $sessionClass = Singleton::class('ZN\Storage\Session');
-        $cookieClass  = Singleton::class('ZN\Storage\Cookie');
-
-        $sessionUserName = $sessionClass->select($usernameColumn) ?: $cookieClass->select($usernameColumn);
-        $sessionPassword = $sessionClass->select($passwordColumn) ?: $cookieClass->select($passwordColumn);
+        $sessionUserName = $this->sessionClass->select($usernameColumn) ?: $this->cookieClass->select($usernameColumn);
+        $sessionPassword = $this->sessionClass->select($passwordColumn) ?: $this->cookieClass->select($passwordColumn);
 
         if( ! empty($sessionUserName) )
         {

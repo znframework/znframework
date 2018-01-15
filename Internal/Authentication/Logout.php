@@ -9,7 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\Singleton;
+use ZN\Response\Redirect;
 
 class Logout extends UserExtends
 {
@@ -38,14 +38,11 @@ class Logout extends UserExtends
                      ->update($tableName, [$active => 0]);
             }
 
-            $cookie  = Singleton::class('ZN\Storage\Cookie');
-            $session = Singleton::class('ZN\Storage\Session');
+            $this->cookieClass->delete($username);
+            $this->cookieClass->delete($password);
+            $this->sessionClass->delete($username);
 
-            $cookie ->delete($username);
-            $cookie ->delete($password);
-            $session->delete($username);
-
-            Singleton::class('ZN\Response\Redirect')->location((string) $redirectUrl, $time);
+            new Redirect((string) $redirectUrl, $time);
         }
     }
 }

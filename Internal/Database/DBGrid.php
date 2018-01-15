@@ -10,15 +10,16 @@
  */
 
 use ZN\IS;
+use ZN\Lang;
 use ZN\Config;
 use ZN\Singleton;
 use ZN\Request\URI;
 use ZN\Request\URL;
-use ZN\Lang;
 use ZN\Request\Method;
 use ZN\Helpers\Limiter;
 use ZN\DataTypes\Arrays;
 use ZN\DataTypes\Strings;
+use ZN\Response\Redirect;
 use ZN\Database\Exception\NoTableException;
 use ZN\Database\Exception\NoSearchException;
 use ZN\Database\Exception\DatabaseErrorException;
@@ -989,7 +990,7 @@ class DBGrid
             $this->db->where($this->processColumn, Method::post('id'))->delete($this->table);
         }
 
-        Singleton::class('ZN\Response\Redirect')->location(URL::current());
+        new Redirect(URL::current());
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -1085,7 +1086,7 @@ class DBGrid
 
         $this->_processEdit($newSaveData);
 
-        Singleton::class('ZN\Response\Redirect')->location(URL::current());
+        new Redirect(URL::current());
     }
 
     //--------------------------------------------------------------------------------------------------------

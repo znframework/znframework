@@ -9,11 +9,11 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\Config;
-use ZN\Storage\Exception\SetcookieException;
 use ZN\IS;
-use ZN\Cryptography\Encode;
+use ZN\Config;
 use ZN\Protection\Json;
+use ZN\Cryptography\Encode;
+use ZN\Storage\Exception\SetcookieException;
 
 class Cookie implements CookieInterface, SessionCookieCommonInterface
 {

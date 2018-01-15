@@ -9,13 +9,14 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\Request\URL;
-use ZN\Request\URI;
-use ZN\Cryptography\Encode;
 use ZN\IS;
 use ZN\Lang;
 use ZN\Inclusion;
 use ZN\Singleton;
+use ZN\Request\URL;
+use ZN\Request\URI;
+use ZN\Response\Redirect;
+use ZN\Cryptography\Encode;
 use ZN\Authentication\Exception\ActivationColumnException;
 
 class Register extends UserExtends
@@ -126,7 +127,7 @@ class Register extends UserExtends
                 }
                 elseif( is_string($autoLogin) )
                 {
-                    Singleton::class('ZN\Response\Redirect')->location($autoLogin);
+                    new Redirect($autoLogin);
                 }
             }
 

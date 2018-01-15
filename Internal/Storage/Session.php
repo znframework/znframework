@@ -9,9 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
+use ZN\IS;
 use ZN\Config;
 use ZN\Cryptography\Encode;
-use ZN\IS;
 
 class Session implements SessionInterface, SessionCookieCommonInterface
 {

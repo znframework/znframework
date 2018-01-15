@@ -138,7 +138,7 @@
             $l = Config::get('Project', 'language');
         }
 
-        return Singleton::class('ZN\Storage\Session')->insert(In::defaultProjectKey('SystemLanguageData'), $l);
+        return $_SESSION[In::defaultProjectKey('SystemLanguageData')] = $l;
     }
 
     /**
@@ -152,32 +152,31 @@
         $defaultSystemLanguageData = In::defaultProjectKey('DefaultSystemLanguageData');
 
         $default = Config::get('Project', 'language');
-        $session = Singleton::class('ZN\Storage\Session');
         
-        if( ! $session->select($defaultSystemLanguageData) )
+        if( empty($_SESSION[$defaultSystemLanguageData]) )
         {
-            $session->insert($defaultSystemLanguageData, $default);
+            $_SESSION[$defaultSystemLanguageData] = $default;
         }
         else
         {
-            if( $session->select($defaultSystemLanguageData) !== $default )
+            if( $_SESSION[$defaultSystemLanguageData] !== $default )
             {
-                $session->insert($defaultSystemLanguageData, $default);
-                $session->insert($systemLanguageData, $default);
+                $_SESSION[$defaultSystemLanguageData] = $default;
+                $_SESSION[$systemLanguageData]        = $default;
 
                 return $default;
             }
         }
 
-        if( $session->select($systemLanguageData) === false )
+        if( empty($_SESSION[$systemLanguageData]) )
         {
-            $session->insert($systemLanguageData, $default);
+            $_SESSION[$systemLanguageData] = $default;
 
             return $default;
         }
         else
         {
-            return $session->select($systemLanguageData);
+            return $_SESSION[$systemLanguageData];
         }
     }
 }

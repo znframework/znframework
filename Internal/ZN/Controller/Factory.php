@@ -9,9 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\Ability\MagicFactory;
+use ZN\Ability\Factory as FactoryAbility;
 
 class Factory extends Base
 {
-    use MagicFactory;
+    use FactoryAbility;
 }
