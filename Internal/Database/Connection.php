@@ -11,10 +11,10 @@
 
 use ZN\Base;
 use ZN\Config;
-use ZN\Helpers\Logger;
-use ZN\Database\Exception\InvalidArgumentException;
 use ZN\Support;
+use ZN\Helpers\Logger;
 use ZN\DataTypes\Arrays;
+use ZN\Database\Exception\InvalidArgumentException;
 
 class Connection
 {

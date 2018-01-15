@@ -11,9 +11,17 @@
 
 use ZN\IS;
 use ZN\Base;
+use ZN\Request\URL;
 
 class Theme
 {
+    /**
+     * Keeps themes directory path
+     * 
+     * @var string
+     */
+    protected static $path = THEMES_DIR;
+
     /**
      * Theme integration.
      * 
@@ -36,9 +44,9 @@ class Theme
                 {
                     $suffix = Base::suffix($themeName) . $path;
 
-                    if( is_file(THEMES_DIR . $suffix) )
+                    if( is_file(self::$path . $suffix) )
                     {
-                        return str_replace($path, THEMES_URL . $suffix, $orig);
+                        return str_replace($path, URL::base(self::$path) . $suffix, $orig);
                     }
                 }     
 

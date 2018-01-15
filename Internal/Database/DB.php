@@ -10,9 +10,9 @@
  */
 
 use Cache;
-use Pagination;
 use ZN\Base;
 use ZN\Config;
+use Pagination;
 use ZN\Request\URI;
 use ZN\Request\Method;
 use ZN\DataTypes\Arrays;
