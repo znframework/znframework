@@ -9,6 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
+use ZN\Base;
 use ZN\Config;
 use ZN\Singleton;
 use ZN\Filesystem;
@@ -168,20 +169,20 @@ class Logger implements LoggerInterface
             mkdir($logDir, 0755);
         }
 
-        if( is_file($logDir.suffix($destination, $extension)) )
+        if( is_file($logDir.Base::suffix($destination, $extension)) )
         {
             if( empty($time) )
             {
                 $time = Config::get('Project', 'log')['fileTime'];
             }
 
-            $createDate = Filesystem\Info::createDate($logDir.suffix($destination, $extension), 'd.m.Y');
+            $createDate = Filesystem\Info::createDate($logDir.Base::suffix($destination, $extension), 'd.m.Y');
             $endDate    = strtotime("$time", strtotime($createDate));
             $endDate    = date('Y.m.d', $endDate);
 
             if( date('Y.m.d')  >  $endDate )
             {
-                unlink($logDir.suffix($destination, $extension));
+                unlink($logDir.Base::suffix($destination, $extension));
             }
         }
 
@@ -190,6 +191,6 @@ class Logger implements LoggerInterface
                    ' | Date: '.Singleton::class('ZN\DateTime\Date')->set('{dayNumber0}.{monthNumber0}.{year} {H024}:{minute}:{second}').
                    ' | Message: ' . $message . EOL;
 
-        return error_log($message, 3, $logDir.suffix($destination, $extension));
+        return error_log($message, 3, $logDir.Base::suffix($destination, $extension));
     }
 }

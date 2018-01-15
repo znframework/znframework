@@ -56,12 +56,12 @@ class Config
     {
         if( empty(self::$config[$file]) )
         {
-            $path = suffix($file, '.php');
+            $path = Base::suffix($file, '.php');
 
             self::$config[$file] = array_merge
             (
-                (array) import(SETTINGS_DIR . $path),
-                (array) import(CONFIG_DIR   . $path)   
+                (array) Base::import(SETTINGS_DIR . $path),
+                (array) Base::import(CONFIG_DIR   . $path)   
             );
         }
     }

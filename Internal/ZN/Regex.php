@@ -258,6 +258,6 @@ class Regex
             $ex = str_ireplace(array_keys($settingChars), array_values($settingChars), $ex);
         }
 
-        return presuffix($pattern, $delimiter).$ex;
+        return Base::presuffix($pattern, $delimiter).$ex;
     }
 }

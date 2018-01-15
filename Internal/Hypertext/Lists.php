@@ -11,6 +11,7 @@
 
 use ZN\Hypertext\HtmlHelpersAbstract;
 use ZN\DataTypes\Arrays;
+use ZN\Base;
 use ZN\IS;
 
 class Lists extends HtmlHelpersAbstract
@@ -63,7 +64,7 @@ class Lists extends HtmlHelpersAbstract
                     $value = NULL;
                 }
 
-                $end = prefix(Arrays\GetElement::first(explode(' ', $k)));
+                $end = Base::prefix(Arrays\GetElement::first(explode(' ', $k)));
 
                 if( ! is_array($v) )
                 {
@@ -76,7 +77,7 @@ class Lists extends HtmlHelpersAbstract
                     {
                         $value = $k;
                         $k     = 'li';
-                        $end   = prefix($k);
+                        $end   = Base::prefix($k);
                     }
                     else
                     {

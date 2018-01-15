@@ -9,6 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
+use ZN\Base;
 use ZN\Classes;
 use ZN\DataTypes\Arrays;
 use ZN\Protection\Json;
@@ -100,7 +101,7 @@ class Reflect
             }
             elseif( $data[0] === ':' )
             {
-                return eval('?><?php return ' . ltrim(suffix($data, ';'), ':'));
+                return eval('?><?php return ' . ltrim(Base::suffix($data, ';'), ':'));
             }
 
             return $data;

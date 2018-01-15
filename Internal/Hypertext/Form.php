@@ -11,6 +11,7 @@
 
 use ZN\Hypertext\Exception\InvalidArgumentException;
 use ZN\DataTypes\Arrays;
+use ZN\Base;
 
 class Form
 {
@@ -391,7 +392,7 @@ class Form
         if( $multiple === true )
         {
             $this->settings['attr']['multiple'] = 'multiple';
-            $name = suffix($name, '[]');
+            $name = Base::suffix($name, '[]');
         }
 
         return $this->_input($name, '', $_attributes, 'file');

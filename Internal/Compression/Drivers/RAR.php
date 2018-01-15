@@ -9,6 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
+use ZN\Base;
 use ZN\Support;
 use ZN\Singleton;
 use ZN\Compression\Exception\InvalidArgumentException;
@@ -41,7 +42,7 @@ class RarDriver extends DriverMappingAbstract
      */
     public function extract($source, $target, $password)
     {
-        $rarFile = rar_open(suffix($source, '.rar'), $password);
+        $rarFile = rar_open(Base::suffix($source, '.rar'), $password);
         $list    = rar_list($rarFile);
 
         if( ! empty($list) ) foreach( $list as $file )

@@ -10,6 +10,7 @@
  */
 
 use Exception;
+use ZN\Base;
 use ZN\DataTypes\Strings;
 
 class RelevanceModel
@@ -373,7 +374,7 @@ class RelevanceModel
 
         $select  = array_map(function($data) use($table)
         {
-            return prefix($data, $table . '.' . $data . ' as ' . $table . '_');
+            return Base::prefix($data, $table . '.' . $data . ' as ' . $table . '_');
         }, $columns);
 
         return implode(', ', $select);

@@ -37,7 +37,7 @@ class Structure
         if( isset($segments[0]) )
         {
             $page   = $segments[0];
-            $isFile = CONTROLLERS_DIR . suffix($page, '.php');
+            $isFile = CONTROLLERS_DIR . Base::suffix($page, '.php');
 
             if( ! is_file($isFile) )
             {
@@ -48,7 +48,7 @@ class Structure
                 {
                     $if    .= $segments[$i].'/';
                     $ifTrim = rtrim($if, '/');
-                    $isF    = CONTROLLERS_DIR . suffix($ifTrim , '.php');
+                    $isF    = CONTROLLERS_DIR . Base::suffix($ifTrim , '.php');
 
                     if( is_file($isF) )
                     {

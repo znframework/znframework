@@ -10,6 +10,7 @@
  */
 
 use ZN\Request\URI;
+use ZN\Request\Request;
 use ZN\Response\Redirect;
 
 class Restoration
@@ -35,7 +36,7 @@ class Restoration
 
         if( $folders === 'full' )
         {
-            return Forge::copy(PROJECTS_DIR . $project, PROJECTS_DIR . $restoreFix . $project);
+            return Filesystem\Forge::copy(PROJECTS_DIR . $project, PROJECTS_DIR . $restoreFix . $project);
         }
         else
         {
@@ -66,7 +67,7 @@ class Restoration
      */
     public static function end(String $project, String $type = NULL)
     {
-        $project = prefix($project, self::$restoreFix);
+        $project = Base::prefix($project, self::$restoreFix);
         $return  = Filesystem\Forge::copy($restoreFolder = PROJECTS_DIR . $project, PROJECTS_DIR . ltrim($project, self::$restoreFix));
 
         if( $type === 'delete' )
@@ -99,7 +100,7 @@ class Restoration
      */
     public static function routeURI($machinesIP, String $uri)
     {
-        if( ! in_array(\User::ip(), (array) $machinesIP) && In::requestURI() !== $uri )
+        if( ! in_array(Request::ipv4(), (array) $machinesIP) && In::requestURI() !== $uri )
         {
             new Redirect($uri);
         }
@@ -114,12 +115,12 @@ class Restoration
      */
     public static function isMachinesIP($manipulation = NULL)
     {
-        $projects      = \Config::get('Project');
+        $projects      = Config::get('Project');
         $restorationIP = $projects['restoration']['machinesIP'];
 
         if( PROJECT_MODE === 'restoration' || $manipulation !== NULL)
         {
-            $ipv4 = \User::ip();
+            $ipv4 = Request::ipv4();
 
             if( is_array($restorationIP) )
             {
@@ -157,7 +158,7 @@ class Restoration
         {
             $restorable = true;
 
-            \Config::set('Project', 'restoration', ['machinesIP' => $settings['machinesIP']]);
+            Config::set('Project', 'restoration', ['machinesIP' => $settings['machinesIP']]);
         }
 
         if( self::isMachinesIP($settings) === true )
@@ -168,7 +169,7 @@ class Restoration
         error_reporting(0);
 
         $currentPath          = $restorable === true ? strtolower(CURRENT_CFUNCTION) : strtolower(URI::active());
-        $projects             = \Config::get('Project');
+        $projects             = Config::get('Project');
         $restoration          = $projects['restoration'];
         $restorationPages     = $restorable === true && ! isset($settings['functions'])
                               ? ['main']

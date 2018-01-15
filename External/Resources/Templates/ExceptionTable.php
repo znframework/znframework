@@ -1,7 +1,7 @@
 <?php
-Import::style('bootstrap', 'awesome', 'external-template-style'); 
-Import::script('jquery', 'bootstrap');
-Import::template('ExternalTemplateStyles');
+ZN\Inclusion\Style::use('bootstrap', 'awesome', 'external-template-style'); 
+ZN\Inclusion\Script::use('jquery', 'bootstrap');
+ZN\Inclusion\Template::use('ExternalTemplateStyles');
 
 unset($trace['params']);
 ?>
@@ -19,7 +19,7 @@ unset($trace['params']);
         <div class="panel-body" style="margin-bottom:-17px;">
             <div class="list-group">
                 <?php
-                Exceptions::display($file, $line, NULL);
+                ZN\ErrorHandling\Exceptions::display($file, $line, NULL);
             
                 foreach( $trace as $key => $debug )
                     if
@@ -31,7 +31,7 @@ unset($trace['params']);
                         ! strstr($debug['file'], 'ZN.php')       &&
                         $debug['file'] !== $file                         
                     )
-                        Exceptions::display($debug['file'], $debug['line'], $key);
+                    ZN\ErrorHandling\Exceptions::display($debug['file'], $debug['line'], $key);
                 ?>
             </div>
         </div>

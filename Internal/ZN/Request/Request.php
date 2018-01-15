@@ -9,6 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
+use ZN\Base;
 use ZN\DataTypes\Strings;
 
 class Request implements RequestInterface
@@ -72,7 +73,7 @@ class Request implements RequestInterface
     //--------------------------------------------------------------------------------------------------------
     public static function scheme() : String
     {
-        return server('requestScheme');
+        return Base::server('requestScheme');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -84,7 +85,7 @@ class Request implements RequestInterface
     //--------------------------------------------------------------------------------------------------------
     public static function method(String $casing = 'upper') : String
     {
-        return Strings\Casing::use(server('requestMethod'), $casing);
+        return Strings\Casing::use(Base::server('requestMethod'), $casing);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -96,7 +97,7 @@ class Request implements RequestInterface
     //--------------------------------------------------------------------------------------------------------
     public static function uri() : String
     {
-        return server('requestUri');
+        return Base::server('requestUri');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -108,7 +109,7 @@ class Request implements RequestInterface
     //--------------------------------------------------------------------------------------------------------
     public static function time() : Int
     {
-        return server('requestTime');
+        return Base::server('requestTime');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -120,6 +121,6 @@ class Request implements RequestInterface
     //--------------------------------------------------------------------------------------------------------
     public static function timeFloat() : Float
     {
-        return server('requestTimeFloat');
+        return Base::server('requestTimeFloat');
     }
 }

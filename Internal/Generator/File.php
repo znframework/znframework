@@ -9,6 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
+use ZN\Base;
 use ZN\DataTypes\Strings;
 use ZN\ErrorHandling\Errors;
 
@@ -143,7 +144,7 @@ class File
             $this->settings['application'] = Strings\Split::divide(rtrim(PROJECT_DIR, '/'), '/', -1);
         }
 
-        return PROJECTS_DIR.$this->settings['application'].$this->type($type).suffix($name, '.php');
+        return PROJECTS_DIR.$this->settings['application'].$this->type($type).Base::suffix($name, '.php');
     }
 
     /**
@@ -159,7 +160,7 @@ class File
     {
         if( ! empty($this->settings['path']) )
         {
-            $filePath = suffix($this->settings['path'], '/') . $name;
+            $filePath = Base::suffix($this->settings['path'], '/') . $name;
         }
         else
         {
@@ -195,7 +196,7 @@ class File
     {
         if( ! empty($this->settings['alias']) )
         {
-            $controller .= EOL.EOL.'class_alias("'.suffix($namespace, '\\').$name.'", "'.$this->settings['alias'].'");';
+            $controller .= EOL.EOL.'class_alias("'.Base::suffix($namespace, '\\').$name.'", "'.$this->settings['alias'].'");';
         }
     }
 
@@ -443,6 +444,6 @@ class File
             case 'command'   : $return = 'Commands';    break;
         }
 
-        return presuffix($return ?? NULL, '/');
+        return Base::presuffix($return ?? NULL, '/');
     }
 }

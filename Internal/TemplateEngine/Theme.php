@@ -10,6 +10,7 @@
  */
 
 use ZN\IS;
+use ZN\Base;
 
 class Theme
 {
@@ -33,7 +34,7 @@ class Theme
 
                 if( ! IS::url($path) && ! is_file($path) )
                 {
-                    $suffix = suffix($themeName) . $path;
+                    $suffix = Base::suffix($themeName) . $path;
 
                     if( is_file(THEMES_DIR . $suffix) )
                     {

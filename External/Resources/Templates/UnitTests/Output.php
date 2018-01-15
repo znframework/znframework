@@ -1,9 +1,7 @@
 <?php
-
-Import::style('bootstrap', 'awesome'); 
-Import::script('jquery', 'bootstrap');
-Import::template('ExternalTemplateStyles');
-
+ZN\Inclusion\Style::use('bootstrap', 'awesome'); 
+ZN\Inclusion\Script::use('jquery', 'bootstrap');
+ZN\Inclusion\Template::use('ExternalTemplateStyles');
 ?>
 <style>
 .table-bordered>tbody>tr>td 

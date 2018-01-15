@@ -9,6 +9,8 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
+use ZN\Base;
+
 class Server implements ServerInterface
 {
     //--------------------------------------------------------------------------------------------------------
@@ -23,10 +25,10 @@ class Server implements ServerInterface
     {
         if( $method === 'all' )
         {
-            return server();
+            return Base::server();
         }
 
-        return server($method);
+        return Base::server($method);
     }
 
     //--------------------------------------------------------------------------------------------------
@@ -71,7 +73,7 @@ class Server implements ServerInterface
     //--------------------------------------------------------------------------------------------------------
     public static function data(String $data = NULL)
     {
-        return server($data);
+        return Base::server($data);
     }
 
     //--------------------------------------------------------------------------------------------------------

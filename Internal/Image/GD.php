@@ -10,6 +10,7 @@
  */
 
 use stdClass;
+use ZN\Base;
 use ZN\Singleton;
 use ZN\Helpers\Converter;
 use ZN\Ability\Revolving;
@@ -1344,7 +1345,7 @@ class GD implements GDInterface
 
         if( ! empty($this->save) )
         {
-            $save = suffix($this->save, '.'.($type === 'jpeg' ? 'jpg' : $type));
+            $save = Base::suffix($this->save, '.'.($type === 'jpeg' ? 'jpg' : $type));
             $this->result['path'] = $save;
         }
         else

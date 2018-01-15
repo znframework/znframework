@@ -130,7 +130,7 @@ class Errors
      */
     public static function handler(Int $errorTypes = E_ALL | E_STRICT)
     {
-        set_error_handler('Exceptions::table', $errorTypes);
+        set_error_handler([new Exceptions, 'table'], $errorTypes);
     }
 
     /**

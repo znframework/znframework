@@ -9,6 +9,8 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
+use ZN\Base;
+
 class Theme
 {
     /**
@@ -27,6 +29,6 @@ class Theme
      */
     public static function active(String $active = 'Default')
     {
-        self::$active = suffix($active);
+        self::$active = Base::suffix($active);
     }
 }

@@ -10,6 +10,7 @@
  */
 
 use stdClass;
+use ZN\Base;
 use ZN\Config;
 use ZN\Classes;
 use ZN\Filesystem\Exception\FileNotFoundException;
@@ -113,7 +114,7 @@ class Info
 
         if( $config['realPath'] === true )
         {
-            $file = prefix(self::originpath($file), REAL_BASE_DIR);
+            $file = Base::prefix(self::originpath($file), REAL_BASE_DIR);
         }
 
         return $file;
@@ -463,7 +464,7 @@ class Info
         {
             $files = FileList::files($dir, $extension);
 
-            $dir = suffix($dir);
+            $dir = Base::suffix($dir);
 
             $filesInfo = [];
 

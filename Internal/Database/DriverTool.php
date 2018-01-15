@@ -11,6 +11,7 @@
 
 use stdClass;
 use ZN\Lang;
+use ZN\Base;
 use ZN\Filesystem\Exception\IOException;
 use ZN\Filesystem\Folder;
 
@@ -266,7 +267,7 @@ class DriverTool extends DriverExtends
             mkdir($path);
         }
 
-        if( ! file_put_contents(suffix($path).$fileName, $return) )
+        if( ! file_put_contents(Base::suffix($path).$fileName, $return) )
         {
             throw new IOException('Error', 'fileNotWrite', $path.$fileName);
         }

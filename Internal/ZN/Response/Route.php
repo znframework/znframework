@@ -9,6 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
+use ZN\Base;
 use ZN\Lang;
 use ZN\Kernel;
 use ZN\Config;
@@ -539,7 +540,7 @@ class Route implements RouteInterface
 
         if( ! strstr($path, '/') )
         {
-            $path = suffix($path) . $routeConfig['openFunction'];
+            $path = Base::suffix($path) . $routeConfig['openFunction'];
         }
 
         $lowerPath = strtolower($path);
@@ -771,7 +772,7 @@ class Route implements RouteInterface
         if( empty($invalidRequest['page']) )
         {
             Logger::report('Error', Lang::select('Error', 'invalidRequest'), 'InvalidRequestError');
-            trace(Lang::select('Error', 'invalidRequest'));
+            Base::trace(Lang::select('Error', 'invalidRequest'));
         }
         else
         {

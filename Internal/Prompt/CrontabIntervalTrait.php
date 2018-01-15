@@ -9,6 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
+use ZN\Base;
 use ZN\Prompt\Exception\InvalidTimeFormatException;
 
 trait CrontabIntervalTrait
@@ -120,7 +121,7 @@ trait CrontabIntervalTrait
     {
         if( $data[0] === '/' )
         {
-            return prefix($data, '*');
+            return Base::prefix($data, '*');
         }
 
         return $data;
@@ -435,6 +436,6 @@ trait CrontabIntervalTrait
     //--------------------------------------------------------------------------------------------------------
     protected function _per($time, $function)
     {
-        $this->$function(prefix($time));
+        $this->$function(Base::prefix($time));
     }
 }

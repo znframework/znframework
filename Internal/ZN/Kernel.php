@@ -31,14 +31,17 @@ class Kernel
         # If the use of alias is obvious, it will activate this operation.
         if( $autoloaderAliases = Config::get('Autoloader')['aliases'] ) foreach( $autoloaderAliases as $alias => $origin )
         {
-            class_alias($origin, $alias);
+            if( class_exists($origin) )
+            {
+                class_alias($origin, $alias);
+            }
         }
         
         $appcon = Config::get('Project');
 
         if( empty($appcon) ) 
         {
-            trace('["Container"] Not Found! Check the [\'containers\'] setting in the [Settings/Projects.php] file.');
+            Base::trace('["Container"] Not Found! Check the [\'containers\'] setting in the [Settings/Projects.php] file.');
         }
 
         define('PROJECT_MODE', strtolower($appcon['mode']));
@@ -55,7 +58,7 @@ class Kernel
         $htaccess = Config::get('Htaccess');
 
         # OB process is starting.
-        if( $htaccess['cache']['obGzhandler'] && substr_count(server('acceptEncoding'), 'gzip') )
+        if( $htaccess['cache']['obGzhandler'] && substr_count(Base::server('acceptEncoding'), 'gzip') )
         {
             ob_start('ob_gzhandler');
         }
@@ -68,13 +71,13 @@ class Kernel
         session_start();
         
         # Sends defined header information.
-        headers(Config::get('Project', 'headers'));
+        Base::headers(Config::get('Project', 'headers'));
 
         if( IS::timeZone($timezone = Config::get('DateTime', 'timezone')) ) date_default_timezone_set($timezone);
         
         # The codes to be written to this layer will run just before the kernel comes into play. 
         # However, htaccess is enabled after Autoloder and Header configurations.
-        layer('MiddleTop');
+        Base::layer('MiddleTop');
         
         # Enables defined ini configurations.
         if( $iniset = Config::get('Ini') )
@@ -99,7 +102,7 @@ class Kernel
         # Sets the system's language.
         if( Lang::current() )
         {
-            $langFix = str_ireplace([suffix((string) illustrate('_CURRENT_PROJECT'))], '', server('currentPath'));
+            $langFix = str_ireplace([Base::suffix((string) Base::illustrate('_CURRENT_PROJECT'))], '', Base::server('currentPath'));
             $langFix = explode('/', $langFix)[1] ?? NULL;
 
             if( strlen($langFix) === 2 )
@@ -123,7 +126,7 @@ class Kernel
         # If the project mode restoration is set, restoration is started.
         if( PROJECT_MODE === 'restoration' ) 
         {
-            \Restoration::mode();
+            Restoration::mode();
         }
         
         # It checks for invalid requests.
@@ -149,7 +152,7 @@ class Kernel
         # This layer works only after the initialization codes of the core have been switched on.
         # Additional rotations, vendor downloads, startup files will be added to the codes 
         # running on the other layer before this layer.
-        layer('Middle');
+        Base::layer('Middle');
         
         $parameters   = CURRENT_CPARAMETERS;
         $function     = CURRENT_CFUNCTION;
@@ -184,7 +187,7 @@ class Kernel
         # This layer comes into play after your core works.
         # The codes in the other layer will run before this layer.
         # This layer only enters the kernel immediately before the end codes.
-        layer('MiddleBottom');
+        Base::layer('MiddleBottom');
         
         # The operation of the system core is completes.
         self::end();
@@ -279,7 +282,7 @@ class Kernel
 
         # In this layer, all the processes, including the kernel end codes, are executed.
         # Code to try immediately after the core is placed on this layer.
-        layer('BottomTop');
+        Base::layer('BottomTop');
 
         if( Config::get('Project', 'log')['createFile'] === true && $errorLast = Errors::last() )
         {
@@ -322,7 +325,7 @@ class Kernel
             {
                 if( is_file($file) )
                 {
-                    import($file);
+                    require $file;
                 }
             }
         }
@@ -343,7 +346,7 @@ class Kernel
         {
             if( is_file($path) )
             {
-                import($path);
+                require $path;
             }
             else
             {
@@ -352,11 +355,11 @@ class Kernel
         }
         elseif( is_file($composer) )
         {
-            import($composer);
+            require composer;
         }
         else
         {
-            $path = suffix($composer) . $path;
+            $path = Base::suffix($composer) . $path;
 
             Logger::report('Error', Lang::select('Error', 'fileNotFound', $path) ,'AutoloadComposer');
 

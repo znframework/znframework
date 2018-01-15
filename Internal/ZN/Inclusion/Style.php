@@ -9,8 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use Project\Controllers\Theme;
+use ZN\Inclusion\Project\Theme;
 use ZN\IS;
+use ZN\Base;
 use ZN\Request\URL;
 
 class Style extends BootstrapExtends
@@ -68,7 +69,7 @@ class Style extends BootstrapExtends
                     $externalFontDirectory = EXTERNAL_STYLES_DIR;
                 }
 
-                $styleFile = $projectFontDirectory . ($suffix = suffix($style, '.css'));
+                $styleFile = $projectFontDirectory . ($suffix = Base::suffix($style, '.css'));
                 
                 if( ! is_file($styleFile) )
                 {

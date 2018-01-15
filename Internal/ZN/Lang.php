@@ -65,17 +65,17 @@
     {
         if( ! isset(self::$lang[$file]) )
         {   
-            $file          = self::get().'/'.suffix($file, '.php');
+            $file          = self::get().'/'.Base::suffix($file, '.php');
             $langDir       = LANGUAGES_DIR.$file;
             $commonLangDir = EXTERNAL_LANGUAGES_DIR.$file;
 
             if( is_file($langDir) && ! IS::import($langDir) )
             {
-                self::$lang[$file] = import($langDir);
+                self::$lang[$file] = require $langDir;
             }
             elseif( is_file($commonLangDir) && ! IS::import($commonLangDir) )
             {
-                self::$lang[$file] = import($commonLangDir);
+                self::$lang[$file] = require $commonLangDir;
             }
         }
 

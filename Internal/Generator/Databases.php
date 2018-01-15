@@ -9,6 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
+use ZN\Base;
 use ZN\Config;
 use ZN\Filesystem;
 use ZN\DataTypes\Arrays;
@@ -44,7 +45,7 @@ class Databases extends DatabaseDefinitions
     {
         $activesPath  = $this->activesPath;
         $archivesPath = $this->archivesPath;
-        $folders      = Filesystem\FileList::files($activesPath, 'dir');
+        $folders      = Filesystem::getFiles($activesPath, 'dir');
 
         if( empty($folders) )
         {
@@ -71,7 +72,7 @@ class Databases extends DatabaseDefinitions
 
             $databasePath = $activesPath . $database . '/';
 
-            $tables = Filesystem\FileList::files($databasePath, 'php');
+            $tables = Filesystem::getFiles($databasePath, 'php');
 
             if( ! empty($tables) )
             {
@@ -80,7 +81,7 @@ class Databases extends DatabaseDefinitions
 
                 foreach( $tables as $table )
                 {
-                    $tableData = import($databasePath . $table);
+                    $tableData = Base::import($databasePath . $table);
                     $file      = $table;
                     $table     = Filesystem\Extension::remove($table);
 
@@ -135,7 +136,7 @@ class Databases extends DatabaseDefinitions
                             $writePath     = $archivesPath . $tableName . '_' . time() . '.php';
                             $writeContent  = file_get_contents($activesPath . $tableName . '.php');
 
-                            Filesystem\Forge::createFolder($dbArchivePath);
+                            Filesystem::createFolder($dbArchivePath);
 
                             file_put_contents($writePath, $writeContent);
 
@@ -160,7 +161,7 @@ class Databases extends DatabaseDefinitions
     {
         $archivesPath = $this->archivesPath;
 
-        $folders = Filesystem\FileList::files($archivesPath, 'dir');
+        $folders = Filesystem::getFiles($archivesPath, 'dir');
 
         if( empty($folders) )
         {
@@ -171,7 +172,7 @@ class Databases extends DatabaseDefinitions
         {
             $databasePath = $archivesPath . $database . '/';
 
-            $tables   = Filesystem\FileList::files($databasePath, 'php');
+            $tables   = Filesystem::getFiles($databasePath, 'php');
             $pregGrep = preg_grep("/\_[0-9]*\.php/", $tables);
             $tables   = Arrays\RemoveElement::element($tables, $pregGrep);
 
@@ -181,7 +182,7 @@ class Databases extends DatabaseDefinitions
 
                 foreach( $tables as $table )
                 {
-                    $dbForge->dropTable(Filesystem\Extension::remove($table));
+                    $dbForge->dropTable(Filesystem::removeExtension($table));
                 }
             }
 

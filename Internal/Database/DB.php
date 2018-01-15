@@ -11,6 +11,7 @@
 
 use Cache;
 use Pagination;
+use ZN\Base;
 use ZN\Config;
 use ZN\Request\URI;
 use ZN\Request\Method;
@@ -1175,7 +1176,7 @@ class DB extends Connection
      */
     public function status(String $table = NULL) : DB
     {
-        $table = presuffix($this->_p($table), "'");
+        $table = Base::presuffix($this->_p($table), "'");
 
         $query = "SHOW TABLE STATUS FROM " . $this->config['database'] . " LIKE $table";
 
@@ -1226,7 +1227,7 @@ class DB extends Connection
         
         array_map(function($data) use($table)
         {
-            $this->duplicateCheck()->insert(prefix($table, 'ignore:'), $data);
+            $this->duplicateCheck()->insert(Base::prefix($table, 'ignore:'), $data);
         }, $file);
         
         return true;
@@ -1257,7 +1258,7 @@ class DB extends Connection
                 $isExp = true;
             }
 
-            $data .= suffix($key, ',');
+            $data .= Base::suffix($key, ',');
 
             if( ! empty($this->duplicateCheck) )
             {
@@ -1278,16 +1279,16 @@ class DB extends Connection
 
             if( isset($isExp) )
             {
-                $values .= suffix($value, ',');
+                $values .= Base::suffix($value, ',');
                 unset($isExp);
             }
             elseif( $value !== '?' )
             {
-                $values .= suffix(presuffix($value, "'"), ',');
+                $values .= Base::suffix(Base::presuffix($value, "'"), ',');
             }
             else
             {
-                $values .= suffix($value, ',');
+                $values .= Base::suffix($value, ',');
             }
         }
 
@@ -1355,10 +1356,10 @@ class DB extends Connection
             }
             else
             {
-                $value = presuffix($value, "'");
+                $value = Base::presuffix($value, "'");
             }
 
-            $data .= $key . '=' . suffix($value, ',');
+            $data .= $key . '=' . Base::suffix($value, ',');
         }
 
         $set = ' SET '.substr($data,0,-1);
@@ -1905,7 +1906,7 @@ class DB extends Connection
     {
         if( ! is_numeric($default) )
         {
-            $default = presuffix($default, '"');
+            $default = Base::presuffix($default, '"');
         }
 
         return $this->db->statements('default', $default, $type);
@@ -2205,7 +2206,7 @@ class DB extends Connection
             $this->joinType  = NULL;
             $this->joinTable = NULL;
 
-            return presuffix($joinTables, ' ');
+            return Base::presuffix($joinTables, ' ');
         }
 
         return NULL;

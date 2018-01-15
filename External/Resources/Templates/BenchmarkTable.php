@@ -2,8 +2,9 @@
 
 $lang  = ZN\Lang::select('IndividualStructures'); 
 
-Import::style('bootstrap', 'awesome', 'external-template-style'); Import::script('jquery', 'bootstrap');
-Import::template('ExternalTemplateStyles');
+ZN\Inclusion\Style::use('bootstrap', 'awesome', 'external-template-style'); 
+ZN\Inclusion\Script::use('jquery', 'bootstrap');
+ZN\Inclusion\Template::use('ExternalTemplateStyles');
 ?>
 <style>
 .table-bordered>tbody>tr>td 

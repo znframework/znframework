@@ -99,7 +99,7 @@ class IS
      */
     public static function import(String $path) : Bool
     {
-        return in_array( realpath(suffix($path, '.php')), get_required_files() );
+        return in_array( realpath(Base::suffix($path, '.php')), get_required_files() );
     }
 
     /**

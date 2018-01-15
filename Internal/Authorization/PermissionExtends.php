@@ -9,6 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
+use ZN\Base;
 use ZN\Config;
 use ZN\Request\Method;
 
@@ -83,7 +84,7 @@ class PermissionExtends
         }
         else
         {
-            $currentUrl = $process ?? server('currentPath');
+            $currentUrl = $process ?? Base::server('currentPath');
         }
 
         $object = $object ?? true;

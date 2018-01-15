@@ -12,6 +12,7 @@
 use ZN\In;
 use ZN\IS;
 use ZN\Lang;
+use ZN\Base;
 use ZN\Config;
 use ZN\Security;
 use ZN\DataTypes\Arrays;
@@ -434,7 +435,7 @@ class URI implements URIInterface
     //--------------------------------------------------------------------------------------------------------
     public static function current(Bool $isPath = true) : String
     {
-        $currentPagePath = str_replace(Lang::get().'/', '', server('currentPath'));
+        $currentPagePath = str_replace(Lang::get().'/', '', Base::server('currentPath'));
 
         if( ($currentPagePath[0] ?? NULL) === '/' )
         {
@@ -470,10 +471,10 @@ class URI implements URIInterface
     public static function active(Bool $fullPath = false) : String
     {
         // 5.3.22[edited]
-        $requestUri = suffix(server('requestUri'));
+        $requestUri = Base::suffix(Base::server('requestUri'));
        
         $currentUri = ! empty(BASE_DIR)
-                      ? str_replace(prefix(BASE_DIR, '/'), '', $requestUri)
+                      ? str_replace(Base::prefix(BASE_DIR, '/'), '', $requestUri)
                       : substr($requestUri, 1);
         
         if( $fullPath === false )
@@ -562,9 +563,9 @@ class URI implements URIInterface
         
         switch( $type )
         {
-            case 'left'  : return prefix($query);
-            case 'right' : return suffix($query);
-            case 'both'  : return presuffix($query);
+            case 'left'  : return Base::prefix($query);
+            case 'right' : return Base::suffix($query);
+            case 'both'  : return Base::presuffix($query);
             default      : return $query;
         }
     }

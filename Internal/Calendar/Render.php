@@ -14,6 +14,7 @@ use ZN\Request\URI;
 use ZN\IS;
 use ZN\Config;
 use ZN\Lang;
+use ZN\Base;
 
 class Render implements RenderInterface
 {
@@ -218,7 +219,7 @@ class Render implements RenderInterface
 
         if( ! isset($this->url) )
         {
-            $this->url = suffix(CURRENT_CFURL);
+            $this->url = Base::suffix(CURRENT_CFURL);
         }
 
         if( $month === NULL && $year === NULL )
@@ -295,7 +296,7 @@ class Render implements RenderInterface
         $rowsClass     = ( ! empty($this->css['days']) )        ? ' class="'.$this->css['days'].'"' : '';
         $rowsStyle     = ( ! empty($this->style['days']) )      ? ' style="'.$this->style['days'].'"' : '';
 
-        $url = suffix($this->url);
+        $url = Base::suffix($this->url);
 
         $pcyear   = ( $month == 1 ? $year - 1 : $year );
         $pcmonth  = ( $month - 1 == 0  ? 12  : $month - 1 );

@@ -16,6 +16,7 @@ use ZN\Filesystem;
 use ZN\Image;
 use ZN\Singleton;
 use ZN\Config;
+use ZN\Base;
 
 class Render implements RenderInterface
 {
@@ -436,7 +437,7 @@ class Render implements RenderInterface
         {
             $textTTFC = $textTTFC[rand(0, count($textTTFC) - 1)];
 
-            $textTTFC = suffix($textTTFC, '.ttf');
+            $textTTFC = Base::suffix($textTTFC, '.ttf');
 
             if( is_file($textTTFC) )
             {

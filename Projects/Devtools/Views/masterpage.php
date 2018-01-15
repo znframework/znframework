@@ -12,7 +12,7 @@ Import::view('top.wizard');
 
 if( isset($page) )
 {
-    Import::view(suffix($page, '.wizard'), $pdata ?? NULL);
+    Import::view(Base::suffix($page, '.wizard'), $pdata ?? NULL);
 }
 else
 {

@@ -10,6 +10,8 @@
  */
 
 use ZipArchive;
+use ZN\Base;
+use ZN\Filesystem;
 use ZN\Filesystem\Exception\FileNotFoundException;
 use ZN\Filesystem\Exception\FolderNotFoundException;
 
@@ -97,7 +99,7 @@ class Forge
         $source = Info::rpath($source);
         $target = Info::rpath($target);
 
-        $source = suffix($source, '.zip');
+        $source = Base::suffix($source, '.zip');
 
         if( ! file_exists($source) )
         {
@@ -136,7 +138,7 @@ class Forge
     {
         $path    = Info::rpath($path);
         $zip     = new ZipArchive;
-        $zipPath = suffix($path, ".zip");
+        $zipPath = Base::suffix($path, ".zip");
 
         if( file_exists($zipPath) )
         {
@@ -279,14 +281,7 @@ class Forge
      */
     public static function createFolder(String $file, Int $permission = 0755, Bool $recursive = true) : Bool
     {
-        $file = Info::rpath($file);
-
-        if( is_dir($file) )
-        {
-           return false;
-        }
-
-        return mkdir($file, $permission, $recursive);
+        return Filesystem::createFolder(Info::rpath($file), $permission, $recursive);
     }
 
     /**
@@ -367,7 +362,7 @@ class Forge
         {
             if( ! FileList::files($source) )
             {
-                $emptyFilePath = suffix($source, DS) . 'empty';
+                $emptyFilePath = Base::suffix($source, DS) . 'empty';
 
                 self::create($emptyFilePath);
 
@@ -420,4 +415,5 @@ class Forge
 
         return chdir($name);
     }
+    
 }

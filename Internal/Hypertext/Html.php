@@ -10,6 +10,7 @@
  */
 
 use ZN\IS;
+use ZN\Base;
 use ZN\Buffering;
 use ZN\Request\URL;
 use ZN\Hypertext\Exception\InvalidArgumentException;
@@ -265,7 +266,7 @@ class Html
     {
         if( ! IS::url($path) )
         {
-            $path = URL::base(suffix($path, '.js'));
+            $path = URL::base(Base::suffix($path, '.js'));
         }
 
         $attributes['href'] = $path;
@@ -285,7 +286,7 @@ class Html
     {
         if( ! IS::url($path) )
         {
-            $path = URL::base(suffix($path, '.css'));
+            $path = URL::base(Base::suffix($path, '.css'));
         }
 
         $attributes['href'] = $path;

@@ -9,6 +9,8 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
+use ZN\Base;
+
 class Handload
 {
     //--------------------------------------------------------------------------------------------------------
@@ -22,17 +24,17 @@ class Handload
     {
         if( ! empty($args) ) foreach( $args as $file )
         {
-            $suffix     = suffix($file, '.php');
+            $suffix     = Base::suffix($file, '.php');
             $commonFile = EXTERNAL_HANDLOAD_DIR.$suffix ;
             $file       = HANDLOAD_DIR.$suffix;
 
             if( is_file($file) )
             {
-                import($file); // Local File
+                require_once $file; # Local File
             }
             elseif( is_file($commonFile) )
             {
-                import($commonFile); // Common File
+                require_once $commonFile; # Common File
             }
         }
     }

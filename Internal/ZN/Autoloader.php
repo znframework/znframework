@@ -58,7 +58,7 @@ class Autoloader
         
         if( is_file($file) )
         {
-            import($file);
+           require $file;
 
             if
             (
@@ -104,7 +104,7 @@ class Autoloader
 
         if( file_exists($file) ) 
         {
-            import($file); return true;
+            require $file;
         }
         else
         {
@@ -140,7 +140,7 @@ class Autoloader
     {
         clearstatcache();
 
-        import(ZEROCORE . 'Config.php');
+        require ZEROCORE . 'Config.php';
 
         $configAutoloader = Config::get('Autoloader');
         $configClassMap   = self::_config();
@@ -357,8 +357,8 @@ class Autoloader
     {
         static $classes;
 
-        $directory           = suffix($directory);
-        $baseDirectory       = suffix($baseDirectory);
+        $directory           = Base::suffix($directory);
+        $baseDirectory       = Base::suffix($baseDirectory);
         $configClassMap      = self::_config();
         $configAutoloader    = Config::get('Autoloader');
         $directoryPermission = $configAutoloader['directoryPermission'];
@@ -424,7 +424,7 @@ class Autoloader
                             mkdir($newDir, $directoryPermission, true);
                         }
 
-                        $rpath = $path     = suffix($newDir).$classInfo['class'].'.php';
+                        $rpath = $path     = Base::suffix($newDir).$classInfo['class'].'.php';
                     
                         $constants         = self::_findConstants($val);
                         $classContent      = self::_classFileContent($newClassName, $constants);
@@ -550,7 +550,7 @@ class Autoloader
 
         if( is_file($file) )
         {
-            import($file);
+            require $file;
         }
     }
 
@@ -588,9 +588,9 @@ class Autoloader
         define('PROJECTS_DIR', 'Projects/');
         define('EXTERNAL_DIR', (PROJECT_TYPE === 'SE' ? '' : 'External/'));
         define('SETTINGS_DIR', (PROJECT_TYPE === 'SE' ? 'Config' : 'Settings').'/');
-        define('PROJECTS_CONFIG', import((is_file(PROJECTS_DIR . 'Projects.php') ? PROJECTS_DIR : SETTINGS_DIR) . 'Projects.php'));
+        define('PROJECTS_CONFIG', Base::import((is_file(PROJECTS_DIR . 'Projects.php') ? PROJECTS_DIR : SETTINGS_DIR) . 'Projects.php'));
         define('DEFAULT_PROJECT', PROJECTS_CONFIG['directory']['default']);
-        define('SSL_STATUS', (server('https') === 'on' ? 'https' : 'http') . '://');
+        define('SSL_STATUS', (($_SERVER['HTTPS'] ?? NULL) === 'on' ? 'https' : 'http') . '://');
         define('EOL', PHP_EOL);
         define('CRLF', "\r\n" );
         define('CR', "\r");
@@ -688,7 +688,7 @@ class Autoloader
             }  
             
             return ! empty($condir) && ! file_exists($containerProjectDir)
-                    ? PROJECTS_DIR . suffix($condir) . $path
+                    ? PROJECTS_DIR . Base::suffix($condir) . $path
                     : $containerProjectDir;
         }
 
@@ -738,11 +738,11 @@ class Autoloader
         }
         else
         {
-            $currentPath = server('currentPath');
+            $currentPath = $_SERVER['PATH_INFO'] ?? $_SERVER['QUERY_STRING'] ?? false;
 
             # 5.0.3[edited]
             # QUERY_STRING & REQUEST URI Empty Control
-            if( empty($currentPath) && ($requestUri = server('requestUri')) !== '/' )
+            if( empty($currentPath) && ($requestUri = Base::server('requestUri')) !== '/' )
             {
                 $currentPath = $requestUri;
             }
@@ -753,7 +753,7 @@ class Autoloader
         if( is_array($projectDir) )
         {
             $internalDir = $projectDir[$internalDir] ?? $internalDir;
-            $projectDir  = $projectDir[host()] ?? DEFAULT_PROJECT;
+            $projectDir  = $projectDir[Base::host()] ?? DEFAULT_PROJECT;
         }
 
         if( ! empty($internalDir) && is_dir(PROJECTS_DIR . $internalDir) )
@@ -766,11 +766,11 @@ class Autoloader
         }
 
         define('CURRENT_PROJECT', $currentProjectDir ?? $projectDir);
-        define('PROJECT_DIR', suffix(PROJECTS_DIR . $projectDir));
+        define('PROJECT_DIR', Base::suffix(PROJECTS_DIR . $projectDir));
 
         if( ! is_dir(PROJECT_DIR) )
         {
-            trace('["'.$projectDir.'"] Project Directory Not Found!');
+            Base::trace('["'.$projectDir.'"] Project Directory Not Found!');
         }
     }
 

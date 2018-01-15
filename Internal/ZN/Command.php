@@ -22,7 +22,7 @@ class Command extends Base
      */
     public function __construct()
     {
-        if( server('documentRoot') )
+        if( Base::server('documentRoot') )
         {
             throw new Exception
             (

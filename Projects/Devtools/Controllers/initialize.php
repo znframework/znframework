@@ -12,6 +12,7 @@
 //------------------------------------------------------------------------------------------------------------
 
 use Folder, Arrays, Form, Config, Route, Validation, Session, Cookie, DB, Restful, ML, User, Redirect;
+use ZN\Base;
 
 class Initialize extends Controller
 {
@@ -29,7 +30,7 @@ class Initialize extends Controller
 
         if( ZN_VERSION < DASHBOARD_VERSION )
         {
-            trace(lang('DevtoolsErrors', 'versionError', ['%' => DASHBOARD_VERSION, '#' => ZN_VERSION]));
+            Base::trace(lang('DevtoolsErrors', 'versionError', ['%' => DASHBOARD_VERSION, '#' => ZN_VERSION]));
         }
 
         if( $versions = Restful::post('https://api.znframework.com/statistics/versions') )
@@ -138,7 +139,7 @@ class Initialize extends Controller
 
         if( SELECT_PROJECT !== 'External' )
         {
-            Config::set('Database', import($databaseConfigPath));
+            Config::set('Database', Base::import($databaseConfigPath));
         }
 
         define('CURRENT_DATABASE', Config::get('Database', 'database')['database']);

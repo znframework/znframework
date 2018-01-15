@@ -11,6 +11,7 @@
 
 use Project\Controllers\Theme;
 use ZN\Filesystem;
+use ZN\Base;
 
 class Package
 {
@@ -136,7 +137,7 @@ class Package
 
         if( is_dir($packages) )
         {
-            $packageFiles = Filesystem\FileList::allFiles(suffix($packages), $recursive);
+            $packageFiles = Filesystem\FileList::allFiles(Base::suffix($packages), $recursive);
 
             if( ! empty($packageFiles) )
             {

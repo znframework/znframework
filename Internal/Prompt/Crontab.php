@@ -9,6 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
+use ZN\Base;
 use ZN\Singleton;
 use ZN\Prompt\Exception\InvalidTimeFormatException;
 use ZN\DataTypes\Arrays;
@@ -371,7 +372,7 @@ class Crontab extends PromptCommon implements CrontabInterface, CrontabIntervalI
     public function controller(String $file)
     {
         $path = $this->_convertFileName($file);
-        $code = prefix(suffix($this->_controller($file), ';\''), ' -r \'' . $this->zerocore);
+        $code = Base::prefix(Base::suffix($this->_controller($file), ';\''), ' -r \'' . $this->zerocore);
 
         $this->run($code);
     }

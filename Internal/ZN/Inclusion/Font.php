@@ -12,6 +12,7 @@
 use Project\Controllers\Theme;
 use ZN\Request\URL;
 use ZN\Filesystem;
+use ZN\Base;
 
 class Font extends BootstrapExtends
 {
@@ -58,10 +59,10 @@ class Font extends BootstrapExtends
         
             $baseUrl  = URL::base($fontFile);
 
-            if( is_file(suffix($fontFile, '.svg')) ) $str .= self::_face($f, $baseUrl, 'svg');
-            if( is_file(suffix($fontFile, '.woff'))) $str .= self::_face($f, $baseUrl, 'woff');
-            if( is_file(suffix($fontFile, '.otf')) ) $str .= self::_face($f, $baseUrl, 'otf');
-            if( is_file(suffix($fontFile, '.ttf')) ) $str .= self::_face($f, $baseUrl, 'ttf');
+            if( is_file(Base::suffix($fontFile, '.svg')) ) $str .= self::_face($f, $baseUrl, 'svg');
+            if( is_file(Base::suffix($fontFile, '.woff'))) $str .= self::_face($f, $baseUrl, 'woff');
+            if( is_file(Base::suffix($fontFile, '.otf')) ) $str .= self::_face($f, $baseUrl, 'otf');
+            if( is_file(Base::suffix($fontFile, '.ttf')) ) $str .= self::_face($f, $baseUrl, 'ttf');
 
             $cndFont = isset($links[strtolower($font)]) ? $links[strtolower($font)] : NULL;
 
@@ -73,15 +74,15 @@ class Font extends BootstrapExtends
             {
                 foreach( $differentSet as $of )
                 {
-                    if( is_file($fontFile.prefix($of, '.')) )
+                    if( is_file($fontFile.Base::prefix($of, '.')) )
                     {
-                        $str .= self::_face($f, $baseUrl . prefix($of, '.'));
+                        $str .= self::_face($f, $baseUrl . Base::prefix($of, '.'));
                     }
                 }
             }
 
             // EOT IE DESTEKLIYOR
-            if( is_file(suffix($fontFile, '.eot')) )
+            if( is_file(Base::suffix($fontFile, '.eot')) )
             {
                 $str .= '<!--[if IE]>';
                 $str .= self::_face($f, $baseUrl, 'eot');
@@ -149,7 +150,7 @@ class Font extends BootstrapExtends
 
         if( $extension !== NULL )
         {
-            $base = suffix($baseUrl, '.' . $extension);
+            $base = Base::suffix($baseUrl, '.' . $extension);
         }
 
         return '@font-face{font-family:"' . Filesystem\Extension::remove($f) . '"; src:url("' . $base . '") format("truetype")}' . EOL;

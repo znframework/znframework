@@ -1,4 +1,4 @@
-<?php Import::style('bootstrap'); ?>
+<?php ZN\Inclusion\Style::use('bootstrap'); ?>
 
 <table class="table table-bordered">
     <tr>

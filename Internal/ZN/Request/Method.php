@@ -9,6 +9,8 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
+use ZN\Base;
+
 class Method implements MethodInterface
 {
     //--------------------------------------------------------------------------------------------------------
@@ -79,7 +81,7 @@ class Method implements MethodInterface
             $_SERVER[$name] = $value;
         }
 
-        return server($name);
+        return Base::server($name);
     }
 
     //--------------------------------------------------------------------------------------------------------

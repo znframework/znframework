@@ -10,6 +10,7 @@
  */
 
 use ZN\IS;
+use ZN\Base;
 use ZN\Config;
 use ZN\Lang;
 use ZN\DataTypes\Arrays;
@@ -265,7 +266,7 @@ class Upload implements UploadInterface
         $encryption = $this->settings['prefix']      ?? '';
         $name       = $_FILES[$fileName]['name']     ?? NULL;
         $source     = $_FILES[$fileName]['tmp_name'] ?? NULL;
-        $root       = suffix($rootDir, '/');     
+        $root       = Base::suffix($rootDir, '/');     
 
         if( is_array($name) )
         {

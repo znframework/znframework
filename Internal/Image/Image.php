@@ -9,6 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
+use ZN\Base;
 use ZN\Request\URL;
 use ZN\Filesystem;
 use ZN\Image\Exception\ImageNotFoundException;
@@ -205,7 +206,7 @@ class Image implements ImageInterface
         $fileEx          = explode("/", $filePath);
         $this->file      = $fileEx[count($fileEx) - 1];
         $this->thumbPath = substr($filePath,0,strlen($filePath) - strlen($this->file)).$this->dirName;
-        $this->thumbPath = suffix($this->thumbPath);
+        $this->thumbPath = Base::suffix($this->thumbPath);
         $this->thumbPath = str_replace(URL::base(), "", $this->thumbPath);
     }
 

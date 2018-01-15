@@ -10,6 +10,7 @@
  */
 
 use ZN\Config;
+use ZN\Base;
 use ZN\IS;
 
 class SuperAlgorithm extends EncodeExtends
@@ -34,7 +35,7 @@ class SuperAlgorithm extends EncodeExtends
 
         if( empty($projectKey) )
         {
-            $additional = hash($algo, host());
+            $additional = hash($algo, Base::host());
         }
         else
         {

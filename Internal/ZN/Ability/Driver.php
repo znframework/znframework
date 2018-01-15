@@ -9,6 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
+use ZN\Base;
 use ZN\Config;
 use ZN\Support;
 use ZN\Singleton;
@@ -66,7 +67,7 @@ trait Driver
         }
         else
         {
-            $this->driver = Singleton::class(suffix(static::driver['namespace'], '\\').$driver.'Driver');
+            $this->driver = Singleton::class(Base::suffix(static::driver['namespace'], '\\').$driver.'Driver');
         }
 
         if( isset(static::driver['construct']) )

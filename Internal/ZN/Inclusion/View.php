@@ -10,6 +10,7 @@
  */
 
 use ZN\In;
+use ZN\Base;
 use ZN\Buffering;
 use ZN\Filesystem;
 use ZN\TemplateEngine;
@@ -61,12 +62,12 @@ class View
 
         $data = array_merge((array) $data, $inData, Views::$data);
 
-        if( is_file($randomPageDir . suffix($page, '.php')) && ! strstr($page, self::$templateWizardExtension) )
+        if( is_file($randomPageDir . Base::suffix($page, '.php')) && ! strstr($page, self::$templateWizardExtension) )
         {
             return self::_page($page, $data, $obGetContents, $randomPageDir);
         }
 
-        return self::_templateWizard(suffix(rtrim($page, '.php'), self::$templateWizardExtension), $data, $obGetContents, $randomPageDir);
+        return self::_templateWizard(Base::suffix(rtrim($page, '.php'), self::$templateWizardExtension), $data, $obGetContents, $randomPageDir);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -82,7 +83,7 @@ class View
     {
         if( ! Filesystem\Extension::get($randomPageVariable) || stristr($randomPageVariable, self::$templateWizardExtension) )
         {
-            $randomPageVariable = suffix($randomPageVariable, '.php');
+            $randomPageVariable = Base::suffix($randomPageVariable, '.php');
         }
 
         $randomPagePath = $randomPageDir . $randomPageVariable;

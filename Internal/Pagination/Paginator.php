@@ -9,6 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
+use ZN\Base;
 use ZN\Request\URL;
 use ZN\Request\URI;
 
@@ -269,10 +270,10 @@ class Paginator implements PaginatorInterface
         {
             $urlEx = explode('?', $this->url);
 
-            return suffix($urlEx[0]) . $page . '?' . rtrim($urlEx[1], '/');
+            return Base::suffix($urlEx[0]) . $page . '?' . rtrim($urlEx[1], '/');
         }
 
-        return suffix($this->url) . $page;
+        return Base::suffix($this->url) . $page;
     }
 
     /**
@@ -313,7 +314,7 @@ class Paginator implements PaginatorInterface
 
         if( isset($config['url']) && $this->type !== 'ajax' )
         {
-            $this->url = suffix(URL::site($config['url']));
+            $this->url = Base::suffix(URL::site($config['url']));
         }
         elseif( $this->type === 'ajax' )
         {

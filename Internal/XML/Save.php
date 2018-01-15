@@ -9,6 +9,8 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
+use ZN\Base;
+
 class Save
 {
     /**
@@ -28,7 +30,7 @@ class Save
      */
     public static function do(String $file, String $data) : Bool
     {
-        $file = suffix($file, self::$extension);
+        $file = Base::suffix($file, self::$extension);
 
         return file_put_contents($file, $data);
     }

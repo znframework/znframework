@@ -9,11 +9,12 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
+use ZN\Lang;
+use ZN\Config;
+use ZN\Inclusion;
 use ZN\Helpers\Converter;
 use ZN\Helpers\Logger;
 use ZN\DataTypes\Strings;
-use ZN\Lang;
-use ZN\Inclusion;
 
 class Exceptions extends \Exception implements ExceptionsInterface
 {   
@@ -105,7 +106,7 @@ class Exceptions extends \Exception implements ExceptionsInterface
 
         $table = self::_template($msg, $file, $line, $no, $trace);
 
-        $projectError = \Config::get('Project');
+        $projectError = Config::get('Project');
 
         if( in_array($no, $projectError['exitErrors'], true) || in_array(self::$errorCodes[$no] ?? NULL, $projectError['exitErrors'], true) )
         {
@@ -166,7 +167,7 @@ class Exceptions extends \Exception implements ExceptionsInterface
      */
     private static function _template($msg, $file, $line, $no, $trace)
     {
-        $projects = \Config::get('Project');
+        $projects = Config::get('Project');
 
         if( ! $projects['errorReporting'] )
         {
@@ -199,7 +200,7 @@ class Exceptions extends \Exception implements ExceptionsInterface
                 return false;
             }
 
-            if( \Config::get('Project', 'invalidParameterErrorType') === 'external' )
+            if( $projects['invalidParameterErrorType'] === 'external' )
             {
                 $exceptionData = $passed;
             }

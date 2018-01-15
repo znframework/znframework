@@ -64,7 +64,7 @@ class In
             break;
             
             # Default output
-            default: trace('Invalid Application Mode! Available Options: ["development"], ["restoration"] or ["publication"]');
+            default: Base::trace('Invalid Application Mode! Available Options: ["development"], ["restoration"] or ["publication"]');
         }
     }
 
@@ -125,7 +125,7 @@ class In
      */
     protected static function isSubdomain()
     {
-        return (bool) (PROJECTS_CONFIG['directory']['others'][host()] ?? false);
+        return (bool) (PROJECTS_CONFIG['directory']['others'][Base::host()] ?? false);
     }
 
     /**
@@ -142,7 +142,7 @@ class In
             return false;
         }
 
-        return (CURRENT_PROJECT === DEFAULT_PROJECT ? '' : suffix(CURRENT_PROJECT));
+        return (CURRENT_PROJECT === DEFAULT_PROJECT ? '' : Base::suffix(CURRENT_PROJECT));
     }
 
     /**
@@ -170,7 +170,7 @@ class In
      */
     public static function cleanURIPrefix(String $uri = NULL, String $cleanData = NULL) : String
     {
-        $suffixData = suffix((string) $cleanData);
+        $suffixData = Base::suffix((string) $cleanData);
 
         if( ! empty($cleanData) && stripos($uri, $suffixData) === 0 )
         {
@@ -197,7 +197,7 @@ class In
         {
             foreach( $files as $file )
             {
-                import($file);
+                require $file;
             }
 
             Singleton::class('ZN\Response\Route')->all();
@@ -254,7 +254,7 @@ class In
         {
             if( $patternType === 'classic' )
             {
-                $requestUri = preg_replace(presuffix($key).'xi', $val, $requestUri);
+                $requestUri = preg_replace(Base::presuffix($key).'xi', $val, $requestUri);
             }
             else
             {
@@ -318,7 +318,7 @@ class In
 
         # The layer that came in after the whole system.
         # The codes to be executed after the system runs are written to this layer.
-        layer('Bottom');
+        Base::layer('Bottom');
     }
 
     /**
@@ -367,7 +367,7 @@ class In
 
         $controllerPath  = ! empty($controllerEx[0]) ? $controllerEx[0] : '';
         $controllerFunc  = ! empty($controllerEx[1]) ? $controllerEx[1] : 'main';
-        $controllerFile  = CONTROLLERS_DIR . suffix($controllerPath, '.php');
+        $controllerFile  = CONTROLLERS_DIR . Base::suffix($controllerPath, '.php');
         $controllerClass = Strings\Split::divide($controllerPath, '/', -1);
 
         if( is_file($controllerFile) )
@@ -377,7 +377,7 @@ class In
                 $controllerClass = PROJECT_CONTROLLER_NAMESPACE . $controllerClass;
             }
 
-            import($controllerFile);
+            Base::import($controllerFile);
 
             if( ! is_callable([$controllerClass, $controllerFunc]) )
             {

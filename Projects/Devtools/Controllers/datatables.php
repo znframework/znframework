@@ -14,6 +14,7 @@
 use Http, Method, DBForge, DB, Import, DBTool, Session, Config, Folder, File;
 use ZN\DataTypes\Arrays\RemoveElement;
 use ZN\Security\Html;
+use ZN\Base;
 
 class Datatables extends Controller
 {
@@ -49,7 +50,7 @@ class Datatables extends Controller
 
         if( $type === 'orm' )
         {
-            $status  = eval('?><?php ' . suffix($content, ';'));
+            $status  = eval('?><?php ' . Base::suffix($content, ';'));
         }
         else
         {

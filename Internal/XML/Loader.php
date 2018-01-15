@@ -9,6 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
+use ZN\Base;
 use ZN\XML\Exception\FileNotFoundException;
 
 class Loader
@@ -22,7 +23,7 @@ class Loader
      */
     public static function do(String $file) : String
     {
-        $file = suffix($file, '.xml');
+        $file = Base::suffix($file, '.xml');
 
         if( is_file($file) )
         {

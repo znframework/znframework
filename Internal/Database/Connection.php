@@ -9,6 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
+use ZN\Base;
 use ZN\Config;
 use ZN\Helpers\Logger;
 use ZN\Database\Exception\InvalidArgumentException;
@@ -340,7 +341,7 @@ class Connection
             return $value;
         }
 
-        return presuffix($this->db->realEscapeString($value), "'");
+        return Base::presuffix($this->db->realEscapeString($value), "'");
     }
 
     /**

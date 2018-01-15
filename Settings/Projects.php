@@ -1,4 +1,4 @@
-<?php $default = is_dir(PROJECTS_DIR . ($host = host())) ? $host : NULL; return
+<?php $default = is_dir(PROJECTS_DIR . ($host = ZN\Base::host())) ? $host : NULL; return
 [
     /*
     |--------------------------------------------------------------------------

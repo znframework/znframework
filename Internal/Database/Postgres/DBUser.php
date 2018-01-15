@@ -9,6 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
+use ZN\Base;
 use ZN\Database\DriverUser;
 
 class DBUser extends DriverUser
@@ -50,7 +51,7 @@ class DBUser extends DriverUser
     {
         if( ! empty($this->postgreQuoteOptions[strtoupper($option)]) )
         {
-            $value = presuffix($value, '\'');
+            $value = Base::presuffix($value, '\'');
         }
 
         $this->parameters['option'] = $option.' '.$value;

@@ -13,6 +13,7 @@
 
 use Method, Arrays, Generate as Gen, Redirect;
 use Validation, Folder, File, Config, Uri, Security, Http;
+use ZN\Base;
 
 class Generate extends Controller
 {
@@ -39,7 +40,7 @@ class Generate extends Controller
                     $functions = Arrays::addFirst($functions, 'main');
                 }
 
-                $viewObjectConfig = import(SELECT_PROJECT_DIR . 'Config' . DS . 'ViewObjects.php');
+                $viewObjectConfig = Base::import(SELECT_PROJECT_DIR . 'Config' . DS . 'ViewObjects.php');
 
                 $controller = Method::post('controller');
 
@@ -69,7 +70,7 @@ class Generate extends Controller
                             $view = $controller . '-' . $view;
                         }
 
-                        $viewPath = $viewsDir . suffix($view . ( $type === 'wizard' ? '.wizard' : NULL ), '.php');
+                        $viewPath = $viewsDir . Base::suffix($view . ( $type === 'wizard' ? '.wizard' : NULL ), '.php');
 
                         if( ! File::exists($viewPath) )
                         {
@@ -227,7 +228,7 @@ class Generate extends Controller
             {
                 $functions = explode(',', Method::post('functions'));
 
-                $routePath = $fullPath . suffix(prefix(Method::post('route')), '.php');
+                $routePath = $fullPath . Base::suffix(Base::prefix(Method::post('route')), '.php');
 
                 if( ! File::exists($routePath) )
                 {
@@ -276,7 +277,7 @@ class Generate extends Controller
 
                 $configContent = '<?php return' . EOL . '[' . EOL . HT . '\'key\' => \'value\'' . EOL . '];';
 
-                $configPath = $fullPath . suffix(prefix(Method::post('config')), '.php');
+                $configPath = $fullPath . Base::suffix(Base::prefix(Method::post('config')), '.php');
 
                 if( ! File::exists($configPath) )
                 {
@@ -401,10 +402,10 @@ class Generate extends Controller
 
                 if( Method::post('type') === 'Wizard' )
                 {
-                    $viewName = suffix($viewName, '.wizard');
+                    $viewName = Base::suffix($viewName, '.wizard');
                 }
 
-                $viewPath = SELECT_PROJECT_DIR . 'Views/' . suffix($viewName, '.php');
+                $viewPath = SELECT_PROJECT_DIR . 'Views/' . Base::suffix($viewName, '.php');
                 $template = Method::post('template');
 
                 if( $template === 'none' )
@@ -467,7 +468,7 @@ class Generate extends Controller
 
                 $path = 'Starting' . DS . $path;
 
-                $viewPath = SELECT_PROJECT_DIR . $path . suffix($viewName, '.php');
+                $viewPath = SELECT_PROJECT_DIR . $path . Base::suffix($viewName, '.php');
 
                 if( ! File::exists($viewpath) )
                 {

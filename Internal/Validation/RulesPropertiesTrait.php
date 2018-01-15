@@ -1,5 +1,7 @@
 <?php namespace ZN\Validation;
 
+use ZN\Base;
+
 trait RulesPropertiesTrait
 {
     //--------------------------------------------------------------------------------------------------------
@@ -202,7 +204,7 @@ trait RulesPropertiesTrait
     //--------------------------------------------------------------------------------------------------------
     public function pattern(String $pattern, String $char = NULL) : Data
     {
-        $this->settings['config']['pattern'] = presuffix($pattern).$char;
+        $this->settings['config']['pattern'] = Base::presuffix($pattern).$char;
 
         return $this;
     }

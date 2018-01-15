@@ -9,8 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use Project\Controllers\Theme;
+use ZN\Inclusion\Project\Theme;
 use ZN\IS;
+use ZN\Base;
 use ZN\Request\URL;
 
 class Script extends BootstrapExtends
@@ -68,7 +69,7 @@ class Script extends BootstrapExtends
                     $externalFontDirectory = EXTERNAL_SCRIPTS_DIR;
                 }
                 
-                $scriptFile = $projectFontDirectory . ($suffix = suffix($script, '.js'));
+                $scriptFile = $projectFontDirectory . ($suffix = Base::suffix($script, '.js'));
 
                 if( ! is_file($scriptFile) )
                 {

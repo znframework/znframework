@@ -10,6 +10,7 @@
  */
 
 use ZN\IS;
+use ZN\Base;
 use ZN\Singleton;
 use ZN\Request\URL;
 
@@ -56,7 +57,7 @@ class Redirect implements RedirectInterface
      */
     public static function status() : Int
     {
-        return server('redirectStatus');
+        return Base::server('redirectStatus');
     }
 
     /**
@@ -66,7 +67,7 @@ class Redirect implements RedirectInterface
      */
     public static function url() : String
     {
-        return server('redirectUrl');
+        return Base::server('redirectUrl');
     }
 
     /**
@@ -76,7 +77,7 @@ class Redirect implements RedirectInterface
      */
     public static function queryString() : String
     {
-        return server('redirectQueryString');
+        return Base::server('redirectQueryString');
     }
 
     /**

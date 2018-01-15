@@ -9,6 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
+use ZN\Base;
 use ZN\Filesystem\Exception\FileNotFoundException;
 
 class Converter
@@ -21,7 +22,7 @@ class Converter
      */
     public static function arrayToXLS(Array $data, String $file = 'excel.xls')
     {
-        $file = suffix($file, '.xls');
+        $file = Base::suffix($file, '.xls');
 
         header("Content-Disposition: attachment; filename=\"$file\"");
         header("Content-Type: application/vnd.ms-excel;");
@@ -47,7 +48,7 @@ class Converter
      */
     public static function CSVToArray(String $file) : Array
     {
-        $file = suffix($file, '.csv');
+        $file = Base::suffix($file, '.csv');
 
         if( ! is_file($file) )
         {

@@ -9,6 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
+use ZN\Base;
 use ZN\JavascriptComponents\ComponentsExtends;
 
 class Build extends ComponentsExtends
@@ -28,7 +29,7 @@ class Build extends ComponentsExtends
         return $this->prop
         ([
             'id'     => $id,
-            'path'   => $this->path ? suffix($this->path) : NULL,
+            'path'   => $this->path ? Base::suffix($this->path) : NULL,
             'images' => $this->images ?? NULL
         ]);
     }

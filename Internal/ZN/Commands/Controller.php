@@ -9,6 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
+use ZN\Base;
 use ZN\Structure;
 use ZN\Singleton;
 
@@ -31,7 +32,7 @@ class Controller
         $file       = $datas['file'];
         $class      = $namespace . $page;
 
-        import($file);
+        Base::import($file);
 
         new Result( Singleton::class($class)->$function(...$parameters) );
     }

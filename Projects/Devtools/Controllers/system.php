@@ -13,6 +13,7 @@
 
 use Method, Folder, File, Html, Arrays, Restful, Separator, Redirect, URI;
 use Http, Session, DBTool, DB, Form, DBGrid, Security, Config, Json;
+use ZN\Base;
 
 class System extends Controller
 {
@@ -38,7 +39,7 @@ class System extends Controller
             $this->_ccreateDatabase($orm);
             $this->_cdropDatabase($orm);
 
-            $orm = suffix(str_replace('->', '<br>&nbsp;&nbsp;->', $orm), ';');
+            $orm = Base::suffix(str_replace('->', '<br>&nbsp;&nbsp;->', $orm), ';');
 
             $this->masterpage->pdata['orm'] = $orm;
         }
@@ -480,7 +481,7 @@ class System extends Controller
 
         if( preg_match('/' . $query . '/i', $replace))
         {
-            $replace = suffix($replace, ';');
+            $replace = Base::suffix($replace, ';');
             $syntax  = '/'.$query.'(\w+)/si';
             $replace = preg_replace($syntax, 'DBForge::createDatabase(\'$1\')', $replace);
         }
@@ -499,7 +500,7 @@ class System extends Controller
 
         if( preg_match('/' . $query . '/i', $replace))
         {
-            $replace = suffix($replace, ';');
+            $replace = Base::suffix($replace, ';');
             $syntax  = '/'.$query.'(\w+)/si';
             $replace = preg_replace($syntax, 'DBForge::dropDatabase(\'$1\')', $replace);
         }
@@ -518,7 +519,7 @@ class System extends Controller
 
         if( preg_match('/' . $query . '/i', $replace))
         {
-            $replace = suffix($replace, ';');
+            $replace = Base::suffix($replace, ';');
             $syntax  = '/'.$query.'(\w+)/si';
             $replace = preg_replace($syntax, 'DBForge::dropTable(\'$1\')', $replace);
         }
@@ -537,7 +538,7 @@ class System extends Controller
 
         if( preg_match('/' . $query . '/i', $replace))
         {
-            $replace = suffix($replace, ';');
+            $replace = Base::suffix($replace, ';');
             $syntax  = '/'.$query.'(.*?)\s*\((.*)\)/si';
 
             preg_match($syntax, $replace, $match);
@@ -552,7 +553,7 @@ class System extends Controller
                 $valEx  = explode(' ', $val);
                 $column = $valEx[0] ?? NULL;
 
-                $options .= presuffix(trim($column), '\'') . ' => ' . presuffix(trim(str_replace($column, '', $val)), '\'') . ', ';
+                $options .= Base::presuffix(trim($column), '\'') . ' => ' . Base::presuffix(trim(str_replace($column, '', $val)), '\'') . ', ';
             }
 
             $options = rtrim($options, ', ');
@@ -576,7 +577,7 @@ class System extends Controller
         {
             $replaceEx   = explode('where', $replace);
             $whereClause = $replaceEx[1] ?? NULL;
-            $replace     = suffix($replaceEx[0], ';');
+            $replace     = Base::suffix($replaceEx[0], ';');
             $syntax      = '/'.$update.'(.*?)\s+set\s+(.*?)(\s+|\;)$/si';
 
             preg_match($syntax, $replace, $match);
@@ -593,7 +594,7 @@ class System extends Controller
             {
                 $valEx = explode('=', trim($val));
 
-                $options .= presuffix(trim($valEx[0]), '\'') . ' => ' . trim($valEx[1]) . ', ';
+                $options .= Base::presuffix(trim($valEx[0]), '\'') . ' => ' . trim($valEx[1]) . ', ';
             }
 
             $options  = rtrim($options, ', ');
@@ -615,7 +616,7 @@ class System extends Controller
 
         if( preg_match('/' . $insert . '/i', $replace))
         {
-            $replace = suffix($replace, ';');
+            $replace = Base::suffix($replace, ';');
             $syntax  = '/'.$insert.'into\s+(.*?)\s*\((.*?)\)\s+values\s*\((.*?)\)/si';
 
             preg_match($syntax, $replace, $match);
@@ -626,7 +627,7 @@ class System extends Controller
 
             foreach( $columns as $key => $val )
             {
-                $options .= presuffix(trim($val), '\'') . ' => ' . trim($values[$key]) . ', ';
+                $options .= Base::presuffix(trim($val), '\'') . ' => ' . trim($values[$key]) . ', ';
             }
 
             $options  = rtrim($options, ', ');
@@ -648,7 +649,7 @@ class System extends Controller
 
         if( preg_match('/' . $delete . '/i', $replace))
         {
-            $replace = suffix($replace, ';');
+            $replace = Base::suffix($replace, ';');
 
             $from    = 'from\s+(.*?)(\;|\s+)';
             $where   = 'where\s+(.*?)(\;|\s+)';
@@ -681,7 +682,7 @@ class System extends Controller
 
         if( preg_match('/' . $select . '/i', $replace))
         {
-            $replace = suffix($replace, ';');
+            $replace = Base::suffix($replace, ';');
 
             $from    = 'from\s+(.*?)(\;|\s+)';
             $where   = 'where\s+(.*?)(\;|\s+)';

@@ -9,6 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
+use ZN\Base;
 use ZN\Config;
 use ZN\Singleton;
 use ZN\Filesystem;
@@ -209,7 +210,7 @@ class Migration implements MigrationInterface
      */
     public function path(String $path = NULL) : Migration
     {
-        $this->path = suffix($path);
+        $this->path = Base::suffix($path);
 
         return $this;
     }
@@ -233,12 +234,12 @@ class Migration implements MigrationInterface
                 mkdir($dir);
             }
 
-            $file = $dir.suffix($version, '.php');
+            $file = $dir.Base::suffix($version, '.php');
             $name = $name.$version;
         }
         else
         {
-            $file = $this->path.suffix($name, '.php');
+            $file = $this->path.Base::suffix($name, '.php');
         }
 
         if( ! is_file($file) )
@@ -264,7 +265,7 @@ class Migration implements MigrationInterface
         if( $version = $this->_version($ver) )
         {
             $dir  = $this->path.$name.$this->versionDir;
-            $file = $dir.suffix($version, '.php');
+            $file = $dir.Base::suffix($version, '.php');
 
             if( $ver === 'all' && is_dir($this->path.$name.$this->versionDir) )
             {
@@ -273,7 +274,7 @@ class Migration implements MigrationInterface
         }
         else
         {
-            $file = $this->path.suffix($name, '.php');
+            $file = $this->path.Base::suffix($name, '.php');
         }
 
         return unlink($file);
@@ -445,7 +446,7 @@ class Migration implements MigrationInterface
     {
         foreach( $migrations as $migration )
         {
-            $migration = prefix($migration, 'Migrate');
+            $migration = Base::prefix($migration, 'Migrate');
         
             $migration::$type();
         }

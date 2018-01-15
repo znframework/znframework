@@ -14,6 +14,7 @@ use ZN\Inclusion\Exception\InvalidArgumentException;
 use ZN\DataTypes\Strings;
 use ZN\Filesystem;
 use ZN\Buffering;
+use ZN\Base;
 
 class Something
 {
@@ -70,7 +71,7 @@ class Something
         }
         else
         {
-            $randomPageVariable = suffix($randomPageVariable, '.php');
+            $randomPageVariable = Base::suffix($randomPageVariable, '.php');
 
             if( is_file($randomPageVariable) )
             {

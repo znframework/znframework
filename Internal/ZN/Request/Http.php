@@ -9,6 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
+use ZN\Base;
 use ZN\Ability\Singleton;
 use ZN\Lang;
 use ZN\Request\Exception\InvalidArgumentException;
@@ -131,7 +132,7 @@ class Http implements HttpInterface
     //--------------------------------------------------------------------------------------------------------
     public static function host() : String
     {
-        return server('host');
+        return Base::server('host');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -143,7 +144,7 @@ class Http implements HttpInterface
     //--------------------------------------------------------------------------------------------------------
     public static function userAgent() : String
     {
-        return server('userAgent');
+        return Base::server('userAgent');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -155,7 +156,7 @@ class Http implements HttpInterface
     //--------------------------------------------------------------------------------------------------------
     public static function accept() : String
     {
-        return server('accept');
+        return Base::server('accept');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -167,7 +168,7 @@ class Http implements HttpInterface
     //--------------------------------------------------------------------------------------------------------
     public static function language() : String
     {
-        return server('acceptLanguage');
+        return Base::server('acceptLanguage');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -179,7 +180,7 @@ class Http implements HttpInterface
     //--------------------------------------------------------------------------------------------------------
     public static function encoding() : String
     {
-        return server('acceptEncoding');
+        return Base::server('acceptEncoding');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -191,7 +192,7 @@ class Http implements HttpInterface
     //--------------------------------------------------------------------------------------------------------
     public static function cookie() : String
     {
-        return server('cookie');
+        return Base::server('cookie');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -203,7 +204,7 @@ class Http implements HttpInterface
     //--------------------------------------------------------------------------------------------------------
     public static function connection() : String
     {
-        return server('connection');
+        return Base::server('connection');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -215,7 +216,7 @@ class Http implements HttpInterface
     //--------------------------------------------------------------------------------------------------------
     public static function isRequestMethod(...$methods) : Bool
     {
-        if( ! in_array(strtolower(server('requestMethod')), $methods) )
+        if( ! in_array(strtolower(Base::server('requestMethod')), $methods) )
         {
             return false;
         }

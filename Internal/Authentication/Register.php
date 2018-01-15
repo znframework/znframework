@@ -10,6 +10,7 @@
  */
 
 use ZN\IS;
+use ZN\Base;
 use ZN\Lang;
 use ZN\Inclusion;
 use ZN\Singleton;
@@ -229,7 +230,7 @@ class Register extends UserExtends
      */
     protected function _activation($user, $pass, $activationReturnLink, $email)
     {
-        $url = suffix($activationReturnLink);
+        $url = Base::suffix($activationReturnLink);
 
         if( ! IS::url($url) )
         {

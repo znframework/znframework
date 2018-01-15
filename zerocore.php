@@ -24,12 +24,24 @@ require ZEROCORE . 'Autoloader.php';
 
 /*
 |--------------------------------------------------------------------------
+| Autoload Register
+|--------------------------------------------------------------------------
+|
+| Enables class loading by automatically activating the object call.
+|
+*/
+
+ZN\Autoloader::register();
+
+/*
+|--------------------------------------------------------------------------
 | Autoloader Constant Definitions
 |--------------------------------------------------------------------------
 |
 | Defines constants required for system and user.
 |
 */
+
 
 ZN\Autoloader::defines('5.6.0', 'Nikola Tesla');
 
@@ -43,18 +55,7 @@ ZN\Autoloader::defines('5.6.0', 'Nikola Tesla');
 |
 */
 
-layer('Top');
-
-/*
-|--------------------------------------------------------------------------
-| Autoload Register
-|--------------------------------------------------------------------------
-|
-| Enables class loading by automatically activating the object call.
-|
-*/
-
-ZN\Autoloader::register();
+ZN\Base::layer('Top');
 
 /*
 |--------------------------------------------------------------------------
@@ -68,7 +69,7 @@ ZN\Autoloader::register();
 |
 */
 
-layer('TopBottom');
+ZN\Base::layer('TopBottom');
 
 /*
 |--------------------------------------------------------------------------

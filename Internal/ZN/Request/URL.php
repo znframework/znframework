@@ -11,6 +11,7 @@
 
 use ZN\In;
 use ZN\Lang;
+use ZN\Base;
 use ZN\Helpers\Converter;
 
 class URL implements URLInterface
@@ -44,7 +45,7 @@ class URL implements URLInterface
         (
                BASE_DIR.
                In::getCurrentProject().
-               suffix(Lang::current()).
+               Base::suffix(Lang::current()).
                $uri
          );
     }
@@ -74,11 +75,11 @@ class URL implements URLInterface
     //--------------------------------------------------------------------------------------------------------
     public static function current(String $fix = NULL) : String
     {
-        $currentUrl = self::host(server('requestUri'));
+        $currentUrl = self::host(Base::server('requestUri'));
 
         if( ! empty($fix) )
         {
-            return suffix(rtrim($currentUrl, $fix)) . $fix;
+            return Base::suffix(rtrim($currentUrl, $fix)) . $fix;
         }
 
         return $currentUrl;
@@ -94,7 +95,7 @@ class URL implements URLInterface
     //--------------------------------------------------------------------------------------------------------
     public static function host(String $uri = NULL) : String
     {
-        return SSL_STATUS . host() . '/' . In::cleanInjection(ltrim($uri, '/'));
+        return SSL_STATUS . Base::host() . '/' . In::cleanInjection(ltrim($uri, '/'));
     }
 
     //--------------------------------------------------------------------------------------------------------
