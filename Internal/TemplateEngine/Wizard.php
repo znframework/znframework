@@ -10,11 +10,18 @@
  */
 
 use ZN\Config;
-use ZN\Filesystem;
 use ZN\Buffering;
+use ZN\Filesystem;
 
 class Wizard
 {
+    /**
+     * Get config
+     * 
+     * @var array
+     */
+    protected static $config;
+
     /**
      * PHP tag isolation
      * 
@@ -37,6 +44,8 @@ class Wizard
      */
     public static function data(String $string, Array $data = []) : String
     {
+        self::$config = Config::get('ViewObjects', 'wizard');
+
         self::_textControl($string); # 5.4.6[added]
 
         $pattern = array_merge
@@ -65,7 +74,7 @@ class Wizard
      */
     protected static function _textControl(&$string)
     {
-        if( self::config()['html'] ?? true )
+        if( self::$config['html'] ?? true )
         {
             preg_match_all('/\<(style|script)(.*?)*\>(.*?)\<\/(style|script)\>/si', $string, $standart);
             preg_match_all('/\#(style|script)(.*?)*\s(.*?)\s\##(style|script)/si', $string, $wizard);
@@ -100,18 +109,6 @@ class Wizard
     }
 
     /**
-     * protected config.
-     * 
-     * @para void
-     * 
-     * @return array
-     */
-    protected static function config()
-    {
-        return Config::get('ViewObjects', 'wizard');
-    }
-
-    /**
      * protected required
      * 
      * @param void
@@ -138,7 +135,7 @@ class Wizard
     {
         $array = [];
 
-        if( self::config()['keywords'] ?? true )
+        if( self::$config['keywords'] ?? true )
         {
             $array =
             [
@@ -166,7 +163,7 @@ class Wizard
     {
         $array = [];
 
-        if( self::config()['printable'] ?? true )
+        if( self::$config['printable'] ?? true )
         {
             $suffix   = '\:/s';
             $coalesce = '\?';
@@ -204,7 +201,7 @@ class Wizard
     {
         $array = [];
 
-        if( self::config()['functions'] ?? true )
+        if( self::$config['functions'] ?? true )
         {
             $function = '@(\w+.*?(\)|\}|\]|\-\>\w+))\:/s';
             $array    =
@@ -228,7 +225,7 @@ class Wizard
     {
         $array = [];
 
-        if( self::config()['comments'] ?? true )
+        if( self::$config['comments'] ?? true )
         {
             $array =
             [
@@ -251,7 +248,7 @@ class Wizard
     {
         $array = [];
 
-        if( self::config()['jsdata'] ?? true )
+        if( self::$config['jsdata'] ?? true )
         {
             $array =
             [
@@ -273,7 +270,7 @@ class Wizard
     {
         $array = [];
 
-        if( self::config()['tags'] ?? true )
+        if( self::$config['tags'] ?? true )
         {
             $array =
             [
@@ -298,7 +295,7 @@ class Wizard
         $array             = [];
         $htmlAttributesTag = '(^|\s)\#(!*\w+)\s*(\[(.*?)\])*';
 
-        if( self::config()['html'] ?? true )
+        if( self::$config['html'] ?? true )
         {
             $array =
             [

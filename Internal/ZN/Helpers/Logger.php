@@ -12,7 +12,7 @@
 use ZN\Config;
 use ZN\Singleton;
 use ZN\Filesystem;
-use ZN\Authentication\IP;
+use ZN\Request\Request;
 
 class Logger implements LoggerInterface
 {
@@ -185,7 +185,7 @@ class Logger implements LoggerInterface
             }
         }
 
-        $message = 'IP: ' . IP::v4().
+        $message = 'IP: ' . Request::ipv4().
                    ' | Subject: ' . $subject.
                    ' | Date: '.Singleton::class('ZN\DateTime\Date')->set('{dayNumber0}.{monthNumber0}.{year} {H024}:{minute}:{second}').
                    ' | Message: ' . $message . EOL;

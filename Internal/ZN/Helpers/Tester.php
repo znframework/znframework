@@ -12,7 +12,6 @@
 use ZN\Singleton;
 use ZN\Inclusion;
 use ZN\Comparison;
-use ZN\Filesystem;
 
 class Tester
 {
@@ -64,29 +63,6 @@ class Tester
      * @var array
      */
     protected $arguments;
-
-    /**
-     * Run all unit tests
-     * 
-     * @param void
-     * 
-     * @return void
-     */
-    public function allUnitTestResult()
-    {
-        $files = Filesystem\FileList::allFiles('Internal/', true);
-
-        $files = preg_grep('/UnitTests(.*?)/', $files);
-
-        foreach( $files as $file )
-        {
-            $class = rtrim(str_replace(['UnitTests/', '/'], [NULL, '\\'], explode('Internal/', $file)[1]), '.php');
-
-            $class = '\ZN\\' . $class;
-
-            echo $class::result();
-        }
-    }
 
     /**
      * Defines class name.
