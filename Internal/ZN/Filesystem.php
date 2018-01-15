@@ -114,7 +114,7 @@ class Filesystem
                 }
                 elseif( is_dir($v) )
                 {
-                    self::all($v, $allFiles);
+                    self::getRecursiveFiles($v, $allFiles);
                 }
             }
 

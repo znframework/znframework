@@ -12,7 +12,7 @@ Import::view('top.wizard');
 
 if( isset($page) )
 {
-    Import::view(Base::suffix($page, '.wizard'), $pdata ?? NULL);
+    Import::view(ZN\Base::suffix($page, '.wizard'), $pdata ?? NULL);
 }
 else
 {
@@ -21,8 +21,8 @@ else
 
 ?>
 
-<?php if( $success = Redirect::deleteData('success') ):
-redirectDeleteData('success'); ?>
+<?php if( $success = Redirect::selectData('success') ):
+Redirect::deleteData('success'); ?>
 <div class="row">
     <div class="col-lg-12">
         <div class="alert alert-success alert-dismissable">

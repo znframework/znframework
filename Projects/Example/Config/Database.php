@@ -64,7 +64,7 @@
         'queryLog'    => false,
         'pconnect'    => false,
         'encode'      => false,
-        'prefix'      => '',
+        'prefix'      => 'xxxxxx_',
         'charset'     => 'utf8',
         'collation'   => 'utf8_general_ci',
         'differentConnection' => []

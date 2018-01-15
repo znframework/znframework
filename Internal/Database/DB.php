@@ -264,7 +264,10 @@ class DB extends Connection
 
         $condition = rtrim(implode(',', array_map(function($value)
         { 
-            return $this->_tablePrefixColumnControl($value); 
+            return preg_replace_callback('/(\w+\.)*(\w+\.\w+)/', function($data)
+            {
+                return $data[1] . $this->prefix . $data[2];
+            }, $value);
             
         }, $condition)), ',');
 

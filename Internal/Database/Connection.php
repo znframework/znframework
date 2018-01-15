@@ -628,8 +628,6 @@ class Connection
      */
     public function __destruct()
     {
-        $this->results = NULL;
-        $this->db->close();
-        $this->db->closeConnection();
+        $this->results = NULL; $this->db->close(); $this->db->closeConnection();
     }
 }

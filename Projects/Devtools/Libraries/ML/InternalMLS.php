@@ -1,6 +1,6 @@
 <?php
 
-use Lang;
+use ZN\Lang;
 use ZN\Controller\Factory;
 
 class InternalMLS extends Factory

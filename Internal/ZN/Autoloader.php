@@ -58,7 +58,7 @@ class Autoloader
         
         if( is_file($file) )
         {
-           require $file;
+           require_once $file;
 
             if
             (
@@ -104,7 +104,7 @@ class Autoloader
 
         if( file_exists($file) ) 
         {
-            require $file;
+            require_once $file;
         }
         else
         {
@@ -140,7 +140,7 @@ class Autoloader
     {
         clearstatcache();
 
-        require ZEROCORE . 'Config.php';
+        require_once ZEROCORE . 'Config.php';
 
         $configAutoloader = Config::get('Autoloader');
         $configClassMap   = self::_config();

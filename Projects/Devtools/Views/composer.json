@@ -1,0 +1,24 @@
+{
+    "name": "znframework/package-buffering",
+    "description": "ZN Framework Buffering Package",
+    "license": "MIT",
+    "homepage": "https://znframework.com",
+    "keywords": ["znframework", "buffering"],
+    "authors": [
+        {
+            "name": "Ozan Uykun",
+            "email": "ozan@znframework.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.0.0",
+        "znframework/package-zerocore": "5.0.*",
+        "znframework/package-storage": "5.0.*"
+	},
+    "autoload": {
+        "psr-4": {
+            "ZN\\": ""
+        }
+    },
+	"minimum-stability": "dev"
+}
