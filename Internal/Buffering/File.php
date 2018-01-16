@@ -9,6 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
+use ZN\Buffering;
 use ZN\Buffering\Exception\InvalidArgumentException;
 
 class File
@@ -28,19 +29,6 @@ class File
             throw new InvalidArgumentException('Error', 'fileParameter', '1.($file)');
         }
 
-        if( is_array($randomBufferClassDataVariable) )
-        {
-            extract($randomBufferClassDataVariable, EXTR_OVERWRITE, 'ZN');
-        }
-
-        ob_start();
-
-        require $randomBufferClassPagePath;
-
-        $randomBufferClassPageContents = ob_get_contents();
-
-        ob_end_clean();
-
-        return $randomBufferClassPageContents;
+        return Buffering::file($randomBufferClassPagePath, $randomBufferClassDataVariable);
     }
 }

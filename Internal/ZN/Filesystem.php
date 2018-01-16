@@ -12,6 +12,33 @@
 class Filesystem
 {
     /**
+     * Performs data modification on the file.
+     * 
+     * @param string $file
+     * @param mixed  $data
+     * @param mixed  $replace
+     * 
+     * @return string
+     */
+    public static function replaceData(String $file, $data, $replace) : String
+    {
+        if( ! is_file($file))
+        {
+            return false;
+        }
+
+        $contents         = file_get_contents($file);
+        $replaceContents  = str_ireplace($data, $replace, $contents);
+
+        if( $contents !== $replaceContents )
+        {
+            file_put_contents($file, $replaceContents);
+        }
+
+        return $replaceContents;
+    }
+    
+    /**
      * Create an index.
      * 
      * @param string $file
@@ -28,6 +55,21 @@ class Filesystem
         }
 
         return mkdir($file, $permission, $recursive);
+    }
+
+    /**
+     * Get Extension
+     * 
+     * @param string $file
+     * @param bool   $dot = false
+     * 
+     * @return string
+     */
+    public static function getExtension(String $file, Bool $dot = false) : String
+    {
+        $dot = $dot === true ? '.' : '';
+
+        return $dot . strtolower(pathinfo($file, PATHINFO_EXTENSION));
     }
 
     /**

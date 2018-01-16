@@ -9,6 +9,8 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
+use ZN\Buffering;
+
 class Callback
 {
     /**
@@ -21,20 +23,7 @@ class Callback
      */
     public static function code(String $randomBufferClassCallbackCode, Array $randomBufferClassCallbackData = NULL)
     {
-        if( is_array($randomBufferClassCallbackData) )
-        {
-            extract($randomBufferClassCallbackData, EXTR_OVERWRITE, 'ZN');
-        }
-
-        ob_start();
-
-        eval('?>' . $randomBufferClassCallbackCode);
-       
-        $randomBufferClassCallbackContents = ob_get_contents();
-        
-        ob_end_clean();
-
-        return $randomBufferClassCallbackContents;
+        return Buffering::code($randomBufferClassCallbackCode, $randomBufferClassCallbackData);
     }
 
     /**

@@ -31,7 +31,7 @@ class Wizard
      */
 	public static function isolation(String $data = '')
 	{
-		Filesystem\Forge::replace($data, ['<?php', '<?', '?>'], ['{[', '{[', ']}']);
+		Filesystem::replaceData($data, ['<?php', '<?', '?>'], ['{[', '{[', ']}']);
 	}
 
     /**
@@ -62,7 +62,7 @@ class Wizard
             self::_html()
         );
 
-        return Buffering\Callback::code(self::replace($pattern, $string), $data);
+        return Buffering::code(self::replace($pattern, $string), $data);
     }
 
     /**

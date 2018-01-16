@@ -10,33 +10,33 @@
  */
 
 use ZN\In;
+use ZN\IS;
 use ZN\Base;
 use ZN\Buffering;
-use ZN\Filesystem;
+use ZN\Request\URL;
 use ZN\TemplateEngine;
-use Project\Controllers\Theme;
-use Project\Controllers\View as Views;
+use ZN\Inclusion\Project\Theme;
+use ZN\Inclusion\Project\View as Views;
 
 class View
 {
-    //--------------------------------------------------------------------------------------------------------
-    // Template Wizard Extension
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var string
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Template Wizard Extension
+     * 
+     * @var string
+     */
     protected static $templateWizardExtension = '.wizard';
 
-    //--------------------------------------------------------------------------------------------------------
-    // page()
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $page
-    // @param array  $data
-    // @param bool   $obGetContents
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Get view
+     * 
+     * @param string $page
+     * @param array  $data          = NULL
+     * @param bool   $obGetContents = false
+     * @param string $randomPageDir = VIEWS_DIR
+     * 
+     * @return mixed
+     */
     public static function use(String $page, Array $data = NULL, Bool $obGetContents = false, String $randomPageDir = VIEWS_DIR)
     {
         if( ! empty(Properties::$parameters['usable']) )
@@ -70,18 +70,19 @@ class View
         return self::_templateWizard(Base::suffix(rtrim($page, '.php'), self::$templateWizardExtension), $data, $obGetContents, $randomPageDir);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Page
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $page
-    // @param array  $data
-    // @param bool   $obGetContents
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Get view
+     * 
+     * @param string $page
+     * @param array  $data          = NULL
+     * @param bool   $obGetContents = false
+     * @param string $randomPageDir = VIEWS_DIR
+     * 
+     * @return mixed
+     */
     protected static function _page($randomPageVariable, $randomDataVariable, $randomObGetContentsVariable = false, $randomPageDir = VIEWS_DIR, $randomIsWizard = NULL)
     {
-        if( ! Filesystem\Extension::get($randomPageVariable) || stristr($randomPageVariable, self::$templateWizardExtension) )
+        if( ! pathinfo($randomPageVariable, PATHINFO_EXTENSION) || stristr($randomPageVariable, self::$templateWizardExtension) )
         {
             $randomPageVariable = Base::suffix($randomPageVariable, '.php');
         }
@@ -105,11 +106,11 @@ class View
         
         if( is_file($randomPagePath) )
         {
-            $return = Buffering\File::do($randomPagePath, $randomDataVariable);
-
+            $return = Buffering::file($randomPagePath, $randomDataVariable);
+            
             if( $active !== NULL )
             {
-                TemplateEngine\Theme::integration($active, $return);
+                Theme::integration($active, $return);
             }
 
             if( $randomObGetContentsVariable === false )
@@ -127,15 +128,16 @@ class View
         }
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Template Wizard
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $page
-    // @param array  $data
-    // @param bool   $obGetContents
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Get view
+     * 
+     * @param string $page
+     * @param array  $data          = NULL
+     * @param bool   $obGetContents = false
+     * @param string $randomPageDir = PAGES_DIR
+     * 
+     * @return void|mixed
+     */
     protected static function _templateWizard($page, $data, $obGetContents, $randomPageDir = PAGES_DIR)
     {
         $return = TemplateEngine\Wizard::data(self::_page($page, $data, true, $randomPageDir, true), (array) $data);

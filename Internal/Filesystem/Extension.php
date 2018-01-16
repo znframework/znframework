@@ -9,6 +9,8 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
+use ZN\Filesystem;
+
 class Extension
 {
     /**
@@ -21,9 +23,7 @@ class Extension
      */
     public static function get(String $file, Bool $dot = false) : String
     {
-        $dot = $dot === true ? '.' : '';
-
-        return $dot . strtolower(pathinfo($file, PATHINFO_EXTENSION));
+        return Filesystem::getExtension($file, $dot);
     }
 
     /**
@@ -35,6 +35,6 @@ class Extension
      */
     public static function remove(String $file) : String
     {
-        return preg_replace('/\\.[^.\\s]{2,4}$/', '', $file);
+        return Filesystem::removeExtension($file);
     }
 }

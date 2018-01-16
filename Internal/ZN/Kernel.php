@@ -315,13 +315,13 @@ class Kernel
 
         $startingAutoload  = array_merge
         (
-            Filesystem\FileList::allFiles(AUTOLOAD_DIR         , $autoloadRecursive), 
-            Filesystem\FileList::allFiles(EXTERNAL_AUTOLOAD_DIR, $autoloadRecursive)
+            Filesystem::getRecursiveFiles(AUTOLOAD_DIR         , $autoloadRecursive), 
+            Filesystem::getRecursiveFiles(EXTERNAL_AUTOLOAD_DIR, $autoloadRecursive)
         );
 
         if( ! empty($startingAutoload) ) foreach( $startingAutoload as $file )
         {
-            if( Filesystem\Extension::get($file) === 'php' )
+            if( Filesystem::getExtension($file) === 'php' )
             {
                 if( is_file($file) )
                 {

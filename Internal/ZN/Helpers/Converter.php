@@ -11,7 +11,6 @@
 
 use stdClass;
 use ZN\Config;
-use ZN\Security;
 use ZN\Singleton;
 use ZN\Filesystem;
 use ZN\DataTypes\Arrays;
@@ -20,7 +19,10 @@ use ZN\Helpers\Exception\LogicException;
 use ZN\Helpers\Exception\InvalidArgumentException;
 
 class Converter
-{
+{   
+    /**
+     * Keeps Accent Chars
+     */
     public static $accentChars =
     [
         'ä|æ|ǽ'                                                         => 'ae',
@@ -111,15 +113,15 @@ class Converter
         'я'                                                             => 'ya'
     ];
 
-    //--------------------------------------------------------------------------------------------------------
-    // Byte
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param float $bytes
-    // @param int   $precision
-    // @param bool  $unit
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Calculate byte
+     * 
+     * @param float $bytes
+     * @param int   $precision = 1
+     * @param bool  $unit      = true
+     * 
+     * @return string
+     */
     public static function byte(Float $bytes, Int $precision = 1, Bool $unit = true) : String
     {
         $byte   = 1024;
@@ -198,14 +200,15 @@ class Converter
         return $return;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Money -> 5.3.9[updated]
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param int    $money
-    // @param string $type
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Convert Money
+     * 
+     * @param int    $money = 0
+     * @param string $type  = NULL
+     * @param bool   $float = true 
+     * 
+     * @return string
+     */
     public static function money(Int $money = 0, String $type = NULL, Bool $float = true) : String
     {
         $moneyFormat = '';
@@ -229,7 +232,7 @@ class Converter
             $moneyFormat .= $join[$i];
         }
 
-        // 5.3.9 -> Added
+        # 5.3.9[added]
         if( ($type[0] ?? NULL) === '!' )
         {
             $left  = ltrim($type, '!') . ' ';
@@ -248,78 +251,82 @@ class Converter
             $remaining .= '0';
         }
 
-       
-
         $moneyFormat = $left . substr($moneyFormat,0,-1).($float === true ? ','.$remaining : '') . $right;
 
         return $moneyFormat;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Money To Number -> 5.2.0
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $money
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Money to Number
+     * 
+     * @param string|int
+     * 
+     * @return float
+     */
     public static function moneyToNumber($money) : Float
     {
         return str_replace('.', NULL, Strings\Split::divide($money, ','));
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Time -> 5.3.38[edited]
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param int    $count
-    // @param string $type
-    // @param string $output
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Convert time
+     * 
+     * @param int    $count
+     * @param string $type   = 'second'
+     * @param string $output = 'day'
+     * 
+     * @return float
+     */
     public static function time(Int $count, String $type = 'second', String $output = 'day') : Float
     {
-        if( $output === "second" ) $out = 1;
-        if( $output === "minute" ) $out = 60;
-        if( $output === "hour" )   $out = 60 * 60;
-        if( $output === "day" )    $out = 60 * 60 * 24;
-        if( $output === "week" )   $out = 60 * 60 * 24 * 7;
-        if( $output === "month" )  $out = 60 * 60 * 24 * 30;
-        if( $output === "year" )   $out = 60 * 60 * 24 * 30 * 12;
+        switch( $output )
+        {
+            case 'second': $out = 1;                                 break;
+            case 'minute': $out = 60;                                break;
+            case 'hour'  : $out = 60 * 60;                           break;
+            case 'day'   : $out = 60 * 60 * 24;                      break;
+            case 'week'  : $out = 60 * 60 * 24 * 7;                  break;
+            case 'month' : $out = 60 * 60 * 24 * 30;                 break;
+            case 'year'  : $out = 60 * 60 * 24 * 30 * 12;            break;
+        }
 
-        if( $type === "second" )   $time = $count;
-        if( $type === "minute" )   $time = 60 * $count;
-        if( $type === "hour" )     $time = 60 * 60 * $count;
-        if( $type === "day" )      $time = 60 * 60 * 24 * $count;
-        if( $type === "week" )     $time = 60 * 60 * 24 * 7  * $count;
-        if( $type === "month" )    $time = 60 * 60 * 24 * 30 * $count;
-        if( $type === "year" )     $time = 60 * 60 * 24 * 30 * 12 * $count;
+        switch( $type )
+        {
+            case 'second': $time = $count;                           break;
+            case 'minute': $time = 60 * $count;                      break;
+            case 'hour'  : $time = 60 * 60 * $count;                 break;
+            case 'day'   : $time = 60 * 60 * 24 * $count;            break;
+            case 'week'  : $time = 60 * 60 * 24 * 7  * $count;       break;
+            case 'month' : $time = 60 * 60 * 24 * 30 * $count;       break;
+            case 'year'  : $time = 60 * 60 * 24 * 30 * 12 * $count;  break;
+        }
 
         return $time / $out;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Word
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $string
-    // @param mixed  $badWords
-    // @param mixed  $changeChar
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Convert word
+     * 
+     * @param string $string
+     * @param mixed  $badWords   = NULL
+     * @param mixed  $changeChar = '[badwords]'
+     * 
+     * @return string
+     */
     public static function word(String $string, $badWords = NULL, $changeChar = '[badwords]') : String
     {
         return str_ireplace($badWords, $changeChar, $string);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Anchor
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $data
-    // @param string $type: short, long
-    // @param array  $attributes
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Creates anchor
+     * 
+     * @param string $data
+     * @param string $type = 'short'
+     * @param array  $attributes = NULL
+     * 
+     * @return string
+     */
     public static function anchor(String $data, String $type = 'short', Array $attributes = NULL) : String
     {
         return preg_replace
@@ -330,14 +337,14 @@ class Converter
         );
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // High Light
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $str
-    // @param array $settings
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Convert high lightin
+     * 
+     * @param string $str
+     * @param array  $settings
+     * 
+     * @return string
+     */
     public static function highLight(String $str, Array $settings = []) : String
     {
         $phpFamily      = ! empty( $settings['php:family'] )    ? 'font-family:'.$settings['php:family'] : 'font-family:Consolas, monospace';
@@ -363,14 +370,20 @@ class Converter
         ini_set("highlight.keyword", "$keyword; $phpFamily; $phpSize; $phpStyle; $keywordStyle ");
         ini_set("highlight.string",  "$string;  $phpFamily; $phpSize; $phpStyle; $stringStyle");
         ini_set("highlight.html",    "$htmlColor; $htmlFamily; $htmlSize; $htmlStyle");
-
-        // ----------------------------------------------------------------------------------------------
-        // HIGHLIGHT
-        // ----------------------------------------------------------------------------------------------
+        
         $string = highlight_string($str, true);
-        // ----------------------------------------------------------------------------------------------
 
-        $string = Security\Script::encode(Security\PHP::encode(Security\Html::decode($string)));
+        $string = preg_replace
+        (
+            ['/\&\#60\;script(.*?)\&\#62\;/i', '/\&\#60\;\/script\&\#62\;/i'], 
+            ['<script$1>', '</script>'], 
+            str_replace
+            (
+                ['<?', '?>'], 
+                ['&#60;&#63;', '&#63;&#62;'], 
+                htmlspecialchars_decode(trim($string), ENT_QUOTES)
+            )
+        );
 
         $tagArray = $tags === true
                   ? ['<div style="'.$background.'">&#60;&#63;php', '&#63;&#62;</div>']
@@ -379,15 +392,15 @@ class Converter
         return str_replace(['&#60;&#63;php', '&#63;&#62;'], $tagArray, $string);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Char
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $string
-    // @param string $type      : char, dec, hex, html
-    // @param string $changeType: char, dec, hex, html
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Convert char
+     * 
+     * @param string $string
+     * @param string $type       - options[char|dec|hex|html]
+     * @param string $changeType - options[char|dec|hex|html]
+     * 
+     * @return string
+     */
     public static function char(String $string, String $type = 'char', String $changeType = 'html') : String
     {
         $options = ['char', 'html', 'hex', 'dec'];
@@ -437,13 +450,13 @@ class Converter
         return str_replace( $chars[strtolower($type)], $chars[strtolower($changeType)], $string );
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Accent
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $str
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Converter Accent Char
+     * 
+     * @param string $str
+     * 
+     * @return string
+     */
     public static function accent(String $str) : String
     {
         $accent = array_merge(Config::get('Expressions', 'accentChars'), self::$accentChars);
@@ -453,32 +466,32 @@ class Converter
         return str_replace(array_keys($accent), array_values($accent), $str);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Url Word
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $str
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Convert URL word
+     * 
+     * @param string $str
+     * 
+     * @return string
+     */
     public static function urlWord(String $str) : String
     {
         return self::slug($str);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Slug -> 4.4.8 - 5.3.31|5.4.3[edited]
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $str
-    // @param bool   $protectExtension = false
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Convert slug
+     * 
+     * @param string $str
+     * @param string $protectExtension = false
+     * 
+     * @return string
+     */
     public static function slug(String $str, Bool $protectExtension = false) : String
     {
         if( $protectExtension === true )
         {
-            $ext = Filesystem\Extension::get($str, true);
-            $str = Filesystem\Extension::remove($str);
+            $ext = Filesystem::getExtension($str, true);
+            $str = Filesystem::removeExtension($str);
         }
 
         $str = self::accent(trim($str));
@@ -491,27 +504,28 @@ class Converter
         return strtolower(trim($str, '-')) . ($ext ?? NULL);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Charset
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $str
-    // @param string $fromCharset
-    // @param string $toCharset
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /** 
+     * Convert charset
+     * 
+     * @param string $str
+     * @param string $fromCharset
+     * @param string $toCharset = 'utf-8'
+     * 
+     * @return string
+     */
+
     public static function charset(String $str, String $fromCharset, String $toCharset = 'utf-8') : String
     {
         return mb_convert_encoding($str, $fromCharset, $toCharset);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // To String
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param var $var
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Convert to string
+     * 
+     * @param mixed $var
+     * 
+     * @return string
+     */
     public static function toString($var) : String
     {
         if( is_array($var) || is_object($var) )
@@ -522,29 +536,27 @@ class Converter
         return (string) $var;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // To Object Recursive -> 5.0.0
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param var $var
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public static function toObjectRecursive($var) : stdClass
+    /**
+     * Convert to object recursive
+     * 
+     * @param array $var
+     * 
+     * @return stdClass
+     */
+    public static function toObjectRecursive(Array $var) : stdClass
     {
         $object = new stdClass;
 
         return self::objectRecursive((array) $var, $object);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // To Constant
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $var
-    // @param string $prefix
-    // @param string $suffix
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Convert to constant
+     * 
+     * @param string $var
+     * @param string $prefix = NULL
+     * @param string $suffix = NULL
+     */
     public static function toConstant(String $var, String $prefix = NULL, String $suffix = NULL)
     {
         $var = implode('_', Strings\Split::upperCase($var));
@@ -570,16 +582,9 @@ class Converter
         }
     }
 
-    //--------------------------------------------------------------------------------------------------
-    // Protected Object Recursive
-    //--------------------------------------------------------------------------------------------------
-    //
-    // @param array    $array
-    // @param stdClass $obj
-    //
-    // @return string
-    //
-    //--------------------------------------------------------------------------------------------------
+    /**
+     * Protected Object Recursive
+     */
     protected static function objectRecursive(Array $array, stdClass &$std) : stdClass
     {
         foreach( $array as $key => $value )

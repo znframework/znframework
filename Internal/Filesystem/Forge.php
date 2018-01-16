@@ -54,15 +54,7 @@ class Forge
             return false;
         }
 
-        $contents         = file_get_contents($file);
-        $replaceContents  = str_ireplace($data, $replace, $contents);
-
-        if( $contents !== $replaceContents )
-        {
-            file_put_contents($file, $replaceContents);
-        }
-
-        return $replaceContents;
+        return Filesystem::replaceData($file, $data, $replace);
     }
 
     /**
