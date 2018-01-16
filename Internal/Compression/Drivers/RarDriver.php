@@ -68,7 +68,7 @@ class RarDriver extends DriverMappingAbstract
      */
     public function write($file, $data)
     {
-        return Singleton::class('GZDriver')->write($file, $data);
+        return Singleton::class('GzDriver')->write($file, $data);
     }
 
     /**
@@ -80,7 +80,7 @@ class RarDriver extends DriverMappingAbstract
      */
     public function read($file)
     {
-        return Singleton::class('GZDriver')->read($file);
+        return Singleton::class('GzDriver')->read($file);
     }
 
     /**
@@ -92,7 +92,7 @@ class RarDriver extends DriverMappingAbstract
      */
     public function do($data)
     {
-        return Singleton::class('GZDriver')->do($data);
+        return Singleton::class('GzDriver')->do($data);
     }
 
     /**
@@ -104,6 +104,6 @@ class RarDriver extends DriverMappingAbstract
      */
     public function undo($data)
     {
-        return Singleton::class('GZDriver')->undo($data);
+        return Singleton::class('GzDriver')->undo($data);
     }
 }

@@ -24,7 +24,8 @@ class Force implements ForceInterface
     const driver =
     [
         'options'   => ['gz', 'bz', 'lzf', 'rar', 'zip', 'zlib'],
-        'namespace' => 'ZN\Compression\Drivers'
+        'namespace' => 'ZN\Compression\Drivers',
+        'default'   => 'ZN\Compression\CompressionDefaultConfiguration'
     ];
 
     /**
