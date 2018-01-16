@@ -1,5 +1,21 @@
-<?php return
-[
+<?php namespace ZN\Cryptography;
+/**
+ * ZN PHP Web Framework
+ * 
+ * "Simplicity is the ultimate sophistication." ~ Da Vinci
+ * 
+ * @package ZN
+ * @license MIT [http://opensource.org/licenses/MIT]
+ * @author  Ozan UYKUN [ozan@znframework.com]
+ */
+
+/**
+ * Default Cookie Configuration
+ * 
+ * Enabled when the configuration file can not be accessed.
+ */
+class CryptographyDefaultConfiguration
+{
     /*
     |--------------------------------------------------------------------------
     | Cryto
@@ -11,7 +27,7 @@
     |
     */
 
-    'driver' => 'openssl',
+    public $driver = 'openssl';
 
     /*
     |--------------------------------------------------------------------------
@@ -22,5 +38,5 @@
     |
     */
 
-    'type' => 'md5'
-];
+    public $type = 'md5';
+}

@@ -9,8 +9,8 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use Encode;
 use ZN\IS;
+use ZN\Singleton;
 use ZN\Cryptography\Exception\InvalidArgumentException;
 
 class Type extends EncodeExtends
@@ -35,7 +35,7 @@ class Type extends EncodeExtends
 
         if( in_array($type, $algos) )
         {
-            return Encode::$type($data);
+            return Singleton::class('ZN\Cryptography\Encode')->$type($data);
         }
 
         return hash($type, $data);

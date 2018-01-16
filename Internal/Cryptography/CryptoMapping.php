@@ -9,6 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
+use ZN\In;
 use ZN\Config;
 
 class CryptoMapping
@@ -29,7 +30,7 @@ class CryptoMapping
      */
     public function __construct()
     {
-        $this->key = Config::get('Project', 'key');
+        $this->key = Config::get('Project', 'key') ?: ZN\In::defaultProjectKey();
     }
 
     /**

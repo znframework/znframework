@@ -24,7 +24,8 @@ class Crypto implements CryptoInterface
     [
         'options'   => ['openssl', 'mhash', 'phash', 'hash', 'mcrypt'],
         'namespace' => 'ZN\Cryptography\Drivers',
-        'config'    => 'Cryptography:crypto'
+        'config'    => 'Cryptography',
+        'default'   => 'ZN\Cryptography\CryptographyDefaultConfiguration'
     ];
 
     /**

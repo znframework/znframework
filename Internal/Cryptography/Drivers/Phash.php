@@ -9,9 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\Cryptography\CryptoMapping;
-use ZN\ErrorHandling\Errors;
 use ZN\IS;
+use ZN\ErrorHandling\Errors;
+use ZN\Cryptography\CryptoMapping;
 use ZN\Cryptography\Exception\InvalidVersionException;
 
 class PhashDriver extends CryptoMapping
