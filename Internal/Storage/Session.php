@@ -24,9 +24,9 @@ class Session implements SessionInterface, SessionCookieCommonInterface
      * 
      * @return void
      */
-    public function __construct()
+    public function __construct(Array $config = [])
     {
-        $this->config = Config::get('Storage', 'session');
+        $this->config = $config ?: Config::default(new SessionDefaultConfiguration)::get('Storage', 'session');
 
         $this->start();
     }

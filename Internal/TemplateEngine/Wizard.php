@@ -44,7 +44,7 @@ class Wizard
      */
     public static function data(String $string, Array $data = []) : String
     {
-        self::$config = Config::get('ViewObjects', 'wizard');
+        self::$config = Config::get('ViewObjects', 'wizard') ?: [];
 
         self::_textControl($string); # 5.4.6[added]
 
@@ -167,23 +167,24 @@ class Wizard
         {
             $suffix   = '\:/s';
             $coalesce = '\?';
-            $constant = '@((\w+)(\[(\'|\")*.*?(\'|\")*\])*)';
+            $not      = '(\W@|^@)';
+            $constant = '((\w+)(\[(\'|\")*.*?(\'|\")*\])*)';
             $variable = '/@\$(\w+.*?)';
             
             $outputVariableCoalesce = '<?php echo $$1 ?? NULL ?>';
             $outputVariable         = '<?php echo $$1 ?>';
 
-            $outputCosntantCoalesce = '<?php echo defined("$2") ? ($1 ?? NULL) : NULL ?>';
-            $outputCosntant         = '<?php echo $1 ?>';
+            $outputCosntantCoalesce = '<?php echo defined("$3") ? ($2 ?? NULL) : NULL ?>';
+            $outputCosntant         = '<?php echo $2 ?>';
             
             $array    =
             [
-                $variable . $coalesce . $suffix         => $outputVariableCoalesce, // Variable
-                $variable        . $suffix              => $outputVariable,         // Variable
-                '/@' . $constant . $coalesce . $suffix  => $outputCosntantCoalesce, // Constant
-                '/@' . $constant . $suffix              => $outputCosntant,         // Constant
-                '/'  . $constant . $coalesce . $suffix  => $outputCosntantCoalesce, // Constant
-                '/'  . $constant . $suffix              => $outputCosntant          // Constant
+                $variable                    . $coalesce . $suffix => $outputVariableCoalesce, # Variable
+                $variable                                . $suffix => $outputVariable,         # Variable
+                '/' . $not . '@' . $constant . $coalesce . $suffix => $outputCosntantCoalesce, # Constant
+                '/' . $not . '@' . $constant             . $suffix => $outputCosntant,         # Constant
+                '/' . $not       . $constant . $coalesce . $suffix => $outputCosntantCoalesce, # Constant
+                '/' . $not       . $constant             . $suffix => $outputCosntant          # Constant
             ];
         }
 
@@ -203,11 +204,11 @@ class Wizard
 
         if( self::$config['functions'] ?? true )
         {
-            $function = '@(\w+.*?(\)|\}|\]|\-\>\w+))\:/s';
+            $function = '(\w+.*?(\)|\}|\]|\-\>\w+))\:/s';
             $array    =
             [
-                '/@' . $function => '<?php echo $1 ?>', // Function
-                '/'  . $function => '<?php if( is_scalar($1) ) echo $1; ?>'  // Function
+                '/@@'       . $function => '<?php echo $1 ?>', // Function
+                '/(\W@|^@)' . $function => '<?php if( is_scalar($2) ) echo $2; ?>'  // Function
             ];
         }
 

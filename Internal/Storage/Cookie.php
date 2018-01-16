@@ -61,11 +61,11 @@ class Cookie implements CookieInterface, SessionCookieCommonInterface
      * 
      * @return void
      */
-    public function __construct()
+    public function __construct(Array $config = [])
     {
         Session::start();
 
-        $this->config = Config::get('Storage', 'cookie');
+        $this->config = $config ?: Config::default(new CookieDefaultConfiguration)::get('Storage', 'cookie');
     }
 
     /**

@@ -11,7 +11,6 @@
 
 use ZN\Helpers\Logger;
 use ZN\DataTypes\Arrays;
-use ZN\Protection\Json;
 
 class Console
 {
@@ -66,19 +65,7 @@ class Console
             self::_commandList(); exit;
         }
 
-        $parameters = Arrays\RemoveElement::first($commands, 4);
-
-        self::$parameters = array_map(function($data)
-        {
-            $return = $data;
-
-            if( Json::check($return) )
-            {
-                $return = json_decode($return, true);
-            }
-
-            return $return;
-        }, $parameters);
+        self::$parameters = Arrays\RemoveElement::first($commands, 4);
 
         switch( $command )
         {

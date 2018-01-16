@@ -9,8 +9,12 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
+use ZN\Ability\Singleton;
+
 class Config
 {
+    use Singleton;
+
     /**
      * Set configs
      * 
@@ -24,6 +28,13 @@ class Config
      * @var array
      */
     private static $config = [];
+
+    /**
+     * Keeps default configuration
+     * 
+     * @var mixed
+     */
+    protected static $default = false;
 
     /**
      * Magic call static
@@ -67,6 +78,20 @@ class Config
     }
 
     /**
+     * Default Configuration
+     * 
+     * @param mixed $class
+     * 
+     * @return self
+     */
+    public static function default($class)
+    {
+        self::$default = get_object_vars($class);
+    
+        return self::singleton();
+    }
+
+    /**
      * Get config
      * 
      * @param string $file
@@ -101,10 +126,16 @@ class Config
 
         if( empty($configs) )
         {
-            return self::$config[$file] ?? false;
+            $return = self::$config[$file] ?? self::$default;
         }
+        else
+        {
+            $return = self::$config[$file][$configs] ?? self::$default;
+        }
+    
+        self::$default = false;
 
-        return self::$config[$file][$configs] ?? false;
+        return $return;
     }
 
     /**

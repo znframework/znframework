@@ -9,10 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\Captcha;
+use ZN\Lang;
 use ZN\Security;
 use ZN\Singleton;
-use ZN\Lang;
 use ZN\Request\Method;
 use ZN\DataTypes\Arrays;
 use ZN\Cryptography\Encode;
