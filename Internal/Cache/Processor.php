@@ -28,7 +28,8 @@ class Processor implements ProcessorInterface
     [
         'options'   => ['file', 'apc', 'apcu', 'memcache', 'redis', 'wincache'],
         'namespace' => 'ZN\Cache\Drivers',
-        'config'    => 'Storage:cache'
+        'config'    => 'Storage:cache',
+        'default'   => 'ZN\Cache\CacheDefaultConfiguration'
     ];
     
     protected $codeCount = 0;

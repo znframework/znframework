@@ -9,10 +9,10 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\Singleton;
-use ZN\Cache\DriverMappingAbstract;
 use ZN\Support;
+use ZN\Singleton;
 use ZN\Filesystem;
+use ZN\Cache\DriverMappingAbstract;
 
 class FileDriver extends DriverMappingAbstract
 {
@@ -32,6 +32,8 @@ class FileDriver extends DriverMappingAbstract
      */
     public function __construct()
     {
+        parent::__construct();
+        
         if( ! is_dir($this->path) )
         {
             mkdir($this->path, 0755);

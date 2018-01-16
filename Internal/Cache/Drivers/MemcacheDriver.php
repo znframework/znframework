@@ -10,7 +10,6 @@
  */
 
 use Memcache;
-use ZN\Config;
 use ZN\Support;
 use ZN\ErrorHandling\Errors;
 use ZN\Cache\DriverMappingAbstract;
@@ -27,11 +26,13 @@ class MemcacheDriver extends DriverMappingAbstract
      */
     public function __construct(Array $settings = NULL)
     {
+        parent::__construct();
+        
         Support::func('memcache_add_server', 'Memcache');
 
         $this->memcache = new Memcache;
 
-        $config = Config::get('IndividualStructures', 'cache')['driverSettings'];
+        $config = $this->config['driverSettings'];
 
         $config = ! empty($settings)
                   ? $settings

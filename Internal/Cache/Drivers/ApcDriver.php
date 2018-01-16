@@ -30,6 +30,8 @@ class ApcDriver extends DriverMappingAbstract
      */
     public function __construct()
     {
+        parent::__construct();
+        
         Support::extension($this->apc);
     }
 

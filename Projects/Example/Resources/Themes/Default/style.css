@@ -1,0 +1,6 @@
+html, body{height: 100%;}
+body{margin: 0;padding: 0;width: 100%;display: table;font-weight: lighter;font-family: 'Lato', sans-serif;}
+#container{text-align: center;display: table-cell;vertical-align: middle;}
+#content{font-family: 'Sarpanch', cursive; text-align: center;display: inline-block;}
+#dedicate{color:#00BFFF}
+#sub-title{font-size: 24px;color:#BFC4C8;}

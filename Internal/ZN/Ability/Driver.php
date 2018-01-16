@@ -51,12 +51,17 @@ trait Driver
             throw new UndefinedConstException('[const driver] is required to use the [Driver Ability]!');
         }
 
-        # 5.3.42|5.4.5[edited]
-        $driver = $driver                 ??
-                  $this->config['driver'] ?? 
-                  (isset(static::driver['config']) ? Config::get(...explode(':', static::driver['config']))['driver'] : NULL) ?: 
+        # 5.3.42|5.4.5|5.6.0[edited]
+        $driver = $driver                 ?? # driver($driver)
+                  $this->config['driver'] ?? # class name driver
+                  (isset(static::driver['config'])  
+                        ? Config::get(...explode(':', static::driver['config']))['driver'] 
+                            : NULL)       ?: # define config
+                  (isset(static::driver['default']) 
+                        ? get_class_vars(static::driver['default'])['driver'] 
+                            : NULL)       ?: # define default
                   static::driver['options'][0];
-        
+       
         $this->selectedDriverName = $driver;
 
         Support::driver(static::driver['options'], $driver);

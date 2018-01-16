@@ -23,6 +23,8 @@ class WincacheDriver extends DriverMappingAbstract
      */
     public function __construct()
     {
+        parent::__construct();
+        
         Support::extension('wincache');
     }
 

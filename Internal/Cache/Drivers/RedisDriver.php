@@ -11,9 +11,8 @@
 
 use Redis;
 use RedisException;
-use ZN\Config;
-use ZN\ErrorHandling\Errors;
 use ZN\Support;
+use ZN\ErrorHandling\Errors;
 use ZN\Cache\Exception\ConnectionRefusedException;
 use ZN\Cache\Exception\AuthenticationFailedException;
 use ZN\Cache\DriverMappingAbstract;
@@ -43,9 +42,11 @@ class RedisDriver extends DriverMappingAbstract
      */
     public function __construct(Array $settings = NULL)
     {
+        parent::__construct();
+        
         Support::extension('redis');
 
-        $config =  Config::get('IndividualStructures', 'cache')['driverSettings'];
+        $config =  $this->config['driverSettings'];
 
         $config = ! empty($settings)
                   ? $settings

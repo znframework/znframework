@@ -9,8 +9,25 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
+use ZN\Config;
+
 abstract class DriverMappingAbstract
 {
+    /**
+     * Keeps cache config
+     * 
+     * @var array
+     */
+    protected $config;
+
+    /**
+     * Magic Constructor
+     */
+    public function __construct()
+    {
+        $this->config = Config::default(new CacheDefaultConfiguration)::get('Storage', 'cache');
+    }
+
     /**
      * Select key
      * 
