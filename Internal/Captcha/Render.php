@@ -9,14 +9,14 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
+use ZN\Base;
+use ZN\Image;
+use ZN\Config;
+use ZN\Singleton;
+use ZN\Filesystem;
 use ZN\Request\URL;
 use ZN\DataTypes\Arrays;
 use ZN\Cryptography\Encode;
-use ZN\Filesystem;
-use ZN\Image;
-use ZN\Singleton;
-use ZN\Config;
-use ZN\Base;
 
 class Render implements RenderInterface
 {
@@ -318,7 +318,11 @@ class Render implements RenderInterface
      */
     protected function session()
     {
-        $this->sets = array_merge(Config::get('ViewObjects', 'captcha'), $this->sets);
+        $this->sets = array_merge
+        (
+            Config::default(new CaptchaDefaultConfiguration)->get('ViewObjects', 'captcha'), 
+            $this->sets
+        );
 
         $textLengthC = (int) $this->sets['text']['length'];
 
@@ -509,7 +513,7 @@ class Render implements RenderInterface
      */
     protected function clean()
     {
-        $files   = Filesystem\FileList::files($this->path, 'png');
+        $files   = Filesystem::getFiles($this->path, 'png');
         $match   = Arrays\GetElement::first(preg_grep('/captcha\-([a-z]|[0-9])+\.png/i', $files));
         $captcha = $this->path . $match;
 

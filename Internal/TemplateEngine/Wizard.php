@@ -25,7 +25,7 @@ class Wizard
     /**
      * PHP tag isolation
      * 
-     * @param string $data = ''
+     * @param string $data
      * 
      * @return void
      */
@@ -167,24 +167,23 @@ class Wizard
         {
             $suffix   = '\:/s';
             $coalesce = '\?';
-            $not      = '(\W@|^@)';
-            $constant = '((\w+)(\[(\'|\")*.*?(\'|\")*\])*)';
+            $constant = '@((\w+)(\[(\'|\")*.*?(\'|\")*\])*)';
             $variable = '/@\$(\w+.*?)';
             
             $outputVariableCoalesce = '<?php echo $$1 ?? NULL ?>';
             $outputVariable         = '<?php echo $$1 ?>';
 
-            $outputCosntantCoalesce = '<?php echo defined("$3") ? ($2 ?? NULL) : NULL ?>';
-            $outputCosntant         = '<?php echo $2 ?>';
+            $outputCosntantCoalesce = '<?php echo defined("$2") ? ($1 ?? NULL) : NULL ?>';
+            $outputCosntant         = '<?php echo $1 ?>';
             
             $array    =
             [
-                $variable                    . $coalesce . $suffix => $outputVariableCoalesce, # Variable
-                $variable                                . $suffix => $outputVariable,         # Variable
-                '/' . $not . '@' . $constant . $coalesce . $suffix => $outputCosntantCoalesce, # Constant
-                '/' . $not . '@' . $constant             . $suffix => $outputCosntant,         # Constant
-                '/' . $not       . $constant . $coalesce . $suffix => $outputCosntantCoalesce, # Constant
-                '/' . $not       . $constant             . $suffix => $outputCosntant          # Constant
+                $variable . $coalesce . $suffix         => $outputVariableCoalesce, # Variable
+                $variable        . $suffix              => $outputVariable,         # Variable
+                '/@' . $constant . $coalesce . $suffix  => $outputCosntantCoalesce, # Constant
+                '/@' . $constant . $suffix              => $outputCosntant,         # Constant
+                '/'  . $constant . $coalesce . $suffix  => $outputCosntantCoalesce, # Constant
+                '/'  . $constant . $suffix              => $outputCosntant          # Constant
             ];
         }
 
