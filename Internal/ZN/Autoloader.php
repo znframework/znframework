@@ -99,9 +99,9 @@ class Autoloader
         }
 
         $class  = substr($class, $len);
-        $facade = strstr($class, '\\') ? NULL : 'Facades/';
+        $facade = strstr($class, '\\') ? NULL : 'ZN/Facades/';
         $file   = INTERNAL_DIR . $facade . str_replace('\\', '/', $class) . '.php';
-
+        
         if( file_exists($file) ) 
         {
             require_once $file;

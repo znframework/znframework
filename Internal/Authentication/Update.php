@@ -10,7 +10,6 @@
  */
 
 use ZN\Cryptography\Encode;
-use ZN\Lang;
 
 class Update extends UserExtends
 {
@@ -107,11 +106,11 @@ class Update extends UserExtends
 
             if( $oldPassword != $password )
             {
-                return ! Properties::$error = Lang::select('IndividualStructures', 'user:oldPasswordError');
+                return ! Properties::$error = $this->getLang['oldPasswordError'];
             }
             elseif( $newPassword != $newPasswordAgain )
             {
-                return ! Properties::$error = Lang::select('IndividualStructures', 'user:passwordNotMatchError');
+                return ! Properties::$error = $this->getLang['passwordNotMatchError'];
             }
             else
             {
@@ -134,11 +133,11 @@ class Update extends UserExtends
                 {
                     if( ! $this->dbClass->where($uc, $username)->update($tn, $data) )
                     {
-                        return ! Properties::$error = Lang::select('IndividualStructures', 'user:registerUnknownError');
+                        return ! Properties::$error = $this->getLang['registerUnknownError'];
                     }
                 }
 
-                return Properties::$success = Lang::select('IndividualStructures', 'user:updateProcessSuccess');
+                return Properties::$success = $this->getLang['updateProcessSuccess'];
             }
         }
         else

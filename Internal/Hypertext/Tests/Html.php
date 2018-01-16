@@ -15,7 +15,7 @@ class Html extends UnitTest
 {
     const unit =
     [
-        'class'   => 'HTML',
+        'class'   => 'Html',
         'methods' => 
         [
             'property'          => ['Example Property Value'],

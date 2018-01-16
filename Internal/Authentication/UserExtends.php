@@ -9,9 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\Singleton;
+use ZN\Lang;
 use ZN\Config;
-use ZN\Database\DB;
+use ZN\Singleton;
 
 class UserExtends
 {
@@ -31,7 +31,8 @@ class UserExtends
      */
     public function __construct()
     {
-        $this->getConfig    = Config::get('Authentication', 'user');
+        $this->getConfig    = Config::default(new AuthenticationDefaultConfiguration)::get('Authentication');
+        $this->getLang      = Lang::default(new AuthenticationDefaultLanguage)::select('Authentication');
         $this->dbClass      = Singleton::class('ZN\Database\DB');
         $this->sessionClass = Singleton::class('ZN\Storage\Session');
         $this->cookieClass  = Singleton::class('ZN\Storage\Cookie');

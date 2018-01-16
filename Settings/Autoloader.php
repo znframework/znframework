@@ -38,7 +38,7 @@
 
     'classMap' =>
     [
-        INTERNAL_DIR,
+        # INTERNAL_DIR,
         LIBRARIES_DIR,
         EXTERNAL_LIBRARIES_DIR,
         CONTROLLERS_DIR,
@@ -64,6 +64,7 @@
         # ZN
         'ZN'                     => 'ZN\ZN',
         'Project\Controllers\ZN' => 'ZN\ZN',
+        'StaticAccess'           => 'ZN\StaticAccess',
         
         # ZN\Request
         'Http'    => 'ZN\Request\Http',

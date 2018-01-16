@@ -9,8 +9,8 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\Singleton;
 use ZN\IS;
+use ZN\Singleton;
 
 class SendEmail extends UserExtends
 {

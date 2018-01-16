@@ -1,5 +1,21 @@
-<?php return
-[
+<?php namespace ZN\Authentication;
+/**
+ * ZN PHP Web Framework
+ * 
+ * "Simplicity is the ultimate sophistication." ~ Da Vinci
+ * 
+ * @package ZN
+ * @license MIT [http://opensource.org/licenses/MIT]
+ * @author  Ozan UYKUN [ozan@znframework.com]
+ */
+
+/**
+ * Default Cookie Configuration
+ * 
+ * Enabled when the configuration file can not be accessed.
+ */
+class AuthenticationDefaultConfiguration
+{
     /*
     |--------------------------------------------------------------------------
     | User
@@ -21,8 +37,8 @@
     |
     */
 
-    'encode'   => 'super',
-    'matching' =>
+    public $encode   = 'super';
+    public $matching =
     [
         'table'   => '',
         'columns' =>
@@ -36,15 +52,15 @@
             'verification' => '', # Rleative
             'otherLogin'   => []  # Relative
         ]
-    ],
-    'joining' =>
+    ];
+    public $joining =
     [
         'column' => '',
         'tables' => []
-    ],
-    'emailSenderInfo' =>
+    ];
+    public $emailSenderInfo =
     [
         'name' => '',
         'mail' => ''
-    ]
-];
+    ];
+}

@@ -12,7 +12,7 @@
 use ZN\Support;
 use ZN\Compression\DriverMappingAbstract;
 
-class LZFDriver extends DriverMappingAbstract
+class LzfDriver extends DriverMappingAbstract
 {
     /**
      * Magic constructor

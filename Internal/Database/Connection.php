@@ -32,14 +32,14 @@ class Connection
      */
     protected $drivers =
     [
-        'odbc',
-        'mysqli',
-        'pdo',
-        'pdo:mysql',
-        'oracle',
-        'postgres',
-        'sqlite',
-        'sqlserver' 
+        'odbc'      => 'ODBC', 
+        'mysqli'    => 'MySQLi',
+        'pdo'       => 'PDO',
+        'pdo:mysql' => 'PDO',
+        'oracle'    => 'Oracle',
+        'postgres'  => 'Postgres',
+        'sqlite'    => 'SQLite',
+        'sqlserver' => 'SQLServer'
     ];
 
     /**
@@ -533,9 +533,9 @@ class Connection
      */
     protected function _drvlib($suffix = NULL, $settings = [])
     {
-        Support::driver($this->drivers, $this->driver);
+        Support::driver(array_keys($this->drivers), $this->driver);
 
-        $class = 'ZN\Database\\'.$this->driver.'\\DB'.$suffix;
+        $class = 'ZN\Database\\'.$this->drivers[$this->driver].'\\DB'.$suffix;
 
         return new $class($settings);
     }

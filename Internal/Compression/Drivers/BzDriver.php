@@ -13,7 +13,7 @@ use ZN\Support;
 use ZN\Compression\Exception\FileNotFoundException;
 use ZN\Compression\DriverMappingAbstract;
 
-class BZDriver extends DriverMappingAbstract
+class BzDriver extends DriverMappingAbstract
 {
     /**
      * Magic constructor

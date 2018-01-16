@@ -133,7 +133,7 @@ function downloadPackage(obj)
             }
             else
             {
-                alert('{{lang('Success', 'success')}}');
+                alert('{{Lang::select('Success', 'success')}}');
                 $(obj).addClass('form-control btn btn-success').attr('disabled', 'disabled').val('{{strtoupper(LANG['available'])}}');
             }
         }

@@ -9,7 +9,6 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\Lang;
 use ZN\Request\Method;
 use ZN\Cryptography\Encode;
 
@@ -102,7 +101,7 @@ class Login extends UserExtends
 
         if( ! isset($r->$passwordColumn) )
         {
-            return ! Properties::$error = Lang::select('IndividualStructures', 'user:loginError');
+            return ! Properties::$error = $this->getLang['loginError'];
         }
 
         $passwordControl   = $r->$passwordColumn;
@@ -124,12 +123,12 @@ class Login extends UserExtends
         {
             if( ! empty($bannedColumn) && ! empty($bannedControl) )
             {
-                return ! Properties::$error = Lang::select('IndividualStructures', 'user:bannedError');
+                return ! Properties::$error = $this->getLang['bannedError'];
             }
 
             if( ! empty($activationColumn) && empty($activationControl) )
             {
-                return ! Properties::$error = Lang::select('IndividualStructures', 'user:activationError');
+                return ! Properties::$error = $this->getLang['activationError'];
             }
 
             $this->sessionClass->insert($usernameColumn, $username);
@@ -149,11 +148,11 @@ class Login extends UserExtends
                 $this->dbClass->where($usernameColumn, $username)->update($tableName, [$activeColumn  => 1]);
             }
 
-            return Properties::$success = Lang::select('IndividualStructures', 'user:loginSuccess');
+            return Properties::$success = $this->getLang['loginSuccess'];
         }
         else
         {
-            return ! Properties::$error = Lang::select('IndividualStructures', 'user:loginError');
+            return ! Properties::$error = $this->getLang['loginError'];
         }
     }
 

@@ -61,6 +61,8 @@ trait Driver
 
         Support::driver(static::driver['options'], $driver);
 
+        $driver = ucfirst($driver);
+
         if( ! isset(static::driver['namespace']) )
         {
             $this->driver = Singleton::class($driver);

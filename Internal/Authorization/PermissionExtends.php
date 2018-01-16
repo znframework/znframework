@@ -67,7 +67,8 @@ class PermissionExtends
      */
     protected static function common($roleId = 6, $process, $object, $function)
     {
-        self::$permission = Config::get('Authorization', $function);
+        self::$permission = Config::default(new AuthorizationDefaultConfiguration)
+                                  ::get('Authorization', $function);
 
         if( isset(self::$permission[$roleId]) )
         {

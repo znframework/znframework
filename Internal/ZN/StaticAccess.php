@@ -50,6 +50,3 @@ class StaticAccess
         return Singleton::class(INTERNAL_ACCESS . static::getClassName())->$method(...$parameters);
     }
 }
-
-# Alias StaticAccess
-class_alias('ZN\StaticAccess', 'StaticAccess');

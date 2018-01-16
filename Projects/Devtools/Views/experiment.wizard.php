@@ -45,7 +45,7 @@
     <div class="col-lg-6">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title"><i class="fa fa-table fa-fw"></i> {{LANG['output']}}
+                <h3 class="panel-title"><i class="fa fa-table fa-fw"></i> {{LANG['output'] ?? 'Output'}}
                     
 
                 </h3>
@@ -64,7 +64,7 @@
     <div class="col-lg-6">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title"><i class="fa fa-table fa-fw"></i> {{LANG['output']}}
+                <h3 class="panel-title"><i class="fa fa-table fa-fw"></i> {{LANG['output'] ?? 'Output'}}
                     
 
                 </h3>

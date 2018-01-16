@@ -10,7 +10,6 @@
  */
 
 use ZN\IS;
-use ZN\Lang;
 use ZN\Inclusion;
 use ZN\Singleton;
 use ZN\Request\URL;
@@ -87,7 +86,7 @@ class ForgotPassword extends UserExtends
             {
                 if( $verification !== $row->$verificationColumn )
                 {
-                    return ! Properties::$error = Lang::select('IndividualStructures', 'user:verificationOrEmailError');
+                    return ! Properties::$error = $this->getLang['verificationOrEmailError'];
                 }
             }
             
@@ -113,7 +112,7 @@ class ForgotPassword extends UserExtends
 
             $emailClass->sender($senderInfo['mail'], $senderInfo['name'])
                        ->receiver($email, $email)
-                       ->subject(Lang::select('IndividualStructures', 'user:newYourPassword'))
+                       ->subject($this->getLang['newYourPassword'])
                        ->content($message);
 
             if( $emailClass->send() )
@@ -129,19 +128,19 @@ class ForgotPassword extends UserExtends
 
                 if( $this->dbClass->update($tableName, [$passwordColumn => $encodePassword]) )
                 {
-                    return Properties::$success = Lang::select('IndividualStructures', 'user:forgotPasswordSuccess');
+                    return Properties::$success = $this->getLang['forgotPasswordSuccess'];
                 }
 
-                return ! Properties::$error = Lang::select('Database', 'updateError');
+                return ! Properties::$error = $this->getLang['updateError'];
             }
             else
             {
-                return ! Properties::$error = Lang::select('IndividualStructures', 'user:emailError');
+                return ! Properties::$error = $this->getLang['emailError'];
             }
         }
         else
         {
-            return ! Properties::$error = Lang::select('IndividualStructures', 'user:forgotPasswordError');
+            return ! Properties::$error = $this->getLang['forgotPasswordError'];
         }
     }
 }

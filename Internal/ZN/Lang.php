@@ -9,14 +9,25 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
+use ZN\Ability\Singleton;
+
  class Lang
 {
+    use Singleton;
+
     /**
      * Keeps current language content
      * 
      * @var mixed
      */
     protected static $lang = NULL;
+
+    /**
+     * Keeps default configuration
+     * 
+     * @var mixed
+     */
+    protected static $default = false;
 
     /**
      * Magic call
@@ -31,6 +42,20 @@
         $method = ucfirst($method);
 
         return self::select($method, ...$parameters);
+    }
+
+    /**
+     * Default Language
+     * 
+     * @param mixed $class
+     * 
+     * @return self
+     */
+    public static function default($class)
+    {
+        self::$default = get_object_vars($class);
+    
+        return self::singleton();
     }
 
     /**
@@ -65,9 +90,9 @@
     {
         if( ! isset(self::$lang[$file]) )
         {   
-            $file          = self::get().'/'.Base::suffix($file, '.php');
-            $langDir       = LANGUAGES_DIR.$file;
-            $commonLangDir = EXTERNAL_LANGUAGES_DIR.$file;
+            $file          = ($getLang = self::get()).'/'.Base::suffix($file, '.php');
+            $langDir       = LANGUAGES_DIR . $file;
+            $commonLangDir = EXTERNAL_LANGUAGES_DIR . $file;
 
             if( is_file($langDir) && ! IS::import($langDir) )
             {
@@ -76,6 +101,12 @@
             elseif( is_file($commonLangDir) && ! IS::import($commonLangDir) )
             {
                 self::$lang[$file] = require $commonLangDir;
+            }
+            elseif( ! empty(self::$default) )
+            {
+                self::$lang[$file] = self::$default[$getLang] ?? false;
+
+                self::$default = NULL;
             }
         }
 

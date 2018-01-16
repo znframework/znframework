@@ -11,7 +11,6 @@
 
 use ZN\IS;
 use ZN\Base;
-use ZN\Lang;
 use ZN\Inclusion;
 use ZN\Singleton;
 use ZN\Request\URL;
@@ -72,7 +71,7 @@ class Register extends UserExtends
 
         if( ! isset($data[$usernameColumn]) ||  ! isset($data[$passwordColumn]) )
         {
-            return ! Properties::$error = Lang::select('IndividualStructures', 'user:registerUsernameError');
+            return ! Properties::$error = $this->getLang['registerUsernameError'];
         }
 
         $loginUsername   = $data[$usernameColumn];
@@ -90,7 +89,7 @@ class Register extends UserExtends
 
             if( ! $this->dbClass->insert($tableName , $data) )
             {
-                return ! Properties::$error = Lang::select('IndividualStructures', 'user:registerUnknownError');
+                return ! Properties::$error = $this->getLang['registerUnknownError'];
             }
 
             if( ! empty($joinTables) )
@@ -105,7 +104,7 @@ class Register extends UserExtends
                 }
             }
 
-            Properties::$success = Lang::select('IndividualStructures', 'user:registerSuccess');
+            Properties::$success = $this->getLang['registerSuccess'];
 
             if( ! empty($activationColumn) )
             {
@@ -136,7 +135,7 @@ class Register extends UserExtends
         }
         else
         {
-            return ! Properties::$error = Lang::select('IndividualStructures', 'user:registerError');
+            return ! Properties::$error = $this->getLang['registerError'];
         }
     }
 
@@ -172,16 +171,16 @@ class Register extends UserExtends
                 $this->dbClass->where($usernameColumn, $user)
                               ->update($tableName, [$activationColumn => '1']);
 
-                return Properties::$success = Lang::select('IndividualStructures', 'user:activationComplete');
+                return Properties::$success = $this->getLang['activationComplete'];
             }
             else
             {
-                return ! Properties::$error = Lang::select('IndividualStructures', 'user:activationCompleteError');
+                return ! Properties::$error = $this->getLang['activationCompleteError'];
             }
         }
         else
         {
-            return ! Properties::$error = Lang::select('IndividualStructures', 'user:activationCompleteError');
+            return ! Properties::$error = $this->getLang['activationCompleteError'];
         }
     }
 
@@ -212,7 +211,7 @@ class Register extends UserExtends
         
         if( empty($data) )
         {
-            return ! Properties::$error = Lang::select('IndividualStructures', 'user:resendActivationError');
+            return ! Properties::$error = $this->getLang['resendActivationError'];
         }
         
         return $this->_activation($username, $data->{$getColumns['password']}, $returnLink, $email);
@@ -254,16 +253,16 @@ class Register extends UserExtends
 
         $emailclass->sender($senderInfo['mail'], $senderInfo['name'])
                    ->receiver($user, $user)
-                   ->subject(Lang::select('IndividualStructures', 'user:activationProcess'))
+                   ->subject($this->getLang['activationProcess'])
                    ->content($message);
 
         if( $emailclass->send() )
         {
-            return Properties::$success = Lang::select('IndividualStructures', 'user:activationEmail');
+            return Properties::$success = $this->getLang['activationEmail'];
         }
         else
         {
-            return ! Properties::$error = Lang::select('IndividualStructures', 'user:emailError');
+            return ! Properties::$error = $this->getLang['emailError'];
         }
     }
 }
