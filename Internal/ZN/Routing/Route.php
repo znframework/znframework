@@ -16,11 +16,11 @@ use ZN\Kernel;
 use ZN\Config;
 use ZN\Request;
 use ZN\Security;
+use ZN\Datatype;
 use ZN\Singleton;
 use ZN\Restoration;
 use ZN\Request\URI;
 use ZN\DataTypes\Arrays;
-use ZN\DataTypes\Strings;
 use ZN\ErrorHandling\Errors;
 
 class Route implements RouteInterface
@@ -549,7 +549,7 @@ class Route implements RouteInterface
 
         array_push($filters, 'redirect');
 
-        $filters = Arrays\RemoveElement::element($filters, 'usable');
+        $filters = array_diff($filters, ['usable']);
 
         $this->_filter($filters, $lowerPath);
 
@@ -1065,7 +1065,7 @@ class Route implements RouteInterface
         }
 
         $changeRoute = str_replace($matchAll, $newMatch, $route);
-        $changeRoute = str_replace(Strings\Split::divide($route, '/'), $functionName, $changeRoute);
+        $changeRoute = str_replace(Datatype::divide($route, '/'), $functionName, $changeRoute);
         $route       = [$route => $changeRoute];
 
         return $route;

@@ -12,7 +12,6 @@
 use ZN\Config;
 use ZN\Request;
 use ZN\Hypertext;
-use ZN\DataTypes\Arrays;
 
 class Masterpage
 {
@@ -332,7 +331,7 @@ class Masterpage
     //--------------------------------------------------------------------------------------------------------
     protected function _theme($masterPageSet, $head, $type = 'theme')
     {
-        $theme = Arrays\RemoveElement::element(array_merge((array) ($masterPageSet[$type]['name'] ?? []), (array) ($head[$type]['name'] ?? [])), '');
+        $theme = array_diff(array_merge((array) ($masterPageSet[$type]['name'] ?? []), (array) ($head[$type]['name'] ?? [])), ['']);
 
         if( ! empty($theme) )
         {   

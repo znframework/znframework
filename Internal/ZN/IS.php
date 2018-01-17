@@ -9,9 +9,6 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\DataTypes\Strings;
-use ZN\DataTypes\Arrays;
-
 class IS
 {
     /**
@@ -42,8 +39,8 @@ class IS
             return Filters::$method($parameters[0]);
         }
 
-        $methods = Strings\Split::upperCase($realMethod = $method);
-        $method  = implode('_', Arrays\Casing::lower($methods));
+        $methods = Datatype::splitUpperCase($realMethod = $method);
+        $method  = implode('_', Datatype::caseArray($methods));
         $method  = 'is_' . $method;
 
         if( ! function_exists($method) )

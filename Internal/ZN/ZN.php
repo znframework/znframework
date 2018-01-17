@@ -11,7 +11,6 @@
 
 use ZN\Routing\Route;
 use ZN\Services\Restful;
-use ZN\Authentication\IP;
 use ZN\Protection\Separator;
 use ZN\ErrorHandling\Exceptions;
 

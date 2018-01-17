@@ -9,7 +9,6 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\DataTypes\Strings;
 use ZN\ErrorHandling\Errors;
 
 class Support
@@ -156,7 +155,7 @@ class Support
         (
             'Error',
             'undefinedFunction',
-            Strings\Split::divide(str_ireplace(INTERNAL_ACCESS, '', Classes::onlyName($class)), '\\', -1)."::$method()"
+            Datatype::divide(str_ireplace(INTERNAL_ACCESS, '', Classes::onlyName($class)), '\\', -1)."::$method()"
         );
     }
 }

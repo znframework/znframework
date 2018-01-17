@@ -9,21 +9,16 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\DataTypes\Arrays;
-
 class Regex
 {
-    //--------------------------------------------------------------------------------------------------------
-    // Regex Chars
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Genel Kullanımı: Düzenli ifadelerde yer alan özel karakterlerle ilgili aşağıdaki
-    // değişiklikler yapılmıştır.
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Keeps Regular Expression Chars
+     * 
+     * @var array
+     */
     protected $regexChars =
     [
-        // Patterns For Routes
+        # Patterns For Routes
         ':numeric'                      => '(\d+$)',
         ':id'                           => '(\d+$)',
         ':alnum'                        => '(\w+$)',
@@ -31,6 +26,7 @@ class Regex
         ':all'                          => '(.+)',
         ':seo'                          => '((\w+|\-)+$)',
 
+        # Standart
         '{nonWord}'                     => '\W+',
         '{word}'                        => '\w+',
         '{nonNumeric}'                  => '\D',
@@ -58,14 +54,11 @@ class Regex
         '{hex}|{lx}'                    => '\x'
     ];
 
-    //--------------------------------------------------------------------------------------------------------
-    // Setting Chars
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Genel Kullanımı: Düzenli ifadelerde oluşturulan desen sonuna konulan karakterlerle
-    // ilgili aşağıdaki değişiklikler yapılmıştır
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Keeps settings char
+     * 
+     * @var array
+     */
     protected $settingChars =
     [
         '{insens}'    => 'i',
@@ -75,14 +68,11 @@ class Regex
         '{inspace}'   => 'x'
     ];
 
-    //--------------------------------------------------------------------------------------------------------
-    // Special Chars
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Genel Kullanımı: Düzenli ifadelerde yer alan özel karakterleri normal karakterler gibi
-    // kullanmak için aşağıdaki değişiklikler yapılmıştır.
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Keeps special chars
+     * 
+     * @var array
+     */
     protected $specialChars =
     [
         '.' => '\.',
@@ -95,55 +85,57 @@ class Regex
         '/' => '\/'
     ];
 
+    /**
+     * Magic Constructor
+     */
     public function __construct()
     {
         $this->regexChars = array_merge(Config::get('Expressions', 'regex'), $this->regexChars);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Special 2 Classic -> 4.3.2
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $pattern
-    // @param string $ex
-    // @param string $delimiter
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Special to classic pattern
+     * 
+     * @param string $pattern
+     * @param string $ex        = NULL
+     * @param string $delimiter = '/'
+     * 
+     * @return string
+     */
     public function special2classic(String $pattern, String $ex = NULL, String $delimiter = '/') : String
     {
         return (string) $this->_regularConverting($pattern, $ex, $delimiter);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Classic 2 Special -> 4.3.2
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $pattern
-    // @param string $ex
-    // @param string $delimiter
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Classic to special pattern
+     * 
+     * @param string $pattern
+     * @param string $delimiter = '/'
+     * 
+     * @return string
+     */
     public function classic2special(String $pattern, String $delimiter = '/') : String
     {
         $specialChars = $this->specialChars;
-        $regexChars   = Arrays::multikey($this->regexChars);
-        $settingChars = Arrays::multikey($this->settingChars);
+        $regexChars   = Datatype::multikey($this->regexChars);
+        $settingChars = Datatype::multikey($this->settingChars);
         $pattern      = str_ireplace(array_values($regexChars  ), array_keys($regexChars  ), $pattern);
         $pattern      = str_ireplace(array_values($specialChars), array_keys($specialChars), $pattern);
 
         return rtrim(ltrim($pattern, $delimiter), $delimiter);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Match
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $pattern
-    // @param string $str
-    // @param string $ex
-    // @param string $delimiter
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Special to classic pattern
+     * 
+     * @param string $pattern
+     * @param string $str
+     * @param string $ex        = NULL
+     * @param string $delimiter = '/'
+     * 
+     * @return array
+     */
     public function match(String $pattern, String $str, String $ex = NULL, String $delimiter = '/') : Array
     {
         $pattern = $this->_regularConverting($pattern, $ex, $delimiter);
@@ -153,16 +145,16 @@ class Regex
         return $return;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Match All
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $pattern
-    // @param string $str
-    // @param string $ex
-    // @param string $delimiter
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Match All
+     * 
+     * @param string $pattern
+     * @param string $str
+     * @param string $ex        = NULL
+     * @param string $delimiter = '/'
+     * 
+     * @return array
+     */
     public function matchAll(String $pattern, String $str, String $ex = NULL, String $delimiter = '/') : Array
     {
         $pattern = $this->_regularConverting($pattern, $ex, $delimiter);
@@ -172,17 +164,16 @@ class Regex
         return $return;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Replace
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $pattern
-    // @param string $rep
-    // @param string $str
-    // @param string $ex
-    // @param string $delimiter
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Replace
+     * 
+     * @param string $pattern
+     * @param string $str
+     * @param string $ex        = NULL
+     * @param string $delimiter = '/'
+     * 
+     * @return array
+     */
     public function replace(String $pattern, String $rep, String $str, String $ex = NULL, String $delimiter = '/')
     {
         $pattern = $this->_regularConverting($pattern, $ex, $delimiter);
@@ -190,66 +181,66 @@ class Regex
         return preg_replace($pattern, $rep, $str);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Group
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $str
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Group
+     * 
+     * @param string $str
+     * 
+     * @return string
+     */
     public function group(String $str) : String
     {
         return "(".$str.")";
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Recount
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $str
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Recount
+     * 
+     * @param string $str
+     * 
+     * @return string
+     */
     public function recount(String $str) : String
     {
         return "{".$str."}";
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // To
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $str
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * To
+     * 
+     * @param string $str
+     * 
+     * @return string
+     */
     public function to(String $str) : String
     {
         return "[".$str."]";
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Quote
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $data
-    // @param string $delimiter
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Preg Quote
+     * 
+     * @param string $data
+     * @param string $delimiter = NULL
+     * 
+     * @return string
+     */
     public function quote(String $data, String $delimiter = NULL) : String
     {
         return preg_quote($data, $delimiter);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Regular Converting
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Protected Regular Coverting
+     */
     protected function _regularConverting($pattern, $ex, $delimiter)
     {
         $specialChars = $this->specialChars;
 
         $pattern = str_ireplace(array_keys($specialChars), array_values($specialChars), $pattern);
 
-        $regexChars   = Arrays::multikey($this->regexChars);
-        $settingChars = Arrays::multikey($this->settingChars);
+        $regexChars   = Datatype::multikey($this->regexChars);
+        $settingChars = Datatype::multikey($this->settingChars);
 
         $pattern = str_ireplace(array_keys($regexChars), array_values($regexChars), $pattern);
 

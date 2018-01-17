@@ -11,9 +11,9 @@
 
 use ZN\Base;
 use ZN\Request;
+use ZN\Datatype;
 use ZN\Buffering;
 use ZN\Filesystem;
-use ZN\DataTypes\Strings;
 use ZN\Inclusion\Exception\InvalidArgumentException;
 
 class Something
@@ -111,7 +111,7 @@ class Something
     {
         return '<style type="text/css">
                     '.( $ie === true ? '<!--[if IE]>' : NULL ).'
-                    @font-face{font-family:"'.Strings\Split::divide(Filesystem\Extension::remove($randomPageVariable), "/", -1).'";
+                    @font-face{font-family:"'.Datatype::divide(Filesystem\Extension::remove($randomPageVariable), "/", -1).'";
                     src:url("'.$randomPageVariableBaseUrl.'")
                     format("truetype")}
                     '.( $ie === true ? '<![endif]-->' : NULL ).'

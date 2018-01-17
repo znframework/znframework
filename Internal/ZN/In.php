@@ -9,7 +9,6 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\DataTypes\Strings;
 use ZN\ErrorHandling\Errors;
 use ZN\Inclusion\Project\View;
 use ZN\Inclusion\Project\Masterpage;
@@ -364,7 +363,7 @@ class In
         $controllerPath  = ! empty($controllerEx[0]) ? $controllerEx[0] : '';
         $controllerFunc  = ! empty($controllerEx[1]) ? $controllerEx[1] : 'main';
         $controllerFile  = CONTROLLERS_DIR . Base::suffix($controllerPath, '.php');
-        $controllerClass = Strings\Split::divide($controllerPath, '/', -1);
+        $controllerClass = Datatype::divide($controllerPath, '/', -1);
 
         if( is_file($controllerFile) )
         {

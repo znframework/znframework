@@ -9,6 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
+use ZN\Datatype;
 use ZN\Controller\Factory;
 use ZN\Ability\Functionalization;
 
@@ -111,29 +112,17 @@ class Arrays extends Factory
         'keys'              => 'array_keys'
     ];
 
-    //--------------------------------------------------------------------------------------------------------
-    // Multikey
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array  $array
-    // @param string $keySplit:|
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Multiple Key
+     * 
+     * @param array  $array
+     * @param string $keySplit = '|'
+     * 
+     * @return array
+     */
     public static function multikey(Array $array, String $keySplit = '|') : Array
     {
-        $newArray = [];
-
-        foreach( $array as $k => $v )
-        {
-            $keys = explode($keySplit, $k);
-
-            foreach( $keys as $val )
-            {
-                $newArray[$val] = $v;
-            }
-        }
-
-        return $newArray;
+        return Datatype::multikey($array, $keySplit);
     }
 
 

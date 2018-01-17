@@ -10,30 +10,29 @@
  */
 
 use ReflectionClass;
-use ZN\DataTypes\Strings;
 
 class Classes
 {
-    //--------------------------------------------------------------------------------------------------------
-    // Reflection -> 5.4.5[added]
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $className
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Reflection Class
+     * 
+     * @param string $className
+     * 
+     * @return ReflectionClass
+     */
     public static function reflection(String $className) : ReflectionClass
     {
         return new ReflectionClass(self::_class($className));
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Is Relation
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $className
-    // @param object $object
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Is Relation 
+     * 
+     * @param string $className
+     * @param mixed  $object
+     * 
+     * @return bool
+     */
     public static function isRelation(String $className, $object) : Bool
     {
         if( ! is_object($object) )
@@ -44,76 +43,76 @@ class Classes
         return is_a($object, self::_class($className));
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Is Parent
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $className
-    // @param object $object
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Is Parent 
+     * 
+     * @param string $className
+     * @param mixed  $object
+     * 
+     * @return bool
+     */
     public static function isParent(String $className, $object) : Bool
     {
         return is_subclass_of($object, self::_class($className));
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Method Exists
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $className
-    // @param object $method
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Method Exists
+     * 
+     * @param string $className
+     * @param string $method
+     * 
+     * @return bool
+     */
     public static function methodExists(String $className, String $method) : Bool
     {
         return method_exists(Singleton::class(self::_class($className)), $method);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Property Exists
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $className
-    // @param object $property
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Property Exists
+     * 
+     * @param string $className
+     * @param string $property
+     * 
+     * @return bool
+     */
     public static function propertyExists(String $className, String $property) : Bool
     {
         return  property_exists(Singleton::class(self::_class($className)), $property);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Methods
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $className
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public static function methods(String $className)
+    /**
+     * Get Methods
+     * 
+     * @param string $className
+     * 
+     * @return bool
+     */
+    public static function methods(String $className) : Array
     {
         return get_class_methods(self::_class($className));
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Vars
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $className
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public static function vars(String $className)
+    /**
+     * Get Vars
+     * 
+     * @param string $className
+     * 
+     * @return bool
+     */
+    public static function vars(String $className) : Array
     {
         return get_class_vars(self::_class($className));
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Name
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param object $var
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Get Class Name
+     * 
+     * @param object $var
+     * 
+     * @return string
+     */
     public static function name($var) : String
     {
         if( ! is_object($var) )
@@ -124,75 +123,63 @@ class Classes
         return get_class($var);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Declared
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Get Declared Classes
+     * 
+     * @return array
+     */
     public static function declared() : Array
     {
         return get_declared_classes();
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Declared Interfaces
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Get Declared Interfaces
+     * 
+     * @return array
+     */
     public static function declaredInterfaces() : Array
     {
         return get_declared_interfaces();
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Declared Traits
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Get Declared Traits
+     * 
+     * @return array
+     */
     public static function declaredTraits() : Array
     {
         return get_declared_traits();
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Only Name
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $class
-    //
-    // @return string
-    //
-    //--------------------------------------------------------------------------------------------------------
+/**
+     * Get Only Class Name
+     * 
+     * @param string $class
+     * 
+     * @return string
+     */
     public static function onlyName(String $class) : String
     {
-        return Strings\Split::divide(str_replace(INTERNAL_ACCESS, '', $class), '\\', -1);
+        return Datatype::divide(str_replace(INTERNAL_ACCESS, '', $class), '\\', -1);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Public Class -> 5.4.5[added]
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $className
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Get Class Name
+     * 
+     * @param string $clasName
+     * 
+     * @return string
+     */
     public static function class(String $className) : String
     {
         return self::_class($className);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Class
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $name
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Protected Class
+     */
     protected static function _class($name)
     {
         global $classMap;
@@ -222,5 +209,3 @@ class Classes
         }
     }
 }
-
-class_alias('ZN\Classes', 'Classes');

@@ -12,6 +12,61 @@
 class Datatype
 {   
     /**
+     * Case Array
+     * 
+     * @param array  $array
+     * @param string $type   - options[lower|upper|title]
+     * @param string $keyval - options[all|key|value]
+     * 
+     * @return array
+     */
+    public static function caseArray(Array $array, String $type = 'lower', String $keyval = 'all') : Array
+    {
+        $callback = function($data) use($type)
+        {
+            return mb_convert_case($data, Helper::toConstant($type, 'MB_CASE_'));
+        };
+   
+        $arrayVals = array_values($array); $arrayKeys = array_keys($array);
+      
+        switch( $keyval )
+        {
+            case 'key'  : $arrayKeys = array_map($callback, $arrayKeys); break;
+            case 'value': $arrayVals = array_map($callback, $arrayVals); break;
+            case 'all'  :
+            default     : $arrayKeys = array_map($callback, $arrayKeys);
+                          $arrayVals = array_map($callback, $arrayVals);
+        }
+   
+        return array_combine($arrayKeys, $arrayVals);
+    }
+
+    /**
+     * Multiple Key
+     * 
+     * @param array  $array
+     * @param string $keySplit = '|'
+     * 
+     * @return array
+     */
+    public static function multikey(Array $array, String $keySplit = '|') : Array
+    {
+        $newArray = [];
+
+        foreach( $array as $k => $v )
+        {
+            $keys = explode($keySplit, $k);
+
+            foreach( $keys as $val )
+            {
+                $newArray[$val] = $v;
+            }
+        }
+
+        return $newArray;
+    }
+
+    /**
      * Divide
      * 
      * @param string $str       = NULL
