@@ -9,7 +9,6 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\Helpers\Logger;
 use ZN\DataTypes\Arrays;
 
 class Console
@@ -44,7 +43,7 @@ class Console
      */
     public static function run($commands)
     {
-        Logger::report('TerminalCommands', implode(' ', $commands), 'TerminalCommands');
+        Helper::report('TerminalCommands', implode(' ', $commands), 'TerminalCommands');
 
         $realCommands = implode(' ', Arrays\RemoveElement::first($commands, 3));
 

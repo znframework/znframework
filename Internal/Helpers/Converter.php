@@ -10,6 +10,7 @@
  */
 
 use stdClass;
+use ZN\Helper;
 use ZN\Config;
 use ZN\Singleton;
 use ZN\Filesystem;
@@ -347,49 +348,7 @@ class Converter
      */
     public static function highLight(String $str, Array $settings = []) : String
     {
-        $phpFamily      = ! empty( $settings['php:family'] )    ? 'font-family:'.$settings['php:family'] : 'font-family:Consolas, monospace';
-        $phpSize        = ! empty( $settings['php:size'] )      ? 'font-size:'.$settings['php:size'] : 'font-size:12px';
-        $phpStyle       = ! empty( $settings['php:style'] )     ? $settings['php:style'] : '';
-        $htmlFamily     = ! empty( $settings['html:family'] )   ? 'font-family:'.$settings['html:family'] : '';
-        $htmlSize       = ! empty( $settings['html:size'] )     ? 'font-size:'.$settings['html:size'] : '';
-        $htmlColor      = ! empty( $settings['html:color'] )    ? $settings['html:color'] : '';
-        $htmlStyle      = ! empty( $settings['html:style'] )    ? $settings['html:style'] : '';
-        $comment        = ! empty( $settings['comment:color'] ) ? $settings['comment:color'] : '#969896';
-        $commentStyle   = ! empty( $settings['comment:style'] ) ? $settings['comment:style'] : '';
-        $default        = ! empty( $settings['default:color'] ) ? $settings['default:color'] : '#000000';
-        $defaultStyle   = ! empty( $settings['default:style'] ) ? $settings['default:style'] : '';
-        $keyword        = ! empty( $settings['keyword:color'] ) ? $settings['keyword:color'] : '#a71d5d';
-        $keywordStyle   = ! empty( $settings['keyword:style'] ) ? $settings['keyword:style'] : '';
-        $string         = ! empty( $settings['string:color'] )  ? $settings['string:color']  : '#183691';
-        $stringStyle    = ! empty( $settings['string:style'] )  ? $settings['string:style']  : '';
-        $background     = ! empty( $settings['background'] )    ? $settings['background'] : '';
-        $tags           = $settings['tags'] ?? true;
-
-        ini_set("highlight.comment", "$comment; $phpFamily; $phpSize; $phpStyle; $commentStyle");
-        ini_set("highlight.default", "$default; $phpFamily; $phpSize; $phpStyle; $defaultStyle");
-        ini_set("highlight.keyword", "$keyword; $phpFamily; $phpSize; $phpStyle; $keywordStyle ");
-        ini_set("highlight.string",  "$string;  $phpFamily; $phpSize; $phpStyle; $stringStyle");
-        ini_set("highlight.html",    "$htmlColor; $htmlFamily; $htmlSize; $htmlStyle");
-        
-        $string = highlight_string($str, true);
-
-        $string = preg_replace
-        (
-            ['/\&\#60\;script(.*?)\&\#62\;/i', '/\&\#60\;\/script\&\#62\;/i'], 
-            ['<script$1>', '</script>'], 
-            str_replace
-            (
-                ['<?', '?>'], 
-                ['&#60;&#63;', '&#63;&#62;'], 
-                htmlspecialchars_decode(trim($string), ENT_QUOTES)
-            )
-        );
-
-        $tagArray = $tags === true
-                  ? ['<div style="'.$background.'">&#60;&#63;php', '&#63;&#62;</div>']
-                  : ['<div style="'.$background.'">', '</div>'];
-
-        return str_replace(['&#60;&#63;php', '&#63;&#62;'], $tagArray, $string);
+        return Helper::highLight($str, $settings);
     }
 
     /**
@@ -559,27 +518,7 @@ class Converter
      */
     public static function toConstant(String $var, String $prefix = NULL, String $suffix = NULL)
     {
-        $var = implode('_', Strings\Split::upperCase($var));
-        
-        $variable = strtoupper($prefix . $var . $suffix);
-
-        if( defined($variable) )
-        {
-            return constant($variable);
-        }
-        elseif( defined($var) )
-        {
-            return constant($var);
-        }
-        else
-        {
-            if( is_numeric($var) )
-            {
-                return (int) $var;
-            }
-
-            return $var;
-        }
+        return Helper::toConstant($var, $prefix, $suffix);
     }
 
     /**

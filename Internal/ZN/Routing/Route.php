@@ -11,6 +11,7 @@
 
 use ZN\Base;
 use ZN\Lang;
+use ZN\Helper;
 use ZN\Kernel;
 use ZN\Config;
 use ZN\Request;
@@ -18,7 +19,6 @@ use ZN\Security;
 use ZN\Singleton;
 use ZN\Restoration;
 use ZN\Request\URI;
-use ZN\Helpers\Logger;
 use ZN\DataTypes\Arrays;
 use ZN\DataTypes\Strings;
 use ZN\ErrorHandling\Errors;
@@ -771,7 +771,7 @@ class Route implements RouteInterface
 
         if( empty($invalidRequest['page']) )
         {
-            Logger::report('Error', Lang::select('Error', 'invalidRequest'), 'InvalidRequestError');
+            Helper::report('Error', Lang::select('Error', 'invalidRequest'), 'InvalidRequestError');
             Base::trace(Lang::select('Error', 'invalidRequest'));
         }
         else
@@ -793,7 +793,7 @@ class Route implements RouteInterface
     {
         if( ! $routeShow404 = $this->getConfig['show404'] )
         {
-            Logger::report('Error', Lang::select('Error', $lang, $function), $report);
+            Helper::report('Error', Lang::select('Error', $lang, $function), $report);
             
             exit(Errors::message('Error', $lang, $function));
         }

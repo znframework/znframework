@@ -37,4 +37,16 @@ class Datatype
 
         return $arrayEx[$ind] ?? false;
     }
+
+    /**
+     * Split Upper Case
+     * 
+     * @param string $string
+     * 
+     * @return array
+     */
+    public static function splitUpperCase(String $string) : Array
+    {
+        return preg_split('/(?=[A-Z])/', $string, -1, PREG_SPLIT_NO_EMPTY);
+    }
 }

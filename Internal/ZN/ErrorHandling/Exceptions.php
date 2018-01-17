@@ -11,10 +11,8 @@
 
 use ZN\Lang;
 use ZN\Config;
+use ZN\Helper;
 use ZN\Inclusion;
-use ZN\Helpers\Converter;
-use ZN\Helpers\Logger;
-use ZN\DataTypes\Strings;
 
 class Exceptions extends \Exception implements ExceptionsInterface
 {   
@@ -102,7 +100,7 @@ class Exceptions extends \Exception implements ExceptionsInterface
         $lang    = Lang::select('Templates');
         $message = $lang['line'].':'.$line.', '.$lang['file'].':'.$file.', '.$lang['message'].':'.$msg;
 
-        Logger::report('ExceptionError', $message, 'ExceptionError');
+        Helper::report('ExceptionError', $message, 'ExceptionError');
 
         $table = self::_template($msg, $file, $line, $no, $trace);
 
@@ -229,7 +227,7 @@ class Exceptions extends \Exception implements ExceptionsInterface
      */
     protected static function _cleanClassName($class)
     {
-        return str_ireplace(INTERNAL_ACCESS, '', Strings\Split::divide($class, '\\', -1));
+        return str_ireplace(INTERNAL_ACCESS, '', Datatype::divide($class, '\\', -1));
     }
 
     /**
@@ -348,7 +346,7 @@ class Exceptions extends \Exception implements ExceptionsInterface
         $argument = ! empty($match[1]) ? $match[1] : NULL;
         $class    = ! empty($match[2]) ? $match[2] : NULL;
         $method   = ! empty($match[3]) ? $match[3] : NULL;
-        $type     = ! empty($match[4]) ? strtolower(Strings\Split::divide($match[4], '\\', -1)) : NULL;
+        $type     = ! empty($match[4]) ? strtolower(Datatype::divide($match[4], '\\', -1)) : NULL;
         $data     = ! empty($match[5]) ? strtolower($match[5]) : NULL;
 
         if( empty($match) )
@@ -462,7 +460,7 @@ class Exceptions extends \Exception implements ExceptionsInterface
             (str_replace(self::cleanEOL($file) ? EOL : NULL, NULL, $line) ?? NULL);
         }
 
-        echo str_replace(['<div style="">&#60;&#63;php<br />', '{!!!!}'], [NULL, $errorBlock], Converter::highlight($newdata, 
+        echo str_replace(['<div style="">&#60;&#63;php<br />', '{!!!!}'], [NULL, $errorBlock], Helper::highlight($newdata, 
         [
             'default:color' => '#ccc',
             'keyword:color' => '#00BFFF',

@@ -9,7 +9,6 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\Helpers\Logger;
 use ZN\DataTypes\Strings;
 use ZN\ErrorHandling\Errors;
 use ZN\Inclusion\Project\View;
@@ -310,7 +309,7 @@ class In
             echo $benchResult;
 
             # Report log
-            Logger::report('Benchmarking Test Result', $benchResult, 'BenchmarkTestResults');
+            Helper::report('Benchmarking Test Result', $benchResult, 'BenchmarkTestResults');
         }
 
         # The layer that came in after the whole system.
@@ -378,7 +377,7 @@ class In
 
             if( ! is_callable([$controllerClass, $controllerFunc]) )
             {
-                Logger::report('Error', Lang::select('Error', 'callUserFuncArrayError', $controllerFunc), 'SystemCallUserFuncArrayError');
+                Helper::report('Error', Lang::select('Error', 'callUserFuncArrayError', $controllerFunc), 'SystemCallUserFuncArrayError');
 
                 throw new Exception('Error', 'callUserFuncArrayError', $controllerFunc);
             }

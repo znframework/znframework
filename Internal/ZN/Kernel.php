@@ -9,7 +9,6 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\Helpers\Logger;
 use ZN\ErrorHandling\Errors;
 use ZN\Inclusion\Project\Theme;
 use ZN\ErrorHandling\Exceptions;
@@ -167,7 +166,7 @@ class Kernel
             # If the request is invalid, it will be redirected.
             if( ! is_callable([$page, $function]) )
             {
-                Logger::report('InvalidRequest', "Invalid request made to {$page}/{$function} page!");
+                Helper::report('InvalidRequest', "Invalid request made to {$page}/{$function} page!");
 
                 Response::redirect(Config::get('Services', 'route')['show404']);
             }
@@ -287,7 +286,7 @@ class Kernel
                        $lang['file']   .':'.$errorLast['file'].', '.
                        $lang['message'].':'.$errorLast['message'];
 
-            Logger::report('GeneralError', $message);
+            Helper::report('GeneralError', $message);
         }
 
         if( PROJECT_MODE !== 'publication' ) 
@@ -357,7 +356,7 @@ class Kernel
         {
             $path = Base::suffix($composer) . $path;
 
-            Logger::report('Error', Lang::select('Error', 'fileNotFound', $path) ,'AutoloadComposer');
+            Helper::report('Error', Lang::select('Error', 'fileNotFound', $path) ,'AutoloadComposer');
 
             throw new Exception('Error', 'fileNotFound', $path);
         }

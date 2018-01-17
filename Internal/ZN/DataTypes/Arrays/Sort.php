@@ -9,7 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\Helpers\Converter;
+use ZN\Helper;
 
 class Sort
 {
@@ -24,7 +24,7 @@ class Sort
     //--------------------------------------------------------------------------------------------------------
     public static function order(Array $array, String $type = NULL, String $flags = 'regular') : Array
     {
-        $flags = Converter::toConstant($flags, 'SORT_');
+        $flags = Helper::toConstant($flags, 'SORT_');
 
         switch($type)
         {

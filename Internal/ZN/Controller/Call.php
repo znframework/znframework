@@ -10,7 +10,7 @@
  */
 
 use ZN\ErrorHandling\Errors;
-use ZN\DataTypes\Strings;
+use ZN\Datatype;
 use ZN\Exception;
 
 class Call extends Base
@@ -29,7 +29,7 @@ class Call extends Base
         (
             'Error',
             'undefinedFunction',
-            Strings\Split::divide(str_ireplace(INTERNAL_ACCESS, '', get_called_class()), '\\', -1)."::$method()"
+            Datatype::divide(str_ireplace(INTERNAL_ACCESS, '', get_called_class()), '\\', -1)."::$method()"
         );
     }
 }

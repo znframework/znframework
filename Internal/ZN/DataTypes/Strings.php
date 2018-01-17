@@ -9,8 +9,8 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
+use ZN\Helper;
 use ZN\Controller\Factory;
-use ZN\Helpers\Converter;
 use ZN\Ability\Functionalization;
 
 class Strings extends Factory
@@ -91,7 +91,7 @@ class Strings extends Factory
     //--------------------------------------------------------------------------------------------------------
     public static function pad(String $string, Int $count = 1, String $chars = ' ', String $type = 'right') : String
     {
-        return str_pad($string, $count, $chars, Converter::toConstant($type, 'STR_PAD_'));
+        return str_pad($string, $count, $chars, Helper::toConstant($type, 'STR_PAD_'));
     }
 
     //--------------------------------------------------------------------------------------------------------
