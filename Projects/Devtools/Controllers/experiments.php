@@ -22,7 +22,7 @@ class Experiments extends Controller
     //--------------------------------------------------------------------------------------------------------
     public function main(String $params = NULL)
     {
-        $this->masterpage->page = 'experiment';
+        Masterpage::page('experiment');
     }
 
     //--------------------------------------------------------------------------------------------------------

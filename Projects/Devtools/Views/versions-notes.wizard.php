@@ -35,7 +35,7 @@
 
 </div>
 
-@@Form::close():
+@Form::close():
 
 @Import::plugin(array
 (

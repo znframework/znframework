@@ -9,9 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\Request\Http;
 use ZN\Helpers\Logger;
-use ZN\Response\Redirect;
 use ZN\ErrorHandling\Errors;
 use ZN\Inclusion\Project\Theme;
 use ZN\ErrorHandling\Exceptions;
@@ -58,7 +56,7 @@ class Kernel
         $htaccess = Config::get('Htaccess');
 
         # OB process is starting.
-        if( $htaccess['cache']['obGzhandler'] && substr_count(Base::server('acceptEncoding'), 'gzip') )
+        if( $htaccess['cache']['obGzhandler'] && substr_count($_SERVER['HTTP_ACCEPT_ENCODING'] ?? NULL, 'gzip') )
         {
             ob_start('ob_gzhandler');
         }
@@ -102,7 +100,7 @@ class Kernel
         # Sets the system's language.
         if( Lang::current() )
         {
-            $langFix = str_ireplace([Base::suffix((string) Base::illustrate('_CURRENT_PROJECT'))], '', Base::server('currentPath'));
+            $langFix = str_ireplace([Base::suffix((string) Base::illustrate('_CURRENT_PROJECT'))], '', Base::currentPath());
             $langFix = explode('/', $langFix)[1] ?? NULL;
 
             if( strlen($langFix) === 2 )
@@ -171,7 +169,7 @@ class Kernel
             {
                 Logger::report('InvalidRequest', "Invalid request made to {$page}/{$function} page!");
 
-                new Redirect(Config::get('Services', 'route')['show404']);
+                Response::redirect(Config::get('Services', 'route')['show404']);
             }
         }
         
@@ -179,10 +177,10 @@ class Kernel
         self::viewPathFinder($function, $viewPath, $wizardPath);
 
         # The controller is being called.
-        ($pageClass = Singleton::class($page))->$function(...$parameters);
+        Singleton::class($page)->$function(...$parameters);
         
         # The view is automatically loading.
-        self::viewAutoload($wizardPath, $viewPath, (array) $pageClass->view, (array) $pageClass->masterpage);          
+        self::viewAutoload($wizardPath, $viewPath);          
 
         # This layer comes into play after your core works.
         # The codes in the other layer will run before this layer.
@@ -226,26 +224,24 @@ class Kernel
      * 
      * @param string $wizardPath
      * @param string $viewPath
-     * @param array  $data
-     * @param array  $pageClassMasterpage
      * 
      * @return void
      */
-    public static function viewAutoload($wizardPath, $viewPath, $data, $pageClassMasterpage)
+    public static function viewAutoload($wizardPath, $viewPath)
     {
         # 5.3.62[added]|5.3.77[edited]
-        if( Config::get('ViewObjects', 'ajaxCodeContinue') === false && Http::isAjax() )
+        if( Config::get('ViewObjects', 'ajaxCodeContinue') === false && Request::isAjax() )
         {
             return;
         }
         
         if( is_file($wizardPath) && ! IS::import($viewPath) && ! IS::import($wizardPath) )
         {
-            $usableView = self::_load($wizardPath, $data);
+            $usableView = self::_load($wizardPath);
         }
         elseif( is_file($viewPath) && ! IS::import($viewPath) && ! IS::import($wizardPath) )
         {
-            $usableView = self::_load($viewPath, $data);
+            $usableView = self::_load($viewPath);
         }
 
         if( ! empty($masterpageData = In::$masterpage) )
@@ -257,7 +253,7 @@ class Kernel
             $inData = [];
         }
 
-        $data = array_merge((array) $pageClassMasterpage, $inData, Masterpage::$data);
+        $data = array_merge($inData, Masterpage::$data);
         
         if( ($data['masterpage'] ?? NULL) === true || ! empty($data) )
         {
@@ -400,12 +396,11 @@ class Kernel
      * protected load view
      * 
      * @param string $path
-     * @param array  $data
      * 
      * @return mixed
      */
-    protected static function _load($path, $data)
+    protected static function _load($path)
     {
-        return Inclusion\View::use(str_replace(PAGES_DIR, NULL, $path), $data, true);
+        return Inclusion\View::use(str_replace(PAGES_DIR, NULL, $path), NULL, true);
     }
 }

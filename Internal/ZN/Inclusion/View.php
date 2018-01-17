@@ -10,10 +10,8 @@
  */
 
 use ZN\In;
-use ZN\IS;
 use ZN\Base;
 use ZN\Buffering;
-use ZN\Request\URL;
 use ZN\TemplateEngine;
 use ZN\Inclusion\Project\Theme;
 use ZN\Inclusion\Project\View as Views;

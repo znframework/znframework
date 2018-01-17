@@ -9,9 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\Base;
 use ZN\IS;
-use ZN\Request\URL;
+use ZN\Base;
+use ZN\Request;
 
 class Theme
 {
@@ -58,7 +58,7 @@ class Theme
 
                     if( is_file(THEMES_DIR . $suffix) )
                     {
-                        return str_replace($path, URL::base(THEMES_DIR) . $suffix, $orig);
+                        return str_replace($path, Request::getBaseURL(THEMES_DIR) . $suffix, $orig);
                     }
                 }     
 

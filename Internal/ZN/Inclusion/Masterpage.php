@@ -10,8 +10,8 @@
  */
 
 use ZN\Config;
+use ZN\Request;
 use ZN\Hypertext;
-use ZN\Request\URL;
 use ZN\DataTypes\Arrays;
 
 class Masterpage
@@ -237,7 +237,7 @@ class Masterpage
     protected function _bgImage($backgroundImage)
     {
         $bgImage = ( ! empty($backgroundImage) && is_file($backgroundImage) )
-                 ? ' background="'.URL::base($backgroundImage).'" bgproperties="fixed"'
+                 ? ' background="'.Request::getBaseURL($backgroundImage).'" bgproperties="fixed"'
                  : '';
                  
         return $bgImage;
@@ -254,7 +254,7 @@ class Masterpage
     {
         if( ! empty($browserIcon) && is_file($browserIcon) )
         {
-           return '<link rel="shortcut icon" href="'.URL::base($browserIcon).'" />'.EOL;
+           return '<link rel="shortcut icon" href="'.Request::getBaseURL($browserIcon).'" />'.EOL;
         }
 
         return NULL;

@@ -30,7 +30,11 @@ class Version extends Controller
         }
 
         Import::handload('Functions');
-        $this->masterpage->pdata['notes'] = $versions;
-        $this->masterpage->page           = 'versions-notes';
+        
+        $pdata['notes'] = $versions;
+
+        Masterpage::page('versions-notes');
+
+        Masterpage::pdata($pdata);
     }
 }

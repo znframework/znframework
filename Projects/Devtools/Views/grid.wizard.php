@@ -1,15 +1,15 @@
-@@Form::id('gridForm')->open('gridForm'):
+@Form::id('gridForm')->open('gridForm'):
 <div class="row">
     <div class="col-lg-11">
         <h1 class="page-header">
-            @@LANG['grids']: <small> {{LANG['overview']}}</small>
+            @LANG['grids']: <small> {{LANG['overview']}}</small>
         </h1>
     </div>
 
     <div class="col-lg-1">
         <h1 class="pull-right page-header">
-            @@Form::class('btn btn-info')->onclick('submitPage(event)')->button('show', LANG['showButton']):
-            @@Form::hidden('show', 1):
+            @Form::class('btn btn-info')->onclick('submitPage(event)')->button('show', LANG['showButton']):
+            @Form::hidden('show', 1):
         </h1>
     </div>
 </div>
@@ -24,7 +24,7 @@
 
                 <div class="form-group">
                     <label>{{LANG['selectTable']}}</label>
-                    @@Form::class('form-control')->onchange('changeDefaultJoinTable(this)')->select('table', $tables, $selectTable):
+                    @Form::class('form-control')->onchange('changeDefaultJoinTable(this)')->select('table', $tables, $selectTable):
                 </div>
             </div>
         </div>
@@ -62,7 +62,7 @@
 
             <div id="columnsCollapse" class="collapse panel-body">
                 <div class="form-group">
-                    @@Form::class('form-control')->placeholder('table.column as Columns, table2.column2 as Columns2')->text('viewColumns', $viewColumns):
+                    @Form::class('form-control')->placeholder('table.column as Columns, table2.column2 as Columns2')->text('viewColumns', $viewColumns):
                 </div>
             </div>
 
@@ -80,15 +80,15 @@
 
             <div id="saveCollapse" class="collapse panel-body">
                 <div class="form-group">
-                    @@Form::class('form-control')->id('saves')->select('saves', $saves):
+                    @Form::class('form-control')->id('saves')->select('saves', $saves):
                 </div>
                 <div class="form-group">
-                    @@Form::class('form-control')->id('saveName')->placeholder('File Name')->text('saveName'):
+                    @Form::class('form-control')->id('saveName')->placeholder('File Name')->text('saveName'):
                 </div>
                 <div class="form-group">
-                    @@Form::class('btn btn-success')->onclick('saveJoin()')->button('save', LANG['saveButton']):
-                    @@Form::class('btn btn-info')->onclick('loadJoin()')->button('load', LANG['loadButton']):
-                    @@Form::class('btn btn-danger')->onclick('deleteJoin()')->button('delete', LANG['deleteButton']):
+                    @Form::class('btn btn-success')->onclick('saveJoin()')->button('save', LANG['saveButton']):
+                    @Form::class('btn btn-info')->onclick('loadJoin()')->button('load', LANG['loadButton']):
+                    @Form::class('btn btn-danger')->onclick('deleteJoin()')->button('delete', LANG['deleteButton']):
                 </div>
 
             </div>
@@ -97,7 +97,7 @@
     </div>
 </div>
 
-@@Form::close():
+@Form::close():
 
 <div class="row">
     <div class="col-lg-12">
@@ -156,7 +156,7 @@ function getColumns(obj, id, type)
 
     $.ajax
     ({
-        url/:"@@URL::site('system/gridGetColumnsAjax'):",
+        url/:"@URL::site('system/gridGetColumnsAjax'):",
     	data/:'table=' + $(obj).val() + '&type=' + type,
     	method/:"post",
     	success/:function(data)
@@ -170,7 +170,7 @@ function submitPage(e)
 {
     $.ajax
     ({
-        url/:"@@URL::site('system/grid'):",
+        url/:"@URL::site('system/grid'):",
     	data/:$('/#gridForm').serialize() + '&joinsCollapse=' + encodeURIComponent($('/#joinsCollapse').html()),
         method/:"post",
     	success/:function(data)
@@ -184,7 +184,7 @@ function saveJoin()
 {
     $.ajax
     ({
-        url/:"@@URL::site('system/gridSaveAjax'):",
+        url/:"@URL::site('system/gridSaveAjax'):",
     	data/:'content=' + encodeURIComponent(document.documentElement.innerHTML) + '&saveName=' + $('/#saveName').val(),
         method/:"post",
     	success/:function(data)
@@ -198,7 +198,7 @@ function loadJoin()
 {
     $.ajax
     ({
-        url/:"@@URL::site('system/gridLoadAjax'):",
+        url/:"@URL::site('system/gridLoadAjax'):",
     	data/:'saves=' + $('/#saves').val(),
         method/:"post",
     	success/:function(data)
@@ -215,7 +215,7 @@ function deleteJoin()
 {
     $.ajax
     ({
-        url/:"@@URL::site('system/gridDeleteAjax'):",
+        url/:"@URL::site('system/gridDeleteAjax'):",
     	data/:'delete=' + $('/#saves').val(),
         method/:"post",
     	success/:function(data)

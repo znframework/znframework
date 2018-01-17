@@ -13,5 +13,5 @@ class Route
 {
     use ZN\Ability\Facade;
 
-    const target = 'ZN\Response\Route';
+    const target = 'ZN\Routing\Route';
 }

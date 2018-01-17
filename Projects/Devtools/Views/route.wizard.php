@@ -8,7 +8,7 @@
 
                 <div class="form-group">
                     <label>{{LANG['routeName']}}</label>
-                    @@Form::required()->class('form-control')->placeholder('Routes/RouteName')->text('route'):
+                    @Form::required()->class('form-control')->placeholder('Routes/RouteName')->text('route'):
                 </div>
             </div>
         </div>

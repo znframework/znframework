@@ -27,8 +27,8 @@ class Datatables extends Controller
     //--------------------------------------------------------------------------------------------------------
     public function main(String $params = NULL)
     {
-        $this->masterpage->pdata['tables'] = DBTool::listTables();
-        $this->masterpage->page = 'datatable';
+        Masterpage::pdata(['tables' => DBTool::listTables()]);
+        Masterpage::page('datatable');
     }
 
     //--------------------------------------------------------------------------------------------------------

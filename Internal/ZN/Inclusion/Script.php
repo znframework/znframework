@@ -9,10 +9,10 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\Inclusion\Project\Theme;
 use ZN\IS;
 use ZN\Base;
-use ZN\Request\URL;
+use ZN\Request;
+use ZN\Inclusion\Project\Theme;
 
 class Script extends BootstrapExtends
 {
@@ -80,7 +80,7 @@ class Script extends BootstrapExtends
                 {
                     if( is_file($scriptFile) )
                     {
-                        $str .= self::tag(URL::base($scriptFile));
+                        $str .= self::tag(Request::getBaseURL($scriptFile));
                     }
                     elseif( $lowerLinkName = ($links[strtolower($script)] ?? NULL) )
                     {

@@ -28,8 +28,8 @@
 
                         </tr>
                         <tr>
-                            <th>@@Form::onclick('alterTable(\'php\', \'RunPHPCode\')')->class('form-control btn btn-info')->button('update', LANG['runPHPButton']):</th>
-                            <th>@@Form::onclick('alterTable(\'sql\', \'RunSQLCode\')')->class('form-control btn btn-info')->button('update', LANG['runSQLButton']):</th>
+                            <th>@Form::onclick('alterTable(\'php\', \'RunPHPCode\')')->class('form-control btn btn-info')->button('update', LANG['runPHPButton']):</th>
+                            <th>@Form::onclick('alterTable(\'sql\', \'RunSQLCode\')')->class('form-control btn btn-info')->button('update', LANG['runSQLButton']):</th>
 
                         </tr>
                     </thead>
@@ -104,7 +104,7 @@ function alterTable(type, id)
     
     $.ajax
     ({
-        url/:"@@URL::site('experiments/alterTable'):",
+        url/:"@URL::site('experiments/alterTable'):",
     	data/:'content=' + encodeURIComponent(content) + '&type=' + type,
     	method/:"post",
     	success/:function(data)

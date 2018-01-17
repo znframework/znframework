@@ -9,9 +9,6 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\Request\URL;
-use ZN\Request\URI;
-use ZN\Request\Http;
 use ZN\Helpers\Logger;
 use ZN\DataTypes\Strings;
 use ZN\ErrorHandling\Errors;
@@ -86,9 +83,9 @@ class In
 
             if( ! empty($requestMethod = $requestMethods[CURRENT_CFURI] ?? NULL) )
             {
-                if( Http::isRequestMethod(...(array) $requestMethod) === $bool )
+                if( Request::isMethod(...(array) $requestMethod) === $bool )
                 {
-                    Singleton::class('ZN\Response\Route')->redirectInvalidRequest();
+                    Singleton::class('ZN\Routing\Route')->redirectInvalidRequest();
                 }
             }
         }
@@ -109,11 +106,11 @@ class In
 
             if( ! empty($containers[_CURRENT_PROJECT]) )
             {
-                return md5(URL::base(strtolower($containers[_CURRENT_PROJECT])) . $fix);
+                return md5(Request::getBaseURL(strtolower($containers[_CURRENT_PROJECT])) . $fix);
             }
         }
 
-        return md5(URL::base(strtolower(CURRENT_PROJECT)) . $fix);
+        return md5(Request::getBaseURL(strtolower(CURRENT_PROJECT)) . $fix);
     }
 
     /**
@@ -154,7 +151,7 @@ class In
      */
     public static function requestURI() : String
     {
-        $requestUri = URI::active();
+        $requestUri = Request::getActiveURL();
         $requestUri = self::cleanInjection(self::routeURI(rtrim($requestUri, '/')));
 
         return (string) $requestUri;
@@ -200,7 +197,7 @@ class In
                 require $file;
             }
 
-            Singleton::class('ZN\Response\Route')->all();
+            Singleton::class('ZN\Routing\Route')->all();
         }
     }
 
@@ -411,8 +408,8 @@ class In
 
             $return = $startingControllerClass->$controllerFunc(...$param);
 
-            self::$view[]       = array_merge((array) $startingControllerClass->view, View::$data);
-            self::$masterpage[] = array_merge((array) $startingControllerClass->masterpage, Masterpage::$data);
+            self::$view[]       = View::$data;
+            self::$masterpage[] = Masterpage::$data;
         }
         else
         {

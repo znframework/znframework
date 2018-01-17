@@ -9,6 +9,8 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
+use ZN\Exception\FolderNotFoundException;
+
 class Filesystem
 {
     /**
@@ -55,6 +57,127 @@ class Filesystem
         }
 
         return mkdir($file, $permission, $recursive);
+    }
+
+    /**
+     * Used to delete a directory along with its contents.
+     * 
+     * @param string $name
+     * 
+     * @return bool
+     */
+    public static function deleteFolder(String $name) : Bool
+    {
+        if( is_file($name) )
+        {
+            return unlink($name);
+        }
+        else
+        {
+            $getFiles = self::getFiles($name);
+
+            if( ! empty($getFiles) )
+            {
+                for( $i = 0; $i < count($getFiles); $i++ )
+                {
+                    foreach( $getFiles as $val )
+                    {
+                        self::deleteFolder($name."/".$val);
+                    }
+                }
+            }
+
+            return self::deleteEmptyFolder($name);
+        }
+    }
+
+    /**
+     * Used to delete an empty directory.
+     * 
+     * @param string $folder
+     * 
+     * @return bool
+     */
+    public static function deleteEmptyFolder(String $folder) : Bool
+    {
+        if( ! is_dir($folder) )
+        {
+           return false;
+        }
+
+        return rmdir($folder);
+    }
+
+    /**
+     * Creates a file.
+     * 
+     * @param string $name
+     * 
+     * @return bool
+     */
+    public static function createFile(String $name) : Bool
+    {
+        if( ! is_file($name) )
+        {
+            return touch($name);
+        }
+
+        return false;
+    }
+
+    /**
+     * Used to copy a directory to another specified location. 
+     * This includes other subdirectories and files of the directory to be copied.
+     * 
+     * @param string $source
+     * @param string $target
+     * 
+     * @return bool
+     */
+    public static function copy(String $source, String $target) : Bool
+    {
+        if( ! file_exists($source) )
+        {
+            throw new FolderNotFoundException($source);
+        }
+
+        if( is_dir($source) )
+        {
+            if( ! self::getFiles($source) )
+            {
+                $emptyFilePath = Base::suffix($source, DS) . 'empty';
+
+                self::createFile($emptyFilePath);
+
+                return copy($emptyFilePath, $target);
+            }
+            else
+            {
+                if( ! is_dir($target) && ! file_exists($target) )
+                {
+                    self::createFolder($target);
+                }
+
+                if( is_array($getFiles = self::getFiles($source)) ) foreach( $getFiles as $val )
+                {
+                    $sourceDir = $source."/".$val;
+                    $targetDir = $target."/".$val;
+
+                    if( is_file($sourceDir) )
+                    {
+                        copy($sourceDir, $targetDir);
+                    }
+
+                    self::copy($sourceDir, $targetDir);
+                }
+
+                return true;
+            }
+        }
+        else
+        {
+            return copy($source, $target);
+        }
     }
 
     /**

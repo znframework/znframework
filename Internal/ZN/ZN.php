@@ -9,8 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\Request\URI;
-use ZN\Response\Route;
+use ZN\Routing\Route;
 use ZN\Services\Restful;
 use ZN\Helpers\Converter;
 use ZN\Authentication\IP;

@@ -1,14 +1,14 @@
-@@Form::open():
+@Form::open():
 <div class="row">
     <div class="col-lg-11">
         <h1 class="page-header">
-            @@LANG['documentation']: <small> {{LANG['overview']}}</small>
+            @LANG['documentation']: <small> {{LANG['overview']}}</small>
         </h1>
     </div>
 
     <div class="col-lg-1">
         <h1 class="page-header">
-            @@Form::class('btn btn-info')->submit('refresh', LANG['refreshButton']):
+            @Form::class('btn btn-info')->submit('refresh', LANG['refreshButton']):
         </h1>
     </div>
 </div>
@@ -22,13 +22,13 @@
             <div class="panel-heading">
                 <h3 style="cursor:pointer" data-toggle="collapse" data-target="/#id{{$key}}" class="panel-title">
                     <i class="fa fa-book fa-fw"></i>
-                    @@Separator::decode($doc->title ?? $doc->meta_keyword)->{Lang::get()}:
+                    @Separator::decode($doc->title ?? $doc->meta_keyword)->{Lang::get()}:
                     <span><i class="fa fa-angle-down fa-fw"></i></span>
                 </h3>
             </div>
             <div id="id{{$key}}" class="collapse panel-body">
                 <div class="list-group">
-                    @@specialWord(Separator::decode($doc->content)->{Lang::get()}):
+                    @specialWord(Separator::decode($doc->content)->{Lang::get()}):
                 </div>
             </div>
         </div>
@@ -37,7 +37,7 @@
 
 </div>
 
-@@Form::close():
+@Form::close():
 
 @Import::plugin(array
 (

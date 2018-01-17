@@ -9,12 +9,12 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\Request\URL;
-use ZN\Inclusion\Exception\InvalidArgumentException;
-use ZN\DataTypes\Strings;
-use ZN\Filesystem;
-use ZN\Buffering;
 use ZN\Base;
+use ZN\Request;
+use ZN\Buffering;
+use ZN\Filesystem;
+use ZN\DataTypes\Strings;
+use ZN\Inclusion\Exception\InvalidArgumentException;
 
 class Something
 {
@@ -44,7 +44,7 @@ class Something
         $eol = EOL;
 
         $randomPageVariableExtension = Filesystem\Extension::get($randomPageVariable);
-        $randomPageVariableBaseUrl   = URL::base($randomPageVariable);
+        $randomPageVariableBaseUrl   = Request::getBaseURL($randomPageVariable);
 
         $return = '';
 

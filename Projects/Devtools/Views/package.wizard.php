@@ -1,4 +1,4 @@
-@@Form::open():
+@Form::open():
 <div class="row">
     <div class="col-lg-11">
         <h1 class="page-header">
@@ -9,7 +9,7 @@
 
     <div class="col-lg-1">
         <h1 class="page-header">
-            @@Form::class('btn btn-info')->submit('search', LANG['searchButton']):
+            @Form::class('btn btn-info')->submit('search', LANG['searchButton']):
         </h1>
     </div>
 </div>
@@ -24,7 +24,7 @@
 
                 <div class="form-group">
                     <label>{{LANG['name']}}</label>
-                    @@Form::required()->class('form-control')->placeholder('Packagist Package Name/: Example/: monolog/monolog')->text('name', Validation::postBack('name')):
+                    @Form::required()->class('form-control')->placeholder('Packagist Package Name/: Example/: monolog/monolog')->text('name', Validation::postBack('name')):
                 </div>
 
             </div>
@@ -112,7 +112,7 @@
 
 @endif:
 
-@@Form::close():
+@Form::close():
 
 <script>
 

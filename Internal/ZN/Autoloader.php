@@ -742,7 +742,7 @@ class Autoloader
 
             # 5.0.3[edited]
             # QUERY_STRING & REQUEST URI Empty Control
-            if( empty($currentPath) && ($requestUri = Base::server('requestUri')) !== '/' )
+            if( empty($currentPath) && ($requestUri = ($_SERVER['REQUEST_URI'] ?? false)) !== '/' )
             {
                 $currentPath = $requestUri;
             }

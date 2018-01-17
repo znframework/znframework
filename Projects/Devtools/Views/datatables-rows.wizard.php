@@ -1,4 +1,4 @@
-@@Form::id($table)->open($table):
+@Form::id($table)->open($table):
 <table class="table table-bordered table-hover table-striped">
 
     <thead>
@@ -28,12 +28,12 @@
             ]}
             <th>@$column:<span class="text-muted">({{$dataTypesChange = DATATYPESCHANGE[$columnDetail->type] ?? $columnDetail->type}})</span> {{$dropColumn ?? NULL}} {{$modifyColumn ?? NULL}}
                 <div class="collapse" id="modifyColumn{{$table.$column}}">
-                    @@Form::class('form-control')->id($table.$column.'columnName')->text('columnName', $column):
-                    @@Form::class('form-control')->id($table.$column.'type')->select('type', DATATYPES, $dataTypesChange):
-                    @@Form::class('form-control')->id($table.$column.'maxLength')->placeholder('Length')->text('maxLength', $columnDetail->maxLength):
-                    @@Form::class('form-control')->id($table.$column.'isNull')->select('isNull', NULLTYPES):
-                    @@Form::class('form-control')->id($table.$column.'default')->placeholder('Default')->text('default'):
-                    @@Form::class('form-control btn btn-info')->onclick('modifyColumn(\''.$table.'\', \''.$column.'\', \'/#table-'.$table.'\')')->button('modifyColumnButton', LANG['modifyColumnButton']):
+                    @Form::class('form-control')->id($table.$column.'columnName')->text('columnName', $column):
+                    @Form::class('form-control')->id($table.$column.'type')->select('type', DATATYPES, $dataTypesChange):
+                    @Form::class('form-control')->id($table.$column.'maxLength')->placeholder('Length')->text('maxLength', $columnDetail->maxLength):
+                    @Form::class('form-control')->id($table.$column.'isNull')->select('isNull', NULLTYPES):
+                    @Form::class('form-control')->id($table.$column.'default')->placeholder('Default')->text('default'):
+                    @Form::class('form-control btn btn-info')->onclick('modifyColumn(\''.$table.'\', \''.$column.'\', \'/#table-'.$table.'\')')->button('modifyColumnButton', LANG['modifyColumnButton']):
                 </div>
             </th>
 
@@ -62,7 +62,7 @@
                     <thead>
                         <tr>
                             @foreach( $columns as $key => $column):
-                                <th>@@Form::disabled()->class('form-control')->text('addColumn', $column):</th>
+                                <th>@Form::disabled()->class('form-control')->text('addColumn', $column):</th>
                             @endforeach:
 
                         </tr>
@@ -89,7 +89,7 @@
 
                         <tr>
                             <td colspan="{{count($columns) + 1}}">
-                                @@Form::onclick('addRow(\''.$table.'\', \'/#table-'.$table.'\')')->class('form-control btn btn-info')->button('update', LANG['addButton']):
+                                @Form::onclick('addRow(\''.$table.'\', \'/#table-'.$table.'\')')->class('form-control btn btn-info')->button('update', LANG['addButton']):
                             </td>
 
                         <tr>
@@ -120,7 +120,7 @@
                                 echo Form::hidden('columns['.$column.']', $column);
                             ]}
 
-                            <th>@@Form::disabled()->class('form-control')->text('columns['.$column.']', $column):</th>
+                            <th>@Form::disabled()->class('form-control')->text('columns['.$column.']', $column):</th>
                             @endforeach:
 
                         </tr>
@@ -155,7 +155,7 @@
                         <tr>
                             <td colspan="{{count($columns) + 1}}">
 
-                                @@Form::onclick('updateRows(\''.$table.'\', \'/#table-'.$table.'\', \''.$uniqueKey.'\')')->class('form-control btn btn-info')->button('update', LANG['updateButton']):
+                                @Form::onclick('updateRows(\''.$table.'\', \'/#table-'.$table.'\', \''.$uniqueKey.'\')')->class('form-control btn btn-info')->button('update', LANG['updateButton']):
 
                             </td>
 
@@ -172,10 +172,10 @@
         @foreach( $result as $key => $row ):
         <tr>
             @foreach( $columns as $column):
-            <td>@@Limiter::word((string) $row[$column], 10):</td>
+            <td>@Limiter::word((string) $row[$column], 10):</td>
             @endforeach:
             <td>
-                <span style="cursor: pointer;" class="pull-right"><i onclick="deleteRow('{{$table}}', '@@Arrays::getFirst($columns):', '@@Arrays::getFirst($row):', '/#table-{{$table}}')" class="fa fa-trash-o fa-fw" title="Delete"></i></span>
+                <span style="cursor: pointer;" class="pull-right"><i onclick="deleteRow('{{$table}}', '@Arrays::getFirst($columns):', '@Arrays::getFirst($row):', '/#table-{{$table}}')" class="fa fa-trash-o fa-fw" title="Delete"></i></span>
                 <span data-target="/#{{$table}}updateColumn{{$row[$uniqueKey]}}" data-toggle="collapse" style="cursor: pointer;" class="pull-right"><i class="fa fa-edit fa-fw" title="Edit Column"></i></span>
 
             </td>
@@ -197,7 +197,7 @@
             @endforeach:
 
             <td>
-                @@Form::onclick('updateRow(\''.$table.'\', \''.$row[$uniqueKey].'\', \'/#table-'.$table.'\', \''.$uniqueKey.'\')')->class('form-control btn btn-info')->button('update', LANG['updateButton']):
+                @Form::onclick('updateRow(\''.$table.'\', \''.$row[$uniqueKey].'\', \'/#table-'.$table.'\', \''.$uniqueKey.'\')')->class('form-control btn btn-info')->button('update', LANG['updateButton']):
             </td>
         </tr>
         @endforeach:
@@ -218,4 +218,4 @@
 
 </table>
 
-@@Form::close():
+@Form::close():

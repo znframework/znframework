@@ -9,8 +9,6 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\Controller\Base;
-
 class Command extends Base
 {
     /**
@@ -22,7 +20,7 @@ class Command extends Base
      */
     public function __construct()
     {
-        if( Base::server('documentRoot') )
+        if( $_SERVER['DOCUMENT_ROOT'] ?? NULL )
         {
             throw new Exception
             (

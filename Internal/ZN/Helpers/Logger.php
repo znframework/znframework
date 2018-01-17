@@ -11,9 +11,9 @@
 
 use ZN\Base;
 use ZN\Config;
+use ZN\Request;
 use ZN\Singleton;
 use ZN\Filesystem;
-use ZN\Request\Request;
 
 class Logger implements LoggerInterface
 {

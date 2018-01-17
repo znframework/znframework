@@ -40,7 +40,7 @@ class Cronjobs extends Controller
     {
         if( PHP_OS !== 'Linux' && PHP_OS !== 'Unix' )
         {
-            return $this->masterpage->error = LANG['availableLinux'];
+            return Masterpage::error(LANG['availableLinux']);
         }
 
         if( Post::create() )
@@ -82,7 +82,7 @@ class Cronjobs extends Controller
 
             if( $status === false )
             {
-                return $this->masterpage->error = LANG['crontabTimeError'];
+                return Masterpage::error(LANG['crontabTimeError']);
             }
             else
             {
@@ -115,9 +115,9 @@ class Cronjobs extends Controller
             }
         }
 
-        $this->masterpage->pdata['list'] = $list ?? [];
+        Masterpage::pdata(['list' => $list ?? []]);
 
-        $this->masterpage->page = 'cronjob';
+        Masterpage::page('cronjob');
     }
 
     //--------------------------------------------------------------------------------------------------------

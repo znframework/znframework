@@ -44,13 +44,14 @@ class Api extends Controller
                 Restful::sslVerifyPeer((bool) $ssl);
             }
 
-            $this->masterpage->pdata['results'] = Restful::$type(Method::post('url'));
+            Masterpage::pdata(['results' => Restful::$type(Method::post('url'))]);
+
 
             $infos = Restful::info('all');
 
-            $this->masterpage->pdata['infos'] = ! empty($infos) ? $infos : Restful::info();
+            Masterpage::pdata(['infos' => ! empty($infos) ? $infos : Restful::info()]);
         }
 
-        $this->masterpage->page  = 'rest-api';
+        Masterpage::page('rest-api');
     }
 }

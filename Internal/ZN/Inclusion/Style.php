@@ -9,10 +9,10 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\Inclusion\Project\Theme;
 use ZN\IS;
 use ZN\Base;
-use ZN\Request\URL;
+use ZN\Request;
+use ZN\Inclusion\Project\Theme;
 
 class Style extends BootstrapExtends
 {
@@ -80,7 +80,7 @@ class Style extends BootstrapExtends
                 {
                     if( is_file($styleFile) )
                     {
-                        $str .= self::tag(URL::base($styleFile));
+                        $str .= self::tag(Request::getBaseURL($styleFile));
                     }
                     elseif( $lowerLinkName = ($links[strtolower($style)] ?? NULL) )
                     {

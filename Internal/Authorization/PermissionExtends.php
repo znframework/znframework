@@ -85,7 +85,7 @@ class PermissionExtends
         }
         else
         {
-            $currentUrl = $process ?? Base::server('currentPath');
+            $currentUrl = $process ?? Base::currentPath();
         }
 
         $object = $object ?? true;

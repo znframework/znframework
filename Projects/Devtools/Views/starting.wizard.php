@@ -9,12 +9,12 @@
             <div class="panel-body">
                 <div class="form-group">
                     <label>{{LANG['viewName']}}</label>
-                    @@Form::required()->class('form-control')->placeholder('Starting/FileName')->text('file'):
+                    @Form::required()->class('form-control')->placeholder('Starting/FileName')->text('file'):
                 </div>
 
                 <div class="form-group">
                     <label>{{LANG['type']}}</label>
-                    @@Form::class('form-control')->select('type', ['Handload' => 'Handload', 'Autoload' => 'Autoload']):
+                    @Form::class('form-control')->select('type', ['Handload' => 'Handload', 'Autoload' => 'Autoload']):
                 </div>
             </div>
 

@@ -26,14 +26,7 @@ class Forge
      */
     public static function create(String $name) : Bool
     {
-        $name = Info::rpath($name);
-
-        if( ! is_file($name) )
-        {
-            return touch($name);
-        }
-
-        return false;
+        return Filesystem::createFile(Info::rpath($name));
     }
 
     /**
@@ -285,14 +278,7 @@ class Forge
      */
     public static function deleteEmptyFolder(String $folder) : Bool
     {
-        $folder = Info::rpath($folder);
-
-        if( ! is_dir($folder) )
-        {
-           return false;
-        }
-
-        return rmdir($folder);
+        return Filesystem::deleteEmptyFolder(Info::rpath($folder));
     }
 
     /**
@@ -304,31 +290,7 @@ class Forge
      */
     public static function deleteFolder(String $name) : Bool
     {
-        $name = Info::rpath($name);
-
-        if( is_file($name) )
-        {
-            return unlink($name);
-        }
-        else
-        {
-            if( ! FileList::files($name) )
-            {
-                return self::deleteEmptyFolder($name);
-            }
-            else
-            {
-                for( $i = 0; $i < count(FileList::files($name)); $i++ )
-                {
-                    foreach( FileList::files($name) as $val )
-                    {
-                        self::deleteFolder($name."/".$val);
-                    }
-                }
-            }
-
-            return self::deleteEmptyFolder($name);
-        }
+        return Filesystem::deleteFolder(Info::rpath($name));
     }
 
     /**
@@ -342,51 +304,7 @@ class Forge
      */
     public static function copy(String $source, String $target) : Bool
     {
-        $source = Info::rpath($source);
-        $target = Info::rpath($target);
-
-        if( ! file_exists($source) )
-        {
-            throw new FolderNotFoundException($source);
-        }
-
-        if( is_dir($source) )
-        {
-            if( ! FileList::files($source) )
-            {
-                $emptyFilePath = Base::suffix($source, DS) . 'empty';
-
-                self::create($emptyFilePath);
-
-                return copy($emptyFilePath, $target);
-            }
-            else
-            {
-                if( ! is_dir($target) && ! file_exists($target) )
-                {
-                    self::createFolder($target);
-                }
-
-                if( is_array(FileList::files($source)) ) foreach( FileList::files($source) as $val )
-                {
-                    $sourceDir = $source."/".$val;
-                    $targetDir = $target."/".$val;
-
-                    if( is_file($sourceDir) )
-                    {
-                        copy($sourceDir, $targetDir);
-                    }
-
-                    self::copy($sourceDir, $targetDir);
-                }
-
-                return true;
-            }
-        }
-        else
-        {
-            return copy($source, $target);
-        }
+        return Filesystem::copy(Info::rpath($source), Info::rpath($target));
     }
 
     /**

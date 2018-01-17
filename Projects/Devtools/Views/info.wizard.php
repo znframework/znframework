@@ -1,5 +1,5 @@
 <!-- Page Heading -->
-@@Form::open():
+@Form::open():
 <div class="row">
     <div class="col-lg-11">
         <h1 class="page-header">
@@ -10,7 +10,7 @@
 
     <div class="col-lg-1">
         <h1 class="page-header">
-            @@Form::class('btn btn-info')->submit('upgrade', LANG['upgradeButton']):
+            @Form::class('btn btn-info')->submit('upgrade', LANG['upgradeButton']):
         </h1>
     </div>
 </div>
@@ -89,4 +89,4 @@
     </div>
 </div>
 <!-- /.container-fluid -->
-@@Form::close():
+@Form::close():

@@ -8,17 +8,17 @@
 
                 <div class="form-group">
                     <label>{{LANG['viewName']}}</label>
-                    @@Form::required()->class('form-control')->placeholder('Views/ViewName')->text('view'):
+                    @Form::required()->class('form-control')->placeholder('Views/ViewName')->text('view'):
                 </div>
 
                 <div class="form-group">
                     <label>{{LANG['template']}}</label>
-                    @@Form::class('form-control')->select('template', VIEW_TEMPLATES):
+                    @Form::class('form-control')->select('template', VIEW_TEMPLATES):
                 </div>
 
                 <div class="form-group">
                     <label>{{LANG['type']}}</label>
-                    @@Form::class('form-control')->select('type', ['Normal' => 'Normal', 'Wizard' => 'Wizard'], 'Standart'):
+                    @Form::class('form-control')->select('type', ['Normal' => 'Normal', 'Wizard' => 'Wizard'], 'Standart'):
                 </div>
 
             </div>

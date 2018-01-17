@@ -41,10 +41,10 @@ class System extends Controller
 
             $orm = Base::suffix(str_replace('->', '<br>&nbsp;&nbsp;->', $orm), ';');
 
-            $this->masterpage->pdata['orm'] = $orm;
+            $pdata['orm'] = $orm;
         }
 
-        $this->masterpage->pdata['supportQueries'] =
+        $pdata['supportQueries'] =
         [
             '<b>select</b> columns <b>from</b> table_name [<b>where</b> column cond value] [<b>limit</b> start, limit] [<b>group by</b> column] [<b>order by</b> column asc|desc]',
             '<b>insert into</b> table_name (col1, col2, ...) <b>values</b>(val1, val2, ...)',
@@ -56,7 +56,9 @@ class System extends Controller
             '<b>drop</b> <b>database</b> database_name'
         ];
 
-        $this->masterpage->page  = 'converter';
+        Masterpage::page('converter');
+
+        Masterpage::pdata($pdata);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -68,9 +70,11 @@ class System extends Controller
     //--------------------------------------------------------------------------------------------------------
     public function language(String $params = NULL)
     {
-        $this->masterpage->pdata['table']  = \MLS::limit(DASHBOARD_CONFIG['limits']['language'])->create();
+        $pdata['table']  = \MLS::limit(DASHBOARD_CONFIG['limits']['language'])->create();
 
-        $this->masterpage->page  = 'language';
+        Masterpage::page('language');
+
+        Masterpage::pdata($pdata);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -91,12 +95,12 @@ class System extends Controller
 
         if( empty($selectTable) )
         {
-            return $this->masterpage->error = lang('DevtoolsErrors', 'gridError');
+            return Masterpage::error(lang('DevtoolsErrors', 'gridError'));
         }
 
         $joinCollapse       = Session::select('joinCollapse');
 
-        $this->masterpage->pdata['tables'] = Arrays::combine($tables, $tables);
+        $pdata['tables'] = Arrays::combine($tables, $tables);
 
         if( Method::post('show') )
         {
@@ -172,13 +176,16 @@ class System extends Controller
 
         $saves = Folder::files($path);
 
-        $this->masterpage->pdata['table']        = DBGrid::create($selectTable);
-        $this->masterpage->pdata['selectTable']  = $selectTable;
-        $this->masterpage->pdata['viewColumns']  = $viewColumns;
-        $this->masterpage->pdata['columns']      = Arrays::combine($columns, $columns);
-        $this->masterpage->pdata['joinCollapse'] = $joinCollapse;
-        $this->masterpage->pdata['saves']        = Arrays::combine($saves, $saves);
-        $this->masterpage->page                  = 'grid';
+        $pdata['table']        = DBGrid::create($selectTable);
+        $pdata['selectTable']  = $selectTable;
+        $pdata['viewColumns']  = $viewColumns;
+        $pdata['columns']      = Arrays::combine($columns, $columns);
+        $pdata['joinCollapse'] = $joinCollapse;
+        $pdata['saves']        = Arrays::combine($saves, $saves);
+
+        Masterpage::page('grid');
+
+        Masterpage::pdata($pdata);
     }
 
     public function gridGetColumnsAjax()
@@ -298,12 +305,15 @@ class System extends Controller
             }
             else
             {
-                $this->masterpage->error = LANG['alreadyVersion'];
+                Masterpage::error(LANG['alreadyVersion']);
             }
         }
 
-        $this->masterpage->pdata['upgrades'] = Arrays::keys($return);
-        $this->masterpage->page              = 'info';
+        $pdata['upgrades'] = Arrays::keys($return);
+
+        Masterpage::page('info');
+
+        Masterpage::pdata($pdata);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -321,12 +331,15 @@ class System extends Controller
 
         if( empty($files) )
         {
-            $this->masterpage->error = LANG['notFound'];
+            Masterpage::error(LANG['notFound']);
         }
 
-        $this->masterpage->pdata['files'] = $files;
-        $this->masterpage->pdata['path']  = $path;
-        $this->masterpage->page           = 'logs';
+        $pdata['files'] = $files;
+        $pdata['path']  = $path;
+        
+        Masterpage::page('logs');
+
+        Masterpage::pdata($pdata);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -352,12 +365,14 @@ class System extends Controller
     //--------------------------------------------------------------------------------------------------------
     public function terminal(String $params = NULL)
     {
-        $this->masterpage->pdata['supportCommands'] =
+        $pdata['supportCommands'] =
         [
             '<b>command-list</b> : ' . LANG['allCommandList']
         ];
 
-        $this->masterpage->page  = 'terminal';
+        Masterpage::page('terminal');
+
+        Masterpage::pdata($pdata);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -460,12 +475,15 @@ class System extends Controller
 
         if( empty($files) )
         {
-            $this->masterpage->error = LANG['notFound'];
+            Masterpage::error(LANG['notFound']);
         }
 
-        $this->masterpage->pdata['files'] = $files;
-        $this->masterpage->pdata['path']  = $path;
-        $this->masterpage->page           = 'backup';
+        $pdata['files'] = $files;
+        $pdata['path']  = $path;
+
+        Masterpage::page('backup');
+
+        Masterpage::pdata($pdata);
     }
 
     //--------------------------------------------------------------------------------------------------------

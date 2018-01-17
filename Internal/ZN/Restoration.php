@@ -9,10 +9,6 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\Request\URI;
-use ZN\Request\Request;
-use ZN\Response\Redirect;
-
 class Restoration
 {
     /**
@@ -36,7 +32,7 @@ class Restoration
 
         if( $folders === 'full' )
         {
-            return Filesystem\Forge::copy(PROJECTS_DIR . $project, PROJECTS_DIR . $restoreFix . $project);
+            return Filesystem::copy(PROJECTS_DIR . $project, PROJECTS_DIR . $restoreFix . $project);
         }
         else
         {
@@ -50,7 +46,7 @@ class Restoration
             foreach( $array as $folder )
             {
                 $path   = $project . DS . $folder;
-                $return = Filesystem\Forge::copy(PROJECTS_DIR . $path, PROJECTS_DIR . $restoreFix . $path);
+                $return = Filesystem::copy(PROJECTS_DIR . $path, PROJECTS_DIR . $restoreFix . $path);
             }
 
             return $return;
@@ -68,11 +64,11 @@ class Restoration
     public static function end(String $project, String $type = NULL)
     {
         $project = Base::prefix($project, self::$restoreFix);
-        $return  = Filesystem\Forge::copy($restoreFolder = PROJECTS_DIR . $project, PROJECTS_DIR . ltrim($project, self::$restoreFix));
+        $return  = Filesystem::copy($restoreFolder = PROJECTS_DIR . $project, PROJECTS_DIR . ltrim($project, self::$restoreFix));
 
         if( $type === 'delete' )
         {
-            return Filesystem\Forge::deleteFolder($restoreFolder);
+            return Filesystem::deleteFolder($restoreFolder);
         }
 
         return $return;
@@ -102,7 +98,7 @@ class Restoration
     {
         if( ! in_array(Request::ipv4(), (array) $machinesIP) && In::requestURI() !== $uri )
         {
-            new Redirect($uri);
+            Response::redirect($uri);
         }
     }
 
@@ -168,7 +164,7 @@ class Restoration
 
         error_reporting(0);
 
-        $currentPath          = $restorable === true ? strtolower(CURRENT_CFUNCTION) : strtolower(URI::active());
+        $currentPath          = $restorable === true ? strtolower(CURRENT_CFUNCTION) : strtolower(Request::getActiveURL());
         $projects             = Config::get('Project');
         $restoration          = $projects['restoration'];
         $restorationPages     = $restorable === true && ! isset($settings['functions'])
@@ -183,7 +179,7 @@ class Restoration
             {
                 if( $currentPath !== $routePage )
                 {
-                    new Redirect($restorationRoutePage);
+                    Response::redirect($restorationRoutePage);
                 }
             }
 
@@ -191,7 +187,7 @@ class Restoration
             {
                 if( strstr($currentPath, strtolower($k)) )
                 {
-                    new Redirect($rp);
+                    Response::redirect($rp);
                 }
                 else
                 {
@@ -199,7 +195,7 @@ class Restoration
                     {
                         if( $currentPath !== $routePage )
                         {
-                            new Redirect($restorationRoutePage);
+                            Response::redirect($restorationRoutePage);
                         }
                     }
                 }

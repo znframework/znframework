@@ -8,22 +8,22 @@
 
                 <div class="form-group">
                     <label>{{LANG['modelName']}}</label>
-                    @@Form::required()->class('form-control')->placeholder('Models/ModelName')->text('model'):
+                    @Form::required()->class('form-control')->placeholder('Models/ModelName')->text('model'):
                 </div>
 
                 <div class="form-group">
                     <label>{{LANG['namespace']}}</label>
-                    @@Form::class('form-control')->placeholder('Example\ExampleModel')->text('namespace'):
+                    @Form::class('form-control')->placeholder('Example\ExampleModel')->text('namespace'):
                 </div>
 
                 <div class="form-group">
                     <label>{{LANG['extends']}}</label>
-                    @@Form::class('form-control')->select('extends', ['Model' => 'Model', 'GrandModel' => 'GrandModel', 'RelevanceModel' => 'RelevanceModel'], 'Model'):
+                    @Form::class('form-control')->select('extends', ['Model' => 'Model', 'GrandModel' => 'GrandModel', 'RelevanceModel' => 'RelevanceModel'], 'Model'):
                 </div>
 
                 <div class="form-group">
                     <label>{{LANG['functions']}}</label>
-                    @@Form::class('form-control')->placeholder('Function1,Function2,Function3 ...')->text('functions'):
+                    @Form::class('form-control')->placeholder('Function1,Function2,Function3 ...')->text('functions'):
                 </div>
 
             </div>

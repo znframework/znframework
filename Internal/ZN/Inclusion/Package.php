@@ -9,9 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use Project\Controllers\Theme;
-use ZN\Filesystem;
 use ZN\Base;
+use ZN\Filesystem;
+use ZN\Inclusion\Project\Theme;
 
 class Package
 {

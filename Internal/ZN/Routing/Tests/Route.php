@@ -1,4 +1,4 @@
-<?php namespace ZN\Response\Tests;
+<?php namespace ZN\Routing\Tests;
 /**
  * ZN PHP Web Framework
  * 

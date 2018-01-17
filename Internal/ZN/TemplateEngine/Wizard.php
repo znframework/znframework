@@ -167,23 +167,22 @@ class Wizard
         {
             $suffix   = '\:/s';
             $coalesce = '\?';
-            $constant = '@((\w+)(\[(\'|\")*.*?(\'|\")*\])*)';
+            $constant = '((\w+)(\[(\'|\")*.*?(\'|\")*\])*)';
             $variable = '/@\$(\w+.*?)';
+            $start    = '((\W)@|^@)';
             
             $outputVariableCoalesce = '<?php echo $$1 ?? NULL ?>';
             $outputVariable         = '<?php echo $$1 ?>';
 
-            $outputCosntantCoalesce = '<?php echo defined("$2") ? ($1 ?? NULL) : NULL ?>';
-            $outputCosntant         = '<?php echo $1 ?>';
+            $outputCosntantCoalesce = '$2<?php echo defined("$4") ? ($3 ?? NULL) : NULL ?>';
+            $outputCosntant         = '$2<?php echo $3 ?>';
             
             $array    =
             [
-                $variable . $coalesce . $suffix         => $outputVariableCoalesce, # Variable
-                $variable        . $suffix              => $outputVariable,         # Variable
-                '/@' . $constant . $coalesce . $suffix  => $outputCosntantCoalesce, # Constant
-                '/@' . $constant . $suffix              => $outputCosntant,         # Constant
-                '/'  . $constant . $coalesce . $suffix  => $outputCosntantCoalesce, # Constant
-                '/'  . $constant . $suffix              => $outputCosntant          # Constant
+                $variable                . $coalesce . $suffix  => $outputVariableCoalesce, # Variable
+                $variable                            . $suffix  => $outputVariable,         # Variable
+                '/' . $start . $constant . $coalesce . $suffix  => $outputCosntantCoalesce, # Constant
+                '/' . $start . $constant . $suffix              => $outputCosntant          # Constant
             ];
         }
 
@@ -206,8 +205,7 @@ class Wizard
             $function = '(\w+.*?(\)|\}|\]|\-\>\w+))\:/s';
             $array    =
             [
-                '/@@'       . $function => '<?php echo $1 ?>', // Function
-                '/(\W@|^@)' . $function => '<?php if( is_scalar($2) ) echo $2; ?>'  // Function
+                '/((\W)@|^@)' . $function => '$2<?php if( is_scalar($3) ) echo $3; ?>'  # Function
             ];
         }
 

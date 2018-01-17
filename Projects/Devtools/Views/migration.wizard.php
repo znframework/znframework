@@ -8,12 +8,12 @@
 
                 <div class="form-group">
                     <label>{{LANG['migrationName']}}</label>
-                    @@Form::required()->class('form-control')->placeholder('Models/Migrations/MigrationName')->text('migration'):
+                    @Form::required()->class('form-control')->placeholder('Models/Migrations/MigrationName')->text('migration'):
                 </div>
 
                 <div class="form-group">
                     <label>{{LANG['version']}}</label>
-                    @@Form::class('form-control')->placeholder('1')->text('version'):
+                    @Form::class('form-control')->placeholder('1')->text('version'):
                 </div>
 
             </div>

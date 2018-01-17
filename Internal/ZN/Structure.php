@@ -9,9 +9,6 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\DataTypes\Strings;
-use ZN\Request\URL;
-
 class Structure
 {
     /**
@@ -52,7 +49,7 @@ class Structure
 
                     if( is_file($isF) )
                     {
-                        $page     = Strings\Split::divide($ifTrim, '/', -1);
+                        $page     = Datatype::divide($ifTrim, '/', -1);
                         $isFile   = $isF;
                         $segments = $nsegments;
 
@@ -115,6 +112,6 @@ class Structure
             CONTROLLERS_DIR, '', CURRENT_CONTROLLER) . '/' . CURRENT_CFUNCTION
         );
         define('CURRENT_CFURI', strtolower(CURRENT_CFPATH));
-        define('CURRENT_CFURL', URL::site() . CURRENT_CFPATH);
+        define('CURRENT_CFURL', Request::getSiteURL() . CURRENT_CFPATH);
     }
 }

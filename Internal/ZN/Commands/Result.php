@@ -9,7 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
- use Lang;
+use Lang;
 
 class Result
 {

@@ -39,7 +39,7 @@ class Home extends Controller
             }
             else
             {
-                $this->masterpage->error = $error;
+                Masterpage::error($error);
             }
         }
         
@@ -50,8 +50,8 @@ class Home extends Controller
             Session::insert('return', $return);
         }
         
-        $this->masterpage->page  = 'dashboard';
-        $this->masterpage->pdata['return'] = $return;
+        Masterpage::page('dashboard');
+        Masterpage::pdata(['return' => $return]);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -87,14 +87,14 @@ class Home extends Controller
 
         \Import::handload('Functions');
 
-        $this->masterpage->plugin['name'] = [
+        Masterpage::plugin(['name' => [
             'Dashboard/highlight/styles/agate.css',
             'Dashboard/highlight/highlight.pack.js'
-        ];
+        ]]);
 
-        $this->masterpage->pdata['docs'] = $return;
+        Masterpage::pdata(['docs' => $return]);
       
-        $this->masterpage->page  = 'docs';
+        Masterpage::page('docs');
     }
 
     //--------------------------------------------------------------------------------------------------------

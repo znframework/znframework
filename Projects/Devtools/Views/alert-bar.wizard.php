@@ -3,7 +3,7 @@
         <div class="alert alert-success alert-dismissable">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
             <i class="fa fa-info-circle"></i>
-            <span id="success-process-content{{$id ?? NULL}}">@@LANG['success']:</span>
+            <span id="success-process-content{{$id ?? NULL}}">@LANG['success']:</span>
         </div>
     </div>
 </div>
@@ -14,7 +14,7 @@
         <div class="alert alert-danger alert-dismissable">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
             <i class="fa fa-info-circle"></i>
-            <span id="error-process-content{{$id ?? NULL}}">@@LANG['error']:</span>
+            <span id="error-process-content{{$id ?? NULL}}">@LANG['error']:</span>
         </div>
     </div>
 </div>

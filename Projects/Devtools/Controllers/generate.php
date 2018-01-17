@@ -91,17 +91,20 @@ class Generate extends Controller
             }
             else
             {
-                $this->masterpage->error = $error;
+                Masterpage::error($error);
             }
         }
 
         $path = 'Controllers';
 
-        $this->masterpage->page                = 'generate';
-        $this->masterpage->pdata['content']    = 'controller';
-        $this->masterpage->pdata['fullPath']   = $fullPath = SELECT_PROJECT_DIR . $path;
-        $this->masterpage->pdata['deletePath'] = $path;
-        $this->masterpage->pdata['files']      = Folder::allFiles($fullPath, true);
+        Masterpage::page('generate');
+        Masterpage::pdata
+        ([
+            'content'    => 'controller',
+            'fullPath'   => ($fullPath = SELECT_PROJECT_DIR . $path),
+            'deletePath' => $path,
+            'files'      => Folder::allFiles($fullPath, true)
+        ]);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -136,18 +139,21 @@ class Generate extends Controller
             }
             else
             {
-                $this->masterpage->error = $error;
+                Masterpage::error($error);
             }
         }
 
         $path = 'Libraries';
 
-        $this->masterpage->page                = 'generate';
-        $this->masterpage->pdata['content']    = 'library';
-        $this->masterpage->pdata['title']      = 'libraries';
-        $this->masterpage->pdata['fullPath']   = $fullPath = SELECT_PROJECT_DIR . $path;
-        $this->masterpage->pdata['deletePath'] = $path;
-        $this->masterpage->pdata['files']      = Folder::allFiles($fullPath, true);
+        Masterpage::page('generate');
+        Masterpage::pdata
+        ([
+            'content'    => 'library',
+            'title'      => 'libraries',
+            'fullPath'   => ($fullPath = SELECT_PROJECT_DIR . $path),
+            'deletePath' => $path,
+            'files'      => Folder::allFiles($fullPath, true)
+        ]);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -189,17 +195,20 @@ class Generate extends Controller
             }
             else
             {
-                $this->masterpage->error = $error;
+                Masterpage::error($error);
             }
         }
 
         $path = 'Commands';
 
-        $this->masterpage->page                = 'generate';
-        $this->masterpage->pdata['content']    = 'command';
-        $this->masterpage->pdata['fullPath']   = $fullPath = SELECT_PROJECT_DIR . $path;
-        $this->masterpage->pdata['deletePath'] = $path;
-        $this->masterpage->pdata['files']      = Folder::allFiles($fullPath, true);
+        Masterpage::page('generate');
+        Masterpage::pdata
+        ([
+            'content'    => 'command',
+            'fullPath'   => ($fullPath = SELECT_PROJECT_DIR . $path),
+            'deletePath' => $path,
+            'files'      => Folder::allFiles($fullPath, true)
+        ]);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -218,7 +227,7 @@ class Generate extends Controller
 
         $path = 'Routes';
 
-        $this->masterpage->pdata['fullPath']   = $fullPath = SELECT_PROJECT_DIR . $path;
+        $pdata['fullPath']   = $fullPath = SELECT_PROJECT_DIR . $path;
 
         if( Method::post('generate') )
         {
@@ -239,14 +248,17 @@ class Generate extends Controller
             }
             else
             {
-                $this->masterpage->error = $error;
+                Masterpage::error($error);
             }
         }
 
-        $this->masterpage->page                = 'generate';
-        $this->masterpage->pdata['content']    = 'route';
-        $this->masterpage->pdata['deletePath'] = $path;
-        $this->masterpage->pdata['files']      = Folder::allFiles($fullPath, true);
+        Masterpage::page('generate');
+
+        $pdata['content']    = 'route';
+        $pdata['deletePath'] = $path;
+        $pdata['files']      = Folder::allFiles($fullPath, true);
+
+        Masterpage::pdata($pdata);  
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -265,7 +277,7 @@ class Generate extends Controller
 
         $path = 'Config';
 
-        $this->masterpage->pdata['fullPath']   = $fullPath = SELECT_PROJECT_DIR . $path;
+        $pdata['fullPath']   = $fullPath = SELECT_PROJECT_DIR . $path;
 
         if( Method::post('generate') )
         {
@@ -288,13 +300,13 @@ class Generate extends Controller
             }
             else
             {
-                $this->masterpage->error = $error;
+                Masterpage::error($error);
             }
         }
 
-        $this->masterpage->page                = 'generate';
-        $this->masterpage->pdata['content']    = 'config';
-        $this->masterpage->pdata['deletePath'] = $path;
+        Masterpage::page('generate');
+        $pdata['content']    = 'config';
+        $pdata['deletePath'] = $path;
 
         $files = Folder::allFiles($fullPath, true);
 
@@ -309,7 +321,9 @@ class Generate extends Controller
 
         $files = Arrays::addFirst($files, $settings);
 
-        $this->masterpage->pdata['files']      = $files;
+        $pdata['files']      = $files;
+
+        Masterpage::pdata($pdata);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -355,25 +369,25 @@ class Generate extends Controller
             }
             else
             {
-                $this->masterpage->error = $error;
+                Masterpage::error($error);
             }
         }
 
         $path = 'Models';
 
-        $this->masterpage->page                = 'generate';
-        $this->masterpage->pdata['content']    = 'model';
-        $this->masterpage->pdata['deletePath'] = $path;
-        $this->masterpage->pdata['fullPath']   = $fullPath = SELECT_PROJECT_DIR . $path;
+        Masterpage::page('generate');
+        $pdata['content']    = 'model';
+        $pdata['deletePath'] = $path;
+        $pdata['fullPath']   = $fullPath = SELECT_PROJECT_DIR . $path;
 
         if( Folder::exists($fullPath) )
         {
             $files = Folder::allFiles($fullPath, true);
         }
 
-        $this->masterpage->pdata['files'] = $files ?? [];
+        $pdata['files'] = $files ?? [];
 
-
+        Masterpage::pdata($pdata);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -428,23 +442,24 @@ class Generate extends Controller
             }
             else
             {
-                $this->masterpage->error = $error;
+                Masterpage::error($error);
             }
         }
 
         $path = 'Views';
 
-        $this->masterpage->page  = 'generate';
-        $this->masterpage->pdata['content'] = 'view';
-        $this->masterpage->pdata['deletePath'] = $path;
-        $this->masterpage->pdata['fullPath']   = $fullPath = SELECT_PROJECT_DIR . $path;
+        Masterpage::page('generate');
+        $pdata['content'] = 'view';
+        $pdata['deletePath'] = $path;
+        $pdata['fullPath']   = $fullPath = SELECT_PROJECT_DIR . $path;
 
         if( Folder::exists($fullPath) )
         {
             $files = Folder::allFiles($fullPath, true);
         }
 
-        $this->masterpage->pdata['files'] = $files ?? [];
+        $pdata['files'] = $files ?? [];
+        Masterpage::pdata($pdata);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -479,23 +494,25 @@ class Generate extends Controller
             }
             else
             {
-                $this->masterpage->error = $error;
+                Masterpage::error($error);
             }
         }
 
         $path = 'Starting';
 
-        $this->masterpage->page  = 'generate';
-        $this->masterpage->pdata['content'] = 'starting';
-        $this->masterpage->pdata['deletePath'] = $path;
-        $this->masterpage->pdata['fullPath']   = $fullPath = SELECT_PROJECT_DIR . $path;
+        Masterpage::page('generate');
+        $pdata['content'] = 'starting';
+        $pdata['deletePath'] = $path;
+        $pdata['fullPath']   = $fullPath = SELECT_PROJECT_DIR . $path;
 
         if( Folder::exists($fullPath) )
         {
             $files = Folder::allFiles($fullPath, true);
         }
 
-        $this->masterpage->pdata['files'] = $files ?? [];
+        $pdata['files'] = $files ?? [];
+
+        Masterpage::pdata($pdata);
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -526,22 +543,24 @@ class Generate extends Controller
             }
             else
             {
-                $this->masterpage->error = $error;
+                Masterpage::error($error);
             }
         }
 
-        $path                                  = 'Models'. DS .'Migrations';
-        $this->masterpage->page                = 'generate';
-        $this->masterpage->pdata['content']    = 'migration';
-        $this->masterpage->pdata['deletePath'] = $path;
-        $this->masterpage->pdata['fullPath']   = $fullPath = SELECT_PROJECT_DIR . $path;
+        $path = 'Models'. DS .'Migrations';
+        Masterpage::page('generate');
+        $pdata['content']    = 'migration';
+        $pdata['deletePath'] = $path;
+        $pdata['fullPath']   = $fullPath = SELECT_PROJECT_DIR . $path;
 
         if( Folder::exists($fullPath) )
         {
             $files = Folder::allFiles($fullPath, true);
         }
 
-        $this->masterpage->pdata['files'] = $files ?? [];
+        $pdata['files'] = $files ?? [];
+
+        Masterpage::pdata($pdata);
     }
 
     //--------------------------------------------------------------------------------------------------------

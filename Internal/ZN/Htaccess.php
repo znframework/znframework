@@ -208,7 +208,7 @@ class Htaccess
      */
     protected static function baseContent(&$htaccess)
     {
-        if( ! Base::server('pathInfo') )
+        if( empty($_SERVER['PATH_INFO']) )
         {
             $indexSuffix = '?';  $flag = 'QSA';
         }

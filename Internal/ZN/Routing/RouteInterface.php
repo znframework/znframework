@@ -1,4 +1,4 @@
-<?php namespace ZN\Response;
+<?php namespace ZN\Routing;
 /**
  * ZN PHP Web Framework
  * 

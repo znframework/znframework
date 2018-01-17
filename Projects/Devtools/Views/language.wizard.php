@@ -1,8 +1,8 @@
-@@Form::open():
+@Form::open():
 <div class="row">
     <div class="col-lg-12">
         <h1 class="page-header">
-            @@LANG['languages']: <small> {{LANG['overview']}}</small>
+            @LANG['languages']: <small> {{LANG['overview']}}</small>
         </h1>
     </div>
 </div>
@@ -26,4 +26,4 @@
 
 </div>
 
-@@Form::close():
+@Form::close():

@@ -1,5 +1,5 @@
 <!-- Page Heading -->
-@@Form::open():
+@Form::open():
 <div class="row">
     <div class="col-lg-11">
         <h1 class="page-header">
@@ -10,7 +10,7 @@
 
     <div class="col-lg-1">
         <h1 class="page-header">
-            @@Form::class('btn btn-info')->submit('backup', LANG['backupButton']):
+            @Form::class('btn btn-info')->submit('backup', LANG['backupButton']):
 
         </h1>
     </div>
@@ -25,7 +25,7 @@
             <div class="panel-body">
                 <div class="form-group">
                     <label>
-                    @@Form::class('form-control')->checkbox('databaseBackup', true):
+                    @Form::class('form-control')->checkbox('databaseBackup', true):
                     </label>
                 </div>
             </div>
@@ -72,5 +72,5 @@
 </div>
 @endif:
 
-@@Form::close():
+@Form::close():
 <!-- /.container-fluid -->

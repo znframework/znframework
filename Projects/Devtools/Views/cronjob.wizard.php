@@ -1,4 +1,4 @@
-@@Form::open():
+@Form::open():
 <div class="row">
     <div class="col-lg-11">
         <h1 class="page-header">
@@ -9,7 +9,7 @@
 
     <div class="col-lg-1">
         <h1 class="page-header">
-            @@Form::class('btn btn-info')->submit('create', LANG['createButton']):
+            @Form::class('btn btn-info')->submit('create', LANG['createButton']):
         </h1>
     </div>
 </div>
@@ -24,7 +24,7 @@
 
                 <div class="form-group col-lg-2">
                     <label>{{LANG['certainTime']}}</label>
-                    @@Form::id('certain')->class('form-control')->select('certain',
+                    @Form::id('certain')->class('form-control')->select('certain',
                     [
                         'none'      => LANG['none'],
                         'hourly'    => LANG['hourly'],
@@ -37,7 +37,7 @@
 
                 <div class="form-group col-lg-2">
                     <label>{{LANG['perTime']}}</label>
-                    @@Form::id('per')->class('form-control')->select('per',
+                    @Form::id('per')->class('form-control')->select('per',
                     [
                         'none'      => LANG['none'],
                         'perminute' => LANG['perminute'],
@@ -49,7 +49,7 @@
 
                 <div class="form-group col-lg-2">
                     <label>{{LANG['minute']}}</label>
-                    @@Form::id('minute')->class('form-control')->onchange('inputControlActive(this, \'minuteInput\')')->select('minute',
+                    @Form::id('minute')->class('form-control')->onchange('inputControlActive(this, \'minuteInput\')')->select('minute',
                     [
                         'none'      => LANG['none'],
                         'minute'    => LANG['minute']
@@ -58,7 +58,7 @@
 
                 <div class="form-group col-lg-2">
                     <label>{{LANG['hour']}}</label>
-                    @@Form::id('hour')->class('form-control')->onchange('inputControlActive(this, \'hourInput\')')->select('hour',
+                    @Form::id('hour')->class('form-control')->onchange('inputControlActive(this, \'hourInput\')')->select('hour',
                     [
                         'none'      => LANG['none'],
                         'hour'      => LANG['hour']
@@ -67,7 +67,7 @@
 
                 <div class="form-group col-lg-2">
                     <label>{{LANG['day']}}</label>
-                    @@Form::id('day')->class('form-control')->onchange('inputControlActive(this, \'dayInput\')')->select('day',
+                    @Form::id('day')->class('form-control')->onchange('inputControlActive(this, \'dayInput\')')->select('day',
                     [
                         'none'      => LANG['none'],
                         'day'       => LANG['day']
@@ -77,7 +77,7 @@
 
                 <div class="form-group col-lg-2">
                     <label>{{LANG['month']}}</label>
-                    @@Form::id('month')->class('form-control')->onchange('inputControlActive(this, \'monthInput\')')->select('month',
+                    @Form::id('month')->class('form-control')->onchange('inputControlActive(this, \'monthInput\')')->select('month',
                     [
                         'none'      => LANG['none'],
                         'month'     => LANG['month']
@@ -86,11 +86,11 @@
 
 
                 <div class="form-group col-lg-2">
-                    @@Form::id('certainInput')->disabled()->class('form-control')->text('certainval', Validation::postBack('certainval')):
+                    @Form::id('certainInput')->disabled()->class('form-control')->text('certainval', Validation::postBack('certainval')):
                 </div>
 
                 <div class="form-group col-lg-2">
-                    @@Form::id('perInput')->placeholder('Number Value/: Example/: 10')->disabled()->class('form-control')->text('perval', Validation::postBack('perval')):
+                    @Form::id('perInput')->placeholder('Number Value/: Example/: 10')->disabled()->class('form-control')->text('perval', Validation::postBack('perval')):
                 </div>
 
                 {[
@@ -103,7 +103,7 @@
                 ]}
 
                 <div class="form-group col-lg-2">
-                    @@Form::id('minuteInput')->sub(true)->disabled()->class('form-control')->select('minuteval', $minutes, Validation::postBack('minuteval')):
+                    @Form::id('minuteInput')->sub(true)->disabled()->class('form-control')->select('minuteval', $minutes, Validation::postBack('minuteval')):
                 </div>
 
                 {[
@@ -116,11 +116,11 @@
                 ]}
 
                 <div class="form-group col-lg-2">
-                    @@Form::id('hourInput')->sub(true)->disabled()->class('form-control')->select('hourval', $hours, Validation::postBack('hourval')):
+                    @Form::id('hourInput')->sub(true)->disabled()->class('form-control')->select('hourval', $hours, Validation::postBack('hourval')):
                 </div>
 
                 <div class="form-group col-lg-2">
-                    @@Form::id('dayInput')->sub(true)->disabled()->class('form-control')->select('dayval',
+                    @Form::id('dayInput')->sub(true)->disabled()->class('form-control')->select('dayval',
                     [
                         'monday'    => LANG['monday'],
                         'tuesday'   => LANG['tuesday'],
@@ -134,7 +134,7 @@
 
 
                 <div class="form-group col-lg-2">
-                    @@Form::id('monthInput')->sub(true)->disabled()->class('form-control')->select('monthval',
+                    @Form::id('monthInput')->sub(true)->disabled()->class('form-control')->select('monthval',
                     [
                         'january'   => LANG['january'],
                         'february'  => LANG['february'],
@@ -151,7 +151,7 @@
                 </div>
 
                 <div class="form-group col-lg-6">
-                    @@Form::id('monthInput')->class('form-control')->select('type',
+                    @Form::id('monthInput')->class('form-control')->select('type',
                     [
                         'controller' => LANG['controllerMethod'],
                         'command'    => LANG['commandMethod'],
@@ -160,7 +160,7 @@
                 </div>
 
                 <div class="form-group col-lg-6">
-                    @@Form::required()->placeholder('Controller/Method, Command/:Method or WGET URL')->class('form-control')->text('typeval', Validation::postBack('typeval')):
+                    @Form::required()->placeholder('Controller/Method, Command/:Method or WGET URL')->class('form-control')->text('typeval', Validation::postBack('typeval')):
                 </div>
 
             </div>
@@ -214,7 +214,7 @@
 
 @endif:
 
-@@Form::close():
+@Form::close():
 
 <script>
 

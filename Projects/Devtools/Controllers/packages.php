@@ -57,12 +57,14 @@ class Packages extends Controller
         {
             $data = Restful::get('https://packagist.org/search.json?q=' . Method::post('name') );
 
-            $this->masterpage->pdata['result'] = $data->results;
+            $pdata['result'] = $data->results;
          }
 
-        $this->masterpage->pdata['list'] = $this->list;
+        $pdata['list'] = $this->list;
 
-        $this->masterpage->page = 'package';
+        Masterpage::page('package');
+
+        Masterpage::pdata($pdata);
     }
 
     //--------------------------------------------------------------------------------------------------------

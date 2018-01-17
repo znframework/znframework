@@ -120,7 +120,7 @@
                             {
                                 $.ajax
                                 ({
-                                    'url'/: '@@URL::site('system/terminalAjax'):',
+                                    'url'/: '@URL::site('system/terminalAjax'):',
                                     'type'/:'post',
                                     'data'/:'command=' + $('/#command').val(),
                                     'success'/:function(data)
@@ -130,7 +130,7 @@
 
                                         $.ajax
                                         ({
-                                            'url'/: '@@URL::site('system/backDataAjax'):',
+                                            'url'/: '@URL::site('system/backDataAjax'):',
                                             'type'/:'post',
                                             'dataType'/:'json',
                                             'success'/:function(data)

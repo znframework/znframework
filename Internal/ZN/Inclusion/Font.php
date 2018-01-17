@@ -9,10 +9,11 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use Project\Controllers\Theme;
-use ZN\Request\URL;
-use ZN\Filesystem;
+
 use ZN\Base;
+use ZN\Request;
+use ZN\Filesystem;
+use ZN\Inclusion\Project\Theme;
 
 class Font extends BootstrapExtends
 {
@@ -57,7 +58,7 @@ class Font extends BootstrapExtends
 
             if( ! is_file($fontFile) && is_dir($fontFile) ) $fontFile = $externalFontDirectory . $font;
         
-            $baseUrl  = URL::base($fontFile);
+            $baseUrl = Request::getBaseURL($fontFile);
 
             if( is_file(Base::suffix($fontFile, '.svg')) ) $str .= self::_face($f, $baseUrl, 'svg');
             if( is_file(Base::suffix($fontFile, '.woff'))) $str .= self::_face($f, $baseUrl, 'woff');

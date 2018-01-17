@@ -1,4 +1,4 @@
-<?php namespace ZN\Response;
+<?php namespace ZN\Routing;
 /**
  * ZN PHP Web Framework
  * 
@@ -13,11 +13,11 @@ use ZN\Base;
 use ZN\Lang;
 use ZN\Kernel;
 use ZN\Config;
+use ZN\Request;
 use ZN\Security;
 use ZN\Singleton;
 use ZN\Restoration;
 use ZN\Request\URI;
-use ZN\Request\Http;
 use ZN\Helpers\Logger;
 use ZN\DataTypes\Arrays;
 use ZN\DataTypes\Strings;
@@ -776,7 +776,7 @@ class Route implements RouteInterface
         }
         else
         {
-            new Redirect($invalidRequest['page']);
+            Response::redirect($invalidRequest['page']);
         }
     }
 
@@ -799,7 +799,7 @@ class Route implements RouteInterface
         }
         else
         {
-            new Redirect($routeShow404);
+            Response::redirect($routeShow404);
         }
     }
 
@@ -854,7 +854,7 @@ class Route implements RouteInterface
         {
             if( $type = ($this->ajaxs[CURRENT_CFURI]['ajax'] ?? NULL) )
             {
-                if( Http::isAjax() !== true )
+                if( Request::isAjax() !== true )
                 {
                     $this->_redirect();
                 }
@@ -875,7 +875,7 @@ class Route implements RouteInterface
         {
             if( $type = ($this->curls[CURRENT_CFURI]['curl'] ?? NULL) )
             {
-                if( Http::isCurl() === true )
+                if( Request::isCurl() === true )
                 {
                     $this->_redirect();
                 }
@@ -896,7 +896,7 @@ class Route implements RouteInterface
         {
             if( $type = ($this->restfuls[CURRENT_CFURI]['restful'] ?? NULL) )
             {
-                if( Http::isCurl() !== true )
+                if( Request::isCurl() !== true )
                 {
                     $this->_redirect();
                 }
@@ -993,7 +993,7 @@ class Route implements RouteInterface
         {
             if( $method = ($this->methods[CURRENT_CFURI]['method'] ?? NULL) )
             {
-                if( Http::isRequestMethod(...$method) === false )
+                if( Request::isMethod(...$method) === false )
                 {
                     $this->_redirect();
                 }
@@ -1014,7 +1014,7 @@ class Route implements RouteInterface
         {
             if( isset($this->usable[CURRENT_CFURI]['usable']) )
             {
-                if( strpos(strtolower(URI::active()), rtrim(CURRENT_CFURI, '/main')) === 0 )
+                if( strpos(strtolower(Request::getActiveURL()), rtrim(CURRENT_CFURI, '/main')) === 0 )
                 {
                     $this->_redirect();
                 }
@@ -1035,7 +1035,7 @@ class Route implements RouteInterface
 
         if( $redirect = ($this->redirects[CURRENT_CFURI]['redirect'] ?? ($direct)) )
         {
-            new Redirect($redirect);
+            Response::redirect($redirect);
         }
 
         $this->redirectInvalidRequest();

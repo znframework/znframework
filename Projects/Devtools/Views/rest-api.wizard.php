@@ -1,14 +1,14 @@
-@@Form::open():
+@Form::open():
 <div class="row">
     <div class="col-lg-11">
         <h1 class="page-header">
-            @@LANG['restApi']: <small> {{LANG['overview']}}</small>
+            @LANG['restApi']: <small> {{LANG['overview']}}</small>
         </h1>
     </div>
 
     <div class="col-lg-1">
         <h1 class="page-header">
-            @@Form::class('btn btn-info')->submit('request', LANG['requestButton']):
+            @Form::class('btn btn-info')->submit('request', LANG['requestButton']):
         </h1>
     </div>
 </div>
@@ -22,12 +22,12 @@
             <div class="panel-body">
                 <div class="form-group">
                     <label>{{LANG['url']}}</label>
-                    @@Form::required()->class('form-control')->placeholder('http/://www.example.com/api')->text('url', Validation::postBack('url')):
+                    @Form::required()->class('form-control')->placeholder('http/://www.example.com/api')->text('url', Validation::postBack('url')):
                 </div>
 
                 <div class="form-group">
                     <label>{{LANG['type']}}</label>
-                    @@Form::class('form-control')->select('type', ['post' => 'POST', 'get' => 'GET', 'put' => 'PUT', 'delete' => 'DELETE'], Validation::postBack('type')):
+                    @Form::class('form-control')->select('type', ['post' => 'POST', 'get' => 'GET', 'put' => 'PUT', 'delete' => 'DELETE'], Validation::postBack('type')):
                 </div>
 
                 <div class="form-group">
@@ -35,13 +35,13 @@
                         @Form::checked():
                     @endif:
 
-                    @@Form::checkbox('sslVerifyPeer', 1):
+                    @Form::checkbox('sslVerifyPeer', 1):
                     <label>{{LANG['sslVerifyPeer']}}</label>
                 </div>
 
                 <div class="form-group">
                     <label>{{LANG['sendData']}}</label>
-                    @@Form::class('form-control')->placeholder('data1/:value1,data2/:value2')->textarea('data', Validation::postBack('data')):
+                    @Form::class('form-control')->placeholder('data1/:value1,data2/:value2')->textarea('data', Validation::postBack('data')):
                 </div>
 
             </div>
@@ -103,4 +103,4 @@
 @endif:
 
 
-@@Form::close():
+@Form::close():

@@ -14,6 +14,7 @@ use ZN\IS;
 use ZN\Lang;
 use ZN\Base;
 use ZN\Config;
+use ZN\Request;
 use ZN\Security;
 use ZN\DataTypes\Arrays;
 use ZN\DataTypes\Strings;
@@ -435,7 +436,7 @@ class URI implements URIInterface
     //--------------------------------------------------------------------------------------------------------
     public static function current(Bool $isPath = true) : String
     {
-        $currentPagePath = str_replace(Lang::get().'/', '', Base::server('currentPath'));
+        $currentPagePath = str_replace(Lang::get().'/', '', Base::currentPath());
 
         if( ($currentPagePath[0] ?? NULL) === '/' )
         {
@@ -459,42 +460,16 @@ class URI implements URIInterface
         }
     }
 
-    //--------------------------------------------------------------------------------------------------
-    // active()
-    //--------------------------------------------------------------------------------------------------
-    //
-    // @param bool $fullPath = false
-    //
-    // @return string
-    //
-    //--------------------------------------------------------------------------------------------------
+    /**
+     * Get active URL
+     * 
+     * @param bool $fullPath = false
+     * 
+     * @return string
+     */
     public static function active(Bool $fullPath = false) : String
     {
-        // 5.3.22[edited]
-        $requestUri = Base::suffix(Base::server('requestUri'));
-       
-        $currentUri = ! empty(BASE_DIR)
-                      ? str_replace(Base::prefix(BASE_DIR, '/'), '', $requestUri)
-                      : substr($requestUri, 1);
-        
-        if( $fullPath === false )
-        {
-            $currentUri = In::cleanURIPrefix($currentUri, In::getCurrentProject());
-
-            if( $currentLang = Lang::current() )
-            {
-                $isLang = Strings\Split::divide($currentUri, '/');
-
-                if( strlen($isLang) === 2 )
-                {
-                    $currentLang = $isLang;
-                }
-
-                $currentUri  = In::cleanURIPrefix($currentUri, $currentLang);
-            }
-        }
-
-        return ! empty($currentUri) ? $currentUri : Config::get('Services', 'route')['openController'];
+        return Request::getActiveURL($fullPath);
     }
 
     //--------------------------------------------------------------------------------------------------------

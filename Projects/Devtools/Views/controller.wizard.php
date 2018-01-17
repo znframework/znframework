@@ -8,18 +8,18 @@
 
                 <div class="form-group">
                     <label>{{LANG['controllerName']}}</label>
-                    @@Form::required()->class('form-control')->placeholder('Controllers/ControllerName')->text('controller'):
+                    @Form::required()->class('form-control')->placeholder('Controllers/ControllerName')->text('controller'):
                 </div>
 
                 <div class="form-group">
                     <label>{{LANG['functions']}}</label>
-                    @@Form::class('form-control')->placeholder('Function1,Function2,Function3 ...')->text('functions'):
+                    @Form::class('form-control')->placeholder('Function1,Function2,Function3 ...')->text('functions'):
                 </div>
 
                 <div class="form-group">
-                    @@Form::radio('withView', 'normal'):
+                    @Form::radio('withView', 'normal'):
                     <label>{{LANG['withView']}}</label>
-                    @@Form::radio('withView', 'wizard'):
+                    @Form::radio('withView', 'wizard'):
                     <label>{{LANG['withWizard']}}</label>
                 </div>
             </div>

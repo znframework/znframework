@@ -1,14 +1,14 @@
-@@Form::open():
+@Form::open():
 <div class="row">
     <div class="col-lg-11">
         <h1 class="page-header">
-            @@LANG['sqlConverter']: <small> {{LANG['overview']}}</small>
+            @LANG['sqlConverter']: <small> {{LANG['overview']}}</small>
         </h1>
     </div>
 
     <div class="col-lg-1">
         <h1 class="page-header">
-            @@Form::class('btn btn-info')->submit('convert', LANG['convert']):
+            @Form::class('btn btn-info')->submit('convert', LANG['convert']):
         </h1>
     </div>
 </div>
@@ -44,7 +44,7 @@
             </div>
             <div class="panel-body">
                 <div class="form-group">
-                @@Form::class('form-control')->textarea('sql', Validation::postBack('sql')):
+                @Form::class('form-control')->textarea('sql', Validation::postBack('sql')):
                 </div>
             </div>
         </div>
@@ -72,4 +72,4 @@
 
 @endif:
 
-@@Form::close():
+@Form::close():

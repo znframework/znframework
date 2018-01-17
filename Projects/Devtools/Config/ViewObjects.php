@@ -50,7 +50,7 @@
     // Genel Kullanımı: Şablon sihirbazının hangi yapıları ayrıştıracağını belirtmek için kullanılır.
     //
     // keywords : for, if, while, foreach gibi kullanımlara izin ver.
-    // printable: @@function:, @variable: kullanımına izin ver.
+    // printable: @function:, @variable: kullanımına izin ver.
     // functions: @function: kullanımına izin ver.
     // comments : {-- yorum satırı --} kullanımına izin ver.
     // tags     : {[ php codes ]} php tagları olarak kullanımına izin ver.

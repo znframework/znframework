@@ -9,11 +9,11 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\Base;
-use ZN\Ability\Singleton;
 use ZN\Lang;
-use ZN\Request\Exception\InvalidArgumentException;
+use ZN\Request;
 use ZN\DataTypes\Arrays;
+use ZN\Ability\Singleton;
+use ZN\Request\Exception\InvalidArgumentException;
 
 class Http implements HttpInterface
 {
@@ -132,7 +132,7 @@ class Http implements HttpInterface
     //--------------------------------------------------------------------------------------------------------
     public static function host() : String
     {
-        return Base::server('host');
+        return Server::data('host');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -144,7 +144,7 @@ class Http implements HttpInterface
     //--------------------------------------------------------------------------------------------------------
     public static function userAgent() : String
     {
-        return Base::server('userAgent');
+        return Server::data('userAgent');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -156,7 +156,7 @@ class Http implements HttpInterface
     //--------------------------------------------------------------------------------------------------------
     public static function accept() : String
     {
-        return Base::server('accept');
+        return Server::data('accept');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -168,7 +168,7 @@ class Http implements HttpInterface
     //--------------------------------------------------------------------------------------------------------
     public static function language() : String
     {
-        return Base::server('acceptLanguage');
+        return Server::data('acceptLanguage');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -180,7 +180,7 @@ class Http implements HttpInterface
     //--------------------------------------------------------------------------------------------------------
     public static function encoding() : String
     {
-        return Base::server('acceptEncoding');
+        return Server::data('acceptEncoding');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -192,7 +192,7 @@ class Http implements HttpInterface
     //--------------------------------------------------------------------------------------------------------
     public static function cookie() : String
     {
-        return Base::server('cookie');
+        return Server::data('cookie');
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -204,57 +204,39 @@ class Http implements HttpInterface
     //--------------------------------------------------------------------------------------------------------
     public static function connection() : String
     {
-        return Base::server('connection');
+        return Server::data('connection');
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Is Request Request -> 4.3.1
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Request method type
+     * 
+     * @param string ...$methods
+     * 
+     * @returm bool
+     */
     public static function isRequestMethod(...$methods) : Bool
     {
-        if( ! in_array(strtolower(Base::server('requestMethod')), $methods) )
-        {
-            return false;
-        }
-
-        return true;
+        return Request::isMethod();
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Is Ajax
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Request is ajax
+     * 
+     * @param bool
+     */
     public static function isAjax() : Bool
     {
-        if( isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest' )
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return Request::isAjax();
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Is Curl
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Request CURL
+     * 
+     * @return bool
+     */
     public static function isCurl() : Bool
     {
-        return ! empty($_SERVER['HTTP_COOKIE'])
-               ? false
-               : true;
+        return Request::isCurl();
     }
 
     //--------------------------------------------------------------------------------------------------------

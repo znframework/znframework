@@ -30,8 +30,8 @@
 
                         </tr>
                         <tr>
-                            <th>@@Form::onclick('alterTable(\'orm\', \'RunORMCode\')')->class('form-control btn btn-info')->button('update', LANG['runORMButton']):</th>
-                            <th>@@Form::onclick('alterTable(\'sql\', \'RunSQLCode\')')->class('form-control btn btn-info')->button('update', LANG['runSQLButton']):</th>
+                            <th>@Form::onclick('alterTable(\'orm\', \'RunORMCode\')')->class('form-control btn btn-info')->button('update', LANG['runORMButton']):</th>
+                            <th>@Form::onclick('alterTable(\'sql\', \'RunSQLCode\')')->class('form-control btn btn-info')->button('update', LANG['runSQLButton']):</th>
 
                         </tr>
                     </thead>
@@ -97,11 +97,11 @@ function dropColumnInNewTable(obj)
 
 function createNewDatatable()
 {
-    if( confirm("@@LANG['areYouSure']:") )
+    if( confirm("@LANG['areYouSure']:") )
     {
         $.ajax
         ({
-            url/:"@@URL::site('datatables/createNewDatatable'):",
+            url/:"@URL::site('datatables/createNewDatatable'):",
         	data/:$('/#newDatatableForm').serialize(),
         	method/:"post",
             dataType/:"json",
@@ -125,11 +125,11 @@ function createNewDatatable()
 
 function dropTable(table)
 {
-    if( confirm("@@LANG['areYouSure']:") )
+    if( confirm("@LANG['areYouSure']:") )
     {
         $.ajax
         ({
-            url/:"@@URL::site('datatables/dropTable'):",
+            url/:"@URL::site('datatables/dropTable'):",
         	data/:"table=" + table,
         	method/:"post",
             dataType:"json",
@@ -153,11 +153,11 @@ function dropTable(table)
 
 function dropColumn(table, column, id)
 {
-    if( confirm("@@LANG['areYouSure']:") )
+    if( confirm("@LANG['areYouSure']:") )
     {
         $.ajax
         ({
-            url/:"@@URL::site('datatables/dropColumn'):",
+            url/:"@URL::site('datatables/dropColumn'):",
         	data/:{"table":table, "column":column},
         	method/:"post",
 
@@ -171,12 +171,12 @@ function dropColumn(table, column, id)
 
 function modifyColumn(table, column, id)
 {
-    if( confirm("@@LANG['areYouSure']:") )
+    if( confirm("@LANG['areYouSure']:") )
     {
         var obj = '/#' + table + column;
         $.ajax
         ({
-            url/:"@@URL::site('datatables/modifyColumn'):",
+            url/:"@URL::site('datatables/modifyColumn'):",
         	data/:
             {
                 "table"/:table,
@@ -200,11 +200,11 @@ function modifyColumn(table, column, id)
 
 function deleteRow(table, column, value, id)
 {
-    if( confirm("@@LANG['areYouSure']:") )
+    if( confirm("@LANG['areYouSure']:") )
     {
         $.ajax
         ({
-            url/:"@@URL::site('datatables/deleteRow'):",
+            url/:"@URL::site('datatables/deleteRow'):",
         	data/:{"table":table, "column":column, "value":value},
         	method/:"post",
 
@@ -220,7 +220,7 @@ function updateRow(table, ids, id, uniqueKey)
 {
     $.ajax
     ({
-        url/:"@@URL::site('datatables/updateRow'):",
+        url/:"@URL::site('datatables/updateRow'):",
     	data/:$('/#' + table).serialize() + '&uniqueKey=' + uniqueKey + '&table=' + table + '&ids=' + ids,
     	method/:"post",
 
@@ -245,7 +245,7 @@ function updateRows(table, id, uniqueKey)
 {
     $.ajax
     ({
-        url/:"@@URL::site('datatables/updateRows'):",
+        url/:"@URL::site('datatables/updateRows'):",
     	data/:$('/#' + table).serialize() + '&table=' + table + '&uniqueKey=' + uniqueKey,
     	method/:"post",
 
@@ -269,7 +269,7 @@ function addRow(table, id)
 {
     $.ajax
     ({
-        url/:"@@URL::site('datatables/addRow'):",
+        url/:"@URL::site('datatables/addRow'):",
     	data/:$('#' + table).serialize() + '&table=' + table,
     	method/:"post",
 
@@ -302,7 +302,7 @@ function alterTable(type, id)
     
     $.ajax
     ({
-        url/:"@@URL::site('datatables/alterTable'):",
+        url/:"@URL::site('datatables/alterTable'):",
     	data/:'content=' + encodeURIComponent(content) + '&type=' + type,
     	method/:"post",
         dataType/:"json",
@@ -327,7 +327,7 @@ function paginationRow(table, start, id)
 {
     $.ajax
     ({
-        url/:"@@URL::site('datatables/paginationRow'):",
+        url/:"@URL::site('datatables/paginationRow'):",
     	data/:{"table":table, "start":start},
     	method/:"post",
 

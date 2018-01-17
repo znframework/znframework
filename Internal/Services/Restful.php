@@ -233,7 +233,7 @@ class Restful implements RestfulInterface
     {
         if( ! Http::isCurl() )
         {
-            Singleton::class('ZN\Response\Route')->redirectInvalidRequest();
+            Singleton::class('ZN\Routing\Route')->redirectInvalidRequest();
         }
 
         return $callback();

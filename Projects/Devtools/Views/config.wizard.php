@@ -8,7 +8,7 @@
 
                 <div class="form-group">
                     <label>{{LANG['configName']}}</label>
-                    @@Form::required()->class('form-control')->placeholder('Configs/ConfigName')->text('config'):
+                    @Form::required()->class('form-control')->placeholder('Configs/ConfigName')->text('config'):
                 </div>
             </div>
         </div>
