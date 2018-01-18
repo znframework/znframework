@@ -17,13 +17,13 @@ use ZN\Inclusion\Project\Theme;
 
 class Font extends BootstrapExtends
 {
-    //--------------------------------------------------------------------------------------------------------
-    // font()
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param variadic $fonts
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Get Fonts
+     * 
+     * @param string ...$fonts
+     * 
+     * @return mixed
+     */
     public static function use(...$fonts)
     {
         $eol       = EOL;
@@ -111,13 +111,9 @@ class Font extends BootstrapExtends
         }
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected fontName()
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $font
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Protected Font Name
+     */
     protected static function _fontName($font)
     {
         $divide = explode('/', $font);
@@ -136,15 +132,9 @@ class Font extends BootstrapExtends
         return $name . $sub;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected face()
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $f
-    // @param string $baseUrl
-    // @param string $extension
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Protected Font Face
+     */
     protected static function _face($f, $baseUrl, $extension = NULL)
     {
         $base = $baseUrl;
@@ -154,6 +144,6 @@ class Font extends BootstrapExtends
             $base = Base::suffix($baseUrl, '.' . $extension);
         }
 
-        return '@font-face{font-family:"' . Filesystem\Extension::remove($f) . '"; src:url("' . $base . '") format("truetype")}' . EOL;
+        return '@font-face{font-family:"' . Filesystem::removeExtension($f) . '"; src:url("' . $base . '") format("truetype")}' . EOL;
     }
 }

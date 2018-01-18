@@ -10,6 +10,7 @@
  */
 
 use ZN\Base;
+use ZN\Config;
 use ZN\Request;
 use ZN\Datatype;
 use ZN\Buffering;
@@ -18,15 +19,15 @@ use ZN\Inclusion\Exception\InvalidArgumentException;
 
 class Something
 {
-    //--------------------------------------------------------------------------------------------------------
-    // something()
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $page
-    // @param array  $data
-    // @param bool   $contents
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Import Somehing
+     * 
+     * @param string $randomPageVariable
+     * @param array  $randomDataVariable          = NULL
+     * @param bool   $randomObGetContentsVariable = false
+     * 
+     * @return mixed
+     */
     public static function use(String $randomPageVariable, Array $randomDataVariable = NULL, Bool $randomObGetContentsVariable = false)
     {
         if( ! empty(Properties::$parameters['usable']) )
@@ -43,7 +44,7 @@ class Something
 
         $eol = EOL;
 
-        $randomPageVariableExtension = Filesystem\Extension::get($randomPageVariable);
+        $randomPageVariableExtension = Filesystem::getExtension($randomPageVariable);
         $randomPageVariableBaseUrl   = Request::getBaseURL($randomPageVariable);
 
         $return = '';
@@ -61,7 +62,7 @@ class Something
         {
             $return = Style::tag($randomPageVariableBaseUrl);
         }
-        elseif( stristr('svg|woff|otf|ttf|'.implode('|', \Config::expressions('differentFontExtensions')), $randomPageVariableExtension) )
+        elseif( stristr('svg|woff|otf|ttf|'.implode('|', Config::expressions('differentFontExtensions')), $randomPageVariableExtension) )
         {
             $return = self::_style($randomPageVariable, $randomPageVariableBaseUrl);
         }
@@ -75,7 +76,7 @@ class Something
 
             if( is_file($randomPageVariable) )
             {
-                $return = Buffering\File::do($randomPageVariable, $randomDataVariable);
+                $return = Buffering::file($randomPageVariable, $randomDataVariable);
 
                 if( $randomObGetContentsVariable === false )
                 {
@@ -98,20 +99,14 @@ class Something
         }
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // protected style()
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $randomPageVariable
-    // @param string $randomPageVariableBaseUrl
-    // @param bool   $ie = false
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Protected Style
+     */
     protected static function _style($randomPageVariable, $randomPageVariableBaseUrl, $ie = false)
     {
         return '<style type="text/css">
                     '.( $ie === true ? '<!--[if IE]>' : NULL ).'
-                    @font-face{font-family:"'.Datatype::divide(Filesystem\Extension::remove($randomPageVariable), "/", -1).'";
+                    @font-face{font-family:"'.Datatype::divide(Filesystem::removeExtension($randomPageVariable), "/", -1).'";
                     src:url("'.$randomPageVariableBaseUrl.'")
                     format("truetype")}
                     '.( $ie === true ? '<![endif]-->' : NULL ).'

@@ -9,103 +9,29 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\IS;
-use ZN\Base;
-use ZN\Request;
-use ZN\Inclusion\Project\Theme;
-
 class Style extends BootstrapExtends
 {
-    //--------------------------------------------------------------------------------------------------------
-    // static tag() -> 5.3.2
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $src = NULL
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * HTML Element
+     * 
+     * @param string $src = NULL
+     * 
+     * @return string
+     */
     public static function tag(String $src = NULL) : String
     {
         return '<link href="'.$src.'" rel="stylesheet" type="text/css" />' . EOL;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // style()
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param variadic $styles
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Get styles
+     * 
+     * @param string ...$styles
+     * 
+     * @return mixed
+     */
     public static function use(...$styles)
     {
-        $str       = '';
-        $eol       = EOL;
-        $args      = self::_parameters($styles, 'styles');
-        $lastParam = $args->lastParam;
-        $arguments = $args->arguments;
-        $links     = $args->cdnLinks;
-        $styleFix  = 'style_';
-
-        foreach( $arguments as $style )
-        {
-            if( is_array($style) )
-            {
-                $style = '';
-            }
-
-            if( IS::url($style) )
-            {
-                $str .= self::tag($style);
-            }
-            else
-            {
-                if( ! is_dir(STYLES_DIR) )
-                {
-                    $projectFontDirectory  = THEMES_DIR . Theme::$active;
-                    $externalFontDirectory = EXTERNAL_THEMES_DIR . Theme::$active;
-                }
-                else
-                {
-                    $projectFontDirectory  = STYLES_DIR;
-                    $externalFontDirectory = EXTERNAL_STYLES_DIR;
-                }
-
-                $styleFile = $projectFontDirectory . ($suffix = Base::suffix($style, '.css'));
-                
-                if( ! is_file($styleFile) )
-                {
-                    $styleFile = $externalFontDirectory . $suffix;
-                }
-    
-                if( ! in_array($styleFix . $style, Properties::$isImport) )
-                {
-                    if( is_file($styleFile) )
-                    {
-                        $str .= self::tag(Request::getBaseURL($styleFile));
-                    }
-                    elseif( $lowerLinkName = ($links[strtolower($style)] ?? NULL) )
-                    {
-                        $str .= self::tag($lowerLinkName);
-                    }
-    
-                    Properties::$isImport[] = $styleFix . $style;
-                }
-            }
-        }
-
-        if( ! empty($str) )
-        {
-            if( $lastParam === true )
-            {
-                return $str;
-            }
-            else
-            {
-                echo $str;
-            }
-        }
-        else
-        {
-            return false;
-        }
+        return self::gettype('style', $styles);
     }
 }

@@ -13,15 +13,15 @@ use ZN\Inclusion\Exception\FileNotFoundException;
 
 class Template
 {
-    //--------------------------------------------------------------------------------------------------------
-    // template()
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $page
-    // @param array  $data
-    // @param bool   $obGetContents
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Import Template
+     * 
+     * @param string $page
+     * @param array  $data          = NULL
+     * @param bool   $obGetContents = false
+     * 
+     * @return mixed
+     */
     public static function use(String $page, Array $data = NULL, Bool $obGetContents = false)
     {
         if( $return = View::use($page, $data, $obGetContents, TEMPLATES_DIR) )

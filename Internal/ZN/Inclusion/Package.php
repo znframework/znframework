@@ -15,15 +15,16 @@ use ZN\Inclusion\Project\Theme;
 
 class Package
 {
-    //--------------------------------------------------------------------------------------------------------
-    // Package
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $package
-    // @param bool   $recursive
-    // @param bool   $getContents
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Get package
+     * 
+     * @param mixed  $packages
+     * @param bool   $recursive   = false
+     * @param bool   $getContents = false
+     * @param string $dir         = NULL
+     * 
+     * @return mixed
+     */
     public static function use($packages, Bool $recursive = false, Bool $getContents = false, String $dir = NULL)
     {
         if( ! empty(Properties::$parameters['usable']) )
@@ -62,29 +63,15 @@ class Package
         }
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Resource -> 5.1.0
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $theme
-    // @param bool   $recursive
-    // @param bool   $getContents
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public static function resource($theme = 'Default', Bool $recursive = false, Bool $getContents = false)
-    {
-        return self::use($theme, $recursive, $getContents, RESOURCES_DIR);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Theme
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $theme
-    // @param bool   $recursive
-    // @param bool   $getContents
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Get theme
+     * 
+     * @param mixed  $theme       = 'Default'
+     * @param bool   $recursive   = false
+     * @param bool   $getContents = false
+     * 
+     * @return mixed
+     */
     public static function theme($theme = 'Default', Bool $recursive = false, Bool $getContents = false)
     {
         if( Theme::$active !== NULL && is_array($theme) )
@@ -99,37 +86,29 @@ class Package
         return self::use($theme, $recursive, $getContents, $dir);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Plugin
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $plugin
-    // @param bool   $recursive
-    // @param bool   $getContents
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Get theme
+     * 
+     * @param mixed  $plugin      = 'Default'
+     * @param bool   $recursive   = false
+     * @param bool   $getContents = false
+     * 
+     * @return mixed
+     */
     public static function plugin($plugin = 'Default', Bool $recursive = false, Bool $getContents = false)
     {
         return self::use($plugin, $recursive, $getContents, PLUGINS_DIR);
     }
 
-
-
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Package
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $package
-    // @param bool   $recursive
-    // @param bool   $getContents
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Protected Package
+     */
     protected static function _package($packages, $recursive, $getContents)
     {
         $eol    = EOL;
         $return = '';
 
-        // Common Directory
+        # Common Directory
         if( ! is_dir($packages) && ! is_file($packages) )
         {
             $packages = str_replace(RESOURCES_DIR, EXTERNAL_RESOURCES_DIR, $packages);
@@ -137,7 +116,7 @@ class Package
 
         if( is_dir($packages) )
         {
-            $packageFiles = Filesystem\FileList::allFiles(Base::suffix($packages), $recursive);
+            $packageFiles = Filesystem::getFiles(Base::suffix($packages), $recursive);
 
             if( ! empty($packageFiles) )
             {
@@ -162,7 +141,7 @@ class Package
         }
         elseif( is_file($packages) )
         {
-            // Local Directory
+            # Local Directory
             return Something::use($packages, [], $getContents);
         }
     }
