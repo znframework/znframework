@@ -95,7 +95,7 @@ class Route implements RouteInterface
 
         $this->container = false;
 
-        $this->_containerDefaultVariables();
+        $this->containerDefaultVariables();
     }
 
     /**
@@ -304,7 +304,7 @@ class Route implements RouteInterface
         # 5.3.21[edited] is empty
         if( trim($routeString, '/') )
         {
-            $this->routes['changeUri'][$routeString] = $this->_stringRoute($path, $this->route)[$this->route];
+            $this->routes['changeUri'][$routeString] = $this->getStringRoute($path, $this->route)[$this->route];
         }
 
         if( $usable === false )
@@ -329,7 +329,7 @@ class Route implements RouteInterface
                 'changeUri' => array_merge($this->routes['changeUri'], $config['changeUri'])
             ]);
 
-            $this->_defaultVariable();
+            $this->defaultVariable();
         }
     }
 
@@ -434,7 +434,7 @@ class Route implements RouteInterface
 
                 call_user_func_array($functionRun, CURRENT_CPARAMETERS);
 
-                $this->_import($functionName);
+                $this->import($functionName);
 
                 $this->status[] = $functionName;
 
@@ -475,14 +475,14 @@ class Route implements RouteInterface
         {
             $this->filters[$type . 's'][$lowerPath][$type] = $this->filters[$type];
 
-            $this->_isContainer($this->filters[$type]);
+            $this->isContainer($this->filters[$type]);
         }
     }
 
     /**
      * Protected String Route
      */
-    protected function _stringRoute($functionName, $route)
+    protected function getStringRoute($functionName, $route)
     {
         preg_match_all('/\:\w+/', $route, $match);
 
@@ -507,29 +507,16 @@ class Route implements RouteInterface
     /**
      * Protected Import
      */
-    protected function _import($function)
+    protected function import($function)
     {
         Kernel::viewPathFinder($function, $viewPath, $wizardPath);
         Kernel::viewAutoload($wizardPath, $viewPath);
     }
 
     /**
-     * Protected View
-     */
-    protected static function _view($view, $fix)
-    {
-        if( $subdir = STRUCTURE_DATA['subdir'] )
-        {
-            $view = $subdir;
-        }
-
-        return PAGES_DIR . $view . $fix;
-    }
-
-    /**
      * Protected Is Container
      */
-    protected function _isContainer(&$data)
+    protected function isContainer(&$data)
     {
         if( $this->container !== true )
         {
@@ -540,7 +527,7 @@ class Route implements RouteInterface
     /**
      * Container Default Variables
      */
-    protected function _containerDefaultVariables()
+    protected function containerDefaultVariables()
     {
         $this->filters['method']   = NULL;
         $this->filters['redirect'] = NULL;
@@ -556,10 +543,10 @@ class Route implements RouteInterface
     /**
      * Default Variable
      */
-    protected function _defaultVariable()
+    protected function defaultVariable()
     {
-        $this->route       = [];
-        $this->method      = [];
-        $this->routes      = [];
+        $this->route  = [];
+        $this->method = [];
+        $this->routes = [];
     }
 }
