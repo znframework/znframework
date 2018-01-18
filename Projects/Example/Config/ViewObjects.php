@@ -46,7 +46,7 @@
         'comments'  => true,
         'tags'      => true,
         'jsdata'    => true,
-        'html'      => false
+        'html'      => true
     ],
 
     /*

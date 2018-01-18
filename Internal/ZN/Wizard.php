@@ -1,4 +1,4 @@
-<?php namespace ZN\TemplateEngine;
+<?php namespace ZN;
 /**
  * ZN PHP Web Framework
  * 
@@ -8,10 +8,6 @@
  * @license MIT [http://opensource.org/licenses/MIT]
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
-
-use ZN\Config;
-use ZN\Buffering;
-use ZN\Filesystem;
 
 class Wizard
 {
@@ -38,13 +34,14 @@ class Wizard
      * Get data.
      * 
      * @param string $string
-     * @param array  $data = []
+     * @param array  $data   = []
+     * @param array  $config = []
      * 
      * @return string
      */
-    public static function data(String $string, Array $data = []) : String
+    public static function data(String $string, Array $data = [], Array $config = []) : String
     {
-        self::$config = Config::get('ViewObjects', 'wizard') ?: [];
+        self::$config = $config ?: Config::get('ViewObjects', 'wizard');
 
         self::_textControl($string); # 5.4.6[added]
 

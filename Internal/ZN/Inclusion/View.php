@@ -11,8 +11,8 @@
 
 use ZN\In;
 use ZN\Base;
+use ZN\Wizard;
 use ZN\Buffering;
-use ZN\TemplateEngine;
 use ZN\Inclusion\Project\Theme;
 use ZN\Inclusion\Project\View as Views;
 
@@ -99,7 +99,7 @@ class View
 
         if( $randomIsWizard === true )
         {
-            TemplateEngine\Wizard::isolation($randomPagePath);
+            Wizard::isolation($randomPagePath);
         }
         
         if( is_file($randomPagePath) )
@@ -138,7 +138,7 @@ class View
      */
     protected static function _templateWizard($page, $data, $obGetContents, $randomPageDir = PAGES_DIR)
     {
-        $return = TemplateEngine\Wizard::data(self::_page($page, $data, true, $randomPageDir, true), (array) $data);
+        $return = Wizard::data(self::_page($page, $data, true, $randomPageDir, true), (array) $data);
 
         if( $obGetContents === true )
         {
