@@ -9,14 +9,13 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use Cache;
 use ZN\Base;
 use ZN\Config;
-use Pagination;
+use ZN\Datatype;
+use ZN\Singleton;
 use ZN\Request\URI;
 use ZN\Request\Method;
 use ZN\DataTypes\Arrays;
-use ZN\DataTypes\Strings;
 use ZN\Filesystem\Converter;
 use ZN\Database\Exception\UnconditionalDeleteException;
 use ZN\Database\Exception\UnconditionalUpdateException;
@@ -112,7 +111,7 @@ class DB extends Connection
     public function __call($method, $parameters)
     {
         $method = strtolower($originMethodName = $method);
-        $split  = Strings\Split::upperCase($originMethodName);
+        $split  = Datatype::splitUpperCase($originMethodName);
         $crud   = $split[1] ?? NULL;
 
         # Is Function Elements
@@ -361,7 +360,7 @@ class DB extends Connection
      */
     public function cleanCaching(String $driver = 'file') : Bool
     {
-        return Cache::driver($this->caching['driver'] ?? $driver)->delete($this->_cacheQuery());
+        return Singleton::class('ZN\Cache\Processor')->driver($this->caching['driver'] ?? $driver)->delete($this->_cacheQuery());
     }
 
     /**
@@ -1653,7 +1652,7 @@ class DB extends Connection
         }
 
         $return = $output === true
-                ? Pagination::create(NULL, $settings)
+                ? Singleton::class('ZN\Pagination\Paginator')->create(NULL, $settings)
                 : $settings;
 
         return $return;
@@ -2095,13 +2094,15 @@ class DB extends Connection
         {
             $driver = $this->caching['driver'] ?? 'file';
 
-            if( $cacheResult = Cache::driver($driver)->select($this->_cacheQuery()) )
+            $cache = Singleton::class('ZN\Cache\Processor');
+
+            if( $cacheResult = $cache->driver($driver)->select($this->_cacheQuery()) )
             {
                 $this->results = $cacheResult;
             }
             else
             {
-                Cache::driver($driver)->insert($this->_cacheQuery(), $this->results = $this->db->result($type), (int) ($this->caching['time'] ?? 0));
+                $cache->driver($driver)->insert($this->_cacheQuery(), $this->results = $this->db->result($type), (int) ($this->caching['time'] ?? 0));
             }
         }
     }
@@ -2228,7 +2229,7 @@ class DB extends Connection
         $keys   = ['between', 'in'];
         $column = trim($column);
 
-        if( in_array(strtolower(Strings\Split::divide($column, ' ', -1)), $keys) || $this->_exp($column) )
+        if( in_array(strtolower(Datatype::divide($column, ' ', -1)), $keys) || $this->_exp($column) )
         {
             return $value;
         }
@@ -2591,7 +2592,7 @@ class DB extends Connection
 
         $this->caching = $data['caching'] ?? [];
 
-        if( empty($this->caching) || ! Cache::select($this->_cacheQuery()) )
+        if( empty($this->caching) || ! Singleton::class('ZN\Cache\Processor')->select($this->_cacheQuery()) )
         {
             $this->secure = $this->secure ?: $secure;
 

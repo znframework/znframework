@@ -9,8 +9,8 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\Database\DriverMappingAbstract;
 use ZN\Support;
+use ZN\Database\DriverMappingAbstract;
 use ZN\Database\Exception\ConnectionErrorException;
 
 class DB extends DriverMappingAbstract

@@ -18,7 +18,6 @@ use ZN\Request\URL;
 use ZN\Request\Method;
 use ZN\Helpers\Limiter;
 use ZN\DataTypes\Arrays;
-use ZN\DataTypes\Strings;
 use ZN\Response\Redirect;
 use ZN\Database\Exception\NoTableException;
 use ZN\Database\Exception\NoSearchException;

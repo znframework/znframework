@@ -10,9 +10,9 @@
  */
 
 use ZN\Base;
+use ZN\Logger;
 use ZN\Config;
 use ZN\Support;
-use ZN\Helpers\Logger;
 use ZN\DataTypes\Arrays;
 use ZN\Database\Exception\InvalidArgumentException;
 
@@ -48,6 +48,13 @@ class Connection
      * @var array
      */
     protected $config;
+
+    /**
+     * Keeps database default config
+     * 
+     * @var array
+     */
+    protected $defaultConfig;
 
     /**
      * Keeps table prefix
@@ -121,10 +128,11 @@ class Connection
      */
     public function __construct(Array $config = [])
     {
-        $this->config       = array_merge(Config::get('Database', 'database'), $config);
-        $this->db           = $this->_run();
-        $this->prefix       = $this->config['prefix'];
-        Properties::$prefix = $this->prefix;
+        $this->defaultConfig = Config::default(new DatabaseDefaultConfiguration)::get('Database', 'database');
+        $this->config        = array_merge($this->defaultConfig, $config);
+        $this->db            = $this->_run();
+        $this->prefix        = $this->config['prefix'];
+        Properties::$prefix  = $this->prefix;
 
         $this->db->connect($this->config);
     }
@@ -145,7 +153,7 @@ class Connection
             return new $getCalledClass;
         }
 
-        $config          = Config::get('Database', 'database');
+        $config          = $this->defaultConfig;
         $configDifferent = $config['differentConnection'];
 
         if( is_string($connectName) && isset($configDifferent[$connectName]) )
