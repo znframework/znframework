@@ -9,4 +9,4 @@
 */
 
 // Example Usage
-// Route::method('get', 'post')->change('product/id/:numeric')->uri('product/add');
+Route::restful()->change('abc')->redirect('s404')->uri('home/test', false);

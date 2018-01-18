@@ -19,6 +19,24 @@ class Response
     protected static $fix = 'redirect:';
 
     /**
+     * Redirect Invalid Request
+     */
+    public static function redirectInvalidRequest()
+    {
+        $invalidRequest = Config::get('Services', 'route')['requestMethods'];
+
+        if( empty($invalidRequest['page']) )
+        {
+            Helper::report('Error', Lang::select('Error', 'invalidRequest'), 'InvalidRequestError');
+            Base::trace(Lang::select('Error', 'invalidRequest'));
+        }
+        else
+        {
+            self::redirect($invalidRequest['page']);
+        }
+    }
+
+    /**
      * Location
      *
      * @param string $url  = NULL

@@ -9,7 +9,6 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\Routing\Route;
 use ZN\Services\Restful;
 use ZN\Protection\Separator;
 use ZN\ErrorHandling\Exceptions;
@@ -96,7 +95,7 @@ class ZN
      */
     public static function run()
     {
-        (new Route)->filter();
+        Singleton::class('ZN\Routing\Route')->filter();
 
         try 
         { 

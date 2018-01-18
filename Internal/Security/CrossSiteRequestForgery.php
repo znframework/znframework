@@ -9,9 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\Storage\Session;
-use ZN\Request\Method;
-use ZN\Response\Redirect;
+use ZN\Security;
 
 class CrossSiteRequestForgery
 {
@@ -25,15 +23,7 @@ class CrossSiteRequestForgery
      */
     public static function token(String $uri = NULL, String $type = 'post')
     {
-        if( Method::$type() )
-        {
-            $token = Method::$type('token');
-
-            if( $token === false || $token !== (new Session)->select('token') )
-            {
-                new Redirect($uri);
-            }
-        }
+        Security::CSRFToken($uri, $type);
     }
 
     /**

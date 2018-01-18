@@ -21,9 +21,9 @@
  */
 function CSRFInput()
 {
-    Session::insert('token', ZN\Cryptography\Encode\RandomPassword::create(32));
+    ZN\Security::createCSRFTokenKey();
 
-    return Form::hidden('token', Session::select('token'));
+    return Form::hidden('token', ZN\Security::getCSRFTokenKey());
 }
 
 /**

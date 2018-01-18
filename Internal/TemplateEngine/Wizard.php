@@ -9,6 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
+use ZN\Config;
 use ZN\Wizard as Wiz;
 
 class Wizard
@@ -21,30 +22,20 @@ class Wizard
     protected static $config;
 
     /**
-     * PHP tag isolation
-     * 
-     * @param string $data
-     * 
-     * @return void
-     */
-	public static function isolation(String $data = '')
-	{
-		Wiz::isolation($data);
-	}
-
-    /**
      * Get data.
      * 
-     * @param string $string
+     * @param string $file
      * @param array  $data = []
      * 
      * @return string
      */
-    public static function data(String $string, Array $data = []) : String
+    public static function file(String $file, Array $data = []) : String
     {
+        PHPElementIsolator::file($file);
+
         return Wiz::data
         (
-            $string, 
+            FileBuffering::file($file, $data), 
             $data, 
             Config::default(new TemplateEngineDefaultConfiguration)::get('ViewObjects', 'wizard')
         );
