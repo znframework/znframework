@@ -9,9 +9,10 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use Exception;
 use ZN\Base;
-use ZN\DataTypes\Strings;
+use ZN\Datatype;
+use ZN\Singleton;
+use ZN\Exception;
 
 class RelevanceModel
 {
@@ -62,9 +63,9 @@ class RelevanceModel
      */
     public function __construct()
     {
-        $this->db    = new DB;
-        $this->tool  = new DB;
-        $this->forge = new DB;
+        $this->db    = Singleton::class('ZN\Database\DB');
+        $this->tool  = Singleton::class('ZN\Database\DBTool');
+        $this->forge = Singleton::class('ZN\Database\DBForge');
 
         if( ! defined('static::relevance') )
         {
@@ -92,7 +93,7 @@ class RelevanceModel
     {
         $lowerMethod = strtolower($method);
 
-        $split = Strings\Split::upperCase($method);
+        $split = Datatype::splitUpperCase($method);
         
         if( in_array($lowerMethod, $this->resultMethods) )
         {
@@ -421,7 +422,7 @@ class RelevanceModel
      */
     protected function _texplode($value, $index = 0)
     {
-        $ex = explode('.', Strings\Split::divide($value, ':', $index));
+        $ex = explode('.', Datatype::divide($value, ':', $index));
 
         return count($ex) === 3 ? $ex[0].$ex[1] : $ex[0];
     }

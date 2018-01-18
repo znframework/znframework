@@ -17,46 +17,29 @@ use ZN\Filesystem\Folder;
 
 class DriverTool extends DriverExtends
 {
-    //--------------------------------------------------------------------------------------------------------
-    // List Databases
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Hostunuda yer var olan veritabanlarını listeler.
-    //
-    // @param  void
-    // @return array
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * List Databases
+     * 
+     * @return array
+     */
     public function listDatabases($query = 'SHOW DATABASES')
     {
         return $this->_list($query);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // List Tables
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Bağlı olduğunuz veritabanına ait tabloları listeler.
-    //
-    // @param  void
-    // @return array
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * List Tables
+     * 
+     * @return array
+     */
     public function listTables($query = 'SHOW TABLES')
     {
         return $this->_list($query);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // List Tables
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Bağlı olduğunuz veritabanına ait tabloları listeler.
-    //
-    // @param  void
-    // @return array
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Protected List
+     */
     protected function _list($query)
     {
         $result = $this->differentConnection->query($query)->result();
@@ -79,14 +62,13 @@ class DriverTool extends DriverExtends
         return $newTables;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // statusTables
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  mixed $table: '*', 'oneTable' or ['tbl1', 'tbl2']
-    // @return stdClass
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Status Tabkes
+     * 
+     * @param mixed  $table
+     * 
+     * @return object
+     */
     public function statusTables($table)
     {
         $infos = new stdClass;
@@ -115,31 +97,27 @@ class DriverTool extends DriverExtends
         return $infos;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Optimize Tables
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Bağlı olduğunuz veritabanına ait tabloları optimize eder.
-    //
-    // @param  mixed $table: '*', 'tbl1, tbl2' ya da array('tbl1', 'tbl2')
-    // @return string message
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Optimize Tabkes
+     * 
+     * @param mixed  $table
+     * 
+     * @return string
+     */
     public function optimizeTables($table)
     {
         return $this->repairTables($table, 'OPTIMIZE TABLE', 'optimizeTablesSuccess');
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Repair Tables
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Bağlı olduğunuz veritabanına ait tabloları onarır.
-    //
-    // @param  mixed $table: '*', 'tbl1, tbl2' ya da array('tbl1', 'tbl2')
-    // @return string message
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Repair Tables
+     * 
+     * @param mixed  $table
+     * @param string $query   = 'REPAIR TABLE'
+     * @param string $message = 'repairTablesSuccess'
+     * 
+     * @return string
+     */
     public function repairTables($table, $query = 'REPAIR TABLE', $message = 'repairTablesSuccess')
     {
         $result = $this->differentConnection->query("SHOW TABLES")->result();
@@ -175,18 +153,15 @@ class DriverTool extends DriverExtends
         return false;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Backup
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Bağlı olduğunuz veritabanına ait tablolarınızın yedeğini alır.
-    // Yedek dosyası içerisinde tablo oluşturma veriler ve kayıtlar yer alır.
-    //
-    // @param  mixed  $table: '*', 'tbl1, tbl2' ya da array('tbl1', 'tbl2')
-    // @param  string $filename
-    // @return string $path: STORAGE_DIR
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Backup Table
+     * 
+     * @param mixed  $tables
+     * @param string $fileName
+     * @param string $path
+     * 
+     * @return string
+     */
     public function backup($tables, $fileName, $path)
     {
         if( $path === STORAGE_DIR )
@@ -275,13 +250,13 @@ class DriverTool extends DriverExtends
         return Lang::select('Database', 'backupTablesSuccess');
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Import -> 5.3.9 - 5.4.1[edited]
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $file = NULL
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Import File
+     * 
+     * @param string $file
+     * 
+     * @return bool
+     */
     public function import(String $file)
     {
         if( is_file($file) )

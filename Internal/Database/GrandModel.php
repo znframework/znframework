@@ -9,12 +9,13 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use Exception;
+use ZN\Lang;
 use ZN\Config;
 use ZN\Support;
-use ZN\Lang;
+use ZN\Datatype;
+use ZN\Singleton;
+use ZN\Exception;
 use ZN\DataTypes\Arrays;
-use ZN\DataTypes\Strings;
 
 class GrandModel
 {
@@ -91,9 +92,9 @@ class GrandModel
     public function __construct()
     {
         $staticConnection    = defined('static::connection') ? static::connection : NULL;
-        $this->connect       = (new DB)->differentConnection($staticConnection);
-        $this->connectTool   = (new DBTool)->differentConnection($staticConnection);
-        $this->connectForge  = (new DBForge)->differentConnection($staticConnection);
+        $this->connect       = Singleton::class('ZN\Database\DB')->differentConnection($staticConnection);
+        $this->connectTool   = Singleton::class('ZN\Database\DBTool')->differentConnection($staticConnection);
+        $this->connectForge  = Singleton::class('ZN\Database\DBForge')->differentConnection($staticConnection);
         $this->tables        = $this->connectTool->listTables();
         $this->prefix        = $staticConnection['prefix'] ?? Config::database('database')['prefix'];
 
@@ -103,7 +104,7 @@ class GrandModel
         }
         else
         {
-            $grandTable = Strings\Split::divide(str_ireplace([INTERNAL_ACCESS, 'Grand'], '', get_called_class()), '\\', -1);
+            $grandTable = Datatype::divide(str_ireplace([INTERNAL_ACCESS, 'Grand'], '', get_called_class()), '\\', -1);
         }
 
         $this->grandTable = strtolower($grandTable);

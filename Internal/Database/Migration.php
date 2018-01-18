@@ -67,10 +67,9 @@ class Migration implements MigrationInterface
             mkdir($this->path, 0755);
         }
 
-        $this->db    = new DB;
-        $this->forge = new DBForge;
-
-        $this->tbl = defined('static::table') ? static::table : false;
+        $this->db    = Singleton::class('ZN\Database\DB');
+        $this->forge = Singleton::class('ZN\Database\DBForge');
+        $this->tbl   = defined('static::table') ? static::table : false;
 
         $this->_create();
     }
@@ -269,7 +268,7 @@ class Migration implements MigrationInterface
 
             if( $ver === 'all' && is_dir($this->path.$name.$this->versionDir) )
             {
-                Filesystem\Forge::deleteFolder($this->path.$name.$this->versionDir);
+                Filesystem::deleteFolder($this->path.$name.$this->versionDir);
             }
         }
         else
@@ -291,7 +290,7 @@ class Migration implements MigrationInterface
     {
         if( is_dir($this->path) )
         {
-            return Filesystem\Forge::deleteFolder($this->path);
+            return Filesystem::deleteFolder($this->path);
         }
         else
         {

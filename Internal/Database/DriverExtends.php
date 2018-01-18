@@ -9,7 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use DB;
+use ZN\Singleton;
 
 class DriverExtends
 {
@@ -19,6 +19,6 @@ class DriverExtends
     public function __construct($settings = [])
     {
         $this->settings = $settings;
-        $this->differentConnection = DB::differentConnection($settings);
+        $this->differentConnection = Singleton::class('ZN\Database\DB')->differentConnection($settings);
     }
 }
