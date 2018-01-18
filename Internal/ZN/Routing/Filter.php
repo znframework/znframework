@@ -27,15 +27,17 @@ class Filter
     {
         $this->config  = $config;
         $this->filters = $filters;
-
+        
         $getFilter = $filters[$filter . 's'] ?? NULL;
-
+        
         if( ! empty($getFilter) )
         {
-            if( $get = ($getFilter[CURRENT_CFURI][$filter] ?? NULL) )
+            $get = $getFilter[CURRENT_CFURI][$filter] ?? NULL;
+
+            if( $get !== NULL )
             {
                 $class = 'ZN\Routing\\' . ucfirst($filter) . 'Filter';
-       
+
                 if( class_exists($class) )
                 {       
                     new $class($filters, $get, $config, $this);
@@ -49,9 +51,7 @@ class Filter
      */
     public function redirectRequest($direct = NULL)
     {
-        $direct = $this->config['requestMethods']['page'];
-
-        if( $redirect = ($this->filters['redirects'][CURRENT_CFURI]['redirect'] ?? ($direct)) )
+        if( $redirect = ($this->filters['redirects'][CURRENT_CFURI]['redirect'] ?? $this->config['requestMethods']['page']) )
         {
             Response::redirect($redirect);
         }

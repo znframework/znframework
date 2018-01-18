@@ -33,25 +33,16 @@ interface RouteInterface
      * 
      * @return Route
      */
-    public function restore($ips, String $uri = NULL) : Route;
+    public function restore($ips, String $uri = NULL);
 
     /**
-     * Cache
+     * CSRF
      * 
-     * @param string|int  $time     = 60
-     * @param string|bool $compress = false
-     * @param string      $driver   = 'file'
+     * @param bool $usable = true
      * 
      * @return Route
      */
-    public function cache($time = 60, $compress = false, String $driver = 'file') : Route;
-
-    /**
-     * No Cache
-     * 
-     * @return Route
-     */
-    public function nocache() : Route;
+    public function usable(Bool $usable = true);
 
     /**
      * CSRF
@@ -60,28 +51,28 @@ interface RouteInterface
      * 
      * @return Route
      */
-    public function CSRF(String $uri = 'post') : Route;
+    public function CSRF(String $uri = 'post');
 
     /**
      * Ajax
      * 
      * @return Route
      */
-    public function ajax() : Route;
+    public function ajax();
 
     /**
      * CURL
      * 
      * @return Route
      */
-    public function curl() : Route;
+    public function curl();
 
     /**
      * Restful
      * 
      * @return Route
      */
-    public function restful() : Route;
+    public function restful();
 
     /**
      * Callback
@@ -90,7 +81,7 @@ interface RouteInterface
      * 
      * @return Route
      */
-    public function callback(Callable $callback) : Route;
+    public function callback(Callable $callback);
 
     /**
      * Apply Filters
@@ -104,7 +95,7 @@ interface RouteInterface
      * 
      * @return Route
      */
-    public function method(String ...$methods) : Route;
+    public function method(String ...$methods);
 
     /**
      * Sets redirect
@@ -113,7 +104,7 @@ interface RouteInterface
      * 
      * @return Route
      */
-    public function redirect(String $redirect) : Route;
+    public function redirect(String $redirect);
 
     /**
      * Get Filters

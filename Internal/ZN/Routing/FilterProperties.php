@@ -26,7 +26,7 @@ class FilterProperties
      * 
      * @return Route
      */
-    public function restore($ips, String $uri = NULL) : Route
+    public function restore($ips, String $uri = NULL)
     {
         $this->filters['restore']['ips'] = (array) $ips;
         $this->filters['restore']['uri'] = $uri;
@@ -35,32 +35,15 @@ class FilterProperties
     }
 
     /**
-     * Cache
+     * CSRF
      * 
-     * @param string|int  $time     = 60
-     * @param string|bool $compress = false
-     * @param string      $driver   = 'file'
+     * @param bool $usable = true
      * 
      * @return Route
      */
-    public function cache($time = 60, $compress = false, String $driver = 'file') : Route
+    public function usable(Bool $usable = true)
     {
-        $this->filters['cache']['time']     = $time;
-        $this->filters['cache']['compress'] = $compress;
-        $this->filters['cache']['driver']   = $driver;
-        $this->filters['cache']['status']   = true;
-
-        return $this;
-    }
-
-    /**
-     * No Cache
-     * 
-     * @return Route
-     */
-    public function nocache() : Route
-    {
-        $this->filters['nocache']['status'] = false;
+        $this->filters['usable'] = $usable;
 
         return $this;
     }
@@ -72,7 +55,7 @@ class FilterProperties
      * 
      * @return Route
      */
-    public function CSRF(String $uri = 'post') : Route
+    public function CSRF(String $uri = 'post')
     {
         $this->filters['csrf'] = $uri;
 
@@ -84,7 +67,7 @@ class FilterProperties
      * 
      * @return Route
      */
-    public function ajax() : Route
+    public function ajax()
     {
         $this->filters['ajax'] = true;
 
@@ -96,7 +79,7 @@ class FilterProperties
      * 
      * @return Route
      */
-    public function curl() : Route
+    public function curl()
     {
         $this->filters['curl'] = true;
 
@@ -108,7 +91,7 @@ class FilterProperties
      * 
      * @return Route
      */
-    public function restful() : Route
+    public function restful()
     {
         $this->filters['restful'] = true;
 
@@ -122,7 +105,7 @@ class FilterProperties
      * 
      * @return Route
      */
-    public function callback(Callable $callback) : Route
+    public function callback(Callable $callback)
     {
         $this->filters['callback'] = $callback;
 
@@ -136,7 +119,7 @@ class FilterProperties
      * 
      * @return Route
      */
-    public function method(String ...$methods) : Route
+    public function method(String ...$methods)
     {
         $this->filters['method'] = $methods;
 
@@ -150,7 +133,7 @@ class FilterProperties
      * 
      * @return Route
      */
-    public function redirect(String $redirect) : Route
+    public function redirect(String $redirect)
     {
         $this->filters['redirect'] = $redirect;
 

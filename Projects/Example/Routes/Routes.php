@@ -9,4 +9,4 @@
 */
 
 // Example Usage
-Route::restful()->change('abc')->redirect('s404')->uri('home/test', false);
+Route::change('abc')->redirect('s404')->uri('home/test', false);

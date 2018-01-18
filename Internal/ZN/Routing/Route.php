@@ -120,6 +120,8 @@ class Route extends FilterProperties implements RouteInterface
      */
     public function uri(String $path = NULL, Bool $usable = true)
     {
+        $this->usable($usable);
+        
         $path = rtrim($path, '/');
 
         $routeConfig = $this->getConfig;
@@ -131,13 +133,7 @@ class Route extends FilterProperties implements RouteInterface
 
         $lowerPath = strtolower($path);
 
-        $filters = $this->getFilters();
-
-        array_push($filters, 'redirect');
-
-        $filters = array_unique(array_diff($filters, ['usable']));
-
-        $this->setFilters($filters, $lowerPath);
+        $this->setFilters($lowerPath);
 
         if( empty($this->route) )
         {
@@ -159,11 +155,6 @@ class Route extends FilterProperties implements RouteInterface
         if( trim($routeString, '/') )
         {
             $this->routes['changeUri'][$routeString] = $this->getStringRoute($path, $this->route)[$this->route];
-        }
-
-        if( $usable === false )
-        {
-            $this->filters['usable'][$lowerPath]['usable'] = $path;
         }
 
         $this->route = NULL;
@@ -323,9 +314,9 @@ class Route extends FilterProperties implements RouteInterface
     /**
      * Protected Filter
      */
-    protected function setFilters($types, $lowerPath)
+    protected function setFilters($lowerPath)
     {
-        foreach( $types as $type ) if( ! empty($this->filters[$type]) )
+        foreach( $this->getFilters() as $type ) if( isset($this->filters[$type]) )
         {
             $this->filters[$type . 's'][$lowerPath][$type] = $this->filters[$type];
 
@@ -392,6 +383,7 @@ class Route extends FilterProperties implements RouteInterface
         $this->filters['ajax']     = NULL;
         $this->filters['curl']     = NULL;
         $this->filters['restful']  = NULL;
+        $this->filters['usable']   = NULL;
     }
 
     /**
