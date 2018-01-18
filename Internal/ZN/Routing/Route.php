@@ -23,6 +23,8 @@ use ZN\ErrorHandling\Errors;
 
 class Route extends FilterProperties implements RouteInterface
 {
+    use PropertyCreatorTrait;
+
     /**
      * Keeps Container Data
      * 
@@ -374,16 +376,7 @@ class Route extends FilterProperties implements RouteInterface
      */
     protected function containerDefaultVariables()
     {
-        $this->filters['method']   = NULL;
-        $this->filters['redirect'] = NULL;
-        $this->filters['restore']  = NULL;
-        $this->filters['cache']    = NULL;
-        $this->filters['nocache']  = NULL;
-        $this->filters['csrf']     = NULL;
-        $this->filters['ajax']     = NULL;
-        $this->filters['curl']     = NULL;
-        $this->filters['restful']  = NULL;
-        $this->filters['usable']   = NULL;
+        $this->filters = [];
     }
 
     /**
