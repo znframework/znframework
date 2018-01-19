@@ -11,15 +11,15 @@
 
 class Substitution
 {
-    //--------------------------------------------------------------------------------------------------------
-    // Reshuffle
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $str
-    // @param string $shuffle
-    // @param string $reshuffle
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Reshuffle
+     * 
+     * @param string $str
+     * @param string $shuffle
+     * @param string $reshuffle
+     * 
+     * @return string
+     */
     public static function reshuffle(String $str, String $shuffle, String $reshuffle) : String
     {
         $shuffleEx = explode($shuffle, $str);
@@ -34,15 +34,15 @@ class Substitution
         return substr($newstr, 0, -strlen($reshuffle));
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Placement
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $str
-    // @param string $delimiter
-    // @param array  $array
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Placement
+     * 
+     * @param string $str
+     * @param string $delimiter
+     * @param array  $array
+     * 
+     * @return string
+     */
     public static function placement(String $str, String $delimiter, Array $array) : String
     {
         if( ! empty($delimiter) )
@@ -69,16 +69,16 @@ class Substitution
         return $newstr.$strex[count($array)];
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Replace
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $str
-    // @param mixed  $oldChar
-    // @param mixed  $newChar
-    // @param bool   $case = true
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Replace
+     * 
+     * @param string $string
+     * @param mixed  $oldChar
+     * @param mixed  $newChar
+     * @param bool   $case = true
+     * 
+     * @return string
+     */
     public static function replace(String $string, $oldChar, $newChar = NULL, Bool $case = true) : String
     {
         if( $case === true )

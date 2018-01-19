@@ -11,19 +11,11 @@
 
 class Properties
 {
-    //--------------------------------------------------------------------------------------------------------
-    // Set Time Format Chars
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Genel Kullanım: setTime() yöntemi için oluşturulmuş özel kullanımlar yerine
-    // aşağıda anahtar olarak belirlenmiş ifadelerde kullanılabilir.
-    // Örnek: %a yerine {short_day} ifadesi kullanılabilir.
-    // ' | ' ifadesi ile ayrılmış anahtar değerler alternatif olarak
-    // kullanılabilirler.
-    // Örnek: {short_day_name} , {short_day} ya da {sd} kullanılabilir
-    // hepsini karşılığı %a özel ifadesidir.
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Sets time format chars.
+     * 
+     * @var array
+     */
     public static $setTimeFormatChars =
     [
         '{shortDayName}|{shortDay}|{SD}'                            => '%a',
@@ -54,19 +46,11 @@ class Properties
         '{date}'                                                    => '%x'
     ];
 
-    //--------------------------------------------------------------------------------------------------------
-    // Set Date Format Chars
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Genel Kullanım: setDate() yöntemi için oluşturulmuş özel kullanımlar yerine
-    // aşağıda anahtar olarak belirlenmiş ifadelerde kullanılabilir.
-    // Örnek: D yerine {short_day} ifadesi kullanılabilir.
-    // ' | ' ifadesi ile ayrılmış anahtar değerler alternatif olarak
-    // kullanılabilirler.
-    // Örnek: {short_day_name} , {short_day} ya da {sd} kullanılabilir
-    // hepsini karşılığı D özel ifadesidir.
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Sets date format chars.
+     * 
+     * @var array
+     */
     public static $setDateFormatChars =
     [
         '{shortDayName}|{shortDay}|{SD}'                            => 'D',

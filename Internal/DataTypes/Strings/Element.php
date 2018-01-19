@@ -11,43 +11,43 @@
 
 class Element
 {
-    //--------------------------------------------------------------------------------------------------------
-    // Remove First
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $str
-    // @param string $separator = '/'
-    // @param int    $index     = 0
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Remove First Element
+     * 
+     * @param string $str
+     * @param string $separator = '/'
+     * @param int    $index     = 0
+     * 
+     * @return string
+     */
     public static function removeFirst(String $str, String $separator = '/', Int $index = 0) : String
     {
         return self::remove($str, $separator, abs($index));
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Remove First
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $str
-    // @param string $separator = '/'
-    // @param int    $index     = 0
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Remove Last Element
+     * 
+     * @param string $str
+     * @param string $separator = '/'
+     * @param int    $index     = 0
+     * 
+     * @return string
+     */
     public static function removeLast(String $str, String $separator = '/', Int $index = 0) : String
     {
         return self::remove($str, $separator, -abs($index));
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Remove Section -> 5.4.5
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $str
-    // @param string $separator = '/'
-    // @param int    $index     = 0
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Remove Element
+     * 
+     * @param string $str
+     * @param string $separator = '/'
+     * @param int    $index     = 0
+     * 
+     * @return string
+     */
     public static function remove(String $str, String $separator = '/', Int $index = 0) : String
     {
         $strEx = explode($separator, $str);

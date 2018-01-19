@@ -9,58 +9,44 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use Config;
-use ZN\DataTypes\Arrays;
+use ZN\Config;
+use ZN\Datatype;
 
 class DateTimeCommon
 {
-    //--------------------------------------------------------------------------------------------------------
-    // Confi
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var array
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Keeps datetime config.
+     * 
+     * @var array
+     */
     protected $config;
 
-    //--------------------------------------------------------------------------------------------------------
-    // Class Name
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Sınıf uzantısı
-    //
-    // @var  string
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Keeps Class Name
+     * 
+     * @var string
+     */
     protected $className = 'ZN\DateTime\Date';
 
-    //--------------------------------------------------------------------------------------------------------
-    // Construct
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  void
-    // @return bool
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Magic Constructor
+     */
     public function __construct()
     {
-        parent::__construct();
-
-        $this->config = Config::get('Project');
+        $this->config = Config::default(new DateTimeDefaultConfiguration)::get('Project');
 
         setlocale(LC_ALL, $this->config['locale']['charset'], $this->config['locale']['language']);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Compare
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Tarihleri karşılaştırmak için kullanılır.
-    //
-    // @param  string clock
-    // @return bool
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Compare dates
+     * 
+     * @param string $value1
+     * @param string $condition
+     * @param string $value2
+     * 
+     * @return bool
+     */
     public function compare(String $value1, String $condition, String $value2) : Bool
     {
         $value1 = $this->toNumeric($value1);
@@ -69,16 +55,14 @@ class DateTimeCommon
         return version_compare($value1, $value2, $condition);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // To Numeric
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Tarihi sayısal veriye çevirir.
-    //
-    // @param  string dateFormat
-    // @return numeric
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Turns historical data into numeric data.
+     * 
+     * @param string $dateFormat
+     * @param int    $now = NULL
+     * 
+     * @return int
+     */
     public function toNumeric(String $dateFormat, Int $now = NULL) : Int
     {
         if( $now === NULL )
@@ -89,33 +73,28 @@ class DateTimeCommon
         return strtotime($this->_datetime($dateFormat), $now);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // To Readble -> 5.3.5[added]
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Veriyi okunabilir tarihe çevirir.
-    //
-    // @param  string dateFormat
-    // @return numeric
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Converts time data to readable form.
+     * 
+     * @param int $time
+     * @param string $dateFormat = 'Y-m-d H:i:s'
+     * 
+     * @return string
+     */
     public function toReadable(Int $time, String $dateFormat = 'Y-m-d H:i:s') : String
     {
         return $this->_datetime($dateFormat, $time);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Calculate -> 5.3.5[edited]
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Tarihler arasında hesaplama yapmak için kullanılır.
-    //
-    // @param  string input
-    // @param  string calculate
-    // @param  string output
-    // @return mixed
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Calculates between dates.
+     * 
+     * @param string $input
+     * @param string $calculate
+     * @param string $output = 'Y-m-d'
+     * 
+     * @return string
+     */
     public function calculate(String $input, String $calculate, String $output = 'Y-m-d') : String
     {
         if( ! preg_match('/^[0-9]/', $input) )
@@ -123,7 +102,7 @@ class DateTimeCommon
             $input = $this->_datetime($input);
         }
 
-        // 5.3.5[added]
+        # 5.3.5[added]
         if( $this->_classname() === 'ZN\DateTime\Time' && $output === 'Y-m-d' )
         {
             $output = '{Hour}:{minute}:{second}';
@@ -134,59 +113,43 @@ class DateTimeCommon
         return $this->_datetime($output, strtotime($calculate, strtotime($input)));
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Set
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Tarih ve saat ayarlamaları yapmak için kullanılır.
-    //
-    // @param  string exp
-    // @return string
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Sets the date and time.
+     * 
+     * @param string $exp 
+     * 
+     * @return string
+     */
     public function set(String $exp) : String
     {
         return $this->_datetime($exp);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Convert
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  string $config
-    // @return string $change
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Protected Convert
+     */
     protected function _convert($change)
     {
         $config = $this->_chartype();
 
         $chars  = Properties::${$config};
 
-        $chars  = Arrays::multikey($chars);
+        $chars  = Datatype::multikey($chars);
 
         return str_ireplace(array_keys($chars), array_values($chars), $change);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Class Name
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Sınıf adını verir.
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Protected Class Name
+     */
     protected function _classname()
     {
-        return $className = str_ireplace(INTERNAL_ACCESS, '', get_called_class());
+        return $className = get_called_class();
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Date Time
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Kütüphane türüne göre çevrim yapar.
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Protected Date Time
+     */
     protected function _datetime($format, $timestamp = NULL)
     {
         if( $timestamp === NULL )
@@ -201,13 +164,9 @@ class DateTimeCommon
         return $func($this->_convert($format), $timestamp);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Char Type
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Sınıf türüne göre karaketer türünü verir.
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Protected Chartype
+     */
     protected function _chartype()
     {
         $className = $this->_classname();

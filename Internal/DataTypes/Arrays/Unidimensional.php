@@ -13,14 +13,14 @@ use RecursiveIteratorIterator, RecursiveArrayIterator;
 
 class Unidimensional
 {
-    //--------------------------------------------------------------------------------------------------------
-    // Unidimensional -> 5.4.5[added]
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array $array
-    // @param bool  $preserveKey = true
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Unidimensional
+     * 
+     * @param array $array
+     * @param bool  $preserveKey = false
+     * 
+     * @return array
+     */
     public static function do(Array $array, Bool $preserveKey = true) : Array
     {
         return iterator_to_array

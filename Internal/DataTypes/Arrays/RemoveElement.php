@@ -11,14 +11,14 @@
 
 class RemoveElement
 {
-    //--------------------------------------------------------------------------------------------------------
-    // Remove Key
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array $array
-    // @param mixed $keys
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Remove Key
+     * 
+     * @param array $array
+     * @param mixed $keys
+     * 
+     * @return array
+     */
     public static function key(Array $array, $keys) : Array
     {
         if( ! is_array($keys) )
@@ -36,28 +36,28 @@ class RemoveElement
         return $array;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Remove Value
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array $array
-    // @param mixed $values
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Remove Value
+     * 
+     * @param array $array
+     * @param mixed $values
+     * 
+     * @return array
+     */
     public static function value(Array $array, $values) : Array
     {
         return self::element($array, $values);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Remove
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array $array
-    // @param mixed $keys
-    // @param mixed $values
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Remove
+     * 
+     * @param array $array
+     * @param mixed $keys
+     * @param mixed $values
+     * 
+     * @return array
+     */
     public static function use(Array $array, $keys, $values) : Array
     {
         if( ! empty($keys) )
@@ -73,14 +73,14 @@ class RemoveElement
         return $array;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Remove Last
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array   $array
-    // @param numeric $count
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Remove Last Element
+     * 
+     * @param array $array
+     * @param int   $count = 1
+     * 
+     * @return array
+     */
     public static function last(Array $array, Int $count = 1, $type = 'array_pop') : Array
     {
         if( $count <= 1 )
@@ -105,27 +105,27 @@ class RemoveElement
         return $array;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Remove First
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array   $array
-    // @param numeric $count
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Remove First Element
+     * 
+     * @param array $array
+     * @param int   $count = 1
+     * 
+     * @return array
+     */
     public static function first(Array $array, Int $count = 1) : Array
     {
         return self::last($array, $count, 'array_shift');
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Delete Element
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array $array
-    // @param mixed $object
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Delete Element
+     * 
+     * @param array $array
+     * @param mixed $object
+     * 
+     * @return array
+     */
     public static function element(Array $array, $object) : Array
     {
         if( ! is_array($object) )

@@ -13,18 +13,14 @@ use ZN\DataTypes\Exception\LogicException;
 
 class Excluding
 {
-    //--------------------------------------------------------------------------------------------------------
-    // excluding
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Dizi elemanlarından istenmeyen elemanlar belirtilir. Ancak istenmeyen eleman hem anahtar içinde hem de
-    // değerler içinde aranır. Bu nedenle beklediğinizden farklı sonuçlar alabilirsiniz. Bu yöntemin en
-    // doğru kullanımı anahtar veri içeren dizilerle kullanılmasıdır.
-    //
-    // @param array $array
-    // @param array $excluding
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Exclude Element
+     * 
+     * @param array $array
+     * @param array $excluding
+     * 
+     * @return array
+     */
     public static function use(Array $array, Array $excluding) : Array
     {
         $newArray = [];
@@ -50,13 +46,13 @@ class Excluding
         return $newArray;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Key Control
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param mixed $key
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Key Control
+     * 
+     * @param string|int
+     * 
+     * @return string|int
+     */
     public static function keyControl($key)
     {
         return ! is_numeric($key) ? $key : '-'.$key;

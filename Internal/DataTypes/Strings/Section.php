@@ -11,16 +11,16 @@
 
 class Section
 {
-    //--------------------------------------------------------------------------------------------------------
-    // Section
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $str
-    // @param int    $starting
-    // @param int    $count
-    // @param string $encoding
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Section
+     * 
+     * @param string $str
+     * @param int    $starting = 0
+     * @param int    $count    = NULL
+     * @param string $encoding = 'utf-8'
+     * 
+     * @return string
+     */
     public static function use(String $str, Int $starting = 0, Int $count = NULL, String $encoding = 'utf-8') : String
     {
         return mb_substr($str, $starting, $count, $encoding);

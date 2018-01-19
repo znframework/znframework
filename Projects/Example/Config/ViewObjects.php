@@ -145,22 +145,6 @@
 
     'dbgrid' =>
     [
-        'buttonNames' =>
-        [
-            'add'           => ($lang = Lang::select('Database'))['addButton'],
-            'edit'          => $lang['editButton'],
-            'update'        => $lang['updateButton'],
-            'save'          => $lang['saveButton'],
-            'close'         => $lang['closeButton'],
-            'delete'        => $lang['deleteButton'],
-            'deleteSelected'=> $lang['deleteSelectedName'],
-            'deleteAll'     => $lang['deleteAllName']
-        ],
-        'placeHolders' =>
-        [
-            'search' => $lang['searchHolder'],
-            'inputs' => $lang['inputsHolder'],
-        ],
         'styleElement' =>
         [
             '#DBGRID_TABLE tr:nth-child(even)' => ['background' => '#E6F9FF'],

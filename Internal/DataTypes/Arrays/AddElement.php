@@ -11,14 +11,14 @@
 
 class AddElement
 {
-    //--------------------------------------------------------------------------------------------------------
-    // Add First
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array $array
-    // @param mixed $element
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Add First
+     * 
+     * @param array $array
+     * @param mixed $element
+     * 
+     * @return array
+     */
     public static function first(Array $array, $element, $type = 'array_unshift') : Array
     {
         if( ! is_array($element) )
@@ -40,14 +40,14 @@ class AddElement
         return $array;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Add Last
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array $array
-    // @param mixed $element
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Add Last
+     * 
+     * @param array $array
+     * @param mixed $element
+     * 
+     * @return array
+     */
     public static function last(Array $array, $element) : Array
     {
         return self::first($array, $element, 'array_push');

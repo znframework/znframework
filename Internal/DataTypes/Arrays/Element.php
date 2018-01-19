@@ -13,14 +13,14 @@ use ZN\DataTypes\Exception\InvalidArgumentException;
 
 class Element
 {
-    //--------------------------------------------------------------------------------------------------------
-    // Keyval
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array  $array
-    // @param string $keyval: val/value, key, vals/values, keys
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Array Elements
+     * 
+     * @param array  $array
+     * @param string $keyval = 'value' - options[value|key|values|keys]
+     * 
+     * @return mixed 
+     */
     public static function use(Array $array, String $keyval = 'value')
     {
         switch( $keyval )

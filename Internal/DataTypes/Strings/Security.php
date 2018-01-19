@@ -11,14 +11,14 @@
 
 class Security
 {
-    //--------------------------------------------------------------------------------------------------------
-    // Add Slashes
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $str
-    // @param string $addDifferentChars
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Add Slashes
+     * 
+     * @param string $string
+     * @param string $addDifferentChars = NULL
+     * 
+     * @return string
+     */
     public static function addSlashes(String $string, String $addDifferentChars = NULL) : String
     {
         $return = addslashes($string);
@@ -31,13 +31,13 @@ class Security
         return $return;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Remove Slashes
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $str
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Remove Slashes
+     * 
+     * @param string $string
+     * 
+     * @return string
+     */
     public static function removeSlashes(String $string) : String
     {
         return stripslashes(stripcslashes($string));

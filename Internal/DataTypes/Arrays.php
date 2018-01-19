@@ -69,13 +69,11 @@ class Arrays extends Factory
         ]
     ];
 
-    //--------------------------------------------------------------------------------------------------------
-    // Functionalization
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var array
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Functionalization
+     * 
+     * @var array
+     */
     const functionalization = 
     [
         'merge'             => 'array_merge',
@@ -126,82 +124,82 @@ class Arrays extends Factory
     }
 
 
-    //--------------------------------------------------------------------------------------------------------
-    // Value Exists
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array $array
-    // @param mixed $element
-    // @param bool  $strict
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Value Exists
+     * 
+     * @param array $array
+     * @param mixed $element
+     * @param bool  $strict = false
+     * 
+     * @return bool
+     */
     public static function valueExists(Array $array, $element, Bool $strict = false) : Bool
     {
         return in_array($element, $array, $strict);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Value Exists Insensitive
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array $array
-    // @param mixed $element
-    // @param bool  $insenstive
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Value Exists Insensitive
+     * 
+     * @param array $array
+     * @param mixed $element
+     * @param bool  $strict = false
+     * 
+     * @return bool
+     */
     public static function valueExistsInsensitive(Array $array, $element, Bool $strict = false) : Bool
     {
         return self::valueExists(array_map('strtolower', $array), strtolower($element), $strict);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Key Exists
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array $array
-    // @param mixed $key
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Key Exists
+     * 
+     * @param array $array
+     * @param mixed $key
+     * 
+     * @return bool
+     */
     public static function keyExists(Array $array, $key) : Bool
     {
         return array_key_exists($key, $array);
     }
 
-     //--------------------------------------------------------------------------------------------------------
-    // Key Exists Insensitive
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array $array
-    // @param mixed $key
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Key Exists Insensitive
+     * 
+     * @param array $array
+     * @param mixed $key
+     * 
+     * @return bool
+     */
     public static function keyEsistsInsensitive(Array $array, $key) : Bool
     {
         return self::keyExists(array_change_key_case($array), strtolower($key));
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Search
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array $array
-    // @param mixed $element
-    // @param bool  $strict
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Search
+     * 
+     * @param array $array
+     * @param mixed $element
+     * @param bool  $strict = false
+     * 
+     * @return bool
+     */
     public static function search(Array $array, $element, Bool $strict = false)
     {
         return array_search($element, $array, $strict);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Count Same Values
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array $array
-    // @param mixed $key
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Count Same Values
+     * 
+     * @param array $array
+     * @param mixed $key = NULL
+     * 
+     * @return int|false
+     */
     public static function countSameValues(Array $array, String $key = NULL)
     {
         $return = array_count_values($array);

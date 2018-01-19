@@ -11,16 +11,14 @@
 
 class Search
 {
-    //--------------------------------------------------------------------------------------------------------
-    // Search
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $str
-    // @param string $needle
-    // @param string $type, Options: string, position
-    // @param string $case
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Search 
+     * 
+     * @param string $str
+     * @param string $needle
+     * @param string $type = 'string' - options[string|position]
+     * @param bool   $case = true
+     */
     public static function use(String $str, String $needle, String $type = 'string', Bool $case = true)
     {
         if( $type === 'string' )
@@ -52,29 +50,25 @@ class Search
         }
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Position
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $str
-    // @param string $needle
-    // @param string $case
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Search Position 
+     * 
+     * @param string $str
+     * @param string $needle
+     * @param bool   $case = true
+     */
     public static function position(String $str, String $needle, Bool $case = true)
     {
         return self::use($str, $needle, __FUNCTION__, $case);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // String
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $str
-    // @param string $needle
-    // @param string $case
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Search String 
+     * 
+     * @param string $str
+     * @param string $needle
+     * @param bool   $case = true
+     */
     public static function string(String $str, String $needle, Bool $case = true) : String
     {
         return self::use($str, $needle, __FUNCTION__, $case);

@@ -13,18 +13,14 @@ use ZN\DataTypes\Exception\LogicException;
 
 class Including
 {
-    //--------------------------------------------------------------------------------------------------------
-    // including
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Dizi elemanlarından istenen elemanlar belirtilir. Ancak istenmeyen eleman hem anahtar içinde hem de
-    // değerler içinde aranır. Bu nedenle beklediğinizden farklı sonuçlar alabilirsiniz. Bu yöntemin en
-    // doğru kullanımı anahtar veri içeren dizilerle kullanılmasıdır.
-    //
-    // @param array   $array
-    // @param array   $including
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Include Element
+     * 
+     * @param array $array
+     * @param array $including
+     * 
+     * @return array
+     */
     public static function use(Array $array, Array $including) : Array
     {
         $newArray = [];

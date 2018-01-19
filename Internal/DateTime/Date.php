@@ -11,47 +11,36 @@
 
 class Date extends DateTimeCommon implements DateTimeCommonInterface
 {
-    //--------------------------------------------------------------------------------------------------------
-    // Current
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Aktif saat bilgisini verir.
-    //
-    // @param  string clock
-    // @return string
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Gives the active date information.
+     * 
+     * @param string $clock = '%H:%M:%S'
+     * 
+     * @return string
+     */
     public function current(String $clock = 'd.m.o') : String
     {
         return $this->_datetime($clock);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Convert
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Tarih bilgisini dönüştürmek için kullanılır.
-    //
-    // @param  string $date
-    // @param  string $format
-    // @return string
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Converts date information.
+     * 
+     * @param string $date
+     * @param string $format = '%d-%B-%Y %A, %H:%M:%S'
+     * 
+     * @return string
+     */
     public function convert(String $date, String $format = 'd-m-Y H:i:s') : String
     {
         return $this->_datetime($format, strtotime($date));
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Standart
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Standart tarih ve saat bilgisi üretir.
-    //
-    // @param  void
-    // @return string
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Generates standard date and time information.
+     * 
+     * @return string
+     */
     public function standart() : String
     {
         return $this->_datetime("d.F.o l, H:i:s");

@@ -11,102 +11,80 @@
 
 interface DateTimeCommonInterface
 {
-    //--------------------------------------------------------------------------------------------------------
-    // Current
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Aktif saat bilgisini verir.
-    //
-    // @param  string clock
-    // @return string
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function current(String $clock) : String;
-
-    //--------------------------------------------------------------------------------------------------------
-    // To Numeric
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Tarihi sayısal veriye çevirir.
-    //
-    // @param  string date
-    // @return numeric
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function toNumeric(String $dateFormat, Int $now = NULL) : Int;
-
-    //--------------------------------------------------------------------------------------------------------
-    // To Readble -> 5.3.5[added]
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Veriyi okunabilir tarihe çevirir.
-    //
-    // @param  string dateFormat
-    // @return numeric
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function toReadable(Int $time, String $dateFormat = 'Y-m-d H:i:s') : String;
-
-    //--------------------------------------------------------------------------------------------------------
-    // Compare
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Tarihleri karşılaştırmak için kullanılır.
-    //
-    // @param  string clock
-    // @return bool
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Compare dates
+     * 
+     * @param string $value1
+     * @param string $condition
+     * @param string $value2
+     * 
+     * @return bool
+     */
     public function compare(String $value1, String $condition, String $value2) : Bool;
 
-    //--------------------------------------------------------------------------------------------------------
-    // Calculate
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Tarihler arasında hesaplama yapmak için kullanılır.
-    //
-    // @param  string input
-    // @param  string calculate
-    // @param  string output
-    // @return mixed
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Turns historical data into numeric data.
+     * 
+     * @param string $dateFormat
+     * @param int    $now = NULL
+     * 
+     * @return int
+     */
+    public function toNumeric(String $dateFormat, Int $now = NULL) : Int;
+
+     /**
+     * Converts time data to readable form.
+     * 
+     * @param int $time
+     * @param string $dateFormat = 'Y-m-d H:i:s'
+     * 
+     * @return string
+     */
+    public function toReadable(Int $time, String $dateFormat = 'Y-m-d H:i:s') : String;
+
+    /**
+     * Calculates between dates.
+     * 
+     * @param string $input
+     * @param string $calculate
+     * @param string $output = 'Y-m-d'
+     * 
+     * @return string
+     */
     public function calculate(String $input, String $calculate, String $output = 'Y-m-d') : String;
 
-    //--------------------------------------------------------------------------------------------------------
-    // Convert
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Tarih bilgisini dönüştürmek için kullanılır.
-    //
-    // @param  string $date
-    // @param  string $format
-    // @return string
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Sets the date and time.
+     * 
+     * @param string $exp 
+     * 
+     * @return string
+     */
+    public function set(String $exp) : String;
+
+    /**
+     * Gives the active time information.
+     * 
+     * @param string $clock
+     * 
+     * @return string
+     */
+    public function current(String $clock) : String;
+
+    /**
+     * Converts date information.
+     * 
+     * @param string $date
+     * @param string $format
+     * 
+     * @return string
+     */
     public function convert(String $date, String $format) : String;
 
-    //--------------------------------------------------------------------------------------------------------
-    // Standart
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Standart tarih ve saat bilgisi üretir.
-    //
-    // @param  void
-    // @return string
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Generates standard date and time information.
+     * 
+     * @return string
+     */
     public function standart() : String;
-
-    //--------------------------------------------------------------------------------------------------------
-    // Set
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Tarih ve saat ayarlamaları yapmak için kullanılır.
-    //
-    // @param  string exp
-    // @return string
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function set(String $exp) : String;
 }

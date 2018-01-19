@@ -25,24 +25,22 @@ class Split
         return Datatype::splitUpperCase($string);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Apportion
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string  $string
-    // @param numeric $length
-    // @param string  $end
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public static function apportion(String $string, Int $length = 76, String $end = "\r\n") : String
+    /**
+     * Apportion
+     * 
+     * @param string $string
+     * @param int    $length = 76
+     * @param string $end    = PHP_EOL
+     */
+    public static function apportion(String $string, Int $length = 76, String $end = PHP_EOL) : String
     {
         $arrayChunk = array_chunk(preg_split("//u", $string, -1, PREG_SPLIT_NO_EMPTY), $length);
 
-        $string = "";
+        $string = '';
 
         foreach( $arrayChunk as $chunk )
         {
-            $string .= implode("", $chunk) . $end;
+            $string .= implode('', $chunk) . $end;
         }
 
         return $string;

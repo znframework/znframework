@@ -11,51 +11,38 @@
 
 class Time extends DateTimeCommon implements DateTimeCommonInterface
 {
-    //--------------------------------------------------------------------------------------------------------
-    // Current
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Aktif saat bilgisini verir.
-    //
-    // @param  string clock
-    // @return string
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Gives the active time information.
+     * 
+     * @param string $clock = '%H:%M:%S'
+     * 
+     * @return string
+     */
     public function current(String $clock = '%H:%M:%S') : String
     {
         return $this->_datetime($clock);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Convert
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Tarih bilgisini dönüştürmek için kullanılır.
-    //
-    // @param  string $date
-    // @param  string $format
-    // @return string
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Converts date information.
+     * 
+     * @param string $date
+     * @param string $format = '%d-%B-%Y %A, %H:%M:%S'
+     * 
+     * @return string
+     */
     public function convert(String $date, String $format = '%d-%B-%Y %A, %H:%M:%S') : String
     {
         return $this->_datetime($format, strtotime($date));
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Standart
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Standart tarih ve saat bilgisi üretir.
-    //
-    // @param  void
-    // @return string
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Generates standard date and time information.
+     * 
+     * @return string
+     */
     public function standart() : String
     {
-        // Çıktıda iconv() yöntemi ile TR karakter sorunları düzeltiliyor.
-        // Config/DateTime.php dosyasından bu ayarları değiştirmeniz mümkün.
         return strftime("%d %B %Y %A, %H:%M:%S");
     }
 }

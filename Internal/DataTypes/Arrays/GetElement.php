@@ -11,15 +11,15 @@
 
 class GetElement
 {
-    //--------------------------------------------------------------------------------------------------------
-    // Get Last
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array   $array
-    // @param numeric $count
-    // @param bool    $preserveKey
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Get Last Element
+     * 
+     * @param array $array
+     * @param int   $count       = 1
+     * @param bool  $preserveKey = false
+     * 
+     * @return array
+     */
     public static function last(Array $array, Int $count = 1, Bool $preserveKey = false)
     {
         if( $count <= 1 )
@@ -34,15 +34,15 @@ class GetElement
         return $array;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Get First
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array   $array
-    // @param numeric $count
-    // @param bool    $preserveKey
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Get First Element
+     * 
+     * @param array $array
+     * @param int   $count       = 1
+     * @param bool  $preserveKey = false
+     * 
+     * @return array
+     */
     public static function first(Array $array, Int $count = 1, Bool $preserveKey = false)
     {
         if( $count <= 1 )

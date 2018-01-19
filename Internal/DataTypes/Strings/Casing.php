@@ -13,66 +13,66 @@ use ZN\Helper;
 
 class Casing
 {
-    //--------------------------------------------------------------------------------------------------------
-    // Casing
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $str
-    // @param string $type lower, upper, title
-    // @param string $encoding
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Casing
+     * 
+     * @param string $str
+     * @param string $type     = 'lower'
+     * @param string $encoding = 'utf-8'
+     * 
+     * @return string
+     */
     public static function use(String $str, String $type = 'lower', String $encoding = 'utf-8') : String
     {
         return mb_convert_case($str, Helper::toConstant($type, 'MB_CASE_'), $encoding);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Upper Case
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $str
-    // @param string $encoding
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Upper
+     * 
+     * @param string $str
+     * @param string $encoding = 'utf-8'
+     * 
+     * @return string
+     */
     public static function upper(String $str, String $encoding = 'utf-8') : String
     {
         return self::use($str, __FUNCTION__, $encoding);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Lower Case
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $str
-    // @param string $encoding
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Lower
+     * 
+     * @param string $str
+     * @param string $encoding = 'utf-8'
+     * 
+     * @return string
+     */
     public static function lower(String $str, String $encoding = 'utf-8') : String
     {
         return self::use($str, __FUNCTION__, $encoding);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Title Case
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $str
-    // @param string $encoding
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Title
+     * 
+     * @param string $str
+     * @param string $encoding = 'utf-8'
+     * 
+     * @return string
+     */
     public static function title(String $str, String $encoding = 'utf-8') : String
     {
         return self::use($str, __FUNCTION__, $encoding);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Camel Case
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $str
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Camel
+     * 
+     * @param string $str
+     * 
+     * @return string
+     */
     public static function camel(String $str) : String
     {
         $string = self::title(trim($str));
@@ -82,13 +82,13 @@ class Casing
         return Trim::middle($string);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Pascal Case
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $str
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Pascal
+     * 
+     * @param string $str
+     * 
+     * @return string
+     */
     public static function pascal(String $str) : String
     {
         $string = self::title(trim($str));
@@ -96,13 +96,13 @@ class Casing
         return Trim::middle($string);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Underscore Case -> 4.7.0
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $str
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Underscore
+     * 
+     * @param string $str
+     * 
+     * @return string
+     */
     public static function underscore(String $str) : String
     {
         if( ! ctype_lower($str) )

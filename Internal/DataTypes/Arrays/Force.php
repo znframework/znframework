@@ -11,27 +11,27 @@
 
 class Force
 {
-    //--------------------------------------------------------------------------------------------------------
-    // Force Values
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array    $array
-    // @param callable $callable
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Force Values
+     * 
+     * @param array    $array
+     * @param callable $callable
+     * 
+     * @return array
+     */
     public static function values(Array $array, Callable $callable) : Array
     {
         return array_map($callable, $array);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Force Keys
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array    $array
-    // @param callable $callable
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Force Keys
+     * 
+     * @param array    $array
+     * @param callable $callable
+     * 
+     * @return array
+     */
     public static function keys(Array $array, Callable $callable) : Array
     {
         $keys = array_map($callable, array_keys($array));
@@ -39,14 +39,14 @@ class Force
         return array_combine($keys, array_values($array));
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Force
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array    $array
-    // @param callable $callable
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Force All
+     * 
+     * @param array    $array
+     * @param callable $callable
+     * 
+     * @return array
+     */
     public static function do(Array $array, Callable $callable) : Array
     {
         $values = array_values(array_map($callable, $array));

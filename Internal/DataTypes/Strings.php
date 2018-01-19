@@ -48,27 +48,25 @@ class Strings extends Factory
         ]
     ];
 
-    //--------------------------------------------------------------------------------------------------------
-    // Functionalization
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var array
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Functionalization
+     * 
+     * @var array
+     */
     const functionalization = 
     [
         'repeat' => 'str_repeat',
         'length' => 'mb_strlen'
     ];
 
-    //--------------------------------------------------------------------------------------------------------
-    // To Array
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $string
-    // @param string $split
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * String to Array
+     * 
+     * @param string $string
+     * @param string $split = ' '
+     * 
+     * @return array
+     */
     public static function toArray(String $string, String $split = ' ')
     {
         if( empty($split) )
@@ -79,29 +77,29 @@ class Strings extends Factory
         return explode($split, $string);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Pad
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $str
-    // @param numeric $count
-    // @param string  $chars
-    // @param string  $type
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Pad
+     * 
+     * @param string $string
+     * @param int    $count = 1
+     * @param string $chars = ' '
+     * @param string $type  = 'right' - options[right|left|both]
+     * 
+     * @return string
+     */
     public static function pad(String $string, Int $count = 1, String $chars = ' ', String $type = 'right') : String
     {
         return str_pad($string, $count, $chars, Helper::toConstant($type, 'STR_PAD_'));
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Recurrent Count
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $str
-    // @param string $char
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Recurrent Count
+     * 
+     * @param string $str
+     * @param string $char
+     * 
+     * @return int
+     */
     public static function recurrentCount(String $str, String $char) : Int
     {
         return count(explode($char, $str)) - 1;
