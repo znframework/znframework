@@ -281,39 +281,6 @@
     'dbgrid' =>
     [
         //----------------------------------------------------------------------------------------------
-        // Button Names
-        //----------------------------------------------------------------------------------------------
-        //
-        // Genel Kullanımı: DataGrid'de yer alan butonların isimlerini düzenlemek için kullanılır.
-        //
-        //----------------------------------------------------------------------------------------------
-        'buttonNames' =>
-        [
-            'add'           => ($lang = Lang::select('Database'))['addButton'],
-            'edit'          => $lang['editButton'],
-            'update'        => $lang['updateButton'],
-            'save'          => $lang['saveButton'],
-            'close'         => $lang['closeButton'],
-            'delete'        => $lang['deleteButton'],
-            'deleteSelected'=> $lang['deleteSelectedName'],
-            'deleteAll'     => $lang['deleteAllName']
-        ],
-
-        //----------------------------------------------------------------------------------------------
-        // Button Names
-        //----------------------------------------------------------------------------------------------
-        //
-        // Genel Kullanımı: DataGrid'de yer Arama ve yeni ekle veri kutularının var sayılan input
-        // bilgisini değiştirmek için kullanılır.
-        //
-        //----------------------------------------------------------------------------------------------
-        'placeHolders' =>
-        [
-            'search'    => $lang['searchHolder'],
-            'inputs'    => $lang['inputsHolder'],
-        ],
-
-        //----------------------------------------------------------------------------------------------
         // Style Element
         //----------------------------------------------------------------------------------------------
         //

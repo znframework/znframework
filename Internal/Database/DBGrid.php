@@ -125,7 +125,7 @@ class DBGrid
 
         $this->db   = Singleton::class('ZN\Database\DB');
         $this->html = Singleton::class('ZN\Hypertext\Html');
-        $this->form = Singleton::class('ZN\Hypertext\form');
+        $this->form = Singleton::class('ZN\Hypertext\Form');
     }
 
     /**
@@ -490,9 +490,9 @@ class DBGrid
         if( ! empty($this->search) || ! empty($this->select) )
         {
             $table .= $this->_hideButton($this->form->open('addForm').
-            $this->form->placeholder($this->getLang['search'])
+            $this->form->placeholder($this->getLang['searchHolder'])
                 ->id('datagridSearch')
-                ->attr($this->getConfig['attributes']['searchHolder'])
+                ->attr($this->getConfig['attributes']['search'])
                 ->text('search').
             $this->form->close(), 'search');
         }
