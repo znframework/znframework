@@ -13,10 +13,19 @@ use stdClass;
 use ZN\Lang;
 use ZN\Base;
 use ZN\Filesystem\Exception\IOException;
-use ZN\Filesystem\Folder;
 
 class DriverTool extends DriverExtends
 {
+    /**
+     * Magic Constructor
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        
+        $this->getLang = Lang::default(new DatabaseDefaultLanguage)::select('Database');
+    }
+
     /**
      * List Databases
      * 
@@ -147,7 +156,7 @@ class DriverTool extends DriverExtends
 
         if( $status !== NULL )
         {
-            return Lang::select('Database', $message);
+            return $this->getLang[$message];
         }
 
         return false;
@@ -247,7 +256,7 @@ class DriverTool extends DriverExtends
             throw new IOException('Error', 'fileNotWrite', $path.$fileName);
         }
 
-        return Lang::select('Database', 'backupTablesSuccess');
+        return $this->getLang['backupTablesSuccess'];
     }
 
     /**

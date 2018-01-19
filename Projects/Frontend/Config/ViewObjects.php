@@ -145,22 +145,6 @@
 
     'dbgrid' =>
     [
-        'buttonNames' =>
-        [
-            'add'           => ($lang = Lang::select('Database'))['addButton'],
-            'edit'          => $lang['editButton'],
-            'update'        => $lang['updateButton'],
-            'save'          => $lang['saveButton'],
-            'close'         => $lang['closeButton'],
-            'delete'        => $lang['deleteButton'],
-            'deleteSelected'=> $lang['deleteSelectedName'],
-            'deleteAll'     => $lang['deleteAllName']
-        ],
-        'placeHolders' =>
-        [
-            'search' => $lang['searchHolder'],
-            'inputs' => $lang['inputsHolder'],
-        ],
         'styleElement' =>
         [
             '#DBGRID_TABLE tr:nth-child(even)' => ['background' => '#E6F9FF'],
@@ -172,13 +156,13 @@
             'editTables'    => ['style' => 'font-family:Arial; color:#888; font-size:14px;'],
             'columns'       => ['height' => 75, 'style' => 'text-decoration:none; color:#0085B2'],
             'search'        => ['style' => 'height:34px; color:#0085B2; border:solid 1px #0085B2; text-indent:10px'],
-            'add'           => ['style' => $style = 'height:34px; color:#0085B2; background:none; border:solid 1px #0085B2; cursor:pointer'],
-            'deleteSelected'=> ['style' => $style],
-            'deleteAll'     => ['style' => $style],
-            'save'          => ['style' => $style],
-            'update'        => ['style' => $style],
-            'delete'        => ['style' => $style],
-            'edit'          => ['style' => $style],
+            'add'           => ['style' => 'height:34px; color:#0085B2; background:none; border:solid 1px #0085B2; cursor:pointer'],
+            'deleteSelected'=> ['style' => 'height:34px; color:#0085B2; background:none; border:solid 1px #0085B2; cursor:pointer'],
+            'deleteAll'     => ['style' => 'height:34px; color:#0085B2; background:none; border:solid 1px #0085B2; cursor:pointer'],
+            'save'          => ['style' => 'height:34px; color:#0085B2; background:none; border:solid 1px #0085B2; cursor:pointer'],
+            'update'        => ['style' => 'height:34px; color:#0085B2; background:none; border:solid 1px #0085B2; cursor:pointer'],
+            'delete'        => ['style' => 'height:34px; color:#0085B2; background:none; border:solid 1px #0085B2; cursor:pointer'],
+            'edit'          => ['style' => 'height:34px; color:#0085B2; background:none; border:solid 1px #0085B2; cursor:pointer'],
             'listTables'    => [],
             'inputs'        =>
             [

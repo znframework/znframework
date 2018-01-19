@@ -227,7 +227,7 @@ class DriverUser
     }
 
     /**
-     * Lock
+     * Unlock
      * 
      * @param string $type - [lock|unlock]
      */
@@ -237,7 +237,7 @@ class DriverUser
     }
 
     /**
-     * Lock
+     * Type
      * 
      * @param string $type - [TABLE|FUNCTION|PROCEDURE]
      */

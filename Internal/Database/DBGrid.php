@@ -119,8 +119,8 @@ class DBGrid
      */
     public function __construct()
     {
-        $this->getConfig = Config::get('ViewObjects', 'dbgrid');
-        $this->getLang   = Lang::select('Database');
+        $this->getConfig = Config::default(new DatagridDefaultConfiguration)::get('ViewObjects', 'dbgrid');
+        $this->getLang   = Lang::default(new DatagridDefaultLanguage)->select('ViewObjects');
         $this->confirm   = 'return confirm(\''.$this->getLang['areYouSure'].'\');';
 
         $this->db   = Singleton::class('ZN\Database\DB');
@@ -428,11 +428,11 @@ class DBGrid
         }
 
         # Creates table
-        $table .= '<table id="DBGRID_TABLE"'.$this->html->attributes($this->getConfig['attributes']['table']).'>'.EOL;
+        $table .= '<table id="DBGRID_TABLE"'.$this->html->attributes($this->getConfig['attributes']['table']).'>'.PHP_EOL;
         $table .= $this->_thead($columns, $countColumns);
         $table .= $this->_tbody($result, $countColumns, $joinsData, $columns);
         $table .= $this->_pagination($pagination, $countColumns);
-        $table .= '</table>'.EOL;
+        $table .= '</table>'.PHP_EOL;
 
         $this->_defaultVariables();
 
@@ -483,16 +483,16 @@ class DBGrid
      */
     protected function _thead($columns, $countColumns)
     {
-        $table  = '<thead>'.EOL;
+        $table  = '<thead>'.PHP_EOL;
         $table .= '<tr'.$this->html->attributes($this->getConfig['attributes']['columns']).'>';
         $table .= '<td colspan="2">';
             
         if( ! empty($this->search) || ! empty($this->select) )
         {
             $table .= $this->_hideButton($this->form->open('addForm').
-            $this->form->placeholder($this->getConfig['placeHolders']['search'])
+            $this->form->placeholder($this->getLang['search'])
                 ->id('datagridSearch')
-                ->attr($this->getConfig['attributes']['search'])
+                ->attr($this->getConfig['attributes']['searchHolder'])
                 ->text('search').
             $this->form->close(), 'search');
         }
@@ -502,7 +502,7 @@ class DBGrid
         $table .= $this->_hideButton($this->form->action(CURRENT_CFPATH . URI::manipulation(['process' => 'add', 'order', 'type', 'page'], 'left'))
                       ->open('addForm').
                   $this->form->attr($this->getConfig['attributes']['add'])
-                      ->submit('addButton', $this->getConfig['buttonNames']['add']).
+                      ->submit('addButton', $this->getLang['addButton']).
                   $this->form->close(), 'addButton');
         $table .= '</tr><tr'.$this->html->attributes($this->getConfig['attributes']['columns']).'>';
         $table .= '<td width="20">#</td>';
@@ -520,8 +520,8 @@ class DBGrid
         $table .= '<td align="right" colspan="2"><span'.
                   $this->html->attributes($this->getConfig['attributes']['columns']).'>'.
                   $this->html->strong($this->getLang['processLabel']).'</span></td>';
-        $table .= '</tr>'.EOL;
-        $table .= '</thead>'.EOL;
+        $table .= '</tr>'.PHP_EOL;
+        $table .= '</thead>'.PHP_EOL;
 
         return $table;
     }
@@ -531,7 +531,7 @@ class DBGrid
      */
     protected function _tbody($result, $countColumns, $joinsData)
     {
-        $table = '<tbody>'.EOL;
+        $table = '<tbody>'.PHP_EOL;
 
         # Body data
         $hiddenJoins = NULL;
@@ -577,7 +577,7 @@ class DBGrid
                     $hiddenId.
                     $hiddenJoins.
                     $this->form->attr($this->getConfig['attributes']['edit'])
-                        ->submit('editButton', $this->getConfig['buttonNames']['edit']).
+                        ->submit('editButton', $this->getLang['editButton']).
                     $this->form->close().
                     '</td>', 'editButton').
                     $this->_hideButton('<td width="60" align="right">'.
@@ -586,14 +586,14 @@ class DBGrid
                     $hiddenId.
                     $hiddenJoins.
                     $this->form->attr($this->getConfig['attributes']['delete'])
-                        ->submit('deleteButton', $this->getConfig['buttonNames']['delete']).
+                        ->submit('deleteButton', $this->getLang['deleteButton']).
                     $this->form->close().
 
                     '</td>', 'deleteButton').'</tr>'.
-                    EOL;
+                    PHP_EOL;
         }
 
-        $table .= '</tbody>'.EOL;
+        $table .= '</tbody>'.PHP_EOL;
 
         return $table;
     }
@@ -618,7 +618,7 @@ class DBGrid
     {
         $table  = $this->form->open('saveForm');
 
-        $table .= '<table type="DBGRID_ADD_EDIT_TABLE"'.$this->html->attributes($this->getConfig['attributes']['table']).'>'.EOL;
+        $table .= '<table type="DBGRID_ADD_EDIT_TABLE"'.$this->html->attributes($this->getConfig['attributes']['table']).'>'.PHP_EOL;
         $table .= '<tr>';
 
         $newGetRow = NULL;
@@ -660,11 +660,11 @@ class DBGrid
         }
 
         $table .= '<tr><td colspan="'.count($joinsData).'">'.
-        $this->_hideButton($this->form->attr($this->getConfig['attributes']['save'])->submit('saveButton', $this->getConfig['buttonNames']['save']), 'saveButton').
+        $this->_hideButton($this->form->attr($this->getConfig['attributes']['save'])->submit('saveButton', $this->getLang['saveButton']), 'saveButton').
         $this->_hideButton($this->html->style('text-decoration:none')->anchor
                        (
                             CURRENT_CFPATH . URI::manipulation(['order', 'type', 'page'], 'left'),
-                            $this->form->attr($this->getConfig['attributes']['save'])->button('closeButton', $this->getConfig['buttonNames']['close'] ?? 'Close')
+                            $this->form->attr($this->getConfig['attributes']['save'])->button('closeButton', $this->getLang['closeButton'] ?? 'Close')
                        ), 'closeButton').
                       '</td></tr>';
         $table .= '</tr></table>';

@@ -11,19 +11,16 @@
 
 class DBUser extends Connection
 {
-    //--------------------------------------------------------------------------------------------------------
-    // User
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var object
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Database User Driver
+     */
     protected $user;
 
-    //--------------------------------------------------------------------------------------------------------
-    // Database Manipulation Methods Başlangıç
-    //--------------------------------------------------------------------------------------------------------
-
+    /**
+     * Magic Constructor
+     * 
+     * @param array $settings
+     */
     public function __construct($settings = [])
     {
         parent::__construct($settings);
@@ -31,13 +28,13 @@ class DBUser extends Connection
         $this->user = $this->_drvlib('User', $settings);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // name()
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $name: USER()
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Sets name
+     * 
+     * @param string $name
+     * 
+     * @return DBUser
+     */
     public function name(String $name) : DBUser
     {
         $this->user->name($name);
@@ -45,13 +42,13 @@ class DBUser extends Connection
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // host()
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $host: localhost
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Sets host
+     * 
+     * @param string $host
+     * 
+     * @return DBUser
+     */
     public function host(String $host) : DBUser
     {
         $this->user->host($host);
@@ -59,13 +56,13 @@ class DBUser extends Connection
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // password()
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $authString: empty
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Sets Auth Password
+     * 
+     * @param string $authString
+     * 
+     * @return DBUser
+     */
     public function password(String $authString) : DBUser
     {
         $this->user->password($authString);
@@ -73,13 +70,13 @@ class DBUser extends Connection
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // identifiedBy()
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $authString: empty
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Sets Identified By
+     * 
+     * @param string $authString
+     * 
+     * @return DBUser
+     */
     public function identifiedBy(String $authString) : DBUser
     {
         $this->user->identifiedBy($authString);
@@ -87,13 +84,13 @@ class DBUser extends Connection
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // identifiedByPassword()
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $hashString: empty
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Sets Identified By Passowrd
+     * 
+     * @param string $hashString
+     * 
+     * @return DBUser
+     */
     public function identifiedByPassword(String $hashString) : DBUser
     {
         $this->user->identifiedByPassword($hashString);
@@ -101,15 +98,15 @@ class DBUser extends Connection
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // identifiedWith()
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $authPlugin: empty
-    // @param string $type      : empty
-    // @param string $authString: empty
-    //
-    //--------------------------------------------------------------------------------------------------------
+     /**
+     * Identified With
+     * 
+     * @param string $authPlugin
+     * @param string $type
+     * @param string $authString 
+     * 
+     * @return DBUser
+     */
     public function identifiedWith(String $authPlugin, String $type, String $authString) : DBUser
     {
         $this->user->identifiedWith($authPlugin, $type, $authString);
@@ -117,14 +114,14 @@ class DBUser extends Connection
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // identifiedWithBy()
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $authPlugin: empty
-    // @param string $authString: empty
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Identified With By
+     * 
+     * @param string $authPlugin
+     * @param string $authString 
+     * 
+     * @return DBUser
+     */
     public function identifiedWithBy(String $authPlugin, String $authString) : DBUser
     {
         $this->user->identifiedWithBy($authPlugin, $authString);
@@ -132,14 +129,14 @@ class DBUser extends Connection
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // identifiedWithAs()
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $hashPlugin: empty
-    // @param string $hashString: empty
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Identified With As
+     * 
+     * @param string $hashPlugin
+     * @param string $hashString 
+     *
+     * @return DBUser
+     */
     public function identifiedWithAs(String $hashPlugin, String $hashString) : DBUser
     {
         $this->user->identifiedWithAs($hashPlugin, $hashString);
@@ -147,13 +144,11 @@ class DBUser extends Connection
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // required()
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Required
+     * 
+     * @return DBUser
+     */
     public function required() : DBUser
     {
         $this->user->required();
@@ -161,13 +156,11 @@ class DBUser extends Connection
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // with()
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * With
+     * 
+     * @return DBUser
+     */
     public function with() : DBUser
     {
         $this->user->with();
@@ -175,14 +168,14 @@ class DBUser extends Connection
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // option()
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $name
-    // @param string $value
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Option
+     * 
+     * @param string $option
+     * @param string $value
+     * 
+     * @return DBUser
+     */
     public function option(String $name, String $value) : DBUser
     {
         $this->user->option($name, $value);
@@ -190,15 +183,15 @@ class DBUser extends Connection
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // encode()
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $type     : SSL, X509, CIPHER value, ISSUER value, SUBJECT value
-    // @param string $string   : empty value
-    // @param string $condition: and, or
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Encode
+     * 
+     * @param string $type      - options[SSL|X509|CIPHER value|ISSUER value|SUBJECT value]
+     * @param string $string    
+     * @param string $condition - [and|or]
+     * 
+     * @return DBUser
+     */
     public function encode(String $type, String $string, String $condition = NULL) : DBUser
     {
         $this->user->encode($type, $string, $condition);
@@ -206,17 +199,14 @@ class DBUser extends Connection
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // resource()
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $resource: query       => MAX_QUERIES_PER_HOUR
-    //                          update      => 'MAX_UPDATES_PER_HOUR
-    //                          connection  => 'MAX_CONNECTIONS_PER_HOUR
-    //                          user        => 'MAX_USER_CONNECTIONS
-    // @param string $count   : 0
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Resource
+     * 
+     * @param string $resource - option[query|update|connection|user]
+     * @param string $count    
+     * 
+     * @return DBUser
+     */
     public function resource(String $resource, $count = 0) : DBUser
     {
         $this->user->resource($resource, $count);
@@ -224,14 +214,14 @@ class DBUser extends Connection
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // passwordExpire()
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string  $type: empty, DEFAULT, NEVER, INTERVAL
-    // @param numeric $n   : 0
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Password Expire
+     * 
+     * @param string $type - option[empty|DEFAULT|NEVER|INTERVAL]
+     * @param int    $n
+     * 
+     * @return DBUser
+     */
     public function passwordExpire(String $type = NULL, $n = 0) : DBUser
     {
         $this->user->passwordExpire($type, $n);
@@ -239,13 +229,13 @@ class DBUser extends Connection
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // lock()
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string  $type: lock, unlock
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Lock
+     * 
+     * @param string $type - [lock|unlock]
+     * 
+     * @return DBUser
+     */
     public function lock(String $type = 'lock') : DBUser
     {
         $this->user->lock($type);
@@ -253,13 +243,13 @@ class DBUser extends Connection
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // unlock()
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string  $type: unlock, lock
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Unlock
+     * 
+     * @param string $type - [lock|unlock]
+     * 
+     * @return DBUser
+     */
     public function unlock(String $type = 'unlock') : DBUser
     {
         $this->user->unlock($type);
@@ -267,13 +257,13 @@ class DBUser extends Connection
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // type()
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string  $type: TABLE, FUNCTION, PROCEDURE
-    //
-    //--------------------------------------------------------------------------------------------------------
+     /**
+     * Type
+     * 
+     * @param string $type - [TABLE|FUNCTION|PROCEDURE]
+     * 
+     * @return DBUser
+     */
     public function type(String $type = 'TABLE') : DBUser
     {
         $this->user->type($type);
@@ -281,13 +271,13 @@ class DBUser extends Connection
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // select()
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string  $select: *.*
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Select
+     * 
+     * @param string $select = *.*
+     * 
+     * @return DBUser
+     */
     public function select(String $select = '*.*') : DBUser
     {
         $this->user->select($select);
@@ -295,13 +285,11 @@ class DBUser extends Connection
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // grantOption()
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void()
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Grant Option
+     * 
+     * @return DBUser
+     */
     public function grantOption() : DBUser
     {
         $this->user->grantOption();
@@ -309,13 +297,13 @@ class DBUser extends Connection
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // alter()
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string  $name: USER()
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Alter 
+     * 
+     * @param string $name
+     * 
+     * @return bool
+     */
     public function alter(String $name = NULL)
     {
         $query = $this->user->alter($name ?? 'USER()');
@@ -323,13 +311,13 @@ class DBUser extends Connection
         return $this->_runQuery($query);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // create()
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string  $name: USER()
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Create 
+     * 
+     * @param string $name
+     * 
+     * @return bool
+     */
     public function create(String $name = NULL)
     {
         $query = $this->user->create($name ?? 'USER()');
@@ -337,13 +325,13 @@ class DBUser extends Connection
         return $this->_runQuery($query);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // drop()
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string  $name: USER()
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Drop 
+     * 
+     * @param string $name
+     * 
+     * @return bool
+     */
     public function drop(String $name = NULL)
     {
         $query = $this->user->drop($name ?? 'USER()');
@@ -351,15 +339,15 @@ class DBUser extends Connection
         return $this->_runQuery($query);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // grant()
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string  $name  : ALL
-    // @param string  $type  : *.*
-    // @param string  $select: *.*
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Grant
+     * 
+     * @param string $name 
+     * @param string $type
+     * @param string $select
+     * 
+     * @return bool
+     */
     public function grant(String $name = 'ALL', String $type = NULL, String $select = '*.*')
     {
         $query = $this->user->grant($name, $type, $select);
@@ -367,15 +355,15 @@ class DBUser extends Connection
         return $this->_runQuery($query);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // revoke()
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string  $name  : ALL
-    // @param string  $type  : *.*
-    // @param string  $select: *.*
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Revoke
+     * 
+     * @param string $name 
+     * @param string $type
+     * @param string $select
+     * 
+     * @return bool
+     */
     public function revoke(String $name = 'ALL', String $type = NULL, String $select = '*.*')
     {
         $query = $this->user->revoke($name, $type, $select);
@@ -383,14 +371,14 @@ class DBUser extends Connection
         return $this->_runQuery($query);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // rename()
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string  $oldName: empty
-    // @param string  $newName: empty
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Rename
+     * 
+     * @param string $oldName
+     * @param string $newName
+     * 
+     * @return bool
+     */
     public function rename(String $oldName, String $newName)
     {
         $query = $this->user->rename($oldName, $newName);
@@ -398,14 +386,14 @@ class DBUser extends Connection
         return $this->_runQuery($query);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // setPassword()
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string  $user: empty
-    // @param string  $pass: empty
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Set Password
+     * 
+     * @param string $user
+     * @param string $pass
+     * 
+     * @return bool
+     */
     public function setPassword(String $user = NULL, String $pass = NULL)
     {
         $query = $this->user->setPassword($user, $pass);
