@@ -13,33 +13,27 @@ use ZN\Support;
 use ZN\Datatype;
 
 class DBForge extends Connection
-{
-    //--------------------------------------------------------------------------------------------------------
-    // Extras
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var mixed
-    //
-    //--------------------------------------------------------------------------------------------------------
+{   
+    /**
+     * @var array
+     */
     protected $extras;
 
-    //--------------------------------------------------------------------------------------------------------
-    // Forge
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var object
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Keeps Forge Driver
+     * 
+     * @var object
+     */
     protected $forge;
 
-    //--------------------------------------------------------------------------------------------------------
-    // Magic Call
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $method
-    // @param array  $parameters
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Magic Call
+     * 
+     * @param string $method
+     * @param array  $parameters
+     * 
+     * @param mixed
+     */
     public function __call($method, $parameters)
     {
         $split  = Datatype::splitUpperCase($originMethodName = $method);
@@ -59,13 +53,11 @@ class DBForge extends Connection
         return $this->$method($table, ...$parameters);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Construct
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Magic Constructor
+     * 
+     * @param array $settings
+     */
     public function __construct($settings = [])
     {
         parent::__construct($settings);
@@ -73,13 +65,13 @@ class DBForge extends Connection
         $this->forge = $this->_drvlib('Forge', $settings);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Extras
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param mixed $extras
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Create Table & Database Extras
+     * 
+     * @param mixed $extras
+     * 
+     * @return DBForge
+     */
     public function extras($extras) : DBForge
     {
         $this->extras = $extras;
@@ -87,14 +79,14 @@ class DBForge extends Connection
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Create Database
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $dbname
-    // @param mixed  $extras
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Create Database
+     * 
+     * @param string $dbname
+     * @param string $extras
+     * 
+     * @return bool
+     */
     public function createDatabase(String $dbname, $extras = NULL)
     {
         $query = $this->forge->createDatabase($dbname, $this->_p($extras, 'extras'));
@@ -102,13 +94,13 @@ class DBForge extends Connection
         return $this->_runExecQuery($query);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Drop Database
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $dbname
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Drop Database
+     * 
+     * @param string $dbname
+     * 
+     * @return bool
+     */
     public function dropDatabase(String $dbname)
     {
         $query = $this->forge->dropDatabase($dbname);
@@ -116,15 +108,15 @@ class DBForge extends Connection
         return $this->_runExecQuery($query);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Create Table
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param mixed $table
-    // @param mixed $colums
-    // @param mixed $extras
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Create Table
+     * 
+     * @param string $tabşe
+     * @param array  $columns
+     * @param string $extras
+     * 
+     * @return bool
+     */
     public function createTable(String $table = NULL, Array $colums = NULL, $extras = NULL)
     {
         $query = $this->forge->createTable($this->_p($table), $this->_p($colums, 'column'), $extras);
@@ -132,13 +124,13 @@ class DBForge extends Connection
         return $this->_runExecQuery($query);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Drop Table
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param mixed $table
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Drop Table
+     * 
+     * @param string $table
+     * 
+     * @return bool
+     */
     public function dropTable(String $table = NULL)
     {
         $query = $this->forge->dropTable($this->_p($table));
@@ -146,14 +138,14 @@ class DBForge extends Connection
         return $this->_runExecQuery($query);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Alter Table -> 5.3.35[edited]
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param mixed $table
-    // @param mixed $condition
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Alter Table
+     * 
+     * @param string $table
+     * @param mixed  $condition
+     * 
+     * @return bool
+     */
     public function alterTable(String $table = NULL, Array $condition = NULL)
     {
         $table = $this->_p($table);
@@ -162,14 +154,14 @@ class DBForge extends Connection
         return $this->$key($table, $condition[$key]);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Rename Table
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $name
-    // @param string $newName
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Rename Table
+     * 
+     * @param string $name
+     * @param string $newname
+     * 
+     * @return bool
+     */
     public function renameTable(String $name, String $newName)
     {
         $query = $this->forge->renameTable($this->_p($name, 'prefix'), $this->_p($newName, 'prefix'));
@@ -177,13 +169,13 @@ class DBForge extends Connection
         return $this->_runExecQuery($query);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Truncate
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $table
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Truncate
+     * 
+     * @param string $table
+     * 
+     * @return bool
+     */
     public function truncate(String $table = NULL)
     {
         $query = $this->forge->truncate($this->_p($table));
@@ -191,14 +183,14 @@ class DBForge extends Connection
         return $this->_runExecQuery($query);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Add Column
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $table
-    // @param array  $condition
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Add Column
+     * 
+     * @param string $table
+     * @param array  $columns
+     * 
+     * @return bool
+     */
     public function addColumn(String $table = NULL, Array $columns = NULL)
     {
         $query = $this->forge->addColumn($this->_p($table), $this->_p($columns, 'column'));
@@ -206,14 +198,14 @@ class DBForge extends Connection
         return $this->_runExecQuery($query);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Drop Column
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $table
-    // @param mixed  $column
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Drop Column
+     * 
+     * @param string $table
+     * @param array  $columns
+     * 
+     * @return bool
+     */
     public function dropColumn(String $table = NULL, $columns = NULL)
     {
         $columns = $this->_p($columns, 'column');
@@ -242,14 +234,14 @@ class DBForge extends Connection
         }
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Modify Column
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $table
-    // @param mixed  $columns
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * MOdify Column
+     * 
+     * @param string $table
+     * @param array  $columns
+     * 
+     * @return bool
+     */
     public function modifyColumn(String $table = NULL, Array $columns = NULL)
     {
         $query = $this->forge->modifyColumn($this->_p($table), $this->_p($columns, 'column'));
@@ -257,14 +249,14 @@ class DBForge extends Connection
         return $this->_runExecQuery($query);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Rename Column
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $table
-    // @param mixed  $columns
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Rename Column
+     * 
+     * @param string $table
+     * @param array  $columns
+     * 
+     * @return bool
+     */
     public function renameColumn(String $table = NULL , Array $columns = NULL)
     {
         $query = $this->forge->renameColumn($this->_p($table), $this->_p($columns, 'column'));
