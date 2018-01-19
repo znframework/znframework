@@ -29,5 +29,3 @@ class Post
         return Method::post($method, $parameters[0] ?? NULL);
     }
 }
-
-class_alias('ZN\Request\Post', 'Post');

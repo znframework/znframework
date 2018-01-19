@@ -68,8 +68,10 @@
         
         # ZN\Request
         'Http'    => 'ZN\Request\Http',
-        'Server'  => 'ZN\Request\Method',
+        'Server'  => 'ZN\Request\Server',
         'Request' => 'ZN\Request\Request',
+        'Post'    => 'ZN\Request\Post',
+        'Get'     => 'ZN\Request\Get',
         'Method'  => 'ZN\Request\Method',
 
         # ZN\Inclusion\Projection

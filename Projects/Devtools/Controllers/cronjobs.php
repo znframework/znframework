@@ -11,7 +11,7 @@
 //
 //------------------------------------------------------------------------------------------------------------
 
-use Post, Crontab, Strings, Redirect;
+use Post, Crontab, Strings, Arrays, Redirect;
 
 class Cronjobs extends Controller
 {
@@ -99,9 +99,12 @@ class Cronjobs extends Controller
             {
                 if( stristr($val, '"'.SELECT_PROJECT.'"') )
                 {
-                    $time = Strings::divide($val, ' php');
-                    $code = Strings::divide(rtrim($val, ';\''), ';', -1);
-                    
+                    $timeEx = explode(' ', Strings::divide($val, ' -r'));
+
+                    $timeEx = Arrays::removeLast($timeEx, 2);
+                    $time   = implode(' ', $timeEx);
+                    $code   = Strings::divide(rtrim($val, ';\''), ';', -1);
+                  
                     preg_match('/\s(\/)+(.*?)*php\s/', $val, $path);
 
                     $list[$key] = [$time, $path[0] ?? \Config::services('processor')['path'], $code];

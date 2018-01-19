@@ -29,5 +29,3 @@ class Get
         return Method::get($method, $parameters[0] ?? NULL);
     }
 }
-
-class_alias('ZN\Request\Get', 'Get');
