@@ -4,6 +4,6 @@ class Home extends Controller
 {
     public function main(String $params = NULL)
     {  
-        \ZN\DateTime\Tests\Time::result();
+        \ZN\Email\Tests\Email::result();
     } 
 }

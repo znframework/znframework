@@ -11,13 +11,13 @@
 
 use ZN\Ability\Exclusion;
 
-class SMTPEmptyUserPasswordException extends \InvalidArgumentException
+class SMTPAuthPasswordException extends \InvalidArgumentException
 {
     use Exclusion;
 
     const lang = 
     [
-        'en' => 'You must assign a SMTP username and password!',
-        'tr' => 'Bir SMTP kullanıcı adı ve şifre atamanız gerekir!'
+        'en' => 'Failed to authenticate password! %',
+        'tr' => 'Parola kimlik doğrulaması yapılamadı! %'
     ];
 }

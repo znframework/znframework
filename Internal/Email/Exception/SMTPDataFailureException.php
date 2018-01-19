@@ -9,7 +9,13 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-class SMTPDataFailureException extends IOException
-{
+use ZN\Exception;
 
+class SMTPDataFailureException extends Exception
+{
+    const lang = 
+    [
+        'en' => 'Unable to send data: %',
+        'tr' => 'SMPT Veri göndermek için açılamıyor: %'
+    ];
 }

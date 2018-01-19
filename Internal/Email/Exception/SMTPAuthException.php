@@ -14,4 +14,10 @@ use ZN\Ability\Exclusion;
 class SMTPAuthException extends \InvalidArgumentException
 {
     use Exclusion;
+
+    const lang = 
+    [
+        'en' => 'Failed to authenticate username! %',
+        'tr' => 'Kullanıcı adı kimliği doğrulanamadı! %'
+    ];
 }

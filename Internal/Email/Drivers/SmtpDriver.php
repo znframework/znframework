@@ -16,38 +16,31 @@ use ZN\Email\Exception\SMTPEmptyUserPasswordException;
 use ZN\Email\Exception\SMTPFailedLoginException;
 use ZN\Email\Exception\SMTPDataFailureException;
 use ZN\Email\Exception\SMTPAuthException;
+use ZN\Email\Exception\SMTPAuthPasswordException;
 
 class SmtpDriver extends DriverMappingAbstract
 {
-    //--------------------------------------------------------------------------------------------------------
-    // LF
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var string
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * @var string
+     */
     protected $lf = "\n";
 
-    //--------------------------------------------------------------------------------------------------------
-    // Connect
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var resource
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Keeps connection
+     * 
+     * @var object
+     */
     protected $connect;
 
-    //--------------------------------------------------------------------------------------------------------
-    // Construct
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $to
-    // @param string $subject
-    // @param string $message
-    // @param mixed  $headers
-    // @param mixed  $settings
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Magic Constructor
+     * 
+     * @param string $to
+     * @param string $subject
+     * @param string $message
+     * @param mixed  $headers
+     * @param mixed  $settings
+     */
     public function __construct($to = '', $subject = '', $body = '', $headers = '', $settings = [])
     {
         $this->to         = $to;
@@ -88,29 +81,23 @@ class SmtpDriver extends DriverMappingAbstract
         return $smtp->sendEmail();
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Send Email
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Send Email
+     * 
+     * @return void|true
+     */
     public function sendEmail()
     {
-        $connect = $this->_connect();
-        $sending = $this->_sending();
+        $connect = $this->connect();
+        $sending = $this->sending();
 
         return $sending;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Connect
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
-    protected function _connect()
+    /**
+     * Protected Connect
+     */
+    protected function connect()
     {
         if( is_resource($this->connect) )
         {
@@ -123,98 +110,90 @@ class SmtpDriver extends DriverMappingAbstract
 
         if( ! is_resource($this->connect) )
         {
-            throw new SMTPConnectException('Services', 'email:smtpError', $errno.' '.$errstr);
+            throw new SMTPConnectException(NULL, $errno.' '.$errstr);
         }
 
         stream_set_timeout($this->connect, $this->timeout);
 
-        $this->error[] = $this->_getData();
+        $this->error[] = $this->getData();
 
         if( $this->encode === 'tls' )
         {
-            $this->_setCommand('hello');
-            $this->_setCommand('starttls');
+            $this->setCommand('hello');
+            $this->setCommand('starttls');
 
             $crypto = stream_socket_enable_crypto($this->connect, true, STREAM_CRYPTO_METHOD_TLS_CLIENT);
 
             if( $crypto !== true )
             {
-                throw new SMTPConnectException('Services', 'email:smtpError', $this->_getData());
+                throw new SMTPConnectException(NULL, $this->getData());
             }
         }
 
-        return $this->_setCommand('hello');
+        return $this->setCommand('hello');
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Sending
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
-    protected function _sending()
+    /**
+     * Protected Sending
+     */
+    protected function sending()
     {
         if( empty($this->host) )
         {
-            throw new SMTPEmptyHostNameException('Services', 'email:noHostName');
+            throw new SMTPEmptyHostNameException;
         }
 
-        if( ! $this->_connect() || ! $this->_authLogin() )
+        if( ! $this->connect() || ! $this->authLogin() )
         {
             return false;
         }
 
-        $this->_setCommand('from', $this->from);
+        $this->setCommand('from', $this->from);
 
         if( ! empty($this->tos) ) foreach( $this->tos as $key => $val )
         {
-            $this->_setCommand('to', $key);
+            $this->setCommand('to', $key);
         }
 
         if( ! empty($this->cc) ) foreach( $this->cc as $key => $val )
         {
-            $this->_setCommand('to', $key);
+            $this->setCommand('to', $key);
         }
 
         if( ! empty($this->bcc) ) foreach( $this->bcc as $key => $val )
         {
-            $this->_setCommand('to', $key);
+            $this->setCommand('to', $key);
         }
 
-        $this->_setCommand('data');
+        $this->setCommand('data');
 
-        $this->_setData($this->header.preg_replace('/^\./m', '..$1', $this->body));
+        $this->setData($this->header.preg_replace('/^\./m', '..$1', $this->body));
 
-        $this->_setData('.');
+        $this->setData('.');
 
-        $this->error[] = $reply = $this->_getData();
+        $this->error[] = $reply = $this->getData();
 
         if( strpos($reply, '250') !== 0 )
         {
-            throw new SMTPConnectException('Services', 'email:smtpError', $reply);
+            throw new SMTPConnectException(NULL, $reply);
         }
 
         if( $this->keepAlive )
         {
-            $this->_setCommand('reset');
+            $this->setCommand('reset');
         }
         else
         {
-            $this->_setCommand('quit');
+            $this->setCommand('quit');
         }
 
         return true;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Auth Login
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
-    protected function _authLogin()
+    /**
+     * Protected Auth Login
+     */
+    protected function authLogin()
     {
         if( ! $this->auth )
         {
@@ -223,12 +202,12 @@ class SmtpDriver extends DriverMappingAbstract
 
         if( $this->user === '' && $this->password === '' )
         {
-            throw new SMTPEmptyUserPasswordException('Services', 'email:noSmtpUnpassword');
+            throw new SMTPEmptyUserPasswordException;
         }
 
-        $this->_setData('AUTH LOGIN');
+        $this->setData('AUTH LOGIN');
 
-        $reply = $this->_getData();
+        $reply = $this->getData();
 
         if( strpos($reply, '503') === 0 )
         {
@@ -236,54 +215,50 @@ class SmtpDriver extends DriverMappingAbstract
         }
         elseif( strpos($reply, '334') !== 0 )
         {
-            throw new SMTPFailedLoginException('Services', 'email:failedSmtpLogin', $reply);
+            throw new SMTPFailedLoginException(NULL, $reply);
         }
 
-        $this->_setData(base64_encode($this->user));
+        $this->setData(base64_encode($this->user));
 
-        $reply = $this->_getData();
+        $reply = $this->getData();
 
         if( strpos($reply, '334') !== 0 )
         {
-            throw new SMTPAuthException('Services', 'email:smtpAuthUserName', $reply);
+            throw new SMTPAuthException(NULL, $reply);
         }
 
-        $this->_setData(base64_encode($this->password));
+        $this->setData(base64_encode($this->password));
 
-        $reply = $this->_getData();
+        $reply = $this->getData();
 
         if( strpos($reply, '235') !== 0 )
         {
-            throw new SMTPAuthException('Services', 'email:smtpAuthPassword', $reply);
+            throw new SMTPAuthPasswordException(NULL, $reply);
         }
 
         return true;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Set Command
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
-    protected function _setCommand($cmd, $data = '')
+    /**
+     * Protected Set Command
+     */
+    protected function setCommand($cmd, $data = '')
     {
         switch( $cmd )
         {
-            case 'starttls' : $this->_setData('STARTTLS');              $resp = 220; break;
-            case 'from'     : $this->_setData('MAIL FROM:<'.$data.'>'); $resp = 250; break;
-            case 'data'     : $this->_setData('DATA');                  $resp = 354; break;
-            case 'reset'    : $this->_setData('RSET');                  $resp = 250; break;
-            case 'quit'     : $this->_setData('QUIT');                  $resp = 221; break;
+            case 'starttls' : $this->setData('STARTTLS');              $resp = 220; break;
+            case 'from'     : $this->setData('MAIL FROM:<'.$data.'>'); $resp = 250; break;
+            case 'data'     : $this->setData('DATA');                  $resp = 354; break;
+            case 'reset'    : $this->setData('RSET');                  $resp = 250; break;
+            case 'quit'     : $this->setData('QUIT');                  $resp = 221; break;
             case 'hello'    :
                 if( $this->auth || $this->encoding === '8bit' )
                 {
-                    $this->_setData('EHLO '.$this->_hostname() );
+                    $this->setData('EHLO '.$this->hostname() );
                 }
                 else
                 {
-                    $this->_setData('HELO '.$this->_hostname());
+                    $this->setData('HELO '.$this->hostname());
                 }
 
                 $resp = 250;
@@ -291,23 +266,23 @@ class SmtpDriver extends DriverMappingAbstract
             case 'to' :
                 if( $this->dsn )
                 {
-                    $this->_setData('RCPT TO:<'.$data.'> NOTIFY=SUCCESS,DELAY,FAILURE ORCPT=rfc822;'.$data);
+                    $this->setData('RCPT TO:<'.$data.'> NOTIFY=SUCCESS,DELAY,FAILURE ORCPT=rfc822;'.$data);
                 }
                 else
                 {
-                    $this->_setData('RCPT TO:<'.$data.'>');
+                    $this->setData('RCPT TO:<'.$data.'>');
                 }
                 $resp = 250;
             break;
         }
 
-        $reply = $this->_getData();
+        $reply = $this->getData();
 
         $this->error[] = $cmd.': '.$reply;
 
         if( (int) substr($reply, 0, 3) !== $resp )
         {
-            throw new SMTPConnectException('Services', 'email:smtpError', $reply);
+            throw new SMTPConnectException(NULL, $reply);
         }
 
         if( $cmd === 'quit' )
@@ -318,14 +293,10 @@ class SmtpDriver extends DriverMappingAbstract
         return true;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Set Data
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param $data
-    //
-    //--------------------------------------------------------------------------------------------------------
-    protected function _setData($data)
+    /**
+     * Protected Set Data
+     */
+    protected function setData($data)
     {
         $data .= $this->lf;
 
@@ -340,20 +311,16 @@ class SmtpDriver extends DriverMappingAbstract
         }
         if( $result === false )
         {
-            throw new SMTPDataFailureException('Services', 'email:smtpDataFailure', $data);
+            throw new SMTPDataFailureException(NULL, $data);
         }
 
         return true;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Get Data
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
-    protected function _getData()
+    /**
+     * Protected Get Data
+     */
+    protected function getData()
     {
         $data = '';
 
@@ -370,14 +337,10 @@ class SmtpDriver extends DriverMappingAbstract
         return $data;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Host Name
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
-    protected function _hostname()
+    /**
+     * Prortected Host Name
+     */
+    protected function hostname()
     {
         return $_SERVER['SERVER_NAME'] ?? '[' . ($_SERVER['SERVER_ADDR'] ?? '127.0.0.1') . ']';
     }

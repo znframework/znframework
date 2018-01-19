@@ -14,4 +14,10 @@ use ZN\Ability\Exclusion;
 class SMTPConnectException extends IOException
 {
     use Exclusion;
+
+    const lang = 
+    [
+        'en' => 'The following SMTP error was encountered: %',
+        'tr' => 'Aşağıdaki SMTP hatası ile karşılaşıldı: %'
+    ];
 }

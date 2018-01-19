@@ -9,7 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-class FailureSendEmailException extends IOException
+use ZN\Exception;
+
+class FailureSendEmailException extends Exception
 {
     const lang = 
     [

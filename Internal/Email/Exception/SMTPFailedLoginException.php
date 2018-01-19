@@ -9,7 +9,13 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-class SMTPFailedLoginException extends IOException
-{
+use ZN\Exception;
 
+class SMTPFailedLoginException extends Exception
+{
+    const lang = 
+    [
+        'en' => 'Failed to send AUTH LOGIN command! %',
+        'tr' => 'AUTH LOGIN komutunu gönderilemedi! %'
+    ];
 }

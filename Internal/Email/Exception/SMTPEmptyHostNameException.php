@@ -14,4 +14,10 @@ use ZN\Ability\Exclusion;
 class SMTPEmptyHostNameException extends \InvalidArgumentException
 {
     use Exclusion;
+
+    const lang = 
+    [
+        'en' => 'SMTP Host information is empty!',
+        'tr' => 'SMTP Host bilgisi boş!'
+    ];
 }

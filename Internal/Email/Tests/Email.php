@@ -16,6 +16,13 @@ class Email extends UnitTest
     const unit =
     [
         'class'   => 'Email',
-        'methods' => []
+        'methods' => 
+        [
+            'from'    => ['example@example.com'],
+            'to'      => ['example@example.com'],
+            'subject' => ['Example Subject'],
+            'message' => ['Example Message'],
+            'send'    => []
+        ]
     ];
 }
