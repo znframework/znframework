@@ -10,8 +10,8 @@
  */
 
 use ZN\IS;
-use ZN\DataTypes\Arrays;
-use ZN\Helpers\Converter;
+use ZN\Helper;
+use ZN\Datatype;
 use ZN\Cryptography\CryptoMapping;
 use ZN\Cryptography\Exception\UnsupportedExtensionException;
 
@@ -96,7 +96,7 @@ class McryptDriver extends CryptoMapping
             'cast_256|gost|loki97|rijndael_256'             => 32
         ];
 
-        $ciphers = Arrays::multikey($ciphers);
+        $ciphers = Datatype::multikey($ciphers);
 
         return mb_substr(hash('md5', $this->key), 0, $ciphers[$cipher] ?? 8);
     }
@@ -121,7 +121,7 @@ class McryptDriver extends CryptoMapping
             'rijndael_256'                                              => 32,
         ];
 
-        $modes = Arrays::multikey($modes);
+        $modes = Datatype::multikey($modes);
         $mode  = $modes[$mode] ?? 8;
 
         if( ! empty($cipher) )
@@ -148,8 +148,8 @@ class McryptDriver extends CryptoMapping
         $mode   = $settings['mode']   ?? 'cbc';
         $iv     = $settings['vector'] ?? $this->vectorSize($mode, $cipher);
 
-        $cipher = Converter::toConstant($cipher, 'MCRYPT_');
-        $mode   = Converter::toConstant($mode, 'MCRYPT_MODE_');
+        $cipher = Helper::toConstant($cipher, 'MCRYPT_');
+        $mode   = Helper::toConstant($mode, 'MCRYPT_MODE_');
 
         return (object)
         [

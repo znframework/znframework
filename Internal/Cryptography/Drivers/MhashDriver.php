@@ -9,7 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\Helpers\Converter;
+use ZN\Helper;
 use ZN\Cryptography\CryptoMapping;
 
 class MhashDriver extends CryptoMapping
@@ -26,7 +26,7 @@ class MhashDriver extends CryptoMapping
 	{
 		$cipher = $settings['cipher'] ?? 'sha256';
 	 	$key    = $settings['key']    ?? $this->key;
-		$cipher = Converter::toConstant($cipher, 'MHASH_');
+		$cipher = Helper::toConstant($cipher, 'MHASH_');
 
 		return base64_encode(trim(mhash($cipher, $data, $key)));
 	}

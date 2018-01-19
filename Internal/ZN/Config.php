@@ -65,6 +65,11 @@ class Config
      */
     private static function _config($file)
     {
+        if( ! defined('PROJECT_TYPE') )
+        {
+            return false;
+        }
+        
         if( empty(self::$config[$file]) )
         {
             $path = Base::suffix($file, '.php');
