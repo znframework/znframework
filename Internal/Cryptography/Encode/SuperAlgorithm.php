@@ -26,7 +26,7 @@ class SuperAlgorithm extends EncodeExtends
     { 
         $projectKey = Config::get('Project', 'key');
 
-        $algo = self::$config['encode']['type'];
+        $algo = self::$config['type'];
 
         if( ! IS::hash($algo) )
         {

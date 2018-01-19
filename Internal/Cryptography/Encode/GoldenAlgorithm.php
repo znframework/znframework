@@ -23,7 +23,7 @@ class GoldenAlgorithm extends EncodeExtends
      */
     public static function create(String $data, String $additional = 'default') : String
     {
-        $algo = self::$config['encode']['type'];
+        $algo = self::$config['type'];
 
         if( ! IS::hash($algo) )
         {

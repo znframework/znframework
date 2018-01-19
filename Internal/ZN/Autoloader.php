@@ -9,8 +9,6 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-require ZEROCORE . 'Functions.php';
-
 class Autoloader
 {
     /**
@@ -573,10 +571,8 @@ class Autoloader
      * 
      * @return void
      */
-    public static function defines(String $version, String $dedicate = NULL)
+    public static function defines()
     {
-        define('ZN_VERSION', $version);
-        define('ZN_DEDICATE', $dedicate);
         define('REQUIRED_PHP_VERSION', '7.0.0');
         define('DS', DIRECTORY_SEPARATOR);
         define('DIRECTORY_INDEX', 'zeroneed.php');
@@ -785,9 +781,9 @@ class Autoloader
     */
     protected static function isWritable(String $path)
     {
-        if( is_file($path) && ! is_writable($path) && \IS::software() === 'apache' )
+        if( is_file($path) && ! is_writable($path) && IS::software() === 'apache' )
         {   
-            trace
+            Base::trace
             (
                 'Please check the [file permissions]. Click the 
                     <a target="_blank" style="text-decoration:none" href="https://docs.znframework.com/getting-started/installation-instructions#sh42">

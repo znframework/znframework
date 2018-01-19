@@ -30,7 +30,7 @@ class CryptoMapping
      */
     public function __construct()
     {
-        $this->key = Config::get('Project', 'key') ?: ZN\In::defaultProjectKey();
+        $this->key = Config::get('Project', 'key') ?: In::defaultProjectKey();
     }
 
     /**

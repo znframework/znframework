@@ -23,11 +23,9 @@ class Controller
             Restoration::mode(static::restore);
         }
 
-        ZN::$use =& $this;
-
         if( defined('static::extract') || Config::starting('extractViewData') === true ) foreach( View::$data as $key => $val )
         {
-            ZN::$use->$key = $val;
+            $this->$key = $val;
         }
     }
 

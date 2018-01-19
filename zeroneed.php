@@ -12,87 +12,6 @@
 
 /*
 |--------------------------------------------------------------------------
-| Display Errors
-|--------------------------------------------------------------------------
-|
-| PHP shows code errors.
-|
-*/
-
-ini_set('display_errors', true);
-
-/*
-|--------------------------------------------------------------------------
-| Start
-|--------------------------------------------------------------------------
-|
-| The system starts the load time.
-|
-*/
-
-define('START_BENCHMARK', microtime(true));
-
-/*
-|--------------------------------------------------------------------------
-| Project Type
-|--------------------------------------------------------------------------
-|
-| It shows you which framework you are using.
-| SE for single edition, EIP for multi edition.
-|
-*/
-
-define('PROJECT_TYPE', 'EIP');
-
-/*
-|--------------------------------------------------------------------------
-| Internal Directory
-|--------------------------------------------------------------------------
-|
-| The system directory is determined according to ZN project type.
-|
-*/
-
-define('INTERNAL_DIR', 
-(
-    PROJECT_TYPE === 'SE' ? 'Libraries' : 'Internal') . '/'
-);
-
-/*
-|--------------------------------------------------------------------------
-| Requirements Directory
-|--------------------------------------------------------------------------
-|
-| It keeps path of the files needed for the system.
-|
-*/
-
-define('ZEROCORE', INTERNAL_DIR . 'ZN/');
-
-/*
-|--------------------------------------------------------------------------
-| Real Base Directory Path
-|--------------------------------------------------------------------------
-|
-| The system gives the knowledge of the actual root directory.
-|
-*/
-
-define('REAL_BASE_DIR', __DIR__ . '/');
-
-/*
-|--------------------------------------------------------------------------
-| Working Directory
-|--------------------------------------------------------------------------
-|
-| Select system's working directory.
-|
-*/
-
-chdir(REAL_BASE_DIR);
-
-/*
-|--------------------------------------------------------------------------
 | Require Core File
 |--------------------------------------------------------------------------
 |
@@ -100,21 +19,7 @@ chdir(REAL_BASE_DIR);
 |
 */
 
-require_once REAL_BASE_DIR . 'zerocore.php';
-
-/*
-|--------------------------------------------------------------------------
-| Console Usage
-|--------------------------------------------------------------------------
-|
-| If the operation is executed via console, the code flow is not continue.
-|
-*/
-
-if( defined('CONSOLE_ENABLED') )
-{
-    return false;
-}
+require_once __DIR__ . '/Internal/ZN/ZN.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -125,30 +30,4 @@ if( defined('CONSOLE_ENABLED') )
 |
 */
 
-ZN\ZN::run();
-
-/*
-|--------------------------------------------------------------------------
-| Finish
-|--------------------------------------------------------------------------
-|
-| The system finishes the load time.
-|
-*/
-
-define('FINISH_BENCHMARK', microtime(true));
-
-/*
-|--------------------------------------------------------------------------
-| Benchmark Report
-|--------------------------------------------------------------------------
-|
-| Creates a table that calculates the operating performance of the system. 
-| To open this table, follow the steps below.
-|
-| 1 - Go: Config/Project.php
-| 2 - Do: benchmark:true
-|
-*/
-
-ZN\In::benchmarkReport();
+ZN\ZN::run('EIP', '5.6.0', 'Nikola Tesla');
