@@ -138,8 +138,6 @@ class Autoloader
     {
         clearstatcache();
 
-        require_once ZEROCORE . 'Config.php';
-
         $configAutoloader = Config::get('Autoloader') ?: 
         [
             'directoryScanning' => true,
