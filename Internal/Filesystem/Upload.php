@@ -11,11 +11,11 @@
 
 use ZN\IS;
 use ZN\Base;
-use ZN\Config;
 use ZN\Lang;
+use ZN\Helpers\Mime;
+use ZN\Helpers\Converter;
 use ZN\DataTypes\Arrays;
 use ZN\Cryptography\Encode;
-use ZN\Helpers\Converter;
 
 class Upload implements UploadInterface
 {
@@ -82,7 +82,7 @@ class Upload implements UploadInterface
      */
     public function __construct()
     {
-        Config::iniset(Config::get('Htaccess', 'upload')['settings']);
+        $this->getLang = Lang::default(new FilesystemDefaultLanguage)::select('Filesystem');
     }
 
     /**
@@ -216,11 +216,11 @@ class Upload implements UploadInterface
     /**
      * Sets target
      * 
-     * @param string $target = UPLOADS_DIR
+     * @param string $target
      * 
      * @return Upload
      */
-    public function target(String $target = UPLOADS_DIR) : Upload
+    public function target(String $target) : Upload
     {
         $this->settings['target'] = $target;
 
@@ -245,14 +245,14 @@ class Upload implements UploadInterface
      * Start file upload
      * 
      * @param string $fileName = 'upload'
-     * @param string $rootDir  = UPLOADS_DIR
+     * @param string $rootDir  = NULL
      * 
      * @return bool
      */
-    public  function start(String $fileName = 'upload', String $rootDir = UPLOADS_DIR) : Bool
+    public  function start(String $fileName = 'upload', String $rootDir = NULL) : Bool
     {
         $fileName = $this->settings['source'] ?? $fileName;
-        $rootDir  = $this->settings['target'] ?? $rootDir;
+        $rootDir  = $this->settings['target'] ?? $rootDir ?? UPLOADS_DIR;
 
         if( ! is_dir($rootDir) ) 
         {
@@ -353,7 +353,7 @@ class Upload implements UploadInterface
 
         if( $errorNo === NULL )
         {
-            return Lang::select('Filesystem', 'upload:unknownError');
+            return $this->getLang['upload:unknownError'];
         }
 
         if( is_array($errorNo) )
@@ -372,7 +372,7 @@ class Upload implements UploadInterface
             $errorNo = $errno;
         }
 
-        $lang = Lang::select('Filesystem');
+        $lang = $this->getLang;
 
         $this->errors =
         [
@@ -406,7 +406,7 @@ class Upload implements UploadInterface
         }
         else
         {
-            return Lang::select('Filesystem', 'upload:unknownError');
+            return $lang['upload:unknownError'];
         }
     }
 
@@ -467,11 +467,11 @@ class Upload implements UploadInterface
 
         if( ! empty($extensions) && ! in_array(Filesystem\Extension::get($nm), $extensions) )
         {
-            return $this->extensionControl = Lang::select('Filesystem', 'upload:extensionError');
+            return $this->extensionControl = $this->getLang['upload:extensionError'];
         }
-        elseif( ! empty($mimes) && ! in_array(\Mime::type($nm), $mimes) )
+        elseif( ! empty($mimes) && ! in_array(Mime::type($nm), $mimes) )
         {
-            return $this->extensionControl = Lang::select('Filesystem', 'upload:mimeError');
+            return $this->extensionControl = $this->getLang['upload:mimeError'];
         }
         elseif( ! empty($maxsize = ($this->settings['maxsize'] ?? NULL)) && $maxsize < filesize($src) )
         {

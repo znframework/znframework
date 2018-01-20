@@ -86,11 +86,11 @@ interface UploadInterface
     /**
      * Sets target
      * 
-     * @param string $target = UPLOADS_DIR
+     * @param string $target
      * 
      * @return Upload
      */
-    public function target(String $target = UPLOADS_DIR) : Upload;
+    public function target(String $target) : Upload;
 
     /**
      * Sets source
@@ -105,11 +105,11 @@ interface UploadInterface
      * Start file upload
      * 
      * @param string $fileName = 'upload'
-     * @param string $rootDir  = UPLOADS_DIR
+     * @param string $rootDir  = NULL
      * 
      * @return bool
      */
-    public  function start(String $fileName = 'upload', String $rootDir = UPLOADS_DIR) : Bool;
+    public  function start(String $fileName = 'upload', String $rootDir = NULL) : Bool;
 
     /**
      * Gets info

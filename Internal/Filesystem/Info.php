@@ -12,7 +12,6 @@
 use stdClass;
 use ZN\Base;
 use ZN\Config;
-use ZN\Classes;
 use ZN\Filesystem\Exception\FileNotFoundException;
 use ZN\Filesystem\Exception\UndefinedFunctionException;
 use ZN\Filesystem\Exception\FolderNotFoundException;
@@ -553,7 +552,7 @@ class Info
 
         if( ! function_exists($validType) || $validType === NULL )
         {
-            throw new UndefinedFunctionException('Error', 'undefinedFunction', Classes::onlyName(get_called_class()).'::'.$type.'()');
+            throw new UndefinedFunctionException('Error', 'undefinedFunction', get_called_class().'::'.$type.'()');
         }
 
         if( $validType($file) )

@@ -45,7 +45,7 @@ class Mime
     // param bool   $full = true
     //
     //--------------------------------------------------------------------------------------------------------
-    public function type(String $file, $element = NULL)
+    public static function type(String $file, $element = NULL)
     {
         if( ! is_file($file) )
         {
