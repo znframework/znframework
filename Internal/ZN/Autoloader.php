@@ -87,27 +87,29 @@ class Autoloader
      * 
      * @return bool
      */
-    public static function standart(String $class, String $prefix = NULL)
+    public static function standart(String $class)
     {
-        $len = strlen($prefix);
-
-        if( strncmp($prefix, $class, $len) !== 0 ) 
-        {
-            return false;
-        }
-
-        $class  = substr($class, $len);
-        $facade = strstr($class, '\\') ? NULL : 'ZN/Facades/';
-        $file   = INTERNAL_DIR . $facade . str_replace('\\', '/', $class) . '.php';
+        $path = str_replace('\\', '/', $class) . '.php';
         
-        if( file_exists($file) ) 
-        {
-            require_once $file;
+        if( strstr($class, 'ZN\\') === false && is_file($file = (__DIR__ . '/Facades/' . $path)) )
+        {   
+            return require_once $file;
         }
-        else
+        else 
         {
-            return self::standart($class, 'ZN\\');
+            $path = ltrim($path, 'ZN');
+
+            if( is_file($file = (__DIR__ . $path)) ) 
+            {
+                return require_once $file;
+            }
+            elseif( is_file($file = (__DIR__ . '/..' . $path)) ) 
+            {
+                return require_once $file;
+            }
         }
+        
+        return false;   
     }
 
     /**
