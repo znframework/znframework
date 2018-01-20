@@ -11,8 +11,8 @@
 
 use ZN\IS;
 use ZN\Base;
+use ZN\Request;
 use ZN\Buffering;
-use ZN\Request\URL;
 use ZN\Hypertext\Exception\InvalidArgumentException;
 
 class Html
@@ -117,7 +117,7 @@ class Html
     {
         if( ! IS::url($src) )
         {
-            $src = URL::base($src);
+            $src = Request::getBaseURL($src);
         }
 
         $attributes['src'] = $src;
@@ -183,7 +183,7 @@ class Html
     {
         if( ! IS::url($url) && strpos($url, '#') !== 0 )
         {
-            $url = URL::site($url);
+            $url = Request::getSiteURL($url);
         }
 
         $attributes['href'] = $url;
@@ -266,7 +266,7 @@ class Html
     {
         if( ! IS::url($path) )
         {
-            $path = URL::base(Base::suffix($path, '.js'));
+            $path = Request::getBaseURL(Base::suffix($path, '.js'));
         }
 
         $attributes['href'] = $path;
@@ -286,7 +286,7 @@ class Html
     {
         if( ! IS::url($path) )
         {
-            $path = URL::base(Base::suffix($path, '.css'));
+            $path = Request::getBaseURL(Base::suffix($path, '.css'));
         }
 
         $attributes['href'] = $path;

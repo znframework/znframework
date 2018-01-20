@@ -11,6 +11,7 @@
 
 use ZN\Hypertext\Exception\InvalidArgumentException;
 use ZN\DataTypes\Arrays;
+use ZN\Singleton;
 use ZN\Base;
 
 class Form
@@ -79,12 +80,12 @@ class Form
        
         if( isset($this->settings['where']) )
         {
-            $this->settings['getrow'] = \DB::get($name)->row();
+            $this->settings['getrow'] = Singleton::class('ZN\Database\DB')->get($name)->row();
         }
         
         if( $query = ($this->settings['query'] ?? NULL) )
         {
-            $this->settings['getrow'] = \DB::query($query)->row();
+            $this->settings['getrow'] = Singleton::class('ZN\Database\DB')->query($query)->row();
         }
         
         $this->method = ($_attributes['method'] = $_attributes['method'] ?? $this->settings['attr']['method'] ?? 'post');
@@ -113,7 +114,7 @@ class Form
      */
     public function validateErrorMessage()
     {
-        return \Validation::error('string');
+        return Singleton::class('ZN\Validation\Data')->error('string');
     }
 
     /**
@@ -125,7 +126,7 @@ class Form
      */
     public function validateErrorArray()
     {
-        return \Validation::error('array');
+        return Singleton::class('ZN\Validation\Data')->error('array');
     }
 
     /**
@@ -212,6 +213,8 @@ class Form
             
             array_shift($options);
 
+            $dbClass = Singleton::class('ZN\Database\DB');
+
             if( ! empty($this->settings['table']) )
             {
                 $table = $this->settings['table'];
@@ -222,17 +225,17 @@ class Form
                     $table   = $tableEx[1];
                     $db      = $tableEx[0];
 
-                    $db = \DB::differentConnection($db);
+                    $db     = $dbClass->differentConnection($db);
                     $result = $db->select($current, $key)->get($table)->result();
                 }
                 else
                 {
-                    $result = \DB::select($current, $key)->get($table)->result();
+                    $result = $dbClass->select($current, $key)->get($table)->result();
                 }
             }
             else
             {
-                $result = \DB::query($this->settings['query'])->result();
+                $result = $dbClass->query($this->settings['query'])->result();
             }
 
             foreach( $result as $row )
@@ -412,22 +415,24 @@ class Form
         {
             if( $method::FormProcessValue() )
             {
-                if( \Validation::check() )
+                if( Singleton::class('ZN\Validation\Data')->check() )
                 {
+                    $dbClass = Singleton::class('ZN\Database\DB');
+
                     if( $process === 'update' )
                     {
-                        \DB::where
+                        $dbClass->where
                         (
                             $whereColumn = $this->settings['whereColumn'], 
                             $whereValue  = $this->settings['whereValue']
                         )
                         ->update(strtolower($method).':'.$name);       
 
-                        $this->settings['getrow'] = \DB::where($whereColumn, $whereValue)->get($name)->row();
+                        $this->settings['getrow'] = $dbClass->where($whereColumn, $whereValue)->get($name)->row();
                     }
                     elseif( $process === 'insert' )
                     {
-                        \DB::insert(strtolower($method).':'.$name); 
+                        $dbClass->insert(strtolower($method).':'.$name); 
                     }
                     else
                     {

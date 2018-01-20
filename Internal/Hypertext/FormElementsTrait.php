@@ -1,28 +1,26 @@
 <?php namespace ZN\Hypertext;
+/**
+ * ZN PHP Web Framework
+ * 
+ * "Simplicity is the ultimate sophistication." ~ Da Vinci
+ * 
+ * @package ZN
+ * @license MIT [http://opensource.org/licenses/MIT]
+ * @author  Ozan UYKUN [ozan@znframework.com]
+ */
 
-use DB, Session, Validation;
-use ZN\Request\URL;
-use ZN\Protection\Json;
 use ZN\IS;
+use ZN\Request;
+use ZN\Singleton;
+use ZN\Protection\Json;
 
 trait FormElementsTrait
 {
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Author     : Ozan UYKUN <ozanbote@gmail.com>
-    // Site       : www.znframework.com
-    // License    : The MIT License
-    // Copyright  : (c) 2012-2016, znframework.com
-    //
-    //--------------------------------------------------------------------------------------------------------
-
-    //--------------------------------------------------------------------------------------------------------
-    // $enctypes
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var array
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Keeps Enctypes
+     * 
+     * @var array
+     */
     protected $enctypes =
     [
         'multipart'     => 'multipart/form-data',
@@ -30,31 +28,27 @@ trait FormElementsTrait
         'text'          => 'text/plain'
     ];
 
-    //--------------------------------------------------------------------------------------------------------
-    // $postback
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var array
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Keeps Postback Data
+     * 
+     * @var array
+     */
     protected $postback = [];
 
-    //--------------------------------------------------------------------------------------------------------
-    // $validate
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var array
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Keeps Validate Rules
+     * 
+     * @var array
+     */
     protected $validate = [];
 
-    //--------------------------------------------------------------------------------------------------------
-    // Validate
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param mixed ...$validate
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Defines validate rules.
+     * 
+     * @param mixed ...$validate
+     * 
+     * @return self
+     */
     public function validate(...$validate)
     {
         $this->validate = $validate;
@@ -62,13 +56,14 @@ trait FormElementsTrait
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // postBack
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param bool $postback
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Sets postback
+     * 
+     * @param bool   $postback = true
+     * @param string $type     = 'post' - options[post|get]
+     * 
+     * @return self
+     */
     public function postBack(Bool $postback = true, String $type = 'post')
     {
         $this->postback['bool'] = $postback;
@@ -77,13 +72,11 @@ trait FormElementsTrait
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // csrf()
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Controls CSRF
+     * 
+     * @return self
+     */
     public function csrf()
     {
         $this->settings['token'] = true;
@@ -91,13 +84,13 @@ trait FormElementsTrait
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // excluding()
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param mixed $exclude
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Exluding data
+     * 
+     * @param mixed $exclude
+     * 
+     * @return self
+     */
     public function excluding($exclude)
     {
         if( is_scalar($exclude) )
@@ -110,13 +103,13 @@ trait FormElementsTrait
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // including()
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param mixed $exclude
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Including data
+     * 
+     * @param mixed $include
+     * 
+     * @return self
+     */
     public function including($include)
     {
         if( is_scalar($include) )
@@ -129,13 +122,13 @@ trait FormElementsTrait
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // process()
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $type - options: insert, update
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Sets process type.
+     * 
+     * @param string $type - [insert|update]
+     * 
+     * @return self
+     */
     public function process(String $type)
     {
         $this->settings['process'] = $type;
@@ -143,33 +136,33 @@ trait FormElementsTrait
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // where()
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param mixed  $column
-    // @param string $value   = NULL
-    // @param string $logical = 'and'
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Database Where Clause
+     * 
+     * @param mixed  $column
+     * @param string $value   = NULL
+     * @param string $logical = 'and'
+     * 
+     * @return self
+     */
     public function where($column, String $value = NULL, String $logical = 'and')
     {
         $this->settings['where']       = true;
         $this->settings['whereValue']  = $value;
         $this->settings['whereColumn'] = $column;
 
-        DB::where($column, $value, $logical);
+        Singleton::class('ZN\Database\DB')->where($column, $value, $logical);
 
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // query()
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $query
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Defines SQL Query
+     * 
+     * @param string $query
+     * 
+     * @return self
+     */
     public function query(String $query)
     {
         $this->settings['query'] = $query;
@@ -177,13 +170,13 @@ trait FormElementsTrait
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // table()
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $table
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Sets table
+     * 
+     * @param string $table
+     * 
+     * @return self
+     */
     public function table(String $table)
     {
         $this->settings['table'] = $table;
@@ -191,16 +184,14 @@ trait FormElementsTrait
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // order()
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // Arrays::order() yönteminde kullanılan type ve flags parametreleri aynen geçerlidir.
-    //
-    // @param string $type:desc
-    // @param string $flags:regular
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Order 
+     * 
+     * @param string $type  = 'desc'
+     * @param string $flags = 'regular'
+     * 
+     * @return self
+     */
     public function order(String $type = 'desc', String $flags = 'regular')
     {
         $this->settings['order']['type']  = $type;
@@ -209,13 +200,13 @@ trait FormElementsTrait
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // attr()
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array $attr
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Sets attributes
+     * 
+     * @param array $attr = []
+     * 
+     * @return self
+     */
     public function attr(Array $attr = [])
     {
         if( isset($this->settings['attr']) && is_array($this->settings['attr']) )
@@ -232,28 +223,27 @@ trait FormElementsTrait
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // attr()
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array $attr
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Sets Form Action
+     * 
+     * @param string $url = NULL
+     * 
+     * @return self
+     */
     public function action(String $url = NULL)
     {
-        $this->settings['attr']['action'] = IS::url($url) ? $url : URL::site($url);
+        $this->settings['attr']['action'] = IS::url($url) ? $url : Request::getSiteURL($url);
 
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // enctype()
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  string $enctype
-    // @return string
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Sets Form Enctype
+     * 
+     * @param string $enctype
+     * 
+     * @return self
+     */
     public function enctype(String $enctype)
     {
         if( isset($this->enctypes[$enctype]) )
@@ -266,14 +256,14 @@ trait FormElementsTrait
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // option()
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param mixed  $key
-    // @param string $value
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Sets select options
+     * 
+     * @param mixed  $key
+     * @param string $value = NULL
+     * 
+     * @return self
+     */
     public function option($key, String $value = NULL)
     {
         if( is_array($key) )
@@ -288,13 +278,9 @@ trait FormElementsTrait
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Postback
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $name
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Protected Postback
+     */
     protected function _postback($name, &$default, $type = NULL)
     {
         if( isset($this->postback['bool']) && $this->postback['bool'] === true )
@@ -312,18 +298,14 @@ trait FormElementsTrait
             }
             else
             {
-                $default = Validation::postBack($name, $method);
+                $default = Singleton::class('ZN\Validation\Data')->postBack($name, $method);
             }   
         }
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Validate
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $name
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Protected Validate
+     */
     protected function _validate($name, $attrName)
     {
         if( ! empty($this->validate) )
@@ -331,20 +313,18 @@ trait FormElementsTrait
             $validate[$name]           = $this->validate;
             $validate[$name]['value']  = $this->settings['attr']['alias'] ?? $attrName;
 
-            Session::insert('FormValidationMethod', $this->method);
-            Session::insert('FormValidationRules' , array_merge(Session::select('FormValidationRules') ?: $validate, $validate));
+            $session = Singleton::class('ZN\Storage\Session');
+
+            $session->insert('FormValidationMethod', $this->method);
+            $session->insert('FormValidationRules' , array_merge($session->select('FormValidationRules') ?: $validate, $validate));
  
             $this->validate = [];
         }
     } 
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Get Row -> 5.4.6[edited]
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $type
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Protected Get Row
+     */
     protected function _getrow($type, $value, &$attributes)
     {
         if( $row = ($this->settings['getrow'] ?? NULL) )

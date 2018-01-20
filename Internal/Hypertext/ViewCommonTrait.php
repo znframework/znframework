@@ -10,7 +10,7 @@
  */
 
 use ZN\Classes;
-use ZN\DataTypes\Strings;
+use ZN\Datatype;
 use ZN\DataTypes\Arrays;
 use ZN\Authorization\Permission;
 use ZN\Hypertext\Exception\PermissionRoleIdException;
@@ -130,7 +130,7 @@ trait ViewCommonTrait
         if( ! ctype_lower($realMethod) )
         {
             $newMethod = NULL;
-            $split     = Strings\Split::upperCase($realMethod);
+            $split     = Datatype::splitUpperCase($realMethod);
             $method    = implode('-', Arrays\Casing::lower($split));
         }
 
