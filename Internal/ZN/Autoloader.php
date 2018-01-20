@@ -140,7 +140,12 @@ class Autoloader
 
         require_once ZEROCORE . 'Config.php';
 
-        $configAutoloader = Config::get('Autoloader');
+        $configAutoloader = Config::get('Autoloader') ?: 
+        [
+            'directoryScanning' => true,
+            'classMap'          => [REAL_BASE_DIR]
+        ];
+
         $configClassMap   = self::_config();
 
         if( $configAutoloader['directoryScanning'] === false )
@@ -359,7 +364,7 @@ class Autoloader
         $baseDirectory       = Base::suffix($baseDirectory);
         $configClassMap      = self::_config();
         $configAutoloader    = Config::get('Autoloader');
-        $directoryPermission = $configAutoloader['directoryPermission'];
+        $directoryPermission = $configAutoloader['directoryPermission'] ?? 0755;
 
         $files = glob($directory.'*');
         $files = array_diff
@@ -573,69 +578,36 @@ class Autoloader
      */
     public static function defines()
     {
-        define('REQUIRED_PHP_VERSION', '7.0.0');
-        define('DS', DIRECTORY_SEPARATOR);
-        define('DIRECTORY_INDEX', 'zeroneed.php');
-        define('BASE_DIR', ltrim(explode(DIRECTORY_INDEX, $_SERVER['SCRIPT_NAME'])[0], '/'));
-        define('PROJECT_CONTROLLER_NAMESPACE', 'Project\Controllers\\');
-        define('PROJECT_COMMANDS_NAMESPACE', 'Project\Commands\\');
-        define('EXTERNAL_COMMANDS_NAMESPACE', 'External\Commands\\');
-        define('INTERNAL_ACCESS', 'Internal');
-        define('PROJECTS_DIR', 'Projects/');
-        define('EXTERNAL_DIR', (PROJECT_TYPE === 'SE' ? '' : 'External/'));
-        define('SETTINGS_DIR', (PROJECT_TYPE === 'SE' ? 'Config' : 'Settings').'/');
-        define('PROJECTS_CONFIG', Base::import((is_file(PROJECTS_DIR . 'Projects.php') ? PROJECTS_DIR : SETTINGS_DIR) . 'Projects.php'));
+        define('PROJECTS_CONFIG', Base::import(SETTINGS_DIR . 'Projects.php'));
         define('DEFAULT_PROJECT', PROJECTS_CONFIG['directory']['default']);
-        define('SSL_STATUS', (($_SERVER['HTTPS'] ?? NULL) === 'on' ? 'https' : 'http') . '://');
-        define('EOL', PHP_EOL);
-        define('CRLF', "\r\n" );
-        define('CR', "\r");
-        define('LF', "\n");
-        define('HT', "\t");
-        define('TAB', "\t");
-        define('FF', "\f");
-       
-        self::defineContainerDirectoryConstants();
-    }
-
-    /**
-     * Defines container directory constants
-     * 
-     * @param void
-     * 
-     * @return void
-     */
-    protected static function defineContainerDirectoryConstants()
-    {
+        
         self::defineCurrentProject();
         
-        define('CONTROLLERS_DIR' , PROJECT_DIR.'Controllers/');
-        define('VIEWS_DIR', PROJECT_DIR.'Views/');
-        define('PAGES_DIR', VIEWS_DIR); 
+        define('CONTROLLERS_DIR' , PROJECT_DIR . GET_DIRS['CONTROLLERS_DIR']);
+        define('VIEWS_DIR'       , PROJECT_DIR . GET_DIRS['VIEWS_DIR']);
+        define('PAGES_DIR'       , VIEWS_DIR); 
         define('CONTAINER_DIRS', 
         [
-            'ROUTES_DIR'    => 'Routes'   , 'DATABASES_DIR' => 'Databases'          ,
-            'CONFIG_DIR'    => 'Config'   , 'STORAGE_DIR'   => 'Storage'            ,
-            'COMMANDS_DIR'  => 'Commands' , 'LANGUAGES_DIR' => 'Languages'          ,
-            'LIBRARIES_DIR' => 'Libraries', 'MODELS_DIR'    => 'Models'             ,
-            'STARTING_DIR'  => 'Starting' , 'AUTOLOAD_DIR'  => 'Starting/Autoload'  ,
-                                            'HANDLOAD_DIR'  => 'Starting/Handload'  ,
-                                            'LAYERS_DIR'    => 'Starting/Layers'    ,
-            'RESOURCES_DIR' => 'Resources', 'PROCESSOR_DIR' => 'Resources/Processor',
-                                            'FILES_DIR'     => 'Resources/Files'    ,
-                                            'FONTS_DIR'     => 'Resources/Fonts'    ,
-                                            'SCRIPTS_DIR'   => 'Resources/Scripts'  ,
-                                            'STYLES_DIR'    => 'Resources/Styles'   ,
-                                            'TEMPLATES_DIR' => 'Resources/Templates',
-                                            'THEMES_DIR'    => 'Resources/Themes'   ,
-                                            'PLUGINS_DIR'   => 'Resources/Plugins'  ,
-                                            'UPLOADS_DIR'   => 'Resources/Uploads'
+            'ROUTES_DIR'    => GET_DIRS['ROUTES_DIR']   , 'DATABASES_DIR' => GET_DIRS['DATABASES_DIR'],
+            'CONFIG_DIR'    => GET_DIRS['CONFIG_DIR']   , 'STORAGE_DIR'   => GET_DIRS['STORAGE_DIR']  ,
+            'COMMANDS_DIR'  => GET_DIRS['COMMANDS_DIR'] , 'LANGUAGES_DIR' => GET_DIRS['LANGUAGES_DIR'],
+            'LIBRARIES_DIR' => GET_DIRS['LIBRARIES_DIR'], 'MODELS_DIR'    => GET_DIRS['MODELS_DIR']   ,
+            'STARTING_DIR'  => GET_DIRS['STARTING_DIR'] , 'AUTOLOAD_DIR'  => 'Starting/Autoload/'     ,
+                                                          'HANDLOAD_DIR'  => 'Starting/Handload/'     ,
+                                                          'LAYERS_DIR'    => 'Starting/Layers/'       ,
+            'RESOURCES_DIR' => GET_DIRS['RESOURCES_DIR'], 'PROCESSOR_DIR' => 'Resources/Processor/'   ,
+                                                          'FILES_DIR'     => 'Resources/Files/'       ,
+                                                          'FONTS_DIR'     => 'Resources/Fonts/'       ,
+                                                          'SCRIPTS_DIR'   => 'Resources/Scripts/'     ,
+                                                          'STYLES_DIR'    => 'Resources/Styles/'      ,
+                                                          'TEMPLATES_DIR' => 'Resources/Templates/'   ,
+                                                          'THEMES_DIR'    => 'Resources/Themes/'      ,
+                                                          'PLUGINS_DIR'   => 'Resources/Plugins/'     ,
+                                                          'UPLOADS_DIR'   => 'Resources/Uploads/'
         ]);
 
         foreach( CONTAINER_DIRS as $key => $value )
         {
-            $value .= '/';
-
             define('EXTERNAL_' . $key, EXTERNAL_DIR . $value);
 
             if( PROJECT_TYPE === 'EIP' ) # For EIP edition
@@ -717,7 +689,7 @@ class Autoloader
     {
         self::isWritable('.htaccess');
 
-        if( PROJECT_TYPE === 'SE' )
+        if( PROJECT_TYPE !== 'EIP' )
         {
             define('CURRENT_PROJECT', NULL);
             define('PROJECT_DIR'    , NULL);

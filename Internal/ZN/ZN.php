@@ -16,6 +16,13 @@ use ZN\ErrorHandling\Exceptions;
 class ZN
 {
     /**
+     * Keeps custom defines
+     * 
+     * @var array
+     */
+    protected static $defines = [];
+
+    /**
      * @var string
      */
     protected static $notAvailable = 'This command not available with this edition!';
@@ -29,7 +36,7 @@ class ZN
      */
     public static function upgrade()
     {
-        if( PROJECT_TYPE === 'SE' )
+        if( PROJECT_TYPE !== 'EIP' )
         {
             return self::$notAvailable;
         }
@@ -61,12 +68,47 @@ class ZN
      */
     public static function upgradeFiles()
     {
-        if( PROJECT_TYPE === 'SE' )
+        if( PROJECT_TYPE !== 'EIP' )
         {
             return self::$notAvailable;
         }
         
         return array_keys(self::_restful());
+    }
+
+    /**
+     * Custom Defines
+     * 
+     * @param array $defines
+     * 
+     * @return self
+     */
+    public static function defines(Array $defines)
+    {
+        self::$defines = $defines;
+
+        return new self;
+    }
+
+    /**
+     * Define Standart Constants
+     */
+    protected static function defineStandartConstants()
+    {
+        define('REQUIRED_PHP_VERSION', '7.0.0');
+        define('SSL_STATUS', (($_SERVER['HTTPS'] ?? NULL) === 'on' ? 'https' : 'http') . '://');
+        define('PROJECT_CONTROLLER_NAMESPACE', 'Project\Controllers\\');
+        define('PROJECT_COMMANDS_NAMESPACE' , 'Project\Commands\\');
+        define('EXTERNAL_COMMANDS_NAMESPACE', 'External\Commands\\');
+        define('INTERNAL_ACCESS', 'Internal');
+        define('EOL', PHP_EOL);
+        define('CRLF', "\r\n" );
+        define('CR', "\r");
+        define('LF', "\n");
+        define('HT', "\t");
+        define('TAB', "\t");
+        define('FF', "\f");
+        define('DS', DIRECTORY_SEPARATOR);
     }
 
     /**
@@ -80,11 +122,15 @@ class ZN
      */
     public static function run(String $type = 'EIP', String $version = '5.6.0', String $dedicate = 'Nikola Tesla')
     {
+       
         # PHP shows code errors.
         ini_set('display_errors', true);
-
+        
         # The system starts the load time.
         define('START_BENCHMARK', microtime(true));
+
+        # Define standart constants
+        self::defineStandartConstants();
 
         # ZN Version
         define('ZN_VERSION', $version);
@@ -95,8 +141,82 @@ class ZN
         # It shows you which framework you are using. SE for single edition, EIP for multi edition.
         define('PROJECT_TYPE', $type);
 
+        # All project types
+        define('PROJECT_TYPE_DIRS', 
+        [
+            'SE' => 
+            [
+                'INTERNAL_DIR'    => 'Libraries/',
+                'EXTERNAL_DIR'    => NULL,
+                'SETTINGS_DIR'    => 'Config/',
+                'DIRECTORY_INDEX' => 'zeroneed.php',
+                'CONTROLLERS_DIR' => 'Controllers/',
+                'VIEWS_DIR'       => 'Views/',
+                'ROUTES_DIR'      => 'Routes/',
+                'CONFIG_DIR'      => 'Config/',
+                'DATABASES_DIR'   => 'Databases/',
+                'STORAGE_DIR'     => 'Storage/',
+                'COMMANDS_DIR'    => 'Commands/',
+                'LANGUAGES_DIR'   => 'Languages/',
+                'LIBRARIES_DIR'   => 'Libraries/',
+                'MODELS_DIR'      => 'Models',
+                'STARTING_DIR'    => 'Starting/',
+                'RESOURCES_DIR'   => 'Resources/'
+            ],
+
+            'EIP' => 
+            [
+                'INTERNAL_DIR'    => 'Internal/',
+                'EXTERNAL_DIR'    => 'External/',
+                'SETTINGS_DIR'    => 'Settings/',
+                'DIRECTORY_INDEX' => 'zeroneed.php',
+                'CONTROLLERS_DIR' => 'Controllers/',
+                'VIEWS_DIR'       => 'Views/',
+                'ROUTES_DIR'      => 'Routes/',
+                'CONFIG_DIR'      => 'Config/',
+                'DATABASES_DIR'   => 'Databases/',
+                'STORAGE_DIR'     => 'Storage/',
+                'COMMANDS_DIR'    => 'Commands/',
+                'LANGUAGES_DIR'   => 'Languages/',
+                'LIBRARIES_DIR'   => 'Libraries/',
+                'MODELS_DIR'      => 'Models/',
+                'STARTING_DIR'    => 'Starting/',
+                'RESOURCES_DIR'   => 'Resources/'
+            ],
+
+            'CE' => 
+            [
+                'INTERNAL_DIR'    => self::$defines['INTERNAL_DIR']    ?? NULL,
+                'EXTERNAL_DIR'    => NULL,
+                'SETTINGS_DIR'    => self::$defines['SETTINGS_DIR']    ?? NULL,
+                'DIRECTORY_INDEX' => self::$defines['DIRECTORY_INDEX'] ?? 'index.php',
+                'CONTROLLERS_DIR' => self::$defines['CONTROLLERS_DIR'] ?? NULL,
+                'VIEWS_DIR'       => self::$defines['VIEWS_DIR']       ?? NULL,
+                'ROUTES_DIR'      => self::$defines['ROUTES_DIR']      ?? NULL,
+                'CONFIG_DIR'      => self::$defines['CONFIG_DIR']      ?? NULL,
+                'DATABASES_DIR'   => self::$defines['DATABASES_DIR']   ?? NULL,
+                'STORAGE_DIR'     => self::$defines['STORAGE_DIR']     ?? NULL,
+                'COMMANDS_DIR'    => self::$defines['COMMANDS_DIR']    ?? NULL,
+                'LANGUAGES_DIR'   => self::$defines['LANGUAGES_DIR']   ?? NULL,
+                'LIBRARIES_DIR'   => self::$defines['LIBRARIES_DIR']   ?? NULL,
+                'MODELS_DIR'      => self::$defines['MODELS_DIR']      ?? NULL,
+                'STARTING_DIR'    => self::$defines['STARTING_DIR']    ?? NULL,
+                'RESOURCES_DIR'   => self::$defines['RESOURCES_DIR']   ?? NULL
+            ]
+        ]);
+
+        # Get project dirs
+        define('GET_DIRS', PROJECT_TYPE_DIRS[PROJECT_TYPE]);
+
         # The system directory is determined according to ZN project type.
-        define('INTERNAL_DIR', (PROJECT_TYPE === 'SE' ? 'Libraries' : 'Internal') . '/');
+        define('INTERNAL_DIR', GET_DIRS['INTERNAL_DIR']);
+        define('EXTERNAL_DIR', GET_DIRS['EXTERNAL_DIR']);
+        define('SETTINGS_DIR', GET_DIRS['SETTINGS_DIR']);
+        define('PROJECTS_DIR', 'Projects/');
+
+        # Directory Index
+        define('DIRECTORY_INDEX', GET_DIRS['DIRECTORY_INDEX']);
+        define('BASE_DIR', ltrim(explode(DIRECTORY_INDEX, $_SERVER['SCRIPT_NAME'])[0], '/'));
 
         # It keeps path of the files needed for the system.
         define('ZEROCORE', INTERNAL_DIR . 'ZN/');
@@ -111,7 +231,7 @@ class ZN
         # implementations. In this system, the libraries are written to 
         # Config/ClassMap.php file. Subsequent calls are made from this file.
         require __DIR__ . '/Autoloader.php';
-        
+       
         # Enables class loading by automatically activating the object call.
         Autoloader::register();
 

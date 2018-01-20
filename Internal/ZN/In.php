@@ -184,6 +184,11 @@ class In
      */
     protected static function routeAll()
     {
+        if( ROUTES_DIR === NULL )
+        {
+            return false;
+        }
+
         $externalRouteFiles = (array) glob(EXTERNAL_ROUTES_DIR . ($fix = '*.php'));
         $routeFiles         = (array) glob(ROUTES_DIR . $fix);
         $files              = array_merge($externalRouteFiles, $routeFiles);
@@ -269,7 +274,7 @@ class In
      */
     public static function cleanInjection(String $string = NULL) : String
     {
-        $urlInjectionChangeChars = Config::get('Security', 'urlChangeChars');
+        $urlInjectionChangeChars = Config::get('Security', 'urlChangeChars') ?: [];
 
         return str_ireplace(array_keys($urlInjectionChangeChars), array_values($urlInjectionChangeChars), $string);
     }

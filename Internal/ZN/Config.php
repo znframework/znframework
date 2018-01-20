@@ -69,15 +69,20 @@ class Config
         {
             return false;
         }
+
+        if( CONFIG_DIR === NULL )
+        {
+            return false;
+        }
         
         if( empty(self::$config[$file]) )
         {
             $path = Base::suffix($file, '.php');
-
+        
             self::$config[$file] = array_merge
             (
-                (array) Base::import(SETTINGS_DIR . $path),
-                (array) Base::import(CONFIG_DIR   . $path)   
+                Base::import(SETTINGS_DIR . $path) ?: [],
+                Base::import(CONFIG_DIR   . $path) ?: []   
             );
         }
     }

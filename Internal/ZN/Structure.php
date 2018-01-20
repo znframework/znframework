@@ -22,7 +22,7 @@ class Structure
     {
         $namespace    = PROJECT_CONTROLLER_NAMESPACE;
         $page         = '';
-        $openFunction = Config::get('Services', 'route')['openFunction'];
+        $openFunction = Config::get('Services', 'route')['openFunction'] ?? 'main';
         $function     = $openFunction ?: 'main';
         $parameters   = [];
         $segments     = '';

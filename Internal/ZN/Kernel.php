@@ -26,7 +26,7 @@ class Kernel
     public static function start()
     {  
         # If the use of alias is obvious, it will activate this operation.
-        if( $autoloaderAliases = Config::get('Autoloader')['aliases'] ) foreach( $autoloaderAliases as $alias => $origin )
+        if( $autoloaderAliases = Config::get('Autoloader')['aliases'] ?? NULL ) foreach( $autoloaderAliases as $alias => $origin )
         {
             if( class_exists($origin) )
             {
@@ -36,15 +36,15 @@ class Kernel
         
         $appcon = Config::get('Project');
 
-        if( empty($appcon) ) 
+        if( empty($appcon) && PROJECT_TYPE === 'EIP' ) 
         {
             Base::trace('["Container"] Not Found! Check the [\'containers\'] setting in the [Settings/Projects.php] file.');
         }
 
-        define('PROJECT_MODE', strtolower($appcon['mode']));
-
+        define('PROJECT_MODE', strtolower($appcon['mode'] ?? 'development'));
+       
         # Activates the project mode.
-        In::projectMode(PROJECT_MODE, $appcon['errorReporting']);
+        In::projectMode(PROJECT_MODE, $appcon['errorReporting'] ?? 1);
 
         if( PROJECT_MODE !== 'publication' ) 
         {
@@ -55,7 +55,7 @@ class Kernel
         $htaccess = Config::get('Htaccess');
 
         # OB process is starting.
-        if( $htaccess['cache']['obGzhandler'] && substr_count($_SERVER['HTTP_ACCEPT_ENCODING'] ?? NULL, 'gzip') )
+        if( ($htaccess['cache']['obGzhandler'] ?? true) === true && substr_count($_SERVER['HTTP_ACCEPT_ENCODING'] ?? NULL, 'gzip') )
         {
             ob_start('ob_gzhandler');
         }
@@ -85,13 +85,13 @@ class Kernel
         # The software apache and htaccess allow 
         # the .htaccess file to be rearranged according to the changes 
         # if the file is open for writing.
-        if( $htaccess['createFile'] === true )
+        if( ($htaccess['createFile'] ?? NULL) === true )
         {
             Htaccess::create($htaccess);
         }      
         
         # Enables processing of changes to the robots.txt file if it is open.
-        if( Config::robots ('createFile') === true )
+        if( Config::robots('createFile') === true )
         {
             In::createRobotsFile();
         }   
@@ -155,7 +155,7 @@ class Kernel
         $function     = CURRENT_CFUNCTION;
         $openFunction = CURRENT_COPEN_PAGE;
         $page         = CURRENT_CNAMESPACE . CURRENT_CONTROLLER;
-         
+        
         # If an invalid parameter is entered, it will redirect to the opening method.
         if( ! is_callable([$page, $function]) )
         {

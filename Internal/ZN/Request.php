@@ -122,7 +122,7 @@ class Request
             }
         }
 
-        return ! empty($currentUri) ? $currentUri : Config::get('Services', 'route')['openController'];
+        return ! empty($currentUri) ? $currentUri : (Config::get('Services', 'route')['openController'] ?? 'home');
     }
 
     /**
