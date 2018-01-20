@@ -10,7 +10,7 @@
  */
 
 use ZN\Base;
-use ZN\DataTypes\Strings;
+use ZN\Datatype;
 use ZN\ErrorHandling\Errors;
 
 class File
@@ -141,7 +141,7 @@ class File
     {
         if( empty($this->settings['application']) )
         {
-            $this->settings['application'] = Strings\Split::divide(rtrim(PROJECT_DIR, '/'), '/', -1);
+            $this->settings['application'] = Datatype::divide(rtrim(PROJECT_DIR, '/'), '/', -1);
         }
 
         return PROJECTS_DIR.$this->settings['application'].$this->type($type).Base::suffix($name, '.php');

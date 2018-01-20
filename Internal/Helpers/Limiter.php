@@ -11,17 +11,17 @@
 
 class Limiter
 {
-    //--------------------------------------------------------------------------------------------------------
-    // Word
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $str
-    // @param int    $limit
-    // @param string $endChar
-    // @param bool   $stripTags
-    // @param string $encoding
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Limit word
+     * 
+     * @param string $str
+     * @param int    $limit     = 100
+     * @param string $endChar   = '...'
+     * @param bool   $stripTags = true
+     * @param string $encoding  = 'utf-8'
+     * 
+     * @return string
+     */
     public static function word(String $str, Int $limit = 100, String $endChar = '...', Bool $stripTags = true, String $encoding = "utf-8") : String
     {
         $str = trim($str);
@@ -45,17 +45,17 @@ class Limiter
         return rtrim($match ?? NULL).$endChar;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Char
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $str
-    // @param int    $limit
-    // @param string $endChar
-    // @param bool   $stripTags
-    // @param string $encoding
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Limit char
+     * 
+     * @param string $str
+     * @param int    $limit     = 500
+     * @param string $endChar   = '...'
+     * @param bool   $stripTags = true
+     * @param string $encoding  = 'utf-8'
+     * 
+     * @return string
+     */
     public static function char(String $str, Int $limit = 500, String $endChar = '...',  Bool $stripTags = false, String $encoding = "utf-8") : String
     {
         $str = trim($str);

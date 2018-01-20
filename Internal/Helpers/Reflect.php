@@ -9,20 +9,18 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
+use stdClass;
 use ZN\Base;
 use ZN\Classes;
-use ZN\DataTypes\Arrays;
 use ZN\Protection\Json;
 
 class Reflect
 {
-    //--------------------------------------------------------------------------------------------------------
-    // Classes
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var array
-    //
-    //---------------------------------------------------------------------------------------------------------
+    /**
+     * Keeps Reflection Classes
+     * 
+     * @var array
+     */
     protected $classes = 
     [
         'class', 
@@ -34,14 +32,14 @@ class Reflect
         'property'
     ];
 
-    //--------------------------------------------------------------------------------------------------------
-    // Magic Call
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $method
-    // @param array  $parameters
-    //
-    //---------------------------------------------------------------------------------------------------------
+    /**
+     * Magic Call
+     * 
+     * @param string $method
+     * @param array  $parameters
+     * 
+     * @return mixed
+     */
     public function __call($method, $parameters)
     {
         $lower = strtolower($method);
@@ -54,15 +52,15 @@ class Reflect
         return $this->call($parameters)->$method();
     }
     
-    //--------------------------------------------------------------------------------------------------------
-    // Annotation -> 5.4.8
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $class
-    // @param string $function
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function annotation(String $class, String $function = NULL) : \stdClass
+    /**
+     * Annotation
+     * 
+     * @param string $class
+     * @param string $function = NULL
+     * 
+     * @return object
+     */
+    public function annotation(String $class, String $function = NULL) : stdClass
     {
         if( strstr($class, '::') )
         {
@@ -111,14 +109,9 @@ class Reflect
         return (object) array_combine($keys, $values);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Call
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array  $parameters
-    // @PARAM string $type 
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Protected Call
+     */
     protected function call($parameters, $type = NULL)
     {
         $class = 'Reflection' . $type;

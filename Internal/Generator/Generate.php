@@ -9,9 +9,6 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use ZN\Singleton;
-use ZN\Request\Post;
-use ZN\Filesystem\Forge;
 use ZN\Filesystem\Exception\InvalidTypeException;
 
 class Generate extends File implements GenerateInterface

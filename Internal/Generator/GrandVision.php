@@ -69,7 +69,7 @@ class GrandVision extends DatabaseDefinitions
             $database = ucfirst($database);
             $filePath = $visionPath.$database;
 
-            Filesystem\Forge::createFolder(MODELS_DIR.$filePath);
+            Filesystem::createFolder(MODELS_DIR.$filePath);
 
             foreach( $tables as $table )
             {
@@ -111,7 +111,7 @@ class GrandVision extends DatabaseDefinitions
 
         if( $database === '*' )
         {
-            Filesytem\Forge::deleteFolder($path);
+            Filesystem::deleteFolder($path);
         }
         else
         {
@@ -119,7 +119,7 @@ class GrandVision extends DatabaseDefinitions
 
             if( $tables === NULL )
             {
-                Filesytem\Forge::deleteFolder($path.$database);
+                Filesystem::deleteFolder($path.$database);
             }
             else
             {

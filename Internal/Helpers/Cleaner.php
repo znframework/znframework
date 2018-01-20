@@ -13,14 +13,14 @@ use ZN\Helpers\Exception\LogicException;
 
 class Cleaner
 {
-    //--------------------------------------------------------------------------------------------------------
-    // Do
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param mixed $searchData
-    // @param mixed $cleanWord
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Clean Data
+     * 
+     * @param mixed $searchData
+     * @param mixed $cleanWord
+     * 
+     * @return mixed
+     */
     public static function data($searchData, $cleanWord)
     {
         if( length($cleanWord) > length($searchData) )

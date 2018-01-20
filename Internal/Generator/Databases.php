@@ -83,7 +83,7 @@ class Databases extends DatabaseDefinitions
                 {
                     $tableData = Base::import($databasePath . $table);
                     $file      = $table;
-                    $table     = Filesystem\Extension::remove($table);
+                    $table     = Filesystem::removeExtension($table);
 
                     if( ! array_key_exists('id', $tableData) )
                     {

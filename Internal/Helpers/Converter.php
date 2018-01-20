@@ -12,10 +12,9 @@
 use stdClass;
 use ZN\Helper;
 use ZN\Config;
+use ZN\Datatype;
 use ZN\Singleton;
 use ZN\Filesystem;
-use ZN\DataTypes\Arrays;
-use ZN\DataTypes\Strings;
 use ZN\Helpers\Exception\LogicException;
 use ZN\Helpers\Exception\InvalidArgumentException;
 
@@ -23,6 +22,8 @@ class Converter
 {   
     /**
      * Keeps Accent Chars
+     * 
+     * @var array
      */
     public static $accentChars =
     [
@@ -266,7 +267,7 @@ class Converter
      */
     public static function moneyToNumber($money) : Float
     {
-        return str_replace('.', NULL, Strings\Split::divide($money, ','));
+        return str_replace('.', NULL, Datatype::divide($money, ','));
     }
 
     /**
@@ -420,7 +421,7 @@ class Converter
     {
         $accent = array_merge(Config::get('Expressions', 'accentChars'), self::$accentChars);
 
-        $accent = Arrays::multikey($accent);
+        $accent = Datatype::multikey($accent);
 
         return str_replace(array_keys($accent), array_values($accent), $str);
     }
