@@ -9,51 +9,47 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
+use stdClass;
 use ZN\Base;
-use ZN\Request\URL;
+use ZN\Request;
+use ZN\Singleton;
 use ZN\Filesystem;
 use ZN\Image\Exception\ImageNotFoundException;
 use ZN\Image\Exception\InvalidImageFileException;
 
-class Image implements ImageInterface
+class Render implements RenderInterface
 {
-    //--------------------------------------------------------------------------------------------------------
-    // Dir Name
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var string
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Thumbs directory name
+     * 
+     * @var string
+     */
     protected $dirName = 'thumbs';
     
-    //--------------------------------------------------------------------------------------------------------
-    // File
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var string
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Keeps file path
+     * 
+     * @var string
+     */
     private $file;
 
-    //--------------------------------------------------------------------------------------------------------
-    // Thumb Path
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var string
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Thumb file path
+     * 
+     * @var string
+     */
     protected $thumbPath;
 
-    //--------------------------------------------------------------------------------------------------------
-    // Get Prosize
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $path
-    // @param int    $width
-    // @param int    $height
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function getProsize(String $path, Int $width = 0, Int $height = 0) : \stdClass
+    /**
+     * Get prosize
+     * 
+     * @param string $path
+     * @param int    $width = 0
+     * @param int    $height = 0
+     * 
+     * @return object
+     */
+    public function getProsize(String $path, Int $width = 0, Int $height = 0) : stdClass
     {
         if( ! is_file($path) )
         {
@@ -92,18 +88,18 @@ class Image implements ImageInterface
         return (object) $array;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Thumb
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $fpath
-    // @param array  $set
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Thumb
+     * 
+     * @param string $fpath
+     * @param array  $set
+     * 
+     * @return string
+     */
     public function thumb(String $fpath, Array $set) : String
     {
         $filePath = trim($fpath);
-        $baseUrl  = URL::base();
+        $baseUrl  = Request::getBaseURL();
 
         if( strstr($filePath, $baseUrl) )
         {
@@ -112,12 +108,12 @@ class Image implements ImageInterface
 
         if( ! file_exists($filePath) )
         {
-            throw new ImageNotFoundException('Image', 'image:notFoundError', $filePath);
+            throw new ImageNotFoundException(NULL, $filePath);
         }
 
         if( ! $this->isImageFile($filePath) )
         {
-            throw new InvalidImageFileException('Image', 'image:notImageFileError', $filePath);
+            throw new InvalidImageFileException(NULL, $filePath);
         }
 
         list($currentWidth, $currentHeight) = getimagesize($filePath);
@@ -162,11 +158,11 @@ class Image implements ImageInterface
             mkdir($this->thumbPath);
         }
 
-        $newFile = Filesystem\Extension::remove($this->file).$prefix.Filesystem\Extension::get($this->file, true);
+        $newFile = Filesystem::removeExtension($this->file).$prefix.Filesystem::getExtension($this->file, true);
 
         if( file_exists($this->thumbPath.$newFile) )
         {
-            return URL::base($this->thumbPath.$newFile);
+            return Request::getBaseURL($this->thumbPath.$newFile);
         }
 
         $rFile   = $this->fromFileType($filePath);
@@ -177,7 +173,7 @@ class Image implements ImageInterface
             $rWidth = $currentWidth; $rHeight = $currentHeight;
         }
 
-        if( Filesystem\Extension::get($filePath) === 'png' )
+        if( Filesystem::getExtension($filePath) === 'png' )
         {
             imagealphablending($nFile, false);
             imagesavealpha($nFile, true);
@@ -191,35 +187,27 @@ class Image implements ImageInterface
 
         imagedestroy($rFile); imagedestroy($nFile);
 
-        return URL::base($this->thumbPath.$newFile);
+        return Request::getBaseURL($this->thumbPath.$newFile);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected New Path
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $filePath
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Protected New Path
+     */
     protected function newPath($filePath)
     {
         $fileEx          = explode("/", $filePath);
         $this->file      = $fileEx[count($fileEx) - 1];
         $this->thumbPath = substr($filePath,0,strlen($filePath) - strlen($this->file)).$this->dirName;
         $this->thumbPath = Base::suffix($this->thumbPath);
-        $this->thumbPath = str_replace(URL::base(), "", $this->thumbPath);
+        $this->thumbPath = str_replace(Request::getBaseURL(), "", $this->thumbPath);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected From File Type
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $paths
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Protected From File Type
+     */
     protected function fromFileType($paths)
     {
-        switch( Filesystem\Extension::get($this->file) )
+        switch( Filesystem::getExtension($this->file) )
         {
             case 'jpg' :
             case 'jpeg': return imagecreatefromjpeg($paths);
@@ -229,18 +217,14 @@ class Image implements ImageInterface
         }
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Is Image File
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $file
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Protected Is Image File
+     */
     protected function isImageFile($file)
     {
         $mimes = ['image/jpg', 'image/jpeg', 'image/png', 'image/gif'];
 
-        if( in_array(\Mime::type($file), $mimes) )
+        if( in_array(Singleton::class('ZN\Helpers\Mime')->type($file), $mimes) )
         {
             return true;
         }
@@ -250,18 +234,12 @@ class Image implements ImageInterface
         }
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Create File Type
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $files
-    // @param string $paths
-    // @param int    $quality
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Protected Create File Type
+     */
     protected function createFileType($files, $paths, $quality = 0)
     {
-        switch( Filesystem\Extension::get($this->file) )
+        switch( Filesystem::getExtension($this->file) )
         {
             case 'jpg' :
             case 'jpeg': return imagejpeg($files, $paths, $quality ?: 80);

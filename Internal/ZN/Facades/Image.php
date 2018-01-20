@@ -13,5 +13,5 @@ class Image
 {
     use ZN\Ability\Facade;
 
-    const target = 'ZN\Image\Image';
+    const target = 'ZN\Image\Render';
 }

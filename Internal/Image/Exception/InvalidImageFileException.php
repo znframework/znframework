@@ -13,5 +13,9 @@ use ZN\Exception;
 
 class InvalidImageFileException extends Exception
 {
-
+    const lang = 
+    [
+        'en' => '`%` file is not an image file!',
+        'tr' => '`%` dosyası resim dosyası değildir!'
+    ];
 }

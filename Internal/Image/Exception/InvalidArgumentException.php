@@ -13,5 +13,9 @@ use ZN\Exception;
 
 class InvalidArgumentException extends Exception
 {
-   
+    const lang = 
+    [
+        'tr' => 'Geçersiz parametre türü! % türü olmalıdır.',
+        'en' => 'Invalid parameter type! Must be% type.'
+    ];
 }

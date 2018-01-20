@@ -11,8 +11,8 @@
 
 use stdClass;
 use ZN\Base;
+use ZN\Helper;
 use ZN\Singleton;
-use ZN\Helpers\Converter;
 use ZN\Ability\Revolving;
 use ZN\Image\Exception\InvalidArgumentException;
 
@@ -20,31 +20,25 @@ class GD implements GDInterface
 {
     use Revolving;
 
-    //--------------------------------------------------------------------------------------------------------
-    // Canvas
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var string
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Keeps canvas settings
+     * 
+     * @var resource
+     */
     protected $canvas;
 
-    //--------------------------------------------------------------------------------------------------------
-    // Output
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var string
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Output status
+     * 
+     * @var bool
+     */
     protected $output = true;
 
-    //--------------------------------------------------------------------------------------------------------
-    // Result
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var array
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Keeps result
+     * 
+     * @var array
+     */
     protected $result = [];
 
     /**
@@ -55,29 +49,27 @@ class GD implements GDInterface
         $this->mime = Singleton::class('ZN\Helpers\Mime');
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Info
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Get info
+     * 
+     * @return array
+     */
     public function info() : Array
     {
         return gd_info();
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Canvas
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param mixed  $width
-    // @param int    $height
-    // @param string $rgb
-    // @param bool   $real
-    // @param int    $p1
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Sets canvas
+     * 
+     * @param mixed $width
+     * @param mixed $height = NULL
+     * @param mixed $rgb    = 'transparent'
+     * @param mixed $real   = false
+     * @param mixed $p1     = 0
+     * 
+     * @return GD
+     */
     public function canvas($width, $height = NULL, $rgb = 'transparent', $real = false, $p1 = 0) : GD
     {   
         if( $this->mime->type($width, 0) === 'image' )
@@ -122,15 +114,14 @@ class GD implements GDInterface
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Create Form
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $type
-    // @param string $source
-    // @param array  $settings
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Creates form
+     * 
+     * @param string $source
+     * @param array  $settings = []
+     * 
+     * @return resource
+     */
     public function createFrom(String $source, Array $settings = [])
     {
         $type = $this->mime->type($source, 1);
@@ -155,13 +146,13 @@ class GD implements GDInterface
         return $return;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Size
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $fileName
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Set size
+     * 
+     * @param string $fileName
+     * 
+     * @return object
+     */
     public function size(String $fileName) : stdClass
     {
         if( $this->mime->type($fileName, 0) === 'image' )
@@ -174,7 +165,7 @@ class GD implements GDInterface
         }
         else
         {
-            throw new InvalidArgumentException('Error', 'fileParameter', '1.($fileName)');
+            throw new InvalidArgumentException(NULL, '[file]');
         }
 
         return (object)
@@ -188,39 +179,39 @@ class GD implements GDInterface
         ];
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Extension
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $type
-    // @param bool   $dote
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function extension(String $type = 'jpeg', Bool $dote = true) : String
+    /**
+     * Get file extension
+     * 
+     * @param string $type = 'jpeg'
+     * @param bool   $dot  = true
+     * 
+     * @return string
+     */
+    public function extension(String $type = 'jpeg', Bool $dot = true) : String
     {
-        return image_type_to_extension(Converter::toConstant($type, 'IMAGETYPE_'), $dote);
+        return image_type_to_extension(Helper::toConstant($type, 'IMAGETYPE_'), $dot);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Mime
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $type
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Get mime type
+     * 
+     * @param string $type = 'jpeg'
+     * 
+     * @return string
+     */
     public function mime(String $type = 'jpeg') : String
     {
-        return image_type_to_mime_type(Converter::toConstant($type, 'IMAGETYPE_'));
+        return image_type_to_mime_type(Helper::toConstant($type, 'IMAGETYPE_'));
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // To Wbmp
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $fileName
-    // @param int    $threshold
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * To WBMP
+     * 
+     * @param string $fileName
+     * @param int    $threshold = NULL
+     * 
+     * @return GD
+     */
     public function toWbmp(String $fileName = NULL, Int $threshold = NULL) : GD
     {
         image2wbmp($this->canvas, $fileName, $threshold);
@@ -228,15 +219,15 @@ class GD implements GDInterface
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Jpep To Wbmp
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $jpegFile
-    // @param string $wbmpFile
-    // @param array  $setings
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * JPEG to WBMP
+     * 
+     * @param string $pngFile
+     * @param string $wbmpFile
+     * @param array  $settings = []
+     * 
+     * @return bool
+     */
     public function jpegToWbmp(String $jpegFile, String $wbmpFile, Array $settings = []) : Bool
     {
         if( is_file($jpegFile) )
@@ -255,15 +246,15 @@ class GD implements GDInterface
         }
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Png To Wbmp
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $pngFile
-    // @param string $wbmpFile
-    // @param array  $setings
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * PNG to WBMP
+     * 
+     * @param string $pngFile
+     * @param string $wbmpFile
+     * @param array  $settings = []
+     * 
+     * @return bool
+     */
     public function pngToWbmp(String $pngFile, String $wbmpFile, Array $settings = []) : Bool
     {
         if( is_file($pngFile) )
@@ -280,13 +271,13 @@ class GD implements GDInterface
         }
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Alpha Blending
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param bool $blendMode
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Sets alpha blending
+     * 
+     * @param bool $blendMode = NULL
+     * 
+     * @return GD
+     */
     public function alphaBlending(Bool $blendMode = NULL) : GD
     {
         imagealphablending($this->canvas, (bool) $blendMode);
@@ -294,13 +285,13 @@ class GD implements GDInterface
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Save Alpha
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param bool $save
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Sets save alpha
+     * 
+     * @param bool $save = true
+     * 
+     * @return GD
+     */
     public function saveAlpha(Bool $save = true) : GD
     {
         imagesavealpha($this->canvas, $save);
@@ -308,13 +299,13 @@ class GD implements GDInterface
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Smooth
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param bool $mode
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Sets smooth
+     * 
+     * @param bool $mode = true
+     * 
+     * @return GD
+     */
     public function smooth(Bool $mode = true) : GD
     {
         imageantialias($this->canvas, $mode);
@@ -322,13 +313,13 @@ class GD implements GDInterface
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Arc
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array $settings
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Creates Arc
+     * 
+     * @param array $settings []
+     * 
+     * @return GD
+     */
     public function arc(Array $settings = []) : GD
     {
         $x      = $settings['x']       ?? $this->x      ?? 0;
@@ -350,7 +341,7 @@ class GD implements GDInterface
             (
                 $this->canvas, $x, $y, $width, $height, $start, $end,
                 $this->allocate($color),
-                Converter::toConstant($style, 'IMG_ARC_')
+                Helper::toConstant($style, 'IMG_ARC_')
             );
         }
         
@@ -359,13 +350,13 @@ class GD implements GDInterface
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Ellipse
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array $settings
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Creates Ellipse
+     * 
+     * @param array $settings []
+     * 
+     * @return GD
+     */
     public function ellipse(Array $settings = []) : GD
     {
         $x      = $settings['x']       ?? $this->x      ?? 0;
@@ -389,13 +380,13 @@ class GD implements GDInterface
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Polygon
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array $settings
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Creates Polygon
+     * 
+     * @param array $settings []
+     * 
+     * @return GD
+     */
     public function polygon(Array $settings = []) : GD
     {
         $points     = $settings['points']     ?? $this->points     ?? 0;
@@ -417,13 +408,13 @@ class GD implements GDInterface
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Rectangle
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array $settings
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Creates Rectangle
+     * 
+     * @param array $settings []
+     * 
+     * @return GD
+     */
     public function rectangle(Array $settings = []) : GD
     {
         $x      = $settings['x']      ?? $this->x      ?? 0;
@@ -451,13 +442,13 @@ class GD implements GDInterface
     }
 
 
-    //--------------------------------------------------------------------------------------------------------
-    // Fill
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array $settings
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Fill
+     * 
+     * @param array $settings []
+     * 
+     * @return GD
+     */
     public function fill(Array $settings = []) : GD
     {
         $x           = $settings['x']           ?? $this->x           ?? 0;
@@ -479,13 +470,17 @@ class GD implements GDInterface
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Filter
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $filter
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Filter
+     * 
+     * @param string $filter
+     * @param int    $arg1 = NULL
+     * @param int    $arg2 = NULL
+     * @param int    $arg3 = NULL
+     * @param int    $arg4 = NULL
+     * 
+     * @return GD
+     */
     public function filter(String $filter, Int $arg1 = NULL, Int $arg2 = NULL, Int $arg3 = NULL, Int $arg4 = NULL) : GD
     {
         $filters = Singleton::class('ZN\DataTypes\Collection')->data(func_get_args())
@@ -493,33 +488,33 @@ class GD implements GDInterface
                                                               ->deleteElement(NULL)
                                                               ->get();
         
-        imagefilter($this->canvas, Converter::toConstant($filter, 'IMG_FILTER_'), ...$filters);
+        imagefilter($this->canvas, Helper::toConstant($filter, 'IMG_FILTER_'), ...$filters);
 
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Flip
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $type
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Flip
+     * 
+     * @param string $type = 'both'
+     * 
+     * @return GD
+     */
     public function flip(String $type = 'both') : GD
     {
-        imageflip($this->canvas, Converter::toConstant($type, 'IMG_FLIP_'));
+        imageflip($this->canvas, Helper::toConstant($type, 'IMG_FLIP_'));
 
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Char
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $char
-    // @param array  $settings
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Creates char
+     * 
+     * @param string $text
+     * @param array  $settings = []
+     * 
+     * @return GD
+     */
     public function char(String $char, Array $settings = [], $function = 'char') : GD
     {
         $x      = $settings['x']     ?? $this->x     ?? 0;
@@ -545,111 +540,92 @@ class GD implements GDInterface
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Text
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $text
-    // @param array  $settings
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Creates text
+     * 
+     * @param string $text
+     * @param array  $settings = []
+     * 
+     * @return GD
+     */
     public function text(String $text, Array $settings = []) : GD
     {
         return $this->char($text, $settings, 'string');
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Closest
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $rgb
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function _imageColor($rgb, $function)
-    {
-        $rgb = explode('|', $rgb);
-
-        $red   = $rgb[0] ?? 0;
-        $green = $rgb[1] ?? 0;
-        $blue  = $rgb[2] ?? 0;
-        $alpha = $rgb[3] ?? 0;
-
-        return $function($this->canvas, $red, $green, $blue, $alpha);
-    }
-
-    //--------------------------------------------------------------------------------------------------------
-    // Closest
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $rgb
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function closest(String $rgb) : Int
+    /**
+     * Set closest
+     * 
+     * @param string $rgb
+     * 
+     * @return int
+     */
+    protected function closest(String $rgb) : Int
     {
         return $this->_imageColor($rgb, 'imagecolorclosestalpha');
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Resolve
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $rgb
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Set resolve
+     * 
+     * @param string $rgb
+     * 
+     * @return int
+     */
     public function resolve(String $rgb) : Int
     {
         return $this->_imageColor($rgb, 'imagecolorresolvealpha');
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Index
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $rgb
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Set index
+     * 
+     * @param string $rgb
+     * 
+     * @return int
+     */
     public function index(String $rgb) : Int
     {
         return $this->_imageColor($rgb, 'imagecolorexactalpha');
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Pixel Index
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param int $x
-    // @param int $y
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Set pixel index
+     * 
+     * @param int $x
+     * @param int $y
+     * 
+     * @return int
+     */
     public function pixelIndex(Int $x, Int $y) : Int
     {
         return imagecolorat($this->canvas, $x, $y);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Closest Hwb
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $rgb
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Set closest hwb
+     * 
+     * @param string $rgb
+     * 
+     * @return int
+     */
     public function closestHwb(String $rgb) : Int
     {
         return $this->_imageColor($rgb, 'imagecolorclosesthwb');
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Match
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param resource $sourceImage
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Match
+     * 
+     * @param resource $sourceImage
+     * 
+     * @return GD
+     */
     public function match($sourceImage) : GD
     {
         if( ! is_resource($sourceImage) )
         {
-            throw new InvalidArgumentException('Error', 'resourceParameter', '1.($sourceImage)');
+            throw new InvalidArgumentException(NULL, '[resource]');
         }
 
         imagecolormatch($this->canvas, $sourceImage);
@@ -657,14 +633,14 @@ class GD implements GDInterface
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Set
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param int    $index
-    // @param string $rgb
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Set
+     * 
+     * @param int    $index
+     * @param string $rgb = NULL
+     * 
+     * @return GD
+     */
     public function set(Int $index, String $rgb = NULL) : GD
     {
         $rgb = $index . '|' . ($this->_colors($this->color ?? $rgb));
@@ -674,25 +650,23 @@ class GD implements GDInterface
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Total
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Total
+     * 
+     * @return int
+     */
     public function total() : Int
     {
         return imagecolorstotal($this->canvas);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Transparent
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $rgb
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Set transparent
+     * 
+     * @param string $rgb
+     * 
+     * @return GD
+     */
     public function transparent(String $rgb) : GD
     {
         imagecolortransparent($this->canvas, $this->allocate($rgb));
@@ -700,15 +674,15 @@ class GD implements GDInterface
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Convolution
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array $matrix
-    // @param int   $div
-    // @param int   $offset
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Set convolution
+     * 
+     * @param array $matrix
+     * @param float $div    = 0
+     * @param float $offset = 0
+     * 
+     * @return GD
+     */
     public function convolution(Array $matrix, Float $div = 0, Float $offset = 0) : GD
     {
         imageconvolution($this->canvas, $matrix, $div, $offset);
@@ -716,13 +690,13 @@ class GD implements GDInterface
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Interlace
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param int $interlace
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Set interlace
+     * 
+     * @param int $interlace = 0
+     * 
+     * @return GD
+     */
     public function interlace(Int $interlace = 0) : GD
     {
         imageinterlace($this->canvas, $interlace);
@@ -730,14 +704,14 @@ class GD implements GDInterface
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Copy
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param resource $source
-    // @param array    $settings
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Copy
+     * 
+     * @param string|resource $source
+     * @param array           $settings = []
+     * 
+     * @return GD
+     */
     public function copy($source, Array $settings = []) : GD
     {
         if( is_file($source) )
@@ -747,7 +721,7 @@ class GD implements GDInterface
 
         if( ! is_resource($source) )
         {
-            throw new InvalidArgumentException('Error', 'resourceParameter', '1.($source)');
+            throw new InvalidArgumentException(NULL, '[resource]');
         }
 
         $xt     = $settings['xt']     ?? $this->target[0] ?? 0;
@@ -764,14 +738,14 @@ class GD implements GDInterface
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Mix
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param resource $source
-    // @param array    $settings
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Mix
+     * 
+     * @param string|resource $source
+     * @param array           $settings = []
+     * 
+     * @return GD
+     */
     public function mix($source, Array $settings = [], $function = 'imagecopymerge') : GD
     {
         if( is_file($source) )
@@ -781,7 +755,7 @@ class GD implements GDInterface
 
         if( ! is_resource($source) )
         {
-            throw new InvalidArgumentException('Error', 'resourceParameter', '1.($source)');
+            throw new InvalidArgumentException(NULL, '[resource]');
         }
 
         $xt      = $settings['xt']      ?? $this->target[0] ?? 0;
@@ -799,14 +773,14 @@ class GD implements GDInterface
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Mix Gray
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param resource $source
-    // @param array    $settings
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Mixgray
+     * 
+     * @param string|resource $source
+     * @param array           $settings = []
+     * 
+     * @return GD
+     */
     public function mixGray($source, Array $settings = []) : GD
     {
         $this->mix($source, $settings, 'imagecopymergegray');
@@ -814,14 +788,14 @@ class GD implements GDInterface
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Resample
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param resource $source
-    // @param array    $settings
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Resize / Resample
+     * 
+     * @param string|resource $source
+     * @param array           $settings = []
+     * 
+     * @return GD
+     */
     public function resample($source, Array $settings = [], $function = 'imagecopyresampled') : GD
     {
         if( is_file($source) )
@@ -831,7 +805,7 @@ class GD implements GDInterface
 
         if( ! is_resource($source) )
         {
-            throw new InvalidArgumentException('Error', 'resourceParameter', '1.($source)');
+            throw new InvalidArgumentException(NULL, '[resource]');
         }
 
         $xt = $settings['xt'] ?? $this->target[0]    ?? 0;
@@ -850,14 +824,14 @@ class GD implements GDInterface
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Resize
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param resource $source
-    // @param array    $settings
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Resize
+     * 
+     * @param string|resource $source
+     * @param array           $settings = []
+     * 
+     * @return GD
+     */
     public function resize($source, Array $settings = []) : GD
     {
         $this->resample($source, $settings, 'imagecopyresized');
@@ -865,13 +839,13 @@ class GD implements GDInterface
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Crop
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array $settings
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Crop
+     * 
+     * @param array $settings = []
+     * 
+     * @return GD
+     */
     public function crop(Array $settings = []) : GD
     {
         $sets = 
@@ -890,20 +864,20 @@ class GD implements GDInterface
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Auto Crop
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string  $mode
-    // @param numeric $threshold
-    // @param numeric $color
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Auto crop
+     * 
+     * @param string $mode      = 'default'
+     * @param int    $threshold = .5
+     * @param int    $color     = -1
+     * 
+     * @return GD 
+     */
     public function autoCrop(String $mode = 'default', $threshold = .5, $color = -1) : GD
     {
         $this->canvas = imagecropauto
         (
-            $this->canvas, Converter::toConstant($mode, 'IMG_CROP_'), 
+            $this->canvas, Helper::toConstant($mode, 'IMG_CROP_'), 
             $this->threshold ?? $threshold, 
             $this->color ?? $color
         );
@@ -913,13 +887,13 @@ class GD implements GDInterface
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Line
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array $settings
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Creates a line
+     * 
+     * @param array $settings = []
+     * 
+     * @return GD
+     */
     public function line(Array $settings = []) : GD
     {
         $x1   = $settings['x1']    ?? $this->x1    ?? 0;
@@ -943,52 +917,50 @@ class GD implements GDInterface
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Font Height
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param int $height
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Set font height
+     * 
+     * @param int $height
+     * 
+     * @return int
+     */
     public function fontHeight(Int $height) : Int
     {
         return imagefontheight($height);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Font Width
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param int $width
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Set font width
+     * 
+     * @param int $width
+     * 
+     * @return int
+     */
     public function fontWidth(Int $width) : Int
     {
         return imagefontwidth($width);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Screenshot
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Get screenshot
+     * 
+     * @return GD
+     */
     public function screenshot() : GD
     {
         $this->canvas = imagegrabscreen();
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Rotate
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param int    $angle
-    // @param string $spaceColor
-    // @param int    $ignoreTransparent
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Set rotate
+     * 
+     * @param float  $angle
+     * @param string $spaceColor        = '0|0|0'
+     * @param int    $ignoreTransparent = 0
+     * 
+     * @return GD
+     */
     public function rotate(Float $angle, String $spaceColor = '0|0|0', Int $ignoreTransparent = 0) : GD
     {
         $this->canvas = imagerotate($this->canvas, $angle, $this->allocate($spaceColor), $ignoreTransparent);
@@ -1001,43 +973,43 @@ class GD implements GDInterface
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Scale
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param int    $width
-    // @param int    $height
-    // @param string $mode
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function scale(Int $width, Int $height = -1, String $mode = 'bilinear_fixed') : GD
+    /**
+     * Set scale
+     * 
+     * @param int    $width
+     * @param int    $height = -1
+     * @param string $method = 'bilinearFixed'
+     * 
+     * @return GD
+     */
+    public function scale(Int $width, Int $height = -1, String $mode = 'bilinearFixed') : GD
     {
-        $this->canvas = imagescale($this->canvas, $width, $height, Converter::toConstant($mode, 'IMG_'));
+        $this->canvas = imagescale($this->canvas, $width, $height, Helper::toConstant($mode, 'IMG_'));
 
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Interpolation
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $method
-    //
-    //--------------------------------------------------------------------------------------------------------
-    public function interpolation(String $method = 'bilinear_fixed') : GD
+    /**
+     * Set interpolation
+     * 
+     * @param string $method = 'bilinearFixed'
+     * 
+     * @return GD
+     */
+    public function interpolation(String $method = 'bilinearFixed') : GD
     {
-        imagesetinterpolation($this->canvas, Converter::toConstant($method, 'IMG_'));
+        imagesetinterpolation($this->canvas, Helper::toConstant($method, 'IMG_'));
 
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Pixel
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array $settings
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Set pixed
+     * 
+     * @param array $settings = []
+     * 
+     * @return GD
+     */
     public function pixel(Array $settings = []) : GD
     {
         $x   = $settings['x']     ?? $this->x     ?? 0;
@@ -1051,13 +1023,13 @@ class GD implements GDInterface
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Style
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param array $style
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Set style
+     * 
+     * @param array $style
+     * 
+     * @return GD
+     */
     public function style(Array $style) : GD
     {
         imagesetstyle($this->canvas, $style);
@@ -1065,13 +1037,13 @@ class GD implements GDInterface
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Thickness
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param int $thickness
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Set thickness
+     * 
+     * @param int $thickness = 1
+     * 
+     * @return GD
+     */
     public function thickness(Int $thickness = 1) : GD
     {
         imagesetthickness($this->canvas, $thickness);
@@ -1079,18 +1051,18 @@ class GD implements GDInterface
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Tile
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param resources $tile
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Set tile
+     * 
+     * @param resource $tile
+     * 
+     * @return GD
+     */
     public function tile($tile) : GD
     {
         if( ! is_resource($tile) )
         {
-            throw new InvalidArgumentException('Error', 'resourceParameter', '1.($tile)');
+            throw new InvalidArgumentException(NULL, '[resource]');
         }
 
         imagesettile($this->canvas, $tile);
@@ -1098,14 +1070,14 @@ class GD implements GDInterface
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Window Display
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param int $window
-    // @param int $clientArea
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Set window display
+     * 
+     * @param int $window
+     * @param int $clientArea = 0
+     * 
+     * @return GD
+     */
     public function windowDisplay(Int $window, Int $clientArea = 0) : GD
     {
         $this->canvas = imagegrabwindow($window, $clientArea);
@@ -1113,99 +1085,92 @@ class GD implements GDInterface
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Layer Effect
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $effect
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Set layer effect
+     * 
+     * @param string $effect = 'normal'
+     * 
+     * @return GD
+     */
     public function layerEffect(String $effect = 'normal') : GD
     {
-        imagelayereffect($this->canvas, Converter::toConstant($effect, 'IMG_EFFECT_'));
+        imagelayereffect($this->canvas, Helper::toConstant($effect, 'IMG_EFFECT_'));
 
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Load Font
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $file
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Set load font
+     * 
+     * @param string $file
+     * 
+     * @return int
+     */
     public function loadFont(String $file) : Int
     {
         if( ! is_file($file) )
         {
-            throw new InvalidArgumentException('Error', 'fileParameter', '1.($file)');
+            throw new InvalidArgumentException(NULL, '[file]');
         }
 
         return imageloadfont($file);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Copy Palette
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param resource $source
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Get copy palette
+     * 
+     * @param resource $source
+     * 
+     * @return resource
+     */
     public function copyPalette($source)
     {
         if( ! is_resource($source) )
         {
-            throw new InvalidArgumentException('Error', 'resourceParameter', '1.($source)');
+            throw new InvalidArgumentException(NULL, '[resource]');
         }
 
         imagepalettecopy($this->canvas, $source);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Canvas Width
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Get canvas width
+     * 
+     * @return int
+     */
     public function canvasWidth() : Int
     {
         return imagesx($this->canvas);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Canvas Height
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Get canvas height
+     * 
+     * @return int
+     */
     public function canvasHeight() : Int
     {
         return imagesy($this->canvas);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Types
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Get types
+     * 
+     * @return int
+     */
     public function types() : Int
     {
         return imagetypes();
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Generate
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  string $type
-    // @param  string $save
-    // @return resource
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Generate Image
+     * 
+     * @param string $type = NULL
+     * @param string $save = NULL
+     * 
+     * @return resource
+     */
     public function generate(String $type = NULL, String $save = NULL)
     {
         $canvas = $this->canvas;
@@ -1232,13 +1197,11 @@ class GD implements GDInterface
         return $canvas;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Result
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Get result
+     * 
+     * @return string
+     */
     public function result() : String
     {
         if( empty($this->result['path']) )
@@ -1249,13 +1212,9 @@ class GD implements GDInterface
         return Singleton::class('ZN\Hypertext\Html')->image($this->result['path']);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Colors
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $rgb
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Protected Colors
+     */
     protected function _colors($rgb)
     {
         // Renkler küçük isimlerle yazılmıştır.
@@ -1272,13 +1231,9 @@ class GD implements GDInterface
         }
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Allocate
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $rgb
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Protected Allocate
+     */
     protected function allocate($rgb)
     {
         $rgb = explode('|', $this->_colors($rgb));
@@ -1291,13 +1246,24 @@ class GD implements GDInterface
         return imagecolorallocatealpha($this->canvas, $red, $green, $blue, $alpha);
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Destroy
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Protected Image Color
+     */
+    public function _imageColor($rgb, $function)
+    {
+        $rgb = explode('|', $rgb);
+
+        $red   = $rgb[0] ?? 0;
+        $green = $rgb[1] ?? 0;
+        $blue  = $rgb[2] ?? 0;
+        $alpha = $rgb[3] ?? 0;
+
+        return $function($this->canvas, $red, $green, $blue, $alpha);
+    }
+
+    /**
+     * Protected Destroy
+     */
     protected function _destroy()
     {
         imagedestroy($this->canvas);
@@ -1305,25 +1271,17 @@ class GD implements GDInterface
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Content
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Protected Content
+     */
     protected function _content()
     {
         header("Content-type: image/".($this->type ?? 'jpeg'));
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Default Variables
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Protected Default Variables
+     */
     protected function _defaultVariables()
     {
         $this->canvas  = NULL;
@@ -1332,13 +1290,9 @@ class GD implements GDInterface
         $this->quality = NULL;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Protected Types
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Protected Types
+     */
     protected function _types()
     {
         $type = strtolower($this->type ?? 'jpeg');

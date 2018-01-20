@@ -13,5 +13,9 @@ use ZN\Exception;
 
 class ImageNotFoundException extends Exception
 {
-
+    const lang = 
+    [
+        'en' => '`%` file could not be found!',
+        'tr' => '`%` dosyası bulunamadı!'
+    ];
 }

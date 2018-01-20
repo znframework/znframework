@@ -25,7 +25,7 @@ class Thumb implements ThumbInterface
      */
     public function __construct()
     {
-        $this->image = Singleton::class('ZN\Image\Image');
+        $this->image = Singleton::class('ZN\Image\Render');
     }
 
     /**
