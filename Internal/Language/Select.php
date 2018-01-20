@@ -10,7 +10,6 @@
  * @since   2011
  */
 
-use ZN\Protection\Json;
 use ZN\Filesystem;
 
 class Select extends MLExtends
@@ -84,7 +83,7 @@ class Select extends MLExtends
         {
             if( $app === NULL )
             {
-                $MLFiles = Filesystem\FileList::files($this->appdir, 'ml');
+                $MLFiles = Filesystem::getFiles($this->appdir, 'ml');
             }
             elseif( is_array($app) )
             {

@@ -1,6 +1,7 @@
 <?php namespace ML;
 
-use Lang;
+use ZN\Lang;
+use ZN\Config;
 
 class MLExtends
 {
@@ -49,6 +50,8 @@ class MLExtends
     //--------------------------------------------------------------------------------------------------------
     public function __construct()
     {
+        $this->gridConfig = Config::get('ViewObjects', 'mlgrid');
+
         $mlDir = 'Languages' . DS . 'ml' . DS;
 
         $this->appdir = SELECT_PROJECT_DIR . $mlDir;

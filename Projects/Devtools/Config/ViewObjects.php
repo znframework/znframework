@@ -363,9 +363,6 @@
     |
     | It edits the table created by the ML::table() method.
     |
-    | labels      : It arranges the names of the labels on the table.
-    | buttonNames : It arranges the names of the buttons on the table.
-    | placeHolders: It arranges the placeholder of the text fields on the table.
     | styleElement: Used to give built-in style to the table.
     | attributes  : Used to add attributes to objects in the table.
     | pagination  : It arranges the pagination bar on the table.
@@ -374,27 +371,6 @@
 
     'mlgrid' =>
     [
-        'labels' =>
-        [
-            'title'    => ($lang = Lang::select('Language'))['ml:titleLabel'],
-            'confirm'  => $lang['ml:confirmLabel'],
-            'process'  => $lang['ml:processLabel'],
-            'keywords' => $lang['ml:keywordsLabel'],
-        ],
-        'buttonNames' =>
-        [
-            'add'    => $lang['ml:addButton'],
-            'update' => $lang['ml:updateButton'],
-            'delete' => $lang['ml:deleteButton'],
-            'clear'  => $lang['ml:clearButton'],
-            'search' => $lang['ml:searchButton']
-        ],
-        'placeHolders' =>
-        [
-            'keyword'     => $lang['ml:keywordPlaceHolder'],
-            'addLanguage' => $lang['ml:addLanguagePlaceHolder'],
-            'search'      => $lang['ml:searchPlaceHolder']
-        ],
         'styleElement' =>
         [
             #'#ML_TABLE tr:nth-child(even)' => ['background' => '#E6F9FF'],

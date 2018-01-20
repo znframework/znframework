@@ -9,41 +9,45 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-use Html;
-use Form;
-use Sheet;
-use Style;
-use Pagination;
+use ZN\Lang;
+use ZN\Hypertext;
+use ZN\Singleton;
 use ZN\Request\URI;
 use ZN\Request\Method;
 
 class Grid extends MLExtends
 {
-    //--------------------------------------------------------------------------------------------------------
-    // $limit
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var int: 10
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Keeps limit
+     * 
+     * @var int
+     */
     protected $limit = 10;
 
-    //--------------------------------------------------------------------------------------------------------
-    // $url
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @var string: NULL
-    //
-    //--------------------------------------------------------------------------------------------------------
-    protected $url   = NULL;
+    /**
+     * Keeps url
+     * 
+     * @var string
+     */
+    protected $url = NULL;
 
-    //--------------------------------------------------------------------------------------------------------
-    // Url()
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $url
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Magic Constructor
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->getLang = Lang::default(new GridDefaultLanguage)::select('Language');
+    }
+
+    /**
+     * Set URL
+     * 
+     * @param string $url = NULL
+     * 
+     * @return Grid
+     */
     public function url(String $url = NULL) : Grid
     {
         $this->url = $url;
@@ -51,13 +55,13 @@ class Grid extends MLExtends
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // limit()
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param string $limit
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Set Limit
+     * 
+     * @param int $limit = NULL
+     * 
+     * @return Grid
+     */
     public function limit(Int $limit = NULL) : Grid
     {
         $this->limit = $limit;
@@ -65,14 +69,13 @@ class Grid extends MLExtends
         return $this;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Table
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param  mixed $app
-    // @return string
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Creates table
+     * 
+     * @param mixed $app = NULL
+     * 
+     * @return string
+     */
     public function create($app = NULL) : String
     {
         $searchWord = '';
@@ -142,12 +145,10 @@ class Grid extends MLExtends
 
         $attributes         = $config['attributes'];
         $pagcon             = $config['pagination'];
-        $placeHolders       = $config['placeHolders'];
-        $buttonNames        = $config['buttonNames'];
-        $title              = $config['labels']['title'];
-        $confirmMessage     = $config['labels']['confirm'];
-        $process            = $config['labels']['process'];
-        $keywords           = $config['labels']['keywords'];
+        $title              = $this->getLang['ml:titleLabel'];
+        $confirmMessage     = $this->getLang['ml:confirmLabel'];
+        $process            = $this->getLang['ml:processLabel'];
+        $keywords           = $this->getLang['ml:keywordsLabel'];
 
         $confirmBox = ' onsubmit="return confirm(\''.$confirmMessage.'\');"';
 
@@ -155,42 +156,45 @@ class Grid extends MLExtends
 
         $languageCount = count($data);
 
+        $formClass = Singleton::class('ZN\Hypertext\Form');
+
         $table  = $this->_styleElement();
-        $table .= '<table id="ML_TABLE"'.Html::attributes($attributes['table']).'>';
+        $table .= '<table id="ML_TABLE"'.Hypertext::attributes($attributes['table']).'>';
         $table .= '<thead>';
         $table .= '<tr><th colspan="'.($languageCount + 4).'">'.$title.'</th></tr>';
         $table .= '<tr><th>S/L</th>';
         $table .= '<td colspan="'.($languageCount + 3).'">';
         $table .= '<form name="ML_SEARCH_ADD_LANGUAGE_FORM" method="post">';
-        $table .= Form::attr($attributes['textbox'])->placeholder($placeHolders['search'])->text('ML_SEARCH');
-        $table .= Form::attr($attributes['add'])->submit('ML_SEARCH_SUBMIT', $buttonNames['search']);
-        $table .= Form::attr($attributes['textbox'])->placeholder($placeHolders['addLanguage'])->text('ML_ADD_LANGUAGE');
-        $table .= Form::attr($attributes['add'])->submit('ML_ADD_ALL_LANGUAGE_SUBMIT', $buttonNames['add']).'</td>';
+        $table .= $formClass->attr($attributes['textbox'])->placeholder($this->getLang['ml:searchPlaceHolder'])->text('ML_SEARCH');
+        $table .= $formClass->attr($attributes['add'])->submit('ML_SEARCH_SUBMIT', $this->getLang['ml:searchButton']);
+        $table .= $formClass->attr($attributes['textbox'])->placeholder($this->getLang['ml:addLanguagePlaceHolder'])->text('ML_ADD_LANGUAGE');
+        $table .= $formClass->attr($attributes['add'])->submit('ML_ADD_ALL_LANGUAGE_SUBMIT', $this->getLang['ml:addButton']).'</td>';
         $table .= '</form>';
         $table .= '</tr>';
-
         $table .= '<tr><th>#</th><td><strong>'.$keywords.'</strong></td>';
 
         $words = [];
         $formObjects = '';
 
         $languages   = implode(',', $arrayKeys = array_keys($data));
-        $mlLanguages = Form::hidden('ML_LANGUAGES', $languages);
+        $mlLanguages = $formClass->hidden('ML_LANGUAGES', $languages);
 
         foreach( $data as $lang => $values )
         {
             $upperLang = strtoupper($lang);
 
             $table .= '<form name="ML_TOP_FORM_'.$upperLang.'" method="post"'.$confirmBox.'>';
-            $table .= '<td><strong>'.$upperLang.Form::hidden('ML_ALL_DELETE_HIDDEN', $lang).Form::attr($attributes['delete'])->submit('ML_ALL_DELETE_SUBMIT', $buttonNames['delete']).'</strong></td>';
+            $table .= '<td><strong>'.$upperLang.$formClass->hidden('ML_ALL_DELETE_HIDDEN', $lang).$formClass->attr($attributes['delete'])->submit('ML_ALL_DELETE_SUBMIT', $this->getLang['ml:deleteButton']).'</strong></td>';
             $table .= '</form>';
+            
             foreach( $values as $key => $val )
             {
                 $words[$key][$lang] = $val;
             }
 
-            $formObjects .= '<td>'.Form::attr($attributes['textbox'])->placeholder($upperLang)->text('ML_ADD_WORDS[]').'</td>';
+            $formObjects .= '<td>'.$formClass->attr($attributes['textbox'])->placeholder($upperLang)->text('ML_ADD_WORDS[]').'</td>';
         }
+
         $table .= '<td><strong>'.$process.'</strong></td>';
         $table .= '</tr>';
         $table .= '</thead>';
@@ -198,12 +202,11 @@ class Grid extends MLExtends
         $table .= '<tr>';
         $table .= '<form name="ML_TOP_FORM" method="post">';
         $table .= '<th>N</th>';
-        $table .= '<td>'.$mlLanguages.Form::attr($attributes['textbox'])->placeholder($placeHolders['keyword'])->text('ML_ADD_KEYWORD').'</td>';
+        $table .= '<td>'.$mlLanguages.$formClass->attr($attributes['textbox'])->placeholder($this->getLang['ml:keywordPlaceHolder'])->text('ML_ADD_KEYWORD').'</td>';
         $table .= $formObjects;
-        $table .= '<td>'.Form::attr($attributes['add'])->submit('ML_ADD_KEYWORD_SUBMIT', $buttonNames['add']).' '.Form::attr($attributes['clear'])->reset('ML_ADD_KEYWORD_RESET', $buttonNames['clear']).'</td>';
+        $table .= '<td>'.$formClass->attr($attributes['add'])->submit('ML_ADD_KEYWORD_SUBMIT', $this->getLang['ml:addButton']).' '.$formClass->attr($attributes['clear'])->reset('ML_ADD_KEYWORD_RESET', $this->getLang['ml:clearButton']).'</td>';
         $table .= '</form>';
         $table .= '</tr>';
-
 
         $limit     = $this->limit;
         $start     = (int) URI::segment(-1);
@@ -252,16 +255,16 @@ class Grid extends MLExtends
             $table .= '<tr>';
             $table .= '<form name="ML_'.strtoupper($key).'_FORM" method="post"'.$confirmBox.'>';
             $table .= '<th>'.$index++.'</th>';
-            $table .= '<td>'.Form::hidden('ML_UPDATE_KEYWORD_HIDDEN', $key).$key.'</td>';
+            $table .= '<td>'.$formClass->hidden('ML_UPDATE_KEYWORD_HIDDEN', $key).$key.'</td>';
 
             foreach( $arrayKeys as $i )
             {
-                $table .= '<td>'.Form::attr($attributes['textbox'])->text('ML_UPDATE_WORDS[]', ( ! empty($val[$i]) ? $val[$i] : '' )).'</td>';
+                $table .= '<td>'.$formClass->attr($attributes['textbox'])->text('ML_UPDATE_WORDS[]', ( ! empty($val[$i]) ? $val[$i] : '' )).'</td>';
             }
 
-            $table .= '<td>'.$mlLanguages.Form::attr($attributes['update'])->submit('ML_UPDATE_KEYWORD_SUBMIT', $buttonNames['update']);
+            $table .= '<td>'.$mlLanguages.$formClass->attr($attributes['update'])->submit('ML_UPDATE_KEYWORD_SUBMIT', $this->getLang['ml:updateButton']);
             $table .= ' ';
-            $table .= Form::attr($attributes['delete'])->submit('ML_DELETE_SUBMIT', $buttonNames['delete']).'</td>';
+            $table .= $formClass->attr($attributes['delete'])->submit('ML_DELETE_SUBMIT', $this->getLang['ml:deleteButton']).'</td>';
             $table .= '</form>';
             $table .= '</tr>';
         }
@@ -277,13 +280,14 @@ class Grid extends MLExtends
 
         if( empty($searchWord) )
         {
-            $pagination = Pagination::style($pagcon['style'])
-                                    ->css($pagcon['class'])
-                                    ->start($start)
-                                    ->totalRows($totalRows)
-                                    ->limit($limit)
-                                    ->url($paginationUrl)
-                                    ->create();
+            $pagination = Singleton::class('ZN\Pagination\Paginator')
+                                   ->style($pagcon['style'])
+                                   ->css($pagcon['class'])
+                                   ->start($start)
+                                   ->totalRows($totalRows)
+                                   ->limit($limit)
+                                   ->url($paginationUrl)
+                                   ->create();
         }
         else
         {
@@ -301,13 +305,9 @@ class Grid extends MLExtends
         return $table;
     }
 
-    //--------------------------------------------------------------------------------------------------------
-    // Style Element
-    //--------------------------------------------------------------------------------------------------------
-    //
-    // @param void
-    //
-    //--------------------------------------------------------------------------------------------------------
+    /**
+     * Protected Style Element
+     */
     protected function _styleElement()
     {
         $styleElementConfig = $this->gridConfig['styleElement'] ?? NULL;
@@ -316,12 +316,15 @@ class Grid extends MLExtends
         {
             $attributes = NULL;
 
+            $sheet = Singleton::class('ZN\Hypertext\Sheet');
+            $style = Singleton::class('ZN\Hypertext\Style');
+
             foreach( $styleElementConfig as $selector => $attr )
             {
-                $attributes .= Sheet::selector($selector)->attr($attr)->create();
+                $attributes .= $sheet->selector($selector)->attr($attr)->create();
             }
 
-            return Style::open().$attributes.Style::close();
+            return $style->open().$attributes.$style->close();
         }
 
         return NULL;
