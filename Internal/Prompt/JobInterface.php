@@ -1,4 +1,4 @@
-<?php namespace ZN\Prompt;
+<?php namespace ZN\Crontab;
 /**
  * ZN PHP Web Framework
  * 
@@ -9,7 +9,7 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-interface CrontabInterface
+interface JobInterface
 {
     //--------------------------------------------------------------------------------------------------------
     // Queue -> 5.3.6

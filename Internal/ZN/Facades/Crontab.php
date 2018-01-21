@@ -13,5 +13,5 @@ class Crontab
 {
     use ZN\Ability\Facade;
 
-    const target = 'ZN\Prompt\Crontab';
+    const target = 'ZN\Crontab\Job';
 }
