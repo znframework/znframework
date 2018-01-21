@@ -54,9 +54,9 @@
     [
         'driver'      => 'mysqli',
         'host'        => 'localhost',
-        'database'    => 'test',
+        'database'    => '',
         'user'        => 'root',
-        'password'    => '6340hayal',
+        'password'    => '',
         'dsn'         => '',
         'server'      => '',
         'port'        => '',
