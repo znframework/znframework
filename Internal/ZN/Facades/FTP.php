@@ -9,9 +9,9 @@
  * @author  Ozan UYKUN [ozan@znframework.com]
  */
 
-class Upload
+class FTP
 {
     use ZN\Ability\Facade;
 
-    const target = 'ZN\Filesystem\Upload';
+    const target = 'ZN\Remote\FTP';
 }
