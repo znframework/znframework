@@ -46,4 +46,4 @@ require_once __DIR__ . '/zeroneed.php';
 |
 */
 
-ZN\Console::run($argv);
+new ZN\Console\Run($argv);

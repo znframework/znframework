@@ -25,6 +25,7 @@
         "znframework/package-captcha": "5.0.*",
         "znframework/package-comparison": "5.0.*",
         "znframework/package-compression": "5.0.*",
+        "znframework/package-console": "5.0.*",
         "znframework/package-crontab": "5.0.*",
         "znframework/package-cryptography": "5.0.*",
         "znframework/package-database": "5.0.*",
