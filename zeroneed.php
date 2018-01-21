@@ -19,7 +19,7 @@
 |
 */
 
-require_once __DIR__ . '/Internal/ZN/ZN.php';
+require __DIR__ . '/vendor/autoload.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -30,4 +30,4 @@ require_once __DIR__ . '/Internal/ZN/ZN.php';
 |
 */
 
-ZN\ZN::run('EIP', '5.6.0', 'Nikola Tesla');
+ZN\ZN::run('EIP', '5.5.0', 'Nikola Tesla');
