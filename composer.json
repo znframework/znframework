@@ -1,9 +1,9 @@
 {
-    "name": "znframework/develop",
+    "name": "znframework/znframework",
     "type": "project",
-    "description": "ZN Framework EIP",
-    "keywords": ["zn","zeroneed"],
-    "homepage": "https://github.com/znframework/develop",
+    "description": "ZN PHP Web Framework",
+    "keywords": ["zn","zeroneed", "php", "web", "framework"],
+    "homepage": "https://github.com/znframework/znframework",
     "license": "MIT",
     "authors": 
     [
