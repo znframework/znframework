@@ -1,15 +1,11 @@
 <?php namespace Project\Commands;
 
-use Email;
+use ZN\Command;
 
 class Example extends Command
 {
-    public function send()
+    public function run()
     {
-        // Email::to('to@example.com')
-        //      ->from('from@example.com')
-        //      ->subject('Subject')
-        //      ->message('Message')
-        //      ->send();
+        # Your codes here.
     }
 }
