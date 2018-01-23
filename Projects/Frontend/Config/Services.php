@@ -2,39 +2,6 @@
 [
     /*
     |--------------------------------------------------------------------------
-    | Route
-    |--------------------------------------------------------------------------
-    |
-    | Contains settings about which routes to show the results based on URL 
-    | requests.
-    |
-    | openController: Default boot controller.
-    | openFunction: It is the default method of operation of the controller.
-    | show404: Forwards the invalid request to the specified URI.
-    | requestMethods: Which URI specifies which request methods are valid or 
-    |                 invalid.
-    | patternType: Regex type for route.
-    | changeUri: Used to create a route. ['new regex' => 'old uri']
-    |
-    */
-
-    'route' =>
-    [
-        'openController' => 'home',
-        'openFunction'   => 'main',
-        'show404'        => '',
-        'requestMethods' =>
-        [
-            'page'            => '',
-            'disallowMethods' => [],
-            'allowMethods'    => []  
-        ],
-        'patternType'    => 'classic',
-        'changeUri'      => []
-    ],
-
-    /*
-    |--------------------------------------------------------------------------
     | Uri
     |--------------------------------------------------------------------------
     |
@@ -47,45 +14,6 @@
     'uri' =>
     [
         'lang' => false
-    ],
-
-    /*
-    |--------------------------------------------------------------------------
-    | Processor
-    |--------------------------------------------------------------------------
-    |
-    | Contains Processor library related settings.
-    |
-    | driver: It is specified which function the Processor::exec() method 
-    |         will use.
-    |         Options: exec, shell, system, ssh
-    | path: The current PHP path. Especially necessary for crontab.
-    |
-    */
-
-    'processor' =>
-    [
-        'driver' => 'exec',      
-        'path'   => '/usr/bin/php'
-    ],
-
-    /*
-    |--------------------------------------------------------------------------
-    | SSH
-    |--------------------------------------------------------------------------
-    |
-    | Includes SSH connection settings.
-    |
-    */
-
-    'ssh' =>
-    [
-        'host'          => '', 
-        'user'          => '',  
-        'password'      => '',  
-        'port'          => 22, 
-        'methods'       => [],  
-        'callbacks'     => []  
     ],
 
    /*
@@ -129,6 +57,45 @@
             'mimeVersion'   => '1.0',               # MIME Version
             'mailPath'      => '/usr/sbin/sendmail' # Default Mail Path
         ]
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Processor
+    |--------------------------------------------------------------------------
+    |
+    | Contains Processor library related settings.
+    |
+    | driver: It is specified which function the Processor::exec() method 
+    |         will use.
+    |         Options: exec, shell, system, ssh
+    | path: The current PHP path. Especially necessary for crontab.
+    |
+    */
+
+    'processor' =>
+    [
+        'driver' => 'exec',      
+        'path'   => '/usr/bin/php'
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | SSH
+    |--------------------------------------------------------------------------
+    |
+    | Includes SSH connection settings.
+    |
+    */
+
+    'ssh' =>
+    [
+        'host'          => '', 
+        'user'          => '',  
+        'password'      => '',  
+        'port'          => 22, 
+        'methods'       => [],  
+        'callbacks'     => []  
     ],
 
     /*
