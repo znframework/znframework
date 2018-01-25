@@ -17,7 +17,7 @@
     "require": 
     {
         "php": ">=7.0.0",
-        "znframework/package-zerocore": "5.0.*",
+        "znframework/package-zerocore": "5.5.*",
         "znframework/package-authentication": "5.0.*",
         "znframework/package-authorization": "5.0.*",
         "znframework/package-buffering": "5.0.*",
