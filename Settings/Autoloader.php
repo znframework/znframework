@@ -61,9 +61,7 @@
 
     'aliases' => 
     [
-        # ZN
-        'ZN'                     => 'ZN\ZN',
-        'Project\Controllers\ZN' => 'ZN\ZN',
+        # ZN\StaticAccess
         'StaticAccess'           => 'ZN\StaticAccess',
         
         # ZN\Request
