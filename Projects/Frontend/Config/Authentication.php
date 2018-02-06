@@ -33,7 +33,7 @@
             'active'       => '', # Relative
             'banned'       => '', # Relative
             'activation'   => '', # Relative
-            'verification' => '', # Rleative
+            'verification' => '', # Relative
             'otherLogin'   => []  # Relative
         ]
     ],
