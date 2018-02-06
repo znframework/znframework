@@ -1,8 +1,8 @@
 <p align="center">
 	<img width="800" height="300" src="https://cloud.teslaerp.com/tesla/Application/Resources/Uploads/znframework/gallery/zn/1513284150_zn800.jpg"><br>
-	[![Latest Stable Version](https://poser.pugx.org/znframework/znframework/v/stable)](https://packagist.org/packages/znframework/znframework)
-	[![Latest Unstable Version](https://poser.pugx.org/znframework/znframework/v/unstable)](https://packagist.org/packages/znframework/znframework)
-	[![License](https://poser.pugx.org/znframework/znframework/license)](https://packagist.org/packages/znframework/znframework)
+	<a href="https://packagist.org/packages/znframework/znframework" rel="nofollow"><img src="https://camo.githubusercontent.com/d5ca72f952ddb3be7f0bda2c4d2de36d452cee29/68747470733a2f2f706f7365722e707567782e6f72672f7a6e6672616d65776f726b2f6d756c74692d65646974696f6e2f762f737461626c65" alt="Latest Stable Version" data-canonical-src="https://poser.pugx.org/znframework/znframework/v/stable" style="max-width:100%;"></a>
+	<a href="https://packagist.org/packages/znframework/znframework" rel="nofollow"><img src="https://camo.githubusercontent.com/ab2df02dbf19412bb2f8503082487a18fa58b91c/68747470733a2f2f706f7365722e707567782e6f72672f7a6e6672616d65776f726b2f6d756c74692d65646974696f6e2f762f756e737461626c65" alt="Latest Unstable Version" data-canonical-src="https://poser.pugx.org/znframework/znframework/v/unstable" style="max-width:100%;"></a>
+	<a href="https://packagist.org/packages/znframework/znframework" rel="nofollow"><img src="https://camo.githubusercontent.com/13cdfe8936fc10ca01dc0f00342e269d91358267/68747470733a2f2f706f7365722e707567782e6f72672f7a6e6672616d65776f726b2f6d756c74692d65646974696f6e2f6c6963656e7365" alt="License" data-canonical-src="https://poser.pugx.org/znframework/znframework/license" style="max-width:100%;"></a>
 </p>
 
 <h2>What is ZN</h2>
