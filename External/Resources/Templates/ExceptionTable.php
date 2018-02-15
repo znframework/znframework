@@ -23,7 +23,8 @@ unset($trace['params']);
             
                 foreach( $trace as $key => $debug )
                     if
-                    ( 
+                    (   
+                        is_array($debug)                          &&
                         ! empty($debug['file'])                   &&
                         ! strstr($debug['file'], 'zeroneed.php')  &&
                         ! strstr($debug['file'], 'zerocore.php')  &&
