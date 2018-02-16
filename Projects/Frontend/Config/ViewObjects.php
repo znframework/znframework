@@ -31,18 +31,19 @@
     
     'pagination' =>
     [
-        'prevName'      => '<',
-        'nextName'      => '>',
-        'firstName'     => '<<',
-        'lastName'      => '>>',
+        'prevName'      => '&laquo;',
+        'nextName'      => '&raquo;',
+        'firstName'     => '&laquo;&laquo;',
+        'lastName'      => '&raquo;&raquo;',
         'totalRows'     => 50,
         'start'         => NULL,
         'limit'         => 10,
         'countLinks'    => 10,
-        'type'          => 'classic', # classic, ajax
+        'type'          => 'classic',   # classic, ajax
+        'output'        => 'bootstrap', # classic, bootstrap
         'class'         =>
         [
-            'current'   => '',
+            'current'   => 'active',
             'links'     => '',
             'prev'      => '',
             'next'      => '',
