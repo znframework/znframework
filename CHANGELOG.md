@@ -1,7 +1,7 @@
 # VERSION NOTES
 Below is the change information according to the versions.
 
-## 5.6 [2018-02-30]
+## 5.6 [2018-03-30]
 
 ### Added
 * Added output setting for pagination.[[#126](https://github.com/znframework/znframework/pull/126)]
@@ -21,3 +21,5 @@ Below is the change information according to the versions.
 
 ### Removed
 * The invalidParameterErrorType setting has been removed.[[#127](https://github.com/znframework/znframework/pull/127)]
+
+## 5.5 [2018-01-01]
