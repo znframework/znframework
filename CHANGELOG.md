@@ -24,3 +24,4 @@ Below is the change information according to the versions.
 
 ### Removed
 * The invalidParameterErrorType setting has been removed.[[#127](https://github.com/znframework/znframework/pull/127)]
+* The FTP configuration has been moved to the <code>Config/Services.php</code> file.[[03eaa05](https://github.com/znframework/znframework/commit/03eaa0592892a698406752275b33a1988cc4fd81)]
