@@ -39,3 +39,4 @@ unset($trace['params']);
         </div>
     </div>
 </div>
+<?php exit;
