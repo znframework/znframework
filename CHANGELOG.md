@@ -4,6 +4,7 @@ Below is the change information according to the versions.
 ## 5.6 [2018-03-30]
 
 ### Added
+* Added virtual controller.[[3b5da7f](https://github.com/znframework/znframework/commit/3b5da7fa7a3abc6c1b3fb68f2e73ab826a5de0b4)]
 * Added output setting for pagination.[[#126](https://github.com/znframework/znframework/pull/126)]
 * Added <code>Config/Authentication.php</code> file.[[#121](https://github.com/znframework/znframework/pull/121)]
 * Added <code>Config/Authorization.php</code> file.
