@@ -16,7 +16,7 @@
     'scripts' =>
     [
         'jquery'                     => 'https://code.jquery.com/jquery-3.3.1.min.js',
-        'jqueryUi'                   => 'https://code.jquery.com/ui/1.11.3/jquery-ui.js',
+        'jqueryUi'                   => 'https://code.jquery.com/ui/1.12.0/jquery-ui.min.js',
         'jqueryValidator'            => 'https://cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/jquery.form-validator.min.js',
         'bootstrap'                  => 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js',
         'bootlint'                   => 'https://maxcdn.bootstrapcdn.com/bootlint/0.14.1/bootlint.min.js',
