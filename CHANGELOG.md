@@ -1,6 +1,12 @@
 # VERSION NOTES
 Below is the change information according to the versions.
 
+## 5.6.1 [2018-04-08]
+
+## Changed
+* Changed Strings::divide() method.[[2fae331](https://github.com/znframework/package-datatypes/commit/2fae331705075769cea87dc2ce579f3cab462953)]
+* Changed Method Library output.[[c1ce8ac](https://github.com/znframework/package-request/commit/c1ce8ac12cde70ecf9fcebb5a0a453f97b7f8f65)]
+
 ## 5.6 [2018-03-30]
 
 ### Added
