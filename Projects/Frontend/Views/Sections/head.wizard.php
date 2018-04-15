@@ -1,1 +1,1 @@
-@Import::style('https://fonts.googleapis.com/css?family=Sarpanch', 'style'):
+@style('https://fonts.googleapis.com/css?family=Sarpanch', 'style')

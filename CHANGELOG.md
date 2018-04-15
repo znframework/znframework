@@ -1,6 +1,20 @@
 # VERSION NOTES
 Below is the change information according to the versions.
 
+## 5.6.2 [2018-04-20]
+
+### Added
+* A new method has been added to the Database class.[[#4](https://github.com/znframework/package-database/pull/4)]
+* New usage has been added to the template wizard.[[#5](https://github.com/znframework/package-zerocore/pull/25)]
+
+### Changed
+* The internal structure of the User library has been redesigned.[[#3](https://github.com/znframework/package-authentication/pull/3)]
+
+### Fixed
+* The syntax error in the DBGrid class has been fixed.[[#3](https://github.com/znframework/package-database/pull/3)]
+* Fixed an error that could lead to an undesired output when using GrandModel.[[e13d8ef](https://github.com/znframework/package-database/commit/e13d8ef4b97eaf465f5204b6509fddf070e4821f)]
+
+
 ## 5.6.1 [2018-04-08]
 
 ### Changed
