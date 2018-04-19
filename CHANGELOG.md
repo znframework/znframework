@@ -1,6 +1,18 @@
 # VERSION NOTES
 Below is the change information according to the versions.
 
+## 5.6.3 [2018-04-30]
+
+### Added
+* Added EventHandler library.[[EventHandler](https://github.com/znframework/package-event-handler)]
+* New where clauses have been added to the DB class.[[91614d9](https://github.com/znframework/package-database/commit/91614d9ae12090cbb5a2b5a33197d60a747103cc)]
+
+### Changed
+* Several update methods have been added for version compatibility.[[#27](https://github.com/znframework/package-zerocore/pull/27)]
+
+### Fixed
+* Fixed syntax error in composer auto load in core.[[#28](https://github.com/znframework/package-zerocore/pull/28)]
+
 ## 5.6.2 [2018-04-20]
 
 ### Added
