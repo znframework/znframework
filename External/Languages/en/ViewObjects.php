@@ -10,9 +10,8 @@
     */
     
     'validation:required'               => '% field blank, impenetrable!',
-    'validation:passwordMatch'          => 'Passwords do not match!',
-    'validation:dataMatch'              => '% datas do not match!',
-    'validation:oldPasswordMatch'       => 'The old password is incorrect!',
+    'validation:matchPassword'          => 'Passwords do not match!',
+    'validation:match'                  => '% datas do not match!',
     'validation:email'                  => '% field is not valid email address!',
     'validation:url'                    => '% field is invalid url information!',
     'validation:identity'               => '% domain credentials are not valid!',
@@ -23,7 +22,7 @@
     'validation:phone'                  => '% field should contain only information phone!',
     'validation:maxchar'                => 'most of the space % more # characters long!',
     'validation:minchar'                => '% area of ​​at least # characters long!',
-    'validation:captchaCode'            => 'Security code is wrong!',
+    'validation:captcha'                => 'Security code is wrong!',
     'validation:pattern'                => 'Data patterns with incompatible %!',
     'validation:between'                => 'The % field must be between [#] - [$]!',
     'validation:betweenBoth'            => 'The % field must be between or equal [#] - [$]!',
