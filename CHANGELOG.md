@@ -1,7 +1,7 @@
 # VERSION NOTES
 Below is the change information according to the versions.
 
-## 5.6.4 [2018-23]
+## 5.6.4 [2018-04-23]
 
 ### Added
 * New methods have been added to the Validation library.
