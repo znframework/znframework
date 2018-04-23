@@ -1,7 +1,19 @@
 # VERSION NOTES
 Below is the change information according to the versions.
 
-## 5.6.3 [2018-04-30]
+## 5.6.4 [2018-23]
+
+### Added
+* New methods have been added to the Validation library.
+
+### Changed
+* The contents of the Validation library have been updated.
+* The contents of the ViewObjects language files have been updated.
+
+### Removed
+* The oldPassword() method has been removed.
+
+## 5.6.3 [2018-04-18]
 
 ### Added
 * Added EventHandler library.[[EventHandler](https://github.com/znframework/package-event-handler)]
@@ -14,7 +26,7 @@ Below is the change information according to the versions.
 * Fixed syntax error in composer auto load in core.[[#28](https://github.com/znframework/package-zerocore/pull/28)]
 
 
-## 5.6.2 [2018-04-20]
+## 5.6.2 [2018-04-14]
 
 ### Added
 * A new method has been added to the Database class.[[#4](https://github.com/znframework/package-database/pull/4)]
