@@ -8,7 +8,7 @@
     | The language of the Validation library.
     |
     */
-    
+
     'validation:required'               => ':name alanı boş geçilemez!',
     'validation:matchPassword'          => 'Şifreler uyumsuz!',
     'validation:match'                  => ':name bilgileri uyumsuz!',
@@ -29,6 +29,24 @@
     'validation:card'                   => ':name alanı geçersiz kart numarası içermektedir!',
     'validation:cvc'                    => ':name alanı geçersiz güvenlik numarası içermektedir!',
     'validation:cardDate'               => ':name alanı geçersiz tarih bilgisi içermektedir!',
+
+    'validation:required'               => '% alanı boş geçilemez!',
+    'validation:matchPassword'          => 'Şifreler uyumsuz!',
+    'validation:match'                  => '% bilgileri uyumsuz!',
+    'validation:email'                  => '% alanı geçersiz posta adresidir!',
+    'validation:url'                    => '% alanı geçersiz url bilgisidir!',
+    'validation:identity'               => '% alanı geçersiz kimlik bilgisidir!',
+    'validation:noSpecialChar'          => '% alanı özel karakter içeremez!',
+    'validation:numeric'                => '% alanı sadece sayılardan oluşmalıdır!',
+    'validation:alpha'                  => '% alanı sadece harflerden oluşmalıdır!',
+    'validation:alnum'                  => '% alanı sadece sayı ve harflerden oluşmalıdır!',
+    'validation:phone'                  => '% alanı sadece telefon bilgisi içermelidir!',
+    'validation:maxchar'                => '% alanı en fazla # karakterden oluşmalıdır!',
+    'validation:minchar'                => '% alanı en az # karakterden oluşmalıdır!',
+    'validation:captcha'                => 'Güvenlik kodu hatalı!',
+    'validation:pattern'                => '% verisi ile desen uyumsuz!',
+    'validation:between'                => '% alanı [#] - [$] değerleri arasında olmalıdır!',
+    'validation:betweenBoth'            => '% alanı [#] - [$] değerleri veya arasında olmalıdır!',
 
     /*
     |--------------------------------------------------------------------------

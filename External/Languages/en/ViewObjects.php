@@ -30,6 +30,23 @@
     'validation:cvc'                    => ':name field contains invalid security number!',
     'validation:cardDate'               => ':name field contains invalid date information!',
     
+    'validation:required'               => '% field blank, impenetrable!',
+    'validation:matchPassword'          => 'Passwords do not match!',
+    'validation:match'                  => '% datas do not match!',
+    'validation:email'                  => '% field is not valid email address!',
+    'validation:url'                    => '% field is invalid url information!',
+    'validation:identity'               => '% domain credentials are not valid!',
+    'validation:noSpecialChar'          => '% field can not contain special characters!',
+    'validation:numeric'                => '% area should consist only of numbers!',
+    'validation:alpha'                  => '% area should consist only of alpha!',
+    'validation:alnum'                  => '% area should consist only of alphanumeric!',
+    'validation:phone'                  => '% field should contain only information phone!',
+    'validation:maxchar'                => 'most of the space % more # characters long!',
+    'validation:minchar'                => '% area of ​​at least # characters long!',
+    'validation:captcha'                => 'Security code is wrong!',
+    'validation:pattern'                => 'Data patterns with incompatible %!',
+    'validation:between'                => 'The % field must be between [#] - [$]!',
+    'validation:betweenBoth'            => 'The % field must be between or equal [#] - [$]!',
 
     /*
     |--------------------------------------------------------------------------
