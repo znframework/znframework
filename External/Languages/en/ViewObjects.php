@@ -29,7 +29,6 @@
     'validation:card'                   => ':name field contains invalid card number!',
     'validation:cvc'                    => ':name field contains invalid security number!',
     'validation:cardDate'               => ':name field contains invalid date information!',
-    
 
     /*
     |--------------------------------------------------------------------------
