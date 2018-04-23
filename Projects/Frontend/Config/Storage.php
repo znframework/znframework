@@ -51,10 +51,12 @@
     | stored.
     |
     */
+
     'shopping' =>
     [
         'driver' => 'session'
     ],
+
     /*
     |--------------------------------------------------------------------------
     | Compression
@@ -65,6 +67,7 @@
     | driver: It is specified which drive to compress.
     |
     */
+    
     'compression' =>
     [
         'driver' => 'gz'
