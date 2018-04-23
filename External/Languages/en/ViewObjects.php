@@ -9,23 +9,27 @@
     |
     */
     
-    'validation:required'               => '% field blank, impenetrable!',
+    'validation:required'               => ':name field blank, impenetrable!',
     'validation:matchPassword'          => 'Passwords do not match!',
-    'validation:match'                  => '% datas do not match!',
-    'validation:email'                  => '% field is not valid email address!',
-    'validation:url'                    => '% field is invalid url information!',
-    'validation:identity'               => '% domain credentials are not valid!',
-    'validation:noSpecialChar'          => '% field can not contain special characters!',
-    'validation:numeric'                => '% area should consist only of numbers!',
-    'validation:alpha'                  => '% area should consist only of alpha!',
-    'validation:alnum'                  => '% area should consist only of alphanumeric!',
-    'validation:phone'                  => '% field should contain only information phone!',
-    'validation:maxchar'                => 'most of the space % more # characters long!',
-    'validation:minchar'                => '% area of ​​at least # characters long!',
+    'validation:match'                  => ':name datas do not match!',
+    'validation:email'                  => ':name field is not valid email address!',
+    'validation:url'                    => ':name field is invalid url information!',
+    'validation:identity'               => ':name domain credentials are not valid!',
+    'validation:noSpecialChar'          => ':name field can not contain special characters!',
+    'validation:numeric'                => ':name area should consist only of numbers!',
+    'validation:alpha'                  => ':name area should consist only of alpha!',
+    'validation:alnum'                  => ':name area should consist only of alphanumeric!',
+    'validation:phone'                  => ':name field should contain only information phone!',
+    'validation:maxchar'                => 'most of the space :name more :p1 characters long!',
+    'validation:minchar'                => ':name area of ​​at least :p1 characters long!',
     'validation:captcha'                => 'Security code is wrong!',
-    'validation:pattern'                => 'Data patterns with incompatible %!',
-    'validation:between'                => 'The % field must be between [#] - [$]!',
-    'validation:betweenBoth'            => 'The % field must be between or equal [#] - [$]!',
+    'validation:pattern'                => 'Data patterns with incompatible :name!',
+    'validation:between'                => 'The :name field must be between [:p1] - [:p2]!',
+    'validation:betweenBoth'            => 'The :name field must be between or equal [:p1] - [:p2]!',
+    'validation:card'                   => ':name field contains invalid card number!',
+    'validation:cvc'                    => ':name field contains invalid security number!',
+    'validation:cardDate'               => ':name field contains invalid date information!',
+    
 
     /*
     |--------------------------------------------------------------------------
