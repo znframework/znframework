@@ -1,7 +1,13 @@
 # VERSION NOTES
 Below is the change information according to the versions.
 
-## 5.6.3 [2018-04-30]
+## 5.6.4 [2018-04-30]
+
+### Added
+* The messages() method was added to the validation class.[[b7070af](https://github.com/znframework/package-validation/commit/b7070af18496b91b08ed56069824f46cd57a6455)]
+* New keys have been added to the ViewObjects language file, depending on the new validation library.[[7883f67](https://github.com/znframework/znframework/commit/7883f67734ef00befdeae89651cc2babc64ca422)]
+
+## 5.6.3 [2018-04-22]
 
 ### Added
 * Added EventHandler library.[[EventHandler](https://github.com/znframework/package-event-handler)]
@@ -13,7 +19,7 @@ Below is the change information according to the versions.
 ### Fixed
 * Fixed syntax error in composer auto load in core.[[#28](https://github.com/znframework/package-zerocore/pull/28)]
 
-## 5.6.2 [2018-04-20]
+## 5.6.2 [2018-04-16]
 
 ### Added
 * A new method has been added to the Database class.[[#4](https://github.com/znframework/package-database/pull/4)]
