@@ -82,6 +82,7 @@
         'Project\Controllers\Controller' => 'ZN\Controller',
 
         # ZN\Database
+        'Model'          => 'ZN\Model',
         'GrandModel'     => 'ZN\Database\GrandModel',
         'RelevanceModel' => 'ZN\Database\RelevanceModel',
 
