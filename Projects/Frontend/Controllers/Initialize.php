@@ -16,6 +16,7 @@ class Initialize extends Controller
         # The current settings are being configured.
         Masterpage::title(ucfirst(CURRENT_CONTROLLER))
                   ->headPage('Sections/head')
-                  ->bodyPage('Sections/body');
+                  ->bodyPage('Sections/body')
+                  ->backgroundImage(FILES_DIR . 'background.jpg');
     }
 }
