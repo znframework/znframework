@@ -29,8 +29,12 @@ unset($trace['params']);
                         ! strstr($debug['file'], 'zeroneed.php')  &&
                         ! strstr($debug['file'], 'zerocore.php')  &&
                         ! strstr($debug['file'], 'Facade.php')    &&
+                        ! strstr($debug['file'], 'Buffering.php') &&
                         ! strstr($debug['file'], 'ZN.php')        &&
                         ! strstr($debug['file'], 'Singleton.php') &&
+                        ! strstr($debug['file'], 'Kernel.php')    &&
+                        ! strstr($debug['file'], 'Wizard.php')    &&
+                        ! strstr($debug['file'], 'View.php')      &&
                         $debug['file'] !== $file                         
                     )
                     ZN\ErrorHandling\Exceptions::display($debug['file'], $debug['line'], $key);
