@@ -1,7 +1,7 @@
 html, body{height: 100%;}
 body{margin: 0;padding: 0;width: 100%;display: table;font-weight: lighter;font-family: 'Lato', sans-serif;}
 #container{text-align: center;display: table-cell;vertical-align: middle;background-image:url(background.jpg);background-repeat: no-repeat;background-size: 100%;}
-#content{font-family: 'Sarpanch', cursive; text-align: center;display: inline-block;}
+#content{font-family: 'Sarpanch', cursive; text-align: center;display: inline-block; text-shadow: 1px 1px 1px #2c5072;}
 #sub-title{font-size: 24px;}
 .blue-color{color:#5f97b5}
 .orange-color{color:#fc9127}
