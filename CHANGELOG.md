@@ -1,6 +1,30 @@
 # VERSION NOTES
 Below is the change information according to the versions.
 
+## 5.7.0 [2018-04-01]
+
+### Added
+* Added login control to template wizard.[[92af28d](https://github.com/znframework/package-zerocore/commit/92af28d00af39d3d5d04821d9affb9ec9193ec4d)]
+* Added new short methods to template wizard.[[1ff51d8](https://github.com/znframework/package-zerocore/commit/1ff51d852d07e9f36cc31912599432401ef298c1)]
+* Added Credit Card rules.[[46ee5ff](https://github.com/znframework/package-validation/commit/46ee5ff6a124ddc30e54c255d1960101fd38c7e0)]
+* In case of using 3rd section, it is accepted as a condition.[[2e2f35a](https://github.com/znframework/package-database/commit/2e2f35ae529ebb6eb2e60383e5dc33aa634d2751)]
+* Added new where clauses.[[91614d9](https://github.com/znframework/package-database/commit/91614d9ae12090cbb5a2b5a33197d60a747103cc)]
+* Added new parameter for redirect select data.[[f58740a](https://github.com/znframework/package-response/commit/f58740a937871a5b1b6d989d72b067bda69a762a)]
+
+### Changed
+* Changed default opening page.[[f15c2a0](https://github.com/znframework/znframework/commit/f15c2a0f52e92baa18231c4ee02bdef1f34ebd03)]
+* The parameters of the Permission class have been expanded.[[451f74d](https://github.com/znframework/package-authorization/commit/451f74db3a52b86e223ff4c42029e2e01366e441)]
+
+### Fixed
+* Updated ExceptionTable.php file.[[9262539](https://github.com/znframework/znframework/commit/92625398f7abfff019bb5099819b9e42d27ac57f)]
+* Updated Filesystem deleteFolderEmpty method.[[45a47da](https://github.com/znframework/package-zerocore/commit/45a47da4b1143435fcc0c4bb1dc184cc765002be)]
+* Updated GrandModel.[[078b195](https://github.com/znframework/package-database/commit/078b195f5d15d8aa2a97d2f703ab21aac910e231)]
+* Fixed <code>Request::method()</code> method.[[d114f19](https://github.com/znframework/package-request/commit/d114f193506be16ec0f75efa96bcb2d16f00bb19)]
+
+### Removed
+* The use of the subdirectory controller has been removed.[[8024ffa](https://github.com/znframework/package-zerocore/commit/8024ffa252d83a3012eff2b02faea0174e8070dd)]
+* Removed <code>Validation::oldPassword()</code> method.
+
 ## 5.6.4 [2018-04-30]
 
 ### Added
