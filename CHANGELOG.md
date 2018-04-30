@@ -3,6 +3,9 @@ Below is the change information according to the versions.
 
 ## 5.7.0 [2018-04-01]
 
+### Dedicated
+Vecihi Hürkuş
+
 ### Added
 * Added login control to template wizard.[[92af28d](https://github.com/znframework/package-zerocore/commit/92af28d00af39d3d5d04821d9affb9ec9193ec4d)]
 * Added new short methods to template wizard.[[1ff51d8](https://github.com/znframework/package-zerocore/commit/1ff51d852d07e9f36cc31912599432401ef298c1)]
