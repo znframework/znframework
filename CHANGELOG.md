@@ -38,7 +38,10 @@ Below is the change information according to the versions.
 * Changed Strings::divide() method.[[2fae331](https://github.com/znframework/package-datatypes/commit/2fae331705075769cea87dc2ce579f3cab462953)]
 * Changed Method Library output.[[c1ce8ac](https://github.com/znframework/package-request/commit/c1ce8ac12cde70ecf9fcebb5a0a453f97b7f8f65)]
 
-## 5.6 [2018-03-30]
+## 5.6.0 [2018-03-30]
+
+### Dedicated
+Rasmus Lerdorf
 
 ### Added
 * Added virtual controller.[[3b5da7f](https://github.com/znframework/znframework/commit/3b5da7fa7a3abc6c1b3fb68f2e73ab826a5de0b4)]
@@ -63,3 +66,8 @@ Below is the change information according to the versions.
 ### Removed
 * The <code>invalidParameterErrorType</code> setting has been removed.[[#127](https://github.com/znframework/znframework/pull/127)]
 * The FTP configuration has been moved to the <code>Config/Services.php</code> file.[[03eaa05](https://github.com/znframework/znframework/commit/03eaa0592892a698406752275b33a1988cc4fd81)]
+
+## 5.5.0 [2018-01-01]
+
+### Dedicated
+Nikola Tesla
