@@ -1,7 +1,7 @@
 # VERSION NOTES
 Below is the change information according to the versions.
 
-## 5.7.0 [2018-04-01]
+## 5.7.0 [2018-05-01]
 
 ### Dedicated
 Vecihi Hürkuş
