@@ -1,6 +1,20 @@
 # VERSION NOTES
 Below is the change information according to the versions.
 
+## 5.7.1 [2018-05-05]
+
+### Changed
+* Changed Starting config "ajax code continue" key value.[[#10](https://github.com/znframework/fullpack-edition/commit/34bdad8faa18b9eee5ade61ccf9146a2cee7fa91)]
+* The location of the class map file changed.[[#12](https://github.com/znframework/fullpack-edition/commit/e5848150ac80199e1a85b60ceca27e3e9428b539)]
+* Changed pagination ajax return value.[[#18](https://github.com/znframework/fullpack-edition/commit/63435b98c524553a5bd1d3cea66560c3b42901bc)]
+
+### Fixed
+* Fixed talking queries.[[a41ae69](https://github.com/znframework/fullpack-edition/commit/a41ae690b6f1d56a324fb1bf80753f89d27f921f)]
+* Fixed Buffering library namespace.[[#9](https://github.com/znframework/fullpack-edition/commit/ba6b5e4f4966ba20f539a82e39b47b1d7ecb0d06)]
+
+### Removed
+* Removed controls from the Autoloader class that could pose a problem.[[#16](https://github.com/znframework/fullpack-edition/commit/eb1690433a61f2881e99e8d4bb794cfc07aa965d)]
+
 ## 5.7.0 [2018-05-01]
 
 ### Dedicated
