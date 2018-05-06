@@ -77,6 +77,9 @@
         'Project\Controllers\Masterpage' => 'ZN\Inclusion\Project\Masterpage',
         'Project\Controllers\View'       => 'ZN\Inclusion\Project\View',
         'Project\Controllers\Theme'      => 'ZN\Inclusion\Project\Theme',
+        'Masterpage'                     => 'ZN\Inclusion\Project\Masterpage',
+        'View'                           => 'ZN\Inclusion\Project\View',
+        'Theme'                          => 'ZN\Inclusion\Project\Theme',
 
         # ZN\Controller
         'Project\Controllers\Controller' => 'ZN\Controller',
