@@ -17,6 +17,7 @@ class Initialize extends Controller
         Masterpage::title(ucfirst(CURRENT_CONTROLLER))
                   ->headPage('Sections/head')
                   ->bodyPage('Sections/body')
+                  ->browserIcon(FILES_DIR . 'favicon.ico')
                   ->backgroundImage(FILES_DIR . 'background.jpg');
     }
 }
