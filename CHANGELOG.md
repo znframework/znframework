@@ -1,6 +1,27 @@
 # VERSION NOTES
 Below is the change information according to the versions.
 
+## 5.7.2 [2018-12-05]
+
+### Added
+* Added Butchery console commands.[[e8f76e2](https://github.com/znframework/fullpack-edition/commit/e8f76e255dfd98f3f00c0468e4c76eca05a6290f)]
+* Added Butchery system.[[795930d](https://github.com/znframework/fullpack-edition/commit/795930df60c24c4469da9695e48ad36807407424)]
+* Added Butchery directory into External directory.[[00b3929](https://github.com/znframework/fullpack-edition/commit/00b3929c2a14537e2744f77e5d5f5f600aad568d)]
+* Added trigger support for postgres driver.[[3785dfb](https://github.com/znframework/fullpack-edition/commit/3785dfb7524872bee6ec1e3313c4335c83ed4b38)]
+* Added new methods for Restful library.[[ff05a73](https://github.com/znframework/fullpack-edition/commit/ff05a738aa965a4f886c50fd1399b89bf4abe5a5)]
+* Added new method for XML library.[[d24ee66](https://github.com/znframework/fullpack-edition/commit/d24ee664aa31520e2d92173dda35f46598a1c077)]
+* Added new methods for CDN library.[[24c0158](https://github.com/znframework/fullpack-edition/commit/24c0158b660cb68028c20abc916c1bd759b355a2)]
+* Added new aliases.[[8714b78](https://github.com/znframework/fullpack-edition/commit/8714b78a0132dc77af9528af2182a71e35923746)]
+
+### Changed
+* Updated DefaultProject.zip file.[[0a96065](https://github.com/znframework/fullpack-edition/commit/0a9606551b7cfb45030801cf01a07b83674e871f)]
+* Updated directory index.[[#19](https://github.com/znframework/fullpack-edition/commit/0084dcab376bd9f0c6adc1b8d7e78c8b308ac5df)]
+
+### Fixed
+* Fixed External Email Templates.[[a9e32aa](https://github.com/znframework/fullpack-edition/commit/a9e32aae832595307108ee2bac0f705725442cfb)]
+* Fixed validation required control.[[d4f7608](https://github.com/znframework/fullpack-edition/commit/d4f760814c3091d9eb135481d42ae801f3f9479e)]
+* Fixed <code>User::logout()</code> method.[[0481ab4](https://github.com/znframework/fullpack-edition/commit/0481ab4a996d01b86863b645e0d9b901615d774b)]
+
 ## 5.7.1 [2018-05-05]
 
 ### Changed
