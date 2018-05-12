@@ -1,7 +1,7 @@
 # VERSION NOTES
 Below is the change information according to the versions.
 
-## 5.7.2 [2018-12-05]
+## 5.7.2 [2018-05-12]
 
 ### Added
 * Added Butchery console commands.[[e8f76e2](https://github.com/znframework/fullpack-edition/commit/e8f76e255dfd98f3f00c0468e4c76eca05a6290f)]
