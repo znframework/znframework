@@ -1,6 +1,23 @@
 # VERSION NOTES
 Below is the change information according to the versions.
 
+
+## 5.7.3 [2018-05-19]
+
+### Added
+* The butcher now also shapes the action feature. [[8fa306c](https://github.com/znframework/fullpack-edition/commit/8fa306cb15e5ed5444bc6e8566946493925d7006)]
+* Added multi-theme integration feature to Bucher class.[[e517df8](https://github.com/znframework/fullpack-edition/commit/e517df8c73a8d555fcf3242f882c81a3c84d7082)]
+* Added usage of <code>DBTool::listTables()</code> and <code>DBTool::listDatabases()</code> for SQLServer driver.
+
+### Changed
+* The <code>DBForge::extras()</code> method has been modified according to the driver type.[[e7f8571](https://github.com/znframework/fullpack-edition/commit/e7f8571da970171273c4ffd99d0b9af56f375def)]
+
+### Fixed
+* The request must be made to a valid controller.[[fb50024](https://github.com/znframework/fullpack-edition/commit/fb5002422cab29048cb969c93fbcd8ee40ff08ad)]
+* The parameter sending error has been fixed.[[8b3c7fd](https://github.com/znframework/fullpack-edition/commit/8b3c7fd52b2d663b4cb28d1a140f50940e657225#diff-7ba93bada7f16511bd3d5ef8520b7d3b)]
+* The SQLServer driver abstract class expansion error has been fixed.[[46ba191](https://github.com/znframework/fullpack-edition/commit/46ba19151c5673a6cfd0aabf345e9349cc13fdac)]
+* An error in the Restoration class has been fixed.[[38289b0](https://github.com/znframework/fullpack-edition/commit/38289b0dfb4005edac05c35361f24bbe271014e5)]
+
 ## 5.7.2 [2018-05-12]
 
 ### Added
