@@ -26,8 +26,7 @@ unset($trace['params']);
                     (   
                         is_array($debug)                          &&
                         ! empty($debug['file'])                   &&
-                        ! strstr($debug['file'], 'zeroneed.php')  &&
-                        ! strstr($debug['file'], 'zerocore.php')  &&
+                        ! strstr($debug['file'], DIRECTORY_INDEX) &&
                         ! strstr($debug['file'], 'Facade.php')    &&
                         ! strstr($debug['file'], 'Buffering.php') &&
                         ! strstr($debug['file'], 'ZN.php')        &&

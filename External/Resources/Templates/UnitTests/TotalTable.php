@@ -9,6 +9,7 @@
             <tr><td>Elapsed Time</td><td><?php echo $elapsedTime; ?></td></tr>
             <tr><td>Memory Usage</td><td><?php echo $memoryUsage; ?></td></tr>
             <tr><td>Total Files</td><td><?php echo $totalFileCount; ?></td></tr>
+            <tr><td>Total Corrects</td><td><?php echo $totalCorrectCount . '/' . $index; ?></td></tr>
             <tr><td>Total Methods</td><td><?php echo $index; ?></td></tr>
         </table>
     </div>

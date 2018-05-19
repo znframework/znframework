@@ -7,7 +7,8 @@
         <table class="table table-bordered panel-text">
             <tr><td width="20%">Syntax Check</td><td>OK</td></tr>
             <tr><td>Return Type</td><td><?php echo $returnType; ?></td></tr>
-            <tr><td>Return Value</td><td><?php echo $returnValue; ?></td></tr>
+            <tr><td>Return Value</td><td><?php echo $returnValue ?: '0'; ?></td></tr>
+            <tr><td>Result Correct</td><td><?php echo $isResultCorrect ?: '0'; ?></td></tr>
             <tr><td>Elapsed Time</td><td><?php echo $elapsedTime; ?></td></tr>
         </table>
     </div>
