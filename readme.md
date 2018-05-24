@@ -3,14 +3,17 @@
 	<a title="Lastest Stable" class="copy_on_clip" data-clipboard-target="#latest_stable_version_markdown">
 		<img class="spinned latest_stable_version_img" src="https://poser.pugx.org/znframework/znframework/v/stable" style="display: inline;">
 	</a>
-	<a title="Total Downloads" class="copy_on_clip" data-clipboard-target="#latest_unstable_version_markdown">
-		<img class="total_img" src="https://poser.pugx.org/znframework/package-zerocore/downloads" style="display: inline;">
-	</a>
 	<a title="Unstable Vesion" class="copy_on_clip" data-clipboard-target="#latest_unstable_version_markdown">
 		<img class="spinned latest_unstable_version_img" src="https://poser.pugx.org/znframework/znframework/v/unstable" style="display: inline;">
 	</a>
 	<a title="License" class="copy_on_clip" data-clipboard-target="#license_markdown">
 		<img class="spinned license_img" src="https://poser.pugx.org/znframework/znframework/license" style="display: inline;">
+	</a>
+	<a title="Total Downloads" class="copy_on_clip" data-clipboard-target="#latest_unstable_version_markdown">
+		<img class="total_img" src="https://poser.pugx.org/znframework/package-zerocore/downloads" style="display: inline;">
+	</a>
+	<a title="Monthly Downloads" class="copy_on_clip" data-clipboard-target="#latest_unstable_version_markdown">
+		<img class="spinned monthly_img" src="https://poser.pugx.org/znframework/package-zerocore/d/monthly" style="display: inline;">
 	</a>
 </p>
 
