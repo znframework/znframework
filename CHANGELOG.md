@@ -23,8 +23,6 @@ Below is the change information according to the versions.
 * Fixed Inclusion\Project\ViewTrait trait.[[7ef67f0](https://github.com/znframework/fullpack-edition/commit/51c44d547de63d4d737edf9d16ce4e00847687e2#diff-7ef67f06054d73e433a50d8cdbfd4c17)]
 * The error that occurs depending on the usage during auto-view loading is fixed.[[37b896b](https://github.com/znframework/fullpack-edition/commit/51c44d547de63d4d737edf9d16ce4e00847687e2#diff-37b896b104a8b83c09d37f57eca88858)]
 
-### Removed
-
 ## 5.7.3 [2018-05-19]
 
 ### Added
