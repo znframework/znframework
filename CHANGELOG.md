@@ -1,6 +1,29 @@
 # VERSION NOTES
 Below is the change information according to the versions.
 
+## 5.7.4 [2018-05-26]
+
+### Added 
+* Added Payment Package.[[package-payment](https://github.com/znframework/package-payment)]
+* Added DB::whereFullText($column, String $value = '', String $type = NULL, String $logical = NULL) : DB method.[[97bbb9f](https://github.com/znframework/fullpack-edition/commit/51c44d547de63d4d737edf9d16ce4e00847687e2#diff-97bbb9f7fd3e79242c6f906216e67b7f)]
+* Added DBForge::startAutoIncrement(String $table, Int $start = 0) : Bool method.[[40bc98b](https://github.com/znframework/fullpack-edition/commit/51c44d547de63d4d737edf9d16ce4e00847687e2#diff-40bc98ba319d703e82a198e0ca13d732)]
+* Added DBForge::addAutoIncrement(String $table, String $column = 'id', Int $start = NULL) : Bool method.
+* Added DBForge::addPrimaryKey(String $table = NULL, String $columns, String $constraint = NULL) : Bool method.
+* Added DBForge::addForeignKey(String $table = NULL, String $columns, String $reftable, String $refcolumn, String $constraint = NULL) : Bool method.
+* Added DBForge::dropPrimaryKey(String $table = NULL, String $constraint = NULL) : Bool method.
+* Added DBForge::dropForeignKey(String $table = NULL, String $constraint = NULL) : Bool method.
+* Added DBForge::createIndex(String $indexName, String $table, String $columns) : Bool method.
+* Added DBForge::createUniqueIndex(String $indexName, String $table, String $columns) : Bool method.
+* Added DBForge::createFulltextIndex(String $indexName, String $table, String $columns) : Bool method.
+* Added DBForge::createSpatialIndex(String $indexName, String $table, String $columns) : Bool method.
+* Added DBForge::dropIndex(String $indexName, String $table = NULL) : Bool method.
+* A feature has been added that allows the controller's subviews to be called shorter.[[fd9c772](https://github.com/znframework/fullpack-edition/commit/51c44d547de63d4d737edf9d16ce4e00847687e2#diff-fd9c7728c03004a3a36bcaa77ce9686a)]
+
+### Fixed
+* Fixed Inclusion\Project\ViewTrait trait.[[7ef67f0](https://github.com/znframework/fullpack-edition/commit/51c44d547de63d4d737edf9d16ce4e00847687e2#diff-7ef67f06054d73e433a50d8cdbfd4c17)]
+* The error that occurs depending on the usage during auto-view loading is fixed.[[37b896b](https://github.com/znframework/fullpack-edition/commit/51c44d547de63d4d737edf9d16ce4e00847687e2#diff-37b896b104a8b83c09d37f57eca88858)]
+
+### Removed
 
 ## 5.7.3 [2018-05-19]
 
