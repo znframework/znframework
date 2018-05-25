@@ -5,18 +5,8 @@ Below is the change information according to the versions.
 
 ### Added 
 * Added Payment Package.[[package-payment](https://github.com/znframework/package-payment)]
-* Added <code>DB::whereFullText($column, String $value = '', String $type = NULL, String $logical = NULL) : DB</code> method.[[97bbb9f](https://github.com/znframework/fullpack-edition/commit/51c44d547de63d4d737edf9d16ce4e00847687e2#diff-97bbb9f7fd3e79242c6f906216e67b7f)]
-* Added <code>DBForge::startAutoIncrement(String $table, Int $start = 0) : Bool</code> method.[[40bc98b](https://github.com/znframework/fullpack-edition/commit/51c44d547de63d4d737edf9d16ce4e00847687e2#diff-40bc98ba319d703e82a198e0ca13d732)]
-* Added <code>DBForge::addAutoIncrement(String $table, String $column = 'id', Int $start = NULL) : Bool</code> method.
-* Added <code>DBForge::addPrimaryKey(String $table = NULL, String $columns, String $constraint = NULL) : Bool</code> method.
-* Added <code>DBForge::addForeignKey(String $table = NULL, String $columns, String $reftable, String $refcolumn, String $constraint = NULL) : Bool</code> method.
-* Added <code>DBForge::dropPrimaryKey(String $table = NULL, String $constraint = NULL) : Bool</code> method.
-* Added <code>DBForge::dropForeignKey(String $table = NULL, String $constraint = NULL) : Bool</code> method.
-* Added <code>DBForge::createIndex(String $indexName, String $table, String $columns) : Bool</code> method.
-* Added <code>DBForge::createUniqueIndex(String $indexName, String $table, String $columns) : Bool</code> method.
-* Added <code>DBForge::createFulltextIndex(String $indexName, String $table, String $columns) : Bool</code> method.
-* Added <code>DBForge::createSpatialIndex(String $indexName, String $table, String $columns) : Bool</code> method.
-* Added <code>DBForge::dropIndex(String $indexName, String $table = NULL) : Bool</code> method.
+* New method added to DB class.[[97bbb9f](https://github.com/znframework/fullpack-edition/commit/51c44d547de63d4d737edf9d16ce4e00847687e2#diff-97bbb9f7fd3e79242c6f906216e67b7f)]
+* New methods added to DBForge class.[[40bc98b](https://github.com/znframework/fullpack-edition/commit/51c44d547de63d4d737edf9d16ce4e00847687e2#diff-40bc98ba319d703e82a198e0ca13d732)]
 * A feature has been added that allows the controller's subviews to be called shorter.[[fd9c772](https://github.com/znframework/fullpack-edition/commit/51c44d547de63d4d737edf9d16ce4e00847687e2#diff-fd9c7728c03004a3a36bcaa77ce9686a)]
 
 ### Fixed
