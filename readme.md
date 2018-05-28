@@ -1,5 +1,5 @@
 <p align="center">
-	<img src="https://www.znframework.com/Projects/www.znframework.com/Resources/Files/logo/weblogo.png"><br><br><br>
+	<img src="https://www.znframework.com/Projects/www.znframework.com/Resources/Files/logo/weblogo.png"><br><br>
 	<a title="Lastest Stable" class="copy_on_clip" data-clipboard-target="#latest_stable_version_markdown">
 		<img class="spinned latest_stable_version_img" src="https://poser.pugx.org/znframework/znframework/v/stable" style="display: inline;">
 	</a>
