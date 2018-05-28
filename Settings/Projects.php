@@ -1,4 +1,4 @@
-<?php $default = is_dir(PROJECTS_DIR . ($host = ZN\Base::host())) ? $host : NULL; return
+<?php return
 [
     /*
     |--------------------------------------------------------------------------
@@ -19,7 +19,7 @@
 
     'directory' =>
     [
-        'default' => $default ?: 'Frontend',
+        'default' => ZN\Base::project('Frontend'),
         'others'  =>
         [
             'backend' => 'Backend'
