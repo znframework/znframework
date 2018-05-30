@@ -1,6 +1,19 @@
 # VERSION NOTES
 Below is the change information according to the versions.
 
+## 5.7.5 [2018-06-01]
+
+### Added
+* Added new method to Benchmark class.[[dbee382](https://github.com/znframework/fullpack-edition/commit/dbee382958d81a70799d52c21141616b42637ddf)]
+
+### Changed
+* The contents of Base and ZN classes have been changed.[[#48](https://github.com/znframework/fullpack-edition/commit/b4d09b3a2b9557216d23bb63d9b54d087a2973fe)]
+
+### Fixed
+* Fixed Expcetion classes.[[#44](https://github.com/znframework/fullpack-edition/commit/9ef46794d2d365baa71ba3122613a091dc20852b)]
+* Autoloader's write to class map has been fixed.[[#45](https://github.com/znframework/fullpack-edition/commit/cfe2f4288fbd3fb5e6088f5ea8044e1da2751b92)]
+* Fixed Singleton class.[[#46](https://github.com/znframework/fullpack-edition/commit/fdac067dc6f4352ad888fe7b538d2489ec6e4bc5)]
+
 ## 5.7.4 [2018-05-26]
 
 ### Added 
