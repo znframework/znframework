@@ -30,4 +30,4 @@ require __DIR__ . '/vendor/autoload.php';
 |
 */
 
-ZN\ZN::run('EIP', '5.7.5.2', 'Vecihi Hürkuş');
+ZN\ZN::run('EIP', '5.7.5.3', 'Vecihi Hürkuş');
