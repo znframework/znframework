@@ -1,6 +1,16 @@
 # VERSION NOTES
 Below is the change information according to the versions.
 
+## 5.7.9 [2018-02-27]
+
+### Added
+* Added Theme::matchElement() method.[[3863a8f](https://github.com/znframework/fullpack-edition/commit/3863a8f32c7236d83a6ed57b8bc20a0be466b345)]
+* Added automatic facade class creation.
+
+### Modified
+* Modified protected <code>ZN\In::resolvingDepedencyInjections()</code> method.[[d6ff532](https://github.com/znframework/fullpack-edition/commit/d6ff532e1c5ac093a74678995af731cb76e3e860)]
+* Modified protected <code>Autoloader::createFacadeClass()</code> method.[[c134bb2](https://github.com/znframework/fullpack-edition/commit/c134bb2a31914473dc3a0f00529edebce5821d14)]
+
 ## 5.7.8 [2018-06-27]
 
 ### Added
