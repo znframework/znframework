@@ -1,7 +1,7 @@
 # VERSION NOTES
 Below is the change information according to the versions.
 
-## 5.7.9 [2018-02-27]
+## 5.7.9 [2018-07-02]
 
 ### Added
 * Added Theme::matchElement() method.[[3863a8f](https://github.com/znframework/fullpack-edition/commit/3863a8f32c7236d83a6ed57b8bc20a0be466b345)]
