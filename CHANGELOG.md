@@ -4,7 +4,7 @@ Below is the change information according to the versions.
 ## 5.8.0(Unreleased) [2018-07-15]
 
 ### Dedicated
-Unknown
+Cahit Arf
 
 ## 5.7.9 [2018-07-02]
 
