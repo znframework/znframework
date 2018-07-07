@@ -39,7 +39,7 @@
         'start'         => NULL,
         'limit'         => 10,
         'countLinks'    => 10,
-        'type'          => 'classic',   # classic, ajax
+        'type'          => 'classic', # classic, ajax
         'output'        => 'bootstrap', # classic, bootstrap
         'class'         =>
         [

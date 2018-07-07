@@ -8,10 +8,10 @@ class Home extends Controller
      * Loads opening page.
      * Location: Views/Home/main.wizard.php
      */
-    public function main(String $params = NULL)
+    public function main(String ...$parameters)
     {  
-        # Sending data to the view page.
-        View::pageTitle('ZN')->pageSubtitle('"Simplicity is the ultimate sophistication" - Da Vinci');
+        # Sets masterpage title.
+        Masterpage::title('Welcome to The World of Simplicity');
     } 
 
     /**
@@ -23,9 +23,6 @@ class Home extends Controller
     public function s404()
     {
         # Sets masterpage title.
-        Masterpage::title($title = '404');
-
-        # Sending data to the view page.
-        View::pageTitle($title)->pageSubtitle('The page you searched for was not found!');
+        Masterpage::title('404! File Not Found');
     }
 }

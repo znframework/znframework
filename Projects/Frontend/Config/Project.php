@@ -37,8 +37,8 @@
 
     'locale' =>
     [
-        'charset'  => 'tr_TR.UTF-8',
-        'language' => 'turkish',
+        'charset'  => 'en_US.UTF-8',
+        'language' => 'english',
     ],
     
     /*
