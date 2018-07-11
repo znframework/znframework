@@ -4,7 +4,7 @@
 Cahit Arf
 
 ### Added
-Added Container ability.[[bda687e](https://github.com/znframework/package-zerocore/commit/bda687e61ab185da4e91674c52229ab3e0ce5523)]
+* Added Container ability.[[bda687e](https://github.com/znframework/package-zerocore/commit/bda687e61ab185da4e91674c52229ab3e0ce5523)]
 
 ### Changed
 * Changed Config/Project:locale values.[[f0006cc](https://github.com/znframework/fullpack-edition/commit/f0006ccf7a5f003edc20a30b2a5a6d12eeb150f5)]
