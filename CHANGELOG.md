@@ -1,3 +1,13 @@
+## 5.8.0.4 [2018-07-17]
+
+### Modified
+* Modified protected <code>Butcher::bodyParser()</code> method.[[5590a7c](https://github.com/znframework/fullpack-edition/commit/5590a7c7fac891f073a73a92387b7da94a61fe01)]
+* Added <code>Database\Connection::__debugInfo()</code> method.[[e0c4457](https://github.com/znframework/fullpack-edition/commit/e0c445709aa006e424ae9da86fcb29db9ef0d0f2)]
+
+### Fixed
+* Fixed protected <code>Email\SmtpDriver::connect()</code> method.[[#88](https://github.com/znframework/fullpack-edition/commit/d51493498fcfe0e90901fde610ca75b6ee2d8f03)]
+* Fixed protected <code>Exceptions::getTemplateWizardErrorData()</code> method.[[58d9ec3](https://github.com/znframework/fullpack-edition/commit/58d9ec366139b8563d44626b1d6bfd41ec4a89ff)]
+
 ## 5.8.0 [2018-07-15]
 
 ### Dedicated
