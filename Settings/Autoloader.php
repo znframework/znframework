@@ -62,8 +62,11 @@
 
     'aliases' => 
     [
+        # ZN\ZN
+        'ZN' => 'ZN\ZN',
+
         # ZN\StaticAccess
-        'StaticAccess'           => 'ZN\StaticAccess',
+        'StaticAccess' => 'ZN\StaticAccess',
         
         # ZN\Request
         'Http'    => 'ZN\Request\Http',
