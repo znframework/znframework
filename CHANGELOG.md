@@ -1,3 +1,15 @@
+## 5.8.0.8 [2018-07-19]
+
+### Added
+* Added <code>Form::duplicateCheck()</code> method.[[1d3a2b6](https://github.com/znframework/fullpack-edition/pull/90/commits/1d3a2b68561f33d2fb59984f443a7e5be55f5155)]
+
+### Fixed
+* Fixed protected <code>Wizard::functions()</code> method.[[67ccb82](https://github.com/znframework/fullpack-edition/pull/90/commits/67ccb82cadab5e6042640f48f16d3a982d7f267d)]
+
+### Removed
+* Removed 2. parameter from <code>Route::uri()</code> method.[[3fb8608](https://github.com/znframework/fullpack-edition/pull/90/commits/3fb8608525f77b81a6006363d7d309d09e9d0cbc)]
+* Removed <code>Route\CurlFilter</code> filter.[[0740bfd](https://github.com/znframework/fullpack-edition/pull/90/commits/0740bfde33b194ee03b1d5c94dd44149a46ba037)]
+
 ## 5.8.0.4 [2018-07-17]
 
 ### Modified
