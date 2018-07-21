@@ -1,3 +1,15 @@
+## 5.8.1.2 [2018-07-21]
+
+### Changed
+* Updated Devtools/Config/ViewObjects.php file.[[bbbec95](https://github.com/znframework/fullpack-edition/commit/bbbec955357443b5da0d92752263083e4f2585dd)]
+
+### Modified
+* Modified protected Form::_unsetopen() method.[[3747462](https://github.com/znframework/fullpack-edition/commit/37474629db8175cbe742e2327512d24c5421a8a2)]
+* Modified Devtools Info view content.[[afcc830](https://github.com/znframework/fullpack-edition/commit/afcc8301087a34c3fc7da8e2faa2bf283af5d7b6)]
+
+### Fixed
+* Fixed protected DBGrid::_thead() method.[[c00fbea](https://github.com/znframework/fullpack-edition/commit/c00fbea9e1af520453d4124982ecd1619855be72)]
+
 ## 5.8.0.8 [2018-07-19]
 
 ### Added
