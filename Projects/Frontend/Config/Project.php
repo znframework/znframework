@@ -64,7 +64,7 @@
     |
     */
     
-    'key' => ZN\In::defaultProjectKey('Your secret key'),
+    'key' => ZN\In::secretProjectKey('Your secret key'),
 
     /*
     |--------------------------------------------------------------------------
