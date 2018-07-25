@@ -1,3 +1,14 @@
+## 5.8.1.7 [2018-07-25]
+
+### Added
+* Added Users::passwordChangeProcess() method.[[fa0964e](https://github.com/znframework/fullpack-edition/commit/a510c464a43ab7243e7cfde7b76ebea5ed2056ef#diff-fa0964ebce72d866753862c35ee344e1)]
+* Added Users::passwordChangeComplete() method.[[fa0964e](https://github.com/znframework/fullpack-edition/commit/a510c464a43ab7243e7cfde7b76ebea5ed2056ef#diff-fa0964ebce72d866753862c35ee344e1)]
+* Added auto match feature to parameter 1 of User::register () method.[[ca495aa](https://github.com/znframework/fullpack-edition/commit/a510c464a43ab7243e7cfde7b76ebea5ed2056ef#diff-ca495aaab2b509c61246b4a640141acb)]
+* Added Users::getEncryptionPassword() method.[[2298793](https://github.com/znframework/fullpack-edition/commit/a510c464a43ab7243e7cfde7b76ebea5ed2056ef#diff-2298793abc0ea143c1750da614a8870c)]
+
+### Changed
+* The default value of the key value in Config/Project.php has been changed.[[57fb64a](https://github.com/znframework/fullpack-edition/commit/57fb64ac5943f8286ca4121d8dc0964e9a32bc09)]
+
 ## 5.8.1.2 [2018-07-21]
 
 ### Changed
