@@ -1,3 +1,17 @@
+## 5.8.1.7 [2018-07-29]
+
+### Added
+* Added new regex key.[[4727b29](https://github.com/znframework/fullpack-edition/commit/4727b296524ea999c14433c1858129a1b9acd49b)]
+* Added DBForge::createTempTable() method.[[b5f5542](https://github.com/znframework/fullpack-edition/commit/b5f5542158780a2caeaf31d44a1f9e96b60da12a)]
+* Added migration commands to Console.[[2f62163](https://github.com/znframework/fullpack-edition/commit/2f62163d0ee86951ad2e18d6196642def487f7b1)]
+* Added GenerateProjectKey command to Console.[[209fb5a](https://github.com/znframework/fullpack-edition/commit/209fb5aac2b53c613ac6e089cf45fd4a7c6f34ac)]
+
+### Modified
+* Modified Cache::insert() & Converter::time() methods.[[4276108](https://github.com/znframework/fullpack-edition/commit/42761088ceb587b5c9dfe48c4c7d9074ffd8cb6b)]
+
+### Fixed
+* Fixed Route::show404() method.[[681ac27](https://github.com/znframework/fullpack-edition/commit/681ac27f533ef2557a6f1933664936befc2078c5)]
+
 ## 5.8.1.7 [2018-07-25]
 
 ### Added
