@@ -1,7 +1,7 @@
 ## 5.8.1.7 [2018-08-02]
 
 ### Added
-* Added File::reglace() method.[[docs](https://docs.znframework.com/dosya-sistemi/dosya-kutuphanesi#reglace)] [new](https://github.com/znframework/fullpack-edition/commit/b5297c9df47286c6fbe3a6fa1beb5496c267e9e1#diff-daf302a1eba31443852b1215ad813fc6)]
+* Added File::reglace() method.[[docs](https://docs.znframework.com/dosya-sistemi/dosya-kutuphanesi#reglace)] [[new](https://github.com/znframework/fullpack-edition/commit/b5297c9df47286c6fbe3a6fa1beb5496c267e9e1#diff-daf302a1eba31443852b1215ad813fc6)]
 * Added Form::vMethod() methods.[[docs](https://docs.znframework.com/onyuz-tasarimi/form-kutuphanesi#vMethod)] [[new](https://github.com/znframework/fullpack-edition/commit/b5297c9df47286c6fbe3a6fa1beb5496c267e9e1#diff-7621d6890f75a15bdd886cbe546f85e3)]
 * Added Upload::isFile() method.[[docs](https://docs.znframework.com/dosya-sistemi/yukleme-kutuphanesi#isFile)] [[new](https://github.com/znframework/fullpack-edition/commit/1ee66e4b8c60b14275319d0fb3dbe380a5a9307d#diff-734a2ea3f2e96c955fb707d8ac3fc6c2)]
 
