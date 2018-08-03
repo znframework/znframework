@@ -1,4 +1,4 @@
-## 5.8.1.7 [2018-08-04]
+## 5.8.3.3 [2018-08-04]
 
 ### Added
 * Added ML::keys() method.[[docs](https://docs.znframework.com/kodlama-destek-kutuphaneleri/coklu-dil-kutuphanesi#keys)] [[new](https://github.com/znframework/fullpack-edition/commit/f2f9a9d79799653b591ef85e5f5c784fa1768528)]
@@ -9,7 +9,7 @@
 ### Modified
 * vMethods are arranged so that multiple uses are possible.[[modify](https://github.com/znframework/fullpack-edition/commit/c8ab7b456be1bc4025bffdce0d2cf5f47121d05e)]
 
-## 5.8.1.7 [2018-08-02]
+## 5.8.2.8 [2018-08-02]
 
 ### Added
 * Added File::reglace() method.[[docs](https://docs.znframework.com/dosya-sistemi/dosya-kutuphanesi#reglace)] [[new](https://github.com/znframework/fullpack-edition/commit/b5297c9df47286c6fbe3a6fa1beb5496c267e9e1#diff-daf302a1eba31443852b1215ad813fc6)]
@@ -23,7 +23,7 @@
 * Fixed User::register() method.[[bug](https://github.com/znframework/fullpack-edition/commit/1ee66e4b8c60b14275319d0fb3dbe380a5a9307d#diff-2298793abc0ea143c1750da614a8870c)]
 * Fixed Form::perm() method.[[bug](https://github.com/znframework/fullpack-edition/commit/1ee66e4b8c60b14275319d0fb3dbe380a5a9307d#diff-1e859290fc5fed4d0357740a79490a0c)]
 
-## 5.8.1.7 [2018-07-29]
+## 5.8.2.2 [2018-07-29]
 
 ### Added
 * Added new regex key.[[4727b29](https://github.com/znframework/fullpack-edition/commit/4727b296524ea999c14433c1858129a1b9acd49b)]
