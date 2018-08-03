@@ -1,3 +1,14 @@
+## 5.8.1.7 [2018-08-04]
+
+### Added
+* Added ML::keys() method.[[docs](https://docs.znframework.com/kodlama-destek-kutuphaneleri/coklu-dil-kutuphanesi#keys)] [[new](https://github.com/znframework/fullpack-edition/commit/f2f9a9d79799653b591ef85e5f5c784fa1768528)]
+* Added ML::langs() method.[[docs](https://docs.znframework.com/kodlama-destek-kutuphaneleri/coklu-dil-kutuphanesi#langs)] [[new](https://github.com/znframework/fullpack-edition/commit/f2dce84806df1f2de76c30f56614e993f7caf090)]
+* Added URL::lang() method.[[docs](https://docs.znframework.com/veri-transfer-kutuphaneleri/url-islem-kutuphanesi#lang)] [[new](https://github.com/znframework/fullpack-edition/commit/f2dce84806df1f2de76c30f56614e993f7caf090#diff-96e029136636fd2b541f84aa4d9f772e)]
+* Added Form::vMessage() method.[[docs](https://docs.znframework.com/onyuz-tasarimi/form-kutuphanesi#vMessage)] [[new](https://github.com/znframework/fullpack-edition/commit/c8ab7b456be1bc4025bffdce0d2cf5f47121d05e)]
+
+### Modified
+* vMethods are arranged so that multiple uses are possible.[[modify](https://github.com/znframework/fullpack-edition/commit/c8ab7b456be1bc4025bffdce0d2cf5f47121d05e)]
+
 ## 5.8.1.7 [2018-08-02]
 
 ### Added
