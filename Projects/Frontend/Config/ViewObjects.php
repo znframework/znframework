@@ -11,13 +11,14 @@
 
     'wizard' =>
     [
-        'keywords'  => true,
-        'printable' => true,
-        'functions' => true,
-        'comments'  => true,
-        'tags'      => true,
-        'jsdata'    => true,
-        'html'      => false
+        'keywords'   => true,
+        'printable'  => true,
+        'functions'  => true,
+        'comments'   => true,
+        'tags'       => true,
+        'jsdata'     => true,
+        'callableJS' => true,
+        'html'       => false
     ],
 
     /*
