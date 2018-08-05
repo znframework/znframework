@@ -1,8 +1,8 @@
 ## 5.8.3.5 [2018-08-06]
 
 ### Fixed
-* Fixed Import::view() method.[[bug](https://github.com/znframework/fullpack-edition/commit/90d4de3c2a7cdc525a6f54327ad8350a6b00b286)]
-* Fixed User::activationComplete() method.[[bug]()]
+* Fixed Import::view() method.[[bug](https://github.com/znframework/fullpack-edition/commit/3a7eb10c5a75e3aa319284e4d661745137d4af02#diff-fd9c7728c03004a3a36bcaa77ce9686a)]
+* Fixed User::activationComplete() method.[[bug](https://github.com/znframework/fullpack-edition/commit/90d4de3c2a7cdc525a6f54327ad8350a6b00b286)]
 
 ## 5.8.3.3 [2018-08-04]
 
