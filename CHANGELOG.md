@@ -1,3 +1,13 @@
+## 5.8.3.3 [2018-08-14]
+
+### Added
+* Added Form::serializer() method.[[docs](docs.znframework.com/onyuz-tasarimi/form-kutuphanesi#serializer)] [[new](github.com/znframework/package-hypertext/commit/d6e9c15fc23bbddd951aac971acb4dedcf1f387e#diff-d74b2b1ef707375f669f392101d6bb9d)]
+* Added Form::trigger() method.[[docs](docs.znframework.com/onyuz-tasarimi/form-kutuphanesi#trigger)] [[new](github.com/znframework/package-hypertext/commit/d6e9c15fc23bbddd951aac971acb4dedcf1f387e#diff-d74b2b1ef707375f669f392101d6bb9d)]
+* Added Form::modal() method.[[docs](docs.znframework.com/onyuz-tasarimi/form-kutuphanesi#modal)] [[new](github.com/znframework/package-hypertext/commit/d6e9c15fc23bbddd951aac971acb4dedcf1f387e#diff-d74b2b1ef707375f669f392101d6bb9d)]
+* Added Form::modalbox() method.[[docs](docs.znframework.com/onyuz-tasarimi/form-kutuphanesi#modalbox)] [[new](github.com/znframework/package-hypertext/commit/d6e9c15fc23bbddd951aac971acb4dedcf1f387e#diff-d74b2b1ef707375f669f392101d6bb9d)]
+* Added CURRENT_THEME constant.[[docs](docs.znframework.com/temel-yapilar/on-tanimli-sabit-ve-fonksiyonlar#CURRENT_THEME)] [[new](github.com/znframework/package-zerocore/commit/57bb8c88d7e02c7525e9f62946a63f2d4f8025f6#diff-77ab7539ca2064809559e8c773d3bfc3)]
+* Added CURRENT_THEME_DIR constant.[[docs](docs.znframework.com/temel-yapilar/on-tanimli-sabit-ve-fonksiyonlar#CURRENT_THEME_DIR)] [[new](github.com/znframework/package-zerocore/commit/57bb8c88d7e02c7525e9f62946a63f2d4f8025f6#diff-77ab7539ca2064809559e8c773d3bfc3)]
+
 ## 5.8.3.5 [2018-08-06]
 
 ### Fixed
