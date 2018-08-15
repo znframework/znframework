@@ -1,3 +1,8 @@
+## 5.8.4.5 [2018-08-17]
+
+### Added
+* The use of the <pre>$this</pre> object has been added in the views.[[docs](https://docs.znframework.com/temel-yapilar/zn-nesne-erisimi#this-access-into-view)]
+
 ## 5.8.4.4 [2018-08-16]
 
 ### Added
