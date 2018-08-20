@@ -1,3 +1,12 @@
+## 5.8.5 [2018-08-21]
+
+### Added
+* Added Form::group/label/col/helptext() methods.[[docs](https://docs.znframework.com/onyuz-tasarimi/form-kutuphanesi#group)]
+* Added Bootstrap Gridsystem component.[[docs](https://docs.znframework.com/onyuz-tasarimi/html-kutuphanesi#gridsystem)]
+* Added Bootstrap Alert component.[[docs](https://docs.znframework.com/onyuz-tasarimi/html-kutuphanesi#alert)]
+* Added Bootstrap Breadcrumb component.[[docs](https://docs.znframework.com/onyuz-tasarimi/html-kutuphanesi#breadcrumb)]
+* Added Bootstrap Carousel component.[[docs](https://docs.znframework.com/onyuz-tasarimi/html-kutuphanesi#carousel)]
+
 ## 5.8.4.5 [2018-08-17]
 
 ### Added
