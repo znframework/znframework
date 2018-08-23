@@ -1,3 +1,17 @@
+## 5.8.5.9 [2018-08-24]
+
+### Added
+* Added Form::popover() method.[[docs](https://docs.znframework.com/onyuz-tasarimi/form-kutuphanesi#popover)]
+* Added Form::tooltip() method.[[docs](https://docs.znframework.com/onyuz-tasarimi/form-kutuphanesi#tooltip)]
+* Added Bootstrap gridsystem for Template Wizard.[[docs](https://docs.znframework.com/onyuz-tasarimi/sablon-sihirbazi#layout-gridsystem)]
+
+### Changed
+* The callback function can now also be applied to "$content" parameters of html methods.[[docs](https://docs.znframework.com/onyuz-tasarimi/html-kutuphanesi#callback-process)]
+
+### Fixed
+* The Exceptions class has been enabled to work more correctly.
+* Fixed protected Exceptions::isWizardOrStandartFileExists() method.[[edit](https://github.com/znframework/fullpack-edition/compare/5.8.5...develop#diff-0e798c9a4cd947fbb9facadff1da8fa9)]
+
 ## 5.8.5 [2018-08-21]
 
 ### Added
