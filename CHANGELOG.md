@@ -1,3 +1,10 @@
+## 5.8.6.3 [2018-08-25]
+
+### Added
+* DB::new method was added as an alternative to DB::differentConnection() method.[[docs](https://docs.znframework.com/veritabani-kullanimi/ortak-veritabani-yontemleri#new)]
+* FTP::new method was added as an alternative to FTP::differentConnection() method.[[docs](https://docs.znframework.com/uzak-servisler/ftp-kutuphanesi#new)]
+* SSH::new method was added as an alternative to SSH::differentConnection() method.[[docs](https://docs.znframework.com/uzak-servisler/ssh-kutuphanesi#SSH::new)]
+
 ## 5.8.5.9 [2018-08-24]
 
 ### Added
