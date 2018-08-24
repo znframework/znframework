@@ -1,3 +1,12 @@
+## 5.8.6.6 [2018-08-25]
+
+### Added
+* Added Form/Html::__toString() method.[[docs](https://docs.znframework.com/onyuz-tasarimi/form-kutuphanesi#toString)]
+
+### Fixed
+* Fixed Form::textarea() method.[[edit](https://github.com/znframework/package-hypertext/commit/6594aef39cb1426d7e6a52986094429f8765abc5)]
+* Fixed Form::hidden() method.[[edit](https://github.com/znframework/package-hypertext/commit/8f05fd581559d703876d8065afc1a830a098a823)]
+
 ## 5.8.6.3 [2018-08-25]
 
 ### Added
