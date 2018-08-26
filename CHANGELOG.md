@@ -1,3 +1,8 @@
+## 5.8.6.6 [2018-08-26]
+
+### Fixed
+* Fixed CURRENT_CPARAMETERS constant.
+
 ## 5.8.6.6 [2018-08-25]
 
 ### Added
