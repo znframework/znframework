@@ -1,4 +1,4 @@
-## 5.8.6.6 [2018-08-26]
+## 5.8.6.7 [2018-08-26]
 
 ### Fixed
 * Fixed CURRENT_CPARAMETERS constant.[[edit](https://github.com/znframework/package-zerocore/commit/ee8abb4992037defb67c6c40f2b73e304050718d)]
