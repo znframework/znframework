@@ -1,3 +1,8 @@
+## 5.8.6.8 [2018-08-26]
+
+### Fixed
+* Fixed ZN\Hypertext\Html::__toString() method.[[edit](https://github.com/znframework/package-hypertext/commit/1ea6e4319420052533d471bc44002dbded2d4aa6)]
+
 ## 5.8.6.7 [2018-08-26]
 
 ### Fixed
