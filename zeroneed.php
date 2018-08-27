@@ -30,4 +30,4 @@ require __DIR__ . '/vendor/autoload.php';
 |
 */
 
-ZN\ZN::run('EIP', '5.8.7', 'Cahit Arf');
+ZN\ZN::run('EIP', '5.8.7.2', 'Cahit Arf');
