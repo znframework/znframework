@@ -4,7 +4,7 @@
 * Added @valid-@invalid-@endvalid uses into template wizard.[[docs](https://docs.znframework.com/onyuz-tasarimi/sablon-sihirbazi#valid)]
 
 ### Changed
-* The default parameter of the Validation::check() method has been changed.
+* The default parameter of the Validation::check() method has been changed.[[edit](https://github.com/znframework/package-validation/commit/d2de648d371b8dd0c43ca87c915fec25e18b8183)]
 
 ## 5.8.6.8 [2018-08-26]
 
