@@ -1,0 +1,13 @@
+version: "2"
+services:
+  znframework:
+    build: ./
+    ports:
+      - "8080:80"
+    volumes:
+      - ./:/var/www/html
+    networks:
+      - default
+networks:
+  default: ~
+
