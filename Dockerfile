@@ -25,7 +25,4 @@ RUN curl -L -o /tmp/redis.tar.gz https://github.com/phpredis/phpredis/archive/$P
     && rm -r /tmp/redis \
     && docker-php-ext-enable redis
 
-RUN chmod -R 777 /var/www/html
-
-# Create app directory
 WORKDIR /var/www/html
