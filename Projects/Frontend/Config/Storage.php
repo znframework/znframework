@@ -98,11 +98,10 @@
             ],
             'redis' =>
             [
-                'password'   => NULL,
-                'socketType' => 'tcp',
-                'host'       => '127.0.0.1',
-                'port'       => 6379,
-                'timeout'    => 0
+                'password' => NULL,
+                'host'     => '127.0.0.1',
+                'port'     => 6379,
+                'timeout'  => 0
             ]
         ]
     ]
