@@ -1,11 +1,10 @@
 html, body{height: 100%; background:#030303; background-image: url('bg.jpg');}
 body{margin: 0;padding: 0;width: 100%;display: table;font-weight: lighter;font-family: 'Lato', sans-serif;}
 #container{text-align: center;display: table-cell;vertical-align: middle;}
-#content{font-family: 'Sarpanch', cursive; text-align: center;display: inline-block; color:#a7a7a7}
-#sub-title{font-size: 34px;}
-#sub-title-2{margin-top: -13px; margin-left:-104px; font-size: 15px;}
-#sub-title-3{font-size: 18px;}
-#sup-title-2{margin-bottom:-17px;font-size: 15px;  margin-left:-104px;}
-.grey-color{color:#3e3e3e}
-.blue-color{color:#00BFFF}
+#content{font-family: 'Sarpanch', cursive; text-align: center;display: inline-block; color:#ffffff}
+#sub-title{position:relative; font-size: 20px; z-index:9;}
+#title{position:relative; z-index:8;}
+#spacex-logo{position:absolute; background-image: url('spacex.png'); width: 640px; height: 243px; margin-top:-185px; z-index:7; opacity:.4;}
+.grey-color{color:#97999c}
+.blue-color{color:#6db9ec}
 .sum{font-size:30px;}
