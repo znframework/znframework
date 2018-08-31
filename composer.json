@@ -52,5 +52,18 @@
         "znframework/package-storage": "5.9.*",
         "znframework/package-validation": "5.9.*",
         "znframework/package-xml": "5.9.*"
+    },
+    "scripts": 
+    {
+        "post-install-cmd": ["@docker", "@zerocore"],
+        "post-create-project-cmd": ["@docker", "@zerocore"],
+        "docker": 
+        [
+            "docker-compose up -d --build znframework"
+        ],
+        "zerocore": 
+        [
+            "php zerocore generate-project-key"
+        ]
     }
 }
