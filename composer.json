@@ -55,7 +55,8 @@
     },
     "scripts": 
     {
-        "post-install-cmd": ["installation.sh"],
-        "post-create-project-cmd": ["installation.sh"]
+        "post-install-cmd": ["@installation"],
+        "post-create-project-cmd": ["@installation"],
+        "installation":["php zerocore installation"]
     }
 }
