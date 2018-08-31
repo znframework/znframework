@@ -57,7 +57,8 @@
 
     'settings' =>
     [
-        'IfModule mod_headers.c' => ['Options -Indexes'],
+        'IfModule mod_headers.c'                           => ['Options -Indexes'],
+	    'FilesMatch "^(docker\-compose\.yml|Dockerfile)$"' => ['deny from all']
 
         #'IfModule mod_rewrite.c'  =>
         #[
