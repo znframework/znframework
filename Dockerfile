@@ -4,9 +4,9 @@
 FROM php:7.2-apache
 
 #--------------------------------------------------------------------------
-# Maintainer - ZN Framework
+# Label - ZN Framework
 #-------------------------------------------------------------------------- 
-MAINTAINER ZN Framework <robot@znframework.com>
+LABEL maintainer="robot@znframework.com"
 
 #--------------------------------------------------------------------------
 # Required Extension
