@@ -11,6 +11,7 @@ Mustafa Kemal Atatürk
 
 ### Fixed
 * The src properties of the html media elements have been fixed.[[fix](https://github.com/znframework/package-hypertext/commit/bface259b2e810344c0406b4b7181dc25350ee8b)]
+* Fixed protected ZN\Exceptions::getTemplateWizardErrorData() method.[[fix](https://github.com/znframework/package-zerocore/commit/8ab86f7c8fd282268742d2a43f9f49dd8bae0616)]
 
 ### Removed
 * None
