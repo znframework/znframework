@@ -30,4 +30,4 @@ require __DIR__ . '/vendor/autoload.php';
 |
 */
 
-ZN\ZN::run('EIP', '5.9.1', 'Elon Musk');
+ZN\ZN::run('EIP', '5.9.1.1', 'Elon Musk');
