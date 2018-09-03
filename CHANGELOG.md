@@ -1,24 +1,16 @@
-## 5.9.0 [2018-09-01]
+## 5.6.0 [2018-11-10]
 
 ### Dedicated
-Elon Musk
-
-### Added
-* Added CURRENT_THEME_URL constant.[[docs](https://docs.znframework.com/onyuz-tasarimi/temel-tema-entegrasyonu#CURRENT_THEME_URL)]
-* Added internal Docker Environment.[[docs](https://docs.znframework.com/baslarken/kurulum-talimatlari#docker-environment)]
-* Added LocalValetDriver driver.
-* Added AjaxBuilder library.[[docs](https://docs.znframework.com/onyuz-tasarimi/ajax-isleme#ajax-builder)]
-* Added JQueryBuilder library.[[docs](https://docs.znframework.com/onyuz-tasarimi/sablon-sihirbazi#jquery-builder)]
+Mustafa Kemal Atatürk
 
 ### Changed
-* Authentication and Authorization configurations were merged under the name Auth.
+* The $content parameters of html elements have been fixed to be nullable.[[change](https://github.com/znframework/package-hypertext/commit/9bd5e77a67c8dcea214152c3d4f406ef7ab90d16#diff-2f6e90f2f3c8cb55e95f5074c61bad54)]
 
 ### Modified
 * None
 
 ### Fixed
-* Fixed Cache\Redis driver.[[edit](https://github.com/znframework/package-cache/commit/950bb4fe8627ba9b38c2d918a211a8c70f8b35da)]
+* The src properties of the html media elements have been fixed.[[fix](https://github.com/znframework/package-hypertext/commit/bface259b2e810344c0406b4b7181dc25350ee8b)]
 
 ### Removed
-* The case sensitivity of the controllers has been removed.
-* Removed Redis:socketType config.[[edit](https://github.com/znframework/default-project/commit/5ace8287a77de3d23f2b6432b22059fa72f862d3)]
+* None
