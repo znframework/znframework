@@ -7,9 +7,13 @@ Mustafa Kemal Atatürk
 * The $content parameters of html elements have been fixed to be nullable.[[change](https://github.com/znframework/package-hypertext/commit/9bd5e77a67c8dcea214152c3d4f406ef7ab90d16#diff-2f6e90f2f3c8cb55e95f5074c61bad54)]
 
 ### Modified
-* None
+* Added persistent connection to MySQLi driver.[[modify](https://github.com/znframework/fullpack-edition/commit/c030c862d45a42468e8c67482e168fe308e09116#diff-14571437557d199f1b506e0e716cba5e)]
+* Added persistent connection to PDO:MySQL driver.[[modify](https://github.com/znframework/fullpack-edition/commit/c030c862d45a42468e8c67482e168fe308e09116#diff-e1a04cef6337825ea7b6499022f8e708)]
 
 ### Fixed
+* Fixed ExceptionTable template content.[[fix](https://github.com/znframework/fullpack-edition/commit/c030c862d45a42468e8c67482e168fe308e09116#diff-9c864f07860b914d0051198d494fe6ce)]
+* Fixed ZN\Ability\Exclusion::__construct() method.[[fix](https://github.com/znframework/fullpack-edition/commit/c030c862d45a42468e8c67482e168fe308e09116#diff-f12178313608df993a2c258193c36a1b)]
+* Fixed ZN\Database\GrandModel::__costruct() method.[[fix](https://github.com/znframework/fullpack-edition/commit/c030c862d45a42468e8c67482e168fe308e09116#diff-18c1edfe753eb31197a4cb091e89dde5)]
 * Fixed protected ZN\Hypertext::on() method.[[fix](https://github.com/znframework/package-hypertext/commit/d43c7ec84b20527555646da84aecb72aec444b74#diff-d74b2b1ef707375f669f392101d6bb9d)]
 * Fixed protected ZN\Generator::write() method.[[fix](https://github.com/znframework/package-generator/commit/9d0431a1b61ffb74a326bdc2695fe775e4e7612f)]
 * The src properties of the html media elements have been fixed.[[fix](https://github.com/znframework/package-hypertext/commit/bface259b2e810344c0406b4b7181dc25350ee8b)]
