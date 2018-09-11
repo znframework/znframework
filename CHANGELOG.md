@@ -1,7 +1,10 @@
 ## 5.6.0(Unreleased) [2018-11-10]
 
 ### Dedicated
-Mustafa Kemal Atatürk
+Mustafa Kemal Atatürk ∞
+
+### Added
+* None
 
 ### Changed
 * The $content parameters of html elements have been fixed to be nullable.[[change](https://github.com/znframework/package-hypertext/commit/9bd5e77a67c8dcea214152c3d4f406ef7ab90d16#diff-2f6e90f2f3c8cb55e95f5074c61bad54)]
@@ -11,6 +14,7 @@ Mustafa Kemal Atatürk
 * Added persistent connection to PDO:MySQL driver.[[modify](https://github.com/znframework/fullpack-edition/commit/c030c862d45a42468e8c67482e168fe308e09116#diff-e1a04cef6337825ea7b6499022f8e708)]
 
 ### Fixed
+* Fixed ZN\Inclusion\Something::use() method.[[fix](https://github.com/znframework/fullpack-edition/commit/c06cdde166ced7e430de51e19c9de9c760dbc5cf)]
 * Fixed Validation match methods.[[fix](https://github.com/znframework/fullpack-edition/commit/029771556a7899c1cc106ec2eeaf02cf60e7196a)]
 * Fixed ExceptionTable template content.[[fix](https://github.com/znframework/fullpack-edition/commit/c030c862d45a42468e8c67482e168fe308e09116#diff-9c864f07860b914d0051198d494fe6ce)]
 * Fixed ZN\Ability\Exclusion::__construct() method.[[fix](https://github.com/znframework/fullpack-edition/commit/c030c862d45a42468e8c67482e168fe308e09116#diff-f12178313608df993a2c258193c36a1b)]
