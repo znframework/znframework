@@ -12,6 +12,7 @@ Mustafa Kemal Atatürk ∞
 ### Modified
 * Added persistent connection to MySQLi driver.[[modify](https://github.com/znframework/fullpack-edition/commit/c030c862d45a42468e8c67482e168fe308e09116#diff-14571437557d199f1b506e0e716cba5e)]
 * Added persistent connection to PDO:MySQL driver.[[modify](https://github.com/znframework/fullpack-edition/commit/c030c862d45a42468e8c67482e168fe308e09116#diff-e1a04cef6337825ea7b6499022f8e708)]
+* Added new parameter to Validation::check() method.[[modify](https://github.com/znframework/fullpack-edition/commit/886f2ca04f4154e0d46ff68f759396e9aebe1e27#diff-475109a1d4fa5a65d8ad8c980bee0cf7)]
 
 ### Fixed
 * Fixed CallableTalkingQueries::callResultMethodsTalkingQuery() method.[[fix](https://github.com/znframework/fullpack-edition/commit/9e75d36e28fb5370d1ae52fc6ab1702df03dd88a)]
