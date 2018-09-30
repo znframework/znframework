@@ -4,7 +4,7 @@
 Mustafa Kemal Atatürk ∞
 
 ### Added
-* None
+* Added new config for Auth.[[add](https://github.com/znframework/package-authentication/commit/c343d0657eec2e7893dfa283904514390456879a)]
 
 ### Changed
 * The $content parameters of html elements have been fixed to be nullable.[[change](https://github.com/znframework/package-hypertext/commit/9bd5e77a67c8dcea214152c3d4f406ef7ab90d16#diff-2f6e90f2f3c8cb55e95f5074c61bad54)]
