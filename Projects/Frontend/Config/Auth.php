@@ -10,6 +10,8 @@
     | encode: When the user is registered in, the algorithm to encrypt the 
     | password is set.
     |
+    | spectator: Allows navigation of other users' accounts.
+    |
     | matching: It specifies which tables and columns the User class will use.
     |
     | joining: This setting is used if the users table consists of joined 
@@ -21,8 +23,9 @@
     |
     */
 
-    'encode'   => 'super',
-    'matching' =>
+    'encode'    => 'super',
+    'spectator' => '',
+    'matching'  =>
     [
         'table'   => '',
         'columns' =>
