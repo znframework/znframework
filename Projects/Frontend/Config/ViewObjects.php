@@ -75,33 +75,34 @@
     [
         'text' =>
         [
+            'type'   => 'alnum',
             'length' => 6,
-            'color'  => '255|255|255',
+            'color'  => '85|85|85',
             'size'   => 10,
-            'x'      => 65,
-            'y'      => 13,
+            'x'      => 100,
+            'y'      => 18,
             'angle'  => 0,
             'ttf'    => []
         ],
         'background' =>
         [
-            'color' => '80|80|80',
+            'color' => '240|240|240',
             'image' => []
         ],
         'border' =>
         [
-            'status' => false,
-            'color'  => '0|0|0'
+            'status' => true,
+            'color'  => '220|220|220'
         ],
         'size' =>
         [
-            'width'  => 180,
-            'height' => 40
+            'width'  => 254,
+            'height' => 52
         ],
         'grid' =>
         [
-            'status' => true,
-            'color'  => '50|50|50',
+            'status' => false,
+            'color'  => '220|220|220',
             'spaceX' => 12,
             'spaceY' => 4
         ]
