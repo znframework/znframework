@@ -4,6 +4,7 @@
 Mustafa Kemal Atatürk ∞
 
 ### Added
+* Added new config for Captcha.[[add](https://github.com/znframework/fullpack-edition/commit/0fdf6151f87e92148bf94570c5adf28f4d6f81a7)]
 * Added new config for Auth.[[add](https://github.com/znframework/package-authentication/commit/c343d0657eec2e7893dfa283904514390456879a)]
 
 ### Changed
