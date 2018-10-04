@@ -4,8 +4,9 @@
 Mustafa Kemal Atatürk ∞
 
 ### Added
-* Added new config for Captcha.[[add](https://github.com/znframework/fullpack-edition/commit/0fdf6151f87e92148bf94570c5adf28f4d6f81a7)]
-* Added new config for Auth.[[add](https://github.com/znframework/package-authentication/commit/c343d0657eec2e7893dfa283904514390456879a)]
+* Added first & next methods for Storage libraries.[[docs](https://docs.znframework.com/veri-saklama-kutuphaneleri/oturum-kutuphanesi#first)]
+* Added new config for Captcha.[[docs](https://docs.znframework.com/onyuz-tasarimi/guvenlik-kodu-kutuphanesi#type)]
+* Added new config for Auth.[[docs](https://docs.znframework.com/kullanici-islemleri/tekil-kullanici-kutuphanesi)]
 
 ### Changed
 * The $content parameters of html elements have been fixed to be nullable.[[change](https://github.com/znframework/package-hypertext/commit/9bd5e77a67c8dcea214152c3d4f406ef7ab90d16#diff-2f6e90f2f3c8cb55e95f5074c61bad54)]
