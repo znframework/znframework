@@ -16,6 +16,7 @@ Mustafa Kemal Atatürk ∞
 * Added new parameter to Validation::check() method.[[modify](https://github.com/znframework/fullpack-edition/commit/886f2ca04f4154e0d46ff68f759396e9aebe1e27#diff-475109a1d4fa5a65d8ad8c980bee0cf7)]
 
 ### Fixed
+* Fixed Import::view() method.[[fix](https://github.com/znframework/fullpack-edition/commit/03120c2bf2034e8efb83039ff90eee5d1239447c)]
 * Fixed CallableTalkingQueries::callResultMethodsTalkingQuery() method.[[fix](https://github.com/znframework/fullpack-edition/commit/9e75d36e28fb5370d1ae52fc6ab1702df03dd88a)]
 * Fixed ZN\Inclusion\Something::use() method.[[fix](https://github.com/znframework/fullpack-edition/commit/c06cdde166ced7e430de51e19c9de9c760dbc5cf)]
 * Fixed Validation match methods.[[fix](https://github.com/znframework/fullpack-edition/commit/029771556a7899c1cc106ec2eeaf02cf60e7196a)]
