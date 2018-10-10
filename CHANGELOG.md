@@ -4,7 +4,7 @@
 Mustafa Kemal Atatürk ∞
 
 ### Added
-* Added json encoder for DB::insert/update() methods.[[docs](https://docs.znframework.com/veritabani-kullanimi/veritabani-kutuphanesi-bolum-1#insert)]
+* Added json encoder for DB::insert/update() methods.[[docs](https://docs.znframework.com/veritabani-kullanimi/veritabani-kutuphanesi-bolum-1#json-encoder)]
 * Added first & next methods for Storage libraries.[[docs](https://docs.znframework.com/veri-saklama-kutuphaneleri/oturum-kutuphanesi#first)]
 * Added new config for Captcha.[[docs](https://docs.znframework.com/onyuz-tasarimi/guvenlik-kodu-kutuphanesi#type)]
 * Added new config for Auth.[[docs](https://docs.znframework.com/kullanici-islemleri/tekil-kullanici-kutuphanesi)]
