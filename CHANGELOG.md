@@ -18,6 +18,7 @@ Mustafa Kemal Atatürk ∞
 * Added new parameter to Validation::check() method.[[modify](https://github.com/znframework/fullpack-edition/commit/886f2ca04f4154e0d46ff68f759396e9aebe1e27#diff-475109a1d4fa5a65d8ad8c980bee0cf7)]
 
 ### Fixed
+* [2018-11-29] Fixed ZN\Authentication::do() method.[[fix](https://github.com/znframework/fullpack-edition/commit/bcb3591a23f8a717224fef2d367ecad4dfe7b5fc)]
 * Fixed the bug that occurs in the ranking of auto loader importance.[[fix](https://github.com/znframework/fullpack-edition/pull/146/commits/60080205edd4bb9b69ba8f40240fb8db2faaaf2c)]
 * Fixed protected Email::defaultVariables() method.[[fix](https://github.com/znframework/package-email/commit/ccda6db6220937485000c299e6ea7c6bef829aa2)]
 * Fixed ML library.[[fix](https://github.com/znframework/fullpack-edition/commit/c7104c31eab58d181f89d17858f3800d65307d9a)]
