@@ -37,7 +37,7 @@
         'firstName'     => '&laquo;&laquo;',
         'lastName'      => '&raquo;&raquo;',
         'totalRows'     => 50,
-        'start'         => NULL,
+        'start'         => null,
         'limit'         => 10,
         'countLinks'    => 10,
         'type'          => 'classic', # classic, ajax
