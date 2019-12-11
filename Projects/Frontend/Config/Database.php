@@ -68,5 +68,21 @@
         'charset'     => 'utf8',
         'collation'   => 'utf8_general_ci',
         'differentConnection' => []
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | MongoDB
+    |--------------------------------------------------------------------------
+    |
+    | The table on which migratory records are kept is set.
+    |
+    */
+
+    'mongodb' =>
+    [
+        'database' => 'test',
+        'dns'      => 'localhost',
+        'options'  => []
     ]
 ];
