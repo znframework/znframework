@@ -75,7 +75,7 @@
     | MongoDB
     |--------------------------------------------------------------------------
     |
-    | The table on which migratory records are kept is set.
+    | Default mongo db settings
     |
     */
 
