@@ -68,5 +68,21 @@
         'charset'     => 'utf8',
         'collation'   => 'utf8_general_ci',
         'differentConnection' => []
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | MongoDB
+    |--------------------------------------------------------------------------
+    |
+    | Default mongo db settings
+    |
+    */
+
+    'mongodb' =>
+    [
+        'database' => 'test',
+        'dns'      => 'localhost',
+        'options'  => []
     ]
 ];

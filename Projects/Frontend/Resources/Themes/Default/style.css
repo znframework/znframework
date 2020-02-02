@@ -2,7 +2,7 @@ html, body{height: 100%; background:#030303; background-image: url('bg.jpg');}
 body{margin: 0;padding: 0;width: 100%;display: table;font-weight: lighter;font-family: 'Lato', sans-serif;}
 #container{text-align: center;display: table-cell;vertical-align: middle;}
 #content{font-family: 'Sarpanch', cursive; text-align: center;display: inline-block; color:#ffffff}
-#sub-title{position:absolute; font-size: 28px; z-index:9;}
+#sub-title{font-size: 28px; z-index:9;}
 #title{position:relative; z-index:8;}
 #the-great-leader{position:absolute; background-image: url('ataturk.png'); width: 144px; height: 370px; margin-top:-210px; margin-left: -140px; z-index:7; opacity:.4;}
 .grey-color{color:#97999c}

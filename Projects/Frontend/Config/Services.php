@@ -44,6 +44,15 @@
             'dsn'       => false,
             'auth'      => true
         ],
+        'imap' => 
+        [
+            'host'      => '',
+            'user'      => '',
+            'password'  => '',
+            'port'      => 993,
+            'flags'     => [],
+            'mailbox'   => 'INBOX'
+        ],
         'general' =>
         [
             'senderMail'    => '',                  # Default Sender E-mail Address.
