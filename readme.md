@@ -64,3 +64,7 @@ Thank you for all your support.
 <li>Allows the command console submissions.</li>
 </ul>
 </p>
+
+<h2>Version Notes</h2>
+
+<p>You can follow the version note from <a href="https://docs.znframework.com/getting-started/version-notes">this link</a> below.</p>
