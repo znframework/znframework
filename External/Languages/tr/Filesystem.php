@@ -18,7 +18,7 @@
     'upload:3'               => 'Dosya kısmen yüklendi!',
     'upload:4'               => 'Yüklenecek dosya yok!',
     'upload:6'               => 'Dosyaların geçici olarak yükleneceği dizin bulunamadı!',
-    'upload:7'               => 'Dosya dik üzerine yazılamadı!',
+    'upload:7'               => 'Dosya diske yazılamadı!',
     'upload:8'               => 'Dosya yükleme uzantı desteği yok!',
     'upload:9'               => 'Dosya yükleme yolu geçerli değil!',
     'upload:10'              => 'Belirlenen maksimum dosya boyutu aşıldı!'

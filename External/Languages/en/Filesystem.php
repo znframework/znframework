@@ -18,7 +18,7 @@
     'upload:3'               => 'File partially uploaded!',
     'upload:4'               => 'Upload file does not exist!',
     'upload:6'               => 'files to install a temporary directory not found!',
-    'upload:7'               => 'File perpendicular to write on!',
+    'upload:7'               => 'Failed to write file to disk!',
     'upload:8'               => 'File upload does not support the extension!',
     'upload:9'               => 'File installation path is not valid!',
     'upload:10'              => 'Determine the maximum file size has been exceeded!'
