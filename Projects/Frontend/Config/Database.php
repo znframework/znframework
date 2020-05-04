@@ -5,7 +5,7 @@
     | Migration
     |--------------------------------------------------------------------------
     |
-    | The table on which migratory records are kept is set.
+    | The table where the migration information will be saved.
     |
     */
 
@@ -28,12 +28,14 @@
     | database   : Sets the database name.
     | user       : Sets the database user name.
     | password   : Sets the database user password.
+    | port       : Sets the port.
+    |              Using Database: Postgres, SQLServer, PDO:MySQL
     | dns        : DSN connection settings.
     |              Using Database: Oracle, ODBC, Postgres, PDO
     | server     : Sets the server.
     |              Using Database: ODBC, SQLServer
-    | port       : Sets the port.
-    |              Using Database: Postgres, SQLServer, PDO:MySQL
+    | ssl        : SSL connection.
+    |              Using Database: PDO, MySQLi          
     | cacheDriver: Sets the cache driver.
     |              Options: get, apcu, apc, memcache, wincache, file, redis
     | queryLog   : Sets the loging of queries.
@@ -57,9 +59,17 @@
         'database'    => 'test',
         'user'        => 'root',
         'password'    => '',
+        'port'        => '',
         'dsn'         => '',
         'server'      => '',
-        'port'        => '',
+        'ssl'         => 
+        [
+            'key'     => '', 
+            'cert'    => '', 
+            'ca'      => '',
+            'capath'  => NULL,
+            'cipher'  => NULL
+        ],
         'cacheDriver' => 'file',
         'queryLog'    => false,
         'pconnect'    => false,
@@ -75,8 +85,10 @@
     | MongoDB
     |--------------------------------------------------------------------------
     |
-    | Default mongo db settings
-    |
+    | database      : Database name.
+    | dns           : DSN connection settings.
+    | options       : URI options.
+    | driverOptions : Driver options. 
     */
 
     'mongodb' =>
