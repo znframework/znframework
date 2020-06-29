@@ -30,4 +30,4 @@ require __DIR__ . '/vendor/autoload.php';
 |
 */
 
-ZN\ZN::run('EIP', '6.61.6.32', 'Mustafa Kemal Atatürk');
+ZN\ZN::run('EIP', '6.61.6.33', 'Mustafa Kemal Atatürk');
