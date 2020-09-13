@@ -19,6 +19,7 @@
         'jqueryUi'                   => 'https://code.jquery.com/ui/1.11.3/jquery-ui.js',
         'jqueryValidator'            => 'https://cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/jquery.form-validator.min.js',
         'bootstrap'                  => 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js',
+        'bootstrap4'                 => 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js',
         'bootlint'                   => 'https://maxcdn.bootstrapcdn.com/bootlint/0.14.1/bootlint.min.js',
         'angular'                    => 'https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js',
         'react'                      => 'https://cdnjs.cloudflare.com/ajax/libs/react/15.5.4/react.min.js',
@@ -65,6 +66,7 @@
     'styles' =>
     [
         'bootstrap'               => 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css',
+        'bootstrap4'              => 'https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css',
         'awesome'                 => 'https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css',
         'datatables'              => 'https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css',
         'autoFillDatatables'      => 'https://cdn.datatables.net/autofill/2.2.0/css/autoFill.dataTables.min.css',
