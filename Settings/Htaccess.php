@@ -60,13 +60,13 @@
         'IfModule mod_headers.c'                              => ['Options -Indexes'],
 	    'FilesMatch "^(?i:docker\-compose\.yml|Dockerfile)$"' => ['deny from all']
 
-        #'IfModule mod_rewrite.c'  =>
-        #[
-        #    'RewriteCond %{HTTPS} !=on',
-        #    'RewriteRule ^.*$ https://%{SERVER_NAME}%{REQUEST_URI} [R=301,L]'
-        #],
-        #'IfModule mod_security.c' => ['SecFilterEngine Off', 'SecFilterScanPOST Off'],
-        #'IfModule mime_module'    => ['AddType application/x-httpd-ea-php70 .php .php7 .phtml'],
+        //'IfModule mod_rewrite.c'  =>
+        //[
+        //    'RewriteCond %{HTTPS} !=on',
+        //    'RewriteRule ^.*$ https://%{SERVER_NAME}%{REQUEST_URI} [R=301,L]'
+        //],
+        //'IfModule mod_security.c' => ['SecFilterEngine Off', 'SecFilterScanPOST Off'],
+        //'IfModule mime_module'    => ['AddType application/x-httpd-ea-php70 .php .php7 .phtml'],
     ],
 
     /*
