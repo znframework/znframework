@@ -1,6 +1,8 @@
 <p align="center">
-	[![Latest Stable Version](https://poser.pugx.org/znframework/znframework/v)](//packagist.org/packages/znframework/znframework) [![Total Downloads](https://poser.pugx.org/znframework/znframework/downloads)](//packagist.org/packages/znframework/znframework) [![License](https://poser.pugx.org/znframework/znframework/license)](//packagist.org/packages/znframework/znframework)
+	<img src="https://www.znframework.com/Projects/ZNWeb/Resources/Files/logo/gitlogo.png" style="max-width:300px"><br><br>
 </p>
+
+[![Latest Stable Version](https://poser.pugx.org/znframework/znframework/v)](//packagist.org/packages/znframework/znframework) [![Total Downloads](https://poser.pugx.org/znframework/znframework/downloads)](//packagist.org/packages/znframework/znframework) [![License](https://poser.pugx.org/znframework/znframework/license)](//packagist.org/packages/znframework/znframework)
 
 <h2>What is ZN</h2>
 
