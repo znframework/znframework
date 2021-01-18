@@ -26,7 +26,7 @@ require __DIR__ . '/vendor/autoload.php';
 | Run ZN
 |--------------------------------------------------------------------------
 |
-| Simplicity is our principle.
+| Simplicity is our principle. Enjoy it.
 |
 */
 
