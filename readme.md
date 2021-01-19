@@ -2,7 +2,16 @@
 	<img src="https://www.znframework.com/Projects/ZNWeb/Resources/Files/logo/gitlogo.png" style="max-width:300px"><br><br>
 </p>
 
-[![License](https://poser.pugx.org/znframework/znframework/license)](//packagist.org/packages/znframework/znframework) [![Latest Stable Version](https://poser.pugx.org/znframework/znframework/v)](//packagist.org/packages/znframework/znframework) [![Total Downloads](https://poser.pugx.org/znframework/znframework/downloads)](//packagist.org/packages/znframework/znframework) [![Monthly Downloads](https://poser.pugx.org/znframework/znframework/d/monthly)](//packagist.org/packages/znframework/znframework) [![Dependents](https://poser.pugx.org/znframework/znframework/dependents)](//packagist.org/packages/znframework/znframework) [![.gitattributes](https://poser.pugx.org/znframework/znframework/gitattributes)](//packagist.org/packages/znframework/znframework) [![Latest Unstable Version](https://poser.pugx.org/znframework/znframework/v/unstable)](//packagist.org/packages/znframework/znframework)
+[![License](https://poser.pugx.org/znframework/znframework/license)](//packagist.org/packages/znframework/znframework) 
+<a href="//packagist.org/packages/znframework/znframework" rel="nofollow">
+	<img src="https://poser.pugx.org/znframework/znframework/v" alt="Latest Stable Version" style="max-width:100%;">
+</a>
+[![Latest Stable Version](https://poser.pugx.org/znframework/znframework/v)](//packagist.org/packages/znframework/znframework) 
+[![Total Downloads](https://poser.pugx.org/znframework/znframework/downloads)](//packagist.org/packages/znframework/znframework) 
+[![Monthly Downloads](https://poser.pugx.org/znframework/znframework/d/monthly)](//packagist.org/packages/znframework/znframework) 
+[![Dependents](https://poser.pugx.org/znframework/znframework/dependents)](//packagist.org/packages/znframework/znframework) 
+[![.gitattributes](https://poser.pugx.org/znframework/znframework/gitattributes)](//packagist.org/packages/znframework/znframework) 
+[![Latest Unstable Version](https://poser.pugx.org/znframework/znframework/v/unstable)](//packagist.org/packages/znframework/znframework)
 
 <h2>What is ZN</h2>
 
