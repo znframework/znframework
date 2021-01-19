@@ -2,7 +2,14 @@
 	<img src="https://www.znframework.com/Projects/ZNWeb/Resources/Files/logo/gitlogo.png" style="max-width:300px"><br><br>
 </p>
 
-[![License](https://poser.pugx.org/znframework/znframework/license)](//packagist.org/packages/znframework/znframework) [![Latest Stable Version](https://poser.pugx.org/znframework/znframework/v)](//packagist.org/packages/znframework/znframework) [![Total Downloads](https://poser.pugx.org/znframework/znframework/downloads)](//packagist.org/packages/znframework/znframework) [![Monthly Downloads](https://poser.pugx.org/znframework/znframework/d/monthly)](//packagist.org/packages/znframework/znframework) [![Dependents](https://poser.pugx.org/znframework/znframework/dependents)](//packagist.org/packages/znframework/znframework) [![.gitattributes](https://poser.pugx.org/znframework/znframework/gitattributes)](//packagist.org/packages/znframework/znframework) [![Latest Unstable Version](https://poser.pugx.org/znframework/znframework/v/unstable)](//packagist.org/packages/znframework/znframework)
+[![License](https://img.shields.io/github/license/znframework/znframework?style=flat-square)](//packagist.org/packages/znframework/znframework) 
+[![Latest Stable Version](https://img.shields.io/github/v/release/znframework/znframework?style=flat-square)](//packagist.org/packages/znframework/znframework) 
+[![Release Date](https://img.shields.io/github/release-date/znframework/fullpack-edition?style=flat-square)](//packagist.org/packages/znframework/znframework) 
+[![Language](https://img.shields.io/github/languages/top/znframework/znframework?style=flat-square)](//packagist.org/packages/znframework/znframework)
+[![Code Size](https://img.shields.io/github/languages/code-size/znframework/fullpack-edition?style=flat-square)](//packagist.org/packages/znframework/znframework) 
+[![Total Lines](https://img.shields.io/github/languages/code-size/znframework/fullpack-edition?style=flat-square)](//packagist.org/packages/znframework/znframework) 
+[![Contributors](https://img.shields.io/github/contributors/znframework/znframework?style=flat-square)](//packagist.org/packages/znframework/znframework) 
+[![Docs](https://img.shields.io/readthedocs/znframework?style=flat-square)](//packagist.org/packages/znframework/znframework) 
 
 <h2>What is ZN</h2>
 
