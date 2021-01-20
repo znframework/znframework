@@ -5,7 +5,7 @@
 [![License](https://img.shields.io/github/license/znframework/znframework?style=flat-square)](//packagist.org/packages/znframework/znframework) 
 [![Latest Stable Version](https://img.shields.io/github/v/release/znframework/znframework?style=flat-square)](//packagist.org/packages/znframework/znframework) 
 [![Release Date](https://img.shields.io/github/release-date/znframework/fullpack-edition?style=flat-square)](//packagist.org/packages/znframework/znframework) 
-[![Language](https://img.shields.io/github/languages/top/znframework/znframework?style=flat-square)](//packagist.org/packages/znframework/znframework)
+[![Code Quality](https://img.shields.io/scrutinizer/quality/g/znframework/znframework?style=flat-square)](//packagist.org/packages/znframework/znframework)
 [![Code Size](https://img.shields.io/github/languages/code-size/znframework/fullpack-edition?style=flat-square)](//packagist.org/packages/znframework/znframework) 
 [![Total Lines](https://img.shields.io/tokei/lines/github/znframework/fullpack-edition?style=flat-square)](//packagist.org/packages/znframework/znframework) 
 [![Contributors](https://img.shields.io/github/contributors/znframework/znframework?style=flat-square)](//packagist.org/packages/znframework/znframework) 
