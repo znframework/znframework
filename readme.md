@@ -7,6 +7,7 @@
 [![Release Date](https://img.shields.io/github/release-date/znframework/fullpack-edition?style=flat-square)](//packagist.org/packages/znframework/znframework) 
 [![Code Quality](https://img.shields.io/scrutinizer/quality/g/znframework/znframework?style=flat-square)](//packagist.org/packages/znframework/znframework)
 [![Contributors](https://img.shields.io/github/contributors/znframework/znframework?style=flat-square)](//packagist.org/packages/znframework/znframework) 
+[![Checks](https://img.shields.io/github/checks-status/znframework/znframework/develop?style=flat-square)](//packagist.org/packages/znframework/znframework) 
 [![Docs](https://img.shields.io/readthedocs/znframework?style=flat-square)](//packagist.org/packages/znframework/znframework) 
 
 <h2>What is ZN</h2>
