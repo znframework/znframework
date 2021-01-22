@@ -52,8 +52,11 @@
         "znframework/package-shopping": ">=6.0",
         "znframework/package-storage": ">=6.0",
         "znframework/package-validation": ">=6.0",
-        "znframework/package-xml": ">=6.0",
-        "znframework/package-tests": ">=1.0"
+        "znframework/package-xml": ">=6.0"
+    },
+    "require-dev": 
+    {
+        "phpunit/phpunit": "^8.5.8|^9.3.3"
     },
     "scripts": 
     {

@@ -1,0 +1,23 @@
+#!/usr/bin/env php
+<?php
+/*
+|--------------------------------------------------------------------------
+| Console Usage
+|--------------------------------------------------------------------------
+|
+| It keeps track of whether processes are running through the console.
+|
+*/
+
+define('CONSOLE_ENABLED', true);
+
+/*
+|--------------------------------------------------------------------------
+| Require zeroneed.php
+|--------------------------------------------------------------------------
+|
+| The file containing the system and basic structures is included.
+|
+*/
+
+require_once __DIR__ . '/../zeroneed.php';
