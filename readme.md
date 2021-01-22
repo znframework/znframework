@@ -6,6 +6,7 @@
 [![Build](https://img.shields.io/scrutinizer/build/g/znframework/znframework/develop?style=flat-square)](https://scrutinizer-ci.com/g/znframework/znframework/inspections/bec37c75-82a1-4e69-8c52-635bf1c6457b/log) 
 [![Code Quality](https://img.shields.io/scrutinizer/quality/g/znframework/znframework?style=flat-square)](https://scrutinizer-ci.com/g/znframework/znframework/)
 [![Contributors](https://img.shields.io/github/contributors/znframework/znframework?style=flat-square)](//packagist.org/packages/znframework/znframework) 
+[![PHP 8 Supported](https://img.shields.io/badge/php%208-supported-brightgreen?style=flat-square)](//packagist.org/packages/znframework/znframework) 
 [![Release Date](https://img.shields.io/github/release-date/znframework/fullpack-edition?style=flat-square)](//packagist.org/packages/znframework/znframework) 
 [![Latest Stable Version](https://img.shields.io/github/v/release/znframework/znframework?style=flat-square)](//packagist.org/packages/znframework/znframework) 
 [![License](https://img.shields.io/github/license/znframework/znframework?style=flat-square)](//packagist.org/packages/znframework/znframework) 
