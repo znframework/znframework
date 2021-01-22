@@ -9,7 +9,7 @@
 [![Build](https://img.shields.io/scrutinizer/build/g/znframework/znframework/develop?style=flat-square)](https://scrutinizer-ci.com/g/znframework/znframework/inspections/bec37c75-82a1-4e69-8c52-635bf1c6457b/log) 
 [![Checks](https://img.shields.io/github/checks-status/znframework/znframework/develop?style=flat-square)](//packagist.org/packages/znframework/znframework) 
 [![Docs](https://img.shields.io/readthedocs/znframework?style=flat-square)](https://docs.znframework.com) 
-[![Contributors](https://img.shields.io/github/contributors/znframework/znframework?style=flat-square)](//packagist.org/packages/znframework/znframework) 
+[![Downloads](https://img.shields.io/packagist/dt/znframework/package-zerocore?style=flat-square)](//packagist.org/packages/znframework/znframework) 
 
 <h2>What is ZN</h2>
 
