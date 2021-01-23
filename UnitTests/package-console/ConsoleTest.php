@@ -9,17 +9,6 @@ use Crontab;
 
 class ConsoleTest extends \PHPUnit\Framework\TestCase
 {
-    const COMMANDS_DIR    = 'Projects/Frontend/Commands/';
-    const CONTROLLERS_DIR = 'Projects/Frontend/Controllers/';
-    const MODELS_DIR      = 'Projects/Frontend/Models/';
-    const PROJECTS_DIR    = 'Projects/';
-    const EXTERNAL_DIR    = 'External/';
-
-    public function testPath()
-    {
-        $this->assertSame(\CONTROLLERS_DIR, self::CONTROLLERS_DIR);
-    }
-
     public function testCleanCache()
     {
         Cache::insert('a', 'value');
@@ -63,7 +52,7 @@ class ConsoleTest extends \PHPUnit\Framework\TestCase
             new CreateCommand('Example');
         });
 
-        $this->assertFileExists($file = self::COMMANDS_DIR . 'Example.php');
+        $this->assertFileExists($file = \COMMANDS_DIR . 'Example.php');
 
         if( is_file($file) )
         {
@@ -78,7 +67,7 @@ class ConsoleTest extends \PHPUnit\Framework\TestCase
             new CreateController('Example');
         });
 
-        $this->assertFileExists($file = self::CONTROLLERS_DIR . 'Example.php');
+        $this->assertFileExists($file = \CONTROLLERS_DIR . 'Example.php');
 
         if( is_file($file) )
         {
@@ -93,7 +82,7 @@ class ConsoleTest extends \PHPUnit\Framework\TestCase
             new CreateModel('Example1');
         });
 
-        $this->assertFileExists($file = self::MODELS_DIR . 'Example1.php');
+        $this->assertFileExists($file = \MODELS_DIR . 'Example1.php');
 
         if( is_file($file) )
         {
@@ -108,7 +97,7 @@ class ConsoleTest extends \PHPUnit\Framework\TestCase
             new CreateGrandModel('Example');
         });
 
-        $this->assertFileExists($file = self::MODELS_DIR . 'Example.php');
+        $this->assertFileExists($file = \MODELS_DIR . 'Example.php');
 
         if( is_file($file) )
         {
@@ -130,7 +119,7 @@ class ConsoleTest extends \PHPUnit\Framework\TestCase
             new CreateMigration('Example', [0]);
         });
 
-        $this->assertFileExists($file = self::MODELS_DIR . 'Migrations/Example.php');
+        $this->assertFileExists($file = \MODELS_DIR . 'Migrations/Example.php');
 
         if( is_file($file) )
         {
@@ -147,9 +136,9 @@ class ConsoleTest extends \PHPUnit\Framework\TestCase
             new CreateMigration('Example', [2]);
         });
 
-        $this->assertFileExists($file = self::MODELS_DIR . 'Migrations/ExampleVersion/002.php');
+        $this->assertFileExists($file = \MODELS_DIR . 'Migrations/ExampleVersion/002.php');
 
-        if( is_dir($dir = self::MODELS_DIR . 'Migrations/ExampleVersion') )
+        if( is_dir($dir = \MODELS_DIR . 'Migrations/ExampleVersion') )
         {
             Folder::delete($dir);
         }
@@ -157,14 +146,14 @@ class ConsoleTest extends \PHPUnit\Framework\TestCase
 
     public function testCreateProject()
     {
-        $dir = self::PROJECTS_DIR . 'MyExampleProject';
+        $dir = \PROJECTS_DIR . 'MyExampleProject';
 
         Buffer::callback(function()
         {
             new CreateProject('MyExampleProject');
         });
 
-        $this->assertDirectoryExists($dir = self::PROJECTS_DIR . 'MyExampleProject');
+        $this->assertDirectoryExists($dir = \PROJECTS_DIR . 'MyExampleProject');
 
         if( is_dir($dir) )
         {
@@ -174,7 +163,7 @@ class ConsoleTest extends \PHPUnit\Framework\TestCase
 
     public function testCronSingleParameter()
     {
-        $file = self::EXTERNAL_DIR . 'Crontab/Jobs';
+        $file = \EXTERNAL_DIR . 'Crontab/Jobs';
 
         Buffer::callback(function()
         {
@@ -193,7 +182,7 @@ class ConsoleTest extends \PHPUnit\Framework\TestCase
 
     public function testCronMultiParameter()
     {
-        $file = self::EXTERNAL_DIR . 'Crontab/Jobs';
+        $file = \EXTERNAL_DIR . 'Crontab/Jobs';
 
         Buffer::callback(function()
         {
@@ -212,7 +201,7 @@ class ConsoleTest extends \PHPUnit\Framework\TestCase
 
     public function testCronList()
     {
-        $file = self::EXTERNAL_DIR . 'Crontab/Jobs';
+        $file = \EXTERNAL_DIR . 'Crontab/Jobs';
 
         Buffer::callback(function()
         {
@@ -231,7 +220,7 @@ class ConsoleTest extends \PHPUnit\Framework\TestCase
 
     public function testRemoveCron()
     {
-        $file = self::EXTERNAL_DIR . 'Crontab/Jobs';
+        $file = \EXTERNAL_DIR . 'Crontab/Jobs';
 
         Buffer::callback(function()
         {
@@ -252,7 +241,7 @@ class ConsoleTest extends \PHPUnit\Framework\TestCase
             new DeleteCommand('Example');
         });
 
-        $file = self::COMMANDS_DIR . 'Example.php';
+        $file = \COMMANDS_DIR . 'Example.php';
 
         if( is_file($file) )
         {
@@ -272,7 +261,7 @@ class ConsoleTest extends \PHPUnit\Framework\TestCase
             new DeleteController('Example');
         });
 
-        $file = self::CONTROLLERS_DIR . 'Example.php';
+        $file = \CONTROLLERS_DIR . 'Example.php';
 
         if( is_file($file) )
         {
@@ -299,7 +288,7 @@ class ConsoleTest extends \PHPUnit\Framework\TestCase
             new DeleteMigration('Example');
         });
 
-        $file = self::MODELS_DIR . 'Migrations/Example.php';
+        $file = \MODELS_DIR . 'Migrations/Example.php';
 
         if( is_file($file) )
         {
@@ -321,7 +310,7 @@ class ConsoleTest extends \PHPUnit\Framework\TestCase
             new DeleteMigrationAll();
         });
 
-        $file = self::MODELS_DIR . 'Migrations/Example.php';
+        $file = \MODELS_DIR . 'Migrations/Example.php';
 
         if( is_file($file) )
         {
@@ -341,7 +330,7 @@ class ConsoleTest extends \PHPUnit\Framework\TestCase
             new DeleteModel('Example');
         });
 
-        $file = self::MODELS_DIR . 'Example.php';
+        $file = \MODELS_DIR . 'Example.php';
 
         if( is_file($file) )
         {
@@ -355,7 +344,7 @@ class ConsoleTest extends \PHPUnit\Framework\TestCase
 
     public function testDeleteProject()
     {
-        $dir = self::PROJECTS_DIR . 'MyExampleProject';
+        $dir = \PROJECTS_DIR . 'MyExampleProject';
 
         Buffer::callback(function()
         {
@@ -385,7 +374,7 @@ class ConsoleTest extends \PHPUnit\Framework\TestCase
 
     public function testStartAndEndRestorationDelete()
     {
-        $dir = self::PROJECTS_DIR . 'MERestore';
+        $dir = \PROJECTS_DIR . 'MERestore';
 
         Buffer::callback(function()
         {
