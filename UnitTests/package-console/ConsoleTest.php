@@ -25,7 +25,14 @@ class ConsoleTest extends \PHPUnit\Framework\TestCase
         {
             new CleanCache;
 
-            $this->assertEmpty(Cache::select('a'));
+            if( $value = Cache::select('a') )
+            {
+                $this->assertTrue('value', $value);
+            }
+            else
+            {
+                $this->assertEmpty($value);
+            }
         });
     }
 
@@ -260,7 +267,7 @@ class ConsoleTest extends \PHPUnit\Framework\TestCase
             new DeleteController('Example');
         });
 
-        $file = self::CONTROLERS_DIR . 'Example.php';
+        $file = self::CONTROLLERS_DIR . 'Example.php';
 
         if( is_file($file) )
         {
