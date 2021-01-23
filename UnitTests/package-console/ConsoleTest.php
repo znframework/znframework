@@ -19,8 +19,6 @@ class ConsoleTest extends \PHPUnit\Framework\TestCase
     {
         Cache::insert('a', 'value');
 
-        $this->assertSame('value', Cache::select('a'));
-
         Buffer::callback(function()
         {
             new CleanCache;
