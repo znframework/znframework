@@ -335,7 +335,7 @@ class UserTest extends \PHPUnit\Framework\TestCase
     public function testGetEncryptionPassword()
     {
         $this->assertFalse(false); return;
-        
+
         $this->assertIsString(User::getEncryptionPassword('1234'));
     }
 
@@ -383,8 +383,8 @@ class UserTest extends \PHPUnit\Framework\TestCase
             ],
             'emailSenderInfo' =>
             [
-                'name' => '',
-                'mail' => ''
+                'name' => 'Robot',
+                'mail' => 'robot@znframework.com'
             ]
         ]);
     }
