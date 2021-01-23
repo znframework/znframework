@@ -3,7 +3,6 @@
 use File;
 use Cache;
 use Folder;
-use Buffer;
 use Console;
 use Crontab;
 
@@ -13,8 +12,7 @@ class ConsoleTest extends \PHPUnit\Framework\TestCase
     {
         Cache::insert('a', 'value');
 
-        Buffer::callback(function()
-        {
+        
             new CleanCache;
 
             if( $value = Cache::select('a') )
@@ -25,17 +23,13 @@ class ConsoleTest extends \PHPUnit\Framework\TestCase
             {
                 $this->assertEmpty($value);
             }
-        });
     }
 
     public function testCommandList()
     {
-        $output = Buffer::callback(function()
-        {
-            # new CommandList;
+        return;
 
-            return '';
-        });
+        new CommandList;
 
         $this->assertIsString($output);
     }
@@ -47,10 +41,7 @@ class ConsoleTest extends \PHPUnit\Framework\TestCase
 
     public function testCreateCommand()
     {
-        Buffer::callback(function()
-        {
-            new CreateCommand('Example');
-        });
+        new CreateCommand('Example');
 
         $this->assertFileExists($file = \COMMANDS_DIR . 'Example.php');
 
@@ -62,10 +53,7 @@ class ConsoleTest extends \PHPUnit\Framework\TestCase
 
     public function testCreateController()
     {
-        Buffer::callback(function()
-        {
-            new CreateController('Example');
-        });
+        new CreateController('Example');
 
         $this->assertFileExists($file = \CONTROLLERS_DIR . 'Example.php');
 
@@ -77,10 +65,7 @@ class ConsoleTest extends \PHPUnit\Framework\TestCase
 
     public function testCreateModel()
     {
-        Buffer::callback(function()
-        {
-            new CreateModel('Example1');
-        });
+        new CreateModel('Example1');
 
         $this->assertFileExists($file = \MODELS_DIR . 'Example1.php');
 
@@ -92,10 +77,7 @@ class ConsoleTest extends \PHPUnit\Framework\TestCase
 
     public function testCreateGrandModel()
     {
-        Buffer::callback(function()
-        {
-            new CreateGrandModel('Example');
-        });
+        new CreateGrandModel('Example');
 
         $this->assertFileExists($file = \MODELS_DIR . 'Example.php');
 
@@ -114,10 +96,7 @@ class ConsoleTest extends \PHPUnit\Framework\TestCase
     {
         return;
 
-        Buffer::callback(function()
-        {
-            new CreateMigration('Example', [0]);
-        });
+        new CreateMigration('Example', [0]);
 
         $this->assertFileExists($file = \MODELS_DIR . 'Migrations/Example.php');
 
@@ -131,10 +110,7 @@ class ConsoleTest extends \PHPUnit\Framework\TestCase
     {
         return;
 
-        Buffer::callback(function()
-        {
-            new CreateMigration('Example', [2]);
-        });
+        new CreateMigration('Example', [2]);
 
         $this->assertFileExists($file = \MODELS_DIR . 'Migrations/ExampleVersion/002.php');
 
@@ -148,10 +124,7 @@ class ConsoleTest extends \PHPUnit\Framework\TestCase
     {
         $dir = \PROJECTS_DIR . 'MyExampleProject';
 
-        Buffer::callback(function()
-        {
-            new CreateProject('MyExampleProject');
-        });
+        new CreateProject('MyExampleProject');
 
         $this->assertDirectoryExists($dir = \PROJECTS_DIR . 'MyExampleProject');
 
@@ -165,10 +138,7 @@ class ConsoleTest extends \PHPUnit\Framework\TestCase
     {
         $file = \EXTERNAL_DIR . 'Crontab/Jobs';
 
-        Buffer::callback(function()
-        {
-            new Cron('Example:run', ['daily']);
-        });
+        new Cron('Example:run', ['daily']);
 
         $length = strlen(File::read($file));
 
@@ -184,10 +154,7 @@ class ConsoleTest extends \PHPUnit\Framework\TestCase
     {
         $file = \EXTERNAL_DIR . 'Crontab/Jobs';
 
-        Buffer::callback(function()
-        {
-            new Cron('Example:run2', ['day', 'saturday', 'clock', '12:00']);
-        });
+        new Cron('Example:run2', ['day', 'saturday', 'clock', '12:00']);
 
         $length = strlen(File::read($file));
 
@@ -203,10 +170,7 @@ class ConsoleTest extends \PHPUnit\Framework\TestCase
     {
         $file = \EXTERNAL_DIR . 'Crontab/Jobs';
 
-        Buffer::callback(function()
-        {
-            new Cron('Example:run2', ['day', 'saturday', 'clock', '12:00']);
-        });
+        new Cron('Example:run2', ['day', 'saturday', 'clock', '12:00']);
 
         $array = Crontab::listArray();
 
@@ -222,11 +186,8 @@ class ConsoleTest extends \PHPUnit\Framework\TestCase
     {
         $file = \EXTERNAL_DIR . 'Crontab/Jobs';
 
-        Buffer::callback(function()
-        {
-            new Cron('Example:run2', ['day', 'saturday', 'clock', '12:00']);
-            new RemoveCron('Example');
-        });
+        new Cron('Example:run2', ['day', 'saturday', 'clock', '12:00']);
+        new RemoveCron('Example');
 
         $array = Crontab::listArray();
 
@@ -235,11 +196,8 @@ class ConsoleTest extends \PHPUnit\Framework\TestCase
 
     public function testDeleteCommand()
     {
-        Buffer::callback(function()
-        {
-            new CreateCommand('Example');
-            new DeleteCommand('Example');
-        });
+        new CreateCommand('Example');
+        new DeleteCommand('Example');
 
         $file = \COMMANDS_DIR . 'Example.php';
 
@@ -255,11 +213,8 @@ class ConsoleTest extends \PHPUnit\Framework\TestCase
 
     public function testDeleteController()
     {
-        Buffer::callback(function()
-        {
-            new CreateController('Example');
-            new DeleteController('Example');
-        });
+        new CreateController('Example');
+        new DeleteController('Example');
 
         $file = \CONTROLLERS_DIR . 'Example.php';
 
@@ -282,11 +237,8 @@ class ConsoleTest extends \PHPUnit\Framework\TestCase
     {
         return;
 
-        Buffer::callback(function()
-        {
-            new CreateMigration('Example');
-            new DeleteMigration('Example');
-        });
+        new CreateMigration('Example');
+        new DeleteMigration('Example');
 
         $file = \MODELS_DIR . 'Migrations/Example.php';
 
@@ -304,11 +256,8 @@ class ConsoleTest extends \PHPUnit\Framework\TestCase
     {
         return;
 
-        Buffer::callback(function()
-        {
-            new CreateMigration('Example');
-            new DeleteMigrationAll();
-        });
+        new CreateMigration('Example');
+        new DeleteMigrationAll();
 
         $file = \MODELS_DIR . 'Migrations/Example.php';
 
@@ -324,11 +273,8 @@ class ConsoleTest extends \PHPUnit\Framework\TestCase
 
     public function testDeleteModel()
     {
-        Buffer::callback(function()
-        {
-            new CreateModel('Example');
-            new DeleteModel('Example');
-        });
+        new CreateModel('Example');
+        new DeleteModel('Example');
 
         $file = \MODELS_DIR . 'Example.php';
 
@@ -346,11 +292,8 @@ class ConsoleTest extends \PHPUnit\Framework\TestCase
     {
         $dir = \PROJECTS_DIR . 'MyExampleProject';
 
-        Buffer::callback(function()
-        {
-            new CreateProject('MyExampleProject');
-            new DeleteProject('MyExampleProject');
-        });
+        new CreateProject('MyExampleProject');
+        new DeleteProject('MyExampleProject');
 
         if( is_dir($dir) )
         {
@@ -376,13 +319,10 @@ class ConsoleTest extends \PHPUnit\Framework\TestCase
     {
         $dir = \PROJECTS_DIR . 'MERestore';
 
-        Buffer::callback(function()
-        {
-            new CreateProject('ME');
-            new StartRestoration('ME');
-            new EndRestorationDelete('ME');
-            new DeleteProject('ME');
-        });
+        new CreateProject('ME');
+        new StartRestoration('ME');
+        new EndRestorationDelete('ME');
+        new DeleteProject('ME');
 
         if( is_dir($dir) )
         {
