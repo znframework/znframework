@@ -15,6 +15,11 @@ class ConsoleTest extends \PHPUnit\Framework\TestCase
     const PROJECTS_DIR    = 'Projects/';
     const EXTERNAL_DIR    = 'External/';
 
+    public function testPath()
+    {
+        $this->assertSame(\CONTROLLERS_DIR, self::CONTROLLERS_DIR);
+    }
+
     public function testCleanCache()
     {
         Cache::insert('a', 'value');
