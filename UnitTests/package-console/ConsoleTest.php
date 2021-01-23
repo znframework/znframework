@@ -6,7 +6,6 @@ use Folder;
 use Buffer;
 use Console;
 use Crontab;
-use Processor;
 
 class ConsoleTest extends \PHPUnit\Framework\TestCase
 {
@@ -25,9 +24,9 @@ class ConsoleTest extends \PHPUnit\Framework\TestCase
         Buffer::callback(function()
         {
             new CleanCache;
-        });
 
-        $this->assertSame(false, Cache::select('a'));
+            $this->assertEmpty(Cache::select('a'));
+        });
     }
 
     public function testCommandList()
@@ -261,7 +260,7 @@ class ConsoleTest extends \PHPUnit\Framework\TestCase
             new DeleteController('Example');
         });
 
-        $file = self::CONTROLER_DIR . 'Example.php';
+        $file = self::CONTROLERS_DIR . 'Example.php';
 
         if( is_file($file) )
         {
