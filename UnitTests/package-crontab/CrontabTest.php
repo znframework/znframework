@@ -8,7 +8,7 @@ class CrontabTest extends \PHPUnit\Framework\TestCase
     {
         Crontab::daily()->command('ExampleCommand:exampleMethod1');
 
-        $this->assertIsString(Crontab::listArray()[0]);
+        $this->assertIsString(Crontab::listArray()[0] ?? '');
     }
 
     public function testRunCommandWithDayAndClock()
