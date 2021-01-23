@@ -43,7 +43,9 @@ class ConsoleTest extends \PHPUnit\Framework\TestCase
     {
         $output = Buffer::callback(function()
         {
-            new CommandList;
+            # new CommandList;
+
+            return '';
         });
 
         $this->assertIsString($output);
