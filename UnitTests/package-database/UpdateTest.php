@@ -17,9 +17,8 @@ class UpdateTest extends \PHPUnit\Framework\TestCase
             'password' => '1234'
         ]);
 
-        DBForge::createTable('persons', 
+        DBForge::createTable('IF NOT EXISTS persons',
         [
-            'id'      => [DB::int(11), DB::primaryKey()],
             'name'    => [DB::varchar(255)],
             'surname' => [DB::varchar(255)],
             'phone'   => [DB::varchar(255)]
@@ -28,34 +27,35 @@ class UpdateTest extends \PHPUnit\Framework\TestCase
 
     public function testUpdate()
     {
-        DB::where('id', 1)->update('persons', 
+        DB::where('name', 'Susan')->update('persons', 
         [
-            'surname' => 'Orlando'
+            'surname' => 'Orlando',
+            'phone'   => 10
         ]);
 
-        $person = DB::where('id', 1)->persons()->row();
+        $person = DB::where('name', 'Susan')->persons()->row();
 
         $this->assertSame('Orlando', $person->surname);
     }
 
     public function testIncrement()
     {
-        $first = DB::where('id', 1)->persons()->row();
+        $first = DB::where('name', 'Susan')->persons()->row();
 
-        DB::where('id', 1)->increment('persons', 'phone', 10);
+        DB::where('name', 'Susan')->increment('persons', 'phone', 10);
 
-        $last = DB::where('id', 1)->persons()->row();
+        $last = DB::where('name', 'Susan')->persons()->row();
 
         $this->assertSame((float) $last->phone, (float) $first->phone + 10);
     }
 
     public function testDecrement()
     {
-        $first = DB::where('id', 1)->persons()->row();
+        $first = DB::where('name', 'Susan')->persons()->row();
 
-        DB::where('id', 1)->decrement('persons', 'phone', 10);
+        DB::where('name', 'Susan')->decrement('persons', 'phone', 10);
 
-        $last = DB::where('id', 1)->persons()->row();
+        $last = DB::where('name', 'Susan')->persons()->row();
 
         $this->assertSame((float) $last->phone, (float) $first->phone - 10);
     }

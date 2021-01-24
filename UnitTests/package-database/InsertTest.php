@@ -22,9 +22,8 @@ class InsertTest extends \PHPUnit\Framework\TestCase
             'password' => '1234'
         ]);
 
-        DBForge::createTable('persons', 
+        DBForge::createTable('IF NOT EXISTS persons', 
         [
-            'id'      => [DB::int(11), DB::primaryKey()],
             'name'    => [DB::varchar(255)],
             'surname' => [DB::varchar(255)],
             'phone'   => [DB::varchar(255)]
@@ -33,22 +32,18 @@ class InsertTest extends \PHPUnit\Framework\TestCase
 
     public function testInsertData()
     {
-        DB::insert('persons', 
+        $status = DB::duplicateCheck('name')->insert('persons', 
         [
-            'id' => 3,
             'name' => 'Ozan'
         ]);
 
-        $person = DB::where('id', 3)->persons()->row();
-
-        $this->assertSame('Ozan', $person->name);
+        $this->assertIsBool($status);
     }
 
     public function testInsertDuplicateCheck()
     {
         $status = DB::duplicateCheck('name')->insert('persons', 
         [
-            'id'      => 4,
             'name'    => 'Ozan',
             'surname' => 'Uykun'
         ]);
@@ -64,18 +59,18 @@ class InsertTest extends \PHPUnit\Framework\TestCase
             'surname' => 'Uykun'
         ]);
 
-        $person = DB::where('id', 3)->persons()->row();
+        $person = DB::where('name', 'Ozan')->persons()->row();
 
         $this->assertSame('Uykun', $person->surname);
     }
 
     public function testInsertWithOptionalMethods()
     {
-        DB::column('id', 4)
+        DB::duplicateCheck('name')
           ->column('name', 'Haluk')
           ->insert('persons');
 
-        $person = DB::where('id', 4)->persons()->row();
+        $person = DB::where('name', 'Haluk')->persons()->row();
 
         $this->assertSame('Haluk', $person->name);
     }
@@ -95,8 +90,6 @@ class InsertTest extends \PHPUnit\Framework\TestCase
         $person = DB::where('name', 'Susan')->persons()->row();
 
         $this->assertSame('Susan', $person->name);
-
-        DB::where('name', 'Susan')->update('persons', ['id' => 5]);
     }
 
     public function testInsertPostMatch()
@@ -109,8 +102,6 @@ class InsertTest extends \PHPUnit\Framework\TestCase
         $person = DB::where('name', 'Marlon')->persons()->row();
 
         $this->assertSame('Marlon', $person->name);
-
-        DB::where('name', 'Marlon')->update('persons', ['id' => 6]);
     }
 
     public function testInsertGetMatch()
@@ -122,8 +113,6 @@ class InsertTest extends \PHPUnit\Framework\TestCase
         $person = DB::where('name', 'Jessie')->persons()->row();
 
         $this->assertSame('Jessie', $person->name);
-
-        DB::where('name', 'Jessie')->update('persons', ['id' => 7]);
     }
 
     public function testInsertRequestMatch()
@@ -136,66 +125,54 @@ class InsertTest extends \PHPUnit\Framework\TestCase
         $person = DB::where('name', 'Hulk')->persons()->row();
 
         $this->assertSame('Hulk', $person->name);
-
-        DB::where('name', 'Hulk')->update('persons', ['id' => 8]);
     }
 
     public function testInsertArrayToJson()
     {
-        DB::insert('persons', 
+        DB::duplicateCheck('name')->insert('persons', 
         [
-            'id'    => 9,
             'name'  => 'Jonnie',
             'phone' => ['4433', '3322'] # to Json
         ]);
 
-        $person = DB::where('id', 9)->persons()->row();
+        $person = DB::where('name', 'Jonnie')->persons()->row();
 
         $this->assertTrue(Json::check($person->phone));
     }
 
     public function testInsertTableName()
     {
-        DB::personsInsert
+        DB::duplicateCheck('name')->personsInsert
         ([
-            'id'    => 10,
             'name'  => 'Elon'
         ]);
 
-        $person = DB::where('id', 10)->persons()->row();
+        $person = DB::where('name', 'Elon')->persons()->row();
 
         $this->assertSame('Elon', $person->name);
     }
 
     public function testGetInsertId()
     {
-        DB::personsInsert
+        DB::duplicateCheck('name')->personsInsert
         ([
-            'id'    => 11,
             'name'  => 'James'
         ]);
 
-        if( $insertId = DB::insertId() )
-        {
-            $this->assertSame(11, $insertId);
-        }
-
-        echo $insertId;
+        $this->assertIsInt(DB::insertId());
     }
 
     public function testGetAffectedRows()
     {
-        DB::where(11)->update('persons',
+        DB::where('name', 'James')->update('persons',
         [
-            'name'  => 'James'
+            'name'  => 'James2'
         ]);
 
         if( $affectedRows = DB::affectedRows() )
         {
             $this->assertSame(1, $affectedRows);
         }
-
-        echo $affectedRows;
     }
 
     public function testInsertCSVFile()

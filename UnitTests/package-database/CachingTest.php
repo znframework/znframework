@@ -17,7 +17,7 @@ class CachingTest extends \PHPUnit\Framework\TestCase
             'password' => '1234'
         ]);
 
-        DBForge::createTable('persons', 
+        DBForge::createTable('IF NOT EXISTS persons',
         [
             'id'      => [DB::int(11), DB::primaryKey()],
             'name'    => [DB::varchar(255)],

@@ -17,9 +17,8 @@ class DeleteTest extends \PHPUnit\Framework\TestCase
             'password' => '1234'
         ]);
 
-        DBForge::createTable('persons', 
+        DBForge::createTable('IF NOT EXISTS persons',
         [
-            'id'      => [DB::int(11), DB::primaryKey()],
             'name'    => [DB::varchar(255)],
             'surname' => [DB::varchar(255)],
             'phone'   => [DB::varchar(255)]
@@ -28,9 +27,9 @@ class DeleteTest extends \PHPUnit\Framework\TestCase
 
     public function testDelete()
     {
-        DB::where('id', 12)->delete('persons');
+        DB::where('name', 'Ozan')->delete('persons');
 
-        $person = DB::where('id', 12)->persons()->row();
+        $person = DB::where('name', 'Ozan')->persons()->row();
 
         $this->assertEmpty($person);
     }

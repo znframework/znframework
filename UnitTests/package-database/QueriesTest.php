@@ -17,25 +17,23 @@ class QueriesTest extends \PHPUnit\Framework\TestCase
             'password' => '1234'
         ]);
 
-        DBForge::createTable('persons', 
+        DBForge::createTable('IF NOT EXISTS persons',
         [
-            'id'      => [DB::int(11), DB::primaryKey()],
             'name'    => [DB::varchar(255)],
             'surname' => [DB::varchar(255)],
             'phone'   => [DB::varchar(255)]
         ]);
     }
 
-
     public function testTransactionQueriesUnsuccess()
     {
         $return = DB::transaction(function()
         {      
             DB::insert('personsx', ['name' => 'John']);
-            DB::where('id', 1)->update('persons', ['phone' => '1234']);
+            DB::where('name', 'Haluk')->update('persons', ['phone' => '1234']);
         });
 
-        $person = DB::where('id', 1)->persons()->row();
+        $person = DB::where('name', 'Haluk')->persons()->row();
 
         $this->assertFalse($person->phone == '1234');
     }
@@ -51,10 +49,10 @@ class QueriesTest extends \PHPUnit\Framework\TestCase
                     'name' => 'Ahri'
                 ]);
     
-                DB::where('id', 1)->update('persons', ['phone' => '1000']);
+                DB::where('name', 'Haluk')->update('persons', ['phone' => '1000']);
             });
 
-            $person = DB::where('id', 1)->persons()->row();
+            $person = DB::where('name', 'Haluk')->persons()->row();
 
             $this->assertTrue($person->phone == '1000');
         }
@@ -66,14 +64,14 @@ class QueriesTest extends \PHPUnit\Framework\TestCase
 
     public function testSelectPersonWithQuery()
     {
-        $person = DB::query('select * from persons where id = 1')->row();
+        $person = DB::query('select * from persons where name = "Ahri"')->row();
 
         $this->assertIsObject($person);
     }
 
     public function testQueryWithSecure()
     {
-        $person = DB::secure(['x:' => 1])->query('select * from persons where id = x:')->row();
+        $person = DB::secure(['x:' => 'Ahri'])->query('select * from persons where name = x:')->row();
 
         $this->assertIsObject($person);
     }

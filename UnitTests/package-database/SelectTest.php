@@ -23,9 +23,8 @@ class SelectTest extends \PHPUnit\Framework\TestCase
             'password' => '1234'
         ]);
 
-        DBForge::createTable('persons', 
+        DBForge::createTable('IF NOT EXISTS persons',
         [
-            'id'      => [DB::int(11), DB::primaryKey()],
             'name'    => [DB::varchar(255)],
             'surname' => [DB::varchar(255)],
             'phone'   => [DB::varchar(255)]
@@ -34,32 +33,31 @@ class SelectTest extends \PHPUnit\Framework\TestCase
 
     public function testInsertPerson()
     {
-        DB::insert('persons', 
+        DB::duplicateCheck('name')->insert('persons', 
         [
-            'id'      => 1,
             'name'    => 'Micheal',
-            'surname' => ''
+            'surname' => 'Tony'
         ]);
 
-        $totalRows = DB::where('id', 1)->persons()->totalRows();
+        $totalRows = DB::where('name', 'Micheal')->persons()->totalRows();
 
         $this->assertSame(1, $totalRows);
     }
 
     public function testSelectPerson()
     {
-        $row = DB::where('id', 1)->persons()->row();
+        $row = DB::where('name', 'Micheal')->persons()->row();
 
         $this->assertSame('Micheal', $row->name);
     }
 
     public function testSelectPersonColumns()
     {
-        $row = DB::select('id', 'name')->persons()->row();
+        $row = DB::select('name', 'surname')->persons()->row();
 
         $columns = array_keys((array) $row);
 
-        $this->assertSame(['id', 'name'], $columns);
+        $this->assertSame(['name', 'surname'], $columns);
     }
 
     public function testSelectPersonWithWhereEqualClause()
@@ -80,21 +78,21 @@ class SelectTest extends \PHPUnit\Framework\TestCase
 
     public function testSelectPersonWithWhereOtherOperatorClause()
     {
-        $row = DB::where('id <', 2)->persons()->row();
+        $row = DB::where('phone >', '1000')->persons()->row();
 
-        $this->assertSame('Micheal', $row->name);
+        $this->assertIsObject($row);
     }
 
     public function testSelectPersonWithMultipleWhereAndClauses()
     {
-        $row = DB::where('id', 1)->where('name', 'Micheal')->persons()->row();
+        $row = DB::where('surname', 'Tony')->where('name', 'Micheal')->persons()->row();
 
         $this->assertSame('Micheal', $row->name);
     }
 
     public function testSelectPersonWithMultipleWhereOrClauses()
     {
-        $row = DB::where('id', 1, 'or')->where('name', 'Micheal')->persons()->row();
+        $row = DB::where('surname', 'Tony', 'or')->where('name', 'Micheal')->persons()->row();
 
         $this->assertSame('Micheal', $row->name);
     }
@@ -103,7 +101,7 @@ class SelectTest extends \PHPUnit\Framework\TestCase
     {
         $row = DB::where
         ([
-            ['id', 1, 'or'], 
+            ['surname', 'Tony', 'or'], 
             ['name', 'Micheal']
         ])->persons()->row();
 
@@ -225,34 +223,33 @@ class SelectTest extends \PHPUnit\Framework\TestCase
     {
         $person = DB::get('persons')->row();
 
-        $this->assertSame('Micheal', $person->name);
+        $this->assertIsObject($person);
     }
 
     public function testResult()
     {
-        DB::insert('persons', 
+        DB::duplicateCheck('name')->insert('persons', 
         [
-            'id' => 2,
             'name' => 'John'
         ]);
 
         $result = DB::persons()->result();
 
-        $this->assertSame('John', $result[1]->name);
+        $this->assertIsString($result[1]->name);
     }
 
     public function testTableNameResult()
     {
         $result = DB::personsResult();
 
-        $this->assertSame('Micheal', $result[0]->name);
+        $this->assertIsString($result[0]->name);
     }
     
     public function testResultArray()
     {
         $result = DB::persons()->resultArray();
 
-        $this->assertSame('Micheal', $result[0]['name']);
+        $this->assertIsString($result[0]['name']);
     }
 
     public function testResultJson()
@@ -261,17 +258,17 @@ class SelectTest extends \PHPUnit\Framework\TestCase
 
         $this->assertTrue(Json::check($result));
 
-        $this->assertSame('Micheal', json_decode($result)[0]->name);
+        $this->assertIsString(json_decode($result)[0]->name);
     }
 
     public function testJsonDecode()
     {
-        DB::where('id', 1)->update('persons', 
+        DB::where('name', 'Micheal')->update('persons', 
         [
             'phone' => ['a' => '12345', 'b' => '22334']
         ]);
         
-        $person = DB::where('id', 1)->jsonDecode('phone')->persons()->row();
+        $person = DB::where('name', 'Micheal')->jsonDecode('phone')->persons()->row();
 
         $this->assertSame('12345', $person->phone->a);
     }
@@ -280,26 +277,26 @@ class SelectTest extends \PHPUnit\Framework\TestCase
     {
         $person = DB::persons()->row();
 
-        $this->assertSame('Micheal', $person->name);
+        $this->assertIsObject($person);
     }
 
     public function testSelectPersonSingleRowByIndex()
     {
         $person = DB::persons()->row(1);
 
-        $this->assertSame('John', $person->name);
+        $this->assertIsObject($person);
     }
 
     public function testSelectPersonSingleRowByLastIndex()
     {
-        $person = DB::where('id <', 3)->persons()->row(-1);
+        $person = DB::persons()->row(-1);
 
-        $this->assertSame('John', $person->name);
+        $this->assertIsObject($person);
     }
 
     public function testSelectPersonOnlyColumnValue()
     {
-        $person = DB::select('name')->where('id', 1)->persons()->row(true);
+        $person = DB::select('name')->where('name', 'Micheal')->persons()->row(true);
 
         $this->assertSame('Micheal', $person);
     }
@@ -308,21 +305,21 @@ class SelectTest extends \PHPUnit\Framework\TestCase
     {
         $row = DB::personsRow();
 
-        $this->assertSame('Micheal', $row->name);
+        $this->assertIsObject($row);
     }
 
     public function testGetColumnValue()
     {
-        $name = DB::where('id', 1)->persons()->value('name');
+        $name = DB::where('name', 'Micheal')->persons()->value('name');
 
         $this->assertSame('Micheal', $name);
     }
 
     public function testGetColumnValueWithoutSelect()
     {
-        $firstColumnValue = DB::where('id', 1)->persons()->value();
+        $firstColumnValue = DB::where('name', 'Micheal')->persons()->value();
 
-        $this->assertSame(1, $firstColumnValue); # id
+        $this->assertIsString($firstColumnValue); # id
     }
 
     public function testSelectPersonTotalRows()
@@ -343,7 +340,7 @@ class SelectTest extends \PHPUnit\Framework\TestCase
     {
         $totalColumns = DB::persons()->totalColumns();
 
-        $this->assertSame(4, $totalColumns);
+        $this->assertIsInt($totalColumns);
     }
 
     public function testGetColumns()
@@ -369,7 +366,7 @@ class SelectTest extends \PHPUnit\Framework\TestCase
 
     public function testIsExists()
     {
-        $this->assertTrue(DB::isExists('persons', 'id', 1));
+        $this->assertTrue(DB::isExists('persons', 'surname', 'Tony'));
         $this->assertFalse(DB::isExists('persons', 'name', 'Samanta'));
     }
 }
