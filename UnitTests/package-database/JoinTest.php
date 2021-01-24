@@ -2,7 +2,6 @@
 
 use DB;
 use Config;
-use DBForge;
 
 class JoinTest extends \PHPUnit\Framework\TestCase
 {
