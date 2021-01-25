@@ -19,7 +19,6 @@ class Constructor extends \PHPUnit\Framework\TestCase
 
         DBForge::createTable('IF NOT EXISTS persons',
         [
-            'id'      => [DB::int(11), DB::primaryKey()],
             'name'    => [DB::varchar(255)],
             'surname' => [DB::varchar(255)],
             'phone'   => [DB::varchar(255)]
