@@ -1,24 +1,10 @@
 <?php namespace ZN\Database;
 
 use DB;
-use Config;
-use DBTool;
 use DBForge;
 
-class ForgeColumnTest extends \PHPUnit\Framework\TestCase
+class ForgeColumnTest extends Test\Constructor
 {
-    public function __construct()
-    {
-        parent::__construct();
-
-        Config::database('database', 
-        [
-            'driver'   => 'sqlite',
-            'database' => 'UnitTests/package-database/testdb',
-            'password' => '1234'
-        ]);
-    }
-
     public function testAddColumn()
     {
         DBForge::addColumn('persons' , 

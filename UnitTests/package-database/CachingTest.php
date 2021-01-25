@@ -1,31 +1,9 @@
 <?php namespace ZN\Database;
 
 use DB;
-use Config;
-use DBForge;
 
-class CachingTest extends \PHPUnit\Framework\TestCase
+class CachingTest extends Test\Constructor
 {
-    public function __construct()
-    {
-        parent::__construct();
-
-        Config::database('database', 
-        [
-            'driver'   => 'sqlite',
-            'database' => 'UnitTests/package-database/testdb',
-            'password' => '1234'
-        ]);
-
-        DBForge::createTable('IF NOT EXISTS persons',
-        [
-            'id'      => [DB::int(11), DB::primaryKey()],
-            'name'    => [DB::varchar(255)],
-            'surname' => [DB::varchar(255)],
-            'phone'   => [DB::varchar(255)]
-        ]);
-    }
-
     public function testCaching()
     {
         DB::caching('8 minutes')->persons()->result();

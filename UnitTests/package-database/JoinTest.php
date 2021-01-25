@@ -1,22 +1,9 @@
 <?php namespace ZN\Database;
 
 use DB;
-use Config;
 
-class JoinTest extends \PHPUnit\Framework\TestCase
+class JoinTest extends Test\Constructor
 {
-    public function __construct()
-    {
-        parent::__construct();
-
-        Config::database('database', 
-        [
-            'driver'   => 'sqlite',
-            'database' => 'UnitTests/package-database/testdb',
-            'password' => '1234'
-        ]);
-    }
-
     public function testInnerJoin()
     {
         $query = DB::string()->innerJoin('addresses.person_name', 'persons.name')->persons();

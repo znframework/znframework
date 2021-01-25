@@ -1,23 +1,10 @@
 <?php namespace ZN\Database;
 
 use DB;
-use Config;
 use DBForge;
 
-class TalkingQueriesTest extends \PHPUnit\Framework\TestCase
+class TalkingQueriesTest extends Test\Constructor
 {
-    public function __construct()
-    {
-        parent::__construct();
-
-        Config::database('database', 
-        [
-            'driver'   => 'sqlite',
-            'database' => 'UnitTests/package-database/testdb',
-            'password' => '1234'
-        ]);
-    }
-
     public function testResult()
     {
         $result = DB::personsResult();

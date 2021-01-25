@@ -1,22 +1,9 @@
 <?php namespace ZN\Database;
 
-use Config;
 use DBUser;
 
-class UserTest extends \PHPUnit\Framework\TestCase
+class UserTest extends Test\Constructor
 {
-    public function __construct()
-    {
-        parent::__construct();
-
-        Config::database('database', 
-        [
-            'driver'   => 'sqlite',
-            'database' => 'UnitTests/package-database/testdb',
-            'password' => '1234'
-        ]);
-    }
-
     public function testCreate()
     {
         DBUser::create('zntr@localhost');

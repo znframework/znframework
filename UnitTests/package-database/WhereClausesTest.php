@@ -1,22 +1,9 @@
 <?php namespace ZN\Database;
 
 use DB;
-use Config;
 
-class WhereClausesTest extends \PHPUnit\Framework\TestCase
+class WhereClausesTest extends Test\Constructor
 {
-    public function __construct()
-    {
-        parent::__construct();
-
-        Config::database('database', 
-        [
-            'driver'   => 'sqlite',
-            'database' => 'UnitTests/package-database/testdb',
-            'password' => '1234'
-        ]);
-    }
-
     public function testWhereAnd()
     {
         $query = DB::string()->whereAnd('id', 1)->where('name', 'Susan')->persons();

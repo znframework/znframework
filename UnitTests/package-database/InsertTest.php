@@ -5,31 +5,10 @@ use Get;
 use Post;
 use File;
 use Json;
-use Config;
-use DBForge;
 use Request;
 
-class InsertTest extends \PHPUnit\Framework\TestCase
+class InsertTest extends Test\Constructor
 {
-    public function __construct()
-    {
-        parent::__construct();
-
-        Config::database('database', 
-        [
-            'driver'   => 'sqlite',
-            'database' => 'UnitTests/package-database/testdb',
-            'password' => '1234'
-        ]);
-
-        DBForge::createTable('IF NOT EXISTS persons', 
-        [
-            'name'    => [DB::varchar(255)],
-            'surname' => [DB::varchar(255)],
-            'phone'   => [DB::varchar(255)]
-        ]);
-    }
-
     public function testInsertData()
     {
         $status = DB::duplicateCheck('name')->insert('persons', 

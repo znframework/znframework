@@ -1,24 +1,10 @@
 <?php namespace ZN\Database;
 
 use DB;
-use Config;
-use DBTool;
 use DBForge;
 
-class ForgeTableTest extends \PHPUnit\Framework\TestCase
+class ForgeTableTest extends Test\Constructor
 {
-    public function __construct()
-    {
-        parent::__construct();
-
-        Config::database('database', 
-        [
-            'driver'   => 'sqlite',
-            'database' => 'UnitTests/package-database/testdb',
-            'password' => '1234'
-        ]);
-    }
-
     public function testCreateTable()
     {
         DBForge::createTable('contents', 

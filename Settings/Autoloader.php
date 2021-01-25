@@ -46,7 +46,8 @@
         MODELS_DIR,
         EXTERNAL_MODELS_DIR,
         COMMANDS_DIR,
-        EXTERNAL_COMMANDS_DIR
+        EXTERNAL_COMMANDS_DIR,
+        'UnitTests'
     ],
 
     /*
