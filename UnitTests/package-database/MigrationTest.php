@@ -18,38 +18,6 @@ class MigrationTest extends Test\Constructor
         $this->assertTrue(is_file(MODELS_DIR . 'Migrations/BlogVersion/001.php'));
     }
 
-    public function testMigrateUp()
-    {
-        $this->assertIsBool(\MigrateBlog::up());
-    }
-
-    public function testMigrateVersionUp()
-    {
-        $this->assertIsBool(\MigrateBlog001::up());
-        $this->assertIsBool(\MigrateBlog::version(1)->up());
-    }
-
-    public function testMigrateDown()
-    {
-        $this->assertIsBool(\MigrateBlog::down());
-    }
-
-    public function testMigrateVersionDown()
-    {
-        $this->assertIsBool(\MigrateBlog001::down());
-        $this->assertIsBool(\MigrateBlog::version(1)->down());
-    }
-
-    public function testUpAll()
-    {
-        $this->assertIsBool(Migration::upAll('Blog'));
-    }
-
-    public function testUpDown()
-    {
-        $this->assertIsBool(Migration::downAll('Blog'));
-    }
-
     public function testDelete()
     {
         $this->assertIsBool(Migration::delete('Blog'));
