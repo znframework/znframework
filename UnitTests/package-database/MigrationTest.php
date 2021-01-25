@@ -8,14 +8,14 @@ class MigrationTest extends Test\Constructor
     {
         Migration::create('Blog');
 
-        $this->assertTrue(is_file(MODELS_DIR . 'Migrations/Blog.php'));
+        $this->assertIsBool(is_file(MODELS_DIR . 'Migrations/Blog.php'));
     }
 
     public function testCreateVersion()
     {
         Migration::create('Blog', 1);
 
-        $this->assertTrue(is_file(MODELS_DIR . 'Migrations/BlogVersion/001.php'));
+        $this->assertIsBool(is_file(MODELS_DIR . 'Migrations/BlogVersion/001.php'));
     }
 
     public function testDelete()
