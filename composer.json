@@ -17,7 +17,7 @@
     ],
     "require": 
     {
-        "php": "^7.2 || ^8.0",
+        "php": "^7.3 || ^8.0",
         "znframework/package-zerocore": ">=6.0",
         "znframework/package-authentication": ">=6.0",
         "znframework/package-authorization": ">=6.0",
