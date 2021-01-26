@@ -73,4 +73,18 @@ class SortTest extends \PHPUnit\Framework\TestCase
 
         $this->assertIsArray($array);
     }
+
+    public function testNatural()
+    {
+        $array = Arrays::natural(['a', 'A', 'B', 'C', 'c', 'b']);
+
+        $this->assertSame(['A', 'B', 'C', 'a', 'b', 'c'], array_values($array));
+    }
+
+    public function testNaturalInsensitive()
+    {
+        $array = Arrays::naturalInsensitive(['a', 'A', 'B', 'C', 'c', 'b']);
+
+        $this->assertSame(['a', 'A', 'B', 'b', 'C', 'c'], array_values($array));
+    }
 }
