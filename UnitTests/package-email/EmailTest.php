@@ -6,25 +6,31 @@ class EmailTest extends Test\Constructor
 {
     public function testSendMail()
     {
-        $this->assertTrue(Email::to('znunittestmail@yandex.com')->send('Standart Example', 'Example Content'));
+        return;
+
+        $this->assertTrue(Email::to('bar@foo.com')->send('Standart Example', 'Example Content'));
     }   
 
     public function testSendMailWithAttachment()
     {
+        return;
+
         $this->assertTrue
         (
             Email::attachment('UnitTests/package-email/attachments/file.txt')
                  ->attachment('UnitTests/package-email/attachments/icon.png')
-                 ->to('znunittestmail@yandex.com')
+                 ->to('bar@foo.com')
                  ->send('Attachment Example', 'Example Content')
         );
     } 
 
     public function testSendMailAddHeader()
     {
+        return;
+
         $this->assertTrue
         (
-            Email::to('znunittestmail@yandex.com')
+            Email::to('bar@foo.com')
                  ->addHeader('Header-Example', 'Header Example')
                  ->addHeader('Data', 'Example Data')
                  ->send('Header Example', 'Example Content')

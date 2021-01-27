@@ -13,9 +13,9 @@ class Constructor extends \PHPUnit\Framework\TestCase
             'driver' => 'smtp',
             'smtp'   =>
             [
-                'host'      => 'smtp.sendgrid.net',
-                'user'      => 'apikey',
-                'password'  => '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',
+                'host'      => 'smtp.foo.com',
+                'user'      => 'foo',
+                'password'  => 'bar',
                 'port'      => 465,
                 'keepAlive' => false,
                 'timeout'   => 10,
