@@ -1,17 +1,63 @@
 <?php namespace ZN\Authorization;
 
-class ProcessTest extends \PHPUnit\Framework\TestCase
+use Permission;
+
+class ProcessTest extends Test\Constructor
 {
-    public function testStartAndEnd()
+    public function testUpdateProcess()
     {
-        $class = new Process;
+        Permission::roleId(1);
 
-        $class->start(1, 'delete');
+        $this->assertSame('<b>Update Process</b>', Permission::process('update', '<b>Update Process</b>'));
 
-        $this->assertTrue(true);
+        Permission::roleId(2);
 
-        $class->end();
+        $this->assertSame('<b>Update Process</b>', Permission::process('update', '<b>Update Process</b>'));
 
-        $this->assertFalse(false);
+        Permission::roleId(3);
+
+        $this->assertSame(false, Permission::process('update', '<b>Update Process</b>'));
+
+        Permission::roleId(4);
+
+        $this->assertSame(false, Permission::process('update', '<b>Update Process</b>'));
+    }
+
+    public function testDeleteProcess()
+    {
+        Permission::roleId(1);
+
+        $this->assertSame('<b>Delete Process</b>', Permission::process('delete', '<b>Delete Process</b>'));
+
+        Permission::roleId(2);
+
+        $this->assertSame(false, Permission::process('delete', '<b>Delete Process</b>'));
+
+        Permission::roleId(3);
+
+        $this->assertSame(false, Permission::process('delete', '<b>Delete Process</b>'));
+
+        Permission::roleId(4);
+
+        $this->assertSame(false, Permission::process('delete', '<b>Delete Process</b>'));
+    }
+
+    public function testCreateProcess()
+    {
+        Permission::roleId(1);
+
+        $this->assertSame('<b>Create Process</b>', Permission::process('create', '<b>Create Process</b>'));
+
+        Permission::roleId(2);
+
+        $this->assertSame('<b>Create Process</b>', Permission::process('create', '<b>Create Process</b>'));
+
+        Permission::roleId(3);
+
+        $this->assertSame('<b>Create Process</b>', Permission::process('create', '<b>Create Process</b>'));
+
+        Permission::roleId(4);
+
+        $this->assertSame(false, Permission::process('create', '<b>DeleCreatete Process</b>'));
     }
 }

@@ -1,22 +1,36 @@
 <?php namespace ZN\Authorization;
 
-use ZN\Config;
+use Permission;
 
-class PageTest extends \PHPUnit\Framework\TestCase
+class PageTest extends Test\Constructor
 {
-    public function testUse()
+    public function testPageUpdateProcess()
     {
-        $class = new Page;
+        $_SERVER['PATH_INFO'] = 'update';
 
-        $this->assertFalse($class->use(1));
+        $this->assertTrue (Permission::page(1));
+        $this->assertTrue (Permission::page(2));
+        $this->assertFalse(Permission::page(3));
+        $this->assertFalse(Permission::page(4));
+    }
 
-        Config::set('Auth', 'page', 
-        [
-            '1' => 'all',
-            '2' => ['noperm' => ['delete']],
-            '3' => ['noperm' => ['add', 'update', 'delete']]
-        ]);
+    public function testPageDeleteProcess()
+    {
+        $_SERVER['PATH_INFO'] = 'delete';
 
-        $this->assertTrue($class->use(1));
+        $this->assertTrue (Permission::page(1));
+        $this->assertFalse(Permission::page(2));
+        $this->assertFalse(Permission::page(3));
+        $this->assertFalse(Permission::page(4));
+    }
+
+    public function testPageCreateProcess()
+    {
+        $_SERVER['PATH_INFO'] = 'create';
+
+        $this->assertTrue (Permission::page(1));
+        $this->assertTrue (Permission::page(2));
+        $this->assertTrue (Permission::page(3));
+        $this->assertFalse(Permission::page(4));
     }
 }

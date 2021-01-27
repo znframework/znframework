@@ -1,36 +1,39 @@
 <?php namespace ZN\Authorization;
 
-use ZN\Config;
+use Permission;
 
-class MethodTest extends \PHPUnit\Framework\TestCase
+class MethodTest extends Test\Constructor
 {
-    public function testPost()
+    public function testPostMethodUpdateProcess()
     {
-        $class = new Method;
+        $_POST = [];
+        $_POST['update'] = true;
 
-        $this->assertFalse($class->post(1));
-
-        Config::set('Auth', 'method', 
-        [
-            '1' => 'all',
-            '2' => ['noperm' => ['delete']],
-            '3' => ['noperm' => ['add', 'update', 'delete']]
-        ]);
-        
-        $this->assertTrue($class->post(1));
+        $this->assertTrue (Permission::post(1));
+        $this->assertTrue (Permission::post(2));
+        $this->assertFalse(Permission::post(3));
+        $this->assertFalse(Permission::post(4));
     }
 
-    public function testGet()
+    public function testPostMethodDeleteProcess()
     {
-        $class = new Method;
+        $_POST = [];
+        $_POST['delete'] = true;
 
-        $this->assertTrue($class->get(1));
+        $this->assertTrue (Permission::post(1));
+        $this->assertFalse(Permission::post(2));
+        $this->assertFalse(Permission::post(3));
+        $this->assertFalse(Permission::post(4));
     }
 
-    public function testRequest()
+    public function testPostMethodCreateProcess()
     {
-        $class = new Method;
+        $_POST = [];
+        $_POST['create'] = true;
 
-        $this->assertTrue($class->request(1));
+        $this->assertTrue (Permission::post(1));
+        $this->assertTrue (Permission::post(2));
+        $this->assertTrue (Permission::post(3));
+        $this->assertFalse(Permission::post(4));
     }
 }
