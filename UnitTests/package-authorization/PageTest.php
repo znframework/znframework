@@ -33,4 +33,11 @@ class PageTest extends Test\Constructor
         $this->assertTrue (Permission::page(3));
         $this->assertFalse(Permission::page(4));
     }
+
+    public function testPageRealpath()
+    {
+        $this->assertTrue (Permission::realpath('create')->page(3));
+        $this->assertFalse(Permission::realpath('delete')->page(3));
+        $this->assertFalse(Permission::realpath('update')->page(3));
+    }
 }
