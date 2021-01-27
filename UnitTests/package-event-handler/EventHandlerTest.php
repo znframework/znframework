@@ -51,4 +51,18 @@ class EventHandlerTest extends \PHPUnit\Framework\TestCase
             Events::run('FileProcess');
         }));   
     }
+
+    public function testRunWithParameters()
+    {
+        Events::callback(function($param)
+        {
+            echo $param;
+
+        })::create('param');  
+
+        $this->assertSame('myParam', Buffer::callback(function()
+        {
+            Events::run('param', ['myParam']);
+        }));  
+    }
 }
