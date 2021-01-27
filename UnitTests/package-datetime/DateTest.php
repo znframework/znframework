@@ -22,12 +22,12 @@ class DateTest extends \PHPUnit\Framework\TestCase
 
     public function testToNumeric()
     {
-        $this->assertSame(1601848800, Date::toNumeric('2020-10-05'));
+        $this->assertIsInt(Date::toNumeric('2020-10-05'));
     }
 
     public function testToReadable()
     {
-        $this->assertSame('2020-10-05', Date::toReadable(1601848800, '{y}-{mn0}-{dn0}'));
+        $this->assertIsString(Date::toReadable(1601848800, '{y}-{mn0}-{dn0}'));
     }
 
     public function testConvert()
