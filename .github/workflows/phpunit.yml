@@ -76,7 +76,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
 
       - name: Setup PHP, with composer and extensions
         uses: shivammathur/setup-php@v2
@@ -89,21 +89,20 @@ jobs:
           update: true
 
       - name: Install Memcached
-        uses: actions/memcached@v1
+        uses: niden/actions-memcached@v7
 
       - name: Get composer cache directory
         id: composercache
         run: echo "::set-output name=dir::$(composer config cache-files-dir)"
 
       - name: Cache dependencies
-        uses: actions/setup@v1
+        uses: actions/cache@v2
         with:
           path: ${{ steps.composercache.outputs.dir }}
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: ${{ runner.os }}-composer-
 
       - name: Install dependencies
-        uses: actions/setup@v1
         with:
           timeout_minutes: 5
           max_attempts: 5
