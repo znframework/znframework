@@ -116,7 +116,7 @@ jobs:
 
   coveralls-finish:
     needs: [tests]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     steps:
       - name: Coveralls Finished
         uses: coverallsapp/github-action@master
