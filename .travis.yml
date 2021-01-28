@@ -1,35 +1,18 @@
-# Config file for https://travis-ci.org/
-
 language: php
 
-# Define the php versions against we want to test our code
 php:
 - 7.3
-
-# Note: Code coverage requires php-xDebug extension enabled on CI server
+- 7.4
 
 install:
 - travis_retry composer install --no-interaction --no-suggest
 
-# Testing the app (see phpunit.xml) for configs, generating Code Coverage report
 script:
 - vendor/bin/phpunit --coverage-clover=coverage.xml
 
-#after_script:
-
 after_success:
-# Submit coverage report to https://codecov.io
 - bash <(curl -s https://codecov.io/bash)
 
-#after_failure:
-
-# Monitor only these branches
 branches:
   only:
-  - master
-  - dev
-
-# You can delete the cache using travis-ci web interface
-cache:
-  directories:
-  - $HOME/.composer/cache
+  - develop
