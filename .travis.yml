@@ -12,7 +12,9 @@ script:
 - vendor/bin/phpunit --coverage-clover=coverage.xml
 
 after_success:
-- bash <(curl -s https://codecov.io/bash)
+- travis_retry php vendor/bin/coveralls
+  # or enable logging
+- travis_retry php vendor/bin/coveralls -v
 
 branches:
   only:

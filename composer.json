@@ -56,7 +56,8 @@
     },
     "require-dev": 
     {
-        "phpunit/phpunit": "^8.5"
+        "phpunit/phpunit": "^8.5",
+        "php-coveralls/php-coveralls": "^2.4"
     },
     "scripts": 
     {
