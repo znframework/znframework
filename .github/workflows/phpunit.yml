@@ -14,7 +14,6 @@ on:
       - composer.json
       - DockerFile
       - docker-compose.yml
-      - .travis.yml
       - zerocore 
       - '**.php'
       - phpunit.xml.dist
@@ -32,7 +31,6 @@ on:
       - composer.json
       - DockerFile
       - docker-compose.yml
-      - .travis.yml
       - zerocore 
       - '**.php'
       - phpunit.xml.dist
