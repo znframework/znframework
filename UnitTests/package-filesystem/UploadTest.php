@@ -1,6 +1,7 @@
 <?php namespace ZN\Filesystem;
 
 use Upload;
+use ZN\Base;
 
 class UploadTest extends \PHPUnit\Framework\TestCase
 {
@@ -35,14 +36,14 @@ class UploadTest extends \PHPUnit\Framework\TestCase
     {
         Upload::convertName('my')->start('file', self::directory);
 
-        $this->assertStringEndsWith('my.tmp', Upload::info()->path);
+        $this->assertStringEndsWith('my.tmp', Base::suffix(Upload::info()->path, '.tmp'));
     }
 
     public function testEncode()
     {
         Upload::encode(false)->convertName('my')->start('file', self::directory);
 
-        $this->assertSame('my.tmp', basename(Upload::info()->path));
+        $this->assertSame('my.tmp', Base::suffix(basename(Upload::info()->path), '.tmp'));
 
     }
 
@@ -51,7 +52,7 @@ class UploadTest extends \PHPUnit\Framework\TestCase
         Upload::encode('md5')->encodeLength(4)->convertName('my')->start('file', self::directory);
 
         #xxxx-my.tmp = 11
-        $this->assertSame(11, strlen(basename(Upload::info()->path)));
+        $this->assertSame(11, strlen(Base::suffix(basename(Upload::info()->path), '.tmp')));
 
     }
 
@@ -59,7 +60,7 @@ class UploadTest extends \PHPUnit\Framework\TestCase
     {
         Upload::encode(false)->prefix('test.')->convertName('my')->start('file', self::directory);
 
-        $this->assertSame('test.my.tmp', basename(Upload::info()->path));
+        $this->assertSame('test.my.tmp', Base::suffix(basename(Upload::info()->path), '.tmp'));
     }
 
     public function testMaxsize()
