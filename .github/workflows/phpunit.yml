@@ -113,13 +113,3 @@ jobs:
         env:
           DB: ${{ matrix.db-platforms }}
           TERM: xterm-256color
-
-  coveralls-finish:
-    needs: [tests]
-    runs-on: ubuntu-18.04
-    steps:
-      - name: Coveralls Finished
-        uses: coverallsapp/github-action@master
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          parallel-finished: true
