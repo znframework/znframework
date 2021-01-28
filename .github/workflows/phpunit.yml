@@ -48,7 +48,7 @@ jobs:
       fail-fast: false
       matrix:
         php-versions: ['7.2', '7.3', '7.4', '8.0']
-        db-platforms: ['MySQLi', 'Postgre', 'SQLite3', 'SQLSRV']
+        db-platforms: ['MySQLi', 'Postgre', 'SQLite3']
 
     services:
       mysql:
@@ -68,14 +68,6 @@ jobs:
         ports:
           - 5432:5432
         options: --health-cmd=pg_isready --health-interval=10s --health-timeout=5s --health-retries=3
-      mssql:
-        image: microsoft/mssql-server-linux:2017-latest
-        env:
-          SA_PASSWORD: test
-          ACCEPT_EULA: Y
-          MSSQL_PID: Developer
-        ports:
-          - 1433:1433
       redis:
         image: redis
         ports:
@@ -88,7 +80,7 @@ jobs:
         run: sqlcmd -S localhost -U sa -P test -Q "CREATE DATABASE test"
 
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v1
 
       - name: Setup PHP, with composer and extensions
         uses: shivammathur/setup-php@v2
@@ -101,21 +93,21 @@ jobs:
           update: true
 
       - name: Install Memcached
-        uses: niden/actions-memcached@v7
+        uses: actions/memcached@v1
 
       - name: Get composer cache directory
         id: composercache
         run: echo "::set-output name=dir::$(composer config cache-files-dir)"
 
       - name: Cache dependencies
-        uses: actions/setup-node@v1
+        uses: actions/setup@v1
         with:
           path: ${{ steps.composercache.outputs.dir }}
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: ${{ runner.os }}-composer-
 
       - name: Install dependencies
-        uses: actions/setup-node@v1
+        uses: actions/setup@v1
         with:
           timeout_minutes: 5
           max_attempts: 5
