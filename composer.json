@@ -62,6 +62,7 @@
     {
         "post-install-cmd": ["@installation"],
         "post-create-project-cmd": ["@installation"],
-        "installation":["php zerocore installation"]
+        "installation":["php zerocore installation"],
+        "test": "phpunit"
     }
 }
