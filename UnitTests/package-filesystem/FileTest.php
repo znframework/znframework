@@ -97,14 +97,14 @@ class FileTest extends \PHPUnit\Framework\TestCase
 
     public function testCreateDate()
     {
-        $this->assertTrue(Date::compare(Date::now(), '>', File::createDate(self::file)));
+        $this->assertSame('2021', Date::convert(File::createDate(self::file), 'Y'));
     }
 
     public function testChangeDate()
     {
         File::write(self::file, 'example');
 
-        $this->assertTrue(Date::compare(File::changeDate(self::file), '>', File::createDate(self::file)));
+        $this->assertSame('2021', Date::convert(File::changeDate(self::file), 'Y'));
     }
 
     public function testOwner()
