@@ -3,7 +3,7 @@
 use Reflect;
 
 /**
- * @encode      :Encode::super(1)
+ * @encode      :Encode::type(1, 'md5')
  * @jsonArray   [0,5,6]
  * @json        {"test":"deneme"}
  * @array       :['a' => 5]
@@ -14,24 +14,24 @@ class ReflectorTest extends \PHPUnit\Framework\TestCase
     {
         $reflector = Reflect::annotation(__CLASS__);
 
-        $this->assertSame('241ad2be621979fa47a8603475b9d988', $reflector->encode);
+        $this->assertSame('c4ca4238a0b923820dcc509a6f75849b', $reflector->encode);
         $this->assertSame([0, 5, 6], $reflector->jsonArray);
         $this->assertSame('deneme', $reflector->json->test);
         $this->assertSame(['a' => 5], $reflector->array);
     }
 
     /**
-     * @encode :Encode::super(1)
+     * @encode :Encode::type(1, 'md5')
      */
     public function testMethod()
     {
         $reflector = Reflect::annotation(__CLASS__, 'testMethod');
 
-        $this->assertSame('241ad2be621979fa47a8603475b9d988', $reflector->encode);
+        $this->assertSame('c4ca4238a0b923820dcc509a6f75849b', $reflector->encode);
     }
 
     /**
-     * @encode :Encode::super(1)
+     * @encode :Encode::type(1, 'md5')
      */
     protected $property;
 
@@ -39,6 +39,6 @@ class ReflectorTest extends \PHPUnit\Framework\TestCase
     {
         $reflector = Reflect::annotation(__CLASS__, '$property');
 
-        $this->assertSame('241ad2be621979fa47a8603475b9d988', $reflector->encode);
+        $this->assertSame('c4ca4238a0b923820dcc509a6f75849b', $reflector->encode);
     }
 }
