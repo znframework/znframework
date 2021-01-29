@@ -65,7 +65,7 @@ class GeneratorTest extends Test\Constructor
     {
         Generate::grandVision();
 
-        $this->assertFileExists($file = MODELS_DIR . 'Visions/UnitTests/package-generator/resources/testdb/InternalExampleVision.php');
+        $this->assertFileExists($file = MODELS_DIR . 'Visions/UnitTests/package-database/testdb/InternalExampleVision.php');
 
         File::delete($file);
     }

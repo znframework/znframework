@@ -11,7 +11,7 @@ class Constructor extends \PHPUnit\Framework\TestCase
         Config::database('database', 
         [
             'driver'   => 'sqlite',
-            'database' => 'UnitTests/package-generator/resources/testdb',
+            'database' => 'UnitTests/package-database/testdb',
             'password' => '1234'
         ]);
     }
