@@ -48,7 +48,14 @@ class GrandModelTest extends \PHPUnit\Framework\TestCase
     {
         Persons::name('ZN Framework')->phone('1234')->insert();
 
-        $this->assertSame(0, Persons::insertId());
+        $this->assertIsInt(Persons::insertId());
+    }
+
+    public function testGrandTotalRows()
+    {
+        Persons::limit(1)->result();
+
+        $this->assertTrue(Persons::totalRows(true) > Persons::totalRows());
     }
 
     public function testGrandResultWithSelect()
