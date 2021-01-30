@@ -33,7 +33,7 @@ class ProcessorTest extends \PHPUnit\Framework\TestCase
         }
         catch(\ZN\Exception $e)
         {
-            $this->assertStringContainsString('Error: `SSH(Secure Shell)` extension is not loaded!', $e->getMessage());
+            $this->assertStringContainsString('SSH(Secure Shell)', $e->getMessage());
         }
     }
 }
