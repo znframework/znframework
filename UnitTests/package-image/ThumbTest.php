@@ -66,6 +66,10 @@ class ThumbTest extends \PHPUnit\Framework\TestCase
     {
         Thumb::clean(self::img);
 
-        $this->assertSame(0, count(Folder::files(self::dir . 'thumbs')));
+        $this->assertSame
+        (
+            0, 
+            count(Folder::files(self::dir . 'thumbs'))
+        );
     }
 }
