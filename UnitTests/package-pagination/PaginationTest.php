@@ -5,19 +5,9 @@ use Pagination;
 
 class PaginationTest extends \PHPUnit\Framework\TestCase
 {
-    public function testConfig()
-    {
-        
-    }
-
     public function testCreate()
     {
         $this->assertStringContainsString('Home/main/40', Pagination::create());
-
-        $this->assertStringContainsString('style="color:red"', Pagination::create(NULL, 
-        [
-            'style' => ['links' => 'color:red']
-        ]));
     }
 
     public function testURL()
@@ -30,7 +20,7 @@ class PaginationTest extends \PHPUnit\Framework\TestCase
         $this->assertStringContainsString
         (
             '<li class="page-item active"><a href="' . URL::site('Home/main/20') . '" class="page-link">3</a></li>', 
-            Pagination::start(20)->create()
+            Pagination::url('Home/main')->start(20)->create()
         );
     }
 

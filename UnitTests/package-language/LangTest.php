@@ -26,6 +26,8 @@ class LangTest extends \PHPUnit\Framework\TestCase
         Config::services('uri', ['lang' => true]);
 
         $this->assertSame('en', Lang::current());
+
+        Config::services('uri', ['lang' => false]);
     }
 
     public function testSelect()

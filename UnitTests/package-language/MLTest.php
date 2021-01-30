@@ -68,9 +68,4 @@ class MLTest extends \PHPUnit\Framework\TestCase
 
         $this->assertSame('Kalem', ML::select('pencil'));
     }
-
-    public function testTable()
-    {
-        $this->assertStringContainsString('ML_TABLE', ML::table());
-    }
 }
