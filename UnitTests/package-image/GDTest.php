@@ -1,7 +1,6 @@
 <?php namespace ZN\Image;
 
 use GD;
-use File;
 
 class GDTest extends \PHPUnit\Framework\TestCase
 {
