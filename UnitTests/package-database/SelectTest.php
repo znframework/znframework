@@ -8,7 +8,7 @@ use File;
 use Json;
 use Request;
 
-class SelectTest extends Test\Constructor
+class SelectTest extends DatabaseExtends
 {
     public function testInsertPerson()
     {

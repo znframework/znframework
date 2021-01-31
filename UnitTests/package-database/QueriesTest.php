@@ -2,7 +2,7 @@
 
 use DB;
 
-class QueriesTest extends Test\Constructor
+class QueriesTest extends DatabaseExtends
 {
     public function testTransactionQueriesUnsuccess()
     {

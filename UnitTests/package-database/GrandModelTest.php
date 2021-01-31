@@ -2,7 +2,6 @@
 
 use DB;
 use Post;
-use ZN\Database\Test\Persons;
 
 class GrandModelTest extends \PHPUnit\Framework\TestCase
 {

@@ -3,7 +3,7 @@
 use DB;
 use DBForge;
 
-class ForgeColumnTest extends Test\Constructor
+class ForgeColumnTest extends DatabaseExtends
 {
     public function testAddColumn()
     {

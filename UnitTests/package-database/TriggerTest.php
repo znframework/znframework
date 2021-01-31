@@ -2,7 +2,7 @@
 
 use DBTrigger;
 
-class TriggerTest extends Test\Constructor
+class TriggerTest extends DatabaseExtends
 {
     public function testCreate()
     {

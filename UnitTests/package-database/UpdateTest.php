@@ -2,7 +2,7 @@
 
 use DB;
 
-class UpdateTest extends Test\Constructor
+class UpdateTest extends DatabaseExtends
 {
     public function testUpdate()
     {

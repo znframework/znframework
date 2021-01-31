@@ -2,7 +2,7 @@
 
 use DBUser;
 
-class UserTest extends Test\Constructor
+class UserTest extends DatabaseExtends
 {
     public function testCreate()
     {

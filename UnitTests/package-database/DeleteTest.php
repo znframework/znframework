@@ -2,7 +2,7 @@
 
 use DB;
 
-class DeleteTest extends Test\Constructor
+class DeleteTest extends DatabaseExtends
 {
     public function testDelete()
     {

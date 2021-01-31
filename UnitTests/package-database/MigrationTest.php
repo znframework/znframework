@@ -2,7 +2,7 @@
 
 use Migration;
 
-class MigrationTest extends Test\Constructor
+class MigrationTest extends DatabaseExtends
 {
     public function testCreate()
     {

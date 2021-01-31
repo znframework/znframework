@@ -1,10 +1,10 @@
-<?php namespace ZN\Database\Test;
+<?php namespace ZN\Database;
 
 use DB;
 use Config;
 use DBForge;
 
-class Constructor extends \PHPUnit\Framework\TestCase
+class DatabaseExtends extends \PHPUnit\Framework\TestCase
 {
     public function __construct()
     {

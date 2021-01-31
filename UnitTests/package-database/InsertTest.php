@@ -7,7 +7,7 @@ use File;
 use Json;
 use Request;
 
-class InsertTest extends Test\Constructor
+class InsertTest extends DatabaseExtends
 {
     public function testInsertData()
     {

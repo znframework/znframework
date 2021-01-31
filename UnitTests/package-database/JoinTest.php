@@ -2,7 +2,7 @@
 
 use DB;
 
-class JoinTest extends Test\Constructor
+class JoinTest extends DatabaseExtends
 {
     public function testInnerJoin()
     {

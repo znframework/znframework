@@ -1,6 +1,6 @@
-<?php namespace ZN\Database\Test;
+<?php namespace ZN\Database;
 
-class PersonsGrandModel extends \GrandModel
+class PersonsGrandModel extends GrandModel
 {
     const table  = 'persons';
     const facade = 'ZN\Database\Test\Persons';

@@ -2,7 +2,7 @@
 
 use DBTool;
 
-class ToolTest extends Test\Constructor
+class ToolTest extends DatabaseExtends
 {
     public function testListDatabases()
     {

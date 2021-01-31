@@ -2,7 +2,7 @@
 
 use DB;
 
-class WhereClausesTest extends Test\Constructor
+class WhereClausesTest extends DatabaseExtends
 {
     public function testWhereAnd()
     {

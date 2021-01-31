@@ -1,4 +1,4 @@
-<?php namespace ZN\Database\Test;
+<?php namespace ZN\Database;
 #-------------------------------------------------------------------------
 # This file automatically created and updated
 #-------------------------------------------------------------------------
@@ -9,7 +9,7 @@ class Persons
 
 	use \ZN\Ability\Facade;
 
-	const target = 'ZN\Database\Test\PersonsGrandModel';
+	const target = 'ZN\Database\PersonsGrandModel';
 }
 
 #-------------------------------------------------------------------------

@@ -2,7 +2,7 @@
 
 use DBForge;
 
-class ForgeDatabaseTest extends Test\Constructor
+class ForgeDatabaseTest extends DatabaseExtends
 {
     public function testCreateDatabase()
     {

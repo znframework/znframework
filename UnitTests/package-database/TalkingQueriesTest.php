@@ -3,7 +3,7 @@
 use DB;
 use DBForge;
 
-class TalkingQueriesTest extends Test\Constructor
+class TalkingQueriesTest extends DatabaseExtends
 {
     public function testResult()
     {

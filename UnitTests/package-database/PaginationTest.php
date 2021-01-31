@@ -2,7 +2,7 @@
 
 use DB;
 
-class PaginationTest extends Test\Constructor
+class PaginationTest extends DatabaseExtends
 {
     public function testCratePagination()
     {

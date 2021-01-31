@@ -2,7 +2,7 @@
 
 use DB;
 
-class CachingTest extends Test\Constructor
+class CachingTest extends DatabaseExtends
 {
     public function testCaching()
     {

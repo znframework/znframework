@@ -2,7 +2,7 @@
 
 use DB;
 
-class OrderByClausesTest extends Test\Constructor
+class OrderByClausesTest extends DatabaseExtends
 {
     public function testOrderByField()
     {

@@ -3,7 +3,7 @@
 use DB;
 use DBForge;
 
-class ForgeTableTest extends Test\Constructor
+class ForgeTableTest extends DatabaseExtends
 {
     public function testCreateTable()
     {
