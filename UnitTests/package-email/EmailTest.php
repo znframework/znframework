@@ -2,7 +2,7 @@
 
 use Email;
 
-class EmailTest extends Test\Constructor
+class EmailTest extends EmailExtends
 {
     public function testSendMail()
     {

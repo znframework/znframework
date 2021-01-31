@@ -1,11 +1,11 @@
-<?php namespace ZN\Authentication\Test;
+<?php namespace ZN\Authentication;
 
 use DB;
 use User;
 use Config;
 use DBForge;
 
-class Constructor extends \PHPUnit\Framework\TestCase
+class AuthenticationExtends extends \PHPUnit\Framework\TestCase
 {
     public function __construct()
     {

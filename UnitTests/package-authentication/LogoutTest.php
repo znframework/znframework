@@ -2,7 +2,7 @@
 
 use User;
 
-class LogoutTest extends Test\Constructor
+class LogoutTest extends AuthenticationExtends
 { 
     public function testLogout()
     {

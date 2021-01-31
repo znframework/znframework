@@ -3,7 +3,7 @@
 use User;
 use Config;
 
-class RegisterTest extends Test\Constructor
+class RegisterTest extends AuthenticationExtends
 {
     public function testStandart()
     {

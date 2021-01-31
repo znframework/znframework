@@ -2,7 +2,7 @@
 
 use User;
 
-class UpdateTest extends Test\Constructor
+class UpdateTest extends AuthenticationExtends
 {
     public function testUpdateOnlyPassword()
     {

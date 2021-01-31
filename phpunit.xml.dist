@@ -21,6 +21,9 @@
     <filter>
 		<whitelist processUncoveredFilesFromWhitelist="true">
 			<directory suffix=".php">./UnitTests</directory>
+            <exclude>
+				<directory>./UnitTests/extends</directory>
+			</exclude>
 		</whitelist>
 	</filter>
 

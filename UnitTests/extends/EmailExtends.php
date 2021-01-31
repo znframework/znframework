@@ -1,8 +1,8 @@
-<?php namespace ZN\Email\Test;
+<?php namespace ZN\Email;
 
 use Config;
 
-class Constructor extends \PHPUnit\Framework\TestCase
+class EmailExtends extends \PHPUnit\Framework\TestCase
 {
     public function __construct()
     {

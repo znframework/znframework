@@ -2,7 +2,7 @@
 
 use User;
 
-class LoginTest extends Test\Constructor
+class LoginTest extends AuthenticationExtends
 { 
     public function testStandartLogin()
     {

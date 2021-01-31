@@ -2,7 +2,7 @@
 
 use User;
 
-class InfoTest extends Test\Constructor
+class InfoTest extends AuthenticationExtends
 {
     public function testUserIP()
     {

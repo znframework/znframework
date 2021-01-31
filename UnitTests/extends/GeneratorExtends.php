@@ -1,4 +1,4 @@
-<?php namespace ZN\Generator\Test;
+<?php namespace ZN\Generator;
 
 use Config;
 

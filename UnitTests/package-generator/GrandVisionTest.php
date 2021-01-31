@@ -3,7 +3,7 @@
 use File;
 use Generate;
 
-class GrandVisionTest extends Test\GeneratorExtends
+class GrandVisionTest extends GeneratorExtends
 {
     public function testGrandVision()
     {

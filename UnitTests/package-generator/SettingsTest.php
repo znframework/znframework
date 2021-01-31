@@ -2,7 +2,7 @@
 
 use Generate;
 
-class SettingsTest extends Test\GeneratorExtends
+class SettingsTest extends GeneratorExtends
 {
     public function testSettings()
     {

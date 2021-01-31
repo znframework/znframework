@@ -2,7 +2,7 @@
 
 use Generate;
 
-class ControllerTest extends Test\GeneratorExtends
+class ControllerTest extends GeneratorExtends
 {
     public function testController()
     {

@@ -2,7 +2,7 @@
 
 use Generate;
 
-class LibraryTest extends Test\GeneratorExtends
+class LibraryTest extends GeneratorExtends
 {
     public function testLibrary()
     {

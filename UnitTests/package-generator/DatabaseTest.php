@@ -2,7 +2,7 @@
 
 use Generate;
 
-class DatabaseTest extends Test\GeneratorExtends
+class DatabaseTest extends GeneratorExtends
 {
     public function testDatabase()
     {

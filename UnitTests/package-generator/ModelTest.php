@@ -2,7 +2,7 @@
 
 use Generate;
 
-class ModelTest extends Test\GeneratorExtends
+class ModelTest extends GeneratorExtends
 {
     public function testModel()
     {
