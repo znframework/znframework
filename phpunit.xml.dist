@@ -20,7 +20,7 @@
 
     <filter>
 		<whitelist processUncoveredFilesFromWhitelist="true">
-			<directory suffix=".php">./vendor/znframework</directory>
+			<directory suffix=".php">./Internal</directory>
 		</whitelist>
 	</filter>
 
