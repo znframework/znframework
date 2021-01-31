@@ -10,7 +10,7 @@ class URLBaseTest extends \PHPUnit\Framework\TestCase
     }
     
 
-    public function testUrlSiteFirstParameter()
+    public function testUrlBaseFirstParameter()
     {
         $this->assertStringContainsString('/resources/style.css', URL::base('resources/style.css'));
     }
