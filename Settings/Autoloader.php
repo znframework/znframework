@@ -75,6 +75,7 @@
         'Request' => 'ZN\Request\Request',
         'Post'    => 'ZN\Request\Post',
         'Get'     => 'ZN\Request\Get',
+        'Env'     => 'ZN\Request\Env',
         'Method'  => 'ZN\Request\Method',
 
         # ZN\Inclusion\Projection
