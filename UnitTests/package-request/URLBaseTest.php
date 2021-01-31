@@ -4,7 +4,7 @@ use URL;
 
 class URLBaseTest extends \PHPUnit\Framework\TestCase
 {
-    public function testUrlSite()
+    public function testUrlBase()
     {
         $this->assertStringContainsString(BASE_DIR, URL::base());
     }
