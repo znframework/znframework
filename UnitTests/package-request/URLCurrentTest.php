@@ -4,7 +4,7 @@ use URL;
 
 class URLCurrentTest extends \PHPUnit\Framework\TestCase
 {
-    public function testUrlSite()
+    public function testUrlCurrent()
     {
         # Does not include BASE_DIR
         $this->assertStringEndsWith('/', URL::current());
