@@ -2,7 +2,7 @@
 
 use Permission;
 
-class ProcessTest extends Test\Constructor
+class ProcessTest extends AuthorizationExtends
 {
     public function testUpdateProcess()
     {

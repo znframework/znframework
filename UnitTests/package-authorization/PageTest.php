@@ -2,7 +2,7 @@
 
 use Permission;
 
-class PageTest extends Test\Constructor
+class PageTest extends AuthorizationExtends
 {
     public function testPageUpdateProcess()
     {

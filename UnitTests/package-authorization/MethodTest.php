@@ -2,7 +2,7 @@
 
 use Permission;
 
-class MethodTest extends Test\Constructor
+class MethodTest extends AuthorizationExtends
 {
     public function testPostMethodUpdateProcess()
     {

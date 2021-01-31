@@ -1,8 +1,8 @@
-<?php namespace ZN\Authorization\Test;
+<?php namespace ZN\Authorization;
 
 use Config;
 
-class Constructor extends \PHPUnit\Framework\TestCase
+class AuthorizationExtends extends \PHPUnit\Framework\TestCase
 {
     public function __construct()
     {
