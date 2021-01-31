@@ -1,4 +1,4 @@
-<?php namespace ZN\Request;
+<?php namespace ZN\Response;
 
 use Redirect;
 
