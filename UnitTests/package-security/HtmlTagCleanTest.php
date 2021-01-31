@@ -1,5 +1,6 @@
 <?php namespace ZN\Security;
 
+use ZN\IS;
 use Security;
 
 class HtmlTagCleanTest extends \PHPUnit\Framework\TestCase
@@ -16,6 +17,9 @@ class HtmlTagCleanTest extends \PHPUnit\Framework\TestCase
 
     public function testHtmlTagCleanAllowableParameterArray()
     {
-        $this->assertEquals('<b><i>ZN Framework</i></b>', Security::htmlTagClean('<b><i>ZN Framework</i></b>', ['i', 'b']));
+        if( IS::phpVersion('7.4') )
+        {
+            $this->assertEquals('<b><i>ZN Framework</i></b>', Security::htmlTagClean('<b><i>ZN Framework</i></b>', ['i', 'b']));
+        }
     }
 }
