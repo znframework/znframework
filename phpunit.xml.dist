@@ -17,4 +17,14 @@
             <directory suffix="Test.php">UnitTests</directory>
         </testsuite>
     </testsuites>
+
+    <filter>
+		<whitelist processUncoveredFilesFromWhitelist="true">
+			<directory suffix=".php">./vendor/znframework</directory>
+		</whitelist>
+	</filter>
+
+	<logging>
+		<log type="coverage-clover" target="build/logs/clover.xml"/>
+	</logging>
 </phpunit>
