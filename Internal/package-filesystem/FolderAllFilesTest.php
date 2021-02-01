@@ -6,7 +6,7 @@ class FolderAllFilesTest extends FilesystemExtends
 {
     public function testAllFiles()
     {
-        $directory = self::dir;
+        $directory = self::directory . 'files/';
 
         Folder::create($directory);
 
@@ -14,7 +14,7 @@ class FolderAllFilesTest extends FilesystemExtends
         File::create($directory . 'files2.txt');
         File::create($directory . 'files3');
 
-        $files = Folder::allFiles(self::dir);
+        $files = Folder::allFiles($directory);
 
         $this->assertEquals(3, count($files));
 
