@@ -11,7 +11,6 @@ class MultipleExecTest extends \PHPUnit\Framework\TestCase
              ->returntransfer(1)->init('https://google.com/')
              ->exec();
 
-   
         $this->assertEquals(2, count($response));
     }
 }
