@@ -6,8 +6,10 @@ class CreateFolderTest extends FilesystemExtends
 {
     public function testCreate()
     {
-        Folder::create($directory = self::directory . 'example');
+        Folder::create($directory = self::directory . 'create');
 
         $this->assertDirectoryExists($directory);
+
+        Folder::delete($directory);
     }
 }
