@@ -1,6 +1,5 @@
 <?php namespace ZN\Services;
 
-use Post;
 use Restful;
 
 class PostTest extends \PHPUnit\Framework\TestCase
