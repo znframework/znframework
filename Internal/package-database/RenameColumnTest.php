@@ -3,7 +3,7 @@
 use DB;
 use DBForge;
 
-class ForgeColumnTest extends DatabaseExtends
+class RenameColumnTest extends DatabaseExtends
 {
     public function testRenameColumn()
     {
