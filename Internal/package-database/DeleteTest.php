@@ -6,11 +6,11 @@ class DeleteTest extends DatabaseExtends
 {
     public function testDelete()
     {
+        DB::insert('persons', ['name' => 'Ozan']);
+
         DB::where('name', 'Ozan')->delete('persons');
 
-        $person = DB::where('name', 'Ozan')->persons()->row();
-
-        $this->assertEmpty($person);
+        $this->assertFalse(DB::isExists('persons', 'name', 'Ozan'));
     }
 
     public function testDeleteUnconditionalException()
@@ -21,11 +21,7 @@ class DeleteTest extends DatabaseExtends
         }
         catch( Exception\UnconditionalException $exception )
         {
-            $this->assertStringStartsWith
-            (
-                'You can not perform unconditional deletion!',
-                $exception->getMessage()    
-            );
+            $this->assertStringStartsWith('You can not perform unconditional deletion!', $exception->getMessage());
         }
     }
 }
