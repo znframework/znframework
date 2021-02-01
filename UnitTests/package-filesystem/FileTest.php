@@ -3,11 +3,8 @@
 use File;
 use Date;
 
-class FileTest extends \PHPUnit\Framework\TestCase
+class FileTest extends FilesystemExtends
 {
-    const directory = 'UnitTests/package-filesystem/resources/';
-    const file      = self::directory . 'write-file.txt';
-
     public function testWrite()
     {
         File::write(self::file, 'test');

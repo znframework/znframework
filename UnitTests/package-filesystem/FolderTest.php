@@ -2,10 +2,8 @@
 
 use Folder;
 
-class FolderTest extends \PHPUnit\Framework\TestCase
+class FolderTest extends FilesystemExtends
 {
-    const directory = 'UnitTests/package-filesystem/resources/';
-
     public function testCreate()
     {
         Folder::create($directory = self::directory . 'example');

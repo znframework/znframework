@@ -2,10 +2,8 @@
 
 use Document;
 
-class DocumentTest extends \PHPUnit\Framework\TestCase
+class DocumentTest extends FilesystemExtends
 {
-    const directory = 'UnitTests/package-filesystem/resources/';
-
     public function testRun()
     {
         $this->assertSame

@@ -2,10 +2,8 @@
 
 use Excel;
 
-class ExcelTest extends \PHPUnit\Framework\TestCase
+class ExcelTest extends FilesystemExtends
 {
-    const directory = 'UnitTests/package-filesystem/resources/';
-
     public function testArrayToXLS()
     {
         Excel::arrayToXLS

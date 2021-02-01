@@ -3,10 +3,8 @@
 use Upload;
 use ZN\Base;
 
-class UploadTest extends \PHPUnit\Framework\TestCase
+class UploadTest extends FilesystemExtends
 {
-    const directory = 'UnitTests/package-filesystem/resources/';
-
     public function testCreateFile()
     {
         $file = tempnam(sys_get_temp_dir(), 'Tux');
