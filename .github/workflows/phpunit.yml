@@ -10,7 +10,6 @@ on:
       - 'Internal/**'
       - 'Projects/**'
       - 'Settings/**'
-      - 'UnitTests/**'
       - composer.json
       - DockerFile
       - docker-compose.yml
@@ -27,7 +26,6 @@ on:
       - 'Internal/**'
       - 'Projects/**'
       - 'Settings/**'
-      - 'UnitTests/**'
       - composer.json
       - DockerFile
       - docker-compose.yml
