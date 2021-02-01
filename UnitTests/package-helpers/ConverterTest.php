@@ -82,7 +82,7 @@ class ConverterTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('Accent', Converter::accent('Åççeňt'));
     }
 
-    public function charset()
+    public function testCharset()
     {
         $this->assertSame('ﾃ?ﾃｧﾃｧeﾅ?t', Converter::charset('Åççeňt', 'UTF-8', 'JIS'));
     }
