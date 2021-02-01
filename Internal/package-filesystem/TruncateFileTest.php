@@ -11,5 +11,7 @@ class TruncateFileTest extends FilesystemExtends
         File::truncate(self::file, 2);
 
         $this->assertSame('ex', File::read(self::file));
+
+        File::delete(self::file);
     }
 }
