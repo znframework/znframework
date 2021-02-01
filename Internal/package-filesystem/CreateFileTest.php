@@ -6,8 +6,10 @@ class CreateFileTest extends FilesystemExtends
 {
     public function testCreate()
     {
-        File::create($file = self::directory . 'create-file.txt');
+        File::create(self::file);
 
-        $this->assertFileExists($file);
+        $this->assertFileExists(self::file);
+
+        File::delete(self::file);
     }
 }
