@@ -23,13 +23,6 @@ class ControllerTest extends \PHPUnit\Framework\TestCase
 
         $file = CONTROLLERS_DIR . 'Example.php';
 
-        if( is_file($file) )
-        {
-            $this->assertTrue(false);
-        }
-        else
-        {
-            $this->assertTrue(true);
-        }
+        $this->assertFalse(is_file($file));
     }
 }
