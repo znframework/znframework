@@ -1,32 +1,10 @@
 <?php namespace ZN\Console;
 
-use DB;
 use File;
-use Config;
 use Folder;
-use DBForge;
 
-class ModelTest extends \PHPUnit\Framework\TestCase
+class ModelTest extends \ZN\Database\DatabaseExtends
 {
-    public function __construct()
-    {
-        parent::__construct();
-
-        Config::database('database', 
-        [
-            'driver'   => 'sqlite',
-            'database' => 'Internal/package-console/testdb',
-            'password' => '1234'
-        ]);
-
-        DBForge::createTable('persons', 
-        [
-            'name'    => [DB::varchar(255)],
-            'surname' => [DB::varchar(255)],
-            'phone'   => [DB::varchar(255)]
-        ]);
-    }
-
     public function testCreateModel()
     {
         new CreateModel('Example1');
@@ -92,14 +70,7 @@ class ModelTest extends \PHPUnit\Framework\TestCase
 
         $file = MODELS_DIR . 'Example.php';
 
-        if( is_file($file) )
-        {
-            $this->assertTrue(false);
-        }
-        else
-        {
-            $this->assertTrue(true);
-        }
+        $this->assertFalse(is_file($file));
     }
 
     public function testDeleteMigration()
@@ -109,14 +80,7 @@ class ModelTest extends \PHPUnit\Framework\TestCase
 
         $file = MODELS_DIR . 'Migrations/Persons.php';
 
-        if( is_file($file) )
-        {
-            $this->assertTrue(false);
-        }
-        else
-        {
-            $this->assertTrue(true);
-        }
+        $this->assertFalse(is_file($file));
     }
 
     public function testDeleteMigrationAll()
@@ -126,13 +90,6 @@ class ModelTest extends \PHPUnit\Framework\TestCase
 
         $file = MODELS_DIR . 'Migrations/Persons.php';
 
-        if( is_file($file) )
-        {
-            $this->assertTrue(false);
-        }
-        else
-        {
-            $this->assertTrue(true);
-        }
+        $this->assertFalse(is_file($file));
     }
 }
