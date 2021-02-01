@@ -5,43 +5,6 @@ use DBForge;
 
 class ForgeColumnTest extends DatabaseExtends
 {
-    public function testAddColumn()
-    {
-        DBForge::addColumn('persons' , 
-        [
-            'phone' => [DB::int(11), DB::notNull()]
-        ]);
-
-        $this->assertSame("ALTER TABLE persons ADD phone  INTEGER(11)   NOT NULL ;", trim(DBForge::stringQuery()));
-    }
-
-    public function testAddColumnStringParameter()
-    {
-        DBForge::addColumn('persons' , 
-        [
-            'phone' => 'INTEGER(11) NOT NULL'
-        ]);
-
-        $this->assertSame("ALTER TABLE persons ADD phone INTEGER(11) NOT NULL;", trim(DBForge::stringQuery()));
-    }
-
-    public function testAddColumnOptionalParameter()
-    {
-        DBForge::column('id', [DB::int(11), DB::notNull(), DB::autoIncrement()])
-               ->column('name', [DB::varchar(50), DB::notNull(), DB::collate('utf8_unicode_ci')])
-               ->addColumn('persons');
-
-        $this->assertSame("ALTER TABLE persons ADD id  INTEGER(11)   NOT NULL   AUTOINCREMENT ,name  VARCHAR(50)   NOT NULL  COLLATE utf8_unicode_ci ;", trim(DBForge::stringQuery()));
-    }
-
-    public function testDropColumn()
-    {
-        DBForge::dropColumn('ExampleTable', ['name' , 'phone']);
-
-        # Unsported SQLite3
-        $this->assertSame("", trim(DBForge::stringQuery()));
-    }
-
     public function testRenameColumn()
     {
         DBForge::renameColumn('ExapleTable', ['phone mobile_phone' => [DB::int(), DB::notNull()]]);
