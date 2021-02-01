@@ -13,7 +13,7 @@ class PatchTest extends \PHPUnit\Framework\TestCase
 
     public function testPatchJson()
     {
-        Restful::patchson('path/example', ['example' => 'Example']);
+        Restful::patchJson('path/example', ['example' => 'Example']);
 
         $this->assertStringContainsString('path/example', Restful::info('all')['url']);
     }
