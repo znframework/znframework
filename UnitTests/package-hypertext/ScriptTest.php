@@ -14,7 +14,7 @@ class ScriptTest extends \PHPUnit\Framework\TestCase
         );
     }
     
-    public function tesClose()
+    public function testClose()
     {
         $this->assertStringContainsString
         (
