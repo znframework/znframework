@@ -6,8 +6,10 @@ class FileRowCountTest extends FilesystemExtends
 {
     public function testRowCount()
     {
-        File::write($file = self::directory . 'row-count.txt', "test\nexample");
+        File::write(self::file, "test\nexample");
 
-        $this->assertSame(2, File::rowCount($file));
+        $this->assertSame(2, File::rowCount(self::file));
+
+        File::delete(self::file);
     }
 }
