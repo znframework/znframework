@@ -4,7 +4,7 @@ use CURL;
 
 class MultipleExecTest extends \PHPUnit\Framework\TestCase
 {
-    public function testExec()
+    public function testMultipleExec()
     {
         $response = CURL::multiple()
              ->returntransfer(1)->init('https://github.com/')
