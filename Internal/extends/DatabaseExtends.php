@@ -13,7 +13,7 @@ class DatabaseExtends extends \PHPUnit\Framework\TestCase
         Config::database('database', 
         [
             'driver'   => 'sqlite',
-            'database' => 'Internal/package-database/testdb',
+            'database' => 'Internal/package-database/resources/testdb',
             'password' => '1234'
         ]);
 

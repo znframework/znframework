@@ -48,7 +48,7 @@ class ToolTest extends DatabaseExtends
 
     public function testImport()
     {
-        $result = DBTool::import('Internal/package-database/test.sql');
+        $result = DBTool::import('Internal/package-database/resources/test.sql');
 
        $this->assertIsBool($result);
     }
