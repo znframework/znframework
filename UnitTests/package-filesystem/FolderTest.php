@@ -65,25 +65,15 @@ class FolderTest extends \PHPUnit\Framework\TestCase
 
     public function testDelete()
     {
-        if( is_dir(self::directory . 'example') )
-        {
-            $this->assertTrue(Folder::delete(self::directory . 'example'));
-        }
-        else
-        {
-            $this->assertFalse(false);
-        }
+        Folder::create($directory = self::directory . 'example2');
+
+        $this->assertTrue(Folder::delete($directory));
     }
 
     public function testExists()
     {
-        if( Folder::exists(self::directory . 'example') )
-        {
-            $this->assertTrue(Folder::delete(self::directory . 'example'));
-        }
-        else
-        {
-            $this->assertFalse(false);
-        }
+        Folder::create($directory = self::directory . 'example3');
+
+        $this->assertTrue(Folder::exists($directory));
     }
 }
