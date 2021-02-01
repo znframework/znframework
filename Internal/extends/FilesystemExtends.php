@@ -3,5 +3,6 @@
 class FilesystemExtends extends \PHPUnit\Framework\TestCase
 {
     const directory = 'Internal/package-filesystem/resources/';
-    const file      = self::directory . 'write-file.txt';
+    const dir       = self::directory . 'dir/';
+    const file      = self::directory . 'test.txt';
 }
