@@ -11,4 +11,11 @@ class PostTest extends \PHPUnit\Framework\TestCase
 
         $this->assertStringContainsString('path/example', Restful::info('all')['url']);
     }
+
+    public function testPostJson()
+    {
+        Restful::postJson('path/example', ['example' => 'Example']);
+
+        print_r(Restful::info());
+    }
 }
