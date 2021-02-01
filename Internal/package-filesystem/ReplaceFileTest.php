@@ -11,5 +11,7 @@ class ReplaceFileTest extends FilesystemExtends
         File::replace(self::file, 'test', 'example');
 
         $this->assertSame('example', File::read(self::file));
+
+        File::delete(self::file);
     }
 }
