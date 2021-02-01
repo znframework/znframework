@@ -9,5 +9,7 @@ class ReadFileTest extends FilesystemExtends
         File::write(self::file, 'test');
         
         $this->assertSame('test', File::read(self::file));
+
+        File::delete(self::file);
     }
 }
