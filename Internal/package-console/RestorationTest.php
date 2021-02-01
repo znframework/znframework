@@ -11,13 +11,6 @@ class RestorationTest extends \PHPUnit\Framework\TestCase
         new EndRestorationDelete('ME');
         new DeleteProject('ME');
 
-        if( is_dir($dir) )
-        {
-            $this->assertTrue(false);
-        }
-        else
-        {
-            $this->assertTrue(true);
-        }
+        $this->assertFalse(is_dir($dir));
     }
 }
