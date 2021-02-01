@@ -11,5 +11,7 @@ class AppendFileTest extends FilesystemExtends
         File::append(self::file, ' example');
 
         $this->assertSame('test example', File::read(self::file));
+
+        File::delete(self::file);
     }
 }
