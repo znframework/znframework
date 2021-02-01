@@ -25,13 +25,6 @@ class ProjectTest extends \PHPUnit\Framework\TestCase
         new CreateProject('MyExampleProject');
         new DeleteProject('MyExampleProject');
 
-        if( is_dir($dir) )
-        {
-            $this->assertTrue(false);
-        }
-        else
-        {
-            $this->assertTrue(true);
-        }
+        $this->assertFalse(is_dir($dir));
     }
 }
