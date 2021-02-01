@@ -6,10 +6,12 @@ class PermissionFileTest extends FilesystemExtends
 {
     public function testPermission()
     {
-        File::create($file = self::directory . 'permission-file.txt');
+        File::create(self::file);
 
-        File::permission($file, 644);
+        File::permission(self::file, 644);
 
-        $this->assertFalse(File::info($file)->executable);
+        $this->assertFalse(File::info(self::file)->executable);
+
+        File::delete(self::file);
     }
 }
