@@ -10,13 +10,6 @@ class CleanCacheTest extends \PHPUnit\Framework\TestCase
 
         new CleanCache;
 
-        if( $value = Cache::select('a') )
-        {
-            $this->assertTrue('value', $value);
-        }
-        else
-        {
-            $this->assertEmpty($value);
-        }
+        $this->assertEmpty(Cache::select('a'));
     }
 }
