@@ -6,8 +6,10 @@ class FileSizeTest extends FilesystemExtends
 {
     public function testSize()
     {
-        File::write($file = self::directory . 'size.txt', 'test');
+        File::write(self::file, 'test');
 
         $this->assertSame(4, (int) File::size(self::file));
+
+        File::delete(self::file);
     }
 }
