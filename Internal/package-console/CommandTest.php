@@ -1,14 +1,18 @@
 <?php namespace ZN\Console;
 
 use File;
+use Buffer;
 
 class CommandTest extends \PHPUnit\Framework\TestCase
 {
     public function testCommandList()
     {
-        return;
-
-        new CommandList;
+        $list = Buffer::callback(function()
+        {
+            new CommandList;
+        });
+        
+        $this->assertIsString($list);
     }
 
     public function testCreateCommand()
@@ -30,13 +34,6 @@ class CommandTest extends \PHPUnit\Framework\TestCase
 
         $file = COMMANDS_DIR . 'Example.php';
 
-        if( is_file($file) )
-        {
-            $this->assertTrue(false);
-        }
-        else
-        {
-            $this->assertTrue(true);
-        }
+        $this->assertFalse(is_file($file));
     }
 }
