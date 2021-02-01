@@ -10,6 +10,7 @@ class ZipExtractTest extends FilesystemExtends
         File::create($file2 = self::directory . '2.txt');
 
         File::createZip($zipFile = self::directory . 'example.zip', [$file1, $file2]);
+        
         File::zipExtract($zipFile, $directory = self::directory . 'extract/');
 
         $this->assertDirectoryExists($directory);

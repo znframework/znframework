@@ -14,10 +14,11 @@ class CopyFolderTest extends FilesystemExtends
         Folder::create($copyDirectory = self::directory . 'copyto/copy');
 
         Folder::copy($directory, $copyDirectory);
-        
+
         $this->assertDirectoryExists($copyDirectory);
 
         Folder::delete($directory); 
+        
         Folder::delete($copyDirectory = self::directory . 'copyto/');
     }
 }
