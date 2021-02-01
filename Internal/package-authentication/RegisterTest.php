@@ -1,45 +1,36 @@
 <?php namespace ZN\Authentication;
 
+use DB;
 use User;
-use Config;
 
 class RegisterTest extends AuthenticationExtends
 {
     public function testStandart()
     {
-        $status = User::register
+        User::register
         ([
-            'username' => 'robot2@znframework.com',
+            'username' => 'robot@znframework.com',
             'password' => '1234'
         ]);
 
-        if( $status )
-        {
-            $this->assertSame('Your registration was completed successfully.', User::success());
-            $this->assertFalse(User::isLogin());
-        }
-        else
-        {
-            $this->assertSame('You have already registered with the system for the transaction could not be performed!', User::error());
-        }
+        $row = DB::where('username', 'robot@znframework.com')->users()->row();
+
+        $this->assertEquals('robot@znframework.com', $row->username);
+
+        DB::where('username', 'robot@znframework.com')->delete('users');
     }
 
     public function testStandartWithAutoLogin()
     {
-        $status = User::register
+        User::register
         ([
-            'username' => 'robot3@znframework.com',
+            'username' => 'robot@znframework.com',
             'password' => '1234'
+
         ], true);
 
-        if( $status )
-        {
-            $this->assertSame('You have logged in successfully. Redirecting .. Please wait.', User::success());
-            $this->assertTrue(User::isLogin());
-        }
-        else
-        {
-            $this->assertSame('You have already registered with the system for the transaction could not be performed!', User::error());
-        }
+        $this->assertEquals('robot@znframework.com', User::data()->username);
+
+        DB::where('username', 'robot@znframework.com')->delete('users');
     }
 }

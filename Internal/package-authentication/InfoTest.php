@@ -1,5 +1,6 @@
 <?php namespace ZN\Authentication;
 
+use DB;
 use User;
 
 class InfoTest extends AuthenticationExtends
@@ -16,21 +17,63 @@ class InfoTest extends AuthenticationExtends
 
     public function testUserCount()
     {
-        $this->assertSame(3, User::count());
+        User::register
+        ([
+            'username' => 'robot@znframework.com',
+            'password' => '1234'
+        ]);
+        
+        $this->assertSame(1, User::count());
+
+        DB::where('username', 'robot@znframework.com')->delete('users');
     }
 
     public function testUserActiveCount()
     {
-        $this->assertIsInt(User::activeCount());
+        User::register
+        ([
+            'username' => 'robot@znframework.com',
+            'password' => '1234'
+        ]);
+
+        User::login('robot@znframework.com', '1234');
+
+        $this->assertEquals(1, User::activeCount());
+
+        DB::where('username', 'robot@znframework.com')->delete('users');
     }
 
     public function testUserBannedCount()
     {
-        $this->assertSame(0, User::bannedCount());
+        User::register
+        ([
+            'username' => 'robot@znframework.com',
+            'password' => '1234'
+        ]);
+
+        User::login('robot@znframework.com', '1234');
+
+        User::update('1234', '1234', NULL, ['banned' => 1]);
+
+        $this->assertSame(1, User::bannedCount());
+
+        DB::where('username', 'robot@znframework.com')->delete('users');
     }
 
     public function testGetEncryptionPassword()
     {
-        $this->assertIsString(User::getEncryptionPassword('1234'));
+        User::register
+        ([
+            'username' => 'robot@znframework.com',
+            'password' => '1234'
+        ]);
+
+        User::login('robot@znframework.com', '1234');
+
+        $data = User::data();
+
+        $this->assertEquals($data->password, User::getEncryptionPassword('1234'));
+
+        DB::where('username', 'robot@znframework.com')->delete('users');
     }
 }

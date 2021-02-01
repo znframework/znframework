@@ -1,45 +1,50 @@
 <?php namespace ZN\Authentication;
 
+use DB;
 use User;
 
 class LoginTest extends AuthenticationExtends
 { 
     public function testStandartLogin()
     {
-        
-        if( User::login('robot@znframework.com', '1234') )
-        {
-            $this->assertStringStartsWith('You have logged in successfully.', User::success());
-        }
-        else
-        {
-            $this->assertStringStartsWith('Login failed. The user name or password is incorrect!', User::error());
-        }
+        User::register
+        ([
+            'username' => 'robot@znframework.com',
+            'password' => '1234'
+        ]);
+
+        $this->assertTrue(User::login('robot@znframework.com', '1234'));
+
+        DB::where('username', 'robot@znframework.com')->delete('users');
     }
 
     public function testIsLogin()
     {
-        if( User::login('robot@znframework.com', '1234') )
-        {
-            $this->assertTrue(User::isLogin());
-        }
-        else
-        {
-            $this->assertFalse(User::isLogin());
-        }
+        User::register
+        ([
+            'username' => 'robot@znframework.com',
+            'password' => '1234'
+        ]);
+
+        User::login('robot@znframework.com', '1234');
+
+        $this->assertTrue(User::isLogin());
+
+        DB::where('username', 'robot@znframework.com')->delete('users');
     }
 
     public function testData()
     {
-        if( User::login('robot@znframework.com', '1234') )
-        {
-            $data = User::data();
+        User::register
+        ([
+            'username' => 'robot@znframework.com',
+            'password' => '1234'
+        ]);
 
-            $this->assertSame('robot@znframework.com', $data->username);
-        }
-        else
-        {
-            $this->assertFalse(User::isLogin());
-        }
+        User::login('robot@znframework.com', '1234');
+
+        $this->assertEquals('robot@znframework.com', User::data()->username);
+
+        DB::where('username', 'robot@znframework.com')->delete('users');
     }
 }

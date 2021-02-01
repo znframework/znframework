@@ -1,7 +1,6 @@
 <?php namespace ZN\Authentication;
 
 use DB;
-use User;
 use Config;
 use DBForge;
 
@@ -58,12 +57,6 @@ class AuthenticationExtends extends \PHPUnit\Framework\TestCase
                 'name' => '',
                 'mail' => ''
             ]
-        ]);
-
-        User::register
-        ([
-            'username' => 'robot@znframework.com',
-            'password' => '1234'
         ]);
     }
 }
