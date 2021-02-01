@@ -12,5 +12,7 @@ class FindFileTest extends FilesystemExtends
 
         $this->assertSame(0, $result->index);
         $this->assertSame('test', $result->contents);
+
+        File::delete(self::file);
     }
 }
