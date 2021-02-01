@@ -10,7 +10,7 @@ class ExcelTest extends FilesystemExtends
         ([
             ['1', '2', '3'],
             ['1', '2', '3']
-        ],  'excel-file', false);
+        ], 'excel');
     }
 
     public function testCSVToArray()
