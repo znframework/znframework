@@ -10,4 +10,11 @@ class CreateDatabaseTest extends DatabaseExtends
 
         $this->assertSame("CREATE DATABASE contents", trim(DBForge::stringQuery()));
     }
+
+    public function testCreateDatabaseExtras()
+    {
+        DBForge::createDatabase('contents', 'Extras Query');
+
+        $this->assertSame("CREATE DATABASE contents Extras Query;", trim(DBForge::stringQuery()));
+    }
 }
