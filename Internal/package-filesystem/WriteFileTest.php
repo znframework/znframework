@@ -9,5 +9,7 @@ class WriteFileTest extends FilesystemExtends
         File::write(self::file, 'test');
 
         $this->assertFileExists(self::file);
+
+        File::delete(self::file);
     }
 }
