@@ -18,7 +18,7 @@ class ScriptTest extends \PHPUnit\Framework\TestCase
     {
         $this->assertStringContainsString
         (
-            '</script', 
+            '</script>', 
             Script::close()
         );
     }
