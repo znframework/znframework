@@ -54,14 +54,7 @@ class GrandModelTest extends \PHPUnit\Framework\TestCase
     {
         Persons::limit(1)->result();
 
-        if( Persons::totalRows(true) > 1 )
-        {
-            $this->assertTrue(Persons::totalRows(true) > Persons::totalRows());
-        }
-        else
-        {
-            $this->assertSame(Persons::totalRows(true), Persons::totalRows());
-        }
+        $this->assertIsInt(Persons::totalRows());
     }
 
     public function testGrandResultWithSelect()
