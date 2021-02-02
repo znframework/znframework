@@ -18,15 +18,16 @@
         </testsuite>
     </testsuites>
 
-    <coverage processUncoveredFiles="true">
-		<include>
+    <filter>
+		<whitelist processUncoveredFilesFromWhitelist="true">
 			<directory suffix=".php">./Internal</directory>
-		</include>
-		<exclude>
-			<directory>./Internal/extends</directory>
-		</exclude>
-		<report>
-			<clover outputFile="build/logs/clover.xml"/>
-		</report>
-	</coverage>
+            <exclude>
+				<directory>./Internal/extends</directory>
+			</exclude>
+		</whitelist>
+	</filter>
+
+	<logging>
+		<log type="coverage-clover" target="build/logs/clover.xml"/>
+	</logging>
 </phpunit>
