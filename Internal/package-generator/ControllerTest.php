@@ -1,5 +1,6 @@
 <?php namespace ZN\Generator;
 
+use File;
 use Generate;
 
 class ControllerTest extends GeneratorExtends
@@ -12,6 +13,8 @@ class ControllerTest extends GeneratorExtends
             'functions'  => ['main', 'test']
         ]);
 
-        $this->assertFileExists(CONTROLLERS_DIR . 'Example.php');
+        $this->assertFileExists($file = CONTROLLERS_DIR . 'Example.php');
+
+        File::delete($file);
     }
 }
