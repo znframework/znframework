@@ -1,5 +1,6 @@
 <?php namespace ZN\Generator;
 
+use File;
 use Generate;
 
 class SettingsTest extends GeneratorExtends
@@ -13,6 +14,8 @@ class SettingsTest extends GeneratorExtends
 
         ])->model('Example2');
 
-        $this->assertFileExists(MODELS_DIR . 'Example2.php');
+        $this->assertFileExists($file = MODELS_DIR . 'Example2.php');
+
+        File::delete($file);
     }
 }
