@@ -10,4 +10,11 @@ class BackgroundTest extends CaptchaExtends
 
         $this->isEquals();
     }
+
+    public function testBackgroundSize()
+    {
+        Captcha::path(self::directory)->size(400, 400)->create(true);
+
+        $this->isEquals();
+    }
 }
