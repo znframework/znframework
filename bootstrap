@@ -20,4 +20,4 @@ define('CONSOLE_ENABLED', true);
 |
 */
 
-require_once __DIR__ . '/../zeroneed.php';
+require_once __DIR__ . '/zeroneed.php';
