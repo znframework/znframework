@@ -4,7 +4,7 @@ use Cookie;
 
 class CookieDeleteAllTest extends StorageExtends
 {
-    public function testDelete()
+    public function testDeleteAll()
     {
         $this->insert('example', 'Example');
 
