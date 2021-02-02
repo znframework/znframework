@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - develop
-      - '6.*'
     paths:
       - 'External/**'
       - 'Internal/**'
@@ -20,7 +19,6 @@ on:
   pull_request:
     branches:
       - develop
-      - '6.*'
     paths:
       - 'External/**'
       - 'Internal/**'
