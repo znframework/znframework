@@ -1,5 +1,6 @@
 <?php namespace ZN\Generator;
 
+use File;
 use Generate;
 
 class ModelTest extends GeneratorExtends
@@ -12,6 +13,8 @@ class ModelTest extends GeneratorExtends
             'constants'  => ['key' => '"value"']
         ]);
 
-        $this->assertFileExists(MODELS_DIR . 'Example.php');
+        $this->assertFileExists($file = MODELS_DIR . 'Example.php');
+
+        File::delete($file);
     }
 }
