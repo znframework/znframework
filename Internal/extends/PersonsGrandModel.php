@@ -7,7 +7,7 @@ class PersonsGrandModel extends GrandModel
     const connection = 
     [
         'driver'   => 'sqlite',
-        'database' => 'Internal/package-database/testdb',
+        'database' => \ZN\Test\GlobalExtends::default . 'package-database/testdb',
         'password' => '1234'
     ];
 }

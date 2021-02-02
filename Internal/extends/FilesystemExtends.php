@@ -1,8 +1,8 @@
 <?php namespace ZN\Filesystem;
 
-class FilesystemExtends extends \PHPUnit\Framework\TestCase
+class FilesystemExtends extends \ZN\Test\GlobalExtends
 {
-    const directory = 'Internal/package-filesystem/resources/';
+    const directory = self::default . 'package-filesystem/resources/';
     const dir       = self::directory . 'dir/';
     const file      = self::directory . 'test.txt';
 }

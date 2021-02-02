@@ -2,7 +2,7 @@
 
 use Config;
 
-class AuthorizationExtends extends \PHPUnit\Framework\TestCase
+class AuthorizationExtends extends \ZN\Test\GlobalExtends
 {
     public function __construct()
     {

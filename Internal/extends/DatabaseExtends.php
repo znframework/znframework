@@ -4,7 +4,7 @@ use DB;
 use Config;
 use DBForge;
 
-class DatabaseExtends extends \PHPUnit\Framework\TestCase
+class DatabaseExtends extends \ZN\Test\GlobalExtends
 {
     public function __construct()
     {
@@ -13,7 +13,7 @@ class DatabaseExtends extends \PHPUnit\Framework\TestCase
         Config::database('database', 
         [
             'driver'   => 'sqlite',
-            'database' => 'Internal/package-database/resources/testdb',
+            'database' => self::default . 'package-database/resources/testdb',
             'password' => '1234'
         ]);
 

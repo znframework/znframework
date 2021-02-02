@@ -2,7 +2,7 @@
 
 use Config;
 
-class GeneratorExtends extends \PHPUnit\Framework\TestCase
+class GeneratorExtends extends \ZN\Test\GlobalExtends
 {
     public function __construct()
     {
@@ -11,7 +11,7 @@ class GeneratorExtends extends \PHPUnit\Framework\TestCase
         Config::database('database', 
         [
             'driver'   => 'sqlite',
-            'database' => 'Internal/package-database/testdb',
+            'database' => self::default . 'package-database/testdb',
             'password' => '1234'
         ]);
     }

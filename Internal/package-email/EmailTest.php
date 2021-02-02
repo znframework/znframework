@@ -17,8 +17,8 @@ class EmailTest extends EmailExtends
 
         $this->assertTrue
         (
-            Email::attachment('Internal/package-email/attachments/file.txt')
-                 ->attachment('Internal/package-email/attachments/icon.png')
+            Email::attachment(self::default . 'package-email/attachments/file.txt')
+                 ->attachment(self::default . 'package-email/attachments/icon.png')
                  ->to('bar@foo.com')
                  ->send('Attachment Example', 'Example Content')
         );

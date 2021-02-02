@@ -2,7 +2,7 @@
 
 use Config;
 
-class EmailExtends extends \PHPUnit\Framework\TestCase
+class EmailExtends extends \ZN\Test\GlobalExtends
 {
     public function __construct()
     {

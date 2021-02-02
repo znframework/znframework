@@ -3,9 +3,9 @@
 use File;
 use Captcha;
 
-class CaptchaExtends extends \PHPUnit\Framework\TestCase
+class CaptchaExtends extends \ZN\Test\GlobalExtends
 {
-    const directory = 'Internal/package-captcha/';
+    const directory = self::default . 'package-captcha/';
 
     public function __construct()
     {

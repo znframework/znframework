@@ -3,9 +3,9 @@
 use Thumb;
 use Folder;
 
-class ThumbTest extends \PHPUnit\Framework\TestCase
+class ThumbTest extends \ZN\Test\GlobalExtends
 {
-    const dir = 'Internal/package-image/resources/';
+    const dir = self::default . 'package-image/resources/';
     const img = self::dir . 'image.jpg';
 
     public function testCanvas()

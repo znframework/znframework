@@ -1,7 +1,7 @@
 <?php namespace ZN\Image\Test;
 
-class GDExtends extends \PHPUnit\Framework\TestCase
+class GDExtends extends \ZN\Test\GlobalExtends
 {
-    const dir = 'Internal/package-image/resources/';
+    const dir = self::default . 'package-image/resources/';
     const img = self::dir . 'image.jpg';
 }

@@ -156,7 +156,7 @@ class InsertTest extends DatabaseExtends
 
     public function testInsertCSVFile()
     {
-        DB::insertCSV('persons', 'Internal/package-database/resources/test.csv');
+        DB::insertCSV('persons', self::default . 'package-database/resources/test.csv');
 
         $person = DB::where('name', 'Darius')->persons()->row();
 

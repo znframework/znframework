@@ -2,7 +2,7 @@
 
 use Mime;
 
-class MimeTest extends \PHPUnit\Framework\TestCase
+class MimeTest extends \ZN\Test\GlobalExtends
 {
     public function testCall()
     {
@@ -13,12 +13,12 @@ class MimeTest extends \PHPUnit\Framework\TestCase
 
     public function testIsCall()
     {
-        $this->assertFalse(Mime::isImage('Internal/package-filesystem/resources/test.csv'));
-        $this->assertTrue(Mime::isText('Internal/package-filesystem/resources/example.txt'));
+        $this->assertFalse(Mime::isImage(self::default . 'package-filesystem/resources/test.csv'));
+        $this->assertTrue(Mime::isText(self::default . 'package-filesystem/resources/example.txt'));
     }
 
     public function testType()
     {
-        $this->assertSame('text/plain', Mime::type('Internal/package-filesystem/resources/test.csv'));
+        $this->assertSame('text/plain', Mime::type(self::default . 'package-filesystem/resources/test.csv'));
     }
 }

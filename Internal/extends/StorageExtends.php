@@ -2,7 +2,7 @@
 
 use Config;
 
-class StorageExtends extends \PHPUnit\Framework\TestCase
+class StorageExtends extends \ZN\Test\GlobalExtends
 {
     public function __construct()
     {

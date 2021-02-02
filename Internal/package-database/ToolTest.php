@@ -8,7 +8,7 @@ class ToolTest extends DatabaseExtends
     {
         $result = DBTool::listDatabases();
 
-        $this->assertSame(['Internal/package-database/testdb'], $result);
+        $this->assertSame([\ZN\Test\GlobalExtends::default . 'package-database/testdb'], $result);
     }
 
     public function testListTables()
@@ -48,7 +48,7 @@ class ToolTest extends DatabaseExtends
 
     public function testImport()
     {
-        $result = DBTool::import('Internal/package-database/resources/test.sql');
+        $result = DBTool::import(self::default . 'package-database/resources/test.sql');
 
        $this->assertIsBool($result);
     }

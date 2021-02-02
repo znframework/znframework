@@ -1,7 +1,7 @@
 <?php namespace ZN\Compression;
 
-class CompressionExtends extends \PHPUnit\Framework\TestCase
+class CompressionExtends extends \ZN\Test\GlobalExtends
 {
-    const directory = 'Internal/package-compression/';
+    const directory = self::default . 'package-compression/';
     const file      = self::directory . 'test.txt';
 }

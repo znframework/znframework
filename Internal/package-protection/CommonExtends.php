@@ -1,6 +1,6 @@
 <?php namespace ZN\Protection\Test;
 
-class CommonExtends extends \PHPUnit\Framework\TestCase
+class CommonExtends extends \ZN\Test\GlobalExtends
 {
-    const dir = 'Internal/package-protection/resources/';
+    const dir = self::default . 'package-protection/resources/';
 }
