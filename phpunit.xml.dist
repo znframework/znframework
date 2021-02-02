@@ -21,7 +21,6 @@
     <filter>
 		<whitelist processUncoveredFilesFromWhitelist="true">
 			<directory suffix=".php">./Internal</directory>
-            <directory suffix=".php">./vendor/znframework</directory>
             <exclude>
 				<directory>./Internal/extends</directory>
 			</exclude>
