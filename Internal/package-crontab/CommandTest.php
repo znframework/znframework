@@ -6,12 +6,11 @@ class CommandTest extends \PHPUnit\Framework\TestCase
 {
     public function testRunCommandDaily()
     {
-        Crontab::daily()->command('ExampleCommand:exampleMethod1');
+        Crontab::daily()->command('ExampleCommand:exampleMethod');
 
         $this->assertStringContainsString('0 0 * * *', Crontab::list());
 
         Crontab::remove('ExampleCommand');
-
     }
 
     public function testRunCommandWithDayAndClock()
@@ -34,7 +33,7 @@ class CommandTest extends \PHPUnit\Framework\TestCase
 
     public function testRunCommandSendPerhour()
     {
-        Crontab::perhour(2)->command('ExampleCommand:exampleMethod4');
+        Crontab::perhour(2)->command('ExampleCommand:exampleMethod');
 
         $this->assertStringContainsString('* */2 * * *', Crontab::list());
 
