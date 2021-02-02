@@ -9,7 +9,7 @@ class GrandVisionTest extends GeneratorExtends
     {
         Generate::grandVision();
 
-        $this->assertFileExists($file = MODELS_DIR . 'Visions/Internal/package-database/testdb/InternalExampleVision.php');
+        $this->assertFileExists($file = MODELS_DIR . 'Visions/' . self::default . 'package-database/testdb/InternalExampleVision.php');
 
         File::delete($file);
     }
