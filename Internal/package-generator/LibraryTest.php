@@ -1,5 +1,6 @@
 <?php namespace ZN\Generator;
 
+use File;
 use Generate;
 
 class LibraryTest extends GeneratorExtends
@@ -18,6 +19,8 @@ class LibraryTest extends GeneratorExtends
             'vars'       => ['protected:test' => '10', 'examples', 'test2' => '"Test"' ]
         ]);
 
-        $this->assertFileExists(LIBRARIES_DIR . 'Example.php');
+        $this->assertFileExists($file = LIBRARIES_DIR . 'Example.php');
+
+        File::delete($file);
     }
 }
