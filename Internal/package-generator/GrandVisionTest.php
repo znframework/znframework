@@ -1,6 +1,6 @@
 <?php namespace ZN\Generator;
 
-use File;
+use Folder;
 use Generate;
 
 class GrandVisionTest extends GeneratorExtends
@@ -9,8 +9,8 @@ class GrandVisionTest extends GeneratorExtends
     {
         Generate::grandVision();
 
-        $this->assertFileExists($file = MODELS_DIR . 'Visions/' . self::default . 'package-database/testdb/InternalExampleVision.php');
+        $this->assertFileExists(MODELS_DIR . 'Visions/' . self::default . 'package-database/testdb/InternalExampleVision.php');
 
-        File::delete($file);
+        Folder::delete(MODELS_DIR . 'Visions/');
     }
 }
