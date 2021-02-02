@@ -4,34 +4,6 @@ use Crontab;
 
 class CrontabTest extends \PHPUnit\Framework\TestCase
 {
-    public function testRunCommandDaily()
-    {
-        Crontab::daily()->command('ExampleCommand:exampleMethod1');
-
-        $this->assertIsString(Crontab::listArray()[0] ?? '');
-    }
-
-    public function testRunCommandWithDayAndClock()
-    {
-        Crontab::day('monday')->clock('10:00')->command('ExampleCommand:exampleMethod2');
-
-        $this->assertIsString(Crontab::listArray()[1]);
-    }
-
-    public function testRunCommandSendParametersPerminute()
-    {
-        Crontab::perminute(5)->parameters('1', '2')->command('ExampleCommand:exampleMethod3');
-
-        $this->assertIsString(Crontab::listArray()[2]);
-    }
-
-    public function testRunCommandSendPerhour()
-    {
-        Crontab::perhour(2)->command('ExampleCommand:exampleMethod4');
-
-        $this->assertIsString(Crontab::listArray()[3]);
-    }
-
     public function testRunControllerDaily()
     {
         Crontab::daily()->controller('ExampleController/exampleMethod1');
