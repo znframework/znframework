@@ -11,9 +11,9 @@ class StorageExtends extends \PHPUnit\Framework\TestCase
         Config::storage('cookie', ['encode' => 'md5']);
     }
 
-    public function insert($key, $value)
+    public function insert($key, $value, $hash = 'md5')
     {
-        $_COOKIE[md5($key)] = $value;
+        $_COOKIE[$hash($key)] = $value;
 
         return true;
     }
