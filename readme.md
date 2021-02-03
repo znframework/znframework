@@ -1,7 +1,7 @@
 <p align="center">
 	<img src="https://www.znframework.com/Projects/ZNWeb/Resources/Files/logo/gitlogo.png" style="max-width:300px"><br><br>
-</p align="center">
-<p>
+</p>
+<p align="center">
 <a href="https://github.com/znframework/fullpack-edition/actions?query=workflow%3APHPUnit">
 	<img src="https://img.shields.io/github/workflow/status/znframework/fullpack-edition/PHPUnit/develop?label=PHPUnit&logo=github&logoColor=%2300BFFF&style=flat-square" style="max-width:100%;">
 </a>
