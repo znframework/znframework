@@ -54,10 +54,6 @@
         "znframework/package-validation": ">=6.0",
         "znframework/package-xml": ">=6.0"
     },
-    "require-dev": 
-    {
-        "phpunit/phpunit": "^8.5"
-    },
     "scripts": 
     {
         "post-install-cmd": ["@installation"],
