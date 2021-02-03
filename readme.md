@@ -3,7 +3,6 @@
 </p>
 
 [![PHPUnit](https://img.shields.io/github/workflow/status/znframework/fullpack-edition/PHPUnit/develop?label=PHPUnit&logo=github&logoColor=%2300BFFF&style=flat-square)](https://github.com/znframework/fullpack-edition/actions?query=workflow%3APHPUnit)
-[![Build](https://img.shields.io/scrutinizer/build/g/znframework/znframework/develop?style=flat-square)](https://scrutinizer-ci.com/g/znframework/znframework/inspections/bec37c75-82a1-4e69-8c52-635bf1c6457b/log) 
 [![Coverage](https://img.shields.io/coveralls/github/znframework/fullpack-edition/develop?style=flat-square)](https://coveralls.io/github/znframework/fullpack-edition)
 [![Code Quality](https://img.shields.io/scrutinizer/quality/g/znframework/fullpack-edition?style=flat-square)](https://scrutinizer-ci.com/g/znframework/fullpack-edition/)
 [![Downloads](https://img.shields.io/packagist/dt/znframework/package-zerocore?style=flat-square)](https://packagist.org/packages/znframework/package-zerocore) 
