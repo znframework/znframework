@@ -23,7 +23,7 @@
     |
     | Contains settings related to Email library. 
     | 
-    | driver: Email send drivers. [smtp, mail, send, pipe, imap]
+    | driver: Email send drivers. [smtp, imap]
     | smtp: Send settings via SMTP.
     | general: General e-mail settings.
     |
