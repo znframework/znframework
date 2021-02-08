@@ -56,7 +56,7 @@
     },
     "scripts": 
     {
-        "post-create-project-cmd": ["composer install", "php zerocore generate-project-key"],
+        "post-create-project-cmd": ["php zerocore generate-project-key"],
         "build": "docker-compose up -d --build znframework"
     }
 }
