@@ -6,7 +6,7 @@
 	<img src="https://img.shields.io/github/workflow/status/znframework/fullpack-edition/PHPUnit/develop?label=PHPUnit&logo=github&logoColor=%2300BFFF&style=flat-square" style="max-width:100%;">
 </a>
 <a href="https://coveralls.io/github/znframework/fullpack-edition" rel="nofollow">
-	<img src="https://img.shields.io/coveralls/github/znframework/fullpack-edition/develop?style=flat-square" style="max-width:100%;">
+	<img src="https://img.shields.io/coveralls/github/znframework/fullpack-edition/develop?color=brightgreen&style=flat-square" style="max-width:100%;">
 </a>
 <a href="https://scrutinizer-ci.com/g/znframework/fullpack-edition/" rel="nofollow">
 	<img src="https://img.shields.io/scrutinizer/quality/g/znframework/fullpack-edition?style=flat-square" style="max-width:100%;">
