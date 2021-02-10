@@ -91,7 +91,6 @@
         # ZN\Database
         'Model'          => 'ZN\Model',
         'GrandModel'     => 'ZN\Database\GrandModel',
-        'RelevanceModel' => 'ZN\Database\RelevanceModel',
 
         # ZN\Command
         'Project\Commands\Command'  => 'ZN\Command',
