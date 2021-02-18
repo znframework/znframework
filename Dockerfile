@@ -1,7 +1,7 @@
 #--------------------------------------------------------------------------
-# PHP 7.2 With Apache
+# PHP 8.0 With Apache
 #-------------------------------------------------------------------------- 
-FROM php:7.2-apache
+FROM php:8.0-apache
 
 #--------------------------------------------------------------------------
 # Label - ZN Framework
@@ -9,37 +9,79 @@ FROM php:7.2-apache
 LABEL maintainer="robot@znframework.com"
 
 #--------------------------------------------------------------------------
-# Required Extension
+# MySQLi Installation
 #-------------------------------------------------------------------------- 
-RUN docker-php-ext-install mysqli   && \
-    docker-php-ext-install mbstring && \
-    docker-php-ext-install opcache  && \
-    docker-php-ext-enable opcache    
+RUN docker-php-ext-install mysqli
+
+#--------------------------------------------------------------------------
+# SQLServer Installation
+#-------------------------------------------------------------------------- 
+RUN apt-get update && apt-get install -y gnupg2
+RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
+RUN curl https://packages.microsoft.com/config/debian/10/prod.list > /etc/apt/sources.list.d/mssql-release.list
+RUN apt-get update
+RUN ACCEPT_EULA=Y apt-get install -y --allow-unauthenticated msodbcsql17
+RUN apt-get install -y --allow-unauthenticated unixodbc-dev
+RUN apt-get install -y --allow-unauthenticated libgssapi-krb5-2
+RUN pecl install sqlsrv
+RUN printf "; priority=20\nextension=sqlsrv.so\n" > /usr/local/etc/php/conf.d/sqlsrv.ini
+
+#--------------------------------------------------------------------------
+# Posgtres Installation
+#-------------------------------------------------------------------------- 
+RUN apt-get update && apt-get install -y libpq-dev 
+RUN docker-php-ext-install pgsql
+
+#--------------------------------------------------------------------------
+# Redis Installation
+#-------------------------------------------------------------------------- 
+RUN pecl install -o -f redis \
+    &&  rm -rf /tmp/pear \
+    &&  docker-php-ext-enable redis
+
+#--------------------------------------------------------------------------
+# Memcached Installation
+#-------------------------------------------------------------------------- 
+RUN apt-get update && apt-get install -y libz-dev libmemcached-dev && \
+    pecl install memcached && docker-php-ext-enable memcached
+
+#--------------------------------------------------------------------------
+# APC/U Installation
+#-------------------------------------------------------------------------- 
+RUN pecl install apcu && docker-php-ext-enable apcu
+
+#--------------------------------------------------------------------------
+# OPCache Installation
+#-------------------------------------------------------------------------- 
+RUN docker-php-ext-install opcache && docker-php-ext-enable opcache  
+
+#--------------------------------------------------------------------------
+# ZIP Installation
+#-------------------------------------------------------------------------- 
+RUN apt-get install -y \
+        libzip-dev \
+        zip \
+    && docker-php-ext-install zip
+
+#--------------------------------------------------------------------------
+# GD Installation
+#-------------------------------------------------------------------------- 
+RUN apt-get update && apt-get install -y \
+    libfreetype6-dev \
+    libjpeg62-turbo-dev \
+    libpng-dev \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install -j$(nproc) gd
+
+#--------------------------------------------------------------------------
+# Composer Installation
+#-------------------------------------------------------------------------- 
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 #--------------------------------------------------------------------------
 # Apache Rewrite Mode On
 #-------------------------------------------------------------------------- 
 RUN a2enmod rewrite
-
-#--------------------------------------------------------------------------
-# Redis Extension
-#--------------------------------------------------------------------------
-#
-# ENV PHPREDIS_VERSION 3.1.4
-#
-# RUN curl -L -o /tmp/redis.tar.gz https://github.com/phpredis/phpredis/archive/$PHPREDIS_VERSION.tar.gz  \
-#    && mkdir /tmp/redis \
-#    && tar -xf /tmp/redis.tar.gz -C /tmp/redis \
-#    && rm /tmp/redis.tar.gz \
-#    && ( \
-#    cd /tmp/redis/phpredis-$PHPREDIS_VERSION \
-#    && phpize \
-#    && ./configure \
-#    && make -j$(nproc) \
-#    && make install \
-#    ) \
-#    && rm -r /tmp/redis \
-#    && docker-php-ext-enable redis
 
 #--------------------------------------------------------------------------
 # Document Root

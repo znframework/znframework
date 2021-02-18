@@ -1,6 +1,7 @@
-version: "2"
+version: "3"
 services:
   znframework:
+    container_name: zn
     build: ./
     ports:
       - "8080:80"
@@ -8,6 +9,47 @@ services:
       - ./:/var/www/html
     networks:
       - default
+
+  mariadb:
+    image: 'bitnami/mariadb:latest'
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    ports:
+      - "8081:3306"
+
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: test
+
+  sqlserver:
+    container_name: sqlserver
+    image: microsoft/mssql-server-linux:2017-latest
+    ports:
+      - "1433:1433"
+    environment:
+      SA_PASSWORD: "P@ssw0rd"
+      ACCEPT_EULA: "Y"
+
+  sqlite3:
+    image: nouchka/sqlite3:latest
+    stdin_open: true
+    tty: true
+    ports:
+      - '9000:9000'
+    restart: unless-stopped
+
+  redis:
+    image: 'bitnami/redis:latest'
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+
+  memcached:
+    image: 'bitnami/memcached:latest'
+
 networks:
   default: ~
 
