@@ -11,6 +11,7 @@ services:
       - default
 
   mariadb:
+    container_name: mariadb
     image: 'bitnami/mariadb:latest'
     environment:
       - ALLOW_EMPTY_PASSWORD=yes
@@ -18,6 +19,7 @@ services:
       - "8081:3306"
 
   postgres:
+    container_name: postgres
     image: postgres
     restart: always
     environment:
@@ -35,6 +37,7 @@ services:
       ACCEPT_EULA: "Y"
 
   sqlite3:
+    container_name: sqlite3
     image: nouchka/sqlite3:latest
     stdin_open: true
     tty: true
@@ -43,11 +46,13 @@ services:
     restart: unless-stopped
 
   redis:
+    container_name: redis
     image: 'bitnami/redis:latest'
     environment:
       - ALLOW_EMPTY_PASSWORD=yes
 
   memcached:
+    container_name: memcached
     image: 'bitnami/memcached:latest'
 
 networks:

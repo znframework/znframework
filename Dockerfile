@@ -74,6 +74,11 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install -j$(nproc) gd
 
 #--------------------------------------------------------------------------
+# Wget Installation
+#-------------------------------------------------------------------------- 
+RUN apt-get install -y wget
+
+#--------------------------------------------------------------------------
 # Composer Installation
 #-------------------------------------------------------------------------- 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
