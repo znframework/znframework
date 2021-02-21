@@ -1,6 +1,6 @@
 {
     "name": "znframework/znframework",
-    "version": "6.1.0",
+    "version": "6.1.1",
     "type": "project",
     "description": "ZN PHP Web Framework",
     "keywords": ["zn","zeroneed", "php", "web", "framework"],
@@ -15,6 +15,10 @@
             "role": "Developer"
         }
     ],
+    "config": 
+    { 
+        "vendor-dir": "Internal/"    
+    },
     "require": 
     {
         "php": ">=7.2",
