@@ -1,6 +1,6 @@
 {
     "name": "znframework/znframework",
-    "version": "6.1.1",
+    "version": "6.1.2",
     "type": "project",
     "description": "ZN PHP Web Framework",
     "keywords": ["zn","zeroneed", "php", "web", "framework"],
@@ -61,6 +61,6 @@
     "scripts": 
     {
         "post-create-project-cmd": ["php zerocore generate-project-key"],
-        "build": ["docker-compose up"]
+        "build": ["composer create-project znframework/software-drivers", "php zerocore export-docker-container php8.0-apache-full", "docker-compose up"]
     }
 }
