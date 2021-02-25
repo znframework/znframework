@@ -1,6 +1,5 @@
 {
     "name": "znframework/znframework",
-    "version": "6.1.5",
     "type": "project",
     "description": "ZN PHP Web Framework",
     "keywords": ["zn","zeroneed", "php", "web", "framework"],
