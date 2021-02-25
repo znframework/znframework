@@ -58,6 +58,10 @@
         "znframework/package-validation": ">=6.0",
         "znframework/package-xml": ">=6.0"
     },
+    "require-dev": 
+    {
+        "phpunit/phpunit": "^8.5"
+    },
     "scripts": 
     {
         "post-create-project-cmd": ["php zerocore generate-project-key"],
