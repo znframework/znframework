@@ -85,9 +85,16 @@
         'Masterpage'                     => 'ZN\Inclusion\Project\Masterpage',
         'View'                           => 'ZN\Inclusion\Project\View',
         'Theme'                          => 'ZN\Inclusion\Project\Theme',
+        'Restoration'                    => 'ZN\Restoration',
 
         # ZN\Controller
         'Project\Controllers\Controller' => 'ZN\Controller',
+
+        # ZN\Config
+        'Config' => 'ZN\Config',
+
+        # ZN\Autoloader
+        'Autoloader' => 'ZN\Autoloader',
 
         # ZN\Database
         'Model'          => 'ZN\Model',
