@@ -30,13 +30,12 @@ on:
 
 jobs:
   tests:
-    runs-on: ${{ matrix.operating-system }}
-    name: PHP ${{ matrix.php-versions }} - ${{ matrix.db-platforms }} - ${{ matrix.operating-system }}
+    runs-on: ubuntu-latest
+    name: PHP ${{ matrix.php-versions }} - ${{ matrix.db-platforms }}
 
     strategy:
       fail-fast: false
       matrix:
-        operating-system: ['ubuntu-latest', 'windows-latest', 'macos-latest']
         php-versions: ['7.2', '7.3', '7.4', '8.0']
         db-platforms: ['MySQLi', 'Postgre', 'SQLite3', 'SQLSRV']
 
