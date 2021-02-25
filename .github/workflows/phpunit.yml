@@ -1,0 +1,113 @@
+name: PHPUnit
+
+on:
+  push:
+    branches:
+      - develop
+    paths:
+      - 'External/**'
+      - 'Internal/**'
+      - 'Projects/**'
+      - 'Settings/**'
+      - composer.json
+      - phpunit.xml.dist
+      - zerocore 
+      - '**.php'
+      - .github/workflows/phpunit.yml
+  pull_request:
+    branches:
+      - develop
+    paths:
+      - 'External/**'
+      - 'Internal/**'
+      - 'Projects/**'
+      - 'Settings/**'
+      - composer.json
+      - phpunit.xml.dist
+      - zerocore 
+      - '**.php'
+      - .github/workflows/phpunit.yml
+
+jobs:
+  tests:
+    runs-on: ${{ matrix.operating-system }}
+    name: PHP ${{ matrix.php-versions }} - ${{ matrix.db-platforms }} - ${{ matrix.operating-system }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        operating-system: ['ubuntu-latest', 'windows-latest', 'macos-latest']
+        php-versions: ['7.2', '7.3', '7.4', '8.0']
+        db-platforms: ['MySQLi', 'Postgre', 'SQLite3', 'SQLSRV']
+
+    services:
+      mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+          MYSQL_DATABASE: test 
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+        
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: test
+        ports:
+          - 5432:5432
+        options: --health-cmd=pg_isready --health-interval=10s --health-timeout=5s --health-retries=3
+      mssql:
+        image: microsoft/mssql-server-linux:2017-latest
+        env:
+          SA_PASSWORD: P@ssw0rd
+          ACCEPT_EULA: Y
+        ports:
+          - 1433:1433
+
+    steps:
+      - name: SQL Server Create Default Database
+        run: sqlcmd -S localhost -U sa -P P@ssw0rd -Q "CREATE DATABASE test"
+
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-versions }}
+          tools: composer, pecl
+          extensions: imagick, sqlsrv-beta
+          coverage: xdebug
+        env:
+          update: true
+
+      - name: Install memcached driver
+        uses: niden/actions-memcached@v7
+
+      - name: Install redis driver
+        uses: getong/redis-action@v1
+        with:
+          redis password: 'zntest'
+
+      - name: Get composer cache directory
+        id: composercache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.composercache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: ${{ runner.os }}-composer-
+
+      - name: Install dependencies
+        run: |
+          composer update --ansi --no-interaction
+          php zerocore environment SMTP_PASSWORD ${{ secrets.SMTP_PASSWORD }}
+          composer create-project znframework/package-tests Internal/package-tests
+
+      - name: Check PHPUnit tests
+        run: script -e -c "Internal/bin/phpunit -v"
