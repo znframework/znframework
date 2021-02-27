@@ -66,6 +66,7 @@
         "post-create-project-cmd": ["php zerocore generate-project-key"],
         "build": ["composer create-project znframework/software-drivers", "php zerocore export-docker-container php8.0-apache-full", "docker-compose up"],
         "restart": ["docker-compose down", "docker-compose up"],
+        "apply": ["docker-compose up -d"],
         "test": ["composer create-project znframework/package-tests Internal/package-tests", "phpunit"]
     }
 }
