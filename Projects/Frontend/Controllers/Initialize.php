@@ -16,7 +16,6 @@ class Initialize extends Controller
         # The current settings are being configured.
         Masterpage::headPage('Sections/head')
                   ->bodyPage('Sections/body')
-                  ->browserIcon(FILES_DIR . 'favicon.ico')
-                  ->backgroundImage(FILES_DIR . 'background.jpg');
+                  ->browserIcon(FILES_DIR . 'favicon.ico');
     }
 }
