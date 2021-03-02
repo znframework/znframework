@@ -3,11 +3,9 @@
 </p>
 <p align="center">
 <a href="https://github.com/znframework/znframework/actions?query=workflow%3APHPUnit">
-	<img src="https://img.shields.io/github/workflow/status/znframework/znframework/PHPUnit/develop?label=PHPUnit&logo=github&logoColor=%2300BFFF&style=flat-square" style="max-width:100%;">
-</a>
+	<img src="https://img.shields.io/github/workflow/status/znframework/znframework/PHPUnit/develop?label=PHPUnit&logo=github&logoColor=%2300BFFF&style=flat-square" style="max-width:100%;"></a>
 <a href="https://coveralls.io/github/znframework/fullpack-edition" rel="nofollow">
-	<img src="https://img.shields.io/coveralls/github/znframework/fullpack-edition/develop?color=brightgreen&style=flat-square" style="max-width:100%;">
-</a>
+	<img src="https://img.shields.io/coveralls/github/znframework/fullpack-edition/develop?color=brightgreen&style=flat-square" style="max-width:100%;"></a>
 <a href="https://packagist.org/packages/znframework/package-zerocore" rel="nofollow">
 	<img src="https://img.shields.io/packagist/dt/znframework/package-zerocore?style=flat-square" style="max-width:100%;"></a>
 <a href="//packagist.org/packages/znframework/znframework" rel="nofollow">
