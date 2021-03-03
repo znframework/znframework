@@ -1,4 +1,4 @@
-name: PHPUnit
+name: Framework
 
 on:
   push:
@@ -10,7 +10,6 @@ on:
       - 'Projects/**'
       - 'Settings/**'
       - composer.json
-      - phpunit.xml.dist
       - zerocore 
       - '**.php'
       - .github/workflows/phpunit.yml
@@ -23,7 +22,6 @@ on:
       - 'Projects/**'
       - 'Settings/**'
       - composer.json
-      - phpunit.xml.dist
       - zerocore 
       - '**.php'
       - .github/workflows/phpunit.yml
@@ -104,8 +102,3 @@ jobs:
       - name: Install dependencies
         run: |
           composer update --ansi --no-interaction
-          php zerocore environment SMTP_PASSWORD ${{ secrets.SMTP_PASSWORD }}
-          composer create-project znframework/package-tests Internal/package-tests
-
-      - name: Check PHPUnit tests
-        run: script -e -c "Internal/bin/phpunit -v"
