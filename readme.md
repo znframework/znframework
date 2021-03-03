@@ -2,8 +2,8 @@
 	<img src="https://www.znframework.com/Projects/ZNWeb/Resources/Files/logo/gitlogo.png" style="max-width:300px"><br><br>
 </p>
 <p align="center">
-<a href="https://github.com/znframework/znframework/actions?query=workflow%3APHPUnit">
-	<img src="https://img.shields.io/github/workflow/status/znframework/znframework/PHPUnit/develop?label=PHPUnit&logo=github&logoColor=%2300BFFF&style=flat-square" style="max-width:100%;"></a>
+<a href="https://github.com/znframework/znframework/actions/workflows/framework.yml">
+	<img src="https://img.shields.io/github/workflow/status/znframework/znframework/Framework/develop?label=build&logo=github&logoColor=%2300BFFF&style=flat-square" style="max-width:100%;"></a>
 <a href="https://coveralls.io/github/znframework/fullpack-edition" rel="nofollow">
 	<img src="https://img.shields.io/coveralls/github/znframework/fullpack-edition/develop?color=brightgreen&style=flat-square" style="max-width:100%;"></a>
 <a href="https://packagist.org/packages/znframework/package-zerocore" rel="nofollow">
