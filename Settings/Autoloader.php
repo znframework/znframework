@@ -102,7 +102,10 @@
 
         # ZN\Command
         'Project\Commands\Command'  => 'ZN\Command',
-        'External\Commands\Command' => 'ZN\ExternalCommand'
+        'External\Commands\Command' => 'ZN\ExternalCommand',
+        
+        # ZN\DataTypes
+        'Objects' => 'ZN\DataTypes\Objects'
     ],
 
     /*
