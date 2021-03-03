@@ -12,7 +12,7 @@ on:
       - composer.json
       - zerocore 
       - '**.php'
-      - .github/workflows/phpunit.yml
+      - .github/workflows/framework.yml
   pull_request:
     branches:
       - develop
@@ -24,7 +24,7 @@ on:
       - composer.json
       - zerocore 
       - '**.php'
-      - .github/workflows/phpunit.yml
+      - .github/workflows/framework.yml
 
 jobs:
   tests:
