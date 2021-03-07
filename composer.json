@@ -60,8 +60,11 @@
     "scripts": 
     {
         "post-create-project-cmd": ["php zerocore generate-project-key"],
-        "build": ["composer create-project znframework/software-drivers", "php zerocore export-docker-container php8.0-apache-full", "docker-compose up"],
-        "restart": ["docker-compose down", "docker-compose up"],
-        "apply": ["docker-compose up -d"]
+        "build": ["composer create-project znframework/software-drivers", "php zerocore export-docker-container php8.0-apache-full", "@up"],
+        "restart": ["@down", "@up"],
+        "apply": "docker-compose up -d",
+        "start": "@apply",
+        "down": "docker-compose down",
+        "up": "docker-compose up"
     }
 }
