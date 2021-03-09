@@ -32,6 +32,7 @@
     
     'pagination' =>
     [
+        'paging'        => 'row', # row, page
         'prevName'      => '&laquo;',
         'nextName'      => '&raquo;',
         'firstName'     => '&laquo;&laquo;',
