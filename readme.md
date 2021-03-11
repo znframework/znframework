@@ -1,5 +1,5 @@
 <p align="center">
-	<img src="https://www.znframework.com/Projects/ZNWeb/Resources/Files/logo/gitlogo.png" style="max-width:300px"><br><br>
+	<img src="https://www.znframework.com/Cloud/ZNFramework/logo.png" style="max-width:300px"><br><br>
 </p>
 <p align="center">
 <a href="https://github.com/znframework/znframework/actions/workflows/framework.yml">
