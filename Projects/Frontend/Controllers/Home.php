@@ -8,7 +8,7 @@ class Home extends Controller
      * Loads opening page.
      * Location: Views/Home/main.wizard.php
      */
-    public function main(String ...$parameters)
+    public function main(string ...$parameters)
     {  
         # Sets masterpage title.
         Masterpage::title('Welcome to The World of Simplicity');
