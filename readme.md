@@ -26,20 +26,6 @@ In general, we have tried to stay on PSR coding standards but at same points our
 Development of ZN Framework with the principle of SIMPLICITY grows each day further. We give importance of Developers for not forced to use different structures from 3rd party sources while developing and integrating structures.
 </p>
 
-<h2>Contribute</h2>
-
-<p>
-It is important to get your contributions and feedbacks for making ZN Framework more awesome! Please share your opinion and suggestions after you have tried.
-
-Because we believe on easy, simple and readable codes for Developers, receiving feedbacks will make us happier to build up our further steps based on your criticism and how much we serve our targets.
-
-Our aim is to make ZN Framework users doesn't require any other additional structures.
-
-We are open for all kind of different opinion, suggestion and criticism as well as infrastructure of our project. We believe that ZN Framework will be placed on place where it deserves to be by your contributions!
-
-Thank you for all your support.
-</p>
-
 <h2>Supported Features</h2>
 
 <p>Some of the supported features.</p>
