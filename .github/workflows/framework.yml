@@ -56,12 +56,13 @@ jobs:
           - 5432:5432
         options: --health-cmd=pg_isready --health-interval=10s --health-timeout=5s --health-retries=3
       mssql:
-        image: mcr.microsoft.com/mssql/server:2019-CU11-ubuntu-20.04
+        image: mcr.microsoft.com/mssql/server:2019-CU10-ubuntu-20.04
         env:
           SA_PASSWORD: P@ssw0rd
           ACCEPT_EULA: Y
         ports:
           - 1433:1433
+        options: --health-cmd="/opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P P@ssw0rd -Q 'SELECT @@VERSION'" --health-interval=10s --health-timeout=5s --health-retries=3
 
     steps:
       - name: SQL Server Create Default Database
