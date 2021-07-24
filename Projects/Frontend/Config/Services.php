@@ -118,11 +118,12 @@
 
     'ftp' =>
     [
-        'host'       => '',  
-        'user'       => '',   
-        'password'   => '',   
-        'timeout'    => 90, 
-        'port'       => 21, 
-        'sslConnect' => false 
+        'host'        => '',  
+        'user'        => '',   
+        'password'    => '',   
+        'timeout'     => 90, 
+        'port'        => 21, 
+        'sslConnect'  => false,
+        'passiveMode' => false
     ]
 ];
