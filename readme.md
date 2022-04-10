@@ -1,7 +1,4 @@
 <p align="center">
-	<img width="300" src="https://www.znframework.com/Cloud/ZNFramework/small-top-github2.png" style="max-width:300px"><br><br>
-</p>
-<p align="center">
 <a href="https://github.com/znframework/znframework/actions/workflows/framework.yml">
 	<img src="https://img.shields.io/github/workflow/status/znframework/znframework/Framework/develop?label=build&logo=github&logoColor=%2300BFFF&style=flat-square" style="max-width:100%;"></a>
 <a href="https://coveralls.io/github/znframework/fullpack-edition" rel="nofollow">
