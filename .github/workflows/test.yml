@@ -1,4 +1,4 @@
-name: Framework
+name: PHPUnit
 
 on:
   push:
@@ -12,6 +12,7 @@ on:
       - composer.json
       - zerocore 
       - '**.php'
+      - phpunit.xml.dist
       - .github/workflows/test.yml
   pull_request:
     branches:
@@ -24,17 +25,19 @@ on:
       - composer.json
       - zerocore 
       - '**.php'
+      - phpunit.xml.dist
       - .github/workflows/test.yml
 
 jobs:
   tests:
     runs-on: ubuntu-latest
+    if: "!contains(github.event.head_commit.message, '[ci skip]')"
     name: PHP ${{ matrix.php-versions }}
 
     strategy:
       fail-fast: false
       matrix:
-        php-versions: ['7.4', '8.0', '8.1']
+        php-versions: ['7.4', '8.0', '8.1', '8.2']
 
     services:
       mysql:
@@ -103,3 +106,29 @@ jobs:
       - name: Install dependencies
         run: |
           composer update --ansi --no-interaction
+          composer install
+          php zerocore environment SMTP_PASSWORD ${{ secrets.SMTP_PASSWORD }}
+          composer create-project znframework/package-tests Internal/package-tests
+
+      - name: Check PHPUnit tests
+        run: script -e -c "Internal/bin/phpunit -v"
+
+      - if: matrix.php-versions == '7.4'
+        name: Run coveralls
+        run: |
+          composer global require php-coveralls/php-coveralls:^2.4
+          php-coveralls --coverage_clover=build/logs/clover.xml -v
+        env:
+          COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          COVERALLS_PARALLEL: true
+          COVERALLS_FLAG_NAME: PHP ${{ matrix.php-versions }}
+
+  coveralls-finish:
+    needs: [tests]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Coveralls Finished
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          parallel-finished: true
