@@ -22,24 +22,6 @@
     */
 
     'timezone' => 'Europe/Istanbul',
-
-   /*
-    |--------------------------------------------------------------------------
-    | Set Locale
-    |--------------------------------------------------------------------------
-    |
-    | Local settings for time zone.
-    |
-    | charset : Sets the date and time character set.
-    | language: Sets the date and time language.
-    |
-    */
-
-    'locale' =>
-    [
-        'charset'  => 'en_US.UTF-8',
-        'language' => 'english',
-    ],
     
     /*
     |--------------------------------------------------------------------------
