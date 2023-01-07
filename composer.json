@@ -60,7 +60,7 @@
     "scripts": 
     {
         "post-create-project-cmd": ["php zerocore generate-project-key"],
-        "build": ["composer create-project znframework/software-drivers", "php zerocore export-docker-container php8.0-apache-full", "@up"],
+        "build": ["composer create-project znframework/software-drivers", "php zerocore export-docker-container php8.2-apache-full", "@up"],
         "restart": ["@down", "@up"],
         "apply": "docker-compose up -d",
         "start": "@apply",
