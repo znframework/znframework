@@ -64,6 +64,8 @@
             'xMailer'       => 'ZN',
             'encoding'      => '8bit',              # 8bit, 7bit
             'mimeVersion'   => '1.0',               # MIME Version
+            'lf'            => "\n",                # For Mail Body
+            'cr'            => "\n",                # For STMP Commands
             'mailPath'      => '/usr/sbin/sendmail' # Default Mail Path
         ]
     ],
